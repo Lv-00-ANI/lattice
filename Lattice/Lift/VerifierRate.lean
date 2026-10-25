@@ -102,7 +102,7 @@ theorem exists_delta_of_eps_flat {ε₀ L L' ε : ℝ}
 /-- **统一形式**：只要 `ε₀ < ε`，就有 `δ > 0` 使界不超过 `ε`。
 
 分 `L + L' > 0` 与 `L + L' = 0` 两种情形——后者对应两个常数函数。 -/
-theorem exists_delta_of_eps' {ε₀ L L' ε : ℝ}
+theorem exists_delta_of_eps_ge {ε₀ L L' ε : ℝ}
     (h0 : 0 ≤ L) (h0' : 0 ≤ L') (hε : ε₀ < ε) :
     ∃ δ : ℝ, 0 < δ ∧ ε₀ + (L + L') * δ ≤ ε := by
   rcases lt_or_eq_of_le (show (0 : ℝ) ≤ L + L' by linarith) with hpos | heq
@@ -119,7 +119,7 @@ theorem verifier_eps_achievable (f g : ℝ → ℝ) (L L' ε₀ ε : ℝ) (Ω S 
     (hv : SampledVerified f g ε₀ S) (hε : ε₀ < ε) :
     ∃ δ : ℝ, 0 < δ ∧ (DeltaDense S δ Ω →
       ∀ x : ℝ, x ∈ Ω → |f x - g x| ≤ ε) := by
-  obtain ⟨δ, hδpos, hδle⟩ := exists_delta_of_eps' hL hL' hε
+  obtain ⟨δ, hδpos, hδle⟩ := exists_delta_of_eps_ge hL hL' hε
   exact ⟨δ, hδpos, fun hd x hx =>
     le_trans (verifier_reliable_clean f g L L' ε₀ δ Ω S hf hg hL hL' hd hv x hx) hδle⟩
 

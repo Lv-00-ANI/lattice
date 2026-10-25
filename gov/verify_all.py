@@ -111,6 +111,10 @@ CHECKS = [
     ("gen: proof chain (geo)", "proof_chain_geo.py"),
     ("gen: proof chain (kernel)", "chain.py"),
     ("scope: escape baseline", "escape_baseline.py --check"),
+    # Three of this round's fixes were the SAME defect: one measurement written down in two
+    # places, only one updated (apostrophes 60 vs 3, oversized 8 vs 10, registry 42 vs 43).
+    # A number being right is not enough; the document must agree with itself.
+    ("consistency: docs agree with themselves", "check_doc_consistency.py"),
     # The frozen governance archive is data the gates read, so it needs its own guard:
     # a stale entry-count claim inside CORRECTIONS.md is the exact drift class this
     # repository spent B1-B480 learning. `--lean archive` points the tool at the
