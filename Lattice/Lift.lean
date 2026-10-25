@@ -19,6 +19,7 @@ import Lattice.Lift.VerifierRate
 import Lattice.Lift.ApproximationBridge
 import Lattice.Lift.WeightLadderN
 import Lattice.Lift.TokenAlphabet
+import Lattice.Lift.IntRoundtrip
 
 /-!
 # Lattice.Lift -- the representation ladder
