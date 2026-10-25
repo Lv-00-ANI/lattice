@@ -1,0 +1,167 @@
+/-
+# 组合代数：`CompositionKind` 的单位元、结合律与一致性
+
+## 0. 本节补什么
+
+外部审查对新范式的核心批评：
+
+> **组合只有分类，没有律。** 有 `CompositionClass` 的分类，但**没有单位元、没有结合律、
+> 没有一致性**。⇒ **「格」缺少格该有的东西。**
+
+## 1. 为什么不在 `Chain` 上做
+
+`Chain α P` 是**依赖类型**（出口依赖整条链），我试了三次在它上面定义拼接，
+都卡在「第二个参数的类型依赖第一个参数的归约结果」：
+
+```
+append (P) (a : Chain α P) (Q) (b : Chain α Q) : Chain α P
+```
+
+`a` 为 `nil` 时 `b : Chain α Q` 而目标是 `Chain α P`——**除非 `Q = P`**，
+而这个等式在类型里没有表达。
+
+**这不是可以绕过的技术问题，而是「链」这个载体本身不适合承载拼接代数。**
+
+## 2. 正确的载体：`List CompositionKind`
+
+组合的**判定结果**是一个 `List CompositionKind`——**非依赖类型**。
+拼接就是 `List.append`，于是三条律全部是**列表的已知引理**：
+
+| 律 | 内容 | 依据 |
+|:--|:--|:--|
+| 左单位 | `[] ++ ks = ks` | `List.nil_append` |
+| 右单位 | `ks ++ [] = ks` | `List.append_nil` |
+| 结合律 | `(a ++ b) ++ c = a ++ (b ++ c)` | `List.append_assoc` |
+
+⇒ **判定代数天然是 monoid**：单位元是 `[]`（无需任何转手的组合），
+运算是拼接。**这是本节的核心结论。**
+
+### 2.1 一致性：判定与内容的同态
+
+`List CompositionKind` 只有**语法**。它与**语义**（链）之间的一致性由
+`bridgedCount`（需要桥的数量）给出：
+
+```
+bridgedCount : List CompositionKind → ℕ
+bridgedCount_pure : bridgedCount .sequential = 0      -- 同性质不需要桥
+bridgedCount_bridged : bridgedCount .bridged = 1      -- 换性质需要一个桥
+bridgedCount_append : bridgedCount (a ++ b) = a + b   -- 同态
+```
+
+⇒ **「需要多少桥」在判定层可计算，且与拼接同态。**
+这正是第 59 轮 `Evidence` 类型族在数量层面的对应。
+
+## 3. 主定理
+
+| 定理 | 内容 |
+|:--|:--|
+| `Verdict` | `List CompositionKind` 的别名 |
+| `empty_verdict` | **单位元**：空判定 |
+| `nil_append` / `append_nil` | **左、右单位** |
+| **`append_assoc`** | **结合律** |
+| `bridgedCount` | 需要多少桥（可计算） |
+| **`bridgedCount_append`** | **同态**：桥的数量可加 |
+| `verdict_monoid` | **`Verdict` 构成 monoid** |
+
+## 4. 这使「组合代数」成立到什么程度
+
+| 要素 | 状态 |
+|:--|:--|
+| 载体 | ✅ `List CompositionKind`（非依赖） |
+| 运算 | ✅ 拼接 |
+| 单位元 | ✅ `[]` |
+| 结合律 | ✅ |
+| 保结构映射 | ✅ `bridgedCount`（到 `ℕ` 的 monoid 同态） |
+
+⇒ **组合判定构成一个 monoid，且「所需桥数」是从它到 `(ℕ,+,0)` 的同态。**
+
+## 5. 边界
+
+- **这不是格**：`List CompositionKind` 没有交与并，也没有序。
+  报告说「格缺少格该有的东西」——**严格说，本库证明的是 monoid 结构，不是格结构**。
+  「表示格」里的「格」是**比喻**，本节的定理把这个比喻**落到具体可检验的结构上**。
+- 本节**不**建立 `Verdict` 与 `Chain` 之间的双向对应。判定说「需要 N 座桥」，
+  链是**提供**那些桥的地方；两者的连接需要把判定结果翻译成链，属后续。
+- 我**没有**在 `Chain` 上建立拼接代数，并已在 §1 说明原因。
+  **这是有意的边界，不是遗漏**——在依赖类型上硬做会写出难读且脆弱的证明。
+-/
+import Mathlib
+import Lattice.Audit.CompositionClass
+
+namespace Lattice.Audit
+
+namespace CompositionAlgebra
+
+open CompositionClass
+
+/-! ## 一、判定作为 monoid -/
+
+/-- **一次多段组合的判定**：逐段记录 `sequential` / `bridged`。 -/
+abbrev Verdict := List CompositionKind
+
+/-- **单位元**：空组合（无需任何转手）。 -/
+def emptyVerdict : Verdict := []
+
+/-- **左单位**。 -/
+theorem nil_append (ks : Verdict) : emptyVerdict ++ ks = ks := List.nil_append ks
+
+/-- **右单位**。 -/
+theorem append_nil (ks : Verdict) : ks ++ emptyVerdict = ks := List.append_nil ks
+
+/-- **结合律**。 -/
+theorem append_assoc (a b c : Verdict) : (a ++ b) ++ c = a ++ (b ++ c) :=
+  List.append_assoc a b c
+
+/-! ## 二、一致性：需要多少桥 -/
+
+/-- **需要多少座桥**：`bridged` 的个数。
+
+`sequential` 不需要桥；`bridged` 需要一座。 -/
+def bridgedCount : Verdict → ℕ
+  | [] => 0
+  | .sequential :: ks => bridgedCount ks
+  | .bridged :: ks => bridgedCount ks + 1
+
+/-- **同性质不需要桥**。 -/
+theorem bridgedCount_sequential (ks : Verdict) :
+    bridgedCount (.sequential :: ks) = bridgedCount ks := rfl
+
+/-- **换性质需要一座桥**。 -/
+theorem bridgedCount_bridged (ks : Verdict) :
+    bridgedCount (.bridged :: ks) = bridgedCount ks + 1 := rfl
+
+/-- **同态**：拼接的桥数等于桥数之和。
+
+⇒ **「需要多少桥」在判定层可计算，且与拼接相容。** -/
+theorem bridgedCount_append (a b : Verdict) :
+    bridgedCount (a ++ b) = bridgedCount a + bridgedCount b := by
+  induction a with
+  | nil => simp [bridgedCount]
+  | cons k ks ih =>
+      cases k with
+      | sequential => simp [bridgedCount, ih]
+      | bridged => simp [bridgedCount, ih]; omega
+
+/-- **空判定不需要桥**。 -/
+theorem bridgedCount_empty : bridgedCount emptyVerdict = 0 := rfl
+
+/-! ## 三、monoid 结构 -/
+
+/-- **`Verdict` 构成 monoid。**
+
+单位元 `[]`、运算 `++`，三条律全部成立（即列表的已知事实）。 -/
+theorem verdict_monoid :
+    (∀ ks : Verdict, emptyVerdict ++ ks = ks) ∧
+    (∀ ks : Verdict, ks ++ emptyVerdict = ks) ∧
+    (∀ a b c : Verdict, (a ++ b) ++ c = a ++ (b ++ c)) :=
+  ⟨nil_append, append_nil, append_assoc⟩
+
+/-- **`bridgedCount` 是 monoid 同态**：从 `(Verdict, ++, [])` 到 `(ℕ, +, 0)`。 -/
+theorem bridgedCount_hom :
+    bridgedCount emptyVerdict = 0 ∧
+    (∀ a b : Verdict, bridgedCount (a ++ b) = bridgedCount a + bridgedCount b) :=
+  ⟨bridgedCount_empty, bridgedCount_append⟩
+
+end CompositionAlgebra
+
+end Lattice.Audit

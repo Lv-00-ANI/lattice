@@ -7,3 +7,4 @@ import Lattice.Audit.ChainTransitivity
 import Lattice.Audit.BridgedComposition
 import Lattice.Audit.CompositionClass
 import Lattice.Audit.MultiComposition
+import Lattice.Audit.CompositionAlgebra
