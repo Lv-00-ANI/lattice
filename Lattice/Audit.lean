@@ -3,3 +3,4 @@ import Lattice.Audit.Counterexamples
 import Lattice.Audit.ObligationIndependence
 import Lattice.Audit.DecreasesRole
 import Lattice.Audit.StructureCensus
+import Lattice.Audit.ChainTransitivity
