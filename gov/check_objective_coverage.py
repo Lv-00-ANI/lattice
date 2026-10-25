@@ -166,6 +166,56 @@ def check_no_intermediate_layer():
     return bad
 
 
+# ---------------------------------------------------------------- rule E
+
+#: The chain's four structures must stay PARAMETRIC. The objective positions the library as generic
+#: infrastructure -- "every LLM's training and post-training can be routed through this chain" -- and
+#: that is only true while the structures are polymorphic. A change that specialises one of them to
+#: geometry would falsify the positioning without failing any other check.
+#:
+#: The expected arity is recorded so a shrinking parameter list is caught: `Ladder` takes four type
+#: parameters, the others two (Repair one).
+PARAMETRIC = {
+    "Ladder": 4,
+    "Compiler": 2,
+    "Representation": 2,
+    "Repair": 1,
+    "PenaltyEmbedding": 2,
+    "ApproxRepresentation": 2,
+}
+
+
+def check_parametric():
+    """Each named structure must still take at least the recorded number of type parameters.
+
+    Every DECLARATION of the name is examined, not just the first one found: a planted or duplicate
+    definition with too few parameters would otherwise hide behind the real one, and the self-test
+    caught exactly that.
+    """
+    bad = []
+    for name, arity in PARAMETRIC.items():
+        decls = []
+        for rel, src in CORPUS_ITEMS:
+            for m in re.finditer(r"(?m)^structure %s\b([^\n(]*)(\([^\n]*)?where" % re.escape(name), src):
+                decls.append((rel, m.group(0)))
+        if not decls:
+            bad.append((name, "structure not found", arity))
+            continue
+        for rel, head in decls:
+            # count type parameters: `(A B C : Type)` counts 3, `(α : Type)` counts 1
+            n_types = 0
+            for grp in re.findall(r"\(([^)]*)\)", head):
+                if "Type" not in grp:
+                    continue
+                before = grp.split(":")[0].strip()
+                if not before:
+                    continue
+                n_types += len(before.split())
+            if n_types < arity:
+                bad.append((name, "%s has %d type param(s)" % (rel, n_types), arity))
+    return bad
+
+
 # ---------------------------------------------------------------- rule C
 
 VENDORS = ["torch", "pytorch", "tensorflow", "jax", "cuda", "onnx", "huggingface",
@@ -228,6 +278,16 @@ def report(corpus):
         print("D  symbolic semantics: each canonical relation defined exactly once "
               "(%d checked)" % len(SATISFACTION_OWNERS))
 
+    par = check_parametric()
+    if par:
+        ok = False
+        print("E  chain structures lost their parametricity:")
+        for name, detail, want in par:
+            print("     %-24s needs >= %d type params, found %s" % (name, want, detail))
+    else:
+        print("E  chain structures are still parametric               (%d checked)"
+              % len(PARAMETRIC))
+
     ext = external_vendor_imports(corpus)
     if ext:
         ok = False
@@ -285,11 +345,22 @@ def self_test():
     finally:
         CORPUS_ITEMS = saved_items
 
+    # E: plant a structure that lost its parameters
+    saved_items2 = CORPUS_ITEMS
+    planted4 = dict(corpus)
+    planted4["ZZ_planted4.lean"] = "structure Ladder (Data : Type) where\n  s : Data\n"
+    CORPUS_ITEMS = list(planted4.items())
+    try:
+        if not check_parametric():
+            failures.append("rule E did not catch a de-parameterised structure")
+    finally:
+        CORPUS_ITEMS = saved_items2
+
     if failures:
         for f in failures:
             print("SELF-TEST FAILED: %s" % f)
         return 2
-    print("SELF-TEST: all four rules can fail")
+    print("SELF-TEST: all five rules can fail")
     return 0
 
 
