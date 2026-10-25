@@ -15,7 +15,8 @@ import subprocess
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-NEW = r"C:\Users\xingg\Desktop\agent\lattice-new"
+import os as _os
+NEW = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), ".."))
 GOV = os.path.join(NEW, "gov")
 README = os.path.join(NEW, "README.md")
 

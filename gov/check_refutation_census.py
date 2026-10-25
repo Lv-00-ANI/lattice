@@ -22,10 +22,10 @@ LAT = os.path.join(LAKE, "Lattice")
 
 # the census's recorded numbers
 EXPECTED = {
-    "total": 387,
+    "total": 389,
     "Lib": 365,
-    "Lift": 7,
-    "Audit": 6,
+    "Lift": 8,
+    "Audit": 7,
     "Core": 5,
     "Geo": 4,
 }
