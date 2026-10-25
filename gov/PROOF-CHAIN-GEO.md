@@ -12,8 +12,10 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
+| `ApproxEmbedding` | 106 | 1 | — |
+| `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 204 | 10 | — |
-| `Compile` | 100 | 2 | — |
+| `Compile` | 99 | 2 | — |
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
 | `Derivative` | 94 | 3 | — |
@@ -21,6 +23,7 @@
 | `Differentiable` | 131 | 9 | — |
 | `Dist` | 129 | 8 | — |
 | `DistContinuous` | 53 | 2 | — |
+| `DistLipschitz` | 151 | 3 | — |
 | `Engine` | 147 | 6 | — |
 | `Eval` | 98 | 3 | — |
 | `Exact` | 91 | 4 | — |
@@ -35,13 +38,17 @@
 | `Flatten` | 131 | 4 | — |
 | `FlattenAgreement` | 67 | 4 | — |
 | `FormDeriv` | 158 | 8 | — |
+| `GeoSampledBound` | 79 | 1 | — |
 | `IRBridge` | 307 | 13 | — |
 | `IRRepair` | 86 | 3 | — |
 | `Initialise` | 125 | 9 | — |
 | `Invariant` | 189 | 12 | — |
+| `LadderInstance` | 130 | 2 | — |
 | `LayerExact` | 127 | 3 | — |
+| `Lipschitz` | 260 | 11 | — |
 | `Loop` | 209 | 10 | — |
 | `LoopPerp` | 164 | 7 | — |
+| `LoopRate` | 89 | 3 | — |
 | `Loss` | 194 | 10 | — |
 | `Nondegenerate` | 307 | 13 | — |
 | `PathContinuity` | 245 | 12 | — |
@@ -49,19 +56,26 @@
 | `Perturb` | 126 | 8 | — |
 | `Pipeline` | 170 | 7 | — |
 | `Plucker` | 105 | 2 | — |
+| `PolyAssemble` | 129 | 4 | — |
+| `PolyConstants` | 159 | 5 | — |
+| `PolyLipschitz` | 114 | 1 | — |
 | `PolyNondegenerate` | 210 | 8 | — |
 | `QualityBridge` | 76 | 3 | — |
+| `Reinjection` | 121 | 3 | — |
+| `ReinjectionGeneral` | 134 | 5 | — |
 | `Repair` | 90 | 4 | — |
 | `RepairBridge` | 247 | 14 | — |
 | `RepairPenalty` | 79 | 4 | — |
 | `RepairPerp` | 193 | 6 | — |
 | `RepairQuality` | 151 | 9 | — |
+| `RhoMetric` | 120 | 5 | — |
 | `Rules` | 135 | 1 | — |
 | `Semantic` | 179 | 7 | — |
 | `SeqRepresentation` | 103 | 4 | — |
 | `Shape` | 204 | 3 | — |
 | `Square` | 161 | 10 | — |
 | `Synthesis` | 140 | 6 | — |
+| `SynthesisMulti` | 132 | 4 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |
 
