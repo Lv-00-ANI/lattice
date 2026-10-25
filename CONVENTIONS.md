@@ -117,7 +117,7 @@
 
 ### 2.2 现状
 
-**超 60 声明的文件：10 个，全部在 `Lib` 层。**
+**超 60 声明的文件：9 个，全部在 `Lib` 层。**
 
 具体清单与实测声明数**只在 `§7.3` 出现一次**（`gov/repro/measure_conventions.py` 可重跑）。
 
@@ -329,7 +329,18 @@
 **当前处置**：这 35 条**未改名**。改名需要逐条判断命名意图（`IdempotentOn` 是
 幂等性的什么性质？），是 P11 之后的工作，不在本轮范围。已如实记录数量与样例。
 
-### 7.3 F1 超 60 声明：10 个文件
+### 7.3 F1 超 60 声明：9 个文件
+
+> **第 62 轮进度：10 → 9。** `Lib/Quantization/RealIEEE754.lean`（637 行、71 声明）
+> 按它**自己的十个语义分节**拆成 `RealIEEE754/{Basic,Overflow,BitWidth,Compat}.lean`
+> 加一个 umbrella。拆分前测了各节之间的依赖顺序，拆分后**核对声明数 71 → 71，零丢失**。
+> 架构级改动走分支 `arch/split-ieee754` 后合回 master。
+>
+> **可复用的流程**（其余 9 个照此办理）：
+> ① 数语义分节；② 测分节间依赖顺序；③ 依顺序拆；④ **核对声明数不变**；⑤ 构建；⑥ 合并。
+>
+> 拆分**不减少工作量**，只重新分配：模块数 +4，Lib 层 588 → 592。
+
 
 | 文件 | 声明数 |
 |:--|--:|
@@ -338,7 +349,6 @@
 | `Lib/Compiler/RealMutualRecursion.lean` | 89 |
 | `Lib/Lift/RealNonlinearFidelity.lean` | 86 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage.lean` | 84 |
-| `Lib/Quantization/RealIEEE754.lean` | 71 |
 | `Lib/Chain/RealLv00LinearAlgebra.lean` | 66 |
 | `Lib/Chain/RealNumericChainOrder.lean` | 66 |
 | `Lib/LearningTheory/RealCausalDoCalculus.lean` | 64 |
