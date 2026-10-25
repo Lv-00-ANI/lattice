@@ -7,25 +7,25 @@
 
 ## 1. 数量与分布
 
-**283 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**284 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 257 | 90.8% |
+| `Lib` | 257 | 90.5% |
+| `Lift` | 9 | 3.2% |
 | `Audit` | 8 | 2.8% |
-| `Lift` | 8 | 2.8% |
 | `Core` | 5 | 1.8% |
 | `Geo` | 5 | 1.8% |
 
-**分布值得注意**：91% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Geo`/`Audit`）
-合计只占 26 条。这不是缺陷：承重层的职责不是穷举「不可能」，
+**分布值得注意**：90% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Geo`/`Audit`）
+合计只占 27 条。这不是缺陷：承重层的职责不是穷举「不可能」，
 而是钉住少数几条**关键**不可能性——而它们恰恰都在那里（见 §3）。
 
 ## 2. 按否证的对象分类
 
 | 类别 | 条数 | 含义 |
 |:--|--:|:--|
-| 谓词不可达（结论是某性质不成立） | 134 | 某个性质在任何配置上都取不到（如 `¬ Sat (iterate n x)`） |
+| 谓词不可达（结论是某性质不成立） | 135 | 某个性质在任何配置上都取不到（如 `¬ Sat (iterate n x)`） |
 | 等式被否（含不相等） | 37 | 某等式普遍不成立，或两对象不相等 |
 | 界/不等式被否 | 31 | 某个界/单调性给不出来 |
 | 全称命题被否（给出反例） | 26 | 一般断言不成立，必须附加前提 |
@@ -62,6 +62,7 @@
 | `Geo` | `copy_not_separating` | `¬ Separated a b (fixSamePoint a b pts)` |
 | `Lift` | `no_extractor_both_layers` | `¬ (∃ extract : W → P, (∀ p, extract (compile p) = p) ∧ (extract (compile c) = extract (compile c')))` |
 | `Lift` | `constant_changes_semantics` | `¬ Lattice.Core.SatisfiesEq (⟨fun _ => (0 : ℤ), 1⟩ : Lattice.Core.LinearForm ℤ 1) (fun _ => 0)` |
+| `Lift` | `rank_one_is_degenerate` | `¬ (∀ (W : Fin 2 → Fin 2 → ℝ), ∃ c : Fin 2 → ℝ, ∀ i j, W i j = c i)` |
 | `Lift` | `const_not_levelB` | `¬ PenaltyExact constEmbedding` |
 | `Lift` | `tokenize_not_injective` | `¬ Function.Injective tokenize` |
 | `Lift` | `tokenize_never_none_fails_for_Vzz` | `¬ (∀ s : List Char, ∃ ts : CharToken, bestPrefixV Vzz s = some ts)` |
@@ -81,12 +82,12 @@
 |:--|:--|:--|
 | 初版 | 329 条 | 只要陈述里出现 `¬` 就计入，把假设里的否定（`(h : ¬ j ≤ i)`）也算进来 |
 | 二版 | 272 条 | 改为只看结论，但**文件路径被输出格式截断**，层统计出错（`ib`、`b` 出现） |
-| **三版** | **283 条** | 完整路径 + 按最外层构造子分类；抽查发现 3 处误分类并修正 |
+| **三版** | **284 条** | 完整路径 + 按最外层构造子分类；抽查发现 3 处误分类并修正 |
 
 **残留误差**（仍存在，读者需知道）：
 
 1. **语法而非语义**：形如 `¬ False` 的平凡否证也会计入，本清册不判断平凡性；
-2. **「谓词不可达」占 134 条**（最大类），
+2. **「谓词不可达」占 135 条**（最大类），
    其中不少是**带条件**的事实（例如「在 `¬mask i j` 时输出为零」），
    它们的结论确实是 `¬…`，但整体是条件性结论而非反驳。**计入是保守的**（宁可多算）；
 3. **`∃` 绑定子含 `:`**，嵌套深时可能误判个别条目。

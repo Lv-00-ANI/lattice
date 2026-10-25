@@ -20,6 +20,7 @@ import Lattice.Lift.ApproximationBridge
 import Lattice.Lift.WeightLadderN
 import Lattice.Lift.TokenAlphabet
 import Lattice.Lift.IntRoundtrip
+import Lattice.Lift.NondegenerateInstance
 
 /-!
 # Lattice.Lift -- the representation ladder
