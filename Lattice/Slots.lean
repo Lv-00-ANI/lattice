@@ -214,7 +214,15 @@ def repairAtomic : Slot :=
     stmt := True
     note :=
       "Field `atomic` of `Lattice.Core.Repair`. Not derivable -- see `down_no_progress`. " ++
-      "Discharged per repair operator by choosing a measure that vanishes on the target."
+      "Discharged per repair operator by choosing a measure that vanishes on the target. -- " ++
+      "**Abstraction added**: measured, all five operators in the library prove `atomic` by " ++
+      "the SAME shape (`intro; exact (X_eq_zero_iff).mp h`) because all five measures are " ++
+      "two-valued. `Lattice.Core.RepairAtomicity` makes that one lemma: " ++
+      "`atomic_of_zero_iff`, `atomic_of_binary`, and the constructor `mkWithAtomic`, which " ++
+      "builds a whole `Repair` from `(Sat, fix, mu, absorbs, decreases, mu = 0 <-> Sat)`. " ++
+      "Verified by REBUILDING `samePointRepair` through `mkWithAtomic` with the same " ++
+      "semantics. The slot stays open: `atomic` is still a field every operator must supply " ++
+      "evidence for -- what changed is that supplying it is now one line, not five copies."
     status := .open_ }
 
 /-- The obligation that an adopted representation for weights exists. **Discharged.**
