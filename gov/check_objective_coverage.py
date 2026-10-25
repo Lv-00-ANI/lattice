@@ -130,6 +130,42 @@ def name_violations(corpus):
                 primes.append((rel, full))
     return camel, primes
 
+# ---------------------------------------------------------------- rule D
+
+#: The objective says the symbolic model runs DIRECTLY on the symbolic engine, with no intermediate
+#: layer. Mechanically that means the symbolic satisfaction relation has exactly ONE definition --
+#: a second one in another layer would BE the intermediate layer.
+#:
+#: Round 99 measured this: `GeoConstraint.Holds` is defined once, in Geo/Constraint.lean. The many
+#: `eval*` in Lib/Compiler are the compiler's own semantics for its own object language, not a
+#: re-encoding of the symbolic constraints, so they are not violations -- the distinction is written
+#: here so it is not re-litigated.
+CORPUS_ITEMS = []
+
+SATISFACTION_OWNERS = {
+    "GeoConstraint.Holds": "Geo/Constraint.lean",
+}
+
+
+def check_no_intermediate_layer():
+    """Every canonical symbolic-semantics definition must exist in exactly one layer."""
+    bad = []
+    for name, expected_file in SATISFACTION_OWNERS.items():
+        part = name.split(".")[0]
+        owners = []
+        for rel, src in CORPUS_ITEMS:
+            if re.search(r"(?m)^[ \t]*(?:noncomputable[ \t]+)?def[ \t]+%s\b"
+                         % re.escape(name.split(".")[-1]), src):
+                # a definition of the same shape inside a namespace of the same name
+                if re.search(r"(?m)^namespace[ \t]+%s\b" % re.escape(part), src):
+                    owners.append(rel)
+        if expected_file not in owners:
+            bad.append((name, expected_file, owners))
+        if len(owners) > 1:
+            bad.append((name, expected_file, owners))
+    return bad
+
+
 # ---------------------------------------------------------------- rule C
 
 VENDORS = ["torch", "pytorch", "tensorflow", "jax", "cuda", "onnx", "huggingface",
@@ -158,6 +194,8 @@ def external_vendor_imports(corpus):
 # ---------------------------------------------------------------- reporting
 
 def report(corpus):
+    global CORPUS_ITEMS
+    CORPUS_ITEMS = list(corpus.items())
     ok = True
 
     bad = check_clauses(corpus)
@@ -179,6 +217,16 @@ def report(corpus):
     else:
         print("B  naming: 0 violations beyond exemptions              "
               "(%d camel exempt, %d prime exempt)" % (len(CAMEL_EXEMPT), len(PRIME_EXEMPT)))
+
+    inter = check_no_intermediate_layer()
+    if inter:
+        ok = False
+        print("D  symbolic semantics defined in more than one place:")
+        for name, exp, owners in inter:
+            print("     %s expected only in %s, found in %s" % (name, exp, owners))
+    else:
+        print("D  symbolic semantics: each canonical relation defined exactly once "
+              "(%d checked)" % len(SATISFACTION_OWNERS))
 
     ext = external_vendor_imports(corpus)
     if ext:
@@ -224,11 +272,24 @@ def self_test():
     if not external_vendor_imports(planted2):
         failures.append("rule C did not catch a planted vendor import")
 
+    # D: plant a SECOND definition of the symbolic relation, which would be an intermediate layer
+    global CORPUS_ITEMS
+    saved_items = CORPUS_ITEMS
+    planted3 = dict(corpus)
+    planted3["ZZ_planted3.lean"] = (
+        "namespace GeoConstraint\nnoncomputable def Holds : Nat -> Prop := fun _ => True\nend GeoConstraint\n")
+    CORPUS_ITEMS = list(planted3.items())
+    try:
+        if not check_no_intermediate_layer():
+            failures.append("rule D did not catch a planted second definition")
+    finally:
+        CORPUS_ITEMS = saved_items
+
     if failures:
         for f in failures:
             print("SELF-TEST FAILED: %s" % f)
         return 2
-    print("SELF-TEST: all three rules can fail")
+    print("SELF-TEST: all four rules can fail")
     return 0
 
 
