@@ -75,6 +75,7 @@ CHECKS = [
     ("audit: tables", "audit_tables.py"),
     ("audit: counts", "audit_counts.py"),
     ("audit: G7 breakpoints", "check_g7.py"),
+    ("audit: proof chain rung", "check_proof_chain_rung.py"),
     ("audit: abstraction", "audit_abstraction.py"),
     ("audit: islands", "audit_islands.py"),
     ("audit: duplicate statements", "audit_duplicate_statements.py"),
