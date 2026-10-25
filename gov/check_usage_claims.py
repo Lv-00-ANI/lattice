@@ -146,6 +146,37 @@ def measure_decls():
     return n
 
 
+#: Documents that describe the CURRENT tree. A stale count in one of these is a defect; the same
+#: number in ROADMAP-v3..v11 or archive/ describes the tree AT THE TIME and must not be "fixed".
+CURRENT_DOCS = ["README.md", "USAGE.md", "STATE-FINAL.md", "COMPLETENESS-AUDIT.md",
+                "PARADIGM.md", "CONVENTIONS.md", "PROOF-CHAIN-RUNG.md"]
+
+#: Counts that were once written down and are now known to be wrong. Re-appearing is a regression.
+#: (pattern, explanation)
+STALE = [
+    (r"387\s*条", "refutation total was 387 at some point; the census says 284"),
+    (r"8,035\s*条定理", "theorem count was 8,035 at some point; see STATE-FINAL"),
+    (r"8,129\s*条定理", "theorem count was 8,129 at some point; see STATE-FINAL"),
+    (r"10,882\s*条", "declaration count was 10,882 at some point; see STATE-FINAL"),
+    (r"10,916\s*条", "declaration count was 10,916 at some point (unstripped); see STATE-FINAL"),
+]
+
+
+def check_stale():
+    """Fail if a known-stale count reappears in a document that describes the current tree."""
+    bad = []
+    for doc in CURRENT_DOCS:
+        path = os.path.join(LAKE, doc)
+        if not os.path.exists(path):
+            continue
+        text = _read(path)
+        for pat, why in STALE:
+            for m in re.finditer(pat, text):
+                line = text[: m.start()].count("\n") + 1
+                bad.append((doc, line, m.group(0), why))
+    return bad
+
+
 CLAIMS = [
     ("USAGE: refutation count",
      r"全部\s*([\d,]+)\s*条",
@@ -188,6 +219,17 @@ def run(usage_text=None):
                                         "ok" if ok else "*** WRONG ***"))
         if not ok:
             bad += 1
+    stale = check_stale()
+    if stale:
+        bad += len(stale)
+        print()
+        print("STALE COUNTS re-appeared in current-tree documents:")
+        for doc, line, txt, why in stale:
+            print("  %-22s line %-5d %-12s %s" % (doc, line, txt, why))
+    else:
+        print("stale counts: none of the %d known-stale figures appear in current docs"
+              % len(STALE))
+
     print()
     if bad:
         print("DOC CLAIMS: %d claim(s) disagree with the tree" % bad)

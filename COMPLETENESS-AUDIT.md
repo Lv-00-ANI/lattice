@@ -173,7 +173,7 @@
 ## 4. 这份终审的边界
 
 1. **它检查「有对应物」，不检查「对应物是否足够强」。** 后者由
-   `REFUTATION-CENSUS`（387 条否证）、承重性审计（10 条无冗余）、
+   `REFUTATION-CENSUS`（否证清册，数量见该文件与 `check_refutation_census.py`）、承重性审计（10 条无冗余）、
    `check_chain_deps`（12 条依赖数）分别负责。
 2. **条款是我从目标原文拆的**，不是目标原文的自带编号。
    拆法见脚本，可被质疑与重拆。
@@ -188,5 +188,5 @@
 python agent-tmp/completeness_audit.py     # 16 条条款的声明存在性
 cd gov && python gate.py                   # I1-I8
 python check_chain_table.py                # 六跳载体存在
-python check_refutation_census.py          # 387 条否证
+python check_refutation_census.py          # 否证清册一致
 ```
