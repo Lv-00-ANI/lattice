@@ -283,6 +283,7 @@ LAYER_OF = {
     "Lattice/Lib": "lib",
     "Lattice/Slots": "slots",
     "Lattice/Geo": "geo",
+    "Lattice/Audit": "audit",
 }
 
 
@@ -295,7 +296,7 @@ def layer_of(p):
 
 
 def check_layering(rep):
-    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "top": 99}
+    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "audit": 5, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":
