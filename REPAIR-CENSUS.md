@@ -10,8 +10,8 @@
 
 | 类 | 判据 | 文件数 | fix 命名声明数（按文件计） |
 |:--|:--|--:|--:|
-| **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **6** | **27** |
-| B. 使用 `Repair` 结构 | 出现 `Repair` 但无实例定义 | 12 | 30 |
+| **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **9** | **28** |
+| B. 使用 `Repair` 结构 | 出现 `Repair` 但无实例定义 | 15 | 37 |
 | C. 字面命中 | 有 fix 命名声明，但文件里没有 `Repair` | 48 | **237** |
 
 **口径说明**：上表按文件累加得 294，而 `ROADMAP-v4 §0` 的 278 是
@@ -20,11 +20,37 @@
 **衡量「有多少个声明」应取去重数 278**；衡量「多少个文件涉及」取 66。
 `A` 类的 27 与 `C` 类的 237 都小于对应的去重总数，结论不受影响。
 
-**⇒ 真正的修复算子只有 27 个声明，不是 278 个。** 相差十倍。
+**⇒ 真正的修复算子只有 28 个声明，不是 278 个。** 相差十倍。
+
+> **本轮（第 38 轮）复测的修正**：本清册初版记录 A 类为 6 个文件 / 27 个声明。
+> 之后本会话新增了三个实现 `Repair` 的文件，清册**没有随之更新**：
+>
+> | 新增文件 | 定义 | 来源 |
+> |:--|:--|:--|
+> | `Core/RepairMultistep.lean` | `countdown`（无界测度的多步算子） | 第 22 轮 |
+> | `Core/RepairAtomicity.lean` | `mkWithAtomic`（供给 `atomic` 的构造器） | 第 28 轮 |
+> | `Usage/Examples.lean` | `natRepair`（使用说明的最小示例） | 第 36 轮 |
+>
+> 这与 `CONVENTIONS §7` 记录的漂移是**同一模式**：数字写下后无人复测。
+>
+> > **B 类也在本轮复测中更新**：从 12 文件 / 30 声明变为 **15 文件 / 37 声明**。
+> 原因是本会话新增了 `Core/RepairConvergence`、`Geo/Reinjection`、`Geo/ReinjectionGeneral`
+> 等引用 `Repair` 但不定义实例的文件。
+>
+> **B 类的判据此前是模糊的**（「出现 `Repair` 但无实例定义」）。现在由
+> `gov/check_repair_census.py` 精确实现为：**提到 `Repair`、有 fix 命名声明、
+> 但不匹配 A 类模式**。判据一旦精确定义，数字就可复现。
+
+**一个必须说明的细节**：三个新文件各自定义了一个 `Repair` **实例**，但只有
+> `natRepair` 的名字含 `fix`/`repair`；`countdown` 与 `mkWithAtomic` 不含。
+> 所以**文件数 +3，声明数 +1**。这正是本文件 §4 警告的那件事——
+> 名字过滤不等于测量。
+> 本节的正确值现为 **9 个文件 / 28 个声明**，且由
+> `agent-tmp/find_new_repairs.py` 可重跑核对。
 
 ---
 
-## 2. A 类：真正实现了 `Repair` 的 6 个文件
+## 2. A 类：真正实现了 `Repair` 的 9 个文件
 
 | 文件 | fix 声明 | 它定义了什么 |
 |:--|--:|:--|
@@ -34,6 +60,9 @@
 | `Core/Repair.lean` | 3 | 框架本身 + `parity` 与 `down` 两个例子（含 `down_no_progress` 反例） |
 | `Lib/Linear/Residual.lean` | 5 | **线性残差**的修复（文件头自称「the first real instance」） |
 | `Lib/Linear/Multivar.lean` | 2 | 任意元数的修复回路 |
+| `Core/RepairMultistep.lean` | 3 | `countdown`：测度无界的多步算子（第 22 轮） |
+| `Core/RepairAtomicity.lean` | 5 | `mkWithAtomic`：由等价关系构造 `Repair`（第 28 轮） |
+| `Usage/Examples.lean` | 2 | `natRepair`：使用说明的最小示例（第 36 轮） |
 
 这 6 个是链路在「修正」这一步上的全部实质。
 
@@ -67,7 +96,7 @@
 ## 5. 结论与后续
 
 - **不要再用「修正相关声明数」衡量这一步的覆盖度**：97% 是字面命中。
-- 真正该看的是 **A 类的 6 个文件**，以及它们各自处理哪类约束。
+- 真正该看的是 **A 类的 9 个文件**，以及它们各自处理哪类约束。
 - **已知缺口**：A 类覆盖 `samePoint`、`perpendicular`、线性残差；
   `distEq`、`collinear`、`parallel`、`ratioDivision` 等**没有修复算子**。
   这与 `Geo/Reinjection.lean` 文件头记的边界一致（再注入对一般 `EqConstraint`

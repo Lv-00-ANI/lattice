@@ -62,6 +62,9 @@ CHECKS = [
     # `compileProgram_sound`, `extract_compile`, `ladder_forward` cite ZERO kernel
     # declarations. If that silently changes, the claim behind USAGE §1 becomes false.
     ("chain dependencies", "check_chain_deps.py"),
+    # Keeps REPAIR-CENSUS xref numbers honest: the census drifted 6/27 -> 9/28
+    # between rounds and nothing measured it. This makes it measurable.
+    ("repair census", "check_repair_census.py"),
     ("reactivity: slots", "check_slots_reactivity.py"),
     ("reactivity: comments", "check_comments_reactivity.py"),
     ("reactivity: I8 gate", "check_i8_reactivity.py"),
