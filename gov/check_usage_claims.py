@@ -149,7 +149,7 @@ def measure_decls():
 #: Documents that describe the CURRENT tree. A stale count in one of these is a defect; the same
 #: number in ROADMAP-v3..v11 or archive/ describes the tree AT THE TIME and must not be "fixed".
 CURRENT_DOCS = ["README.md", "USAGE.md", "STATE-FINAL.md", "COMPLETENESS-AUDIT.md",
-                "PARADIGM.md", "CONVENTIONS.md", "PROOF-CHAIN-RUNG.md"]
+                "PARADIGM.md", "CONVENTIONS.md", "PROOF-CHAIN-RUNG.md", "DELIVERY.md"]
 
 #: Counts that were once written down and are now known to be wrong. Re-appearing is a regression.
 #: (pattern, explanation)
@@ -258,6 +258,16 @@ CLAIMS = [
     ("CONVENTIONS: camelCase theorems",
      r"\| N3 camelCase 定理 \| \*\*(\d+)\*\*",
      measure_camel_theorems, "CONVENTIONS.md"),
+    ("DELIVERY: module count",
+     r"\| 源模块（不含 `Reference/`） \| \*\*(\d+)\*\* \|",
+     measure_modules, "DELIVERY.md"),
+    ("DELIVERY: theorem count",
+     r"\| 定理 / 引理（官方口径） \| \*\*([\d,]+)\*\* \|",
+     measure_theorems, "DELIVERY.md"),
+    ("DELIVERY: declaration count",
+     r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
+     measure_decls, "DELIVERY.md"),
+
 ]
 
 
@@ -281,6 +291,24 @@ def run(usage_text=None):
                                         "ok" if ok else "*** WRONG ***"))
         if not ok:
             bad += 1
+    # DELIVERY.md claims "11 guards, all exit 0". This checker does NOT re-run the other guards --
+    # verify_all already runs all of them, and re-running them here made the checker recurse
+    # (each guard would run the whole suite). What CAN be checked here without recursion is the
+    # COUNT: the document names N guards, and gov/ must contain exactly those guards.
+    dl = _read(os.path.join(LAKE, "DELIVERY.md"))
+    m = re.search(r"\*\*(\d+) 个守卫逐个运行，全部 exit 0\*\*", dl)
+    if m:
+        claimed = int(m.group(1))
+        # the guards named in the DELIVERY table
+        named = set(re.findall(r"\| `(check_[a-z_]*\.py|gate\.py|audit_counts\.py)`", dl))
+        if claimed == len(named):
+            print("DELIVERY: guard count %d matches the %d named in its own table"
+                  % (claimed, len(named)))
+        else:
+            bad += 1
+            print("DELIVERY: claims %d guards but names %d  *** WRONG ***"
+                  % (claimed, len(named)))
+
     stale = check_stale()
     if stale:
         bad += len(stale)
@@ -296,7 +324,7 @@ def run(usage_text=None):
     if bad:
         print("DOC CLAIMS: %d claim(s) disagree with the tree" % bad)
         return 1
-    print("DOC CLAIMS: every measurable claim across USAGE / STATE-FINAL / CONVENTIONS matches the tree")
+    print("DOC CLAIMS: every measurable claim across USAGE / STATE-FINAL / CONVENTIONS / DELIVERY matches the tree")
     return 0
 
 
