@@ -15,7 +15,7 @@ holding 600+ numbered entries. That register was accurate and hard-won, and it w
 unenforceable: it could drift from the code with nothing to notice.
 
 This module makes the register *data*, so it can be enumerated, checked, and read by the
-same gate that guards the rest of `zero/`.
+same gate that guards the rest of `Lattice/`.
 
 ## What a `Slot` is, and is not
 
@@ -113,7 +113,7 @@ end Slot
 
 /-! ## The registry
 
-The four entries below are the explicit hypotheses of the four target theorems, plus one
+The entries below are the explicit hypotheses of the target theorems, plus the
 that came out of the macro-cognition pass: the weight side (`L3`) has no chosen concrete
 semantics yet. `M0-补-链路缺L3.md` records the measurement -- the legacy tree had zero
 declarations named `Weight`, `Tensor`, or `Shape` -- so this obligation is real rather than
@@ -190,9 +190,9 @@ def repairAtomic : Slot :=
 
 /-- The obligation that an adopted representation for weights exists. **Discharged.**
 
-`Zero/Core/WeightNet.lean` gives `List (AffineLayer n)` an inhabitant of `WeightSemantics`, so every
+`Lattice/Core/WeightNet.lean` gives `List (AffineLayer n)` an inhabitant of `WeightSemantics`, so every
 theorem stated against that class now applies to networks -- and
-`Zero/Lib/Linear/NetPenalty.layer_penalty_exact` consumes it, which is the criterion the slot set
+`Lattice/Lib/Linear/NetPenalty.layer_penalty_exact` consumes it, which is the criterion the slot set
 ("an instance nobody uses has not been adopted").
 
 Scope travels with the discharge: layers are `AffineLayer (Fin n)`, i.e. **fixed width**. Variable width
@@ -226,7 +226,7 @@ def variableWidthStack : Slot :=
     note :=
       "Discharged by `Lattice.Core.Chain.act_append` (with `MLayer.compose_act` for the layer law). " ++
       "Scope: `Nat`-valued widths only; arbitrary `Fintype` widths remain on the fixed-width stack " ++
-      "in `Zero/Core/Net.lean`."
+      "in `Lattice/Core/Net.lean`."
     status := .discharged "Lattice.Core.Chain.act_append" }
 
 /-- The obligation that the weight side is connected to an external tensor library.

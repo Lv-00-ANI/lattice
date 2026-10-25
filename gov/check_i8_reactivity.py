@@ -72,10 +72,21 @@ def main():
             if os.path.exists(PROBE):
                 os.remove(PROBE)
     # remove any olean the probe build produced
-    for ext in (".olean", ".ilean", ".trace"):
-        p = os.path.join(ZERO, ".lake", "build", "lib", "Lattice", "Core", "Probe" + ext)
-        if os.path.exists(p):
-            os.remove(p)
+    # Remove every artifact the probe build produced.
+    #
+    # `.olean.hash` is the one that bites: the build writes `<Mod>.olean.hash` alongside
+    # the olean, and removing only `.olean/.ilean/.trace` leaves an orphan hash file.
+    # I7 then sees an artifact whose source is gone, and I3's declaration walk tries to
+    # open `Probe.lean`, which no longer exists -> Traceback instead of a report.
+    # Measured: gate crashed with FileNotFoundError on Lattice/Core/Probe.lean after a
+    # single run of this test, then passed on the next run once the file was gone.
+    for build_dir in (("lib",), ("ir",)):
+        d = os.path.join(ZERO, ".lake", "build", *build_dir, "Lattice", "Core")
+        if not os.path.isdir(d):
+            continue
+        for name in os.listdir(d):
+            if name.startswith("Probe"):
+                os.remove(os.path.join(d, name))
     print("=" * 60)
     print("REACTIVITY (I8): %s" % ("ALL PASS" if failures == 0 else "%d FAILURE(S)" % failures))
     return 0 if failures == 0 else 1

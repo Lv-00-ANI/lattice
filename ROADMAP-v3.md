@@ -275,21 +275,42 @@ VERIFY ALL [full]: PASS  (…s total)
 - **需要人读**的（如 `audit_reach` 的「无人消费的定理」）→ **保持报告器**，但输出里必须
   明确标注，且不得计入 PASS 数
 
+### 4b.3b 独立审计发现的其它门禁脆弱点（**均待修**）
+
+| # | 症状 | 证据 | 影响 |
+|--:|:--|:--|:--|
+| 1 | **`intake_baseline.json` 恒为真**：它声明 `admit:0, axiom:0, sorry:0`，而 Reference 区实有 **68 `admit` + 1 `axiom`**（10 个文件） | `gate.py:139-145` 的 `tally` 只在 `zone=="intake"` 时累加，而 `zone_of()` 对本树只产出 `kernel`/`reference`/`root` | **I1/I2 在 intake 区从未真正工作**；同时给「Reference 不含逃逸」提供假证据。注意 `escape-baseline.json` 记录的 69 条是**对的**，两份基线自相矛盾 |
+| 2 | **`geo_coverage.py` 已失效** | 实跑 `FileNotFoundError: _archive\GEO-COVERAGE.md` | 覆盖率工具是孤儿，不在 `verify_all` |
+| 3 | **`gate_reactivity.py` 在 Windows 上可能崩** | 审计实跑：4 用例 OK 后 `os.remove(PROBE)` 抛 `PermissionError [WinError 32]`（进程自己正持有句柄） | 我的实测**未复现**（本机 4 次全 PASS），故记为**间歇性**，需加 try/except 与重试 |
+| 4 | **`verify_all` 注册 33 项，README 曾写 32** | 已随 `check_i8_reactivity.py` 新增而变为 33，文档已同步 | 已修 |
+| 5 | **`Core/Syntax.lean` + `Core/Semantics.lean` 零定理** | 实测：`Core/` 13 模块合计 51 theorem / 18 lemma，这两个是纯定义+接口 | 决策 1「符号模型实现在 Core 上」目前**没有可证的后果** |
+| 6 | **`Lattice.Lv00.*` 第三套命名空间** | `Lib/Chain/RealLv00*.lean`、`Lib/Compiler/RealLv00*.lean` 的声明仍用 `Lattice.Lv00.*` | 与「`Lattice.<层>.<领域>.<模块>`」叙事不一致，也是 `audit_duplicates` 718 组重复的主要来源 |
+| 7 | **`Lift/` 里两套符号侧类型并存** | `ConvertLinear.lean` 等 22 个模块用裸 `namespace Lattice` + 旧 `LinearConstraint`/`LinearNeuron`，与 `Core.LinearForm` 并列 | **与 I3 同类的问题换了类型名**：单一语义概念仍有两处定义 |
+| 8 | **`Lib/LinearAlgebra/RealSparseCoding.lean`**：172 行 / 6 行代码，docstring 描述三项成果，**0 定理** | 实测 | 疑似 docstring 说谎，需人工复核 |
+| 9 | **2446 条无消费者定理 / 49 个模块级孤岛** | `audit_reach.py` / `audit_islands.py` | 均为 advisory，**不阻断**。是否算缺陷取决于「库」还是「应用」定位 |
+
 ### 4b.4 反应性覆盖表（哪些不变量被证明过会红）
 
-| 不变量 | 有反应性测试 | 备注 |
-|:--|:--|:--|
-| I1 axiom / I2 sorry | ✅ `gate_reactivity.py` | |
-| I3 定义唯一 | ❌ **无** | 声称守，从未证明会红 |
-| I4 分层 | ❌ **无** | 同上 |
-| I5 端到端 | ✅ `gate_reactivity.py` | |
-| I6 空位 | ✅ `check_slots_reactivity.py` + `check_registry_*_reactivity.py` | |
-| I7 产物 | ❌ **无** | 同上 |
-| I8 注释 | ✅ `check_i8_reactivity.py` | **本次新增** |
-| G4 收敛 | ✅ `verify_g4.py` | |
-| G7 断点 | ❌ **无** | 且 `check_g7.py:61` 的 `ok &= found2` 把「缺陷存在」当「检查成立」 |
+**本节的结论来自实际注入，不是读代码推断**（脚本：`agent-tmp/inject_i3.py`、
+`agent-tmp/diagnose_i3_abbrev.py`，注入后按 SHA256 校验还原）。
 
-⇒ **I3 / I4 / I7 / G7 四条从未被证明会报警**。这是 §4b.3 之后的下一优先项。
+| 不变量 | 注入的缺陷 | 实测结果 | 结论 |
+|:--|:--|:--|:--|
+| **I3**（语义概念） | 在 `Core/Semantics.lean` 加一个重复的 `def eval` | **exit 3，I3 报警** | ✅ **真的会红** |
+| **I3**（`abbrev` 同文件重复） | 同一文件内重复 `abbrev Star` | **exit 0，不报** | ⚠️ 判据是 `prev_file != r`，**同文件重复被有意放过**（由 Lean 自己报错兜底）。行为合理，但**未记录** |
+| **I3**（`abbrev` 跨文件重复） | 两个不同文件各声明 `abbrev Star` | **exit 3，I3 报警** | ✅ 会红 |
+| I4 分层 | 注入跨层 import | exit 4 | ✅（审计实测） |
+| I5 端到端 | `gate_reactivity.py` 的 `e2e_fake` | exit 5 | ✅ |
+| I6 空位 | 审计注入 `discharged "no_such_decl_xyz"` | **exit 8，只报 I7，I6 静默** | ❌ **未证实**：探针放在 `Lattice/Core/` 时 I7 先触发，掩盖了 I6 |
+| I7 产物 | 新增未编译的 `.lean` | exit 8 | ✅ 会红 |
+| I8 注释 | `check_i8_reactivity.py` 三种形态 | exit 9 | ✅（本次新增） |
+
+**修正此前的说法**：本文件早期版本写「I3/I4/I7 从未被证明会红」。实测后必须更正为：
+**I3 和 I4 会红，且已证实**；真正未证实的是 **I6**，以及 I3 的「同文件重复」这一边界。
+
+**仍缺的反应性测试**：I6（需要把探针放进已编译路径再注入，避开 I7 抢占）、
+I3 的同文件边界（应写成文档化行为而非缺陷）、`check_g7.py`（零测试，且 `:61` 的
+`ok &= found2` 把「缺陷存在」当「检查成立」）。
 
 ---
 
@@ -395,11 +416,40 @@ rev = `4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84`。
 2. 用编辑器/IDE 的保存钩子或任务运行器；
 3. 接受现状：门禁只在 **CI 与手工运行**时生效（最诚实的做法，前提是 P7 修好）。
 
-### P8：CORRECTIONS B481–B498
+---
 
-`archive/PROCESS.md` 引用了 B481–B498，`archive/CORRECTIONS.md` 正文只到 B480。
-**冻结档案不改**，因此处置只能是：在新库的**非冻结**文档里登记这个断链
-（当前只在 README §5.1 提了一句）。
+## 6b. P9：证明承重性与空壳模块
+
+### 6b.1 已实测的空壳与零定理模块
+
+脚本口径：去注释后统计 `theorem`/`lemma` 数量，并排除聚合器
+（`Lattice.lean`、`Lattice/Lib/<Topic>.lean` 等）。
+
+| 类别 | 数量 | 例子 |
+|:--|--:|:--|
+| **真空壳**（去注释后 ≤ 6 行代码，无定义也无定理） | **2** | `Lib/Convex/RealInfConvAttain.lean`（4 行，文件第 6 行自认「本文件当前没有任何定理」）、`Lib/LinearAlgebra/RealSparseCoding.lean`（6 行） |
+| **零定理但有定义** | 18 | `Chain/RealChainAxioms{,2,4}`、`Chain/RealChainEntryOOVAxioms`、`Chain/RealChainRun`、`Chain/RealLv00Geometry`、`Compiler/RealLv00Compiler{,Codegen,Language}`、`Lib/Lift/RealContractAxioms`、`Lib/Meta/RealNegativeCore`、`Lib/Editing/RealConversionStability` 等 |
+
+**判断**：
+- `Core/Syntax.lean`、`Core/Semantics.lean` 零定理是**正常**的：它们是语言层定义，
+  定理在 `Core/Check.lean` 与 `Core/Logic.lean`。
+- **`RealInfConvAttain` 是第一顺位**：它占一个模块位，在构建里什么都不贡献。
+  两个选择：补齐计划的三条定理，或**移出构建并登记为未做**（不能留着当已完成）。
+- 其余 17 个需逐个判断「定义本身就是交付物」（如 Axioms 类）还是「只写了一半」。
+
+### 6b.2 承重性扫描器的现状（工具已建，但还不能当判据）
+
+`agent-tmp/detect_loadbearing.py` 实现三种形态的机械检测，本次实测命中：
+
+| 形态 | 命中 | 读法 |
+|:--|--:|:--|
+| S1 证明体是另一条定理的直接引用 | **1141** | 绝大多数是正常 API 包装（`rfl` 等式、`_nonneg`），**不能当缺陷数** |
+| S2 声明的前提在证明体中未出现 | **2238** | 含大量 `rfl` 类定义等式，同样需人工过滤 |
+
+⇒ **机械判据无法直接给出缺陷清单。** 要做 P9，必须先**收窄判据**：
+只对名字声称结论性的定理（`_exact` / `_sound` / `_converges` / `e2e_`）做 S1/S2 检测。
+这正是旧库 `check-rfl-vacuity` / `check-trivial-proofs` 有效的理由——它们**只针对特定形态**，
+而不是扫全库。
 
 ---
 

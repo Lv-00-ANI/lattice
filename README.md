@@ -246,6 +246,40 @@ mathlib（5,387 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新�
 探针现在写在 `Lattice/Core/Probe.lean`（kernel 区内），两种 scope 下都通过。
 教训与项目里那条老规矩同源：**一个恒红的检查器会被忽略，一个恒绿的检查器同样没有价值**。
 
+### 4.2 这些话必须说在前面（本库的已知弱点）
+
+**（a）「PASS」曾经掩盖了一半真相，现已拆开。**
+`verify_all.py` 注册的检查里，**16 个脚本的 `main()` 以字面 `return 0` 结束**，
+它们不可能失败。其中多数是**自认的报告器**（`audit_untracked.py:131` 写
+`Exit 0 is deliberate`、`audit_region.py:28` 写 `report only`），这是合法设计；
+问题在于**把它们与能失败的检查算进同一个数字**。现在汇总分成两行：
+
+```
+VERIFY ALL [full]: PASS  (…s)
+  gating checks passed : 15  (these CAN fail)
+  report-only checks   : 18  (these print findings; exit code is not a verdict)
+```
+
+**（b）四条不变量从未被证明会报警。**
+I3（定义唯一）、I4（分层）、I7（产物）此前**没有任何反应性测试**，I8 也没有
+（本次补上了 `check_i8_reactivity.py`）。声称某条不变量成立，与证明它**会失败**，
+是两件事；前者只有后者背书才有意义。
+
+**（c）提交路径上没有门禁。**
+本库**不安装** git pre-commit 钩子，而且这不是疏忽：实测一个 sh 钩子在此环境会因
+`couldn't create signal pipe, Win32 error 5` **阻断每一次提交**（`git commit` exit 1）。
+装一个坏钩子比不装更糟。门禁只在**手工运行与 CI**时生效——而 CI 见 (d)。
+
+**（d）CI 从未真正执行过。**
+`.github/workflows/lattice.yml` 通过了 YAML 校验，但**没有在任何 CI 上跑过**。
+逐行推演还发现它至少 4 处会失败（读不存在的 `lattice/lean/lake-manifest.json`、
+只 clone mathlib 不 clone 8 个兄弟包、`lake update` 会按浮动标签重解析、
+`hashFiles` 输入不存在）。⇒ **「683 olean 编译通过」目前只有本机证据，没有 CI 证据。**
+
+**（e）构建不可在他机复现。**
+`lake-manifest.json` 里 mathlib 是 `type: path`、**无 rev**（其余 8 个包都有）。
+即本库没有一个可提交的事实来说明「用的是哪个 mathlib」。修复方案与代价见 `ROADMAP-v3.md` P6。
+
 ---
 
 ## 5. 治理层
@@ -292,15 +326,27 @@ PROCESS 的判据表，属于证明层的工作），仅在此标注。
 
 | # | 目标分句 | 状态 |
 |--:|:--|:--|
-| G1 | 四跳链路 | ✅ 终点为权重（`Lattice.Geo.Pipeline.token_to_loss`） |
+| G1 | 四跳链路 | ⚠️ **过度声称，已降级**（见下） |
 | G2 | 正向三路径 | ✅ |
 | G3 | 逆向四步 | ✅ |
 | G4 | 闭环收敛 | ✅（**注意**：`loop_converges` 的度量是「修一次即归零」，未表达多次迭代） |
 | G5 | 符号引擎 | ✅ |
-| G6 | 不绑定框架 | ✅（依赖事实，非定理） |
+| G6 | 不绑定框架 | ✅（依赖事实，非定理；**但该事实目前不可在他机复现**，见 §4.2(e)） |
 | G7 | lvLang→IR→Cv00→权重 | ⚠️ **原文路线断；IR→权重路线通**（见 §3.1） |
 | G8 | 四条靶定理 | ⚠️ T1/T3/T4 有载体；**T2「精确嵌入」已证否，改走逼近精确**（见 §3.3） |
 | G9 | 可逆性分层 | ✅ |
+
+**G1 为什么降级**（实测，不是推断）。`Lattice/Geo/Pipeline.token_to_weight` 的签名是
+
+```lean
+theorem token_to_weight (c : LinearForm ℝ n) (pts : ℕ → Pt n) (rs : List ℝ)
+    (_hdec : decodePayload n rs = some c) : ...
+```
+
+`_hdec` 以下划线开头，**结论里从未用到**。实测（`agent-tmp/verify_g1_vacuity.py`）：
+删掉该假设、乃至删掉 `rs` 参数，同一证明仍然通过，Lean 自己报
+`warning: unused variable 'h'`。⇒ 这条链的「L0/L1 → L3」不是一个承重的连接，
+而是对一个线性形式重述两个已知事实。**「终点为权重」这句话在这里没有内容支撑**。
 
 ### 7.1 迁移中实际清掉的缺陷（8 条不变量为何从红到绿）
 
