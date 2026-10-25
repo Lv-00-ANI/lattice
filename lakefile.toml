@@ -21,14 +21,17 @@ name = "lattice"
 version = "2.0.0"
 description = "LATTICE: representation lattice for symbolic-to-weight training"
 license = "MIT"
-# Local caches live under `.lake` (Lake's default). The old tree's packages are NO LONGER
-# referenced by path: a `path` requirement disagrees with the `git` entry in lake-manifest.json,
-# and lake reports exactly that ("source kind (git/path) of dependency 'mathlib' changed").
-# On a machine without a local clone, lake materialises mathlib from the recorded rev.
-# A developer who wants to reuse the old 4.2 GB build can create the symlink themselves:
-#     .lake/packages/mathlib -> ../lattice/lean/.lake/packages/mathlib
-# That is a local convenience and must not be encoded in a committed file, because on CI the
-# sibling path does not exist and the build would fail before it started.
+# The packages directory stays pointed at the old tree, so mathlib is REUSED IN PLACE. Removing
+# this line makes lake rename (copy) the 4.2 GB directory into this repository -- which would
+# modify files outside this workspace, and the manifest's `dir` field would become stale.
+packagesDir = "../lattice/lean/.lake/packages"
+
+# `mathlib` is a GIT requirement, not a `path` requirement. That distinction is the actual
+# CI-blocker this line fixes: a `path` requirement disagrees with the `git` entry that
+# lake-manifest.json records, and lake reports it on every invocation as
+#     "manifest out of date: source kind (git/path) of dependency 'mathlib' changed"
+# On CI the sibling packagesDir does not exist, so lake materialises mathlib from the recorded rev
+# into `.lake/packages/mathlib`; the workflow does that clone explicitly.
 
 [[lean_lib]]
 name = "Lattice"

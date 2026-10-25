@@ -9,8 +9,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 725 | `audit_counts.py` |
-> | 定理 / 引理 | 8013 | `audit_counts.py` |
+> | Lean 模块 | 726 | `audit_counts.py` |
+> | 定理 / 引理 | 8020 | `audit_counts.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
 > 同一测量在不同口径下曾给出 **7,919 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
