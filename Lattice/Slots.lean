@@ -134,7 +134,14 @@ def compileSingleItemSound : Slot :=
       "`Lattice.Lift.NonIdentical.projectCompiler` has `encode := project` with " ++
       "`project_not_injective` proving it loses information, and its `sound` requires the " ++
       "explicit hypothesis that the constraint reads only the retained coordinates. " ++
-      "This adds an instance, not the scheme -- the general claim stays open."
+      "This adds an instance, not the scheme -- the general claim stays open. " ++
+      "**A unified proof pattern** (added later): " ++
+      "`Lattice.Lift.EncodingAbstraction.sound_of_factors` reduces `sound` to ONE " ++
+      "factorisation condition on the encoding, valid for any `encode` -- identity, " ++
+      "bijection, or projection alike. So the per-instance obligation no longer needs " ++
+      "re-proving; what remains for the scheme is structural: `inputP`/`inputW` are still " ++
+      "FIELDS of `Compiler`, so the abstraction cannot be stated once for all backends " ++
+      "without a refactor that touches every existing instance."
     status := .open_ }
 
 /-- The obligation that a penalty's local minimisers are exactly its satisfying points.
