@@ -14,6 +14,7 @@ import Lattice.Lift.LossyRepresentation
 import Lattice.Lift.CompilerScheme
 import Lattice.Lift.RoundingBackend
 import Lattice.Lift.WeightLadder
+import Lattice.Lift.ChainComposition
 
 /-!
 # Lattice.Lift -- the representation ladder
