@@ -70,6 +70,7 @@ import Lattice.Geo.ConstraintSet
 import Lattice.Geo.EqualLengthRepair
 import Lattice.Geo.PartialReinjection
 import Lattice.Geo.MultistepLoop
+import Lattice.Geo.SynthesisCoverage
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
