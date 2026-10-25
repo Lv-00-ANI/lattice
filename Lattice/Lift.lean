@@ -16,6 +16,7 @@ import Lattice.Lift.RoundingBackend
 import Lattice.Lift.WeightLadder
 import Lattice.Lift.ChainComposition
 import Lattice.Lift.VerifierRate
+import Lattice.Lift.ApproximationBridge
 
 /-!
 # Lattice.Lift -- the representation ladder
