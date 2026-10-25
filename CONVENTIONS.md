@@ -231,17 +231,73 @@
 
 ---
 
-## 6. 数字口径（本文件所有计数）
+## 6. 数字口径与来源（**第 39 轮重建**）
 
-- **声明计数**：先剥注释（嵌套感知 `/- -/` 与 `--`），再按行首匹配
-  `theorem|lemma|def|abbrev`（可带 `private`/`protected`/`noncomputable`/`@[...]`）。
-  **不剥注释会误报**——实测第一次统计把 docstring 里的 "theorem that consumes it"
-  当成了声明。
-- **行数**：`[System.IO.File]::ReadAllLines($f, UTF8-no-BOM).Count`。
-  **不用 `Get-Content`**：本仓文件含中文与混合换行，`Get-Content` 会少报行数。
-- 脚本：`agent-tmp/naming_census.py`、`agent-tmp/conventions_inventory.py`。
+本文件的每个数字都必须能回答两个问题：**怎么算的**、**谁保证它不会漂**。
+下表由 `agent-tmp/derive_number_sources.py` 从检查器本身反推得出，不是凭记忆填写。
 
----
+### 6.1 有守卫的数字（能失败）
+
+| 数字 | 出现在 | 守卫 | 能失败 |
+|:--|:--|:--|:--|
+| Core / Lift / Geo / Lib 模块数 | `README` 分层图 | `audit_counts.py`（门禁） | ✅ |
+| 检查器注册数 | `README` | `audit_counts.py`（门禁） | ✅ |
+| A/B/C 三类文件数与声明数 | `REPAIR-CENSUS` | `check_repair_census.py`（门禁） | ✅ |
+| 否证总数与层分布 | `REFUTATION-CENSUS` | `check_refutation_census.py`（门禁） | ✅ |
+| 12 条链层定理的引用数 | `ROADMAP-v9 §1`、`USAGE §1` | `check_chain_deps.py`（门禁） | ✅ |
+| 欠账数 | `Slots.fullRegistry` | `example … := by decide` | ✅ |
+| 证明链实例普查 | `PROOF-CHAIN-RUNG` | `check_proof_chain_rung.py` | ✅ |
+
+### 6.2 **没有守卫的数字**（本轮实测）
+
+| 文档 | 多位数个数 | 守卫 |
+|:--|--:|:--|
+| `README` | **78** | 仅上表 2 项受检，其余无 |
+| `CONVENTIONS` | 64 | 无 |
+| `REPAIR-CENSUS` | 33 | 6 项受检，其余无 |
+| `REFUTATION-CENSUS` | 17 | 6 项受检，其余无 |
+| `USAGE` | 2 | 无 |
+
+⇒ **`README` 的 78 个多位数里，只有分层图那 5 个受检。**
+这是一个事实，不是缺陷：大部分多位数是**日期、版本、轮次号**，不是需要守卫的计数。
+但读者无法从文档本身分辨哪些是「受检的计数」、哪些只是"叙述里的数字"。
+
+### 6.3 三个检查器是「断言型」，其余是「报告型」
+
+`gov/` 下 27 个脚本里，只有 **3 个**声明期望值并据此返回非零：
+
+| 断言型 | 断言什么 |
+|:--|:--|
+| `check_repair_census.py` | A/B/C 三类的 6 个数 |
+| `check_refutation_census.py` | 总数与 5 个层的分布 |
+| `check_chain_deps.py` | 12 条定理的引用数 |
+
+其余（`audit_docs.py`、`macro_audit.py`、`geo_coverage.py` 等）**报告**而不**判决**。
+这个区分是 `ROADMAP-v4 §4b` 建立的，本轮把它与数字来源对齐。
+
+### 6.4 数字分类（决定是否需要守卫）
+
+| 类别 | 例子 | 需要守卫？ |
+|:--|:--|:--|
+| **结构性计数** | 模块数、定理数、欠账数 | ✅ 需要 |
+| **普查计数** | 否证数、修复算子数 | ✅ 需要 |
+| **叙述性数字** | 「第 35 轮」「2026-10」 | ❌ 不需要 |
+| **历史记录** | `ROADMAP-v3`–`v10` 里的数字 | ❌ **不应更新**（描述当时的树） |
+
+**最后一行是纪律**：历史规划文档里的数字描述的是**当时的代码树**。
+更新它们等于篡改历史。它们不需要守卫，也**不应被"修正"**。
+
+### 6.5 测量口径（可重跑）
+
+```python
+# gov/audit_counts.py           README 的 7 项计数
+# gov/check_repair_census.py    REPAIR-CENSUS 的 6 项
+# gov/check_refutation_census.py REFUTATION-CENSUS 的 6 项
+# gov/check_chain_deps.py       12 条定理的依赖数
+# 每个都支持 --self-test：植入错误期望，断言它会报错
+```
+
+**`--self-test` 不是可选项**：没人见过它失败的规则不算规则。
 
 ## 7. 执行状况（**实测，第 33 轮重新测量**）
 

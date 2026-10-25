@@ -65,6 +65,9 @@ CHECKS = [
     # Keeps REPAIR-CENSUS xref numbers honest: the census drifted 6/27 -> 9/28
     # between rounds and nothing measured it. This makes it measurable.
     ("repair census", "check_repair_census.py"),
+    # Same guard for REFUTATION-CENSUS: the 387 number and its layer split were
+    # verified once by hand and nothing re-measured them.
+    ("refutation census", "check_refutation_census.py"),
     ("reactivity: slots", "check_slots_reactivity.py"),
     ("reactivity: comments", "check_comments_reactivity.py"),
     ("reactivity: I8 gate", "check_i8_reactivity.py"),
