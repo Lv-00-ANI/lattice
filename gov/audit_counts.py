@@ -205,7 +205,12 @@ def main():
     cited = sorted(set(re.findall(r"`([A-Za-z0-9_]+\.py)(?: [^`]*)?`", text)))
     absent = [m for m in cited if not os.path.exists(os.path.join(gov, m))]
     va = io.open(os.path.join(gov, "verify_all.py"), encoding="utf-8", errors="replace").read()
-    n_reg = len(re.findall(r'\(\s*"[^"]+",\s*"[^"]+"\s*\)', va))
+    # Count the entries of the CHECKS literal by structure, not by quoting style: one entry per
+    # line that opens a tuple. A regex demanding `"..."` as the command string silently skipped
+    # `("...", "cmd %s ..." % ZERO)`, under-counting by one for several rounds.
+    _cm = re.search(r"CHECKS = \[(.*?)\n\]", va, re.S)
+    n_reg = len([ln for ln in (_cm.group(1) if _cm else "").split("\n")
+                 if ln.strip().startswith("(")])
     m = re.search(r"注册了 \*\*(\d+) 项\*\*", text)
 
     print()

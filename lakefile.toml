@@ -21,7 +21,14 @@ name = "lattice"
 version = "2.0.0"
 description = "LATTICE: representation lattice for symbolic-to-weight training"
 license = "MIT"
-packagesDir = "../lattice/lean/.lake/packages"
+# Local caches live under `.lake` (Lake's default). The old tree's packages are NO LONGER
+# referenced by path: a `path` requirement disagrees with the `git` entry in lake-manifest.json,
+# and lake reports exactly that ("source kind (git/path) of dependency 'mathlib' changed").
+# On a machine without a local clone, lake materialises mathlib from the recorded rev.
+# A developer who wants to reuse the old 4.2 GB build can create the symlink themselves:
+#     .lake/packages/mathlib -> ../lattice/lean/.lake/packages/mathlib
+# That is a local convenience and must not be encoded in a committed file, because on CI the
+# sibling path does not exist and the build would fail before it started.
 
 [[lean_lib]]
 name = "Lattice"
@@ -30,4 +37,5 @@ roots = ["Lattice"]
 
 [[require]]
 name = "mathlib"
-path = "../lattice/lean/.lake/packages/mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84"

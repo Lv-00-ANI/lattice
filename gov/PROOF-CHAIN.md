@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 17 | no imports from lift/lib |
-| lift | 38 | may import core only |
+| lift | 41 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 589 | instantiated library, may import core only |
 | geo | 67 | the geometry/constraint layer |
@@ -690,8 +690,9 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
+- `Lattice.Lift.ApproximationBridge` <- `Lattice.Lift.ApproxExact`
 - `Lattice.Lift.ChainComposition` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`
 - `Lattice.Lift.ComboN` 
 - `Lattice.Lift.CompilerScheme` <- `Lattice.Lift.SymbolToWeight`
@@ -725,8 +726,10 @@
 - `Lattice.Lift.SymbolToWeightCorrectness` <- `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Lift.TotalLoss` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConstraintEmbeddingSoundness`
 - `Lattice.Lift.VerificationSoundness` <- `Lattice.Lift.RealVerifierReliable`
+- `Lattice.Lift.VerifierRate` <- `Lattice.Lift.RealVerifierReliable`
 - `Lattice.Lift.VerifyLoopProgress` <- `Lattice.Lift.ConvertLinear`
 - `Lattice.Lift.WeightLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
+- `Lattice.Lift.WeightLadderN` <- `Lattice.Lift.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice` <- `Lattice.Core`, `Lattice.Lift`, `Lattice.Slots`, `Lattice.Geo`, `Lattice.Lib`, `Lattice.Audit`, `Lattice.Usage`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`
@@ -1541,6 +1544,7 @@
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Lift.ApproxExact` | 8 | 2 |
+| `Lattice.Lift.ApproximationBridge` | 5 | 0 |
 | `Lattice.Lift.ChainComposition` | 2 | 3 |
 | `Lattice.Lift.ComboN` | 5 | 3 |
 | `Lattice.Lift.CompilerScheme` | 5 | 2 |
@@ -1574,8 +1578,10 @@
 | `Lattice.Lift.SymbolToWeightCorrectness` | 4 | 5 |
 | `Lattice.Lift.TotalLoss` | 5 | 2 |
 | `Lattice.Lift.VerificationSoundness` | 5 | 0 |
+| `Lattice.Lift.VerifierRate` | 5 | 0 |
 | `Lattice.Lift.VerifyLoopProgress` | 5 | 2 |
 | `Lattice.Lift.WeightLadder` | 3 | 4 |
+| `Lattice.Lift.WeightLadderN` | 5 | 5 |
 | `Lattice.Lift.WeightToSymbolEquivalence` | 4 | 3 |
 | `Lattice` | 0 | 0 |
 | `Lattice.Audit` | 0 | 0 |
@@ -2013,7 +2019,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `act_geluTanhR_zero` -> `ZeroFixing`, `act`, `eval`, `reluZ`, `zero_mul`
 - `act_idf` -> `induction`
 - `act_leakyReluZ_eq_zero_iff` -> `ZeroFixing`, `eval`, `reluZ`
-- `act_zero_eq_zero_iff` -> `AffineLayer`, `Ladder`, `affineAct`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`
+- `act_zero_apply` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`
+- `act_zero_eq_zero_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `compileToLayer`, `decode`, `encode`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`, `roundtrip`
+- `act_zero_of_all_zero` -> `AffineLayer`, `Ladder`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `netAct`
 - `activated_closure_iff_zeroFixing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
 - `activated_extract_cannot_repair` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
 - `activated_loop_breaks` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `extractVec`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
@@ -2191,6 +2199,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `approxOn_mono_domain` -> `le_trans`
 - `approxOn_trans` -> `le_trans`
 - `approxOn_trans_same` -> `le_trans`
+- `approx_min_le_gives_sat` -> `E`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
+- `approx_satisfies` -> `E`, `EpsSat`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
 - `approx_to_approxOn` -> `le_trans`
 - `approx_trans` -> `le_trans`
 - `arc_adjoin_root_two_le_card` -> `Polynomial`, `card`, `mk`
@@ -3093,6 +3103,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_program_go_ps_irrelevant` -> `ConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `collinear`, `compile_constraint`, `compile_empty`, `compile_point`, `compile_program`, `compile_program_append`, `compile_program_go`, `compile_program_go_append`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`, `sqrt`, `sub`, `tangent`
 - `compile_program_vars_subset` -> `Compiler`, `IRConstraint`, `Theory`, `compile_append_satisfiable`, `compile_empty`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `compiled_ir_vars_subset_args`, `constraint_args_mem_vars`, `empty_graph_satisfiable`, `graph_satisfiable`, `graph_satisfied`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`, `variables_disjoint`, `vars_of_program`
 - `compile_prove_empty` -> `ConstraintGraph`, `IRConstraint`, `compile_constraint`, `compile_point`, `compile_program`, `compile_program_append`, `compile_program_go`, `compile_program_go_append`, `compile_stmt`, `lvConstraint`, `lvPoint`, `lvProgram`, `lvStmt`, `point`
+- `compile_sound_n` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`
 - `compile_stmt_ps_irrelevant` -> `ConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `collinear`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `compile_empty`, `compile_point`, `compile_program`, `compile_program_append`, `compile_program_go`, `compile_program_go_append`, `compile_program_go_ps_irrelevant`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`, `sqrt`, `sub`, `tangent`
 - `compile_strength_iff` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `convertVec`, `ext`, `get`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compiledIndistinct_equivalence` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer_bijective`, `convertVec`, `dot`, `ext`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
@@ -4330,6 +4341,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `enum_constant_distinct` -> `Theory`, `apply`, `backward_compat_refl`, `deserialize`, `empty`, `empty_table_unique`, `find`, `insert`, `insert_is_backward_compatible`, `le`, `lookup`, `lookup_by_category_correct`, `lookup_by_name_sound`, `remove`, `remove_removes_name`, `serialize`, `toNat`, `well_formed`
 - `enum_lookup_consistency` -> `Theory`, `lookup`
 - `env_dirderiv_key` -> `apply`, `ext`, `mul_zero`
+- `eps0_zero_gives_arbitrary_precision` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`
 - `epsSat_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
 - `epsSat_zero_iff` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `eps_needs_nonneg` -> `Audit`
@@ -4532,6 +4544,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_decrease` -> `apply`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `mul_zero`, `not_localMin_of_resid_ne_zero`
 - `exists_decrease_one` -> `apply`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `mul_zero`, `not_localMin_of_resid_ne_zero`, `residN`
 - `exists_decrease_zero` -> `apply`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `mul_zero`, `not_localMin_of_resid_ne_zero`, `residN`
+- `exists_delta_of_eps` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
+- `exists_delta_of_eps'` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
+- `exists_delta_of_eps_flat` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `exists_extractionValid_iff_exists_roundTrip_eq` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `mk`, `scaleVec`, `scaleVec_preserves`
 - `exists_layer_not_numeric` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `layer`
 - `exists_le_of_sum_range_le` -> `E`, `mul_zero`, `sphere`
@@ -6316,6 +6331,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `localMin_ofLinearForm_implies_zero` -> `LinearForm`, `Pt`, `embed`, `evalPts`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `ofLinearForm`, `toNatConfig`
 - `localMin_of_feasible` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`, `localMin_iff_feasible`, `lossN`, `not_localMin_of_resid_ne_zero`, `residN`, `zero_mul`
 - `localUpdate_eq_subgradient_step` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `gd_converges`, `gd_linear_rate`, `induction`, `norm_nonneg`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `succ`, `zero`
+- `localmin_sharp` -> `E`, `ResidualEmbedding`, `loss`, `resid`
 - `logRatio_expectation_negative` -> `log`
 - `logRatio_half_log_three_quarters_negative` -> `log`
 - `log_combo_eq_iff` -> `add_mul`, `log`
@@ -6381,6 +6397,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lossOfLinearForm_eq_sq` -> `E`, `LinearForm`, `Pt`, `embed`, `evalPts`, `lossOfLinearForm`, `ofLinearForm`
 - `lossOfLinearForm_eq_zero` -> `EqConstraint`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `loss_eq_zero_expr`, `loss_nonneg`
 - `lossOfLinearForm_nonneg` -> `EqConstraint`, `LinearForm`, `Pt`, `loss_nonneg`
+- `loss_bound_gives_resid_bound` -> `E`, `EpsSat`, `ResidualEmbedding`, `abs_resid_le_of_loss_le_sq`, `le_trans`, `loss`, `resid`
+- `loss_controls_violation` -> `E`, `ResidualEmbedding`, `loss`, `resid`
 - `loss_differentiable` -> `E`, `LinearMap`, `Submodule`, `const_add`, `ext`, `inner`, `sub`, `trans`
 - `loss_differentiable_scalar` -> `E`, `K`, `LinearMap`, `Submodule`, `apply`, `const_add`, `ext`, `sub`
 - `loss_eq_zero_distEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `evalPts`, `sqDist`, `sqNorm`
@@ -10164,6 +10182,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vector_scale_assoc` -> `add`, `get`, `mul`, `ofList`, `zero`
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `chain_edit_locality`, `edit_seq_nonuniform`, `induction`, `le_trans`, `norm_nonneg`, `shared_chain_edit_locality`, `succ`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `norm_nonneg`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `succ`, `zero`
+- `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `verifier_reflexive` -> `ConstraintGraph`, `IRConstraint`, `ProofStep`, `ProofTrace`, `Theory`, `TraceSound`, `VerifierState`, `evidence_check`, `evidence_check_witness`, `evidence_soundness`, `go`, `graph_satisfiable`, `induction`, `initVerifier`, `ir_sem`, `step_ok`, `step_sound`, `trace_fold`, `transition`
 - `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
@@ -10195,6 +10214,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weierstrass_prod_le` -> `E`, `empty`, `exp`, `induction`, `le_trans`
 - `weightFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `ext`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `get`, `induction`, `scaleVec`, `trans`
 - `weightFunctor_compileToLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `weightLadderN_forward` -> `ladder_forward`
 - `weightLadder_forward` -> `ladder_forward`
 - `weight_l1_diff_bound` -> `E`, `LinfNorm`, `apply`, `comp_norm_bound`, `convComb_lipschitz_prob`, `exp`, `linfNorm_eq_norm`, `norm_nonneg`, `softmax`, `softmax_lipschitz_coord`, `sqrt`
 - `weighted2_fderiv` -> `E`, `NormSqLossScalar`, `ext`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`
