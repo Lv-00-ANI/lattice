@@ -4,6 +4,7 @@ import Lattice.Slots
 import Lattice.Geo
 import Lattice.Lib
 import Lattice.Audit
+import Lattice.Usage
 
 /-!
 # LATTICE
