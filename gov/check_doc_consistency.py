@@ -15,7 +15,8 @@ import re
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-LAKE = r"C:\Users\xingg\Desktop\agent\lattice-new"
+HERE = os.path.dirname(os.path.abspath(__file__))
+LAKE = os.path.abspath(os.path.join(HERE, ".."))
 
 # (label, [regexes that each capture ONE number for the same measurement])
 PAIRS = [
@@ -30,6 +31,9 @@ PAIRS = [
      [r"注册了 \*\*(\d+) 项\*\*"]),
     ("Lean module count",
      [r"\| Lean 模块 \| (\d+) \|"]),
+
+    ("registered checks (narrative)", [r"注册了 \*\*(\d+) 项\*\*", r"(\d+) 项检查"]),
+    ("oversized files (>60 decls)", [r"超 60 声明的文件：?(\d+) 个", r"F1 超 60 声明：?(\d+) 个"]),
     ("theorem count",
      [r"\| 定理 / 引理 \| ([\d,]+) \|"]),
 ]

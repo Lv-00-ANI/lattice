@@ -49,6 +49,7 @@ def decl_index():
 # placeholders) and must not be treated as kernel declarations to resolve. Without this the
 # checker reports noise such as `some` as "unresolved" and buries real drift.
 PROSE_WORDS = {"some", "none", "id", "fun", "by", "exact", "true", "false", "rfl",
+    "COMPLETENESS", "foldl", "iterate", "replicate", "List", "Nat", "Set",
                "ε", "δ", "α", "β", "γ", "n", "m", "k", "x", "y", "z", "p", "q", "W",
                "P", "R", "C", "L", "A", "B", "G", "S", "T", "V", "E"}
 

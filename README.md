@@ -3,7 +3,13 @@
 **Representation Lattice for Symbolic↔Weight Training**（表示谱系格）
 符号 ⇄ 权重双向转换的训练 / 后训练框架，Lean 4 证明保证正确性。
 
-> **定位**：通用基础设施——用于**所有 LLM 的训练与后训练**（不限规模、不限厂商）。
+> **定位**：**符号 ⇄ 权重表示的认证转换层**（representation lattice）——
+> 给定符号约束，给出**带 Lean 4 证明**的权重构造、提取与修复方案。
+> **不实现**引擎、模型与训练框架；**可插入**现有训练栈，不绑定任何厂商或框架。
+>
+> **这个项目该用什么标准衡量**，见 [`PARADIGM.md`](PARADIGM.md)。
+> 简言之：按「训练框架」衡量的分数（约 3%）**不是它该被打的分**；
+> 按它自己的范式（表示格，约 40%）才是有意义的衡量。
 >
 > **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §6`）：
 >
@@ -11,15 +17,19 @@
 > |:--|--:|:--|
 > | Lean 模块 | 746 | `audit_counts.py` |
 > | 定理 / 引理 | 8035 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 16 / 40 / 68 / 605 | `audit_counts.py` |
+> | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
+> | 检查器注册项 | 44（28 门禁 + 16 报告器） | `audit_counts.py` |
+> | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
+> | 已登记否证 | 282 | `check_refutation_census.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
 > 同一测量在不同口径下曾给出 **7,919 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
 > 详见 `audit_counts.total_theorems` 的 docstring。
-> | 层文件数 Core/Lift/Geo/Lib | 16 / 35 / 65 / 588 | `audit_counts.py` |
-> | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
-> | 检查器注册项 | 42 | `audit_counts.py` |
-> | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
-> | 已登记否证 | 387 | `check_refutation_census.py` |
+>
+> **否证计数的口径**：`theorem`/`lemma` 的结论以 `¬`、`not `、`→ False` 开头，或形如 `¬ ∃ …`。
+> 裸 `∃ …` **不算**否证——那是正面存在性定理（第 56 轮修正，曾因此多计 109 条）。
+> 详见 `check_refutation_census.is_negative`。
 >
 > **入口**：想用它 → [`USAGE.md`](USAGE.md)（每个代码块可编译）；
 > 想知道它做不到什么 → [`REFUTATION-CENSUS.md`](REFUTATION-CENSUS.md)；
@@ -103,7 +113,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 42 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 44 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -244,11 +254,11 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 42 项检查 + 反应性自检（逐项打印耗时）
+# 全套 44 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
-**实测耗时**（本机，2026-10-25）：全量 `verify_all.py` **PASS，32/32 ok**。
+**实测耗时**（本机，2026-10-25）：全量 `verify_all.py` **PASS，43/43 ok（6.1 分钟）**。
 最重的一项是 `reactivity: gate`（约 200 秒，它要连跑四次构建来验证门禁确实会红），
 其次 `audit: islands` / `audit: reachable` 这类全树遍历。
 `gate.py` 本身约 20 秒（803 个文件的注释剥离与声明扫描）。
