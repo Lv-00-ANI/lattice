@@ -141,8 +141,13 @@ def compileSingleItemSound : Slot :=
       "bijection, or projection alike. So the per-instance obligation no longer needs " ++
       "re-proving; what remains for the scheme is structural: `inputP`/`inputW` are still " ++
       "FIELDS of `Compiler`, so the abstraction cannot be stated once for all backends " ++
-      "without a refactor that touches every existing instance."
-    status := .open_ }
+      "without a refactor that touches every existing instance. -- " ++
+      "**CLOSED** (branch `arch/compiler-type-params`): the refactor WAS done. " ++
+      "`inputP`/`inputW` are now type parameters, `Lattice.Lift.CompilerScheme.Backend` " ++
+      "is the concept of a backend, and `scheme_covers_all` states that every compiler " ++
+      "realises as one -- the single scheme the note asked for. `every_backend_sound` " ++
+      "then gives `sound` for ANY backend in one statement."
+    status := .discharged "Lattice.Lift.CompilerScheme.scheme_covers_all" }
 
 /-- The obligation that a penalty's local minimisers are exactly its satisfying points.
 **Settled at every case the perturbation argument reaches**; what remains is a choice of
@@ -338,8 +343,13 @@ theorem fullRegistry_wellFormed : Slot.WellFormed fullRegistry := by
   · intro s₁ h₁ s₂ h₂ hname
     fin_cases h₁ <;> fin_cases h₂ <;> first | rfl | exact absurd hname (by decide)
 
-/-- Six obligations are currently owed: four open and two weakened. This number is the
-project's debt, and it is read at check time rather than written into prose. -/
-example : Slot.owedCount fullRegistry = 6 := by decide
+/-- **Five** obligations are currently owed: three open and two weakened. This number is the
+project's debt, and it is read at check time rather than written into prose.
+
+History, because the number moving is the point: it was six until
+`lift.compile.single_item_sound` was discharged by `CompilerScheme.scheme_covers_all` on branch
+`arch/compiler-type-params`. The `decide` below refused to compile when the count changed,
+which is exactly what it is for. -/
+example : Slot.owedCount fullRegistry = 5 := by decide
 
 end Lattice.Slots
