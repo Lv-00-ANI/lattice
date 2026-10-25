@@ -10,6 +10,7 @@ import Lattice.Lift.GeoSampledBound
 import Lattice.Lift.L1L2Roundtrip
 import Lattice.Lift.NonIdenticalEncoding
 import Lattice.Lift.EncodingAbstraction
+import Lattice.Lift.LossyRepresentation
 
 /-!
 # Lattice.Lift -- the representation ladder

@@ -188,7 +188,15 @@ def extractRoundtrip : Slot :=
       "**Witness** (added later): `Lattice.Lift.NonIdentical.pairRepresentation` has a " ++
       "compile that is injective but `pairCompile_not_surjective` proves NOT surjective, " ++
       "so its `roundtrip` is not obtained from a bijection. Still open as a scheme: " ++
-      "a lossy extract (many weights to one symbol) is not covered."
+      "a lossy extract (many weights to one symbol) is not covered. -- " ++
+      "**Update**: the STRUCTURE for it now exists. " ++
+      "`Lattice.Lift.LossyRepresentation.LossyRep` relaxes the round trip from equality " ++
+      "to an `obs` relation with `obs_refl`; `ofRepresentation` proves every existing " ++
+      "`Representation` is automatically a lossy one (taking `obs := Eq`, and it needs " ++
+      "NO axioms at all). `linearLossy` instantiates `obs := SemEq`, and `lossy_weaker` " ++
+      "shows the relaxation is strict. What is STILL owed: a concrete lossy backend with " ++
+      "`compile` genuinely non-injective, which needs a decision about what the loss " ++
+      "measures."
     status := .open_ }
 
 /-- The obligation that a zero measure means a passing point.
