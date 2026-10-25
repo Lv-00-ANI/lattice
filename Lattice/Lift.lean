@@ -23,6 +23,7 @@ import Lattice.Lift.IntRoundtrip
 import Lattice.Lift.NondegenerateInstance
 import Lattice.Lift.ErrorCalculus
 import Lattice.Lift.RepresentationFamilies
+import Lattice.Lift.ApproxExtraction
 
 /-!
 # Lattice.Lift -- the representation ladder
