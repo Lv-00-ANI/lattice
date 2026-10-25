@@ -78,7 +78,7 @@ decreases: x ≠ 0 → μ (fix x) = μ x - 1
 
 ---
 
-## 2. 第二优先：`encode ≠ id` 的编译器实例（第 1 条）
+## 2. 第二优先：`encode ≠ id` 的编译器实例（第 1 条）—— ✅ **已完成（第 23 轮）**
 
 ### 2.1 问题
 
@@ -97,6 +97,43 @@ decreases: x ≠ 0 → μ (fix x) = μ x - 1
 （`flatten` 去掉一个维度或重排坐标），`encode` 做这个变换，
 `sound` 需要证明「变换后的点仍满足原约束」。
 
+### 2.3 结果与它的边界
+
+**做了什么**（`Lift/NonIdenticalEncoding.lean`）：
+
+| 定理/定义 | 内容 |
+|:--|:--|
+| `project` | 坐标投影 `Fin n → ℝ` → `Fin n' → ℝ`（`n' ≤ n`） |
+| `project_not_injective` | **投影丢信息**：存在两个不同的点有相同投影 |
+| `projectCompiler` | `Compiler` 实例，`encode := project` |
+| `project_sound` | `sound` 成立，**且需要显式前提**「约束只看保留坐标」 |
+| `pairCompile` / `pairExtract` | 编译成 `(p, true)`，提取取第一分量 |
+| `pairCompile_not_surjective` | **编码不是双射**（取不到 `(p, false)`） |
+| `pairRepresentation` | `Representation` 实例，`roundtrip` 不靠双射 |
+
+**为什么欠账仍是 6 而不是 4**：
+
+两条 note 的原话都是「**作为 scheme 开放，因为没有单一实例覆盖所有后端**」。
+给出一个实例**不构成**那个 scheme。如果把它们标为 `discharged`，
+就是声称存在一个不存在的统一后端抽象——这正是本项目一再防范的那类夸大。
+
+所以实际做法是：**欠账保持 open，note 里加上见证的名字与它的适用边界**。
+`#eval Slot.owedCount fullRegistry` 仍是 6，这是对的。
+
+**还剩什么**：
+
+- `lift.compile.single_item_sound`：需要的是一个**后端抽象**（例如
+  「编码是坐标投影的复合」这类可参数化的类），不是更多实例；
+- `lift.extract.roundtrip`：**有损提取**（多个权重映到同一符号）未覆盖；
+  那需要先决定有损时「提取」如何定义。
+
+### 2.4 一个被修正的表述
+
+我最初写的是「`project ≠ id`」，编译失败：当 `n' < n` 时 `project` 与 `id`
+的**类型都不同**（值域维数变了），「不等于 `id`」在类型上就不成立。
+改成 `project_not_injective`（投影不单射）——**这既是能陈述的，也正是要紧的性质**：
+编码丢信息，所以不是恒等。
+
 ### 2.3 为什么可做
 
 `Flatten`/`FlattenAgreement` 已给出扁平化的一致性质（第 22 轮调查所见），
@@ -106,7 +143,7 @@ decreases: x ≠ 0 → μ (fix x) = μ x - 1
 
 ---
 
-## 3. 第三优先：非双射编码的提取往返（第 3 条）
+## 3. 第三优先：非双射编码的提取往返（第 3 条）—— ✅ **已完成（第 23 轮）**
 
 `lift.extract.roundtrip` 的 note：
 
@@ -115,7 +152,7 @@ decreases: x ≠ 0 → μ (fix x) = μ x - 1
 所以它与第 2 条**同源**：一旦有了 `encode ≠ id` 的编译器，
 它的 `Representation` 侧往返就是这条欠账的实质内容。
 
-⇒ **合并到第 2 条执行**，不单独立项。
+⇒ **已合并到第 2 条执行**：pairRepresentation 的 compile 由 \pairCompile_not_surjective\ 证明非满射（故非双射），而 oundtrip\ 仍成立。
 
 ---
 

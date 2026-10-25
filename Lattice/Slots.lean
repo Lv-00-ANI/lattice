@@ -129,7 +129,12 @@ def compileSingleItemSound : Slot :=
     note :=
       "Field `sound` of `Lattice.Lift.Compiler`. Discharged per compiler: the linear " ++
       "fragment discharges it by `convertVec`'s preservation lemma. Open as a *scheme* " ++
-      "because no single instance covers every backend."
+      "because no single instance covers every backend. " ++
+      "**Witness for the non-identity case** (added later): " ++
+      "`Lattice.Lift.NonIdentical.projectCompiler` has `encode := project` with " ++
+      "`project_not_injective` proving it loses information, and its `sound` requires the " ++
+      "explicit hypothesis that the constraint reads only the retained coordinates. " ++
+      "This adds an instance, not the scheme -- the general claim stays open."
     status := .open_ }
 
 /-- The obligation that a penalty's local minimisers are exactly its satisfying points.
@@ -172,7 +177,11 @@ def extractRoundtrip : Slot :=
     stmt := True
     note :=
       "Field `roundtrip` of `Lattice.Lift.Representation`. Degenerate for field renaming; " ++
-      "substantive for any backend whose encoding is not the identity."
+      "substantive for any backend whose encoding is not the identity. " ++
+      "**Witness** (added later): `Lattice.Lift.NonIdentical.pairRepresentation` has a " ++
+      "compile that is injective but `pairCompile_not_surjective` proves NOT surjective, " ++
+      "so its `roundtrip` is not obtained from a bijection. Still open as a scheme: " ++
+      "a lossy extract (many weights to one symbol) is not covered."
     status := .open_ }
 
 /-- The obligation that a zero measure means a passing point.

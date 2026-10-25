@@ -8,6 +8,7 @@ import Lattice.Lift.L1L2
 import Lattice.Lift.EndToEnd
 import Lattice.Lift.GeoSampledBound
 import Lattice.Lift.L1L2Roundtrip
+import Lattice.Lift.NonIdenticalEncoding
 
 /-!
 # Lattice.Lift -- the representation ladder
