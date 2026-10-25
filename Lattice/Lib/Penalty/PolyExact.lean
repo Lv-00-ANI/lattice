@@ -1,5 +1,6 @@
 import Mathlib
 import Lattice.Lib.Linear.PenaltyMatrix
+import Lattice.Lift.PenaltyAnalysis
 
 /-!
 # `Lattice.Lib.Penalty.PolyExact` -- penalty exactness for a nonlinear residual
@@ -59,62 +60,38 @@ open Lattice.Lib.Linear.PenaltyMatrix
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
 
-/-- **The derivative of a squared residual.**
+/-! ## The Fermat lemmas now live in `lift`
 
-`∇(f²)(x) = 2·f(x) • ∇f(x)`, from the product rule. The factor `2` is not cosmetic: the Fermat
-argument below divides by it when `f' ≠ 0`. -/
+These three propositions were originally defined here. They contain no `lib`-level content --
+only Mathlib analysis and the Fermat first-order condition -- so they belong in the `lift`
+layer, and keeping them here forced `lift` modules to import `lib` (a layering violation that
+the gate reports as I4). They are now defined exactly once, in
+`Lattice.Lift.PenaltyAnalysis`, and the names below are the `lib`-side spellings of the same
+terms.
+
+`home` keeps the proof to one line and, more importantly, makes `#print axioms` and
+`#check` resolve to the single `lift` definition rather than to a second copy.
+-/
+section Reexport
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+
 theorem hasFDerivAt_sq {f : E → ℝ} {f' : E →L[ℝ] ℝ} {x : E} (h : HasFDerivAt f f' x) :
-    HasFDerivAt (fun y => f y ^ 2) ((2 * f x) • f') x := by
-  have hmul : HasFDerivAt (fun y => f y * f y) (f x • f' + f x • f') x := h.mul h
-  have hcoe : (f x • f' + f x • f') = (2 * f x) • f' := by
-    ext v
-    simp [two_mul, add_mul]
-  have hfun : (fun y => f y * f y) = (fun y => f y ^ 2) := by
-    funext y; ring
-  rw [hfun, hcoe] at hmul
-  exact hmul
+    HasFDerivAt (fun y => f y ^ 2) ((2 * f x) • f') x :=
+  Lattice.Lift.hasFDerivAt_sq h
 
-/-- **At a local minimum of a squared residual, either the residual vanishes or its gradient does.**
-
-This is the exact content of Fermat's condition here, and it is why the counterexample exists: the
-"gradient vanishes" branch is inhabited for polynomials. -/
 theorem sq_localMin_dichotomy {f : E → ℝ} {f' : E →L[ℝ] ℝ} {x : E}
     (hderiv : HasFDerivAt f f' x) (hmin : IsLocalMin (fun y => f y ^ 2) x) :
-    f x = 0 ∨ f' = 0 := by
-  by_cases hf : f x = 0
-  · exact Or.inl hf
-  · right
-    -- `f' ≠ 0` gives a direction where `f'` is nonzero: the zero map is the only one vanishing
-    -- everywhere
-    by_contra hne
-    have hnotall : ¬ ∀ v, f' v = 0 := by
-      intro h
-      exact hne (ContinuousLinearMap.ext h)
-    obtain ⟨v, hv⟩ := not_forall.mp hnotall
-    have hzero : (2 * f x) • f' = 0 :=
-      IsLocalMin.hasFDerivAt_eq_zero hmin (hasFDerivAt_sq hderiv)
-    have hval : (2 * f x) * f' v = 0 := by
-      have := congrFun (congrArg DFunLike.coe hzero) v
-      simpa using this
-    rcases mul_eq_zero.mp hval with h | h
-    · rcases mul_eq_zero.mp h with h2 | hfx
-      · norm_num at h2
-      · exact absurd hfx hf
-    · exact hv h
+    f x = 0 ∨ f' = 0 :=
+  Lattice.Lift.sq_localMin_dichotomy hderiv hmin
 
-/-- **Penalty exactness for a residual with non-vanishing gradient.**
-
-The main theorem of this file: if the residual's derivative is nonzero at a local minimiser of the
-squared residual, then the residual vanishes there.
-
-Contrast with `polynomial_penalty_not_exact` below: without the hypothesis the statement is false, and
-that is proved, not assumed. -/
 theorem sq_eq_zero_of_localMin {f : E → ℝ} {f' : E →L[ℝ] ℝ} {x : E}
     (hderiv : HasFDerivAt f f' x) (hne : f' ≠ 0)
-    (hmin : IsLocalMin (fun y => f y ^ 2) x) : f x = 0 := by
-  rcases sq_localMin_dichotomy hderiv hmin with h | h
-  · exact h
-  · exact absurd h hne
+    (hmin : IsLocalMin (fun y => f y ^ 2) x) : f x = 0 :=
+  Lattice.Lift.sq_eq_zero_of_localMin hderiv hne hmin
+
+end Reexport
+
 
 /-! ## What this does not settle
 

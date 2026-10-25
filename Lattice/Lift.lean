@@ -1,5 +1,6 @@
 import Lattice.Lift.SymbolToWeight
 import Lattice.Lift.PenaltyEmbedding
+import Lattice.Lift.ApproxExact
 import Lattice.Lift.Extraction
 import Lattice.Lift.L1L2
 import Lattice.Lift.EndToEnd
