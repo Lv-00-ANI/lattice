@@ -11,9 +11,9 @@
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 365 | 94.3% |
-| `Lift` | 8 | 1.8% |
-| `Audit` | 7 | 1.6% |
+| `Lib` | 365 | 93.8% |
+| `Lift` | 8 | 2.1% |
+| `Audit` | 7 | 1.8% |
 | `Core` | 5 | 1.3% |
 | `Geo` | 4 | 1.0% |
 
@@ -25,8 +25,8 @@
 
 | 类别 | 条数 | 含义 |
 |:--|--:|:--|
-| 谓词不可达（结论是某性质不成立） | 131 | 某个性质在任何配置上都取不到（如 `¬ Sat (iterate n x)`） |
-| 存在性被否 | 116 | 某类对象不存在（`¬ ∃ …`） |
+| 谓词不可达（结论是某性质不成立） | 132 | 某个性质在任何配置上都取不到（如 `¬ Sat (iterate n x)`） |
+| 存在性被否 | 117 | 某类对象不存在（`¬ ∃ …`） |
 | 等式被否（含不相等） | 36 | 某等式普遍不成立，或两对象不相等 |
 | 界/不等式被否 | 31 | 某个界/单调性给不出来 |
 | 全称命题被否（给出反例） | 26 | 一般断言不成立，必须附加前提 |
@@ -42,6 +42,7 @@
 
 | 层 | 定理 | 否证的内容 |
 |:--|:--|:--|
+| `Audit` | `bridge_is_necessary` | `¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ), (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))` |
 | `Audit` | `sq_le_needs_nonneg` | `¬ (∀ r ε : ℝ, r ^ 2 ≤ ε ^ 2 → \|r\| ≤ ε)` |
 | `Audit` | `eps_needs_nonneg` | `¬ (∀ ε : ℝ, (0 : ℝ) ^ 2 ≤ ε ^ 2 → (0 : ℝ) ≤ ε)` |
 | `Audit` | `lipschitz_needs_nonneg` | `¬ (∀ L δ : ℝ, 0 ≤ δ → (0 : ℝ) ≤ L * δ)` |
@@ -57,6 +58,7 @@
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |
 | `Geo` | `copy_not_separating` | `¬ Separated a b (fixSamePoint a b pts)` |
+| `Lift` | `compile_then_extract` | `∃ (comp rep : ℕ → ℕ), (∀ p, rep p = p) ∧ ¬ (∀ p, comp p = rep p)` |
 | `Lift` | `no_extractor_both_layers` | `¬ (∃ extract : W → P, (∀ p, extract (compile p) = p) ∧ (extract (compile c) = extract (compile c')))` |
 | `Lift` | `constant_changes_semantics` | `¬ Lattice.Core.SatisfiesEq (⟨fun _ => (0 : ℤ), 1⟩ : Lattice.Core.LinearForm ℤ 1) (fun _ => 0)` |
 | `Lift` | `const_not_levelB` | `¬ PenaltyExact constEmbedding` |
@@ -77,12 +79,12 @@
 |:--|:--|:--|
 | 初版 | 329 条 | 只要陈述里出现 `¬` 就计入，把假设里的否定（`(h : ¬ j ≤ i)`）也算进来 |
 | 二版 | 272 条 | 改为只看结论，但**文件路径被输出格式截断**，层统计出错（`ib`、`b` 出现） |
-| **三版+** | **389 条** | 完整路径 + 按最外层构造子分类；抽查发现 3 处误分类并修正 |
+| **三版** | **389 条** | 完整路径 + 按最外层构造子分类；抽查发现 3 处误分类并修正 |
 
 **残留误差**（仍存在，读者需知道）：
 
 1. **语法而非语义**：形如 `¬ False` 的平凡否证也会计入，本清册不判断平凡性；
-2. **「谓词不可达」占 131 条**（最大类），
+2. **「谓词不可达」占 132 条**（最大类），
    其中不少是**带条件**的事实（例如「在 `¬mask i j` 时输出为零」），
    它们的结论确实是 `¬…`，但整体是条件性结论而非反驳。**计入是保守的**（宁可多算）；
 3. **`∃` 绑定子含 `:`**，嵌套深时可能误判个别条目。

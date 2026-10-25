@@ -29,3 +29,7 @@ __pycache__/
 # leave them looking like source.
 *.gate_reactivity.bak
 Lattice/Core/Probe.lean
+# Repro scripts write intermediates here; they are regenerable, not deliverables.
+gov/repro/_work/
+__pycache__/
+*.pyc
