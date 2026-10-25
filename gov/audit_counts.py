@@ -97,6 +97,8 @@ def main():
     text = io.open(readme, encoding="utf-8", errors="replace").read().replace("\r\n", "\n")
 
     actual = {
+        "core": lean_count(os.path.join(Z, "Core")),
+        "lift": lean_count(os.path.join(Z, "Lift")),
         "geo": lean_count(os.path.join(Z, "Geo")),
         "lib": lean_count(os.path.join(Z, "Lib")),
         "ref": lean_count(os.path.join(Z, "Reference")),
@@ -109,6 +111,8 @@ def main():
     # tree (`|   |-- Geo/       52       # ...`), not in prose. The earlier prose patterns
     # matched nothing at all, which made this checker silently compare nothing with nothing.
     claims = [
+        ("Core 模块数", r"Core/\s+(\d+)", "core"),
+        ("Lift 模块数", r"Lift/\s+(\d+)", "lift"),
         ("几何层模块数", r"Geo/\s+(\d+)", "geo"),
         ("Lib 模块数", r"Lib/\s+(\d+)", "lib"),
         ("LvFormal 文件数", r"LvFormal/\s+(\d+)", "ref"),

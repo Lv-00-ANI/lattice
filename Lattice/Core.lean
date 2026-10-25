@@ -11,6 +11,7 @@ import Lattice.Core.Syntax
 import Lattice.Core.VariableNet
 import Lattice.Core.Weight
 import Lattice.Core.WeightNet
+import Lattice.Core.RepairConvergence
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
