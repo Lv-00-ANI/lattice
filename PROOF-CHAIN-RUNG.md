@@ -262,12 +262,97 @@ slot `geo.loop.convergence_is_single_step`（状态 `.weakened`），且
 > | L1→L2 | 1（往返定理） | 实质 |
 > | L2→L3 | 2 | 一个恒等 encode，一个非恒等（投影） |
 > | L3→L2 | 4 | 含非可逆编码（取整） |
-> | L0→L3 | 2 | `W` 取损失值；`W` 取真权重栈（`n = 1`） |
+> | L0→L3 | 3 | `W` 取损失值；`W` 取真权重栈（`n = 1`）；**`weightLadderN n`：任意维（第 52 轮）** |
 > | 闭环 | 多个 | `Nat` 倒数；几何算子仍一步 |
 >
 > ⇒ **「每行有载体」与「实例丰富」是两个判断，都成立且不矛盾。**
 > 原句「实例层几乎为空」的措辞已不准确：现在每行至少有一个实质实例，
-> 但**覆盖面仍薄**（例如 `Ladder` 缺 `n ≥ 2`，闭环缺几何多步算子）。
+> 但**覆盖面仍薄**。第 52 轮补上了 `Ladder` 的任意维实例（`weightLadderN`），所以此处原先的「缺 `n ≥ 2`」已不成立；**闭环仍缺几何多步算子**。
+---
+
+## 5.5 组合结构（第 44–47 轮，此前未登记）
+
+> 前面五节回答的是「每一跳**有没有**承重载体」。
+> 本节回答一个更强的问题：**载体之间能不能组合**。
+> 一个链路不是定理的清单；把有载体的跳接起来，才叫链条。
+
+判据是同一个：**写一条横跨两处的替身定理，让编译器回答**。
+
+### 5.5.1 三种组合及其代价
+
+| 组合类型 | 需要什么 | 定理 | 文件 |
+|:--|:--|:--|:--|
+| **相邻 + 同性质** | **无**，段数不限 | `preserves_foldl` | `Audit/ChainTransitivity.lean` |
+| **相邻 + 并置两结构** | **粘合** `agrees` | `compatible_roundtrip` | `Lift/ChainComposition.lean` |
+| **非相邻 + 换性质** | **桥** `P → Q` | `compose_with_bridge` | `Audit/BridgedComposition.lean` |
+
+### 5.5.2 第 44 轮：并置需要粘合（一个失败先于结论）
+
+把 `Compiler` 与 `Representation` 并置，直接证往返——**类型不通过**：
+
+```
+rep.extract (comp.compile p) = p        -- ✗
+```
+
+`roundtrip` 只约束 `rep.compile`，对 `comp.compile` 一无所知。二者是**两个独立字段**。
+
+⇒ 粘合 `agrees : ∀ p, comp.compile p = rep.compile p` **不可省**，
+且 `juxtaposed_agreement_not_forced` 证明它**不能**从并置推出。
+
+### 5.5.3 第 45 轮：其余五对相邻条款**直接可组合**
+
+| 对 | 跨的条款 | 结果 |
+|:--|:--|:--|
+| 损失 ↔ 验证 | `geo_sampled_bound` | ✅ 一次调用 |
+| 验证 ↔ 损失 | **`loss_le_of_sampled_bound`（新增）** | ✅ |
+| 合成 ↔ 验证 | `samples_sound` | ✅ |
+| 修正 ↔ 再注入 | `reinject_loss_eq_zero` | ✅ |
+| 闭环率 ↔ 修正 | `converges_within` | ✅ |
+| 初始化 ↔ 权重 | `weightLadder_forward` | ✅ |
+
+⇒ **只有并列两个结构需要粘合；使用一个本就承载两方向的结构不需要。**
+
+### 5.5.4 第 46 轮：传递性的正确形式，以及它**不能**直接套用
+
+朴素说法「A→B 且 B→C 则 A→C」对命题是假言三段论，平凡成立。
+链路真正的结构是**沿阶段序列折叠**：
+
+```
+preserves_foldl : (∀ f ∈ steps, ∀ x, P x → P (f x)) → P x → P (steps.foldl (施加) x)
+```
+
+**它对阶段间关系不作任何假设。**
+
+但应用时类型不通过：`preserves_foldl` 关于 `List.foldl`，而修复回路是 `Nat.iterate`。
+**想法相同，组合子不同。** 补偿定理 `preserves_iterate` 与 `loop_preserves`
+（把一般定理接到 `Repair.preserves` 上）因此是必需的。
+
+> **教训**：「可以推广的推广」不等于「推广后能直接用」。实例化本身可能是一条定理。
+
+### 5.5.5 第 47 轮：非相邻组合需要桥，且桥不可省
+
+非相邻条款跨的是**不同性质**（合成给出配置，再注入给出惩罚为零）。
+传递性不够——`preserves_foldl` 组合的是**同一性质**。
+
+```
+bridge_is_necessary : ¬ (∀ P Q f g, 保持 P f → 保持 Q g → ∀ x, P x → Q (g (f x)))
+```
+
+反例在证明里：`P := (x = 0)`、`Q := (x = 1)`、`f = g = id`。两段各保其性质，`P 0` 成立而 `Q 0` 不成立。
+
+---
+
+## 5.6 第 50–57 轮新增的承重定理（此前未登记）
+
+| 定理 | 补的是什么缺口 | 文件 |
+|:--|:--|:--|
+| `eps0_zero_gives_arbitrary_precision` | **ε 可任意压小**（原界里 `δ` 是自由参数） | `Lift/VerifierRate.lean` |
+| `approx_min_le_gives_sat` | **损失小 ⟹ 约束近似满足**（T2 链条最后一环） | `Lift/ApproximationBridge.lean` |
+| `weightLadderN` | `Ladder` 的 **`n` 维实例**（原仅 `n = 1`） | `Lift/WeightLadderN.lean` |
+
+**这三条对应清单 A 类与 B 类的三个真实缺口**，均已补上。
+`COMPLETENESS-AUDIT.md` 的 16 条条款因此从「有载体」升级为「有载体且有定量结论」。
+
 ---
 
 ## 6. 本文件与生成物的分工
