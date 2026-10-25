@@ -116,7 +116,7 @@ def _strip_comments(src):
 
 
 THM = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
-                 r"noncomputable[ \t]+)*(?:theorem|lemma)[ \t]+")
+                 r"noncomputable[ \t]+)*(?:theorem|lemma)[ \t]+([^\s:]+)")
 DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
                   r"noncomputable[ \t]+)*(?:theorem|lemma|def|structure|abbrev|inductive|class)"
                   r"[ \t]+")
@@ -177,6 +177,53 @@ def check_stale():
     return bad
 
 
+def measure_py_scripts():
+    return len([f for f in os.listdir(HERE) if f.endswith(".py")])
+
+
+def measure_registrations():
+    """Count verify_all's CHECKS entries the same way audit_counts.py does: by STRUCTURE.
+
+    A regex demanding `"..."` as the command string misses entries written differently, which is
+    exactly the bug audit_counts.py records having fixed. Counting tuple-opening lines is stable.
+    """
+    src = _read(os.path.join(HERE, "verify_all.py"))
+    m = re.search(r"(?s)CHECKS\s*=\s*\[(.*?)\n\]", src)
+    body = m.group(1) if m else src
+    return len(re.findall(r'^\s*\(\s*"', body, re.M))
+
+
+def measure_oversized():
+    """Files with more than 60 declarations -- CONVENTIONS F1."""
+    n = 0
+    for root, _, fs in os.walk(LAT):
+        if "Reference" in root:
+            continue
+        for f in fs:
+            if not f.endswith(".lean"):
+                continue
+            src = _read(os.path.join(root, f))
+            if len(DECL.findall(_strip_comments(src))) > 60:
+                n += 1
+    return n
+
+
+def measure_camel_theorems():
+    """camelCase theorem names by the CONVENTIONS §7.5 criterion (last dot-segment)."""
+    n = 0
+    for root, _, fs in os.walk(LAT):
+        if "Reference" in root:
+            continue
+        for f in fs:
+            if not f.endswith(".lean"):
+                continue
+            for m in THM.finditer(_strip_comments(_read(os.path.join(root, f)))):
+                last = m.group(1).split(".")[-1]
+                if "_" not in last and re.search(r"[a-z][A-Z]", last):
+                    n += 1
+    return n
+
+
 CLAIMS = [
     ("USAGE: refutation count",
      r"全部\s*([\d,]+)\s*条",
@@ -196,6 +243,21 @@ CLAIMS = [
     ("STATE-FINAL: declaration count",
      r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
      measure_decls, "STATE-FINAL.md"),
+    ("CONVENTIONS: declaration total",
+     r"\| 内核声明总数 \| ([\d,]+) \|",
+     measure_decls, "CONVENTIONS.md"),
+    ("CONVENTIONS: gov script count",
+     r"实测 `gov/` 有 \*\*(\d+) 个 `\.py`\*\*",
+     measure_py_scripts, "CONVENTIONS.md"),
+    ("CONVENTIONS: verify_all registrations",
+     r"`verify_all` 的 (\d+) 项中",
+     measure_registrations, "CONVENTIONS.md"),
+    ("CONVENTIONS: files over 60 declarations",
+     r"\| F1 超 60 声明 \| \*\*(\d+)\*\* \|",
+     measure_oversized, "CONVENTIONS.md"),
+    ("CONVENTIONS: camelCase theorems",
+     r"\| N3 camelCase 定理 \| \*\*(\d+)\*\*",
+     measure_camel_theorems, "CONVENTIONS.md"),
 ]
 
 
@@ -234,7 +296,7 @@ def run(usage_text=None):
     if bad:
         print("DOC CLAIMS: %d claim(s) disagree with the tree" % bad)
         return 1
-    print("DOC CLAIMS: every measurable claim in USAGE.md and STATE-FINAL.md matches the tree")
+    print("DOC CLAIMS: every measurable claim across USAGE / STATE-FINAL / CONVENTIONS matches the tree")
     return 0
 
 
