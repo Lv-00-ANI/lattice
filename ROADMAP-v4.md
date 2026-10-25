@@ -7,25 +7,46 @@
 
 ---
 
-## 0. 测量结果：目标五句 vs 实际覆盖
+## 0. 测量结果（**初版方法有误，此处为更正后的版本**）
 
-| 目标分句 | 相关声明数 | 判定 |
-|:--|--:|:--|
-| 正向：**约束损失** | 153 | ✅ 充足 |
-| 正向：**数据合成** | **6** | ❌ **几乎为零** |
-| 正向：**结构化初始化** | 67 | ⚠️ 多为「初始化」字面命中，需逐个核 |
-| 逆向：**提取** | 106 | ✅ 充足 |
-| 逆向：**验证** | 41 | ✅ 够用（`SampledVerified` + 采样界已打通） |
-| 逆向：**修正** | 278 | ✅ 充足（但多为「fixed point」字面命中） |
-| 逆向：**再注入** | **2** | ❌ **只有 2 条，且其中一条是同义重复** |
-| 闭环：回路 / 收敛 | 44 / 49 | ✅ 收敛率已证（第 17 轮） |
-| 符号引擎：`GeoExpr`/`GeoConstraint`/`poly` | 全部存在 | ✅ 无中间层 |
-| 边界：不实现引擎 | torch 0、GPU 0、tensor 12（抽象） | ✅ 未越界 |
+### 0.1 初版错在哪
 
-**结论**：链路的**中间环节很实**（损失、提取、修正、收敛），**两端很虚**：
-「数据合成」（6）与「再注入」（2）。
+初版按**声明名**搜索关键词（`synth`、`augment` 等）统计。这个方法有根本缺陷：
 
----
+> 主题写在**文件名**里，而定理名用的是另一套词汇。
+
+具体例子：`Geo/Synthesis.lean` 是数据合成的实现，但它的核心定理叫
+`samples_sound`、`synthesize_perpendicular_samples`——按 `synth` 搜**搜不到**。
+于是初版报告「数据合成 6 个声明」，而实际是一个 **11 个声明的模块，
+带端到端认证生成器**。
+
+### 0.2 更正后的方法
+
+按**文件**测量：读每个 `Geo` 文件的模块标题（`# \`Lattice.Geo.X\` -- ...`），
+标题陈述的就是该文件要做什么。脚本 `agent-tmp/measure_geo_by_file.py`。
+
+### 0.3 更正后的结论
+
+`Geo` 层共 **64 个文件**，覆盖的比初版描述的完整得多：
+
+| 目标分句 | 实际载体（实测） |
+|:--|:--|
+| 符号引擎（不设中间层） | `Expr`、`Constraint`、`Engine`、`Exec`、`Rules`、`Derive`、`Eval` |
+| 约束损失 | `Loss`、`Square`、`Exterior`、`LayerExact`、`PenaltySmooth` |
+| **数据合成** | **`Synthesis`（6 定理 / 5 定义）、`Invariant`（12/2）、`Initialise`（9/1）** |
+| 提取 | `Extract`、`Semantic`、`Flatten`、`FlattenAgreement`、`SeqRepresentation` |
+| 验证 | `GeoSampledBound`、`DistLipschitz`、`Lipschitz`、`PolyAssemble`、`PolyConstants` |
+| 修正 | `Repair`、`RepairBridge`、`RepairPerp`、`RepairQuality`、`RepairPenalty`、`LoopPerp` |
+| 再注入 | `Reinjection`（第 19 轮新增） |
+| 闭环 | `Loop`、`LoopRate`、`ClosedLoop`、`ConjRepair`、`Unified` |
+| 端到端 | `Pipeline`、`Compile`、`IRBridge`、`LadderInstance`、`ApproxEmbedding` |
+
+**所以「数据合成」不是空白**：`Synthesis` 已经实现了「种子 + 变换族 → 认证样本列表」，
+并给出 `samples_sound`（每条样本都满足约束）与 `synthesize_from_initialisation`
+（接上初始化）。初版把它列为「第二优先：要做」是错的。
+
+**这次错误的价值**：它说明**按名字搜索不能当作覆盖度测量**。本仓此前记录过
+「不剥注释会误报」，这次是同一类错误的另一种形态。
 
 ## 1. 第一优先：把「再注入」做成真命题
 
@@ -100,34 +121,22 @@ theorem reinject_compiles_to_zero
 
 ---
 
-## 2. 第二优先：数据合成（当前 6 个声明）
+## 2. ~~第二优先：数据合成~~ —— **撤回（已存在）**
 
-### 2.1 问题
+**撤回理由**：§0.1 记录了初版测量的错误。`Geo/Synthesis.lean` 已实现该路径：
+`samples`（生成器）、`samples_sound`（每条样本认证）、
+`synthesize_perpendicular_samples`（5 条端到端样本）、
+`synthesize_from_initialisation`（接上初始化）。
 
-目标的「正向」第二件事是**数据合成**（从符号约束生成训练数据）。
-库中相关声明只有 6 个，且多是 `augmentedLagrangian`（增广拉格朗日，与数据合成无关）。
+**它真正的缺口**（读代码得出，不是测名字）：
 
-### 2.2 要做成什么
+1. `samples` 只沿**一条轨道**生成（平移/缩放同一个种子），
+   文件头自己写明「Genuine diversity needs *several seeds*」；
+2. 只对 `perpendicular` 与 `samePoint` 给了端到端的合成定理；
+   `distEq`、`collinear`、`parallel` 等未接。
 
-最小有意义的形式：**从一个约束 `c` 生成一组满足/违反它的样例点**，
-并证明生成器的正确性：
-
-```
-(symbolicToData c : List (ℕ → Pt n))
-theorem symbolicToData_sound : ∀ pts ∈ symbolicToData c, Holds c pts
-```
-
-（或生成「违反」的样例，用于负样本。）
-
-### 2.3 为什么可做
-
-`Geo/Expr.evalPts` 是可计算的（`GeoExpr` 是显式归纳类型），
-所以「解出满足 `poly = 0` 的点」对**线性**约束是初等代数。
-对一般约束需要求解器，超出「不实现引擎」的边界，应登记为边界。
-
-**规模**：M。
-
----
+⇒ 若要继续这条路，正确的下一步是**多种子**与**逐约束补全**，
+而不是「实现数据合成」。规模 M。
 
 ## 3. 第三优先：`Lib` 中「修正」的语义澄清
 
