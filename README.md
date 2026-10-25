@@ -71,7 +71,7 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/      14       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
+│   ├── Core/      15       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
 │   ├── Lift/      30       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       64       # 约束几何与精确惩罚

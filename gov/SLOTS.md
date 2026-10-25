@@ -5,7 +5,7 @@
 
 | total | owed | discharged |
 |--:|--:|--:|
-| 8 | 6 | 2 |
+| 9 | 6 | 3 |
 
 ## Owed (load-bearing, not yet proved)
 
@@ -24,3 +24,4 @@
 |:--|:--|
 | `core.semantics.weight_exists` | `Lattice.Core.WeightNet.instWeightSemanticsNet` |
 | `core.net.variable_width` | `Lattice.Core.Chain.act_append` |
+| `core.repair.multistep_exists` | `Lattice.Core.Multistep.converges_within_is_tight` |

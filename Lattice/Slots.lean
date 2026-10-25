@@ -270,7 +270,28 @@ def loopConvergenceIsSingleStep : Slot :=
       "whose step does not settle the predicate."
     status := .weakened }
 
+/-- The **multi-step** repair operator, and the fact that its rate is tight.
+
+`Lattice.Core.Multistep.countdown` has measure `μ k = k`, unbounded, and
+`converges_within_is_tight` proves that no `n < μ k` steps suffice. This is the operator
+`geo.loop.convergence_is_single_step` said was needed to express iterated convergence at all.
+
+Scope, recorded with the discharge: this is a `Nat` countdown, not a geometric constraint.
+The geometry layer's operators (`samePointRepair` et al.) remain one-step -- see
+`REPAIR-CENSUS.md` class A -- so the *geometric* loop is unchanged. What is settled is that
+multi-step convergence is expressible in this framework, with a tight rate. -/
+def multistepRepairExists : Slot :=
+  { name := "core.repair.multistep_exists"
+    stmt := True
+    note :=
+      "Discharged by `Lattice.Core.Multistep.countdown` with `converges_within_is_tight`: " ++
+      "measure `mu k = k` (unbounded), rate exactly `mu k`, and `no_uniform_bound` shows no " ++
+      "smaller step count suffices. Scope: `Nat` countdown, NOT a geometric constraint; " ++
+      "geometric operators remain one-step."
+    status := .discharged "Lattice.Core.Multistep.converges_within_is_tight" }
+
 /-- The full registry. -/
+
 def fullRegistry : List Slot :=
   [ compileSingleItemSound
   , embedLocalMinimiserExact
@@ -279,7 +300,8 @@ def fullRegistry : List Slot :=
   , weightSemanticsChosen
   , variableWidthStack
   , externalToolchainBridge
-  , loopConvergenceIsSingleStep ]
+  , loopConvergenceIsSingleStep
+  , multistepRepairExists ]
 
 /-- The registry is structurally well formed: distinct, non-empty names.
 
