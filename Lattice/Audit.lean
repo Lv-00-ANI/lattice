@@ -4,3 +4,4 @@ import Lattice.Audit.ObligationIndependence
 import Lattice.Audit.DecreasesRole
 import Lattice.Audit.StructureCensus
 import Lattice.Audit.ChainTransitivity
+import Lattice.Audit.BridgedComposition
