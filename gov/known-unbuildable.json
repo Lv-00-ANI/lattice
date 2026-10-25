@@ -1,0 +1,24 @@
+{
+ "modules": [
+  "Zero.LvFormal.Theory.CacheCoherenceTheory",
+  "Zero.LvFormal.Theory.ConstraintModelTheory",
+  "Zero.LvFormal.Theory.Cv00Memory",
+  "Zero.LvFormal.Theory.GeometrySymbolicsTheory",
+  "Zero.LvFormal.Theory.LvDSL"
+ ],
+ "note": "Remove an entry once its proofs are repaired. The gate reports an entry whose module does build, so this list cannot go stale silently.",
+ "rationale": {
+  "Zero.LvFormal.Theory.CacheCoherenceTheory": "Source file has unbalanced block comments (nesting depth 3 at EOF). Verified identical in `_harvest/lv00/formal`, so the damage is Lv-00's, not the migration's (gov/diagnose_comments.py). Lean cannot parse it.",
+  "Zero.LvFormal.Theory.ConstraintModelTheory": "Source file has a `-/` with no matching opener. Verified identical in the source copy.",
+  "Zero.LvFormal.Theory.Cv00Memory": "6 proof goals fail because `points_to_env` uses an inner `let rec`, which `simp` does not unfold. The theorems are true in substance; the tactic script does not discharge them on this toolchain.",
+  "Zero.LvFormal.Theory.GeometrySymbolicsTheory": "Source file has an unclosed block comment (depth 1 at EOF). Verified identical in the source copy.",
+  "Zero.LvFormal.Theory.LvDSL": "8 proof goals fail on Lean v4.14.0 (unsolved goals at L489/493/497/501, injection at L507, type mismatch at L509). The definitions are usable; the proofs are not."
+ },
+ "reason_kind": {
+  "Zero.LvFormal.Theory.CacheCoherenceTheory": "comment",
+  "Zero.LvFormal.Theory.ConstraintModelTheory": "comment",
+  "Zero.LvFormal.Theory.Cv00Memory": "proof",
+  "Zero.LvFormal.Theory.GeometrySymbolicsTheory": "comment",
+  "Zero.LvFormal.Theory.LvDSL": "proof"
+ }
+}

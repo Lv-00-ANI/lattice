@@ -1,0 +1,33 @@
+# ============================================================================
+# LATTICE -- 符号 <-> 权重 表示转换框架
+#
+# 设计约束（刻意为之，勿"简化"）：
+#
+#  * 单一源码：每个模块只有一个权威位置。旧库曾有 582 个影子副本
+#    （zero/Zero/Reference/Legacy 437 + _archive/LegacyConflicted 145），
+#    逐行比对内容差异为 0，本库不再复制它们。
+#
+#  * roots 少量：旧库 lakefile 显式列举 581 条 roots，两次合并必冲突。
+#    本库按层聚合，roots 回到个位数。
+#
+#  * 复用已编译 mathlib：packagesDir 指向旧库的 packages 目录，
+#    避免重新下载/编译（mathlib 5,387 olean / 4.21 GB）。
+#    这样新库与旧库看到同一份 mathlib（rev 4bbdccd9...）。
+#
+#  * 路径一律用正斜杠：TOML 会把反斜杠当转义序列。
+# ============================================================================
+
+name = "lattice"
+version = "2.0.0"
+description = "LATTICE: representation lattice for symbolic-to-weight training"
+license = "MIT"
+packagesDir = "../lattice/lean/.lake/packages"
+
+[[lean_lib]]
+name = "Lattice"
+srcDir = "."
+roots = ["Lattice"]
+
+[[require]]
+name = "mathlib"
+path = "../lattice/lean/.lake/packages/mathlib"

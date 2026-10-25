@@ -1,0 +1,33 @@
+#!/bin/sh
+# ZERO pre-commit gate.
+#
+# The legacy project built a full set of zero-lock checkers and then never wired
+# them into the commit path, so every check relied on someone remembering to run it
+# by hand. Its own handoff notes record that the hook file "was installed" but was a
+# /bin/sh script on a machine where sh.exe cannot start, so it never actually ran.
+#
+# This hook is deliberately written in a form that works here: it shells out to
+# Python, and it fails closed (any error reds the commit).
+
+set -e
+
+ROOT="$(git rev-parse --show-toplevel)"
+# This repository's root IS `lattice/`, so `zero/` sits directly beneath it.
+# A previous version wrote "$ROOT/lattice/zero" and resolved to lattice/lattice/zero,
+# failing closed with a misleading "not found". Verified by running the hook.
+ZERO="$ROOT/zero"
+
+if [ ! -d "$ZERO" ]; then
+  echo "zero: not found at $ZERO -- refusing to commit" >&2
+  exit 1
+fi
+
+PY=python
+if ! command -v "$PY" >/dev/null 2>&1; then
+  PY=python3
+fi
+
+echo "zero: running invariant gate..."
+"$PY" "$ZERO/gov/gate.py"
+
+echo "zero: gate passed"

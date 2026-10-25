@@ -1,0 +1,13 @@
+{
+ "intake": {
+  "admit": 0,
+  "axiom": 0,
+  "axiom_files": [],
+  "escape_files": [],
+  "sorry": 0
+ },
+ "quarantine": {
+  "declared": true,
+  "files": 0
+ }
+}

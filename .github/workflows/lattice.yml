@@ -1,0 +1,98 @@
+name: lattice
+
+# LATTICE CI.
+#
+# Design rules (each one earned by a defect recorded in archive/CORRECTIONS.md):
+#
+#  * The gate runs FIRST and cheaply. `gov/gate.py` checks 8 invariants in ~4 s; a red
+#    gate means the tree is not worth building.
+#  * The build is required, not advisory. The legacy CI's main command was measured to
+#    abort (exit 90) on the author's machine -- a gate that is always red gets ignored,
+#    so nothing in this file is allowed to be red-on-arrival.
+#  * Every checker in `gov/` must be able to turn the job red. `verify_all.py` registers
+#    the reactivity tests, which inject known defects and assert the gate reports them.
+#  * No `.ps1`. The new tree has none (measured: 0), so CI needs no shell-parity job.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # ------------------------------------------------------- fast: no Lean toolchain
+  invariants:
+    name: invariants (no toolchain)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # Pure text analysis of the tree: no Lean, no mathlib, no network.
+      - name: gate (I1-I8)
+        working-directory: gov
+        run: python gate.py
+      # Reactivity: inject a known defect, assert the gate goes red. A gate that cannot
+      # fail is not a gate -- this step is what makes the previous one mean something.
+      - name: gate selftest
+        working-directory: gov
+        run: python gate.py --selftest
+
+  # --------------------------------------------------------- full: real toolchain
+  build-and-verify:
+    name: build + verify_all
+    runs-on: ubuntu-latest
+    needs: invariants
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      # `lakefile.toml` pins mathlib by PATH, not by git ref:
+      #
+      #     packagesDir = "../lattice/lean/.lake/packages"
+      #     [[require]] path = "../lattice/lean/.lake/packages/mathlib"
+      #
+      # That is deliberate -- locally it reuses the already-compiled package (5,387 oleans,
+      # 4.21 GB) and needs no network. The consequence is that the checkout must MATERIALISE
+      # that path in CI, at the same revision, or `lake build` resolves a different mathlib
+      # than the one the proofs were checked against.
+      #
+      # Revision source of truth: the legacy manifest, which is committed.
+      - name: materialise mathlib at the pinned revision
+        run: |
+          set -euo pipefail
+          REV=$(python -c "import json;m=json.load(open('lattice/lean/lake-manifest.json'));print([p['rev'] for p in m['packages'] if p['name']=='mathlib'][0])")
+          echo "pinned mathlib revision: $REV"
+          DEST="lattice/lean/.lake/packages/mathlib"
+          mkdir -p "$(dirname "$DEST")"
+          if [ ! -d "$DEST" ]; then
+            git clone --filter=blob:none https://github.com/leanprover-community/mathlib4 "$DEST"
+            git -C "$DEST" checkout "$REV"
+          fi
+          # The sibling packages that mathlib's own lakefile requires must also be present
+          # under the same packagesDir; `lake update` resolves them from the manifest.
+          lake update
+
+      - name: cache mathlib oleans
+        uses: actions/cache@v4
+        with:
+          path: lattice/lean/.lake/packages/mathlib/.lake/build
+          key: mathlib-${{ hashFiles('lean-toolchain', 'lattice/lean/lake-manifest.json') }}
+
+      - name: fetch mathlib cache
+        run: lake exe cache get
+
+      - name: lake build Lattice
+        run: lake build Lattice
+
+      - name: verify_all (full, not --fast)
+        working-directory: gov
+        run: python verify_all.py

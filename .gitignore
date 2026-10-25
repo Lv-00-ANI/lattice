@@ -1,0 +1,31 @@
+# Build artifacts are never tracked.
+#
+# The legacy tree had a rule for this too, but it also tracked 39 scratch files and a
+# `lean/_r9/` probe directory, which is why its "what is in the deliverable" question had
+# no clean answer. Here the rule is stated once and the tree has no scratch area to leak.
+
+# Lake
+.lake/
+*.olean
+*.ilean
+*.trace
+*.c
+
+# The mathlib package dir is materialised from the manifest (locally it is a symlink-ish
+# reuse of ../lattice/lean/.lake/packages; in CI it is cloned). Never commit it.
+lattice/lean/.lake/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Gate scratch files: reactivity tests plant and remove these, but a crashed run must not
+# leave them looking like source.
+*.gate_reactivity.bak
+Lattice/Core/Probe.lean
