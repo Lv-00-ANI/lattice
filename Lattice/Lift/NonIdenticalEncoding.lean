@@ -131,9 +131,7 @@ theorem project_sound {P : Type} (hn : n' ≤ n) (sat : P → (Fin n' → ℝ) �
 `encode ≠ id` 在上文已证（`project_ne_id`），所以这个实例是
 `lift.compile.single_item_sound` 的**实质见证**。 -/
 def projectCompiler (hn : n' ≤ n) {P : Type} (sat : P → (Fin n' → ℝ) → Prop) :
-    Compiler P P where
-  inputP := Fin n → ℝ
-  inputW := Fin n' → ℝ
+    Compiler P P (Fin n → ℝ) (Fin n' → ℝ) where
   encode := project hn
   compile := id
   satP := satByProjection hn sat

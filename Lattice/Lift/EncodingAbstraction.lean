@@ -116,9 +116,9 @@ theorem factors_project {n n' : ℕ} (hn : n' ≤ n) {P : Type}
 现在它是一条通用定理的实例。 -/
 example {n n' : ℕ} (hn : n' ≤ n) {P : Type} (sat : P → (Fin n' → ℝ) → Prop) :
     ∀ p (x : Fin n → ℝ),
-      (NonIdentical.projectCompiler hn sat).satP p x →
-      (NonIdentical.projectCompiler hn sat).satW p
-        ((NonIdentical.projectCompiler hn sat).encode x) :=
+      (NonIdentical.projectCompiler (P := P) hn sat).satP p x →
+      (NonIdentical.projectCompiler (P := P) hn sat).satW p
+        ((NonIdentical.projectCompiler (P := P) hn sat).encode x) :=
   sound_of_factors _ _ _ (factors_project hn sat)
 
 end EncodingAbstraction
