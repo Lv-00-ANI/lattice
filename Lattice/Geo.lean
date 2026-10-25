@@ -60,6 +60,7 @@ import Lattice.Geo.GeoSampledBound
 import Lattice.Geo.LadderInstance
 import Lattice.Geo.PolyConstants
 import Lattice.Geo.LoopRate
+import Lattice.Geo.Reinjection
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
