@@ -621,9 +621,14 @@ def main():
 
     for inv in ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8"]:
         if rep.by(inv):
-            order = ["I1", "I2", "I3", "I4", "I5", "I6", "I7"]
+            # I8 (comment integrity) used to be missing from this table, so the first
+            # time it fired the gate raised KeyError instead of returning COMMENT (9):
+            # a traceback and exit 1, which a caller reads as "the gate crashed", not as
+            # "a comment is damaged". It had never fired in practice, which is why the
+            # hole survived. Reproduced in agent-tmp/repro_i8_keyerror.py.
             return EXIT[{"I1": "AXIOM", "I2": "SORRY", "I3": "DUP", "I4": "LAYER",
-                         "I5": "E2E", "I6": "HOLE", "I7": "ARTIFACT"}[inv]]
+                         "I5": "E2E", "I6": "HOLE", "I7": "ARTIFACT",
+                         "I8": "COMMENT"}[inv]]
     return EXIT["OK"]
 
 

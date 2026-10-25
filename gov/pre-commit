@@ -1,5 +1,5 @@
 #!/bin/sh
-# ZERO pre-commit gate.
+# LATTICE pre-commit gate.
 #
 # The legacy project built a full set of zero-lock checkers and then never wired
 # them into the commit path, so every check relied on someone remembering to run it
@@ -12,13 +12,14 @@
 set -e
 
 ROOT="$(git rev-parse --show-toplevel)"
-# This repository's root IS `lattice/`, so `zero/` sits directly beneath it.
-# A previous version wrote "$ROOT/lattice/zero" and resolved to lattice/lattice/zero,
-# failing closed with a misleading "not found". Verified by running the hook.
-ZERO="$ROOT/zero"
+# This repository's root IS the Lean project root, so the gate sits at `gov/gate.py`
+# directly beneath it. The previous version was written for the legacy layout, where
+# the gate lived under `zero/gov/`; copied verbatim it failed closed with
+# "zero: not found" on every commit. Verified by running the installed hook.
+GOV="$ROOT/gov"
 
-if [ ! -d "$ZERO" ]; then
-  echo "zero: not found at $ZERO -- refusing to commit" >&2
+if [ ! -d "$GOV" ]; then
+  echo "gov: not found at $GOV -- refusing to commit" >&2
   exit 1
 fi
 
@@ -27,7 +28,7 @@ if ! command -v "$PY" >/dev/null 2>&1; then
   PY=python3
 fi
 
-echo "zero: running invariant gate..."
-"$PY" "$ZERO/gov/gate.py"
+echo "lattice: running invariant gate..."
+"$PY" "$GOV/gate.py"
 
-echo "zero: gate passed"
+echo "lattice: gate passed"

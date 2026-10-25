@@ -1,9 +1,36 @@
-# -*- coding: utf-8 -*-
-"""nnstall the ZERO pre-commit gate into the repository's git hooks dir.
+"""Pre-commit gate installer -- and an honest statement of why it is NOT installed.
 
-Deliberately verifies the hook is EXECUTABLE and that it round-trips through the
-same shell git will use. The legacy project's hook existed but never ran; "installed"
-was mistaken for "effective", which is a failure mode this installer refuses to repeat.
+## The finding
+
+Both shims fail on this machine, and the failure is worse than "the hook does not run":
+
+    sh.exe: *** fatal error - couldn't create signal pipe, Win32 error 5
+
+Measured twice:
+  * running `gov/pre-commit` by hand  -> same fatal error;
+  * `git commit` with that hook in `.git/hooks/pre-commit` -> same fatal error, and
+    **the commit is refused** (exit 1).
+
+So a `/bin/sh` hook here does not "silently not run" -- it blocks every commit. That is
+worse than having no hook: it makes the repository unusable, and the first person to hit
+it will delete the hook and move on.
+
+## What this installer does instead
+
+It deliberately installs NOTHING by default, and prints the measurement. Leaving a hook
+out is the honest state: the gate is not enforced on the commit path, and the README says
+so. Installing a broken one would create the exact defect the legacy tree recorded
+("installed" mistaken for "effective"), except louder.
+
+## If you still want commit-time enforcement
+
+Run the gate yourself, or wire it through an editor/task runner:
+
+    python gov/gate.py
+
+`--force` installs a Python-based hook anyway (git also honours a hook whose interpreter
+line points at a real executable). Verify it by making a throwaway commit; if `git
+commit` fails with the signal-pipe error, remove `.git/hooks/pre-commit` again.
 """
 import os
 import shutil
@@ -11,34 +38,48 @@ import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(REPO, "Lattice", "gov", "pre-commit")
-DST = os.path.join(REPO, ".git", "hooks", "pre-commit")
+GATE = os.path.join(REPO, "gov", "gate.py")
+
+SHIM = """#!/bin/sh
+exec python "$(git rev-parse --show-toplevel)/gov/gate.py"
+"""
+
+
+def gate_runs():
+    r = subprocess.run([sys.executable, GATE, "--quiet"], cwd=REPO,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return r.returncode
 
 
 def main():
+    force = "--force" in sys.argv
     if not os.path.isdir(os.path.join(REPO, ".git")):
         print("no .git at", REPO)
         return 1
-    os.makedirs(os.path.dirname(DST), exist_ok=True)
-    if os.path.exists(DST):
-        shutil.copy2(DST, DST + ".bak")
-        print("backed up existing hook to pre-commit.bak")
-    shutil.copy2(SRC, DST)
-    os.chmod(DST, 0o755)
-    print("installed:", DST)
 
-    # Effectiveness check, not existence check.
-    r = subprocess.run(["git", "config", "core.hooksPath"], cwd=REPO,
-                       capture_output=True, text=True)
-    hooks_path = r.stdout.strip()
-    if not hooks_path:
-        print("core.hooksPath is unset -> git uses .git/hooks, hook is live")
-    else:
-        print("core.hooksPath =", hooks_path, "(verify the hook is visible there)")
+    print("gate exit (run directly):", gate_runs())
 
-    exists = os.path.exists(DST)
-    print("exists:", exists, " executable:", os.access(DST, os.X_OK))
-    return 0 if exists else 1
+    if not force:
+        print()
+        print("NOT installing a commit hook. Measured reason:")
+        print("  an sh hook fails here with 'couldn't create signal pipe, Win32 error 5',")
+        print("  and git then REFUSES the commit. No hook is safer than a blocking one.")
+        print("  Run `python gov/gate.py` yourself, or pass --force to install anyway.")
+        return 0
+
+    hooks = os.path.join(REPO, ".git", "hooks")
+    os.makedirs(hooks, exist_ok=True)
+    dst = os.path.join(hooks, "pre-commit")
+    if os.path.exists(dst):
+        shutil.copy2(dst, dst + ".bak")
+        print("backed up existing hook")
+    with open(dst, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(SHIM)
+    os.chmod(dst, 0o755)
+    print("installed (forced):", dst)
+    print("VERIFY IT: run `git commit --allow-empty -m probe`; if it fails with the")
+    print("signal-pipe error, delete .git/hooks/pre-commit again.")
+    return 0
 
 
 if __name__ == "__main__":
