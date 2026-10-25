@@ -7,6 +7,7 @@ import Lattice.Lift.Extraction
 import Lattice.Lift.L1L2
 import Lattice.Lift.EndToEnd
 import Lattice.Lift.GeoSampledBound
+import Lattice.Lift.L1L2Roundtrip
 
 /-!
 # Lattice.Lift -- the representation ladder
