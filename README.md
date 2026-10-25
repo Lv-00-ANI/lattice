@@ -15,13 +15,13 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 746 | `audit_counts.py` |
-> | 定理 / 引理 | 8035 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Geo/Lib | 16 / 40 / 68 / 605 | `audit_counts.py` |
+> | Lean 模块 | 747 | `audit_counts.py` |
+> | 定理 / 引理 | 8040 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 16 / 41 / 68 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 44（28 门禁 + 16 报告器） | `audit_counts.py` |
 > | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
-> | 已登记否证 | 282 | `check_refutation_census.py` |
+> | 已登记否证 | 283 | `check_refutation_census.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
 > 同一测量在不同口径下曾给出 **7,919 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
@@ -101,7 +101,7 @@ lattice-new/
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
 │   ├── Core/      16       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/      40       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
+│   ├── Lift/      41       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       68       # 约束几何与精确惩罚
 │   ├── Lib/      605       # 应用库，按主题（建立在链路层之上）

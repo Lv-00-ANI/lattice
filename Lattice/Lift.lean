@@ -18,6 +18,7 @@ import Lattice.Lift.ChainComposition
 import Lattice.Lift.VerifierRate
 import Lattice.Lift.ApproximationBridge
 import Lattice.Lift.WeightLadderN
+import Lattice.Lift.TokenAlphabet
 
 /-!
 # Lattice.Lift -- the representation ladder
