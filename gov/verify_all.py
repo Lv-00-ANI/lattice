@@ -68,6 +68,10 @@ CHECKS = [
     # Same guard for REFUTATION-CENSUS: the 387 number and its layer split were
     # verified once by hand and nothing re-measured them.
     ("refutation census", "check_refutation_census.py"),
+    # The chain STATUS TABLE said 'L1->L2 has no carrier' for 27 rounds after one
+    # was proved. Nothing checked the table itself. This verifies every carrier
+    # the table names actually exists.
+    ("chain table", "check_chain_table.py"),
     ("reactivity: slots", "check_slots_reactivity.py"),
     ("reactivity: comments", "check_comments_reactivity.py"),
     ("reactivity: I8 gate", "check_i8_reactivity.py"),

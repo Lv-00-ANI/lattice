@@ -130,9 +130,13 @@ sound   := by intro c x hx; unfold EqConstraint.loss; rw [hx]; ring
 `l1l2 : Tokenizer Sym Tok`、`l2l3 : Sym → W`、`satSym`、`satW`、
 `l2l3_sound : ∀ s, satSym s → satW (l2l3 s)`。
 
-注意 `l1l2` 的类型是 `Tokenizer Sym Tok`：L1→L2 被建模成**一个 tokenizer**，
-而不是「把 token 解码成约束」——这与 §2 的判断一致（L1→L2 这一跳没有独立载体，
-它被吸收进 tokenizer 结构）。
+注意 `l1l2` 的类型是 `Tokenizer Sym Tok`：在 `Ladder` 里 L1→L2 被建模成**一个 tokenizer**。
+
+> **第 41 轮更正**：此处原写「L1→L2 这一跳没有独立载体，它被吸收进 tokenizer 结构」。
+> 那是**错的**——第 14 轮已在 `Lift/L1L2Roundtrip.lean` 给出独立载体：
+> `decodePayload_encodeForm : decodePayload n (encodeForm c).payload = some c`。
+> `Ladder` 选择用 `Tokenizer` 表达这一跳，是**结构设计**，不是**因为没有载体**。
+> 两者的区别重要：前者是选型，后者是无能力。
 
 **实例普查（实测）。`Ladder` 的实例数为 1：**
 
@@ -199,12 +203,31 @@ slot `geo.loop.convergence_is_single_step`（状态 `.weakened`），且
 
 | 跳 | 义务 | 承载结构 | 实例 | 承重性 | 判定 |
 |:--|:--|:--|--:|:--|:--|
-| L0→L1 | tokenize/detokenize 互逆 | `tokenize_*` 系列 | — | ✅ 前提必要 | **成立**（单射性已证否，属设计） |
-| L1→L2 | 解码成符号约束 | 无 | — | ❌ 唯一出现处前提不承重 | **无承重载体** |
-| L2→L3 | 编译保语义 | `Compiler.sound` | **1**（恒等 encode） | ⚠️ 字段即全部内容 | **条件成立，无实质实例** |
-| L3→L2 | 提取回符号 | `Representation.roundtrip` | **2**（其中 1 个由双射构造） | ⚠️ 靠假设双射 | **条件成立，未覆盖非可逆编码** |
-| L0→L3 | 端到端 | `Ladder` | **1**（`linearLadder`） | ⚠️ 实例存在，但 `W` 取损失值 | **首个实例成立** |
-| 闭环 | 收敛 | `loop_converges` | — | ⚠️ 度量值域 {0,1} | **一步成立，多步未表达** |
+> **本表第 41 轮按实测重写。** 此前六行里五行已过时——第 14–34 轮的工作
+> 逐条改变了它们，而表没有被随之更新。旧判定保留在「此前判定」列，
+> 以便看出变化，而不是抹掉。
+
+| 跳 | 义务 | 承载结构 | 实例 | 承重载体（实测） | 判定 | 此前判定 |
+|:--|:--|:--|:--|:--|:--|:--|
+| L0→L1 | tokenize/detokenize 互逆 | `Tokenizer.roundtrip` | 多个 | `RealTokenization.tokenize_detok` | ✅ **成立**（单射性已证否，属设计） | 同 |
+| L1→L2 | 解码成符号约束 | `L1L2.decodePayload` | — | **`L1L2Roundtrip.decodePayload_encodeForm`** | ✅ **成立**（往返已证） | ❌ 无承重载体 |
+| L2→L3 | 编译保语义 | `Compiler.sound` | **2** | **`NonIdentical.projectCompiler`**（`encode ≠ id`） | ✅ **有非恒等实例** | ⚠️ 只有恒等 encode |
+| L3→L2 | 提取回符号 | `Representation.roundtrip` / `LossyRep.semEq` | **4** | **`RoundingBackend.roundingLossy`**（`compile` 非单射） | ✅ **覆盖非可逆编码** | ⚠️ 靠假设双射 |
+| L0→L3 | 端到端 | `Ladder.l2l3_sound` | **1**（`linearLadder`） | 无（字段即内容） | ⚠️ **实例存在，但 `W` 取损失值** | 同 |
+| 闭环 | 收敛 | `Repair` 三义务 | 多个 | **`RepairMultistep.countdown`**（测度无界） | ✅ **多步可表达，且界紧** | ⚠️ 多步未表达 |
+
+### 3.5 重写后的读法
+
+| 状态 | 跳数 |
+|:--|--:|
+| ✅ 成立且有实质载体 | **5**（L0→L1、L1→L2、L2→L3、L3→L2、闭环） |
+| ⚠️ 有一处如实标注的局限 | **1**（L0→L3：`W` 取损失值而非权重参数） |
+
+**唯一的 ⚠️ 是 `linearLadder` 的 `W := ℝ`。** 这不是缺证明，而是缺一个
+**权重参数类型**——它与 `Slots` 的 `core.semantics.external_bridge`
+（TorchLean 需 Lean ≥ 4.26）是同一个阻塞。
+
+⇒ **链路的六跳里，五跳已有承重载体；第六跳的障碍是工具链，不是数学。**
 
 **一句话结论**：结构层已经齐备（每个义务都有精确陈述与定理），
 但**实例层几乎为空**——唯一有实质内容的实例是 L0⇄L1，其余三跳的实例要么是恒等/双射

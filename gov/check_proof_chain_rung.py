@@ -45,6 +45,14 @@ def decl_index():
     return idx
 
 
+# Words that appear in backticks for prose reasons (Lean constructors, `some x` examples,
+# placeholders) and must not be treated as kernel declarations to resolve. Without this the
+# checker reports noise such as `some` as "unresolved" and buries real drift.
+PROSE_WORDS = {"some", "none", "id", "fun", "by", "exact", "true", "false", "rfl",
+               "ε", "δ", "α", "β", "γ", "n", "m", "k", "x", "y", "z", "p", "q", "W",
+               "P", "R", "C", "L", "A", "B", "G", "S", "T", "V", "E"}
+
+
 def main():
     if not os.path.exists(DOC):
         print("PROOF-CHAIN-RUNG.md is missing")
@@ -102,7 +110,7 @@ def main():
         "Pipeline", "none", "progress'",  # module segment; Option.none; the pre-rename name
         # the document cites on purpose, to record that the rename happened
     }
-    suspicious = [n for n in known_missing if n not in NOT_A_NAME]
+    suspicious = [n for n in known_missing if n not in NOT_A_NAME and n not in PROSE_WORDS]
     failures = []
 
     print("cited identifiers: %d   unresolved: %d" % (len(cited), len(known_missing)))
