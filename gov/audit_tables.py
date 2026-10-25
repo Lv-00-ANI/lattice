@@ -36,8 +36,12 @@ the backing directly instead of trusting a check mark.
 
 ## Output contract
 
-Always exit 0. Prints, for each table row containing a check mark:
-the row's first cells, the backticked names it cites, and any of those names that no kernel declaration matches.
+Exit 1 when a check-marked row cites a name that no kernel declaration, module,
+namespace or constructor matches; else 0. Prints, for each such row: the row's first
+cells, the backticked names it cites, and any of those names that do not resolve.
+
+The unresolved-name test is decidable, so it gates. Whether a check mark is BACKED by a
+theorem is not decidable here (see above), so that part is printed and never gated.
 """
 import io
 import os
@@ -137,9 +141,10 @@ def main():
     print("  README tables name their theorems directly, so the backing is visible on the")
     print("  page rather than inferred by a script.")
     print()
-    print("  This script therefore always exits 0: a check it cannot make is not a check")
-    print("  it should fail the build over.")
-    return 0
+    print("  What it DOES gate on: whether the names a row cites exist at all. That is")
+    print("  decidable, so it is a real verdict -- a row citing a non-existent theorem is a")
+    print("  broken citation and fails this check.")
+    return 0 if not findings else 1
 
 
 if __name__ == "__main__":

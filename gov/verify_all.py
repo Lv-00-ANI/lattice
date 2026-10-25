@@ -42,7 +42,7 @@ ZERO = os.path.abspath(os.path.join(HERE, ".."))
 REPORT_ONLY = {
     "reverify: requirements", "reverify: chain", "reverify: islands",
     "audit: duplicates", "audit: bodies", "audit: docs vs code", "audit: reachable",
-    "audit: claims", "audit: liveness", "audit: region", "audit: tables",
+    "audit: claims", "audit: liveness", "audit: region", 
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
@@ -73,6 +73,9 @@ CHECKS = [
     ("audit: liveness", "audit_liveness.py"),
     ("audit: region", "audit_region.py"),
     ("audit: tables", "audit_tables.py"),
+    # Gates on the one thing it can decide: whether a check-marked row cites a
+    # name that exists. Whether the mark is BACKED stays advisory, as documented.
+    ("reactivity: tables", "audit_tables_reactivity.py"),
     ("audit: counts", "audit_counts.py"),
     # audit_counts is a GATE now: it fails when a documented count disagrees with
     # the tree, and this proves the gate can fire on every count it checks.
