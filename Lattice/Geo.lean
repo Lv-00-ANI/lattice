@@ -74,6 +74,7 @@ import Lattice.Geo.SynthesisCoverage
 import Lattice.Geo.MissingRepairs
 import Lattice.Geo.ParallelRepair
 import Lattice.Geo.PolySpecificRepair
+import Lattice.Geo.ComputableExpr
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
