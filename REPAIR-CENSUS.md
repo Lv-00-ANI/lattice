@@ -1,0 +1,86 @@
+# 修复算子清册（REPAIR-CENSUS）
+
+> 目的：把「修正/修复」相关声明按**语义**分类，而不是按名字。
+> 起因：`ROADMAP-v4 §0` 用关键词搜声明名统计出「修正 278 个」，
+> 而 `fixed point`、`fixed mask`、`fixed-width` 这类字面命中占绝大多数。
+
+---
+
+## 1. 三类，按是否真的实现修复
+
+| 类 | 判据 | 文件数 | fix 命名声明数（按文件计） |
+|:--|:--|--:|--:|
+| **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **6** | **27** |
+| B. 使用 `Repair` 结构 | 出现 `Repair` 但无实例定义 | 12 | 30 |
+| C. 字面命中 | 有 fix 命名声明，但文件里没有 `Repair` | 48 | **237** |
+
+**口径说明**：上表按文件累加得 294，而 `ROADMAP-v4 §0` 的 278 是
+**去重后的声明名数**（一次正则扫全库）。两者差 16，因为同一名字可能在
+一个文件里定义、在另一个文件的签名里被 `DECL` 正则误配。
+**衡量「有多少个声明」应取去重数 278**；衡量「多少个文件涉及」取 66。
+`A` 类的 27 与 `C` 类的 237 都小于对应的去重总数，结论不受影响。
+
+**⇒ 真正的修复算子只有 27 个声明，不是 278 个。** 相差十倍。
+
+---
+
+## 2. A 类：真正实现了 `Repair` 的 6 个文件
+
+| 文件 | fix 声明 | 它定义了什么 |
+|:--|--:|:--|
+| `Geo/Loop.lean` | 10 | `samePointRepair`：把一点复制到另一点的位置 |
+| `Geo/LoopPerp.lean` | 4 | 垂直约束的修复回路 |
+| `Geo/ConjRepair.lean` | 3 | 两个不同类约束的联合修复 |
+| `Core/Repair.lean` | 3 | 框架本身 + `parity` 与 `down` 两个例子（含 `down_no_progress` 反例） |
+| `Lib/Linear/Residual.lean` | 5 | **线性残差**的修复（文件头自称「the first real instance」） |
+| `Lib/Linear/Multivar.lean` | 2 | 任意元数的修复回路 |
+
+这 6 个是链路在「修正」这一步上的全部实质。
+
+---
+
+## 3. B 类：使用修复结构，但不定义算子
+
+`RepairBridge`、`RepairPerp`、`Unified`、`RepairWF`、`ClosedLoop`、`IRRepair`、
+`Repair`、`RepairQuality`、`QualityBridge`、`Extraction`、`Slots`、`Core/Invariant`。
+
+这一类的价值在**性质**（保持、收敛、质量区分），不在**算子**。
+把它们与 A 类混在一起数，会让人以为库里有十几个修复器。
+
+---
+
+## 4. C 类：为什么字面命中这么多
+
+前三名足以说明问题：
+
+| 文件 | fix 声明 | 实际内容 |
+|:--|--:|:--|
+| `Lib/Lift/RealNonlinearFidelity.lean` | 50 | 非线性保真度的可判定判据 |
+| `Lib/Architectures/RealLoopFixedPointExistence.lean` | 18 | 收缩映射的**不动点存在性** |
+| `Lib/FCA/RealFCATokenization.lean` | 17 | FCA 的 `intent` 作为分词选择集 |
+
+`Fidelity` 里的 `fix` 是 `fixed`（固定），`FixedPoint` 是数学不动点，
+`KVCache` 的 `fix` 是「修复推理等价性」——**没有一个是修复算子**。
+
+---
+
+## 5. 结论与后续
+
+- **不要再用「修正相关声明数」衡量这一步的覆盖度**：97% 是字面命中。
+- 真正该看的是 **A 类的 6 个文件**，以及它们各自处理哪类约束。
+- **已知缺口**：A 类覆盖 `samePoint`、`perpendicular`、线性残差；
+  `distEq`、`collinear`、`parallel`、`ratioDivision` 等**没有修复算子**。
+  这与 `Geo/Reinjection.lean` 文件头记的边界一致（再注入对一般 `EqConstraint`
+  需要对应的修复算子，而目前不是每个都有）。
+
+---
+
+## 附：测量口径
+
+脚本 `agent-tmp/classify_repair.py`。判据：
+
+- A 类：正则 `:\s*(?:Lattice\.Core\.)?Repair\b[^\n]*\bwhere\b` 命中；
+- B 类：出现 `Repair` 且有 fix 命名声明，但无 A 类模式；
+- C 类：有 fix 命名声明，全文无 `Repair`。
+
+排除 `Lattice/Reference/`。
