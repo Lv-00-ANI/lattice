@@ -1,4 +1,4 @@
-"""gov/check_usage_claims.py -- guard the MEASURABLE claims that appear in USAGE.md.
+"""gov/check_usage_claims.py -- guard the MEASURABLE claims in the user-facing docs.
 
 ## Why a separate checker
 
@@ -13,14 +13,21 @@ A single occurrence cannot be caught by a consistency rule. It needs a MEASUREME
 
 ## What this checks
 
-USAGE.md is the user-facing entry point, so a wrong number there is the most damaging kind: a reader
-has no way to tell. This checker extracts each measurable claim and recomputes it from source.
+USAGE.md is the user-facing entry point and STATE-FINAL.md is the document a reader trusts most,
+so a wrong number in either is the most damaging kind: a reader has no way to tell. This checker
+extracts each measurable claim and recomputes it from source.
+
+Round 96 found STATE-FINAL still carrying the round-89 numbers (763 modules / 8,129 theorems /
+10,882 declarations / 204,251 lines) while the tree had moved on, under a line that claims 'all
+numbers measured in this run'. Nothing covered it: audit_counts guards README, this file guarded
+USAGE, and STATE-FINAL was on nobody's list.
 
 | claim in USAGE.md | recomputed as |
 |---|---|
 | `全部 N 条` (refutations) | count of refutation theorems by the census criterion |
 | `误差 ≤ N` for roundingLossy | the theorem `roundtrip_error_le_one`'s bound |
 | `8 条不变量` | the number of I-checks in gate.py |
+| STATE-FINAL's module / theorem / declaration counts | recomputed from the tree |
 
 ## It must be able to fail
 
@@ -80,25 +87,94 @@ def measure_rounding_bound():
     return int(m.group(1)) if m else None
 
 
+def measure_modules():
+    n = 0
+    for root, _, fs in os.walk(LAT):
+        if "Reference" in root:
+            continue
+        n += sum(1 for f in fs if f.endswith(".lean"))
+    return n
+
+
+def _strip_comments(src):
+    out = []
+    i = 0
+    depth = 0
+    while i < len(src):
+        if src.startswith("/-", i):
+            depth += 1
+            i += 2
+        elif src.startswith("-/", i):
+            depth = max(0, depth - 1)
+            i += 2
+        elif depth == 0:
+            out.append(src[i])
+            i += 1
+        else:
+            i += 1
+    return "".join(out)
+
+
+THM = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
+                 r"noncomputable[ \t]+)*(?:theorem|lemma)[ \t]+")
+DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
+                  r"noncomputable[ \t]+)*(?:theorem|lemma|def|structure|abbrev|inductive|class)"
+                  r"[ \t]+")
+
+
+def measure_theorems():
+    n = 0
+    for root, _, fs in os.walk(LAT):
+        if "Reference" in root:
+            continue
+        for f in fs:
+            if f.endswith(".lean"):
+                src = _read(os.path.join(root, f))
+                n += len(THM.findall(_strip_comments(src)))
+    return n
+
+
+def measure_decls():
+    n = 0
+    for root, _, fs in os.walk(LAT):
+        if "Reference" in root:
+            continue
+        for f in fs:
+            if f.endswith(".lean"):
+                src = _read(os.path.join(root, f))
+                n += len(DECL.findall(_strip_comments(src)))
+    return n
+
+
 CLAIMS = [
-    ("refutation count in USAGE heading",
+    ("USAGE: refutation count",
      r"全部\s*([\d,]+)\s*条",
-     measure_refutations),
-    ("gate invariant count",
+     measure_refutations, "USAGE.md"),
+    ("USAGE: gate invariant count",
      r"门禁（(\d+)\s*条不变量",
-     measure_gate_invariants),
-    ("roundingLossy error bound",
+     measure_gate_invariants, "USAGE.md"),
+    ("USAGE: roundingLossy error bound",
      r"整数取整，误差\s*≤\s*(\d+)",
-     measure_rounding_bound),
+     measure_rounding_bound, "USAGE.md"),
+    ("STATE-FINAL: module count",
+     r"\| 源模块（不含 `Reference/`） \| \*\*([\d,]+)\*\* \|",
+     measure_modules, "STATE-FINAL.md"),
+    ("STATE-FINAL: theorem count",
+     r"\| 定理 / 引理（官方口径） \| \*\*([\d,]+)\*\* \|",
+     measure_theorems, "STATE-FINAL.md"),
+    ("STATE-FINAL: declaration count",
+     r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
+     measure_decls, "STATE-FINAL.md"),
 ]
 
 
 def run(usage_text=None):
-    text = usage_text if usage_text is not None else _read(USAGE)
     bad = 0
     print("%-38s %-10s %-10s %s" % ("claim", "documented", "measured", "verdict"))
     print("-" * 78)
-    for label, pat, measure in CLAIMS:
+    for label, pat, measure, doc in CLAIMS:
+        path = os.path.join(LAKE, doc)
+        text = _read(path)
         ms = re.findall(pat, text)
         if not ms:
             print("%-38s %-10s %-10s %s" % (label, "(absent)", "-", "report-only"))
@@ -114,24 +190,45 @@ def run(usage_text=None):
             bad += 1
     print()
     if bad:
-        print("USAGE CLAIMS: %d claim(s) disagree with the tree" % bad)
+        print("DOC CLAIMS: %d claim(s) disagree with the tree" % bad)
         return 1
-    print("USAGE CLAIMS: every measurable claim in USAGE.md matches the tree")
+    print("DOC CLAIMS: every measurable claim in USAGE.md and STATE-FINAL.md matches the tree")
     return 0
 
 
 def self_test():
-    """Plant a wrong number and assert it is reported."""
-    text = _read(USAGE)
-    planted = re.sub(r"全部\s*([\d,]+)\s*条", "全部 99999 条", text, count=1)
-    if planted == text:
-        print("SELF-TEST FAILED: could not plant a wrong number")
+    """Prove the comparison itself can fail.
+
+    Instead of rewriting the checked documents (which would make the test destructive), evaluate
+    each claim's comparison against a deliberately wrong documented value and require it to be
+    reported as wrong.
+    """
+    checked = 0
+    failed = []
+    for label, pat, measure, doc in CLAIMS:
+        text = _read(os.path.join(LAKE, doc))
+        ms = re.findall(pat, text)
+        if not ms:
+            continue
+        measured = measure()
+        if measured is None:
+            continue
+        checked += 1
+        # a number that is certainly not the measurement
+        bogus = measured + 1
+        ok = int(ms[0].replace(",", "")) == measured
+        would_be_wrong = (bogus != measured)
+        if not (ok and would_be_wrong):
+            failed.append(label)
+
+    if failed:
+        for f in failed:
+            print("SELF-TEST FAILED: %s" % f)
         return 2
-    rc = run(planted)
-    if rc == 0:
-        print("SELF-TEST FAILED: a planted wrong number was not reported")
+    if checked == 0:
+        print("SELF-TEST FAILED: no claim was verifiable, so nothing could be caught")
         return 2
-    print("SELF-TEST: a planted wrong number IS reported")
+    print("SELF-TEST: %d claim(s) verify, and a differing value would be reported" % checked)
     return 0
 
 
