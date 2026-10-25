@@ -26,7 +26,7 @@ def decl_index():
     """name -> file, for every top-level declaration in the kernel."""
     idx = {}
     pat = re.compile(r"(?m)^\s*(?:(?:noncomputable|private|protected)\s+)*"
-                     r"(theorem|lemma|def|structure|abbrev)\s+([A-Za-z0-9_.']+)")
+                     r"(theorem|lemma|def|structure|abbrev|inductive|class)\s+([A-Za-z0-9_.']+)")
     for root, _, files in os.walk(LAT):
         if "Reference" in root:
             continue

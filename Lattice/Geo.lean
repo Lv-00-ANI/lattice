@@ -57,6 +57,7 @@ import Lattice.Geo.PolyLipschitz
 import Lattice.Geo.PolyAssemble
 import Lattice.Geo.RhoMetric
 import Lattice.Geo.GeoSampledBound
+import Lattice.Geo.LadderInstance
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

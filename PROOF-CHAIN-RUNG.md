@@ -134,14 +134,17 @@ sound   := by intro c x hx; unfold EqConstraint.loss; rw [hx]; ring
 而不是「把 token 解码成约束」——这与 §2 的判断一致（L1→L2 这一跳没有独立载体，
 它被吸收进 tokenizer 结构）。
 
-**实例普查（实测）。`Ladder` 的实例数为 0。**
+**实例普查（实测）。`Ladder` 的实例数为 1：**
 
-⇒ 端到端结构**从未被实例化**。`ladder_forward`、`ladder_compose_soundness`、
-`ladder_compose_roundtrip` 都是**对任意 `L : Ladder ...` 的条件命题**，
-而这样的 `L` 在库中不存在。
+| 实例 | 位置 | L0→L1 | L1→L2 | L2→L3 |
+:--|:--|:--|:--|:--|
+| `linearLadder` | `Geo/LadderInstance.lean` | 恒等 | `encodeForm`/`decodePayload`（往返定理） | 线性形式 ↦ 残差平方 |
 
-**这是本库当前最重要的一个事实**：端到端链的**结构存在、定理成立、实例不存在**。
-它必须写在这里，否则「四跳链路已形式化」会被读成「四跳链路已通」。
+⇒ 端到端结构**已有第一个实例**，`ladder_forward` 等定理因此有了内容。
+
+**但这个实例的边界必须一起说**：`W := ℝ` 取的是**损失值**而非权重参数；
+`Tok := ℝ` 使 L0→L1 退化为恒等；`Sym` 取线性形式而非完整 `EqConstraint`。
+它是**可做的最强最小实例**，不是「完整链路已通」。
 
 ### 3.4 第 4 层：`Geo.Pipeline`（几何侧的具体一步）
 
@@ -200,7 +203,7 @@ slot `geo.loop.convergence_is_single_step`（状态 `.weakened`），且
 | L1→L2 | 解码成符号约束 | 无 | — | ❌ 唯一出现处前提不承重 | **无承重载体** |
 | L2→L3 | 编译保语义 | `Compiler.sound` | **1**（恒等 encode） | ⚠️ 字段即全部内容 | **条件成立，无实质实例** |
 | L3→L2 | 提取回符号 | `Representation.roundtrip` | **2**（其中 1 个由双射构造） | ⚠️ 靠假设双射 | **条件成立，未覆盖非可逆编码** |
-| L0→L3 | 端到端 | `Ladder` | **0** | ⚠️ 无实例 | **结构成立，未被实例化** |
+| L0→L3 | 端到端 | `Ladder` | **1**（`linearLadder`） | ⚠️ 实例存在，但 `W` 取损失值 | **首个实例成立** |
 | 闭环 | 收敛 | `loop_converges` | — | ⚠️ 度量值域 {0,1} | **一步成立，多步未表达** |
 
 **一句话结论**：结构层已经齐备（每个义务都有精确陈述与定理），
