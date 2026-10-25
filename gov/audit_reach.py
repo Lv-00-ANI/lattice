@@ -124,24 +124,24 @@ def main():
         for m in DECL.finditer(body):
             defined.setdefault(m.group(1), (mod, p))
 
-    compile_cache = {}
+    # One alternation scan over every file, using the SAME `\b...\b` boundaries as before, so
+    # "appears in file" means exactly what it meant. Longest-first so that a name that is a prefix
+    # of another cannot shadow it in the alternation.
+    names_by_len = sorted(defined, key=len, reverse=True)
+    big = re.compile(r"\b(" + "|".join(re.escape(n) for n in names_by_len) + r")\b")
+    where = {}
+    for q, body in texts.items():
+        for m in big.finditer(body):
+            where.setdefault(m.group(1), set()).add(q)
+
     elsewhere = {}
     own_later = {}
     for name, (mod, p) in defined.items():
-        pat = compile_cache.get(name)
-        if pat is None:
-            pat = re.compile(r"\b" + re.escape(name) + r"\b")
-            compile_cache[name] = pat
-        hit_other = False
-        for q, body in texts.items():
-            if q == p:
-                continue
-            if pat.search(body):
-                hit_other = True
-                break
-        elsewhere[name] = hit_other
-        if not hit_other:
+        files_with = where.get(name, set())
+        elsewhere[name] = bool(files_with - {p})
+        if not elsewhere[name]:
             body = texts[p]
+            pat = re.compile(r"\b" + re.escape(name) + r"\b")
             first = body.find(name)
             own_later[name] = bool(first >= 0 and pat.search(body, first + len(name)))
 
