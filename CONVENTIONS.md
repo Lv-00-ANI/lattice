@@ -48,7 +48,7 @@
 |:--|--:|:--|
 | 内核声明总数 | 10,354 | — |
 | 撇号名 | **3** | **0**（三个全部属 §1.4 例外） |
-| camelCase 定理 | **36** | **0** |
+| camelCase 定理 | **4**（全部豁免，见 §7.6） | — |
 | camelCase 定义 | **1,747** | 保留（符合 N2） |
 
 > **本节此前的数字是错的（第 55 轮修正）**：撇号写 **60**、camelCase 定理写 **70**，
@@ -72,7 +72,7 @@
 2. **撇号收敛**：3 个，逐文件改名（`while'` → `while_strict`，
    `StrictMono'` → `StrictMono_strict`，`exists_delta_of_eps'` → `exists_delta_of_eps_ge`，
    **名必须说明差在哪**）；
-3. **camelCase 定理收敛**：36 个；
+3. **camelCase 定理收敛**：**已完成（15 → 4，余 4 条按 §7.6 豁免）**；
 4. **camelCase 定义**：**不改**——见 N2，Lean 惯例就是 camelCase。
 
 > 第 4 条与第 3 条看似矛盾，其实是同一原则的两个方向：**约定按「种类」分，
@@ -351,6 +351,40 @@
 规范要求了四项（命题 / 机制 / 依赖 / 边界）。把「是否四项齐全」变成可判定规则需要
 定义格式，那会**规定**注释怎么写而不是**检查**它写得好不好。所以这一项**保持未测**，
 并记录理由，而不是假装测过。
+
+### 7.6 camelCase 定理：判据修正与豁免（第 61 轮）
+
+**此前本节记 35–36 条，实测 15 条，现为 4 条。** 三个数字的差来自**判据**，不是改名进度：
+
+| 判据 | 数量 | 问题 |
+|:--|--:|:--|
+| 不按 `.` 分割声明名 | 36 | **`GeoExpr.beqShape_eq` 里的 camelCase 是结构名**，按 N2 正确 |
+| 按 `.` 分割，只看末段 | **15** | 正确口径 |
+| 15 条中扣除 §7.6 豁免 | **4** | 当前状态 |
+
+#### 豁免规则
+
+以下四条的 camelCase 是 **Mathlib 自己的惯例**——结构的派生事实写作
+`Structure.camelCase`。改名会**破坏与 Mathlib 的一致性**，使熟悉上游的人更难读：
+
+| 声明 | 文件 |
+|:--|:--|
+| `IsStrictLocalMin.toIsLocalMin` | `Lib/Convex/RealKKTSecondOrder.lean` |
+| `IsStrictLocalMax.toIsLocalMax` | `Lib/Optim/RealSaddlePoint.lean` |
+| `IsClosedExtent.iInter` | `Lib/FCA/RealFCACompleteLattice.lean` |
+| `IsClosedExtent.sInf` | `Lib/FCA/RealFCACompleteLattice.lean` |
+
+⇒ **这四条不是欠账，是按规则的豁免。** 下一个审阅者不应再把它们报成待修项。
+
+#### 已改名的 11 条
+
+`twoHopMsg` → `two_hop_msg`、`BetaRedStar.appL/appR/lamBody` → `app_l/app_r/lam_body`、
+`editSeqComm` → `edit_seq_comm`、`borelOfTopology` → `borel_of_topology`、
+`liftBeta` → `lift_beta`、`klChainRule` → `kl_chain_rule`、
+`firstOrderMAML` → `first_order_maml`、`lowRankReparam` → `low_rank_reparam`、
+`bfgsParaboloid` → `bfgs_paraboloid`。
+
+**13 个文件被修改，残留引用 0，`lake build` 通过。**
 
 ### 7.5 测量方法（可重跑）
 

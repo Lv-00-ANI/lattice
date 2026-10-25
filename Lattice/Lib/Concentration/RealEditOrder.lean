@@ -17,7 +17,7 @@ RealEditRollback.rankOneEdit 的自由增量版本
 
 中 Δ 是**预先给定**的常数（不依赖当前 F）。此时：
 
-  · `editSeqComm`（核心）：`rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂
+  · `edit_seq_comm`（核心）：`rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂
       = rankOneEdit (rankOneEdit F Δ₂ k₂) Δ₁ k₁`
     —— 两次编辑**无条件**可交换（纯加法交换律，`ring`）；
   · `editSeq_closed_form`：任意有限编辑列表的闭式
@@ -60,7 +60,7 @@ RealEditCrosstalk.ApplyEdit 的增量 Δ = (v − F·k)/‖k‖² **依赖当前
 
 模型无关：任意 ℝ-内积空间 E；诚实假设：ROME 语义部分键非零（‖k‖² 可除），
 自由增量部分无任何假设。注意 另有一条只作用于声明签名的结构假设：本文件
-`namespace Lattice` 内的 variable 块（见 `editSeqComm` 之前的 variable 声明）
+`namespace Lattice` 内的 variable 块（见 `edit_seq_comm` 之前的 variable 声明）
 含有 `[CompleteSpace E]`，因此 ROME 语义一节（见 `romeEditSeq` 起）的若干定理
 （`edit2_orthogonal_commutes` / `order_dependence_general` / `order_error_bound` 等）
 在隐式参数中额外携带该假设（自由增量一节已用 `omit [CompleteSpace E] in` 显式免除）；
@@ -82,7 +82,7 @@ omit [CompleteSpace E] in
 `rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂ = rankOneEdit (rankOneEdit F Δ₂ k₂) Δ₁ k₁`。
 Δ₁、Δ₂ 为预设常数，被编辑函数只在 `F x + ⟨k,x⟩Δ` 的加法位置上出现，
 故交换性 = 实数加法交换律（`ring`），**不需要键正交**。 -/
-theorem editSeqComm (F : E → ℝ) (Δ₁ Δ₂ : ℝ) (k₁ k₂ : E) :
+theorem edit_seq_comm (F : E → ℝ) (Δ₁ Δ₂ : ℝ) (k₁ k₂ : E) :
     rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂
       = rankOneEdit (rankOneEdit F Δ₂ k₂) Δ₁ k₁ := by
   funext x
@@ -299,7 +299,7 @@ theorem order_error_bound (F : E → ℝ) (k₁ k₂ : E) (v₁ v₂ : ℝ)
 
 /-! ## 注：三种语义的顺序性质对照
   自由增量补丁（RealEditRollback.rankOneEdit，Δ 预设）：顺序**严格无关**
-  （editSeqComm / order_invariance_free，无需正交）；
+  （edit_seq_comm / order_invariance_free，无需正交）；
   ROME 派生增量（RealEditCrosstalk.ApplyEdit，Δ = (v − F·k)/‖k‖²）：
   正交键 ⟹ 顺序无关（edit2_orthogonal_commutes / order_invariance_orthogonal），
   一般键 ⟹ 顺序差 = 两项显式和（order_dependence_general），

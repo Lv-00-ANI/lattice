@@ -13,7 +13,7 @@ import Lattice.Lib.Concentration.RealEditOrder
   5. `interleaving_equiv_sequential`（**核心**）：若 `l₁` 的每一步与 `l₂` 的每一步
      逐点交换，则**任意**交错 `m` 的结果等于串行结果 `run l₁ (run l₂ x)`；
   6. `race_condition_witness`：不可交换步骤的交错结果不同 —— 构造性反例；
-  7. `editSeq_commuting_instance`：`RealEditOrder.editSeqComm` 是一个交换性实例，
+  7. `editSeq_commuting_instance`：`RealEditOrder.edit_seq_comm` 是一个交换性实例，
      说明本文件的交换性正是编辑顺序无关性的抽象。
 
 诚实标注（无 sorry / axiom / admit）：
@@ -142,13 +142,13 @@ theorem race_condition_witness :
 
 /-! ## 五、与 RealEditOrder 的衔接 -/
 
-/-- **编辑顺序无关性是交换性的实例**：`RealEditOrder.editSeqComm` 说两次 rank-one 编辑
+/-- **编辑顺序无关性是交换性的实例**：`RealEditOrder.edit_seq_comm` 说两次 rank-one 编辑
 可交换。把「一次编辑」看作 `E → ℝ` 上的步骤，则这正是本文件 `confluence_of_commuting`
 所抽象的局部合流（交换性）。 -/
 theorem editSeq_commuting_instance {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
     [CompleteSpace E] (F : E → ℝ) (Δ₁ Δ₂ : ℝ) (k₁ k₂ : E) :
     rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂
       = rankOneEdit (rankOneEdit F Δ₂ k₂) Δ₁ k₁ :=
-  editSeqComm F Δ₁ Δ₂ k₁ k₂
+  edit_seq_comm F Δ₁ Δ₂ k₁ k₂
 
 end Lattice

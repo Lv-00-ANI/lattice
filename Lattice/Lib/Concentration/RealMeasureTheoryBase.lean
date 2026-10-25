@@ -66,7 +66,7 @@ ROADMAP「测度论升级包」（`notes/完善推广泛化路线图.md` §4.2�
 
 ## 本文件交付（第 1 阶段：基础层）
 
-1. `borelOfTopology`：`MeasurableSpace` + `TopologicalSpace` ⟹ `borel α` 的使用模式；
+1. `borel_of_topology`：`MeasurableSpace` + `TopologicalSpace` ⟹ `borel α` 的使用模式；
 2. `prob_univ` / `prob_isFinite` / `prob_toReal_univ`：概率测度归一化的三种形态；
 3. `iIndepFun` 的 MGF 因子分解接口（`indep_mgf_sum`）；
 4. `condexp` 的**可积性、tower、constant、mono**四个引理的固化；
@@ -122,7 +122,7 @@ example (α : Type*) [TopologicalSpace α] : BorelSpace α := by infer_instance
 积/子类型/`Pi` 等逐个给出实例）。**对任意 `α`，唯一可行的"拓扑 ⟹ Borel"路径是**：
 
 1. **要 `BorelSpace` 本身**：把 `MeasurableSpace` 实例**声明为** `borel α`
-   （`borelOfTopology`）；
+   （`borel_of_topology`）；
 2. **只要"开集可测"这一推论**：用 **`OpensMeasurableSpace`**
    （`opensMeasurable_of_borel` / `isOpen_measurableSet`）。
 
@@ -133,7 +133,7 @@ example (α : Type*) [TopologicalSpace α] : BorelSpace α := by infer_instance
 
 /-- **Borel 使用模式（生成方向）**：给定拓扑，`borel α` 就是可直接注册的
 `MeasurableSpace` 实例。这把"怎么从拓扑得到 Borel σ-代数"固化为**可编译的事实**。 -/
-theorem borelOfTopology (α : Type*) [t : TopologicalSpace α] :
+theorem borel_of_topology (α : Type*) [t : TopologicalSpace α] :
     (borel α : MeasurableSpace α) = @borel α t := rfl
 
 /-- **Borel ⟹ 开集可测（承重的桥）**：`[BorelSpace α]` 给出
@@ -430,7 +430,7 @@ theorem satisfiable_integrable_of_ae_bound {α : Type*} [MeasurableSpace α]
 
 | 需求 | 本层接口 | 底层 mathlib 名字（实测存在） |
 |:--|:--|:--|
-| 拓扑 ⟹ Borel σ-代数 | `borelOfTopology` / `borelSpace_self` | `borel`、`BorelSpace` |
+| 拓扑 ⟹ Borel σ-代数 | `borel_of_topology` / `borelSpace_self` | `borel`、`BorelSpace` |
 | 开集可测 | `isOpen_measurableSet` | `IsOpen.measurableSet` |
 | `μ univ = 1` | `prob_univ` / `prob_iff_univ` | `Measure.measure_univ`、`isProbabilityMeasure_iff` |
 | 概率 ⟹ 有限测度 | `prob_isFinite` | 实例链 |

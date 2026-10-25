@@ -139,8 +139,8 @@ theorem parStar_lam {t t' : Term} (h : ParStar t t') : ParStar (.lam t) (.lam t'
 theorem parStep_of_step {u v : Term} (h : RedStep u v) : ParStep u v := by
   induction h with
   | beta t s => exact ParStep.beta (ParStep.refl t) (ParStep.refl s)
-  | appL _ ih => exact ParStep.app ih (ParStep.refl _)
-  | appR _ ih => exact ParStep.app (ParStep.refl _) ih
+  | app_l _ ih => exact ParStep.app ih (ParStep.refl _)
+  | app_r _ ih => exact ParStep.app (ParStep.refl _) ih
   | lam _ ih => exact ParStep.lam ih
 
 /-- **`Lattice.Lib.Compiler.RealBetaReduction.BetaStar ⊆ ParStar`**：一步 β 的多步闭包嵌入并行归约的多步闭包。 -/

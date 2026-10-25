@@ -19,7 +19,7 @@ GNN 的一层是「邻接加权聚合 + 线性变换 + 逐点非线性」：
    —— 聚合对输入扰动的敏感度同样由加权度控制（GNN 过平滑/过压缩分析的起点）。
 3. **一层 Lipschitz**（`gnnLayer_lipschitz`）：`σ` 是 L-Lipschitz ⟹
    `|gnnLayer A W σ h i − gnnLayer A W σ h' i| ≤ L·|W|·δ·∑_j |A_i_j|`。
-4. **两跳展开**（`twoHopMsg` / `twoHopMsg_bound`）：
+4. **两跳展开**（`two_hop_msg` / `twoHopMsg_bound`）：
    `msgPass A (msgPass A h) k = ∑_j A_k_j · (∑_i A_j_i · h_i)`，
    界 `≤ (∑_j |A_k_j| · ∑_i |A_j_i|) · M`（界由**两跳路径的权重和**控制）。
 5. **度归一化不放大**（`degNorm_sum_abs_le_one` / `degNorm_msgPass_bound`）：
@@ -124,7 +124,7 @@ theorem gnnLayer_lipschitz (A : ι → ι → ℝ) (W : ℝ) (σ : ℝ → ℝ) 
 /-! ## 五、两跳消息传递：展开式与界 -/
 
 /-- **两跳展开**：`msgPass A (fun i => msgPass A h i) k = ∑_j A_k_j · (∑_i A_j_i · h_i)`。 -/
-theorem twoHopMsg (A : ι → ι → ℝ) (h : ι → ℝ) (k : ι) :
+theorem two_hop_msg (A : ι → ι → ℝ) (h : ι → ℝ) (k : ι) :
     msgPass A (fun i => msgPass A h i) k = ∑ j, A k j * (∑ i, A j i * h i) := by
   simp only [msgPass]
 
@@ -134,7 +134,7 @@ theorem twoHopMsg (A : ι → ι → ℝ) (h : ι → ℝ) (k : ι) :
 theorem twoHopMsg_bound (A : ι → ι → ℝ) (h : ι → ℝ) (M : ℝ) (k : ι)
     (hM : ∀ i, |h i| ≤ M) :
     |msgPass A (fun i => msgPass A h i) k| ≤ (∑ j, |A k j| * (∑ i, |A j i|)) * M := by
-  rw [twoHopMsg]
+  rw [two_hop_msg]
   calc
     |∑ j, A k j * (∑ i, A j i * h i)| ≤ ∑ j, |A k j * (∑ i, A j i * h i)| :=
       Finset.abs_sum_le_sum_abs _ _
@@ -190,7 +190,7 @@ theorem degNorm_msgPass_lipschitz (A : ι → ι → ℝ) (h h' : ι → ℝ) (�
 
 /-! ## 注：闭环语义
   邻接（adj）→ 一跳聚合（msgPass）→ 有界/ Lipschitz（msgPass_bound / msgPass_lipschitz）→
-  一层 Lipschitz（gnnLayer_lipschitz）→ 两跳展开与界（twoHopMsg / twoHopMsg_bound）→
+  一层 Lipschitz（gnnLayer_lipschitz）→ 两跳展开与界（two_hop_msg / twoHopMsg_bound）→
   度归一化（degNorm）→ 非放大（degNorm_sum_abs_le_one / degNorm_msgPass_bound）。
   诚实标注：置换等变性的完整群论证明未做；全局收敛性/表达能力未做。 -/
 

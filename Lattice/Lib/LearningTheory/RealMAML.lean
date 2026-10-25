@@ -19,7 +19,7 @@ import Mathlib
 
 ## 主结果
 
-1. **FOMAML 偏差界**（`firstOrderMAML`）：忽略二阶项得到 `fomamlGrad h = h`，则
+1. **FOMAML 偏差界**（`first_order_maml`）：忽略二阶项得到 `fomamlGrad h = h`，则
 
        |∇MAML − ∇FOMAML| = α·|H|·|h| ≤ α·Λ·|h|      （|H| ≤ Λ）
 
@@ -110,7 +110,7 @@ theorem firstOrderMAML_exact (H h : ℝ) :
 
 /-- **一阶 MAML 偏差界**：`0 ≤ α`、`|H| ≤ Λ` ⟹
     `|∇MAML − ∇FOMAML| ≤ α·Λ·|h|`。 -/
-theorem firstOrderMAML (α Λ H h : ℝ) (hα : 0 ≤ α) (hH : |H| ≤ Λ) :
+theorem first_order_maml (α Λ H h : ℝ) (hα : 0 ≤ α) (hH : |H| ≤ Λ) :
     |mamlGrad α H h - fomamlGrad h| ≤ α * Λ * |h| := by
   have hval : (1 - α * H) * h - h = -(α * H * h) := by ring
   rw [mamlGrad, fomamlGrad, hval, abs_neg, abs_mul, abs_mul, abs_of_nonneg hα]
@@ -120,7 +120,7 @@ theorem firstOrderMAML (α Λ H h : ℝ) (hα : 0 ≤ α) (hH : |H| ≤ Λ) :
     `|∇MAML − ∇联合| ≤ α·Λ·|g|`。 -/
 theorem maml_vs_joint (α Λ H g : ℝ) (hα : 0 ≤ α) (hH : |H| ≤ Λ) :
     |mamlGrad α H g - g| ≤ α * Λ * |g| := by
-  have h := firstOrderMAML α Λ H g hα hH
+  have h := first_order_maml α Λ H g hα hH
   simpa [fomamlGrad] using h
 
 /-- **元更新一步的偏差放大**：`|MAML 步 − FOMAML 步| ≤ β·(α·Λ·|h|)`。 -/
@@ -132,7 +132,7 @@ theorem maml_meta_step_bound (θ β α Λ H h : ℝ) (hβ : 0 ≤ β) (hα : 0 �
     unfold mamlMetaStep fomamlMetaStep outerUpdate
     ring
   rw [hval, abs_neg, abs_mul, abs_of_nonneg hβ]
-  exact mul_le_mul_of_nonneg_left (firstOrderMAML α Λ H h hα hH) hβ
+  exact mul_le_mul_of_nonneg_left (first_order_maml α Λ H h hα hH) hβ
 
 /-- **元损失单步变化**：`L` 以 ΛL 为 Lipschitz 常数 ⟹
     `|L(innerUpdate θ α g) − L θ| ≤ ΛL·α·|g|`。 -/
@@ -149,7 +149,7 @@ theorem maml_inner_step_bound (L : ℝ → ℝ) (ΛL α θ g : ℝ) (hα : 0 ≤
 /-! ## 注：闭环语义
   任务内更新（innerUpdate）→ 元梯度链式法则（mamlGrad / MAMLChainRule /
   maml_gradient_chain_rule）→ 退化回收（fomaml_grad_eq_maml_zero_hessian /
-  firstOrderMAML_exact）→ FOMAML 偏差界（firstOrderMAML）→
+  firstOrderMAML_exact）→ FOMAML 偏差界（first_order_maml）→
   MAML vs 联合训练（maml_vs_joint）→ 元更新放大（maml_meta_step_bound）→
   元损失单步界（maml_inner_step_bound）。
   诚实降级：完整 MAML 收敛定理不做；Hessian 项 H 与曲率界 Λ 为显式假设。 -/

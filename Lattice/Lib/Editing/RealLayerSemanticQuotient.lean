@@ -286,7 +286,7 @@ def semConv : Quotient semSetoidC → Quotient semSetoidL :=
 
 ⚠ **为什么是 `rfl`**：本工具链（`v4.14.0`）的 `Init/Core.lean:1545-1550` 给出
 
-    protected theorem liftBeta (f) (c) (a) : lift f c (Quot.mk r a) = f a := rfl
+    protected theorem lift_beta (f) (c) (a) : lift f c (Quot.mk r a) = f a := rfl
 
 ⭐ 即 `Quot.lift` 在 `Quot.mk` 上**定义地**归约 —— 故本等式是 `rfl` 级。
 ⚠ **注意**：核心里**没有** `Quotient.lift_mk` 这个名字
@@ -297,7 +297,7 @@ def semConv : Quotient semSetoidC → Quotient semSetoidL :=
 注意：**历史沿革（已销账）**：`rfl` 是否真的闭合，曾取决于 `def semConv` 的展开 +
 `Quotient.lift` 作为 `abbrev`（`Init/Core.lean:1685`）的透明性**叠加**是否被
 `rfl` 的定型器接受。注意：该不确定性**已销账**：实测 `rfl` **成立**，退路
-`Quot.liftBeta` 显式改写**未使用**（见文末 §十「原不确定清单的实测结论」）。 -/
+`Quot.lift_beta` 显式改写**未使用**（见文末 §十「原不确定清单的实测结论」）。 -/
 @[simp] theorem semConv_mk (c : VectorConstraint) :
     semConv (Quotient.mk semSetoidC c) = Quotient.mk semSetoidL (convertVec c) :=
   rfl
@@ -630,7 +630,7 @@ end Lattice
        —— `r04_scale_ne_self : scaleVec r04C 2 ≠ r04C` 与目标 `r04C = scaleVec r04C 2`
        **方向相反** ⇒ 补 `Ne.symm`（**签名逐字核对**，非猜测）。
    - 成立：原稿「不确定」清单里的 **`semConv_mk` 的 `rfl`** 与 **`Quotient.inductionOn` 位置参数**
-     两点，**实测均成立**（无需退路 `Quot.liftBeta`）。
+     两点，**实测均成立**（无需退路 `Quot.lift_beta`）。
 2. 注意：**`Layer`（列表层）的商未构造**：§二 只给了 `SemEqLayer` 的**自反性**。
    注意：**未**证它是等价关系（对称性/传递性在「逐层配对」定义下**不显然**，
    且该定义**可能不对** —— 正确形式大概是「`List.map` 的核」，
@@ -658,8 +658,8 @@ end Lattice
 注意：本节原为**编译前**的自查清单。经 `lean_probe.py` 实测，逐条结论如下：
 
 - 成立：**`semConv_mk` 的 `rfl` 成立**：`Quotient.lift` 作为 `abbrev` 的透明性 +
-  `Quot.liftBeta`（`Init/Core.lean:1545`）叠加**确实**被 `rfl` 接受 —— **无需**退路
-  `Quot.liftBeta`。原稿的推断**正确**。
+  `Quot.lift_beta`（`Init/Core.lean:1545`）叠加**确实**被 `rfl` 接受 —— **无需**退路
+  `Quot.lift_beta`。原稿的推断**正确**。
   注意：附带确认：核心里**确实没有** `Quotient.lift_mk`（原稿 grep 结论正确）。
 - 成立：**`Quotient.inductionOn q ?_` 的元变量顺序成立**：`refine … ?_` + `intro c`
   的位置参数用法**可用**（尽管原文注释里的行号 `1699-1703` 应为 `1789/1788`

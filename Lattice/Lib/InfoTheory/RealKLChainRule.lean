@@ -14,7 +14,7 @@ import Lattice.Lib.InfoTheory.RealContinuousKL
 
   1. `klJoint` / `klJointMarginal` / `klConditional`（定义）：联合 KL、
      边缘 KL、条件 KL。
-  2. `klChainRule`（**核心**）：有限支撑下
+  2. `kl_chain_rule`（**核心**）：有限支撑下
      `KL(p(x,y)‖q(x,y)) = KL(p(x)‖q(x)) + Σ_a p(x=a)·KL(p(y|x=a)‖q(y|x=a))`。
      证明：逐点 log 恒等式
      `log(p_b/q_b) = log((p_b/r)/(q_b/r')) + log(r/r')`（`Real.log_mul` 逆用）
@@ -29,7 +29,7 @@ import Lattice.Lib.InfoTheory.RealContinuousKL
 
 **诚实边界（标注）**：
 - 全部为**有限支撑**（`Fin m → Fin n → ℝ`）的纯代数 + 求和换序；不含测度论版本。
-- `klChainRule` 与熵分解明确假设联合/边缘**严格正**（`0 < p`、`0 < mr`、`0 < mc`），
+- `kl_chain_rule` 与熵分解明确假设联合/边缘**严格正**（`0 < p`、`0 < mr`、`0 < mc`），
   因为 `Real.log` 在非正处取 0 会破坏 `Real.log_div` / `Real.log_mul` 的代数恒等式。
   这是定义域语义标注，不是证明缺口。
 - 未做：测度论（Radon–Nikodym）形式的链式法则；条件 KL 的凸性。
@@ -105,7 +105,7 @@ lemma sum_row_kl_decomposition (p q : Fin m → Fin n → ℝ) (hp0 : ∀ a b, 0
 
 /-- **KL 的链式法则（核心）**：有限支撑下
 `KL(p(x,y)‖q(x,y)) = KL(p(x)‖q(x)) + Σ_a p(x=a)·KL(p(y|x=a)‖q(y|x=a))`。 -/
-theorem klChainRule (p q : Fin m → Fin n → ℝ) (hp0 : ∀ a b, 0 < p a b)
+theorem kl_chain_rule (p q : Fin m → Fin n → ℝ) (hp0 : ∀ a b, 0 < p a b)
     (hq0 : ∀ a b, 0 < q a b) (hrp : ∀ a, 0 < marginalRow p a)
     (hrq : ∀ a, 0 < marginalRow q a) :
     klJoint p q = klJointMarginal p q

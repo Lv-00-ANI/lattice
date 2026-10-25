@@ -317,9 +317,9 @@ open LTerm
 /-- 单步 β-归约关系。 -/
 inductive BetaRed : LTerm → LTerm → Prop where
   | beta    : BetaRed (.app (.lam b) a) b
-  | appL    : BetaRed t1 t1' → BetaRed (.app t1 t2) (.app t1' t2)
-  | appR    : BetaRed t2 t2' → BetaRed (.app t1 t2) (.app t1 t2')
-  | lamBody : BetaRed t t' → BetaRed (.lam t) (.lam t')
+  | app_l    : BetaRed t1 t1' → BetaRed (.app t1 t2) (.app t1' t2)
+  | app_r    : BetaRed t2 t2' → BetaRed (.app t1 t2) (.app t1 t2')
+  | lam_body : BetaRed t t' → BetaRed (.lam t) (.lam t')
 
 /-- β-归约的自反传递闭包。 -/
 inductive BetaRedStar : LTerm → LTerm → Prop where
@@ -333,26 +333,26 @@ lemma BetaRedStar.trans {a b c : LTerm} (hab : BetaRedStar a b) (hbc : BetaRedSt
   | refl => exact hbc
   | step h1 h2 ih => exact BetaRedStar.step h1 (ih hbc)
 
-/-- **(A) 把 `BetaRedStar` 提升到 `appL` 上下文。** -/
-lemma BetaRedStar.appL {t1 t1' t2 : LTerm} (h : BetaRedStar t1 t1') :
+/-- **(A) 把 `BetaRedStar` 提升到 `app_l` 上下文。** -/
+lemma BetaRedStar.app_l {t1 t1' t2 : LTerm} (h : BetaRedStar t1 t1') :
     BetaRedStar (.app t1 t2) (.app t1' t2) := by
   induction h with
   | refl => exact .refl
-  | step h1 h2 ih => exact .step (.appL h1) ih
+  | step h1 h2 ih => exact .step (.app_l h1) ih
 
-/-- **(A) 把 `BetaRedStar` 提升到 `appR` 上下文。** -/
-lemma BetaRedStar.appR {t1 t2 t2' : LTerm} (h : BetaRedStar t2 t2') :
+/-- **(A) 把 `BetaRedStar` 提升到 `app_r` 上下文。** -/
+lemma BetaRedStar.app_r {t1 t2 t2' : LTerm} (h : BetaRedStar t2 t2') :
     BetaRedStar (.app t1 t2) (.app t1 t2') := by
   induction h with
   | refl => exact .refl
-  | step h1 h2 ih => exact .step (.appR h1) ih
+  | step h1 h2 ih => exact .step (.app_r h1) ih
 
-/-- **(A) 把 `BetaRedStar` 提升到 `lamBody` 上下文。** -/
-lemma BetaRedStar.lamBody {t t' : LTerm} (h : BetaRedStar t t') :
+/-- **(A) 把 `BetaRedStar` 提升到 `lam_body` 上下文。** -/
+lemma BetaRedStar.lam_body {t t' : LTerm} (h : BetaRedStar t t') :
     BetaRedStar (.lam t) (.lam t') := by
   induction h with
   | refl => exact .refl
-  | step h1 h2 ih => exact .step (.lamBody h1) ih
+  | step h1 h2 ih => exact .step (.lam_body h1) ih
 
 /-- **(A) β-归约严格减少项大小。**
 
@@ -364,13 +364,13 @@ theorem beta_strictly_decreases_size (t1 t2 : LTerm) (h : BetaRed t1 t2) :
   | beta =>
     simp [LTerm.size]
     omega
-  | appL h ih =>
+  | app_l h ih =>
     simp [LTerm.size]
     omega
-  | appR h ih =>
+  | app_r h ih =>
     simp [LTerm.size]
     omega
-  | lamBody h ih =>
+  | lam_body h ih =>
     simp [LTerm.size]
     omega
 
@@ -381,13 +381,13 @@ theorem beta_preserves_depth (t1 t2 : LTerm) (h : BetaRed t1 t2) :
   | beta =>
     simp [LTerm.depth]
     omega
-  | appL h ih =>
+  | app_l h ih =>
     simp [LTerm.depth]
     omega
-  | appR h ih =>
+  | app_r h ih =>
     simp [LTerm.depth]
     omega
-  | lamBody h ih =>
+  | lam_body h ih =>
     simp [LTerm.depth]
     omega
 
@@ -444,31 +444,31 @@ theorem diamond_property {a b c : LTerm} (hab : BetaRed a b) (hac : BetaRed a c)
   match hab, hac with
   | BetaRed.beta, BetaRed.beta =>
     exact ⟨b, .refl, .refl⟩
-  | BetaRed.beta, BetaRed.appL (BetaRed.lamBody hbody) =>
+  | BetaRed.beta, BetaRed.app_l (BetaRed.lam_body hbody) =>
     exact ⟨_, .step hbody .refl, .step .beta .refl⟩
-  | BetaRed.beta, BetaRed.appR _ =>
+  | BetaRed.beta, BetaRed.app_r _ =>
     exact ⟨b, .refl, .step .beta .refl⟩
-  | BetaRed.appL (BetaRed.lamBody hbody), BetaRed.beta =>
+  | BetaRed.app_l (BetaRed.lam_body hbody), BetaRed.beta =>
     exact ⟨_, .step .beta .refl, .step hbody .refl⟩
-  | BetaRed.appL h1, BetaRed.appL h2 =>
+  | BetaRed.app_l h1, BetaRed.app_l h2 =>
     rcases diamond_property h1 h2 with ⟨d1, hd1, hd2⟩
-    exact ⟨.app d1 _, BetaRedStar.appL hd1, BetaRedStar.appL hd2⟩
-  | BetaRed.appL h1, BetaRed.appR h2 =>
+    exact ⟨.app d1 _, BetaRedStar.app_l hd1, BetaRedStar.app_l hd2⟩
+  | BetaRed.app_l h1, BetaRed.app_r h2 =>
     have h1s : BetaRedStar _ _ := .step h1 .refl
     have h2s : BetaRedStar _ _ := .step h2 .refl
-    exact ⟨.app _ _, BetaRedStar.appR h2s, BetaRedStar.appL h1s⟩
-  | BetaRed.appR _, BetaRed.beta =>
+    exact ⟨.app _ _, BetaRedStar.app_r h2s, BetaRedStar.app_l h1s⟩
+  | BetaRed.app_r _, BetaRed.beta =>
     exact ⟨c, .step .beta .refl, .refl⟩
-  | BetaRed.appR h1, BetaRed.appL h2 =>
+  | BetaRed.app_r h1, BetaRed.app_l h2 =>
     have h1s : BetaRedStar _ _ := .step h1 .refl
     have h2s : BetaRedStar _ _ := .step h2 .refl
-    exact ⟨.app _ _, BetaRedStar.appL h2s, BetaRedStar.appR h1s⟩
-  | BetaRed.appR h1, BetaRed.appR h2 =>
+    exact ⟨.app _ _, BetaRedStar.app_l h2s, BetaRedStar.app_r h1s⟩
+  | BetaRed.app_r h1, BetaRed.app_r h2 =>
     rcases diamond_property h1 h2 with ⟨d2, hd1, hd2⟩
-    exact ⟨.app _ d2, BetaRedStar.appR hd1, BetaRedStar.appR hd2⟩
-  | BetaRed.lamBody h1, BetaRed.lamBody h2 =>
+    exact ⟨.app _ d2, BetaRedStar.app_r hd1, BetaRedStar.app_r hd2⟩
+  | BetaRed.lam_body h1, BetaRed.lam_body h2 =>
     rcases diamond_property h1 h2 with ⟨d1, hd1, hd2⟩
-    exact ⟨.lam d1, .lamBody hd1, .lamBody hd2⟩
+    exact ⟨.lam d1, .lam_body hd1, .lam_body hd2⟩
 
 /-- **(A) Church–Rosser 合流性**：若 `a →* b` 且 `a →* c`，则存在 `d` 使 `b →* d`、`c →* d`。
 

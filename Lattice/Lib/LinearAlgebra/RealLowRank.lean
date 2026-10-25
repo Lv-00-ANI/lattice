@@ -9,7 +9,7 @@ import Lattice.Lib.Architectures.RealTensorNorm
   2. `outer_rank_one`（**外积范数 = 两向量范数之积**）：`frob (outer u v) = vecNorm u * vecNorm v`
      （中间用 `frobSq_outer` 把双重平方和分解为两个向量平方和之积）；
   3. `row_sum_sq_le`：`(∑ k, a k)^2 ≤ r * ∑ k, a k^2`（对 `Fin r` 用 Cauchy–Schwarz + 全 1 向量）；
-  4. **`lowRankReparam`**：`frobSq (∑_{k<r} outer (u k) (v k)) ≤ r * ∑_k (vecNorm (u k) * vecNorm (v k))^2`
+  4. **`low_rank_reparam`**：`frobSq (∑_{k<r} outer (u k) (v k)) ≤ r * ∑_k (vecNorm (u k) * vecNorm (v k))^2`
      （逐元素用 3，再求和换序）——低秩参数化的 Frobenius 范数界；
   5. `frob_add_le`：Frobenius 范数的三角不等式 `frob (A + B) ≤ frob A + frob B`
      （用矩阵内积 Cauchy–Schwarz + 平方展开）；
@@ -19,7 +19,7 @@ import Lattice.Lib.Architectures.RealTensorNorm
 诚实标注（无 sorry / axiom / admit）：
 - **Eckart–Young–Mirsky 最优性（SVD 最优低秩逼近）既未证也未做**：本文件只给
   **代数界与参数化结构**，不构造 SVD，不声称截断最优。
-- `lowRankReparam` 的界含因子 `r`（维度），不是 sharp 常数；sharp 版本需要
+- `low_rank_reparam` 的界含因子 `r`（维度），不是 sharp 常数；sharp 版本需要
   最优 `u`、`v` 的选择（谱理论）。
 - 索引类型为任意 `[Fintype]`，秩 `r` 为 `Fin r`。
 - 复用了 `RealTensorNorm` 的 `frobSq` / `frob` / `frobSq_inner_sq_le`（只读，不修改）。
@@ -90,7 +90,7 @@ def lowRankSum {r : ℕ} (u : Fin r → m → ℝ) (v : Fin r → n → ℝ) : m
 
 /-- **低秩参数化的 Frobenius 范数界**：
 `frobSq (∑_{k<r} outer (u k) (v k)) ≤ r * ∑ k (vecNorm (u k) * vecNorm (v k))^2`。 -/
-theorem lowRankReparam {r : ℕ} (u : Fin r → m → ℝ) (v : Fin r → n → ℝ) :
+theorem low_rank_reparam {r : ℕ} (u : Fin r → m → ℝ) (v : Fin r → n → ℝ) :
     frobSq (lowRankSum u v) ≤ (r : ℝ) * ∑ k, (vecNorm (u k) * vecNorm (v k)) ^ 2 := by
   have hrow : ∀ i j, (∑ k, u k i * v k j) ^ 2 ≤ (r : ℝ) * ∑ k, (u k i * v k j) ^ 2 :=
     fun i j => row_sum_sq_le (fun k => u k i * v k j)

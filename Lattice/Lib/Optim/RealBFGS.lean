@@ -15,7 +15,7 @@ BFGS 是最常用的拟牛顿更新：
   3. `bfgs_secant`（**Secant 方程**）：`B⁺ *ᵥ s = y`（需 `yᵀs ≠ 0`、`sᵀBs ≠ 0`）。
 
 二、抽象二次型层（**模型无关**：只假设 `β` 是对称双线性形式）：
-  4. `bfgsParaboloid`（**抛物面恒等式 / 直接二次型配方**）：
+  4. `bfgs_paraboloid`（**抛物面恒等式 / 直接二次型配方**）：
      `β z z − (β z s)²/(β s s) = β (z − c s)(z − c s)`，`c = β z s/β s s`；
   5. `bfgs_form_psd`：`β` 半正定、`0 < β s s`、`0 < yᵀs` ⟹ BFGS 二次型
      `β z z − (β z s)²/(β s s) + (zᵀy)²/(yᵀs)` 半正定；
@@ -92,7 +92,7 @@ theorem bfgs_secant (B : Matrix (Fin n) (Fin n) ℝ) (s y : Fin n → ℝ)
 `c = β z s / β s s` ⟹ `β z z − (β z s)²/(β s s) = β (z − c s)(z − c s)`。
 
 证明：展开右端为 `β z z − 2c·β z s + c²·β s s`，代入 `c` 即得。 -/
-theorem bfgsParaboloid {β : (Fin n → ℝ) → (Fin n → ℝ) → ℝ}
+theorem bfgs_paraboloid {β : (Fin n → ℝ) → (Fin n → ℝ) → ℝ}
     (hadd : ∀ u v w : Fin n → ℝ, β (u + v) w = β u w + β v w)
     (hsmul : ∀ (a : ℝ) (u w : Fin n → ℝ), β (a • u) w = a * β u w)
     (hsymm : ∀ u w : Fin n → ℝ, β u w = β w u)
@@ -132,7 +132,7 @@ theorem bfgs_form_psd {β : (Fin n → ℝ) → (Fin n → ℝ) → ℝ}
     {s y : Fin n → ℝ} (hss : 0 < β s s) (hys : 0 < Matrix.dotProduct y s) (z : Fin n → ℝ) :
     0 ≤ β z z - (β z s) ^ 2 / (β s s) + (Matrix.dotProduct z y) ^ 2 / Matrix.dotProduct y s := by
   have h1 : 0 ≤ β z z - (β z s) ^ 2 / (β s s) := by
-    rw [bfgsParaboloid hadd hsmul hsymm (ne_of_gt hss)]
+    rw [bfgs_paraboloid hadd hsmul hsymm (ne_of_gt hss)]
     exact hpsd _
   have h2 : 0 ≤ (Matrix.dotProduct z y) ^ 2 / Matrix.dotProduct y s :=
     div_nonneg (sq_nonneg _) (le_of_lt hys)
@@ -178,7 +178,7 @@ theorem bfgs_form_pd {β : (Fin n → ℝ) → (Fin n → ℝ) → ℝ}
       rw [hzc, hc0, zero_smul] at hz
       exact hz rfl
     have hfirst : 0 < β z z - (β z s) ^ 2 / (β s s) := by
-      rw [bfgsParaboloid hadd hsmul hsymm (ne_of_gt hss)]
+      rw [bfgs_paraboloid hadd hsmul hsymm (ne_of_gt hss)]
       exact hpd _ hne
     rw [hy]
     simp only [zero_pow (by norm_num : 2 ≠ 0), zero_div, add_zero]
@@ -190,7 +190,7 @@ theorem bfgs_form_pd {β : (Fin n → ℝ) → (Fin n → ℝ) → ℝ}
       div_pos h2 hys
     -- 第一项非负：`β w w ≥ 0`（`w ≠ 0` 时由正定性严格正；`w = 0` 时为 0）。
     have hfirst_nonneg : 0 ≤ β z z - (β z s) ^ 2 / (β s s) := by
-      rw [bfgsParaboloid hadd hsmul hsymm (ne_of_gt hss)]
+      rw [bfgs_paraboloid hadd hsmul hsymm (ne_of_gt hss)]
       by_cases hw : z - (β z s / β s s) • s = 0
       · rw [hw]
         exact le_of_eq (by

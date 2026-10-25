@@ -14,7 +14,7 @@ import Lattice.Lib.Editing.RealBatchEditClosed
 ⚠⚠ **"检查已有内容"的结果是：这条命令字面所指的定理【已经存在】，而且是平凡的。**
 
 `RealEditRollback.editSeq`（该文件 `:143`）把编辑列表按 `(Δ, k)` 对依次施加，
-`RealEditOrder.editSeqComm`（该文件 `:79`）证明
+`RealEditOrder.edit_seq_comm`（该文件 `:79`）证明
 
     rankOneEdit (rankOneEdit F Δ₁ k₁) Δ₂ k₂ = rankOneEdit (rankOneEdit F Δ₂ k₂) Δ₁ k₁
 
@@ -282,7 +282,7 @@ theorem rowEdit_order_difference_zero_of_orthogonal (F : E → ℝ) (p q : RowVe
 ⚠⚠ **§二、§三 只证了充分性。判据 1 要求构造【具体对象】让结论【为假】**。
 
 ⭐⭐ **关键分界（任务书点名的两种语义）**：
-`RealEditOrder.editSeqComm` 的 `Δ` 是**预设常数** ⟹ 无条件交换（纯 `ring`）；
+`RealEditOrder.edit_seq_comm` 的 `Δ` 是**预设常数** ⟹ 无条件交换（纯 `ring`）；
 而 `ApplyEdit` 的 `Δ = (v − F·k)/‖k‖²` **依赖当前 `F`** ⟹ **一般不交换**。
 
 ⭐⭐ **本节的策略（⚠ 与初稿不同，已按实测风险改写）**：

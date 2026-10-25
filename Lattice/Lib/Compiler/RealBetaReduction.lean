@@ -7,7 +7,7 @@ import Lattice.Lib.Compiler.RealLambdaCalculus
 无类型 λ-演算的一步 β-归约与多步归约，并给出：
 
   1. `betaSubst`：单点替换「把 `var 0` 换成 `s`，其余索引下移一位」；
-  2. `RedStep`：一步 β-归约关系（含 `appL`/`appR`/`lam` 上下文闭包）；
+  2. `RedStep`：一步 β-归约关系（含 `app_l`/`app_r`/`lam` 上下文闭包）；
      `BetaStar := Relation.ReflTransGen RedStep` 及其代数（`star_refl`/`star_single`/
      `star_trans`/`star_head`/`star_tail`/`star_appL`/`star_appR`/`star_lam`）；
   3. 反转引理 `step_app_inv`、`step_lam_inv` 与 `not_step_var`；
@@ -46,8 +46,8 @@ def betaSubst (s t : Term) : Term :=
 /-- 一步 β-归约关系：根 β（redex）加上下文闭包。 -/
 inductive RedStep : Term → Term → Prop where
   | beta (t s : Term) : RedStep (.app (.lam t) s) (betaSubst s t)
-  | appL {a a' b : Term} : RedStep a a' → RedStep (.app a b) (.app a' b)
-  | appR {a b b' : Term} : RedStep b b' → RedStep (.app a b) (.app a b')
+  | app_l {a a' b : Term} : RedStep a a' → RedStep (.app a b) (.app a' b)
+  | app_r {a b b' : Term} : RedStep b b' → RedStep (.app a b) (.app a b')
   | lam {t t' : Term} : RedStep t t' → RedStep (.lam t) (.lam t')
 
 /-- 多步 β-归约（`RedStep` 的自反传递闭包）。 -/
@@ -78,13 +78,13 @@ theorem star_tail {a b c : Term} (h₁ : BetaStar a b) (h₂ : RedStep b c) : Be
 theorem star_appL {a a' b : Term} (h : BetaStar a a') : BetaStar (.app a b) (.app a' b) := by
   induction h with
   | refl => exact Relation.ReflTransGen.refl
-  | tail _ hbc ih => exact ih.tail (RedStep.appL hbc)
+  | tail _ hbc ih => exact ih.tail (RedStep.app_l hbc)
 
 /-- `app` 右参数的上下文闭包保持多步归约。 -/
 theorem star_appR {a b b' : Term} (h : BetaStar b b') : BetaStar (.app a b) (.app a b') := by
   induction h with
   | refl => exact Relation.ReflTransGen.refl
-  | tail _ hbc ih => exact ih.tail (RedStep.appR hbc)
+  | tail _ hbc ih => exact ih.tail (RedStep.app_r hbc)
 
 /-- `lam` 下的上下文闭包保持多步归约。 -/
 theorem star_lam {t t' : Term} (h : BetaStar t t') : BetaStar (.lam t) (.lam t') := by
@@ -109,8 +109,8 @@ theorem step_app_inv {a b t : Term} (h : RedStep (.app a b) t) :
     (∃ b', RedStep b b' ∧ t = .app a b') := by
   cases h with
   | beta => exact Or.inl ⟨_, _, rfl, rfl, rfl⟩
-  | appL h' => exact Or.inr (Or.inl ⟨_, h', rfl⟩)
-  | appR h' => exact Or.inr (Or.inr ⟨_, h', rfl⟩)
+  | app_l h' => exact Or.inr (Or.inl ⟨_, h', rfl⟩)
+  | app_r h' => exact Or.inr (Or.inr ⟨_, h', rfl⟩)
 
 /-- `lam` 的一步归约反转：只能来自体内一步。 -/
 theorem step_lam_inv {X t : Term} (h : RedStep (.lam X) t) : ∃ X', t = .lam X' ∧ RedStep X X' := by
@@ -148,7 +148,7 @@ theorem betaSubst_compose_lift (s t : Term) :
 /-- **不相交余归约的菱形**：两个参数各自一步归约可在 `.app a' b'` 汇合。 -/
 theorem join_app_disjoint {a a' b b' : Term} (h₁ : RedStep a a') (h₂ : RedStep b b') :
     ∃ w, BetaStar (.app a' b) w ∧ BetaStar (.app a b') w :=
-  ⟨.app a' b', star_single (RedStep.appR h₂), star_single (RedStep.appL h₁)⟩
+  ⟨.app a' b', star_single (RedStep.app_r h₂), star_single (RedStep.app_l h₁)⟩
 
 /-- **`lam` 下的菱形提升**：体内两个余归约汇合 ⟹ 抽象下也汇合。 -/
 theorem diamond_lam {t₁ t₂ : Term} (h : ∃ w, BetaStar t₁ w ∧ BetaStar t₂ w) :
@@ -213,7 +213,7 @@ theorem not_step_redB (u : Term) : ¬ RedStep redB u := by
 
 /-- `V = (λx. x x) z` 的一步归约只有一个结果 `z z`。
 （`redB = x x` 是 `app`，其一步归约只能来自左右子项的上下文步，
-而 `var _` 无一步归约——故 `appL`/`appR` 分支由 `not_step_var` 消解。） -/
+而 `var _` 无一步归约——故 `app_l`/`app_r` 分支由 `not_step_var` 消解。） -/
 theorem step_redV {w : Term} (h : RedStep redV w) : w = redZZ := by
   rcases step_app_inv h with ⟨t₀, s₀, ha, hb, hw⟩ | ⟨a', hs, hw⟩ | ⟨b', hs, hw⟩
   · injection ha with ht₀
@@ -234,7 +234,7 @@ theorem step_T_U : RedStep redT redU := by
 /-- `T` 参数内 β 一步到 `V`。 -/
 theorem step_T_V : RedStep redT redV := by
   have h : RedStep (.app (.lam redB) (.app redI redZ)) (.app (.lam redB) redZ) :=
-    RedStep.appR (a := .lam redB) (RedStep.beta (.var 0) redZ)
+    RedStep.app_r (a := .lam redB) (RedStep.beta (.var 0) redZ)
   simpa [redT, redV] using h
 
 /-- **一步菱形性质为假**：`T` 的两个一步归约结果 `U`、`V` 没有共同的一步归约。 -/
