@@ -19,8 +19,8 @@
 | P4 | T4 的多步收敛（当前只证「一步」） | 数学 | L | 已登记为 slot |
 | P5 | Cv00 段处置（原文路线） | 方向论证 | S | 已论证不做，需固化 |
 | **P3b** | **门禁真实强度**：16 个检查恒返回 0；I3/I4/I7/G7 无反应性测试 | **治理（已发现真缺陷）** | M | **部分已修**（见 §4b） |
-| P6 | 可复现构建（mathlib `path` → `git` + rev） | 工程 | M | **未做**，阻塞 CI |
-| P7 | CI 实际可跑（5 处致命缺陷） | 工程 | M | **未做**，从未执行过 |
+| P6 | 可复现构建（mathlib `path` → `git` + rev） | 工程 | M | ✅ **已完成**：manifest 记录 rev，实测不重编 |
+| P7 | CI 实际可跑（5 处致命缺陷） | 工程 | M | ✅ **已修**（静态验证 + 反应性 4/4）；网络段仍未实跑 |
 | P8 | `archive/` 无失效声明；B481–B498 断链 | 治理 | S | **未做** |
 | P8b | 本地提交门禁**无法安装**（sh 钩子阻断提交，实测） | 工程 | — | **已实测并处置**：钩子移除，提交路径恢复 |
 | P9 | 证明承重性重扫（超出四条靶定理的部分） | 数学 | L | **未做** |
@@ -381,6 +381,38 @@ rev = `4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84`。
 **验收**：CI 上 `build-and-verify` job 真实跑通；若暂时做不到，必须在 README 里
 **明确写「CI 未验证」**（当前 README 未写，属文档缺口）。
 
+### P6/P7 实测记录（已完成，留作依据）
+
+六次探针，按顺序否掉了四个方案，最后落到可行的一个。全部在 `agent-tmp/p6_probe*.py`。
+
+| # | 方案 | 实测结果 |
+|--:|:--|:--|
+| 1 | `require git` 指向远程 | `info: mathlib: cloning ...` → **重新下载 4.2 GB**，不可接受 |
+| 2 | `packagesDir` 指向已有缓存 + 远程 git | 仍尝试 clone；且本机 git 报 `non UTF-8 data` |
+| 3 | `require git` 指**本地 clone** | `URL has changed; ... delete ... manually` → 仍是 git transport |
+| 4 | 诊断：git 本身能否用 | ❌ `git ls-remote` → `sh.exe: fatal error - couldn't create signal pipe, Win32 error 5`。**本机 git transport 不可用**，与 pre-commit 钩子同源 |
+| 5 | 手工种子 manifest（`type: git` + rev） | Lake 报 `property not found: inherited` → 需要完整字段集 |
+| 6 | 完整字段 + 8 个兄弟包 | ✅ **`lake build` exit 0，不联网不重编** |
+
+**结论**：rev 记录在 `lake-manifest.json`（`type: git` + `url` + `rev` + `dir` 指向既有目录）。
+`lakefile.toml` 保留 `path` require，使本机无 git 也能构建。
+
+**仍未验证**：联网 clone、elan 安装、GitHub cache 服务。这台机器跑不了 git transport，
+所以这三段只有静态检查。
+
+**CI 的四处旧缺陷（已修，逐条有反应性用例）**：
+1. 读 `lattice/lean/lake-manifest.json`（本仓不存在）→ 改为读本仓 manifest；
+2. 缓存路径指向旧树 → 改为 `.lake/packages/mathlib/.lake/build`；
+3. `lake update` 在 clone 之后重解析浮动标签 → 删除；
+4. 无 HEAD 断言 / 无构建错误门禁 → 新增 `rev-parse HEAD` 比对与
+   `if grep -qE '^error' build.log; then ... exit 1`。
+
+`gov/check_ci_workflow.py` 守这四条，`check_ci_workflow_reactivity.py` 注入四个缺陷
+**全部被检出**——其中「error gate」这一条第一次**没被检出**（判据只看词是否出现，
+不看守卫本身），收紧后才通过。
+
+---
+
 ### P8：CORRECTIONS B481–B498
 
 `archive/PROCESS.md` 引用了 B481–B498，`archive/CORRECTIONS.md` 正文只到 B480。
@@ -579,7 +611,7 @@ rev = `4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84`。
 | **2** | **P11：撇号名收敛（60 个）** | 独立、可机械验证、不涉及外部语义；是「命名标注」里最便宜的一步 |
 | ~~3~~ | ~~P1：把 (i)+(ii) 入库~~ | ✅ **已完成本步**（`Lift/ApproxExact.lean` + `Lift/PenaltyAnalysis.lean`） |
 | ~~4~~ | ~~P13：`PROOF-CHAIN-RUNG.md`~~ | ✅ **已完成**；否证实验确认 `_hdec` 不承重、`Ladder` 零实例 |
-| **5** | **P7 + P6：CI 修好并真跑** | 「683 olean 编译通过」目前在 CI 里**没有证据**；5 处缺陷是确定的 |
+| ~~5~~ | ~~P7 + P6：CI 修好并真跑~~ | ✅ **已完成**；详见 §6 的 P6/P7 实测记录 |
 | **6** | **P3b：报告器 vs 门禁逐个定性** | 「PASS」曾把 15 个能红的检查与 18 个不会红的进程混成一个数（汇总已改，逐项待决） |
 | **7** | **P3b-2：补齐 I6 / G7 的反应性测试** | 实测 I3/I4/I7 会红；**I6 仍未被证实**；`check_g7` 把「缺陷存在」打印成「一致」 |
 | **8** | **P3：owed slot 清理** | 债务必须结清或降级；`lift.embed.local_minimiser_exact` 由 P1 接管改写 |

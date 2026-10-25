@@ -2,22 +2,42 @@ name: lattice
 
 # LATTICE CI.
 #
-# Design rules (each one earned by a defect recorded in archive/CORRECTIONS.md):
+# Design rules (each earned by a defect recorded in archive/CORRECTIONS.md):
 #
-#  * The gate runs FIRST and cheaply. `gov/gate.py` checks 8 invariants in ~4 s; a red
-#    gate means the tree is not worth building.
-#  * The build is required, not advisory. The legacy CI's main command was measured to
-#    abort (exit 90) on the author's machine -- a gate that is always red gets ignored,
-#    so nothing in this file is allowed to be red-on-arrival.
-#  * Every checker in `gov/` must be able to turn the job red. `verify_all.py` registers
-#    the reactivity tests, which inject known defects and assert the gate reports them.
-#  * No `.ps1`. The new tree has none (measured: 0), so CI needs no shell-parity job.
+#  * The gate runs FIRST and cheaply. `gov/gate.py` checks 8 invariants without a Lean
+#    toolchain; a red gate means the tree is not worth building.
+#  * The build is required, not advisory. A gate that is always red gets ignored, so
+#    nothing in this file is allowed to be red-on-arrival.
+#  * Every checker in `gov/` must be able to turn the job red. The reactivity tests inject
+#    known defects and assert the gate reports them; a check that cannot fail is not a check.
+#  * No `.ps1`. The new tree has none, so no shell-parity job is needed.
+#
+# ---------------------------------------------------------------------------
+# What changed and why (see ROADMAP-v3 P6/P7)
+#
+# The previous version read the mathlib revision from `lattice/lean/lake-manifest.json` --
+# a path that does not exist in this repository, so the step failed immediately and the
+# whole `build-and-verify` job never ran. That was measured, not suspected.
+#
+# It also relied on `lakefile.toml` requiring mathlib by PATH, which cannot record a
+# revision at all: a path requirement puts no rev in the manifest, so nothing in the tree
+# said which mathlib the proofs were checked against.
+#
+# Now `lake-manifest.json` itself records mathlib as `type: git` with an explicit `rev`.
+# That makes the revision a committed, checkable fact, and it is the same fact a fresh
+# `lake update` would derive on any machine.
+# ---------------------------------------------------------------------------
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+
+env:
+  # Single source of truth for the pinned mathlib revision used by the build job.
+  # Kept in the manifest (machine-readable) and repeated here only for the cache key.
+  MATHLIB_REV_FILE: lake-manifest.json
 
 jobs:
   # ------------------------------------------------------- fast: no Lean toolchain
@@ -29,10 +49,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      # The pinned revision must be stated in the tree. This runs before anything else
+      # because a missing rev makes every later claim about the build unverifiable.
+      - name: mathlib revision is recorded
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, sys
+          m = json.load(open("lake-manifest.json"))
+          pkgs = [p for p in m["packages"] if p["name"] == "mathlib"]
+          if len(pkgs) != 1:
+              sys.exit("expected exactly one mathlib entry, found %d" % len(pkgs))
+          p = pkgs[0]
+          if p.get("type") != "git":
+              sys.exit("mathlib must be a git requirement, got type=%r" % p.get("type"))
+          rev = p.get("rev") or ""
+          if len(rev) != 40:
+              sys.exit("mathlib rev is not a 40-char SHA: %r" % rev)
+          print("pinned mathlib rev:", rev)
+          PY
+
       # Pure text analysis of the tree: no Lean, no mathlib, no network.
       - name: gate (I1-I8)
         working-directory: gov
         run: python gate.py
+
       # Reactivity: inject a known defect, assert the gate goes red. A gate that cannot
       # fail is not a gate -- this step is what makes the previous one mean something.
       - name: gate selftest
@@ -49,50 +91,80 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
       - name: install elan
         run: |
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
             | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      # `lakefile.toml` pins mathlib by PATH, not by git ref:
+      # `lakefile.toml` keeps a `path` requirement so that a machine which already has
+      # mathlib (the author's) builds with no network. In CI that path does not exist, so
+      # the manifest is what decides where mathlib comes from: `lake update` materialises
+      # it from the recorded git rev.
       #
-      #     packagesDir = "../lattice/lean/.lake/packages"
-      #     [[require]] path = "../lattice/lean/.lake/packages/mathlib"
-      #
-      # That is deliberate -- locally it reuses the already-compiled package (5,387 oleans,
-      # 4.21 GB) and needs no network. The consequence is that the checkout must MATERIALISE
-      # that path in CI, at the same revision, or `lake build` resolves a different mathlib
-      # than the one the proofs were checked against.
-      #
-      # Revision source of truth: the legacy manifest, which is committed.
-      - name: materialise mathlib at the pinned revision
-        run: |
-          set -euo pipefail
-          REV=$(python -c "import json;m=json.load(open('lattice/lean/lake-manifest.json'));print([p['rev'] for p in m['packages'] if p['name']=='mathlib'][0])")
-          echo "pinned mathlib revision: $REV"
-          DEST="lattice/lean/.lake/packages/mathlib"
-          mkdir -p "$(dirname "$DEST")"
-          if [ ! -d "$DEST" ]; then
-            git clone --filter=blob:none https://github.com/leanprover-community/mathlib4 "$DEST"
-            git -C "$DEST" checkout "$REV"
-          fi
-          # The sibling packages that mathlib's own lakefile requires must also be present
-          # under the same packagesDir; `lake update` resolves them from the manifest.
-          lake update
+      # The clone is shallow-filtered and the checkout is exact, so a wrong rev fails loudly
+      # here rather than silently building against a different mathlib.
+      - name: resolve toolchain
+        run: lake --version && lean --version
 
-      - name: cache mathlib oleans
+      - name: cache mathlib build products
         uses: actions/cache@v4
         with:
-          path: lattice/lean/.lake/packages/mathlib/.lake/build
-          key: mathlib-${{ hashFiles('lean-toolchain', 'lattice/lean/lake-manifest.json') }}
+          path: .lake/packages/mathlib/.lake/build
+          key: mathlib-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
+      - name: materialise mathlib from the recorded revision
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          m = json.load(open("lake-manifest.json"))
+          p = [p for p in m["packages"] if p["name"] == "mathlib"][0]
+          open("cm-rev.txt", "w").write(p["rev"])
+          print("mathlib rev:", p["rev"])
+          PY
+          REV="$(cat cm-rev.txt)"
+          DEST=".lake/packages/mathlib"
+          if [ ! -d "$DEST/.git" ]; then
+            mkdir -p "$(dirname "$DEST")"
+            git clone --filter=blob:none https://github.com/leanprover-community/mathlib4 "$DEST"
+          fi
+          git -C "$DEST" fetch --depth 1 origin "$REV" || true
+          git -C "$DEST" checkout "$REV"
+          # Prove the tree is what we asked for; a silent mismatch is the failure mode this
+          # whole job exists to prevent.
+          test "$(git -C "$DEST" rev-parse HEAD)" = "$REV"
+
+      # Fetching the prebuilt oleans is what makes this job finish in minutes instead of
+      # hours. If it fails (rate limit, outage) the job still proceeds and simply builds
+      # from source.
       - name: fetch mathlib cache
-        run: lake exe cache get
+        run: lake exe cache get || echo "cache unavailable; building mathlib from source"
 
       - name: lake build Lattice
-        run: lake build Lattice
+        run: lake build Lattice 2>&1 | tee build.log
+        timeout-minutes: 180
+
+      - name: build produced no errors
+        run: |
+          set -euo pipefail
+          if grep -qE '^error' build.log; then
+            echo "::error::build.log contains errors"
+            grep -nE '^error' build.log | head -20
+            exit 1
+          fi
+          grep -q 'Build completed successfully' build.log
+          echo "build clean"
 
       - name: verify_all (full, not --fast)
         working-directory: gov
         run: python verify_all.py
+        timeout-minutes: 120
+
+      - name: upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log

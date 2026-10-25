@@ -270,15 +270,25 @@ I3（定义唯一）、I4（分层）、I7（产物）此前**没有任何反应
 `couldn't create signal pipe, Win32 error 5` **阻断每一次提交**（`git commit` exit 1）。
 装一个坏钩子比不装更糟。门禁只在**手工运行与 CI**时生效——而 CI 见 (d)。
 
-**（d）CI 从未真正执行过。**
-`.github/workflows/lattice.yml` 通过了 YAML 校验，但**没有在任何 CI 上跑过**。
-逐行推演还发现它至少 4 处会失败（读不存在的 `lattice/lean/lake-manifest.json`、
-只 clone mathlib 不 clone 8 个兄弟包、`lake update` 会按浮动标签重解析、
-`hashFiles` 输入不存在）。⇒ **「683 olean 编译通过」目前只有本机证据，没有 CI 证据。**
+**（d）CI 已修复，但仍未在真实 CI 上执行过。**
+`.github/workflows/lattice.yml` 原本读 `lattice/lean/lake-manifest.json`——一个在**本仓库
+里不存在**的路径，所以 `build-and-verify` job 从第一步就失败，`lake build` 从未在 CI 上跑过。
+现已重写：rev 从本仓的 `lake-manifest.json` 读取，checkout 后用 `rev-parse HEAD` 断言
+HEAD 等于该 rev，并用 `grep -qE '^error' build.log` 把构建错误变成 job 失败。
+`gov/check_ci_workflow.py` 守着这些性质，`check_ci_workflow_reactivity.py` 证明它**会红**
+（4 个注入的缺陷全部被检出）。
 
-**（e）构建不可在他机复现。**
-`lake-manifest.json` 里 mathlib 是 `type: path`、**无 rev**（其余 8 个包都有）。
-即本库没有一个可提交的事实来说明「用的是哪个 mathlib」。修复方案与代价见 `ROADMAP-v3.md` P6。
+**仍然要说清楚**：这台机器跑不了 git transport（`git ls-remote` 报
+`sh.exe: fatal error - couldn't create signal pipe, Win32 error 5`），
+所以 workflow 里**联网、elan 安装、cache 服务这三段只经过静态检查，没有实跑过**。
+第一次真实 CI 运行仍是未验证的。
+
+**（e）构建可复现性已改善，但并非完全可复现。**
+`lake-manifest.json` 现在把 mathlib 记为 `type: git` + `url` + `rev = 4bbdccd9…`，
+rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，不带任何 rev）。
+它指向的目录仍是 `../lattice/lean/.lake/packages/mathlib`，所以本机构建不联网、不重编。
+**代价**：换一台机器需要 `lake update` 下载 mathlib（约 4.2 GB）——这一点无法回避，
+包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 ---
 
