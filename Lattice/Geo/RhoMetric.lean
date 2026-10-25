@@ -66,7 +66,7 @@ theorem rho_le_iff {n k : ℕ} (a b : ℕ → Pt n) {L : ℝ} (hL : 0 ≤ L) :
       exact hL
 
 /-- 前缀内每个偏差不超过 `rho`（`rho_le_iff` 的单点形式）。 -/
-theorem abs_coord_sub_le_rho' {n k : ℕ} {a b : ℕ → Pt n} {p : ℕ} {i : Fin n}
+theorem abs_coord_sub_le_rho_singlePoint {n k : ℕ} {a b : ℕ → Pt n} {p : ℕ} {i : Fin n}
     (hp : p < k) :
     |a p i - b p i| ≤ rho n k a b := by
   have hmem : (p, i) ∈ ptIndex n k :=
@@ -85,7 +85,7 @@ theorem rho_self {n k : ℕ} (a : ℕ → Pt n) : rho n k a a = 0 := by
 
 /-- **对称性**：`rho a b = rho b a`。
 
-两个方向都用单点界 `abs_coord_sub_le_rho'`，配合 `abs_sub_comm`。 -/
+两个方向都用单点界 `abs_coord_sub_le_rho_singlePoint`，配合 `abs_sub_comm`。 -/
 theorem rho_comm {n k : ℕ} (a b : ℕ → Pt n) : rho n k a b = rho n k b a := by
   have h2 := rho_nonneg n k b a
   have h1 := rho_nonneg n k a b
@@ -94,12 +94,12 @@ theorem rho_comm {n k : ℕ} (a b : ℕ → Pt n) : rho n k a b = rho n k b a :=
     intro pi hpi
     have hp : pi.1 < k := (Finset.mem_product.mp hpi).1 |> Finset.mem_range.mp
     calc |a pi.1 pi.2 - b pi.1 pi.2| = |b pi.1 pi.2 - a pi.1 pi.2| := abs_sub_comm _ _
-      _ ≤ rho n k b a := abs_coord_sub_le_rho' (a := b) (b := a) (i := pi.2) hp
+      _ ≤ rho n k b a := abs_coord_sub_le_rho_singlePoint (a := b) (b := a) (i := pi.2) hp
   · refine (rho_le_iff b a h1).mpr ?_
     intro pi hpi
     have hp : pi.1 < k := (Finset.mem_product.mp hpi).1 |> Finset.mem_range.mp
     calc |b pi.1 pi.2 - a pi.1 pi.2| = |a pi.1 pi.2 - b pi.1 pi.2| := abs_sub_comm _ _
-      _ ≤ rho n k a b := abs_coord_sub_le_rho' (a := a) (b := b) (i := pi.2) hp
+      _ ≤ rho n k a b := abs_coord_sub_le_rho_singlePoint (a := a) (b := b) (i := pi.2) hp
 
 /-- **三角不等式**：`rho a c ≤ rho a b + rho b c`。 -/
 theorem rho_triangle {n k : ℕ} (a b c : ℕ → Pt n) :

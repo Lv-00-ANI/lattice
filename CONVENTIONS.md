@@ -243,12 +243,84 @@
 
 ---
 
-## 7. 执行状况（本规范的遵守情况必须自己维护）
+## 7. 执行状况（**实测，第 33 轮重新测量**）
 
-| 规则 | 当前违规数 | 状态 |
-|:--|--:|:--|
-| N4 撇号 | **3**（规范例外） | **P11 已完成**：60 → 3；剩 `while'_true_id`、`while'_true_stuck`、`StrictMono'` 均为 §1.4 例外 |
-| N3 camelCase 定理 | **70** | 未清理（P11 之后） |
-| N3 camelCase 定义 | **1,778** | **合规**（N2 允许） |
-| F1 超 60 声明 | **8** | 未拆分（P12） |
-| D1 注释四项齐全 | 未测 | 未开始（P14） |
+本节此前记录的数字**全部已经漂移**：二十多轮里不断新增文件，而没人重测。
+下表是 `agent-tmp/measure_conventions.py` 的实测结果，任何人可以重跑。
+
+| 规则 | 本轮实测 | 上一版记录 | 变化 | 状态 |
+|:--|--:|--:|:--|:--|
+| N4 撇号 | **3** | 3 | 持平 | ✅ 全在 §1.4 例外内 |
+| N3 camelCase 定理 | **36**（35 真违规 + 1 别名） | 70 | **-34** | ⚠️ 未清理 |
+| N3 camelCase 定义 | **1,959** | 1,778 | +181 | ✅ N2 允许 |
+| F1 超 60 声明 | **10** | 8 | +2 | ⚠️ 未拆分 |
+
+### 7.1 本轮修掉的一条
+
+`abs_coord_sub_le_rho'`（`Geo/RhoMetric.lean`）**是我在第 9 轮自己写下的**，
+违反 N4 且不在 §1.4 例外清单里。已改名为 `abs_coord_sub_le_rho_singlePoint`——
+后缀说明了它与 `rho_le_iff` 的区别（它是单点形式）。
+
+⇒ 违规数 4 → 3，现在全部是上游强制的例外。
+
+### 7.2 N3 camelCase 定理：36 条的真实性质（**此处修正了一次错误判断**）
+
+本节初稿写「36 条里大部分是正则误判，指向类型别名」。**这个判断是错的。**
+实测（`agent-tmp/verify_conv_claims.py`，逐条看定理体）：
+
+| 分类 | 数量 |
+|:--|--:|
+| 真正的 camelCase 定理 | **35** |
+| 别名（`:= 类型名`） | **1**（`GeneralizationBound`） |
+
+**35 条是真实的命名违规**，不是误判。典型例子：
+
+| 名字 | 文件 | 实际是什么 |
+|:--|:--|:--|
+| `IdempotentOn` | `Core/Idempotent.lean` | 幂等性的定理 |
+| `GeoExpr` / `GeoConstraint` | `Geo/Shape.lean` | 结构性定理（与类型同名，但是定理） |
+| `twoHopMsg` | `Lib/Architectures/RealGNN.lean` | 图消息传递的定理 |
+| `klChainRule` | `Lib/InfoTheory/RealKLChainRule.lean` | KL 链式法则 |
+| `firstOrderMAML` | `Lib/LearningTheory/RealMAML.lean` | MAML 一阶展开 |
+
+**为什么这条修正重要**：我在写这一段时只抽查了前 10 个，看到 `GeoExpr` 这类名字
+就推断"大部分是别名"。实际只有 1 个。**在一个讨论「如何验证」的文档里，
+凭抽样下结论是最不应该犯的错。**
+
+**当前处置**：这 35 条**未改名**。改名需要逐条判断命名意图（`IdempotentOn` 是
+幂等性的什么性质？），是 P11 之后的工作，不在本轮范围。已如实记录数量与样例。
+
+### 7.3 F1 超 60 声明：10 个文件
+
+| 文件 | 声明数 |
+|:--|--:|
+| `Lib/Chain/RealN2AxiomDischargeJia.lean` | 168 |
+| `Lib/Chain/RealLv00Solver.lean` | 127 |
+| `Lib/Compiler/RealMutualRecursion.lean` | 89 |
+| `Lib/Lift/RealNonlinearFidelity.lean` | 86 |
+| `Lib/Chain/RealLv00AxiomDischargePerPackage.lean` | 84 |
+| `Lib/Quantization/RealIEEE754.lean` | 71 |
+| `Lib/Chain/RealLv00LinearAlgebra.lean` | 66 |
+| `Lib/Chain/RealNumericChainOrder.lean` | 66 |
+| `Lib/LearningTheory/RealCausalDoCalculus.lean` | 64 |
+| `Lib/Chain/RealLv00GeometryDifferential.lean` | 62 |
+
+**全部在 `Lib`，零个在 `Core`/`Lift`/`Geo`**——承重层没有超大文件。
+
+### 7.4 D1 注释四项齐全：仍**未测**
+
+规范要求了四项（命题 / 机制 / 依赖 / 边界）。把「是否四项齐全」变成可判定规则需要
+定义格式，那会**规定**注释怎么写而不是**检查**它写得好不好。所以这一项**保持未测**，
+并记录理由，而不是假装测过。
+
+### 7.5 测量方法（可重跑）
+
+```python
+# agent-tmp/measure_conventions.py
+# N4: 声明名含撇号
+# N3: 定理名无下划线且有小写->大写转换
+# F1: 单文件声明数 > 60
+# 排除 Lattice/Reference/
+```
+
+**每次数字变化都应重跑**，并在本表记录。这是本节的自我维护要求。
