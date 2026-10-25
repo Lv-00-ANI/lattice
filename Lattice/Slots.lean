@@ -201,8 +201,17 @@ def extractRoundtrip : Slot :=
       "NO axioms at all). `linearLossy` instantiates `obs := SemEq`, and `lossy_weaker` " ++
       "shows the relaxation is strict. What is STILL owed: a concrete lossy backend with " ++
       "`compile` genuinely non-injective, which needs a decision about what the loss " ++
-      "measures."
-    status := .open_ }
+      "measures. -- " ++
+      "**CLOSED** (branch `arch/lossy-backend`): the decision was made and the backend built. " ++
+      "`Lattice.Lift.RoundingBackend.compileZ` is integer division by 2, and " ++
+      "`compileZ_not_injective` proves 2 and 3 collide -- genuinely lossy, unlike " ++
+      "`pairRepresentation` whose compile is merely non-surjective. The loss is decided to " ++
+      "be ABSOLUTE extraction error: `roundtrip_error_le_one` bounds it by 1 for every " ++
+      "integer, and `roundtrip_error_eq_one` shows the bound is attained on odds, so it is " ++
+      "tight. `roundingLossy` is the resulting `LossyRep`, with `obs` the coarser " ++
+      "`abs(x - y) <= 1`. No `Representation` can cover it: a left inverse would force " ++
+      "2 = 3."
+    status := .discharged "Lattice.Lift.RoundingBackend.roundingLossy" }
 
 /-- The obligation that a zero measure means a passing point.
 
@@ -351,13 +360,18 @@ theorem fullRegistry_wellFormed : Slot.WellFormed fullRegistry := by
   · intro s₁ h₁ s₂ h₂ hname
     fin_cases h₁ <;> fin_cases h₂ <;> first | rfl | exact absurd hname (by decide)
 
-/-- **Five** obligations are currently owed: three open and two weakened. This number is the
+/-- **Four** obligations are currently owed: two open and two weakened. This number is the
 project's debt, and it is read at check time rather than written into prose.
 
-History, because the number moving is the point: it was six until
-`lift.compile.single_item_sound` was discharged by `CompilerScheme.scheme_covers_all` on branch
-`arch/compiler-type-params`. The `decide` below refused to compile when the count changed,
-which is exactly what it is for. -/
-example : Slot.owedCount fullRegistry = 5 := by decide
+History, because the number moving is the point:
+
+* it was six;
+* `lift.compile.single_item_sound` was discharged by `CompilerScheme.scheme_covers_all`
+  (branch `arch/compiler-type-params`), taking it to five;
+* `lift.extract.roundtrip` was discharged by `RoundingBackend.roundingLossy`
+  (branch `arch/lossy-backend`), taking it to four.
+
+The `decide` below failed to compile at BOTH steps, which is exactly what it is for. -/
+example : Slot.owedCount fullRegistry = 4 := by decide
 
 end Lattice.Slots

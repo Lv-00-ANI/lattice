@@ -12,6 +12,7 @@ import Lattice.Lift.NonIdenticalEncoding
 import Lattice.Lift.EncodingAbstraction
 import Lattice.Lift.LossyRepresentation
 import Lattice.Lift.CompilerScheme
+import Lattice.Lift.RoundingBackend
 
 /-!
 # Lattice.Lift -- the representation ladder
