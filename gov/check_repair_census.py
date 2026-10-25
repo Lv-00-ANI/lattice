@@ -23,7 +23,7 @@ LAT = os.path.join(LAKE, "Lattice")
 
 # The census's recorded numbers (REPAIR-CENSUS.md §1).
 EXPECTED = {"A_files": 10, "A_decls": 29, "B_files": 18, "B_decls": 47,
-            "C_files": 54, "C_decls": 239}
+            "C_files": 55, "C_decls": 242}
 
 DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
                   r"noncomputable[ \t]+)*(?:theorem|lemma|def|structure|abbrev|inductive)[ \t]+"
