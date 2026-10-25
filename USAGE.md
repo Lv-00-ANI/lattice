@@ -144,7 +144,73 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 
 ---
 
-## 7. 每个入口点证明什么
+## 7. 可执行轨道：`Float` 常量与容差检查
+
+**前面各节用的都是 `ℝ`——那是本库的证明轨道。**
+`ℝ` 上的定义是 `noncomputable`，`#eval` 直接失败，所以外部训练流程无法直接调用它们。
+
+第 87–88 轮为此建了一条**并行的可执行轨道**。**ℝ 轨道完全不动。**
+
+| 轨道 | 常量类型 | 求值 | 用途 |
+|:--|:--|:--|:--|
+| **证明轨道** | `ℝ` | `noncomputable def evalPts` | 全部 8,000+ 条定理 |
+| **可执行轨道** | `Float` | **`def evalC`（可计算）** | 接到外部流程 |
+
+两族的形状完全一致（`coord` / `const` / `add` / `sub` / `mul`），
+**`CExpr` 是 `GeoExpr` 的并行版本，不是它的替代。**
+
+### 7.1 可执行的表达式
+
+```lean
+open Lattice.Geo.ComputableExpr
+
+def demoExpr : CExpr 1 :=
+  .add (.mul (.coord 0 0) (.coord 0 0)) (.const 2.0)
+```
+
+`evalC` 是 `def`：`#eval` 能直接运行它。
+
+### 7.2 容差检查，以及它为什么必须带容差
+
+`Float` 的相等**不可判定**——`NaN` 破坏自反性。所以「约束成立」不能直接判定，
+可执行版本用容差：
+
+```lean
+open Lattice.Geo.ExecutableCheck
+
+def demoTol : Tolerance where
+  tol := 0.001
+  pos := by native_decide
+```
+
+`Tolerance` 结构把 `0 < tol` **编进类型**：容差为正**是构造的前提，不是一条待证的命题**。
+
+### 7.3 只证一个方向，这是刻意的
+
+```lean
+approxHoldsEqZero_sound : approxHoldsEqZero T e pts = true -> |evalC e pts| <= T.tol
+```
+
+**只有 `sound` 方向可证。** 反方向（「在容差内成立 ⟹ 判定为真」）**无法陈述**：
+ℝ→`Float` 的舍入误差**依赖具体数值**，不存在一个常数容差使它成立。
+
+⇒ **记分卡的「可执行边界」只算部分达标**，因为可执行轨道存在但只单向可靠。
+详细论证见 `STATE-FINAL §3.6.2`。
+
+### 7.4 三个必须知道的限制
+
+| 限制 | 内容 |
+|:--|:--|
+| **`Float` 相等不可判定** | 12 个 `GeoConstraint` 构造子里 10 个要求相等，只能改用容差 |
+| **只有 `sound` 可证** | 完备性方向是浮点固有性质，不是缺证明 |
+| **`Float` 没有 `Preorder` 实例** | `<` 是 `compare = .lt`，**所有序引理不可用**；`tol ≠ 0` 这类命题不能用 `lt_irrefl` |
+
+**第三点的实际后果**：`Tolerance.pos` 只能对具体字面量用 `native_decide` 证明，
+不能用通用引理。**这正是它必须放在结构里的原因。**
+
+---
+
+## 8. 每个入口点证明什么
 
 | 入口 | 定理 | 一句话 |
 |:--|:--|:--|
@@ -159,7 +225,7 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 
 ---
 
-## 8. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 387 条）
+## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 387 条）
 
 | 做不到的事 | 定理 |
 |:--|:--|
@@ -176,7 +242,7 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 
 ---
 
-## 9. 项目**不**做什么（定位边界）
+## 10. 项目**不**做什么（定位边界）
 
 | 不做 | 实测证据 |
 |:--|:--|
@@ -187,7 +253,7 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 
 ---
 
-## 10. 怎么验证你在看的这份说明是对的
+## 11. 怎么验证你在看的这份说明是对的
 
 ```bash
 # 1. 编译

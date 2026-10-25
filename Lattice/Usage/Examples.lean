@@ -13,6 +13,8 @@ import Lattice.Lift.CompilerScheme
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
 import Lattice.Lift.L1L2Roundtrip
+import Lattice.Geo.ComputableExpr
+import Lattice.Geo.ExecutableCheck
 
 namespace Lattice.Usage
 
@@ -121,4 +123,63 @@ example (n : ℕ) (c : Lattice.Core.LinearForm ℝ n) :
     Lattice.Lift.decodePayload n (Lattice.Lift.encodeForm c).payload = some c :=
   decodePayload_encodeForm n c
 
+/-! ## 七、可执行轨道：`Float` 常量与容差检查
+
+前六节用的是 `ℝ`，那是本库的证明轨道。**`ℝ` 上的定义是 `noncomputable`，
+`#eval` 直接失败**，所以外部训练流程无法直接调用它们。
+
+第 87–88 轮为此建了一条**并行的可执行轨道**：`CExpr` 的常量是 `Float`，
+`evalC` 是 `def`（可计算），`approxHolds*` 用容差替代不可判定的浮点相等。
+**ℝ 轨道完全不动。**
+
+### 7.1 可执行的表达式
+
+一个 `CExpr`：`pts[0][0] * pts[0][0] + 2`。 -/
+
+open Lattice.Geo.ComputableExpr
+
+/-- **一段可执行表达式**：`x * x + 2`。 -/
+def demoExpr : CExpr 1 :=
+  .add (.mul (.coord 0 0) (.coord 0 0)) (.const 2.0)
+
+/-- **求值是 `def`，不是 `noncomputable`**——
+它可以在 `#eval` 里直接运行（在 `x = 3` 处得到 `11.000000`）。 -/
+example : demoExpr.evalC (fun _ _ => 3.0) = demoExpr.evalC (fun _ _ => 3.0) := rfl
+
+/-- **求值沿结构递归**：`add` 的求值是两边求值之和。 -/
+example (e₁ e₂ : CExpr 1) (pts : ℕ → Fin 1 → Float) :
+    (e₁.add e₂).evalC pts = e₁.evalC pts + e₂.evalC pts := rfl
+
+/-! ### 7.3 容差检查
+
+`Float` 的相等**不可判定**（`NaN` 破坏自反性），所以「约束成立」不能直接判定。
+可执行的版本用**容差**：
+
+```
+approxHoldsEqZero tol e pts  :=  |evalC e pts| <= tol
+```
+
+`Tolerance` 结构把 `0 < tol` 编进类型——
+**「容差为正」是构造的前提，不是一条待证的命题。** -/
+
+open Lattice.Geo.ExecutableCheck
+
+/-- **一段可用的容差**。 -/
+def demoTol : Tolerance where
+  tol := 0.001
+  pos := by
+    -- `Float` has no Preorder instance (round 88), so this cannot be closed by a generic lemma.
+    -- It is a fact about this one literal, and `native_decide` evaluates it.
+    native_decide
+
+/-- **判定为真 ⟹ 在容差内成立**（`sound` 方向）。
+
+**注意本库只证这个方向**：反方向（「在容差内成立 ⟹ 判定为真」）**无法陈述**，
+因为 ℝ→`Float` 的舍入误差依赖具体数值，不存在常数容差（见 `STATE-FINAL §3.6.2`）。 -/
+example (e : CExpr 1) (pts : ℕ → Fin 1 → Float)
+    (h : approxHoldsEqZero demoTol e pts = true) :
+    (e.evalC pts).abs <= demoTol.tol :=
+  approxHoldsEqZero_sound demoTol e pts h
+
 end Lattice.Usage
+
