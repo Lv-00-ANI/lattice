@@ -63,6 +63,7 @@ import Lattice.Geo.LoopRate
 import Lattice.Geo.Reinjection
 import Lattice.Geo.SynthesisMulti
 import Lattice.Geo.ReinjectionGeneral
+import Lattice.Geo.ClauseComposition
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
