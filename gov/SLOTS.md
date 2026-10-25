@@ -5,13 +5,12 @@
 
 | total | owed | discharged |
 |--:|--:|--:|
-| 9 | 6 | 3 |
+| 9 | 5 | 4 |
 
 ## Owed (load-bearing, not yet proved)
 
 | slot | discharged by |
 |:--|:--|
-| `lift.compile.single_item_sound` | — |
 | `lift.embed.local_minimiser_exact` | — |
 | `lift.extract.roundtrip` | — |
 | `core.repair.atomic` | — |
@@ -22,6 +21,7 @@
 
 | slot | discharged by |
 |:--|:--|
+| `lift.compile.single_item_sound` | `Lattice.Lift.CompilerScheme.scheme_covers_all` |
 | `core.semantics.weight_exists` | `Lattice.Core.WeightNet.instWeightSemanticsNet` |
 | `core.net.variable_width` | `Lattice.Core.Chain.act_append` |
 | `core.repair.multistep_exists` | `Lattice.Core.Multistep.converges_within_is_tight` |

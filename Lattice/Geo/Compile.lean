@@ -51,9 +51,8 @@ variable {n : ℕ}
 /-- **The geometric compiler**: equality constraints compile to their squared-residual penalty.
 
 This is the inhabitant that makes `Lattice.Lift`'s four target theorems statements about geometry. -/
-noncomputable def geoCompiler : Compiler (EqConstraint n) ((ℕ → Pt n) → ℝ) where
-  inputP := ℕ → Pt n
-  inputW := ℕ → Pt n
+noncomputable def geoCompiler :
+    Compiler (EqConstraint n) ((ℕ → Pt n) → ℝ) (ℕ → Pt n) (ℕ → Pt n) where
   encode := id
   compile := fun c => EqConstraint.loss c
   satP := fun c pts =>

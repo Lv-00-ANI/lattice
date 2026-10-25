@@ -55,11 +55,7 @@ open Lattice.Core
 
 The fields are the *obligations* a compiler discharges; the theorems below then hold
 for every inhabitant automatically. -/
-structure Compiler (P : Type) (W : Type) where
-  /-- The input language of the symbolic side. -/
-  inputP : Type
-  /-- The input language of the weighted side. -/
-  inputW : Type
+structure Compiler (P : Type) (W : Type) (inputP : Type) (inputW : Type) where
   /-- How a symbolic input is presented to the weighted artifact. -/
   encode : inputP → inputW
   /-- The compile function itself. -/
@@ -74,16 +70,16 @@ structure Compiler (P : Type) (W : Type) where
 
 namespace Compiler
 
-variable {P W : Type} (C : Compiler P W)
+variable {P W inputP inputW : Type} (C : Compiler P W inputP inputW)
 
 /-- Program-level compilation: every item compiled, order preserved. -/
 def compileProgram (ps : List P) : List W := ps.map C.compile
 
 /-- A point satisfies a program when it satisfies every item. -/
-def EntailsP (ps : List P) (x : C.inputP) : Prop := ∀ p ∈ ps, C.satP p x
+def EntailsP (ps : List P) (x : inputP) : Prop := ∀ p ∈ ps, C.satP p x
 
 /-- A point satisfies a compiled program when it satisfies every compiled item. -/
-def EntailsW (ws : List W) (y : C.inputW) : Prop := ∀ w ∈ ws, C.satW w y
+def EntailsW (ws : List W) (y : inputW) : Prop := ∀ w ∈ ws, C.satW w y
 
 /-- **T1, list level.** If every item is accepted at `x`, every compiled item is
 accepted at `encode x`.
@@ -91,7 +87,7 @@ accepted at `encode x`.
 An induction on the list uses nothing but the per-item obligation. No property of
 `compile`, `encode` or the predicates is assumed, which is precisely why the result
 survives a change of instance. -/
-theorem compileProgram_sound (ps : List P) (x : C.inputP) :
+theorem compileProgram_sound (ps : List P) (x : inputP) :
     C.EntailsP ps x → C.EntailsW (C.compileProgram ps) (C.encode x) := by
   intro h w hw
   rw [Compiler.compileProgram, List.mem_map] at hw
@@ -103,7 +99,7 @@ theorem compileProgram_sound (ps : List P) (x : C.inputP) :
 This is the form the rest of the ladder consumes: it composes with `Models` and is
 strictly stronger than stating the property at one point. -/
 theorem compileProgram_models (ps : List P) (c : P) (hmem : c ∈ ps) :
-    ∀ x : C.inputP, C.EntailsP ps x → C.satW (C.compile c) (C.encode x) :=
+    ∀ x : inputP, C.EntailsP ps x → C.satW (C.compile c) (C.encode x) :=
   fun x hx => C.compileProgram_sound ps x hx (C.compile c)
     (List.mem_map_of_mem (f := C.compile) hmem)
 
