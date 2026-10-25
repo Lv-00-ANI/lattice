@@ -9,7 +9,7 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 727 | `audit_counts.py` |
+> | Lean 模块 | 731 | `audit_counts.py` |
 > | 定理 / 引理 | 8025 | `audit_counts.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
@@ -94,7 +94,7 @@ lattice-new/
 │   ├── Lift/      40       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       66       # 约束几何与精确惩罚
-│   ├── Lib/      588       # 应用库，按主题（建立在链路层之上）
+│   ├── Lib/      592       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26
