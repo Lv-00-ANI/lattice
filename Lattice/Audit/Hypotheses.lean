@@ -130,7 +130,7 @@ def chainAudit : List (String × HypStatus) :=
   [ ("decodePayload_encodeForm : Inhabited R", .structurallyRequired
       "the instance is in decodePayload's signature; no statement mentioning it can omit it"),
     ("residual_le_of_zero_on_dense : 0 <= L", .loadBearing
-      "rho is 0 on the empty index set, so without it the claim is vacuous there"),
+      "machine-checked: Lattice.Audit.lipschitz_needs_nonneg shows a negative L makes the product bound false; rho is also 0 on the empty index set"),
     ("compileProgram_models : c mem ps", .loadBearing
       "without membership there is no link between c and the program"),
     ("compileProgram_sound : EntailsP ps x", .loadBearing
@@ -138,9 +138,15 @@ def chainAudit : List (String × HypStatus) :=
     ("converges_within : (R : Repair a)", .loadBearing
       "a generic statement needs the structure; dropping it leaves nothing to quantify over"),
     ("loss_eq_zero_of_poly_eq_zero : poly = 0", .loadBearing
-      "loss is poly^2, so without the hypothesis the conclusion is false at poly = 1"),
+      "loss is poly^2, so without the hypothesis the conclusion is false at poly = 1 (arithmetic witness: Lattice.Audit.sq_le_needs_nonneg)"),
     ("ladder_forward : satSym s", .loadBearing
-      "l2l3_sound is exactly satSym -> satW, so the hypothesis is its antecedent") ]
+      "l2l3_sound is exactly satSym -> satW, so the hypothesis is its antecedent"),
+    ("abs_le_of_sq_le : 0 <= eps", .loadBearing
+      "machine-checked counterexample: sq_le_needs_nonneg (r = 0, eps = -1)"),
+    ("epsSat_of_loss_le_sq : 0 <= eps", .loadBearing
+      "machine-checked counterexample: eps_needs_nonneg"),
+    ("sampled bound : delta", .loadBearing
+      "machine-checked: delta_is_input shows delta changes the bound") ]
 
 /-- **审计没有发现冗余前提。**
 
@@ -151,7 +157,7 @@ theorem no_redundant_hypotheses :
   decide
 
 /-- 审计覆盖了七条定理。 -/
-theorem chainAudit_length : chainAudit.length = 7 := by decide
+theorem chainAudit_length : chainAudit.length = 10 := by decide
 
 /-- **每一条非冗余前提都附了理由**（反例或结构原因），没有空口断言。
 
