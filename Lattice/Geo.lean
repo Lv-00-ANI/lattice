@@ -65,6 +65,7 @@ import Lattice.Geo.SynthesisMulti
 import Lattice.Geo.ReinjectionGeneral
 import Lattice.Geo.ClauseComposition
 import Lattice.Geo.RepairCoverage
+import Lattice.Geo.PolyRepair
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
