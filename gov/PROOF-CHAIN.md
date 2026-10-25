@@ -12,7 +12,7 @@
 | lift | 49 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 77 | the geometry/constraint layer |
+| geo | 79 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -34,11 +34,12 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`
+- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`
 - `Lattice.Geo.ApproxEmbedding` <- `Lattice.Lift.EndToEndApproximation`, `Lattice.Geo.Loss`
 - `Lattice.Geo.ClauseComposition` <- `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Lift.Extraction`
 - `Lattice.Geo.Compile` <- `Lattice.Geo.Loss`, `Lattice.Geo.Constraint`, `Lattice.Lift.SymbolToWeight`
+- `Lattice.Geo.ComputableExpr` <- `Lattice.Geo.Expr`
 - `Lattice.Geo.ConjRepair` <- `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.RepairPerp`, `Lattice.Core.Repair`
 - `Lattice.Geo.Constraint` <- `Lattice.Geo.Expr`, `Lattice.Geo.Dist`
 - `Lattice.Geo.ConstraintSet` <- `Lattice.Geo.Constraint`
@@ -53,6 +54,7 @@
 - `Lattice.Geo.Eval` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Dist`
 - `Lattice.Geo.Exact` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Loss`, `Lattice.Lib.Penalty.PolyExact`
 - `Lattice.Geo.Exec` <- `Lattice.Geo.Shape`, `Lattice.Geo.Derive`
+- `Lattice.Geo.ExecutableCheck` <- `Lattice.Geo.Constraint`, `Lattice.Geo.ComputableExpr`
 - `Lattice.Geo.Expr` <- `Lattice.Core.Syntax`
 - `Lattice.Geo.ExprDeriv` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Pipeline`
 - `Lattice.Geo.ExprLocalMin` <- `Lattice.Geo.ExprDeriv`, `Lattice.Geo.Derivative`
@@ -900,7 +902,7 @@
 - `Lattice.Reference.LvFormal.Theory.lvLang` 
 - `Lattice.Reference.LvFormal.check_temp` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.L1L2Roundtrip`
+- `Lattice.Usage.Examples` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Geo.PolyConstants`
 - `Lattice.Slots` 
 
 ## Declarations per module
@@ -929,6 +931,7 @@
 | `Lattice.Geo.ClauseComposition` | 6 | 0 |
 | `Lattice.Geo.ClosedLoop` | 10 | 1 |
 | `Lattice.Geo.Compile` | 2 | 1 |
+| `Lattice.Geo.ComputableExpr` | 12 | 6 |
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |
@@ -943,6 +946,7 @@
 | `Lattice.Geo.Eval` | 3 | 1 |
 | `Lattice.Geo.Exact` | 4 | 0 |
 | `Lattice.Geo.Exec` | 6 | 4 |
+| `Lattice.Geo.ExecutableCheck` | 7 | 4 |
 | `Lattice.Geo.Expr` | 8 | 5 |
 | `Lattice.Geo.ExprDeriv` | 8 | 3 |
 | `Lattice.Geo.ExprLocalMin` | 3 | 0 |
@@ -1790,7 +1794,7 @@
 | `Lattice.Reference.LvFormal.Theory.lvLang` | 10 | 17 |
 | `Lattice.Reference.LvFormal.check_temp` | 0 | 0 |
 | `Lattice.Usage` | 0 | 0 |
-| `Lattice.Usage.Examples` | 0 | 6 |
+| `Lattice.Usage.Examples` | 0 | 8 |
 | `Lattice.Slots` | 1 | 19 |
 
 ## Cross-module uses of theorem/lemma declarations
@@ -2285,9 +2289,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `apply_rule_no_change_when_inapplicable` -> `Theory`
 - `apply_rule_preserves_known` -> `Axiom`, `apply`, `dedupAxioms`, `induction`, `length`, `mem_dedup_of_mem`, `subst`, `succ`, `zero`
 - `apply_rule_size_bound` -> `Axiom`, `apply`, `dedupAxioms`, `induction`, `length`, `mem_dedup_of_mem`, `step`, `subst`, `succ`, `zero`
+- `approxHoldsEqZero_sound` -> `CExpr`, `evalC`
+- `approxHoldsLeZero_sound` -> `CExpr`, `evalC`
 - `approxOn_mono_domain` -> `le_trans`
 - `approxOn_trans` -> `le_trans`
 - `approxOn_trans_same` -> `le_trans`
+- `approxZero_iff` -> `CExpr`, `evalC`
 - `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
 - `approx_min_le_gives_sat` -> `E`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
 - `approx_satisfies` -> `E`, `EpsSat`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
@@ -3439,6 +3446,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `ext`, `induction`, `realTotalLoss_soundness`, `trans`
 - `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `ext`, `induction`, `realTotalLoss_soundness`, `trans`
 - `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `ext`, `induction`, `realTotalLoss_soundness`, `trans`
+- `const_is_executable` -> `GeoExpr`
 - `const_levelA` -> `Sat`, `loss`
 - `const_mul_not_recognised` -> `GeoConstraintSet`, `GeoExpr`, `beqShape`, `mul`
 - `const_normalized` -> `Theory`, `add`, `apply`, `e2`, `eval`, `normalize`
@@ -4534,6 +4542,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eulers_theorem` -> `Congruent`, `card`, `subst`, `toNat`
 - `eulers_theorem_generalizes_fermat` -> `Congruent`, `card`, `subst`, `toNat`
 - `eulers_theorem_nat` -> `Congruent`, `card`, `subst`, `toNat`
+- `evalC_add` -> `GeoExpr`, `add`, `mul`, `sub`
+- `evalC_const` -> `GeoExpr`, `add`, `mul`, `sub`
+- `evalC_coord` -> `GeoExpr`, `add`, `mul`, `sub`
+- `evalC_is_total` -> `GeoExpr`, `add`
+- `evalC_mul` -> `GeoExpr`, `add`, `mul`, `sub`
+- `evalC_structurally_recursive` -> `GeoExpr`, `add`
+- `evalC_sub` -> `GeoExpr`, `add`, `mul`, `sub`
 - `evalClause_finMinterm` -> `Compiler`, `image`, `induction`, `toList`
 - `evalClause_minterm` -> `image`, `induction`, `toList`, `trans`
 - `evalDNF_iff` -> `image`, `induction`, `toList`, `trans`
@@ -4652,6 +4667,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exec_seq` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `exec_skip` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `executable_rule_conclusions_absorbable` -> `Node`, `Rule`, `layer`, `length`
+- `executable_track_exists` -> `GeoExpr`
 - `exists_argmax` -> `IsArgMax`, `apply`, `argmax_unique`, `card`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `exists_box_collision` -> `apply`, `card`, `card_fin`, `ext`, `le`
 - `exists_box_of_continuousAt_neg` -> `add`, `le_trans`, `mono`, `subst`
@@ -9975,6 +9991,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tikz_output_well_formed` -> `ConstraintGraph`, `GeomNode`, `Theory`, `success`, `toNat`
 - `timestamp_normalization` -> `Theory`
 - `tk_exists_aux` -> `IsTopK`, `card`, `induction`, `insert`, `succ`, `zero`
+- `toC_add` -> `GeoExpr`, `add`
+- `toC_const` -> `GeoExpr`, `add`
+- `toC_coord` -> `GeoExpr`, `add`
 - `toDB_eq_none_of_all` -> `Compiler`
 - `toDB_ne_none_of_free` -> `Compiler`, `induction`, `subst`
 - `toDigitsCore_nonempty` -> `Formula`, `Theory`, `add`, `induction`, `length`, `mul`, `ofNat`, `render`, `succ`, `zero`

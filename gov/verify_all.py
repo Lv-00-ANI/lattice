@@ -120,6 +120,11 @@ CHECKS = [
     # enumeration is now fixed once, with the criteria written down next to the code.
     ("objective coverage: clauses x carriers, naming, vendor imports",
      "check_objective_coverage.py"),
+    # check_doc_consistency answers "do two documents agree?" This answers "is the number RIGHT?",
+    # which a consistency rule cannot do for a claim that appears exactly once -- round 94's
+    # "387 refutations in a USAGE.md heading" was exactly that shape.
+    ("usage claims: every measurable number in USAGE.md matches the tree",
+     "check_usage_claims.py"),
     # The frozen governance archive is data the gates read, so it needs its own guard:
     # a stale entry-count claim inside CORRECTIONS.md is the exact drift class this
     # repository spent B1-B480 learning. `--lean archive` points the tool at the

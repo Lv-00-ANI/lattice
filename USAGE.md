@@ -283,4 +283,6 @@ lake build Lattice.Usage.Examples
 | 定理的**签名**（改名、改参数、消失都会失败） | 散文里的**数字**（如"全部 284 条"）：由 `check_doc_consistency.py` 管 |
 
 **两条守卫分工明确**：`Lattice/Usage/Examples.lean` 守代码，`check_doc_consistency.py` 守数字。
-本文曾写"全部 387 条"而实际是 284——**那次是数字守卫后来才覆盖到的**。
+本节第 9 节的否证总数**曾写错一个数**（写大了约三分之一），而当时没有任何守卫覆盖 `USAGE.md`——**那一处就是新守卫 `check_usage_claims.py` 的由来**。
+
+**注意**：守卫的正则会抓取本文里所有"全部 N 条"形式的出现，所以**不要在正文里引用旧数字**，只描述它错了。

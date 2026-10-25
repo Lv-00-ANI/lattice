@@ -16,6 +16,7 @@
 | `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 204 | 10 | — |
 | `Compile` | 99 | 2 | — |
+| `ComputableExpr` | 249 | 7 | — |
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
 | `ConstraintSet` | 175 | 7 | — |
@@ -30,6 +31,7 @@
 | `Eval` | 98 | 3 | — |
 | `Exact` | 91 | 4 | — |
 | `Exec` | 132 | 6 | — |
+| `ExecutableCheck` | 180 | 7 | — |
 | `Expr` | 136 | 1 | — |
 | `ExprDeriv` | 179 | 8 | — |
 | `ExprLocalMin` | 74 | 3 | — |
