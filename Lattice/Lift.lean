@@ -22,6 +22,7 @@ import Lattice.Lift.TokenAlphabet
 import Lattice.Lift.IntRoundtrip
 import Lattice.Lift.NondegenerateInstance
 import Lattice.Lift.ErrorCalculus
+import Lattice.Lift.RepresentationFamilies
 
 /-!
 # Lattice.Lift -- the representation ladder
