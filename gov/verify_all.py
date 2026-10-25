@@ -115,6 +115,11 @@ CHECKS = [
     # places, only one updated (apostrophes 60 vs 3, oversized 8 vs 10, registry 42 vs 43).
     # A number being right is not enough; the document must agree with itself.
     ("consistency: docs agree with themselves", "check_doc_consistency.py"),
+    # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
+    # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
+    # enumeration is now fixed once, with the criteria written down next to the code.
+    ("objective coverage: clauses x carriers, naming, vendor imports",
+     "check_objective_coverage.py"),
     # The frozen governance archive is data the gates read, so it needs its own guard:
     # a stale entry-count claim inside CORRECTIONS.md is the exact drift class this
     # repository spent B1-B480 learning. `--lean archive` points the tool at the

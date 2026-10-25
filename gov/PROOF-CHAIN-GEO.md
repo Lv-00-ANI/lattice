@@ -18,6 +18,7 @@
 | `Compile` | 99 | 2 | — |
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
+| `ConstraintSet` | 175 | 7 | — |
 | `Derivative` | 94 | 3 | — |
 | `Derive` | 71 | 2 | — |
 | `Differentiable` | 131 | 9 | — |
@@ -25,6 +26,7 @@
 | `DistContinuous` | 53 | 2 | — |
 | `DistLipschitz` | 151 | 3 | — |
 | `Engine` | 147 | 6 | — |
+| `EqualLengthRepair` | 113 | 3 | — |
 | `Eval` | 98 | 3 | — |
 | `Exact` | 91 | 4 | — |
 | `Exec` | 132 | 6 | — |
@@ -50,7 +52,11 @@
 | `LoopPerp` | 164 | 7 | — |
 | `LoopRate` | 89 | 3 | — |
 | `Loss` | 194 | 10 | — |
+| `MissingRepairs` | 145 | 4 | — |
+| `MultistepLoop` | 183 | 8 | — |
 | `Nondegenerate` | 307 | 13 | — |
+| `ParallelRepair` | 182 | 4 | — |
+| `PartialReinjection` | 158 | 6 | — |
 | `PathContinuity` | 245 | 12 | — |
 | `PenaltySmooth` | 105 | 4 | — |
 | `Perturb` | 126 | 8 | — |
@@ -60,11 +66,14 @@
 | `PolyConstants` | 159 | 5 | — |
 | `PolyLipschitz` | 114 | 1 | — |
 | `PolyNondegenerate` | 210 | 8 | — |
+| `PolyRepair` | 174 | 5 | — |
+| `PolySpecificRepair` | 166 | 4 | — |
 | `QualityBridge` | 76 | 3 | — |
 | `Reinjection` | 121 | 3 | — |
 | `ReinjectionGeneral` | 134 | 5 | — |
 | `Repair` | 90 | 4 | — |
 | `RepairBridge` | 247 | 14 | — |
+| `RepairCoverage` | 148 | 5 | — |
 | `RepairPenalty` | 79 | 4 | — |
 | `RepairPerp` | 193 | 6 | — |
 | `RepairQuality` | 151 | 9 | — |
@@ -75,6 +84,7 @@
 | `Shape` | 204 | 3 | — |
 | `Square` | 161 | 10 | — |
 | `Synthesis` | 140 | 6 | — |
+| `SynthesisCoverage` | 179 | 7 | — |
 | `SynthesisMulti` | 132 | 4 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |
