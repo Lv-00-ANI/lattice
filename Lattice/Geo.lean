@@ -52,6 +52,8 @@ import Lattice.Geo.Unconditional
 import Lattice.Geo.Unified
 import Lattice.Geo.ApproxEmbedding
 import Lattice.Geo.Lipschitz
+import Lattice.Geo.DistLipschitz
+import Lattice.Geo.PolyLipschitz
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
