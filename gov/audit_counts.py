@@ -31,7 +31,9 @@ own description in `README.md`:
 Only these four: each has exactly one way to be counted, so a mismatch is a defect rather than a matter of
 interpretation. Anything vaguer is left alone -- an audit that guesses at prose is worse than one that is narrow.
 
-Exit code 0. A mismatch is printed with both numbers so the reader can check the counting rule.
+Exit code 1 when a documented count disagrees with the tree, else 0. A mismatch is printed
+with both numbers so the reader can check the counting rule and the count can be fixed in
+the README rather than the checker being ignored.
 """
 import io
 import os
@@ -96,27 +98,36 @@ def main():
 
     actual = {
         "geo": lean_count(os.path.join(Z, "Geo")),
+        "lib": lean_count(os.path.join(Z, "Lib")),
         "ref": lean_count(os.path.join(Z, "Reference")),
         "esc": escape_entries(),
         "lvf": lvformal_missing_imports(),
     }
 
     # Each pattern captures the number the README claims, next to its own description.
+    # Patterns follow the README's CURRENT shape: the layer counts appear in the directory
+    # tree (`|   |-- Geo/       52       # ...`), not in prose. The earlier prose patterns
+    # matched nothing at all, which made this checker silently compare nothing with nothing.
     claims = [
-        ("几何层模块数", r"几何层的结构（(\d+) 模块）", "geo"),
-        ("Reference 文件数", r"（(\d+) 个 Lv-00 历史文件）", "ref"),
-        ("escape 基线条目", r"冻结 (\d+) 处历史逃逸", "esc"),
-        ("LvFormal 缺失依赖文件数", r"：\*\*(\d+) 个\*\* 文件引用了不存在的模块", "lvf"),
+        ("几何层模块数", r"Geo/\s+(\d+)", "geo"),
+        ("Lib 模块数", r"Lib/\s+(\d+)", "lib"),
+        ("LvFormal 文件数", r"LvFormal/\s+(\d+)", "ref"),
+        ("escape 基线条目", r"\*\*(\d+)\*\* 处历史逃逸", "esc"),
+        ("LvFormal 缺失依赖文件数", r"\| LvFormal 缺失依赖文件数 \| \*\*(\d+)\*\* 个文件", "lvf"),
     ]
 
     print("documentation counts vs the tree")
     print("=" * 78)
     mismatches = 0
+    unmatched = 0
     for label, pat, key in claims:
         m = re.search(pat, text)
         got = actual[key]
         if m is None:
-            print("  %-26s README 未写 | 实测 %s" % (label, got))
+            # A pattern that matches nothing is a defect in this checker or in the README,
+            # not a pass: it would otherwise look identical to "the README agrees".
+            print("  %-26s README 未写 | 实测 %s   <- pattern matched nothing" % (label, got))
+            unmatched += 1
             continue
         claimed = int(m.group(1))
         if got is None:
@@ -148,7 +159,8 @@ def main():
     for a in absent:
         print("    MISSING: %s" % a)
     if m is None:
-        print("  registration count: README does not state one (actual %d)" % n_reg)
+        print("  registration count: README does not state one (actual %d)   <- pattern matched nothing" % n_reg)
+        unmatched += 1
     elif int(m.group(1)) == n_reg:
         print("  registration count: README %s, actual %d -- ok" % (m.group(1), n_reg))
     else:
@@ -163,6 +175,11 @@ def main():
     print()
     print("  Counting rules, so a reader can reproduce them: every tracked file (`.lake` excluded);")
     print("  LvFormal \"unbuildable\" means an `import Zero.…` whose module file does not exist.")
+    if mismatches or unmatched:
+        print()
+        print("RESULT: %d disagreement(s), %d pattern(s) matched nothing in the README"
+              % (mismatches, unmatched))
+        return 1
     return 0
 
 

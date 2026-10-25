@@ -283,6 +283,30 @@ VERIFY ALL [full]: PASS  (…s total)
 - **需要人读**的（如 `audit_reach` 的「无人消费的定理」）→ **保持报告器**，但输出里必须
   明确标注，且不得计入 PASS 数
 
+### 4b.3c P3b 第一例：`audit_counts` 从报告器升级为门禁（已完成）
+
+**判据**：它自己就定义了「什么算 finding」（`mismatches`），两处累加，而且文档写着
+「a mismatch is a defect」。唯一缺的是 `main()` 无论对错都 `return 0`。
+
+**升级中发现的更严重问题**：它的四个 README 模式**全部失配**。
+README 在迁移中从散文改成了目录树（`│   ├── Geo/       52`），而模式仍在匹配旧措辞
+（`几何层的结构（52 模块）`）。于是它一直打印「every checked count matches」——
+**什么都没比，却看起来像全部一致**。这是本仓反复出现的那类缺陷的又一实例。
+
+**修法**：
+1. 模式指向目录树与表格的实际形状，并新增 `Lib 模块数` 一项；
+2. **模式匹配不到本身就算失败**（新增 `unmatched` 计数），不再静默跳过；
+3. `return 1` 当 `mismatches or unmatched`。
+
+**反应性**：`gov/audit_counts_reactivity.py` 逐个扰动五个计数项
+（Geo / Lib / LvFormal / escape / registration），**五项全部被检出**。
+过程中第一版测试用 `text.replace("52","53",1)` 曾「漏检」——那是**测试写错了**
+（替换了 README 里第一个 `52`，不一定是 Geo 那个），不是门禁有问题；改为按模式精确扰动后通过。
+
+**结果**：`verify_all` 注册 36 项 = **19 门禁 + 17 报告器**（原 17 + 18）。
+
+---
+
 ### 4b.3b 独立审计发现的其它门禁脆弱点（**均待修**）
 
 | # | 症状 | 证据 | 影响 |

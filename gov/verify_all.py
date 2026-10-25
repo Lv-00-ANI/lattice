@@ -43,7 +43,7 @@ REPORT_ONLY = {
     "reverify: requirements", "reverify: chain", "reverify: islands",
     "audit: duplicates", "audit: bodies", "audit: docs vs code", "audit: reachable",
     "audit: claims", "audit: liveness", "audit: region", "audit: tables",
-    "audit: counts", "audit: abstraction", "audit: islands",
+"audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
 }
@@ -74,6 +74,9 @@ CHECKS = [
     ("audit: region", "audit_region.py"),
     ("audit: tables", "audit_tables.py"),
     ("audit: counts", "audit_counts.py"),
+    # audit_counts is a GATE now: it fails when a documented count disagrees with
+    # the tree, and this proves the gate can fire on every count it checks.
+    ("reactivity: counts", "audit_counts_reactivity.py"),
     ("audit: G7 breakpoints", "check_g7.py"),
     ("audit: proof chain rung", "check_proof_chain_rung.py"),
     # The CI workflow is executable text that nothing executed. The previous version

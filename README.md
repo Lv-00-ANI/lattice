@@ -84,7 +84,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 32 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 36 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -216,7 +216,7 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 32 项检查 + 反应性自检（实测约 21 分钟，逐项打印耗时）
+# 全套 36 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
@@ -287,8 +287,22 @@ HEAD 等于该 rev，并用 `grep -qE '^error' build.log` 把构建错误变成 
 `lake-manifest.json` 现在把 mathlib 记为 `type: git` + `url` + `rev = 4bbdccd9…`，
 rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，不带任何 rev）。
 它指向的目录仍是 `../lattice/lean/.lake/packages/mathlib`，所以本机构建不联网、不重编。
-**代价**：换一台机器需要 `lake update` 下载 mathlib（约 4.2 GB）——这一点无法回避，
+**（代价）**：换一台机器需要 `lake update` 下载 mathlib（约 4.2 GB）——这一点无法回避，
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
+
+**（f）文档里出现的每个数字都必须可被机器核对。**
+`verify_all.py` 注册了 **36 项**检查：19 项能失败的**门禁**，17 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+
+`gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
+
+| 项目 | README 声明 | 实测口径 |
+|:--|:--|:--|
+| 冻结 escape 基线条目 | **69** 处历史逃逸 | `gov/escape-baseline.json` 的条目数 |
+| LvFormal 缺失依赖文件数 | **0** 个文件引用了不存在的模块 | 静态 import 检查 |
+
+这一点值得单列，因为**该检查器此前四个模式全部失配**（README 从散文改成了目录树），
+于是一直打印「every checked count matches」——什么都没比，却看起来像全部一致。
+现在：模式匹配不到**本身就算失败**，不再静默跳过。
 
 ---
 
