@@ -22,9 +22,9 @@ LAT = os.path.join(LAKE, "Lattice")
 
 # the census's recorded numbers
 EXPECTED = {
-    "total": 389,
-    "Lib": 365,
-    "Lift": 8,
+    "total": 280,
+    "Lib": 257,
+    "Lift": 7,
     "Audit": 7,
     "Core": 5,
     "Geo": 4,
@@ -63,10 +63,17 @@ def concl_of(stmt):
 
 
 def is_negative(stmt):
+    """A conclusion counts as a refutation iff it DENIES something.
+
+    Was: `re.match(r"^[¬\s]*\s*(∃|exists)", c)` -- the `*` allowed zero negations, so every
+    positive existence theorem (`∃ c, forall i, a i = c * b i`, which is a characterisation, not a
+    refutation) was counted. 110 theorems were miscounted. The `¬` is not optional.
+    """
     c = concl_of(stmt)
     if c.startswith("¬") or c.startswith("not ") or c.endswith("False"):
         return True
-    if re.match(r"^[¬\s]*\s*(∃|exists)", c):
+    # `¬ ∃ ...` -- require the negation explicitly
+    if re.match(r"^\s*¬\s*(∃|exists)", c):
         return True
     return False
 

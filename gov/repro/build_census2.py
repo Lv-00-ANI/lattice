@@ -57,8 +57,11 @@ for rel, p in files:
         name, sig = m.group(1), m.group(2)
         flat = " ".join(sig.split())
         c = concl_of(flat)
+        # `¬ ∃ ...` counts; a bare `∃ ...` does NOT.
+        # The old `[¬\s]*` allowed ZERO negations, sweeping in 109 positive existence
+        # theorems: Taylor points, characterisations, confluence witnesses. None refute.
         neg = (c.startswith("¬") or c.startswith("not ") or c.endswith("False")
-               or re.match(r"^[¬\s]*\s*(∃|exists)", c) is not None)
+               or re.match(r"^\s*¬\s*(∃|exists)", c) is not None)
         if neg:
             records.append((rel, name, c))
 

@@ -45,6 +45,11 @@ if hasattr(sys.stdout, "reconfigure"):
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
+
+# One source of truth for "what does this file say, ignoring comments": the same stripper the
+# gate's I1/I2 use. Duplicating it here is how the theorem counts drifted apart before.
+sys.path.insert(0, HERE)
+from tools.sorry_axiom_census import strip_comments  # noqa: E402
 Z = os.path.join(ZERO, "Lattice")
 
 IMPORT = re.compile(r"^import\s+(\S+)\s*$", re.M)
@@ -79,13 +84,25 @@ def module_total():
 
 
 def total_theorems():
-    """Count `theorem`/`lemma` declarations across the whole kernel."""
+    """Count `theorem`/`lemma` declarations that Lean actually ELABORATES.
+
+    SCOPE, written down because three different numbers were all "the theorem count" at various
+    times -- 7,919 / 8,011 / 8,068 -- differing only in criterion:
+
+      * `Reference/` excluded: archived evidence, not a root of the build.
+      * comments STRIPPED: a `theorem` mentioned inside a docstring is not a declaration.
+      * attributes `@[...]` and the `private`/`protected`/`noncomputable` modifiers are allowed
+        before the keyword, since Lean accepts them there.
+
+    This is the number `README` quotes. A different scope is fine, but it has to be stated.
+    """
     import re as _re
-    pat = _re.compile(r"(?m)^[ \t]*(?:noncomputable[ \t]+)?(?:theorem|lemma)[ \t]")
+    pat = _re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
+                      r"noncomputable[ \t]+)*(?:theorem|lemma)[ \t]")
     n = 0
     for p in _kernel_files():
         src = io.open(p, "rb").read().decode("utf-8", "replace")
-        n += len(pat.findall(src))
+        n += len(pat.findall(strip_comments(src)))
     return n
 
 
