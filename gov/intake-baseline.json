@@ -1,10 +1,24 @@
 {
  "intake": {
-  "admit": 0,
-  "axiom": 0,
-  "axiom_files": [],
-  "escape_files": [],
-  "sorry": 0
+  "axiom": 1,
+  "opaque": 0,
+  "sorry": 0,
+  "admit": 68,
+  "escape_files": [
+   "Lattice/Reference/LvFormal/Theory/ContextInvariantsTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/CryptoHashTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/EntryPointTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/GeometryCompressionTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/GeometryTopologyTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/GlobalStateInvariantsTheory.lean",
+   "Lattice/Reference/LvFormal/Theory/LogicalFramework.lean",
+   "Lattice/Reference/LvFormal/Theory/NumberTheoryFoundation.lean",
+   "Lattice/Reference/LvFormal/Theory/VisualBlockTheory.lean"
+  ],
+  "axiom_files": [
+   "Lattice/Reference/LvFormal/Theory/LogicalFramework.lean"
+  ],
+  "_note": "code-level escapes only: comments are stripped, because Reference docstrings DISCUSS admit/sorry without being escapes"
  },
  "quarantine": {
   "declared": true,

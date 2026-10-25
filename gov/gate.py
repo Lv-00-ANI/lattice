@@ -48,6 +48,7 @@ sys.path.insert(0, os.path.join(HERE, "tools"))
 from sorry_axiom_census import strip_comments  # noqa: E402
 
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
+REF_DIR = os.path.join(ZERO, "Lattice", "Reference")
 LIB = os.path.join(ZERO, ".lake", "build", "lib")
 
 EXIT = {
@@ -141,8 +142,8 @@ def check_no_axiom_no_sorry(rep):
     for f in lean_files():
         r = rel(f)
         zone = zone_of(r)
-        if zone in ("reference", "quarantine"):
-            continue
+        if zone == "quarantine":
+            continue          # known not to pass; not inspected by design
         code = strip_comments(io.open(f, "rb").read().decode("utf-8", errors="replace"))
         def emit(inv, msg, pos):
             if zone == "intake":
@@ -160,9 +161,29 @@ def check_no_axiom_no_sorry(rep):
 
     if base is None:
         return
+
+    # ---------------------------------------------------------------------------------------
+    # The frozen baseline covers `Lattice/Reference/`, which `lean_files()` deliberately omits
+    # (that function describes the BUILD; Reference is not in the build). Because it was omitted,
+    # the loop below compared 0 with 0 for dozens of rounds while Reference/ carried 111 `admit`s,
+    # 10 `sorry`s and 1 `axiom`. Walk the reference tree explicitly.
+    # ---------------------------------------------------------------------------------------
+    ref_tally = {"axiom": 0, "opaque": 0, "sorry": 0, "admit": 0}
+    if os.path.isdir(REF_DIR):
+        for rroot, _dirs, rfiles in os.walk(REF_DIR):
+            for rf in rfiles:
+                if not rf.endswith(".lean"):
+                    continue
+                rpath = os.path.join(rroot, rf)
+                rcode = strip_comments(io.open(rpath, "rb").read().decode("utf-8", "replace"))
+                ref_tally["axiom"] += len(re.findall(r"^\s*axiom\s+", rcode, re.M))
+                ref_tally["opaque"] += len(re.findall(r"^\s*opaque\s+", rcode, re.M))
+                for m in re.finditer(r"\b(sorry|admit)\b", rcode):
+                    ref_tally[m.group(1)] += 1
+
     # the intake total may not exceed the frozen baseline
     for key in ("axiom", "opaque", "sorry", "admit"):
-        now = tally["intake"].get(key, 0)
+        now = tally["intake"].get(key, 0) + ref_tally.get(key, 0)
         was = base.get(key, 0)
         if now > was:
             rep.add("I" + ("1" if key in ("axiom", "opaque") else "2"),
