@@ -213,7 +213,7 @@ slot `geo.loop.convergence_is_single_step`（状态 `.weakened`），且
 | L1→L2 | 解码成符号约束 | `L1L2.decodePayload` | — | **`L1L2Roundtrip.decodePayload_encodeForm`** | ✅ **成立**（往返已证） | ❌ 无承重载体 |
 | L2→L3 | 编译保语义 | `Compiler.sound` | **2** | **`NonIdentical.projectCompiler`**（`encode ≠ id`） | ✅ **有非恒等实例** | ⚠️ 只有恒等 encode |
 | L3→L2 | 提取回符号 | `Representation.roundtrip` / `LossyRep.semEq` | **4** | **`RoundingBackend.roundingLossy`**（`compile` 非单射） | ✅ **覆盖非可逆编码** | ⚠️ 靠假设双射 |
-| L0→L3 | 端到端 | `Ladder.l2l3_sound` | **1**（`linearLadder`） | 无（字段即内容） | ⚠️ **实例存在，但 `W` 取损失值** | 同 |
+| L0→L3 | 端到端 | `Ladder.l2l3_sound` | **2**（`linearLadder`、`weightLadder`） | **`WeightLadder.compileToLayer_sound`** | ✅ **`W` 可取真权重栈** | ⚠️ `W` 取损失值 |
 | 闭环 | 收敛 | `Repair` 三义务 | 多个 | **`RepairMultistep.countdown`**（测度无界） | ✅ **多步可表达，且界紧** | ⚠️ 多步未表达 |
 
 ### 3.5 重写后的读法
@@ -223,11 +223,19 @@ slot `geo.loop.convergence_is_single_step`（状态 `.weakened`），且
 | ✅ 成立且有实质载体 | **5**（L0→L1、L1→L2、L2→L3、L3→L2、闭环） |
 | ⚠️ 有一处如实标注的局限 | **1**（L0→L3：`W` 取损失值而非权重参数） |
 
-**唯一的 ⚠️ 是 `linearLadder` 的 `W := ℝ`。** 这不是缺证明，而是缺一个
-**权重参数类型**——它与 `Slots` 的 `core.semantics.external_bridge`
-（TorchLean 需 Lean ≥ 4.26）是同一个阻塞。
+**第 42 轮：唯一的 ⚠️ 也已消除。**
 
-⇒ **链路的六跳里，五跳已有承重载体；第六跳的障碍是工具链，不是数学。**
+`linearLadder` 的 `W := ℝ` 取下限时，判断是「需要 TorchLean 提供权重参数类型」。
+**那个判断过强。** `Lattice.Core` 已有 `AffineLayer`（权重矩阵 `W : n → n → ℝ` 与偏置）、
+`netAct`（栈的前向传播）、`WeightSemantics`——**都不依赖 TorchLean**。
+
+`Lift/WeightLadder.lean` 给出 `weightLadder`，其
+`W := List (AffineLayer (Fin 1))` 是**真权重栈**，`l2l3` 把符号的系数/常数编译成
+权重矩阵/偏置（**结构化初始化**），而 `compileToLayer_sound` 是**真证明**
+（把「残差 = 常数」与「层在零点 = 偏置」两条计算串起来）。
+
+⇒ **链路的六跳全部有承重载体。** `core.semantics.external_bridge` 仍 open
+（类型化张量、验证过的 autograd、IEEE-754 语义确实没有），但它**不再阻塞端到端**。
 
 **一句话结论**：结构层已经齐备（每个义务都有精确陈述与定理），
 但**实例层几乎为空**——唯一有实质内容的实例是 L0⇄L1，其余三跳的实例要么是恒等/双射

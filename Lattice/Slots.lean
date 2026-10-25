@@ -286,7 +286,12 @@ def externalToolchainBridge : Slot :=
     note :=
       "TorchLean supplies typed tensors, verified autograd and IEEE-754 semantics, but requires " ++
       "Lean >= 4.26 while this project pins 4.14 so that the legacy mathlib stays buildable. " ++
-      "Adopting it is a toolchain decision, not a proof."
+      "Adopting it is a toolchain decision, not a proof. -- " ++
+      "**Scope sharpened**: this slot does NOT block `Ladder`'s weight type. " ++
+      "`Lattice.Core` already supplies `AffineLayer`, `netAct` and `WeightSemantics`, and " ++
+      "`Lattice.Lift.WeightLadder.weightLadder` builds a `Ladder` whose `W` is a real weight " ++
+      "stack (`List (AffineLayer (Fin 1))`) with a genuine `l2l3_sound`. What remains open is " ++
+      "narrower and specific: typed TENSORS, verified autograd and IEEE-754 semantics."
     status := .open_ }
 
 /-- The convergence claim behind `Geo.Loop.loop_converges` is about **one step**, not
