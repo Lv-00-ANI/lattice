@@ -267,11 +267,22 @@ def check_unique_definitions(rep):
 
 
 # ---------------------------------------------------------------- I4
+# Layer prefixes. Order matters only through `rank` below.
+#
+# `Geo` was missing here until the approximation work needed it, and its absence was not
+# harmless: `layer_of` returned "top" for Geo files, `check_layering` skipped them, and a
+# `Lift -> Geo` import -- the reverse of the intended direction -- was invisible.
+#
+# Measured before adding it (agent-tmp/geo_layer_probe2.py):
+#   * Geo's outgoing imports: core 13, lift 7, lib 9 -- only downward;
+#   * no non-Geo file imports Geo -- nothing below it needs it.
+# So Geo sits above `lib` and below the aggregators.
 LAYER_OF = {
     "Lattice/Core": "core",
     "Lattice/Lift": "lift",
     "Lattice/Lib": "lib",
     "Lattice/Slots": "slots",
+    "Lattice/Geo": "geo",
 }
 
 
@@ -284,7 +295,7 @@ def layer_of(p):
 
 
 def check_layering(rep):
-    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "top": 99}
+    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":

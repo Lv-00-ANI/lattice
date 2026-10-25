@@ -74,7 +74,7 @@ lattice-new/
 │   ├── Core/      13       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
 │   ├── Lift/      24       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
-│   ├── Geo/       52       # 约束几何与精确惩罚
+│   ├── Geo/       59       # 约束几何与精确惩罚
 │   ├── Lib/      588       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
@@ -84,7 +84,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 37 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 38 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -216,7 +216,7 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 37 项检查 + 反应性自检（逐项打印耗时）
+# 全套 38 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
@@ -291,7 +291,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **37 项**检查：21 项能失败的**门禁**，16 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **38 项**检查：22 项能失败的**门禁**，16 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 

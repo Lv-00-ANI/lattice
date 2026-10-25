@@ -55,6 +55,9 @@ CHECKS = [
     ("comments", "check_comments.py"),
     ("registry", "check_registry.py"),
     ("reactivity: gate", "gate_reactivity.py"),
+    # I4's Geo layer was missing from LAYER_OF until this round, so a Lift -> Geo
+    # import was invisible. This proves the rule now fires on exactly that defect.
+    ("reactivity: layering", "layer_reactivity.py"),
     ("reactivity: slots", "check_slots_reactivity.py"),
     ("reactivity: comments", "check_comments_reactivity.py"),
     ("reactivity: I8 gate", "check_i8_reactivity.py"),
