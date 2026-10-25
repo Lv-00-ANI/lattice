@@ -58,6 +58,10 @@ CHECKS = [
     # I4's Geo layer was missing from LAYER_OF until this round, so a Lift -> Geo
     # import was invisible. This proves the rule now fires on exactly that defect.
     ("reactivity: layering", "layer_reactivity.py"),
+    # Guards the design property "the chain composes via structure FIELDS, not re-proof":
+    # `compileProgram_sound`, `extract_compile`, `ladder_forward` cite ZERO kernel
+    # declarations. If that silently changes, the claim behind USAGE §1 becomes false.
+    ("chain dependencies", "check_chain_deps.py"),
     ("reactivity: slots", "check_slots_reactivity.py"),
     ("reactivity: comments", "check_comments_reactivity.py"),
     ("reactivity: I8 gate", "check_i8_reactivity.py"),
