@@ -60,6 +60,51 @@ def lean_count(d):
     return n
 
 
+def _kernel_files():
+    """Every .lean under Lattice/, excluding Reference (which is not built)."""
+    for root, dirs, fs in os.walk(Z):
+        dirs[:] = [x for x in dirs if x not in (".lake", "Reference")]
+        for f in fs:
+            if f.endswith(".lean"):
+                yield os.path.join(root, f)
+
+
+def module_total():
+    """Lean modules in the kernel, INCLUDING the root-level aggregators.
+
+    Earlier rounds counted 717 including `(root)`; summing only the six layer directories
+    gives 710 and is wrong -- "Lean modules" means every built file.
+    """
+    return sum(1 for _ in _kernel_files())
+
+
+def total_theorems():
+    """Count `theorem`/`lemma` declarations across the whole kernel."""
+    import re as _re
+    pat = _re.compile(r"(?m)^[ \t]*(?:noncomputable[ \t]+)?(?:theorem|lemma)[ \t]")
+    n = 0
+    for p in _kernel_files():
+        src = io.open(p, "rb").read().decode("utf-8", "replace")
+        n += len(pat.findall(src))
+    return n
+
+
+def owed_count():
+    """The owed-slot count, read from the `decide` assertion in `Slots.lean`.
+
+    Read rather than recomputed: `example : Slot.owedCount fullRegistry = N := by decide` is
+    the authority (the kernel checked it). Reimplementing the registry logic here would create a
+    second source of truth that could silently disagree with the first.
+    """
+    import re as _re
+    p = os.path.join(Z, "Slots.lean")
+    if not os.path.isfile(p):
+        return -1
+    src = io.open(p, "rb").read().decode("utf-8", "replace")
+    m = _re.search(r"Slot\.owedCount fullRegistry = (\d+) := by decide", src)
+    return int(m.group(1)) if m else -1
+
+
 def escape_entries():
     p = os.path.join(ZERO, "gov", "escape-baseline.json")
     if not os.path.exists(p):
@@ -97,6 +142,9 @@ def main():
     text = io.open(readme, encoding="utf-8", errors="replace").read().replace("\r\n", "\n")
 
     actual = {
+        "total": module_total(),
+        "thms": total_theorems(),
+        "owed": owed_count(),
         "core": lean_count(os.path.join(Z, "Core")),
         "lift": lean_count(os.path.join(Z, "Lift")),
         "geo": lean_count(os.path.join(Z, "Geo")),
@@ -111,7 +159,10 @@ def main():
     # tree (`|   |-- Geo/       52       # ...`), not in prose. The earlier prose patterns
     # matched nothing at all, which made this checker silently compare nothing with nothing.
     claims = [
-        ("Core 模块数", r"Core/\s+(\d+)", "core"),
+                ("Lean 模块总数", r"Lean 模块 \| (\d+)", "total"),
+        ("定理总数", r"定理 / 引理 \| (\d+)", "thms"),
+        ("未清欠账", r"未清欠账\*\* \| \*\*(\d+)\*\*", "owed"),
+("Core 模块数", r"Core/\s+(\d+)", "core"),
         ("Lift 模块数", r"Lift/\s+(\d+)", "lift"),
         ("几何层模块数", r"Geo/\s+(\d+)", "geo"),
         ("Lib 模块数", r"Lib/\s+(\d+)", "lib"),

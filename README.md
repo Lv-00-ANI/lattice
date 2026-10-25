@@ -4,7 +4,22 @@
 符号 ⇄ 权重双向转换的训练 / 后训练框架，Lean 4 证明保证正确性。
 
 > **定位**：通用基础设施——用于**所有 LLM 的训练与后训练**（不限规模、不限厂商）。
-> **状态**：结构迁移完成（v2），目标见 §7「与目标的距离」。
+>
+> **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §6`）：
+>
+> | 指标 | 值 | 守卫 |
+> |:--|--:|:--|
+> | Lean 模块 | 717 | `audit_counts.py` |
+> | 定理 / 引理 | 7883 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 16 / 35 / 65 / 588 | `audit_counts.py` |
+> | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
+> | 检查器注册项 | 41 | `audit_counts.py` |
+> | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
+> | 已登记否证 | 387 | `check_refutation_census.py` |
+>
+> **入口**：想用它 → [`USAGE.md`](USAGE.md)（每个代码块可编译）；
+> 想知道它做不到什么 → [`REFUTATION-CENSUS.md`](REFUTATION-CENSUS.md)；
+> 当前路线 → [`ROADMAP-v10.md`](ROADMAP-v10.md)。
 
 ---
 
