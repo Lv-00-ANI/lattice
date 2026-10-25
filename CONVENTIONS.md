@@ -117,7 +117,7 @@
 
 ### 2.2 现状
 
-**超 60 声明的文件：9 个，全部在 `Lib` 层。**
+**超 60 声明的文件：5 个，全部在 `Lib` 层。**
 
 具体清单与实测声明数**只在 `§7.3` 出现一次**（`gov/repro/measure_conventions.py` 可重跑）。
 
@@ -329,7 +329,41 @@
 **当前处置**：这 35 条**未改名**。改名需要逐条判断命名意图（`IdempotentOn` 是
 幂等性的什么性质？），是 P11 之后的工作，不在本轮范围。已如实记录数量与样例。
 
-### 7.3 F1 超 60 声明：9 个文件
+### 7.3 F1 超 60 声明：5 个文件
+
+> **第 63 轮（批量）：10 → 5。** 本批拆了四个，各部分的声明数均降到 43 以内：
+>
+> | 文件 | 原 | 拆成 |
+> |:--|--:|:--|
+> | `Lib/Chain/RealLv00AxiomDischargePerPackage.lean` | 84 | 14/21/21/28 |
+> | `Lib/Compiler/RealMutualRecursion.lean` | 89 | 27/25/37 |
+> | `Lib/Lift/RealNonlinearFidelity.lean` | 86 | 23/43/20 |
+> | `Lib/Chain/RealNumericChainOrder.lean` | 66 | 21/22/23 |
+>
+> **每次拆分都核对声明数不变**（84→84、89→89、86→86、66→66，零丢失）。
+>
+> #### 一次失败的尝试，已回滚
+>
+> `Lib/LearningTheory/RealCausalDoCalculus.lean` 按节拆成 A/B 后**构建失败**：
+> `B` 引用 `FinSCM.pU`、`Adj`、`IsPath`，而这些是**在 `namespace FinSCM` 里后续定义**的，
+> 位于原文件的别的节。
+>
+> ⇒ **教训：`structure S` 的定义与 `namespace S` 里的扩展必须留在同一文件。**
+> 按行号切分会把它们分开，而分节边界**跨过了命名空间**。
+> 已回滚，文件保持原样，本轮的拆分脚本因此需要一条新的前置检查：
+> **切分点不得落在 `namespace X` 与 `structure X` 之间。**
+>
+> #### 四个不能按节拆的（不是欠账，是结构事实）
+>
+> | 文件 | 原因 |
+> |:--|:--|
+> | `Lib/Chain/RealN2AxiomDischargeJia.lean` | 单节 60 条——按节拆仍留下一个 60 条的 |
+> | `Lib/Chain/RealLv00Solver.lean` | 4 节，其中一节 72 条 |
+> | `Lib/Chain/RealLv00LinearAlgebra.lean` | 仅 2 节（14/21），过粗 |
+> | `Lib/Chain/RealLv00GeometryDifferential.lean` | **零分节**——发明边界比不拆更糟 |
+>
+> 这四个若要拆，需要**先补内部结构**（人为的 `/-! ## ... -/` 分节），那是另一类工作。
+
 
 > **第 62 轮进度：10 → 9。** `Lib/Quantization/RealIEEE754.lean`（637 行、71 声明）
 > 按它**自己的十个语义分节**拆成 `RealIEEE754/{Basic,Overflow,BitWidth,Compat}.lean`
