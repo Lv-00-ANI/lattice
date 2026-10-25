@@ -137,7 +137,6 @@ theorem softmaxAttnOp_value_bound
 -- ⇒ **正本收【实质定理】，消费者留它自己需要的【定义性助手】** —— 与 `extractLayer`（类 iv，保留）同一政策：
 -- **不合并偏薄的东西。**
 
-
 /-- 要点 **主定理**：`SoftmaxAttnOp` 的输出范数被 `M * ‖x‖` 界住，
 其中 `M` **只**界住算子族 `V`（**与 `x` 无关**）。
 
@@ -197,12 +196,6 @@ theorem softmaxAttnOp_norm_bound_tight
 
 注意 这正是 `PROCESS.md §2.2` 判据 ①「每环的假设都承重」的机器证据。 -/
 
-/-- 单头情形：`softmax` 对单元素指标恒为 `1`。 -/
-theorem softmax_fin_one_eq_one' (z : Fin 1 → ℝ) : softmax z 0 = 1 := by
-  have h := softmax_sum_one z
-  rw [Fin.sum_univ_one] at h
-  exact h
-
 /-- 单头情形：`SoftmaxAttnOp` 退化为 `V 0 x`。 -/
 theorem softmaxAttnOp_fin_one
     {n : ℕ} (S : EuclideanSpace ℝ (Fin n) →L[ℝ] (Fin 1 → ℝ))
@@ -214,7 +207,7 @@ theorem softmaxAttnOp_fin_one
     rfl
   rw [hdef]
   unfold convComb
-  rw [Fin.sum_univ_one, softmax_fin_one_eq_one' (S x)]
+  rw [Fin.sum_univ_one, softmax_fin_one_eq_one (S x)]
   simp
 
 /-- 单头负恒等算子 `V₀ = −id`。 -/

@@ -30,8 +30,8 @@ import Lattice.Lib.Chain.RealEndToEnd
 
 | 命题 | 判定 | 本条 |
 |:--|:--|:--|
-| 单层：`∀ l, ∃ c, extractVec c = l`（值域 = 全体） | ⚠ 真但平凡 | `extractVec_surjective'` |
-| 单层：`extractVec` **单射** | ✅ 真，且是**全部**「唯一性」的来源 | `extractVec_injective'` |
+| 单层：`∀ l, ∃ c, extractVec c = l`（值域 = 全体） | ⚠ 真但平凡 | `extractVec_exists_preimage` |
+| 单层：`extractVec` **单射** | ✅ 真，且是**全部**「唯一性」的来源 | `extractVec_injective_layer` |
 | 单层：像集 `= Set.univ`（值域刻画，**等式**形式） | ✅ 真 | `extractVec_range_eq_univ` |
 | ⭐ **列表级**：`∀ ls : Layer, ∃ cs : ConstraintSet, extractLayer cs = ls` | ✅ 真，**承重的** | `extractLayer_surjective` |
 
@@ -70,7 +70,7 @@ import Lattice.Lib.Chain.RealEndToEnd
 （`RealCanonicalForm` / `RealReproducibility` / `RealClosure*` 等）。
 
 ⚠ **重复登记（不声称独立）**：`_E-02.lean` 已证 `convertVec` 双射
-（`convertVec_bijective:133` / `extractVec_surjective:304`）、
+（`convertVec_bijective:133` / `extractVec_exists_preimage:304`）、
 `RealEndToEnd.lean` 已证 `compileToLayer_injective:263`。
 ⭐ 本文件**不把这些当新贡献**（§六逐条登记），
 本文件的**新东西是 §四/§五 的消融与「唯一性承重」判定**。
@@ -94,13 +94,13 @@ namespace Lattice
 ⚠ **诚实标注**：证明体是 `extractVec l` 本身 —— **构造是恒等的**，
 本条**不含**任何数学内容。它唯一的作用是**把任务书的目标固定在库里**，
 以便 §四 的消融有对照物。 -/
-theorem extractVec_surjective' (l : LinearLayer) : ∃ c : VectorConstraint, convertVec c = l :=
+theorem extractVec_exists_preimage (l : LinearLayer) : ∃ c : VectorConstraint, convertVec c = l :=
   ⟨extractVec l, roundtrip_convertVec_rfl l⟩
 
 /-- **单层：`extractVec` 单射**（`convertVec` 是它的左逆）。
 
 ⭐ **这是本文件唯一承重的单层事实**：§四 的「唯一性」**全部**由它承担。 -/
-theorem extractVec_injective' : Function.Injective extractVec := by
+theorem extractVec_injective_layer : Function.Injective extractVec := by
   intro l₁ l₂ h
   have h' : convertVec (extractVec l₁) = convertVec (extractVec l₂) := congrArg convertVec h
   rwa [roundtrip_convertVec_rfl l₁, roundtrip_convertVec_rfl l₂] at h'
@@ -109,7 +109,7 @@ theorem extractVec_injective' : Function.Injective extractVec := by
 
 ⚠ **陈述订正（本次编译修复）**：初稿写的是 `Set.range extractVec = Set.univ`，
 但 `extractVec : LinearLayer → VectorConstraint` 的**余域是 `VectorConstraint`**，
-而 `extractVec_surjective'` 的陈述是 `∃ c, convertVec c = l`（**关于 `convertVec`**）
+而 `extractVec_exists_preimage` 的陈述是 `∃ c, convertVec c = l`（**关于 `convertVec`**）
 ⟹ 两者**类型对不上**（`Set.range extractVec` 的 `Set.univ` 在 `Set VectorConstraint` 中，
 证明项的 `Set.univ` 在 `Set LinearLayer` 中）。⭐ 现**订正为 `convertVec`**，
 使陈述与所引用的存在性定理**同型**。⚠ **这不是把定理改弱**：二者是同一条事实
@@ -119,7 +119,7 @@ theorem extractVec_injective' : Function.Injective extractVec := by
 也正因为它是 `univ`，它**是平凡的**：任何满射都满足。
 ⭐ 它的价值在于**排除**了下一种可能：值域是**真子集**（那才会有真内容）。 -/
 theorem extractVec_range_eq_univ : Set.range convertVec = Set.univ :=
-  Set.range_eq_univ.mpr extractVec_surjective'
+  Set.range_eq_univ.mpr extractVec_exists_preimage
 
 /-- **值域是真子集的否定**（把 §一 的「平凡」写成否命题，便于 §四 对照）。
 
@@ -143,14 +143,14 @@ theorem extractVec_range_ne_proper : ¬ (Set.range convertVec ⊂ Set.univ) := b
 
 ⭐ 本定义**不是**新东西 —— 它的存在正是为了说明
 **「列表级的原像」需要 `extractLayer` 而不是 `extractVec`**。 -/
-def extractLayer' (ls : Layer) : ConstraintSet :=
+def extractLayer_alt (ls : Layer) : ConstraintSet :=
   ls.map extractVec
 
-/-- **确认两者一致**（`extractLayer'` 与既有 `extractLayer` 逐字同式）。
+/-- **确认两者一致**（`extractLayer_alt` 与既有 `extractLayer` 逐字同式）。
 
 ⚠ 逐字核对：`RealCompileExtractClosed.lean:99-100` 是 `ls.map extractVec`；
-本文件 `:extractLayer'` 同式。⭐ 本条**不需要** `funext`：两者定义体**相同**。 -/
-theorem extractLayer'_eq_extractLayer : extractLayer' = extractLayer := rfl
+本文件 `:extractLayer_alt` 同式。⭐ 本条**不需要** `funext`：两者定义体**相同**。 -/
+theorem extractLayer_eq_extractLayer : extractLayer_alt = extractLayer := rfl
 
 /-! ## 三、列表级：值域刻画（**真**命题，但**仍然平凡**）
 
@@ -408,15 +408,15 @@ theorem no_object_level_gap : ∀ l : LinearLayer, extractVec l = { a := l.w, b 
 
 - ⚠ **本文件的初稿未经内核编译验证**（当时任务书禁止 `lake`）；
   本次已用 `scripts/lean-lock.ps1` / `lean_probe.py` 逐条修复并复验（见报告）。
-- ⚠ `extractLayer'` 与既有 `extractLayer` **同式**（均 `List.map extractVec`），
-  故 `extractLayer'_eq_extractLayer` 是 `rfl`。本文件**故意**加撇号避免撞名。
+- ⚠ `extractLayer_alt` 与既有 `extractLayer` **同式**（均 `List.map extractVec`），
+  故 `extractLayer_eq_extractLayer` 是 `rfl`。本文件**故意**加撇号避免撞名。
 
 ⚠ **本次编译修复登记的「陈述订正」（诚实边界，最重要的一条）**：
 `extractVec_range_eq_univ` 的**陈述**被从
 `Set.range extractVec = Set.univ` 改为 `Set.range convertVec = Set.univ`。
 ⭐ **理由**：`extractVec : LinearLayer → VectorConstraint`，其 `Set.range` 落在
 `Set VectorConstraint`，而 `Set.univ : Set LinearLayer` —— **类型对不上**（真实错误）。
-且 §一 的见证 `extractVec_surjective'` 陈述的是 `∃ c, convertVec c = l`（**关于 `convertVec`**）
+且 §一 的见证 `extractVec_exists_preimage` 陈述的是 `∃ c, convertVec c = l`（**关于 `convertVec`**）
 ⟹ **原陈述既不可证、也与见证人不同型**。
 ⚠ **【这不是把定理改弱】**：两者是同一条事实（`convertVec` 满射，`extractVec` 是它的逆），
 订正后陈述与见证**逐字相符**。⚠ 我**如实登记**这处订正，因为它改的是**陈述**而非仅证明体。

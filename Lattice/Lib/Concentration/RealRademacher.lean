@@ -144,12 +144,12 @@ lemma rad_uniformExpectation_snd {α β : Type*} [Fintype α] [Fintype β]
 
 /-- 有限集上确界的下界：`b ∈ s ⟹ f b ≤ s.sup' H f`（用 `Finset.sup'_le_iff`
 在同一条非空见证 `H` 下取得，避免 `H` 的证明项差异）。 -/
-lemma rad_le_sup' {β : Type*} {s : Finset β} (H : s.Nonempty) (f : β → ℝ) {b : β}
+lemma rad_le_sup {β : Type*} {s : Finset β} (H : s.Nonempty) (f : β → ℝ) {b : β}
     (hb : b ∈ s) : f b ≤ s.sup' H f :=
   (Finset.sup'_le_iff (s := s) (H := H) (f := f)).mp le_rfl b hb
 
 /-- 有限集上确界的上界判据：逐点 `≤ a` ⟹ `s.sup' H f ≤ a`。 -/
-lemma rad_sup'_le {β : Type*} {s : Finset β} (H : s.Nonempty) (f : β → ℝ) {a : ℝ}
+lemma rad_sup_le {β : Type*} {s : Finset β} (H : s.Nonempty) (f : β → ℝ) {a : ℝ}
     (h : ∀ b ∈ s, f b ≤ a) : s.sup' H f ≤ a :=
   (Finset.sup'_le_iff (s := s) (H := H) (f := f)).mpr h
 
@@ -180,7 +180,7 @@ theorem rad_complexity_nonneg (n : ℕ) (F : Finset (Fin n → ℝ)) (hF : F.Non
     0 ≤ radComplexity n F hF :=
   rad_complexity_nonneg_of n F hF
     (fun σ => le_trans (abs_nonneg _)
-      (rad_le_sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f i|) hF.choose_spec))
+      (rad_le_sup hF (fun f => |∑ i : Fin n, radSign (σ i) * f i|) hF.choose_spec))
 
 /-- **Rademacher 复杂度上界（`n > 0`）**：若假设类逐点有 `|f i| ≤ 1`，
 则 `radComplexity n F hF ≤ 1`。证明：`|Σᵢ σᵢ fᵢ| ≤ Σᵢ |σᵢ|·|fᵢ| = Σᵢ |fᵢ| ≤ n`，
@@ -195,7 +195,7 @@ theorem rad_complexity_le (n : ℕ) (hn : 0 < n) (F : Finset (Fin n → ℝ)) (h
   have hsup : ∀ σ : Fin n → Fin 2,
       F.sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f i|) ≤ (n : ℝ) := by
     intro σ
-    apply rad_sup'_le hF
+    apply rad_sup_le hF
     intro f hf
     calc
       |∑ i : Fin n, radSign (σ i) * f i| ≤ ∑ i : Fin n, |radSign (σ i) * f i| :=
@@ -268,25 +268,25 @@ theorem rad_generalization_bound_mem {α : Type*} [Fintype α] [DecidableEq α]
 
 /-- **上确界的期望 ≤ 期望的上确界**（有限 `F`，函数 `g : β → α → ℝ`）：
 `sup_{f} E[g f] ≤ E[sup_f g f]`。证明：`sup'_le_iff` 归约为逐点
-`g f w ≤ sup'_f g f w`（`rad_le_sup'`），再对期望用单调性。 -/
+`g f w ≤ sup'_f g f w`（`rad_le_sup`），再对期望用单调性。 -/
 theorem rad_sup_expectation_le {α β : Type*} [Fintype α] (F : Finset β) (hF : F.Nonempty)
     (g : β → α → ℝ) :
     F.sup' hF (fun f => uniformExpectation (g f)) ≤
       uniformExpectation (fun w => F.sup' hF (fun f => g f w)) := by
-  apply rad_sup'_le hF
+  apply rad_sup_le hF
   intro f hf
-  exact rad_uniformExpectation_mono (fun w => rad_le_sup' hF (fun f => g f w) hf)
+  exact rad_uniformExpectation_mono (fun w => rad_le_sup hF (fun f => g f w) hf)
 
 /-- **对称化的逐点三角不等式**：对固定的 `z z' : Fin n → α` 与符号 `σ`，
 `sup_{f∈F} Σᵢ σᵢ (f z'ᵢ − f zᵢ) ≤ sup_{f∈F}|Σᵢ σᵢ f z'ᵢ| + sup_{f∈F}|Σᵢ σᵢ f zᵢ|`。
 证明：和式拆开为 `A − B`，用 `A − B ≤ |A| + |B|`（`linarith`），
-两个绝对值分别被 `sup'` 控制（`rad_le_sup'`）。 -/
+两个绝对值分别被 `sup'` 控制（`rad_le_sup`）。 -/
 theorem rad_symmetrization_step {α : Type*} [Fintype α] (F : Finset (α → ℝ)) (hF : F.Nonempty)
     (n : ℕ) (z z' : Fin n → α) (σ : Fin n → Fin 2) :
     F.sup' hF (fun f => ∑ i : Fin n, radSign (σ i) * (f (z' i) - f (z i))) ≤
       F.sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z' i)|) +
       F.sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z i)|) := by
-  apply rad_sup'_le hF
+  apply rad_sup_le hF
   intro f hf
   have hsplit : (∑ i : Fin n, radSign (σ i) * (f (z' i) - f (z i)))
       = (∑ i : Fin n, radSign (σ i) * f (z' i)) -
@@ -307,8 +307,8 @@ theorem rad_symmetrization_step {α : Type*} [Fintype α] (F : Finset (α → �
     _ ≤ F.sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z' i)|) +
         F.sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z i)|) :=
       add_le_add
-        (rad_le_sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z' i)|) hf)
-        (rad_le_sup' hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z i)|) hf)
+        (rad_le_sup hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z' i)|) hf)
+        (rad_le_sup hF (fun f => |∑ i : Fin n, radSign (σ i) * f (z i)|) hf)
 
 /-- **交换坐标映射**：对固定符号 `σ`，把配对 `(p.1, p.2)` 在满足 `σ i = -1`
 （即 `σ i ≠ 0`）的坐标 `i` 处交换。这是对称化中「交换后重新配对」的显式映射；

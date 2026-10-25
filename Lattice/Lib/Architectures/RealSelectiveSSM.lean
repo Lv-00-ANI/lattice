@@ -459,7 +459,7 @@ theorem sel_tight_state_eq (ρ M : ℝ) (_hρ : ρ ≠ 1) (t : ℕ) :
     `‖h_1‖ = M`。
 
 故 `t → ∞` 时 `‖h_t‖ → M/(1−ρ)`：**一致界 `M/(1−ρ)` 不可改进**。 -/
-theorem sel_tight_state_eq' (ρ M : ℝ) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1) (hM : 0 ≤ M) (t : ℕ) :
+theorem sel_tight_state_eq_of_lt_one (ρ M : ℝ) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1) (hM : 0 ≤ M) (t : ℕ) :
     selState (fun _ : ℕ => ρ) (fun _ : ℕ => M) t = M * ((1 - ρ ^ t) / (1 - ρ)) ∧
     ‖selState (fun _ : ℕ => ρ) (fun _ : ℕ => M) t‖ = M * ((1 - ρ ^ t) / (1 - ρ)) := by
   have hρne : ρ ≠ 1 := ne_of_lt hρ1
@@ -500,7 +500,7 @@ theorem sel_tight_asymptotic (ρ M : ℝ) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1) (hM 
     (tendsto_order.1 htend).2 ε hε
   obtain ⟨t, ht⟩ := Filter.Eventually.exists hev
   refine ⟨t, ?_⟩
-  rw [(sel_tight_state_eq' ρ M hρ0 hρ1 hM t).2]
+  rw [(sel_tight_state_eq_of_lt_one ρ M hρ0 hρ1 hM t).2]
   have hsplit : M * ((1 - ρ ^ t) / (1 - ρ)) = M / (1 - ρ) - M * ρ ^ t / (1 - ρ) := by
     field_simp
     ring

@@ -87,7 +87,7 @@ theorem uniformExpectation_const_mul {Ω : Type*} [Fintype Ω] (c : ℝ) (X : Ω
   rw [← Finset.mul_sum, mul_div_assoc]
 
 /-- 有限和线性：`E[Σ_i F_i] = Σ_i E[F_i]`。 -/
-theorem uniformExpectation_sum' {Ω : Type*} [Fintype Ω] {ι : Type*} [Fintype ι]
+theorem uniformExpectation_sum {Ω : Type*} [Fintype Ω] {ι : Type*} [Fintype ι]
     (F : ι → Ω → ℝ) :
     uniformExpectation (fun w => ∑ i, F i w) = ∑ i, uniformExpectation (F i) := by
   unfold uniformExpectation
@@ -214,7 +214,7 @@ theorem cv_iid_unbiased {α : Type*} [Fintype α] {m : ℕ} (hm : 0 < m) (Z : α
   have hmR : (m : ℝ) ≠ 0 := by exact_mod_cast (ne_of_gt hm)
   change uniformExpectation (fun w : Fin m → α => (1 / (m : ℝ)) * ∑ i : Fin m, Z (w i))
     = popRisk Z
-  rw [uniformExpectation_const_mul, uniformExpectation_sum']
+  rw [uniformExpectation_const_mul, uniformExpectation_sum]
   have h2 : (∑ i : Fin m, uniformExpectation (fun w : Fin m → α => Z (w i)))
       = ∑ _i : Fin m, popRisk Z :=
     Finset.sum_congr rfl (fun i _ => uniformExpectation_marginal hm Z i)
@@ -336,7 +336,7 @@ theorem cv_kfold_unbiased {Ω : Type*} [Fintype Ω] {k : ℕ} (Y : Fin k → Ω 
     (hk : 0 < k) (hmean : ∀ j, uniformExpectation (Y j) = R) :
     uniformExpectation (fun w => (1 / (k : ℝ)) * ∑ j : Fin k, Y j w) = R := by
   have hkR : (k : ℝ) ≠ 0 := by exact_mod_cast (ne_of_gt hk)
-  rw [uniformExpectation_const_mul, uniformExpectation_sum']
+  rw [uniformExpectation_const_mul, uniformExpectation_sum]
   have hsum : (∑ j : Fin k, uniformExpectation (Y j)) = ∑ _j : Fin k, R :=
     Finset.sum_congr rfl (fun j _ => hmean j)
   rw [hsum, Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
@@ -359,7 +359,7 @@ theorem uniformExpectation_sq_sum_le {Ω : Type*} [Fintype Ω] {k : ℕ} (A : Fi
   have hstep : ∀ j : Fin k, uniformExpectation (fun w => ∑ l : Fin k, A j w * A l w)
       = uniformExpectation (fun w => (A j w) ^ 2) := by
     intro j
-    rw [uniformExpectation_sum']
+    rw [uniformExpectation_sum]
     have hsingle : (∑ l : Fin k, uniformExpectation (fun w => A j w * A l w))
         = uniformExpectation (fun w => A j w * A j w) :=
       Finset.sum_eq_single j (fun l _ hl => hoff j l hl.symm)
@@ -368,7 +368,7 @@ theorem uniformExpectation_sq_sum_le {Ω : Type*} [Fintype Ω] {k : ℕ} (A : Fi
     congr 1
     funext w
     ring
-  rw [uniformExpectation_sum', Finset.sum_congr rfl (fun j _ => hstep j)]
+  rw [uniformExpectation_sum, Finset.sum_congr rfl (fun j _ => hstep j)]
   calc (∑ j : Fin k, uniformExpectation (fun w => (A j w) ^ 2))
       ≤ ∑ _j : Fin k, σ2 := Finset.sum_le_sum (fun j _ => hdiag j)
     _ = (k : ℝ) * σ2 := by rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]

@@ -266,7 +266,7 @@ theorem chord_bound_symm_measure {y c lam : ℝ} (hc : 0 < c) (hy : |y| ≤ c) :
    `e^{λY} ≤ cosh(λc) + (Y/c)·sinh(λc)`（a.e.）；
 2. `condexp_mono`（需两侧 `Integrable`）提升为条件期望的不等式；
 3. `condexp_add` 拆开右端；
-4. `condexp_const'` 把常数提出来（得到 `fun _ => cosh(λc)`）；
+4. `condexp_const` 把常数提出来（得到 `fun _ => cosh(λc)`）；
 5. ⭐ 用 **`condexp_smul`** 与条件零均值 `μ[Y|m] =ᵐ 0` 消去
    `μ[(Y/c)·sinh(λc)|m] =ᵐ 0`；
 6. 合并得 `μ[e^{λY}|m] ≤ᵐ fun _ => cosh(λc) + 0 = cosh(λc)`。
@@ -301,7 +301,7 @@ theorem condexp_exp_le_cosh {α : Type*} [MeasurableSpace α] {m m0 : Measurable
     hY.mono fun ω hω => chord_bound_symm_measure hc hω
   -- 2. condexp_mono 提升
   -- 2. condexp_mono 提升
-  -- ⚠⚠ `condexp_mono'` 的 `m` 与 `m0` 都是**隐式参数且顺序相邻**（见
+  -- ⚠⚠ `condexp_mono` 的 `m` 与 `m0` 都是**隐式参数且顺序相邻**（见
   -- `RealMeasureTheoryBase.condexp_mono'` 的签名），直接传参会报
   -- `don't know how to synthesize implicit argument 'm'`（Lean 把 `m0` 当成 `m` 的候选）。
   -- **⇒ 必须显式命名 `(m := m) (m0 := m0)`。**
@@ -310,7 +310,7 @@ theorem condexp_exp_le_cosh {α : Type*} [MeasurableSpace α] {m m0 : Measurable
   -- `condexp_of_not_le` 使 `μ[·|m] = 0` **恒为零函数**，此时结论
   -- `0 ≤ᵐ cosh(λc)` 虽然真，但**信息量为零**（退化解）。
   -- ⇒ 把 `hm : m ≤ m0` 提为**显式前提**（见定理签名），使定理非退化。
-  have hmono := condexp_mono' (m := m) (m0 := m0) hexpint hchordint hpt
+  have hmono := condexp_mono (m := m) (m0 := m0) hexpint hchordint hpt
   -- 3. 右端 = cosh(λc) + (Y/c)·sinh(λc)，用 condexp_add 拆开
   have hsplit : μ[(fun ω => Real.cosh (lam * c) + (Y ω / c) * Real.sinh (lam * c))|m]
       =ᵐ[μ] μ[(fun _ : α => Real.cosh (lam * c))|m]
@@ -330,14 +330,14 @@ theorem condexp_exp_le_cosh {α : Type*} [MeasurableSpace α] {m m0 : Measurable
         simp only [Pi.sub_apply]
         ring
       rwa [hfun] at hsub
-    have hadd := condexp_add' (m := m) (m0 := m0)
+    have hadd := condexp_add (m := m) (m0 := m0)
       (f := fun _ : α => Real.cosh (lam * c))
       (g := fun ω => (Y ω / c) * Real.sinh (lam * c)) h1 h2
     simpa only [Pi.add_apply] using hadd
   -- 4. 常数项的 condexp（由 `hm : m ≤ m0` 与 `[IsFiniteMeasure μ]` 直接给出**逐点**等式）
   have hconst : μ[(fun _ : α => Real.cosh (lam * c))|m]
       =ᵐ[μ] fun _ : α => Real.cosh (lam * c) := by
-    rw [condexp_const' hm (Real.cosh (lam * c))]
+    rw [condexp_const hm (Real.cosh (lam * c))]
   -- 5. 余项：μ[(Y/c)·sinh(λc)|m] =ᵐ 0（由条件零均值消去）
   have hrem : μ[(fun ω => (Y ω / c) * Real.sinh (lam * c))|m] =ᵐ[μ] 0 := by
     -- (Y/c)·sinh = (sinh/c) • Y，用 condexp_smul 提出常数

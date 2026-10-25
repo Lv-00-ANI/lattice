@@ -163,7 +163,7 @@ def EditConstraint (cs cs' : ConstraintSet) : Prop :=
 `LayerComposition:51`。本文件**不 import** `LayerComposition`（它需要额外 import 链），
 故此处**重述**该引理。**诚实标注**：这是**已知的重复**，
 理想做法是从 `LayerComposition` 复用——留待 §7 记录。 -/
-lemma dot_replicate_zero_any' (w : List Int) (n : Nat) :
+lemma dot_replicate_zero_any (w : List Int) (n : Nat) :
     dot w (List.replicate n 0) = 0 := by
   unfold dot
   induction w generalizing n with

@@ -221,7 +221,7 @@ theorem zeroFixingR_of_monotone_unique_zero (act : ℝ → ℝ) (_hmono : Monoto
 
 /-- **判据 2 是充要的**：零集假设 ⟺ 「零集唯一 ∧ `σ 0 = 0`」
 （故该判据**不可再放宽**）。`hmono` 保留作接口形状（不参与证明）。 -/
-theorem zeroFixingR_iff_of_monotone' (act : ℝ → ℝ) (_hmono : Monotone act) :
+theorem zeroFixingR_iff_of_monotone_and_mono (act : ℝ → ℝ) (_hmono : Monotone act) :
     ZeroFixingR act ↔
       (∀ y z, act y = 0 → act z = 0 → y = z) ∧ act 0 = 0 :=
   zeroFixingR_iff_of_monotone act

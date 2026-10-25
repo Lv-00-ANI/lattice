@@ -237,7 +237,7 @@ theorem abs_pos_relative_shift (d : ℕ) (pos k D : ℝ) (m : ℕ)
     rw [if_neg hnot, if_neg hnot, if_pos hm1, hD1, hD2, hpt, Real.cos_add]
 
 /-- `abs_pos_relative_shift` 的实例化形式（分母自动取 `absPosDenom d ⟨2m, h1⟩`）。 -/
-theorem abs_pos_relative_shift' (d : ℕ) (pos k : ℝ) (m : ℕ)
+theorem abs_pos_relative_shift_no_denom (d : ℕ) (pos k : ℝ) (m : ℕ)
     (h1 : 2 * m < d) (h2 : 2 * m + 1 < d) :
     (absPosEnc d (pos + k) ⟨2 * m, h1⟩
         = absPosEnc d pos ⟨2 * m, h1⟩ * Real.cos (k / absPosDenom d ⟨2 * m, h1⟩)

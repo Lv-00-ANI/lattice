@@ -27,7 +27,7 @@ import Mathlib
 派生 `lfp_unique_of_strict`（`∃! y, f y = y`）。**二者均为假**，反例见 §三开头与
 `strict_bottom_not_enough_for_uniqueness`（`α = ℕ`、`f = id`、`y = 5`：
 三条假设全部成立，而 `5 ≠ ⊥` 成立）。原稿还含 `¬ StrictMono' (id : Bool → Bool)`，
-**亦为假**（`StrictMono' id` 是重言式，见 `strictMono'_id`）。
+**亦为假**（`StrictMono' id` 是重言式，见 `strictMono_id`）。
 
 ## 2. 为什么这不是恒等重述（承重性说明）
 
@@ -84,7 +84,7 @@ import Mathlib
   本文件**未定义**可达状态概念，故「不可达状态上的不动点不同」这一表述
   在本文件中**已无对应命题**。
 - 注意：**`StrictMono'` 不是"真增"**：它只要求**保序** `x < y → f x < f y`，
-  **允许 `f x = x`**（`strictMono'_id` 机器化了这一点）。
+  **允许 `f x = x`**（`strictMono_id` 机器化了这一点）。
 - 不用 `sorry` / `axiom` / `admit` / `native_decide`。
 
 ## 6. 小规模自检（落盘前判真假）
@@ -285,7 +285,7 @@ def StrictMono' {α : Type*} [Preorder α] (f : α → α) : Prop :=
 
 /-- **`StrictMono' id` 是重言式**（机器化上一条的说明）：
 这解释了为什么「`id` 严格单调」**为真**，从而假的不是它。 -/
-theorem strictMono'_id {α : Type*} [Preorder α] : StrictMono' (id : α → α) :=
+theorem strictMono_id {α : Type*} [Preorder α] : StrictMono' (id : α → α) :=
   fun _ _ h => h
 
 /-- **反例：不严格时不动点不唯一**（承重，性质分离）。
@@ -293,7 +293,7 @@ theorem strictMono'_id {α : Type*} [Preorder α] : StrictMono' (id : α → α)
 `false` 与 `true` **两个** —— 说明「单调」**不足以**给出不动点唯一性。
 
 注意：**诚实标注（本条已按核实结果降强度）**：原稿额外断言
-`¬ StrictMono' (id : Bool → Bool)`，**该项为假**（见 `strictMono'_id`：它是重言式），
+`¬ StrictMono' (id : Bool → Bool)`，**该项为假**（见 `strictMono_id`：它是重言式），
 故已**删除该合取项**，只保留为真的部分。 -/
 theorem monotone_id_two_fixpoints :
     Monotone (id : Bool → Bool) ∧
@@ -301,7 +301,7 @@ theorem monotone_id_two_fixpoints :
   ⟨monotone_id, ⟨rfl, rfl⟩, by decide⟩
 
 /-- **严格性承重的正确见证**：`α = ℕ`、`f = id`。
-`id` **严格单调**（`strictMono'_id`）且**保底**（`id ⊥ = ⊥`），
+`id` **严格单调**（`strictMono_id`）且**保底**（`id ⊥ = ⊥`），
 但它有 `5` 等多个不动点 —— ⭐ **这机器化地说明
 `kleene_lfp_exists` 的"最小性"（`kleene f N ≤ 任意不动点`）不可去掉**：
 单靠「严格 + 保底」既给不出唯一性，也**不能**把不动点收缩到 `⊥`。
@@ -309,7 +309,7 @@ theorem monotone_id_two_fixpoints :
 theorem strict_bottom_not_enough_for_uniqueness :
     StrictMono' (id : ℕ → ℕ) ∧ (id : ℕ → ℕ) ⊥ = ⊥ ∧
       ∃ y : ℕ, (id : ℕ → ℕ) y = y ∧ y ≠ ⊥ :=
-  ⟨strictMono'_id, rfl, 5, rfl, by decide⟩
+  ⟨strictMono_id, rfl, 5, rfl, by decide⟩
 
 /-! ## 四、最小不动点 = 所有不动点的下确界 -/
 

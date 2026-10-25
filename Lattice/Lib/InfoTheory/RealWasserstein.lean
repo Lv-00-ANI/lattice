@@ -308,7 +308,7 @@ theorem kp_lipschitz_bound {f : Fin n → ℝ} (hf : IsOneLipschitz f) (a b : Fi
   le_trans (le_abs_self _) (hf a b)
 
 /-- 1-Lipschitz 势的反向差分界：`f b - f a ≤ |a - b|`。 -/
-theorem kp_lipschitz_bound' {f : Fin n → ℝ} (hf : IsOneLipschitz f) (a b : Fin n) :
+theorem kp_lipschitz_bound_swap {f : Fin n → ℝ} (hf : IsOneLipschitz f) (a b : Fin n) :
     f b - f a ≤ |(a : ℝ) - (b : ℝ)| := by
   have h : -(f a - f b) ≤ |f a - f b| := neg_le_abs _
   linarith [hf a b]

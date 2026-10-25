@@ -457,61 +457,61 @@ namespace Seam5
 ## 6. THE EXTRACT CHAIN (EXEC-V2 group 13 / bridge-3 family)
 
 EXEC-V2 section 2.2 already records that
-  lean:150  extractLayer'_eq_extractLayer
+  lean:150  extractLayer_eq_extractLayer
 EXISTS and closes by rfl.  It is NOT reopened here.  What is still open is the
 FAN-OUT around it:
 
 * extractLayer   :100  (ls : Layer) : ConstraintSet
-* extractLayer'   :143  (ls : Layer) : ConstraintSet
+* extractLayer_alt   :143  (ls : Layer) : ConstraintSet
   -> ALREADY BRIDGED (:150).  Verified present in _EXISTING_THEOREMS.txt
-     (extractLayer'_eq_extractLayer => 1).
+     (extractLayer_eq_extractLayer => 1).
 
 The unclaimed content is therefore NOT another copy of the same identity but
 its CONSEQUENCES on the round-trip / surjectivity theorems.  Before this
 module the environment could state the round-trip only about extractLayer and
 the surjectivity only about the same object, but never consume both families
 in one term.  The lemmas below transport the round-trip results onto the
-extractLayer' spelling and then consume BOTH in a single statement. -/
+extractLayer_alt spelling and then consume BOTH in a single statement. -/
 
-/-- BRIDGE 3a: the surjectivity of compileToLayer re-keyed onto extractLayer'.
-    This is the extractLayer'-flavoured reading of
+/-- BRIDGE 3a: the surjectivity of compileToLayer re-keyed onto extractLayer_alt.
+    This is the extractLayer_alt-flavoured reading of
     extractLayer_surjective (:163); it is obtained by
     transporting along the EXISTING bridge :150 rather than by re-proving. -/
-theorem extractLayer'_surjective (ls : Lattice.Lift.SymbolToWeightCorrectness.Layer) :
+theorem extractLayer_alt_surjective (ls : Lattice.Lift.SymbolToWeightCorrectness.Layer) :
     ∃ cs : Lattice.Lift.SymbolToWeightCorrectness.ConstraintSet, Lattice.Lift.SymbolToWeightCorrectness.compileToLayer cs = ls := by
-  refine ⟨Lattice.extractLayer' ls, ?_⟩
-  rw [Lattice.extractLayer'_eq_extractLayer]
+  refine ⟨Lattice.extractLayer_alt ls, ?_⟩
+  rw [Lattice.extractLayer_eq_extractLayer]
   exact Lattice.compileToLayer_extractLayer ls
 
-/-- BRIDGE 3b: left inverse stated for extractLayer' -- the exact composite
+/-- BRIDGE 3b: left inverse stated for extractLayer_alt -- the exact composite
     that extractLayer_leftInverse (:138) states for
     extractLayer.  The transport is the rw on the existing rfl bridge; it is
     NOT a re-proof and NOT a bare rfl of a Prop. -/
-theorem extractLayer'_leftInverse :
-    Function.LeftInverse Lattice.extractLayer' Lattice.Lift.SymbolToWeightCorrectness.compileToLayer := by
+theorem extractLayer_alt_leftInverse :
+    Function.LeftInverse Lattice.extractLayer_alt Lattice.Lift.SymbolToWeightCorrectness.compileToLayer := by
   intro cs
-  rw [Lattice.extractLayer'_eq_extractLayer]
+  rw [Lattice.extractLayer_eq_extractLayer]
   exact Lattice.extractLayer_compileToLayer cs
 
-/-- BRIDGE 3c: right inverse for extractLayer'. -/
-theorem extractLayer'_rightInverse :
-    Function.RightInverse Lattice.extractLayer' Lattice.Lift.SymbolToWeightCorrectness.compileToLayer := by
+/-- BRIDGE 3c: right inverse for extractLayer_alt. -/
+theorem extractLayer_alt_rightInverse :
+    Function.RightInverse Lattice.extractLayer_alt Lattice.Lift.SymbolToWeightCorrectness.compileToLayer := by
   intro ls
-  rw [Lattice.extractLayer'_eq_extractLayer]
+  rw [Lattice.extractLayer_eq_extractLayer]
   exact Lattice.compileToLayer_extractLayer ls
 
 /-- NON-VACUITY WITNESS: the two ends really do carry different theorem layers.
     RealExtractSurjectivity owns the INJECTIVITY / SURJECTIVITY / range side
-    (extractVec_injective' :100, extractVec_range_eq_univ :118,
+    (extractVec_injective :100, extractVec_range_eq_univ :118,
     extractVec_range_ne_proper :124) while RealCompileExtractClosed owns the
     ROUND-TRIP side (extractLayer_compileToLayer :112,
     compileToLayer_extractLayer :126).  This lemma is the first statement in
     the environment that consumes BOTH families in one term. -/
-theorem extractLayer'_range_and_roundtrip (ls : Lattice.Lift.SymbolToWeightCorrectness.Layer) :
+theorem extractLayer_range_and_roundtrip (ls : Lattice.Lift.SymbolToWeightCorrectness.Layer) :
     (∃ cs : Lattice.Lift.SymbolToWeightCorrectness.ConstraintSet, Lattice.Lift.SymbolToWeightCorrectness.compileToLayer cs = ls) ∧
-      Lattice.Lift.SymbolToWeightCorrectness.compileToLayer (Lattice.extractLayer' ls) = ls :=
-  ⟨extractLayer'_surjective ls, by
-    rw [Lattice.extractLayer'_eq_extractLayer]
+      Lattice.Lift.SymbolToWeightCorrectness.compileToLayer (Lattice.extractLayer_alt ls) = ls :=
+  ⟨extractLayer_alt_surjective ls, by
+    rw [Lattice.extractLayer_eq_extractLayer]
     exact Lattice.compileToLayer_extractLayer ls⟩
 
 end Seam5

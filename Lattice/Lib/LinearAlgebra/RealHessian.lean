@@ -137,7 +137,7 @@ lemma quadForm_sym2 (a b d : ℝ) (v : Fin 2 → ℝ) :
       = a * (v 0 * v 0) + b * (v 0 * v 1) + b * (v 1 * v 0) + d * (v 1 * v 1) := by
   simp only [quadForm, Fin.sum_univ_two, sym2_00, sym2_01, sym2_10, sym2_11] <;> ring
 
-lemma quadForm_sym2' (a b d : ℝ) (v : Fin 2 → ℝ) :
+lemma quadForm_sym2_expanded (a b d : ℝ) (v : Fin 2 → ℝ) :
     quadForm (sym2 a b d) v = a * (v 0) ^ 2 + 2 * b * (v 0 * v 1) + d * (v 1) ^ 2 := by
   rw [quadForm_sym2]
   ring
@@ -155,7 +155,7 @@ lemma vec2_ne_zero {x y : ℝ} (hx : x ≠ 0) : (![x, y] : Fin 2 → ℝ) ≠ 0 
   simp at h0
   exact hx h0
 
-lemma vec2_ne_zero' {x y : ℝ} (hy : y ≠ 0) : (![x, y] : Fin 2 → ℝ) ≠ 0 := by
+lemma vec2_ne_zero_of_second {x y : ℝ} (hy : y ≠ 0) : (![x, y] : Fin 2 → ℝ) ≠ 0 := by
   intro h
   have h1 := congrFun h 1
   rw [vec2_one] at h1
@@ -172,15 +172,15 @@ theorem two_dim_posdef_iff (a b d : ℝ) :
   · intro h
     have hv1 : (![1, 0] : Fin 2 → ℝ) ≠ 0 := vec2_ne_zero (x := 1) (y := 0) one_ne_zero
     have hq1 : quadForm (sym2 a b d) (![1, 0] : Fin 2 → ℝ) = a := by
-      rw [quadForm_sym2']
+      rw [quadForm_sym2_expanded]
       rw [vec2_zero, vec2_one]
       ring
     have ha : 0 < a := by
       have := h _ hv1
       rwa [hq1] at this
-    have hv2 : (![-b, a] : Fin 2 → ℝ) ≠ 0 := vec2_ne_zero' (x := -b) (y := a) (ne_of_gt ha)
+    have hv2 : (![-b, a] : Fin 2 → ℝ) ≠ 0 := vec2_ne_zero_of_second (x := -b) (y := a) (ne_of_gt ha)
     have hq2 : quadForm (sym2 a b d) (![-b, a] : Fin 2 → ℝ) = a * (a * d - b * b) := by
-      rw [quadForm_sym2']
+      rw [quadForm_sym2_expanded]
       rw [vec2_zero, vec2_one]
       ring
     have hd : 0 < a * (a * d - b * b) := by

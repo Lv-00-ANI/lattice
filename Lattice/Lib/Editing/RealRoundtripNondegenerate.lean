@@ -247,22 +247,22 @@ theorem sameLayer_imp_semEqL_d21 {l l' : LinearLayer} (h : SameLayerD21 l l') :
 def d21L : LinearLayer := { w := [1], b := 0 }
 
 /-- ⭐ 见证层 2：`w = [1, 0]`、`b = 0`（**补了一个零维**，`dot` 与 `d21L` 逐点相同）。 -/
-def d21L' : LinearLayer := { w := [1, 0], b := 0 }
+def d21L_two : LinearLayer := { w := [1, 0], b := 0 }
 
 /-- ⭐⭐ **见证的语义等价**：`dot [1, 0] x = dot [1] x`（对**一切** `x`）。
 
 ⭐ **证明**：`[1, 0] = [1] ++ [0]`（`rfl`），再套 `dot_append_zero_d21`。
 ⭐ **这正是 `zip` 截断的直接后果**：第二个分量的系数是 `0`，乘不上任何东西。 -/
-theorem d21_dot_witness_eq (x : List Int) : dot d21L'.w x = dot d21L.w x := by
-  have h : d21L'.w = d21L.w ++ [0] := rfl
+theorem d21_dot_witness_eq (x : List Int) : dot d21L_two.w x = dot d21L.w x := by
+  have h : d21L_two.w = d21L.w ++ [0] := rfl
   rw [h, dot_append_zero_d21]
 
-/-- ⭐⭐ **`SemEqL d21L d21L'` 为真**（反例的**正面**一半）。 -/
-theorem d21_semEqL_witness : SemEqL d21L d21L' := by
+/-- ⭐⭐ **`SemEqL d21L d21L_two` 为真**（反例的**正面**一半）。 -/
+theorem d21_semEqL_witness : SemEqL d21L d21L_two := by
   intro x
   unfold LayerOut
   -- 两个 `b` 分量都是 `0`，只需把 `dot` 拉平
-  have hb : d21L'.b = d21L.b := rfl
+  have hb : d21L_two.b = d21L.b := rfl
   rw [d21_dot_witness_eq x, hb]
 
 /-- ⭐⭐ **`SameLayer` 为假**（反例的**反面**一半，判据 2 的**锋利**形式）。
@@ -271,11 +271,11 @@ theorem d21_semEqL_witness : SemEqL d21L d21L' := by
 
 ⭐⭐ **这就是根因**：`dot` 用 `List.zip` **截断**，故「补零维」在**语义**上自由、
 在**缩放**下**不自由**（缩放不变长度）—— 一族不可由缩放吸收的自由度。 -/
-theorem d21_not_sameLayer_witness : ¬ SameLayerD21 d21L d21L' := by
+theorem d21_not_sameLayer_witness : ¬ SameLayerD21 d21L d21L_two := by
   rintro ⟨lam, mu, _hl, _hm, hw, _hb⟩
   -- ⭐ 只看 `w` 分量的**长度**：`List.map` 保长度，`[1]` 长 1、`[1,0]` 长 2
   have hlen := congrArg List.length hw
-  simp only [d21L, d21L', List.length_map, List.length_cons, List.length_nil] at hlen
+  simp only [d21L, d21L_two, List.length_map, List.length_cons, List.length_nil] at hlen
   omega
 
 /-- ⭐⭐ **T4b：`SemEqL` 不蕴含 `SameLayer`**（调研报告判「真」，本文件证实）。
@@ -285,7 +285,7 @@ theorem d21_not_sameLayer_witness : ¬ SameLayerD21 d21L d21L' := by
 theorem semEqL_not_imp_sameLayer_d21 :
     ¬ (∀ l l' : LinearLayer, SemEqL l l' → SameLayerD21 l l') := by
   intro h
-  exact d21_not_sameLayer_witness (h d21L d21L' d21_semEqL_witness)
+  exact d21_not_sameLayer_witness (h d21L d21L_two d21_semEqL_witness)
 
 /-! # 三、T4a 的补充：`SameLayer` 是【严格】更细的关系（收口）
 
@@ -301,7 +301,7 @@ theorem sameLayer_strictly_finer_than_semEqL_d21 :
     (∀ l l' : LinearLayer, SameLayerD21 l l' → SemEqL l l') ∧
     (∃ l l' : LinearLayer, SemEqL l l' ∧ ¬ SameLayerD21 l l') :=
   ⟨fun _ _ => sameLayer_imp_semEqL_d21,
-   d21L, d21L', d21_semEqL_witness, d21_not_sameLayer_witness⟩
+   d21L, d21L_two, d21_semEqL_witness, d21_not_sameLayer_witness⟩
 
 /-! # 四、要点 T1/T2：商上的往返 —— 补 `RealLayerSemanticQuotient.lean:652` 的「未做 `Equiv`」
 
@@ -522,19 +522,19 @@ theorem dot_of_append_zeros_d21 (b : List Int) (n : Nat) (x : List Int) :
 def d21Neg : LinearLayer := { w := [1], b := 0 }
 
 /-- ⭐ **否定见证层**：`w = [-1]`、`b = 0`。 -/
-def d21Neg' : LinearLayer := { w := [-1], b := 0 }
+def d21Neg_alt : LinearLayer := { w := [-1], b := 0 }
 
 /-- ⭐⭐ **见证：`dot` 相差一个符号**（把 `[1]` 与 `[-1]` 的关系**结构地**说清楚）。
 
 ⭐ **本文件不展开 `foldl`**（⚠ `omega` 对 `foldl` 内的项**无效**，实测）——
 而是先证**这条结构等式**，再在 `Int` 上消解。 -/
-theorem d21_dot_neg_witness (x : List Int) : dot d21Neg'.w x = -dot d21Neg.w x := by
+theorem d21_dot_neg_witness (x : List Int) : dot d21Neg_alt.w x = -dot d21Neg.w x := by
   -- `[1].zip x` 与 `[-1].zip x` 的形状只差首项的符号
   cases x with
-  | nil => simp [d21Neg, d21Neg', dot]
-  | cons y ys => simp [d21Neg, d21Neg', dot]
+  | nil => simp [d21Neg, d21Neg_alt, dot]
+  | cons y ys => simp [d21Neg, d21Neg_alt, dot]
 
-/-- ⭐⭐ **见证：`SemEqL d21Neg d21Neg'` 为真**（⚠ **但它【不是】** `SameLayer`）。
+/-- ⭐⭐ **见证：`SemEqL d21Neg d21Neg_alt` 为真**（⚠ **但它【不是】** `SameLayer`）。
 
 ⚠ **证明的关键是 `a = 0 ↔ -a = 0`**，即**符号不改变零化谓词**。
 
@@ -549,19 +549,19 @@ theorem d21_dot_neg_witness (x : List Int) : dot d21Neg'.w x = -dot d21Neg.w x :
 （即 §二 的 `SameLayer`），**不是** T5 的「非零倍率 + 去尾零」读法 ——
 因为 `[1]` 与 `[-1]` 在**非零**倍率下**确实**成比例（`lam = 1`、`mu = -1`）。
 ⭐ **详见本节 §六 开头 ② 的诚实说明。** -/
-theorem d21_semEqL_neg_witness : SemEqL d21Neg d21Neg' := by
+theorem d21_semEqL_neg_witness : SemEqL d21Neg d21Neg_alt := by
   intro x
-  -- ⚠ 目标展开：`LayerOut d21Neg x = 0 ↔ LayerOut d21Neg' x = 0`
-  -- ⭐ 关键：`dot d21Neg'.w x = -dot d21Neg.w x`，且两侧 `b` 都是 `0`
+  -- ⚠ 目标展开：`LayerOut d21Neg x = 0 ↔ LayerOut d21Neg_alt x = 0`
+  -- ⭐ 关键：`dot d21Neg_alt.w x = -dot d21Neg.w x`，且两侧 `b` 都是 `0`
   have h := d21_dot_neg_witness x
-  have hb : d21Neg'.b = 0 := rfl
+  have hb : d21Neg_alt.b = 0 := rfl
   have hb' : d21Neg.b = 0 := rfl
-  show LayerOut d21Neg x = 0 ↔ LayerOut d21Neg' x = 0
+  show LayerOut d21Neg x = 0 ↔ LayerOut d21Neg_alt x = 0
   unfold LayerOut
   rw [hb, hb', h]
   constructor <;> intro hz <;> omega
 
-/-- ⭐⭐ **`¬ SameLayerD21 d21Neg d21Neg'`**：正倍率**不可能**把 `[1]` 变成 `[-1]`。
+/-- ⭐⭐ **`¬ SameLayerD21 d21Neg d21Neg_alt`**：正倍率**不可能**把 `[1]` 变成 `[-1]`。
 
 ⚠ **证明是纯算术**：`1 * lam = -1 * mu` 且 `lam, mu > 0` ⟹ 左正右负 ⟹ 矛盾。
 
@@ -570,10 +570,10 @@ theorem d21_semEqL_neg_witness : SemEqL d21Neg d21Neg' := by
 不给出算术信息，且 `List.head?_map` 的句法形状不吻合。
 ⭐ **改为 `cases` 展开两个具体列表**（两处 `w` 都是字面量），
 使 `map` 被 `simp` 直接归约掉，`omega` 只剩线性算术。 -/
-theorem d21_not_sameLayer_neg_witness : ¬ SameLayerD21 d21Neg d21Neg' := by
+theorem d21_not_sameLayer_neg_witness : ¬ SameLayerD21 d21Neg d21Neg_alt := by
   rintro ⟨lam, mu, hl, hm, hw, _hb⟩
   -- `w` 两侧都是字面量列表 ⟹ `map` 直接归约，剩 `1 * lam = -1 * mu`
-  simp only [d21Neg, d21Neg', List.map_cons, List.map_nil, List.cons.injEq] at hw
+  simp only [d21Neg, d21Neg_alt, List.map_cons, List.map_nil, List.cons.injEq] at hw
   omega
 
 /-! # 七、⚠⚠ 诚实边界汇总（**不许省** —— 任务书 §报告结构 要求）

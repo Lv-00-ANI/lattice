@@ -77,7 +77,7 @@ import Lattice.Lib.Attention.RealLinearAttention
 |:--|:--|:--|
 | `kernelGramMatrix_psd_iff_exists_featureMap`（需 `hsymm`） | `RealSVD.symmetric_spectral_theorem` | Mercer 有限版 = 实对称谱定理 |
 | `isSymmKernel_iff_gram_psd` / `isPosDefKernel_gram_psd` | `RealHessian` 的二次型语言 | 核 PSD ⟺ Gram 二次型非负 |
-| `kernelGramMatrix_eq_featureMap_mul_transpose` | `RealSVD.symmetric_spectral_theorem'` | `G = U diag λ Uᵀ = Φ Φᵀ` |
+| `kernelGramMatrix_eq_featureMap_mul_transpose` | `RealSVD.symmetric_spectral_theorem_eigen` | `G = U diag λ Uᵀ = Φ Φᵀ` |
 | `isSymmKernel_iff_gram_psd` | `RealHessian.quadForm`（二次型语言同构） | 核 PSD ⟺ Gram 二次型非负 |
 | `featScore_eq_inner` | `RealLinearAttention.featScore` | 线性注意力打分 = 可分核内积 |
 | `softmax_attention_is_nw` | `RealAttention.softmax`、`RealLinearAttention.featScore` | 注意力 = 核平滑（NW） |
@@ -326,7 +326,7 @@ theorem isPosDefKernel_gram_psd (K : α → α → ℝ) (hK : IsPosDefKernel K) 
 当且仅当它可以写成特征内积** `K a b = ⟪Φ a, Φ b⟫`。
 
 - `⟸`（易）：`Σ_i v_i·Φ(x_i)` 的范数平方展开。
-- `⟹`（难，用谱定理）：`G = U·diag λ·Uᵀ`（`RealSVD.symmetric_spectral_theorem'`），
+- `⟹`（难，用谱定理）：`G = U·diag λ·Uᵀ`（`RealSVD.symmetric_spectral_theorem_eigen`），
   令 `Φ x i = √(λ_i)·U_{x i}`。因 `G` 半正定故 `λ_i ≥ 0`（这一步由 `G` 半正定与
   特征值的二次型刻画给出），`√` 才有意义。 -/
 

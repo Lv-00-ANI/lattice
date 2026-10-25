@@ -93,7 +93,7 @@ namespace Lattice.Lib.Editing.RealEditInvariantCatalog
 
 /-- **`zipWith` 的长度恰为两侧长度之 min**
 （Lean core `Init/Data/List/Nat/TakeDrop.lean:561` 的 `List.length_zipWith`）。 -/
-lemma zipWith_add_length' (a dw : List Int) :
+lemma zipWith_add_length (a dw : List Int) :
     (a.zipWith (· + ·) dw).length = min a.length dw.length :=
   List.length_zipWith (· + ·) a dw
 
@@ -120,7 +120,7 @@ theorem append_eq_zipWith_add_iff (a dw : List Int) :
   constructor
   · intro h
     have hlen := congrArg List.length h
-    rw [List.length_append, zipWith_add_length'] at hlen
+    rw [List.length_append, zipWith_add_length] at hlen
     have ha : a.length = 0 := by omega
     have hd : dw.length = 0 := by omega
     exact ⟨List.eq_nil_of_length_eq_zero ha, List.eq_nil_of_length_eq_zero hd⟩
@@ -134,7 +134,7 @@ theorem append_eq_zipWith_add_iff (a dw : List Int) :
 theorem append_eq_zipWith_add_iff_length_necessary (a dw : List Int)
     (h : a ++ dw = a.zipWith (· + ·) dw) : a.length = dw.length := by
   have hlen := congrArg List.length h
-  rw [List.length_append, zipWith_add_length'] at hlen
+  rw [List.length_append, zipWith_add_length] at hlen
   omega
 
 /-- ⭐⭐ **T5 判据 2（直接反驳报告的具体见证）**：
@@ -153,7 +153,7 @@ theorem append_ne_zipWith_add_witness :
 ⭐ 这是「两侧编辑载体不同构」在**可计算量**上的形式。 -/
 theorem edit_carriers_diverge_on_length (a dw : List Int) (hdw : dw ≠ []) :
     (a ++ dw).length ≠ (a.zipWith (· + ·) dw).length := by
-  rw [List.length_append, zipWith_add_length']
+  rw [List.length_append, zipWith_add_length]
   have : 0 < dw.length := List.length_pos_of_ne_nil hdw
   omega
 
@@ -176,15 +176,18 @@ theorem vecConstraint_append_eq_zipWith_iff (a dw : List Int) (b : Int) :
 
 ⚠ 与 `_S-01.dot_nil_right_s01` / `RealSymbolToWeightWidened.dot_nil_right_s01`
 同名同义；本文件**自证**以保持自包含，并在报告里登记这条**已知重复**。 -/
-lemma dot_nil_right' (a : List Int) : dot a [] = 0 := by
+lemma dot_nil_right (a : List Int) : dot a [] = 0 := by
   simp [dot]
 
 /-- **`dot` 与 `++` 的分解（自包含重述）**。
 ⚠ 与 `RealConstraintEdit.dot_append_sub` 逐字相同；重述使引理链自包含，
 并在报告里登记这条**已知重复**。 -/
-lemma dot_append_sub' (a b x : List Int) :
+lemma dot_append_sub (a b x : List Int) :
     dot (a ++ b) x = dot a x + dot b (x.drop a.length) :=
-  dot_append_sub a b x
+  -- qualified on purpose: this is a restatement of the lemma in RealConstraintEdit,
+  -- and after the de-prime pass the two share a short name, so the bare call would
+  -- resolve to THIS lemma and make it self-recursive (termination then fails).
+  Lattice.dot_append_sub a b x
 
 /-- ⭐ **`dot` 只看第二个参数的**前缀**（**长度版**）：若 `a.length ≤ b.length`，
 则追加在 `b` 之后的尾部**不被 `zip` 看到**：`dot a (b ++ c) = dot a b`。
@@ -192,7 +195,7 @@ lemma dot_append_sub' (a b x : List Int) :
 ⚠ **长度前提不可删（这是本文件踩过的坑）**：`dot` 用 `zip` 截断到**较短**一侧，
 故无前提时命题**为假** —— `a = [1]`、`b = []`、`c = [5]`：
 左端 `dot [1] [5] = 5`、右端 `dot [1] [] = 0`，`5 ≠ 0`。
-⚠ 报告**未**要求本条；它是 `dot_append_of_length_eq'` 的必需件。 -/
+⚠ 报告**未**要求本条；它是 `dot_append_of_length_eq` 的必需件。 -/
 lemma dot_append_right_of_le (a b c : List Int) (h : a.length ≤ b.length) :
     dot a (b ++ c) = dot a b := by
   have hzip : a.zip (b ++ c) = a.zip b := by
@@ -215,7 +218,7 @@ lemma dot_append_right_of_le (a b c : List Int) (h : a.length ≤ b.length) :
 
 ⚠ **长度前提不可删（判据 1）**：删掉后取 `a = [1]`、`b = []`、`x = []`、`y = [7]`：
 左端 `dot [1] [7] = 7`，右端 `dot [1] [] + dot [] [7] = 0` ⟹ **结论为假**。 -/
-lemma dot_append_of_length_eq' (a b x y : List Int) (h : a.length = x.length) :
+lemma dot_append_of_length_eq (a b x y : List Int) (h : a.length = x.length) :
     dot (a ++ b) (x ++ y) = dot a x + dot b y := by
   rw [dot_append_sub a b (x ++ y)]
   have hdrop : (x ++ y).drop a.length = y := List.drop_left' h.symm
@@ -275,7 +278,7 @@ theorem edit_regime_agree_iff (a dw x : List Int) (h : a.length = dw.length) :
 theorem edit_regime_agree_of_dot_zero (a dw x : List Int)
     (hlen : a.length = dw.length) (hx : x.length ≤ a.length) (hz : dot dw x = 0) :
     dot (a ++ dw) x = dot (a.zipWith (· + ·) dw) x := by
-  rw [edit_regime_agree_iff a dw x hlen, List.drop_eq_nil_of_le hx, dot_nil_right', hz]
+  rw [edit_regime_agree_iff a dw x hlen, List.drop_eq_nil_of_le hx, dot_nil_right, hz]
 
 /-- ⭐⭐ **判据 2：报告 T6′ 保守版的直接反例（机器可验）**。
 

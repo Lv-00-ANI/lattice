@@ -45,7 +45,7 @@ variable {n : ℕ}
 
 /-- **定理 I1（Neumann 级数的项范数界）**：`‖T^m‖ ≤ ‖T‖^m`。
 （`RealGelfand.gelfand_opNorm_pow_le` 在 `ContinuousLinearMap` 层面的对应陈述。） -/
-theorem opNorm_pow_le' (T : EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) (m : ℕ) :
+theorem opNorm_pow_le (T : EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) (m : ℕ) :
     ‖T ^ m‖ ≤ ‖T‖ ^ m := by
   induction m with
   | zero =>
@@ -66,7 +66,7 @@ theorem neumann_summable (T : EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpac
   have hT0 : (0 : ℝ) ≤ ‖T‖ := norm_nonneg T
   have hgeom : Summable (fun m : ℕ => ‖T‖ ^ m) :=
     summable_geometric_of_norm_lt_one (by rwa [Real.norm_eq_abs, abs_of_nonneg hT0])
-  exact Summable.of_nonneg_of_le (fun m => norm_nonneg _) (fun m => opNorm_pow_le' T m) hgeom
+  exact Summable.of_nonneg_of_le (fun m => norm_nonneg _) (fun m => opNorm_pow_le T m) hgeom
 
 /-- **定理 I3（Neumann 级数的和 ≤ 1/(1 − ‖T‖)）**：`‖T‖ < 1` 时
     `∑_m ‖T^m‖ ≤ (1 − ‖T‖)⁻¹`。
@@ -82,7 +82,7 @@ theorem neumann_sum_le_inv_one_sub (T : EuclideanSpace ℝ (Fin n) →L[ℝ] Euc
   have hsum : ∑' (m : ℕ), ‖T‖ ^ m = (1 - ‖T‖)⁻¹ :=
     tsum_geometric_of_norm_lt_one (by rwa [Real.norm_eq_abs, abs_of_nonneg hT0])
   rw [← hsum]
-  exact tsum_le_tsum (fun m => opNorm_pow_le' T m) (neumann_summable T hT) hgeom
+  exact tsum_le_tsum (fun m => opNorm_pow_le T m) (neumann_summable T hT) hgeom
 
 /-- **定理 I4（扰动算子的稳定性：`‖δT‖ ≤ ε` 时的 Neumann 界）**：
 设 `T` 是**精确**的提取算子、`δT` 是扰动（`‖δT‖ ≤ ε`），且 `‖T‖ < 1`、`ε < 1 − ‖T‖`，

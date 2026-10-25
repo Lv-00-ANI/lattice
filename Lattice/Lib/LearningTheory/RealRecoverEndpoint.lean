@@ -124,7 +124,7 @@ theorem recover_compileToLayer (cs : ConstraintSet) :
 
 /-- **`extractVec` 在当前载体下是单射**（`LinearLayer` 恰有 `w`/`b` 两字段，
 `extractVec` 是完整的字段重命名；其逆为 `convertVec`，见 `roundtrip_extractVec`）。 -/
-theorem extractVec_injective : Function.Injective (extractVec : LinearLayer → VectorConstraint) := by
+theorem extractVec_injective_recover : Function.Injective (extractVec : LinearLayer → VectorConstraint) := by
   intro l₁ l₂ h
   -- 两条记录相等 ⟹ 逐字段相等
   have hw : l₁.w = l₂.w := congrArg VectorConstraint.a h
@@ -162,7 +162,7 @@ theorem extractVec_injective : Function.Injective (extractVec : LinearLayer → 
 
 /-- ⭐⭐ **`recover` 是单射** —— **与 `B400.5 P1-1` 的预期相反**。
 
-由 `extractLayer`（`extractVec_injective` + `List.map`）单射、`encode` 单射
+由 `extractLayer`（`extractVec_injective_recover` + `List.map`）单射、`encode` 单射
 （`RealTokenSymbolLink.encode_injective`）、以及**单射复合仍单射**直接得到。
 
 ⚠ **这不是「缺口已闭合」的好消息**，而是「**缺口的形式与预期不同**」的发现：
@@ -174,7 +174,7 @@ theorem recover_injective : Function.Injective (recover : Layer → List SymToke
   have h₁ : extractLayer ls₁ = extractLayer ls₂ := encode_injective h
   -- extractLayer = List.map extractVec，而 extractVec 单射 ⟹ 列表相等
   unfold extractLayer at h₁
-  exact List.map_injective_iff.mpr (fun _ _ hc => extractVec_injective hc) h₁
+  exact List.map_injective_iff.mpr (fun _ _ hc => extractVec_injective_recover hc) h₁
 
 /-! ## 五、⭐⭐ 真正的不可逆性在【行为层】：`Layer → (List Int → Int)` 非单射
 

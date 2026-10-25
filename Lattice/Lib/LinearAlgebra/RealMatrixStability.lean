@@ -7,7 +7,7 @@ import Lattice.Lib.LinearAlgebra.RealL2Operator
 
   1. `perturbation_bound`：`‖(A + E) x - A x‖ ≤ ‖E‖ ‖x‖`（回收 `op_apply_le`）；
      `matrixStability_relative_perturbation_bound`：`x ≠ 0` 时前向相对误差 `≤ ‖E‖`；
-  2. `op_norm_pow_le'` / `matrixStability_contraction_pow_bound`：`‖T^n‖ ≤ ‖T‖^n`、
+  2. `op_norm_pow_le_simple` / `matrixStability_contraction_pow_bound`：`‖T^n‖ ≤ ‖T‖^n`、
      `‖T^n x‖ ≤ c^n ‖x‖`（`‖T‖ ≤ c`），回收 `RealL2Operator`；
   3. `contraction_decay`：`‖T‖ < 1` ⟹ `‖T‖^n → 0`（几何衰减）；
   4. `iterateStep`：迭代 `x_{n+1} = T x_n + b`，`x_0 = 0`；**`iterateStep_norm_le`**：
@@ -61,7 +61,7 @@ theorem matrixStability_relative_perturbation_bound (A Epart : E →L[ℝ] E) (x
 /-! ## 二、收缩与幂增长 -/
 
 /-- **幂增长界**：`‖T^n‖ ≤ ‖T‖^n`（回收 `RealL2Operator.op_norm_pow_le`）。 -/
-theorem op_norm_pow_le' (T : E →L[ℝ] E) (n : ℕ) : ‖T ^ n‖ ≤ ‖T‖ ^ n :=
+theorem op_norm_pow_le_simple (T : E →L[ℝ] E) (n : ℕ) : ‖T ^ n‖ ≤ ‖T‖ ^ n :=
   op_norm_pow_le T n
 
 /-- **强收缩下的幂作用界**：`‖T‖ ≤ c ⟹ ‖T^n x‖ ≤ c^n ‖x‖`。

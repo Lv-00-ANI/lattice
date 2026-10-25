@@ -180,7 +180,7 @@ theorem trace_sq_eq_sum_eigSq {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (hA : A
 不是已证定理——见该处 docstring 的诚实标注）。 -/
 
 /-- `trace` 的线性性（差）：`trace (A − B) = trace A − trace B`。 -/
-theorem trace_sub' {n : ℕ} (A B : Matrix (Fin n) (Fin n) ℝ) :
+theorem trace_sub {n : ℕ} (A B : Matrix (Fin n) (Fin n) ℝ) :
     Matrix.trace (A - B) = Matrix.trace A - Matrix.trace B :=
   Matrix.trace_sub A B
 

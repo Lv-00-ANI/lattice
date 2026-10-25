@@ -12,7 +12,7 @@ import Lattice.Lib.Architectures.RealMatrixNorm
   3. `symmetric_eigenpair`：每个特征向量基向量满足 `A *ᵥ vᵢ = λᵢ • vᵢ`；
   4. `symmetric_orthonormal_eigenbasis` / `symmetric_eigenvector_inner`：
      `hA.eigenvectorBasis` 是标准正交基，内积为 Kronecker δ；
-  5. `symmetric_spectral_theorem'` / `symmetric_spectral_theorem`：
+  5. `symmetric_spectral_theorem_eigen` / `symmetric_spectral_theorem`：
      `A = U · diag λ · Uᵀ` 且 `Uᵀ U = 1`（正交矩阵，`U Uᵀ = 1` 已导出）；
   6. `symmetric_det_eq_prod_eigenvalues` / `symmetric_two_two_det`：
      `det A = ∏ λᵢ`，2×2 特例 `det A = λ₀ λ₁`；
@@ -85,7 +85,7 @@ theorem symmetric_eigenvector_inner (A : Matrix (Fin n) (Fin n) ℝ) (hA : A.IsH
 
 /-- 实谱定理（具体见证）：用 `hA.eigenvectorUnitary` 与 `hA.eigenvalues` 直接写出
 `A = U · diag λ · Uᵀ`。 -/
-theorem symmetric_spectral_theorem' (A : Matrix (Fin n) (Fin n) ℝ) (hA : A.IsHermitian) :
+theorem symmetric_spectral_theorem_eigen (A : Matrix (Fin n) (Fin n) ℝ) (hA : A.IsHermitian) :
     A = (hA.eigenvectorUnitary : Matrix (Fin n) (Fin n) ℝ) * diagonal hA.eigenvalues *
       (hA.eigenvectorUnitary : Matrix (Fin n) (Fin n) ℝ)ᵀ := by
   have h := hA.spectral_theorem
@@ -115,7 +115,7 @@ theorem symmetric_spectral_theorem (A : Matrix (Fin n) (Fin n) ℝ) (hA : A.IsHe
     ∃ (U : Matrix (Fin n) (Fin n) ℝ) (lam : Fin n → ℝ),
       Uᵀ * U = 1 ∧ A = U * diagonal lam * Uᵀ :=
   ⟨(hA.eigenvectorUnitary : Matrix (Fin n) (Fin n) ℝ), hA.eigenvalues,
-    symmetric_eigenvectorUnitary_transpose_mul A hA, symmetric_spectral_theorem' A hA⟩
+    symmetric_eigenvectorUnitary_transpose_mul A hA, symmetric_spectral_theorem_eigen A hA⟩
 
 /-! ## 四、行列式 / 迹 = 特征值的（对称）函数 -/
 
@@ -218,7 +218,7 @@ theorem symmetric_frobenius_eq_sum_eigenvalues_sq (A : Matrix (Fin n) (Fin n) �
       = Matrix.trace (Aᵀ * A) := sum_sq_eq_trace_transpose_mul A
     _ = Matrix.trace (A * A) := by rw [hAt]
     _ = Matrix.trace (diagonal hA.eigenvalues * diagonal hA.eigenvalues) :=
-          trace_mul_self_conj_of_decomp A _ _ hU (symmetric_spectral_theorem' A hA)
+          trace_mul_self_conj_of_decomp A _ _ hU (symmetric_spectral_theorem_eigen A hA)
     _ = Matrix.trace (diagonal fun i => hA.eigenvalues i * hA.eigenvalues i) := by
           rw [Matrix.diagonal_mul_diagonal]
     _ = ∑ i, (hA.eigenvalues i) ^ 2 := by

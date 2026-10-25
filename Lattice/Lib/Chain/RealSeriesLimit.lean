@@ -5,7 +5,7 @@ import Lattice.Lib.LinearAlgebra.RealMatrixStability
 # LATTICE: 算子幂级数极限（Neumann 级数 / 迭代收敛常数）
 
 本文件把「`‖T‖ < 1` 时算子几何级数收敛」这一套结论形式化，用于：
-  1. 标量几何和闭式与上界（`geom_sum_eq'`、`geom_sum_le_inv`）；
+  1. 标量几何和闭式与上界（`geom_sum_eq_one_sub`、`geom_sum_le_inv`）；
   2. 算子部分和的范数上界 `‖∑_{k<N} T^k‖ ≤ (1-‖T‖)⁻¹`（`op_geom_sum_norm_le`）；
   3. 算子幂级数的可和性 / 和 = `(1-T)⁻¹`（Neumann 级数，
      `summable_op_pow`、`tsum_op_pow_eq_inverse`、`one_sub_mul_tsum`、`tsum_mul_one_sub`）；
@@ -13,7 +13,7 @@ import Lattice.Lib.LinearAlgebra.RealMatrixStability
   5. **填补 `RealMatrixStability` 中标注为「未证」的极限界**（该文件 docstring 明说
      `‖b‖/(1-‖T‖)` 未证）：本文件证明
      `iterateStep_norm_le_inv : ‖iterateStep T b n‖ ≤ ‖b‖ / (1 - ‖T‖)`，
-     以及乘常数形式的 `iterateStep_norm_le_inv'`。
+     以及乘常数形式的 `iterateStep_norm_le_inv_mul`。
 
 诚实标注与降级（无 sorry / axiom / admit）：
   · 充分条件用的是**严格算子范数** `‖T‖ < 1`；**谱半径判据 `ρ(T) < 1` 未证 / 降级**
@@ -44,8 +44,12 @@ variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
 /-! ## 一、标量几何级数 -/
 
 /-- 几何和闭式：`r ≠ 1` 时 `∑_{k<n} r^k = (1 - r^n) / (1 - r)`。
-（回收 `geom_sum_mul`，两端同乘 `1 - r` 后作恒等变形。） -/
-theorem geom_sum_eq' (r : ℝ) (n : ℕ) (hr : r ≠ 1) :
+（回收 `geom_sum_mul`，两端同乘 `1 - r` 后作恒等变形。）
+
+注意符号约定：mathlib 的 `geom_sum_eq` 写作 `(x^n - 1) / (x - 1)`，本文件用
+`(1 - x^n) / (1 - x)`（分析里更常用，因为 `x < 1` 时两个分母都为正）。
+二者相等，但形式不同，故不复用 mathlib 名，避免读者误以为可以直接 `rw`。 -/
+theorem geom_sum_eq_one_sub (r : ℝ) (n : ℕ) (hr : r ≠ 1) :
     ∑ k in Finset.range n, r ^ k = (1 - r ^ n) / (1 - r) := by
   have h1 : (1 : ℝ) - r ≠ 0 := by
     intro hh
@@ -58,7 +62,7 @@ theorem geom_sum_eq' (r : ℝ) (n : ℕ) (hr : r ≠ 1) :
 theorem geom_sum_le_inv {r : ℝ} (h0 : 0 ≤ r) (h1 : r < 1) (n : ℕ) :
     ∑ k in Finset.range n, r ^ k ≤ (1 - r)⁻¹ := by
   have hpos : 0 < 1 - r := by linarith
-  rw [geom_sum_eq' r n (by linarith), div_le_iff₀ hpos,
+  rw [geom_sum_eq_one_sub r n (by linarith), div_le_iff₀ hpos,
     inv_mul_cancel₀ (ne_of_gt hpos)]
   linarith [pow_nonneg h0 n]
 
@@ -117,7 +121,7 @@ theorem iterateStep_norm_le_inv (T : E →L[ℝ] E) (b : E) (h : ‖T‖ < 1) (n
 
 /-- **迭代累积的极限界（乘常数形式）**：`‖T‖ < 1` 时
 `‖iterateStep T b n‖ ≤ (1 - ‖T‖)⁻¹ * ‖b‖`。 -/
-theorem iterateStep_norm_le_inv' (T : E →L[ℝ] E) (b : E) (h : ‖T‖ < 1) (n : ℕ) :
+theorem iterateStep_norm_le_inv_mul (T : E →L[ℝ] E) (b : E) (h : ‖T‖ < 1) (n : ℕ) :
     ‖iterateStep T b n‖ ≤ (1 - ‖T‖)⁻¹ * ‖b‖ :=
   le_trans (iterateStep_norm_le_inv T b h n)
     (le_of_eq (by rw [div_eq_mul_inv, mul_comm]))

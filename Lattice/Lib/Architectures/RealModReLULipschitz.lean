@@ -95,7 +95,7 @@ theorem modReLU_eq_gain_mul (b : ℝ) (z : ℂ) (hz : z ≠ 0) :
   rfl
 
 /-- `relu x = x`（`x ≥ 0`）。 -/
-lemma relu_of_nonneg' {x : ℝ} (h : 0 ≤ x) : relu x = x := by
+lemma relu_of_nonneg {x : ℝ} (h : 0 ≤ x) : relu x = x := by
   unfold relu
   exact max_eq_left h
 
@@ -177,12 +177,12 @@ theorem modReLU_lipschitz_of_nonpos (b : ℝ) (hb : b ≤ 0) (z w : ℂ) :
           have hlamz : modGain b z = 1 - c / Complex.abs z := by
             unfold modGain
             rw [htb z]
-            rw [relu_of_nonneg' (x := Complex.abs z - c) (le_of_lt (sub_pos.mpr hzc)),
+            rw [relu_of_nonneg (x := Complex.abs z - c) (le_of_lt (sub_pos.mpr hzc)),
               sub_div, div_self (ne_of_gt hrz)]
           have hlamw : modGain b w = 1 - c / Complex.abs w := by
             unfold modGain
             rw [htb w]
-            rw [relu_of_nonneg' (x := Complex.abs w - c) (le_of_lt (sub_pos.mpr hwc)),
+            rw [relu_of_nonneg (x := Complex.abs w - c) (le_of_lt (sub_pos.mpr hwc)),
               sub_div, div_self (ne_of_gt hrw)]
           have hlamzpos : 0 ≤ modGain b z := by
             rw [hlamz]

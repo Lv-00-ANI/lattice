@@ -271,35 +271,35 @@ condexp_bot [IsProbabilityMeasure μ] (f) : μ[f|⊥] = fun _ => ∫ x, f x ∂�
 /-- **条件期望的常数律**：`μ[fun _ => c|m] = fun _ => c`。
 ⚠ 前提：`m ≤ m0`（子 σ-代数）与 `[IsFiniteMeasure μ]`（**不是** `IsProbabilityMeasure`）。
 结论是**逐点等式**（非 ae），可直接 `rw`。 -/
-theorem condexp_const' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem condexp_const {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} (hm : m ≤ m0) [IsFiniteMeasure μ] (c : ℝ) :
     μ[(fun _ : α => c)|m] = fun _ : α => c :=
   MeasureTheory.condexp_const hm c
 
 /-- **条件期望的加法律**（ae 形态）：`μ[f+g|m] =ᵐ μ[f|m] + μ[g|m]`。
 ⚠ 结论是 ae 相等，**不能**当普通等式 `rw`；需 `Filter.EventuallyEq` 处理。 -/
-theorem condexp_add' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem condexp_add {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} {f g : α → ℝ}
     (hf : Integrable f μ) (hg : Integrable g μ) :
     μ[f + g|m] =ᵐ[μ] μ[f|m] + μ[g|m] :=
   MeasureTheory.condexp_add hf hg
 
 /-- **条件期望的单调性**（ae 形态）：`f ≤ᵐ g ⟹ μ[f|m] ≤ᵐ μ[g|m]`。 -/
-theorem condexp_mono' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem condexp_mono {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} {f g : α → ℝ}
     (hf : Integrable f μ) (hg : Integrable g μ) (h : f ≤ᵐ[μ] g) :
     μ[f|m] ≤ᵐ[μ] μ[g|m] :=
   MeasureTheory.condexp_mono hf hg h
 
 /-- **条件期望的非负性**（ae 形态）：`0 ≤ᵐ f ⟹ 0 ≤ᵐ μ[f|m]`。 -/
-theorem condexp_nonneg' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem condexp_nonneg {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} {f : α → ℝ} (h : 0 ≤ᵐ[μ] f) : 0 ≤ᵐ[μ] μ[f|m] :=
   MeasureTheory.condexp_nonneg h
 
 /-- **条件期望的全积分律（承重）**：`∫ (μ[f|m]) ∂μ = ∫ f ∂μ`。
 ⚠ 前提 `[SigmaFinite (μ.trim hm)]` **不可省**；在 `[IsFiniteMeasure μ]` 下
 由 `SigmaFinite.trim` 自动满足（下游可 `haveI` 引入）。 -/
-theorem integral_condexp' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem integral_condexp {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} {f : α → ℝ} (hm : m ≤ m0) [SigmaFinite (μ.trim hm)] :
     ∫ x, (μ[f|m]) x ∂μ = ∫ x, f x ∂μ :=
   MeasureTheory.integral_condexp hm
@@ -319,20 +319,20 @@ theorem condexp_tower {α : Type*} [MeasurableSpace α] {m₁ m₂ m0 : Measurab
 本文件先前误写 `StronglyMeasurable[m0] f`，报
 `application type mismatch … has type StronglyMeasurable … m0 f but is expected to have type … m f`。
 ⚠ 前提含 `Integrable f μ` 与 `[SigmaFinite (μ.trim hm)]`。 -/
-theorem condexp_of_stronglyMeasurable' {α : Type*} [MeasurableSpace α]
+theorem condexp_of_stronglyMeasurable {α : Type*} [MeasurableSpace α]
     {m m0 : MeasurableSpace α} {μ : Measure α} (hm : m ≤ m0) [SigmaFinite (μ.trim hm)]
     {f : α → ℝ} (h : StronglyMeasurable[m] f) (hf : Integrable f μ) : μ[f|m] = f :=
   MeasureTheory.condexp_of_stronglyMeasurable hm h hf
 
 /-- **条件期望对 ae 相等的兼容性**：`f =ᵐ g ⟹ μ[f|m] =ᵐ μ[g|m]`。 -/
-theorem condexp_congr_ae' {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
+theorem condexp_congr_ae {α : Type*} [MeasurableSpace α] {m m0 : MeasurableSpace α}
     {μ : Measure α} {f g : α → ℝ} (h : f =ᵐ[μ] g) : μ[f|m] =ᵐ[μ] μ[g|m] :=
   MeasureTheory.condexp_congr_ae h
 
 /-- **条件期望到底 σ-代数（全期望）**：`μ[f|⊥] = fun _ => ∫ f ∂μ`（概率测度）。
 这是"条件期望在平凡 σ-代数上退化为无条件期望"的精确陈述，
 是 McDiarmid 中 `E[f]` 项与条件期望衔接的接口。 -/
-theorem condexp_bot' {α : Type*} [MeasurableSpace α] {m0 : MeasurableSpace α}
+theorem condexp_bot {α : Type*} [MeasurableSpace α] {m0 : MeasurableSpace α}
     {μ : Measure α} [IsProbabilityMeasure μ] (f : α → ℝ) :
     μ[f|⊥] = fun _ : α => ∫ x, f x ∂μ :=
   MeasureTheory.condexp_bot f
@@ -438,8 +438,8 @@ theorem satisfiable_integrable_of_ae_bound {α : Type*} [MeasurableSpace α]
 | `∫ c = c` | `integral_const_prob` | `integral_const` |
 | 独立性 ⟹ MGF 分解 | `indep_mgf_sum` | `iIndepFun.mgf_sum` |
 | 独立 ⟹ 两两独立 | `indep_pair` | `iIndepFun.indepFun` |
-| 条件期望四条律 | `condexp_const'`/`_add'`/`_mono'`/`_nonneg'` | `condexp_*`（**全小写**） |
-| 全积分 / tower | `integral_condexp'` / `condexp_tower` | `integral_condexp`、`condexp_condexp_of_le` |
+| 条件期望四条律 | `condexp_const`/`_add'`/`_mono'`/`_nonneg'` | `condexp_*`（**全小写**） |
+| 全积分 / tower | `integral_condexp` / `condexp_tower` | `integral_condexp`、`condexp_condexp_of_le` |
 | 有界 ⟹ 可积 | `integrable_of_ae_bound` | `Integrable.mono'` |
 | 有界 ⟹ 指数可积 | `integrable_exp_of_ae_bound` | `Real.continuous_exp.comp_aestronglyMeasurable` |
 

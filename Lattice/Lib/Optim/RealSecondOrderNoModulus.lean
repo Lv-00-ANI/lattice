@@ -84,12 +84,12 @@ lemma normSq_eq_norm_sq {n : ℕ} (v : EuclideanSpace ℝ (Fin n)) :
   ring
 
 /-- `normSq` 非负。 -/
-lemma normSq_nonneg' {n : ℕ} (v : EuclideanSpace ℝ (Fin n)) : 0 ≤ normSq v := by
+lemma normSq_nonneg_euclid {n : ℕ} (v : EuclideanSpace ℝ (Fin n)) : 0 ≤ normSq v := by
   rw [normSq_eq_norm_sq]
   exact sq_nonneg _
 
 /-- `v ≠ 0 ⟹ normSq v > 0`。 -/
-lemma normSq_pos' {n : ℕ} {v : EuclideanSpace ℝ (Fin n)} (hv : v ≠ 0) : 0 < normSq v := by
+lemma normSq_pos_euclid {n : ℕ} {v : EuclideanSpace ℝ (Fin n)} (hv : v ≠ 0) : 0 < normSq v := by
   rw [normSq_eq_norm_sq]
   exact pow_pos (norm_pos_iff.mpr hv) 2
 

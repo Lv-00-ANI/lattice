@@ -323,30 +323,30 @@ def rowEditCexW : Matrix (Fin 2) (Fin 2) ℝ := 0
 ⚠ **用 `Fin` 上的 `if` 写**（而非 `!![...]` 语法糖）：
 这样 `simp` / `Fintype.sum_eq_single` 对它的求值只需 `if_pos`/`if_neg`，
 不依赖 `Matrix.cons_val_zero` 等 `![…]` 专用引理名。 -/
-def rowEditCexW' : Matrix (Fin 2) (Fin 2) ℝ :=
+def rowEditCexW_row_one : Matrix (Fin 2) (Fin 2) ℝ :=
   fun i j => if i = 0 ∧ j = 1 then 1 else 0
 
 /-- 反例用点 `x = (0, 1)`：坐标 `0` 为 `0`，坐标 `1` 为 `1`。 -/
 def rowEditCexX : EuclideanSpace ℝ (Fin 2) := fun j => if j = 1 then 1 else 0
 
 /-- 反例用点 `x' = (0, 0)`：恒零。 -/
-def rowEditCexX' : EuclideanSpace ℝ (Fin 2) := fun _ => 0
+def rowEditCexX_zero : EuclideanSpace ℝ (Fin 2) := fun _ => 0
 
 /-- ⚠ **辅助**：`(0 : Fin 2) ≠ 1`（**显式 `decide`**，不依赖 `simp` 的 `Fin` 事实集）。 -/
 lemma rowEditCex_zero_ne_one : (0 : Fin 2) ≠ 1 := by decide
 
 /-- 反例的编辑确实**只影响第 `0` 行**（第 `1` 行零矩阵未动）。 -/
-lemma rowEditCex_rowLocal : EditSupportsRow rowEditCexW rowEditCexW' 0 := by
+lemma rowEditCex_rowLocal : EditSupportsRow rowEditCexW rowEditCexW_row_one 0 := by
   intro i j hi
-  unfold rowEditCexW rowEditCexW'
+  unfold rowEditCexW rowEditCexW_row_one
   rw [Matrix.zero_apply, if_neg]
   rintro ⟨hi0, -⟩
   exact hi hi0
 
 /-- 反例的两点在坐标 `0` 上相同（都是 `0`）。
 （`x 0 = if 0 = 1 then 1 else 0 = 0`，由 `rowEditCex_zero_ne_one`。） -/
-lemma rowEditCex_same_coord0 : rowEditCexX 0 = rowEditCexX' 0 := by
-  unfold rowEditCexX rowEditCexX'
+lemma rowEditCex_same_coord0 : rowEditCexX 0 = rowEditCexX_zero 0 := by
+  unfold rowEditCexX rowEditCexX_zero
   -- ⚠ `rw [if_neg …]` 已经把目标两边都化为 `0 = 0` 并**关闭了目标**，
   -- 原来跟在后面的 `rfl` 因此报「no goals to be solved」。改用 `simp` 收口：
   -- 无论 `if_neg` 是否已把目标关掉，`simp` 在无目标时也不会报错。
@@ -358,21 +358,21 @@ lemma rowEditCexX_one : rowEditCexX (1 : Fin 2) = 1 := by
   rw [if_pos rfl]
 
 /-- 反例点在坐标 `1` 上取 `0`。 -/
-lemma rowEditCexX'_one : rowEditCexX' (1 : Fin 2) = 0 := rfl
+lemma rowEditCexX_zero_apply : rowEditCexX_zero (1 : Fin 2) = 0 := rfl
 
 /-- 反例的增量矩阵在 `0` 行的唯一非零项在列 `1`（值 `1`）。
-（`rowEditCexW' 0 t - rowEditCexW 0 t = if t = 1 then 1 else 0`。）
+（`rowEditCexW_row_one 0 t - rowEditCexW 0 t = if t = 1 then 1 else 0`。）
 
 ⚠ **先 `simp only []` / `show` 把 beta-归约与 `-0` 写死**：
-`rowEditCexW' 0 t` 展开后是 `(fun i j => if i = 0 ∧ j = 1 then 1 else 0) 0 t`，
+`rowEditCexW_row_one 0 t` 展开后是 `(fun i j => if i = 0 ∧ j = 1 then 1 else 0) 0 t`，
 `show` 把它化为 `if (0 : Fin 2) = 0 ∧ t = 1 then 1 else 0`，
 之后的 `if_pos`/`if_neg` 才**指名**命中外层这个 `if`（不依赖化简器的搜索顺序）。 -/
-lemma rowEditCexW'_row0 (t : Fin 2) :
-    rowEditCexW' 0 t - rowEditCexW 0 t = if t = 1 then 1 else 0 := by
+lemma rowEditCexW_row0 (t : Fin 2) :
+    rowEditCexW_row_one 0 t - rowEditCexW 0 t = if t = 1 then 1 else 0 := by
   have hW : rowEditCexW 0 t = (0 : ℝ) := by
     unfold rowEditCexW
     exact Matrix.zero_apply 0 t
-  have hW' : rowEditCexW' 0 t = if (0 : Fin 2) = 0 ∧ t = 1 then (1 : ℝ) else 0 := rfl
+  have hW' : rowEditCexW_row_one 0 t = if (0 : Fin 2) = 0 ∧ t = 1 then (1 : ℝ) else 0 := rfl
   rw [hW', hW, sub_zero]
   by_cases ht : t = 1
   · rw [if_pos ⟨rfl, ht⟩, if_pos ht]
@@ -380,23 +380,23 @@ lemma rowEditCexW'_row0 (t : Fin 2) :
 
 /-- 第 `0` 行的输出差 = `y 1`（求和只剩 `t = 1` 一项）。 -/
 lemma rowEditCex_sum (y : EuclideanSpace ℝ (Fin 2)) :
-    (∑ t : Fin 2, (rowEditCexW' 0 t - rowEditCexW 0 t) * y t) = y 1 := by
+    (∑ t : Fin 2, (rowEditCexW_row_one 0 t - rowEditCexW 0 t) * y t) = y 1 := by
   rw [Fintype.sum_eq_single (1 : Fin 2) (fun t ht => by
-    rw [rowEditCexW'_row0 t, if_neg ht, zero_mul])]
-  rw [rowEditCexW'_row0 1, if_pos rfl, one_mul]
+    rw [rowEditCexW_row0 t, if_neg ht, zero_mul])]
+  rw [rowEditCexW_row0 1, if_pos rfl, one_mul]
 
 /-- ⭐⭐ **输出差在坐标 `0` 上不相等**（左 `= x 1 = 1`，右 `= x' 1 = 0`）
 —— 这就是否证的字面内容。 -/
 lemma rowEditCex_diff_ne :
-    (MatLayerOut rowEditCexW' rowEditCexX - MatLayerOut rowEditCexW rowEditCexX) ≠
-      (MatLayerOut rowEditCexW' rowEditCexX' - MatLayerOut rowEditCexW rowEditCexX') := by
+    (MatLayerOut rowEditCexW_row_one rowEditCexX - MatLayerOut rowEditCexW rowEditCexX) ≠
+      (MatLayerOut rowEditCexW_row_one rowEditCexX_zero - MatLayerOut rowEditCexW rowEditCexX_zero) := by
   intro h
   -- 取第 0 坐标：两侧分别是 `x 1` 与 `x' 1`，即 `1` 与 `0`
   have h0 := congrFun h 0
-  rw [rowEditDelta_apply rowEditCexW rowEditCexW' rowEditCexX 0,
-      rowEditDelta_apply rowEditCexW rowEditCexW' rowEditCexX' 0,
-      rowEditCex_sum rowEditCexX, rowEditCex_sum rowEditCexX',
-      rowEditCexX_one, rowEditCexX'_one] at h0
+  rw [rowEditDelta_apply rowEditCexW rowEditCexW_row_one rowEditCexX 0,
+      rowEditDelta_apply rowEditCexW rowEditCexW_row_one rowEditCexX_zero 0,
+      rowEditCex_sum rowEditCexX, rowEditCex_sum rowEditCexX_zero,
+      rowEditCexX_one, rowEditCexX_zero_apply] at h0
   exact one_ne_zero h0
 
 /-- ⭐⭐⭐ **否证定理（判据 1 + 判据 2）**：
@@ -418,7 +418,7 @@ theorem rowEdit_not_depends_only_counterexample :
       EditSupportsRow W W' k ∧ x k = x' k ∧
         (MatLayerOut W' x - MatLayerOut W x)
           ≠ (MatLayerOut W' x' - MatLayerOut W x') := by
-  exact ⟨rowEditCexW, rowEditCexW', 0, rowEditCexX, rowEditCexX',
+  exact ⟨rowEditCexW, rowEditCexW_row_one, 0, rowEditCexX, rowEditCexX_zero,
     rowEditCex_rowLocal, rowEditCex_same_coord0, rowEditCex_diff_ne⟩
 
 /-! ## 八、推论：**格局部**（只动 `(r,k)`）⟹ 输出差只依赖 `x k`

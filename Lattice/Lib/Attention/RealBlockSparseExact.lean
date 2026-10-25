@@ -468,7 +468,7 @@ theorem windowRowCount_deficit (nb w i : ℕ) (hi : i < nb) :
 
 证明用 `Finset.sum_range_reflect`：`∑_{k<w} k = ∑_{k<w}(w-1-k)`，
 故 `∑_{k<w}(w-k) = ∑_{k<w}(k+1) = w(w-1)/2 + w`。 -/
-theorem sum_range_sub_id' (w : ℕ) :
+theorem sum_range_sub_id (w : ℕ) :
     ∑ k ∈ Finset.range w, (w - k) = w * (w + 1) / 2 := by
   -- 反射：`∑ (w-1-k) = ∑ k`
   have hreflect : (∑ k ∈ Finset.range w, (w - 1 - k)) = ∑ k ∈ Finset.range w, k :=
@@ -498,7 +498,7 @@ theorem sum_range_sub_id' (w : ℕ) :
 
 /-- **单绑定求和辅助（上侧截断区）**：`∑_{k<w} (2w - k) = w(3w+1)/2`。
 
-证明：`2w - k = w + (w - k)`，用 `sum_range_sub_id'` 收尾。 -/
+证明：`2w - k = w + (w - k)`，用 `sum_range_sub_id` 收尾。 -/
 theorem sum_range_two_mul_sub (w : ℕ) :
     ∑ k in Finset.range w, (2 * w - k) = w * (3 * w + 1) / 2 := by
   have hpt : ∀ k ∈ Finset.range w, (2 * w - k) = w + (w - k) := by
@@ -510,7 +510,7 @@ theorem sum_range_two_mul_sub (w : ℕ) :
     Finset.sum_congr rfl fun k _ => rfl]
   rw [Finset.sum_congr rfl hpt, Finset.sum_add_distrib, Finset.sum_const,
     Finset.card_range, smul_eq_mul]
-  rw [sum_range_sub_id']
+  rw [sum_range_sub_id]
   have heven : Even (w * (3 * w + 1)) := by
     rcases Nat.even_or_odd w with h | h
     · obtain ⟨m, rfl⟩ := h

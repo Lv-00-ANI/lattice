@@ -13,7 +13,7 @@ import Mathlib
   1. `na_norm_sub_le_max`：`‖x − y‖ ≤ max ‖x‖ ‖y‖`；
   2. `na_norm_add_eq_max_of_ne`（**强三角/等边**）：`‖x‖ ≠ ‖y‖ ⟹ ‖x+y‖ = max ‖x‖ ‖y‖`；
   3. `na_norm_sub_eq_max_of_ne`：`‖x‖ ≠ ‖y‖ ⟹ ‖x−y‖ = max ‖x‖ ‖y‖`（等边三角形性质）；
-  4. `na_norm_finset_sum_le` / `na_norm_finset_sum_lt` / `na_norm_finset_sum_le_sup'`：
+  4. `na_norm_finset_sum_le` / `na_norm_finset_sum_lt` / `na_norm_finset_sum_le_sup`：
    `‖∑‖ ≤ max`（任意有限和）；
   5. `na_isClosed_ball` / `na_ball_isClopen`：**开球既开又闭**（clopen）；
   6. `na_tail_sum_norm_lt`：`‖aₙ‖ → 0 ⟹ 尾和 `∑_{m≤i<m+k} aᵢ` 的范数 → 0`
@@ -136,7 +136,7 @@ lemma na_norm_finset_sum_lt {ι : Type*} (s : Finset ι) (f : ι → K) (C : ℝ
     exact lt_of_le_of_lt (IsNonarchimedeanNorm.norm_add_le_max _ _) (max_lt h1 h2)
 
 /-- **有限和的 max 形式**：非空 `s` 上 `‖∑_{i∈s} f i‖ ≤ s.sup' hs (‖f ·‖)`。 -/
-lemma na_norm_finset_sum_le_sup' {ι : Type*} (s : Finset ι) (hs : s.Nonempty) (f : ι → K) :
+lemma na_norm_finset_sum_le_sup {ι : Type*} (s : Finset ι) (hs : s.Nonempty) (f : ι → K) :
     ‖∑ i in s, f i‖ ≤ s.sup' hs (fun i => ‖f i‖) := by
   obtain ⟨i, hi⟩ := hs
   exact na_norm_finset_sum_le s f _

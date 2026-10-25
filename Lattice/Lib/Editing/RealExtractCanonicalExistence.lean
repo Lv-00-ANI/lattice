@@ -45,7 +45,7 @@ import Lattice.Lib.Editing.RealLayerSemanticQuotient
 | | `a` | `b` |
 |:--|:--|:--|
 | `D22_semC` | `[]`（空） | `0` |
-| `D22_semC'` | `[0]` | `0` |
+| `D22_semC_singleton` | `[0]` | `0` |
 
 - ✅ **`SemEqC` 为真（对一切 `x`）**：两边的 `dot` **都是 `0`**
   （`dot [] x = 0` 是空折叠；`dot [0] x = 0` 因为**唯一的乘积因子是 `0`**）。
@@ -319,7 +319,7 @@ theorem D22_canonical_layer_wellDefined_positional (ls ls' : Layer)
 | | `a` | `b` |
 |:--|:--|:--|
 | `D22_semC` | `[]`（空） | `0` |
-| `D22_semC'` | `[0]` | `0` |
+| `D22_semC_singleton` | `[0]` | `0` |
 
 - ✅ **`SemEqC`**：`dot [] x = 0`（空折叠），`dot [0] x = 0`
   （`[0].zip x` 的每项**第一分量都是 `0`**，故乘积恒 `0` ⟹ 折叠恒 `0`）。
@@ -332,7 +332,7 @@ theorem D22_canonical_layer_wellDefined_positional (ls ls' : Layer)
 def D22_semC : VectorConstraint := { a := [], b := 0 }
 
 /-- 见证用约束 2：`a = [0]`、`b = 0`（**与 `D22_semC` 语义相同，但长度不同**）。 -/
-def D22_semC' : VectorConstraint := { a := [0], b := 0 }
+def D22_semC_singleton : VectorConstraint := { a := [0], b := 0 }
 
 /-- ⭐ **折叠中若每项第一分量为 `0`，则结果恒为 `0`**（本见证的核心算术，**无条件**）。 -/
 theorem D22_foldl_zero_mul (l : List (Int × Int)) (h : ∀ p ∈ l, p.1 = 0) :
@@ -356,22 +356,22 @@ theorem D22_dot_singleton_zero (x : List Int) : dot [0] x = 0 := by
 theorem D22_dot_nil_zero (x : List Int) : dot ([] : List Int) x = 0 := by
   simp [dot]
 
-/-- ⭐⭐ **语义等价**（本见证的**正面**一半）：`D22_semC` 与 `D22_semC'` 逐点等价。
+/-- ⭐⭐ **语义等价**（本见证的**正面**一半）：`D22_semC` 与 `D22_semC_singleton` 逐点等价。
 
 ⭐ 两侧的 `dot` **都是 `0`**，故 `VectorConstraintSat` 两侧都化为 `0 + 0 = 0` ⟹ `Iff` 成立。 -/
-theorem D22_semEqC_witness : SemEqC D22_semC D22_semC' := by
+theorem D22_semEqC_witness : SemEqC D22_semC D22_semC_singleton := by
   intro x
-  unfold VectorConstraintSat D22_semC D22_semC'
+  unfold VectorConstraintSat D22_semC D22_semC_singleton
   rw [D22_dot_nil_zero x, D22_dot_singleton_zero x]
 
 /-- ⭐⭐ **`ScaleClass` 在见证上失败**：`scaleVec` **保持 `a` 的长度**
 （`List.map` 是**长度保持**的），本见证的两侧长度 `0 ≠ 1` ⟹ **永不相等**。
 
 ⭐ **这是纯结构反驳**（不含任何算术/符号假设），也是本文件对调研报告 T4 风险的**消除**。 -/
-theorem D22_not_scaleClass_witness : ¬ ScaleClass D22_semC D22_semC' := by
+theorem D22_not_scaleClass_witness : ¬ ScaleClass D22_semC D22_semC_singleton := by
   rintro ⟨lam, mu, _hlam, _hmu, heq⟩
   have hlen := congrArg (fun c : VectorConstraint => c.a.length) heq
-  simp only [scaleVec, D22_semC, D22_semC', List.length_map, List.length_nil,
+  simp only [scaleVec, D22_semC, D22_semC_singleton, List.length_map, List.length_nil,
     List.length_cons] at hlen
   exact absurd hlen (by norm_num)
 
@@ -382,7 +382,7 @@ theorem D22_not_scaleClass_witness : ¬ ScaleClass D22_semC D22_semC' := by
 ⇒ ⭐ **判据 4（量化）**：配合 T3（§三）即得 **`ScaleClass ⊊ SemEqC`** 的**严格性**。 -/
 theorem D22_semEq_imp_scaleClass_false :
     ¬ (∀ c c' : VectorConstraint, SemEqC c c' → ScaleClass c c') :=
-  fun h => D22_not_scaleClass_witness (h D22_semC D22_semC' D22_semEqC_witness)
+  fun h => D22_not_scaleClass_witness (h D22_semC D22_semC_singleton D22_semEqC_witness)
 
 /-! # 七、T5：⭐⭐ **商的严格包含**（判据 4 的落点，由 T3 + T4 合成） -/
 
@@ -396,7 +396,7 @@ theorem D22_semEq_imp_scaleClass_false :
 theorem D22_scaleClass_strictly_finer :
     (∀ c c' : VectorConstraint, ScaleClass c c' → SemEqC c c') ∧
     (∃ c c' : VectorConstraint, SemEqC c c' ∧ ¬ ScaleClass c c') :=
-  ⟨D22_scaleClass_imp_semEq, D22_semC, D22_semC', D22_semEqC_witness, D22_not_scaleClass_witness⟩
+  ⟨D22_scaleClass_imp_semEq, D22_semC, D22_semC_singleton, D22_semEqC_witness, D22_not_scaleClass_witness⟩
 
 /-! # 八、T8 的**真缺口方向**：`ScaleClass ⇏ ScaleClassPlus`
 
@@ -452,7 +452,7 @@ theorem D22_scaleClass_not_imp_scaleClassPlus :
    且**量词差异被显式写进定理名**。
 3. ⚠ **T4 的见证被本文件【替换】**（见 §六 docstring）：调研报告的见证依赖未核对的
    `zip` 截断行为，其「等长替代」又因 `b` 成比例而**恰好落回同一 `ScaleClass`**。
-   ⭐ 本文件改用 `D22_semC = {a := [], b := 0}` / `D22_semC' = {a := [0], b := 0}`。
+   ⭐ 本文件改用 `D22_semC = {a := [], b := 0}` / `D22_semC_singleton = {a := [0], b := 0}`。
    ⇒ ⭐ **这是本文件对调研报告 T4 的实质修正**（**报告风险最高的一条被消除**）。
 4. ⚠⚠ **T6 的关系取法**（`∃ c, PreimageSet ls c ∧ PreimageSet ls' c`）是**本文件的选择**：
    调研报告只给了 `PreimageSet` 的**定义**，**没有**说该在它上面取什么等价关系。

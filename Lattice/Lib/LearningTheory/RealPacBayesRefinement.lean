@@ -171,7 +171,7 @@ lemma optimal_lambda_algebra_at_correct_lambda {K : ℝ} {n : ℕ} (hK : 0 < K) 
 
 ⚠ 原稿对应条为 `optimal_lambda_algebra'`（用 `(λ*)²·n/2` 与
 `λ* = √(2nK)/n`），**在 `n ≥ 2` 时为假**，故改名并改陈述（**B136**）。 -/
-lemma optimal_lambda_algebra_at_correct_lambda' {K : ℝ} {n : ℕ} (hK : 0 < K)
+lemma optimal_lambda_algebra_at_correct_lambda_sq {K : ℝ} {n : ℕ} (hK : 0 < K)
     (hn : 0 < n) :
     K / Real.sqrt (2 * (n : ℝ) * K)
         + Real.sqrt (2 * (n : ℝ) * K) ^ 2 / (2 * (n : ℝ)) / Real.sqrt (2 * (n : ℝ) * K)
@@ -211,7 +211,7 @@ lemma optimal_lambda_algebra_at_correct_lambda' {K : ℝ} {n : ℕ} (hK : 0 < K)
 但**改名**为 `optimal_lambda_algebra_wrong_shape`，
 以免它继续以「最优 `λ`」之名误导（它证明的是**错误形状**的代数）。
 ⚠ 它**不承重**：本文件中定理 3、5 的证明**不使用**本条
-（它们用的是 `optimal_lambda_algebra_at_correct_lambda'`）。 -/
+（它们用的是 `optimal_lambda_algebra_at_correct_lambda_sq`）。 -/
 lemma optimal_lambda_algebra_wrong_shape {K : ℝ} {n : ℕ} (hK : 0 < K) (hn : 0 < n) :
     K / (Real.sqrt (2 * (n : ℝ) * K) / n) + (Real.sqrt (2 * (n : ℝ) * K) / n) / 2 * n
       = Real.sqrt (2 * (n : ℝ) * K) := by
@@ -249,7 +249,7 @@ lemma optimal_lambda_algebra_wrong_shape {K : ℝ} {n : ℕ} (hK : 0 < K) (hn : 
 **三分类**：该式是**纯代数恒等式**（假设只有 `0 < K`、`0 < n`，
 反例满足它们）⟹ **命题为假**（不是空洞、不是「违反假设」）。
 ⇒ 原稿的那条已**删除**，其位置由**正确的**内核
-`optimal_lambda_algebra_at_correct_lambda'` 取代；
+`optimal_lambda_algebra_at_correct_lambda_sq` 取代；
 本条作为**反例见证**保留，防止「`λ* = √(2nK)/n` 且项为 `λ²·n/2`」
 这一错误形状复活。 -/
 theorem not_optimal_lambda_algebra_sq_form :
@@ -299,7 +299,7 @@ theorem not_optimal_lambda_algebra_sq_form :
 
 **证明**：由 `RealPACBayes.pacBayes_risk_bound_of_exponent`（**直接引用**）
 把指数形式化为风险形式（在 `λ* = √(2nK)` 处），
-再用 §一 的标量内核 `optimal_lambda_algebra_at_correct_lambda'`
+再用 §一 的标量内核 `optimal_lambda_algebra_at_correct_lambda_sq`
 `K/λ* + (λ*)²/(2n)/λ* = √(2nK)/n` 直接闭合 `convert` 步。
 
 ⚠ **同时删除的两个无用假设（PROCESS §4.6：`unused variable` 是「假设写松」的机械信号）**：
@@ -339,14 +339,14 @@ theorem pacBayes_risk_bound_optimal_lambda {Z : Type*} [Fintype Z] {k n : ℕ}
   -- 故 `field_simp` + `nlinarith` 永远闭不上，报 `linarith failed`。
   -- **正解**：取正确的 `λ* = √(2nK)`（见 §一 的推导），
   -- 此时 `(K + s²/(2n))/s = K/s + s/(2n)` 且由
-  -- `optimal_lambda_algebra_at_correct_lambda'` 恰为 `s/n`。
+  -- `optimal_lambda_algebra_at_correct_lambda_sq` 恰为 `s/n`。
   convert hrisk using 2
   set K : ℝ := kl Q P + Real.log (1 / δ) with hKdef
   have hK' : 0 < K := by rw [hKdef]; exact hK
   -- `convert` 的目标形如 `s/n = (K + s²/(2n))/s`；
   -- 先把右端拆成 `K/s + (s²/(2n))/s`（`add_div`），再用 §一 的内核（**取反向**）。
   rw [add_div]
-  exact (optimal_lambda_algebra_at_correct_lambda' hK' hn).symm
+  exact (optimal_lambda_algebra_at_correct_lambda_sq hK' hn).symm
 
 /-! ## 三、⚠ 关于「先验放宽」的实证结论（**本条否定初稿的目标**）
 
@@ -505,7 +505,7 @@ theorem pacBayes_risk_bound_delta_half {Z : Type*} [Fintype Z] {k n : ℕ}
   have hK' : 0 < K := by rw [hKdef]; exact hK
   -- 同定理 3：`add_div` 拆开右端，再用 §一 的内核（取反向）
   rw [h2, add_div]
-  exact (optimal_lambda_algebra_at_correct_lambda' hK' hn).symm
+  exact (optimal_lambda_algebra_at_correct_lambda_sq hK' hn).symm
 
 /-- ⭐ **反例定理（防复活）**：`kl Q P + Real.log 2 > 0` 在本文件的假设下
 **不是无条件成立的**。取 `k = 2`、`Q = (1/2, 1/2)`、`P = (2, 2)`，

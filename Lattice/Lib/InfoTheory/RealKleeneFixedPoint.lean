@@ -67,10 +67,6 @@ variable [PartialOrder α] [OrderBot α]
 @[simp] theorem kleeneChain_succ (f : α → α) (n : ℕ) :
     kleeneChain f (n + 1) = f (kleeneChain f n) := rfl
 
-/-- 展开一步（点形式）：`F^{n+1}⊥ = F (Fⁿ⊥)`。 -/
-theorem kleeneChain_succ' (f : α → α) (n : ℕ) :
-    kleeneChain f (n + 1) = f (kleeneChain f n) := rfl
-
 /-! ## 二、链的单调性与递增 -/
 
 /-- **相邻步递增**：单调算子的 Kleene 链 `Fⁿ⊥ ≤ F^{n+1}⊥`。

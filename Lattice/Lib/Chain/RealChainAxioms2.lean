@@ -105,7 +105,7 @@ namespace Lattice
 
 /-! ## 六、链尾：Recover → EndToEnd（3 条） -/
 
-#print axioms extractVec_injective
+#print axioms extractVec_injective_recover
 #print axioms compileToLayer_injective
 #print axioms semantic_not_injective
 

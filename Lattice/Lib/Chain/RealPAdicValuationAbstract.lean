@@ -142,7 +142,7 @@ theorem v_div (x y : K) (hx : x ≠ 0) (hy : y ≠ 0) :
 在弱公理下是假的** —— 反例就是"两项精确抵消"。 -/
 
 /-- 要点 **三角不等式（`≤` 形式）**：`min (v x) (v y) ≤ v(x+y)`。 -/
-theorem v_add_ge_min' (x y : K) (hx : x ≠ 0) (hy : y ≠ 0) (hxy : x + y ≠ 0) :
+theorem v_add_ge_min (x y : K) (hx : x ≠ 0) (hy : y ≠ 0) (hxy : x + y ≠ 0) :
     min (IsPAdicValuation.v (K := K) x) (IsPAdicValuation.v (K := K) y)
       ≤ IsPAdicValuation.v (K := K) (x + y) :=
   IsPAdicValuation.v_add_ge_min x y hx hy hxy

@@ -367,7 +367,7 @@ theorem compileToLayer_append_assoc (cs₁ cs₂ cs₃ : ConstraintSet) :
 ⭐ **与 ⑬ 的区别**：⑬ 只在 `compileToLayer` **之前**分组；
 本条在**之后**分组，需要**两次** `natTransform_compile`
 （**正向**拆、**反向**合）—— ⚠ 这是**非平凡**的：`rw` 的两次方向**不同**。 -/
-theorem compileToLayer_append_assoc' (cs₁ cs₂ cs₃ : ConstraintSet) :
+theorem compileToLayer_append_assoc_layer (cs₁ cs₂ cs₃ : ConstraintSet) :
     (compileToLayer cs₁ ++ compileToLayer cs₂) ++ compileToLayer cs₃ =
       compileToLayer cs₁ ++ (compileToLayer cs₂ ++ compileToLayer cs₃) :=
   List.append_assoc _ _ _

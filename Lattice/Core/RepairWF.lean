@@ -85,7 +85,7 @@ theorem iterate_shift (k : Nat) (y : α) :
 Well-founded induction on the measure, with the motive over `α` only. The step applies the
 hypothesis at `fix y` -- whose measure is strictly smaller -- and transports through
 `iterate_shift`. -/
-theorem progress' : ∀ x : α, ∃ n : Nat, R.Sat (R.iterate n x) := by
+theorem progress_on_wf : ∀ x : α, ∃ n : Nat, R.Sat (R.iterate n x) := by
   intro x
   refine WellFounded.induction (C := fun z => ∀ y : α, R.μ y = z → ∃ k : Nat,
       R.Sat (R.iterate k y)) R.wf (R.μ x) ?_ x rfl
@@ -97,7 +97,7 @@ theorem progress' : ∀ x : α, ∃ n : Nat, R.Sat (R.iterate n x) := by
     exact ⟨k + 1, by rw [← iterate_shift]; exact hk⟩
 
 /-- **Preservation, generalised.** A passing point stays passing under any number of repairs. -/
-theorem preserves' (x : α) (h : R.Sat x) (n : Nat) : R.Sat (R.iterate n x) := by
+theorem preserves_of_sat (x : α) (h : R.Sat x) (n : Nat) : R.Sat (R.iterate n x) := by
   have hid : R.iterate n x = x := by
     induction n with
     | zero => rfl

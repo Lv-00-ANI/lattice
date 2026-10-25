@@ -27,7 +27,7 @@ import Lattice.Lib.Architectures.RealSSMDiscretization
 
 关键恒等式是**纯代数**的：
 
-    `A * Φ(A,Δ) = Φ(A,Δ) * A = exp(Δ•A) − 1`        (`zoh_bridge_mul` / `zoh_bridge_mul'`)
+    `A * Φ(A,Δ) = Φ(A,Δ) * A = exp(Δ•A) − 1`        (`zoh_bridge_mul` / `zoh_bridge_mul_comm`)
 
 **`Φ` 的定义选择（诚实标注）**：`Φ(A,Δ)` 的教科书定义是 Bochner 积分
 `∫₀^Δ exp(s•A) ds`。本文件**不**用测度论，而把它定义为**收敛级数**
@@ -251,7 +251,7 @@ theorem zoh_bridge_mul (A : 𝔸) (Delta : ℝ) :
   rw [mul_zohGain, ← exp_smul_sub_one_eq_tsum]
 
 /-- **ZOH 桥接（核心，右乘）**：`Φ(A,Δ) * A = exp(Δ•A) − 1`。 -/
-theorem zoh_bridge_mul' (A : 𝔸) (Delta : ℝ) :
+theorem zoh_bridge_mul_comm (A : 𝔸) (Delta : ℝ) :
     zohGain A Delta * A = NormedSpace.exp ℝ (Delta • A) - 1 := by
   rw [zohGain_mul, ← exp_smul_sub_one_eq_tsum]
 
@@ -261,7 +261,7 @@ theorem zoh_bridge_mul' (A : 𝔸) (Delta : ℝ) :
 「可交换性」在级数定义上的精确对应。 -/
 theorem zohGain_commute (A : 𝔸) (Delta : ℝ) :
     A * zohGain A Delta = zohGain A Delta * A := by
-  rw [zoh_bridge_mul, zoh_bridge_mul']
+  rw [zoh_bridge_mul, zoh_bridge_mul_comm]
 
 /-- **`A` 与 `exp(s•A)` 交换**：`A * exp(s•A) = exp(s•A) * A`。
 
