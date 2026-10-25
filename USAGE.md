@@ -138,9 +138,12 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 | 4 | 给 `poly` 的分支加 Lipschitz 常数 | `Geo/PolyAssemble.lean`，常数见 `PolyConstants` |
 
 **做完这四步，自动得到**：`GeoSampledBound.geo_sampled_bound`（采样验证给出全域界）、
-`ReinjectionGeneral.reinject_generic`（再注入），以及 `Geo.Synthesis` 的合成框架。
+`Reinjection` 的再注入、以及 `Geo.Synthesis` 的合成框架。
 
 > **不需要**：重证链路、重证收敛、重证损失为零。
+
+**这三条承诺是可验证的**：`Lattice/Usage/Examples.lean` 第八节用它们的**完整签名**
+各写了一个 `example`。若那三条定理改名、改签名或消失，那个文件就编译不过。
 
 ---
 
@@ -225,7 +228,7 @@ approxHoldsEqZero_sound : approxHoldsEqZero T e pts = true -> |evalC e pts| <= T
 
 ---
 
-## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 387 条）
+## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 284 条）
 
 | 做不到的事 | 定理 |
 |:--|:--|
@@ -269,5 +272,15 @@ python audit_counts.py
 lake build Lattice.Usage.Examples
 ```
 
-**第 4 条是这份说明的自我保证**：`Lattice/Usage/Examples.lean` 里每一段都对应本文件的一节，
-它编译不过就说明本文有错。
+**第 4 条是这份说明的自我保证**：`Lattice/Usage/Examples.lean` 的 8 节
+（第 2–8 节）对应本文件的第 2–8 节，它编译不过就说明本文有错。
+
+**这个自保证有明确的边界，必须说清**：
+
+| 覆盖 | 不覆盖 |
+|:--|:--|
+| 第 2–8 节里出现的**每一个 Lean 代码块与每一条承诺** | 第 0、1、9、10 节（纯散文） |
+| 定理的**签名**（改名、改参数、消失都会失败） | 散文里的**数字**（如"全部 284 条"）：由 `check_doc_consistency.py` 管 |
+
+**两条守卫分工明确**：`Lattice/Usage/Examples.lean` 守代码，`check_doc_consistency.py` 守数字。
+本文曾写"全部 387 条"而实际是 284——**那次是数字守卫后来才覆盖到的**。

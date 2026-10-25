@@ -15,6 +15,10 @@ import Lattice.Core.RepairConvergence
 import Lattice.Lift.L1L2Roundtrip
 import Lattice.Geo.ComputableExpr
 import Lattice.Geo.ExecutableCheck
+import Lattice.Geo.GeoSampledBound
+import Lattice.Geo.Reinjection
+import Lattice.Geo.Synthesis
+import Lattice.Geo.PolyConstants
 
 namespace Lattice.Usage
 
@@ -181,5 +185,60 @@ example (e : CExpr 1) (pts : ℕ → Fin 1 → Float)
     (e.evalC pts).abs <= demoTol.tol :=
   approxHoldsEqZero_sound demoTol e pts h
 
+/-! ## 八、加一个新约束类型：四步流程承诺的结论确实就位
+
+`USAGE.md` 第 6 节说「给 `GeoConstraint` 加一个构造子要做四件事」，
+并承诺**做完这四步就自动得到**三条结论，**不需要重证链路、收敛、损失为零**。
+
+**本节用它们的完整签名验证那三条定理确实可用。** -/
+
+open Lattice.Geo
+
+/-! ### 8.1 采样验证给出全域界 -/
+
+/-- **`geo_sampled_bound` 可用**：Lipschitz 常数 + 稠密零点 ⟹ 全域界。
+
+这是第 6 节承诺的第一条结论。 -/
+example {n k : ℕ} (c : EqConstraint n) {L δ : ℝ}
+    (hL : 0 ≤ L)
+    (hlip : ∀ pts pts' : ℕ → Pt n,
+      |EqConstraint.poly c pts - EqConstraint.poly c pts'| ≤ L * rho n k pts pts')
+    (hd : ∀ pts : ℕ → Pt n, ∃ s : ℕ → Pt n,
+      EqConstraint.poly c s = 0 ∧ rho n k pts s ≤ δ) :
+    ∀ pts : ℕ → Pt n, |EqConstraint.poly c pts| ≤ L * δ :=
+  geo_sampled_bound c hL hlip hd
+
+/-! ### 8.2 再注入 -/
+
+/-- **再注入可用**：残差为零 ⟹ 损失为零。
+
+这是第 6 节承诺的第二条结论。 -/
+example {n : ℕ} (c : EqConstraint n) (pts : ℕ → Pt n)
+    (h : EqConstraint.poly c pts = 0) :
+    EqConstraint.loss c pts = 0 :=
+  Lattice.Geo.Reinjection.loss_eq_zero_of_poly_eq_zero c pts h
+
+/-! ### 8.3 合成框架 -/
+
+/-- **合成框架可用**：变换保持约束 ⟹ 所有样本都满足约束。
+
+这是第 6 节承诺的第三条结论。 -/
+example {n : ℕ} (c : GeoConstraint n)
+    (Ts : List ((ℕ → Pt n) → (ℕ → Pt n)))
+    (seed : ℕ → Pt n)
+    (hT : ∀ T ∈ Ts, ∀ pts, GeoConstraint.Holds c pts → GeoConstraint.Holds c (T pts))
+    (hseed : GeoConstraint.Holds c seed) :
+    ∀ s ∈ samples Ts seed, GeoConstraint.Holds c s :=
+  samples_sound c Ts seed hT hseed
+
+/-! ### 8.4 第 4 步的常数表 -/
+
+/-- **`exprBound` 可用**：`poly` 的 Lipschitz 常数来源。
+
+第 6 节第 4 步要求「给 `poly` 的分支加 Lipschitz 常数」，`PolyConstants.lean` 就是那张表。 -/
+example {n : ℕ} (e : GeoExpr n) :
+    exprBound e = exprBound e := rfl
+
 end Lattice.Usage
+
 
