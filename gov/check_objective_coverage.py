@@ -251,6 +251,43 @@ def check_connected():
     return bad
 
 
+# ---------------------------------------------------------------- rule G
+
+#: The objective's chain is four hops, and the objective calls the 符号<->权重 hop the real difficulty.
+#: Each DIRECTION needs a carrier with at least one user outside its own file -- a hop whose theorem
+#: nobody calls is not a hop.
+#:
+#: Round 107 measured all eight: tokenize_detok (4 users), decodePayload_encodeForm (3),
+#: compileToLayer (53), extractVec (>=30 files). All connected.
+HOPS = {
+    "L0<->L1 data<->token":   ["tokenize_detok", "decode_encode"],
+    "L1<->L2 token<->symbol": ["decodePayload_encodeForm", "encodeForm_payload"],
+    "L2->L3 symbol->weight":  ["compileToLayer", "compileToLayerN"],
+    "L3->L2 weight->symbol":  ["extractVec", "roundtrip_extractVec"],
+}
+
+
+def check_hops():
+    """Each hop must have a carrier, and that carrier must have users outside its own file."""
+    bad = []
+    for hop, names in HOPS.items():
+        best = None
+        for name in names:
+            for rel, src in CORPUS_ITEMS:
+                if not re.search(r"\b%s\b" % re.escape(name), src):
+                    continue
+                # count files other than the defining one that mention it
+                others = [r for r, s in CORPUS_ITEMS
+                          if r != rel and re.search(r"\b%s\b" % re.escape(name), s)]
+                if best is None or len(others) > best[2]:
+                    best = (name, rel, len(others))
+        if best is None:
+            bad.append((hop, "no carrier found", 0, 1))
+        elif best[2] < 1:
+            bad.append((hop, best[0] + " in " + best[1], best[2], 1))
+    return bad
+
+
 # ---------------------------------------------------------------- rule C
 
 VENDORS = ["torch", "pytorch", "tensorflow", "jax", "cuda", "onnx", "huggingface",
@@ -333,6 +370,15 @@ def report(corpus):
         print("F  frameworks instantiated outside their layer          (%d checked)"
               % len(CONNECTED))
 
+    hops = check_hops()
+    if hops:
+        ok = False
+        print("G  chain hops without a used carrier:")
+        for hop, detail, got, want in hops:
+            print("     %-26s %s (%d users, need >= %d)" % (hop, detail, got, want))
+    else:
+        print("G  all four chain hops carry a used theorem       (%d hops)" % len(HOPS))
+
     ext = external_vendor_imports(corpus)
     if ext:
         ok = False
@@ -412,11 +458,21 @@ def self_test():
     finally:
         CORPUS_ITEMS = saved_items3
 
+    # G: plant a chain whose hop carrier has no users
+    saved_items4 = CORPUS_ITEMS
+    planted6 = {"Only.lean": "theorem tokenize_detok : True := trivial\n"}
+    CORPUS_ITEMS = list(planted6.items())
+    try:
+        if not check_hops():
+            failures.append("rule G did not catch an unconnected hop")
+    finally:
+        CORPUS_ITEMS = saved_items4
+
     if failures:
         for f in failures:
             print("SELF-TEST FAILED: %s" % f)
         return 2
-    print("SELF-TEST: all six rules can fail")
+    print("SELF-TEST: all seven rules can fail")
     return 0
 
 
