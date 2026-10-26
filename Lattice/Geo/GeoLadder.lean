@@ -75,6 +75,7 @@ import Mathlib
 import Lattice.Lift.EndToEnd
 import Lattice.Geo.Loss
 import Lattice.Geo.EqConstraintTokens
+import Lattice.Geo.EqConstraintListTokens
 
 open scoped BigOperators
 
@@ -117,14 +118,18 @@ theorem compileConstraint_sound (c : EqConstraint n) (pts : ℕ → Pt n)
 | `satSym` | `poly c pts = 0`（符号侧：约束成立） |
 | `satW` | `L pts ≤ 0`（权重侧：损失为零） |
 
-**L1→L2 不再是恒等**：第 108 轮的占位实现已被第 144–150 轮的六轮工作替换。
-`Tok := EqTok := ℕ ⊕ ℝ` 让实数进入 token 流，`decCon_enc_nil` 提供往返。
+**L1→L2 不再是恒等**：第 108 轮的占位实现已被第 144–153 轮的工作替换。
+`Tok := EqTok := ℕ ⊕ ℝ` 让实数进入 token 流，`decCon_enc_nil` 提供单约束往返，
+**`decList_enc`（第 153 轮）提供多约束列表往返**。
+
+**四跳现在是四种不同的载体**：数据集 → token 流 → 符号约束 → 损失函数。
+`l0l1` 与 `l1l2` **不再相同**——前者编列表，后者编单个约束。
 
 **与既有实例的区别：符号侧第一次是 Geo 层的类型。** -/
 noncomputable def geoLadder (pts : ℕ → Pt n) :
-    Lattice.Lift.Ladder (EqConstraint n) Lattice.Geo.EqTok.EqTok (EqConstraint n)
+    Lattice.Lift.Ladder (List (EqConstraint n)) Lattice.Geo.EqTok.EqTok (EqConstraint n)
       ((ℕ → Pt n) → ℝ) where
-  l0l1 := Lattice.Geo.EqConstraintTokens.eqConstraintTokenizer
+  l0l1 := Lattice.Geo.EqConstraintListTokens.eqConstraintListTokenizer
   l1l2 := Lattice.Geo.EqConstraintTokens.eqConstraintTokenizer
   l2l3 := compileConstraint
   satSym := fun c => EqConstraint.poly c pts = 0
@@ -145,7 +150,7 @@ theorem geoLadder_forward (pts : ℕ → Pt n) (c : EqConstraint n)
 
 /-- **首个跨到 Geo 层的实例**：存在一个 `Ladder`，其符号侧是 `EqConstraint`。 -/
 theorem ladder_crosses_geo_layer (pts : ℕ → Pt n) :
-    ∃ L : Lattice.Lift.Ladder (EqConstraint n) Lattice.Geo.EqTok.EqTok (EqConstraint n)
+    ∃ L : Lattice.Lift.Ladder (List (EqConstraint n)) Lattice.Geo.EqTok.EqTok (EqConstraint n)
         ((ℕ → Pt n) → ℝ),
       ∀ c : EqConstraint n, L.satSym c → L.satW (L.l2l3 c) :=
   ⟨geoLadder pts, fun c h => Lattice.Lift.Ladder.ladder_forward (geoLadder pts) c h⟩

@@ -86,6 +86,7 @@ import Lattice.Geo.TokenizerPattern
 import Lattice.Geo.EqConstraintTokenizer
 import Lattice.Geo.RealToken
 import Lattice.Geo.RealTokenRoundtrip
+import Lattice.Geo.EqConstraintListTokens
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

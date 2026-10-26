@@ -12,7 +12,7 @@
 | lift | 51 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 91 | the geometry/constraint layer |
+| geo | 92 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -36,7 +36,7 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`
+- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`
 - `Lattice.Geo.ApproxEmbedding` <- `Lattice.Lift.EndToEndApproximation`, `Lattice.Geo.Loss`
 - `Lattice.Geo.ClauseComposition` <- `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Lift.Extraction`
@@ -53,6 +53,7 @@
 - `Lattice.Geo.DistContinuous` <- `Lattice.Geo.Dist`
 - `Lattice.Geo.DistLipschitz` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.Dist`
 - `Lattice.Geo.Engine` <- `Lattice.Geo.Constraint`, `Lattice.Core.Logic`
+- `Lattice.Geo.EqConstraintListTokens` <- `Lattice.Geo.EqConstraintTokens`
 - `Lattice.Geo.EqConstraintToken` <- `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.Loss`
 - `Lattice.Geo.EqConstraintTokenizer` <- `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.Loss`
 - `Lattice.Geo.EqConstraintTokens` <- `Lattice.Geo.EqConstraintToken`, `Lattice.Lift.EndToEnd`
@@ -71,7 +72,7 @@
 - `Lattice.Geo.Flatten` <- `Lattice.Geo.Expr`, `Lattice.Lift.Extraction`
 - `Lattice.Geo.FlattenAgreement` <- `Lattice.Geo.Flatten`, `Lattice.Geo.SeqRepresentation`
 - `Lattice.Geo.FormDeriv` <- `Lattice.Geo.ExprDeriv`, `Lattice.Geo.Perturb`
-- `Lattice.Geo.GeoLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Loss`, `Lattice.Geo.EqConstraintTokens`
+- `Lattice.Geo.GeoLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Loss`, `Lattice.Geo.EqConstraintTokens`, `Lattice.Geo.EqConstraintListTokens`
 - `Lattice.Geo.GeoSampledBound` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.PolyAssemble`, `Lattice.Lift.GeoSampledBound`
 - `Lattice.Geo.IRBridge` <- `Lattice.Geo.LayerExact`, `Lattice.Geo.Loss`
 - `Lattice.Geo.IRRepair` <- `Lattice.Geo.IRBridge`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.LoopPerp`
@@ -961,6 +962,7 @@
 | `Lattice.Geo.DistContinuous` | 2 | 0 |
 | `Lattice.Geo.DistLipschitz` | 3 | 0 |
 | `Lattice.Geo.Engine` | 6 | 5 |
+| `Lattice.Geo.EqConstraintListTokens` | 7 | 3 |
 | `Lattice.Geo.EqConstraintToken` | 12 | 11 |
 | `Lattice.Geo.EqConstraintTokenizer` | 4 | 5 |
 | `Lattice.Geo.EqConstraintTokens` | 3 | 1 |
@@ -3172,7 +3174,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comp_strictMono_of_strictMono` -> `comp`, `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `compatible_iff_witness` -> `Repair`, `Sat`
 - `compatible_roundtrip` -> `W`, `comp`, `compile`, `extract`, `roundtrip`
-- `compileConstraint_sound` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `eqConstraintTokenizer`, `ladder_forward`, `poly`, `satSym`, `satW`
+- `compileConstraint_sound` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `eqConstraintListTokenizer`, `eqConstraintTokenizer`, `ladder_forward`, `poly`, `satSym`, `satW`
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`
 - `compileFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `card`, `scaleVec`, `scaleVec_preserves`
 - `compileIR_collinear_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`, `sub`
@@ -3861,6 +3863,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decExpr_enc_nil` -> `GeoExpr`, `append_nil`, `decExpr`, `encExpr`, `encLenE`, `le_refl`
 - `decExpr_mul_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
 - `decExpr_sub_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `decList_enc` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `length`, `length_cons`, `roundtrip`
+- `decList_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`, `succ`, `zero`
 - `dec_add_step` -> `add`, `append_assoc`, `append_nil`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `dec_c0_step` -> `dec`
 - `dec_c1_step` -> `dec`
@@ -4244,6 +4248,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `flatten`, `length`
+- `drop_encCon` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
 - `drop_encExpr` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
 - `drop_enc_append` -> `add`, `append_assoc`, `induction`, `le_refl`, `length`, `mul`, `nil_append`, `sub`
 - `drop_lower_bound` -> `apply`, `card`, `load`
@@ -4486,13 +4491,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_table_unique` -> `apply`, `backward_compat_refl`, `backward_compat_trans`, `contains`, `deserialize`, `empty`, `find`, `insert`, `insert_is_backward_compatible`, `insert_preserves_uniqueness`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `lookup`, `lookup_by_category_correct`, `lookup_by_name_sound`, `remove`, `remove_breaks_compatibility`, `serialize`, `singleton`, `toNat`, `well_formed`, `zero`
 - `empty_table_well_formed` -> `Theory`, `backward_compat_refl`, `empty`, `empty_table_unique`, `lookup`
 - `empty_test_case_passes` -> `Theory`
+- `encCon_head_inl` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
 - `encCon_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `length_cons`
+- `encCon_ne_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
 - `encExpr_ge_two` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `mul`, `sub`
 - `encExpr_head_inl` -> `GeoExpr`, `add`, `mul`, `sub`
 - `encExpr_length` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `sub`
 - `encLenE_ge_two` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
 - `encLenE_le_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`
 - `encLen_ge_two` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `encList_length_ge` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
 - `enc_length` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
 - `enc_ne_nil` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `encodeForm_arity` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
@@ -4544,6 +4552,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eps_needs_nonneg` -> `Audit`
 - `eps_pow_fact_to_zero` -> `PolyApproxOn`, `mul_zero`, `zero_mul`
 - `eps_tendsto_zero_iff_tendsto` -> `LimitDiscrete`, `add`, `le_trans`, `mul`, `mul_zero`
+- `eqConstraintListTokenizer_two` -> `cSamePoint`, `encode`
 - `eqConstraintTokenizer_nontrivial` -> `add`, `cSamePoint`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
