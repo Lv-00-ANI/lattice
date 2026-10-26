@@ -87,6 +87,7 @@ def tMul : ℕ := 4
 @[simp] theorem tConst_eq : tConst = 1 := rfl
 @[simp] theorem tAdd_eq : tAdd = 2 := rfl
 @[simp] theorem tSub_eq : tSub = 3 := rfl
+@[simp] theorem tMul_eq : tMul = 4 := rfl
 
 /-! ## 二、编码 -/
 
