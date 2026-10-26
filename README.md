@@ -20,7 +20,8 @@
 > | 层文件数 Core/Lift/Geo/Lib | 18 / 53 / 92 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 55（38 门禁 + 17 报告器） | `audit_counts.py` |
-> | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
+> | **未清欠账** | **1** | `Slots.lean` 的 `decide` |
+> | **永久边界** | **3** | 同上；因数学事实或外部工具链，本库无法关闭 |
 > | 已登记否证 | 285 | `check_refutation_census.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。

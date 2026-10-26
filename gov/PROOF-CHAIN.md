@@ -1837,7 +1837,7 @@
 | `Lattice.Reference.LvFormal.check_temp` | 0 | 0 |
 | `Lattice.Usage` | 0 | 0 |
 | `Lattice.Usage.Examples` | 0 | 8 |
-| `Lattice.Slots` | 1 | 18 |
+| `Lattice.Slots` | 1 | 20 |
 
 ## Cross-module uses of theorem/lemma declarations
 
@@ -5363,6 +5363,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `norm`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `norm`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fullCompile_sound` -> `AffineLayer`, `Ladder`, `affineAct`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `fullRegistry_wellFormed` -> `length`
 - `fullValidation_implies_consistent` -> `Theory`
 - `full_interop_coherence` -> `ConstraintGraph`, `Theory`
 - `full_mask_eq_softmax` -> `causalDenom`, `causalSoftmax`, `convComb`, `softmax`
