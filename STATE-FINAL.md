@@ -295,6 +295,53 @@
 而不是"想不出定义"。若重启，正确的第一步是**在一个不含任何本项目定义的最小文件里
 把「返回剩余列表的递归解码器 + 终止性」这个模式试通**，确认模式可行再套用。
 
+#### 3.6.2e 第 114 轮：全库「定义无见证」盘查
+
+第 103 轮发现 `DeltaDense` 有定义、有条件式定理、**但从未被任何具体集合满足过**。
+第 114 轮把这条判据推广到全库：
+
+**判据**：库自己定义的 `Prop` 谓词（`def P ... : Prop`），若**从未被任何 `example` 或定理结论
+满足过**，则它是一个没有见证的定义。
+
+### 结果（Core / Lift / Geo 三层，共 45 个谓词）
+
+| 分类 | 数量 | 说明 |
+|:--|--:|:--|
+| 已满足 | 27 | 有 `example` 或定理结论，**包括第 103 轮修的 `DeltaDense`（3 处）** |
+| **标记为"从未满足"** | 18 | 逐个人工核实 |
+| └ 假阳性 | 16 | 见下 |
+| └ **真缺口** | **2** | `Nondegenerate` / `PerpNondegenerate` |
+
+### 假阳性的原因（这个方法本身的局限，必须记录）
+
+| 原因 | 例子 |
+|:--|:--|
+| 是结构字段的类型，由实例填充 | `EntailsW`、`EntailsP` |
+| 正则漏了别名/嵌套形式的结论 | `Satisfies`、`Models`（有 `models_of_*` 引理） |
+| 是单个示例文件内部谓词 | `srcAccepts`、`tgtAccepts` |
+
+⇒ **这个检测方法的假阳性率约 89%（16/18），但真阳性部分是真的**。
+
+### 唯一的真缺口
+
+`Geo/Nondegenerate.lean` 定义：
+
+```
+Nondegenerate a b v  :=  ∃ i, seg a b i v ≠ 0
+PerpNondegenerate a b c e v  :=  Nondegenerate a b v ∧ Nondegenerate c e v
+```
+
+**`PerpNondegenerate` 只出现在它自己的定义文件里（1 个文件），`Nondegenerate` 只在 import 与定义处。**
+
+⇒ **两个谓词既没有实例，也没有在定义文件之外被消费。** 与第 103 轮的 `DeltaDense` 同形态。
+
+**第 114 轮尝试补实例，失败并删除了文件**：`bump` 的应用形状与 `fun j => bump ... j`
+的定义相等性需要 `funext`，几处修正都没接上。
+
+**重启的关键**：`Geo/Perturb.lean` 已有 `bump` 与 `seg_bump_far`，
+实例应该直接用 `bump k n b i`（不要包一层 `fun j => ...`），
+并把 `n` 作为显式参数传给 `Nondegenerate`。
+
 #### 3.6.3 还需要所有者决定的，是什么
 
 **C 的剩余部分不是技术选择，是产品判断**：
