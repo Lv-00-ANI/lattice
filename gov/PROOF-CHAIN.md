@@ -12,7 +12,7 @@
 | lift | 51 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 89 | the geometry/constraint layer |
+| geo | 90 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -53,6 +53,7 @@
 - `Lattice.Geo.DistContinuous` <- `Lattice.Geo.Dist`
 - `Lattice.Geo.DistLipschitz` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.Dist`
 - `Lattice.Geo.Engine` <- `Lattice.Geo.Constraint`, `Lattice.Core.Logic`
+- `Lattice.Geo.EqConstraintToken` <- `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.Loss`
 - `Lattice.Geo.EqConstraintTokenizer` <- `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.Loss`
 - `Lattice.Geo.EqualLengthRepair` <- `Lattice.Geo.RepairCoverage`, `Lattice.Geo.Constraint`
 - `Lattice.Geo.Eval` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Dist`
@@ -959,6 +960,7 @@
 | `Lattice.Geo.DistContinuous` | 2 | 0 |
 | `Lattice.Geo.DistLipschitz` | 3 | 0 |
 | `Lattice.Geo.Engine` | 6 | 5 |
+| `Lattice.Geo.EqConstraintToken` | 12 | 11 |
 | `Lattice.Geo.EqConstraintTokenizer` | 4 | 5 |
 | `Lattice.Geo.EqualLengthRepair` | 3 | 1 |
 | `Lattice.Geo.Eval` | 3 | 1 |
@@ -2730,8 +2732,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bvmul_comm` -> `BitVec`, `children`, `length`, `point`, `satisfiable`, `splitOn`, `sub`
 - `bvmul_valid` -> `BitVec`, `EGraph`, `ENode`, `Pattern`, `Substitution`, `Theory`, `W`, `apply`, `bvmul`, `bvule`, `bvule_trans`, `children`, `combine`, `disjointSignatures`, `isConvexTheory`, `le_trans`, `length`, `mk`, `point`, `satisfiable`, `splitOn`, `sub`, `toNat`
 - `bvule_trans` -> `BitVec`, `EGraph`, `ENode`, `Pattern`, `Substitution`, `Theory`, `apply`, `bvule`, `children`, `combine`, `disjointSignatures`, `isConvexTheory`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`, `sub`, `toNat`
+- `cDistEq_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`
 - `cEx_actAllZero_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
 - `cEx_not_allSatisfied_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `cExpr_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`
 - `cInner_add_left` -> `le_trans`, `normSq`
 - `cInner_comm` -> `le_trans`, `normSq`, `normSq_nonneg`
 - `cInner_eq_re_mul_conj` -> `le_trans`, `normSq`, `normSq_nonneg`
@@ -2741,6 +2745,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cInner_smul_real_left` -> `le_trans`, `normSq`
 - `cInner_sq_le` -> `le_trans`, `normSq`
 - `cNegVec_content_ne_one` -> `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`
+- `cPerp_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`
+- `cSamePoint_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`
 - `cache_append_eq_full` -> `apply`, `card`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `cache_append_preserves_earlier_outputs` -> `apply`, `card`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`
 - `cache_append_preserves_earlier_rows` -> `apply`, `card`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
@@ -3834,6 +3840,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dbSat_liftBvar` -> `Compiler`, `bvar`, `induction`, `subst`
 - `de_casteljau_equiv_bernstein` -> `center`, `cos`, `degree`, `dist`, `eval`, `ext`, `get`, `length`, `poly`, `seg`, `sin`, `sqrt`
 - `dead_constraint_elim_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `ext`, `induction`, `realTotalLoss_soundness`, `trans`
+- `decCon_distEq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`
+- `decCon_enc` -> `EqConstraint`, `EqTok`, `append_nil`, `le_refl`
+- `decCon_enc_nil` -> `EqConstraint`, `append_nil`, `le_refl`
+- `decCon_expr` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`
+- `decCon_perp` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`
+- `decCon_samePoint` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`
 - `decEqVecB_iff` -> `ScaleClass`, `VectorConstraint`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `mk`, `scaleVec`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`, `zero_mul`
 - `decEq_dite` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
 - `decEq_eq` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
@@ -4472,10 +4484,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_table_unique` -> `apply`, `backward_compat_refl`, `backward_compat_trans`, `contains`, `deserialize`, `empty`, `find`, `insert`, `insert_is_backward_compatible`, `insert_preserves_uniqueness`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `lookup`, `lookup_by_category_correct`, `lookup_by_name_sound`, `remove`, `remove_breaks_compatibility`, `serialize`, `singleton`, `toNat`, `well_formed`, `zero`
 - `empty_table_well_formed` -> `Theory`, `backward_compat_refl`, `empty`, `empty_table_unique`, `lookup`
 - `empty_test_case_passes` -> `Theory`
+- `encCon_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `length_cons`
 - `encExpr_ge_two` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `mul`, `sub`
 - `encExpr_head_inl` -> `GeoExpr`, `add`, `mul`, `sub`
 - `encExpr_length` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `sub`
 - `encLenE_ge_two` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `encLenE_le_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`
 - `encLen_ge_two` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `enc_length` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
 - `enc_ne_nil` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
