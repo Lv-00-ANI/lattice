@@ -941,7 +941,7 @@
 | `Lattice.Geo.ClauseComposition` | 6 | 0 |
 | `Lattice.Geo.ClosedLoop` | 10 | 1 |
 | `Lattice.Geo.Compile` | 2 | 1 |
-| `Lattice.Geo.ComputableExpr` | 12 | 6 |
+| `Lattice.Geo.ComputableExpr` | 12 | 5 |
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |

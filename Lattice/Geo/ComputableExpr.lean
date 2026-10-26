@@ -129,12 +129,12 @@ inductive CExpr (n : ℕ) : Type where
 
 namespace CExpr
 
-/-- **坐标 `axis` 的类型**：`Fin n` 可以取到 `ℕ`。 -/
-def FinToNat {m : ℕ} (i : Fin m) : ℕ := i.val
-
 /-- **可计算的求值**：配置用 `(ℕ → Fin n → Float)` 表示。
 
-**注意它是 `def`，不是 `noncomputable def`**——因为常量的类型是 `Float`。 -/
+**注意它是 `def`，不是 `noncomputable def`**——因为常量的类型是 `Float`。
+
+配置直接以下标类型 `Fin n` 索引，因此**不需要把 `Fin n` 转成 `ℕ` 的辅助函数**：
+第 133 轮删除了一个曾在这里的 `FinToNat i := i.val`——它与 `Fin.val` 完全重复，且全库零引用。 -/
 def evalC (e : CExpr n) (pts : ℕ → Fin n → Float) : Float :=
   match e with
   | .coord p axis => pts p axis
