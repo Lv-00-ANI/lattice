@@ -1,146 +1,119 @@
 /-
-# 栈代码生成：第 89–92 轮判定「永久停止」的路线，在第 155 轮闭合
+# 栈代码生成：从 `ℕ` 泛化到任意载体
 
-## 0. 这一节推翻了什么
+## 0. 两件事，别混为一谈
 
-第 89–92 轮四次尝试把一个表达式编译成栈机程序并证明语义保持，全部失败。
-第 92 轮的结论是：
+第 155 轮闭合了栈代码生成的**模式**，语义是 `evalStack : StackExpr → ℕ`。
 
-> **永久停止这条路线的实现，不再消耗轮次。**
-> 这已经超出「用定理推进项目」的范围，变成「和 Lean 的归纳机制搏斗」。
+**但本项目的可执行轨道是 `CExpr`（第 87–88 轮），它的常量是 `Float`。**
+一个只认 `ℕ` 的机器装不下它。所以需要两件**独立**的事：
 
-**第 155 轮重做，一次闭合。根因不是 Lean，是生成器的指令顺序写错了。**
+| # | 做什么 | 状态 |
+|--:|:--|:--|
+| **1** | **把机器泛化到任意 `α`（带 `Add`/`Mul`）** | **本节** |
+| 2 | 把 `CExpr` 映射上来（需要 `sub` 与 `load`） | 下一步 |
 
-## 1. 真正的错误：`compileAcc` 里 `add` 的位置
+## 1. 泛化为什么几乎不花代价
 
-第 89–92 轮的累加器式生成器是：
+第 155 轮的证明**从未使用 `ℕ` 的任何性质**——`compileAcc_correct` 只用 `runProg_append` 和 `rfl`。
+所以把 `ℕ` 换成 `α`（只要求 `Add`/`Mul`）后，**逐行不变**。
 
-```lean
-compileAcc (.add a b) acc = compileAcc b (compileAcc a acc ++ [.add])
-```
+**这不是巧合**：栈机的语义保持与算术无关，它只关乎「指令序列 + 栈深度」。
 
-展开：`acc ++ compile(a) ++ [add] ++ compile(b)`。
-
-**`add` 在 `b` 的指令之前执行——而那时栈上只有 `a` 的值。**
-
-正确的后序是 `acc ++ compile(a) ++ compile(b) ++ add`：
-
-```lean
-compileAcc (.add a b) acc = compileAcc b (compileAcc a acc) ++ [.add]
-```
-
-**这一个符号的位置，就是四次失败的原因。**
-
-前四轮记录的三个「Lean 机制」问题——`induction` 不重写依赖假设、`bind` 链化简、
-`b - 1` 的截断减法——**都真实存在，但都是次生问题**：它们是在一个语义错误的目标上努力时遇到的。
-
-## 2. 三个次生问题，本节的解法
-
-| 问题 | 解法 |
-|:--|:--|
-| **`induction e` 不重写 `hst : stackDepth e ≤ st.length`** | **把 `st` / `st'` 移进结论**：`∀ acc st st', ...`，每情形由 `intro` 引入，于是 `stackDepth e` 已经被归纳析构 |
-| **`bind` 链化简** | **不产生 `bind` 链**：`compileAcc_correct` 两次调用 `runProg_append` |
-| **`omega` 看不穿 `b - 1`** | **`le_succ_of_pred_le` 独立证明**（`Nat.succ_pred_eq_of_pos` + `omega`） |
-
-## 3. 主定理
+## 2. 主定理
 
 | 定理 | 内容 |
 |:--|:--|
-| `stackDepth_left` / `stackDepth_right` | `max a (b-1) ≤ n` 的两条推论 |
-| **`le_succ_of_pred_le`** | **`b - 1 ≤ n ⟹ b ≤ n + 1`** |
-| **`runProg_append`** | **`runProg` 对程序拼接可组合** |
-| **`compileAcc_correct`** | **生成器在任意累加器与任意初始栈下语义保持** |
-| **`compileProg_correct`** | **`runProg (compileProg e) [0] = some (evalStack e :: [0])`** |
+| `stackDepth_left` / `_right` | `max a (b-1) ≤ n` 的两条推论（**与 `α` 无关**） |
+| `le_succ_of_pred_le` | **`b - 1 ≤ n ⟹ b ≤ n + 1`**（与 `α` 无关） |
+| `runProg_append` | **`α` 任意**，程序拼接可组合 |
+| **`compileAcc_correct`** | **`α` 任意、累加器任意、栈任意** |
+| **`compileProg_correct`** | **`runProg (compileProg e) [seed] = some (evalStack e :: [seed])`**，`seed : α` 任意 |
 
-## 4. 边界
+## 3. 边界
 
-- **本节是通用的**：不含任何 Geo 层定义，载体是 `StackExpr` / `StackOp`。
-  **它证明的是「代码生成这个模式可行」，不是「`CExpr` 已能生成代码」**——
-  后者需要把 `CExpr` 映射到 `StackExpr`，是接线的一步。
-- 本节**不涉及浮点**：`evalStack : StackExpr → ℕ`，所以是纯整数的语义保持。
-  **`Float` 轨道的单向性（`STATE-FINAL` §3.6.2）不变**。
-- 本节**不改**路线 C 的其余部分。
+- **`StackOp` 只有 `push` / `add` / `mul`**。接 `CExpr` 还需要 `sub`，
+  以及一条从配置读值的 `load`——**那会让 `runProg` 多一个配置参数**，是下一步。
+- **本节不含任何 Geo 定义**：`α` 是自由类型参数。
+- **`Float` 的单向性（`STATE-FINAL` §3.6.2）不变**：本节只说「指令序列的语义保持」，
+  **不说「浮点判定可靠」**。
+- 第 155 轮的 `ℕ` 版本是本节的实例（`α := ℕ`）。**原文件已被本节替代**，
+  历史记录见 `STATE-FINAL` §3.6.2c′。
 -/
 import Mathlib
 
 namespace Lattice.Lift.StackCodegen
 
-inductive StackExpr where
-  | lit : ℕ → StackExpr
-  | add : StackExpr → StackExpr → StackExpr
-  | mul : StackExpr → StackExpr → StackExpr
+variable {α : Type}
+
+inductive StackExpr (α : Type) where
+  | lit : α → StackExpr α
+  | add : StackExpr α → StackExpr α → StackExpr α
+  | mul : StackExpr α → StackExpr α → StackExpr α
 
 namespace StackExpr
 
-def evalStack : StackExpr → ℕ
-  | .lit n => n
-  | .add a b => evalStack a + evalStack b
-  | .mul a b => evalStack a * evalStack b
+def evalStack [Add α] [Mul α] : StackExpr α → α
+  | .lit a => a
+  | .add x y => evalStack x + evalStack y
+  | .mul x y => evalStack x * evalStack y
 
-/-- Stack stackDepth needed. A binary node pops two and pushes one, so the LARGER branch needs one more
-than the other -- hence `max a (b - 1)`. -/
-def stackDepth : StackExpr → ℕ
+/-- Stack depth: a binary node needs the larger branch, plus one if the larger is the second. -/
+def stackDepth : StackExpr α → ℕ
   | .lit _ => 1
-  | .add a b => max (stackDepth a) (stackDepth b - 1)
-  | .mul a b => max (stackDepth a) (stackDepth b - 1)
+  | .add x y => max (stackDepth x) (stackDepth y - 1)
+  | .mul x y => max (stackDepth x) (stackDepth y - 1)
 
-/-- The instruction set. -/
-inductive StackOp where
-  | push : ℕ → StackOp
-  | add : StackOp
-  | mul : StackOp
+end StackExpr
+
+inductive StackOp (α : Type) where
+  | push : α → StackOp α
+  | add : StackOp α
+  | mul : StackOp α
 
 namespace StackOp
 
-def run : StackOp → List ℕ → Option (List ℕ)
-  | .push n, st => some (n :: st)
-  | .add, a :: b :: st => some ((b + a) :: st)
+def run [Add α] [Mul α] : StackOp α → List α → Option (List α)
+  | .push a, st => some (a :: st)
+  | .add, x :: y :: st => some ((y + x) :: st)
   | .add, _ => none
-  | .mul, a :: b :: st => some ((b * a) :: st)
+  | .mul, x :: y :: st => some ((y * x) :: st)
   | .mul, _ => none
 
 end StackOp
 
-/-- Accumulator-style generator: left-associated, as round 90 learned. -/
-def compileAcc : StackExpr → List StackOp → List StackOp
-  | .lit n, acc => acc ++ [.push n]
-  | .add a b, acc => compileAcc b (compileAcc a acc) ++ [.add]
-  | .mul a b, acc => compileAcc b (compileAcc a acc) ++ [.mul]
+def compileAcc : StackExpr α → List (StackOp α) → List (StackOp α)
+  | .lit a, acc => acc ++ [.push a]
+  | .add x y, acc => compileAcc y (compileAcc x acc) ++ [.add]
+  | .mul x y, acc => compileAcc y (compileAcc x acc) ++ [.mul]
 
-def compileProg (e : StackExpr) : List StackOp := compileAcc e []
+def compileProg (e : StackExpr α) : List (StackOp α) := compileAcc e []
 
-/-- Execute a program, with `Option` for underflow (round 89's fix). -/
-def runProg : List StackOp → List ℕ → Option (List ℕ)
+def runProg [Add α] [Mul α] : List (StackOp α) → List α → Option (List α)
   | [], st => some st
   | op :: rest, st =>
       (match StackOp.run op st with
        | some st' => runProg rest st'
        | none => none)
 
-/-! ## The arithmetic lemmas, independently -/
+/-! ## The arithmetic, unchanged -/
 
-/-- `max a (b - 1) <= n` gives `a <= n`. -/
 theorem stackDepth_left (a b n : ℕ) (h : max a (b - 1) ≤ n) : a ≤ n :=
   le_trans (le_max_left _ _) h
 
-/-- `max a (b - 1) <= n` gives `b <= n + 1`.
-
-`omega` cannot see through the truncated subtraction, which is what stopped round 91. -/
 theorem le_succ_of_pred_le (b n : ℕ) (h : b - 1 ≤ n) : b ≤ n + 1 := by
   rcases Nat.eq_zero_or_pos b with hb | hb
   · simp only [hb]; omega
   · have : b - 1 + 1 = b := Nat.succ_pred_eq_of_pos hb
     omega
 
-/-- … and from the `max` form. -/
 theorem stackDepth_right (a b n : ℕ) (h : max a (b - 1) ≤ n) : b ≤ n + 1 :=
   le_succ_of_pred_le b n (le_trans (le_max_right _ _) h)
 
-/-! ## Append -/
+/-! ## Correctness, unchanged -/
 
-/-- **`runProg` is append-compositional** when the prefix succeeds. -/
-theorem runProg_append (p q : List StackOp) (st : List ℕ) :
-    ∀ (mid : List ℕ), runProg p st = some mid → runProg (p ++ q) st = runProg q mid := by
+theorem runProg_append [Add α] [Mul α] (p q : List (StackOp α)) (st : List α) :
+    ∀ (mid : List α), runProg p st = some mid → runProg (p ++ q) st = runProg q mid := by
   induction p generalizing st with
   | nil =>
       intro mid h
@@ -151,58 +124,82 @@ theorem runProg_append (p q : List StackOp) (st : List ℕ) :
       intro mid h
       simp only [runProg] at h ⊢
       split at h
-      · rename_i st' hst'
+      · rename_i st' _
         exact ih st' mid h
       · simp at h
 
-/-- **The code generator is correct.**
-
-`compileAcc` appends `e`'s instructions after `acc`, so running the whole thing first runs `acc` and then
-`e`; the conclusion therefore says `runProg (compileAcc e acc) st = some (evalStack e :: st')` where `st'` is what
-`acc` produced.
-
-`stackDepth e <= st'.length` is the stack budget: a binary node needs the LARGER branch to fit, because
-the other branch's value is still on the stack while it runs. -/
-theorem compileAcc_correct (e : StackExpr) :
-    ∀ (acc : List StackOp) (st st' : List ℕ),
-      runProg acc st = some st' → stackDepth e ≤ st'.length →
-      runProg (compileAcc e acc) st = some (evalStack e :: st') := by
+theorem compileAcc_correct [Add α] [Mul α] (e : StackExpr α) :
+    ∀ (acc : List (StackOp α)) (st st' : List α),
+      runProg acc st = some st' → StackExpr.stackDepth e ≤ st'.length →
+      runProg (compileAcc e acc) st = some (StackExpr.evalStack e :: st') := by
   induction e with
-  | lit n =>
+  | lit a =>
       intro acc st st' hacc _
-      show runProg (acc ++ [StackOp.push n]) st = some (n :: st')
-      rw [runProg_append acc [StackOp.push n] st st' hacc]
+      show runProg (acc ++ [StackOp.push a]) st = some (a :: st')
+      rw [runProg_append acc [StackOp.push a] st st' hacc]
       rfl
-  | add a b iha ihb =>
+  | add x y ihx ihy =>
       intro acc st st' hacc hd
-      have hda : stackDepth a ≤ st'.length := stackDepth_left _ _ _ hd
-      have hia := iha acc st st' hacc hda
-      have hdb : stackDepth b ≤ (evalStack a :: st').length := by
+      have hdx : StackExpr.stackDepth x ≤ st'.length := stackDepth_left _ _ _ hd
+      have hix := ihx acc st st' hacc hdx
+      have hdy : StackExpr.stackDepth y ≤ (StackExpr.evalStack x :: st').length := by
         simp only [List.length_cons]
         exact stackDepth_right _ _ _ hd
-      have hib := ihb (compileAcc a acc) st (evalStack a :: st') hia hdb
-      show runProg (compileAcc b (compileAcc a acc) ++ [StackOp.add]) st = some ((evalStack a + evalStack b) :: st')
-      rw [runProg_append (compileAcc b (compileAcc a acc)) [StackOp.add] st (evalStack b :: evalStack a :: st') hib]
+      have hiy := ihy (compileAcc x acc) st (StackExpr.evalStack x :: st') hix hdy
+      show runProg (compileAcc y (compileAcc x acc) ++ [StackOp.add]) st =
+        some ((StackExpr.evalStack x + StackExpr.evalStack y) :: st')
+      rw [runProg_append (compileAcc y (compileAcc x acc)) [StackOp.add] st
+            (StackExpr.evalStack y :: StackExpr.evalStack x :: st') hiy]
       rfl
-  | mul a b iha ihb =>
+  | mul x y ihx ihy =>
       intro acc st st' hacc hd
-      have hda : stackDepth a ≤ st'.length := stackDepth_left _ _ _ hd
-      have hia := iha acc st st' hacc hda
-      have hdb : stackDepth b ≤ (evalStack a :: st').length := by
+      have hdx : StackExpr.stackDepth x ≤ st'.length := stackDepth_left _ _ _ hd
+      have hix := ihx acc st st' hacc hdx
+      have hdy : StackExpr.stackDepth y ≤ (StackExpr.evalStack x :: st').length := by
         simp only [List.length_cons]
         exact stackDepth_right _ _ _ hd
-      have hib := ihb (compileAcc a acc) st (evalStack a :: st') hia hdb
-      show runProg (compileAcc b (compileAcc a acc) ++ [StackOp.mul]) st = some ((evalStack a * evalStack b) :: st')
-      rw [runProg_append (compileAcc b (compileAcc a acc)) [StackOp.mul] st (evalStack b :: evalStack a :: st') hib]
+      have hiy := ihy (compileAcc x acc) st (StackExpr.evalStack x :: st') hix hdy
+      show runProg (compileAcc y (compileAcc x acc) ++ [StackOp.mul]) st =
+        some ((StackExpr.evalStack x * StackExpr.evalStack y) :: st')
+      rw [runProg_append (compileAcc y (compileAcc x acc)) [StackOp.mul] st
+            (StackExpr.evalStack y :: StackExpr.evalStack x :: st') hiy]
       rfl
 
-/-- **The corollary with an empty accumulator**: compiling `e` and running it on an empty stack
-yields `evalStack e`. -/
-theorem compileProg_correct (e : StackExpr) (h : stackDepth e ≤ 1) :
-    runProg (compileProg e) [0] = some (evalStack e :: [0]) := by
-  have := compileAcc_correct e [] [0] [0] rfl (by simpa using h)
+/-- The corollary on a one-element stack, with the seed arbitrary. -/
+theorem compileProg_correct [Add α] [Mul α] (e : StackExpr α) (seed : α)
+    (h : StackExpr.stackDepth e ≤ 1) :
+    runProg (compileProg e) [seed] = some (StackExpr.evalStack e :: [seed]) := by
+  have := compileAcc_correct e [] [seed] [seed] rfl (by simpa using h)
   simpa [compileProg] using this
 
-end StackExpr
+/-! ## 4. 实例化：泛化的意义在于它真的能用 -/
+
+/-- 具体程序：`(2 + 3) * 4`，在 `ℕ` 上。 -/
+def exampleNat : StackExpr ℕ := .mul (.add (.lit 2) (.lit 3)) (.lit 4)
+
+/-- **`ℕ` 实例真的算出 20。** 生成 5 条指令，运行得到 `[20, 0]`。 -/
+theorem exampleNat_runs : runProg (compileProg exampleNat) [0] = some (20 :: [0]) := by
+  decide
+
+/-- **`ℤ` 实例**：`-3 + 5 = 2`。 -/
+def exampleInt : StackExpr ℤ := .add (.lit (-3)) (.lit 5)
+
+theorem exampleInt_runs : runProg (compileProg exampleInt) [0] = some (2 :: [0]) := by
+  decide
+
+/-- **`Float` 实例存在**——这正是 `CExpr` 轨道需要的载体。
+
+`Float` 的相等不可判定（`NaN`），所以这里只检查**程序长度**，不检查求值结果。
+**这正是 `STATE-FINAL` §3.6.2 记录的 `Float` 单向性的具体体现**：生成器可用，
+而「运行结果等于什么」不能由 `decide` 判定。 -/
+def exampleFloat : StackExpr Float := .mul (.add (.lit 2.0) (.lit 3.0)) (.lit 4.0)
+
+theorem exampleFloat_compiles : (compileProg exampleFloat).length = 5 := by
+  decide
+
+/-- **泛化的最后一条证据**：`CExpr` 的常量类型是 `Float`，而 `StackExpr Float` 就是这个载体。
+
+**这不是接线，是可行性**——真正的映射还需要 `sub` 与 `load`（见 §3）。 -/
+theorem float_is_a_valid_carrier : Nonempty (StackExpr Float) := ⟨exampleFloat⟩
 
 end Lattice.Lift.StackCodegen

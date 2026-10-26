@@ -1685,7 +1685,7 @@
 | `Lattice.Lift.RealVerifierReliable` | 2 | 3 |
 | `Lattice.Lift.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
-| `Lattice.Lift.StackCodegen` | 6 | 8 |
+| `Lattice.Lift.StackCodegen` | 10 | 11 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 4 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -3196,6 +3196,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileImage_syntacticFunctor_eq_weightFunctor` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compileObs_closure_trivial` -> `VectorConstraint`, `obs`
 - `compileObs_injective` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `ext`, `mk`, `obs`
+- `compileProg_correct` -> `add`, `length`, `lit`, `mul`
 - `compileProgram_models` -> `compile`, `encode`, `satW`
 - `compileProgram_sound` -> `compile`, `encode`, `satW`, `sound`
 - `compileReachable_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `mk`, `scaleVec`, `scaleVec_preserves`
@@ -4750,6 +4751,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exact_implies_sound` -> `E`, `Sat`, `loss`
 - `exact_is_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
 - `exact_reinject_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
+- `exampleFloat_compiles` -> `length`
+- `exampleInt_runs` -> `add`, `length`, `lit`, `mul`
+- `exampleNat_runs` -> `add`, `length`, `lit`, `mul`
 - `execF_det` -> `AExp`, `State`, `apply`, `evalA`, `induction`, `subst`, `succ`, `zero`
 - `execF_mono` -> `AExp`, `State`, `apply`, `evalA`, `induction`, `subst`, `succ`, `zero`
 - `exec_assign` -> `Compiler`, `Cv00Expr`, `Cv00Stmt`, `Cv00Val`, `Env`, `State`, `Theory`, `apply`, `emptyEnv`, `env_set`, `eval_expr`, `go`, `induction`, `invariant_preserves_iteration`, `iterate`, `lvPoint`, `satisfiable`

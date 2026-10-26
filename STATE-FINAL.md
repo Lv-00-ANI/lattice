@@ -10,7 +10,7 @@
 
 **这个库能自己做完的部分已经做完了。**
 
-783 个模块、8,272 条定理、**10 个守卫全部 green**。
+783 个模块、8,276 条定理、**10 个守卫全部 green**。
 目标原文的**14 条可检验条款全部有具体载体**——而且这一点**不再是一句话，
 是由 `gov/check_objective_coverage.py` 强制检查的**。
 剩余的缺口（可执行边界、实证基准）**都不在本库能做事的范围内**，
@@ -57,8 +57,8 @@
 |:--|--:|
 | 源模块（不含 `Reference/`） | **783** |
 | └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 18 / 51 / 91 / 605 / 10 / 1 / 7 |
-| 声明总数 | **10,952** |
-| 定理 / 引理（官方口径） | **8,272** |
+| 声明总数 | **10,959** |
+| 定理 / 引理（官方口径） | **8,276** |
 | 代码行 | **204,800**（含注释与空行） |
 | 内核逃逸（`axiom`/`opaque`/`sorry`/`admit`） | **0** |
 | 检查器注册项 | **46（30 门禁 + 16 报告器）** |
@@ -307,12 +307,40 @@ genAcc (.add a b) acc = genAcc b (genAcc a acc) ++ [.add]
 | `bind` 链化简 | **不产生 `bind` 链**，两次 `runProg_append` 代替 |
 | `omega` 看不穿 `b - 1` | `le_succ_of_pred_le` 用 `Nat.succ_pred_eq_of_pos` 独立证明 |
 
-**交付**：`CompileAcc_correct`（任意累加器与栈）、`compileProg_correct`（空累加器）、
+**交付**：`compileAcc_correct`（任意累加器与栈）、`compileProg_correct`（单元素初始栈，`seed` 任意）、
 `runProg_append`、两条 `stackDepth_*`、`le_succ_of_pred_le`。
 
 **边界**：载体是 `StackExpr`/`StackOp`，不含 Geo 定义。**它证明「代码生成这个模式可行」，
 不是「`CExpr` 已能生成代码」**——把 `CExpr` 映射到 `StackExpr` 是接线的一步。
-语义是 `ℕ`，**不涉及浮点**，所以 §3.6.2 的 `Float` 单向性不变。
+
+#### 3.6.2c″ 第 156 轮：泛化到任意载体
+
+第 155 轮的语义是 `evalStack : StackExpr → ℕ`，**而本项目的可执行轨道 `CExpr` 常量是 `Float`**。
+一个只认 `ℕ` 的机器装不下它。
+
+**泛化几乎不花代价**：第 155 轮的证明**从未使用 `ℕ` 的性质**——`compileAcc_correct` 只用
+`runProg_append` 与 `rfl`。把 `ℕ` 换成 `α`（只要求 `[Add α] [Mul α]`）后**逐行不变**。
+
+| 现在的形态 | 内容 |
+|:--|:--|
+| `StackExpr α` / `StackOp α` | 载体任意 |
+| `evalStack [Add α] [Mul α]` | 语义任意 |
+| **`compileAcc_correct`** | **`α` 任意** |
+| **`compileProg_correct (e) (seed : α)`** | **`α` 任意、`seed` 任意** |
+
+**三条实例化证据**（都在文件里，`decide` 可验）：
+
+| 实例 | 结果 |
+|:--|:--|
+| `ℕ`：`(2+3)*4` | `runProg … [0] = some (20 :: [0])` |
+| `ℤ`：`-3+5` | `runProg … [0] = some (2 :: [0])` |
+| **`Float`：`(2+3)*4`** | **编译出 5 条指令**（求值结果不能 `decide`——`NaN` 破坏自反性） |
+
+**最后一行是 §3.6.2 的单向性在代码生成层的重现**：生成器对 `Float` 可用，
+**而「运行结果等于什么」不能由 Lean 的 `decide` 判定。**
+
+**仍然缺的两件事**：`StackOp` 只有 `push`/`add`/`mul`，接 `CExpr` 还需要 `sub`
+与从配置读值的 `load`（后者会让 `runProg` 多一个配置参数）。**这是下一步。**
 
 #### 3.6.2d 第 109 轮：L1→L2 适配器，又一次失败
 
