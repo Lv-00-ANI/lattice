@@ -216,7 +216,7 @@
 | `check_objective_coverage.py` | A/B/C/D 四条规则 |
 | `check_usage_claims.py` | 11 条文档数字 + 过时数字回归 |
 
-**完整 `verify_all --full`：PASS，49 项检查，30 个门禁，约 633 秒。**
+**完整 `verify_all --full`：PASS，50 项检查，34 个门禁，约 633 秒。**
 
 ---
 

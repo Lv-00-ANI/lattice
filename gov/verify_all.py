@@ -128,6 +128,10 @@ CHECKS = [
     # because they are claims about scope rather than numbers. This one checks the shape: a
     # completion sentence must sit next to a list of what is still open.
     ("docs: completion claims paired with open work", "check_completion_claims.py"),
+    # Round 142: the tree carries 28 honestly-labelled stubs from the upstream Lv-00 files. Nothing
+    # checked that a NEW placeholder is labelled, so an unlabelled one would make the theorems about
+    # it true-but-empty with no invariant noticing.
+    ("stubs: every placeholder definition is labelled", "check_stub_registry.py"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.
