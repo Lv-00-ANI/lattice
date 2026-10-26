@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 17 | no imports from lift/lib |
-| lift | 49 | may import core only |
+| lift | 50 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
 | geo | 80 | the geometry/constraint layer |
@@ -720,7 +720,7 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
 - `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproximationBridge` <- `Lattice.Lift.ApproxExact`
@@ -737,6 +737,7 @@
 - `Lattice.Lift.ErrorCalculus` 
 - `Lattice.Lift.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Idempotent`, `Lattice.Core.Repair`
 - `Lattice.Lift.GeoSampledBound` <- `Lattice.Lift.VerificationSoundness`
+- `Lattice.Lift.GridDensity` <- `Lattice.Lift.RealVerifierReliable`
 - `Lattice.Lift.IntRoundtrip` <- `Lattice.Lift.TokenAlphabet`
 - `Lattice.Lift.L1L2` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
 - `Lattice.Lift.L1L2Roundtrip` <- `Lattice.Lift.L1L2`
@@ -1630,6 +1631,7 @@
 | `Lattice.Lift.ErrorCalculus` | 7 | 1 |
 | `Lattice.Lift.Extraction` | 17 | 6 |
 | `Lattice.Lift.GeoSampledBound` | 2 | 0 |
+| `Lattice.Lift.GridDensity` | 6 | 1 |
 | `Lattice.Lift.IntRoundtrip` | 5 | 4 |
 | `Lattice.Lift.L1L2` | 6 | 9 |
 | `Lattice.Lift.L1L2Roundtrip` | 10 | 0 |
@@ -3609,7 +3611,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coq_export_idempotent` -> `ConstraintGraph`, `Theory`, `length`
 - `coq_export_is_valid_coq` -> `ConstraintGraph`, `Evidence`, `ProofTrace`, `Theory`, `evidence_check`, `length`
 - `coq_export_soundness` -> `GeoExpr`, `Theory`, `export_svg`, `opml_export_roundtrip`, `path`, `point`, `subst`
-- `coq_export_syntax_valid` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `length`, `step`, `trace`, `unify`
+- `coq_export_syntax_valid` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `grid`, `length`, `step`, `trace`, `unify`
 - `coq_lean4_export_compatible` -> `ConstraintGraph`, `Evidence`, `ProofTrace`, `Theory`, `evidence_check`, `length`
 - `coreConstraintToReal_a_eq` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `ProbVec`, `VectorConstraint`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `sqrt`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `coreConstraintToReal_b_eq` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `VectorConstraint`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `sqrt`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
@@ -3901,7 +3903,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `op`, `size`
 - `depthList_nil` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `op`, `size`
-- `depth_consistency` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `dot`, `length`, `step`, `success`, `trace`, `unify`
+- `depth_consistency` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `dot`, `grid`, `length`, `step`, `success`, `trace`, `unify`
 - `depth_enterScope_increases` -> `depth`, `find`, `lookup`, `op`
 - `depth_le_depthList` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `op`, `size`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `op`, `size`
@@ -4681,6 +4683,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_decrease` -> `apply`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `mul_zero`, `not_localMin_of_resid_ne_zero`
 - `exists_decrease_one` -> `apply`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `mul_zero`, `not_localMin_of_resid_ne_zero`, `residN`
 - `exists_decrease_zero` -> `apply`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `mul_zero`, `not_localMin_of_resid_ne_zero`, `residN`
+- `exists_delta_dense_set` -> `DeltaDense`
 - `exists_delta_of_eps` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `exists_delta_of_eps_flat` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `exists_delta_of_eps_ge` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
@@ -4740,7 +4743,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `expo_var` -> `FloatFormat`, `K`, `RoundOp`, `add`, `eps`, `le_trans`, `lit`, `mul`, `neg`, `tiny`
 - `exponential_chebyshev_identity` -> `card_fin`, `exp`, `log`, `uniformExpectation`
 - `export_always_success` -> `Theory`
-- `export_format_semantics_preservation` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `length`, `step`, `trace`, `unify`
+- `export_format_semantics_preservation` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `grid`, `length`, `step`, `trace`, `unify`
 - `extendAt_comm` -> `add`, `induction`, `lit`, `subst`, `trans`
 - `extendAt_extendAt_same` -> `add`, `induction`, `subst`
 - `extended_euclidean_correct` -> `Congruent`, `congruent_add`, `congruent_refl`, `congruent_symm`, `congruent_trans`, `induction`, `succ`, `zero`
@@ -5575,6 +5578,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `graph_hash_consistency` -> `Coord`, `Theory`, `compress`, `ext`
 - `graph_hash_deterministic` -> `Theory`, `compress`
 - `greedy_is_optimal` -> `card`, `rho`
+- `grid_delta_dense` -> `DeltaDense`, `le_trans`
+- `grid_dense_le` -> `DeltaDense`, `le_trans`
+- `grid_mem_iff` -> `DeltaDense`, `le_trans`
+- `grid_mem_mul` -> `DeltaDense`, `le_trans`
 - `grms_scale` -> `apply`, `card`, `rms`, `rmsNorm`, `sqrt`
 - `grms_univ_eq_rms` -> `rms`, `rmsNorm`
 - `groebner_basis_reduction_normal` -> `Monomial`, `Polynomial`, `append_assoc`, `induction`, `step`
@@ -5929,6 +5936,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `int_dvd_antisymm_right` -> `apply`, `gcd_assoc`, `gcd_comm`, `lcm_comm`, `subst`, `trans`, `zero_mul`
 - `int_dvd_not_antisymmetric` -> `apply`, `gcd_assoc`, `gcd_comm`, `lcm_comm`, `subst`, `trans`, `zero_mul`
 - `int_dvd_not_partial_order` -> `apply`, `gcd_assoc`, `gcd_comm`, `lcm_comm`, `subst`, `trans`, `zero_mul`
+- `int_grid_delta_dense` -> `DeltaDense`
 - `int_of_frac_eq` -> `apply`, `card`, `card_fin`, `ext`, `le`
 - `int_repr_nonempty` -> `Formula`, `Theory`, `add`, `induction`, `length`, `mul`, `ofNat`, `render`
 - `int_roundtrip` -> `IntRoundtripExists`, `toNat`
@@ -6339,7 +6347,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lean4_export_idempotent` -> `ConstraintGraph`, `Theory`, `length`
 - `lean4_export_is_valid_lean` -> `ConstraintGraph`, `Evidence`, `ProofTrace`, `Theory`, `evidence_check`, `length`
 - `lean4_export_soundness` -> `GeoExpr`, `Theory`, `export_svg`, `opml_export_roundtrip`, `path`, `point`, `subst`
-- `lean4_export_syntax_valid` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `length`, `step`, `trace`, `unify`
+- `lean4_export_syntax_valid` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `grid`, `length`, `step`, `trace`, `unify`
 - `least_fixed_point_finite` -> `card`, `induction`, `succ`, `zero`
 - `leftInverse_covers_non_factoring_P` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `succ`, `zero`
 - `leftInverse_iff_injective` -> `apply`, `exp`, `le_trans`, `subst`, `zero_mul`
@@ -7971,7 +7979,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promotion_table_correct` -> `length`, `lift`, `ofRational`, `sqrt`, `subst`, `toNat`
 - `proofTraceToTree_provability` -> `ConstraintGraph`, `Evidence`, `ProofTrace`, `Theory`, `TraceSound`, `evidence_check`, `evidence_soundness`, `graph_satisfiable`, `initVerifier`
 - `proofTraceToTree_some_iff_check` -> `ConstraintGraph`, `Evidence`, `ProofTrace`, `Theory`, `TraceSound`, `evidence_check`, `evidence_soundness`, `graph_satisfiable`, `initVerifier`
-- `proof_chain_validity` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `dot`, `length`, `step`, `success`, `trace`, `unify`
+- `proof_chain_validity` -> `ProofTrace`, `Theory`, `apply`, `complete`, `depth`, `dot`, `grid`, `length`, `step`, `success`, `trace`, `unify`
 - `proof_extraction_correctness` -> `ATPBackendEntry`, `ATPBackendRegistry`, `ATPBackendType`, `ATPResult`, `ATPSolverState`, `ConstraintGraphTPTP`, `Lv00ProofStep`, `Theory`, `atp_executable_name`, `atp_register_backend`, `atp_registry_init`, `atp_solver_load`, `length`, `tptp_encode_graph`
 - `proof_pipeline_soundness` -> `ConstraintGraphTPTP`, `Theory`
 - `propagate_none_left` -> `ErrorCode`, `Theory`, `e2`
@@ -10103,9 +10111,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tptp_encoding_well_formed` -> `ATPBackendEntry`, `ATPBackendRegistry`, `ATPBackendType`, `ATPConfig`, `ATPInputFormat`, `ATPResult`, `ATPSolverState`, `ConstraintGraphTPTP`, `Lv00ProofStep`, `Lv00ProofStepType`, `Theory`, `addConstraint`, `atp_executable_name`, `atp_register_backend`, `atp_registry_init`, `atp_solver_create`, `atp_solver_load`, `atp_to_lv_step_mapping`, `isInitialized`, `length`, `parse_szs_status`, `resolve`, `sub`, `tptp_encode_graph`, `unify`
 - `traceFold_cons` -> `append_assoc`, `contains`, `induction`, `step`, `subst`
 - `traceFold_nil` -> `append_assoc`, `contains`, `induction`, `step`, `subst`
-- `trace_completeness` -> `ProofTrace`, `Theory`, `apply`, `length`, `trace`, `unify`
+- `trace_completeness` -> `ProofTrace`, `Theory`, `apply`, `grid`, `length`, `trace`, `unify`
 - `trace_eq_sum_diag` -> `Matrix`, `card`, `card_fin`, `ext`, `sigma`, `subst`, `trace`
-- `trace_event_ordering` -> `ProofTrace`, `Theory`, `apply`, `length`, `trace`, `unify`
+- `trace_event_ordering` -> `ProofTrace`, `Theory`, `apply`, `grid`, `length`, `trace`, `unify`
 - `trace_mul_self_conj` -> `Matrix`, `apply`, `trace`
 - `trace_mul_self_conj_of_decomp` -> `Matrix`, `apply`, `trace`
 - `trace_sound_append` -> `ConstraintGraph`, `LvProgram`, `ProofStep`, `ProofTrace`, `Theory`, `TraceSound`, `VerifierState`, `apply`, `empty`, `evidence_check`, `evidence_empty_trivially_satisfiable`, `getConstraints`, `graph_satisfiable`, `induction`, `initVerifier`, `step`, `trace_fold`, `transition`

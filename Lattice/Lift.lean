@@ -25,6 +25,7 @@ import Lattice.Lift.ErrorCalculus
 import Lattice.Lift.RepresentationFamilies
 import Lattice.Lift.ApproxExtraction
 import Lattice.Lift.RatRepresentation
+import Lattice.Lift.GridDensity
 
 /-!
 # Lattice.Lift -- the representation ladder
