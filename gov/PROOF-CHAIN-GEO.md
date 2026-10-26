@@ -94,6 +94,7 @@
 | `SynthesisCoverage` | 179 | 7 | — |
 | `SynthesisMulti` | 132 | 4 | — |
 | `TokenizeStrategy` | 417 | 5 | — |
+| `TokenizerPattern` | 178 | 6 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |
 
