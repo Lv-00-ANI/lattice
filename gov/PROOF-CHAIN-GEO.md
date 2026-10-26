@@ -20,7 +20,7 @@
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
 | `ConstraintSet` | 175 | 7 | — |
-| `ConstraintTokenizer` | 220 | 6 | — |
+| `ConstraintTokenizer` | 423 | 13 | — |
 | `Derivative` | 94 | 3 | — |
 | `Derive` | 71 | 2 | — |
 | `Differentiable` | 131 | 9 | — |
@@ -93,7 +93,7 @@
 | `SynthesisConnection` | 158 | 7 | — |
 | `SynthesisCoverage` | 179 | 7 | — |
 | `SynthesisMulti` | 132 | 4 | — |
-| `TokenizeStrategy` | 480 | 5 | — |
+| `TokenizeStrategy` | 518 | 5 | — |
 | `TokenizerPattern` | 178 | 6 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |

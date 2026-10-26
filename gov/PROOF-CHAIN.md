@@ -948,7 +948,7 @@
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |
-| `Lattice.Geo.ConstraintTokenizer` | 9 | 9 |
+| `Lattice.Geo.ConstraintTokenizer` | 18 | 9 |
 | `Lattice.Geo.Derivative` | 3 | 1 |
 | `Lattice.Geo.Derive` | 2 | 2 |
 | `Lattice.Geo.Differentiable` | 10 | 2 |
@@ -2613,6 +2613,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `binaryFormat_tiny_pos` -> `FloatFormat`, `eps`, `tiny`
 - `binaryFormat_toFloatFormat_eps` -> `eps`, `tiny`
 - `binaryFormat_toFloatFormat_tiny` -> `eps`, `tiny`
+- `binary_induction_not_done` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `binding_visibility` -> `depth`, `find`, `inner`, `length`, `lookup`, `op`, `outer`
 - `bisection_correct` -> `Theory`, `length`, `mul_zero`
 - `blockDot_period_invariance` -> `Point2R`, `blockDot`, `blockRotate`, `cos`, `rdot`, `rotateR`, `sin`
@@ -3834,9 +3835,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decEq_node` -> `Tree`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`
 - `decEq_of_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
 - `decEq_self` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
+- `dec_add_step` -> `add`, `append_assoc`, `append_nil`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `dec_c0_step` -> `dec`
 - `dec_c1_step` -> `dec`
 - `dec_c2_step` -> `dec`
+- `dec_enc_append` -> `add`, `append_assoc`, `append_nil`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `dec_enc_const` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `dec_enc_coord` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `dec_mul_step` -> `add`, `append_assoc`, `append_nil`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `dec_sub_step` -> `add`, `append_assoc`, `append_nil`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `decay_factor_le` -> `convert`, `exp`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `sqrt`, `tanh_abs_le_one`
 - `decay_product_bound` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `exp`, `induction`, `le_trans`, `sqrt`, `subst`, `succ`, `zero`
 - `decidableIso_iff_decEq` -> `Compiler`, `Tree`
@@ -4209,7 +4216,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `flatten`, `length`
-- `drop_enc_append` -> `add`, `length`, `mul`, `sub`
+- `drop_enc_append` -> `add`, `append_assoc`, `induction`, `le_refl`, `length`, `mul`, `nil_append`, `sub`
 - `drop_lower_bound` -> `apply`, `card`, `load`
 - `drop_of_total_exceeds_capacity` -> `apply`, `card`, `load`
 - `drop_one_cons` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
@@ -4450,7 +4457,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_table_unique` -> `apply`, `backward_compat_refl`, `backward_compat_trans`, `contains`, `deserialize`, `empty`, `find`, `insert`, `insert_is_backward_compatible`, `insert_preserves_uniqueness`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `lookup`, `lookup_by_category_correct`, `lookup_by_name_sound`, `remove`, `remove_breaks_compatibility`, `serialize`, `singleton`, `toNat`, `well_formed`, `zero`
 - `empty_table_well_formed` -> `Theory`, `backward_compat_refl`, `empty`, `empty_table_unique`, `lookup`
 - `empty_test_case_passes` -> `Theory`
-- `enc_length` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
+- `encLen_ge_two` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `enc_length` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
+- `enc_ne_nil` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
 - `encodeForm_arity` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_length` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `mk`, `payload`
@@ -9713,6 +9722,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `strong_normalization` -> `BetaRed`, `BetaRedStar`, `Term`, `Theory`, `beta_strictly_decreases_size`, `church_rosser_confluence`, `diamond_property`, `induction`, `size`, `size_non_increasing`, `step`, `trans`, `trivial_confluence`
 - `structural_form_is_true` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `ext`, `mk`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `structural_loss_propagates_but_symbol_layer_is_lossless` -> `AllSatisfied`, `ConstraintSet`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `semantic_not_injective`, `tokenize`
+- `structure_survives_tokens` -> `add`, `append_assoc`, `induction`, `le_refl`, `mul`, `nil_append`, `sub`
+- `structure_survives_tokens_full` -> `append_nil`, `le_refl`
 - `structuredError_eq_pruneError` -> `Matrix`, `card`, `ext`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `norm_nonneg`, `opNorm_le_frobenius`, `pruneError`, `pruneMatrix`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`, `sqrt`
 - `structuredMask_eq_pruneMatrix` -> `Matrix`, `card`, `ext`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `norm_nonneg`, `opNorm_le_frobenius`, `pruneMatrix`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`, `sqrt`
 - `structuredSet_card_le` -> `Matrix`, `card`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `norm_nonneg`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`, `sqrt`
@@ -9984,9 +9995,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tag2_eq` -> `dec`
 - `tag3_eq` -> `dec`
 - `tag4_eq` -> `dec`
-- `tagAdd_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
-- `tagConst_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
-- `tagCoord_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
+- `tagAdd_eq` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
+- `tagConst_eq` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
+- `tagCoord_eq` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `sub`
+- `tagMul_eq` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
+- `tagSub_eq` -> `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`, `sub`
 - `tailEigSq_eq_zero_of_le` -> `Matrix`, `apply`, `card`, `card_fin`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`
 - `tailEigSq_nonneg` -> `Matrix`, `apply`, `card`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`
 - `tailEigSq_zero` -> `Matrix`, `apply`, `card`, `card_fin`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`

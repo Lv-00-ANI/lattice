@@ -464,13 +464,51 @@ tag :: ((hd :: tl) ++ enc b ++ suffix)   -- 实际：尾是 append，不是 cons
 **18 次尝试、三个子问题全部有独立的编译证据**（`dec_X_step` 三条、`encLen_ge_two`、
 `dec_enc_append` 对两分支的完整证明），**但把它们拼起来的那一行在第 137–142 轮里没写对。**
 
-**§12.3 的配方是可执行的**，且每一行都有出处。**本文到此为止；下一次从这里开始。**
+**§12.3 的配方是可执行的**，且每一行都有出处。
 
-## 13. 本文的边界
+## 13. 第 144 轮：**闭合**。缺的是第二行 ★
+
+按 §12.3 的配方做第 19 次尝试，**仍然不成立**，但失败位置暴露了缺失的那一半：
+
+```
+cases ha' : enc a with
+| cons hd tl =>
+    rw [List.cons_append]                                        -- ★₁ (第 143 轮)
+    rw [dec_X_step]                                              -- 现在能触发
+    rw [show hd :: (tl ++ X) = ((hd :: tl) ++ X) from rfl]       -- ★₂ (第 144 轮)
+    rw [← ha']                                                   -- 把 enc a 放回去
+    rw [iha]; simp only []; rw [drop_enc_append]; rw [ihb]        -- 归纳假设
+```
+
+### 13.1 两条 ★ 行的方向相反
+
+| 行 | 作用 | 为什么需要 |
+|:--|:--|:--|
+| **★₁** `List.cons_append` | `(hd :: tl) ++ X` → `hd :: (tl ++ X)` | `dec_X_step` 要求列表是 **cons 形态** |
+| **★₂** `show ... from rfl` | `hd :: (tl ++ X)` → `(hd :: tl) ++ X` | 归纳假设 `iha` 的结论里是 **`enc a ++ X`**，要先用 `← ha'` 才能匹配，而 `← ha'` 需要子项字面是 `(hd :: tl)` |
+
+**两行都不写时**：`dec_X_step` 不触发。
+**只写 ★₁ 时**：`dec_X_step` 触发，但 `← ha'` 不触发（目标里是 `hd :: (tl ++ X)`，没有 `(hd :: tl)` 这个子项）。
+
+**这就是第 137–143 轮全部卡住的地方——不是一行，是两行，而且方向相反。**
+
+### 13.2 结果
+
+`ConstraintTokenizer` 现在有（全部编译通过、零 `sorry`、公理只有 `propext` 与 `Quot.sound`）：
+
+| 定理 | 内容 |
+|:--|:--|
+| `encLen_ge_two` | 每个 `encLen ≥ 2` |
+| `dec_add_step` / `dec_sub_step` / `dec_mul_step` | 三条方程引理 |
+| **`dec_enc_append`** | **对任意 `SExpr` 与任意后缀的精确消费引理** |
+| **`structure_survives_tokens_full`** | **对任意 `e`：`dec (encLen e) (enc e) = some (e, encLen e)`** |
+
+**D1 闭合。**
+
+## 14. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
-- 第 119–127 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
-  **叶子层完成，二元层开放**。
+- `ConstraintTokenizer` 的二元节点往返**已完成**（第 144 轮）。
 - 探针文件在 `agent-tmp/probe_*.lean`，不纳入构建。
 - **§5.3 的建议已被 §6 推翻，不要照着做。** §6.3 是替代方案。
 - **§7.1 的陈述正确但证明需要 §9.2 的修正版**（用归纳假设，不用 `2 ≤ 1 + x`）。
