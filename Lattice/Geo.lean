@@ -76,6 +76,7 @@ import Lattice.Geo.ParallelRepair
 import Lattice.Geo.PolySpecificRepair
 import Lattice.Geo.ComputableExpr
 import Lattice.Geo.ExecutableCheck
+import Lattice.Geo.MultiSeedCoverage
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

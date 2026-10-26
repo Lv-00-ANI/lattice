@@ -55,6 +55,7 @@
 | `LoopRate` | 89 | 3 | — |
 | `Loss` | 194 | 10 | — |
 | `MissingRepairs` | 145 | 4 | — |
+| `MultiSeedCoverage` | 165 | 5 | — |
 | `MultistepLoop` | 183 | 8 | — |
 | `Nondegenerate` | 307 | 13 | — |
 | `ParallelRepair` | 182 | 4 | — |

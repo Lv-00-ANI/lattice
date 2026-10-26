@@ -12,7 +12,7 @@
 | lift | 49 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 79 | the geometry/constraint layer |
+| geo | 80 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -34,7 +34,7 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`
+- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`
 - `Lattice.Geo.ApproxEmbedding` <- `Lattice.Lift.EndToEndApproximation`, `Lattice.Geo.Loss`
 - `Lattice.Geo.ClauseComposition` <- `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Lift.Extraction`
@@ -78,6 +78,7 @@
 - `Lattice.Geo.LoopRate` <- `Lattice.Core.RepairConvergence`, `Lattice.Geo.Loop`
 - `Lattice.Geo.Loss` <- `Lattice.Geo.Expr`, `Lattice.Geo.Dist`, `Lattice.Geo.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Geo.MissingRepairs` <- `Lattice.Geo.RepairPerp`, `Lattice.Geo.Constraint`
+- `Lattice.Geo.MultiSeedCoverage` <- `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.Synthesis`
 - `Lattice.Geo.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.Nondegenerate` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Perturb`, `Lattice.Geo.Derivative`, `Lattice.Lib.Penalty.PolyExact`
 - `Lattice.Geo.ParallelRepair` <- `Lattice.Geo.RepairCoverage`, `Lattice.Geo.Constraint`
@@ -970,6 +971,7 @@
 | `Lattice.Geo.LoopRate` | 3 | 0 |
 | `Lattice.Geo.Loss` | 10 | 4 |
 | `Lattice.Geo.MissingRepairs` | 4 | 1 |
+| `Lattice.Geo.MultiSeedCoverage` | 5 | 0 |
 | `Lattice.Geo.MultistepLoop` | 8 | 3 |
 | `Lattice.Geo.Nondegenerate` | 13 | 2 |
 | `Lattice.Geo.ParallelRepair` | 4 | 2 |
@@ -2017,6 +2019,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Subgradient.const_add` -> `Subgradient`, `ext`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
 - `Subgradient.div_const` -> `Subgradient`, `apply`, `ext`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
 - `Subgradient.smul` -> `Subgradient`, `ext`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
+- `SynthesisCoverage.sqDistAt_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translate`, `translateBy`
 - `SystemMode.toNat_injective` -> `count`, `lt`, `toNat`
 - `Text.encode_eq_toList` -> `CharToken`, `bestPrefix`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `length`, `lookupTok`, `mk`, `toList`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text.encode_injective` -> `CharToken`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `mk`, `toList`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
@@ -8884,9 +8887,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `same_concept_iff_same_elementFiber` -> `VectorConstraint`, `apply`, `gazeUp`, `induction`, `scaleVec`, `trans`
 - `same_degree_noniso_witness` -> `E`, `card`, `nbhdSet`, `nbhdSum`
 - `same_row_orthogonal_keys_commute` -> `ApplyEdit`, `E`, `inner`, `order_dependence_general`
+- `same_transform_separated` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translate`, `translateBy`
 - `sampleCovariance_trace` -> `HasRealEigenvalue`, `Matrix`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `norm_nonneg`, `spectral_radius_le_opNorm`, `trace`, `uniformExpectation`, `uniformProb`
 - `sampleCovariance_trace_nonneg` -> `HasRealEigenvalue`, `Matrix`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `norm_nonneg`, `spectral_radius_le_opNorm`, `trace`, `uniformExpectation`, `uniformProb`
+- `samplesOf_coverage` -> `Pt`, `length`, `samplesOf`, `sqDistAt`, `translateBy`
+- `samplesOf_length` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translateBy`
 - `samplesOf_length_pos` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `standardFamily`, `standardFamily_preserves_perpendicular`
+- `samplesOf_length_single` -> `Pt`, `length`, `samplesOf`, `sqDistAt`, `translateBy`
 - `samplesOf_singleton` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `samples`, `standardFamily`, `standardFamily_preserves_perpendicular`
 - `samplesOf_sound` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `standardFamily`, `standardFamily_preserves_perpendicular`
 - `samples_distinct` -> `Pt`, `apply`, `translateBy`
