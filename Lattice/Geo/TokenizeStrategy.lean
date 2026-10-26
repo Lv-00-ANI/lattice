@@ -141,12 +141,55 @@
 于是归纳步要证 `encLen a ≤ f + 1`，而 `f` 与 `encLen a` 之间没有已知关系。
 **分解成 `f + encLen e` 则直接给出需要的形态。**
 
-## 7. 本文的边界
+## 7. 第 122 轮：找到了真正缺失的那条引理，但没能把它用进证明
+
+### 7.1 缺失的引理：`encLen_ge_two`
+
+第 109–121 轮的二元节点归纳步都要从 `h : 1 + encLen a + encLen b ≤ fuel` 推出 `2 ≤ fuel`。
+第 122 轮**先用 `decide` 验证这个推理是否为真**，结果是：
+
+```
+example : (2 : Nat) ≤ 1 + 0 + 0 := by decide
+-- error: tactic 'decide' proved that the proposition is FALSE
+```
+
+**⇒ 这个推理本身是假的。** 缺的正是一条下界引理：
+
+    theorem encLen_ge_two (e : SExpr n) : 2 ≤ encLen e
+
+**这条引理在各 `dec` 版本下都成立**（`coord` 给 3、`const` 给 2、二元节点是 `1 + 左 + 右`），
+**但十二轮里没有一轮陈述过它。**
+
+### 7.2 为什么还是没证成
+
+加了下界引理之后算术通了，但 `dec` 的 `match` 归约又成了障碍：
+
+| 尝试 | 结果 |
+|:--|:--|
+| `rw [dec.eq_def]; simp` | `maximum recursion depth` —— `eq_def` 里仍含 `dec`，无限展开 |
+| `simp only [Nat.add_one, if_pos rfl]` | `simp made no progress` |
+| `simp only [Nat.add_one, tags...]; rw [if_pos rfl]` | 未走到这一步 |
+
+**根源**：`dec.eq_def` 展开成 `match x, x_1 with`，要归约需要 `x` 和 `x_1` **同时**是构造子形态；
+而 `simp` 一旦看到 `dec.eq_def` 就会重新展开内部的 `dec`，因此递归不收敛。
+
+### 7.3 下一次的正确起点
+
+**不要用 `dec.eq_def`。** 改为**手动写 `dec` 的方程引理**（`dec` 在 tag-0 分支上的具体值），
+把"展开"变成"重写"：
+
+    @[simp] theorem dec_add_eq (fuel : Nat) (a b : List Nat) :
+        dec (0 :: (a ++ b)) (fuel + 1) = <展开后的 match>
+
+这样 `simp` 看到的是**一条重写规则**，而不是一个会递归展开的定义。
+
+## 8. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
-- 第 119 / 120 / 121 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
+- 第 119 / 120 / 121 / 122 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
   **叶子层完成，二元层开放**。
 - 探针文件在 `agent-tmp/probe_*.lean`，不纳入构建。
 - **§5.3 的建议已被 §6 推翻，不要照着做。** §6.3 是替代方案。
+- **§7.1 是本轮唯一可复用的成果**：任何 `dec` 版本的二元归纳步都需要 `encLen_ge_two`。
 - **第 120 轮的探针证明了参数调换是对的**（`dec_leaf` 编译通过），所以下一次不必再验证这一部分。
 -/
