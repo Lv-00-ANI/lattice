@@ -54,6 +54,14 @@ inductive Status where
   | weakened
   /-- Discharged by the named declaration. -/
   | discharged (decl : String)
+  /-- **Permenantly load-bearing, and NOT closable by this library.**
+
+  `reason` says which kind: the general proposition is *false* (only instances hold), the obligation
+  is *not derivable* (every user must supply it), or it is an *external toolchain* question.
+
+  This constructor exists because without it the register conflated "a debt to pay" with "a boundary
+  recorded", and `owedCount` therefore pointed at a target that does not exist. -/
+  | permanent (reason : String)
   deriving DecidableEq, Repr
 
 /-- A load-bearing proposition the project owes. -/
@@ -77,17 +85,36 @@ def NoDupNames (rs : List Slot) : Prop :=
 def NamesNonEmpty (rs : List Slot) : Prop :=
   ∀ s ∈ rs, s.name ≠ ""
 
-/-- The still-owed obligations: anything not discharged. -/
+/-- **The obligations counted as debt**: not yet attempted, or weakened but still bearing weight.
+
+Excludes both `discharged` (paid) and `permanent` (a boundary, not a debt). -/
 def owed (rs : List Slot) : List Slot :=
   rs.filter fun s => match s.status with
+    | .open_ => true
+    | .weakened => true
     | .discharged _ => false
-    | _ => true
+    | .permanent _ => false
+
+/-- **The recorded boundaries**: obligations no amount of work in this library can close.
+
+Kept separate from `owed` because they are a different kind of fact. Deleting one would make the
+library claim something untrue -- `sound_not_exact` says the exactness claim is FALSE, and
+`down_no_progress` says atomicity cannot be DERIVED. -/
+def boundaries (rs : List Slot) : List Slot :=
+  rs.filter fun s => match s.status with
+    | .permanent _ => true
+    | _ => false
+
+/-- Number of recorded boundaries. -/
+def boundaryCount (rs : List Slot) : Nat := (boundaries rs).length
 
 /-- The discharged obligations, with the declaring name attached. -/
 def paid (rs : List Slot) : List String :=
   rs.filterMap fun s => match s.status with
     | .discharged d => some d
-    | _ => none
+    | .open_ => none
+    | .weakened => none
+    | .permanent _ => none
 
 /-- Number of obligations still owed.
 
@@ -195,7 +222,7 @@ def embedLocalMinimiserExact : Slot :=
       "derivative nor a norm -- that is measured per file by `gov/reverify.py`, not asserted globally, " ++
       "because the n = 1 proof does use one. Owed: nothing at the level of this obligation. The " ++
       "general claim over arbitrary embeddings is false (`sound_not_exact`), hence not discharged."
-    status := .weakened }
+    status := .permanent "general claim FALSE (sound_not_exact); only instances hold" }
 
 /-- The obligation that extraction inverts compilation.
 
@@ -250,7 +277,7 @@ def repairAtomic : Slot :=
       "Verified by REBUILDING `samePointRepair` through `mkWithAtomic` with the same " ++
       "semantics. The slot stays open: `atomic` is still a field every operator must supply " ++
       "evidence for -- what changed is that supplying it is now one line, not five copies."
-    status := .open_ }
+    status := .permanent "not derivable (down_no_progress); every operator supplies it" }
 
 /-- The obligation that an adopted representation for weights exists. **Discharged.**
 
@@ -310,7 +337,7 @@ def externalToolchainBridge : Slot :=
       "`Lattice.Lift.WeightLadder.weightLadder` builds a `Ladder` whose `W` is a real weight " ++
       "stack (`List (AffineLayer (Fin 1))`) with a genuine `l2l3_sound`. What remains open is " ++
       "narrower and specific: typed TENSORS, verified autograd and IEEE-754 semantics."
-    status := .open_ }
+    status := .permanent "external toolchain: TorchLean needs Lean >= 4.26" }
 
 /-- The convergence claim behind `Geo.Loop.loop_converges` is about **one step**, not
 about an iterated process that could take many steps.
@@ -392,9 +419,22 @@ History, because the number moving is the point:
 * `lift.compile.single_item_sound` was discharged by `CompilerScheme.scheme_covers_all`
   (branch `arch/compiler-type-params`), taking it to five;
 * `lift.extract.roundtrip` was discharged by `RoundingBackend.roundingLossy`
-  (branch `arch/lossy-backend`), taking it to four.
+  (branch `arch/lossy-backend`), taking it to four;
+* **branch `arch/slot-permanent` reclassified three of those four as `permanent`, taking the DEBT
+  count to one.** The three could never have been paid:
+  `lift.embed.local_minimiser_exact` states a general claim that is false,
+  `core.repair.atomic` is not derivable, and `core.semantics.external_bridge` is a toolchain
+  question. Counting them as debt was the defect, not the fact that they were owed.
 
-The `decide` below failed to compile at BOTH steps, which is exactly what it is for. -/
-example : Slot.owedCount fullRegistry = 4 := by decide
+The `decide` below failed to compile at EVERY step, which is exactly what it is for. -/
+example : Slot.owedCount fullRegistry = 1 := by decide
+
+/-- **The other three are recorded as boundaries, and the count is also machine-checked.** -/
+example : Slot.boundaryCount fullRegistry = 3 := by decide
+
+/-- **No slot falls through the three views**: every slot is owed, discharged, or a boundary. -/
+example :
+    (Slot.owed fullRegistry).length + (Slot.paid fullRegistry).length +
+      (Slot.boundaryCount fullRegistry) = fullRegistry.length := by decide
 
 end Lattice.Slots
