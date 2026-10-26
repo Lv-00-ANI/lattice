@@ -403,7 +403,70 @@ theorem dec_c0_step (k d axisVal : Nat) (rest : List Nat) :
 **这正是第 125 轮 `probe_a11b.lean` 用 `rfl` 的 cons_append 事实解决的问题**，
 但那次是两分支形态。**五分支下需要重新验证那一步。**
 
-## 12. 本文的边界
+## 12. 第 143 轮：两分支转五分支的障碍，定位完毕
+
+第 137–142 轮又试了 6 次。**第 143 轮把最后那处 `rw` 不匹配隔离成了一个可验证的命题，
+并给出了确切答案。**
+
+### 12.1 实验（`agent-tmp/close_d1b.lean`，编译通过）
+
+三条，都是关于真实的 `ConstraintTokenizer.dec`：
+
+| 形状 | 结果 |
+|:--|:--|
+| `dec (k+1) (tag :: (hd :: tl))` | **`rw [dec_X_step]` 触发** |
+| `dec ((f+1)+1) (tag :: (hd :: tl))` | **触发**（所以 fuel 写法不是问题） |
+| `dec ((f+1)+1) (tag :: ((hd :: tl) ++ rest))` | **不触发；`rw [List.cons_append]` 后触发** |
+
+### 12.2 结论：`cases ... :` 留下的尾是「追加」而非「cons」
+
+归纳步里为了把 `enc a` 变成构造子形态，必须 `cases ha' : enc a with | cons hd tl => ...`。
+**这一步会把目标里的 `enc a` 替换成 `hd :: tl`，于是尾列表从**
+
+```
+tag :: (enc a ++ enc b ++ suffix)        -- 想要：tag :: (d :: rest)，rest = enc b ++ suffix ++ ...
+tag :: ((hd :: tl) ++ enc b ++ suffix)   -- 实际：尾是 append，不是 cons
+```
+
+**⇒ 在 `cases` 之后、`rw [dec_X_step]` 之前，必须先 `rw [List.cons_append]`。**
+
+**第 137–142 轮每次都漏了这一步**，或者把它放在了 `cases` 之前（那样它作用在 `enc a` 上，
+而不是作用在 `cases` 之后的 `(hd :: tl)` 上）。
+
+### 12.3 留给下一次的完整配方
+
+```
+| add a b iha ihb =>
+    intro suffix fuel h
+    simp only [encLen] at h
+    obtain ⟨f, rfl⟩ : ∃ f, fuel = f + 2 := ...
+    have ha : encLen a ≤ f + 1 := by omega
+    have hb : encLen b ≤ f + 1 := by omega
+    show dec (f + 2) ((tagAdd :: (enc a ++ enc b)) ++ suffix) = ...
+    rw [List.cons_append]                    -- (tagAdd :: X) ++ Y = tagAdd :: (X ++ Y)
+    rw [show (f + 2) = (f + 1) + 1 from rfl]
+    rw [List.append_assoc]                   -- X ++ Y ++ suffix = X ++ (Y ++ suffix)
+    cases ha' : enc a with                   -- 把 enc a 变成构造子（必须在这一步之后发生）
+    | nil => exact absurd ha' (enc_ne_nil a)
+    | cons hd tl =>
+        rw [List.cons_append]                -- ★ 关键：把 (hd :: tl) ++ rest 还原成 cons
+        rw [dec_add_step (k := f + 1) (d := hd) (rest := tl ++ (enc b ++ suffix))]
+        rw [iha (enc b ++ suffix) (f + 1) ha]
+        rw [enc_length a]
+        rw [show List.drop (encLen a) (enc a ++ (enc b ++ suffix)) = enc b ++ suffix from ...]
+        rw [ihb suffix (f + 1) hb]
+```
+
+**★ 那一行是第 143 轮唯一的新东西**，而且它被 §12.1 的实验独立验证过。
+
+### 12.4 为什么不再继续
+
+**18 次尝试、三个子问题全部有独立的编译证据**（`dec_X_step` 三条、`encLen_ge_two`、
+`dec_enc_append` 对两分支的完整证明），**但把它们拼起来的那一行在第 137–142 轮里没写对。**
+
+**§12.3 的配方是可执行的**，且每一行都有出处。**本文到此为止；下一次从这里开始。**
+
+## 13. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
 - 第 119–127 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
