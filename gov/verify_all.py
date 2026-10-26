@@ -115,6 +115,11 @@ CHECKS = [
     # places, only one updated (apostrophes 60 vs 3, oversized 8 vs 10, registry 42 vs 43).
     # A number being right is not enough; the document must agree with itself.
     ("consistency: docs agree with themselves", "check_doc_consistency.py"),
+    # Round 108 rewrote CONVENTIONS.md with an unconstrained replace and turned leading 1 digits
+    # into 0 -- dates, section numbers, rule ids, counts. Every guard passed, because they check
+    # names and known numbers, not the integrity of surrounding text. Round 116 restored the file
+    # from before the damage and added this guard.
+    ("docs: no batch-replacement damage", "check_batch_edit_damage.py"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.
