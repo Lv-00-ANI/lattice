@@ -22,12 +22,12 @@ LAT = os.path.join(LAKE, "Lattice")
 
 # the census's recorded numbers
 EXPECTED = {
-    "total": 284,
+    "total": 285,
     "Lib": 257,
     "Lift": 9,
     "Audit": 8,
     "Core": 5,
-    "Geo": 5,
+    "Geo": 6,
 }
 
 PAT = re.compile(r"^(?:theorem|lemma)\s+(\w+)(.*?):=", re.S | re.M)

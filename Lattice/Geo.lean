@@ -80,6 +80,7 @@ import Lattice.Geo.MultiSeedCoverage
 import Lattice.Geo.SynthesisConnection
 import Lattice.Geo.GeoLadder
 import Lattice.Geo.ConstraintTokenizer
+import Lattice.Geo.NondegenerateInstance
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

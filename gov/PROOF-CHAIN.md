@@ -12,7 +12,7 @@
 | lift | 50 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 83 | the geometry/constraint layer |
+| geo | 84 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -35,7 +35,7 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`
+- `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`
 - `Lattice.Geo.ApproxEmbedding` <- `Lattice.Lift.EndToEndApproximation`, `Lattice.Geo.Loss`
 - `Lattice.Geo.ClauseComposition` <- `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Lift.Extraction`
@@ -84,6 +84,7 @@
 - `Lattice.Geo.MultiSeedCoverage` <- `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.Synthesis`
 - `Lattice.Geo.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Geo.Nondegenerate` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Perturb`, `Lattice.Geo.Derivative`, `Lattice.Lib.Penalty.PolyExact`
+- `Lattice.Geo.NondegenerateInstance` <- `Lattice.Geo.Perturb`, `Lattice.Geo.Nondegenerate`
 - `Lattice.Geo.ParallelRepair` <- `Lattice.Geo.RepairCoverage`, `Lattice.Geo.Constraint`
 - `Lattice.Geo.PartialReinjection` <- `Lattice.Geo.Loss`, `Lattice.Geo.Reinjection`, `Lattice.Lift.ErrorCalculus`
 - `Lattice.Geo.PathContinuity` <- `Lattice.Geo.DistContinuous`, `Lattice.Geo.PolyNondegenerate`
@@ -982,6 +983,7 @@
 | `Lattice.Geo.MultiSeedCoverage` | 5 | 0 |
 | `Lattice.Geo.MultistepLoop` | 8 | 3 |
 | `Lattice.Geo.Nondegenerate` | 13 | 2 |
+| `Lattice.Geo.NondegenerateInstance` | 6 | 0 |
 | `Lattice.Geo.ParallelRepair` | 4 | 2 |
 | `Lattice.Geo.PartialReinjection` | 6 | 0 |
 | `Lattice.Geo.PathContinuity` | 12 | 0 |
@@ -7299,6 +7301,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `noiseMatrix_psd` -> `K`, `Matrix`, `det`, `mulVec`
 - `noiseMatrix_zero_eq` -> `K`, `Matrix`, `det`
 - `noiseVariance_eq` -> `Subgradient`, `SubgradientGap`, `sqrt`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `nondegenerate_exists` -> `Nondegenerate`, `PerpNondegenerate`, `bump`, `seg`, `unflatten`
+- `nondegenerate_has_content` -> `Nondegenerate`, `bump`
+- `nondegenerate_not_vacuous` -> `Nondegenerate`, `bump`, `seg`, `unflatten`
+- `nondegenerate_of_bump` -> `Nondegenerate`, `PerpNondegenerate`, `bump`, `seg`, `seg_bump_far`, `unflatten`
 - `nonid_of_not_universal` -> `Pt`, `Repair`, `Sat`, `iterate`, `progress`
 - `nonlinearFidelity_unique_zero` -> `ZeroFixing`, `act`, `ext`, `toNat`, `zeroFixing_of_strictMono`
 - `nonlinearFidelity_zero_iff` -> `ZeroFixing`, `act`, `ext`, `toNat`, `zeroFixing_of_strictMono`
@@ -7735,6 +7741,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `permActFeat_one` -> `E`, `W`, `ext`, `gnnLayer`, `image`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `succ`, `zero`
 - `permanent_degrade_monotone` -> `sqrt`
 - `perpMeasure_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `fixPerp`, `fixPerp_holds`, `iterate`, `progress`
+- `perpNondegenerate_exists` -> `Nondegenerate`, `PerpNondegenerate`, `bump`, `seg`, `unflatten`
 - `perpRatio_mul` -> `GeoConstraint`, `Holds`, `Pt`, `trans`
 - `perpRepair_unified` -> `Pt`, `Repair`, `Sat`, `linearRepair`, `perpRepair`, `preserves_of_sat`
 - `perpResid_along_bump` -> `HasNonzeroDeriv`, `add`, `bump`, `const_add`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
@@ -10639,6 +10646,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zeroRowEdit_kills_row` -> `E`, `W`, `apply`, `trans`
 - `zeroRowEdit_other_rows` -> `E`, `W`, `apply`, `trans`
 - `zeroRowEdit_row_is_zero` -> `E`, `W`, `apply`, `trans`
+- `zero_add_one_smul` -> `Nondegenerate`, `PerpNondegenerate`, `bump`, `seg`, `seg_bump_far`, `unflatten`
 - `zero_curvature_implies_flat` -> `S2`, `Surface`, `Theory`, `gaussian_curvature`, `mean_curvature`, `plane`, `plane_principal_curvatures_zero`, `principal_curvatures`, `principal_curvatures_product_eq_gaussian`, `second_fundamental`
 - `zero_gap_iff_complementary_slackness` -> `Lagrangian`, `dualValue`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
 - `zero_gap_implies_complementary_slackness` -> `Lagrangian`, `dualValue`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`

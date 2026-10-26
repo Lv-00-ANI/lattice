@@ -60,6 +60,7 @@
 | `MultiSeedCoverage` | 165 | 5 | — |
 | `MultistepLoop` | 183 | 8 | — |
 | `Nondegenerate` | 307 | 13 | — |
+| `NondegenerateInstance` | 143 | 6 | — |
 | `ParallelRepair` | 182 | 4 | — |
 | `PartialReinjection` | 158 | 6 | — |
 | `PathContinuity` | 245 | 12 | — |
