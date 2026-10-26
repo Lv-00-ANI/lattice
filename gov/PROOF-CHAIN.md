@@ -10837,7 +10837,6 @@ module. These are the edges that make the chain a chain rather than a list.
 | `lift.embed.local_minimiser_exact` |
 | `core.repair.atomic` |
 | `core.semantics.external_bridge` |
-| `geo.loop.convergence_is_single_step` |
 
 ## The four target theorems and what each rests on
 

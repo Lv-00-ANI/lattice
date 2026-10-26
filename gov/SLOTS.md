@@ -5,7 +5,7 @@
 
 | total | owed | discharged |
 |--:|--:|--:|
-| 9 | 4 | 5 |
+| 9 | 3 | 6 |
 
 ## Owed (load-bearing, not yet proved)
 
@@ -14,7 +14,6 @@
 | `lift.embed.local_minimiser_exact` | — |
 | `core.repair.atomic` | — |
 | `core.semantics.external_bridge` | — |
-| `geo.loop.convergence_is_single_step` | — |
 
 ## Discharged
 
@@ -24,4 +23,5 @@
 | `lift.extract.roundtrip` | `Lattice.Lift.RoundingBackend.roundingLossy` |
 | `core.semantics.weight_exists` | `Lattice.Core.WeightNet.instWeightSemanticsNet` |
 | `core.net.variable_width` | `Lattice.Core.Chain.act_append` |
+| `geo.loop.convergence_is_single_step` | `Lattice.Geo.MultistepLoop.multistep_geometric_exists` |
 | `core.repair.multistep_exists` | `Lattice.Core.Multistep.converges_within_is_tight` |

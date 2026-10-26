@@ -364,7 +364,7 @@ def loopConvergenceIsSingleStep : Slot :=
       "multi-step iteration. The sharper truth is stated separately as " ++
       "`Lattice.Geo.Loop.loop_converges_in_one`. Iterated convergence needs an operator " ++
       "whose step does not settle the predicate."
-    status := .weakened }
+    status := .discharged "Lattice.Geo.MultistepLoop.multistep_geometric_exists" }
 
 /-- The **multi-step** repair operator, and the fact that its rate is tight.
 
@@ -424,10 +424,14 @@ History, because the number moving is the point:
   count to one.** The three could never have been paid:
   `lift.embed.local_minimiser_exact` states a general claim that is false,
   `core.repair.atomic` is not derivable, and `core.semantics.external_bridge` is a toolchain
-  question. Counting them as debt was the defect, not the fact that they were owed.
+  question. Counting them as debt was the defect, not the fact that they were owed;
+* **`geo.loop.convergence_is_single_step` was discharged by
+  `MultistepLoop.multistep_geometric_exists`, taking the debt count to ZERO.** The slot asked for
+  "an operator whose step does not settle the predicate"; `bidirRepair` is one, `bidir_steps`
+  bounds its iteration at `|k|` steps, and `bidir_not_one_step` proves one step is not enough.
 
 The `decide` below failed to compile at EVERY step, which is exactly what it is for. -/
-example : Slot.owedCount fullRegistry = 1 := by decide
+example : Slot.owedCount fullRegistry = 0 := by decide
 
 /-- **The other three are recorded as boundaries, and the count is also machine-checked.** -/
 example : Slot.boundaryCount fullRegistry = 3 := by decide

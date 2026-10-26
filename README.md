@@ -20,7 +20,7 @@
 > | 层文件数 Core/Lift/Geo/Lib | 18 / 53 / 92 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 55（38 门禁 + 17 报告器） | `audit_counts.py` |
-> | **未清欠账** | **1** | `Slots.lean` 的 `decide` |
+> | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
 > | **永久边界** | **3** | 同上；因数学事实或外部工具链，本库无法关闭 |
 > | 已登记否证 | 285 | `check_refutation_census.py` |
 >
