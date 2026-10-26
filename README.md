@@ -16,12 +16,12 @@
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
 > | Lean 模块 | 772 | `audit_counts.py` |
-> | 定理 / 引理 | 8191 | `audit_counts.py` |
+> | 定理 / 引理 | 8192 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Geo/Lib | 17 / 49 / 83 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 48（32 门禁 + 16 报告器） | `audit_counts.py` |
 > | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
-> | 已登记否证 | 284 | `check_refutation_census.py` |
+> | 已登记否证 | 285 | `check_refutation_census.py` |
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
 > 同一测量在不同口径下曾给出 **7,919 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。

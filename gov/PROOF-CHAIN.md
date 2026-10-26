@@ -1678,7 +1678,7 @@
 | `Lattice.Audit` | 0 | 0 |
 | `Lattice.Audit.BridgedComposition` | 3 | 0 |
 | `Lattice.Audit.ChainTransitivity` | 7 | 0 |
-| `Lattice.Audit.CompositionAlgebra` | 9 | 3 |
+| `Lattice.Audit.CompositionAlgebra` | 10 | 3 |
 | `Lattice.Audit.CompositionClass` | 7 | 3 |
 | `Lattice.Audit.Counterexamples` | 4 | 0 |
 | `Lattice.Audit.DecreasesRole` | 2 | 0 |
@@ -2286,13 +2286,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `api_compatibility_reflexive` -> `Theory`, `le_refl`, `path`, `valid`
 - `app_no_crash` -> `Theory`
 - `app_result_well_formed` -> `Theory`, `apply`
-- `append_assoc` -> `Audit`, `induction`
+- `append_assoc` -> `Audit`, `induction`, `mul`, `one`
 - `append_eq_zipWith_add_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
 - `append_eq_zipWith_add_iff_length_necessary` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
 - `append_is_not_truncating` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`
 - `append_ne_zipWith_add_witness` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
 - `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `nil_append`
-- `append_nil` -> `Audit`, `induction`
+- `append_nil` -> `Audit`, `induction`, `mul`, `one`
 - `application_outputs_absorbable` -> `Node`, `Rule`, `layer`, `length`
 - `applyCorrect_tt_const` -> `apply`, `children`, `gcd_mul_lcm`, `induction`, `length`, `op`, `trans`
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `inner`, `key_norm_sq_ne_zero`, `norm_nonneg`
@@ -2682,11 +2682,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bregman_three_point` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `bridge_exists` -> `Repair`, `Sat`, `iterate`
 - `bridge_is_necessary` -> `Audit`
-- `bridgedCount_append` -> `Audit`, `induction`
-- `bridgedCount_bridged` -> `Audit`, `induction`
-- `bridgedCount_empty` -> `Audit`
+- `bridgedCount_append` -> `Audit`, `induction`, `mul`, `one`
+- `bridgedCount_bridged` -> `Audit`, `induction`, `mul`, `one`
+- `bridgedCount_empty` -> `Audit`, `mul`, `one`
 - `bridgedCount_hom` -> `Audit`
-- `bridgedCount_sequential` -> `Audit`, `induction`
+- `bridgedCount_sequential` -> `Audit`, `induction`, `mul`, `one`
 - `bridged_needs_bridge` -> `Audit`, `bridge_is_necessary`
 - `brier_nonneg` -> `apply`, `le`, `sqrt`
 - `bsp_clip_preserves_coverage` -> `AABB`, `BSPPlane`, `BVHNode`, `CSGTree`, `Theory`, `Triangle3D`, `aabb_intersects`, `aabb_union`, `bvh_aabb`, `bvh_intersect_query`, `csg_aabb`, `cylinder`, `plane`, `sphere`
@@ -7253,7 +7253,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `newton_error_quadratic_bound` -> `NewtonStep`, `Quadratic`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `succ`, `zero`
 - `newton_exact_on_quadratic` -> `NewtonStep`, `Quadratic`, `deriv_deriv_quadratic`, `deriv_quadratic`, `newton_step_quadratic`
 - `newton_exact_step_on_quadratic` -> `NewtonStep`, `Quadratic`, `newton_step_quadratic`
-- `nil_append` -> `Audit`, `induction`
+- `nil_append` -> `Audit`, `induction`, `mul`, `one`
 - `nlCompile_batch` -> `ApproxOn`, `ext`, `le_antisymm`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `dot`, `recover`
 - `no_better_than_geometric` -> `Subgradient`, `mul_left_cancel`
@@ -10441,6 +10441,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vector_scale_add_distrib` -> `add`, `get`, `length`, `mul`, `ofList`, `sign`, `zero`
 - `vector_scale_assoc` -> `add`, `get`, `length`, `mul`, `ofList`, `sign`, `zero`
 - `verdict_monoid` -> `Audit`
+- `verdict_monoid_instance_agrees` -> `Audit`
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `chain_edit_locality`, `edit_seq_nonuniform`, `induction`, `le_trans`, `norm_nonneg`, `shared_chain_edit_locality`, `succ`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `norm_nonneg`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `succ`, `zero`
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`

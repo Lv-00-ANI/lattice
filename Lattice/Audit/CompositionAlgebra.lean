@@ -147,14 +147,39 @@ theorem bridgedCount_empty : bridgedCount emptyVerdict = 0 := rfl
 
 /-! ## 三、monoid 结构 -/
 
-/-- **`Verdict` 构成 monoid。**
+/-- **`Verdict` 真正是一个 `Monoid`**：注册 Mathlib 实例，而不是只陈述三条律。
 
-单位元 `[]`、运算 `++`，三条律全部成立（即列表的已知事实）。 -/
+### 为什么注册实例比陈述三条律强
+
+`verdict_monoid` 只是**一个命题**说「这三条成立」。注册实例之后：
+
+| 好处 | 说明 |
+|:--|:--|
+| **可复用** | `List.append` 上已有的 Mathlib 引理（`pow`、`fold`、`MonoidHom` 基础设施）对 `Verdict` 直接可用 |
+| **可组合** | `Verdict` 可以出现在任何要求 `Monoid` 的抽象里，不必每次手写三条律 |
+| **口径精确** | 文档说「monoid」时，指的是**类型类实例**，而不是一个措辞 |
+
+单位的唯一性与结合的传递性由 `Monoid` 自动提供，不需要重复陈述。 -/
+instance : Monoid Verdict where
+  mul := (· ++ ·)
+  one := emptyVerdict
+  mul_assoc := append_assoc
+  one_mul := nil_append
+  mul_one := append_nil
+
+/-- **`Verdict` 构成 monoid**（三条律的显式陈述，保留以便审计逐条核对）。 -/
 theorem verdict_monoid :
     (∀ ks : Verdict, emptyVerdict ++ ks = ks) ∧
     (∀ ks : Verdict, ks ++ emptyVerdict = ks) ∧
     (∀ a b c : Verdict, (a ++ b) ++ c = a ++ (b ++ c)) :=
   ⟨nil_append, append_nil, append_assoc⟩
+
+/-- **实例与显式陈述一致**：`Monoid` 的运算就是 `++`，单位就是 `emptyVerdict`。
+
+⇒ 文档说的「monoid」现在指的是**注册的实例**，不是措辞。 -/
+theorem verdict_monoid_instance_agrees :
+    (∀ a b : Verdict, a * b = a ++ b) ∧ ((1 : Verdict) = emptyVerdict) :=
+  ⟨fun _ _ => rfl, rfl⟩
 
 /-- **`bridgedCount` 是 monoid 同态**：从 `(Verdict, ++, [])` 到 `(ℕ, +, 0)`。 -/
 theorem bridgedCount_hom :
