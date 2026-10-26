@@ -137,6 +137,9 @@ CHECKS = [
     # there is nothing to encode) or a DEFECT (Sym carries structure Tok cannot hold). This prints
     # the classification of every Ladder instance so the defect cannot reappear unnoticed.
     ("ladder: every l1l2 rung classified", "check_ladder_rungs.py"),
+    # Round 154: OBJECTIVE-MAP.md lists all 14 objective clauses with each carrier's location and
+    # reference counts. This fails if the committed map no longer matches the tree.
+    ("docs: objective map up to date", "gen_objective_map.py --check"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.

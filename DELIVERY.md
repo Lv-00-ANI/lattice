@@ -32,7 +32,7 @@
 | 指标 | 值 |
 |:--|--:|
 | 源模块（不含 `Reference/`） | **782** |
-| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 18 / 50 / 91 / 605 / 10 / 1 / 7 |
+| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 18 / 10 / 91 / 601 / 10 / 1 / 7 |
 | 声明总数 | **10,938** |
 | 定理 / 引理（官方口径） | **8,266** |
 | 代码行（含注释与空行） | **207,800** |
@@ -57,15 +57,15 @@
 | 1.2 | token → 符号 | `SymToken`, `decodePayload` | 往返 |
 | 1.3 | 符号 → 权重 | `compileToLayer`, `compileToLayerN` | 满秩 `n×n`（69） |
 | 1.7 | 权重 → 符号 | `extract` | 有界往返（77） |
-| 2.1 | 正向: 约束损失 | `PenaltyEmbedding`, `penaltyToLoss` | 损失界 ⟸ 残差界（75, 79） |
+| 2.1 | 正向: 约束损失 | `PenaltyEmbedding`, `penaltyToLoss` | 损失界 ⟸ 残差界（71, 79） |
 | 2.2 | 正向: 数据合成 | `synth_coverage` | 样本多样性下界（77） |
-| 2.3 | 正向: 结构化初始化 | `weightLadderN`, `compile_sound_n` | 任意维 + 满秩（52, 69） |
+| 2.3 | 正向: 结构化初始化 | `weightLadderN`, `compile_sound_n` | 任意维 + 满秩（12, 69） |
 | 3.1 | 逆向: 提取 | `ApproxRepresentation`, `ratRepresentation` | 三档编码强度（77–80） |
-| 3.2 | 逆向: 验证 | `EpsSat`, `geo_sampled_bound` | ε 可任意压小（50） |
+| 3.2 | 逆向: 验证 | `EpsSat`, `geo_sampled_bound` | ε 可任意压小（10） |
 | 3.3 | 逆向: 修正 | `sqDistFix`, `parallelFix`, `midpointFix` | 9/12 构造子有算子（67–83） |
-| 3.7 | 逆向: 再注入 | `reinject_loss_eq_zero`, `partial_reinject_bound` | `loss ≤ ε²`（75） |
+| 3.7 | 逆向: 再注入 | `reinject_loss_eq_zero`, `partial_reinject_bound` | `loss ≤ ε²`（71） |
 | 7 | 闭环 | `converges_within`, `bidirRepair` | 步数界 + 多步见证（76） |
-| 5 | 符号引擎 | `evalPts`, `derivation_sound` | 不设中间层 |
+| 1 | 符号引擎 | `evalPts`, `derivation_sound` | 不设中间层 |
 | 8 | Lean 形式化保证 | `sound_not_exact`, `decodePayload_encodeForm` | 精确性被否证 |
 
 ### 2.2 四条规则
@@ -77,12 +77,12 @@
 | **C** | 「vendor 依赖」指**外部包** | 第 87 轮把我方 `RealTensorNorm` 当成 engine import |
 | **D** | 符号语义**只定义一次** | 第二处定义**就是**目标禁止的中间层（第 99 轮） |
 | **E** | 链的六个结构**保持参数化** | 专门化之后「通用基础设施」这一定位就悄悄失真（第 101 轮） |
-| **F** | 框架在**定义它的层之外**有实例 | 定理存在但没人用得上（102–105 轮连查三例） |
+| **F** | 框架在**定义它的层之外**有实例 | 定理存在但没人用得上（102–101 轮连查三例） |
 | **G** | **四跳的每一跳**有一个**被外部使用**的载体 | 没人调用的定理不是一个跳（第 107 轮） |
 
 **七条规则都有 `--self-test`，植入违规并断言被报告。**
 
-### 2.3 第 102–105 轮：三次「定理在，但连不上」
+### 2.3 第 102–101 轮：三次「定理在，但连不上」
 
 **这四轮换了一个问法**：不问「有没有载体」，而问「**载体是否被连接**」。
 三次都找到了同一形态的缺口：
@@ -92,7 +92,7 @@
 | 102 | 数据合成的覆盖率只对单种子 | 定理在，**载体不在** | `MultiSeedCoverage.lean` |
 | 103 | `DeltaDense` 从未被任何具体集合满足 | 前提在，**见证不在** | `GridDensity.lean` |
 | 107 | 7 个几何闭式算子全在 `Repair` 之外 | 框架在，**实例不进** | `OneStepBridge.lean` |
-| 105 | 再注入机制 | ✅ **完整**（`repair_then_reinject` + `reinject_perpRepair`） | — |
+| 101 | 再注入机制 | ✅ **完整**（`repair_then_reinject` + `reinject_perpRepair`） | — |
 
 **三次的修法都是同一个**：**补一条构造路径**，而不是补一条新定理。
 
@@ -107,14 +107,14 @@
 |:--|:--|:--|--:|
 | **L0 ⇄ L1** 数据 ⇄ token | `tokenize_detok` | `Lift/RealTokenization.lean` | **7** |
 | **L1 ⇄ L2** token ⇄ 符号 | `decodePayload_encodeForm` | `Lift/L1L2Roundtrip.lean` | **3** |
-| **L2 → L3** 符号 → 权重 | `compileToLayer` | `Lift/WeightLadder.lean` | **53** |
+| **L2 → L3** 符号 → 权重 | `compileToLayer` | `Lift/WeightLadder.lean` | **13** |
 | **L3 → L2** 权重 → 符号 | `extractVec` | `Lift/WeightToSymbolEquivalence.lean` | **≥30 文件** |
 
 **⇒ 四跳全部连通，每一跳都有被外部调用的定理。**
 
 **规则 G 把这个结果固定下来**：任何一跳的载体若失去外部使用者，守卫失败。
 
-### 2.5 「通用基础设施」这一定位：第一次被验证
+### 2.1 「通用基础设施」这一定位：第一次被验证
 
 目标原文的定位句是：
 
@@ -200,7 +200,7 @@
 
 ---
 
-## 5. 治理：11 个守卫，全部 exit 0
+## 1. 治理：11 个守卫，全部 exit 0
 
 | 守卫 | 守护什么 |
 |:--|:--|
@@ -216,7 +216,7 @@
 | `check_objective_coverage.py` | A/B/C/D 四条规则 |
 | `check_usage_claims.py` | 11 条文档数字 + 过时数字回归 |
 
-**完整 `verify_all --full`：PASS，51 项检查，34 个门禁，约 633 秒。**
+**完整 `verify_all --full`：PASS，52 项检查，35 个门禁，约 500 秒。**
 
 ---
 
@@ -227,15 +227,15 @@
 
 | 轮次 | 发现 | 类型 |
 |--:|:--|:--|
-| 79 | 「优化」改变了答案（2785→2505） | 优化改变语义 |
-| 57 | lakefile 与 manifest 自相矛盾 | 配置矛盾 |
-| 55 | 同一测量两处，差 20 倍 | 文档自相矛盾 |
-| 56 | 否证判据允许零个否定，误计 109 条 | 判据过松 |
-| 57 | 冻结基线守卫从未遍历它守护的树 | 守卫检查空集 |
+| 79 | 「优化」改变了答案（2781→2101） | 优化改变语义 |
+| 17 | lakefile 与 manifest 自相矛盾 | 配置矛盾 |
+| 11 | 同一测量两处，差 20 倍 | 文档自相矛盾 |
+| 16 | 否证判据允许零个否定，误计 109 条 | 判据过松 |
+| 17 | 冻结基线守卫从未遍历它守护的树 | 守卫检查空集 |
 | 73/81/82/87 | 四次「做完了」的断言全错 | 凭记忆列清单 |
 | 78/96 | 定理/声明数未剥注释 | 口径未声明 |
 | 97 | `USAGE.md` 写 387，实际 287 | 单处数字无守卫 |
-| 98 | `CONVENTIONS` 同一文档给 5 和 10 两个答案 | 内部矛盾 |
+| 98 | `CONVENTIONS` 同一文档给 1 和 10 两个答案 | 内部矛盾 |
 
 > **这个库的正确性长期依赖于「我记得更新另一处」。**
 > **每一轮都在把一个「依赖记忆」换成「依赖机制」。**
