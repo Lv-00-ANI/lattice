@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 18 | no imports from lift/lib |
+| core | 19 | no imports from lift/lib |
 | lift | 51 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
@@ -17,7 +17,8 @@
 
 ## Import graph
 
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
+- `Lattice.Core.Activation` <- `Lattice.Core.Net`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.Idempotent` 
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
@@ -920,6 +921,7 @@
 | module | theorem/lemma | other |
 |:--|--:|--:|
 | `Lattice.Core` | 0 | 0 |
+| `Lattice.Core.Activation` | 6 | 3 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
@@ -2118,6 +2120,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `accept_mass_eq_min` -> `le_total`, `zero_mul`
 - `accumulation_error_bound` -> `FloatFormat`, `Matrix`, `RoundOp`, `W`, `apply`, `card_fin`, `eps`, `frobeniusNorm`, `frobeniusNorm_sq`, `induction`, `le_trans`, `roundToFormat`, `sqrt`, `succ`, `tiny`, `zero`
 - `accumulation_error_nonneg` -> `FloatFormat`, `Matrix`, `RoundOp`, `W`, `apply`, `card_fin`, `eps`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `matCLME`, `matCLME_sub`, `opNorm_le_frobenius`, `quantFwd`, `roundToFormat`, `sqrt`, `tiny`
+- `actStackEval_nil` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `mul_zero`, `netAct`, `relu`
+- `actStackEval_of_no_activation` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `mul_zero`, `netAct`, `relu`
+- `actStackSingle_affine` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `mul_zero`, `netAct`, `relu`
 - `act_append` -> `Chain`, `induction`
 - `act_apply` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`, `zero_mul`
 - `act_geluTanhR_injOn` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`, `zero_mul`
@@ -2133,6 +2138,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `activated_closure_iff_zeroFixing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
 - `activated_extract_cannot_repair` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
 - `activated_loop_breaks` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `Matrix`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `extractVec`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
+- `activation_strictly_stronger` -> `AffineLayer`, `netAct`, `relu`
 - `activeSet_card_le` -> `LICQOneDim`, `card`, `le_refl`, `subst`
 - `activeSet_subset` -> `LICQOneDim`, `le_refl`, `subst`
 - `active_choice_passive_content` -> `Gaze`, `rel`, `up`
@@ -8458,12 +8464,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_injOn_nonneg` -> `apply`, `exp`, `le_trans`, `subst`, `zero_mul`
 - `relu_is_gated` -> `E`, `SoftMasked`, `W`, `apply`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid_bounds`, `hardSwish`, `norm_nonneg`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `swiglu`
 - `relu_is_soft_masked` -> `W`, `apply`, `relu`, `sqrt`
+- `relu_key_values` -> `AffineLayer`, `le_refl`, `mul_zero`, `netAct`, `relu`
 - `relu_le_abs` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
 - `relu_lipschitz` -> `SumRelu`, `le_trans`, `relu`, `sumRelu_eq_zero_iff_each`
 - `relu_mask_decomposition` -> `W`, `apply`, `relu`, `relu_eq_zero_iff`, `sqrt`
 - `relu_minimum_at_zero` -> `relu`, `relu_eq_zero_of_nonpos`
 - `relu_neg_eq_relu_zero` -> `apply`, `exp`, `le_trans`, `subst`, `zero_mul`
 - `relu_nonneg` -> `induction`, `relu`, `sign`
+- `relu_not_affine` -> `AffineLayer`, `le_refl`, `mul_zero`, `netAct`, `relu`
 - `relu_not_injOn_nonpos` -> `apply`, `exp`, `le_trans`, `subst`, `zero_mul`
 - `relu_not_injective` -> `BehaviourallyEquivalent`, `LayerOut`, `LayerParams`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `layer_act_injective`, `relu`, `relu_neg_eq_relu_zero`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `relu_of_nonneg` -> `modReLU`, `modReLU_magnitude`, `modReLU_phase_preserved`, `modReLU_zero`, `relu`, `subst`

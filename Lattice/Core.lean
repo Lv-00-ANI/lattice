@@ -14,6 +14,7 @@ import Lattice.Core.WeightNet
 import Lattice.Core.RepairConvergence
 import Lattice.Core.RepairAtomicity
 import Lattice.Core.OneStepBridge
+import Lattice.Core.Activation
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
