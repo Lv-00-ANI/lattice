@@ -124,6 +124,10 @@ CHECKS = [
     # Lean toolchain, step for step, and statically audits the half that does -- then says plainly
     # that the audit is not a run.
     ("ci: job 1 runs locally, job 2 audited", "check_ci_locally.py"),
+    # Round 118: five recorded premature 'done' assertions, and no guard touched any of them,
+    # because they are claims about scope rather than numbers. This one checks the shape: a
+    # completion sentence must sit next to a list of what is still open.
+    ("docs: completion claims paired with open work", "check_completion_claims.py"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.
