@@ -79,6 +79,7 @@ import Lattice.Geo.ExecutableCheck
 import Lattice.Geo.MultiSeedCoverage
 import Lattice.Geo.SynthesisConnection
 import Lattice.Geo.GeoLadder
+import Lattice.Geo.ConstraintTokenizer
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
