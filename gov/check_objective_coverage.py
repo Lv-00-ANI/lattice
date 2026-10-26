@@ -216,6 +216,41 @@ def check_parametric():
     return bad
 
 
+# ---------------------------------------------------------------- rule F
+
+#: Frameworks whose theorems are only meaningful when INSTANTIATED by the layer that needs them.
+#: Rounds 102-105 each found the same failure: the theorem existed, the instance did not, and every
+#: other check passed. This rule pins the connection.
+#:
+#: (framework structure, minimum number of instances declared OUTSIDE the layer that defines it)
+CONNECTED = {
+    # `Repair` lives in Core; the operators that need it live in Geo (the geometric fixes) and in
+    # Lib. If only Core instances exist, the loop theorems reach nothing.
+    "Repair": 2,
+}
+
+
+def check_connected():
+    """Each framework must have at least N instances outside its defining layer."""
+    bad = []
+    for struct, want in CONNECTED.items():
+        defining = None
+        externals = 0
+        for rel, src in CORPUS_ITEMS:
+            if re.search(r"(?m)^structure %s\b" % re.escape(struct), src):
+                defining = rel.split("/")[0]
+                break
+        for rel, src in CORPUS_ITEMS:
+            lay = rel.split("/")[0] if "/" in rel else "(root)"
+            if lay == defining:
+                continue
+            if re.search(r"(?m)^(?:noncomputable )?def \w+[^\n]*:\s*%s\b" % re.escape(struct), src):
+                externals += 1
+        if externals < want:
+            bad.append((struct, "defined in %s" % defining, externals, want))
+    return bad
+
+
 # ---------------------------------------------------------------- rule C
 
 VENDORS = ["torch", "pytorch", "tensorflow", "jax", "cuda", "onnx", "huggingface",
@@ -288,6 +323,16 @@ def report(corpus):
         print("E  chain structures are still parametric               (%d checked)"
               % len(PARAMETRIC))
 
+    conn = check_connected()
+    if conn:
+        ok = False
+        print("F  frameworks not instantiated outside their own layer:")
+        for struct, where, got, want in conn:
+            print("     %-16s %s, %d external instance(s), need >= %d" % (struct, where, got, want))
+    else:
+        print("F  frameworks instantiated outside their layer          (%d checked)"
+              % len(CONNECTED))
+
     ext = external_vendor_imports(corpus)
     if ext:
         ok = False
@@ -356,11 +401,22 @@ def self_test():
     finally:
         CORPUS_ITEMS = saved_items2
 
+    # F: plant a tree where the framework has no external instances
+    saved_items3 = CORPUS_ITEMS
+    planted5 = {"Core/Repair.lean": "structure Repair (a : Type) where\n  s : a\n",
+                "Core/Only.lean": "def one : Repair ℕ := sorry\n"}
+    CORPUS_ITEMS = list(planted5.items())
+    try:
+        if not check_connected():
+            failures.append("rule F did not catch a framework with no external instances")
+    finally:
+        CORPUS_ITEMS = saved_items3
+
     if failures:
         for f in failures:
             print("SELF-TEST FAILED: %s" % f)
         return 2
-    print("SELF-TEST: all five rules can fail")
+    print("SELF-TEST: all six rules can fail")
     return 0
 
 
