@@ -56,9 +56,50 @@
 这与第 112 轮是同一课：第 111 轮诊断出「换表示」是出路，第 112 轮换了 `dec` 的**返回类型**，
 一次成功。**这次该换的是参数顺序。**
 
-## 5. 本文的边界
+## 5. 第 120 轮：参数顺序调换**可行**，但撞上了另一个更基础的障碍
+
+第 120 轮按 §4 的建议把 `dec` 改成 `List ℕ → ℕ → Option (...)`，**叶子层与 `dec` 的归约立刻通了**：
+
+    dec_leaf : dec (enc (.leaf k)) (fuel + 2) = some (.leaf k, 2)     -- 编译通过
+    dec (0 :: rest) (f + 2) 的 match 归约                              -- 编译通过
+
+**参数调换是正确的**：`rw [dec.eq_def]; simp` 在列表在前时一次成功，不再需要
+`simp only [tagX_eq, ...]` 这类技巧。
+
+### 5.1 但二元层卡在 `omega` 的一个具体局限上
+
+归纳步需要从 `h : 1 + encLen a + encLen b ≤ fuel` 得到 `2 ≤ fuel`。**`omega` 做不到**：
+
+    example (a : Nat) : 2 ≤ 1 + a := by omega
+    -- error: No usable constraints found.
+
+**`omega` 无法证明不含假设的纯算术事实**——它需要至少一条前提才能启动。而
+`obtain ⟨k, rfl⟩ : ∃ k, fuel = k + 2 := ⟨fuel - 2, by omega⟩` 里的目标正是纯算术。
+
+### 5.2 第 120 轮试过、但没走通的写法
+
+| 写法 | 结果 |
+|:--|:--|
+| `omega` 直接证 `2 ≤ 1 + a + b` | ❌ No usable constraints found |
+| `calc 2 ≤ 1 + a + b := by omega` | ❌ 同上（calc 的第一步仍是纯算术） |
+| `Nat.le_add_right` + `Nat.le_trans` | ❌ 引理签名与目标形态不匹配，试了三种 |
+| `Nat.succ_le_succ` 两次 | ❌ `1 + a + b` 需要先 `rw` 成 `Nat.succ (a+b)`，那条 `rfl` 不成立 |
+
+### 5.3 下一次的正确起点
+
+**不要要求 `omega` 证明纯算术事实，而是把那条事实本身写成一条 `Nat` 引理**，用最原始的组合子证：
+
+    theorem one_add_add_le_two_add (a b : Nat) : 1 + a + b + 1 ≥ 2
+
+或者更直接：**把 fuel 的上界假设写成 `encLen e + 1 ≤ fuel`**（而不是 `encLen e ≤ fuel`），
+于是归纳步里的算术变成「已知 `1 + a + b ≤ fuel` 推出 `a + 1 ≤ fuel`」——**两个都带假设，`omega` 就能工作**。
+
+**这是第 111 → 112 轮同一模式的第三次**：撞墙之后不要硬推，**改一个恒等价的表述**。
+
+## 6. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
-- 第 119 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：叶子层完成，二元层开放。
-- 探针文件在 `agent-tmp/probe_dec_bin*.lean`，不纳入构建。
+- 第 119 / 120 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：叶子层完成，二元层开放。
+- 探针文件在 `agent-tmp/probe_*.lean`，不纳入构建。
+- 第 120 轮的探针**证明了参数调换是对的**（`dec_leaf` 编译通过），所以下一次不必再验证这一部分。
 -/
