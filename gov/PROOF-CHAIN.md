@@ -12,7 +12,7 @@
 | lift | 51 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
-| geo | 90 | the geometry/constraint layer |
+| geo | 91 | the geometry/constraint layer |
 | root | 135 | aggregator, or a layer with no rule of its own |
 
 ## Import graph
@@ -55,6 +55,7 @@
 - `Lattice.Geo.Engine` <- `Lattice.Geo.Constraint`, `Lattice.Core.Logic`
 - `Lattice.Geo.EqConstraintToken` <- `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.Loss`
 - `Lattice.Geo.EqConstraintTokenizer` <- `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.Loss`
+- `Lattice.Geo.EqConstraintTokens` <- `Lattice.Geo.EqConstraintToken`, `Lattice.Lift.EndToEnd`
 - `Lattice.Geo.EqualLengthRepair` <- `Lattice.Geo.RepairCoverage`, `Lattice.Geo.Constraint`
 - `Lattice.Geo.Eval` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Dist`
 - `Lattice.Geo.Exact` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Loss`, `Lattice.Lib.Penalty.PolyExact`
@@ -70,7 +71,7 @@
 - `Lattice.Geo.Flatten` <- `Lattice.Geo.Expr`, `Lattice.Lift.Extraction`
 - `Lattice.Geo.FlattenAgreement` <- `Lattice.Geo.Flatten`, `Lattice.Geo.SeqRepresentation`
 - `Lattice.Geo.FormDeriv` <- `Lattice.Geo.ExprDeriv`, `Lattice.Geo.Perturb`
-- `Lattice.Geo.GeoLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Loss`
+- `Lattice.Geo.GeoLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Loss`, `Lattice.Geo.EqConstraintTokens`
 - `Lattice.Geo.GeoSampledBound` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.PolyAssemble`, `Lattice.Lift.GeoSampledBound`
 - `Lattice.Geo.IRBridge` <- `Lattice.Geo.LayerExact`, `Lattice.Geo.Loss`
 - `Lattice.Geo.IRRepair` <- `Lattice.Geo.IRBridge`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.LoopPerp`
@@ -962,6 +963,7 @@
 | `Lattice.Geo.Engine` | 6 | 5 |
 | `Lattice.Geo.EqConstraintToken` | 12 | 11 |
 | `Lattice.Geo.EqConstraintTokenizer` | 4 | 5 |
+| `Lattice.Geo.EqConstraintTokens` | 3 | 1 |
 | `Lattice.Geo.EqualLengthRepair` | 3 | 1 |
 | `Lattice.Geo.Eval` | 3 | 1 |
 | `Lattice.Geo.Exact` | 4 | 0 |
@@ -3170,7 +3172,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comp_strictMono_of_strictMono` -> `comp`, `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `compatible_iff_witness` -> `Repair`, `Sat`
 - `compatible_roundtrip` -> `W`, `comp`, `compile`, `extract`, `roundtrip`
-- `compileConstraint_sound` -> `EqConstraint`, `Ladder`, `Pt`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `poly`, `roundtrip`, `satSym`, `satW`
+- `compileConstraint_sound` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `eqConstraintTokenizer`, `ladder_forward`, `poly`, `satSym`, `satW`
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`
 - `compileFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `card`, `scaleVec`, `scaleVec_preserves`
 - `compileIR_collinear_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`, `sub`
@@ -4542,6 +4544,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eps_needs_nonneg` -> `Audit`
 - `eps_pow_fact_to_zero` -> `PolyApproxOn`, `mul_zero`, `zero_mul`
 - `eps_tendsto_zero_iff_tendsto` -> `LimitDiscrete`, `add`, `le_trans`, `mul`, `mul_zero`
+- `eqConstraintTokenizer_nontrivial` -> `add`, `cSamePoint`, `decode`, `encode`, `roundtrip`
+- `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
+- `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
 - `eqZero_value_is_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
 - `eq_iff_children_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
@@ -5500,7 +5505,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gen_parallelogram` -> `E`, `GDUpdate`, `GD_contraction_step`, `inner`, `isometry_preserves_norm_scalar`
 - `genus_topological_invariant` -> `Point3D`, `Theory`, `cross`, `dist`, `dot`, `poly`
 - `geoCompiler_compile` -> `EqConstraint`, `Pt`, `compile`, `loss`
-- `geoLadder_forward` -> `EqConstraint`, `Ladder`, `Pt`, `ladder_forward`, `satSym`, `satW`
+- `geoLadder_forward` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `ladder_forward`, `satSym`, `satW`
 - `geo_compile_preserves` -> `EqConstraint`, `Pt`, `compile`, `loss`, `poly`
 - `geo_eps_bridge` -> `E`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `geo_penalty_exact` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`, `sq_eq_zero_of_localMin`
@@ -6317,6 +6322,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l1l2_empty_vs_residual_collapse` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `norm`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_identifiable_implies_trivial_quotient` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `norm`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_identifiable_norm_collapses` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `norm`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `l1l2_is_real_tokenizer` -> `Pt`, `cSamePoint`, `encode`
 - `l1l2_only_one_direction` -> `ConstraintSet`, `SymToken`, `decode`, `no_left_inverse_at_all`
 - `l2_soundness` -> `Theory`, `TrustColor`, `propagate`, `valid`
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `listGcdNat`, `no_left_inverse_at_all`, `norm`
@@ -6324,7 +6330,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `ladder_compose_roundtrip` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_compose_soundness` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
-- `ladder_crosses_geo_layer` -> `EqConstraint`, `Ladder`, `Pt`, `ladder_forward`, `satSym`, `satW`
+- `ladder_crosses_geo_layer` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `ladder_forward`, `satSym`, `satW`
 - `ladder_forward` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_obligations_are_the_fields` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_reverse_consistent` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`

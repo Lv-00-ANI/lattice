@@ -30,6 +30,7 @@
 | `Engine` | 147 | 6 | — |
 | `EqConstraintToken` | 275 | 8 | — |
 | `EqConstraintTokenizer` | 211 | 4 | — |
+| `EqConstraintTokens` | 115 | 4 | — |
 | `EqualLengthRepair` | 113 | 3 | — |
 | `Eval` | 98 | 3 | — |
 | `Exact` | 91 | 4 | — |
@@ -45,7 +46,7 @@
 | `Flatten` | 131 | 4 | — |
 | `FlattenAgreement` | 67 | 4 | — |
 | `FormDeriv` | 158 | 8 | — |
-| `GeoLadder` | 154 | 4 | — |
+| `GeoLadder` | 173 | 4 | — |
 | `GeoSampledBound` | 79 | 1 | — |
 | `IRBridge` | 307 | 13 | — |
 | `IRRepair` | 86 | 3 | — |

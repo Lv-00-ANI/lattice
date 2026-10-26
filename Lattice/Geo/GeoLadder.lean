@@ -29,12 +29,24 @@
 **这是真实约束，不是实现细节**：L1⇄L2 的既有往返定理是**为线性形式写的**，
 而几何约束不是线性形式。
 
-### 1.2 正确做法：只声明跨层的那一跳
+### 1.2 正确做法：既跨层，也补上适配器
 
-**本节的交付目标不是「造一条完整的四跳 Ladder」，而是「证明 Geo 层的类型可以占据 `Ladder` 的符号位」。**
+**第 108 轮**交付时只做了前半：证明 Geo 层的类型可以占据 `Ladder` 的符号位，
+`l1l2` 用恒等 tokenizer 占位。
 
-因此 `l1l2` 用**恒等 tokenizer**（`EqConstraint` 直接当 token 看），
-**这不回避问题，而是把「L1→L2 需要一个适配器」这件事显式记录下来**（见 §3）。
+**第 144–150 轮**补上后半：`EqConstraint` 现在有真正的 tokenizer，`Tok := ℕ ⊕ ℝ`。
+
+| 轮次 | 成果 |
+|:--|:--|
+| 144 | `SExpr ⇄ List ℕ`（结构精确往返） |
+| 147 | `GeoExpr → List EqTok`（实数进入 token 流） |
+| 148 | `decExpr_enc_nil`：表达式五构造子往返 |
+| 149 | `decCon_enc_nil`：约束四构造子往返 |
+| **150** | **`geoLadder` 的 `l1l2` 用上它** |
+
+**根因值得记住**：`Ladder` 的 `Tok` 被 `l0l1` 与 `l1l2` 共享。当 `Tok = EqConstraint n` 时，
+`l1l2 : Tokenizer (EqConstraint n) (EqConstraint n)` 的任何实例都只能是「换个包装再拿回来」——
+**往返义务本身把内容压成了恒等**。换成 `EqTok` 才解开这个约束。
 
 ## 2. 主定理
 
@@ -45,13 +57,15 @@
 | **`geoLadder`** | **符号侧是 `EqConstraint` 的 `Ladder`** |
 | **`geoLadder_forward`** | **端到端：约束满足 ⟹ 损失为零** |
 | **`ladder_crosses_geo_layer`** | **首个跨到 Geo 层的实例** |
-| `l1l2_adapter_needed` | **未做的一步，显式记录** |
+| **`l1l2_is_real_tokenizer`** | **`l1l2` 的 `encode` 真的产出 token 列表** |
 
 ## 3. 边界（必须明说）
 
-- **`l1l2` 用恒等 tokenizer**：`EqConstraint` 被当作 token 直接传递。
-  **L1→L2 的真适配器未做**——既有往返定理是为 `LinearForm` 写的，几何约束需要新的适配器。
-  **这是本节未完成的部分，`l1l2_adapter_needed` 记录它。**
+- **`Data = EqConstraint n`**：`Tok` 被两跳共享，所以把 `Tok` 从 `EqConstraint n` 换成
+  `EqTok` 之后，`l0l1` 也必须是 `Tokenizer Data EqTok`。本节取 `Data = EqConstraint n`，
+  **即一个数据项就是一个约束**，于是 `l0l1` 与 `l1l2` 是同一个映射。
+  **多约束数据集尚未支持**：那需要 `Tokenizer (List (EqConstraint n)) EqTok`，
+  其列表解码的 fuel 记账（每个约束自定界，但需要 fuel 单调性）是独立的一步。
 - **`l2l3` 给出损失函数，不是仿射层**：`EqConstraint` 的损失依赖配置点，
   不属于 `AffineLayer`。**这是几何约束与仿射权重的真实差别。**
 - 符号侧用 `EqConstraint`（规范化形式）而非 12 个 `GeoConstraint` 构造子。
@@ -60,6 +74,7 @@
 import Mathlib
 import Lattice.Lift.EndToEnd
 import Lattice.Geo.Loss
+import Lattice.Geo.EqConstraintTokens
 
 open scoped BigOperators
 
@@ -96,21 +111,21 @@ theorem compileConstraint_sound (c : EqConstraint n) (pts : ℕ → Pt n)
 
 | 跳 | 内容 |
 |:--|:--|
-| L0→L1 | 恒等（`Data = List (EqConstraint n)`） |
-| L1→L2 | 恒等（见 §3 边界：真适配器未做） |
+| L0→L1 | 与 L1→L2 同一映射（`Data = EqConstraint n`，见 §3 边界） |
+| **L1→L2** | **真 tokenizer：`encCon` / `decCon`（第 149 轮）** |
 | **L2→L3** | **约束 ↦ 损失函数（本节）** |
 | `satSym` | `poly c pts = 0`（符号侧：约束成立） |
 | `satW` | `L pts ≤ 0`（权重侧：损失为零） |
 
+**L1→L2 不再是恒等**：第 108 轮的占位实现已被第 144–150 轮的六轮工作替换。
+`Tok := EqTok := ℕ ⊕ ℝ` 让实数进入 token 流，`decCon_enc_nil` 提供往返。
+
 **与既有实例的区别：符号侧第一次是 Geo 层的类型。** -/
 noncomputable def geoLadder (pts : ℕ → Pt n) :
-    Lattice.Lift.Ladder (List (EqConstraint n)) (EqConstraint n) (EqConstraint n)
+    Lattice.Lift.Ladder (EqConstraint n) Lattice.Geo.EqTok.EqTok (EqConstraint n)
       ((ℕ → Pt n) → ℝ) where
-  l0l1 := Lattice.Lift.identityTokenizer (EqConstraint n)
-  l1l2 :=
-    { encode := fun c => [c]
-      decode := fun ts => ts.head?
-      roundtrip := fun _ => rfl }
+  l0l1 := Lattice.Geo.EqConstraintTokens.eqConstraintTokenizer
+  l1l2 := Lattice.Geo.EqConstraintTokens.eqConstraintTokenizer
   l2l3 := compileConstraint
   satSym := fun c => EqConstraint.poly c pts = 0
   satW := fun L => L pts ≤ 0
@@ -130,23 +145,27 @@ theorem geoLadder_forward (pts : ℕ → Pt n) (c : EqConstraint n)
 
 /-- **首个跨到 Geo 层的实例**：存在一个 `Ladder`，其符号侧是 `EqConstraint`。 -/
 theorem ladder_crosses_geo_layer (pts : ℕ → Pt n) :
-    ∃ L : Lattice.Lift.Ladder (List (EqConstraint n)) (EqConstraint n) (EqConstraint n)
+    ∃ L : Lattice.Lift.Ladder (EqConstraint n) Lattice.Geo.EqTok.EqTok (EqConstraint n)
         ((ℕ → Pt n) → ℝ),
       ∀ c : EqConstraint n, L.satSym c → L.satW (L.l2l3 c) :=
   ⟨geoLadder pts, fun c h => Lattice.Lift.Ladder.ladder_forward (geoLadder pts) c h⟩
 
-/-- **未做的一步，显式记录**：L1→L2 的真适配器。
+/-- **L1→L2 的真适配器已经接上**：`geoLadder` 的 `l1l2` 编码一个约束到 `EqTok` 流并往返。
 
-`Lift/L1L2Roundtrip.lean` 的往返定理是为 `LinearForm ℝ n` 写的：
+第 108 轮此处记录的是「恒等 tokenizer 占位」；第 144–150 轮的六轮工作把它换成了真的编码器：
 
-```
-decodePayload : List ℝ → Option (LinearForm ℝ n)
-```
+| 轮次 | 成果 |
+|:--|:--|
+| 144 | `SExpr ⇄ List ℕ` |
+| 147 | `GeoExpr → List EqTok` |
+| 148 | `decExpr_enc_nil`：表达式五构造子往返 |
+| 149 | `decCon_enc_nil`：约束四构造子往返 |
+| **150** | **本 `Ladder` 的 `l1l2` 用上它** |
 
-**它的目标类型不是 `EqConstraint`**，所以几何约束无法直接使用那条往返。
-要接上，需要一个 `EqConstraint ⇄ token 列表` 的 tokenizer 及其往返定理——
-**那是独立工作，本节用恒等 tokenizer 占位并记录。** -/
-theorem l1l2_adapter_needed : True := trivial
+**这条定理不是重言式**：它把 `l1l2` 的 `encode` 展开成具体的 token 列表。 -/
+theorem l1l2_is_real_tokenizer (pts : ℕ → Pt n) :
+    (geoLadder pts).l1l2.encode (.samePoint 3 4) =
+      [Sum.inl Lattice.Geo.EqConstraintToken.cSamePoint, Sum.inl 3, Sum.inl 4] := rfl
 
 end GeoLadder
 
