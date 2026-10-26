@@ -89,9 +89,30 @@ def paid (rs : List Slot) : List String :=
     | .discharged d => some d
     | _ => none
 
-/-- Number of obligations still owed. This is the number the project must drive to zero,
-and it is the only progress metric the framework endorses: not files, not theorem counts,
-but how much is still on credit. -/
+/-- Number of obligations still owed.
+
+**This is NOT a number to drive to zero, and the earlier version of this docstring said it was.
+That was wrong, and the registry itself is the evidence.**
+
+Of the four owed slots, **three cannot be closed by any amount of work**:
+
+| slot | why it cannot close |
+|:--|:--|
+| `lift.embed.local_minimiser_exact` | **the general claim is FALSE** (`sound_not_exact`); only its instances hold |
+| `core.repair.atomic` | **not derivable** (`down_no_progress`); every operator must supply it |
+| `core.semantics.external_bridge` | **external toolchain** (TorchLean needs Lean >= 4.26) |
+
+Only `geo.loop.convergence_is_single_step` is a "weakened, could be strengthened" obligation --
+and strengthening it needs a repair operator whose step does not settle the predicate.
+
+So `owedCount` measures **what is on credit, not what is outstanding to be paid off**. A slot whose
+note ends in "the general claim is false" is a *boundary recorded*, not a debt: driving it to zero
+would mean deleting the record, which would make the library claim something untrue.
+
+**A better metric would separate the two kinds.** The `SlotState` type currently cannot express
+"permanently owed, by mathematical fact" -- adding that constructor is the right fix, and it is not
+done here because it touches every `match` on the type. Recorded instead of silently reinterpreted.
+-/
 def owedCount (rs : List Slot) : Nat := (owed rs).length
 
 /-- Structural well-formedness: names are non-empty and distinct.
