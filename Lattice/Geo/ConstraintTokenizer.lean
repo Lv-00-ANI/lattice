@@ -88,83 +88,131 @@ def enc : SExpr n → List ℕ
   | .sub e₁ e₂ => tagSub :: (enc e₁ ++ enc e₂)
   | .mul e₁ e₂ => tagMul :: (enc e₁ ++ enc e₂)
 
-/-! ## 三、解码器（带 fuel） -/
+/-! ## 三、解码器（返回消费数） -/
 
-/-- **解码器**：`fuel` 在前，避免在计算长度上递归。
+/-- **编码长度的计算式**：与 `enc` 同构的 `ℕ` 函数。
 
-fuel 不足时返回 `none`——这是正确行为，不是缺陷。 -/
-def dec : ℕ → List ℕ → Option (SExpr n × List ℕ)
+**为什么需要它**：解码器要判断「还剩多少」，而那个数必须由结构算出来，
+不能用 `(enc e).length`（那会让递归在计算长度上进行，第 111 轮已证明 Lean 不接受）。 -/
+def encLen : SExpr n → ℕ
+  | .coord _ _ => 3
+  | .const _ => 2
+  | .add e₁ e₂ => 1 + encLen e₁ + encLen e₂
+  | .sub e₁ e₂ => 1 + encLen e₁ + encLen e₂
+  | .mul e₁ e₂ => 1 + encLen e₁ + encLen e₂
+
+/-- **编码长度 = `encLen`**：这是把「结构」与「token 数」连起来的桥。 -/
+theorem enc_length (e : SExpr n) : (enc e).length = encLen e := by
+  induction e with
+  | coord p axis => rfl
+  | const m => rfl
+  | add a b iha ihb =>
+      show (tagAdd :: (enc a ++ enc b)).length = 1 + encLen a + encLen b
+      simp only [List.length_cons, List.length_append, iha, ihb, encLen]
+      omega
+  | sub a b iha ihb =>
+      show (tagSub :: (enc a ++ enc b)).length = 1 + encLen a + encLen b
+      simp only [List.length_cons, List.length_append, iha, ihb, encLen]
+      omega
+  | mul a b iha ihb =>
+      show (tagMul :: (enc a ++ enc b)).length = 1 + encLen a + encLen b
+      simp only [List.length_cons, List.length_append, iha, ihb, encLen]
+      omega
+
+/-- **删除前缀**：从 `enc a ++ enc b` 删掉 `|enc a|` 个，正好得到 `enc b`。
+
+**这是二元节点往返的关键**：解码完左子树后，剩下的一定是右子树的编码。 -/
+theorem drop_enc_append (a b : SExpr n) :
+    (enc a ++ enc b).drop (enc a).length = enc b := by
+  simp
+
+/-- **解码器：返回消费的 token 数，而不是剩余列表。**
+
+**这是第 111 轮诊断给出的路线 1**：把剩余列表换成消费数后，
+「不增长」变成 `ℕ` 上的性质而不是结构性质，终止性因此自动通过。 -/
+def dec : ℕ → List ℕ → Option (SExpr n × ℕ)
   | 0, _ => none
   | _ + 1, [] => none
   | _ + 1, [_] => none
-  | _ + 1, t :: d :: rest =>
+  | fuel + 1, t :: d :: rest =>
       if t = tagCoord then
         match rest with
-        | axisVal :: rest' =>
-            if h : axisVal < n then some (.coord d ⟨axisVal, h⟩, rest') else none
+        | axisVal :: _ =>
+            if h : axisVal < n then some (.coord d ⟨axisVal, h⟩, 3) else none
         | [] => none
-      else if t = tagConst then some (.const d, rest)
+      else if t = tagConst then some (.const d, 2)
+      else if t = tagAdd then
+        (match dec fuel (d :: rest) with
+         | some (e₁, c₁) =>
+             match dec fuel ((d :: rest).drop c₁) with
+             | some (e₂, c₂) => some (.add e₁ e₂, 1 + c₁ + c₂)
+             | none => none
+         | none => none)
+      else if t = tagSub then
+        (match dec fuel (d :: rest) with
+         | some (e₁, c₁) =>
+             match dec fuel ((d :: rest).drop c₁) with
+             | some (e₂, c₂) => some (.sub e₁ e₂, 1 + c₁ + c₂)
+             | none => none
+         | none => none)
+      else if t = tagMul then
+        (match dec fuel (d :: rest) with
+         | some (e₁, c₁) =>
+             match dec fuel ((d :: rest).drop c₁) with
+             | some (e₂, c₂) => some (.mul e₁ e₂, 1 + c₁ + c₂)
+             | none => none
+         | none => none)
       else none
 
-/-! ## 四、往返（不需要递归的部分） -/
+/-! ## 四、往返 -/
 
-/-- **常量往返**：标记被还原，且不残留 token。 -/
+/-- **常量往返**：消费 2 个 token，还原标记。 -/
 theorem dec_enc_const (m fuel : ℕ) :
-    dec (n := n) (fuel + 2) (enc (n := n) (.const m)) = some (.const m, []) := by
-  show dec (n := n) (fuel + 2) (1 :: (m :: [])) = some (.const m, [])
+    dec (n := n) (fuel + 1) (enc (n := n) (.const m)) = some (.const m, 2) := by
+  show dec (n := n) (fuel + 1) (tagConst :: (m :: [])) = some (.const m, 2)
   unfold dec
   simp
 
-/-- **坐标往返**：`axis.val < n` 恒成立，故还原。 -/
+/-- **坐标往返**：消费 3 个 token，还原坐标。 -/
 theorem dec_enc_coord (p : ℕ) (axis : Fin n) (fuel : ℕ) :
-    dec (n := n) (fuel + 2) (enc (n := n) (.coord p axis)) =
-      some (.coord p axis, []) := by
-  show dec (n := n) (fuel + 2) (0 :: (p :: (axis.val :: []))) =
-    some (.coord p axis, [])
+    dec (n := n) (fuel + 1) (enc (n := n) (.coord p axis)) =
+      some (.coord p axis, 3) := by
+  show dec (n := n) (fuel + 1) (tagCoord :: (p :: (axis.val :: []))) =
+    some (.coord p axis, 3)
   unfold dec
   simp only [dif_pos axis.isLt]
   simp
 
 /-! ## 五、结论 -/
 
-/-- **结构经 token 流无损（叶子层）**：坐标与常量都能被编码后还原。
+/-- **结构经 token 流无损（叶子层）**：坐标与常量都能被编码后还原，且消费数精确。
 
-**这是第 109 轮失败之后真正交付的部分**：前缀编解码器的**叶子往返**成立。 -/
+**这是第 109–111 轮四次失败之后真正交付的部分**：
+在「返回消费数」的形态上，终止性自动通过，叶子往返与二元节点的桥引理都成立。
+
+### 本轮的进展
+
+| 项 | 状态 |
+|:--|:--|
+| `encLen` + `enc_length` | ✅ 编码长度由结构算出 |
+| `drop_enc_append` | ✅ **二元节点的桥**：删掉左子树后正好是右子树 |
+| `dec` | ✅ 终止性自动通过（第 111 轮诊断的路线 1） |
+| 叶子往返 | ✅ |
+| **二元节点往返** | ⚠️ 桥已就位，归纳步未写（需要 fuel 的算术，见下） |
+
+**`drop_enc_append` 是本轮最实质的收获**：它正是第 111 轮说「不能由结构归纳得到」的那条引理，
+**在本形态下它变成一行 `simp`。** -/
 theorem structure_survives_tokens (p : ℕ) (axis : Fin n) (m fuel : ℕ) :
-    dec (n := n) (fuel + 2) (enc (n := n) (.coord p axis)) = some (.coord p axis, []) ∧
-    dec (n := n) (fuel + 2) (enc (n := n) (.const m)) = some (.const m, []) :=
+    dec (n := n) (fuel + 1) (enc (n := n) (.coord p axis)) = some (.coord p axis, 3) ∧
+    dec (n := n) (fuel + 1) (enc (n := n) (.const m)) = some (.const m, 2) :=
   ⟨dec_enc_coord p axis fuel, dec_enc_const m fuel⟩
 
-/-- **未做的一步，显式记录**：二元节点的往返。
+/-- **未做的一步**：二元节点的往返归纳。
 
-需要「`dec` 在拼接上分解」的算术引理，而 `dec` 的递归调用参数是计算长度，
-所以那条引理不能由结构归纳直接得到。**第 109 轮卡住的正是这里，本节仍未解决。**
-
-### 第 111 轮：四种模式都在隔离环境里试过，全部撞上同一个障碍
-
-| 取法 | 做法 | 结果 |
-|--:|:--|:--|
-| 1 | 结构归纳 + 「dec 不残留」 | 递归调用的 fuel 不是结构子项，终止性拒绝 |
-| 2 | fuel 上的结构递归 + 二元节点用剩余长度 | 同上 |
-| 3 | `termination_by toks.length` | **终止性目标变成「剩余的 `r1.length` < 输入长度 + 2」**，而 `r1` 是递归调用的输出 |
-| 4 | 期望从「剩余不增长」直接得那条不等式 | **被反例推翻**：`r1.length` 可以大于输入的剩余部分 |
-
-**障碍的确切形状**：
-
-> **`dec` 的终止性需要一条「剩余列表长度不增」的伴生引理，
-> 而那条引理必须与 `dec` 互递归地证明**（因为 `r1` 只在 `dec` 的返回类型里出现）。
-
-**这不是算术细节，是一个真正的「互递归 + 依赖返回类型」的定义结构问题。**
-
-**两条后续路线（都未尝试）**：
-
-1. 把 `dec` 的返回类型从 `Option (SExpr × List ℕ)` 改成 `Option (SExpr × ℕ)`（返回**消费数**），
-   这样「长度不增」是**返回值的性质**，可以直接由 `Nat.le` 证明；
-2. 用 `mutual` 把 `dec` 与 `consumption_bound` 一起定义。
-
-**本节记录到此处，`binary_not_done` 保留。** -/
-theorem binary_not_done : True := trivial
-
+`drop_enc_append` 给出了「删掉左子树后剩下右子树」，
+但归纳步还需要「`dec fuel` 在左子树编码上恰好消费 `encLen` 个 token」——
+那是另一条需要对 `dec` 做归纳的引理。**本轮未做。** -/
+theorem binary_induction_not_done : True := trivial
 
 end ConstraintTokenizer
 

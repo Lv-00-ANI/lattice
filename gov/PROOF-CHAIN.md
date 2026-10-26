@@ -942,7 +942,7 @@
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |
-| `Lattice.Geo.ConstraintTokenizer` | 7 | 8 |
+| `Lattice.Geo.ConstraintTokenizer` | 9 | 9 |
 | `Lattice.Geo.Derivative` | 3 | 1 |
 | `Lattice.Geo.Derive` | 2 | 2 |
 | `Lattice.Geo.Differentiable` | 10 | 2 |
@@ -4192,6 +4192,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
 - `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `flatten`, `length`
+- `drop_enc_append` -> `add`, `length`, `mul`, `sub`
 - `drop_lower_bound` -> `apply`, `card`, `load`
 - `drop_of_total_exceeds_capacity` -> `apply`, `card`, `load`
 - `drop_one_cons` -> `Layer`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `mk`, `roundtrip_extractVec`
@@ -4432,6 +4433,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_table_unique` -> `apply`, `backward_compat_refl`, `backward_compat_trans`, `contains`, `deserialize`, `empty`, `find`, `insert`, `insert_is_backward_compatible`, `insert_preserves_uniqueness`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `lookup`, `lookup_by_category_correct`, `lookup_by_name_sound`, `remove`, `remove_breaks_compatibility`, `serialize`, `singleton`, `toNat`, `well_formed`, `zero`
 - `empty_table_well_formed` -> `Theory`, `backward_compat_refl`, `empty`, `empty_table_unique`, `lookup`
 - `empty_test_case_passes` -> `Theory`
+- `enc_length` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
 - `encodeForm_arity` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_length` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `mk`, `payload`
@@ -9947,9 +9949,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `t3_rename_keeps_t1` -> `K`, `UnknownOp`, `op`, `residualOp`, `t1_decompose`
 - `t3_sem_eq_op` -> `K`, `op`
 - `tactic_mapping_completeness` -> `Theory`
-- `tagAdd_eq` -> `add`, `mul`, `sub`
-- `tagConst_eq` -> `add`, `mul`, `sub`
-- `tagCoord_eq` -> `add`, `mul`, `sub`
+- `tagAdd_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
+- `tagConst_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
+- `tagCoord_eq` -> `add`, `induction`, `length`, `length_cons`, `mul`, `sub`
 - `tailEigSq_eq_zero_of_le` -> `Matrix`, `apply`, `card`, `card_fin`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`
 - `tailEigSq_nonneg` -> `Matrix`, `apply`, `card`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`
 - `tailEigSq_zero` -> `Matrix`, `apply`, `card`, `card_fin`, `ext`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sub`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trace`, `trans`, `transpose_mul`
