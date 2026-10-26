@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 19 | no imports from lift/lib |
-| lift | 51 | may import core only |
+| lift | 52 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
 | geo | 92 | the geometry/constraint layer |
@@ -734,7 +734,7 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
 - `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproximationBridge` <- `Lattice.Lift.ApproxExact`
@@ -775,6 +775,7 @@
 - `Lattice.Lift.RealVerifierReliable` 
 - `Lattice.Lift.RepresentationFamilies` <- `Lattice.Core.Net`, `Lattice.Core.Weight`, `Lattice.Core.VariableNet`
 - `Lattice.Lift.RoundingBackend` <- `Lattice.Lift.LossyRepresentation`
+- `Lattice.Lift.StackCodegen` 
 - `Lattice.Lift.SymbolToWeight` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
 - `Lattice.Lift.SymbolToWeightCorrectness` <- `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Lift.TokenAlphabet` <- `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`
@@ -1684,6 +1685,7 @@
 | `Lattice.Lift.RealVerifierReliable` | 2 | 3 |
 | `Lattice.Lift.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
+| `Lattice.Lift.StackCodegen` | 6 | 8 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 4 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -2165,9 +2167,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `adam_zero_gradient_denominator` -> `sqrt`
 - `adam_zero_gradient_fixed` -> `sqrt`
 - `adaptive_plus_rounding_soundness` -> `Theory`
-- `adaptive_rejection_correct` -> `add`, `emptyEnv`, `mul`, `op`, `out`, `point`, `wellFormed`
-- `adaptive_verification_soundness` -> `add`, `emptyEnv`, `mul`, `op`, `out`, `point`, `wellFormed`
-- `adaptive_verify_termination` -> `add`, `emptyEnv`, `eval`, `mul`, `op`, `out`, `point`, `wellFormed`
+- `adaptive_rejection_correct` -> `add`, `emptyEnv`, `evalStack`, `mul`, `op`, `out`, `point`, `wellFormed`
+- `adaptive_verification_soundness` -> `add`, `emptyEnv`, `evalStack`, `mul`, `op`, `out`, `point`, `wellFormed`
+- `adaptive_verify_termination` -> `add`, `emptyEnv`, `eval`, `evalStack`, `mul`, `op`, `out`, `point`, `wellFormed`
 - `addBinding_length` -> `Theory`, `length`
 - `add_congr` -> `dist`, `eps`, `le_trans`
 - `add_connection_preserves_well_formed` -> `Theory`, `induction`, `length`, `well_formed`
@@ -3174,6 +3176,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comp_strictMono_of_strictMono` -> `comp`, `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `compatible_iff_witness` -> `Repair`, `Sat`
 - `compatible_roundtrip` -> `W`, `comp`, `compile`, `extract`, `roundtrip`
+- `compileAcc_correct` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mul`
 - `compileConstraint_sound` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `eqConstraintListTokenizer`, `eqConstraintTokenizer`, `ladder_forward`, `poly`, `satSym`, `satW`
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`
 - `compileFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `card`, `scaleVec`, `scaleVec_preserves`
@@ -4608,7 +4611,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `error_recovery_by_reload` -> `Theory`, `path`
 - `error_severity_propagate` -> `ErrorCode`, `Theory`
 - `error_to_penalty` -> `EqConstraint`, `ErrorBound`, `Pt`, `le_trans`, `loss`, `poly`
-- `error_to_trust_monotone` -> `TrustColor`, `add`, `e2`, `emptyEnv`, `mid`, `mul`, `op`, `out`, `point`, `wellFormed`, `width`
+- `error_to_trust_monotone` -> `TrustColor`, `add`, `e2`, `emptyEnv`, `evalStack`, `mid`, `mul`, `op`, `out`, `point`, `wellFormed`, `width`
 - `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `le_antisymm`, `roundtrip_error_le_one`, `triangle_combine`
 - `euclid_euler_theorem` -> `Theory`, `go`
 - `euclid_norm_sq_eq` -> `LinearMap`, `Matrix`, `apply`, `ext`, `inner`, `mulVec`, `norm_nonneg`
@@ -5093,7 +5096,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fin_two_mul_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `cos`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`, `sin`
 - `fin_zero_ne_one` -> `Compiler`, `card`
 - `finitary_quantifier_elimination` -> `Domain`, `Theory`, `triangle_inequality`
-- `finite_difference_error_bound` -> `TrustColor`, `e2`, `emptyEnv`, `mid`, `op`, `out`, `point`, `wellFormed`, `width`
+- `finite_difference_error_bound` -> `TrustColor`, `e2`, `emptyEnv`, `evalStack`, `mid`, `op`, `out`, `point`, `wellFormed`, `width`
 - `finite_domain_compactness_fails` -> `Compiler`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `bvar`, `induction`, `subst`
 - `finite_subset_satisfiable` -> `Compiler`, `bvar`, `induction`, `subst`
@@ -6430,6 +6433,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `le_refl` -> `apply`, `contains`, `ext`, `find`, `le_antisymm`, `le_total`, `le_trans`, `length`, `lookup`, `singleton`, `singleton_contains_iff`, `size`, `subst`, `trans`, `well_formed`
 - `le_roundUpN` -> `subst`
 - `le_round_up` -> `ErrorBound`, `add`, `containment_add`, `contains`, `fourCorners`, `le_trans`, `mid`, `mul`, `point`, `rel`, `wellFormed`, `width`, `zero`
+- `le_succ_of_pred_le` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `op`
 - `le_total` -> `apply`, `contains`, `empty`, `empty_table_unique`, `find`, `insert`, `insert_preserves_uniqueness`, `le_antisymm`, `le_refl`, `length`, `lookup`, `remove`, `singleton`, `singleton_contains_iff`, `size`, `subst`, `well_formed`
 - `le_trans` -> `apply`, `contains`, `ext`, `find`, `le_antisymm`, `le_refl`, `le_total`, `length`, `lookup`, `singleton`, `singleton_contains_iff`, `size`, `subst`, `trans`, `well_formed`
 - `le_tsum_of_nonneg` -> `apply`, `infinite_sum_bound`, `sqrt`
@@ -8935,6 +8939,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rule_entails` -> `GeoConstraint`, `sound`, `subst`
 - `runApp_exhaustive` -> `Theory`, `apply`
 - `runChainStr_eq` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
+- `runProg_append` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `op`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `edit_seq_comm`, `induction`, `length`, `lit`, `mul`, `neg`, `nil_append`, `rankOneEdit`, `run`, `sub`, `subst`
 - `run_cons` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
 - `run_nil` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
@@ -9672,6 +9677,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ssm_state_compose` -> `E`, `apply`, `induction`, `norm_nonneg`, `rnnState`, `succ`, `zero`
 - `ssm_state_growth_bound` -> `E`, `apply`, `norm_nonneg`
 - `stable` -> `Sat`, `induction`, `iterate`, `succ`, `zero`
+- `stackDepth_left` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `op`
+- `stackDepth_right` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `op`
 - `stage_atomicity` -> `Cache`, `Theory`, `find`
 - `standardFamily_preserves_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `samePoint_scale`, `samePoint_translate`
 - `standardModel_is_model` -> `Collinear`, `ConstraintGraph`, `Evidence`, `FormalSignature`, `Formula`, `IRConstraint`, `IRExpr`, `Model`, `Parallel`, `ProofTrace`, `ProofTree`, `RelSymbol`, `Term`, `add`, `angle`, `center`, `closed_provable`, `collinear`, `convert`, `e2`, `evidence_check`, `evidence_completeness`, `ext`, `go`, `graph_satisfiable`, `is_model_of`, `mul`, `parallel`, `rel`, `satisfies`, `soundness_theorem`, `sqrt`, `sub`, `subst`, `tangent`

@@ -27,6 +27,7 @@ import Lattice.Lift.ApproxExtraction
 import Lattice.Lift.RatRepresentation
 import Lattice.Lift.GridDensity
 import Lattice.Lift.MultiLayerLadder
+import Lattice.Lift.StackCodegen
 
 /-!
 # Lattice.Lift -- the representation ladder
