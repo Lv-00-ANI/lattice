@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 19 | no imports from lift/lib |
-| lift | 53 | may import core only |
+| lift | 54 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
 | geo | 93 | the geometry/constraint layer |
@@ -735,7 +735,7 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
 - `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproxLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RoundingBackend`
@@ -752,6 +752,7 @@
 - `Lattice.Lift.EndToEndApproximation` <- `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`
 - `Lattice.Lift.ErrorCalculus` 
 - `Lattice.Lift.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Idempotent`, `Lattice.Core.Repair`
+- `Lattice.Lift.ExtractionStrength` <- `Lattice.Lift.Extraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.ApproxExtraction`
 - `Lattice.Lift.GeoSampledBound` <- `Lattice.Lift.VerificationSoundness`
 - `Lattice.Lift.GridDensity` <- `Lattice.Lift.RealVerifierReliable`
 - `Lattice.Lift.IntRoundtrip` <- `Lattice.Lift.TokenAlphabet`
@@ -1664,6 +1665,7 @@
 | `Lattice.Lift.EndToEndApproximation` | 3 | 0 |
 | `Lattice.Lift.ErrorCalculus` | 7 | 1 |
 | `Lattice.Lift.Extraction` | 17 | 6 |
+| `Lattice.Lift.ExtractionStrength` | 3 | 1 |
 | `Lattice.Lift.GeoSampledBound` | 2 | 0 |
 | `Lattice.Lift.GridDensity` | 6 | 1 |
 | `Lattice.Lift.IntRoundtrip` | 5 | 4 |
@@ -7568,6 +7570,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `odd_irreducible_natDegree_eq_one` -> `K`, `Polynomial`, `degree`, `eval`
 - `odd_perfect_number_open_problem` -> `Theory`, `go`
 - `ode_solution_unique` -> `State`, `Theory`
+- `ofApprox_compile` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
+- `ofApprox_extract` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
+- `ofApprox_semEq` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
 - `ofClause_onlyAndOrNot` -> `Compiler`, `induction`
 - `ofDB_toDB` -> `Compiler`, `induction`, `subst`
 - `ofDB_toDB_witness` -> `Compiler`

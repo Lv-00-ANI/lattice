@@ -17,13 +17,13 @@
 | 1.2 token -> symbol | `decodePayload` | `Lift/L1L2.lean` | 6 | 0 | `Audit/Hypotheses.lean`, `Geo/GeoLadder.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Lib/Meta/RealHypothesisAudit.lean` | 53 | 5 | `Geo/SynthesisConnection.lean`, `Lib/Chain/RealChainEntryOOV.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 1 | 1 | `Lift/NondegenerateInstance.lean` |
-| 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 29 | 6 | `Slots.lean`, `Audit/StructureCensus.lean` |
+| 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 30 | 6 | `Slots.lean`, `Audit/StructureCensus.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 18 | 8 | `Lift.lean`, `Slots.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 15 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 1 | 1 | `Geo/MultiSeedCoverage.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 3 | 6 | `Geo/GeoLadder.lean`, `Lift/MultiLayerLadder.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
-| 3.1 inverse: extraction | `ApproxRepresentation` | `Lift/ApproxExtraction.lean` | 2 | 9 | `Lift/ApproxLadder.lean`, `Lift/RatRepresentation.lean` |
+| 3.1 inverse: extraction | `ApproxRepresentation` | `Lift/ApproxExtraction.lean` | 3 | 9 | `Lift/ApproxLadder.lean`, `Lift/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Lift/RatRepresentation.lean` | 0 *(仅本文件)* | 10 | — |
 | 3.2 inverse: verification | `EpsSat` | `Lift/ApproxExact.lean` | 4 | 10 | `Audit/Counterexamples.lean`, `Lift/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | `Geo/GeoSampledBound.lean` | 5 | 0 | `Geo/ClauseComposition.lean`, `Geo/SynthesisCoverage.lean` |
