@@ -46,6 +46,7 @@ REPORT_ONLY = {
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
+      "ladder: every l1l2 rung classified",
 }
 
 # (label, script, expects a specific exit code or None for "any")
@@ -132,6 +133,10 @@ CHECKS = [
     # checked that a NEW placeholder is labelled, so an unlabelled one would make the theorems about
     # it true-but-empty with no invariant noticing.
     ("stubs: every placeholder definition is labelled", "check_stub_registry.py"),
+    # Round 152: rounds 108-150 found that an identity `l1l2` can be CORRECT (Sym is List Tok, so
+    # there is nothing to encode) or a DEFECT (Sym carries structure Tok cannot hold). This prints
+    # the classification of every Ladder instance so the defect cannot reappear unnoticed.
+    ("ladder: every l1l2 rung classified", "check_ladder_rungs.py"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.
