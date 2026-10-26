@@ -1630,7 +1630,7 @@
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Lift.ApproxExact` | 8 | 2 |
-| `Lattice.Lift.ApproxExtraction` | 3 | 3 |
+| `Lattice.Lift.ApproxExtraction` | 6 | 3 |
 | `Lattice.Lift.ApproximationBridge` | 5 | 0 |
 | `Lattice.Lift.ChainComposition` | 2 | 3 |
 | `Lattice.Lift.ComboN` | 5 | 3 |
@@ -8773,6 +8773,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `round_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `Rule`, `rule_entails`
 - `round_transformation_correct` -> `Theory`
 - `round_up_monotone` -> `ErrorBound`, `TrustColor`, `add`, `containment_add`, `contains`, `fourCorners`, `le_trans`, `mid`, `mul`, `point`, `rel`, `wellFormed`, `width`, `zero`
+- `roundingIsApprox_bound` -> `ErrorBound`, `compile`, `dist`, `extract`
+- `roundingIsApprox_composes` -> `ErrorBound`, `dist`
+- `roundingIsApprox_error_one` -> `ErrorBound`, `dist`
 - `roundtripCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `neg`, `tiny`
 - `roundtripNeuron_self` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`, `sqrt`
 - `roundtrip_behavior` -> `ConstraintSat`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `NeuronOut`, `VectorConstraint`, `convert`, `convertVec`, `convert_preserves_semantics`

@@ -186,6 +186,47 @@ noncomputable def roundingIsApprox : ApproxRepresentation ℤ ℤ where
         linarith
     exact h'
 
+/-! ## 五、实例的消费者
+
+第 130 轮盘查发现：`roundingIsApprox` 是**条款 3.1（`ApproxRepresentation`）的唯一具体实例**，
+但**没有任何定理使用它**——全库搜索这个名字只命中它自己的定义行。
+
+这与第 104 轮 `Repair` 的「实例存在但无人消费」是同一形态。下面两条定理让它成为真正的实例。
+
+### 为什么消费者是必要的
+
+一个没有任何使用者的实例，其存在只能证明「这个概念可以实例化」，不能证明它与库的其余部分相连。
+`roundingIsApprox_bound` 把实例的 `bounded` 字段变成一条**具名定理**，
+`roundingIsApprox_error_one` 把它的误差界变成**可引用的数字**。 -/
+
+/-- **实例的往返界**：对每个整数 `x`，取整往返的实数距离不超过 `ε = 1`。
+
+这是 `roundingIsApprox.bounded` 的具名形式，使该字段可以被其他定理直接引用。 -/
+theorem roundingIsApprox_bound (x : ℤ) :
+    roundingIsApprox.dist (roundingIsApprox.extract (roundingIsApprox.compile x)) x
+      ≤ roundingIsApprox.ε :=
+  roundingIsApprox.bounded x
+
+/-- **实例的误差界就是 `1`**：`ε` 不是一个自由参数，而是一个具体数字。
+
+⇒ 条款 3.1 的「有界提取」在整数取整这一档上**有确定的常数**，不是「存在某个 ε」。 -/
+theorem roundingIsApprox_error_one : roundingIsApprox.ε = 1 := rfl
+
+/-- **实例接上误差演算**：两段取整的复合误差界是 `1 + 1 = 2`。
+
+这条把 `roundingIsApprox`（本节）与 `compose_via_calculus`（§三）连起来，
+说明新结构**不是孤立的**：它的误差可以按 `ErrorCalculus` 的分段相加规则复合。 -/
+theorem roundingIsApprox_composes (x : ℤ) :
+    ErrorBound roundingIsApprox.dist x x
+      (roundingIsApprox.ε + roundingIsApprox.ε) := by
+  have h := roundingIsApprox.bounded x
+  have hε := roundingIsApprox.hε
+  unfold ErrorBound
+  -- dist x x = 0 for this instance, and 0 <= 1 + 1
+  show roundingIsApprox.dist x x ≤ roundingIsApprox.ε + roundingIsApprox.ε
+  show |(x : ℝ) - (x : ℝ)| ≤ 1 + 1
+  simp
+
 end ApproxExtraction
 
 end Lattice.Lift
