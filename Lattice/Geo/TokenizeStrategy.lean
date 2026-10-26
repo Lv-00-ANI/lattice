@@ -293,15 +293,78 @@ theorem encLen_ge_two (e : E) : 2 ≤ encLen e := by
 
 **这条修正后编译通过。** §8.1 的记录因此需要更新：第 122 轮写的那版**不成立**。
 
-## 10. 本文的边界
+## 10. 第 125 轮：**完整的二元节点往返在探针里证成了**
+
+第 11 次尝试成功。**`agent-tmp/probe_a11b.lean` 里的 `P.dec_enc_append` 编译通过，零 `sorry`，
+公理只有 `propext` 与 `Quot.sound`。**
+
+### 10.1 成功的完整配方
+
+```lean
+theorem dec_enc_append (e : E) :
+    ∀ (suffix : List Nat) (fuel : Nat), encLen e ≤ fuel →
+      dec (enc e ++ suffix) fuel = some (e, encLen e) := by
+  induction e with
+  | leaf k =>
+      ...
+      show dec (enc (E.leaf k) ++ suffix) (f + 2) = some (.leaf k, encLen (E.leaf k))
+      simp only [enc, encLen_leaf, List.cons_append, List.nil_append]
+      rw [show (f + 2) = (f + 1) + 1 from rfl]
+      rw [dec_leaf_step]
+  | bin a b iha ihb =>
+      intro suffix fuel h
+      simp only [encLen_bin] at h
+      obtain ⟨f, rfl⟩ : ∃ f, fuel = f + 2 := ⟨fuel - 2, by
+        have b1 : 2 ≤ encLen a := encLen_ge_two a
+        have b2 : 2 ≤ encLen b := encLen_ge_two b
+        omega⟩
+      show dec (enc (E.bin a b) ++ suffix) (f + 2) = some (.bin a b, encLen (E.bin a b))
+      simp only [enc, encLen_bin]                       -- 把 enc/bin 化开
+      rw [show (f + 2) = (f + 1) + 1 from rfl]          -- fuel 进构造子形态
+      rw [show (0 :: (enc a ++ enc b)) ++ suffix = 0 :: ((enc a ++ enc b) ++ suffix) from rfl]
+      rw [dec_bin_step (f + 1) ((enc a ++ enc b) ++ suffix) (by ...)]   -- 手写方程
+      rw [show (enc a ++ enc b) ++ suffix = (enc a ++ (enc b ++ suffix)) from
+        List.append_assoc (enc a) (enc b) suffix]        -- 结合律
+      rw [iha (enc b ++ suffix) (f + 1) (by omega)]      -- 归纳假设
+      simp only []                                        -- 归约 match some
+      rw [show List.drop (encLen a) (enc a ++ (enc b ++ suffix)) = enc b ++ suffix from ...]
+      rw [ihb suffix (f + 1) (by omega)]
+```
+
+### 10.2 每一步对应一个子问题
+
+| 步骤 | 子问题 | 出处 |
+|:--|:--|:--|
+| `dec` 参数是 `(list, fuel)` | ① | 第 120 轮 |
+| `encLen_ge_two`（用归纳假设证） | ② | 第 124 轮修正 |
+| `dec_bin_step` / `dec_leaf_step` | ③ | 第 123 轮 |
+| `(0 :: L) ++ suffix = 0 :: (L ++ suffix)` 的 `rfl` | ④ | **第 125 轮** |
+| `simp only []` 归约 `match some` | ④ | **第 125 轮** |
+
+**④ 的两个关键点**：
+1. `(0 :: L) ++ suffix = 0 :: (L ++ suffix)` 是 **`rfl`**（`List.cons_append` 的定义）
+2. `rw [iha]` 之后必须 `simp only []` 让 `match some (a, encLen a) with` 归约，
+   **否则 `drop` 的引理无法命中**
+
+### 10.3 还没做的：移植到 `SExpr`
+
+探针用的是抽象类型 `E`；项目的 `SExpr` 有五个构造子（`coord`/`const`/`add`/`sub`/`mul`），
+且 `dec` 的参数顺序是 `(fuel, list)`。**移植需要**：
+
+1. 把 `dec` 改成 `(list, fuel)`（影响所有调用点）
+2. 为 `add`/`sub`/`mul` 各写一条 `dec_X_step`（结构与 `dec_add_step` 相同）
+3. 归纳时五个分支都用 10.1 的配方
+
+**这是机械工作，没有新的障碍。**
+
+## 11. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
-- 第 119–124 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
+- 第 119–125 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
   **叶子层完成，二元层开放**。
 - 探针文件在 `agent-tmp/probe_*.lean`，不纳入构建。
 - **§5.3 的建议已被 §6 推翻，不要照着做。** §6.3 是替代方案。
 - **§7.1 的陈述正确但证明需要 §9.2 的修正版**（用归纳假设，不用 `2 ≤ 1 + x`）。
-- **§8.1 的手写方程引理是可复用的成果**，已在探针里编译通过。
-- **§9.1 的括号形态是 ④ 的唯一剩余障碍。**
-- **第 120 轮的探针证明了参数调换是对的**（`dec_leaf` 编译通过），所以下一次不必再验证这一部分。
+- **§8.1、§10.1 是可复用的成果**，两者都在探针里编译通过。
+- **§10.3 是唯一剩下的事：把 §10.1 移植到 `SExpr`，纯机械。**
 -/
