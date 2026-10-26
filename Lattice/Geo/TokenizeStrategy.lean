@@ -357,10 +357,56 @@ theorem dec_enc_append (e : E) :
 
 **这是机械工作，没有新的障碍。**
 
-## 11. 本文的边界
+## 11. 第 126–127 轮：五分支形态下的方程引理
+
+第 125 轮的探针只有**两个分支**（`if t = 0` / `if t = 1`），而项目的 `dec` 有**五个**
+（`tagCoord` / `tagConst` / `tagAdd` / `tagSub` / `tagMul`）。
+第 126 轮直接移植到项目文件上，失败五次——**因为两分支与五分支的 `rfl` 行为不同**。
+
+### 11.1 第 127 轮：五分支探针（`agent-tmp/probe5b.lean`，编译通过，零 `sorry`）
+
+```lean
+/-- tag-1（常量）：`rfl` 够用，因为它是第二个分支，第一个判断 `1 = tag0` 立即为假。 -/
+theorem dec_c1_step (k d : Nat) (rest : List Nat) :
+    dec (1 :: (d :: rest)) (k + 1) = some (.c1 d, 2) := by rfl
+
+/-- tag-2（二元）：`rfl` 不够，要展开 if 链。 -/
+theorem dec_c2_step (k d : Nat) (rest : List Nat) :
+    dec (2 :: (d :: rest)) (k + 1) = <二元分支体> := by
+  rw [dec.eq_def]
+  simp only [tag0_eq, tag1_eq, tag2_eq]
+  norm_num
+
+/-- tag-0（坐标）：**不需要 `dif_pos`**。 -/
+theorem dec_c0_step (k d axisVal : Nat) (rest : List Nat) :
+    dec (0 :: (d :: (axisVal :: rest))) (k + 1) = some (.c0 d axisVal, 3) := by
+  rw [dec.eq_def]
+  simp only [tag0_eq]
+  norm_num
+```
+
+### 11.2 修正第 126 轮的一个判断
+
+第 126 轮记录「`dec_coord_step` 可能需要 `simp only [tagCoord_eq, if_pos rfl, dif_pos h]`」。
+**五分支探针表明不需要**：`rw [dec.eq_def]; simp only [tag0_eq]; norm_num` 就够了——
+因为 `norm_num` 会把剩下的 `if` 和 `dif` 一起消掉。
+
+**这与第 121 轮的教训同型**：我在**没有探针证据**的情况下猜了一个 tactic 组合，
+然后基于那个猜测去改项目文件。
+
+### 11.3 还没通的部分
+
+`probe6.lean` 尝试把五分支的**完整归纳**写完，卡在 `c2` 分支的
+`rw [dec_bin_step]` 没命中——因为 `dec_bin_step` 要求列表字面是 `2 :: (d :: rest)`，
+而目标里是 `2 :: (enc a ++ enc b ++ suffix)`。
+
+**这正是第 125 轮 `probe_a11b.lean` 用 `rfl` 的 cons_append 事实解决的问题**，
+但那次是两分支形态。**五分支下需要重新验证那一步。**
+
+## 12. 本文的边界
 
 - **不含任何声明**，对构建与既有定理零影响。
-- 第 119–125 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
+- 第 119–127 轮结束时 `ConstraintTokenizer` 的状态与第 112 轮结束相同：
   **叶子层完成，二元层开放**。
 - 探针文件在 `agent-tmp/probe_*.lean`，不纳入构建。
 - **§5.3 的建议已被 §6 推翻，不要照着做。** §6.3 是替代方案。
