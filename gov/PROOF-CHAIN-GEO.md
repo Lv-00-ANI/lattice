@@ -13,6 +13,7 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `ApproxEmbedding` | 106 | 1 | — |
+| `CExprCodegen` | 113 | 4 | — |
 | `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 204 | 10 | — |
 | `Compile` | 99 | 2 | — |
