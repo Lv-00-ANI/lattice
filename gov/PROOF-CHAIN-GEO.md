@@ -87,6 +87,7 @@
 | `Shape` | 204 | 3 | — |
 | `Square` | 161 | 10 | — |
 | `Synthesis` | 140 | 6 | — |
+| `SynthesisConnection` | 158 | 7 | — |
 | `SynthesisCoverage` | 179 | 7 | — |
 | `SynthesisMulti` | 132 | 4 | — |
 | `Unconditional` | 117 | 7 | — |
