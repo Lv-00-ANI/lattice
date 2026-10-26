@@ -64,13 +64,12 @@ open Lattice.Lib.Linear.PenaltyVector
 
 /-! ## 一、`poly` 的分支常数
 
-定义 `polyConst c Kd` 给每个约束一个常数；`Kd` 是 `.distEq` 分支中表达式的常数
-（`expr` 分支用自己的 `K`，`samePoint`/`perpendicular` 不用）。
+`Kd` 是 `.distEq` 分支中表达式的常数（`.expr` 分支用自己的 `K`，
+`samePoint` / `perpendicular` 不用）；平方距离的常数由 `sqDistConst` 给出。
 
-这个定义是**分情形**的，因为四个分支的常数来源不同。 -/
-
-/-- `.expr` 分支的常数：表达式自己的常数。 -/
-noncomputable def polyConstExpr {n : ℕ} (e : GeoExpr n) (Ke : ℝ) : ℝ := Ke
+**`.expr` 分支没有单独的常数定义**：它的界直接就是表达式的 Lipschitz 常数 `K`，
+见下方 `poly_lipschitz_expr`。第 131 轮删除了一个曾在这里的 `polyConstExpr e Ke := Ke`——
+它是恒等函数，全库零引用。 -/
 
 /-- 点集界 `B` 与 `n` 给出的平方距离常数。 -/
 noncomputable def sqDistConst (n : ℕ) (B : ℝ) : ℝ := 8 * n * B

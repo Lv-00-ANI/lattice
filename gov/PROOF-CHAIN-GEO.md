@@ -68,7 +68,7 @@
 | `Perturb` | 126 | 8 | — |
 | `Pipeline` | 170 | 7 | — |
 | `Plucker` | 105 | 2 | — |
-| `PolyAssemble` | 129 | 4 | — |
+| `PolyAssemble` | 128 | 4 | — |
 | `PolyConstants` | 159 | 5 | — |
 | `PolyLipschitz` | 114 | 1 | — |
 | `PolyNondegenerate` | 210 | 8 | — |

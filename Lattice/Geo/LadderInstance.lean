@@ -102,12 +102,12 @@ noncomputable def linearLadder (n : ℕ) :
     { encode := fun c => (encodeForm c).payload
       decode := fun rs => decodePayload n rs
       roundtrip := fun c => L1L2Roundtrip.decodePayload_encodeForm n c }
-  l2l3 := fun c => (c.b + ∑ i : Fin n, c.a i * (0 : Fin n → ℝ) i) ^ 2
-  satSym := fun c => c.b + ∑ i : Fin n, c.a i * (0 : Fin n → ℝ) i = 0
+  l2l3 := fun c => (linearResid c (fun _ => 0)) ^ 2
+  satSym := fun c => linearResid c (fun _ => 0) = 0
   satW := fun L => L = 0
   l2l3_sound := by
     intro s hs
-    show (s.b + ∑ i : Fin n, s.a i * (0 : Fin n → ℝ) i) ^ 2 = 0
+    show (linearResid s (fun _ => 0)) ^ 2 = 0
     rw [hs]
     ring
 

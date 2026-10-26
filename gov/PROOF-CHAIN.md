@@ -993,7 +993,7 @@
 | `Lattice.Geo.Perturb` | 9 | 2 |
 | `Lattice.Geo.Pipeline` | 7 | 5 |
 | `Lattice.Geo.Plucker` | 2 | 0 |
-| `Lattice.Geo.PolyAssemble` | 4 | 2 |
+| `Lattice.Geo.PolyAssemble` | 4 | 1 |
 | `Lattice.Geo.PolyConstants` | 5 | 2 |
 | `Lattice.Geo.PolyLipschitz` | 1 | 0 |
 | `Lattice.Geo.PolyNondegenerate` | 8 | 0 |
