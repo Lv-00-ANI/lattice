@@ -83,6 +83,7 @@ import Lattice.Geo.ConstraintTokenizer
 import Lattice.Geo.NondegenerateInstance
 import Lattice.Geo.TokenizeStrategy
 import Lattice.Geo.TokenizerPattern
+import Lattice.Geo.EqConstraintTokenizer
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
