@@ -120,6 +120,10 @@ CHECKS = [
     # names and known numbers, not the integrity of surrounding text. Round 116 restored the file
     # from before the damage and added this guard.
     ("docs: no batch-replacement damage", "check_batch_edit_damage.py"),
+    # Round 116: the README correctly says CI has never run. This runs the half of CI that needs no
+    # Lean toolchain, step for step, and statically audits the half that does -- then says plainly
+    # that the audit is not a run.
+    ("ci: job 1 runs locally, job 2 audited", "check_ci_locally.py"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.

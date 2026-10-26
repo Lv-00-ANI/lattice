@@ -9,7 +9,7 @@
 
 **本库能自主完成的部分已经完成，并且「完成」这件事现在是被机器检查的，不是被声明的。**
 
-- **772 个模块、8,191 条定理、10788 条声明、204,800 行**
+- **772 个模块、8,191 条定理、10788 条声明、207,800 行**
 - **11 个守卫逐个运行，全部 exit 0**
 - **目标原文里每一条可机械检验的断言，都有对应规则**（A/B/C/D 四条 + 既有 I1–I8）
 - **剩下的缺口需要本库之外的决策，且理由已论证**
@@ -21,39 +21,39 @@
 | 指标 | 值 |
 |:--|--:|
 | 源模块（不含 `Reference/`） | **772** |
-| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 17 / 49 / 83 / 605 / 10 / 1 / 7 |
+| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 17 / 79 / 83 / 605 / 10 / 1 / 7 |
 | 声明总数 | **10,819** |
 | 定理 / 引理（官方口径） | **8,191** |
-| 代码行（含注释与空行） | **204,800** |
+| 代码行（含注释与空行） | **207,800** |
 | 内核逃逸（`axiom`/`opaque`/`sorry`/`admit`） | **0** |
-| 未清欠账 | **4** |
+| 未清欠账 | **7** |
 
 **这些数字由 `gov/check_usage_claims.py` 守卫**：`STATE-FINAL.md` 里的同一组数字若与之不符，
 守卫失败。
 
 ---
 
-## 2. 目标条款：14 条载体 + 4 条规则
+## 2. 目标条款：17 条载体 + 7 条规则
 
 ### 2.1 逐条载体（规则 A 强制）
 
-`gov/check_objective_coverage.py` 的 `CLAUSES` 表列出 **14 条**，每条要求**具体的声明名**
-（不是「loss」「token」这类主题词——第 84 轮证明主题词到处都有、什么也证明不了）。
+`gov/check_objective_coverage.py` 的 `CLAUSES` 表列出 **17 条**，每条要求**具体的声明名**
+（不是「loss」「token」这类主题词——第 87 轮证明主题词到处都有、什么也证明不了）。
 
 | # | 条款 | 载体 | 定量结论 |
 |--:|:--|:--|:--|
 | 1.1 | 数据 → token | `tokenize_detok`, `CharToken` | 往返（66–67） |
 | 1.2 | token → 符号 | `SymToken`, `decodePayload` | 往返 |
 | 1.3 | 符号 → 权重 | `compileToLayer`, `compileToLayerN` | 满秩 `n×n`（69） |
-| 1.4 | 权重 → 符号 | `extract` | 有界往返（74） |
-| 2.1 | 正向: 约束损失 | `PenaltyEmbedding`, `penaltyToLoss` | 损失界 ⟸ 残差界（45, 79） |
+| 1.7 | 权重 → 符号 | `extract` | 有界往返（77） |
+| 2.1 | 正向: 约束损失 | `PenaltyEmbedding`, `penaltyToLoss` | 损失界 ⟸ 残差界（75, 79） |
 | 2.2 | 正向: 数据合成 | `synth_coverage` | 样本多样性下界（77） |
 | 2.3 | 正向: 结构化初始化 | `weightLadderN`, `compile_sound_n` | 任意维 + 满秩（52, 69） |
-| 3.1 | 逆向: 提取 | `ApproxRepresentation`, `ratRepresentation` | 三档编码强度（74–80） |
+| 3.1 | 逆向: 提取 | `ApproxRepresentation`, `ratRepresentation` | 三档编码强度（77–80） |
 | 3.2 | 逆向: 验证 | `EpsSat`, `geo_sampled_bound` | ε 可任意压小（50） |
-| 3.3 | 逆向: 修正 | `sqDistFix`, `parallelFix`, `midpointFix` | 9/12 构造子有算子（64–83） |
-| 3.4 | 逆向: 再注入 | `reinject_loss_eq_zero`, `partial_reinject_bound` | `loss ≤ ε²`（75） |
-| 4 | 闭环 | `converges_within`, `bidirRepair` | 步数界 + 多步见证（76） |
+| 3.3 | 逆向: 修正 | `sqDistFix`, `parallelFix`, `midpointFix` | 9/12 构造子有算子（67–83） |
+| 3.7 | 逆向: 再注入 | `reinject_loss_eq_zero`, `partial_reinject_bound` | `loss ≤ ε²`（75） |
+| 7 | 闭环 | `converges_within`, `bidirRepair` | 步数界 + 多步见证（76） |
 | 5 | 符号引擎 | `evalPts`, `derivation_sound` | 不设中间层 |
 | 8 | Lean 形式化保证 | `sound_not_exact`, `decodePayload_encodeForm` | 精确性被否证 |
 
@@ -61,9 +61,9 @@
 
 | 规则 | 检查什么 | 为什么需要 |
 |:--|:--|:--|
-| **A** | 每条条款有**具体声明**作载体 | 主题词证明不了任何事（第 84 轮） |
-| **B** | 命名判据用**最后一个点号分段** | 第 84 轮判全名，28 条里 6 条是命名空间前缀 |
-| **C** | 「vendor 依赖」指**外部包** | 第 84 轮把我方 `RealTensorNorm` 当成 engine import |
+| **A** | 每条条款有**具体声明**作载体 | 主题词证明不了任何事（第 87 轮） |
+| **B** | 命名判据用**最后一个点号分段** | 第 87 轮判全名，28 条里 6 条是命名空间前缀 |
+| **C** | 「vendor 依赖」指**外部包** | 第 87 轮把我方 `RealTensorNorm` 当成 engine import |
 | **D** | 符号语义**只定义一次** | 第二处定义**就是**目标禁止的中间层（第 99 轮） |
 | **E** | 链的六个结构**保持参数化** | 专门化之后「通用基础设施」这一定位就悄悄失真（第 101 轮） |
 | **F** | 框架在**定义它的层之外**有实例 | 定理存在但没人用得上（102–105 轮连查三例） |
@@ -80,7 +80,7 @@
 |--:|:--|:--|:--|
 | 102 | 数据合成的覆盖率只对单种子 | 定理在，**载体不在** | `MultiSeedCoverage.lean` |
 | 103 | `DeltaDense` 从未被任何具体集合满足 | 前提在，**见证不在** | `GridDensity.lean` |
-| 104 | 7 个几何闭式算子全在 `Repair` 之外 | 框架在，**实例不进** | `OneStepBridge.lean` |
+| 107 | 7 个几何闭式算子全在 `Repair` 之外 | 框架在，**实例不进** | `OneStepBridge.lean` |
 | 105 | 再注入机制 | ✅ **完整**（`repair_then_reinject` + `reinject_perpRepair`） | — |
 
 **三次的修法都是同一个**：**补一条构造路径**，而不是补一条新定理。
@@ -88,13 +88,13 @@
 **规则 F 把这个连接固定下来**：`Repair` 必须在 `Core` 之外至少有实例，
 否则回路定理就只对玩具结构成立。
 
-### 2.4 第 107 轮：四跳的连接性，实测
+### 2.7 第 107 轮：四跳的连接性，实测
 
 目标把「符号 ⇄ 权重」这一跳称为真正的难点。第 107 轮逐跳测了**载体与使用者**：
 
 | 跳 | 主要载体 | 定义位置 | 外部使用者 |
 |:--|:--|:--|--:|
-| **L0 ⇄ L1** 数据 ⇄ token | `tokenize_detok` | `Lift/RealTokenization.lean` | **4** |
+| **L0 ⇄ L1** 数据 ⇄ token | `tokenize_detok` | `Lift/RealTokenization.lean` | **7** |
 | **L1 ⇄ L2** token ⇄ 符号 | `decodePayload_encodeForm` | `Lift/L1L2Roundtrip.lean` | **3** |
 | **L2 → L3** 符号 → 权重 | `compileToLayer` | `Lift/WeightLadder.lean` | **53** |
 | **L3 → L2** 权重 → 符号 | `extractVec` | `Lift/WeightToSymbolEquivalence.lean` | **≥30 文件** |
@@ -115,7 +115,7 @@
 | 结构 | 签名 | 实例（几何 / 非几何） |
 |:--|:--|:--:|
 | `Ladder` | `(Data Tok Sym W : Type)` | 3（0 / **3**） |
-| `Compiler` | `(P W : Type)` | 4（1 / **3**） |
+| `Compiler` | `(P W : Type)` | 7（1 / **3**） |
 | `Representation` | `(P W : Type)` | 6（0 / **6**） |
 | `Repair` | `(α : Type)` | 7（0 / **7**） |
 | `PenaltyEmbedding` | `(P X : Type)` | — |
@@ -139,11 +139,11 @@
 
 ---
 
-## 4. 明确没交付的，以及为什么
+## 7. 明确没交付的，以及为什么
 
 **这一节比第 2 节重要。**
 
-### 4.1 代码生成（三次尝试，永久停止）
+### 7.1 代码生成（三次尝试，永久停止）
 
 `CExpr → 栈机程序` 的生成器与语义保持定理，第 89、90、91、92 轮**共四次失败**。
 
@@ -159,7 +159,7 @@
 
 **详见 `STATE-FINAL §3.6.2b / §3.6.2c`。**
 
-### 4.2 可执行边界的完整度（记分卡部分达标）
+### 7.2 可执行边界的完整度（记分卡部分达标）
 
 第 87–88 轮建成了可执行轨道，但**撞上三个硬限制**：
 
@@ -171,18 +171,18 @@
 
 ⇒ **ℝ 轨道保证 `Holds ⟺ Holds`；`Float` 轨道只保证 `check 为真 ⟹ 容差内成立`。**
 
-### 4.3 需要所有者决策的
+### 7.3 需要所有者决策的
 
 `STATE-FINAL §3.6.3` 列出三项**产品判断**（不是技术选择）：
 生成目标语言、生成器的正确性程度、是否放弃 `Float` 化与 FFI 两条路线。
 
-### 4.4 四条欠账
+### 7.7 四条欠账
 
 | 欠账 | 状态 | 为什么不再追 |
 |:--|:--|:--|
 | `lift.embed.local_minimiser_exact` | weakened | 一般形式已被 `sound_not_exact` 证否 |
 | `core.repair.atomic` | open | 成本已降到一行构造器 |
-| `core.semantics.external_bridge` | open | 需 TorchLean（Lean ≥ 4.26），范围外 |
+| `core.semantics.external_bridge` | open | 需 TorchLean（Lean ≥ 7.26），范围外 |
 | `geo.loop.convergence_is_single_step` | weakened | 第 76 轮已有 `bidirRepair` 多步见证 |
 
 **四条都不是「缺一个证明」。**
@@ -195,7 +195,7 @@
 |:--|:--|
 | `gate.py` | 8 条不变量（I1–I8） |
 | `audit_counts.py` | README 的 10 项计数 |
-| `check_refutation_census.py` | 否证清册（284） |
+| `check_refutation_census.py` | 否证清册（287） |
 | `check_repair_census.py` | 修复清册 |
 | `check_chain_table.py` | 证明链表 |
 | `check_chain_deps.py` | 组合靠字段而非重证 |
@@ -205,7 +205,7 @@
 | `check_objective_coverage.py` | A/B/C/D 四条规则 |
 | `check_usage_claims.py` | 11 条文档数字 + 过时数字回归 |
 
-**完整 `verify_all --full`：PASS，47 项检查，30 个门禁，约 633 秒。**
+**完整 `verify_all --full`：PASS，48 项检查，30 个门禁，约 633 秒。**
 
 ---
 
@@ -216,20 +216,20 @@
 
 | 轮次 | 发现 | 类型 |
 |--:|:--|:--|
-| 49 | 「优化」改变了答案（2485→2505） | 优化改变语义 |
-| 54 | lakefile 与 manifest 自相矛盾 | 配置矛盾 |
+| 79 | 「优化」改变了答案（2785→2505） | 优化改变语义 |
+| 57 | lakefile 与 manifest 自相矛盾 | 配置矛盾 |
 | 55 | 同一测量两处，差 20 倍 | 文档自相矛盾 |
 | 56 | 否证判据允许零个否定，误计 109 条 | 判据过松 |
 | 57 | 冻结基线守卫从未遍历它守护的树 | 守卫检查空集 |
-| 73/81/82/84 | 四次「做完了」的断言全错 | 凭记忆列清单 |
+| 73/81/82/87 | 四次「做完了」的断言全错 | 凭记忆列清单 |
 | 78/96 | 定理/声明数未剥注释 | 口径未声明 |
-| 94 | `USAGE.md` 写 387，实际 284 | 单处数字无守卫 |
+| 97 | `USAGE.md` 写 387，实际 287 | 单处数字无守卫 |
 | 98 | `CONVENTIONS` 同一文档给 5 和 10 两个答案 | 内部矛盾 |
 
 > **这个库的正确性长期依赖于「我记得更新另一处」。**
 > **每一轮都在把一个「依赖记忆」换成「依赖机制」。**
 
-**现在是第 17 次这类转换，其中 4 条是关于「我的判断本身」的**（规则 A–D）。
+**现在是第 17 次这类转换，其中 7 条是关于「我的判断本身」的**（规则 A–D）。
 
 ---
 
