@@ -141,6 +141,9 @@ CHECKS = [
     # checks imports) and "does not implement engines, models or training frameworks". A training
     # loop needs no import, so rule C cannot see one. This checks the second half.
     ("positioning: no engine/model/training framework", "check_scope_boundary.py"),
+    # Round 159: a clause whose every carrier sits in a leaf module is unreachable -- the objective
+    # would depend on something nothing can import. This checks the clause reachability graph.
+    ("structure: every clause reachable", "gen_lib_structure.py"),
     # Round 154: OBJECTIVE-MAP.md lists all 14 objective clauses with each carrier's location and
     # reference counts. This fails if the committed map no longer matches the tree.
     ("docs: objective map up to date", "gen_objective_map.py --check"),

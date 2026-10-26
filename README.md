@@ -15,11 +15,11 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 784 | `audit_counts.py` |
-> | 定理 / 引理 | 8279 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Geo/Lib | 18 / 51 / 92 / 605 | `audit_counts.py` |
+> | Lean 模块 | 785 | `audit_counts.py` |
+> | 定理 / 引理 | 8284 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 18 / 52 / 92 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
-> | 检查器注册项 | 54（37 门禁 + 17 报告器） | `audit_counts.py` |
+> | 检查器注册项 | 55（38 门禁 + 17 报告器） | `audit_counts.py` |
 > | **未清欠账** | **4** | `Slots.lean` 的 `decide` |
 > | 已登记否证 | 285 | `check_refutation_census.py` |
 >
@@ -101,7 +101,7 @@ lattice-new/
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
 │   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/      51       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
+│   ├── Lift/      52       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       92       # 约束几何与精确惩罚
 │   ├── Lib/      605       # 应用库，按主题（建立在链路层之上）
@@ -113,7 +113,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 54 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 55 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -254,7 +254,7 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 54 项检查 + 反应性自检（逐项打印耗时）
+# 全套 55 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
@@ -329,7 +329,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **54 项**检查：37 项能失败的**门禁**，16 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **55 项**检查：38 项能失败的**门禁**，16 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 

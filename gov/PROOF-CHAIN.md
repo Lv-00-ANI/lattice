@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 19 | no imports from lift/lib |
-| lift | 52 | may import core only |
+| lift | 53 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
 | geo | 93 | the geometry/constraint layer |
@@ -735,9 +735,10 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
 - `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
+- `Lattice.Lift.ApproxLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproximationBridge` <- `Lattice.Lift.ApproxExact`
 - `Lattice.Lift.ChainComposition` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`
 - `Lattice.Lift.ComboN` 
@@ -1649,6 +1650,7 @@
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Lift.ApproxExact` | 8 | 2 |
 | `Lattice.Lift.ApproxExtraction` | 6 | 3 |
+| `Lattice.Lift.ApproxLadder` | 5 | 2 |
 | `Lattice.Lift.ApproximationBridge` | 5 | 0 |
 | `Lattice.Lift.ChainComposition` | 2 | 3 |
 | `Lattice.Lift.ComboN` | 5 | 3 |
@@ -2339,6 +2341,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `approxOn_trans_same` -> `le_trans`
 - `approxZero_iff` -> `CExpr`, `evalC`
 - `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
+- `approx_ladder_bound_mono` -> `compile`, `dist`, `extract`, `identityTokenizer`, `roundingIsApprox`, `satSym`, `satW`
+- `approx_ladder_eps_nonneg` -> `compile`, `dist`, `extract`, `identityTokenizer`, `roundingIsApprox`, `satSym`, `satW`
+- `approx_ladder_forward` -> `compile`, `dist`, `extract`, `identityTokenizer`, `roundingIsApprox`, `satSym`, `satW`
 - `approx_min_le_gives_sat` -> `E`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
 - `approx_satisfies` -> `E`, `EpsSat`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
 - `approx_to_approxOn` -> `le_trans`
@@ -8858,6 +8863,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundingIsApprox_bound` -> `ErrorBound`, `compile`, `dist`, `extract`
 - `roundingIsApprox_composes` -> `ErrorBound`, `dist`
 - `roundingIsApprox_error_one` -> `ErrorBound`, `dist`
+- `roundingLadder_forward` -> `compile`, `dist`, `extract`, `satW`
 - `roundtripCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `neg`, `tiny`
 - `roundtripNeuron_self` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`, `sqrt`
 - `roundtrip_behavior` -> `ConstraintSat`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `NeuronOut`, `VectorConstraint`, `convert`, `convertVec`, `convert_preserves_semantics`
