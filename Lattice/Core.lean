@@ -13,6 +13,7 @@ import Lattice.Core.Weight
 import Lattice.Core.WeightNet
 import Lattice.Core.RepairConvergence
 import Lattice.Core.RepairAtomicity
+import Lattice.Core.OneStepBridge
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE

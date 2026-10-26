@@ -22,7 +22,7 @@ LAKE = os.path.abspath(os.path.join(HERE, ".."))
 LAT = os.path.join(LAKE, "Lattice")
 
 # The census's recorded numbers (REPAIR-CENSUS.md §1).
-EXPECTED = {"A_files": 10, "A_decls": 29, "B_files": 18, "B_decls": 47,
+EXPECTED = {"A_files": 11, "A_decls": 37, "B_files": 18, "B_decls": 47,
             "C_files": 57, "C_decls": 250}
 
 DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"

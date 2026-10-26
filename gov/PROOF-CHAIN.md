@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 17 | no imports from lift/lib |
+| core | 18 | no imports from lift/lib |
 | lift | 50 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
@@ -17,12 +17,13 @@
 
 ## Import graph
 
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.Idempotent` 
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
 - `Lattice.Core.Logic` <- `Lattice.Core.Semantics`
 - `Lattice.Core.Net` <- `Lattice.Core.Semantics`, `Lattice.Core.Weight`
+- `Lattice.Core.OneStepBridge` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Core.Repair` 
 - `Lattice.Core.RepairAtomicity` <- `Lattice.Core.Repair`, `Lattice.Core.RepairMultistep`
 - `Lattice.Core.RepairConvergence` <- `Lattice.Core.Repair`
@@ -917,6 +918,7 @@
 | `Lattice.Core.Invariant` | 4 | 2 |
 | `Lattice.Core.Logic` | 4 | 6 |
 | `Lattice.Core.Net` | 5 | 5 |
+| `Lattice.Core.OneStepBridge` | 7 | 2 |
 | `Lattice.Core.Repair` | 9 | 5 |
 | `Lattice.Core.RepairAtomicity` | 4 | 1 |
 | `Lattice.Core.RepairConvergence` | 3 | 0 |
@@ -2670,6 +2672,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bregman_nonneg` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `bregman_strong_lower` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `bregman_three_point` -> `StrongConvex`, `sum_range_sub_telescoping`
+- `bridge_exists` -> `Repair`, `Sat`, `iterate`
 - `bridge_is_necessary` -> `Audit`
 - `bridgedCount_append` -> `Audit`, `induction`
 - `bridgedCount_bridged` -> `Audit`, `induction`
@@ -7106,6 +7109,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `naive_single_product_bound_fails_two_site` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `subst`
 - `namespace_register_unique` -> `Theory`, `load`, `suspend`
 - `natAbs_step_lt` -> `Repair`, `Sat`, `converges_within`, `iterate`, `subst`
+- `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_eq_one_of_finrank_eq_one` -> `FiniteDimensional`, `K`, `Module`
 - `natDegree_minpoly_pos` -> `FiniteDimensional`, `K`, `Module`, `Polynomial`, `degree`, `eval`, `leadingCoeff`, `subst`
 - `natToInt_add` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `sqrt`, `subst`
@@ -7481,6 +7485,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
+- `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
+- `oneStepRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
+- `oneStepRepair_mu_le_one` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
+- `oneStepRepair_one_step` -> `Repair`, `Sat`, `converges_within`, `iterate`
+- `oneStepRepair_reaches` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
 - `oneWL_blind_on_regular_pair` -> `E`, `card`, `nbhdSet`, `nbhdSum`
 - `oneWL_degree_of_wlEq` -> `E`, `card`
 - `oneWL_first_round_blind` -> `E`, `card`, `nbhdSet`, `nbhdSum`
