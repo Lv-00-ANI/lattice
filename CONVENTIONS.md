@@ -20,16 +20,16 @@
 
 ### 1.1 规则
 
-| # | 对象 | 规则 | 可机检 |
-|--:|:--|:--|:--|
-| N1 | **定理 / 引理** | `snake_case`；**性质写在最后**（`sq_penalty_exact`，不是 `exact_penalty`） | ✅ |
-| N2 | **定义 / 结构 / 归纳类型** | `camelCase`（Lean 与 mathlib 惯例：`WeightSemantics`、`netAct`） | ✅ |
-| N3 | **混用禁止** | 同一文件内，定理名一律 snake、定义名一律 camel；不得出现 camelCase 的定理或 snake_case 的结构 | ✅ |
-| N4 | **撇号 `'` 禁用**（**例外**见 §1.4） | 用语义化后缀（`_strict` / `_alt` / `_of_lt`）代替 | ✅ |
-| N5 | **结论文必须限定范围** | 名字不得比证明更强：`_exact` 只在真能给出「⟺」时用；`_sound` 只在真能给出可靠性时用 | ⚠️ 半机检（I5 查跨层声称，语义强弱需人判） |
-| N6 | **禁止脚手架名进公开表面** | `_aux`、`_tmp`、`_test`、`_probe`、`_example` 不出现在导出声明里 | ✅ |
-| N7 | **空位名** | `<域>.<对象>.<性质>`，如 `core.repair.atomic` | ✅（I6 已查） |
-| N8 | **模块名** | `Lattice.<层>.<域>.<模块>`；文件名与模块名逐段对应 | ✅ |
+  #   对象   规则   可机检  
+ --: :-- :-- :-- 
+  N1   **定理 / 引理**   `snake_case`；**性质写在最后**（`sq_penalty_exact`，不是 `exact_penalty`）   ✅  
+  N2   **定义 / 结构 / 归纳类型**   `camelCase`（Lean 与 mathlib 惯例：`WeightSemantics`、`netAct`）   ✅  
+  N3   **混用禁止**   同一文件内，定理名一律 snake、定义名一律 camel；不得出现 camelCase 的定理或 snake_case 的结构   ✅  
+  N4   **撇号 `'` 禁用**（**例外**见 §1.4）   用语义化后缀（`_strict` / `_alt` / `_of_lt`）代替   ✅  
+  N5   **结论文必须限定范围**   名字不得比证明更强：`_exact` 只在真能给出「⟺」时用；`_sound` 只在真能给出可靠性时用   ⚠️ 半机检（I5 查跨层声称，语义强弱需人判）  
+  N6   **禁止脚手架名进公开表面**   `_aux`、`_tmp`、`_test`、`_probe`、`_example` 不出现在导出声明里   ✅  
+  N7   **空位名**   `<域>.<对象>.<性质>`，如 `core.repair.atomic`   ✅（I6 已查）  
+  N8   **模块名**   `Lattice.<层>.<域>.<模块>`；文件名与模块名逐段对应   ✅  
 
 ### 1.2 为什么禁撇号（N4）
 
@@ -44,12 +44,12 @@
 
 ### 1.3 现状与迁移
 
-| 指标 | 实测（内核） | 目标 |
-|:--|--:|:--|
-| 内核声明总数 | 10,836 | — |
-| 撇号名 | **3** | **0**（三个全部属 §1.4 例外） |
-| camelCase 定理 | **4**（全部豁免，见 §7.6） | — |
-| camelCase 定义 | **1,747** | 保留（符合 N2） |
+  指标   实测（内核）   目标  
+ :-- --: :-- 
+  内核声明总数   10,836   —  
+  撇号名   **3**   **0**（三个全部属 §1.4 例外）  
+  camelCase 定理   **4**（全部豁免，见 §7.6）   —  
+  camelCase 定义   **1,747**   保留（符合 N2）  
 
 > **本节此前的数字是错的（第 55 轮修正）**：撇号写 **60**、camelCase 定理写 **70**，
 > 那是**旧库**的数字，迁移后从未复测。`§7.4` 独立测量给出 3（现为 4），
@@ -82,21 +82,21 @@
 
 `'` 在 Lean 里是合法标识符字符，且**有时承载语言设计含义**：
 
-| 用法 | 例子 | 处置 |
-|:--|:--|:--|
-| **关键字变体** | `while'`（`Cmd` 的「已求值守卫」构造子，`Lib/Compiler/RealBigStepSmallStep.lean:95`） | **保留**。它与关键字 `while` 对应；改名会连带改 `BigStep` 构造子，属语义变更而非规范整理 |
-| 用户定义的**定理 / 引理 / def** | `progress'`、`extractLayer'`、`rowEditCexW'` | **禁用**，必须改 |
+  用法   例子   处置  
+ :-- :-- :-- 
+  **关键字变体**   `while'`（`Cmd` 的「已求值守卫」构造子，`Lib/Compiler/RealBigStepSmallStep.lean:95`）   **保留**。它与关键字 `while` 对应；改名会连带改 `BigStep` 构造子，属语义变更而非规范整理  
+  用户定义的**定理 / 引理 / def**   `progress'`、`extractLayer'`、`rowEditCexW'`   **禁用**，必须改  
 
 判据：**撇号是否承载语言层含义**。`while'` 里它表示「这是关键字 `while` 的变体」，
 是设计的一部分；`progress'` 里它只是「后来又写了一个」的记号，不承载语义。
 
 ### 1.5 撇号名的三种情形与处置（实测分类，60 个）
 
-| 情形 | 判据 | 处置 | 实测例 |
-|:--|:--|:--|:--|
-| **(a) 真重复** | 同文件内已有同名同义的 base | **删除**重复者 | `softmax_fin_one_eq_one'` 与 `softmax_fin_one_eq_one` **逐字相同** |
-| **(b) 语义变体** | 有 base，但签名确有差异 | 按**实际差异**改名 | `sel_tight_state_eq'` 把假设 `ρ ≠ 1` 换成 `0 ≤ ρ` + `ρ < 1` → `_of_bounded`；`zoh_bridge_mul'` 是 `zohGain * A` 而 base 是 `A * zohGain` → `_comm` |
-| **(c) 无 base 的孤名** | 文件内不存在同名 base | 直接去撇号 | `trace_sub'`、`geom_sum_eq'`、`sum_range_sub_id'` |
+  情形   判据   处置   实测例  
+ :-- :-- :-- :-- 
+  **(a) 真重复**   同文件内已有同名同义的 base   **删除**重复者   `softmax_fin_one_eq_one'` 与 `softmax_fin_one_eq_one` **逐字相同**  
+  **(b) 语义变体**   有 base，但签名确有差异   按**实际差异**改名   `sel_tight_state_eq'` 把假设 `ρ ≠ 1` 换成 `0 ≤ ρ` + `ρ < 1` → `_of_bounded`；`zoh_bridge_mul'` 是 `zohGain * A` 而 base 是 `A * zohGain` → `_comm`  
+  **(c) 无 base 的孤名**   文件内不存在同名 base   直接去撇号   `trace_sub'`、`geom_sum_eq'`、`sum_range_sub_id'`  
 
 **禁止的做法**：机械地把 `'` 换成 `_prime` 或 `_v2`——那只是把「不知道差在哪」
 换成了另一种写法，规范要解决的是「读者必须靠猜」。
@@ -107,13 +107,13 @@
 
 ### 2.1 规则
 
-| # | 规则 | 可机检 |
-|--:|:--|:--|
-| F1 | 单文件 **≤ 500 行** 且 **≤ 60 个声明** | ✅ |
-| F2 | 超过则按**主题**拆分，文件名必须说明主题 | ⚠️ 半机检（行数可查，主题质量需人判） |
-| F3 | **拆分不改声明名**：`import` 路径变，全限定名保持不变 | ✅（改名会让下游全断，构建即报错） |
-| F4 | 一个文件一个关切；聚合器（`Lattice/Lib/<Topic>.lean`）只 import，不声明 | ✅ |
-| F5 | 探针与临时文件**不得**进 `Lattice/`（`.gitignore` 已有 `Lattice/Core/Probe.lean`） | ✅ |
+  #   规则   可机检  
+ --: :-- :-- 
+  F1   单文件 **≤ 500 行** 且 **≤ 60 个声明**   ✅  
+  F2   超过则按**主题**拆分，文件名必须说明主题   ⚠️ 半机检（行数可查，主题质量需人判）  
+  F3   **拆分不改声明名**：`import` 路径变，全限定名保持不变   ✅（改名会让下游全断，构建即报错）  
+  F4   一个文件一个关切；聚合器（`Lattice/Lib/<Topic>.lean`）只 import，不声明   ✅  
+  F5   探针与临时文件**不得**进 `Lattice/`（`.gitignore` 已有 `Lattice/Core/Probe.lean`）   ✅  
 
 ### 2.2 现状
 
@@ -142,13 +142,13 @@
 -/
 ```
 
-| # | 规则 | 可机检 |
-|--:|:--|:--|
-| D1 | 四项齐全（命题 / 机制 / 依赖 / 边界） | ⚠️ 半机检（可查有无 `边界`/`Limit` 标记，内容需人判） |
-| D2 | 有非平凡假设时，**必须**说明它为什么不能省 | ⚠️ 同上 |
-| D3 | 数字必须注明**口径与时点**（`683 olean（2026-10-25，本机）`），否则不写 | ✅（可扫裸数字） |
-| D4 | 不用「基本上 / 大约 / 应该」这类不可核验的修饰 | ⚠️ 可扫词表 |
-| D5 | 已证否的命题**不得**以「未证」表述——写「已证否」并给反例定理名 | ⚠️ 人判 |
+  #   规则   可机检  
+ --: :-- :-- 
+  D1   四项齐全（命题 / 机制 / 依赖 / 边界）   ⚠️ 半机检（可查有无 `边界`/`Limit` 标记，内容需人判）  
+  D2   有非平凡假设时，**必须**说明它为什么不能省   ⚠️ 同上  
+  D3   数字必须注明**口径与时点**（`683 olean（2026-10-25，本机）`），否则不写   ✅（可扫裸数字）  
+  D4   不用「基本上 / 大约 / 应该」这类不可核验的修饰   ⚠️ 可扫词表  
+  D5   已证否的命题**不得**以「未证」表述——写「已证否」并给反例定理名   ⚠️ 人判  
 
 ### 3.2 优先修复群
 
@@ -188,21 +188,21 @@
 
 ### 4.3 已实测的否证结论（本节随文档一起维护）
 
-| 命题 | 被删的前提 | 实测 |
-|:--|:--|:--|
-| `Geo/Pipeline.token_to_weight` | `_hdec : decodePayload n rs = some c`，及 `rs` 参数 | **仍通过**；Lean 报 `unused variable 'h'` |
+  命题   被删的前提   实测  
+ :-- :-- :-- 
+  `Geo/Pipeline.token_to_weight`   `_hdec : decodePayload n rs = some c`，及 `rs` 参数   **仍通过**；Lean 报 `unused variable 'h'`  
 
 ---
 
 ## 5. 术语表（学术化，避免口语）
 
-| 不用 | 用 | 理由 |
-|:--|:--|:--|
-| 「要点」「注意」「白捡」 | 「接口」「契约」「边界」「附带结论」 | 修辞不增加信息 |
-| 「基本上成立」 | 「在 <条件> 下成立；<条件> 之外有反例」 | 可核验 |
-| 「已经能用了」 | 「<定理名> 已证；<未证项> 登记为 slot <名>」 | 可追溯 |
-| 「完成」 | 「<编号> 已达成，验收见 <命令与输出>」 | 可复现 |
-| 「这是难点」 | 「这是唯一未解决的技术障碍；已尝试 <方法>，失败原因 <原因>」 | 可推进 |
+  不用   用   理由  
+ :-- :-- :-- 
+  「要点」「注意」「白捡」   「接口」「契约」「边界」「附带结论」   修辞不增加信息  
+  「基本上成立」   「在 <条件> 下成立；<条件> 之外有反例」   可核验  
+  「已经能用了」   「<定理名> 已证；<未证项> 登记为 slot <名>」   可追溯  
+  「完成」   「<编号> 已达成，验收见 <命令与输出>」   可复现  
+  「这是难点」   「这是唯一未解决的技术障碍；已尝试 <方法>，失败原因 <原因>」   可推进  
 
 ---
 
@@ -213,25 +213,25 @@
 
 ### 6.1 有守卫的数字（能失败）
 
-| 数字 | 出现在 | 守卫 | 能失败 |
-|:--|:--|:--|:--|
-| Core / Lift / Geo / Lib 模块数 | `README` 分层图 | `audit_counts.py`（门禁） | ✅ |
-| 检查器注册数 | `README` | `audit_counts.py`（门禁） | ✅ |
-| A/B/C 三类文件数与声明数 | `REPAIR-CENSUS` | `check_repair_census.py`（门禁） | ✅ |
-| 否证总数与层分布 | `REFUTATION-CENSUS` | `check_refutation_census.py`（门禁） | ✅ |
-| 12 条链层定理的引用数 | `ROADMAP-v9 §1`、`USAGE §1` | `check_chain_deps.py`（门禁） | ✅ |
-| 欠账数 | `Slots.fullRegistry` | `example … := by decide` | ✅ |
-| 证明链实例普查 | `PROOF-CHAIN-RUNG` | `check_proof_chain_rung.py` | ✅ |
+  数字   出现在   守卫   能失败  
+ :-- :-- :-- :-- 
+  Core / Lift / Geo / Lib 模块数   `README` 分层图   `audit_counts.py`（门禁）   ✅  
+  检查器注册数   `README`   `audit_counts.py`（门禁）   ✅  
+  A/B/C 三类文件数与声明数   `REPAIR-CENSUS`   `check_repair_census.py`（门禁）   ✅  
+  否证总数与层分布   `REFUTATION-CENSUS`   `check_refutation_census.py`（门禁）   ✅  
+  12 条链层定理的引用数   `ROADMAP-v9 §1`、`USAGE §1`   `check_chain_deps.py`（门禁）   ✅  
+  欠账数   `Slots.fullRegistry`   `example … := by decide`   ✅  
+  证明链实例普查   `PROOF-CHAIN-RUNG`   `check_proof_chain_rung.py`   ✅  
 
 ### 6.2 **没有守卫的数字**（本轮实测）
 
-| 文档 | 多位数个数 | 守卫 |
-|:--|--:|:--|
-| `README` | **78** | 仅上表 2 项受检，其余无 |
-| `CONVENTIONS` | 64 | 无 |
-| `REPAIR-CENSUS` | 33 | 6 项受检，其余无 |
-| `REFUTATION-CENSUS` | 17 | 6 项受检，其余无 |
-| `USAGE` | 2 | 无 |
+  文档   多位数个数   守卫  
+ :-- --: :-- 
+  `README`   **78**   仅上表 2 项受检，其余无  
+  `CONVENTIONS`   64   无  
+  `REPAIR-CENSUS`   33   6 项受检，其余无  
+  `REFUTATION-CENSUS`   17   6 项受检，其余无  
+  `USAGE`   2   无  
 
 ⇒ **`README` 的 78 个多位数里，只有分层图那 5 个受检。**
 这是一个事实，不是缺陷：大部分多位数是**日期、版本、轮次号**，不是需要守卫的计数。
@@ -244,12 +244,12 @@
 > 那个数字来自一次**只扫描了匹配某文档引用模式的文件**的统计——
 > 与本仓已记录 7 次的「测量口径错误」同类。此处更正。
 
-| 断言型（含 `EXPECTED`） | 断言什么 |
-|:--|:--|
-| `check_repair_census.py` | A/B/C 三类的 6 个数 |
-| `check_refutation_census.py` | 总数与 5 个层的分布 |
-| `check_chain_deps.py` | 12 条定理的引用数 |
-| `check_chain_table.py` | 六跳载体存在 |
+  断言型（含 `EXPECTED`）   断言什么  
+ :-- :-- 
+  `check_repair_census.py`   A/B/C 三类的 6 个数  
+  `check_refutation_census.py`   总数与 5 个层的分布  
+  `check_chain_deps.py`   12 条定理的引用数  
+  `check_chain_table.py`   六跳载体存在  
 
 其余脚本**报告**或**执行其他检查**，不以 `EXPECTED` 常量形式声明期望值。
 （例如 `gate.py` 用 8 条不变量规则、`audit_counts.py` 用正则提取 README 中的数字——
@@ -260,12 +260,12 @@
 
 ### 6.4 数字分类（决定是否需要守卫）
 
-| 类别 | 例子 | 需要守卫？ |
-|:--|:--|:--|
-| **结构性计数** | 模块数、定理数、欠账数 | ✅ 需要 |
-| **普查计数** | 否证数、修复算子数 | ✅ 需要 |
-| **叙述性数字** | 「第 35 轮」「2026-10」 | ❌ 不需要 |
-| **历史记录** | `ROADMAP-v3`–`v10` 里的数字 | ❌ **不应更新**（描述当时的树） |
+  类别   例子   需要守卫？  
+ :-- :-- :-- 
+  **结构性计数**   模块数、定理数、欠账数   ✅ 需要  
+  **普查计数**   否证数、修复算子数   ✅ 需要  
+  **叙述性数字**   「第 35 轮」「2026-10」   ❌ 不需要  
+  **历史记录**   `ROADMAP-v3`–`v10` 里的数字   ❌ **不应更新**（描述当时的树）  
 
 **最后一行是纪律**：历史规划文档里的数字描述的是**当时的代码树**。
 更新它们等于篡改历史。它们不需要守卫，也**不应被"修正"**。
@@ -287,12 +287,12 @@
 本节此前记录的数字**全部已经漂移**：二十多轮里不断新增文件，而没人重测。
 下表是 `agent-tmp/measure_conventions.py` 的实测结果，任何人可以重跑。
 
-| 规则 | 本轮实测 | 上一版记录 | 变化 | 状态 |
-|:--|--:|--:|:--|:--|
-| N4 撇号 | **3** | 3 | 持平 | ✅ 全在 §1.4 例外内 |
-| N3 camelCase 定理 | **4**（全部豁免） | 36 | **-32** | ✅ 已收敛 |
-| N3 camelCase 定义 | **1,747** | 1,959 | -212 | ✅ N2 允许 |
-| F1 超 60 声明 | **5** | 10 | **-5** | ⚠️ 余 5 个有结构障碍 |
+  规则   本轮实测   上一版记录   变化   状态  
+ :-- --: --: :-- :-- 
+  N4 撇号   **3**   3   持平   ✅ 全在 §1.4 例外内  
+  N3 camelCase 定理   **4**（全部豁免）   36   **-32**   ✅ 已收敛  
+  N3 camelCase 定义   **1,747**   1,959   -212   ✅ N2 允许  
+  F1 超 60 声明   **5**   10   **-5**   ⚠️ 余 5 个有结构障碍  
 
 ### 7.1 本轮修掉的一条
 
@@ -307,20 +307,20 @@
 本节初稿写「36 条里大部分是正则误判，指向类型别名」。**这个判断是错的。**
 实测（`agent-tmp/verify_conv_claims.py`，逐条看定理体）：
 
-| 分类 | 数量 |
-|:--|--:|
-| 真正的 camelCase 定理 | **35** |
-| 别名（`:= 类型名`） | **1**（`GeneralizationBound`） |
+  分类   数量  
+ :-- --: 
+  真正的 camelCase 定理   **35**  
+  别名（`:= 类型名`）   **1**（`GeneralizationBound`）  
 
 **35 条是真实的命名违规**，不是误判。典型例子：
 
-| 名字 | 文件 | 实际是什么 |
-|:--|:--|:--|
-| `IdempotentOn` | `Core/Idempotent.lean` | 幂等性的定理 |
-| `GeoExpr` / `GeoConstraint` | `Geo/Shape.lean` | 结构性定理（与类型同名，但是定理） |
-| `twoHopMsg` | `Lib/Architectures/RealGNN.lean` | 图消息传递的定理 |
-| `klChainRule` | `Lib/InfoTheory/RealKLChainRule.lean` | KL 链式法则 |
-| `firstOrderMAML` | `Lib/LearningTheory/RealMAML.lean` | MAML 一阶展开 |
+  名字   文件   实际是什么  
+ :-- :-- :-- 
+  `IdempotentOn`   `Core/Idempotent.lean`   幂等性的定理  
+  `GeoExpr` / `GeoConstraint`   `Geo/Shape.lean`   结构性定理（与类型同名，但是定理）  
+  `twoHopMsg`   `Lib/Architectures/RealGNN.lean`   图消息传递的定理  
+  `klChainRule`   `Lib/InfoTheory/RealKLChainRule.lean`   KL 链式法则  
+  `firstOrderMAML`   `Lib/LearningTheory/RealMAML.lean`   MAML 一阶展开  
 
 **为什么这条修正重要**：我在写这一段时只抽查了前 10 个，看到 `GeoExpr` 这类名字
 就推断"大部分是别名"。实际只有 1 个。**在一个讨论「如何验证」的文档里，
@@ -333,12 +333,12 @@
 
 > **第 63 轮（批量）：10 → 5。** 本批拆了四个，各部分的声明数均降到 43 以内：
 >
-> | 文件 | 原 | 拆成 |
-> |:--|--:|:--|
-> | `Lib/Chain/RealLv00AxiomDischargePerPackage.lean` | 84 | 14/21/21/28 |
-> | `Lib/Compiler/RealMutualRecursion.lean` | 89 | 27/25/37 |
-> | `Lib/Lift/RealNonlinearFidelity.lean` | 86 | 23/43/20 |
-> | `Lib/Chain/RealNumericChainOrder.lean` | 66 | 21/22/23 |
+>   文件   原   拆成  
+>  :-- --: :-- 
+>   `Lib/Chain/RealLv00AxiomDischargePerPackage.lean`   84   14/21/21/28  
+>   `Lib/Compiler/RealMutualRecursion.lean`   89   27/25/37  
+>   `Lib/Lift/RealNonlinearFidelity.lean`   86   23/43/20  
+>   `Lib/Chain/RealNumericChainOrder.lean`   66   21/22/23  
 >
 > **每次拆分都核对声明数不变**（84→84、89→89、86→86、66→66，零丢失）。
 >
@@ -355,12 +355,12 @@
 >
 > #### 四个不能按节拆的（不是欠账，是结构事实）
 >
-> | 文件 | 原因 |
-> |:--|:--|
-> | `Lib/Chain/RealN2AxiomDischargeJia.lean` | 单节 60 条——按节拆仍留下一个 60 条的 |
-> | `Lib/Chain/RealLv00Solver.lean` | 4 节，其中一节 72 条 |
-> | `Lib/Chain/RealLv00LinearAlgebra.lean` | 仅 2 节（14/21），过粗 |
-> | `Lib/Chain/RealLv00GeometryDifferential.lean` | **零分节**——发明边界比不拆更糟 |
+>   文件   原因  
+>  :-- :-- 
+>   `Lib/Chain/RealN2AxiomDischargeJia.lean`   单节 60 条——按节拆仍留下一个 60 条的  
+>   `Lib/Chain/RealLv00Solver.lean`   4 节，其中一节 72 条  
+>   `Lib/Chain/RealLv00LinearAlgebra.lean`   仅 2 节（14/21），过粗  
+>   `Lib/Chain/RealLv00GeometryDifferential.lean`   **零分节**——发明边界比不拆更糟  
 >
 > 这四个若要拆，需要**先补内部结构**（人为的 `/-! ## ... -/` 分节），那是另一类工作。
 
@@ -376,17 +376,17 @@
 > 拆分**不减少工作量**，只重新分配：模块数 +4，Lib 层 588 → 592。
 
 
-| 文件 | 声明数 |
-|:--|--:|
-| `Lib/Chain/RealN2AxiomDischargeJia.lean` | 168 |
-| `Lib/Chain/RealLv00Solver.lean` | 127 |
-| `Lib/Compiler/RealMutualRecursion.lean` | 89 |
-| `Lib/Lift/RealNonlinearFidelity.lean` | 86 |
-| `Lib/Chain/RealLv00AxiomDischargePerPackage.lean` | 84 |
-| `Lib/Chain/RealLv00LinearAlgebra.lean` | 66 |
-| `Lib/Chain/RealNumericChainOrder.lean` | 66 |
-| `Lib/LearningTheory/RealCausalDoCalculus.lean` | 64 |
-| `Lib/Chain/RealLv00GeometryDifferential.lean` | 62 |
+  文件   声明数  
+ :-- --: 
+  `Lib/Chain/RealN2AxiomDischargeJia.lean`   168  
+  `Lib/Chain/RealLv00Solver.lean`   127  
+  `Lib/Compiler/RealMutualRecursion.lean`   89  
+  `Lib/Lift/RealNonlinearFidelity.lean`   86  
+  `Lib/Chain/RealLv00AxiomDischargePerPackage.lean`   84  
+  `Lib/Chain/RealLv00LinearAlgebra.lean`   66  
+  `Lib/Chain/RealNumericChainOrder.lean`   66  
+  `Lib/LearningTheory/RealCausalDoCalculus.lean`   64  
+  `Lib/Chain/RealLv00GeometryDifferential.lean`   62  
 
 **全部在 `Lib`，零个在 `Core`/`Lift`/`Geo`**——承重层没有超大文件。
 
@@ -400,23 +400,23 @@
 
 **此前本节记 35–36 条，实测 15 条，现为 4 条。** 三个数字的差来自**判据**，不是改名进度：
 
-| 判据 | 数量 | 问题 |
-|:--|--:|:--|
-| 不按 `.` 分割声明名 | 36 | **`GeoExpr.beqShape_eq` 里的 camelCase 是结构名**，按 N2 正确 |
-| 按 `.` 分割，只看末段 | **15** | 正确口径 |
-| 15 条中扣除 §7.6 豁免 | **4** | 当前状态 |
+  判据   数量   问题  
+ :-- --: :-- 
+  不按 `.` 分割声明名   36   **`GeoExpr.beqShape_eq` 里的 camelCase 是结构名**，按 N2 正确  
+  按 `.` 分割，只看末段   **15**   正确口径  
+  15 条中扣除 §7.6 豁免   **4**   当前状态  
 
 #### 豁免规则
 
 以下四条的 camelCase 是 **Mathlib 自己的惯例**——结构的派生事实写作
 `Structure.camelCase`。改名会**破坏与 Mathlib 的一致性**，使熟悉上游的人更难读：
 
-| 声明 | 文件 |
-|:--|:--|
-| `IsStrictLocalMin.toIsLocalMin` | `Lib/Convex/RealKKTSecondOrder.lean` |
-| `IsStrictLocalMax.toIsLocalMax` | `Lib/Optim/RealSaddlePoint.lean` |
-| `IsClosedExtent.iInter` | `Lib/FCA/RealFCACompleteLattice.lean` |
-| `IsClosedExtent.sInf` | `Lib/FCA/RealFCACompleteLattice.lean` |
+  声明   文件  
+ :-- :-- 
+  `IsStrictLocalMin.toIsLocalMin`   `Lib/Convex/RealKKTSecondOrder.lean`  
+  `IsStrictLocalMax.toIsLocalMax`   `Lib/Optim/RealSaddlePoint.lean`  
+  `IsClosedExtent.iInter`   `Lib/FCA/RealFCACompleteLattice.lean`  
+  `IsClosedExtent.sInf`   `Lib/FCA/RealFCACompleteLattice.lean`  
 
 ⇒ **这四条不是欠账，是按规则的豁免。** 下一个审阅者不应再把它们报成待修项。
 

@@ -32,7 +32,7 @@ EXPECTED = {
     "loss_eq_zero_of_poly_eq_zero": ("Geo/Reinjection.lean", 2),
     "residual_le_of_zero_on_dense": ("Lift/VerificationSoundness.lean", 1),
     "ladder_forward": ("Lift/EndToEnd.lean", 0),
-    "sound_of_factors": ("Lift/EncodingAbstraction.lean", 1),
+    "sound_of_factors": ("Lift/EncodingAbstraction.lean", 2),
     "scheme_covers_all": ("Lift/CompilerScheme.lean", 3),
     "reinject_of_hold": ("Geo/ReinjectionGeneral.lean", 3),
     "decreases_of_one_step": ("Audit/DecreasesRole.lean", 1),
