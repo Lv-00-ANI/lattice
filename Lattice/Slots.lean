@@ -67,9 +67,6 @@ structure Slot where
   /-- Where it stands. -/
   status : Status
 
-/-- The registry: every obligation the project currently owes or has paid. -/
-def registry : List Slot := []
-
 namespace Slot
 
 /-- Two slots collide when they share a name. -/

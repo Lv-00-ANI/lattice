@@ -1813,7 +1813,7 @@
 | `Lattice.Reference.LvFormal.check_temp` | 0 | 0 |
 | `Lattice.Usage` | 0 | 0 |
 | `Lattice.Usage.Examples` | 0 | 8 |
-| `Lattice.Slots` | 1 | 19 |
+| `Lattice.Slots` | 1 | 18 |
 
 ## Cross-module uses of theorem/lemma declarations
 
