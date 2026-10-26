@@ -53,9 +53,35 @@ theorem eqConstraintTokenizer_nontrivial :
   `EqConstraint n` 改成 `EqTok` 之后，`l0l1` 也必须是 `Tokenizer Data EqTok`。
   本节取 **`Data = EqConstraint n`**：**一个数据项就是一个约束**。
   于是 `l0l1` 与 `l1l2` 是同一个映射。
-- **多约束数据集尚未支持**：那需要 `Tokenizer (List (EqConstraint n)) EqTok`，
-  其解码需要 fuel 单调性（每个约束自定界，但列表解码的 fuel 记账需要额外引理）。
-  **这是独立的一步，不在本节范围内。**
+- **多约束数据集尚未支持**：那需要 `Tokenizer (List (EqConstraint n)) EqTok`。
+
+  **第 151 轮尝试过，卡在一个具体的 Lean 机制上**，记录如下，以免重走：
+
+  ```
+  def decList (fuel : ℕ) (ts : List EqTok) : Option (List (EqConstraint n)) :=
+    match ts with
+    | [] => some []
+    | _ => match fuel with
+           | 0 => none
+           | f + 1 => match decCon ... with ...
+  ```
+
+  **`decList [] fuel` 不是 `rfl`。** Lean 的方程编译器把「第二个参数匹配 `[]`」与
+  「第一个参数匹配 `0`/`f+1`」**合并成一个匹配矩阵**，所以 `decList_nil` 无法用 `rfl` 证明，
+  而没有它，`decList_enc` 的归纳步就起不来。
+
+  **已排除的修法**：
+  - 调整 `match` 的书写顺序（无效果——编译器重排）
+  - 把 `ts` 放到第一个参数位（同样失败；且 `termination_by` 需要 `ts fuel => fuel` 形式）
+
+  **未尝试的修法**（留给下一次）：
+  - `termination_by` 用正确的双参数形式并检查方程引理是否随之改变
+  - 用 `match fuel, ts with` 一次匹配两个参数，让 `(0, [])` 与 `(f+1, _)` 都在矩阵里
+  - 完全绕开 `decList`：在 `l0l1` 里用「长度前缀」自定界编码，使列表解码成为
+    `encCon` 的简单迭代（前缀是 `Sum.inl` 的自然数，与约束标签不相交）
+
+  **这不阻塞目标**：第 150 轮的 `Data = EqConstraint n` 已使四跳都有实质内容；
+  列表是「一个数据项含多个约束」的扩展。
 - **`L0` 与 `L2` 在本实例里同型**，所以这条 `Ladder` 的「数据层」与「符号层」在类型上重合。
   **这是本实例的范围限制，不是 `Ladder` 结构的缺陷**——别的实例可以用不同的 `Data`。
 - 本节**不改** `satSym`/`satW`/`l2l3`/`l2l3_sound`，因此端到端定理的内容不变。
