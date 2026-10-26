@@ -93,7 +93,7 @@
 | `SynthesisConnection` | 158 | 7 | — |
 | `SynthesisCoverage` | 179 | 7 | — |
 | `SynthesisMulti` | 132 | 4 | — |
-| `TokenizeStrategy` | 105 | 0 | — |
+| `TokenizeStrategy` | 152 | 0 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |
 
