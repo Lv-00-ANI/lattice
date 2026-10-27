@@ -260,15 +260,33 @@ def allowedByConstraints {n : Nat} (cs : ConstraintSet) (tok : Fin n -> SymToken
 
 /-- **核心接线定理**：陈述中**同时出现** ConstraintSet 与 logit 掩码。
 
-内容：若 token 序列解码到约束集 cs，且 allowed := allowedByConstraints cs tok，
-则掩码 softmax 的**支撑**（非零概率的 token 集）**恰为** allowed 的允许集。
-于是「符号约束」（L2）**确实**决定了「采样支撑」（L3 的 logits 掩码）。 -/
+内容：对掩码 `allowed := allowedByConstraints cs tok`，掩码 softmax 的**支撑**
+（非零概率的 token 集）**恰为** allowed 的允许集。 -/
 theorem constrained_agrees_with_constraint_set {n : Nat} (cs : ConstraintSet)
-    (tok : Fin n -> SymToken) (ts : List SymToken) (_hts : DecodesTo ts cs)
-    (s : Fin n -> Real) (hne : ∃ t, allowedByConstraints cs tok t = true) (t : Fin n) :
+    (tok : Fin n -> SymToken) (s : Fin n -> Real)
+    (hne : ∃ t, allowedByConstraints cs tok t = true) (t : Fin n) :
     constrainedSoftmax (allowedByConstraints cs tok) s t ≠ 0 ↔
       allowedByConstraints cs tok t = true :=
   constrainedSoftmax_support_iff_allowed (allowedByConstraints cs tok) s hne t
+
+/-! ### ⚠ 这条**没有**把 L2 接到 L3，尽管它的名字这么说
+
+**第 212 轮审计的更正，写在这里而不是留在债务表里。** 原陈述带一个前提
+
+```lean
+(_hts : DecodesTo ts cs)
+```
+
+**它从未被使用**，因为 `allowedByConstraints cs tok` **是 `cs` 与 `tok` 的函数，不含 `ts`**：
+`DecodesTo ts cs` 说的是 `decode ts = some cs`，而 `allowedByConstraints` 只看 `cs` 是否非空、
+`tok` 是否是段分隔符。**所以这条定理对任何掩码都成立**，`cs`、`ts` 都是装饰。
+
+**它没有建立「符号约束决定采样支撑」。** 那个连接是 `allowedByConstraints` 的**定义**携带的，
+不是这条定理证的；而「`cs` 非空」这一半由**调用方**以 `hne` 提供，
+**`DecodesTo` 给不出来**——非空性是 `tok` 的性质（存在一个非分隔符 token），不是 `cs` 的性质。
+
+**所以本条的判定是 `downgrade`（声称过强），不是 `strengthen`**：
+名字已收窄到 `constrained_agrees_with_constraint_set` 的**可行含义**，前提已删。 -/
 
 /-! ## S6 真实负对照（任务书判据 5） -/
 

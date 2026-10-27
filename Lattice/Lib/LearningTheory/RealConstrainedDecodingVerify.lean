@@ -91,19 +91,25 @@ theorem allowed_is_convex_weights {n : Nat} (allowed : FeasibleMask n) (s : Fin 
 
 /-! ## §3 与符号约束的接线（消费 `constrained_agrees_with_constraint_set`） -/
 
-/-- **可行性由约束集经投影导出（消费者侧的核心推论）**：
-若 token 序列解码到约束集 `cs`，则掩码 softmax 的**支撑**恰为
-`allowedByConstraints cs tok` 的允许集。
+/-- **掩码 softmax 的支撑恰为 `allowedByConstraints cs tok` 的允许集。**
 
-本定理**逐字消费** `constrained_agrees_with_constraint_set`，
-并把它包装成**消费者可调用的形式**（把 `DecodesTo` 与掩码投影一起给出），
-使下游模块只需给出「解码成功」这一事实。 -/
+**第 212 轮更正了一处过度声称。** 原文说
+
+> 本定理**逐字消费** `constrained_agrees_with_constraint_set`，并把它包装成消费者可调用的形式
+> （把 `DecodesTo` 与掩码投影一起给出），**使下游模块只需给出「解码成功」这一事实**。
+
+**最后那句是假的。** `DecodesTo ts cs` 从未被消费（见上一条的更正），
+所以下游**必须自己提供 `hne`**——而 `DecodesTo` **推不出** `hne`：
+非空性说的是「`tok` 中存在一个非段分隔符的 token」，那是 `tok` 的性质，与 `cs` 的来源无关。
+
+**因此本定理的内容是「掩码支撑引理在 `allowedByConstraints cs tok` 上的实例」**，
+`ts` 与 `hts` 已删。**这条是 `downgrade`**：名字与文档都收窄到可证的内容。 -/
 theorem support_from_decoded_constraints {n : Nat} (cs : ConstraintSet)
-    (tok : Fin n -> SymToken) (ts : List SymToken) (hts : DecodesTo ts cs)
+    (tok : Fin n -> SymToken)
     (s : Fin n -> Real) (hne : ∃ t, allowedByConstraints cs tok t = true) (t : Fin n) :
     constrainedSoftmax (allowedByConstraints cs tok) s t ≠ 0 ↔
       allowedByConstraints cs tok t = true :=
-  constrained_agrees_with_constraint_set cs tok ts hts s hne t
+  constrained_agrees_with_constraint_set cs tok s hne t
 
 /-! ## §4 由负对照**反向**推出：可行性是调用方的义务 -/
 

@@ -2058,7 +2058,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `all_deviations_tail_classic` -> `apply`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_residuals_zero_at_newton` -> `W`
 - `all_twelve_discharged` -> `PackageDependenciesValid`, `affineGeometryPackage`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `informationTheoryPackage`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_forall_packageDependenciesValid`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `allowed_is_convex_weights` -> `ConstraintSet`, `DecodesTo`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`
+- `allowed_is_convex_weights` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`
 - `alpha_gamma_le` -> `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
 - `alpha_monotone` -> `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
 - `alphabet_classifiable` -> `CharToken`, `dec`, `enc`, `pieceOf`
@@ -5838,7 +5838,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maskedSoftmax_sum_one` -> `causalDenom`, `causalSoftmax`, `convComb`, `convComb_norm_bound`, `softmax`
 - `masked_attention_output_bound` -> `causalDenom`, `causalSoftmax`, `convComb`, `convComb_norm_bound`, `softmax`
 - `masked_row_nonempty_of_refl` -> `convComb`
-- `mass_concentrated_on_allowed` -> `ConstraintSet`, `DecodesTo`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
+- `mass_concentrated_on_allowed` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `matCLME_adjoint` -> `apply`
 - `matCLME_apply` -> `apply`, `card_fin`
 - `matCLME_mul` -> `apply`, `card_fin`
@@ -6451,7 +6451,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `notC_zero_iff_xorC_zero_zero` -> `andC`, `orC`, `subst`
 - `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `bayesRisk`, `le`, `risk`
 - `not_affineGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `not_allowed_contribution_zero` -> `ConstraintSet`, `DecodesTo`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
+- `not_allowed_contribution_zero` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `not_andC_zero_iff` -> `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `not_bddAbove_range_id` -> `fenchelConjAll`
 - `not_charP_and_charZero` -> `Surjective`, `subst`
@@ -8582,7 +8582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `summable_sq_of_nonneg` -> `apply`, `infinite_sum_bound`
 - `superposition_capacity_bound` -> `E`
 - `superposition_capacity_bound_unit` -> `E`
-- `support_from_decoded_constraints` -> `ConstraintSet`, `DecodesTo`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrained_agrees_with_constraint_set`
+- `support_from_decoded_constraints` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrained_agrees_with_constraint_set`
 - `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_functional_of_not_mem_interior` -> `E`, `dist`, `le`
 - `supporting_hyperplane_fin` -> `E`, `apply`, `dotV`

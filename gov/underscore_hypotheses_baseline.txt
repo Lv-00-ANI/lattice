@@ -69,7 +69,6 @@ Lib/InfoTheory/RealRenyiDP.lean	dpsgd_gaussian_delta	_hσ	unused
 Lib/LearningTheory/RealBayesOptimality.lean	bayesRisk_le_minimaxRisk	_hp	unused
 Lib/LearningTheory/RealBayesOptimality.lean	unique_bayes_admissible	_hp	unused
 Lib/LearningTheory/RealCausalDoCalculus.lean	backdoor_adjustment_general	_hbd	unused
-Lib/LearningTheory/RealConstrainedDecoding.lean	constrained_agrees_with_constraint_set	_hts	unused
 Lib/LearningTheory/RealContrastive.lean	infonce_le_log_one_add_of_gap	_hΔ	unused
 Lib/LearningTheory/RealContrastive.lean	infonce_directional_deriv	_hτ	unused
 Lib/LearningTheory/RealDecisionTheory.lean	rand_not_better_than_min	_hw0	unused
