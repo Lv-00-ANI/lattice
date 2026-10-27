@@ -1429,10 +1429,6 @@ def atp_to_lv_step_mapping (atpRule : String) : Lv00ProofStepType :=
   else if atpRule == "goal" then .unify
   else .rewrite
 
-/-- **(A)** 映射的**确定性**（同一规则名总给同一类型）—— 非空洞，
-    是上游 `atp_to_lv_mapping_soundness := by trivial` 的可证替代。 -/
-theorem atp_to_lv_step_mapping_deterministic (r : String) :
-    atp_to_lv_step_mapping r = atp_to_lv_step_mapping r := rfl
 
 /-- **(A)** `resolution` 映射到 `resolve`。 -/
 theorem atp_to_lv_step_mapping_resolution :

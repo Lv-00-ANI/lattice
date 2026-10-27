@@ -263,9 +263,6 @@ def HasQuadraticLowerBound : Prop :=
       0 < L ∧ f = SmoothQuad L ∧ x0 ≠ 0 ∧
         f (A (fun y => L * y) x0 T) - 0 ≥ c * L * ‖x0 - 0‖ ^ 2 / (T + 1) ^ 2
 
-/-- 该定义的可满足性**未证**（标注）：它是后续工作的目标陈述。 -/
-theorem hasQuadraticLowerBound_iff_self : HasQuadraticLowerBound ↔ HasQuadraticLowerBound :=
-  Iff.rfl
 
 /-! ## 四、要点 `HasQuadraticLowerBound` 的可满足性判定（**否定**）
 

@@ -1107,7 +1107,7 @@
 | `Lattice.Lib.Chain.RealLv00AxiomDischargePerPackage_parts.C` | 18 | 3 |
 | `Lattice.Lib.Chain.RealLv00AxiomDischargePerPackage_parts.D` | 24 | 4 |
 | `Lattice.Lib.Chain.RealLv00AxiomDischargeSummary` | 2 | 0 |
-| `Lattice.Lib.Chain.RealLv00AxiomPackages` | 17 | 26 |
+| `Lattice.Lib.Chain.RealLv00AxiomPackages` | 16 | 26 |
 | `Lattice.Lib.Chain.RealLv00Geometry` | 0 | 0 |
 | `Lattice.Lib.Chain.RealLv00GeometryAnalytic` | 7 | 28 |
 | `Lattice.Lib.Chain.RealLv00GeometryCSG` | 4 | 27 |
@@ -1116,7 +1116,7 @@
 | `Lattice.Lib.Chain.RealLv00GeometrySymbolics` | 8 | 20 |
 | `Lattice.Lib.Chain.RealLv00GroebnerConstraint` | 25 | 6 |
 | `Lattice.Lib.Chain.RealLv00LinearAlgebra` | 36 | 29 |
-| `Lattice.Lib.Chain.RealLv00Solver` | 55 | 72 |
+| `Lattice.Lib.Chain.RealLv00Solver` | 54 | 72 |
 | `Lattice.Lib.Chain.RealLv00Systems` | 27 | 23 |
 | `Lattice.Lib.Chain.RealModelChain` | 6 | 2 |
 | `Lattice.Lib.Chain.RealModelChainHetero` | 6 | 2 |
@@ -1262,7 +1262,7 @@
 | `Lattice.Lib.Editing.RealClosureReversibility` | 29 | 7 |
 | `Lattice.Lib.Editing.RealCompileExtractClosed` | 29 | 5 |
 | `Lattice.Lib.Editing.RealConstraintEdit` | 18 | 7 |
-| `Lattice.Lib.Editing.RealConversionCategorical` | 15 | 6 |
+| `Lattice.Lib.Editing.RealConversionCategorical` | 14 | 6 |
 | `Lattice.Lib.Editing.RealConversionCategoryNew` | 18 | 1 |
 | `Lattice.Lib.Editing.RealConversionComposition` | 18 | 2 |
 | `Lattice.Lib.Editing.RealConversionInformation` | 11 | 0 |
@@ -1504,7 +1504,7 @@
 | `Lattice.Lib.Optim.RealListFinBridge` | 10 | 1 |
 | `Lattice.Lib.Optim.RealMirrorDescent` | 11 | 2 |
 | `Lattice.Lib.Optim.RealNesterov` | 10 | 4 |
-| `Lattice.Lib.Optim.RealNesterovLower` | 16 | 6 |
+| `Lattice.Lib.Optim.RealNesterovLower` | 15 | 6 |
 | `Lattice.Lib.Optim.RealNesterovRate` | 9 | 3 |
 | `Lattice.Lib.Optim.RealNewtonMethod` | 8 | 2 |
 | `Lattice.Lib.Optim.RealNewtonRate` | 5 | 0 |
@@ -1905,7 +1905,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abs_sub_le_abs_add` -> `le_total`, `le_trans`
 - `abs_tanh_lt_one` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `apply`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `tanh_pos_of_pos`, `zeroFixingHoldsBounded`
 - `abs_vs_rope_vs_alibi` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `absorb_appends` -> `Rule`, `layer`, `length`
 - `absorb_requires_image` -> `E`
 - `absorbs_not_derivable` -> `Audit`, `Sat`, `subst`
 - `absorbs_scale_at_three` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`
@@ -2122,7 +2121,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `atp_register_backend_length_le` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
 - `atp_solver_create_initialized` -> `addConstraint`
 - `atp_solver_load_hasProblem` -> `addConstraint`
-- `atp_to_lv_step_mapping_deterministic` -> `addConstraint`
 - `atp_to_lv_step_mapping_exhaustive` -> `addConstraint`
 - `atp_to_lv_step_mapping_resolution` -> `addConstraint`
 - `atp_to_lv_step_mapping_superposition` -> `addConstraint`
@@ -3451,7 +3449,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `denote_zero` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
 - `dependenciesClosed_mono` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `computabilityTheoryPackage`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `induction`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
 - `dependenciesClosed_of_no_deps` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
-- `dependenciesClosed_of_subset` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `computabilityTheoryPackage`, `graphTheoryPackage`, `induction`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
+- `dependenciesClosed_of_subset` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `computabilityTheoryPackage`, `graphTheoryPackage`, `induction`, `layer`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
 - `dependenciesSatisfiedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `append_nil`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`, `zfcSetTheoryPackage`
 - `depthList_cons` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
@@ -4893,7 +4891,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasModel_iff` -> `bvar`, `induction`
 - `hasNonnegCombo_iff_sum` -> `dotV`, `le_refl`, `smul`
 - `hasPartIdentity_iff_exists_holder` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `up`, `withGaze`
-- `hasQuadraticLowerBound_iff_self` -> `apply`, `le_refl`
 - `hcomm_cons_left` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `hcomm_cons_right` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `headEigSq_add_tailEigSq` -> `apply`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
@@ -8592,7 +8589,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symmetric_two_two_trace` -> `apply`, `frobeniusNorm`, `mulVec`
 - `sync_recovers_fedavg` -> `induction`, `le`, `le_trans`, `zero`
 - `syntacticFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
-- `syntacticFunctor_id` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
 - `syntacticFunctor_not_faithful` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntax_differs_semantics_same` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`

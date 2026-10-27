@@ -1,0 +1,429 @@
+# -*- coding: utf-8 -*-
+"""Emit verdicts_016.jsonl. One entry per batch row, keyed by line number."""
+import io, json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+BATCH = os.path.join(HERE, "batch_016.jsonl")
+OUT = os.path.join(HERE, "verdicts_016.jsonl")
+
+K = ["A_strength", "B_missing", "C_hypotheses", "D_downgrade", "E_coverage", "F_content"]
+
+# line -> (verdict, A, B, C, D, E, F, note)
+V = {}
+
+def keep(line, note):
+    V[line] = ("keep", "", "", "", "", "", "", note)
+
+def row(line, verdict, A, B, C, D, E, F, note):
+    for x in (A, B, C, D, E, F, note):
+        assert x.strip(), (line, x)
+    V[line] = (verdict, A, B, C, D, E, F, note)
+
+# ---------------- 1-7: the only rows with a nonzero in-degree ----------------
+keep(1, "真计算：`netAct [compileToLayer s] 0` 归约到 `affineAct (compileToLayer s) 0`，两项都落到 `s.const`，「行为 ⟺ 参数」用 `congrFun` + `simp` 双向给出，不是字段展开。同文件 `compileToLayer_sound:111`/`weightLadder.l2l3_sound:133` 直接消费它。批次标的 in_degree=1（WeightLadderN）**是同名假匹配**：那份文件不 import 本文件，且自己有一条 `act_zero_eq_zero_iff`；本条的真实消费者在同文件内，判定不受影响。")
+
+keep(2, "`(listOfLayer hn L).length = n*n + n` 由 `length_append` + 两个 `length_ofFn` 得到，是真等式；`hn : 0 < n` **不可删**——它进入 `listOfLayer` 的定义（`Nat.mod_lt _ hn`），属结构性前提而非可证前件。`WeightSymbolRepresentation:93` 用 `⟨listOfLayer hn L, listOfLayer_length hn L⟩` 构造定长子类型，用途真实。")
+
+keep(3, "`affineAct p 0 j = (∑ i, W i j * 0 i) + b j = b j`：逐项 `ring` + `Finset.sum_eq_zero`，是 n 维的实质论证（n=1 会被 `simp` 掩盖）。`WeightLadderFullWidthInstance:69` 以限定名 `Lattice.Lift.WeightLadderN.act_zero_apply` 消费它。")
+
+keep(4, "n 维的 iff：正向 `congrFun` + `act_zero_apply`，反向 `funext` + `rfl`（`b = 0` 是函数外延相等），陈述无冗余前件。同文件 `compile_sound_n:129` 直接消费。批次 in_degree=1（WeightLadder.lean）**是同名假匹配**（该文件不 import 本文件），但真实消费者在同文件内。")
+
+row(5, "delete",
+    "不需要加强，而需要删除：在 `convert`/`extract` 都是字段拷贝的前提下，两个合取项都退化成 `P → P`／`P ↔ P`，任何「加强」只是换写法。",
+    "缺的是有意义的方向：要让「行为等价」非平凡，`convert` 必须不是恒等（例如经量化/取整后的权重），那时该证的是 `ConstraintSat c x ↔ NeuronOut (Q (convert c)) x = 0`（`Q` 为取整）并配误差界；现在库里两条都没有。",
+    "无假设可删；相反，`c` 在第一个合取项里**根本没有出现**（该项对任意 `l` 量化），参数 `c`、`x` 只在第二项用到——这是形状上的信号：两条互不相干的单向事实被 `∧` 粘在一起。",
+    "不适用（无 ε 声称）。真正的「降级」是把声称从「往返保持行为等价」降到「往返是字段拷贝」——那正是本条实际证明的东西。",
+    "名字/doc 声称「往返保持行为等价」，陈述给的是两个单向蕴含、且分别针对不同对象（`∀ l` 与给定的 `c`），既不是等价，也不表达往返（往返由同文件 `roundtrip_extract:37` 承担，而那是 `cases c <;> rfl`）。",
+    "第一项展开 `extract`/`ConstraintSat`/`NeuronOut`（`ConvertLinear:52/62/67`）后两边是同一个表达式，`simpa using h` 即 `fun h => h`；第二项是 `convert_preserves_semantics`（`ConvertLinear:73`）的 `.mpr`。零新增信息。",
+    "删除。整条 `WeightToSymbolEquivalence` 的「无损提取」都建立在 `convert = 字段拷贝`、`extract = 字段拷贝` 之上，因此「权重→符号无损」是无内容的：它没有触及任何真实编译（量化/取整/非线性层），而文件头第 13-15 行却把这条当作「提取方向完全可逆」的成果。要保留这条声称，先把 `convert` 换成非恒等映射（如 `ConvertVectorLinear` 之后的量化版）再重证；否则删。全仓无外部引用（`Lib/Lift/RealContractAxioms:112` 只有 `#print axioms`）。")
+
+row(6, "delete",
+    "不需要加强：`ExtractionValid l (extract l)` 已是该契约的最强形式，问题在它恒真。",
+    "缺：真正有内容的验证器契约要求候选不是投影（候选来自搜索/量化/外部输入），以及「验证通过 ⟹ 语义等价」的非平凡方向；当前 `extract := fun l => ⟨l.w, l.b⟩` 使契约退化为自反。",
+    "无假设可删（`l` 是唯一参数，且它出现在两边）。",
+    "不适用（无 ε）。",
+    "doc 谈「提取候选若通过行为等价验证……则是有效符号表示」，但陈述里的候选就是 `extract l` 本身（字段拷贝），覆盖的不是任何候选选择过程。",
+    "展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。",
+    "删除。同一个 `rfl` 事实若要用，写成 `ExtractionValid l (extract l) := rfl` 的接口说明即可；作为定理它会让「提取方向有验证器」这句话看起来被证明了。与 :44 `roundtrip_behavior` 一并处理（两条合起来是同一批定义展开的两半）。")
+
+row(7, "register",
+    "强度足够：`HoldsSet cs pts → c ∈ cs → Holds c pts` 正是 `Semantics/Merge.lean:142` 要用的形状，不需要更强。",
+    "缺的不是定理而是去重：`Geo/ConstraintSet.lean:128` 已有同一定理 `holdsSet_mem`（陈述相同，仅参数顺序不同）。下游应统一到一条；`HoldsSet` 的 `cons`/`append` 消去在 ConstraintSet 已齐备，无需新内容。",
+    "无假设可删：`pts`、`h`、`hmem` 都承重（`nil` 分支用 `hmem` 反驳，`cons` 分支用 `h`、`hmem` 分情形）。",
+    "不适用（无精确/误差声称）。",
+    "doc 说「这是 `HoldsSet` 定义的直接后果」，与证明（对 `cs` 归纳、`HoldsSet` 定义展开）一致，覆盖所有列表长度（含 `[]`），此处不失实。",
+    "非重言：真做了 `cs` 归纳，`List.mem_cons` 分情形，不是 `exact h`。",
+    "内容正确、形状正确，但这是 `Geo/ConstraintSet.lean:128 holdsSet_mem` 的第二份副本（本文件 namespace 是 `Lattice.Semantics.Annotations`）。唯一跨文件引用 `Semantics/Merge.lean:142` 写的是裸名 `holdsSet_member`，而该文件只 `import Lattice.Geo.ConstraintSet` 且 `open Lattice.Geo Lattice.Geo.ConstraintSet`，既没 import 本文件也没 open 本 namespace——该名字解析不到（`Merge.lean` 尚无 olean）。调用处的参数顺序 `(pts) (h) (hmem)` 恰好是本条的顺序，说明 Merge 是照本条写的。登记 PROOF-DEBT：删副本并在 Merge 用 `holdsSet_mem`（或补 import + 限定名），否则「in_degree=1 有消费者」是假的。")
+
+# ---------------- 8-16: Audit/BridgedComposition + Audit/ChainTransitivity ----------------
+keep(8, "通用两段 + 桥的组合模式：`hg (f x) (hbridge (f x) (hf x hx))` 三步分别由 `hg`/`hbridge`/`hf` 承重（不是 `exact h`），且 `hbridge` 只被写在转手点上。同文件 `bridge_is_necessary:107` 证明桥不可省，两者配套；in_degree=0 只说明还没有下游文件，不构成缺陷。")
+
+row(9, "downgrade",
+    "强度不足：doc 说「段数不限 / 非相邻组合的一般形式」，陈述固定三段。真正的一般形式是 `Audit/MultiComposition.compose_chain`（性质随链变化、逐段桥），本文件缺 `compose_list_with_bridges`。",
+    "缺：文件头 §2 表格承诺的 `compose_list_with_bridges`（`(steps : List (α → α))` + 逐段桥列表）在全仓不存在——grep 全仓只有表格那一行。要么补它，要么指向 `MultiComposition.compose_chain`。",
+    "无假设可删：`hf/hg/hh` 与 `hPQ/hQR` 全部承重（去掉任一桥，`hQR _ (...)` 就无法给出 `R`）。",
+    "降级方向：把 doc 从「段数不限」改为「三段特例（`compose_with_bridge` 再套一次）」，删掉表里 `compose_list_with_bridges` 那一行并指向 `MultiComposition.compose_chain`；对现有用途（第 59 轮两段对照、桥数 2）三段形式已够，不必新证 N 段。",
+    "覆盖失实：名字/文档声称一般性，实际只有 3 段、固定 3 个性质；没有对任意长度或任意阶段列表的陈述。",
+    "非重言：两次桥 + 两次保持的组合，`hh (g (f x)) (hQR _ (hg (f x) (hPQ _ (hf x hx))))` 各假设都用上；但它是 `compose_with_bridge` 的嵌套，信息量仅此。",
+    "降级 + 登记：doc 的「段数不限」是本条最贵的一句，因为它让读者以为 N 段情形已被覆盖；实际覆盖它的是另一个文件的 `Chain`。改 doc 的成本远低于新证一条 List 版桥定理，且不失用途。")
+
+keep(10, "真归纳：`steps` 一般化 + `List.mem_cons_of_mem/self` 处理前提，结论对任意阶段列表；doc 的「一般形式」与陈述一致（不假设阶段之间的任何关系），是 `ChainTransitivity` 的实质内容。")
+
+keep(11, "两段保持律，`hg (f x) (hf x hx)` 用了两个不同的假设、两次应用；doc 明说它是 `preserves_foldl` 的特例，没有超出陈述的声称。作为下游可引用的两段形状（`[f,g]`）保留合理。")
+
+row(12, "delete",
+    "不需要加强：`P (f x)` 由 `hf x hx` 直接得到，已是该前件下的全部内容。",
+    "缺：无。真正的传递性由同文件 `preserves_foldl:91` 承担，两段/三段由 `preserves_two:104`/`preserves_three:116` 承担。",
+    "`hf` 与 `hx` 都必填，但本条不需要证明它们能推出什么——它就是把 `hf` 应用到 `hx`。",
+    "不适用（无 ε 声称）。",
+    "doc 自称「单段、双段、任意多段是同一条定理的三个投影，不是三条独立定理」——作者已承认独立价值为零，而本条正是退化到 `exact hf x hx` 的那一端。",
+    "证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。",
+    "删除。若要在库里保留「单段」的说法，写成 `preserves_foldl P [f] … x hx` 的实例说明即可，不必占一个定理名。全仓无引用（in_degree=0），删除成本为零。")
+
+row(13, "register",
+    "强度足够（`hh (g (f x)) (hg (f x) (hf x hx))` 确实证了三段保持），问题在 doc 声称了陈述里没有的东西。",
+    "缺：doc 说的「链式右结合与 `foldl` 一致」需要一条等式（`([f,g,h]).foldl (fun acc f => f acc) x = h (g (f x))`）或 `preserves_foldl` 在该列表上的实例；两条都不存在，全仓也搜不到。",
+    "无假设可删（`hf/hg/hh/hx` 都用到）。",
+    "不适用（无 ε）。",
+    "覆盖失实：陈述里没有 `foldl`、没有结合性断言，`P (h (g (f x)))` 只是把 `preserves_two` 再套一次；doc 的「一致」无载体。",
+    "非重言（三次应用），但相对 `preserves_two:104` 无任何新内容——是同一模式的第 3 个投影。",
+    "登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。")
+
+keep(14, "对 `n` 归纳的迭代保持律（`succ` 分支 `ih (f x) (hf x hx)`），`Nat.iterate` 与 `List.foldl` 确为不同组合子，doc 的判断（一般定理不能直接套到回路）准确，且本条正是回路用的形状（同文件 `loop_preserves:153` 消费）。")
+
+row(15, "strengthen",
+    "强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。",
+    "缺：`(List.replicate n f).foldl (fun acc g => g acc) x = Nat.iterate f n x`（这才是「两种组合子等价」的载体），以及由它双向搬运 `P` 的两条；`Nat.iterate` 与 `foldl` 的这条桥全仓没有。",
+    "无假设可删（`hf` 经 `List.eq_of_mem_replicate` 用在每个阶段上，`hx` 承重）。",
+    "不适用（无 ε）。",
+    "覆盖失实：结论是「`P` 在 fold 结果上成立」，不是「两种形状等价」；等价需要 `↔` 或等式。",
+    "非重言（真做了 `eq_of_mem_replicate` 的消解），但内容 = `preserves_iterate` 经 `preserves_foldl` 绕一圈，且绕出来的结论比 `preserves_iterate:130` 更弱。",
+    "加强：把主结论改成等式桥 `(List.replicate n f).foldl (fun acc g => g acc) x = Nat.iterate f n x`，再从它双向导出保持律；或把 doc 降为「fold 形状也能承载同一保持律（单向）」。现在这条对 doc 的「等价」不承重，而「等价」正是文件 §5 用来论证「一般化 ≠ 可套用」的支点。")
+
+row(16, "delete",
+    "不需要加强：`R.Sat (Nat.iterate R.fix n x)` 已由 `Core/Repair.lean:106 Repair.preserves` 原样给出（同一陈述，仅参数顺序不同）。",
+    "缺：无。回路保持律在生产层已闭；本条既不补桥也不补新形状。",
+    "`hx` 承重（作为 `absorbs` 的前提），无冗余假设。",
+    "不适用（无 ε）。",
+    "doc 说「把一般定理接到库自身的法则上，证明实例化是真实的而非形式上的」——但被接到的那条法则（`Repair.preserves`）本身已存在，本条不产生新覆盖。",
+    "证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。",
+    "删除并改指 `Core/Repair.preserves`。保留它会让「Audit 层也证明了回路保持」与生产层重复计数；`ChainTransitivity` 里真正有内容的是 :91/:130，本条只是它们的实例化副产品。")
+
+# ---------------- 17-26: Audit/CompositionAlgebra ----------------
+keep(17, "`Verdict := List CompositionKind` 的左单位。证明是一行 `List.nil_append`，但它是 `Monoid Verdict` 实例（:174）的 `one_mul` 字段——实例字段必须逐条给出，属最小 API 而非冗余陈述。")
+
+keep(18, "右单位，同上，是实例的 `mul_one` 字段。")
+
+keep(19, "结合律，是实例的 `mul_assoc` 字段；三条律共同支撑 :174 的类型类注册，删任一条实例就不成立。")
+
+keep(20, "`bridgedCount` 在 `sequential` 分支的计算规则（`rfl`）。它是 `bridgedCount_append:147` 归纳里 `simp [bridgedCount]` 的接口，也是 doc「同性质不需要桥」的可检查形式；作为定义的计算规则（API）保留合理。")
+
+keep(21, "`bridged` 分支的计算规则（`rfl`），与 :137 对称；两句合起来才是 `bridgedCount` 在构造子上的完整消去规则。")
+
+keep(22, "真归纳（对 `a` 归纳 + `cases k` + `omega`），`bridgedCount (a ++ b) = bridgedCount a + bridgedCount b` 是 doc「桥数可加」的唯一载体，也是 :196 的一半。")
+
+keep(23, "`bridgedCount [] = 0` 的计算规则（`rfl`），是同态 `map_one` 的一半；虽然平凡，但它是 `bridgedCount_hom` 需要的那个具体等式，属 API。")
+
+row(24, "register",
+    "强度足够（三条律都真），但它是三条已证定理的合取，且已被 :174 的 `Monoid` 实例完全覆盖——本文件 :173 的 doc 自己写「单位的唯一性与结合的传递性由 `Monoid` 自动提供，不需要重复陈述」。",
+    "缺：无。`Monoid Verdict` 实例口径更强（还给唯一性/传递性），`bridgedCount_hom:196` 已在。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「保留以便审计逐条核对」，用途是审计索引而非数学内容；作为索引可以，但不该与实例并列计为两条成果。",
+    "`⟨nil_append, append_nil, append_assoc⟩`：纯合取打包，零新增命题内容。",
+    "登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。")
+
+row(25, "delete",
+    "不需要加强：`a * b = a ++ b` 与 `1 = emptyVerdict` 由 :174 实例的字段定义即得，再强也只有这些。",
+    "缺：无。实例本身的字段已由 Lean 类型检查保证；没有别的定理可以从这里派生。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「实例与显式陈述一致」——陈述检验的是本文件刚写的实例字段，不是任何外部对象，覆盖不了「口径精确」这件事。",
+    "`⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。",
+    "删除。这条永远为真（除非把实例改坏，而那会直接编译失败）；若担心实例被改，用 `example : (1 : Verdict) = [] := rfl` 一行回归即可，不必占一个定理名并被审计当成「两项一致性检查」。")
+
+row(26, "register",
+    "强度足够（`map_one` + `map_mul` 两条即同态判据），但只是 :157 与 :147 的合取。",
+    "缺：doc 说「`bridgedCount` 是 monoid 同态」，但库里没有 `MonoidHom`/`→*` 的实例或定义；要在类型类层面可用，应注册 `Verdict →* ℕ`（两条现成定理即可填 `map_one`/`map_mul`）。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖：`one`/`mul` 两条确实齐备，同态判据不失实；但名里的「同态」在类型类意义下没有载体，读者会以为能用 `map_mul` 的泛型引理。",
+    "`⟨bridgedCount_empty, bridgedCount_append⟩`：合取打包，零新增内容。",
+    "登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。")
+
+# ---------------- 27-31: Audit/CompositionClass ----------------
+keep(27, "`Signature .sequential P Q = (True, P)` 是 `Signature` 在第一个构造子上的计算规则（`rfl`），正是文件 §三「签名的可计算性」要交付的东西；它不是重言式而是定义消去，且是读者理解「需要什么是一对类型」的入口。")
+
+keep(28, "`Signature .bridged` 的计算规则（`rfl`），与 :109 对称；两条合起来才覆盖全部构造子。doc 与陈述一致。")
+
+row(29, "delete",
+    "不需要加强：它只是把 `Evidence` 在两个构造子上的定义各展开一次，加强也只能是再写一遍。",
+    "缺：无。要表达「两类证据形状不同」，需要的是判据（例如两分支类型不可互换的论证，或对 `Signature` 两分支的 `≠`），而不是两条自等。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「两类的证据形状不同——这是判定器存在的理由」，但两个合取项各自是 `X = X`（定义展开），没有比较出「不同」。",
+    "`⟨rfl, rfl⟩`：两个合取项都是定义性自等（`Evidence .sequential P Q` 归约到 `True`，`Evidence .bridged P Q` 归约到 `∀ x, P x → Q x`），零信息量。",
+    "删除。与 :124 `sequential_evidence_trivial` 一并处理；「判定器存在的理由」应由 `BridgedComposition.bridge_is_necessary`（缺桥时命题为假）承担，而不是由两条 rfl 自等承担。")
+
+row(30, "delete",
+    "不需要加强：`Evidence .sequential P Q` 的定义就是 `True`。",
+    "缺：无。若需要「`sequential` 组合确实可实现」，那由 :92 `compose_sequential` 承担，本条不承担任何东西。",
+    "无假设（`P`、`Q` 甚至都没被用到）。",
+    "不适用（无 ε）。",
+    "doc 说「确实不需要额外证据」——这句是对的，但它由 `Evidence` 的定义直接给出，与本条定理无关。",
+    "陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。",
+    "删除。`Evidence .sequential = True` 若要留，按 :109 的 rfl 读回写一次即可；写「可以证 `True`」的定理会让「0 sorry」的计数虚高。")
+
+row(31, "delete",
+    "不需要加强：陈述与 `BridgedComposition.bridge_is_necessary:107` 逐字相同。",
+    "缺：无。必要性已在被 import 的文件里证过；若真想「在判定器语境下重述」，陈述里必须出现 `Evidence .bridged`/`Signature`/`CompositionKind`，而现在一个都没有。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「第 47 轮 `bridge_is_necessary` 在判定器语境下的重述」，但陈述里没有任何判定器对象（`CompositionKind`/`Evidence`/`Signature` 均不出现），只是同一命题的第二个名字。",
+    "证明是 `BridgedComposition.bridge_is_necessary`：一字不改地引用另一条定理，零新增信息。",
+    "删除或改 `alias`。若希望判定器语境真有内容，应陈述「`CompositionKind.bridged` 的证据不可省」这种带 `Evidence` 的形状——但那需要把 `Evidence` 做成可判定的类型而不是 `Prop`，属设计改动，现在这条只是同义重复。")
+
+# ---------------- 32-34: Audit/Counterexamples + Audit/DecreasesRole ----------------
+row(32, "register",
+    "强度不足：陈述 `¬ ∀ L δ, 0 ≤ δ → 0 ≤ L * δ` 只用 `L = -1, δ = 1` 就打掉了，它反驳的是「任意负数乘非负数仍非负」这个没人主张的命题；doc 声称要支撑的是 `residual_le_of_zero_on_dense` 里 `0 ≤ L` 的承重性，那需要另一条定理。",
+    "缺：真正承重的形状是对采样那一跳的不可导出性，例如「存在 `L < 0`、`δ ≥ 0` 与满足 `|r x - r s| ≤ L * |x - s|` 的数据，使结论 `|r x - r s| ≤ L * δ` 在 `δ > 0` 处失败」，或退一步：把「乘法单调性 `a ≤ L*δ → (0 ≤ L) → a ≤ 0` 需要 `0 ≤ L`」写成带该前提的引理并给反例。另：`Audit/Hypotheses:133` 把本条列为 `0 ≤ L` 的机器核对证据，那个引用当前不成立。",
+    "无假设可删（`h` 是反证假设）。",
+    "不适用（无 ε）。降级方向：把 doc 的第一句从「Lipschitz 界不能推出 …」改为「乘法一步 `0 ≤ L*δ` 需要 `L ≥ 0`，本条给出该一步的反例」——这样陈述与 doc 对齐，且不再暗示它覆盖 Lipschitz 推导。",
+    "覆盖失实：名字/`doc` 讲的是 Lipschitz + 采样界，陈述里既没有 `r`、没有 `d x s`、也没有 `δ` 的乘法链，只有一句关于 `L * δ` 的否定。",
+    "非重言：`h (-1) 1` + `norm_num` 是真反例；但反的是一个明显为假的稻草人命题，信息量极低。",
+    "登记（不是删）：反例本身正确，`lipschitz_needs_nonneg` 这个名字也诚实；问题是它被 `Audit/Hypotheses:133` 当作 `0 ≤ L` 的承重证据引用，而它并未触及 `residual_le_of_zero_on_dense` 的推导。要么补上真正的那一步（乘法单调性的前提必要性），要么把 Hypotheses 那行的证据换成散文并注明「未机器核对」。同文件 :60/:70 两条是真反例（`r² ≤ ε²` 与 `EpsSat` 的 `ε`），可作模板。")
+
+keep(33, "`hzero`（`μ = 0 ↔ Sat`）与 `hstep` 都承重：`hfix` 用 `hzero.mpr` + `hstep`，`hpos` 用 `Nat.eq_zero_or_pos` 加 `hzero.mp` 反驳 `¬ Sat n`；结论正是 `Repair.decreases` 的字段形状。对「decreases 在一步收敛下可导出」这个用途，陈述已是最强可用的条件形式。")
+
+row(34, "register",
+    "强度足够（两个合取项都成立），但第二项 `∀ n, Sat (fix n)` 与假设 `hstep` 逐字相同。",
+    "缺：无。真正的角色刻画由 `decreases_of_one_step:119` 加 `Core/Repair.progress:76` 承担，已具备。",
+    "无冗余假设（`hzero`/`hstep` 都承重）；问题相反——结论里把假设又抄了一遍。",
+    "不适用（无 ε）。",
+    "doc 说「完整刻画了 `decreases` 的角色」；在给定前提下一半结论就是前提，所以「刻画」并不比 `decreases_of_one_step` 多。",
+    "`⟨decreases_of_one_step …, hstep⟩`：一半是合取打包，一半是复述假设。",
+    "登记：删掉第二合取项（它就是 `hstep`），只留 `decreases_of_one_step`；若想强调「一步收敛 + 原子 ⟹ decreases 且已收敛」，应把它写成 `Repair` 结构上的实例（`hstep` 换成一个真实的收敛字段并证明），而不是把假设重列一遍。")
+
+# ---------------- 35-37: Audit/Hypotheses ----------------
+row(35, "downgrade",
+    "要支撑「审计没有发现冗余前提」需要对 10 条定理逐条证明「删掉该前提仍可证」或给出反例；当前只统计了作者自己填的表里没有 `.redundant` 标签，两者不是一回事。",
+    "缺：每条的承重证据。表中 4 行（`decodePayload_encodeForm`、`compileProgram_sound`、`converges_within`、`ladder_forward`）的「证据」是散文，`residual_le_of_zero_on_dense` 引用的 `lipschitz_needs_nonneg` 是稻草人反例（见本批 :85 条），真正机器核对过的只有 `sq_le_needs_nonneg`/`eps_needs_nonneg`/`delta_is_input` 三条。",
+    "无假设。",
+    "降级方向：把声称从「审计没有发现冗余前提」改为「审计表中没有 `.redundant` 条目」——当前证明恰好只支持后者，而且不失用途：它保证清单不会少一条处置记录。核实冗余性另立条目，逐条给「删前提仍可证」的定理。",
+    "覆盖失实：`decide` 只对 `chainAudit` 这张手写表求值，与那 10 条定理的前提是否冗余没有任何联系；「审计没有发现」是全称结论，陈述是单条数据查询。",
+    "非重言（改表即可证伪），但内容是自指数据检查，不含数学信息。",
+    "降级 + 登记：doc 的诚实处在第二句（「让无冗余可以被机器核对」），但它核对的其实是「标签列没有 redundant」。这也顺带说明 `IsRedundant := fun b => b = true` 这个判据是占位（见本批 :69 条），真正的冗余判据是「命题在更弱假设下仍成立」，那需要逐条证明。")
+
+row(36, "register",
+    "陈述本身没问题（表就是 10 行），问题在 doc 与它直接矛盾。",
+    "缺：一张与定理数一致的口径。要么表删到 7 条，要么 doc 与 §2 标题改成 10 条；现在 §2 小标题写「七条核心定理」而本定理说 `= 10`，两处必然有一处是错的。",
+    "无假设。",
+    "不适用（数字/文档一致性，与 ε 无关）。",
+    "覆盖失实：doc 声称「审计覆盖了七条定理」，实际 `chainAudit` 是 10 行（含后加的 `ladder_forward`、`epsSat_of_loss_le_sq`、`sampled bound` 等）；`decide` 只保证后者。",
+    "`by decide` 对手写表求长度：非重言但零数学信息。",
+    "登记：这是「清单从 7 扩到 10、doc 没跟上」的残留，恰好是本库「文档与陈述脱节」的样本。修 doc 一行即可；顺带把 4 行散文证据标成「未机器核对」，否则 `no_redundant_hypotheses` 与 `every_judgement_carries_a_reason` 会一起把散文当证据用。")
+
+row(37, "register",
+    "强度足够（陈述就是要表达的「每条都带理由」），但它的证明依赖的正是 :155 那条数据事实。",
+    "缺：如果真要「类型保证」，应把处置理由做进类型（例如 `redundant` 也带 `String` 并在 `HypStatus` 层陈述），或把判据落到 `∀ st : HypStatus` 而不经过 `chainAudit`；现在的形状必须查表。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「这条性质是类型保证的，不需要证明」，但证明里 `redundant` 分支要 `simp [chainAudit] at hp`——它不是类型保证，而是同一张表的另一个查询。",
+    "内容与 :155 `no_redundant_hypotheses` 相同（都在证「表里没有 `.redundant`」），只是换了 `cases` 外形；非重言但重复。",
+    "登记：doc 的「类型保证」不成立（`loadBearing`/`structurallyRequired` 带 `String` 是真的，但「没有第三构造子出现」只能查表）。改 doc，或把 `redundant` 从数据里去掉、改成单独的待办清单，这样这条才真的变成类型事实。")
+
+# ---------------- 38-42: Audit/MultiComposition ----------------
+keep(38, "`Chain` 上的消去定理：`nil` 给 `hx`，`cons` 用 `h x hx` 把性质送到 `rest` 的入口再递归——这是整条链的求值，一般形式，不是 `exact h`。它把「衔接由类型强制」变成可用的推理规则，是本节的核心。")
+
+row(39, "delete",
+    "不需要加强：`(Chain.cons Q h (Chain.nil Q)).out x` 归约后就是 `Q x`，由 `h x hx` 得到。",
+    "缺：无。多段一般形式由 `compose_chain:116` 承担，两段对照由 `chain_two:133` 承担。",
+    "无假设可删；`h`、`hx` 都用到，但用法就是应用一次。",
+    "不适用（无 ε）。",
+    "doc 说「一段的链就是一次两段组合（`compose_bridged`）」——`compose_bridged` 是两段 + 桥，本条只有一段，对应关系只能由 `Chain.out` 的定义读出，陈述里没有表达任何对应。",
+    "归约后是 `h x hx`：只应用了一次假设，零信息量。",
+    "删除。若真想记录「一段 = 一次 bridged 组合」，应陈述定义性等式 `Chain.out (Chain.cons Q h (Chain.nil Q)) = Q`（rfl），或直接指向 `compose_chain` 的实例；写成 `.out x` 加 `hx` 只是把假设重抄一遍。")
+
+row(40, "delete",
+    "不需要加强：`(Chain.nil P).out x` 归约后是 `P x`。",
+    "缺：无。恒等律若要留，其定义性形式是 `Chain.out (Chain.nil P) = P`（rfl 即证）。",
+    "`hx : P x` 是结论本身——结论 `P x` 与假设逐字相同，这条没有可删的前件，而是没有前件之外的内容。",
+    "不适用（无 ε）。",
+    "doc 说「空链是恒等（第 59 轮的 `compose_sequential`）」；陈述既没有 `apply` 也没有复合，等价性只能靠 `Chain.out` 的定义读出来。",
+    "`compose_chain (Chain.nil P) x hx` 归约后就是 `hx`：只复述假设。",
+    "删除（或改写成 rfl 的 `Chain.out (Chain.nil P) = P`）。保留它会让「空链恒等」看起来需要证明，实际这是 `Chain.out` 的定义；这种条目最容易被审计当成「链代数的恒等律已证」。")
+
+keep(41, "两段链：`h1`、`h2` 各应用一次，`out` 归约到 `R x`。虽是 `compose_chain` 的实例，但有两次实质推导（不是 `exact h`），且 doc「逐段对照第 59 轮 `compose_bridged`」与陈述一致。")
+
+keep(42, "对 `c` 做 `cases`：`nil` 分支要 `simpa [Chain.out] using h` 把 `c.out = R` 变成 `P = R`（不是 rfl 一步），`cons` 分支给出 `⟨Q, hf, rest, rfl, h⟩` 见证。这是「出口由构造决定」的逆命题形式，非重言，且是全节唯一把「类型强制」变成可检查事实的定理。")
+
+# ---------------- 43-50: Audit/ObligationIndependence ----------------
+keep(43, "`¬ (n = 0) → destructiveFix n < n`：`if_neg` 后 `omega`，真做了非零点减一的计算（`0` 处不成立，所以前件不可删）；是 `absorbs_not_derivable:113` 需要的 `decreases` 前提。")
+
+row(44, "delete",
+    "不需要加强：`∀ n, n = 0 → n = 0` 已是命题的全部。",
+    "缺：无。`absorbs_not_derivable:113` 需要的 `atomic` 前提内联 `fun _ hn => hn` 即可；真正有内容的是 `destructiveFix_decreases` 与 `destructiveFix_not_absorbs`。",
+    "无可证前件可删（也没有别的假设）；问题在于陈述里没有对象。",
+    "不适用（无 ε）。",
+    "覆盖失实（最要紧的一点）：陈述**完全不出现** `destructiveFix`，对任何算子都成立。doc 说「它的测度只在目标为零，所以 `atomic` 成立」——那是 `Sat`/`μ` 的选择所致，不是该算子的性质。",
+    "`fun _ hn => hn`：`n = 0 → n = 0` 是重言，且与同文件 :144 `ascendingFix_atomic` 的陈述逐字相同（两条一模一样的定理名）。",
+    "删除（并在 :121 的调用处内联）。若确实想记录 `atomic` 义务在该反例上成立，就把 `Sat` 写出来（`∀ n, (fun k => k) n = 0 → n = 0` 与 `Sat` 的定义对上），或干脆在 `absorbs_not_derivable` 里用 `show …` 说明——不要用一条不提算子的重言当「该算子原子」。")
+
+keep(45, "真反例：`destructiveFix 0 = 5 ≠ 0`，`norm_num` 关闭，`h 0 rfl` 的实例化路径清楚；doc「`0` 满足谓词却被移走」与定义 `if n = 0 then 5 else n - 1` 一致。")
+
+keep(46, "量化形式的主定理：对任意 `Sat`/`fix`/`μ`（`ℕ` 上）反证，实例化到 `Sat := n = 0`、`μ := id`，再交给 `destructiveFix_not_absorbs`。这是真有内容的不可导出性——它排除的是一整族推导，不是一个具体算子。")
+
+keep(47, "`ascendingFix 0 = 0`：`subst` 后 `rfl`，需要展开 `if n = 0` 才成立（非零点会变成 `n+1`）；是 `decreases_not_derivable:157` 的 `absorbs` 前提。")
+
+row(48, "delete",
+    "不需要加强：`∀ n, n = 0 → n = 0` 已是命题的全部（与 :95 相同）。",
+    "缺：无。`decreases_not_derivable:157` 的第二合取项内联 `fun _ hn => hn` 即可。",
+    "无可证前件可删；陈述里没有 `ascendingFix`（也没有 `μ`）。",
+    "不适用（无 ε）。",
+    "覆盖失实：doc 说「它是原子的（度量取 `id`）」，但陈述既不含该算子也不含度量，对任何算子成立。",
+    "`fun _ hn => hn`：重言；且与 :95 `destructiveFix_atomic` 的陈述逐字相同——同一文件里两条同名实不同名的重言。",
+    "删除（内联）。`decreases` 不可导出这件事由 :147 `ascendingFix_not_decreases` 与 :157 的 ∃ 形状承担，两条 `n = 0 → n = 0` 不承重，只让「三条独立性」看起来由四个文件级定理支撑。")
+
+keep(49, "`n = 5` 的具体反例：`h 5 (by decide)` 后 `simp` 把 `6 < 5` 关掉；需要展开 `if n = 0`，非平凡，是 `decreases_not_derivable` 的第三块。")
+
+keep(50, "∃ 形式的不可导出性：`ascendingFix` 同时满足 `absorbs`、`atomic` 却违反 `decreases`。三块由 :140/:144/:147 提供，但 ∃ 形状本身是这条定理的内容（库里没有第二条同形状的），它排除的是「只由前两条义务组成的公理系统能推出 `decreases`」。")
+
+# ---------------- 51-55: Audit/PredicateWitnesses ----------------
+row(51, "delete",
+    "不需要加强：`IsRedundant b := b = true`，`true = true` 已是全部。",
+    "缺：一个能区分真判据与占位的冗余谓词。可证性不是 `Bool`（「不需要额外前提即可证」是关于命题的断言），应写成对 `(T, h)` 的可证性关系或 `#print axioms` 的反射，并给真正的实例与反例各一条。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "doc 说「这是它最直接的模型」——属实，但模型平凡到不承载任何信息，也无法证明该判据在真实定理上可判定。",
+    "`rfl`：陈述是 `true = true`，重言（a=a），零信息量。",
+    "删除。`IsRedundant` 本身就是占位谓词（把 `Bool` 断言成 `= true`），它的「非空见证」给不出任何东西；同文件 :89/:101/:111 三个见证之所以有值，是因为被见证的谓词（`IsPolicyDensity`/`KeyOrthogonal`/`IsometryScalar`）有内容。真正要修的是 `IsRedundant` 的定义，`Audit/Hypotheses:122` 引用的就是它。")
+
+keep(52, "把 `CommutativeBlock` 实例化到恒真关系：证明 `fun _ _ _ => trivial`，但陈述确实在检验该谓词的条件（要展开定义、对每对下标记 `trivial`），doc 诚实标注这是退化模型、非退化情形属 `RealEffectOrdering`。作为「定义不空」的见证成立，且没有夸大。")
+
+keep(53, "真测度论证：`filter_upwards` + `norm_num` 给几乎处处非负，`simp` 给 `∫ 1 ∂μ = 1`（用 `[IsProbabilityMeasure μ]`）。doc 关于「概率测度不是回避」的解释与 `IsPolicyDensity` 的定义（要求 `∫ π ∂μ = 1`）一致，是这条见证里唯一有实质证明成本的一条。")
+
+keep(54, "`KeyOrthogonal p ⟨·, 0⟩`：`simp` 用 `inner_zero_right` 一类引理把内积归零，`p.k` 是任意向量——不是 `rfl`，是真见证；doc 的 `inner p.k 0 = 0` 与证明一致。")
+
+keep(55, "`IsometryScalar (id : E → E)`：证明 `fun _ _ => rfl` 确实是定义性相等，但陈述是关于任意内积空间上恒等映射保内积的命题（`IsometryScalar` 的定义是全称内积等式），作为「该谓词在它该有实例的地方有实例」的见证成立；doc 明说它是最退化的等距，没有夸大。与 :69 `isRedundant_true` 的区别在于谓词本身有内容（`IsRedundant` 只是「Bool 为真」）。")
+
+# ---------------- 56-59: Audit/StructureCensus ----------------
+row(56, "register",
+    "不需加强，也不会更强：`decide` 对手写表求值，任何加强都仍是表自己的算术。",
+    "缺：把 `census` 与真实结构挂钩的机制（例如每行带结构名的 `Lean.Name`，由结构反射生成字段数），否则表漂移无人发现。本轮已发现 `Representation` 行 `fields := 8` 与 `Lift/Extraction.lean:58` 的 7 个字段（`inputP`/`inputW`/`encode`/`decode`/`compile`/`extract`/`roundtrip`）不符；若连类型参数也算则是 9，8 不符合任何一种口径。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖失实：doc 称「四个结构 + `Tokenizer` 的**实测**清册」，但没有任何东西核对这些数字是实测；`decide` 只核对表内算术，而表里已有一行是错的。",
+    "`by decide` 读一个 5 元素字面量的长度：不是重言，但不承载库内容。",
+    "登记（与 :144/:150/:156 同一根因）：这是审计**自指**，不是审计结果。先修 `Representation` 的 8→7，再考虑是否保留这组 `decide` 定理——它们唯一的用处是防止有人改表忘改 doc，而那需要表与结构真实绑定才有意义。")
+
+row(57, "strengthen",
+    "强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。",
+    "缺：把结论落到 `Repair` 上。可行写法（数据都在表里）：`census.filter (fun s => s.obligations * 2 ≥ s.fields) = [{ name := \"Repair\", fields := 6, obligations := 3, nestedObligations := 0 }]`，或 `∀ s ∈ census, s.name ≠ \"Repair\" → s.obligations * 2 < s.fields`。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖失实：`count = 1` 与「`Repair` 最高」不等价——若把 `Repair` 改成 3/8、把 `Tokenizer` 改成 2/3，`count` 仍是 1 而 `Repair` 已不是最高。doc 的「其余都 ≤ 33%」也没被陈述覆盖（33% 那半没人证）。",
+    "`by decide`：非重言（可被改表证伪），但内容是表算术，且没有出现被断言的结构。",
+    "加强：把唯一命中的行展开成具体记录（或对 `s.name ≠ \"Repair\"` 全称量化），使名字与陈述对齐；顺带把「其余 ≤ 33%」写成 `∀ s ∈ census, s.name ≠ \"Repair\" → s.obligations * 2 < s.fields`，一条 `decide` 即可。这样这条才真的说的是它名字说的那件事。")
+
+row(58, "register",
+    "不需加强（9 与 doc 的分解一致：1+1+(1+2)+1+3），问题在它是表算术而非库事实。",
+    "缺：与真实结构挂钩的机制（同 :141 条）。此外 `Ladder` 的 `nestedObligations := 2`（两个 `Tokenizer`）没有任何东西核对，属手填数字。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖：求和数学正确、覆盖表内 5 行；但对「所有结构」失实——库里的结构远多于 5 个（`Expert`/`MergeRecord`/`SymOne`/`StackLayer` 等未入表），doc 的「所有结构的义务总数」应读作「入表 5 个结构的义务总数」。",
+    "`by decide` 对字面量求和：非重言但零数学信息。",
+    "登记：与 :141/:144/:156 同一处理——这组 `decide` 是清单纪律，不是「义务总数」的定理。若要当审计结果，doc 必须写清「入表 5 个结构」，否则读者会把它当成全库统计（而 `Representation` 那行已有字段数错误，说明表并未随代码维护）。")
+
+row(59, "downgrade",
+    "强度不足：要支撑「库里每个结构都有实质义务」应对全库结构量化，而陈述只对 `census` 的 5 行。",
+    "缺：反例侧的记录——库里确有纯数据结构（`Lift/WeightLadder.lean:77 SymOne` 只有 `coef`/`const`，`Semantics/Merge.lean:58 Expert`、`:74 MergeRecord` 亦同），所以「没有结构是零义务的」在全库范围是假的；应改成对入表 5 个结构的陈述，并另记一条「数据容器结构也存在」。",
+    "无假设。",
+    "降级方向：把名字/doc 降到「入表的 5 个结构 `obligations ≥ 1`」；且 `≥ 1` 只是表字段，不能推出「有实质义务」（那是作者填的数字，不是证明义务）。",
+    "覆盖失实（两处）：(1)「库里的每个结构」只有 5 个；(2)「排除了结构只是数据容器的可能」无依据——`SymOne` 就是数据容器，它的 `satSym`/`satW` 在 `Ladder` 实例里才成为义务。",
+    "`intro s hs; simp [census] at hs; rcases … <;> decide`：对 5 个已知字面量逐一 `decide`，非重言但零数学信息。",
+    "降级 + 登记：doc 的两句都比陈述强，其中「排除了数据容器」是可证伪的。建议改为「`census` 中 5 个结构的 `obligations` 字段均 ≥ 1」，并删掉「每个结构都有实质义务」；同时说明 `FieldRole.datum` 的存在本身就承认数据字段/数据结构的合法性。")
+
+# ---------------- 60-77: Audit/VerdictLattice ----------------
+keep(60, "`kindToBool ∘ boolToKind = id`，`cases b <;> rfl`：两个构造子与 `Bool` 的双射一半，`kindLe_antisymm:96` 依赖它（先证 `Bool` 上相等，再拉回）。")
+
+keep(61, "另一半（`boolToKind ∘ kindToBool = id`），与 :75 合起来才是双射；`kindLe_antisymm` 的 `calc` 两步都用它。")
+
+keep(62, "`kindLe a b ↔ a = sequential ∨ b = bridged`：`cases a <;> cases b <;> simp`，把 `Bool` 序展开成判定器的两个极端。右端不是左端的定义，是非平凡的等价陈述，且是 :108/:112 的依据。")
+
+keep(63, "自反性：`cases a` 后 `simp [kindLe, kindToBool]`；`kind_is_bounded_lattice` 的第一条，也是 `kindLe` 作为偏序的最小要求。")
+
+keep(64, "反对称：先 `decide` 出 `Bool` 上的反对称，再经 :78 的双射回到 `CompositionKind`。是有结构的证明（不是三重 `cases` 堆砌），且这条恰好是 `kind_is_bounded_lattice` 合取里缺的那条（见 :149 条）。")
+
+keep(65, "传递性：`cases`×3 + `simp_all [kindLe, kindToBool]`，偏序第三条。")
+
+keep(66, "`sequential` 是底：经 `kindLe_iff` 归约到 `Or.inl rfl`；doc 与陈述一致。")
+
+keep(67, "`bridged` 是顶：`Or.inr rfl`；与 :108 对称。")
+
+keep(68, "上界左：`cases`×2 + `simp [kindLe, kindToBool, kindSup]`，`kindSup` 的 `if kindToBool a then bridged else b` 两个分支都要处理；是真证明。")
+
+keep(69, "上界右，与 :125 对称；`kindSup` 的两个分支都要看 `b` 是否已是 `bridged`，非 rfl。")
+
+keep(70, "最小上界：两条前提 + `cases`×2 + `simp_all`，`forall` 与 `if` 一起展开；这是 `kindSup` 确为上确界的那一半。")
+
+keep(71, "交的下界左：`kindInf := if kindToBool a then b else sequential`，两个分支都要处理；是真证明。")
+
+keep(72, "交的下界右，与 :135 对称。")
+
+keep(73, "最大下界：两条前提 + `cases`×2 + `simp_all`；是 `kindInf` 确为下确界的那一半。")
+
+row(74, "strengthen",
+    "强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。",
+    "缺：把现成的 4 条并入同一合取：`(∀ a b, kindLe a b → kindLe b a → a = b)`，与 `(∀ a b, kindLe (kindInf a b) a ∧ kindLe (kindInf a b) b ∧ ∀ c, kindLe c a → kindLe c b → kindLe c (kindInf a b))`。`kindLe_antisymm:96` 与 `:135/:138/:141` 都已证，只需搬进合取（`exact` 即可）。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖失实：合取覆盖「有界 + 上确界 + 偏序前两条」，不覆盖反对称与交；按 `Lattice`/`BoundedLattice` 的判据这是少了关键一半。作为「有界格」的凭证被引用时会误导。",
+    "`⟨kindLe_refl, …, kindLe_sup_left …, kindSup_le …⟩`：打包 5 条已证定理，除 `∀ a b, …` 的重排外零新增命题内容。",
+    "加强：把 :96 的反对称与 :135/:138/:141 的交三律并入同一合取（都是现成的），这样名字、doc 与陈述三者对齐；或者把名字改成「有界偏序 + 上确界」，把「格」留给补齐后的那条。两条路都比现在这个「名字比陈述多两族公理」的状态好。")
+
+keep(75, "`verdict_no_sup`：`Forall₂` 强制等长，`List.Forall₂.length_eq` 给出 `u.length = 1` 与 `= 2`，`omega` 关闭。这是「`Verdict` 不是格」的真正证明（反例是长度冲突这一结构性事实，不是措辞），也是 :211 的一半。")
+
+keep(76, "真归纳（对 `a` 归纳、`b` 分情况、`Nat.add_right_cancel_iff` 去掉长度头），逐点取 `kindSup` 作上界；这是「定长切片上格结构仍在」的正面回答，非打包。")
+
+row(77, "register",
+    "强度足够（两半正是要说的），但它就是 `kindLe_bot:108`/`kindLe_top:112`/`verdict_no_sup:177` 三条的合取。",
+    "缺：无。两半都已各自成条。",
+    "无假设。",
+    "不适用（无 ε）。",
+    "覆盖与 doc 有出入：doc 说「是两条定理的合取」，实际是三条（bot、top 各一条，加上 `verdict_no_sup`）——数字口径与 :160 的「七条/10 条」那类误差同型。",
+    "`⟨fun a => ⟨kindLe_bot a, kindLe_top a⟩, verdict_no_sup⟩`：纯打包，零新增信息。",
+    "登记：作为文件结论的汇总条可以留，但应标注它是索引（`:149` 与 `:177` 的合取），不要与 `kind_is_bounded_lattice` 并列计为两条成果；doc 的「两条定理」改成三条。")
+
+# ---------------- 78-80: Core/Activation ----------------
+keep(78, "`@[simp]` 的空栈恒等律：`actStackEval [] x = foldl … [] x = x`，`rfl`。它是 `actStackEval` 的 API 基例（下游化简直接用），陈述与 doc「空栈是恒等」一致。")
+
+keep(79, "`layerApply ⟨p, none⟩ x = affineAct p x`：`match L.act` 的 `none` 分支归约，`rfl`。它是 `actStackEval_of_no_activation:111` 逐步归约所依赖的读回引理，属接口必要而非重言。")
+
+keep(80, "`relu` 在 `0/1/-1` 的取值：`simp only [relu]` + `norm_num`，三点都要算（`max` 的两侧不同）。它是 `relu_not_affine:134` 在 :145 引用的 `relu_key_values.2.2`，承重。")
+
+# ---------------- emit ----------------
+rows = [json.loads(l) for l in io.open(BATCH, encoding="utf-8") if l.strip()]
+assert len(rows) == 80, len(rows)
+assert set(V) == set(range(1, 81)), sorted(set(range(1, 81)) - set(V))
+
+out = []
+for i, r in enumerate(rows, 1):
+    verdict, A, B, C, D, E, F, note = V[i]
+    if verdict == "keep":
+        A = B = C = D = E = F = ""
+    out.append({
+        "file": r["file"], "line": r["line"], "name": r["name"], "verdict": verdict,
+        "A_strength": A, "B_missing": B, "C_hypotheses": C,
+        "D_downgrade": D, "E_coverage": E, "F_content": F, "note": note,
+    })
+
+with io.open(OUT, "w", encoding="utf-8", newline="\n") as f:
+    for o in out:
+        f.write(json.dumps(o, ensure_ascii=False) + "\n")
+
+from collections import Counter
+c = Counter(o["verdict"] for o in out)
+print("rows:", len(out))
+print("nonzero:", sum(1 for o in out if o["verdict"] != "keep"))
+print(dict(c))
+print("written:", OUT)

@@ -184,6 +184,13 @@ CHECKS = [
     # the line. A path that serves only the author's machine and is silent to a reader is the most
     # common packaging defect there is.
     ("packaging: licence file exists, outside paths documented", "check_packaging.py"),
+    # Round 208. The completion standard was "has a name, is a theorem, 0 sorry". Lean checks the
+    # theorem is TRUE, never that it is STRONG -- so `:= h`, `a = a` and a 4/12 coverage import and
+    # cite exactly like a complete theorem, and downstream builds on them.
+    # This gate catches the two syntactically decidable shapes (reflexive conclusion, bare-hypothesis
+    # proof) with a two-way baseline: a new one fails, and a baselined one that stops firing also
+    # fails, so the ledger can only shrink. Semantic strength is audited separately -- see PROOF-DEBT.md.
+    ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
     # Round 179, P2-16. 21 wildcard `| _ => none` decoders exist in the kernel and nobody had judged
     # them. Judging them once by hand is not the fix -- a 22nd would appear unexamined. Each file is now
     # registered with one of three reasons (covered by a round-trip theorem / upstream Lv-00 carried /

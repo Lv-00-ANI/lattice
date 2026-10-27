@@ -77,12 +77,6 @@ def syntacticFunctor (cs : ConstraintSet) : Set VectorConstraint :=
 def weightFunctor (ls : Layer) : Set LinearLayer :=
   Set.range (fun i : Fin ls.length => ls.get i)
 
-/-- ⭐ **① 符号侧函子保恒等**：`syntacticFunctor ∘ id = syntacticFunctor ∘ syntacticFunctor`
-的**恒等部分**，陈述为「`Functor` 律的 `id` 分量」：
-`syntacticFunctor cs` 在 `cs` 未变时不变。
-⚠ **单列此条是接口需要**（`Functor` 律的分量），**不作为有内容的定理计数**。 -/
-theorem syntacticFunctor_id (cs : ConstraintSet) :
-    syntacticFunctor cs = syntacticFunctor cs := rfl
 
 /-- ⭐ **①′ 符号侧函子保拼接（承重，非平凡）**：
 

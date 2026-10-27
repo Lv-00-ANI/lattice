@@ -1,0 +1,400 @@
+=== #1 Lib/Compiler/RealTreeRecursion.lean:181 [theorem] induction  in_degree=183
+DOC: **结构归纳原理**：若 `motive` 在「所有孩子的 `motive` 成立」的前提下对 / `node a ts` 成立，则它对所有树成立。证明用 `size` 的强归纳 / （`size_child_lt` 提供递减）——这正是树上良基递归/归纳的终止性所在。
+STMT: theorem induction {motive : Tree α → Prop} ;     (h : ∀ (a : α) (ts : List (Tree α)), (∀ c ∈ ts, motive c) → motive (node a ts)) : ;     ∀ t, motive t
+USERS: Audit/ChainTransitivity.lean, Audit/CompositionAlgebra.lean, Audit/VerdictLattice.lean, Core/Activation.lean, Core/Idempotent.lean, Core/Repair.lean, Core/RepairConvergence.lean, Core/RepairMultistep.lean, Core/RepairWF.lean, Core/Simulation.lean, Core/VariableNet.lean, Geo/CExprCodegen.lean
+
+=== #2 Lib/Chain/RealLv00LinearAlgebra.lean:426 [theorem] le_trans  in_degree=136
+DOC: (A) 传递性。采集自 `Version.le_trans`（真实证明）。 / ⚠ Lv-00 原证明在若干分支上把 `a.major`/`b.minor` 等字段张冠李戴（`hbc₂` 用作 major 的界）， / 本文件用 `omega` 收口各分支——`omega` 在纯 `ℕ` 线性算术上是**决策过程**，比手写 `Nat.lt_of_lt_of_le` / 更不易错。
+STMT: theorem le_trans {a b c : LvVersion} (hab : a ≤ b) (hbc : b ≤ c) : a ≤ c
+USERS: Geo/Lipschitz.lean, Geo/PartialReinjection.lean, Geo/RhoMetric.lean, Lib/Architectures/RealActComplete.lean, Lib/Architectures/RealBlockConstants.lean, Lib/Architectures/RealComplexNorm.lean, Lib/Architectures/RealCrosstalkGeneral.lean, Lib/Architectures/RealGNN.lean, Lib/Architectures/RealGeluDerivBound.lean, Lib/Architectures/RealGeluExact.lean, Lib/Architectures/RealGraphExpressivity.lean, Lib/Architectures/RealLayerScaleDepth.lean
+
+=== #3 Geo/FlattenAgreement.lean:52 [theorem] rather  in_degree=62
+DOC: 
+STMT: theorem rather than a definitional equality. -/
+USERS: Core/Idempotent.lean, Core/Invariant.lean, Core/Semantics.lean, Core/Simulation.lean, Core/VariableNet.lean, Geo/ClosedLoop.lean, Geo/Compile.lean, Geo/Constraint.lean, Geo/Derivative.lean, Geo/Derive.lean, Geo/Differentiable.lean, Geo/Dist.lean
+
+=== #4 Lib/Chain/RealLv00LinearAlgebra.lean:437 [theorem] le_antisymm  in_degree=46
+DOC: (A) 反对称性。采集自 `Version.le_antisymm`（真实证明）。 / Lv-00 用 `ext` + `Nat.le_antisymm` 分三字段共 30 余行；此处 `omega` 一次收口。
+STMT: theorem le_antisymm {a b : LvVersion} (hab : a ≤ b) (hba : b ≤ a) : a = b
+USERS: Geo/ClauseComposition.lean, Geo/PartialReinjection.lean, Geo/RhoMetric.lean, Lib/Architectures/RealCrosstalkGeneral.lean, Lib/Architectures/RealLoopFixedPointExistence.lean, Lib/Architectures/RealLoopModel.lean, Lib/Architectures/RealPAdicNorm.lean, Lib/Chain/RealNumericChainOrder_parts/A.lean, Lib/Chain/RealPAdicValuationAbstract.lean, Lib/Compiler/Combinators.lean, Lib/Compiler/RealAbstractInterpretation.lean, Lib/Compiler/RealNonlinearCompile.lean
+
+=== #5 Slots.lean:287 [theorem] stated  in_degree=37
+DOC: 
+STMT: theorem stated against that class now applies to networks -- and ; `Lattice/Lib/Linear/NetPenalty.layer_penalty_exact` consumes it, which is the criterion the slot set ; ("an instance nobody uses has not been adopted"). ;  ; Scope travels with the discharge: layers are `AffineLayer (Fin n)`, i.e. **fixed width**. Variable width ; is `Lattice.Core.Chain`, indexed by its two widths, kept separately because it trades differently (`Nat` ; indices give the width change; `Type` indices do not elaborate -- see `gov/BLOCKER-variable-width.md`). ;  ; Not settled by this: `core.semantics.external_bridge`, which is a to ...[cut]
+USERS: Core/Idempotent.lean, Core/Invariant.lean, Core/Semantics.lean, Core/Simulation.lean, Core/Weight.lean, Geo/ClosedLoop.lean, Geo/Constraint.lean, Geo/Derivative.lean, Geo/Derive.lean, Geo/Differentiable.lean, Geo/Exact.lean, Geo/Exec.lean
+
+=== #6 Lib/Chain/RealLv00LinearAlgebra.lean:419 [theorem] le_refl  in_degree=30
+DOC: (A) 自反性。采集自 `Version.le_refl`（真实证明）。
+STMT: theorem le_refl (a : LvVersion) : a ≤ a
+USERS: Core/Activation.lean, Geo/PartialReinjection.lean, Geo/PolySpecificRepair.lean, Geo/RhoMetric.lean, Lib/Architectures/RealBlock.lean, Lib/Architectures/RealLayerScaleDepth.lean, Lib/Chain/RealAbstractionRegistry.lean, Lib/Chain/RealPAdicValuationAbstract.lean, Lib/Compiler/RealAbstractInterpretation.lean, Lib/Concentration/RealBennett.lean, Lib/Concentration/RealFiltrationIteration.lean, Lib/Concentration/RealMartingaleOptionalStopping.lean
+
+=== #7 Lift/WeightToSymbolEquivalence.lean:61 [theorem] roundtrip_extractVec  in_degree=21
+DOC: 
+STMT: theorem roundtrip_extractVec (c : VectorConstraint) : ;     extractVec (convertVec c) = c
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Editing/RealCompileExtractClosed.lean, Lib/Editing/RealConstraintEdit.lean, Lib/Editing/RealConversionQuotient.lean, Lib/Editing/RealConversionRobustness.lean, Lib/Editing/RealEditSymbolAgreement.lean, Lib/Editing/RealEditToSymbol.lean, Lib/Editing/RealExtractCanonical.lean, Lib/Editing/RealExtractCanonicalExistence.lean, Lib/Editing/RealExtractNonInjective.lean, Lib/Editing/RealExtractSurjectivity.lean, Lib/Editing/RealLayerSemanticQuotient.lean
+
+=== #8 Core/Repair.lean:106 [theorem] preserves  in_degree=20
+DOC: **Preservation.** A passing point stays passing under any number of repairs. /  / This is the "does not destroy existing semantics" half, and it needs only `absorbs`.
+STMT: theorem preserves (x : α) (h : R.Sat x) (n : Nat) : R.Sat (R.iterate n x)
+USERS: Core/Idempotent.lean, Core/Invariant.lean, Core/Logic.lean, Core/Simulation.lean, Geo/CExprCodegen.lean, Geo/Compile.lean, Geo/Derive.lean, Geo/Extract.lean, Geo/IRBridge.lean, Geo/Invariant.lean, Geo/LoopPerp.lean, Geo/Pipeline.lean
+
+=== #9 Lift/ConvertVectorLinear.lean:204 [theorem] scaleVec_preserves  in_degree=18
+DOC: 
+STMT: theorem scaleVec_preserves (c : VectorConstraint) (x : List Int) (lam : Int) (hlam : lam ≠ 0) : ;     VectorConstraintSat c x ↔ VectorConstraintSat (scaleVec c lam) x
+USERS: Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealCanonicalForm.lean, Lib/Editing/RealCompileExtractClosed.lean, Lib/Editing/RealConversionInformation.lean, Lib/Editing/RealConversionMinimality.lean, Lib/Editing/RealConversionRoundTrip.lean, Lib/Editing/RealEditSymbolAgreement.lean, Lib/Editing/RealEditToSymbol.lean, Lib/Editing/RealEditToSymbolConstructive.lean, Lib/Editing/RealExtractCanonicalExistence.lean, Lib/Editing/RealExtractNonInjective.lean
+
+=== #10 Lift/WeightLadderInverse.lean:111 [theorem] roundtrip  in_degree=18
+DOC: **The round-trip**: the inverse recovers a list of the right length exactly. /  / Both halves go through `List.getElem_append_left/right` rather than through `listOfLayer_W`/`_b`, / because those state a FIXED index proof while `List.ext_getElem` supplies a different one. The append / lemmas take their proof argument implicitly, which is what lets the rewrite go through -- going through / the fixed-proof versions is where roun ...[doc cut]
+STMT: theorem roundtrip (hn : 0 < n) (s : List ℝ) (hlen : s.length = n * n + n) : ;     listOfLayer hn (layerOfListFull (n := n) s) = s
+USERS: Geo/CodegenLadder.lean, Geo/EqConstraintListTokens.lean, Geo/EqConstraintTokens.lean, Geo/LadderInstance.lean, Geo/SeqRepresentation.lean, Lib/Quantization/RealConversionStabilityFloatBounds.lean, Lift/ActivationLadder.lean, Lift/ApproxExtraction.lean, Lift/EndToEnd.lean, Lift/Extraction.lean, Lift/MultiLayerLadder.lean, Lift/NonIdenticalEncoding.lean
+
+=== #11 Lib/Optim/RealConvergence.lean:84 [theorem] contraction_converges  in_degree=16
+DOC: 
+STMT: theorem contraction_converges {e : ℕ → ℝ} (c : ℝ) ;     (hc0 : 0 ≤ c) (hc1 : c < 1) ;     (hstep : ∀ n : ℕ, e (n + 1) ≤ c * e n) (hnonneg : ∀ n : ℕ, 0 ≤ e n) : ;     ∀ ε : ℝ, 0 < ε → ∃ n : ℕ, e n < ε
+USERS: Lib/Architectures/RealLoopModel.lean, Lib/Compiler/RealRecursiveSemantics.lean, Lib/Concentration/RealMarkovChainMixing.lean, Lib/LearningTheory/RealVariationalInference.lean, Lib/Optim/RealADMM.lean, Lib/Optim/RealConversionStabilityConvergence.lean, Lib/Optim/RealEarlyStopping.lean, Lib/Optim/RealGradDescent.lean, Lib/Optim/RealIterativeSolver.lean, Lib/Optim/RealLRDecay.lean, Lib/Optim/RealPLCondition.lean, Lib/Optim/RealProjGrad.lean
+
+=== #12 Lift/ConvertVectorLinear.lean:154 [theorem] convertVec_preserves_semantics  in_degree=13
+DOC: 
+STMT: theorem convertVec_preserves_semantics (c : VectorConstraint) (x : List Int) : ;     VectorConstraintSat c x ↔ LayerOut (convertVec c) x = 0
+USERS: Lib/Architectures/RealLayerPropagation.lean, Lib/Chain/RealChainAxioms.lean, Lib/Editing/RealCompileExtractClosed.lean, Lib/Editing/RealConversionRoundTrip.lean, Lib/Editing/RealEditSemantics.lean, Lib/Editing/RealExtractNonInjective.lean, Lib/Editing/RealLayerSemanticQuotient.lean, Lib/Editing/RealReversibilityBoundary.lean, Lib/Editing/RealSymbolCompleteness.lean, Lib/Editing/RealSymbolToWeightNonlinear.lean, Lib/Editing/RealSymbolToWeightWidened.lean, Lib/Lift/RealContractAxioms.lean
+
+=== #13 Lift/SymbolToWeightCorrectness.lean:65 [theorem] symbolToWeight_correct  in_degree=13
+DOC: 
+STMT: theorem symbolToWeight_correct (cs : ConstraintSet) (x : List Int) : ;     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x
+USERS: Lib/Chain/RealChainAxioms.lean, Lib/Chain/RealChainEntryOOV.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Editing/RealCompileExtractClosed.lean, Lib/Editing/RealConstraintEdit.lean, Lib/Editing/RealExtractionDirection.lean, Lib/Editing/RealSymbolCompleteness.lean, Lib/Editing/RealSymbolDomainWidening.lean, Lib/Editing/RealSymbolToWeightWidened.lean, Lib/Lift/RealContractAxioms.lean, Lift/LayerComposition.lean
+
+=== #14 Lib/Attention/RealAttention.lean:107 [theorem] softmax_sum_one  in_degree=10
+DOC: 
+STMT: theorem softmax_sum_one (z : ι → ℝ) : ∑ i, softmax z i = 1
+USERS: Lib/Architectures/RealBlockConstants.lean, Lib/Attention/RealComplexAttention.lean, Lib/Attention/RealCrossAttention.lean, Lib/Attention/RealGQA.lean, Lib/Attention/RealSoftmaxAttnNormBound.lean, Lib/Chain/RealHreachConditional.lean, Lib/InfoTheory/RealInfoNCELowerBound.lean, Lib/InfoTheory/RealKL.lean, Lib/LearningTheory/RealContrastive.lean, Lib/LinearAlgebra/RealRKHSKernel.lean
+
+=== #15 Lib/Concentration/RealHoeffding.lean:315 [theorem] markov_exp_tail  in_degree=10
+DOC: 
+STMT: theorem markov_exp_tail {α : Type*} [Fintype α] (S : α → ℝ) {t lam : ℝ} (hlam : 0 < lam) : ;     uniformProb (Finset.univ.filter (fun w => t ≤ S w)) ≤ ;       Real.exp (-lam * t) * uniformExpectation (fun w => Real.exp (lam * S w))
+USERS: Lib/Concentration/RealAzuma.lean, Lib/Concentration/RealAzumaMartingale.lean, Lib/Concentration/RealBennett.lean, Lib/Concentration/RealBernstein.lean, Lib/Concentration/RealBernsteinCondition.lean, Lib/Concentration/RealChernoff.lean, Lib/Concentration/RealConcentrationDuality.lean, Lib/Concentration/RealMcDiarmid.lean, Lib/Concentration/RealSubExponentialTail.lean, Lib/Concentration/RealTalagrandConcentration.lean
+
+=== #16 Core/Repair.lean:76 [theorem] progress  in_degree=9
+DOC: **Progress.** Every point reaches a passing state in finitely many steps. /  / Strong induction on the measure. The motive is quantified over the *current* point, so / that after one step the hypothesis is applied to `fix y` and the conclusion transports / along `iterate_succ` without the two iteration orders ever having to be compared.
+STMT: theorem progress : ∀ (x : α), ∃ n : Nat, R.Sat (R.iterate n x)
+USERS: Core/RepairConvergence.lean, Geo/Repair.lean, Geo/RepairBridge.lean, Lib/Compiler/RealTypeSoundness.lean, Lib/Compiler/RealTypeSoundnessSTLC.lean, Lib/Concentration/RealTalagrandConcentration.lean, Lib/LearningTheory/RealCausalDoCalculus.lean, Lib/Lift/RealNonlinearFidelity_parts/A.lean, Lib/Linear/Multivar.lean
+
+=== #17 Lib/Attention/RealAttention.lean:93 [lemma] softmax_denom_pos  in_degree=9
+DOC: 
+STMT: lemma softmax_denom_pos (z : ι → ℝ) : 0 < ∑ j, Real.exp (z j)
+USERS: Lib/Attention/RealAttentionMonotonicity.lean, Lib/Attention/RealCausalAttention.lean, Lib/Attention/RealHardAttention.lean, Lib/Attention/RealSoftmaxLipschitz.lean, Lib/Attention/RealSoftmaxTemp.lean, Lib/InfoTheory/RealCrossEntropy.lean, Lib/InfoTheory/RealInfoNCELowerBound.lean, Lib/LearningTheory/RealContrastive.lean, Lib/LearningTheory/RealTopK.lean
+
+=== #18 Lib/Chain/RealLv00LinearAlgebra.lean:463 [theorem] le_total  in_degree=9
+DOC: (A) **全序性**。采集自 `Version.le_total`（真实证明）。 /  / ⚠ **Lv-00 原证明有真缺陷**：它在 `a.patch ≤ b.patch` 分支写 / `right; right; right; exact ...`——**四个** `Or` 的右支，但 `Version.le` 只有**三个**析取项。 / 该文件若真被编译会在此报类型错（原文因此从未被 `lake build` 覆盖）。 / 本文件按正确的三项写法重写。 /  / ⚠ **另一处陷阱（本轮实测）**：定理名 `le_total` 会**遮蔽** `Nat.le_total`， / 使 `rcases le_total a.patch b.patch` 递归调用自身 → Lean 报 / `fail to show termination`。对策：**用 `Nat.le_total` 显式限定**。 /  / 实现上不手写 `Or.inl/Or.inr` 嵌套（极 ...[doc cut]
+STMT: theorem le_total (a b : LvVersion) : a ≤ b ∨ b ≤ a
+USERS: Lib/Architectures/RealPAdicNorm.lean, Lib/Compiler/RealAbstractInterpretation.lean, Lib/Editing/RealSymbolDomainWidening.lean, Lib/LearningTheory/RealSpeculativeDecoding.lean, Lib/LearningTheory/RealSpeculativeOptimal.lean, Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean, Lib/Optim/RealConversionStabilityConvergence.lean, Lib/Optim/RealEvalBridge.lean, Lift/TotalLoss.lean
+
+=== #19 Lib/Compiler/RealTypeSoundness.lean:132 [theorem] progress  in_degree=9
+DOC: **进度**：若 `e` 有类型 `T`，则 `e` 要么是值，要么能走一步（`∃ e', Step e e'`）。 / 证明：对定型推导归纳，逐构造子用规范形式引理 + 相容规则。
+STMT: theorem progress {e : TypedExpr} {T : Ty} (ht : HasType e T) : ;     Value e ∨ ∃ e', Step e e'
+USERS: Core/Repair.lean, Core/RepairConvergence.lean, Geo/Repair.lean, Geo/RepairBridge.lean, Lib/Compiler/RealTypeSoundnessSTLC.lean, Lib/Concentration/RealTalagrandConcentration.lean, Lib/LearningTheory/RealCausalDoCalculus.lean, Lib/Lift/RealNonlinearFidelity_parts/A.lean, Lib/Linear/Multivar.lean
+
+=== #20 Lib/Compiler/RealTypeSoundnessSTLC.lean:531 [theorem] progress  in_degree=9
+DOC: **Progress**：良类型**闭**项要么是值，要么能走一步。 / `app` 情形用 `canonical_abs`：左子项若为值，其函数类型迫使它是 λ 抽象， / 于是 β 或右归约适用；若左子项能走步，则用 `app_fun` 归约。 / （`app_fun` 规则的存在正是为了让这一分支可封闭。）
+STMT: theorem progress {t : Tm} : ∀ {A : Ty}, HasType [] t A → Value t ∨ ∃ t', Step t t'
+USERS: Core/Repair.lean, Core/RepairConvergence.lean, Geo/Repair.lean, Geo/RepairBridge.lean, Lib/Compiler/RealTypeSoundness.lean, Lib/Concentration/RealTalagrandConcentration.lean, Lib/LearningTheory/RealCausalDoCalculus.lean, Lib/Lift/RealNonlinearFidelity_parts/A.lean, Lib/Linear/Multivar.lean
+
+=== #21 Lib/Editing/RealCompileExtractClosed.lean:113 [theorem] extractLayer_compileToLayer  in_degree=9
+DOC: **端到端闭环（提取方向 = 左逆）**：`extractLayer (compileToLayer cs) = cs`。 / 即「编译 → 提取」回到**原约束集**（语法恒等）。 / 证明：列表归纳 + 单元素恒等 `roundtrip_extractVec`。
+STMT: theorem extractLayer_compileToLayer (cs : ConstraintSet) : ;     extractLayer (compileToLayer cs) = cs
+USERS: Lib/Chain/RealEndToEnd.lean, Lib/Editing/RealConversionCategorical.lean, Lib/Editing/RealConversionComposition.lean, Lib/Editing/RealConversionMinimality.lean, Lib/Editing/RealConversionQuotient.lean, Lib/Editing/RealConversionRoundTrip.lean, Lib/Editing/RealRoundTripVacuity.lean, Lib/LearningTheory/RealConversionFixedPoint.lean, Lib/Optim/RealSeamBridges2.lean
+
+=== #22 Lift/EndToEnd.lean:60 [theorem] decode_encode  in_degree=9
+DOC: Round-trip, as a named lemma so that downstream statements can cite it by name.
+STMT: theorem decode_encode (d : Data) : T.decode (T.encode d) = some d
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealExtractionDirection.lean, Lib/Editing/RealQuotientReversibility.lean, Lib/Editing/RealRecoverBehavior.lean, Lift/RealTokenSymbolLink.lean
+
+=== #23 Lift/RealTokenSymbolLink.lean:208 [theorem] decode_encode  in_degree=9
+DOC: **集级往返恒等（核心定理）**：`decode (encode cs) = some cs`。 /  / 即：有限约束集经「符号 → token → 符号」往返后**原样恢复**， / 包括约束的**顺序**与每个约束的 `(a, b)`。这是本项目「可逆链路」口号中 / L1⇄L2 这一跳此前缺失的证明层对应物。
+STMT: theorem decode_encode (cs : ConstraintSet) : decode (encode cs) = some cs
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealExtractionDirection.lean, Lib/Editing/RealQuotientReversibility.lean, Lib/Editing/RealRecoverBehavior.lean, Lift/EndToEnd.lean
+
+=== #24 Lift/RealTokenization.lean:452 [theorem] tokenize_never_none  in_degree=8
+DOC: ⭐ **分词永不失败**（`tokenize` 无 `none` 分支）。 /  / 燃料 `s.length + 1` 恒够：折叠不增长度（`foldBlanks_length_le`）， / 故 `(foldBlanks s).length < s.length + 1`，由 `tokAux_ne_none` 即得。
+STMT: theorem tokenize_never_none (s : List Char) : ∃ ts : List CharToken, tokenize s = some ts
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealChainEntryOOV.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealClosureReversibility.lean, Lib/Editing/RealExtractionDirection.lean, Lift/RealTokenizationEntry.lean
+
+=== #25 Lib/Attention/RealAttention.lean:39 [theorem] convComb_norm_bound  in_degree=7
+DOC: 
+STMT: theorem convComb_norm_bound (w : ι → ℝ) (V : ι → F) (M : ℝ) ;     (hw0 : ∀ i, 0 ≤ w i) (hsum : ∑ i, w i = 1) ;     (hV : ∀ i, ‖V i‖ ≤ M) : ;     ‖convComb w V‖ ≤ M
+USERS: Lib/Attention/RealAttentionCoreBridge.lean, Lib/Attention/RealCausalAttention.lean, Lib/Attention/RealCrossAttention.lean, Lib/Attention/RealGQA.lean, Lib/Attention/RealHeadMerge.lean, Lib/Attention/RealLinearAttention.lean, Lib/Attention/RealMaskFamily.lean
+
+=== #26 Lib/Compiler/RealTypeSoundness.lean:168 [theorem] preservation  in_degree=7
+DOC: **保持**：`Step e e'` 且 `e` 有类型 `T` ⟹ `e'` 也有类型 `T`。 / 证明：对单步推导归纳；求值规则由结果字面量的定型给出， / 相容规则由归纳假设在子项上保持定型。
+STMT: theorem preservation {e e' : TypedExpr} (hs : Step e e') : ;     ∀ {T : Ty}, HasType e T → HasType e' T
+USERS: Core/Invariant.lean, Core/Weight.lean, Geo/RepairBridge.lean, Geo/Synthesis.lean, Lib/Compiler/RealTypeSoundnessSTLC.lean, Lib/Optim/RealFCASyntaxBridge.lean, Slots.lean
+
+=== #27 Lib/Compiler/RealTypeSoundnessSTLC.lean:541 [theorem] preservation  in_degree=7
+DOC: **Preservation**：良类型项走一步后类型不变。 / `beta` 情形用替换引理（承重），`app_fun` / `app_arg` / `succ` 是结构性搬运。 /  / ⚠ 用 `induction hs generalizing A` 前必须先 `revert ht`： / `HasType` 的环境与类型都是**索引**，而 `hs` 的归纳会重写它们。
+STMT: theorem preservation {Γ : Ctx} {t t' : Tm} {A : Ty} ;     (ht : HasType Γ t A) (hs : Step t t') : HasType Γ t' A
+USERS: Core/Invariant.lean, Core/Weight.lean, Geo/RepairBridge.lean, Geo/Synthesis.lean, Lib/Compiler/RealTypeSoundness.lean, Lib/Optim/RealFCASyntaxBridge.lean, Slots.lean
+
+=== #28 Lib/Editing/RealCompileExtractClosed.lean:127 [theorem] compileToLayer_extractLayer  in_degree=7
+DOC: **端到端闭环（编译方向 = 右逆）**：`compileToLayer (extractLayer ls) = ls`。 / 即「提取 → 编译」回到**原权重层**（语法恒等）。 / 证明：列表归纳 + 结构 eta（`⟨l.w, l.b⟩ = l`）。
+STMT: theorem compileToLayer_extractLayer (ls : Layer) : ;     compileToLayer (extractLayer ls) = ls
+USERS: Lib/Editing/RealConversionCategorical.lean, Lib/Editing/RealConversionComposition.lean, Lib/Editing/RealConversionMinimality.lean, Lib/Editing/RealConversionRoundTrip.lean, Lib/Editing/RealExtractSurjectivity.lean, Lib/Editing/RealSymbolCompleteness.lean, Lib/Optim/RealSeamBridges2.lean
+
+=== #29 Lib/FCA/RealFCA.lean:71 [theorem] extent_antitone  in_degree=7
+DOC: 
+STMT: theorem extent_antitone {O A : Type*} (R : O → A → Prop) {B₁ B₂ : Set A} ;     (h : B₁ ⊆ B₂) : ;     extent R B₂ ⊆ extent R B₁
+USERS: Lib/Convex/RealFCADuality.lean, Lib/Editing/RealNonlinearExtract.lean, Lib/FCA/RealFCAAbstractionSoundness.lean, Lib/FCA/RealFCAClosureOperatorLattice.lean, Lib/FCA/RealFCAConceptLatticeAlgebra.lean, Lib/FCA/RealFCAImplicationBasis.lean, Lib/FCA/RealFCAManyValued.lean
+
+=== #30 Lib/FCA/RealFCA.lean:77 [theorem] intent_antitone  in_degree=7
+DOC: 
+STMT: theorem intent_antitone {O A : Type*} (R : O → A → Prop) {O₁ O₂ : Set O} ;     (h : O₁ ⊆ O₂) : ;     intent R O₂ ⊆ intent R O₁
+USERS: Lib/Convex/RealFCADuality.lean, Lib/Editing/RealNonlinearExtract.lean, Lib/FCA/RealFCAAbstractionSoundness.lean, Lib/FCA/RealFCAClosureOperatorLattice.lean, Lib/FCA/RealFCAConceptLatticeAlgebra.lean, Lib/FCA/RealFCAImplicationBasis.lean, Lib/FCA/RealFCATokenization.lean
+
+=== #31 Lib/FCA/RealFCA.lean:86 [theorem] subset_extent_intent  in_degree=7
+DOC: 
+STMT: theorem subset_extent_intent {O A : Type*} (R : O → A → Prop) (O' : Set O) : ;     O' ⊆ extent R (intent R O')
+USERS: Lib/Attention/RealTemporalLayer.lean, Lib/Editing/RealClosureReversibility.lean, Lib/Editing/RealNonlinearExtract.lean, Lib/FCA/RealFCAAbstractionSoundness.lean, Lib/FCA/RealFCAClosureOperatorLattice.lean, Lib/FCA/RealFCAImplicationBasis.lean, Lib/FCA/RealFCATriadicCompleteLattice.lean
+
+=== #32 Lib/InfoTheory/RealKL.lean:72 [theorem] kl_as_sum_log_ratio  in_degree=7
+DOC: 
+STMT: theorem kl_as_sum_log_ratio {k : ℕ} (p q : Fin k → ℝ) (hp0 : ∀ a, 0 < p a) ;     (hq0 : ∀ a, 0 < q a) : kl p q = ∑ a, p a * Real.log (p a / q a)
+USERS: Lib/Convex/RealFenchel.lean, Lib/InfoTheory/RealDPIComplete.lean, Lib/InfoTheory/RealDPIEquality.lean, Lib/InfoTheory/RealDataProcessing.lean, Lib/InfoTheory/RealELBO.lean, Lib/InfoTheory/RealFDivergence.lean, Lib/InfoTheory/RealKLJointConvex.lean
+
+=== #33 Lib/InfoTheory/RealKL.lean:82 [theorem] kl_nonneg  in_degree=7
+DOC: 
+STMT: theorem kl_nonneg {k : ℕ} (p q : Fin k → ℝ) (hp0 : ∀ a, 0 < p a) (hpsum : ∑ a, p a = 1) ;     (hq0 : ∀ a, 0 < q a) (hqsum : ∑ a, q a = 1) : 0 ≤ kl p q
+USERS: Lib/Editing/RealConversionStabilityInformation.lean, Lib/InfoTheory/RealELBO.lean, Lib/InfoTheory/RealEntropyConcavity.lean, Lib/InfoTheory/RealFDivergence.lean, Lib/InfoTheory/RealMaxEntropy.lean, Lib/LearningTheory/RealPacBayesRefinement.lean, Lib/Optim/RealRegularizedMDP.lean
+
+=== #34 Lift/EndToEnd.lean:66 [theorem] encode_injective  in_degree=7
+DOC: Encoding loses no information: two data points with the same encoding are equal. /  / Derived from the round-trip, not assumed.
+STMT: theorem encode_injective : Function.Injective T.encode
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealTwoSidedEditEquiv.lean, Lib/LearningTheory/RealRecoverEndpoint.lean, Lift/RealTokenSymbolLink.lean
+
+=== #35 Lift/RealNonlinear.lean:41 [lemma] relu_eq_zero_iff  in_degree=7
+DOC: 
+STMT: lemma relu_eq_zero_iff (x : ℝ) : relu x = 0 ↔ x ≤ 0
+USERS: Lib/Architectures/RealFFN.lean, Lib/Architectures/RealReLULayer.lean, Lib/Compiler/RealNonlinearCompile.lean, Lib/FCA/RealImplication.lean, Lib/FCA/RealImplicationExt.lean, Lib/Lift/RealContractAxioms.lean, Lift/RealLV.lean
+
+=== #36 Lift/RealTokenSymbolLink.lean:231 [theorem] encode_injective  in_degree=7
+DOC: **往返恒等的单射推论**：`encode` 是单射。 /  / 由 `decode_encode` 与 `Option.some.injEq` 直接得到——若两约束集编码相同， / 则解码结果相同，从而 `cs₁ = cs₂`。这给出「符号信息在 token 序列中无损」的 / 精确表述（也是「可逆链路」在 L1⇄L2 上的形式化含义）。
+STMT: theorem encode_injective : Function.Injective (encode : ConstraintSet → List SymToken)
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealEndToEnd.lean, Lib/Chain/RealEndToEndNontrivial.lean, Lib/Chain/RealEndToEndStrict.lean, Lib/Editing/RealTwoSidedEditEquiv.lean, Lib/LearningTheory/RealRecoverEndpoint.lean, Lift/EndToEnd.lean
+
+=== #37 Geo/Semantic.lean:163 [theorem] semantic_not_injective  in_degree=6
+DOC: **The semantic layer loses information: a configuration and its translate satisfy every translatable / constraint alike.** /  / `flatten` is a bijection, so the two configurations are *different objects*; `holds_translate_of_translatable` / says no translatable constraint can tell them apart. Therefore the map from a configuration to the set of / constraints it satisfies is not injective -- the objective's "semantic layer is n ...[doc cut]
+STMT: theorem semantic_not_injective (t : Pt n) (hne : ∃ i : Fin n, t i ≠ 0) (pts : ℕ → Pt n) : ;     translate t pts ≠ pts ∧ ;       ∀ c : GeoConstraint n, Translatable c → ;         (GeoConstraint.Holds c pts ↔ GeoConstraint.Holds c (translate t pts))
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Chain/RealEndToEnd.lean, Lib/Editing/RealExtractNonInjective.lean, Lift/Extraction.lean, Lift/LossyRepresentation.lean
+
+=== #38 Lib/Architectures/RealSwiGLU.lean:43 [theorem] sigmoid_bounds  in_degree=6
+DOC: 
+STMT: theorem sigmoid_bounds : ∀ x : ℝ, 0 < sigmoid x ∧ sigmoid x < 1
+USERS: Lib/Architectures/RealActComplete.lean, Lib/Architectures/RealActDerivatives.lean, Lib/Architectures/RealGLUVariants.lean, Lib/Architectures/RealGatingGeneral.lean, Lib/Lift/RealNonlinearFidelity_parts/B.lean, Lib/Meta/RealCounterexamples.lean
+
+=== #39 Lib/Attention/RealAttention.lean:99 [theorem] softmax_nonneg  in_degree=6
+DOC: 
+STMT: theorem softmax_nonneg (z : ι → ℝ) : ∀ i, 0 ≤ softmax z i
+USERS: Lib/Architectures/RealBlockConstants.lean, Lib/Attention/RealComplexAttention.lean, Lib/Attention/RealCrossAttention.lean, Lib/Attention/RealGQA.lean, Lib/LearningTheory/RealTopK.lean, Lib/LinearAlgebra/RealRKHSKernel.lean
+
+=== #40 Lib/Chain/RealEndToEnd.lean:293 [theorem] semantic_not_injective  in_degree=6
+DOC: ⭐⭐ **L2⇄L3 的【语义】非单射**（**真命题**，且是端到端损失的第二个来源）： / 存在两个**不同**的约束集，其**层不同**，但**满足语义在所有输入上一致**。 /  / **见证**：`cs₁ := [{a := [1], b := 1}]` 与 `cs₂ := [{a := [2], b := 2}]`（即 `2 × cs₁`）。 / 由 `scaleVec_preserves`（`lam = 2 ≠ 0`），二者语法不同、层不同、而语义相同。 /  / ⚠ **诚实标注**：这不是"发现"——缩放自由度是本项目**已登记**的 / （`ConvertVectorLinear` 文件头逐字写明）。本条的**唯一价值是把它放进端到端的核复合格局** / （§五 需要它作为"第二个独立损失源"的证据）。
+STMT: theorem semantic_not_injective : ;     ∃ cs₁ cs₂ : ConstraintSet, cs₁ ≠ cs₂ ∧ compileToLayer cs₁ ≠ compileToLayer cs₂ ∧ ;       ∀ x : List Int, (AllSatisfied cs₁ x ↔ AllSatisfied cs₂ x)
+USERS: Geo/Semantic.lean, Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Editing/RealExtractNonInjective.lean, Lift/Extraction.lean, Lift/LossyRepresentation.lean
+
+=== #41 Lib/Concentration/RealHoeffding.lean:457 [theorem] hoeffding_two_sided  in_degree=6
+DOC: 
+STMT: theorem hoeffding_two_sided {α : Type*} [Fintype α] [DecidableEq α] {X : α → ℝ} (μ : ℝ) (n : ℕ) ;     (hn : 0 < n) (hN : 0 < Fintype.card α) (hmean : uniformExpectation X = μ) ;     (hb : ∀ x : α, |X x| ≤ 1) {t : ℝ} (ht : 0 < t) : ;     uniformProb (Finset.univ.filter (fun w : Fin n → α => t ≤ |(∑ i : Fin n, X (w i)) / n - μ|)) ≤ ;       2 * Real.exp (-(n : ℝ) * t ^ 2 / 8)
+USERS: Lib/Concentration/RealRademacher.lean, Lib/LearningTheory/RealBanditTheory.lean, Lib/LearningTheory/RealDistillGeneralization.lean, Lib/LearningTheory/RealGeneralizationBound.lean, Lib/LearningTheory/RealHyperparameterBound.lean, Lib/Optim/RealEarlyStoppingStatistics.lean
+
+=== #42 Lib/Editing/RealCompileExtractClosed.lean:149 [theorem] compileToLayer_bijective  in_degree=6
+DOC: **双射（同构的机器版）**：`compileToLayer` 是 `ConstraintSet → Layer` 的双射， / 因为 `extractLayer` 同时是它的左逆与右逆。 / （诚实标注：本定理之所以成立，正因两侧都只是 record 字段重命名；见 §7。）
+STMT: theorem compileToLayer_bijective : Function.Bijective compileToLayer
+USERS: Lib/Editing/RealConversionCategorical.lean, Lib/Editing/RealConversionCategoryNew.lean, Lib/Editing/RealConversionComposition.lean, Lib/Editing/RealConversionMinimality.lean, Lib/Editing/RealConversionRoundTrip.lean, Lib/Editing/RealReversibilityBoundary.lean
+
+=== #43 Lib/Editing/RealExtractNonInjective.lean:287 [theorem] semantic_not_injective  in_degree=6
+DOC: ⭐⭐ **语义映射【不是】单射**（机器验证的存在性反例）： /  / 存在两个**不同**的层 `w ≠ w'`，它们表示**同一个函数** / （`LayerSemantics w = LayerSemantics w'`，作为函数**逐点相等**）。 /  / ⭐⭐ **⇒ 这就是任务书那句话的【正确落点】**：`extractVec` 是单射（§三）， / 但**语义映射不是** —— 「同一函数多个权重实现」**确实存在**， / 只是它发生在**语义层**，**不在 `extractVec` 这一支上**。 /  / ⚠ **证明**：取 `w := convertVec r03C`、`w' := convertVec (scaleVec r03C 2)`。 / - **不同**：由 `scaleVec_ne_self_two` + `convertVec` 的单射性（用 §四 的往返）。 / - **同函数**：`convertVec_preserves_s ...[doc cut]
+STMT: theorem semantic_not_injective : ;     ∃ w w' : LinearLayer, w ≠ w' ∧ LayerSemantics w = LayerSemantics w'
+USERS: Geo/Semantic.lean, Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Chain/RealEndToEnd.lean, Lift/Extraction.lean, Lift/LossyRepresentation.lean
+
+=== #44 Lift/ConvertVectorLinear.lean:173 [lemma] foldl_init_add  in_degree=6
+DOC: 
+STMT: lemma foldl_init_add (rest : List (Int × Int)) : ;     ∀ (init : Int), ;       List.foldl (fun acc uv => acc + uv.1 * uv.2) init rest = ;         init + List.foldl (fun acc uv => acc + uv.1 * uv.2) 0 rest
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Editing/RealEditSemantics.lean, Lib/Editing/RealRoundtripNondegenerate.lean, Lib/Editing/RealRoundtripRat.lean, Lib/Editing/RealSymbolCompleteness.lean, Lib/Editing/RealSymbolToWeightWidened.lean
+
+=== #45 Lift/Extraction.lean:172 [theorem] semantic_not_injective  in_degree=6
+DOC: **T3-c (semantic layer, non-injectivity).** There exist two distinct parameters / satisfied by exactly the same points. /  / This is the legacy `semantic_layer_not_injective`, carried over to a foundation where the / arity is part of the type: the witness stays at arity one, so the comparison is / well-typed by construction.
+STMT: theorem semantic_not_injective : ;     ∃ c c' : LinearForm ZB 1, c ≠ c' ∧ SemEq c c'
+USERS: Geo/Semantic.lean, Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealE2EComposite.lean, Lib/Chain/RealEndToEnd.lean, Lib/Editing/RealExtractNonInjective.lean, Lift/LossyRepresentation.lean
+
+=== #46 Geo/Dist.lean:65 [theorem] sqDist_nonneg  in_degree=5
+DOC: **Squared distance is non-negative.**
+STMT: theorem sqDist_nonneg (p q : Pt n) : 0 ≤ sqDist p q
+USERS: Geo/Constraint.lean, Geo/EqualLengthRepair.lean, Geo/PathContinuity.lean, Geo/PolyNondegenerate.lean, Geo/RepairCoverage.lean
+
+=== #47 Geo/Lipschitz.lean:80 [theorem] rho_nonneg  in_degree=5
+DOC: 
+STMT: theorem rho_nonneg (n k : ℕ) (pts pts' : ℕ → Pt n) : 0 ≤ rho n k pts pts'
+USERS: Geo/DistLipschitz.lean, Geo/GeoSampledBound.lean, Geo/PolyAssemble.lean, Geo/PolyLipschitz.lean, Geo/RhoMetric.lean
+
+=== #48 Geo/RepairBridge.lean:74 [theorem] converges  in_degree=5
+DOC: **Restating `Core`'s `progress` in the `fix^[n]` notation.** /  / The substance is `Lattice.Core.Repair.progress`; this is the same statement with the iterate written as `fix^[n]` / rather than `iterate n x`, so that the theorems in this file read uniformly.
+STMT: theorem converges (R : Repair α) (x : α) : ∃ n : ℕ, R.Sat (R.fix^[n] x)
+USERS: Core/Repair.lean, Geo/Loop.lean, Geo/LoopPerp.lean, Lib/Linear/Multivar.lean, Slots.lean
+
+=== #49 Geo/RepairCoverage.lean:84 [theorem] sqDist_nonneg  in_degree=5
+DOC: **距离平方非负。**
+STMT: theorem sqDist_nonneg (p q : Pt n) : 0 ≤ sqDist p q
+USERS: Geo/Constraint.lean, Geo/Dist.lean, Geo/EqualLengthRepair.lean, Geo/PathContinuity.lean, Geo/PolyNondegenerate.lean
+
+=== #50 Lib/Architectures/RealMatrixNorm.lean:184 [lemma] matCLME_apply  in_degree=5
+DOC: 
+STMT: lemma matCLME_apply (A : Matrix (Fin m) (Fin n) ℝ) (x : EuclideanSpace ℝ (Fin n)) : ;     matCLME A x = matvecE A x
+USERS: Lib/LinearAlgebra/RealGelfand.lean, Lib/LinearAlgebra/RealSparsity.lean, Lib/LinearAlgebra/RealSpectral.lean, Lib/LinearAlgebra/RealSpectralRadius.lean, Lib/Optim/RealIterativeSolver.lean
+
+=== #51 Lib/Architectures/RealMatrixNorm.lean:192 [theorem] opNorm_le_frobenius  in_degree=5
+DOC: 
+STMT: theorem opNorm_le_frobenius (A : Matrix (Fin m) (Fin n) ℝ) : ‖matCLME A‖ ≤ frobeniusNorm A
+USERS: Lib/Editing/RealSparseEdit.lean, Lib/LinearAlgebra/RealSparsity.lean, Lib/LinearAlgebra/RealSpectral.lean, Lib/Quantization/RealMixedPrecision.lean, Lib/Quantization/RealStructuredPruning.lean
+
+=== #52 Lib/Architectures/RealOperatorNorm.lean:37 [theorem] linear_map_lipschitz  in_degree=5
+DOC: 
+STMT: theorem linear_map_lipschitz (W : E →L[ℝ] F) : ;     ∀ x y, ‖W x - W y‖ ≤ ‖W‖ * ‖x - y‖
+USERS: Lib/Architectures/RealBlockConstants.lean, Lib/Architectures/RealBlockInstance.lean, Lib/Attention/RealMixedAttention.lean, Lib/LearningTheory/RealDistill.lean, Lib/Quantization/RealQuantizedError.lean
+
+=== #53 Lib/Attention/RealRoPE.lean:69 [theorem] rope_relative_preserves_dot  in_degree=5
+DOC: 
+STMT: theorem rope_relative_preserves_dot (m n θ : ℝ) (q k : Point2R) : ;     rdot (rotateR (m * θ) q) (rotateR (n * θ) k) = rdot q (rotateR ((n - m) * θ) k)
+USERS: Lib/Attention/RealAbsPosEncoding.lean, Lib/Attention/RealHighDimRoPE.lean, Lib/Attention/RealPosEncodingInterface.lean, Lib/Attention/RealRelPosEncoding.lean, Lib/Attention/RealRoPEExtrapolation.lean
+
+=== #54 Lib/Chain/RealChain.lean:77 [theorem] chain_edit_locality  in_degree=5
+DOC: 
+STMT: theorem chain_edit_locality (Fs : ℕ → X → X) (Ls : ℕ → ℝ) (n k : ℕ) (hk : k < n) (δ : X) ;     (hL : ∀ i, i < n → ∀ x y, ‖Fs i x - Fs i y‖ ≤ Ls i * ‖x - y‖) ;     (hL0 : ∀ i, i < n → 0 ≤ Ls i) (x : X) : ;     ‖ChainTail Fs k n (x + δ) - ChainTail Fs k n x‖ ;         ≤ (∏ j in Finset.range (n - k), Ls (k + j)) * ‖δ‖
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Chain/RealOrphanWiring.lean, Lib/Editing/RealChainEdit.lean, Lib/Editing/RealEditCostPropagation.lean, Lib/LinearAlgebra/RealWeightSharing.lean
+
+=== #55 Lib/Chain/RealLv00AxiomDischargeClosure.lean:74 [theorem] packageDependenciesValidB_iff  in_degree=5
+DOC: **Qiao jie 2**: shangyou yuan weici, Bool ban <-> Prop ban.
+STMT: theorem packageDependenciesValidB_iff (pkg : AxiomPackageInstance) : ;     packageDependenciesValidB pkg = true <-> PackageDependenciesValid pkg
+USERS: Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean, Lib/Chain/RealN2AxiomDischargeJia.lean
+
+=== #56 Lib/Chain/RealLv00AxiomDischargeClosure.lean:79 [theorem] packageDependenciesClosedB_iff  in_degree=5
+DOC: **Qiao jie 3**: xiufu weici, Bool ban <-> Prop ban.
+STMT: theorem packageDependenciesClosedB_iff (pkg : AxiomPackageInstance) (extra : List String) : ;     packageDependenciesClosedB pkg extra = true <-> PackageDependenciesClosed pkg extra
+USERS: Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean, Lib/Chain/RealN2AxiomDischargeJia.lean
+
+=== #57 Lib/Chain/RealN2AxiomDischargeJia.lean:757 [theorem] packageDependenciesValidB_iff  in_degree=5
+DOC: **Qiao jie 2**: shangyou yuan weici, Bool ban <-> Prop ban.
+STMT: theorem packageDependenciesValidB_iff (pkg : AxiomPackageInstance) : ;     packageDependenciesValidB pkg = true <-> PackageDependenciesValid pkg
+USERS: Lib/Chain/RealLv00AxiomDischargeClosure.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean
+
+=== #58 Lib/Chain/RealN2AxiomDischargeJia.lean:762 [theorem] packageDependenciesClosedB_iff  in_degree=5
+DOC: **Qiao jie 3**: xiufu weici, Bool ban <-> Prop ban.
+STMT: theorem packageDependenciesClosedB_iff (pkg : AxiomPackageInstance) (extra : List String) : ;     packageDependenciesClosedB pkg extra = true <-> PackageDependenciesClosed pkg extra
+USERS: Lib/Chain/RealLv00AxiomDischargeClosure.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean, Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean
+
+=== #59 Lib/Compiler/RealTypeSoundnessSTLC.lean:578 [theorem] soundness  in_degree=5
+DOC: **类型可靠性**：良类型闭项走任意多步后，要么是值，要么还能继续走 / （**永不卡死**）。证明对多步关系归纳，每一步都用 `multistep_preservation` / 把类型搬过来再跑 `progress` —— 这正是两半定理**交替**使用之处。
+STMT: theorem soundness {t : Tm} {A : Ty} (ht : HasType [] t A) : ;     ∀ {t' : Tm}, Relation.ReflTransGen Step t t' → Value t' ∨ ∃ t'', Step t' t''
+USERS: Geo/Derive.lean, Geo/Engine.lean, Lib/Chain/RealLv00LinearAlgebra.lean, Lib/Chain/RealLv00Systems.lean, Lib/LearningTheory/RealGeneralizationBound.lean
+
+=== #60 Lib/Concentration/RealHoeffding.lean:177 [theorem] hoeffding_lemma  in_degree=5
+DOC: 
+STMT: theorem hoeffding_lemma {α : Type*} [Fintype α] {X : α → ℝ} {lam : ℝ} ;     (hN : 0 < Fintype.card α) (hzero : (∑ x : α, X x) = 0) (hb : ∀ x : α, |X x| ≤ 1) : ;     uniformExpectation (fun x => Real.exp (lam * X x)) ≤ Real.exp (lam ^ 2 / 2)
+USERS: Lib/Concentration/RealAzuma.lean, Lib/Concentration/RealMartingaleConcentration.lean, Lib/Concentration/RealMcDiarmid.lean, Lib/LearningTheory/RealPACBayes.lean, Lib/Optim/RealCheckpointAveraging.lean
+
+=== #61 Lib/Editing/RealROME.lean:35 [lemma] key_norm_sq_ne_zero  in_degree=5
+DOC: 
+STMT: lemma key_norm_sq_ne_zero (k₀ : E) (hk : k₀ ≠ 0) : ‖k₀‖ ^ 2 ≠ 0
+USERS: Lib/Architectures/RealCrosstalkGeneral.lean, Lib/Concentration/RealEditOrder.lean, Lib/Editing/RealBatchEditClosed.lean, Lib/Editing/RealEditCrosstalk.lean, Lib/Editing/RealGramEdit.lean
+
+=== #62 Lib/FCA/RealFCA.lean:112 [theorem] closure_idempotent  in_degree=5
+DOC: 
+STMT: theorem closure_idempotent {O A : Type*} (R : O → A → Prop) (O' : Set O) : ;     extent R (intent R (extent R (intent R O'))) = extent R (intent R O')
+USERS: Lib/Editing/RealClosureReversibility.lean, Lib/Editing/RealNonlinearExtract.lean, Lib/FCA/RealFCAAbstractionSoundness.lean, Lib/FCA/RealFCAClosureOperatorLattice.lean, Lib/FCA/RealFCATokenization.lean
+
+=== #63 Lib/FCA/RealFCA.lean:128 [theorem] intent_closure_idempotent  in_degree=5
+DOC: 
+STMT: theorem intent_closure_idempotent {O A : Type*} (R : O → A → Prop) (O' : Set O) : ;     intent R (extent R (intent R O')) = intent R O'
+USERS: Lib/Attention/RealTemporalLayerExt.lean, Lib/Convex/RealFCADuality.lean, Lib/FCA/RealFCAImplicationBasis.lean, Lib/FCA/RealFCAInstance.lean, Lib/FCA/RealFCATokenization.lean
+
+=== #64 Lib/InfoTheory/RealKL.lean:184 [theorem] kl_zero_iff_eq  in_degree=5
+DOC: 
+STMT: theorem kl_zero_iff_eq {k : ℕ} (p q : Fin k → ℝ) (hp0 : ∀ a, 0 < p a) ;     (hpsum : ∑ a, p a = 1) (hq0 : ∀ a, 0 < q a) (hqsum : ∑ a, q a = 1) : ;     kl p q = 0 ↔ p = q
+USERS: Lib/Editing/RealConversionStabilityInformation.lean, Lib/InfoTheory/RealELBO.lean, Lib/InfoTheory/RealEntropyConcavity.lean, Lib/InfoTheory/RealMaxEntropy.lean, Lib/Optim/RealRegularizedMDP.lean
+
+=== #65 Lib/Penalty/PolyExact.lean:88 [theorem] sq_eq_zero_of_localMin  in_degree=5
+DOC: 
+STMT: theorem sq_eq_zero_of_localMin {f : E → ℝ} {f' : E →L[ℝ] ℝ} {x : E} ;     (hderiv : HasFDerivAt f f' x) (hne : f' ≠ 0) ;     (hmin : IsLocalMin (fun y => f y ^ 2) x) : f x = 0
+USERS: Geo/Derivative.lean, Geo/Exact.lean, Lib/Penalty/Counterexample.lean, Lift/ApproxExact.lean, Lift/PenaltyAnalysis.lean
+
+=== #66 Lib/Quantization/RealQuantizedError.lean:231 [theorem] quantized_chain_error_closed  in_degree=5
+DOC: 定理二（n 层端到端，闭式求和）：每层量化误差 ‖Wq i − W i‖ ≤ δ i / ⟹ ‖quantFwd Wq n x − quantFwd W n x‖ / ≤ Σ_{i<n} (∏_{j∈Ioo i n} ‖Wq j‖)·δ i·(∏_{k<i} ‖W k‖)·‖x‖。 / 第 i 层量化误差 δ_i 经其后各层（‖Wq_j‖）放大、其前各层（‖W_k‖）放缩输入。
+STMT: theorem quantized_chain_error_closed (W Wq : ℕ → E →L[ℝ] E) (δ : ℕ → ℝ) (n : ℕ) ;     (hq : ∀ i, i < n → ‖Wq i - W i‖ ≤ δ i) : ;     ∀ x, ‖quantFwd Wq n x - quantFwd W n x‖ ;       ≤ ∑ i in Finset.range n, (∏ j in Finset.Ioo i n, ‖Wq j‖) * δ i * (∏ k in Finset.range i, ‖W k‖) * ‖x‖
+USERS: Lib/LearningTheory/RealDistill.lean, Lib/LinearAlgebra/RealSparsity.lean, Lib/Quantization/RealCompressionJoint.lean, Lib/Quantization/RealMixedPrecision.lean, Lib/Quantization/RealStructuredPruning.lean
+
+=== #67 Lift/ConstraintEmbeddingSoundness.lean:37 [lemma] int_sq_eq_zero_iff  in_degree=5
+DOC: 
+STMT: lemma int_sq_eq_zero_iff (a : Int) : a ^ 2 = 0 ↔ a = 0
+USERS: Lib/Chain/RealChainAxioms2.lean, Lib/Compiler/Combinators.lean, Lib/Compiler/CombinatorsXorNot.lean, Lib/Compiler/Inequality.lean, Lift/TotalLoss.lean
+
+=== #68 Lift/EndToEnd.lean:132 [theorem] ladder_forward  in_degree=5
+DOC: **The end-to-end soundness.** If a point satisfies a symbolic form, the artifact / produced at the far end of the ladder accepts it. /  / This uses the L2 -> L3 obligation at the point where it is needed, so the statement does not / collapse into a restatement of `l2l3_sound`: it is `l2l3_sound` applied to a form reached by / the ladder's own maps.
+STMT: theorem ladder_forward (s : Sym) (hsat : L.satSym s) : L.satW (L.l2l3 s)
+USERS: Audit/Hypotheses.lean, Geo/LadderInstance.lean, Geo/SynthesisConnection.lean, Lift/WeightLadder.lean, Lift/WeightLadderN.lean
+
+=== #69 Lift/Extraction.lean:146 [lemma] applies  in_degree=5
+DOC: 
+STMT: lemma applies definitionally rather than needing a structure extensionality step ; (which does not fire here, since one field is a function). -/
+USERS: Core/Repair.lean, Core/RepairWF.lean, Geo/QualityBridge.lean, Geo/RepairPerp.lean, Slots.lean
+
+=== #70 Lift/PenaltyAnalysis.lean:89 [theorem] sq_eq_zero_of_localMin  in_degree=5
+DOC: **非零导数处的平方惩罚精确性。** /  / 若残差的导数在平方的局部极小点处不为零，则残差在该点为零。 /  / 与「无此假设则命题为假」相对照：反例是 `Lattice.Lift.PenaltyEmbedding.sound_not_exact`， / 那是被**证明**的，不是被假定的。
+STMT: theorem sq_eq_zero_of_localMin {f : E → ℝ} {f' : E →L[ℝ] ℝ} {x : E} ;     (hderiv : HasFDerivAt f f' x) (hne : f' ≠ 0) ;     (hmin : IsLocalMin (fun y => f y ^ 2) x) : f x = 0
+USERS: Geo/Derivative.lean, Geo/Exact.lean, Lib/Penalty/Counterexample.lean, Lib/Penalty/PolyExact.lean, Lift/ApproxExact.lean
+
+=== #71 Lift/PenaltyEmbedding.lean:88 [theorem] isLocalMin_of_forall_le  in_degree=5
+DOC: **A point that dominates everything is a local minimiser.** /  / Stated for an arbitrary topological space and an arbitrary preorder, so it serves `ℝ`-valued / losses and any other ordered carrier without restatement.
+STMT: theorem isLocalMin_of_forall_le {X : Type} [TopologicalSpace X] ;     {β : Type} [Preorder β] {f : X → β} {x : X} (h : ∀ y, f x ≤ f y) : IsLocalMin f x
+USERS: Lib/Linear/Penalty.lean, Lib/Linear/PenaltyMatrix.lean, Lib/Linear/PenaltyPerturb.lean, Lib/Linear/PenaltyPerturbN.lean, Lib/Penalty/Counterexample.lean
+
+=== #72 Lift/RealLinear.lean:49 [theorem] convertReal_preserves  in_degree=5
+DOC: 
+STMT: theorem convertReal_preserves (c : RealConstraint) (x : ℝ) : ;     RealConstraintSat c x ↔ RealNeuronOut (convertReal c) x = 0
+USERS: Lib/Compiler/RealCompilerOpt.lean, Lib/FCA/RealImplication.lean, Lib/Lift/RealContractAxioms.lean, Lift/RealLV.lean, Lift/RealTotalLoss.lean
+
+=== #73 Lift/RealNonlinear.lean:37 [lemma] relu_nonneg  in_degree=5
+DOC: 
+STMT: lemma relu_nonneg (x : ℝ) : 0 ≤ relu x
+USERS: Lib/Architectures/RealModReLU.lean, Lib/Architectures/RealReLULayer.lean, Lib/Convex/RealSubgradient.lean, Lib/Lift/RealContractAxioms.lean, Lift/RealLV.lean
+
+=== #74 Core/RepairConvergence.lean:80 [theorem] converges_within  in_degree=4
+DOC: **收敛率：`μ x` 步之内必然满足。** /  / 这是 `progress` 的定量形式。证明用归纳得出「若前 `n` 步都失败，则测度至少降 `n`」， / 再取 `n = μ x`，由 `atomic` 得到矛盾。
+STMT: theorem converges_within (R : Repair α) (x : α) : ;     R.Sat (R.iterate (R.μ x) x)
+USERS: Audit/Hypotheses.lean, Core/OneStepBridge.lean, Core/RepairMultistep.lean, Geo/LoopRate.lean
+
+=== #75 Geo/Lipschitz.lean:133 [theorem] lipschitz_add  in_degree=4
+DOC: **`add`**：常数 `K₁ + K₂`。
+STMT: theorem lipschitz_add {n k : ℕ} {e₁ e₂ : GeoExpr n} {K₁ K₂ : ℝ} ;     (h₁ : LipschitzK n k e₁ K₁) (h₂ : LipschitzK n k e₂ K₂) : ;     LipschitzK n k (.add e₁ e₂) (K₁ + K₂)
+USERS: Geo/PolyConstants.lean, Lib/Architectures/RealBlockInstance.lean, Lib/Architectures/RealBlockLipschitz.lean, Lib/Attention/RealCrossAttention.lean
+
+=== #76 Lib/Architectures/RealActClass.lean:51 [theorem] relu_is_soft_masked  in_degree=4
+DOC: 
+STMT: theorem relu_is_soft_masked : SoftMasked relu reluSoftMask
+USERS: Lib/Architectures/RealGLUVariants.lean, Lib/Architectures/RealGatingGeneral.lean, Lib/Chain/RealAbstractionRegistry.lean, Lib/Optim/RealGLUTraining.lean
+
+=== #77 Lib/Architectures/RealActClass.lean:132 [theorem] gelu_is_soft_masked  in_degree=4
+DOC: 
+STMT: theorem gelu_is_soft_masked : SoftMasked geluTanh geluSoftMask
+USERS: Lib/Architectures/RealGLUVariants.lean, Lib/Architectures/RealGatingGeneral.lean, Lib/Chain/RealAbstractionRegistry.lean, Lib/Optim/RealGLUTraining.lean
+
+=== #78 Lib/Architectures/RealActComplete.lean:237 [theorem] silu_is_soft_masked  in_degree=4
+DOC: 
+STMT: theorem silu_is_soft_masked : SoftMasked silu sigmoid
+USERS: Lib/Architectures/RealGLUVariants.lean, Lib/Architectures/RealGatingGeneral.lean, Lib/Chain/RealAbstractionRegistry.lean, Lib/Optim/RealGLUTraining.lean
+
+=== #79 Lib/Architectures/RealBlockLipschitz.lean:41 [theorem] lipschitz_add  in_degree=4
+DOC: 
+STMT: theorem lipschitz_add (f g : X → X) (Lf Lg : ℝ) ;     (hf : ∀ x y, ‖f x - f y‖ ≤ Lf * ‖x - y‖) ;     (hg : ∀ x y, ‖g x - g y‖ ≤ Lg * ‖x - y‖) : ;     ∀ x y, ‖(f x + g x) - (f y + g y)‖ ≤ (Lf + Lg) * ‖x - y‖
+USERS: Geo/Lipschitz.lean, Geo/PolyConstants.lean, Lib/Architectures/RealBlockInstance.lean, Lib/Attention/RealCrossAttention.lean
+
+=== #80 Lib/Architectures/RealMatrixNorm.lean:143 [lemma] frobeniusNorm_sq  in_degree=4
+DOC: 
+STMT: lemma frobeniusNorm_sq (A : Matrix (Fin m) (Fin n) ℝ) : ;     (frobeniusNorm A) ^ 2 = ∑ i : Fin m, ∑ j : Fin n, (A i j) ^ 2
+USERS: Lib/LinearAlgebra/RealEckartYoung.lean, Lib/LinearAlgebra/RealSparsity.lean, Lib/LinearAlgebra/RealStructuredMatrix.lean, Lib/Quantization/RealMixedPrecision.lean
+

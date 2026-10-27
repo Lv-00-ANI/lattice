@@ -1,0 +1,36 @@
+# Proof-strength baseline -- FROZEN SNAPSHOT
+#
+# Generated from `check_proof_strength.py` at the moment the guard was introduced.
+# Every line is a KNOWN shape of nominally-complete proof. The discipline is two-way:
+#   * a finding not listed here FAILS  (no new ones)
+#   * a listed entry that no longer fires FAILS  (the list may only shrink)
+#
+# To pay off an entry: fix the theorem, then DELETE its line here.
+# Bulk-approving this file defeats the only purpose it has.
+#
+# Format:  <file>\t<line>\t<kind>\t<declaration>
+#
+Geo/PolyAssemble.lean	80	bare-hypothesis	poly_lipschitz_expr
+Geo/Synthesis.lean	71	bare-hypothesis	idT_preserves
+Lib/Attention/RealTemporalLayer.lean	224	bare-hypothesis	split_immediately_confers_concept
+Lib/Chain/RealLv00GeometryDifferential.lean	524	bare-hypothesis	gauss_bonnet_local_flat_degenerate
+Lib/Chain/RealNumericChainOrder_parts/C.lean	210	bare-hypothesis	nat_least_positive
+Lib/Compiler/RealAbstractInterpretation.lean	103	bare-hypothesis	galoisMem_intro
+Lib/Compiler/RealWP.lean	107	bare-hypothesis	wp_sound
+Lib/Concentration/RealHoeffdingInequality.lean	398	bare-hypothesis	condExpFiber_le_of_fibreBound
+Lib/Editing/RealClosureReversibility.lean	209	bare-hypothesis	section_is_right_inverse
+Lib/Editing/RealConversionQuotient.lean	171	bare-hypothesis	compile_compatible_with_itself
+Lib/Editing/RealRepairMetric.lean	59	bare-hypothesis	repair_preserves_is_identity_statement
+Lib/InfoTheory/RealMutualInformation.lean	174	bare-hypothesis	marginalRow_sum_eq_one
+Lib/LearningTheory/RealCausalDoCalculus.lean	589	bare-hypothesis	backdoor_adjustment_general
+Lib/LearningTheory/RealDecisionTheory.lean	99	bare-hypothesis	admissible_of_not_dominated
+Lib/LearningTheory/RealScalingLawBound.lean	319	bare-hypothesis	moment_condition_instantiates_D
+Lib/Optim/ModEqBridge.lean	101	bare-hypothesis	congruent_to_divisible
+Lib/Optim/ModEqBridge.lean	107	bare-hypothesis	divisible_to_congruent
+Lib/Optim/RealFedAsync.lean	156	bare-hypothesis	fedsgd_contraction
+Lib/Optim/RealFedAsync.lean	389	bare-hypothesis	async_delay_step
+Lib/Optim/RealRegularizedMDP.lean	553	bare-hypothesis	geomWeight_normalizer_K1
+Lib/Quantization/RealQATRate.lean	441	bare-hypothesis	smooth_step_bound
+Lift/ConstraintToLoss.lean	93	bare-hypothesis	sound_holds
+Lift/ErrorCalculus.lean	164	bare-hypothesis	abs_bound_inst
+Lift/NonIdenticalEncoding.lean	128	bare-hypothesis	project_sound

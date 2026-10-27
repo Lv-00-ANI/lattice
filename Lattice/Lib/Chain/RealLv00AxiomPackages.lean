@@ -447,12 +447,6 @@ theorem application_outputs_absorbable {Conclusion : Type} {P : Conclusion → P
   rw [h.2] at hc
   exact executable_rule_conclusions_absorbable h.1 c hc
 
-/-- (B) 吸收操作只追加约束：新约束表 = 旧约束表 ++ 产物。
-（上游 `absorb_preserves_nodes` 断言「节点不变」，但其节点字段与约束字段独立，
-故该命题退化。本文件改为陈述**真正有信息量**的那一半：追加语义。） -/
-theorem absorb_appends {Node Premise Conclusion : Type}
-    (nodes : List Node) (constraints produced : List Conclusion) :
-    (nodes, constraints ++ produced) = (nodes, constraints ++ produced) := rfl
 
 /-! ## 7. 八基础规则结构（来源：`Axioms/Primitive.lean`）
 
