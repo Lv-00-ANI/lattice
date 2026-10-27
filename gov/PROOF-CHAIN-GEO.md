@@ -16,6 +16,7 @@
 | `CExprCodegen` | 113 | 4 | — |
 | `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 204 | 10 | — |
+| `CodegenLadder` | 109 | 3 | — |
 | `Compile` | 99 | 2 | — |
 | `ComputableExpr` | 249 | 7 | — |
 | `ConjRepair` | 157 | 3 | — |

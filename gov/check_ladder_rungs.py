@@ -121,6 +121,11 @@ IDENTITY_OK = {
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
     "Lift/WeightLadderN.lean":
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
+    # Round 168. This is the one ladder whose l2l3 genuinely CHANGES the representation
+    # (`CExpr` tree -> `List StackOp`), so its l1l2 has nothing to do: Sym and Tok are both
+    # `ShallowCExpr n`. The substantive rung here is l2l3, whose proof uses `toStack_correct`.
+    "Geo/CodegenLadder.lean":
+        "Sym = ShallowCExpr and Tok = ShallowCExpr -- the same type; the substance is in l2l3",
 }
 
 #: The classification strings that count as an identity rung.

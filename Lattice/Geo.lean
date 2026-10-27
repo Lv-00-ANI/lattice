@@ -88,6 +88,7 @@ import Lattice.Geo.RealToken
 import Lattice.Geo.RealTokenRoundtrip
 import Lattice.Geo.EqConstraintListTokens
 import Lattice.Geo.CExprCodegen
+import Lattice.Geo.CodegenLadder
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
