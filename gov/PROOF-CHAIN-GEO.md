@@ -61,7 +61,7 @@
 | `LayerExact` | 127 | 3 | — |
 | `Lipschitz` | 260 | 11 | — |
 | `Loop` | 209 | 10 | — |
-| `LoopPerp` | 164 | 7 | — |
+| `LoopPerp` | 170 | 7 | — |
 | `LoopRate` | 89 | 3 | — |
 | `Loss` | 199 | 10 | — |
 | `MissingRepairs` | 145 | 4 | — |

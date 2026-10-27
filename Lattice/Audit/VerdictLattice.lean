@@ -144,16 +144,33 @@ theorem kindLe_inf {a b c : CompositionKind} (h₁ : kindLe c a) (h₂ : kindLe 
 
 /-- **`CompositionKind` 的判定代数是一个有界格。**
 
-`kindLe_*` + `kindSup_le` / `kindLe_sup_left` / `kindLe_sup_right` 给出上确界，
-`kindInf_*` 给出下确界，`kindLe_bot` / `kindLe_top` 给出界。 -/
+**第 208 轮补强。** 原陈述只有 `refl` / `trans` / `bot` / `top` / 上确界泛性质，
+**缺反对称性与下确界泛性质**——而这两条的**定理早就存在**（`kindLe_antisymm`、`kindInf_*`、`kindLe_inf`），
+只是**没被并进这个合取**。所以缺陷不在证明，在**这个定理的陈述漏了它自己名字要求的项**。——所以它证明的是「带上下界的并半格」，
+而名字说的是「有界格」。**名字比陈述强，这正是审计反复发现的那一类。**
+
+现在五项齐全：
+
+| 项 | 定理 |
+|:--|:--|
+| 自反 | `kindLe_refl` |
+| 传递 | `kindLe_trans` |
+| **反对称（原陈述缺，定理早已存在）** | `kindLe_antisymm`（L96） |
+| 上确界泛性质 | `kindSup_le` + `kindLe_sup_left` / `kindLe_sup_right` |
+| **下确界泛性质（原陈述缺，定理早已存在）** | `kindInf_le_left` / `kindInf_le_right` / `kindLe_inf` |
+| 界 | `kindLe_bot` / `kindLe_top` | -/
 theorem kind_is_bounded_lattice :
     (∀ a, kindLe a a) ∧ (∀ a b c, kindLe a b → kindLe b c → kindLe a c) ∧
+    (∀ a b, kindLe a b → kindLe b a → a = b) ∧
     (∀ a, kindLe .sequential a) ∧ (∀ a, kindLe a .bridged) ∧
     (∀ a b, kindLe a (kindSup a b) ∧ kindLe b (kindSup a b) ∧
-      ∀ c, kindLe a c → kindLe b c → kindLe (kindSup a b) c) :=
-  ⟨kindLe_refl, fun _ _ _ => kindLe_trans,
+      ∀ c, kindLe a c → kindLe b c → kindLe (kindSup a b) c) ∧
+    (∀ a b, kindLe (kindInf a b) a ∧ kindLe (kindInf a b) b ∧
+      ∀ c, kindLe c a → kindLe c b → kindLe c (kindInf a b)) :=
+  ⟨kindLe_refl, fun _ _ _ => kindLe_trans, fun _ _ => kindLe_antisymm,
    kindLe_bot, kindLe_top,
-   fun a b => ⟨kindLe_sup_left a b, kindLe_sup_right a b, fun c h₁ h₂ => kindSup_le h₁ h₂⟩⟩
+   fun a b => ⟨kindLe_sup_left a b, kindLe_sup_right a b, fun c h₁ h₂ => kindSup_le h₁ h₂⟩,
+   fun a b => ⟨kindInf_le_left a b, kindInf_le_right a b, fun c h₁ h₂ => kindLe_inf h₁ h₂⟩⟩
 
 /-! ## 三、多段判定：`Verdict` 在逐点序下**不是**格
 

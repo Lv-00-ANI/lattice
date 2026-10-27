@@ -42,6 +42,15 @@
 | `keep` | 1193 |
 | **合计审阅** | **1382** |
 
+**这张表是「第一审判了多少条」，不是「还剩多少条没做」。**
+
+第 208 轮试过加一列「已处理 / 剩余」，**又删掉了**：账本里的一行可以覆盖 8 条判定（`delete × 8` 就是一行），也可能一条判定被推翻成另一类——
+**于是「剩余」会用行数算出假数字**（它会显示 `delete` 还剩 44，而那 44 条早已判完：
+8 条删除、34 条被对抗性复核推翻、3 条改写）。**错的统计比没有统计更糟。**
+
+真正做了什么，看下面的「已处理」一节与「对抗性复核」一节——**那两节逐条列出，不做汇总。**
+
+
 > **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。
 > 它们最初是按**旧的、有缺陷的** `in_degree` 选出来的「第一层」。
 > 审阅人指出该指标把 docstring 提及与不同命名空间的同名声明算成引用，
@@ -274,6 +283,8 @@
 | `(8 处，见本条)` | `delete × 8` | 对抗性复核确认无信息量且无依赖，已删除并逐一通过全库构建：`ChainTransitivity.preserves_one`（陈述就是 binder 的类型）、`CompositionClass.sequential_evidence_trivial`（陈述是常值 True，被同文件 `evidence_kinds_differ` 更强覆盖）、`CompositionClass.bridged_needs_bridge`（与 `BridgedComposition.bridge_is_necessary` 逐字相同）、`MultiComposition.chain_nil_identity`（展开即 `hx`）、`RealCanonicalCompileComm.comm_via_extract`（条件恒真）、`RealExtractSurjectivity.extractVec_range_ne_proper`（与紧邻上一条逻辑等价）、`ConstraintToLoss.compile_changes_type` 与 `RatRepresentation.compile_changes_type`（各与同文件前 8–16 行的另一份逐字同陈述同 `rfl` 证明，删的是后一份副本）。 |
 | `Lift/WeightToSymbolEquivalence.lean` | `roundtrip_behavior` | 删掉了合取的第一项，那一项是 `h → h`（`NeuronOut l x = 0` 与 `ConstraintSat (extract l) x` 按定义相同，`simpa using h` 就是 `id`）。名字保留，因为 `Lib/Lift/RealContractAxioms.lean` 有 `#print axioms roundtrip_behavior`——改断言会断构建。并给本模块三条定理加上诚实 docstring：它们的往返恒等**是定义展开**（`rfl` / `simp [ConstraintSat, NeuronOut, convert]`），**没有建立任何对应关系**。 |
 | `Lib/Chain/RealTaylorMultivariate.lean` | `second_order_taylor` | 判定从 `rewrite` **改为 `register`**：`∃ R, a = b + R` 与 `True` 同义（证明体把 `R` 取成 `a − b`），**当前假设下写不出更强的陈述**。要让它有内容必须把余项界 `\|R\| ≤ (C/2)‖v‖²` 并进结论，那需要 `n` 维 Taylor 余项定理（本文件正是用 `hg2`/`hC` 回避了它）。已把这段写进源码 docstring，明确「结论空洞，全部内容在假设里」，并指出 `second_order_taylor_unconditional` 的价值在于弱化假设（`hg2` → `ContDiffAt ℝ 2 f x`）而非让结论有内容。 |
+| `Audit/VerdictLattice.lean` | `kind_is_bounded_lattice` | 强化：名字说「有界格」，而原合取里**没有反对称性、没有下确界的泛性质**——所以它证的是「带上下界的并半格」。补上两项。**注意**：这两条的**定理早就存在**（`kindLe_antisymm`、`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`），只是**没被并进这个合取**——缺陷不在证明，在**陈述漏了它自己名字要求的项**。 |
+| `Geo/LoopPerp.lean` | `fixPerp_absorbs` | 强化：**删掉了前提** `(∑ j, (pts e j − pts c j)²) ≠ 0`。它**从未被用到**——证明体走 `rw [hzero, zero_div, zero_mul, sub_zero]`，而 `zero_div` 对**任何**除数成立（`0/0 = 0` 是 Lean 的总函数约定）。删掉后定理**更强**：它现在对退化参考段（`e = c`）也成立。两处调用点（`LoopPerp` 内两处、`Geo/ConjRepair.lean` 一处）同步更新。**这是「说的比该说的弱」的正确修法：不是加结论，是减前提。** |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

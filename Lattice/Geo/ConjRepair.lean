@@ -128,7 +128,7 @@ noncomputable def conjRepair
     intro pts h
     show fixPerp a b c e (fixSamePoint p q pts) = pts
     rw [fixSamePoint_absorbs p q pts h.1]
-    exact fixPerp_absorbs a b c e pts h.2 (hv pts)
+    exact fixPerp_absorbs a b c e pts h.2
   decreases := by
     intro pts h
     -- After the two steps both constraints hold, so the measure is zero.

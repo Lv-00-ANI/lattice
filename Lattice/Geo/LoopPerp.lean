@@ -43,10 +43,16 @@ variable {n : ℕ}
 
 If `⟨w, v⟩ = 0` then `perpRatio = 0`, so `w - 0·v = w` and `b` is unchanged. This is the conservativity that
 `Repair.absorbs` requires, and the reason a perpendicular repair can be iterated without undoing previous
-progress. -/
+progress.
+
+**第 208 轮削弱了前提：`(∑ j, …) ≠ 0` 被删掉了。** 它**从未被用到**——证明体走
+`rw [hzero, zero_div, zero_mul, sub_zero]`，而 `zero_div` 对**任何**除数都成立（`0 / 0 = 0` 是 Lean 的
+总函数约定）。删掉这个前提让定理**更强**：它现在对退化参考段（`e = c`）也成立，
+而在那里 `perpRatio` 取值 `0/0 = 0`（junk value），投影仍是恒等。
+
+**这是「说的比该说的弱」的正确修法**：不是加结论，是**减前提**。 -/
 theorem fixPerp_absorbs (a b c e : ℕ) (pts : ℕ → Pt n)
-    (h : GeoConstraint.Holds (.perpendicular a b c e) pts)
-    (hv : (∑ j, (pts e j - pts c j) * (pts e j - pts c j)) ≠ 0) :
+    (h : GeoConstraint.Holds (.perpendicular a b c e) pts) :
     fixPerp a b c e pts = pts := by
   funext p
   by_cases hp : p = b
@@ -89,7 +95,7 @@ noncomputable def perpRepair (a b c e : ℕ) (hab : a ≠ b) (hcb : c ≠ b) (he
   μ := perpMeasure a b c e
   absorbs := by
     intro pts h
-    exact fixPerp_absorbs a b c e pts h (hv pts)
+    exact fixPerp_absorbs a b c e pts h
   decreases := by
     intro pts h
     -- the fix establishes the constraint, so the measure falls from 1 to 0
@@ -130,7 +136,7 @@ theorem perp_loop_preserves (a b c e : ℕ) (hab : a ≠ b) (hcb : c ≠ b) (heb
     (hv : ∀ pts : ℕ → Pt n, (∑ j, (pts e j - pts c j) * (pts e j - pts c j)) ≠ 0)
     (pts : ℕ → Pt n) (h : GeoConstraint.Holds (.perpendicular a b c e) pts) :
     fixPerp a b c e pts = pts :=
-  fixPerp_absorbs a b c e pts h (hv pts)
+  fixPerp_absorbs a b c e pts h
 
 /-! ## What `perpRepair` leaves alone
 
