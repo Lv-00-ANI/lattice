@@ -55,12 +55,29 @@ theorem topk_output_bound (S : Finset ι) (w : ι → ℝ) (v : ι → F) (M : �
 /-! ## 定理二：k=1 衔接（硬路由/argmax）
 S = {i}（单元素选择）⟹ 输出 = vᵢ（硬注意力退化）。-/
 
-omit [Fintype ι] [Nonempty ι] [DecidableEq ι] in
-theorem top1_output_is_hard (i : ι) (v : ι → F) (w : ι → ℝ)
-    (hw : w i = 1) (_hrest : ∀ j, j ≠ i → w j = 0) :
-    ∑ j in ({i} : Finset ι), w j • v j = v i := by
-  -- 单点求和
-  simp [hw]
+/-- **`k = 1` 衔接（硬路由 / argmax）**：one-hot 权重下，**在整个指标集上**的凸组合等于 `vᵢ`。
+
+**第 209 轮补强。** 原陈述在**单元素集** `{i}` 上求和：
+
+```lean
+∑ j in ({i} : Finset ι), w j • v j = v i
+```
+
+**于是 `_hrest`（其余权重为 `0`）在证明里根本用不到**——求和范围从contains `j ≠ i`。
+结论退化成 `w i • v i = v i`，即 `1 • v i = v i`，**与「硬路由」无关**。
+
+现在求和范围是**全部指标**（`Finset.univ`），`hrest` 成了**必需**：
+和之所以塌缩成一项，正是因为其余权重为零。**这才是「硬路由」的定义。** -/
+theorem top1_output_is_hard [Fintype ι] [DecidableEq ι] (i : ι) (v : ι → F) (w : ι → ℝ)
+    (hw : w i = 1) (hrest : ∀ j, j ≠ i → w j = 0) :
+    ∑ j, w j • v j = v i := by
+  have h1 : (∑ j, w j • v j) = w i • v i := by
+    refine Finset.sum_eq_single i ?_ ?_
+    · intro j _ hj
+      rw [hrest j hj, zero_smul]
+    · intro hi
+      exact absurd (Finset.mem_univ i) hi
+  rw [h1, hw, one_smul]
 
 /-! ## 定理三：k=1 输出被界住（衔接凸组合界）
 单点选择的输出 = vᵢ ≤ max‖v‖（硬路由有界）。-/

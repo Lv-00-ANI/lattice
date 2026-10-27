@@ -2572,7 +2572,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ce_sum_neg` -> `apply`, `softmax`
 - `cellEdit_delta_closed_form` -> `W`, `apply`
 - `cellEdit_depends_only` -> `W`, `apply`
-- `census_length` -> `Audit`, `length`
+- `census_length` -> `Audit`, `Repair`, `length`
 - `centerSq_add_const` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_nonneg` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_scale` -> `apply`
@@ -7424,7 +7424,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_coverage_geometric` -> `Pt`, `sqDist`
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
 - `repair_iff_satisfiable` -> `Repair`, `Sat`
-- `repair_is_densest` -> `Audit`, `length`
+- `repair_is_densest` -> `Audit`, `Repair`
 - `repair_of_satisfiable` -> `Repair`, `Sat`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `induction`, `iterate_succ`, `preserves`, `zero`

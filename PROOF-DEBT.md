@@ -285,6 +285,9 @@
 | `Lib/Chain/RealTaylorMultivariate.lean` | `second_order_taylor` | 判定从 `rewrite` **改为 `register`**：`∃ R, a = b + R` 与 `True` 同义（证明体把 `R` 取成 `a − b`），**当前假设下写不出更强的陈述**。要让它有内容必须把余项界 `\|R\| ≤ (C/2)‖v‖²` 并进结论，那需要 `n` 维 Taylor 余项定理（本文件正是用 `hg2`/`hC` 回避了它）。已把这段写进源码 docstring，明确「结论空洞，全部内容在假设里」，并指出 `second_order_taylor_unconditional` 的价值在于弱化假设（`hg2` → `ContDiffAt ℝ 2 f x`）而非让结论有内容。 |
 | `Audit/VerdictLattice.lean` | `kind_is_bounded_lattice` | 强化：名字说「有界格」，而原合取里**没有反对称性、没有下确界的泛性质**——所以它证的是「带上下界的并半格」。补上两项。**注意**：这两条的**定理早就存在**（`kindLe_antisymm`、`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`），只是**没被并进这个合取**——缺陷不在证明，在**陈述漏了它自己名字要求的项**。 |
 | `Geo/LoopPerp.lean` | `fixPerp_absorbs` | 强化：**删掉了前提** `(∑ j, (pts e j − pts c j)²) ≠ 0`。它**从未被用到**——证明体走 `rw [hzero, zero_div, zero_mul, sub_zero]`，而 `zero_div` 对**任何**除数成立（`0/0 = 0` 是 Lean 的总函数约定）。删掉后定理**更强**：它现在对退化参考段（`e = c`）也成立。两处调用点（`LoopPerp` 内两处、`Geo/ConjRepair.lean` 一处）同步更新。**这是「说的比该说的弱」的正确修法：不是加结论，是减前提。** |
+| `Audit/StructureCensus.lean` | `repair_is_densest` | 强化：名字说「`Repair` 是义务密度最高的结构」，而原陈述是 `(census.filter (fun s => s.obligations * 2 ≥ s.fields)).length = 1`——**全文没有一个字符提到 `Repair`**，换掉清册里一项它可能仍为真。现在陈述**直接点名且全称**：除 `Repair` 外每个结构密度严格 < 1/2，且 `Repair` 在册且密度 ≥ 1/2。两项合起来才等于「唯一」。 |
+| `Lib/LearningTheory/RealTopK.lean` | `top1_output_is_hard` | 强化：原陈述在**单元素集** `{i}` 上求和，所以 `_hrest`（其余权重为 0）**必然用不到**；结论退化成 `w i • v i = v i`，即 `1 • v i = v i`，**与「硬路由」无关**。现在求和范围是 `Finset.univ`，`hrest` 成为**必需**：和之所以塌缩成一项，正是因为其余权重为零。**这才是硬路由的定义。** |
+| `Lib/Attention/RealDynamicRoute.lean` | `routeOutput_hard` | 强化：**与 `top1_output_is_hard` 同一个缺陷的下游副本**——路由集取 `{i}`，`hrest` 无从使用，结论退化。现在路由集是 `Finset.univ`。**同款缺陷成对存在**——与 `stackDepth`/`depth`、`CExprCodegen`/`StackCodegen` 是同一种形态，本轮一次收两个。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

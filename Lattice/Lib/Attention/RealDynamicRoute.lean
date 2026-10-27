@@ -131,9 +131,14 @@ theorem routed_output_bound (S : Finset ι) (w : ι → ℝ) (v : ι → F) (M :
 
 /-! ## 定理二：k=1 硬路由（输出 = 被选专家输出） -/
 
-theorem routeOutput_hard (i : ι) (v : ι → F) (w : ι → ℝ)
+/-- **硬路由**：one-hot 权重下，**在整个词表上**路由等于取 `vᵢ`。
+
+**第 209 轮补强。** 原陈述路由集取 `{i}`——**和 `top1_output_is_hard` 同一个缺陷**：
+单元素集上求和，`hrest` 无从使用，结论退化为 `1 • vᵢ = vᵢ`。
+现在路由集是 `Finset.univ`，`hrest` 成为必需。 -/
+theorem routeOutput_hard [Fintype ι] [DecidableEq ι] (i : ι) (v : ι → F) (w : ι → ℝ)
     (hw : w i = 1) (hrest : ∀ j, j ≠ i → w j = 0) :
-    routeOutput ({i} : Finset ι) w v = v i := by
+    routeOutput Finset.univ w v = v i := by
   simpa [routeOutput] using top1_output_is_hard i v w hw hrest
 
 /-! ## 定理三（核心）：路由变化导致的误差 ≤ 2M

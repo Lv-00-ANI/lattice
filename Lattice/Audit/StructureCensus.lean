@@ -140,9 +140,32 @@ def census : List StructureCensus :=
 /-- 清册长度。 -/
 theorem census_length : census.length = 5 := by decide
 
-/-- **`Repair` 是义务密度最高的结构**：3/6 = 50%，其余都 ≤ 33%。 -/
+/-- **`Repair` 是义务密度最高的结构**：3/6 = 50%，其余都 < 50%。
+
+**第 209 轮补强。** 原陈述是
+
+```lean
+(census.filter (fun s => s.obligations * 2 ≥ s.fields)).length = 1
+```
+
+**它只说「满足某条件的条目有 1 个」，全文没有一个字符提到 `Repair`。**
+若清册里换掉一项，这条可能仍然为真——所以名字声称的东西**没有机器依据**。
+
+现在陈述直接点名，并且是**全称**的：
+
+- **除 `Repair` 外**，每个结构的密度都严格小于 `1/2`；
+- `Repair` **在册**，且密度 `≥ 1/2`。
+
+**两项合起来才等于「`Repair` 是唯一密度 ≥ 1/2 的结构」**——这才是名字的意思。 -/
 theorem repair_is_densest :
-    (census.filter (fun s => s.obligations * 2 ≥ s.fields)).length = 1 := by decide
+    (∀ s ∈ census, s.name ≠ "Repair" → s.obligations * 2 < s.fields) ∧
+    (∃ s ∈ census, s.name = "Repair" ∧ s.obligations * 2 ≥ s.fields) := by
+  refine ⟨?_, ?_⟩
+  · intro s hs hname
+    simp [census] at hs
+    rcases hs with rfl | rfl | rfl | rfl | rfl <;> simp_all
+  · refine ⟨⟨"Repair", 6, 3, 0⟩, ?_, rfl, by decide⟩
+    simp [census]
 
 /-- **所有结构的义务总数**（含嵌套）：9 条。
 
