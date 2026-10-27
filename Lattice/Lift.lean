@@ -33,6 +33,7 @@ import Lattice.Lift.ExtractionStrength
 import Lattice.Lift.WeightLadderFullWidth
 import Lattice.Lift.WeightLadderInverse
 import Lattice.Lift.WeightSymbolRepresentation
+import Lattice.Lift.ActivationLadder
 
 /-!
 # Lattice.Lift -- the representation ladder
