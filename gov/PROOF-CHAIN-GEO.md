@@ -39,6 +39,7 @@
 | `Exact` | 91 | 4 | — |
 | `Exec` | 132 | 6 | — |
 | `ExecutableCheck` | 189 | 4 | — |
+| `ExecutableGeoCheck` | 237 | 7 | — |
 | `Expr` | 136 | 1 | — |
 | `ExprDeriv` | 179 | 8 | — |
 | `ExprLocalMin` | 74 | 3 | — |
