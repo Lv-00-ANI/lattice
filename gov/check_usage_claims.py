@@ -39,6 +39,8 @@ import re
 import subprocess
 import sys
 
+import census_docs
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -53,18 +55,27 @@ def _read(p):
 
 
 def measure_refutations():
-    """The refutation total, taken from the census tool that OWNS the criterion.
+    """The refutation total, taken from the document that OWNS the criterion.
 
-    `check_refutation_census.py` holds `EXPECTED = {"total": N, ...}` -- the number it verifies
-    against the tree. Reading it here (instead of re-deriving the rule) keeps one authority:
-    round 56 showed that a re-implemented criterion drifts from the original.
+    Round 56 showed that a re-implemented criterion drifts from the original, so this used to
+    regex-scrape `check_refutation_census.py` for its `EXPECTED = {"total": N}` constant. That
+    constant is GONE: it said 285 while `REFUTATION-CENSUS.md` said 284, and nothing compared them.
 
-    This checker therefore compares USAGE.md against the census, and the census guard separately
-    compares the census against the tree. Chained, they cover the heading.
+    The authority is now the document, read through `census_docs` -- the same parser the census guard
+    uses. The chain is therefore
+
+        USAGE.md  ==  REFUTATION-CENSUS.md  ==  tree
+                   ^                        ^
+                   this checker             check_refutation_census.py
+
+    and each link is separately machine-checked.
     """
-    src = _read(os.path.join(HERE, "check_refutation_census.py"))
-    m = re.search(r'"total"\s*:\s*(\d+)', src)
-    return int(m.group(1)) if m else None
+    try:
+        total, _layers = census_docs.refutation_expected(
+            os.path.join(HERE, "..", "REFUTATION-CENSUS.md"))
+        return total
+    except census_docs.CensusDocError:
+        return None
 
 
 def measure_gate_invariants():
@@ -92,7 +103,13 @@ def measure_modules():
     for root, _, fs in os.walk(LAT):
         if "Reference" in root:
             continue
-        n += sum(1 for f in fs if f.endswith(".lean"))
+        # skip the throwaway module the reactivity checks build: it is gitignored, it is not part of
+        # the deliverable, and counting it makes this number depend on whether a reactivity check
+        # happened to be mid-flight. The predicate lives in one place (`audit_counts`) so the two
+        # counters cannot disagree about what a module is.
+        from audit_counts import is_generated_probe
+        n += sum(1 for f in fs
+                 if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)))
     return n
 
 

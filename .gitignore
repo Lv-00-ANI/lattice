@@ -28,7 +28,14 @@ __pycache__/
 # Gate scratch files: reactivity tests plant and remove these, but a crashed run must not
 # leave them looking like source.
 *.gate_reactivity.bak
-Lattice/Core/Probe.lean
+# Generated probe modules. Two checks plant these and delete them; both were caught leaving the
+# file behind, which shifted the module/theorem/declaration counts and made the count guards fail
+# depending on whether a reactivity check happened to be mid-flight:
+#   Lattice/Core/Probe.lean   layer_reactivity / check_i8_reactivity / gate_reactivity /
+#                             check_comments_reactivity
+#   Lattice/G4Probe.lean      verify_g4.py
+# The rule is by basename, which is safe: `git ls-files Lattice` has no file ending in `Probe.lean`.
+*Probe.lean
 # Repro scripts write intermediates here; they are regenerable, not deliverables.
 gov/repro/_work/
 __pycache__/

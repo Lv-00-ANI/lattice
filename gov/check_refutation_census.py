@@ -7,7 +7,11 @@ It re-implements the SAME rule the census documents: a declaration whose CONCLUS
 (the part after the last top-level `:`) starts with `¬`, `not `, or ends in `False`; or is
 `¬ ∃ …`.
 
-`--self-test` plants a wrong expectation and asserts the checker reports it.
+`--self-test` plants a wrong number in the document and asserts the checker reports it.
+
+The numbers come from `REFUTATION-CENSUS.md` via `census_docs`, not from a constant here. The
+constant said 285 / Geo 6 while the document said 284 / Geo 5, and the guard exited 0 -- so the
+document could say anything.
 """
 import io
 import os
@@ -16,19 +20,14 @@ import sys
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+import census_docs
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 LAKE = os.path.abspath(os.path.join(HERE, ".."))
 LAT = os.path.join(LAKE, "Lattice")
 
-# the census's recorded numbers
-EXPECTED = {
-    "total": 285,
-    "Lib": 257,
-    "Lift": 9,
-    "Audit": 8,
-    "Core": 5,
-    "Geo": 6,
-}
+# the census document this guard keeps honest
+CENSUS_MD = os.path.join(LAKE, "REFUTATION-CENSUS.md")
 
 PAT = re.compile(r"^(?:theorem|lemma)\s+(\w+)(.*?):=", re.S | re.M)
 
@@ -102,19 +101,30 @@ def measure():
 
 def main(argv):
     total, lay = measure()
-    expect = dict(EXPECTED)
+
+    try:
+        want_total, want_layers = census_docs.refutation_expected(CENSUS_MD)
+    except census_docs.CensusDocError as e:
+        # unreadable document => FAIL. Having nothing to compare is how the drift survived.
+        print("refutation census check\n")
+        print("REFUTATION CENSUS: cannot read %s -- %s"
+              % (os.path.basename(CENSUS_MD), e))
+        return 1
+
+    planted = False
     if "--self-test" in argv:
-        expect["total"] = total + 1
+        want_total = total + 1
+        planted = True
 
     problems = 0
     print("refutation census check\n")
-    ok = total == expect["total"]
-    print("%-8s %-10s %-10s %s" % ("metric", "expected", "actual", "verdict"))
-    print("%-8s %-10d %-10d %s" % ("total", expect["total"], total, "ok" if ok else "DRIFT"))
+    ok = total == want_total
+    print("%-8s %-10s %-10s %s" % ("metric", "in the doc", "actual", "verdict"))
+    print("%-8s %-10d %-10d %s" % ("total", want_total, total, "ok" if ok else "DRIFT"))
     if not ok:
         problems += 1
     for layer in ("Lib", "Lift", "Audit", "Core", "Geo"):
-        want = expect.get(layer, 0)
+        want = want_layers.get(layer, 0)
         got = lay.get(layer, 0)
         ok = want == got
         print("%-8s %-10d %-10d %s" % (layer, want, got, "ok" if ok else "DRIFT"))
@@ -122,13 +132,13 @@ def main(argv):
             problems += 1
 
     print("\n" + "=" * 56)
-    if "--self-test" in argv:
+    if planted:
         if problems > 0:
-            print("SELF-TEST PASS: a wrong expectation is reported")
+            print("SELF-TEST PASS: a wrong number in the document is reported")
             return 1
-        print("SELF-TEST FAIL: a wrong expectation was NOT reported")
+        print("SELF-TEST FAIL: a wrong number was NOT reported")
         return 0
-    print("REFUTATION CENSUS: %s" % ("consistent" if problems == 0
+    print("REFUTATION CENSUS: %s" % ("consistent with REFUTATION-CENSUS.md" if problems == 0
                                      else "%d drift(s) -- update REFUTATION-CENSUS.md" % problems))
     return 0 if problems == 0 else 1
 

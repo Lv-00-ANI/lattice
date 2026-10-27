@@ -55,23 +55,50 @@ Z = os.path.join(ZERO, "Lattice")
 IMPORT = re.compile(r"^import\s+(\S+)\s*$", re.M)
 
 
+def is_generated_probe(path):
+    """True for the throwaway modules the reactivity / verification checks build and delete.
+
+    Two are known, and BOTH were caught leaving their file behind:
+
+        Lattice/Core/Probe.lean   `layer_reactivity`, `check_i8_reactivity`, `gate_reactivity`,
+                                  `check_comments_reactivity`
+        Lattice/G4Probe.lean      `verify_g4.py`
+
+    They are gitignored/untracked, they are not part of the deliverable, and a count that runs WHILE
+    one is mid-flight reports one extra module, one extra theorem and one extra declaration -- so
+    `audit_counts` and `check_usage_claims` failed nondeterministically.
+
+    Measured: the module count followed these files 788 -> 789 -> 788 within a few minutes, and
+    `git status --ignored` showed `Lattice/G4Probe.lean` present while `verify_all --list` ran.
+
+    The rule is by BASENAME (`*Probe.lean`), verified safe: `git ls-files Lattice` contains no file
+    ending in `Probe.lean`, so no real module can be filtered out by this.
+
+    The deeper fix is for those checks to clean up in a `finally` (see the P0-8 backlog item); this
+    filter makes the counters immune in the meantime.
+    """
+    return os.path.basename(path).endswith("Probe.lean")
+
+
 def lean_count(d):
     if not os.path.isdir(d):
         return 0
     n = 0
     for root, dirs, fs in os.walk(d):
         dirs[:] = [x for x in dirs if x != ".lake"]
-        n += sum(1 for f in fs if f.endswith(".lean"))
+        n += sum(1 for f in fs
+                 if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)))
     return n
 
 
 def _kernel_files():
-    """Every .lean under Lattice/, excluding Reference (which is not built)."""
+    """Every .lean under Lattice/, excluding Reference (which is not built) and generated probes."""
     for root, dirs, fs in os.walk(Z):
         dirs[:] = [x for x in dirs if x not in (".lake", "Reference")]
         for f in fs:
-            if f.endswith(".lean"):
-                yield os.path.join(root, f)
+            full = os.path.join(root, f)
+            if f.endswith(".lean") and not is_generated_probe(full):
+                yield full
 
 
 def module_total():
