@@ -64,10 +64,11 @@ fix n   = n - 1      （n > 0）
   但本节只给 `ℕ` 上的实例——足以证否全称命题。
 - 本节的 `badFix` **不构成** `Repair` 实例（因为缺 `absorbs`），
   这正是要说明的：它满足其余两条却不能被接受。
-- 三条义务的**独立性**现在是完整的：`atomic` 由 `down_no_progress` 证否导出，
-  `absorbs` 由本节证否导出。`decreases` 的不可导出性**尚未证明**
-  （需要一个满足 `absorbs` + `atomic` 但 `decreases` 失败且仍收敛的算子）。
-  **这是本节明确留下的缺口**，不是遗漏。
+- 三条义务的**独立性现在是完整的**：`atomic` 由 `down_no_progress` 证否导出，
+  `absorbs` 由 `destructiveFix` 证否导出，`decreases` 由 `ascendingFix` 证否导出。
+  **第 199 轮补上了 `decreases` 那一条**，三块齐了。
+  `ascendingFix` 满足 `absorbs` 与 `atomic`，但对每个非零点**上升**一步——
+  所以任何只由前两条组成的公理系统都推不出 `decreases`。
 -/
 import Mathlib
 import Lattice.Core.Repair
@@ -119,5 +120,45 @@ theorem absorbs_not_derivable :
     h (fun n => n = 0) destructiveFix (fun n => n)
       destructiveFix_decreases destructiveFix_atomic
   exact destructiveFix_not_absorbs h'
+
+/-! ## 四、`decreases` 的不可导出性
+
+`absorbs` + `atomic` **推不出** `decreases`。反例是 `ascendingFix`：
+它吸收（`0` 固定）、原子（`μ = id`，`μ n = 0 → n = 0`），
+但对每个非零点**上升**一步而不是下降。
+
+**为什么这重要**：`decreases` 是三条义务里唯一保证**终止**的那条。
+前两条只保证「停在满足点」与「度量零点即满足」，一个只在原地打转或反向爬升的算子
+完全满足它们。**所以 `decreases` 必须由每个算子自己给出，不能由另两条导出。** -/
+
+/-- **上升算子**：非零点加一，零点固定。
+
+它吸收、原子，**不下降**。 -/
+def ascendingFix (n : ℕ) : ℕ := if n = 0 then 0 else n + 1
+
+/-- 它吸收。 -/
+theorem ascendingFix_absorbs : ∀ n : ℕ, n = 0 → ascendingFix n = n := by
+  intro n hn; subst hn; rfl
+
+/-- 它是原子的（度量取 `id`）。 -/
+theorem ascendingFix_atomic : ∀ n : ℕ, n = 0 → n = 0 := fun _ hn => hn
+
+/-- **它不下降**：`n = 5` 时 `ascendingFix 5 = 6 > 5`。 -/
+theorem ascendingFix_not_decreases :
+    ¬ (∀ n : ℕ, ¬ (n = 0) → ascendingFix n < n) := by
+  intro h
+  have h5 := h 5 (by decide)
+  unfold ascendingFix at h5
+  simp at h5
+
+/-- **`decreases` 不可导出**：存在一个算子满足 `absorbs` 与 `atomic`，却违反 `decreases`。
+
+**这是三块独立性证明的最后一块**（另两块是 `down_no_progress` 与 `destructiveFix`）。 -/
+theorem decreases_not_derivable :
+    ∃ fix : ℕ → ℕ,
+      (∀ n : ℕ, n = 0 → fix n = n) ∧
+      (∀ n : ℕ, (fun k => k) n = 0 → n = 0) ∧
+      ¬ (∀ n : ℕ, ¬ (n = 0) → (fun k => k) (fix n) < (fun k => k) n) :=
+  ⟨ascendingFix, ascendingFix_absorbs, ascendingFix_atomic, ascendingFix_not_decreases⟩
 
 end Lattice.Audit

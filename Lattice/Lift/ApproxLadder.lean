@@ -104,12 +104,21 @@ theorem approx_ladder_forward (s : Sym) (h : L.satSym s) :
 theorem approx_ladder_eps_nonneg : 0 ≤ L.l1l2.ε :=
   L.l1l2.hε
 
-/-- **A tighter instance gives a tighter end-to-end bound.** The forward half is unaffected by the
-bound, which is why this is stated as a monotonicity in ε alone. -/
-theorem approx_ladder_bound_mono {ε' : ℝ} (hε' : ε' ≤ L.l1l2.ε)
+/-- **Monotonicity in the bound: a looser budget is still an upper bound.**
+
+第 199 轮之前这条的结论是 ≤ L.l1l2.ε 而假设是 ε' ≤ L.l1l2.ε——**假设与结论无关**，
+证明只是 L.l1l2.bounded s，所以「单调」是假的：把一个更紧的 ε' 传进来，
+结论仍然报原来那个界。
+
+**方向本来就该反过来**：单调性说的是「界可以放宽」。ε ≤ ε' 时同一个误差
+仍然 ≤ ε'，这才是 le_trans。现在的证明用了假设，**不再是重言**。
+
+反过来（收紧）不是单调性，是**重新测量**——那需要更紧的 ounded，
+不是从旧的界推出来的。 -/
+theorem approx_ladder_bound_mono {ε' : ℝ} (hε' : L.l1l2.ε ≤ ε')
     (s : Sym) :
-    L.l1l2.dist (L.l1l2.extract (L.l1l2.compile s)) s ≤ L.l1l2.ε :=
-  L.l1l2.bounded s
+    L.l1l2.dist (L.l1l2.extract (L.l1l2.compile s)) s ≤ ε' :=
+  le_trans (L.l1l2.bounded s) hε'
 
 end ApproxLadder
 

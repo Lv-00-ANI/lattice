@@ -60,7 +60,11 @@ coord p axis = -c
 - 本节**不**改 `repair_iff_satisfiable`：那条定理仍然正确且有用，
   本节是**在它的基础上补出构造性实例**。
 - `ltZero`/`gtZero` 的修复需要**严格不等式**，而实数没有最小正数，
-  所以**不能「恰好的边界」**——需要额外 ε 参数。**本节的 `leZero` 是能做的极限。**
+  所以**不能「恰好的边界」**——需要额外 ε 参数。
+  **第 199 轮把它们做出来了**：`affineLtFix eps` 把坐标设成 `-c - eps`，
+  于是表达式求值为 `-eps < 0`；`affineGtFix eps` 对称。
+  **ε 是显式参数**，不是隐藏假设——「实数没有最小正数」这条事实**变成签名的形状**，
+  而不是一句「做不到」。见本文件第六节。
 -/
 import Mathlib
 import Lattice.Geo.Loss
@@ -151,15 +155,62 @@ theorem affineLeFix_reaches (p : ℕ) (axis : Fin n) (c : ℝ) (pts : ℕ → Pt
 | `midpoint` | ✅ | — |
 | **`eqZero`** | ✅ **线性情形（本节）** | ✅ 一般情形（第 65 轮） |
 | **`leZero`** | ✅ **线性情形（本节）** | ✅ |
-| `ltZero` / `gtZero` | ❌ 需 ε（实数无最小正数） | ✅ |
+| **`ltZero` / `gtZero`** | ✅ **本节（显式 ε）** | ✅ |
 | `angle` / `equalAngle` | ❌ 超越 | — |
 
-⇒ **只有 4 个构造子没有具体算子，且各有明确原因。** -/
+⇒ **第 199 轮补上严格不等式的两条后，只剩 ngle / equalAngle 与一般 eqZero。** -/
 theorem poly_specific_repairs (p : ℕ) (axis : Fin n) (c : ℝ) (pts : ℕ → Pt n) :
     GeoConstraint.Holds (.eqZero (affineExpr p axis c)) (affineZeroFix p axis c pts) ∧
     GeoConstraint.Holds (.leZero (affineExpr p axis c)) (affineLeFix p axis c pts) :=
   ⟨affineZeroFix_reaches p axis c pts, affineLeFix_reaches p axis c pts⟩
 
-end PolySpecificRepair
+/-! ## 六、严格不等式的修复：显式 ε > 0
 
-end Lattice.Geo
+`ltZero`/`gtZero` 的要求是**严格**的，而实数没有最小正数——所以「恰好的边界」
+这条路不存在。**第 199 轮之前，本文件把这一点写成「做不到」。**
+
+**那是把一条数学事实误读成了不可能性。** 事实是：**不存在** 一个与参数无关的恰好边界；
+但**存在** 对每个 `ε > 0` 的算子。所以正确的表述是
+
+> 严格不等式的修复**必须携带 ε**，因为「恰好到达边界」在实数上不可实现。
+
+这就把「实数无最小正数」从**借口**变成了**签名的形状**。
+
+-/
+
+/-- **严格小于的修复**：把 coord p axis 设成 -c - ε，于是 ffineExpr 求值为 -ε < 0。
+
+**ε 必须显式给出**：不存在一个与 c 无关的「恰好」值使表达式为负。 -/
+noncomputable def affineLtFix (ε : ℝ) (p : ℕ) (axis : Fin n) (c : ℝ) :
+    (ℕ → Pt n) → (ℕ → Pt n) :=
+  fun pts => fun k => if k = p then Function.update (pts p) axis (-c - ε) else pts k
+
+/-- **一步满足**：修复后 coord p axis + c = -ε < 0，即 ltZero 成立。 -/
+theorem affineLtFix_reaches (ε : ℝ) (hε : 0 < ε) (p : ℕ) (axis : Fin n) (c : ℝ)
+    (pts : ℕ → Pt n) :
+    GeoConstraint.Holds (.ltZero (affineExpr p axis c)) (affineLtFix ε p axis c pts) := by
+  unfold GeoConstraint.Holds affineExpr affineLtFix
+  simp [GeoExpr.evalPts]
+  linarith
+
+/-- **严格大于的修复**：设成 ε - c，求值为 ε > 0。 -/
+noncomputable def affineGtFix (ε : ℝ) (p : ℕ) (axis : Fin n) (c : ℝ) :
+    (ℕ → Pt n) → (ℕ → Pt n) :=
+  fun pts => fun k => if k = p then Function.update (pts p) axis (ε - c) else pts k
+
+/-- **一步满足**：修复后 coord p axis + c = ε > 0，即 gtZero 成立。 -/
+theorem affineGtFix_reaches (ε : ℝ) (hε : 0 < ε) (p : ℕ) (axis : Fin n) (c : ℝ)
+    (pts : ℕ → Pt n) :
+    GeoConstraint.Holds (.gtZero (affineExpr p axis c)) (affineGtFix ε p axis c pts) := by
+  unfold GeoConstraint.Holds affineExpr affineGtFix
+  simp [GeoExpr.evalPts]
+  linarith
+
+/-- **两条严格修复同时成立**：ε > 0 时 ltZero 与 gtZero 都能一步到达。 -/
+theorem poly_strict_repairs (ε : ℝ) (hε : 0 < ε) (p : ℕ) (axis : Fin n) (c : ℝ)
+    (pts : ℕ → Pt n) :
+    GeoConstraint.Holds (.ltZero (affineExpr p axis c)) (affineLtFix ε p axis c pts) ∧
+    GeoConstraint.Holds (.gtZero (affineExpr p axis c)) (affineGtFix ε p axis c pts) :=
+  ⟨affineLtFix_reaches ε hε p axis c pts, affineGtFix_reaches ε hε p axis c pts⟩
+
+end PolySpecificRepair

@@ -77,7 +77,8 @@ noncomputable def codegenLadder {n : ℕ} (g : (ℕ → Fin n → Float) → Flo
   l2l3_sound := by
     intro e he pts seed
     -- the bridge: run the compiled program, get the tree's value
-    rw [Lattice.Geo.CExprCodegen.toStack_correct e.val pts seed e.property]
+    -- 	oStack_correct no longer takes a depth hypothesis: CExpr.depth_eq_one makes it vacuous
+    rw [Lattice.Geo.CExprCodegen.toStack_correct e.val pts seed]
     -- and `satSym` says the tree's value is `g`
     rw [he pts]
 

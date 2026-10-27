@@ -54,7 +54,10 @@ open Lattice.Geo.ComputableExpr.CExpr
 
 variable {n : ℕ}
 
-/-- **Stack depth of a `CExpr`** — the same shape as `Lattice.Lift.StackCodegen.stackDepth`. -/
+/-- **Stack depth of a `CExpr`** — the same shape as `Lattice.Lift.StackCodegen.stackDepth`.
+
+**It is constantly 1**, which `CExpr.depth_eq_one` below proves; the recursion is faithful to
+`stackDepth` but the second argument's `- 1` never binds because a leaf already contributes 1. -/
 def CExpr.depth : Lattice.Geo.ComputableExpr.CExpr n → ℕ
   | .coord _ _ => 1
   | .const _ => 1
@@ -81,6 +84,25 @@ theorem stackDepth_toStack (e : Lattice.Geo.ComputableExpr.CExpr n) :
   | sub a b iha ihb => simp only [toStack, Lattice.Lift.StackCodegen.stackDepth, CExpr.depth, iha, ihb]
   | mul a b iha ihb => simp only [toStack, Lattice.Lift.StackCodegen.stackDepth, CExpr.depth, iha, ihb]
 
+/-- **`CExpr.depth` is constantly 1.**
+
+The recursion `max (depth a) (depth b - 1)` looks like it tracks a stack height, but a leaf already
+contributes 1, so the `- 1` never binds and the result is 1 for every expression. **This is why
+`toStack_correct` needs no depth hypothesis.** -/
+theorem CExpr.depth_eq_one {n : ℕ} (e : Lattice.Geo.ComputableExpr.CExpr n) : CExpr.depth e = 1 := by
+  induction e with
+  | coord p axis => rfl
+  | const c => rfl
+  | add a b iha ihb =>
+      show max (CExpr.depth a) (CExpr.depth b - 1) = 1
+      rw [iha, ihb]; decide
+  | sub a b iha ihb =>
+      show max (CExpr.depth a) (CExpr.depth b - 1) = 1
+      rw [iha, ihb]; decide
+  | mul a b iha ihb =>
+      show max (CExpr.depth a) (CExpr.depth b - 1) = 1
+      rw [iha, ihb]; decide
+
 /-- **The projection preserves meaning.** -/
 theorem evalStack_toStack (e : Lattice.Geo.ComputableExpr.CExpr n) (pts : ℕ → Fin n → Float) :
     Lattice.Lift.StackCodegen.evalStack (fun pa : ℕ × Fin n => pts pa.1 pa.2) (toStack e) =
@@ -100,13 +122,15 @@ theorem evalStack_toStack (e : Lattice.Geo.ComputableExpr.CExpr n) (pts : ℕ �
 This is the closure of the executable boundary for the `CExpr` track: a symbol expression becomes an
 instruction list, and running that list on a one-element stack yields the expression's value.
 
-The hypothesis `depth e ≤ 1` is the stack budget — the same one `Lattice.Lift.StackCodegen.compileProg_correct` asks for. -/
-theorem toStack_correct (e : Lattice.Geo.ComputableExpr.CExpr n) (pts : ℕ → Fin n → Float) (seed : Float)
-    (h : CExpr.depth e ≤ 1) :
+**The `depth e ≤ 1` hypothesis was REMOVED in round 199** because `CExpr.depth_eq_one` shows it holds
+for every expression: the old docstring called it "the stack budget", which was a *misreading* — it is not
+a budget the caller must respect, it is a fact. A hypothesis that is always true is worse than no
+hypothesis: it invites the reader to believe the compiler has a depth limit it does not have. -/
+theorem toStack_correct (e : Lattice.Geo.ComputableExpr.CExpr n) (pts : ℕ → Fin n → Float) (seed : Float) :
     Lattice.Lift.StackCodegen.runProg (fun pa : ℕ × Fin n => pts pa.1 pa.2) (Lattice.Lift.StackCodegen.compileProg (toStack e)) [seed] =
       some (Lattice.Geo.ComputableExpr.CExpr.evalC e pts :: [seed]) := by
   rw [Lattice.Lift.StackCodegen.compileProg_correct (fun pa : ℕ × Fin n => pts pa.1 pa.2) (toStack e) seed (by
-    rw [stackDepth_toStack]; exact h)]
+    rw [stackDepth_toStack, CExpr.depth_eq_one])]
   rw [evalStack_toStack]
 
 end Lattice.Geo.CExprCodegen

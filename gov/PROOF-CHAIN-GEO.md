@@ -13,10 +13,10 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `ApproxEmbedding` | 106 | 1 | — |
-| `CExprCodegen` | 113 | 4 | — |
+| `CExprCodegen` | 137 | 5 | — |
 | `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 204 | 10 | — |
-| `CodegenLadder` | 109 | 3 | — |
+| `CodegenLadder` | 110 | 3 | — |
 | `Compile` | 99 | 2 | — |
 | `ComputableExpr` | 249 | 7 | — |
 | `ConjRepair` | 157 | 3 | — |
@@ -79,7 +79,7 @@
 | `PolyLipschitz` | 114 | 1 | — |
 | `PolyNondegenerate` | 210 | 8 | — |
 | `PolyRepair` | 174 | 5 | — |
-| `PolySpecificRepair` | 166 | 4 | — |
+| `PolySpecificRepair` | 216 | 7 | — |
 | `QualityBridge` | 76 | 3 | — |
 | `RealToken` | 217 | 5 | — |
 | `RealTokenRoundtrip` | 243 | 7 | — |
