@@ -158,7 +158,24 @@ theorem netSym_satW (s : NetSym n) (h : satSym s) :
 
 `Ladder.satW : W → Prop` 只接收权重，而「在某点上的行为」必须知道那个点。
 本节让**实例本身**把 `input` 与 `target` 固定下来（它们是实例参数），
-`satSym` 则从 `s` 里取同一对值。**`l2l3_sound` 的实质内容就是这两条陈述一致**。 -/
+`satSym` 则从 `s` 里取同一对值。**`l2l3_sound` 的实质内容就是这两条陈述一致**。
+
+### ⚠ 第 168 轮的诚实记录：`l2l3_sound` 是**重言**，而且不是笔误
+
+`compileNet s = s.layers.map layerOfNet`，而 `layerOfNet` 是一个**保持结构**的强制转换
+（`W := L.W`，`b := L.b`）。所以 `satSym s` 展开是
+`netAct (compileNet s) s.input = s.target`，而 `satW s.input s.target (compileNet s)` 展开是**同一个命题**。
+`l2l3_sound := fun _ h => h` 因此是唯一可能的证明。
+
+**这不是靠更努力能证出来的东西**：符号侧 `LayerSym` 携带的数据与权重侧 `AffineLayer`
+**完全相同**，`l2l3` 只换了包装。两个谓词在这种情形下必然重合，桥梁定理也就没有内容。
+
+**要让它有内容，`l2l3` 必须改变表示。** 库里有现成的例子：
+`CExprCodegen.toStack`（第 157 轮）把**表达式树**编译成**扁平的指令列表**，
+`toStack_correct` 是真正的翻译正确性定理，而不是重言。**那种实例本文件没有建。**
+
+**这一条登记为已知缺口，不隐藏**：它对应审计 P1-2「补一个 `satW` 对全输入成立的 `Ladder` 实例」，
+且审计对 `l2l3_sound := exact h` 的判断是正确的。 -/
 noncomputable def multiLayerLadder (n : ℕ) (input target : Fin n → ℝ) :
     Ladder (List (NetSym n)) (NetSym n) (NetSym n) (List (Lattice.Core.AffineLayer (Fin n))) where
   l0l1 := identityTokenizer (NetSym n)
