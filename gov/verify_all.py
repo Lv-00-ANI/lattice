@@ -46,7 +46,6 @@ REPORT_ONLY = {
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
-      "ladder: every l1l2 rung classified",
       "usage: skeleton main theorems",
 }
 
@@ -145,8 +144,14 @@ CHECKS = [
     # it true-but-empty with no invariant noticing.
     ("stubs: every placeholder definition is labelled", "check_stub_registry.py"),
     # Round 152: rounds 108-150 found that an identity `l1l2` can be CORRECT (Sym is List Tok, so
-    # there is nothing to encode) or a DEFECT (Sym carries structure Tok cannot hold). This prints
-    # the classification of every Ladder instance so the defect cannot reappear unnoticed.
+    # there is nothing to encode) or a DEFECT (Sym carries structure Tok cannot hold). This classifies
+    # every Ladder instance's rung.
+    #
+    # Round 167 promotes it from report-only to a GATE. Printing the classification was not enough: a
+    # reader still had to notice. The three current identity rungs are now registered in `IDENTITY_OK`
+    # with the type reason that makes each correct, and the register is checked in BOTH directions -- a
+    # new unregistered identity fails, and an entry whose instance has gone fails (so the register
+    # cannot rot into a list of stale justifications).
     ("ladder: every l1l2 rung classified", "check_ladder_rungs.py"),
     # Round 158: the objective has two halves in one sentence -- "not bound to any vendor" (rule C
     # checks imports) and "does not implement engines, models or training frameworks". A training

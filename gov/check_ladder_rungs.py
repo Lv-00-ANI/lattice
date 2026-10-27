@@ -102,6 +102,52 @@ def classify(l1l2):
     return "other"
 
 
+#: Identity `l1l2` rungs that are CORRECT, each with the type reason that makes them correct.
+#:
+#: An identity rung is right exactly when `Sym` is `List Tok` or `Sym`'s elements ARE `Tok` -- then there
+#: is nothing to encode, and `identityTokenizer` is the honest answer rather than a placeholder. It is a
+#: DEFECT when `Sym` carries structure the token type cannot hold: that was `geoLadder` before round 150,
+#: where the rung claimed to encode and did not.
+#:
+#: Round 167 promotes this checker from report-only to a gate. The rule is:
+#:   * an identity rung NOT in this table        -> FAIL (a new one appeared; justify it or fix it)
+#:   * an entry in this table with no instance   -> FAIL (the justification has rotted)
+#:   * an entry whose rung is no longer identity -> FAIL (stale table)
+#: That makes the table a register rather than a comment.
+IDENTITY_OK = {
+    "Lift/MultiLayerLadder.lean":
+        "Sym = NetSym and Tok = NetSym -- the same type, so there is nothing to encode",
+    "Lift/NondegenerateInstance.lean":
+        "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
+    "Lift/WeightLadderN.lean":
+        "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
+}
+
+#: The classification strings that count as an identity rung.
+IDENTITY_KINDS = ("identity (identityTokenizer)", "identity (singleton)")
+
+
+def check(rows):
+    """Return a list of problems with the identity rungs. Empty means the register is honest."""
+    problems = []
+    seen_identity = {}
+    for rel, line, header, l0, l1 in rows:
+        kind = classify(l1)
+        if kind in IDENTITY_KINDS:
+            seen_identity[rel] = (line, kind)
+            if rel not in IDENTITY_OK:
+                problems.append(
+                    "%s:%d has an identity l1l2 (%s) and is not registered in IDENTITY_OK --"
+                    " either give the type reason it is correct, or implement the rung"
+                    % (rel, line, kind))
+    for rel, why in IDENTITY_OK.items():
+        if rel not in seen_identity:
+            problems.append(
+                "IDENTITY_OK lists %s (%s) but that file has no identity l1l2 any more --"
+                " remove the stale entry" % (rel, why))
+    return problems
+
+
 def main(argv):
     rows = instances()
     # a definition can be reached from several lines of its header; keep the first
@@ -137,6 +183,29 @@ def main(argv):
     print("there is nothing to encode. It is a DEFECT when Sym carries structure the token")
     print("type cannot hold (that was geoLadder before round 150). Deciding which needs")
     print("reading the types, which is why this prints them.")
+    print()
+
+    if "--self-test" in argv:
+        # two-way: a registered table with the real rows must be clean, and an unregistered identity
+        # must be reported, and a rotted entry must be reported.
+        base = check(rows)
+        planted = list(rows) + [("Lift/Planted.lean", 1, "types: x", "a", "identityTokenizer ℝ")]
+        p1 = check(planted)
+        p2 = check([r for r in rows if r[0] != "Lift/WeightLadderN.lean"])
+        ok = (not base) and bool(p1) and bool(p2)
+        print("live run problems :", base)
+        print("after planting    :", [p for p in p1 if "Planted" in p])
+        print("after removing one:", [p for p in p2 if "WeightLadderN" in p])
+        print("SELF-TEST %s" % ("PASS" if ok else "FAIL"))
+        return 0 if ok else 2
+
+    problems = check(rows)
+    if problems:
+        print("LADDER RUNGS: %d identity rung(s) unaccounted for" % len(problems))
+        for p in problems:
+            print("  " + p)
+        return 1
+    print("LADDER RUNGS: every identity rung is registered with a type reason")
     return 0
 
 
