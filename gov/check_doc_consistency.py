@@ -85,6 +85,9 @@ TUPLES = [
 #: that is what `STATE-2026-10.md` vs `STATE-FINAL.md` is for.
 FROZEN = re.compile(r"^ROADMAP-v\d+\.md$")
 
+#: A table separator with no pipes: starts with `:--` and never uses `|`. See `check` for why.
+MALFORMED_SEP = re.compile(r"^\s*:--?[-\s:]*$")
+
 
 def check(docs_dir, verbose=True):
     """Return the number of contradictions found in the .md files of `docs_dir`."""
@@ -97,6 +100,21 @@ def check(docs_dir, verbose=True):
 
     def read(d):
         return io.open(os.path.join(docs_dir, d), encoding="utf-8", errors="replace").read()
+
+    # A markdown table separator must be pipe-delimited. CONVENTIONS.md carried THIRTEEN of these:
+    #
+    #      用法   例子   处置
+    #     :-- :-- :--
+    #
+    # which renders as literal text, not a table -- so every cell of it was invisible as a table to a
+    # reader while looking perfectly fine in the source. Converting them is a mechanical reformat, and
+    # this scan is what keeps them converted.
+    for d in docs:
+        for ln_no, ln in enumerate(read(d).split("\n"), 1):
+            if MALFORMED_SEP.match(ln):
+                print("  %-24s line %-5d malformed table separator (no `|`): %r"
+                      % (d, ln_no, ln.strip()))
+                bad += 1
 
     for label, pats in PAIRS:
         found = []
