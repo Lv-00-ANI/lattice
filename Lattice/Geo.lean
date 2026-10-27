@@ -94,6 +94,7 @@ import Lattice.Geo.WeightSideLadder
 import Lattice.Geo.PenaltyLoss
 import Lattice.Geo.NetLoss
 import Lattice.Geo.ConstraintDescent
+import Lattice.Geo.WeightDescent
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

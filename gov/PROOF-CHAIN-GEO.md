@@ -109,6 +109,7 @@
 | `TokenizerPattern` | 178 | 6 | — |
 | `Unconditional` | 117 | 7 | — |
 | `Unified` | 91 | 4 | — |
+| `WeightDescent` | 160 | 6 | — |
 | `WeightSideLadder` | 189 | 6 | — |
 
 ## 二、四条靶定理在几何层中的落点
