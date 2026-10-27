@@ -120,8 +120,10 @@ theorem residual_rowStep_newton (u x : Fin n → ℝ) (b c : ℝ)
     (hx : sqNormIn x ≠ 0) :
     residual (rowStep (1 / (2 * sqNormIn x)) u x b c) x b c = 0 := by
   rw [residual_rowStep]
-  -- ield_simp uses hx : sqNormIn x ≠ 0 and closes the goal; a trailing ing was redundant
-  field_simp
+  -- the factor vanishes, then the product is zero
+  have hfac : 1 - 2 * (1 / (2 * sqNormIn x)) * sqNormIn x = 0 := by
+    field_simp
+  rw [hfac, zero_mul]
 
 /-- **`0 < η` 且 `2η‖x‖² < 2` 时残差的绝对值不增**：因为 `|1 − 2η‖x‖²| ≤ 1`。 -/
 theorem residual_rowStep_abs_le (η : ℝ) (u x : Fin n → ℝ) (b c : ℝ)
@@ -154,5 +156,96 @@ theorem no_weight_solution_of_input_zero (u : Fin n → ℝ) (b c : ℝ) (h : b 
     residual u (fun _ => 0) b c ≠ 0 := by
   rw [residual_input_zero]
   exact h
+
+/-! ## 五、整块矩阵：所有行**同时**更新
+
+上一节改**一行**。真实的训练改**整个 `W`**。本节把它推到矩阵。
+
+### 为什么行不互相干扰
+
+第 `a` 个坐标的残差只依赖 `W` 的**第 `a` 列**：
+
+```
+r a = ∑ᵢ W i a · x i + b a + c a
+```
+
+所以同时更新所有条目 `W i a ↦ W i a − η · 2 (r a) x i` 时，**每列各自的残差演化与其他列无关**，
+而且**收缩因子相同**（都是 `1 − 2η‖x‖²`，因为 `‖x‖²` 与 `a` 无关）。
+
+**这不是新的代数，是上一节的一行结论被 `∑ a` 求和包住。** 真正需要证明的是
+「同时更新」与「逐行更新」的一致——而它成立，因为 `r a` 的定义里没有别的行。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| `layerResidual` | 整个层的残差**向量** |
+| `wStep` | **同时更新整个矩阵** |
+| **`layerResidual_wStep`** | **每个分量都乘同一个 `(1 − 2η‖x‖²)`** |
+| **`totalResidual_wStep`** | **平方和乘 `(1 − 2η‖x‖²)²`** |
+| **`all_residuals_zero_at_newton`** | **`η = 1/(2‖x‖²)` 时全部残差同时为零** |
+
+### 边界
+
+- **单层、单输入点**。`x` 是一个固定的输入向量；一个 batch 要对 `x` 求和，本节不做。
+- **每坐标一条约束**。同坐标多约束在第 202 轮的边界里已说明是本质不同的情形。
+- `x = 0` 时全部残差为 `b + c`，与权重无关——**与上一节同一个不可达性**，不重复证明。 -/
+
+/-- **整个层的残差向量**：`r a = ∑ᵢ W i a · x i + b a + c a`。
+
+第 `a` 个分量只依赖 `W` 的第 `a` 列——**这是「各列互不干扰」的全部内容**。 -/
+noncomputable def layerResidual {n : ℕ} (W : Fin n → Fin n → ℝ) (x : Fin n → ℝ)
+    (b c : Fin n → ℝ) : Fin n → ℝ :=
+  fun a => (∑ i, W i a * x i) + b a + c a
+
+/-- **同时更新整个矩阵**：`W i a ↦ W i a − η · 2 (r a) x i`。
+
+这是 `∑ a, (r a)²` 对 `W` 的梯度步。**一个矩阵更新，不是 `n` 次独立的行更新。** -/
+noncomputable def wStep {n : ℕ} (η : ℝ) (W : Fin n → Fin n → ℝ) (x : Fin n → ℝ)
+    (b c : Fin n → ℝ) : Fin n → Fin n → ℝ :=
+  fun i a => W i a - η * (2 * layerResidual W x b c a * x i)
+
+/-- **每个残差分量都乘上同一个因子 `(1 − 2η‖x‖²)`。**
+
+因子与 `a` **无关**，因为 `‖x‖²` 与 `a` 无关——这就是各列能同时收缩的原因。 -/
+theorem layerResidual_wStep {n : ℕ} (η : ℝ) (W : Fin n → Fin n → ℝ) (x : Fin n → ℝ)
+    (b c : Fin n → ℝ) (a : Fin n) :
+    layerResidual (wStep η W x b c) x b c a
+      = (1 - 2 * η * sqNormIn x) * layerResidual W x b c a := by
+  -- unfold BOTH sides so `ring` sees only atoms (the same discipline as section 二)
+  show (∑ i, (W i a - η * (2 * ((∑ j, W j a * x j) + b a + c a) * x i)) * x i) + b a + c a
+      = (1 - 2 * η * (∑ i, x i ^ 2)) * ((∑ j, W j a * x j) + b a + c a)
+  have key : ∀ (R : ℝ) (i : Fin n),
+      (W i a - η * (2 * R * x i)) * x i = W i a * x i - (η * (2 * R)) * (x i ^ 2) := by
+    intro R i; ring
+  rw [Finset.sum_congr rfl (fun i _ => key ((∑ j, W j a * x j) + b a + c a) i)]
+  rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
+  ring
+
+/-- **残差平方和乘上 `(1 − 2η‖x‖²)²`。** -/
+theorem totalResidual_wStep {n : ℕ} (η : ℝ) (W : Fin n → Fin n → ℝ) (x : Fin n → ℝ)
+    (b c : Fin n → ℝ) :
+    (∑ a, layerResidual (wStep η W x b c) x b c a ^ 2)
+      = (1 - 2 * η * sqNormIn x) ^ 2 * (∑ a, layerResidual W x b c a ^ 2) := by
+  have hterm : ∀ a : Fin n,
+      layerResidual (wStep η W x b c) x b c a ^ 2
+        = (1 - 2 * η * sqNormIn x) ^ 2 * layerResidual W x b c a ^ 2 := by
+    intro a
+    rw [layerResidual_wStep]
+    ring
+  rw [Finset.sum_congr rfl (fun a _ => hterm a), ← Finset.mul_sum]
+
+/-- **`η = 1/(2‖x‖²)` 时全部残差**同时**为零。**
+
+一个矩阵更新解掉**所有** `n` 条约束——这是「同时」的实质内容：
+不是「每条约束各跑一遍」，而是**一次更新全部归零**。 -/
+theorem all_residuals_zero_at_newton {n : ℕ} (W : Fin n → Fin n → ℝ) (x : Fin n → ℝ)
+    (b c : Fin n → ℝ) (hx : sqNormIn x ≠ 0) :
+    ∀ a : Fin n, layerResidual (wStep (1 / (2 * sqNormIn x)) W x b c) x b c a = 0 := by
+  intro a
+  rw [layerResidual_wStep]
+  have : 1 - 2 * (1 / (2 * sqNormIn x)) * sqNormIn x = 0 := by
+    field_simp
+  rw [this, zero_mul]
 
 end Lattice.Geo.WeightDescent

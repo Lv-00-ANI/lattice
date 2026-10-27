@@ -965,7 +965,7 @@
 | `Lattice.Geo.TokenizerPattern` | 9 | 7 |
 | `Lattice.Geo.Unconditional` | 7 | 0 |
 | `Lattice.Geo.Unified` | 4 | 0 |
-| `Lattice.Geo.WeightDescent` | 6 | 3 |
+| `Lattice.Geo.WeightDescent` | 9 | 5 |
 | `Lattice.Geo.WeightSideLadder` | 6 | 4 |
 | `Lattice.Lib.Architectures` | 0 | 0 |
 | `Lattice.Lib.Architectures.RealActClass` | 7 | 4 |
@@ -2052,6 +2052,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `all_coord_constraints_after_one_step` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`
 - `all_deviations_tail` -> `card_fin`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_deviations_tail_classic` -> `apply`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
+- `all_residuals_zero_at_newton` -> `W`
 - `all_twelve_discharged` -> `PackageDependenciesValid`, `affineGeometryPackage`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `informationTheoryPackage`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_forall_packageDependenciesValid`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `allowed_is_convex_weights` -> `ConstraintSet`, `DecodesTo`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`
 - `alpha_gamma_le` -> `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
@@ -5486,6 +5487,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerQuantization_refines_scalar` -> `compileZ`
 - `layerQuantization_roundtrip` -> `compileZ`
 - `layerResid_eq_affineAct` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `affineAct`, `apply`, `lossM`, `residM`, `sq_penalty_exact_matrix`
+- `layerResidual_wStep` -> `W`
 - `layerScaleN_bound_le_exp_one` -> `le_refl`, `le_trans`, `trans`
 - `layerScaleN_bound_le_exp_one_of_lam0` -> `le_refl`, `le_trans`, `trans`
 - `layerScaleN_bound_not_tight_at_one` -> `trans`
@@ -6353,6 +6355,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_uniform_step_size` -> `apply`, `le_refl`
 - `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`
 - `no_upper_iff_no_split` -> `extent`
+- `no_weight_solution_of_input_zero` -> `W`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `no_zero_obligation_structure` -> `Audit`
 - `node_inj` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
@@ -7444,6 +7447,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_eq_zero_of_zero_dense` -> `DeltaDense`, `LipschitzOn`
 - `residual_error_isolation` -> `E`, `W`, `edit_output_bound`
 - `residual_error_isolation_scalar` -> `E`, `W`, `edit_output_bound_scalar`
+- `residual_input_zero` -> `W`
 - `residual_le_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `dist`, `trans`
 - `residual_le_of_zero_on_dense_from_generic` -> `dist`, `dist_nonneg`
 - `residual_le_of_zero_on_dense_of_d` -> `dist`, `dist_nonneg`, `trans`
@@ -7454,6 +7458,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_lower_bound_positive` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_nil_input` -> `LayerOut`, `LinearLayer`, `dot`, `nil_append`, `residual`
 - `residual_orthogonal_of_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
+- `residual_rowStep` -> `W`
+- `residual_rowStep_abs_le` -> `W`
+- `residual_rowStep_newton` -> `W`
 - `residual_step` -> `Repair`, `Sat`, `apply`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `residual_two_layer_isolation_exact` -> `E`
 - `residual_uniform_bound_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `trans`
@@ -8268,6 +8275,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
 - `sqDist_translateBy` -> `Pt`, `apply`, `translateBy`
 - `sqLoss_deriv_zero_of_localMin` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
+- `sqNormIn_nonneg` -> `W`
 - `sqPenalty_exact_gives_sound` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_levelA` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_nonneg` -> `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `loss`
@@ -8835,6 +8843,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `residual`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_eq_zero_iff_allSatisfied` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `compileToLayer`, `symbolToWeight_correct`, `trans`
 - `totalLoss_verify` -> `AllSatisfied`, `ConstraintSet`
+- `totalResidual_wStep` -> `W`
 - `total_obligations` -> `Audit`
 - `totient_one` -> `apply`, `children`, `le_trans`, `satisfiable`
 - `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`
