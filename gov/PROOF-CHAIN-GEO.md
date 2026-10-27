@@ -21,7 +21,7 @@
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
 | `ConstraintSet` | 175 | 7 | — |
-| `ConstraintTokenizer` | 423 | 13 | — |
+| `ConstraintTokenizer` | 420 | 12 | — |
 | `Derivative` | 94 | 3 | — |
 | `Derive` | 71 | 2 | — |
 | `Differentiable` | 131 | 9 | — |
@@ -37,7 +37,7 @@
 | `Eval` | 98 | 3 | — |
 | `Exact` | 91 | 4 | — |
 | `Exec` | 132 | 6 | — |
-| `ExecutableCheck` | 180 | 7 | — |
+| `ExecutableCheck` | 189 | 4 | — |
 | `Expr` | 136 | 1 | — |
 | `ExprDeriv` | 179 | 8 | — |
 | `ExprLocalMin` | 74 | 3 | — |

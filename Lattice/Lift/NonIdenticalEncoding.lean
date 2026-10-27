@@ -46,10 +46,13 @@ extract : α × Bool → α      (p, _) ↦ p
 
 两条 `roundtrip`/`sound` 都是**真证明**，不是 `rfl`：
 
-- `projectCompiler_sound` 需要把 `satP` 的假设搬到 `satW`，关键在于
+- `project_sound` 需要把 `satP` 的假设搬到 `satW`，关键在于
   「约束只依赖保留坐标」这个前提被**显式写出**，不是隐式假定；
 - `pairRep_roundtrip` 是 `rfl`，但**非双射性**需要单独证明
-  （`pairRep_not_surjective`），那才是这条欠账的实质。
+  （`pairCompile_not_surjective`），那才是这条欠账的实质。
+
+**第 167 轮修正**：本节此前写 「projectCompiler_sound」 与 「pairRep_not_surjective」，
+**两个名字在树上都不存在**（实际是 `project_sound` 与 `pairCompile_not_surjective`）。
 
 ## 3. 边界
 
@@ -128,7 +131,8 @@ theorem project_sound {P : Type} (hn : n' ≤ n) (sat : P → (Fin n' → ℝ) �
 
 /-- **投影编码的编译器**。`encode` 是 `project`，`compile` 是恒等。
 
-`encode ≠ id` 在上文已证（`project_ne_id`），所以这个实例是
+`encode` 不是恒等——**更强地，它在 `n' < n` 时不是单射**（`project_not_injective`，
+见 §1 的说明：与 `id` 的类型都不同，所以「不单射」才是它的实质形式），所以这个实例是
 `lift.compile.single_item_sound` 的**实质见证**。 -/
 def projectCompiler (hn : n' ≤ n) {P : Type} (sat : P → (Fin n' → ℝ) → Prop) :
     Compiler P P (Fin n → ℝ) (Fin n' → ℝ) where

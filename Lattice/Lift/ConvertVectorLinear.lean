@@ -66,9 +66,11 @@ structure VecConstraint (n : Nat) where
 
 /-- **下标化点积**：`∑ᵢ aᵢ·xᵢ`。⭐ **无截断** —— `Finset.univ` 恰好遍历 `Fin n` 的全部元素。
 
-⚠ 与 `dot` 的关系由 `vecDot_eq_dot_lists` 给出：对**任意**长度 ≥ 1 的列表
+⚠ 与 `dot` 的关系由 `vecDot_toFinVec_eq_dot` 给出：对**任意**长度 ≥ 1 的列表
 （`l.get 0` 需非空），把 `l` 与系数列表**逐下标对齐**后取 `Fin l.length` 的前缀，
-两者相等。 -/
+两者相等。
+
+第 167 轮修正：此处此前写 「vecDot_eq_dot_lists」，**该名字不存在**（实际是 `vecDot_toFinVec_eq_dot`）。 -/
 def vecDot {n : Nat} (a : Fin n → Int) (x : Fin n → Int) : Int :=
   ∑ i : Fin n, a i * x i
 

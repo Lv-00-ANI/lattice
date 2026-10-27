@@ -59,17 +59,22 @@ toParams_injective :  toParams p = toParams q → p = q
 | `toParams` | `AffineLayer n → LayerParams n n` |
 | `ofParams` | 反向（只在各方阵时有定义） |
 | **`act_toParams`** | **函子性**：转换保持前向传播 |
-| `toParams_ofParams` | **往返** |
+| `toParams_ofParams` / `ofParams_toParams` | **往返**（两个方向） |
 | `toMLayer` / `ofMLayer` | `LayerParams (Fin m) (Fin n) ↔ MLayer m n` |
-| **`act_toMLayer`** | **函子性**（矩阵版） |
+| `toMLayer_ofMLayer` / `ofMLayer_toMLayer` | **往返**（两个方向） |
 | `three_families_connected` | **三族连通** |
+
+**第 167 轮修正**：此表此前有一行 **「act_toMLayer」（「函子性（矩阵版）」），该引理不存在。**
+矩阵版只证到**往返**，没有证到**行为保持**——`MLayer` 的前向传播需要矩阵-向量乘法的展开，
+那一步没做。所以那一行换成实际存在的两条往返定理，而不是留一个不存在的名字。
 
 ## 3. 边界
 
 - 本节**只做权重侧**的三族。符号侧与 token 侧的第二族**未做**——
   那需要定义新的约束类型或 token 类型，是更大的工作。**已登记为未做。**
-- `MLayer` 的 `act` 若与 `Matrix` 乘法绑定，`act_toMLayer` 需要矩阵-向量乘法的展开。
-  若该引理不存在，本节退为**结构对应**（不做行为保持），并**明确记录退让**。
+- `MLayer` 的 `act` 若与 `Matrix` 乘法绑定，矩阵版的行为保持需要矩阵-向量乘法的展开。
+  **那一步没有做**：本节对矩阵族只证**往返**（`toMLayer_ofMLayer` / `ofMLayer_toMLayer`），
+  **不证行为保持**。这是本节自认的退让，写在这里而不是留一个不存在的引理名。
 - 三族连通**不等于**谱系完备。报告说的「每层第二族」要求的是**语义上不同**的族
   （如浮点 vs 精确有理数），本节做的是**同一语义的三族编码**。
   **这个区别必须说清**——否则「谱系」会是一个过强的说法。

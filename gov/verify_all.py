@@ -117,6 +117,16 @@ CHECKS = [
     # places, only one updated (apostrophes 60 vs 3, oversized 8 vs 10, registry 42 vs 43).
     # A number being right is not enough; the document must agree with itself.
     ("consistency: docs agree with themselves", "check_doc_consistency.py"),
+    # Round 167: thirteen docstrings cited declarations that do not exist -- renames left the prose
+    # behind, and nothing compared the two. A docstring that cites a theorem IS part of the proof
+    # argument, so a phantom citation is a broken argument.
+    #
+    # This is a curated stale-name list, not a general "every backticked name exists" check: the
+    # general version was built and measured at 13,689 findings (Mathlib lemmas, local variables,
+    # tactic names), and a gate with 13,689 findings gets switched off. `--survey` reports them for a
+    # human instead. See the script's module docstring for the 「」 convention that makes the narrow
+    # version honest.
+    ("docs: no docstring cites a stale declaration name", "check_doc_names.py"),
     # Round 108 rewrote CONVENTIONS.md with an unconstrained replace and turned leading 1 digits
     # into 0 -- dates, section numbers, rule ids, counts. Every guard passed, because they check
     # names and known numbers, not the integrity of surrounding text. Round 116 restored the file

@@ -68,7 +68,7 @@ theorem embedding_no_missing_solutions (c : LinearConstraint) (x : Int)
 /-! ## 与组合的联系：单层网络逐神经元损失
 符号程序（约束集合）编译为网络后，逐神经元损失全零 ⟺ 全部约束满足。
 
-注：原稿的 `embedding_all_neurons` 陈述类型错误无法成立——
+注：原稿的 「embedding_all_neurons」 陈述类型错误无法成立——
 `loss` 作用于标量约束 `LinearConstraint`（`a : Int`），而编译层的
 神经元是 `LinearLayer`（`w : List Int`），`loss { a := l.w, b := l.b } x`
 把 `List Int` 当作 `Int` 使用（且 `x : List Int` 传给期望 `Int` 的 `loss`），

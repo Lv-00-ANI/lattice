@@ -45,19 +45,23 @@
 
 | 定理 | 内容 |
 |:--|:--|
-| `ActStack` | **仿射与激活交替的栈** |
+| `StackLayer` | **仿射与激活交替的层**（`act : Option (ℝ → ℝ)`） |
 | `actStackEval` | 求值：逐层仿射后接激活 |
-| `actStack_nil` | 空栈是恒等 |
-| `actStack_single_affine` | **单个仿射层（无激活）就是仿射** |
+| `actStackEval_nil` | 空栈是恒等 |
+| `actStackSingle_affine` | **单个仿射层（无激活）就是仿射** |
 | `relu_not_affine` | **`relu` 不是仿射函数** |
 | **`activation_strictly_stronger`** | **带激活的栈严格强于纯仿射** |
+
+**第 167 轮修正**：本节表格此前写 「ActStack」 / 「actStack_nil」 / 「actStack_single_affine」，
+**三个名字在树上都不存在**（实际是 `StackLayer` / `actStackEval_nil` / `actStackSingle_affine`）——
+一次改名之后文档没有跟着改，而没有任何守卫比对过「文档里写的声明名是否存在」。
 
 ## 3. 边界
 
 - **本节只证一维的 `relu`**。多维激活网络的表达力定理（万能逼近）**不在本节范围内**——
   那是逼近论，不是本库的定位。
 - 本节**不声称**「激活网络能逼近所有连续函数」，只声称**它的表达力严格大于仿射**。
-- `ActStack` 的层是同维的（`Fin n → Fin n`），**不做维度变换**；维度变换由 `Core/Chain` 负责。
+- `StackLayer` 的层是同维的（`Fin n → Fin n`），**不做维度变换**；维度变换由 `Core/Chain` 负责。
 - 本节**不改** `Core/Net`，只在其上新增结构。
 -/
 import Mathlib

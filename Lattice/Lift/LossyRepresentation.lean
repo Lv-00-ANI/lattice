@@ -39,12 +39,16 @@ LossyRepresentation.semEq : ∀ p, SemEq (extract (compile p)) p
 
 | 定理 | 内容 |
 |:--|:--|
-| `lossy_of_representation` | **任何** `Representation` 都是 `LossyRepresentation`（无损 ⟹ 有损） |
-| `lossy_weaker` | `LossyRepresentation` 的要求严格更弱（给出见证） |
-| `lossy_semEq_iff` | 有损往返等价于「每一点上零集相同」，可逐点使用 |
+| `ofRepresentation` | **任何** `Representation` 都是 `LossyRep`（无损 ⟹ 有损） |
+| `ofRepresentation_roundtrip` | 该构造保留原来的往返等式 |
+| `lossy_weaker` | `LossyRep` 的要求严格更弱（给出见证） |
 
-**`lossy_of_representation` 是本节的核心**：它说明新结构是旧结构的**推广**，
-不是替代。既有全部 `Representation` 实例自动成为 `LossyRepresentation`，
+**第 167 轮修正**：本节表格此前写 「lossy_of_representation」 与 「lossy_semEq_iff」，
+**两个名字在树上都不存在**（实际是 `ofRepresentation` 与 `ofRepresentation_roundtrip`；
+「lossy_semEq_iff」 描述的那条等价**从未被证明过**，所以那一行删除而不是改名）。
+
+**`ofRepresentation` 是本节的核心**：它说明新结构是旧结构的**推广**，
+不是替代。既有全部 `Representation` 实例自动成为 `LossyRep`，
 无需改动。
 
 ## 3. 泛化
