@@ -1,5 +1,6 @@
 import Lattice.Semantics.Stage1
 import Lattice.Semantics.VocabEdit
+import Lattice.Semantics.Annotations
 
 /-!
 # 语义信息主线：阶段划分与聚合
@@ -10,6 +11,7 @@ import Lattice.Semantics.VocabEdit
 |:--|:--|:--|
 | `Lattice.Semantics.Stage1` | 阶段 1 | 语义域、词表、几何、继承（约束几何实例） |
 | `Lattice.Semantics.VocabEdit` | 阶段 1.5 | 词表编辑：置换/增删精确，合并/拆分有损 |
+| `Lattice.Semantics.Annotations` | 阶段 1 | 标注与编辑的五个义务（frame/realizes/reversible/idempotent/conflict-free） |
 
 **import 必须在文件最前面**，所以本说明放在它之后——`Lean` 不接受
 模块文档块在 `import` 之前。

@@ -18,7 +18,12 @@
 > **S17**（`split_error_bound`）、**S18**（`vocab_compat_permutation`）、
 > **S19**（`vocab_edit_reversible`）。
 >
-> **S4、S6–S13、S20 未做**，见 §6 的义务清单。
+> **阶段 1 · 标注与编辑**（`Lattice/Semantics/Annotations.lean`）：
+> **S4**（`annotation_realizes`）、**S5 · frame**（`edit_frame` + `edit_frame_holds`）、
+> **S6 · reversible**（`edit_undo_restores_removed` + `edit_undo_drops_add`）、
+> **S7 · idempotent**（`edit_apply_idempotent_of_no_add` + `edit_apply_not_idempotent_of_add`）。
+>
+> **S8–S13、S20 未做**，见 §6 的义务清单。
 > S14–S19 的实现定下了 §3 里悬着的形状：`Embedding V d := V → Fin d → ℝ`（即 `V × d` 矩阵），
 > 理由是它是**唯一**能让 `merge` 误差界可陈述的形状——更抽象的形状里「两个嵌入差多少」没有定义。
 >
