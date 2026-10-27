@@ -9,3 +9,4 @@ import Lattice.Audit.CompositionClass
 import Lattice.Audit.MultiComposition
 import Lattice.Audit.CompositionAlgebra
 import Lattice.Audit.VerdictLattice
+import Lattice.Audit.PredicateWitnesses
