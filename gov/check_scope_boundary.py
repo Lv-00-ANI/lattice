@@ -48,8 +48,25 @@ STRUCTURE_MARKERS = [
     r"def\s+backward\s*[:\(]",
 ]
 
-#: the shape test: a definition from parameters to parameters
-PARAM_NAMES = ["params", "weights", "θ", "theta", "net", "model"]
+#: The shape test: what a training step looks like operationally -- parameters in, parameters out.
+#:
+#: Round 170. `PARAM_NAMES` here used to be `["params", "weights", "θ", "theta", "net", "model"]`:
+#: VARIABLE names, and it was defined and never used, so the docstring's promise of a "shape test" was
+#: not kept. Variable names are the wrong axis anyway -- the checker reads signatures, where the
+#: variable name is nearly always `x`, `p` or `q`.
+#:
+#: So the shape test works on TYPE names. A training step carries the same parameter-carrying type on
+#: the argument side and the return side: `def update (p : Params) : Params`. Legitimate conversions in
+#: this tree carry DIFFERENT types across that arrow (`def ofParams (q : LayerParams n n) :
+#: AffineLayer n`), which is what keeps the test from firing on them.
+PARAM_TYPES = ["Params", "Weights", "Tensor", "Tensors", "Optimizer", "Grads"]
+
+#: `def <name>` -- the signature is taken as the text from here to the first `:=` (or `where`).
+#:
+#: The first attempt used one regex that required a NEWLINE inside the signature, so every single-line
+#: `def update (p : Params) : Params := p` was skipped and the shape test silently tested nothing. The
+#: self-test caught it: "a parameters-in/parameters-out def was accepted".
+DEF_START = re.compile(r"(?m)^(?:noncomputable\s+|private\s+|protected\s+)?def\s+(\w+)")
 
 
 def corpus():
@@ -76,6 +93,20 @@ def scan(C):
             for m in re.finditer(pat, src):
                 hits.append((rel, src[:m.start()].count("\n") + 1, m.group(0).strip(),
                              "framework shape"))
+        # the shape test: a parameter-carrying type appears on BOTH sides of the arrow
+        for m in DEF_START.finditer(src):
+            tail = src[m.end():m.end() + 800]
+            cut = tail.find(":=")
+            wc = tail.find("\nwhere")
+            if cut < 0 or (0 <= wc < cut):
+                cut = wc
+            sig = tail[:cut] if cut >= 0 else tail
+            for T in PARAM_TYPES:
+                # twice in one signature = argument side and return side
+                if len(re.findall(r"\b%s\b" % re.escape(T), sig)) >= 2:
+                    hits.append((rel, src[:m.start()].count("\n") + 1, m.group(1),
+                                 "parameters-in/parameters-out (%s)" % T))
+                    break
     return hits
 
 
@@ -92,8 +123,19 @@ def main(argv):
                 "def trainStep (params : List Float) : List Float := params\n")
             io.open(os.path.join(d, "B.lean"), "w", encoding="utf-8").write(
                 "def fomamlGrad (h : Float) : Float := h\n")
-            found = scan({"A.lean": io.open(os.path.join(d, "A.lean"), encoding="utf-8").read(),
-                          "B.lean": io.open(os.path.join(d, "B.lean"), encoding="utf-8").read()})
+            # (c) the SHAPE test: an innocuously named training step. Its name is on no list, so only
+            # the signature can catch it -- this is the case PARAM_TYPES exists for, and the case the
+            # old unused `PARAM_NAMES` claimed to cover and did not.
+            io.open(os.path.join(d, "C.lean"), "w", encoding="utf-8").write(
+                "structure Params where\n  v : List Float\n\n"
+                "def update (p : Params) : Params := p\n")
+            # (d) a legitimate conversion: DIFFERENT types across the arrow, must be accepted
+            io.open(os.path.join(d, "D.lean"), "w", encoding="utf-8").write(
+                "structure Params where\n  v : List Float\n\n"
+                "structure Layer where\n  w : List Float\n\n"
+                "def ofParams (q : Params) : Layer := ⟨q.v⟩\n")
+            found = scan({n: io.open(os.path.join(d, n), encoding="utf-8").read()
+                          for n in ("A.lean", "B.lean", "C.lean", "D.lean")})
             names = {w for _, _, w, _ in found}
             if "trainStep" not in names:
                 print("SELF-TEST FAILED: a training loop was accepted")
@@ -101,10 +143,18 @@ def main(argv):
             if "fomamlGrad" in names:
                 print("SELF-TEST FAILED: a gradient FORMULA was rejected")
                 return 2
+            if "update" not in names:
+                print("SELF-TEST FAILED: a parameters-in/parameters-out def was accepted"
+                      " (the shape test did not fire)")
+                return 2
+            if "ofParams" in names:
+                print("SELF-TEST FAILED: a type-changing conversion was rejected")
+                return 2
         finally:
             import shutil
             shutil.rmtree(d, ignore_errors=True)
-        print("SELF-TEST: training loops caught, gradient formulas accepted")
+        print("SELF-TEST: training loops caught by name, parameters-in/parameters-out caught by"
+              " shape, gradient formulas and type-changing conversions accepted")
         return 0
 
     if hits:
