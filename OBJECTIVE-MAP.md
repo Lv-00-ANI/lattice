@@ -34,7 +34,7 @@
 | 3.4 inverse: re-injection | `partial_reinject_bound` | `Geo/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairConvergence.lean` | 7 | 2 | `Audit/Hypotheses.lean`, `Core/OneStepBridge.lean` |
 | 4 loop | `bidirRepair` | `Geo/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
-| 5 symbolic engine | `evalPts` | `Geo/Expr.lean` | 17 | 22 | `Geo/Constraint.lean`, `Geo/Derivative.lean` |
+| 5 symbolic engine | `evalPts` | `Geo/Expr.lean` | 18 | 22 | `Geo/Constraint.lean`, `Geo/Derivative.lean` |
 | 5 symbolic engine | `derivation_sound` | `Geo/Engine.lean` | 1 | 0 | `Geo/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Lift/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Lift/L1L2Roundtrip.lean` | 3 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |

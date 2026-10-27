@@ -66,6 +66,7 @@
 | `MissingRepairs` | 145 | 4 | — |
 | `MultiSeedCoverage` | 165 | 5 | — |
 | `MultistepLoop` | 183 | 8 | — |
+| `NetLoss` | 175 | 5 | — |
 | `Nondegenerate` | 307 | 13 | — |
 | `NondegenerateInstance` | 143 | 6 | — |
 | `ParallelRepair` | 182 | 4 | — |

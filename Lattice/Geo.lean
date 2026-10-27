@@ -92,6 +92,7 @@ import Lattice.Geo.CodegenLadder
 import Lattice.Geo.ExecutableGeoCheck
 import Lattice.Geo.WeightSideLadder
 import Lattice.Geo.PenaltyLoss
+import Lattice.Geo.NetLoss
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
