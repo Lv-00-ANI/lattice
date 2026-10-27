@@ -250,4 +250,132 @@ theorem constraint_satisfied_after_one_step (c β : ℝ) (pts : ℕ → Pt 1) :
   unfold linearConstraint
   exact hiff.mp hlen
 
+/-! ## 五、推广到 `n` 维与 `n` 条约束
+
+第四节的闭环是 `1` 维、`1` 条。本节把它推到 **`n` 维、每个坐标一条约束**，
+而收缩因子**完全相同**——因为各坐标的下降是互相独立的，只是求和。
+
+**为什么用 `List.ofFn` 而不是 `List.finRange.map`**：本 mathlib **没有 `List.sum_finRange`**
+（又一次名字猜错——与 `Int.div_mul_add_emod`、`max_eq_zero_iff`、`List.getD_append_left` 同一类）。
+而 `List.sum_ofFn : (List.ofFn f).sum = ∑ i, f i` **存在**，所以用它构造约束表，
+求和桥就直通了。**换一个构造方式，省一条不存在的引理。** -/
+
+/-- **`n` 维的位移层**：`W = 0`、`b = β`（逐坐标）。
+
+它把**任何**输入送到常值向量 `β`，于是约束在输出配置上的残差是 `β` 的**线性函数**。 -/
+noncomputable def shiftLayerVec {n : ℕ} (β : Fin n → ℝ) : AffineLayer (Fin n) where
+  W := fun _ _ => 0
+  b := β
+
+/-- **`shiftLayerVec` 把一切送到 `β`。** -/
+theorem shiftLayerVec_netAct {n : ℕ} (β : Fin n → ℝ) (x : Pt n) :
+    netAct [shiftLayerVec β] x = β := by
+  funext j
+  show affineAct (shiftLayerVec β) x j = β j
+  unfold affineAct shiftLayerVec
+  simp
+
+/-- **第 `axis` 个坐标上的线性约束**：`x_axis + c = 0`。 -/
+noncomputable def coordConstraint {n : ℕ} (axis : Fin n) (c : ℝ) : GeoConstraint n :=
+  .eqZero (.add (.coord 0 axis) (.const c))
+
+/-- **每个坐标一条约束**，由 `c : Fin n → ℝ` 给出。
+
+用 `List.ofFn` 构造，以便直接用 `List.sum_ofFn` 把列表和接到 `∑ j : Fin n`。 -/
+noncomputable def coordConstraints {n : ℕ} (c : Fin n → ℝ) : List (GeoConstraint n) :=
+  List.ofFn (fun j => coordConstraint j (c j))
+
+/-- **`n` 维的损失是逐坐标二次式之和**：`∑ j, (β j + c j)²`。
+
+这是第四节 `netLoss_shiftLayer` 的 `n` 维版本。 -/
+theorem netLoss_shiftLayerVec {n : ℕ} (β c : Fin n → ℝ) (pts : ℕ → Pt n) :
+    netLoss [shiftLayerVec β] (coordConstraints c) pts = ∑ j : Fin n, (β j + c j) ^ 2 := by
+  have hX : ∀ k : ℕ, netAct [shiftLayerVec β] (pts k) = β := fun k => shiftLayerVec_netAct β (pts k)
+  -- the penalty of coordinate `j`'s constraint is `(β j + c j)^2`
+  have hterm : ∀ j : Fin n,
+      penaltyLoss (coordConstraint j (c j)) (fun k => netAct [shiftLayerVec β] (pts k))
+        = (β j + c j) ^ 2 := by
+    intro j
+    have hpay : penaltyLoss (.eqZero (.add (.coord 0 j) (.const (c j))))
+        (fun k => netAct [shiftLayerVec β] (pts k))
+        = (GeoExpr.evalPts (.add (.coord 0 j) (.const (c j)))
+            (fun k => netAct [shiftLayerVec β] (pts k))) ^ 2 := rfl
+    have hres : GeoExpr.evalPts (.add (.coord 0 j) (.const (c j)))
+        (fun k => netAct [shiftLayerVec β] (pts k)) = β j + c j := by
+      simp only [GeoExpr.evalPts]
+      rw [hX]
+    unfold coordConstraint
+    rw [hpay, hres]
+  -- rewrite the mapped list as `List.ofFn`, then use `List.sum_ofFn`
+  have hmap : (coordConstraints c).map
+      (fun k => penaltyLoss k (fun k => netAct [shiftLayerVec β] (pts k)))
+      = List.ofFn (fun j => (β j + c j) ^ 2) := by
+    unfold coordConstraints
+    rw [List.map_ofFn]
+    congr 1
+    funext j
+    exact hterm j
+  unfold netLoss
+  rw [hmap, List.sum_ofFn]
+
+/-- **`n` 维的梯度步**：逐坐标 `β j ↦ β j − η · 2(β j + c j)`。 -/
+noncomputable def stepVec {n : ℕ} (η : ℝ) (c β : Fin n → ℝ) : Fin n → ℝ :=
+  fun j => β j - η * (2 * (β j + c j))
+
+/-- **`n` 维收缩：损失乘上 `(1−2η)²`**——与一维**完全相同的因子**。
+
+因为各坐标独立求和，公共因子可以提出来。**这就是「推广」的实质：不是新的数学，是同一条代数在 `∑` 下面。** -/
+theorem netLoss_stepVec {n : ℕ} (η : ℝ) (c β : Fin n → ℝ) (pts : ℕ → Pt n) :
+    netLoss [shiftLayerVec (stepVec η c β)] (coordConstraints c) pts
+      = (1 - 2 * η) ^ 2 * netLoss [shiftLayerVec β] (coordConstraints c) pts := by
+  rw [netLoss_shiftLayerVec, netLoss_shiftLayerVec, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro j _
+  unfold stepVec
+  ring
+
+/-- **`n` 维：`0 < η < 1` 时损失不增。** -/
+theorem netLoss_stepVec_le {n : ℕ} (η : ℝ) (c β : Fin n → ℝ) (h0 : 0 < η) (h1 : η < 1)
+    (pts : ℕ → Pt n) :
+    netLoss [shiftLayerVec (stepVec η c β)] (coordConstraints c) pts
+      ≤ netLoss [shiftLayerVec β] (coordConstraints c) pts := by
+  rw [netLoss_stepVec]
+  have hnn : 0 ≤ netLoss [shiftLayerVec β] (coordConstraints c) pts := netLoss_nonneg _ _ _
+  have hfac : (1 - 2 * η) ^ 2 ≤ 1 := by nlinarith
+  calc (1 - 2 * η) ^ 2 * netLoss [shiftLayerVec β] (coordConstraints c) pts
+      ≤ 1 * netLoss [shiftLayerVec β] (coordConstraints c) pts :=
+        mul_le_mul_of_nonneg_right hfac hnn
+    _ = netLoss [shiftLayerVec β] (coordConstraints c) pts := one_mul _
+
+/-- **`n` 维、`n` 条约束：`η = 1/2` 时一步之后全部成立。**
+
+```lean
+stepVec (1/2) c β j = β j - (β j + c j) = -c j
+```
+
+于是每个坐标的残差 `β j + c j` 变成零，**每条约束都成立**。
+
+**这是第四节 `constraint_satisfied_after_one_step` 的 `n` 维推广**：
+不是「每条约束各自跑一遍」，而是**一次联合更新同时解掉全部 `n` 条**。 -/
+theorem all_coord_constraints_after_one_step {n : ℕ} (c β : Fin n → ℝ) (pts : ℕ → Pt n) :
+    ∀ j : Fin n,
+      GeoConstraint.Holds (coordConstraint j (c j))
+        (fun k => netAct [shiftLayerVec (stepVec (1 / 2) c β)] (pts k)) := by
+  intro j
+  have hX : ∀ k : ℕ,
+      netAct [shiftLayerVec (stepVec (1 / 2) c β)] (pts k) = stepVec (1 / 2) c β :=
+    fun k => shiftLayerVec_netAct _ _
+  have hres : GeoExpr.evalPts (.add (.coord 0 j) (.const (c j)))
+      (fun k => netAct [shiftLayerVec (stepVec (1 / 2) c β)] (pts k))
+      = (stepVec (1 / 2) c β) j + c j := by
+    simp only [GeoExpr.evalPts]
+    rw [hX]
+  unfold coordConstraint
+  show GeoExpr.evalPts (.add (.coord 0 j) (.const (c j)))
+      (fun k => netAct [shiftLayerVec (stepVec (1 / 2) c β)] (pts k)) = 0
+  rw [hres]
+  unfold stepVec
+  ring
+
 end Lattice.Geo.ConstraintDescent
+
