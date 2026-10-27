@@ -32,6 +32,7 @@ import Lattice.Lift.ApproxLadder
 import Lattice.Lift.ExtractionStrength
 import Lattice.Lift.WeightLadderFullWidth
 import Lattice.Lift.WeightLadderInverse
+import Lattice.Lift.WeightSymbolRepresentation
 
 /-!
 # Lattice.Lift -- the representation ladder
