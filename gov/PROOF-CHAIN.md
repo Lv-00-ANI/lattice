@@ -15,7 +15,7 @@
 | geo | 98 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 11 | aggregator at `Lattice/`, re-exports only |
+| root | 12 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -824,8 +824,9 @@
 - `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`, `Lattice.Geo.CExprCodegen`, `Lattice.Geo.CodegenLadder`, `Lattice.Geo.ExecutableGeoCheck`, `Lattice.Geo.WeightSideLadder`, `Lattice.Geo.PenaltyLoss`, `Lattice.Geo.NetLoss`, `Lattice.Geo.ConstraintDescent`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`
 - `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`, `Lattice.Lift.WeightLadderFullWidth`, `Lattice.Lift.WeightLadderInverse`, `Lattice.Lift.WeightSymbolRepresentation`, `Lattice.Lift.ActivationLadder`, `Lattice.Lift.WeightLadderFullWidthInstance`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.RectangularRepresentation`, `Lattice.Lift.LayerQuantization`, `Lattice.Lift.LayerQuantizationBits`, `Lattice.Lift.SaturationQuantization`, `Lattice.Lift.QuantErrorPropagation`, `Lattice.Lift.ProgramAST`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.Annotations` <- `Lattice.Geo.ConstraintSet`, `Lattice.Geo.Constraint`
+- `Lattice.Semantics.Merge` <- `Lattice.Geo.ConstraintSet`, `Lattice.Geo.Constraint`
 - `Lattice.Semantics.Stage1` <- `Lattice.Geo.ConstraintSet`, `Lattice.Geo.Constraint`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
@@ -1641,6 +1642,7 @@
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
+| `Lattice.Semantics.Merge` | 8 | 6 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
@@ -3025,6 +3027,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `configOf_inv` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `configOf_roundtrip` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `flatten_unflatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `conflict_empty_trail` -> `apply`, `children`, `induction`, `length`, `trans`
+- `conflict_loser_absent` -> `Pt`
 - `conflict_resolve_fixed_point` -> `apply`, `children`, `induction`, `length`, `trans`
 - `confluence_of_commuting` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `confluent_normalForm_unique` -> `induction`, `subst`, `trans`
@@ -4951,11 +4954,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holder_two_is_cauchy` -> `card_fin`
 - `holdsSet_append` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_equiv_append_left` -> `Domain`, `GeoConstraint`, `Holds`, `Pt`, `Token`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
+- `holdsSet_flatMap_experts` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `holdsSet_meaning_equiv` -> `Domain`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `Token`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_mem` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_member` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `induction`, `length`, `nil_append`
 - `holdsSet_mono` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `holdsSet_nil` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
+- `holdsSet_of_sublist` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
@@ -5946,6 +5951,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `merge_not_exact` -> `E`, `col`
 - `merge_output_bound` -> `apply`, `topk_output_bound`
 - `merge_output_bound_subprob` -> `apply`, `topk_output_bound`
+- `merge_parts` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`
+- `merge_sound` -> `GeoConstraint`, `HoldsSet`, `Pt`
+- `merged_sublist` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `metric_eq_kernel_expansion` -> `apply`, `featScore`
 - `metric_kernel_nonneg` -> `apply`, `featScore`
 - `mfcq_one_dim_agrees` -> `LICQOneDim`, `le_refl`, `subst`
@@ -7311,6 +7319,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reinject_perpendicular` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`
 - `reinject_sound` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`
 - `rejectSet_antitone` -> `alpha`, `le_trans`
+- `rejected_absent` -> `GeoConstraint`, `Pt`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
 - `relative_perturbation_bound` -> `E`, `apply`, `comp`, `trans`
 - `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `trans`

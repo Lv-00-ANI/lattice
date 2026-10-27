@@ -1,6 +1,7 @@
 import Lattice.Semantics.Stage1
 import Lattice.Semantics.VocabEdit
 import Lattice.Semantics.Annotations
+import Lattice.Semantics.Merge
 
 /-!
 # 语义信息主线：阶段划分与聚合
