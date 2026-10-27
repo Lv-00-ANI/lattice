@@ -17,8 +17,6 @@ Lib/Architectures/RealNormalEquation.lean	fderiv_eq_zero_iff_all	_hf	unused
 Lib/Architectures/RealNormalEquationScalar.lean	fderiv_eq_zero_iff_all_scalar	_hf	unused
 Lib/Architectures/RealSSM.lean	ssm_contraction_rho	_hρ0	unused
 Lib/Architectures/RealSelectiveSSM.lean	sel_tight_state_eq	_hρ	unused
-Lib/Architectures/RealTensorNorm.lean	frobSq_le_card_mul_sq	_hM	unused
-Lib/Architectures/RealTensorNormN.lean	tensorFrobSq_le_card_mul	_hM	unused
 Lib/Attention/RealCrossAttention.lean	cross_attention_lipschitz_in_query	_hw0	unused
 Lib/Attention/RealHardAttention.lean	argmax_is_max	_hji	unused
 Lib/Chain/RealComplexTrain.lean	scalar_contraction_sq	_hL	unused
@@ -101,12 +99,10 @@ Lib/Optim/RealFedAvg.lean	fedAvg_rate	_hG0	unused
 Lib/Optim/RealFedAvg.lean	fedAvg_drift_step	_hG0	unused
 Lib/Optim/RealLRDecay.lean	lr_decay_antitone	_hη1	unused
 Lib/Optim/RealLRDecay.lean	decay_product_bound	_hη0	unused
-Lib/Optim/RealLRDecay.lean	lr_decay_finite_phase	_hc0	unused
 Lib/Optim/RealListFinBridge.lean	dot_eq_dotProduct_of_length	_h	unused
 Lib/Optim/RealNesterovLower.lean	quad_step_diverges	_hL	unused
 Lib/Optim/RealNesterovLower.lean	one_dim_lower_witness	_hL	unused
 Lib/Optim/RealRiemannianGD.lean	sphereGD_norm	_hx	unused
-Lib/Optim/RealRiemannianGD.lean	gradStep_descent_lemma	_hL	unused
 Lib/Optim/RealRiemannianGD.lean	min_grad_rate	_h0	unused
 Lib/Optim/RealSGDStochastic.lean	sgd_expected_gap_sum_seq	_hη	unused
 Lib/Optim/RealStrongConvex.lean	strong_convex_gap_le_grad_sq	_hg0	unused
@@ -119,7 +115,6 @@ Lib/Quantization/RealConversionStabilityFloatBounds.lean	float_zero_criterion_ne
 Lib/Quantization/RealMixedPrecision.lean	fp16_underflow_dominated	_hu	unused
 Lib/Quantization/RealMixedPrecision.lean	accumulation_error_bound	_hM	unused
 Lib/Quantization/RealMixedPrecision.lean	mixed_layer_error	_hX	unused
-Lib/Quantization/RealQAT.lean	qat_floor_nonneg	_hc0	unused
 Lib/Quantization/RealIEEE754/Basic.lean	ieee_relative_error_bound	_hx	unused
 Lib/Quantization/RealIEEE754/Overflow.lean	clampTo_eq_self	_hM	unused
 Lift/EndToEndApproximation.lean	loss_le_sq_of_resid_le	_hε	unused

@@ -98,8 +98,12 @@ theorem tensorFrob_smul {n : ℕ} (c : ℝ) (T : (Fin n → ι) → ℝ) :
 
 /-! ## 三、逐元素受控 ⟹ 全局界 -/
 
-/-- 逐元素平方 ≤ M（`M ≥ 0`）⟹ `tensorFrobSq T ≤ card (Fin n → ι) * M`。 -/
-theorem tensorFrobSq_le_card_mul {n : ℕ} {T : (Fin n → ι) → ℝ} {M : ℝ} (_hM : 0 ≤ M)
+/-- 逐元素平方 ≤ M ⟹ `tensorFrobSq T ≤ card (Fin n → ι) * M`。
+
+**第 211 轮删掉了前提 `(_hM : 0 ≤ M)`**（与 `RealTensorNorm.frobSq_le_card_mul_sq` 同一处修正）。
+证明是 `Finset.sum_le_sum` 加 `Finset.sum_const`，**从未用到 `M` 的符号**——
+加这条非负性是**无依据的收窄**，而原 docstring 还把它写成了必要条件。 -/
+theorem tensorFrobSq_le_card_mul {n : ℕ} {T : (Fin n → ι) → ℝ} {M : ℝ}
     (h : ∀ idx, T idx ^ 2 ≤ M) :
     tensorFrobSq T ≤ (Fintype.card (Fin n → ι) : ℝ) * M := by
   unfold tensorFrobSq

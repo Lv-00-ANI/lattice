@@ -156,11 +156,17 @@ theorem decay_product_bound {e η : ℕ → ℝ}
               rw [Finset.prod_range_succ]
               ring
 
-/-- 几何阶段保证：前 N 步若 η_t ≥ c（0 ≤ c ≤ 1），则 e_N ≤ (1-c)^N·e_0。
-连接 RealConvergence.contraction_pow_bound。-/
+/-- 几何阶段保证：前 N 步若 η_t ≥ c（`c ≤ 1`），则 e_N ≤ (1-c)^N·e_0。
+
+连接 `RealConvergence.contraction_pow_bound`。
+
+**第 211 轮删掉了两个前提**：`(_hc0 : 0 ≤ c)` 与 `(_hη1 : ∀ n, η n ≤ 1)`。
+证明只用 `hc1 : c ≤ 1`（给 `0 ≤ 1 − c`）与 `hηc : c ≤ η n`（给 `1 − η n ≤ 1 − c`），
+**上界 `η n ≤ 1` 与 `c` 的下界都没有出现**。
+（删掉 `η n ≤ 1` 是有意义的：它让定理覆盖 `η > 1` 的发散步长——那时界仍然成立。） -/
 theorem lr_decay_finite_phase {e η : ℕ → ℝ} (c : ℝ)
-    (_hc0 : 0 ≤ c) (hc1 : c ≤ 1)
-    (he : ∀ n, 0 ≤ e n) (hηc : ∀ n, c ≤ η n) (_hη1 : ∀ n, η n ≤ 1)
+    (hc1 : c ≤ 1)
+    (he : ∀ n, 0 ≤ e n) (hηc : ∀ n, c ≤ η n)
     (hdec : ∀ n, e (n + 1) ≤ (1 - η n) * e n) :
     ∀ N : ℕ, e N ≤ (1 - c) ^ N * e 0 := by
   apply contraction_pow_bound (1 - c) (by linarith)

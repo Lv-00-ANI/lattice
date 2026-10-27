@@ -85,7 +85,12 @@ theorem frobSq_mono {A B : m → n → ℝ} (h : ∀ i j, A i j ^ 2 ≤ B i j ^ 
   unfold frobSq
   exact Finset.sum_le_sum (fun i _ => Finset.sum_le_sum (fun j _ => h i j))
 
-theorem frobSq_le_card_mul_sq {A : m → n → ℝ} {M : ℝ} (_hM : 0 ≤ M)
+/-- **`frobSq` 的卡片界**：逐元素平方 ≤ `M` ⟹ `frobSq A ≤ card m * card n * M`。
+
+**第 211 轮删掉了前提 `(_hM : 0 ≤ M)`。** 证明是两次 `Finset.sum_le_sum` 加
+`Finset.sum_const`，**从未用到 `M` 的符号**——所以加这条非负性是**无依据的收窄**。
+（§「逐元素受控单调」的标题也一并更正：这里不需要 `M ≥ 0`。） -/
+theorem frobSq_le_card_mul_sq {A : m → n → ℝ} {M : ℝ}
     (h : ∀ i j, A i j ^ 2 ≤ M) :
     frobSq A ≤ (Fintype.card m * Fintype.card n : ℝ) * M := by
   unfold frobSq

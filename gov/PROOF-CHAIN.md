@@ -4831,7 +4831,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gqa_weights_eq_mha_weights` -> `E`, `softmax`
 - `gqa_weights_nonneg` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `gqa_weights_sum_one` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`, `softmax_sum_one`
-- `gradStep_descent_lemma` -> `E`
+- `gradStep_descent_lemma` -> `E`, `le_trans`
 - `grad_mem_nonnegComboCone` -> `dot`, `dotV`, `le_refl`, `smul`
 - `grad_partial_sum_le` -> `E`, `induction`, `sphere`, `zero`
 - `grad_tendsto_zero` -> `E`, `sphere`

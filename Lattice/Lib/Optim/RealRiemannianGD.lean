@@ -215,7 +215,7 @@ theorem gradStep_descent_lemma (f : E → ℝ) (grad : E → E) (L eta : ℝ) (x
     (hsmooth : f (gradStep eta grad x) ≤ f x
       + inner (grad x) (gradStep eta grad x - x)
       + (L / 2) * ‖gradStep eta grad x - x‖ ^ 2)
-    (heta : 0 < eta) (_hL : 0 ≤ L) :
+    (heta : 0 < eta) :
     f (gradStep eta grad x) ≤ f x - eta * (1 - L * eta / 2) * ‖grad x‖ ^ 2 := by
   have hdiff : gradStep eta grad x - x = -(eta • grad x) := by
     unfold gradStep

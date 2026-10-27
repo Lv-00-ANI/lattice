@@ -278,9 +278,13 @@ theorem qat_convergence_zero (A : F →L[ℝ] F) (b x0 : F) (η : ℝ) (Q : F �
   simpa using h
 
 omit [CompleteSpace F] in
-/-- **QAT 地板非负**：`‖A‖·δ/(1−c) ≥ 0`（`0 ≤ c < 1`、`δ ≥ 0`）——
-地板是真实的不可约残差，`δ > 0` 时严格为正（QAT 无法收敛到零误差）。 -/
-theorem qat_floor_nonneg (A : F →L[ℝ] F) (c δ : ℝ) (_hc0 : 0 ≤ c) (hc1 : c < 1)
+/-- **QAT 地板非负**：`‖A‖·δ/(1−c) ≥ 0`（`c < 1`、`δ ≥ 0`）——
+地板是真实的不可约残差，`δ > 0` 时严格为正（QAT 无法收敛到零误差）。
+
+**第 211 轮删掉了前提 `(_hc0 : 0 ≤ c)`。** 证明是
+`div_nonneg (mul_nonneg (norm_nonneg A) hδ) (by linarith)`——
+`linarith` 只用 `hc1 : c < 1` 来给出 `0 ≤ 1 − c`，**与 `c` 的下界无关**。 -/
+theorem qat_floor_nonneg (A : F →L[ℝ] F) (c δ : ℝ) (hc1 : c < 1)
     (hδ : 0 ≤ δ) : 0 ≤ ‖A‖ * δ / (1 - c) :=
   div_nonneg (mul_nonneg (norm_nonneg A) hδ) (by linarith)
 
