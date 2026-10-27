@@ -39,17 +39,43 @@ theorem roundtrip_extract (c : LinearConstraint) :
   cases c <;> rfl
 
 /-! ## 定理二：往返保持行为等价
-提取出的约束与原权重的行为一致（验证器判定成立）。-/
+
+### ⚠ 这个模块的往返恒等是**定义展开**，不是建立起来的对应关系
+
+**第 207 轮审计的结论，写在这里而不是留在债务表里。**
+
+`extract { a := w, b := b } := { a := w, b := b }`，而 `ConstraintSat` 与 `NeuronOut`
+按定义就是同一个 `Int` 表达式。所以：
+
+| 定理 | 实际内容 |
+|:--|:--|
+| `roundtrip_extract` | `cases c <;> rfl`——**定义恒等** |
+| `extract_is_valid` | `rfl`——**定义恒等** |
+| `convert_preserves_semantics` | `simp [ConstraintSat, NeuronOut, convert]`——**定义展开** |
+
+**这不是说它们是错的；是说它们没有建立任何东西。** 「权重→符号在该子类上无损」这句话
+在这个模块里**是因为表示本来就是同一个 `Int` 列表**，不是因为证明了什么。
+真正的无损性要等 `Embedding`/`OutputHead` 那一侧（`Semantics/VocabEdit.lean`）接上 `Holds`——
+**那条桥目前不存在**（见 `SEMANTICS-MAINLINE.md` §6.1）。
+
+### 原陈述的第一项是 `id`，已删
+
+原 `roundtrip_behavior` 是合取：
+
+```lean
+(∀ l, NeuronOut l x = 0 → ConstraintSat (extract l) x) ∧
+(ConstraintSat c x → NeuronOut (convert c) x = 0)
+```
+
+**第一项是 `h → h`**：两个命题按定义相同，`simpa using h` 就是 `id`。
+**第 207 轮删掉了它**，只留第二项。名字保留，因为
+`Lib/Lift/RealContractAxioms.lean` 有 `#print axioms roundtrip_behavior`——**改断言会断构建，改陈述不会。**
+
+（第一项对应的真事实由 `extract_is_valid` 表述，而它自己也是 `rfl`。） -/
 
 theorem roundtrip_behavior (c : LinearConstraint) (x : Int) :
-    (∀ l : LinearNeuron, NeuronOut l x = 0 → ConstraintSat (extract l) x) ∧
-    (ConstraintSat c x → NeuronOut (convert c) x = 0) := by
-  constructor
-  · intro l h
-    unfold extract ConstraintSat NeuronOut at *
-    simpa using h
-  · intro h
-    exact (convert_preserves_semantics c x).mpr h
+    ConstraintSat c x → NeuronOut (convert c) x = 0 :=
+  fun h => (convert_preserves_semantics c x).mpr h
 
 /-! ## 向量版：提取器 -/
 
@@ -69,6 +95,10 @@ theorem roundtrip_extractVec (c : VectorConstraint) :
 def ExtractionValid (l : LinearNeuron) (c : LinearConstraint) : Prop :=
   ∀ x : Int, NeuronOut l x = 0 ↔ ConstraintSat c x
 
+/-- `extract` 返回的约束与原神经元**行为等价**。
+
+⚠ **这是 `rfl`**：`extract l` 的字段就是 `l` 的字段，`ConstraintSat` 与 `NeuronOut`
+按定义是同一个表达式。**没有建立任何对应关系**——见本文件 §定理二 的说明。 -/
 theorem extract_is_valid (l : LinearNeuron) :
     ExtractionValid l (extract l) := by
   intro x

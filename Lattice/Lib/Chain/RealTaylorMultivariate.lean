@@ -191,7 +191,31 @@ theorem first_order_taylor {f : (Fin n → ℝ) → ℝ} {x v : Fin n → ℝ}
 在 `ContDiffAt ℝ 2 f x` 下取 `H := RealSecondOrderUpgrade.hessianMat f x` 即可，
 即该条件从「关于答案 `H` 的等式」弱化为「关于 `f` 的正则性」。
 本定理**保留**原陈述以确保向后兼容（`hg2` 形式对使用者仍可用），
-去假设版见 `RealSecondOrderUpgrade.second_order_taylor_unconditional`。 -/
+去假设版见 `RealSecondOrderUpgrade.second_order_taylor_unconditional`。
+
+### ⚠ 结论是**同义反复**：`∃ R, a = b + R` 恒真
+
+**第 207 轮审计的结论，写在这里而不是留在债务表里。**
+
+证明体是 `refine ⟨f (x+v) − f x − deriv g 0 − (1/2)·q v, ?_⟩`——**把 `R` 取成那个差**，
+于是等式成为 `a = b + (a − b)`。**任何 `a`、`b` 都成立，与 Taylor 无关。**
+
+**所以本定理的结论没有内容，全部内容在假设 `hg2` 里。**
+`second_order_taylor_unconditional` 同样如此——它的价值是**把 `hg2` 弱化为 `ContDiffAt ℝ 2 f x`**
+（从「关于 `H` 的等式」变成「关于 `f` 的正则性」），**不是**让结论有了内容。
+
+要让它有内容，必须把**余项界**并进结论：
+
+```lean
+∃ R, f (x+v) = f x + deriv g 0 + (1/2)·q v + R  ∧  |R| ≤ (C/2)·‖v‖²
+```
+
+而那需要 **`n` 维 Taylor 余项定理**（沿 `g` 的中值定理 + `g''` 的一致界 `hC`），
+**本文件正是用 `hg2`/`hC` 假设回避了它**。同文件的 `quadratic_remainder_bound`
+也只是 `ring` 重述（`(C/2)·‖v‖²` 与 `C·‖v‖²/2` 定义相等）。
+
+**因此审计判定的正确动作是 `register`（登记）而不是 `rewrite`（改写）**：
+改写在当前假设下写不出更强的陈述，**只能诚实地把它标为「结论空洞」。** -/
 theorem second_order_taylor {f : (Fin n → ℝ) → ℝ} {x v : Fin n → ℝ}
     {H : Matrix (Fin n) (Fin n) ℝ}
     (hg2 : deriv (deriv (path f x v)) 0 = quadForm H v) :
