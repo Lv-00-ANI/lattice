@@ -10,7 +10,7 @@
 
 **这个库能自己做完的部分已经做完了。**
 
-791 个模块、8,305 条定理、**10 个守卫全部 green**。
+792 个模块、8,323 条定理、**10 个守卫全部 green**。
 目标原文的**14 条可检验条款全部有具体载体**——而且这一点**不再是一句话，
 是由 `gov/check_objective_coverage.py` 强制检查的**。
 剩余的缺口（可执行边界、实证基准）**都不在本库能做事的范围内**，
@@ -55,10 +55,10 @@
 
 | 指标 | 值 |
 |:--|--:|
-| 源模块（不含 `Reference/`） | **791** |
-| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 18 / 57 / 93 / 605 / 10 / 1 / 7 |
-| 声明总数 | **11,002** |
-| 定理 / 引理（官方口径） | **8,305** |
+| 源模块（不含 `Reference/`） | **792** |
+| └ Core / Lift / Geo / Lib / Audit / Usage / 根 | 18 / 57 / 93 / 605 / 11 / 1 / 7 |
+| 声明总数 | **11,026** |
+| 定理 / 引理（官方口径） | **8,323** |
 | 代码行 | **204,800**（含注释与空行） |
 | 内核逃逸（`axiom`/`opaque`/`sorry`/`admit`） | **0** |
 | 检查器注册项 | **46（30 门禁 + 16 报告器）** |
@@ -142,24 +142,43 @@
 
 **不在本库范围**：本库交付的是证明，不是评测。
 
-### 3.3 代数从 monoid 到格（权重 15% 中的一半）
+### 3.3 代数：单段是格，序列是 monoid（第 173 轮精确化）
 
-**现状**：组合判定是 monoid（单位、结合、同态）。
+**现状**：组合判定是 monoid（单位、结合、同态）；**单段判定是有界格**。
 
-**不做的理由**：组合判定天然是**序列**（顺序重要），而格是**偏序**结构。
+**为什么先前记的是「不做」**：组合判定天然是**序列**（顺序重要），而格是**偏序**结构。
 **强行把序列压成格，会得到形式正确但没有内容的定理**——
 这正是第 59、66、68 轮反复失败的同一类错误：**先选表示、后想性质**。
 
-### 3.4 四条欠账
+**第 173 轮把这条判断拆开，发现它只对序列成立**（`Audit/VerdictLattice.lean`）：
 
-| 欠账 | 状态 | 为什么不再追 |
+| 对象 | 结构 | 定理 |
 |:--|:--|:--|
-| `lift.embed.local_minimiser_exact` | weakened | **一般形式已被 `sound_not_exact` 证否** |
-| `core.repair.atomic` | open | 成本已降到一行构造器；无新内容 |
-| `core.semantics.external_bridge` | open | 需 TorchLean（Lean ≥ 4.26），**范围外** |
-| `geo.loop.convergence_is_single_step` | weakened | 第 76 轮已有 `bidirRepair` 多步见证 |
+| `CompositionKind`（一段） | 两元素链 `sequential < bridged` | **有界格**（`kind_is_bounded_lattice`） |
+| `Verdict = List CompositionKind`（多段） | 逐点序 `Forall₂` | **不是格**（`verdict_no_sup`） |
 
-**四条都不是「缺一个证明」。**
+**为什么单段是格**：`sequential` 需要 `True`，`bridged` 需要一条蕴含——两者是同一段蕴含的两种极端，
+所以有底、有顶、有交（`kindInf`）、有并（`kindSup`）。
+
+**为什么序列不是格**：`Forall₂` 强制等长，`[.bridged]` 与 `[.sequential, .sequential]`
+没有公共上界（长度必须同时是 1 与 2）。**根因是拼接不保持长度**；长度相同的切片上格结构仍在
+（`verdict_lub_of_length_eq`）。
+
+⇒ **结论不是「不做格」，而是「格在另一层」**：格结构在**单段判定的强弱**上，拼接作用在**序列**上。
+`Monoid Verdict` 因此是正确的选择，而「lattice」这个名字有定理支撑——它指单段，不指序列。
+
+### 3.4 四条永久边界（第 162–171 轮的现状）
+
+| 边界 | 为什么关不掉 |
+|:--|:--|
+| `lift.embed.local_minimiser_exact` | **一般形式已被 `sound_not_exact` 证否** |
+| `core.repair.atomic` | **不可导出**（`down_no_progress`）；每个算子必须自己供给 |
+| `core.semantics.external_bridge` | 需 TorchLean（Lean ≥ 4.26），**范围外** |
+| `lift.tokenize.ml_vocabulary` | **需库外语料**：L1 是编解码器（`EqTok := ℕ ⊕ ℝ` 不可数、无 BPE），真 tokenizer 需要语料学出的有限词表 |
+
+**未清欠账 0，永久边界 4**，两个数都由 `Slots.lean` 的 `decide` 机器检查
+（`owedCount = 0` / `boundaryCount = 4`）。**「四条都不是缺一个证明」这句话对前三条成立；
+第四条不是「缺证明」而是「缺语料」，是不同性质的边界。**
 
 ### 3.5 其他明确不做
 

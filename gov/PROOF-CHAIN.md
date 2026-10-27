@@ -13,7 +13,7 @@
 | slots | 0 | metadata, imports nothing |
 | lib | 605 | instantiated library, may import core only |
 | geo | 93 | the geometry/constraint layer, may import lift |
-| audit | 10 | re-states results; may import anything below |
+| audit | 11 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
 | root | 7 | aggregator at `Lattice/`, re-exports only |
 
@@ -31,6 +31,7 @@
 - `Lattice.Audit.MultiComposition` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Audit.ObligationIndependence` <- `Lattice.Core.Repair`
 - `Lattice.Audit.StructureCensus` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Core.Repair`
+- `Lattice.Audit.VerdictLattice` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Core.Activation` <- `Lattice.Core.Net`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.Idempotent` 
@@ -804,7 +805,7 @@
 - `Lattice.Lift.WeightLadderN` <- `Lattice.Lift.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
-- `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`
+- `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
 - `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`, `Lattice.Geo.CExprCodegen`, `Lattice.Geo.CodegenLadder`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`
@@ -827,6 +828,7 @@
 | `Lattice.Audit.MultiComposition` | 5 | 3 |
 | `Lattice.Audit.ObligationIndependence` | 4 | 1 |
 | `Lattice.Audit.StructureCensus` | 4 | 3 |
+| `Lattice.Audit.VerdictLattice` | 18 | 6 |
 | `Lattice.Core.Activation` | 6 | 3 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -2323,6 +2325,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bn_train_eq_infer_of_const` -> `card_fin`, `eps`, `subst`
 - `bonferroni_budget` -> `uniformProb`
 - `bonferroni_per_event` -> `uniformProb`
+- `boolToKind_kindToBool` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `boost_mem_allMissSet` -> `card_fin`
 - `boost_mem_hitSet` -> `card_fin`
 - `boost_prob_all_miss_prod` -> `card_fin`
@@ -5152,6 +5155,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kernel_metric_zero_iff` -> `featScore`
 - `key_norm_sq_ne_zero` -> `E`, `W`
 - `key_zero_edit_is_identity` -> `ApplyEdit`, `E`
+- `kindInf_le_left` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindInf_le_right` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_antisymm` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_bot` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_iff` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_inf` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_refl` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_sup_left` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_sup_right` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_top` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindLe_trans` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindSup_le` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kind_is_bounded_lattice` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `kkt_deriv_quadratic` -> `add`, `subst`
 - `kkt_one_dim_complete` -> `comp`
 - `kkt_one_dim_inactive_stationary` -> `comp`, `mono`
@@ -5255,6 +5272,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lagrangian_concave_in_lam` -> `e2`, `le_antisymm`, `le_trans`
 - `lagrangian_feasible_le` -> `e2`, `le_antisymm`, `le_trans`
 - `lagrangian_lower_bound` -> `e2`, `le_antisymm`, `le_trans`
+- `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
 - `layerContentOk_layerAB` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerBA` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
@@ -8701,8 +8719,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vecNorm_nonneg` -> `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `vecNorm_sq` -> `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `vectorConstraintSat_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerToCLM`, `layerToCLM_apply`, `length`, `linFunc`, `residual`, `sat_iff_residual`, `symVec`, `symW`
+- `verdict_lub_of_length_eq` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `verdict_monoid` -> `Audit`
 - `verdict_monoid_instance_agrees` -> `Audit`
+- `verdict_no_sup` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `chain_edit_locality`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`

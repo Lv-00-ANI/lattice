@@ -80,6 +80,17 @@ bridgedCount_append : bridgedCount (a ++ b) = a + b   -- 同态
 - **这不是格**：`List CompositionKind` 没有交与并，也没有序。
   报告说「格缺少格该有的东西」——**严格说，本库证明的是 monoid 结构，不是格结构**。
   「表示格」里的「格」是**比喻**，本节的定理把这个比喻**落到具体可检验的结构上**。
+
+  **第 173 轮把这句判断精确化**（见 `Audit/VerdictLattice.lean`）：它**只对序列成立**。
+  - **每一段判定**（`CompositionKind`）**确实构成有界格**：`sequential` 是底（什么也不要），
+    `bridged` 是顶（要一条蕴含），`kindSup`/`kindInf` 给出并与交（`kind_is_bounded_lattice`）。
+  - **判定序列**（`Verdict = List CompositionKind`）在逐点序下**不是格**，证明是长度不匹配：
+    `[.bridged]` 与 `[.sequential, .sequential]` 没有公共上界（`verdict_no_sup`）。
+  - **根因**：组合是拼接，而拼接**不保持长度**；长度相同的切片上格结构仍在
+    （`verdict_lub_of_length_eq`）。
+
+  ⇒ **「格」不是空的，也不是全的**：它在**单段判定的强弱**上真实存在，在**判定序列**上不存在。
+  这正是本库的组合代数天然是 monoid 的原因——不是没找到格结构，是格结构在另一层。
 - 本节**不**建立 `Verdict` 与 `Chain` 之间的双向对应。判定说「需要 N 座桥」，
   链是**提供**那些桥的地方；两者的连接需要把判定结果翻译成链，属后续。
 - 我**没有**在 `Chain` 上建立拼接代数，并已在 §1 说明原因。
