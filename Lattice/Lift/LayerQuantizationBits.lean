@@ -116,8 +116,12 @@ def obsWithin (b : ℕ) (p q : IntLayer m n) : Prop :=
 /-- 该口径自反。 -/
 theorem obsWithin_refl (b : ℕ) (p : IntLayer m n) : obsWithin b p p := by
   refine ⟨?_, ?_⟩
-  · intro i j; simpa using (abs_zero : |(0:ℤ)| = 0).le.trans_lt (by positivity : (0:ℤ) < 2 ^ b)
-  · intro j; simpa using (abs_zero : |(0:ℤ)| = 0).le.trans_lt (by positivity : (0:ℤ) < 2 ^ b)
+  · intro i j
+    show |p.1 i j - p.1 i j| < (2 : ℤ) ^ b
+    rw [sub_self, abs_zero]; positivity
+  · intro j
+    show |p.2 j - p.2 j| < (2 : ℤ) ^ b
+    rw [sub_self, abs_zero]; positivity
 
 /-- **整层的逐分量误差**：每个分量都由一维引理给出。 -/
 theorem dequantB_quantB_error (b : ℕ) (L : IntLayer m n) :
