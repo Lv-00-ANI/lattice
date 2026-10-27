@@ -47,6 +47,7 @@ REPORT_ONLY = {
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
       "ladder: every l1l2 rung classified",
+      "usage: skeleton main theorems",
 }
 
 # (label, script, expects a specific exit code or None for "any")
@@ -144,6 +145,9 @@ CHECKS = [
     # Round 159: a clause whose every carrier sits in a leaf module is unreachable -- the objective
     # would depend on something nothing can import. This checks the clause reachability graph.
     ("structure: every clause reachable", "gen_lib_structure.py"),
+    # Round 164: module-level reachability is coarse. This lists skeleton theorems whose name
+    # claims a main result and which nothing references -- a reading list, all terminal.
+    ("usage: skeleton main theorems", "gen_theorem_usage.py"),
     # Round 154: OBJECTIVE-MAP.md lists all 14 objective clauses with each carrier's location and
     # reference counts. This fails if the committed map no longer matches the tree.
     ("docs: objective map up to date", "gen_objective_map.py --check"),
