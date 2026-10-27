@@ -38,12 +38,24 @@ IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
 def lean_files():
+    """Every built module. `Reference/` is excluded: it is archived evidence, not part of the build.
+
+    Round 177: this walked `Reference/` too, so the layer table in the generated document counted 910
+    modules where the tree that actually builds has 788. A chain document that includes unbuilt modules
+    reports edges that no build ever checks.
+    """
     out = []
     for base, dirs, files in os.walk(os.path.join(ZERO, "Lattice")):
+        dirs[:] = [d for d in dirs if d not in (".lake", "Reference")]
         for f in sorted(files):
             if f.endswith(".lean"):
-                out.append(os.path.join(base, f))
-    out.append(os.path.join(ZERO, "Lattice.lean"))
+                full = os.path.join(base, f)
+                # a generated probe is not part of the deliverable; see audit_counts.is_generated_probe
+                if not f.endswith("Probe.lean"):
+                    out.append(full)
+    # NOT `Lattice.lean` from the repo root: `audit_counts` -- the authority the README quotes -- walks
+    # `Lattice/` only, so counting the root aggregator here made this document's module total 789 where
+    # the official count is 788. One document, one total.
     return out
 
 
@@ -60,18 +72,29 @@ def layer_of(mod):
     `Lattice.Geo`'s 49 modules aggregators by default, so the layer table read `root | 10` when nine of
     those ten were geometry. The geometry layer is not "missing" from the report; it was mislabelled,
     which is a different bug with a different fix: a missing branch, not a missing scan.
+
+    Round 177: the prefixes needed a TRAILING DOT. `Lattice.Core` is both the prefix of the layer and
+    the name of the root-level aggregator `Lattice/Core.lean`, so `startswith("Lattice.Core")` claimed
+    the aggregator for the layer and every row of the table read one too high (core 19 instead of 18,
+    lift 56 instead of 55, lib 606, geo 93). `audit_counts` -- the authority the README quotes -- counts
+    a root-level aggregator as `root`, so the two documents published two different layer splits for the
+    same tree. Both now use the same rule.
     """
-    if mod.startswith("Lattice.Core"):
+    if mod.startswith("Lattice.Core."):
         return "core"
-    if mod.startswith("Lattice.Lift"):
+    if mod.startswith("Lattice.Lift."):
         return "lift"
-    if mod.startswith("Lattice.Slots"):
+    if mod.startswith("Lattice.Slots."):
         return "slots"
-    if mod.startswith("Lattice.Lib"):
+    if mod.startswith("Lattice.Lib."):
         return "lib"
-    if mod.startswith("Lattice.Geo"):
+    if mod.startswith("Lattice.Geo."):
         return "geo"
-    # `Zero.Reference` deliberately falls through: it is the reference region, not one of this
+    if mod.startswith("Lattice.Audit."):
+        return "audit"
+    if mod.startswith("Lattice.Usage."):
+        return "usage"
+    # `Lattice.Reference` deliberately falls through: it is the reference region, not one of this
     # project's layers, and giving it a layer of its own would suggest the layering rules apply.
     return "root"
 
@@ -127,18 +150,23 @@ def main():
     L.append("")
     L.append("| layer | modules | rule |")
     L.append("|:--|--:|:--|")
-    L.append("| core | %d | no imports from lift/lib |" %
-             sum(1 for m in modules if layer_of(m) == "core"))
-    L.append("| lift | %d | may import core only |" %
-             sum(1 for m in modules if layer_of(m) == "lift"))
-    L.append("| slots | %d | metadata, imports nothing |" %
-             sum(1 for m in modules if layer_of(m) == "slots"))
-    L.append("| lib | %d | instantiated library, may import core only |" %
-             sum(1 for m in modules if layer_of(m) == "lib"))
-    L.append("| geo | %d | the geometry/constraint layer |" %
-             sum(1 for m in modules if layer_of(m) == "geo"))
-    L.append("| root | %d | aggregator, or a layer with no rule of its own |" %
-             sum(1 for m in modules if layer_of(m) == "root"))
+    for key, rule in (("core", "no imports from lift/lib"),
+                      ("lift", "may import core only"),
+                      ("slots", "metadata, imports nothing"),
+                      ("lib", "instantiated library, may import core only"),
+                      ("geo", "the geometry/constraint layer, may import lift"),
+                      ("audit", "re-states results; may import anything below"),
+                      ("usage", "worked examples; top of the graph"),
+                      ("root", "aggregator at `Lattice/`, re-exports only")):
+        L.append("| %s | %d | %s |"
+                 % (key, sum(1 for m in modules if layer_of(m) == key), rule))
+    L.append("")
+    # These eight numbers are the same split the README quotes (see `gov/audit_counts.py`), which is
+    # the point: before round 177 this table counted the root-level aggregators into their own layers
+    # and included `Reference/`, so it published a different split for the same tree.
+    L.append("> The split above is the same one `README` quotes: root-level aggregators "
+             "(`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it "
+             "is not built.")
     L.append("")
 
     L.append("## Import graph")
@@ -180,17 +208,30 @@ def main():
         slots = check_slots.collect()
     except Exception:
         slots = []
-    owed = [s for s in slots if not s["discharged_by"]]
-    L.append("## Open obligations (from `Zero/Slots.lean`)")
+    # `owed` means DEBT. A `permanent` slot is a recorded boundary, not debt, and counting it as owed
+    # would make the report claim three unfinished obligations that can never be finished. This used to
+    # be its own copy of `not discharged_by` while `check_slots.py` had another copy -- and they would
+    # have drifted the moment either changed. Both now use the `kind` field.
+    owed = [s for s in slots if s["kind"] in ("open_", "weakened")]
+    bounds = [s for s in slots if s["kind"] == "permanent"]
+    L.append("## Open obligations (from `Lattice/Slots.lean`)")
     L.append("")
     if owed:
-        L.append("| slot |")
-        L.append("|:--|")
+        L.append("| slot | state |")
+        L.append("|:--|:--|")
         for s in owed:
-            L.append("| `%s` |" % s["name"])
+            L.append("| `%s` | `%s` |" % (s["name"], s["kind"]))
     else:
         L.append("_none_")
     L.append("")
+    if bounds:
+        L.append("### Permanent boundaries (recorded, not debt)")
+        L.append("")
+        L.append("| slot | why it cannot close |")
+        L.append("|:--|:--|")
+        for s in bounds:
+            L.append("| `%s` | %s |" % (s["name"], s["reason"]))
+        L.append("")
 
     L.append("## The four target theorems and what each rests on")
     L.append("")

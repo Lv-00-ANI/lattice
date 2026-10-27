@@ -46,6 +46,27 @@ PLACEHOLDER = re.compile(r"^\s*(?:True|trivial)\s*$")
 
 DEF = re.compile(r"(?m)^(?:noncomputable\s+)?(?:abbrev|def)\s+(\w+)([^\n]*?)(?::=|where)\s*(.*)$")
 
+#: A `theorem`/`lemma` whose STATEMENT carries no information. Round 177: four of these existed
+#: (`binary_induction_not_done`, `float_comparison_is_not_a_preorder`, `completeness_not_available`,
+#: `foldBlanks_not_fca_doc`), each a bookmark for prose. A statement of `True` asserts nothing, so such
+#: a theorem occupies a name in the census and proves nothing -- worse than a comment, because it also
+#: inflates the count.
+#:
+#: Unlike a `def` stub there is NO label that legitimises this: the honest alternatives are to delete
+#: the theorem or to state the real proposition. So this half of the check has no exemption.
+#: Optional parameter list. It may itself contain colons (`(T : Nat)`), so it cannot be matched with
+#: `[^:]*` -- that was the first version and it silently skipped every parameterised theorem.
+PARAMS = r"(?:\s*\((?:[^()]|\([^()]*\))*\))?"
+
+TRUE_THEOREM = re.compile(
+    r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:noncomputable[ \t]+)?(?:theorem|lemma)\s+(\w+)"
+    + PARAMS + r"\s*:\s*True\s*:=")
+
+#: `theorem foo : a = a` -- syntactically reflexive, so it states nothing either.
+REFLEXIVE_THEOREM = re.compile(
+    r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:noncomputable[ \t]+)?(?:theorem|lemma)\s+(\w+)"
+    + PARAMS + r"\s*:\s*(\w+)\s*=\s*\2\s*:=")
+
 #: A docstring counts as a label if it says any of these.
 LABEL = re.compile(r"桩|stub|placeholder|未实现|恒等|negative control|负对照")
 
@@ -61,6 +82,16 @@ def scan(root=LAT):
             if UPSTREAM_CARRYING.search(rel) or rel.startswith("Reference/"):
                 continue
             src = io.open(p, "rb").read().decode("utf-8", errors="replace")
+
+            # (a) empty theorems: statement is `True` or syntactically reflexive. No exemption.
+            for m in TRUE_THEOREM.finditer(src):
+                problems.append((rel, src[:m.start()].count("\n") + 1, m.group(1),
+                                 "statement is True"))
+            for m in REFLEXIVE_THEOREM.finditer(src):
+                problems.append((rel, src[:m.start()].count("\n") + 1, m.group(1),
+                                 "statement is reflexively true"))
+
+            # (b) placeholder definitions: labelled ones are acceptable
             for m in DEF.finditer(src):
                 name, body = m.group(1), m.group(3).strip()
                 if not PLACEHOLDER.match(body):
@@ -81,8 +112,7 @@ def scan(root=LAT):
 def main(argv):
     problems = scan()
     for rel, line, name, body in problems:
-        print("  %-52s L%-5d %-22s body: %s   <- no stub label"
-              % (rel, line, name, body))
+        print("  %-52s L%-5d %-22s %s" % (rel, line, name, body))
     if "--self-test" in argv:
         d = os.path.join(HERE, ".stub-selftest")
         os.makedirs(d, exist_ok=True)
@@ -91,25 +121,38 @@ def main(argv):
                 "/-- the conflict detector finds conflicts --/\ndef bad : Prop := True\n")
             io.open(os.path.join(d, "B.lean"), "w", encoding="utf-8").write(
                 "/-- a stub: always true, kept for shape --/\ndef good : Prop := True\n")
+            # the empty-theorem half: a LABEL must NOT rescue these, because `True` asserts nothing
+            io.open(os.path.join(d, "C.lean"), "w", encoding="utf-8").write(
+                "/-- a stub, honestly labelled --/\ntheorem badThm : True := trivial\n")
+            io.open(os.path.join(d, "D.lean"), "w", encoding="utf-8").write(
+                "theorem badRefl (T : Nat) : T = T := rfl\n")
+            io.open(os.path.join(d, "E.lean"), "w", encoding="utf-8").write(
+                "theorem fine (a b : Nat) (h : a = b) : a = b := h\n")
             found = scan(d)
             names = {n for _, _, n, _ in found}
-            if "bad" not in names:
-                print("SELF-TEST FAILED: an unlabelled stub was accepted")
-                return 2
-            if "good" in names:
-                print("SELF-TEST FAILED: a labelled stub was rejected")
-                return 2
+            for want, why in (("bad", "an unlabelled stub was accepted"),
+                              ("badThm", "a `: True` theorem was accepted"),
+                              ("badRefl", "a reflexively-true theorem was accepted")):
+                if want not in names:
+                    print("SELF-TEST FAILED: %s" % why)
+                    return 2
+            for unwanted, why in (("good", "a labelled stub was rejected"),
+                                  ("fine", "a real theorem was rejected")):
+                if unwanted in names:
+                    print("SELF-TEST FAILED: %s" % why)
+                    return 2
         finally:
             import shutil
             shutil.rmtree(d, ignore_errors=True)
-        print("SELF-TEST: unlabelled stubs caught, labelled ones accepted")
+        print("SELF-TEST: stubs caught, labelled stubs accepted, empty theorems caught,"
+              " real theorems accepted")
         return 0
 
     if problems:
         print()
-        print("STUB REGISTRY: %d unlabelled placeholder definition(s)" % len(problems))
+        print("STUB REGISTRY: %d placeholder declaration(s)" % len(problems))
         return 1
-    print("STUB REGISTRY: every placeholder definition is labelled")
+    print("STUB REGISTRY: no unlabelled placeholder definition and no empty theorem")
     return 0
 
 

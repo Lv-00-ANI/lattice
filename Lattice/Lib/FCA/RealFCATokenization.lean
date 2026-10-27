@@ -472,7 +472,9 @@ FCA 的双向读法要求**同一个 `R`** 同时充当 `intent` 与 `extent`；
 （传递/反对称），故**该层的选择集不构成 `intent` 的极大元**。
 
 ⚠ **本文件据此把它登记为「边界」而非「定理」——
-这是诚实标注，不是遗漏。** -/
-theorem foldBlanks_not_fca_doc : True := trivial
+这是诚实标注，不是遗漏。**
+
+**这条边界此前挂在一个 `theorem foldBlanks_not_fca_doc : True := trivial` 上，该定理已删除**：
+它的陈述是 `True`，所以它只占一个名字、什么也没断言。**边界就是边界，不需要一个空定理来占位。** -/
 
 end Lattice

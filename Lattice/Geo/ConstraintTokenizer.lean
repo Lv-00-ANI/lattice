@@ -209,14 +209,11 @@ theorem structure_survives_tokens (p : ℕ) (axis : Fin n) (m fuel : ℕ) :
     dec (n := n) (fuel + 1) (enc (n := n) (.const m)) = some (.const m, 2) :=
   ⟨dec_enc_coord p axis fuel, dec_enc_const m fuel⟩
 
-/-- **未做的一步**：二元节点的往返归纳。
+/-! ## 五、二元节点：方程引理与完整往返
 
-`drop_enc_append` 给出了「删掉左子树后剩下右子树」，
-但归纳步还需要「`dec fuel` 在左子树编码上恰好消费 `encLen` 个 token」——
-那是另一条需要对 `dec` 做归纳的引理。**本轮未做。** -/
-theorem binary_induction_not_done : True := trivial
-
-/-! ## 五、二元节点：方程引理与完整往返 -/
+**第 112 轮此处曾留一条 `binary_induction_not_done : True`，记录「二元节点的归纳本轮未做」。**
+**第 144 轮做完了**（见本节末尾的 `structure_survives_tokens_full`），
+所以那条空定理和它的注释都已删除：一个陈述为 `True` 的「定理」不是记录，是不占位的名字。 -/
 
 /-- **`enc e` 非空**：每个构造子的编码都以 `tagX ::` 开头。 -/
 theorem enc_ne_nil (e : SExpr n) : enc (n := n) e ≠ [] :=

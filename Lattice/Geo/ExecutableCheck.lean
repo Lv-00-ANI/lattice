@@ -144,23 +144,32 @@ theorem approxHoldsLeZero_sound (T : Tolerance) (e : CExpr n)
 theorem tolerance_arbitrary (t : Float) (h : t > 0) : ∃ T : Tolerance, T.tol = t :=
   ⟨⟨t, h⟩, rfl⟩
 
-/-- **容差的字段就是结构里的值**：可执行判定用的容差与记录的正性前提是同一个字段。 -/
-theorem tolerance_field (T : Tolerance) : T.tol = T.tol := rfl
+/-! ## 六、`Float` 上没有可用的序结构（工具链观测，不是命题）
 
-/-- **`Float` 上没有 `Preorder` 实例**，所以 `lt_irrefl` 之类的序引理**不可用**。
+**本节原有两条陈述为 `True` 的「定理」，另有一条纯粹的 `rfl`，它们都已删除：**
+
+| 被删的声明 | 为什么删 |
+|:--|:--|
+| `tolerance_field (T) : T.tol = T.tol` | 纯粹的 `rfl`，**没有陈述任何东西** |
+| `float_comparison_is_not_a_preorder : True` | 陈述是 `True` |
+| `completeness_not_available : True` | 它自己的注释写「记录为注释性定理（返回 `True`），因为它的内容就是上面的论证文本」——**一段论证放进 `True` 的陈述里并没有被记录，只是被命名了** |
+
+**它们原本要记录的内容，作为散文保留：**
 
 写这个文件时我试图用 `lt_irrefl` 证明 `T.tol ≠ 0`，Lean 报
-`failed to synthesize Preorder Float`。因此，`Tolerance.pos` 的 **`0 < tol` 无法被
-反自反性反驳**，只能作为**结构前提**存在——这正是 `Tolerance` 结构的用途：
-**把「容差为正」变成构造的前提，而不是一条待证的命题。**
+`failed to synthesize Preorder Float`。因此 `Tolerance.pos` 的 `0 < tol` **无法被反自反性反驳**，
+只能作为**结构前提**存在——这正是 `Tolerance` 结构的用途：**把「容差为正」变成构造的前提，
+而不是一条待证的命题。**
 
 `Float` 的比较函数（`Float.lt`）直接定义为 `Float.compare ... = .lt`；
-在 `Float` 上做序推理必须**逐个归约**，不能套用 `ℚ`/`ℝ` 的引理。 -/
-theorem float_comparison_is_not_a_preorder : True := trivial
+在 `Float` 上做序推理必须**逐个归约**，不能套用 `ℚ`/`ℝ` 的引理。
 
-/-! ## 六、完备性不可得的论证 -/
+**这是关于 Lean 工具链的观测，不是关于 `Float` 的定理**：Lean 无法证明「某个类型类实例不存在」，
+所以它一开始就不可能被写成一个真命题。 -/
 
-/-- **完备性不可得**，且这是**被记录下来的结论**，不是一个待办。
+/-! ## 七、完备性不可得（论证，不是定理）
+
+**完备性不可得**，且这是**被记录下来的结论**，不是一个待办。
 
 论证：
 1. `Holds` 作用于 `ℝ`，`approxHolds` 作用于 `Float`；
@@ -170,9 +179,9 @@ theorem float_comparison_is_not_a_preorder : True := trivial
 
 ⇒ **只有 `sound` 方向可证，完备性方向不可证。**
 
-**这一条记录为注释性定理（返回 `True`），因为它的内容就是上面的论证文本。**
-把它写成定理而不是散文，是为了让它在清册里可见。 -/
-theorem completeness_not_available : True := trivial
+**这不再挂在一个 `theorem ... : True := trivial` 上**：那条定理的陈述是 `True`，
+所以它在清册里占一个名字却什么也没断言；而这段论证本身是**对证明不可能性的论证**，
+不是一条 Lean 命题。 -/
 
 end ExecutableCheck
 
