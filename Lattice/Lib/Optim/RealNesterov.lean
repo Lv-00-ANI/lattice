@@ -130,7 +130,7 @@ theorem heavyBall_contraction {g : ℝ → ℝ} {μ L : ℝ} (hμ : 0 < μ) (hL 
     (hμL : μ ≤ L) {xstar : ℝ} (hcc : GradientCoCoercive μ L g xstar) (x : ℝ) :
     ‖x - (2 / (μ + L)) * g x - xstar‖ ≤ ((L - μ) / (L + μ)) * ‖x - xstar‖ := by
   have hc0 : 0 ≤ (L - μ) / (L + μ) := div_nonneg (by linarith) (by linarith)
-  have h := strong_convex_iterate_contraction hμ hL hμL hcc x
+  have h := strong_convex_iterate_contraction hμ hL hcc x
   have hsquare : ((L - μ) / (L + μ)) ^ 2 * ‖x - xstar‖ ^ 2
       = (((L - μ) / (L + μ)) * ‖x - xstar‖) ^ 2 := by ring
   rw [hsquare] at h

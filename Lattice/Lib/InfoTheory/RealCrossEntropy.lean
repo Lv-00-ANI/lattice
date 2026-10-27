@@ -129,9 +129,9 @@ theorem entropy_nonneg (p : Fin k → ℝ) (hp0 : ∀ a, 0 < p a) (hpsum : ∑ a
 
 /-! ## 定理三：one-hot 标签的 CE 只剩一项
 CE(onehot_y, q) = −log(q_y)（`Finset.sum_eq_single`：a ≠ y 项为零）。
-`0 < q y` 仅作 log 定义域标注（mathlib 的 log 是全函数，证明并不需要）。-/
+**第 213 轮删掉了前提 `(_hq : 0 < q y)`。** 本文件的 docstring 早就写着它是「log 定义域标注（mathlib 的 log 是全函数，证明并不需要）」——**承认了却留着，就是「说得比该说的弱」**。现在它与承认一致。 -/
 
-theorem ce_onehot_eq_neg_log (y : Fin k) (q : Fin k → ℝ) (_hq : 0 < q y) :
+theorem ce_onehot_eq_neg_log (y : Fin k) (q : Fin k → ℝ) :
     crossEntropy (onehot y) q = -Real.log (q y) := by
   have hsum : ∑ a, onehot y a * Real.log (q a) = Real.log (q y) := by
     rw [Finset.sum_eq_single y (by
@@ -206,7 +206,7 @@ CE(onehot_y, q) = 0 ⟺ q_y = 1（由 ce_onehot_eq_neg_log + log 零点）。-/
 
 theorem ce_eq_zero_of_onehot (y : Fin k) (q : Fin k → ℝ) (hq : 0 < q y) :
     crossEntropy (onehot y) q = 0 ↔ q y = 1 := by
-  rw [ce_onehot_eq_neg_log y q hq]
+  rw [ce_onehot_eq_neg_log y q]
   constructor
   · intro h
     have hlog : Real.log (q y) = 0 := by linarith
@@ -226,7 +226,7 @@ CE(onehot_y, softmax s) = −log(softmax s y)（训练线衔接：CE 即标准�
 theorem ce_onehot_softmax_eq_neg_log (s : Fin k → ℝ) (y : Fin k) :
     crossEntropy (onehot y) (softmax s) = -Real.log (softmax s y) := by
   haveI : Nonempty (Fin k) := ⟨y⟩
-  exact ce_onehot_eq_neg_log y (softmax s) (softmax_pos s y)
+  exact ce_onehot_eq_neg_log y (softmax s)
 
 /-! ## 定理七：Gibbs 不等式（CE ≥ H，KL 非负）
 H(p) ≤ CE(p,q)（p、q 严格正概率向量）。

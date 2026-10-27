@@ -179,7 +179,7 @@ theorem proxGrad_contraction {g h : ℝ → ℝ} {μ L η : ℝ} (hμ : 0 < μ) 
   have hηpos : 0 < η := by rw [hη]; positivity
   have hne := prox_nonexpansive hconv hηpos hprox hstar
   rw [hη] at hne
-  have hcc' := strong_convex_iterate_contraction hμ hL hμL hcc x
+  have hcc' := strong_convex_iterate_contraction hμ hL hcc x
   have hsquare : ((L - μ) / (L + μ)) ^ 2 * ‖x - xstar‖ ^ 2
       = (((L - μ) / (L + μ)) * ‖x - xstar‖) ^ 2 := by ring
   rw [hsquare] at hcc'

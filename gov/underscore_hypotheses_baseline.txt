@@ -57,7 +57,6 @@ Lib/Editing/RealExtractionDirection.lean	extract_to_weights	_h	unused
 Lib/Editing/RealRepairMetric.lean	repairTo_preserves	_h	unused
 Lib/Editing/RealRoundtripNontrivial.lean	forall_proper_subset_roundtrip_is_rfl	_hS	unused
 Lib/Editing/RealSeparation.lean	not_mem_interior_improvingSet	_hfeas	unused
-Lib/InfoTheory/RealCrossEntropy.lean	ce_onehot_eq_neg_log	_hq	unused
 Lib/InfoTheory/RealInfoNCELowerBound.lean	infonce_eq_log_card_add_log_mean	_hτ	unused
 Lib/InfoTheory/RealInfoNCELowerBound.lean	infonce_lower_uniform_avg	_hτ	unused
 Lib/InfoTheory/RealOptimalTransport.lean	dual_weak_optimal	_hopt	unused
@@ -106,7 +105,6 @@ Lib/Optim/RealRiemannianGD.lean	min_grad_rate	_h0	unused
 Lib/Optim/RealSGDStochastic.lean	sgd_expected_gap_sum_seq	_hη	unused
 Lib/Optim/RealStrongConvex.lean	strong_convex_gap_le_grad_sq	_hg0	unused
 Lib/Optim/RealStrongConvex.lean	strong_convex_contraction	_hμL	unused
-Lib/Optim/RealStrongConvex.lean	strong_convex_iterate_contraction	_hμL	unused
 Lib/Optim/RealTD.lean	td_contraction_norm	_hγ1	unused
 Lib/Optim/RealValueIteration.lean	value_iteration_contraction	_hγ1	unused
 Lib/Quantization/RealConversionStabilityFloatBounds.lean	ce_float_abs_le_mag	_hA	unused

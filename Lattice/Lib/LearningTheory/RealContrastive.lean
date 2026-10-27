@@ -65,7 +65,7 @@ theorem infonce_eq_neg_log_softmaxTemp {n : ℕ} (s : Fin n → ℝ) (τ : ℝ) 
 /-- InfoNCE 是交叉熵的实例：−log softmax_i = CE(onehot_i, softmax s/τ)（`ce_onehot_eq_neg_log`）。 -/
 theorem infonce_eq_ce {n : ℕ} (s : Fin n → ℝ) (τ : ℝ) (i : Fin n) :
     infoNCE s τ i = crossEntropy (onehot i) (softmax (fun j => s j / τ)) := by
-  rw [infoNCE, ce_onehot_eq_neg_log i (softmax (fun j => s j / τ)) (softmax_pos _ i)]
+  rw [infoNCE, ce_onehot_eq_neg_log i (softmax (fun j => s j / τ))]
 
 /-! ## 定理一：InfoNCE 非负 -/
 

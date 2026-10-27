@@ -8437,7 +8437,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `strictlyDominates_imp_paretoDominates` -> `e2`
 - `strong_convex_contraction` -> `SubgradientIterate`, `contraction_converges`, `induction`, `le_trans`, `zero`
 - `strong_convex_gap_bound` -> `SubgradientIterate`, `contraction_converges`, `induction`, `zero`
-- `strong_convex_gap_le_grad_sq` -> `SubgradientIterate`, `contraction_converges`, `ex`, `induction`, `zero`
+- `strong_convex_gap_le_grad_sq` -> `SubgradientIterate`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_gap_lower` -> `SubgradientIterate`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_gap_nonneg` -> `SubgradientIterate`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_implies_PL` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `contraction_converges`, `induction`, `nesterov_descent_lemma`, `strong_convex_gap_le_grad_sq`, `zero`

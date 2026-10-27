@@ -213,9 +213,9 @@ KL(onehot_y ‖ q) = CE(onehot_y, q) − H(onehot_y) = −log(q_y) − (−log 1
 theorem kl_onehot {k : ℕ} (y : Fin k) (q : Fin k → ℝ) (hq : 0 < q y) :
     kl (onehot y) q = -Real.log (q y) := by
   unfold kl entropy
-  rw [ce_onehot_eq_neg_log y q hq]
+  rw [ce_onehot_eq_neg_log y q]
   have hq1 : 0 < onehot y y := by simp [onehot]
-  rw [ce_onehot_eq_neg_log y (onehot y) hq1]
+  rw [ce_onehot_eq_neg_log y (onehot y)]
   simp [onehot, Real.log_one]
 
 /-! ## 定理五（加分）：softmax 概率向量的 KL 非负

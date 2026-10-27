@@ -249,7 +249,7 @@ def GradientCoCoercive (μ L : ℝ) (g : ℝ → ℝ) (xstar : ℝ) : Prop :=
 
 /-- **共强制 ⟹ 迭代收缩系数 ((L−μ)/(L+μ))²**（步长 η = 2/(μ+L)）。 -/
 theorem strong_convex_iterate_contraction {g : ℝ → ℝ} {μ L : ℝ} (hμ : 0 < μ) (hL : 0 < L)
-    (_hμL : μ ≤ L) {xstar : ℝ} (hcc : GradientCoCoercive μ L g xstar) (x : ℝ) :
+    {xstar : ℝ} (hcc : GradientCoCoercive μ L g xstar) (x : ℝ) :
     ‖x - (2 / (μ + L)) * g x - xstar‖ ^ 2 ≤
       ((L - μ) / (L + μ)) ^ 2 * ‖x - xstar‖ ^ 2 := by
   have hμLμ : μ + L ≠ 0 := by positivity
@@ -452,17 +452,24 @@ theorem strong_convex_implies_cocoercive {f g : ℝ → ℝ} {μ L : ℝ}
 `GradientCoCoercive` 假设由 `strong_convex_implies_cocoercive` **推出** ⟹
 只需 `StrongConvex` + `Smooth` + `g x* = 0` 即得最优系数 `((L−μ)/(L+μ))²`。
 
-**注意（诚实边界）**：本版**额外显式**写出两条原版隐含的假设 ——
-`μ ≤ L`（原版 `strong_convex_iterate_contraction` 的 `_hμL`，被下划线标记为
-"未使用"，但**保留它是正确的**；此处照实显式化，**不隐藏**）与
-`0 < μ + L`（供新推导中 `div_le_iff₀` 的分母正性）。 -/
+**注意（诚实边界，第 213 轮更正）**：本版额外显式写出 `μ ≤ L` 与 `0 < μ + L`
+（后者供 `div_le_iff₀` 的分母正性）。
+
+原文在此处写的是「`μ ≤ L`（原版 `_hμL`，被下划线标记为"未使用"，但**保留它是正确的**）」。
+**那句话是错的，已删。** 原版的 `_hμL` **确实可删**：证明里 `h1` 只用共强制性，
+`h2` 是纯代数恒等式（`field_simp` + `ring`），**没有任何一步需要 `μ ≤ L`**。
+删掉后**命题本身仍为真**，只是当 `μ > L` 时系数 `((L−μ)/(L+μ))²` 不再 `≤ 1`，
+**那时它不是收缩因子**。
+
+**所以本版保留 `μ ≤ L` 的理由是「为了『收缩』这个解读」，不是「为了命题的真假」。**
+两种理由必须分开写——把「为了解读」说成「为了真假」，正是原注的错误。 -/
 theorem strong_convex_iterate_contraction_of_sc {f g : ℝ → ℝ} {μ L : ℝ} (hμ : 0 < μ)
     (hL : 0 < L) (hμL_le : μ ≤ L) (hSC : StrongConvex μ f g) (hSM : Smooth L f g)
     {xstar : ℝ} (hg0 : g xstar = 0) (x : ℝ) :
     ‖x - (2 / (μ + L)) * g x - xstar‖ ^ 2 ≤
       ((L - μ) / (L + μ)) ^ 2 * ‖x - xstar‖ ^ 2 := by
   have hμL : 0 < μ + L := by linarith
-  exact strong_convex_iterate_contraction hμ hL hμL_le
+  exact strong_convex_iterate_contraction hμ hL
     (strong_convex_implies_cocoercive hμL hSC hSM hg0) x
 
 /-- **二次模型上的共强制性实例**（无条件）：`f = (a/2)x²`、`g = a·x`、`x* = 0`、
