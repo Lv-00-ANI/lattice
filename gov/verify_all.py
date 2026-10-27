@@ -170,6 +170,13 @@ CHECKS = [
     # in `check_selftest_coverage.EXEMPT` with the reason it is verified some other way -- and that
     # exemption table is itself checked for rot.
     ("meta: every gate can demonstrate its own failure", "check_selftest_coverage.py"),
+    # Round 176. `check_usage_claims` guards 14 counts; these nine were guarded by NOBODY:
+    # OBJECTIVE-MAP's clause and carrier counts, OBJECTIVE-AUDIT's theorem count, and the owed /
+    # permanent-boundary figures in README, STATE-FINAL and DELIVERY. This round alone moved the
+    # theorem count 8,323 -> 8,328 and the boundary count 3 -> 4, each updated by hand in three or four
+    # documents -- the only reason they are right is that I remembered. That is the pattern this whole
+    # project keeps paying for, so it is now a gate.
+    ("docs: freshness of the tree's own figures", "check_doc_freshness.py"),
     # Round 164: module-level reachability is coarse. This lists skeleton theorems whose name
     # claims a main result and which nothing references -- a reading list, all terminal.
     ("usage: skeleton main theorems", "gen_theorem_usage.py"),
