@@ -54,6 +54,22 @@ theorem quant_error_lt_two_pow (b : ℕ) (x : ℤ) :
 
 - **仍然不做饱和截断**。真实量化器截到 `[-2^(b-1), 2^(b-1))`（有符号），那时误差界不成立，
   而**那是量化失真的主要来源**。本节只证「丢低位」。
+
+  **第 185 轮试过做它，没做成，障碍记录在这里**（不是「没时间」，是具体卡点）：
+  需要先定义 `clampTo B x := max (-B) (min B x)` 并证
+  `|clampTo B x - x| ≤ max (|x| - B) 0`。三条路都试了：
+  1. **`max`/`min` 直接 `rw`**：`Int` 上 `⊔`/`⊓` 是记法，`max_eq_left` 的目标形态与
+     `unfold` 后的表达式对不上（报 `did not find instance of the pattern x ⊔ -B`）；
+  2. **改成 `if` 定义 + `split_ifs`**：分支数对，但 `split_ifs` 产生的假设顺序与预期不同
+     （得到 `h1 : B ≤ x`、`h2 : -B ≤ B`），后续 `omega` 在含 `if` 项的目标上给出
+     「possible counterexample」——`omega` 不穿透未归约的 `if`；
+  3. **`Set.projIcc`**：定义可行（`hB : 0 ≤ B` 给 `-B ≤ B`），但 `Set.projIcc_val_mem`
+     在本 mathlib 不存在（与 `Int.div_mul_add_emod` 一样，名字是猜的），而剩下的
+     `omega` 步骤在 `|·|` 与 `max` 组合上仍失败。
+
+  **结论**：这条路需要的是**先建一组 `clamp` 的格引理**（`clamp_le`、`le_clamp_iff`、
+  `clamp_eq_self` 之类），而不是在一个定理里硬解 case。**那是独立的一块**，
+  按目标的「该分文件的分文件」，它应该有自己的一节。**本轮不硬凑一个弱化版本冒充它。**
 - **`obsWithin` 仍只界住单分量**，不界住层的作用（`affineAct` 输出误差）。
 - **`b` 很大时 `2^b` 溢出**不在形式化范围内：`ℤ` 是无界的，而真实实现是定宽整数。
   **这是模型与实现之间一处已知的差距，不是遗漏。**
