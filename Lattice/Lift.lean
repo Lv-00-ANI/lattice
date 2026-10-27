@@ -36,6 +36,7 @@ import Lattice.Lift.WeightSymbolRepresentation
 import Lattice.Lift.ActivationLadder
 import Lattice.Lift.WeightLadderFullWidthInstance
 import Lattice.Lift.RectangularWeightEncoding
+import Lattice.Lift.RectangularRepresentation
 
 /-!
 # Lattice.Lift -- the representation ladder
