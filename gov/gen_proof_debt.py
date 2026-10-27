@@ -20,10 +20,12 @@ REV = os.path.join(ZERO, "agent-tmp", "review")
 OUT = os.path.join(ZERO, "PROOF-DEBT.md")
 
 # in-degree is taken from the inventory, not from the verdict (the reviewer did not compute it)
+# Keyed by (file, name), NOT line: deleting a theorem shifts every line below it, and a line-keyed
+# join would silently attach the wrong in-degree afterwards.
 inv = {}
 for line in io.open(os.path.join(REV, "inv.jsonl"), encoding="utf-8"):
     r = json.loads(line)
-    inv[(r["file"], r["line"], r["name"])] = r
+    inv[(r["file"], r["name"])] = r
 
 verdicts = []
 for f in sorted(os.listdir(REV)):
@@ -37,7 +39,7 @@ for f in sorted(os.listdir(REV)):
             v = json.loads(line)
         except json.JSONDecodeError:
             continue
-        key = (v.get("file"), v.get("line"), v.get("name"))
+        key = (v.get("file"), v.get("name"))
         rec = inv.get(key, {})
         v["in_degree"] = rec.get("in_degree", 0)
         v["users"] = rec.get("users", [])
@@ -148,6 +150,43 @@ if os.path.exists(RESOLVED):
             A("| `%s` | `%s` | %s |" % (parts[0], parts[1], what))
     A("")
 
+A("## 对抗性复核：第一审判错的 **34 / 45**")
+A("")
+A("把 45 条 `delete` 判定交给第二批子代理，任务设定为**论证第一审判错了**。结果：")
+A("")
+A("| 结论 | 条数 |")
+A("|:--|--:|")
+A("| **推翻**（keep） | **34** |")
+A("| 确认可删（delete-safe） | 8 |")
+A("| 应改写而非删除（rewrite） | 3 |")
+A("")
+A("**76% 的误判率**，原因高度集中：")
+A("")
+A("1. **删除会让构建断裂。** 多条「空定理」被同文件后面的定理当作 `atomic` 义务的实参")
+A("   （`ObligationIndependence:95`/`:144` 就是 `absorbs_not_derivable`/`decreases_not_derivable` 的实参），")
+A("   还有的被 `#print axioms` 审计行点名——而 `#print axioms` 对不存在的名字是**硬错误**。")
+A("   第一审只看了 `proof` 与同名重复，没看后文调用点。")
+A("2. **「重复」常常是删错了对象。** `softThresh_le_of_is_min` 是已授权改名后的成果，")
+A("   真正重复的是同文件 `:428`，且 `:598` 用的是后者。")
+A("3. **「证明便宜」被误当成「陈述为空」。** `add_norm_bound` 是三角不等式，便宜但不是重言。")
+A("4. **4 条根本不是声明**，是 docstring 散文被旧提取器误抽（`stated`、`rather`、`applies`、")
+A("   `eq_softThresh_of_is_min`）。提取器已修，**这些是陈旧数据而非新 bug**。")
+A("")
+A("**所以本文件把「一次判定」当线索，不当结论。** 任何 `delete` 必须经过")
+A("（a）对抗性复核 与（b）全库构建通过，两步都过才落地。")
+A("")
+A("## 第二把尺子也是错的：点号记法")
+A("")
+A("对抗性复核发现 `in_degree` 漏掉**点号记法**：token 正则把 `.` 算进标识符，")
+A("于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。")
+A("实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。")
+A("")
+A("修正后（标识符按 `.` 切开）入度 ≥ 1 的定理从 839 升到 **872**，排名重排：")
+A("`roundtrip_extractVec` 升到首位（18）。")
+A("")
+A("**这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。")
+A("两次都由审阅人发现，两次都无法由守卫自身发现。")
+A("")
 A("## 后续")
 A("")
 A("1. **按修正后的入度重跑第一层**（839 条），再补齐其余 7,587 条。")

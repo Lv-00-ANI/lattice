@@ -97,11 +97,6 @@ theorem sound_holds {P X : Type} [TopologicalSpace X] (E : PenaltyEmbedding P X)
 
 /-! ## 四、非恒等 -/
 
-/-- **`compile` 改变类型**：`P → (X → ℝ)`；恒等映射做不到。 -/
-theorem compile_changes_type {P X : Type} [TopologicalSpace X] (E : PenaltyEmbedding P X) (p : P) :
-    (penaltyToLoss E).compile p = fun x => E.loss p x := rfl
-
-/-- **不同符号项给出不同损失**：输出**真的依赖 `p`**。 -/
 theorem compile_output_varies {P X : Type} [TopologicalSpace X] (E : PenaltyEmbedding P X)
     (p q : P) (x : X) (h : E.loss p x ≠ E.loss q x) :
     (penaltyToLoss E).compile p ≠ (penaltyToLoss E).compile q := by

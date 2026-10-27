@@ -113,25 +113,6 @@ theorem signature_sequential {α : Type} (P Q : α → Prop) :
 theorem signature_bridged {α : Type} (P Q : α → Prop) :
     Signature .bridged P Q = (∀ x, P x → Q x, Q) := rfl
 
-/-- **两类的证据形状不同**——这是判定器存在的理由。 -/
-theorem evidence_kinds_differ {α : Type} (P Q : α → Prop) :
-    Evidence .sequential P Q = True ∧ Evidence .bridged P Q = (∀ x, P x → Q x) :=
-  ⟨rfl, rfl⟩
-
-/-! ## 四、可靠性：桥是必要条件 -/
-
-/-- **`sequential` 确实不需要额外证据**：`Evidence` 是 `True`。 -/
-theorem sequential_evidence_trivial {α : Type} (P Q : α → Prop) :
-    Evidence .sequential P Q := trivial
-
-/-- **`bridged` 时桥是必要的，不是保守估计。**
-
-第 47 轮 `bridge_is_necessary` 在判定器语境下的重述：若没有桥，命题为假。 -/
-theorem bridged_needs_bridge :
-    ¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ),
-        (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))) :=
-  BridgedComposition.bridge_is_necessary
-
 end CompositionClass
 
 end Lattice.Audit

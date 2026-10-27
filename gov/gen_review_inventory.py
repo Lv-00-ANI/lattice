@@ -145,7 +145,10 @@ def main():
     corpus = load_corpus()
 
     # ---- in-degree: code-only occurrences, and only from files that can import the definition ----
-    word = re.compile(r"[\w'.ᵢ-₉]+")
+    # Identifiers are scanned WITHOUT the dot, so `L.ladder_forward` yields the token
+    # `ladder_forward`. Including `.` in the token made every dot-notation call invisible and
+    # reported `ladder_forward` as in-degree 1 when it has 15 real call sites in 13 files.
+    word = re.compile(r"[A-Za-z_\u03b1-\u03c9][\w'ᵢ-₉]*")
     refs = defaultdict(set)          # name -> set of files mentioning it in CODE
     for rel, (code, _wd, _imp) in corpus.items():
         for m in word.finditer(code):

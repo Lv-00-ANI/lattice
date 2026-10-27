@@ -31,6 +31,20 @@ ENTRIES = [
         "结构上它经 `forall_mem_map_iff` 逐点提升（真定理，非重言），但内容不超出被提升的那条。"
         "新增 `symbolToWeight_correct_blind_to_arity` 把盲区变成同一层的否定定理。",
     ),
+    (
+        "(8 处，见本条)",
+        "delete × 8",
+        "对抗性复核确认无信息量且无依赖，已删除并逐一通过全库构建："
+        "`ChainTransitivity.preserves_one`（陈述就是 binder 的类型）、"
+        "`CompositionClass.sequential_evidence_trivial`（陈述是常值 True，被同文件 "
+        "`evidence_kinds_differ` 更强覆盖）、`CompositionClass.bridged_needs_bridge`"
+        "（与 `BridgedComposition.bridge_is_necessary` 逐字相同）、"
+        "`MultiComposition.chain_nil_identity`（展开即 `hx`）、"
+        "`RealCanonicalCompileComm.comm_via_extract`（条件恒真）、"
+        "`RealExtractSurjectivity.extractVec_range_ne_proper`（与紧邻上一条逻辑等价）、"
+        "`ConstraintToLoss.compile_changes_type` 与 `RatRepresentation.compile_changes_type`"
+        "（各与同文件前 8–16 行的另一份逐字同陈述同 `rfl` 证明，删的是后一份副本）。",
+    ),
 ]
 
 lines = [

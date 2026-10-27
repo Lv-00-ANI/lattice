@@ -124,12 +124,6 @@ theorem chain_single {P Q : α → Prop} (h : ∀ x, P x → Q x) (x : α) (hx :
     (Chain.cons Q h (Chain.nil Q)).out x :=
   compose_chain (Chain.cons Q h (Chain.nil Q)) x hx
 
-/-- **空链是恒等**（第 59 轮的 `compose_sequential`）。 -/
-theorem chain_nil_identity {P : α → Prop} (x : α) (hx : P x) :
-    (Chain.nil P).out x :=
-  compose_chain (Chain.nil P) x hx
-
-/-- **两段的链**：逐段对照第 59 轮的 `compose_bridged`。 -/
 theorem chain_two {P Q R : α → Prop} (h1 : ∀ x, P x → Q x) (h2 : ∀ x, Q x → R x)
     (x : α) (hx : P x) :
     (Chain.cons Q h1 (Chain.cons R h2 (Chain.nil R))).out x :=

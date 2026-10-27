@@ -189,26 +189,6 @@ theorem compileThenCanonicalize_apply (c : VectorConstraint) :
     compileThenCanonicalize c = canonicalize c :=
   rfl
 
-/-- 要点 **两条路径确实"交换"**（把路径 ② 经 `extractVec` 拉回符号侧后）：
-`extractVec (canonicalizeThenCompile c) = compileThenCanonicalize c`。
-
-注意 **本定理为真，但因 `compileThenCanonicalize_eq_canonicalize` 而【空洞】**：
-它展开后就是 `canonicalize c = canonicalize c`。
-要点 **本文件把它**显式登记**而不是悄悄略过** —— 因为"交换律成立"这句话
-在**这条路径上**是真的、却**不含缺口 B 的任何内容**。
-注意 **这正是"声明计数 ≠ 内容量"的又一个实例**（README §「新增模块」已登记的同类现象）。 -/
-theorem comm_via_extract (c : VectorConstraint) :
-    extractVec (canonicalizeThenCompile c) = compileThenCanonicalize c := by
-  cases c with
-  | mk a b => rfl
-
-/-- 要点 **空洞性的精确刻画**（承重的**否定**形式）：
-在**经权重侧**的路径上，"交换律"**不可能**把 `canonicalize` 换成任何**别的**函数——
-因为该路径**恒等于** `canonicalize` 本身。
-
-注意 **陈述形式**：若一条路径 `P` 满足 `∀ c, P c = canonicalize (extractVec (convertVec c))`，
-则 `P = canonicalize`（**函数外延**）。
-⇒ 要点 **这是"权重侧无法为交换律提供新内容"的机器化表述**。 -/
 theorem any_compile_side_path_eq_canonicalize
     (P : VectorConstraint → VectorConstraint)
     (h : ∀ c, P c = compileThenCanonicalize c) :

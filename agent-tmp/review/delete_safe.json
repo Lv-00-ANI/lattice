@@ -1,0 +1,370 @@
+{
+ "safe": [
+  {
+   "file": "Audit/ChainTransitivity.lean",
+   "line": 111,
+   "name": "preserves_one",
+   "verdict": "delete-safe",
+   "why": "逐字对着看：陈述 (hf : forall x, P x -> P (f x)) -> (x) -> (hx : P x) -> P (f x) 就是 hf 的结论类型；证明 hf x hx 是 binder 的直接实例化。它既不组合（不像 preserves_two:104 / preserves_three:116 真的把两三个保持性串起来，那才承载文件 §1 的传递性论点），也不经过主定理（对比同文件 iterate_from_fold:140，那是走 preserves_foldl 的，才是『投影』该有的形态）。依赖面：大小写敏感全库 grep 只命中声明这一行，无任何证明/文档/审计按名引用（in_degree=0 这次是对的）。删掉不会让任何证明断，也不会丢一个别处没记的事实——n=1 的情形由 preserves_foldl:91 在空表/单元素实例上平凡给出，文件头 §5(:59-64) 自己就承认这些是『同一条定理的三个投影』。也没有接口身份：纯 {alpha : Type} 泛化，无结构字段、无契约谓词、无 #print axioms 审计、无跨文件文档按名引用。若作者要保住『三个投影』的口径，正确形态是从 preserves_foldl 导出（像 iterate_from_fold 那样），那是改写新增，不是保住原物。⇒ delete-safe。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/CompositionClass.lean",
+   "line": 124,
+   "name": "sequential_evidence_trivial",
+   "verdict": "delete-safe",
+   "why": "陈述展开后是常值 True（Evidence .sequential P Q 归约到 True，:78），证明 trivial，而且它断言的事实被上一条更强地覆盖：evidence_kinds_differ(:117) 的第一个合取项正是 Evidence .sequential P Q = True，从它可以一行推出本条。所以这不是『唯一记录』，而是同一事实的较弱重述——本库自己反对的那种重复登记。依赖面：大小写敏感全库 grep 只命中声明一行，无任何证明/文档/审计按名引用（不像 extract_is_valid 还有 #print axioms 审计）；消费侧也不需要它，任何需要构造 sequential 证据的地方直接写 trivial 即可（类型本身就是 True），这正是 compose_sequential(:92) 干脆不接收证据参数的原因。删它不断链、不丢事实、不动任何接口。若想保留『每类成本』的对照口径，正确载体是 Evidence 定义 + 已保留的 evidence_kinds_differ，而不是第二条 True 定理。⇒ delete-safe。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/CompositionClass.lean",
+   "line": 130,
+   "name": "bridged_needs_bridge",
+   "verdict": "delete-safe",
+   "why": "陈述与 Audit/BridgedComposition.lean:107-110 的 bridge_is_necessary 逐字相同：两边都是 not (forall (P Q : Nat -> Prop) (f g : Nat -> Nat), (forall x, P x -> P (f x)) -> (forall x, Q x -> Q (g x)) -> forall x, P x -> Q (g (f x)))，连类型取 Nat、命题取 Prop 的写法都一样——不是特化、不是弱化，因此连『换载体再导出』这点接口价值也没有；证明是单标识符别名（:133）。它也不提供可见性好处：该模块已由 :57 import Lattice.Audit.BridgedComposition 在场，任何消费者写全名即可，事实一个不少。依赖面：全库 2 处命中都在本文件（:45 的表格行 + 声明），无代码引用、无 #print axioms、无下游证明。本库已有去重先例（ConvertLinear:103 把与 ComboN 逐字相同的 EvenSat/EvenOut 本地副本删掉、改为单一权威源，理由就是 environment already contains），本条属同一类债。删后只需把 :45 表格那一行指到 BridgedComposition.bridge_is_necessary。⇒ delete-safe（这一条我同意第一审）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/MultiComposition.lean",
+   "line": 128,
+   "name": "chain_nil_identity",
+   "verdict": "delete-safe",
+   "why": "陈述 `(Chain.nil P).out x` 按 `Chain.out` 的定义（:101-103，`.nil P => P`）就是 `P x`，与 binder `hx : P x` 逐字相同；证明沿 `compose_chain` 的 nil 分支（:117 `| _, .nil _, _, hx => hx`）归约后仍是 `hx`。全库无代码引用（in_degree=0，跨库 grep 只命中本行声明），文件头 §3 表里登记的又是已不存在的名字 `chain_nil`，故删掉不会让任何证明断、也不会让任何现存引用失效。§三『与两段版本对照』的实内容由 `chain_single`/`chain_two` 承担（它们真的用到了桥 `h`），nil 这唯一一条纯重述没有独立记录的事实。若项目想保留链 API 的单位律，正确形态是方程引理 `(Chain.nil P).out = P`（可作 simp 规则），而不是 `P x -> P x` 的重述；但那是新增，不是保留原物。→ 同意删除。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealCanonicalCompileComm.lean",
+   "line": 200,
+   "name": "comm_via_extract",
+   "verdict": "delete-safe",
+   "why": "逐字对照后确认是条件恒真的重言，而不是「定义展开」：左端 `extractVec (canonicalizeThenCompile c)` 展开= `extractVec (convertVec (canonicalize c))` = `canonicalize c`；右端 `compileThenCanonicalize c` 展开 = `canonicalize (extractVec (convertVec c))` = `canonicalize c`——两侧是同一个项。判据不是「proof 短」，而是「把 canonicalize 换成任意 f 仍然真」⇒ 该陈述对任何定义都不构成约束。同一事实已由同文件 `compileThenCanonicalize_eq_canonicalize`(:183)、`compileThenCanonicalize_apply`(:188)、`extractVec_convertVec_rfl`(:148)、`any_compile_side_path_eq_canonicalize`(:212) 机检，删除不损失内容（§二「本文件的第一项交付」仍由 :183/:212 承重）。★ 但删前必须同步三处散文引用，否则按 gov/check_doc_names.py 的约定会变成「引用不存在的声明」：本文件 :34 表行「两条路径确实交换」→ 改指 `compileThenCanonicalize_apply`；:170「见 comm_via_extract」；RealRoundTripVacuity.lean :19 表行与 §5.2(:332-357)——那里已有机检替身 `rt2_paths_collapse`(:361)，可直接改指它。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealExtractSurjectivity.lean",
+   "line": 127,
+   "name": "extractVec_range_ne_proper",
+   "verdict": "delete-safe",
+   "why": "确认与紧邻的上一条 `extractVec_range_eq_univ`(:121) **逻辑等价**而不是「同族」：因为 `Set.range convertVec ≤ Set.univ` 恒成立，`¬(range ⊂ univ)` ⟺ `range = univ`，proof 就是 `rw [上一条]` + `lt_irrefl`。所以它记录的不是新事实，只是同一事实的否定换写；surjectivity 这个内容仍由 :121（以及真正承重的 `extractVec_exists_preimage`:97、`extractVec_injective_layer`:103）承载，删除零内容损失。一审的措辞（「由 range=univ 得 ¬(univ ⊂ univ)，零信息」）在数学上略糙但结论正确。★ 唯一须同步的一处：Lib/Optim/RealSeamBridges2.lean:506 在「NON-VACUITY WITNESS」docstring 里把它列入 RealExtractSurjectivity 的 range 侧清单——改指 `extractVec_range_eq_univ :121` 即可（该处写的 `:124` 本来已经漂移）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/ConstraintToLoss.lean",
+   "line": 101,
+   "name": "compile_changes_type",
+   "verdict": "delete-safe",
+   "why": "同意的删除，且是干净的删除：与同文件 :85 `compile_is_loss` **逐字同陈述、同 rfl 证明**（两份相隔 16 行）；它**不在**本文件 §3 的定理表(:45-51)里（表只列 compile_is_loss / sound_holds / compile_output_varies / second_substantive_instance），全仓代码无引用（gov/PROOF-CHAIN.md:2834 是生成物，重新生成即可）。删后 §四「非恒等」仍由 `compile_output_varies`(:105) 承载「输出真的依赖 p」；而该名字承诺的「compile 改变类型 P → (X→ℝ)」本来就不是这条 rfl 等式能说的（类型改变是 typing 事实，不是 Prop），保留它反而让读者以为「非恒等」已被这条等式机检。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/RatRepresentation.lean",
+   "line": 121,
+   "name": "compile_changes_type",
+   "verdict": "delete-safe",
+   "why": "与同文件 :113 `compile_apply` **逐字同陈述**（`ratRepresentation.compile q = (q.num, q.den)`，proof 均 rfl），相隔 8 行；删掉不损失内容，且 §三「非平凡性」的真实承重是 `compile_injective`(:127) 与 `extract_compile`（表 :70-71）。★ 但必须连带修 §2 定理表 :72 那一行「`compile_changes_type` | **类型改变**（非恒等）」：这一行本来就**没有被陈述支撑**——rfl 展开式只说了 compile 的取值形状，既不是类型命题也不是非恒等命题（`ℚ → ℤ×ℕ` 的类型改变无法写成 Prop，非恒等的中性证据是 `compile_injective`）。所以正确处置不是「留一条 rfl 去撑表」，而是删定理 + 把那行表改成指向 `compile_apply`/`compile_injective`，否则删完表里会留一条无依据的宣称。",
+   "new_stmt": ""
+  }
+ ],
+ "keep": [
+  {
+   "file": "Lib/Editing/RealCompileExtractClosed.lean",
+   "line": 206,
+   "name": "closed_loop_adds_nothing",
+   "verdict": "keep",
+   "why": "陈述确实是重言：209 行 rw [extractLayer_compileToLayer cs] 之后两侧是同一命题 (P↔Q)↔(P↔Q)。但它不是死代码，而是本仓『零公理且零内容』的登记展品：本文件 535 行 honesty_register 五元组的第 2 项、RealNegativeCore.lean:78、RealRoundTripVacuity.lean:330 三处在证明体里直接消费它；RealChainAxioms.lean:91 与 RealNegativeCore.lean:95 两条 #print axioms 按名审计，删除即编译断裂。它的『空』正是被引用的对象：至少 8 个文件（RealChainAxioms2:62、RealChainAxioms3:55、RealChainAxioms4:42、RealRecoverEndpoint:406、RealExtractionDirection:30、RealConversionMinimality:324、RealQuotientReversibility:95、RealEditSemantics:22）以它为反例坐标。删它 = 拆掉诚实清单的锚点，还要改 5 个文件的证明与审计行。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealOperatorSplit.lean",
+   "line": 51,
+   "name": "t1_decompose",
+   "verdict": "keep",
+   "why": "它不是 add_sub_cancel 的同义反复，而是 residualOp 这个 structure（44 行 toFun 设为 fun x => f x - D x）的展开引理：要得到 (residualOp f D).toFun x = f x - D x 必须 unfold，Lean 不会自动展开 structure 字段。三处硬依赖：同文件 t1_pointwise（57-59）的证明体就是 t1_decompose f D；RealOpContract.lean:58（t3_rename_keeps_t1，T3『补名不破坏 T1 闭环』）同样以它为证；RealOperatorSplitBridge.lean:124 把它作为公开 abbrev 再导出（对外接口）。删掉要同时改三处，且本文件唯一的产出（T1/T2/T3 记账层）失去唯一入口。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Geo/RepairCoverage.lean",
+   "line": 84,
+   "name": "sqDist_nonneg",
+   "verdict": "keep",
+   "why": "有真内容：0 ≤ ∑ (p i - q i)^2 需要 Finset.sum_nonneg + sq_nonneg（84-85 行），既不是重言也不是复述假设。第一审的『逐字重复』事实有误：Geo/Dist.lean:65 的 sqDist 是 sqNorm (diff p q)、证明一行 sqNorm_nonneg _，而本文件 81 行的 sqDist 是坐标平方和（Lattice.Geo.RepairCoverage 命名空间下的另一个定义），在未证两定义相等前无法互相代换（本文件没有该等式）。它是同文件 sqDistFix_reaches 的 hpos（112 行 lt_of_le_of_ne）与 Geo/EqualLengthRepair.lean:82（equalLengthFix_reaches 的前提）唯一可用的非负性来源，这两条是本文件主定理链的承重步。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Architectures/RealNormalEquation.lean",
+   "line": 115,
+   "name": "fderiv_eq_zero_iff_all",
+   "verdict": "keep",
+   "why": "不是 P↔P：右向要 ContinuousLinearMap.ext（123-124 行），左向要 map_zero（119-120 行），内容是『一个 CLM 是零 ⟺ 它在每个方向取值为零』这条外延性接口，方向性上不可被 simp 泛化替代。四处硬用：同文件 147 与 180 行（P0_normal_equation 的两个方向）、RealGeneralNormalEquation.lean:41 与 47（跨文件 fderiv_loss_zero_iff_orthogonal）。唯一瑕疵是 binder _hf 从未使用（114 行已 omit），可另行清理，但这不是空定理。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Attention/RealTemporalLayer.lean",
+   "line": 224,
+   "name": "split_immediately_confers_concept",
+   "verdict": "keep",
+   "why": "单看陈述确实是 extent 的成员消去规则（证明体就是 h，靠 defeq 展开），但它是向下目光这一层的对外接口：RealTemporalLayerExt.lean:884-886 的 down_gaze_content_is_constrained（法则 4『构成不是凭空创造』、A2 契约条）指名调用它，删除即断该证明。它下方的 split_iff_all（Iff.rfl）只给无方向的 iff，本条给的是『假设 → 结论』的消去方向，正是下游的引用点。接口引理的价值在签名不在证明体，这里签名承担了体系 4.2『定义性归类』的表述本身。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Attention/RealTemporalLayer.lean",
+   "line": 284,
+   "name": "up_gaze_element_or_concept",
+   "verdict": "keep",
+   "why": "语义上确实是 ¬P ∨ P（isElementUnderUpGaze / isConceptUnderUpGaze 是 ¬hasUpper / hasUpper 的 def 别名，260 / 265 行），by_cases 就是 em，第一审『非穷尽性证明』的读数成立。但它不是孤儿：RealFCAElementApplication.lean:262 的 constraint_element_or_concept 整条证明就是 up_gaze_element_or_concept constraintSatRel x，而该文件存在的理由正是把 RealTemporalLayer 从零入边接出去（12-19 行明写接线判据）。删除会让 §四『三态穷尽在约束世界落地』整节失去依据，并把 RealTemporalLayer 退回零入边——本仓已登记的反模式（L08 二级孤儿）。另：481 / 505 行登记了 em 直写会被两个 def 别名挡掉的实测坑，这条定理是该坑的可编译对照物。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Attention/RealTemporalLayer.lean",
+   "line": 338,
+   "name": "suspend_dissolves_identity",
+   "verdict": "keep",
+   "why": "rfl 级（suspend := withGaze none，IsElement := gaze = none），单看是 none = none 的包装。但它是法则 5『身份消解』的对外接口：RealFCAElementApplication.lean:298-300 的 constraint_suspend_dissolves_identity 用它把结论搬到约束世界，与 constraint_suspend_preserves_base / constraint_suspend_idempotent 组成 §五 三连，删除即断该证明。同组 suspend_preserves_base 也在 343 行被 suspend_not_decomposition 消费，说明『对象还在 / 身份消解』是成对 API，拆一半会让法则 5 只剩一半断言。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Compiler/ModConstraint.lean",
+   "line": 41,
+   "name": "mod_preserves",
+   "verdict": "keep",
+   "why": "Iff.rfl 成立是因为 Congruent / ModOut / Divisible（29 / 34 / 36 行）三个各自独立的公开 def 恰好同源——这正是本文件的契约条目（文件头 11 行『编译保语义』、38-39 行 §定理一）：它把『符号侧同余』与『权重侧整除』两个 API 钉在一起，删掉后下游只能各自 unfold 三个 def。硬引用：RealContractAxioms.lean:157 的 #print axioms mod_preserves（C14 同余约束节）按名审计，删除即编译断裂；RealZMod.lean:18 以它为『同余 ⟺ 整除』域参数化的母本。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Concentration/RealMeasureTheoryBase.lean",
+   "line": 194,
+   "name": "prob_isFinite",
+   "verdict": "keep",
+   "why": "本批最弱的一条：proof 是 inferInstance，而 mathlib 已有实例链（.lake/packages/mathlib/Mathlib/MeasureTheory/Measure/Typeclasses.lean:260 IsProbabilityMeasure → IsZeroOrProbabilityMeasure、:238 → IsFiniteMeasure），信息上被吸收。但仍有保留理由：(1) 它是有下游的命名接口——RealHoeffdingMeasureGeneral.lean:180 用 haveI : IsFiniteMeasure μ := prob_isFinite 给 chernoff_bridge_measure 供实例，删除要同步改下游；(2) 本文件 436 行接口表把它列为『概率 ⟹ 有限测度』入口，190-193 行写明它是 mathlib 切尔诺夫桥唯一前提的来源；(3) 它把读者要跨两个 mathlib class 才能拼出的推理钉成一行。若一定要压缩，应先降级为注释/实例别名，而不是删除。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Lift/RealNonlinearFidelity_parts/B.lean",
+   "line": 180,
+   "name": "decidable_zeroFixing_siluZ",
+   "verdict": "keep",
+   "why": "act_siluZ := fun n => n（158 行），故 ZeroFixing act_siluZ 展开为 ∀ y, (y = 0 ↔ y = 0)，单看是重言。但它是判定表的数学半格：C.lean:354-360 的 zeroFixingTable_true_consistent 把内核算出的 zeroFixingHoldsBounded act_siluZ 8 = true（by decide）与 ZeroFixing act_siluZ 配对，是『表 ⟷ 理论一致』的证据。同文件 194 行的 decidable_zeroFixing_siluZ_via_kernel 是同结论的另一条路线，故删除不至于让 360 行无法闭合；但它本身是内核判定器的产物（依赖 zeroFixing_of_bounded_no_witness），删掉本条后就只剩内核自证，判定表失去独立的『定义即证据』一腿。保留收益大于债务。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Lift/RealNonlinearFidelity_parts/B.lean",
+   "line": 185,
+   "name": "decidable_zeroFixing_geluZ",
+   "verdict": "keep",
+   "why": "陈述确实展开为重言（act_geluZ := fun n => n，B.lean:162；ZeroFixing act := forall y, act y = 0 <-> y = 0，RealSymbolToWeightNonlinear.lean:49，故为 y = 0 <-> y = 0），第一审『内容为零』的读数成立。但『可删』不成立：(1) 真下游——C.lean:360 的 zeroFixingTable_true_consistent 把它作为第 5 个合取项，删它那条定理直接 unknown identifier，是 build 断而不是风格选择；(2) 它承担判定表的『表 <-> 理论』配对：同一行 zeroFixingHoldsBounded act_geluZ 8 = true（by decide，内核算）与 ZeroFixing act_geluZ（按定义证）必须成对出现，本库已把这种『同一结论两条独立证据』制度化为正当产物（B.lean:189-196 明写 via_kernel 与 decidable 是同结论的两条独立证据），删一行就把 uniform 的九行表打出一个洞；(3) 全库无替身（大小写敏感 grep 仅 2 处：声明 + C.lean:360）。triviality 的根源是 act_geluZ 取了文档化的整数代用（B.lean:160-162『可判定代用』），不是这条定理在伪造内容。⇒ keep，且与上一轮对同组 decidable_zeroFixing_siluZ 的 keep 保持一致。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/EndToEnd.lean",
+   "line": 132,
+   "name": "ladder_forward",
+   "verdict": "keep",
+   "why": "先订正输入里的 in_degree=1：它测量彻底失真。大小写敏感精确 grep：Lattice/ 内 ladder_forward 出现 25 处、16 个文件，其中真调用点 15 个——CodegenLadder.lean:89、GeoLadder.lean:149/156、LadderInstance.lean:120、SynthesisConnection.lean:135、WeightSideLadder.lean:169、ActivationLadder.lean:95、MultiLayerLadder.lean:198/226、NondegenerateInstance.lean:212、WeightLadder.lean:140、WeightLadderFullWidthInstance.lean:95、WeightLadderN.lean:179、Usage/Examples.lean:85，外加同文件 EndToEnd.lean:172（ladder_compose_soundness 的证明体就是 ladder_forward L s hsat）。给的 users=[Audit/Hypotheses.lean] 里那两处甚至没有一处是证明引用（:29 表格散文、:142 数据表里的字符串），而唯一的裸名出现恰好落在 :172 自己的文件内；真实使用清一色是点号记法（L.ladder_forward、(weightLadder n).ladder_forward、Lattice.Lift.Ladder.ladder_forward），说明计数机制漏掉了点号记法——而那正是 Lean 里使用结构投影的标准写法，于是『无人依赖』完全是计数器的产物。陈述与证明无内容这一点第一审说得对（它逐字等于字段 l2l3_sound；doc 的『不塌缩成 l2l3_sound』是假的，该处该改 doc），但它是 Ladder 结构唯一的消去引理：satSym/satW/l2l3 全部抽象，所有下游只能经由它或手写同一个字段投影。删它要同步改 15 个调用点与 USAGE.md:32/93/222、COMPLETENESS-AUDIT.md:29、OBJECTIVE-AUDIT.md:24 三处文档。⇒ keep（并订正 doc 的过度声称）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/WeightToSymbolEquivalence.lean",
+   "line": 72,
+   "name": "extract_is_valid",
+   "verdict": "keep",
+   "why": "陈述展开确实是 forall x, l.w * x + l.b = 0 <-> l.w * x + l.b = 0（extract := {a := l.w, b := l.b} :31，NeuronOut :62，ConstraintSat :52），rfl 收尾，第一审『零信息』读数成立。但它是命名契约谓词 ExtractionValid 的标量端接口，而且它的向量孪生是真承重的：Lib/Editing/RealCompileExtractClosed.lean:218 的 extractVec_is_valid 被 :229 extractLayer_candidates_valid 直接消费（『提取器产出的每个候选都通过行为等价验证器』，用 List.mem_map 取到具体的 l 再交给它），而 :213 明写该定理就是把 WeightToSymbolEquivalence.extract_is_valid 抬到向量/列表层——即本定理是被指定的标量母本，不是孤儿。全库命中 4 处，除声明外全在引用它（:46 的闭环图、:213 的文档、RealContractAxioms:113 的审计）。删它的实际代价：(a) #print axioms extract_is_valid（RealContractAxioms.lean:113，同在 build 闭包内）报 unknown constant，断 build；(b) 标量端验证器契约失去唯一见证而向量端保留，契约两面不对称；(c) 要么另写一份等价的 ExtractionValid l (extract l)，要么把向量版的文档指回一个不存在的名字。判据 3『接口引理即使证明平凡也有存在价值』正命中此条。⇒ keep。附带观察（不是删除理由）：真正有内容的验证器方向——ExtractionValid l c -> forall x, ConstraintSat c x <-> ConstraintSat (extract l) x（验证通过即与规范抽取器行为一致）——目前缺失，那是新增，不是本条的替代品。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/ChainTransitivity.lean",
+   "line": 153,
+   "name": "loop_preserves",
+   "verdict": "keep",
+   "why": "先订正事实：陈述与 Core/Repair.preserves（Repair.lean:106）确实是同一个事实（R.iterate n x 按 :64 的 def 就是 Nat.iterate R.fix n x，差别只在参数顺序与命名空间），第一审这一点没说错。但它不是重复登记，而是本文件唯一把 Audit 层的泛定理接到库自身法则上的实例：preserves_iterate(ChainTransitivity:130) 需要前提 forall y, Sat y -> Sat (fix y)，本定理用 R.absorbs 现场造出它，把『一般化』落实到『本库真的套得上』。这正是本库一贯的实例定理制度：Core/Repair.lean:153 的 parity_terminates 就是 Repair.progress parityRepair n 一行实例，doc 称之为 The legacy result recovered as an instance；Lift/WeightLadder.lean:140、Geo/GeoLadder.lean:149、Lift/WeightLadderN.lean:179 等十余条 *_forward 同属此形。删它的代价不是零：(a) 本文件的 import Lattice.Core.Repair 将失去唯一使用者（该 import 只为这条定理存在）；(b) :125-129『一般化不等于可套用』这节的唯一机器证据消失；(c) B.lean:189-196 已把『同一结论的两条独立证据』登记为正当产物，而这里恰是两条独立推导（hide + iterate = x + rw 对比 迭代归纳 + 吸收律）。⇒ keep；要减债应在 Repair.preserves 的 doc 里登记互指，而不是拆掉跨层那一份。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/CompositionAlgebra.lean",
+   "line": 191,
+   "name": "verdict_monoid_instance_agrees",
+   "verdict": "keep",
+   "why": "两个等式今天是 rfl（instance : Monoid Verdict where mul := (· ++ ·)、one := emptyVerdict，:174-179），这一点第一审没说错。但它不是『不可能失败的断言』，而是全库唯一把类型类解析结果钉在文档口径上的机器检查：上面的 verdict_monoid(:182) 陈述的是关于 ++ 的三条律（langle nil_append, append_nil, append_assoc rangle），完全不涉及 * 与 1；下面的 bridgedCount_hom(:196) 用的也是 ++ 而不是 *。也就是说，若有人把实例改成反序拼接或换掉单位，库里没有任何别的东西会失败——只有本条会。这恰恰是 doc 声称的东西（『文档说的 monoid 现在指的是注册的实例，不是措辞』）：instance 的存在只说明存在某个 Monoid 结构，『它就是 ++ 的那个』必须由定理给出，否则同一句 doc 在两处代码之间无人核对。判据 3 的对外接口/口径锁定命中；判据 4 无断链，但删错的损失是口径漂移再无人察觉。rfl 在这里是优点不是缺点：它证明实例确实等于声明的那个。⇒ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/CompositionClass.lean",
+   "line": 117,
+   "name": "evidence_kinds_differ",
+   "verdict": "keep",
+   "why": "两个合取项都是定义性自等（Evidence :77-79 按 k 分派，.sequential => True，.bridged => forall x, P x -> Q x），证明 langle rfl, rfl rangle，第一审『零信息』的技术读数成立。但它是本文件 Evidence 形状的唯一方程级记录：紧邻的 signature_sequential(:109)/signature_bridged(:113) 记的是 Signature 那一对（证据，结论），sequential_evidence_trivial(:124) 只记 inhabitant，全库再没有第二处把 Evidence .sequential P Q = True 与 Evidence .bridged P Q = (forall x, P x -> Q x) 并列写出来；而这两条并列正是文件 §2 表格与 §3『判定器存在的理由』的机器形态（『需要什么』不是值而是一对不同类型的类型）。它同时是 Evidence 定义的变更探测器：.sequential 或 .bridged 任一侧被改重，本条立即失败，而本文件其余定理不会——compose_sequential(:92) 根本不接收证据参数，compose_bridged(:99) 只把证据当假设，signature_* 只谈 Signature。判据 3『唯一记录了一个事实』+ 本库对契约型 rfl 条目（如 mod_preserves 那种 Iff.rfl 契约条）的一贯处理 ⇒ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/MultiComposition.lean",
+   "line": 123,
+   "name": "chain_single",
+   "verdict": "keep",
+   "why": "陈述归约后确实是一次应用（Chain.out 对 cons 投影到 rest.out、对 nil 返回 P，:101-103；compose_chain 递推 :116-118），第一审的『一次应用』读数成立。但判据 1 要问的是陈述里有哪些不是定义展开的对象，这条里有：Chain.cons Q h (Chain.nil Q) 这个归纳类型的构造子与 Chain.out 这个递归求值函数都出现在结论中，它断言的是『单段链的出口性质就是该段的桥』——这是本文件 §一『衔接由类型强制』（cons 的 rest 类型被强制为 Chain Q）这一论点的最小见证，不是某个 binder 的复述。它的证明走 compose_chain，因此同时是主定理的回归钉：Chain.out/compose_chain 若被改成反序或恒真，本条立刻失败。0 引用属实，但上一轮对抗复核对同组 chain_nil_identity(:128) 判 delete-safe 时给出的理由恰恰是『§三 与两段版本对照的实内容由 chain_single/chain_two 承担』——按同一口径，本条（带真桥 h、带由构造子索引的 Q）属于承重的那一半：删它会让『0/1/2 段对照』只剩 0 与 2，缺掉『单座桥 = 一次组合』这一格，而这一格正是与第 59 轮 compose_bridged 直接对应的。⇒ keep（本批最接近边界的 keep）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/ObligationIndependence.lean",
+   "line": 95,
+   "name": "destructiveFix_atomic",
+   "verdict": "keep",
+   "why": "第一审阅人只对着 proof 与『同文件重名』看，漏掉本文件 :121：主定理 `absorbs_not_derivable` 的证明正是把 `destructiveFix_atomic` 当 `atomic` 义务传进去（`h (fun n => n = 0) destructiveFix (fun n => n) destructiveFix_decreases destructiveFix_atomic`）。删掉它 → 本文件的交付定理出现 unknown identifier/类型缺口，`:119-122` 整块断掉。陈述确实空（`forall n, n = 0 -> n = 0` 甚至不提算子——因为反例把测度取成 `id`，`atomic` 此时对任何算子都恒真），但『空』是反例设计的必然后果，不是删除的理由：要消掉它只能把 :121 的实参内联成 `(fun _ hn => hn)`，那是重构而非『删除无信息定理』，且会毁掉『每条义务由一个具名定理承载』的可读结构。→ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Audit/ObligationIndependence.lean",
+   "line": 144,
+   "name": "ascendingFix_atomic",
+   "verdict": "keep",
+   "why": "同样被第一审阅人漏看调用点：:162 的 `decreases_not_derivable`（文件头称之为三块独立性的最后一块）用 `⟨ascendingFix, ascendingFix_absorbs, ascendingFix_atomic, ascendingFix_not_decreases⟩` 构造存在性见证，`ascendingFix_atomic` 是其中第二个合取项 `forall n, (fun k => k) n = 0 -> n = 0` 的唯一提供者。删它 → `decreases_not_derivable` 直接编译失败，独立性证明少一块。陈述本身是重言（测度取 `id` 时 `atomic` 恒真），但与 :95 那条不是『两条一模一样的空定理』这么简单：它们是两个不同反例算子的义务见证，删任一条就断一处主定理。→ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Core/Repair.lean",
+   "line": 117,
+   "name": "stable",
+   "verdict": "keep",
+   "why": "陈述就是 `Repair.absorbs` 这个结构字段的投影（proof 是 `R.absorbs x h`，类型即 `R.fix x = x`），一字不多：按判据 1 属『复述构造 Repair 时承诺的假设』，第一审阅人这点没说错；`Core/Repair.lean` 自己的 `preserves`（:112）也是直接用 `R.absorbs`，所以它没有代码依赖。但它是 Core 唯一以定理形式公开命名的『吸收/惰性』接口：`Lattice/Geo/RepairBridge.lean:18` 把它列为 Core 已提供的三条接口之一，:113 的对照表还有专门一行『absorption = stable』；删掉后这两处跨层文档立即指向不存在的名字（顺带可说：:113 声称 `iterate_fix_of_sat` 用它，实际用的是 `R.absorbs`，这句注记本来就该改正）。没有证明会断，这是本批最弱的一条 keep；但『接口名』正是判据 3 允许保留的理由，且删错不可逆。→ keep（建议改注记而非删定理）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Core/RepairAtomicity.lean",
+   "line": 73,
+   "name": "atomic_of_zero_iff",
+   "verdict": "keep",
+   "why": "陈述是 `(h x).mp hx`，即 `Iff.mp` 的重排，按判据 1 无内容；第一审阅人这一点判对。保留理由三条：(1) 它与紧邻的 `zero_iff_of_atomic`（:80，真用到了 `R.atomic`，证明非平凡）构成『atomic ⟺ 测度零点刻画满足』的⇒半边，单删一半会让特征化只剩一个方向；(2) 它是本库承诺的『atomic 义务怎么供给』的具名入口，`Lattice/Slots.lean:277` 的槽位登记把 `atomic_of_zero_iff` / `atomic_of_binary` / `mkWithAtomic` 作为同一套工具一并点名，本文件 :37 的对照表也立着它；(3) 省 1 行却让槽位登记与表格句子失真，不划算。→ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Architectures/RealOperatorNorm.lean",
+   "line": 54,
+   "name": "add_norm_bound",
+   "verdict": "keep",
+   "why": "按判据 1，陈述 `‖W₁ + W₂‖ ≤ ‖W₁‖ + ‖W₂‖`（`E →L[ℝ] F` 上的三角不等式）不是定义展开、不是复述假设、不是 `True`——它有内容；『mathlib 的 `norm_add_le` 一句就能给』只说明证明便宜，不等于陈述为空，第一审阅人把这两件事混为一谈。此外本文件是『算子范数代数』的五条定理镜像（文件头 1–5；:50 起是定理三），四个兄弟 `linear_map_lipschitz`/`comp_norm_bound`/`smul_norm_bound`/`norm_adjoint_eq` 同样是一行包装，只删定理三会让『五条』变四条、与文件头及末尾注不符；`Lattice/Lib/Quantization/RealQuantizedError.lean:16,268` 还按名字引用它作为误差界实例化的依据。→ keep。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Attention/RealTemporalLayer.lean",
+   "line": 275,
+   "name": "element_iff_no_upper",
+   "verdict": "keep",
+   "why": "证明是 `Iff.rfl`：`isElementUnderUpGaze`（:261）按定义就是 `¬ hasUpper`，所以陈述不含数学内容，这一点作者在 :387 起已如实登记，第一审阅人没说错。但它是这一层唯一的定义桥且有实际作用：`def` 别名对 `exact`/`rw` 不透明（同文件 :504 就登记了 `up_gaze_element_or_concept` 因此用不了 `em`、只能退回 `by_cases`），这条 iff 是调用者用 `rw` 把『要素』换成 `hasUpper` 的唯一具名入口；跨文件还有引用——`Lattice/Lib/Attention/RealTemporalLayerExt.lean:570` 把『不享有豁免』的形式内容定义为 `IsConcept`/`element_iff_no_upper` 的定义域包含 `GazeObj`。删它 = 删定义桥 + 让 :570 指向不存在的名字。→ keep（价值在命名与可重写性，不在难度）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Concentration/RealHoeffdingInequality.lean",
+   "line": 333,
+   "name": "condexp_hoeffding",
+   "verdict": "keep",
+   "why": "陈述把 `hcond` 原样搬出来（proof 就是 `hcond`），按判据 1 无信息，第一审阅人此处判对。但它不是伪造的定理，而是本库『未证承重前提显式命名』的载体（`Lattice.lean` 不变量 3：未证但承重的命题写成显式前提 `(h : P)`，不藏进 environment）：这条定理连同 docstring 是文件里唯一登记『条件弦不等式在 mathlib 无现成物件、故以 `hcond` 输入』的地方，删定理会连带删掉这段缺口登记；`Lattice/Lib/Concentration/RealMartingaleOptionalStopping.lean:54,92,202` 三处正按名字引用它作为条件 MGF 界的来源，删后这些陈述指向不存在的名字。真正的修法是把条件零均值+条件有界逐纤维化（文件已声明是剩余工作），不是删除。→ keep，但应记为『承诺型接口』，不计入已证内容。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealCanonicalCompileComm.lean",
+   "line": 154,
+   "name": "convertVec_extractVec_rfl",
+   "verdict": "keep",
+   "why": "陈述 `convertVec (extractVec l) = l` 由 `cases l; rfl` 得，是结构 eta／字段重命名的定义恒等，信息量为零，这点第一审阅人没说错。不能删的理由是这份**不是唯一的同名声明**：`Lattice/Lib/Editing/RealExtractSurjectivity.lean:361` 在同一个 `namespace Lattice` 里逐字声明了同一个名字，且那份被 :382 的 `both_roundtrips_rfl` 真正使用；只删 CanonicalCompileComm 这一份，会把『一个定义恒等』变成『两份同义名分裂』——该做的是去重/改名登记，那属于另一件事，删一份更糟。另外 `Lattice/Lib/Editing/RealClosureReversibility.lean:497` 用限定名 `RealCanonicalCompileComm.convertVec_extractVec_rfl` 引用它，作为『结构 eta、rfl 级』的证据。→ keep（去重另案，不属『删除空定理』）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealCanonicalCompileComm.lean",
+   "line": 344,
+   "name": "canonicalize_absorbs_scale_pos",
+   "verdict": "keep",
+   "why": "一审的「别名 ⇒ 无信息量」把两件事混了。① 陈述不是空洞的：`canonicalize (scaleVec c lam) = canonicalize c`（0<lam）对 canonicalize 有真约束（把 canonicalize 换成 id 即为假），proof 消耗的是 `RealCanonicalForm.canonicalize_section_pos` 的实质算术内容（content(scaleVec c lam)=content c * natAbs lam，分母取绝对值、分子带符号），不是 rfl、不是复述假设。② 名字在本文件承重：它是 §1 表(:35)的 ⭐⭐ 第 4 项，是**全文件唯一的正面结论**（其余五条全是「为假」或「空洞」），并撑起 :91 的论证与 §六 表格 :558/:559 两行——删掉后该文件只剩否定结论，且「0<lam 时正确的真陈述是什么」变成一段没有声明可指的散文。③ 「与另一文件同陈述」是**去重/卫生**问题，不是**空洞**问题；Lean 的正确去重形式是 `alias canonicalize_absorbs_scale_pos := RealCanonicalForm.canonicalize_section_pos`（保留名字、去掉重复证明体），删名字是解决命名重叠的破坏性做法。另：RealQuotientReversibility.lean:564-570 以反引号引用该名（按本仓约定=该声明存在）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealConstraintEdit.lean",
+   "line": 166,
+   "name": "dot_replicate_zero_any",
+   "verdict": "keep",
+   "why": "陈述有真内容：`dot w (List.replicate n 0) = 0` 需要 w 上的归纳且必须对 n 归纳加强（proof 用 `induction w generalizing n` + `cases n`，6 行），既不是定义直接展开，也不是复述假设，更不是 True。一审以「库内已有一份且那份被真实使用」判「零增量信息」——那是**跨文件重复**，属去重/仓库卫生条目，不是本台账要审的**陈述空洞**；两者的处置方式不同（去重是移入共享模块或 alias，删副本要在 import 锥上补回来）。而且重复的成因是真实约束：本文件 imports 只有 Mathlib / ConvertVectorLinear / SymbolToWeightCorrectness / WeightToSymbolEquivalence / RealCompileExtractClosed，**不含** LayerComposition，它的 import 锥里没有这条事实，删本地副本就是从该锥里抹掉一条真引理。⇒ 若确要处置：登记为去重任务（从 LayerComposition 复用或 alias），而不是按「无信息量」删除。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/Editing/RealExtractionDirection.lean",
+   "line": 303,
+   "name": "renderSurjective_holds",
+   "verdict": "keep",
+   "why": "这条**不是**空洞真，一审的理由（「任何有 section 的全函数都满足」）等价于说「满射的证明都用截面」，照此会删掉所有满射定理。按 stmt 逐字看：`RenderSurjective` 定义为 `∀ cs, ∃ ts, Extract ts cs`(:296)，而 `Extract ts cs := decode ts = some cs`(:154)，故陈述断的是「decode 满射：每个约束集都是**某个** token 流的忠实读法」——proof 用的 `decode_encode` 是对 encode/decode 实现的实质定理，换成任意没有 section 的 encode 该陈述即为假 ⇒ 对定义有真约束。更关键：它正是本文件核心否定结论 `extraction_completeness_false`(:330) 的**对照物**——只有先把弱形式机检成真，「强形式（ExtractionComplete）为假」才是可比较的结论而不是独白；删掉它，:324-328 那段「存在性完备性太弱」就只剩断言。此外 RealExtractionDirection:48 的判定表与 RealClosureReversibility.lean:159 都以它作「同族样本」引用。★ 一审这一段是照抄作者 docstring 的自评（doc 与 stmt 相反的典型），而本台账的前提恰是「不信 doc、看 stmt」。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean",
+   "line": 472,
+   "name": "softThresh_le_of_is_min",
+   "verdict": "keep",
+   "why": "一审「零边际信息：同一陈述的第二个名字」这句本身是对的（与同文件 :428 `softThresh_is_min` 陈述逐字相同、proof 相同），但**删错对象**。三条理由：① 它是**已授权的更正结果**——archive/CORRECTIONS.md:6889（B127.3）明确裁定「① 改结论为真等式 或 **② 改名 softThresh_le_of_is_min 并删 h**」，作者选了 ②；删掉它等于把一条已归档的授权更正改成悬空（CORRECTIONS 说的新名字不存在了）。② 它被跨文件当作**处置先例**引用：RealSparseCodingCoherence.lean:267「同 eq_softThresh_of_is_min ⟶ softThresh_le_of_is_min 的处置」（反引号引用=该声明存在）。③ 真正**被使用**的是 :428——:598 `proxL1_optimal` 的证明体就是 `softThresh_is_min lam y hlam x`。⇒ 正确处置是保留本名并去重：`alias softThresh_le_of_is_min := softThresh_is_min`（或把 :428 改名成本条、删 :428 并改 :598），同步 CORRECTIONS 的锚点。★ 另补一个一审漏掉的缺陷：新名仍以 `_of_is_min` 结尾而**没有** is_min 假设——「名实不符」只修了一半（删了 h 没改名字），建议最终名 `softThresh_is_global_min`。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/VerifyLoopProgress.lean",
+   "line": 104,
+   "name": "repair_preserves",
+   "verdict": "keep",
+   "why": "一审把「当前 stub 下可平凡证」读成了「陈述无信息量」，两者不同。三条独立理由：① **本仓已就它做过治理裁定**：archive/DIVERGENCES.md:320（C-28）的处置是「维持恒等 + 文件头与每条定理显式标注平凡真」，并以 `iterateRepair_eq_self`(:90)、`repair_fixpoint_iff_stationary`(:136) 把平凡性变成定理；删它等于推翻一条已登记裁定，得先走新的 divergence 条目，而不是删除。② **有真正的下游依赖**：Lib/Editing/RealRepairMetric.lean（已入库、在 roots，文件头即 `# C-28: the repair metric that VerifyLoopProgress says is missing`）的 §1 就是拿这条定理作原对象的 B234.4「替换检验」——`repair_preserves_is_identity_statement`(:59) 与注释(:51-53, :75) 明写「what `repair_preserves` is actually about」；删掉原句，那个对照失去被对照物，整节论证悬空。③ **陈述不是条件恒真**：RealRepairMetric.lean:68 `shift_by_one_fails_to_preserve` 机检了 `¬ ∀ f, ∀ c x, ConstraintSat c x → ConstraintSat c (f c x)`，即这条陈述对 repair **有真约束**（换成 `fun _ y => y+1` 即假）；它今天平凡只因为 `repair := id`(:75)，而这个「因为」本身是别处机检的。这正是接口/规格引理：换掉 stub 时它就是必须被重新证的那一条。",
+   "new_stmt": ""
+  }
+ ],
+ "rewrite": [
+  {
+   "file": "Lib/Chain/RealTaylorMultivariate.lean",
+   "line": 195,
+   "name": "second_order_taylor",
+   "verdict": "rewrite",
+   "why": "陈述 ∃R, a = b + R 在任何加法群里恒真（R 取差即可），hg2 在证明里只被 have h := hg2; linarith 顺手带上，从未真正参与 —— 第一审『纯占位』的读数成立，但处置错了：它是本文件二阶展开的唯一入口，RealItoCalculus.lean:151 与 RealSecondOrderUpgrade.lean:280 都直接调用，两处承载的是『余项有界 / 可为零』这一下游结论；而 doc（178 行）声称的 |R| ≤ C·normSq v / 2 在陈述里完全丢失。正确处置是把余项钉住（Lagrange 余项 c ∈ (0,1)），让 hg2 有内容、让界成为可推的推论，而不是删掉整条二阶 Taylor 路线（删了 Ito 与 unconditional 两处都要短一截）。",
+   "new_stmt": "theorem second_order_taylor {f : (Fin n → ℝ) → ℝ} {x v : Fin n → ℝ}\n    (hcont : ContinuousOn (path f x v) (Icc (0 : ℝ) 1))\n    (hcont2 : ContinuousOn (deriv (path f x v)) (Icc (0 : ℝ) 1))\n    (hdiff : DifferentiableOn ℝ (path f x v) (Ioo (0 : ℝ) 1))\n    (hdiff2 : DifferentiableOn ℝ (deriv (path f x v)) (Ioo (0 : ℝ) 1)) :\n    ∃ c ∈ Ioo (0 : ℝ) 1,\n      f (x + v) = f x + deriv (path f x v) 0\n        + (1 - c) * deriv (deriv (path f x v)) c\n-- 注：quadForm H v 版应保留为推论 second_order_taylor_quadForm（用 hg2 代入，再用 quadratic_remainder_bound），这样 hg2 不再是装饰、界才落地。"
+  },
+  {
+   "file": "Lift/WeightToSymbolEquivalence.lean",
+   "line": 44,
+   "name": "roundtrip_behavior",
+   "verdict": "rewrite",
+   "why": "第一审判的『无内容』在技术上是真的，它错在处置。真在哪：第一合取项量化于与 c 无关的自由 l，展开 extract/ConstraintSat/NeuronOut（ConvertLinear:52/62/67）后是 forall l, (l.w*x+l.b = 0) -> (l.w*x+l.b = 0)，simpa using h 就是 fun h => h；第二合取项是 convert_preserves_semantics（ConvertLinear:73）的 .mpr，且只有在两侧展开成同一表达式时才 typecheck；整条陈述里 extract o convert 这个往返复合一次都没出现，而名字、文件头 :9『提取方向完全可逆』与 RealContractAxioms.lean:112 的 C6 审计项都指向『往返保持行为』。处置错在哪：不能删也不能留原样。(a) 删不得——#print axioms roundtrip_behavior（RealContractAxioms.lean:112）在 build 闭包内（Lattice.Lib.Lift -> Lattice.Lib -> Lattice.lean 根），实测 #print axioms 一个不存在的名字是 error: unknown constant、exit 1，删它=断 build，并让 C6『提取往返恒等』审计凭空少一格；(b) 原样保留也不行，它把 C6 的证据换成了一个与往返无关的 P -> P。而第一合取项的内容已被同文件 :72 的 extract_is_valid（ExtractionValid l (extract l) 对任意 l、任意 x 覆盖两个方向）完整覆盖，本就冗余。所以正确处置是改写成它本来想说的命题，让往返复合出现在陈述里、并经由 roundtrip_extract + convert_preserves_semantics 两条既有结果证出。",
+   "new_stmt": "theorem roundtrip_behavior (c : LinearConstraint) (x : Int) : NeuronOut (convert c) x = 0 <-> ConstraintSat (extract (convert c)) x  -- 证明：by rw [roundtrip_extract]; exact (convert_preserves_semantics c x).symm。真正有数学内容的版本要等上游把 convert 做成非恒等（量化/取整），那时的陈述应是神经元的输出与候选约束同零集并带误差界——那是新增工作，不属本条改写范围。"
+  },
+  {
+   "file": "Audit/PredicateWitnesses.lean",
+   "line": 69,
+   "name": "isRedundant_true",
+   "verdict": "rewrite",
+   "why": "`IsRedundant b := (b = true)`（Audit/Hypotheses.lean:122），所以 `IsRedundant true` 展开就是 `true = true`，`rfl`——按判据 1 它确实是被展开成 a=a 的空陈述，第一审阅人这一点判对。但它承载的是本文件自己的交付：文件头与 :28 的表格声明『为五个无消费者的谓词各补一条非空见证』；直接删会少一行见证、并把 `IsRedundant` 在全库的唯一出现抹掉（『谓词存在但无人用』这条审计结论就无从核对）。应改写成它本来想说的命题——存在性，而不是一个可被展开成 a=a 的实例；表 :28 与文件头同步改一行名字即可。",
+   "new_stmt": "theorem isRedundant_nonempty : exists b : Bool, IsRedundant b := ⟨true, rfl⟩"
+  }
+ ],
+ "phantom": [
+  {
+   "file": "Geo/FlattenAgreement.lean",
+   "line": 52,
+   "name": "rather",
+   "verdict": "keep",
+   "why": "这一条根本不是声明：`Geo/FlattenAgreement.lean:52` 是 docstring 的第二行（『...the agreement a theorem rather than a definitional equality.』），`rather` 是从散文里切出来的词，`stmt`/`proof` 皆空，第一审阅人自己也记为『非陈述』。真正的声明在紧随的 :53 `flatEquiv_val_eq_seqSlot`（`(flatEquiv k n (p,i)).val = p.val * n + i.val`），证明要 `flatEquiv_val`（:47）加 `Nat.add_comm` 与 `Nat.mul_comm` 两次换序，不是 rfl，有实内容；且依赖 :47 的 `flatEquiv_val`。照这条去『删』只会删掉一条实质定理的 docstring。→ keep（应记为抽取器把注释当代码的假阳性，不进删除队列）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean",
+   "line": 439,
+   "name": "eq_softThresh_of_is_min",
+   "verdict": "keep",
+   "why": "这一行**没有声明可删**：:439 位于 `softThresh_le_of_is_min` 的 docstring 内部(:432-471)，是 ``` 围栏里**引用的旧陈述**（原名 eq_softThresh_of_is_min 在 v23 改名后已不存在）。它既不是定理，也不是 True 式占位；相反它是本文件最重要的更正证据（旧陈述原文 + `_probe_out/fs26.lean` 的证伪 exit=0 + 「unused variable ⟹ 名字承诺的假设从未参与证明」的一般教训）。删这一行会切断证据链，且会留下 `theorem softThresh_le_of_is_min` 一段残缺注释。⇒ 处置：从删除清单剔除，登记为「提取器把 docstring 代码围栏误当成声明」的假阳性（本批同型共两条，见 :146 applies）。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Lift/Extraction.lean",
+   "line": 146,
+   "name": "applies",
+   "verdict": "keep",
+   "why": "这一行**没有声明可删**：:146 是 `def scaledForm`(:148) 的 docstring 里的一句英文散文（「...so the scaling lemma applies definitionally rather than needing a structure extensionality step...」），提取器把单词 `applies` 当成了定理名；全树不存在名为 applies 的声明（该文件的定理是 unit_ne_scaled :154 / semEq 相关的几条）。这段散文解释的是 `scaledForm` **为什么**定义成 `unitForm` 的倍增（为了让缩放引理按定义适用、避免对含函数字段的结构做外延），删掉会削弱 :150-154 `unit_ne_scaled` 的说明。⇒ 处置：从清单剔除，登记为散文误抽的假阳性。",
+   "new_stmt": ""
+  },
+  {
+   "file": "Slots.lean",
+   "line": 287,
+   "name": "stated",
+   "verdict": "keep",
+   "why": "Line 287 is prose INSIDE the `/-- ... -/` doc comment that spans Slots.lean:284-296 and documents `def weightSemanticsChosen` (line 297). There is no declaration named `stated` anywhere in the file -- the only theorem in Slots.lean is `fullRegistry_wellFormed` at line 429, and lines 284-296 are comment text, so `stmt`/`proof` are empty because the extractor mistook the sentence \"theorem stated against that class...\" for a declaration (same `theorem`+newline+word regex artifact produced the phantom records `rather` in verify_del_02.jsonl:52, `applies` in verify_del_03.jsonl:146, `eq_softThresh_of_is_min` in verify_del_03.jsonl:439). So the finding is a pipeline/extractor false positive, not a Lean content finding: there is no theorem here to be information-free. Deleting at this location is not a no-op either -- it would strip the docstring of a LIVE slot: `weightSemanticsChosen` is entry 5 of `fullRegistry` (line 418), and its `name`/`status` are consumed by `fullRegistry_wellFormed` (line 429, via `fin_cases`/`decide`) plus the machine-checked counts `Slot.owedCount = 0`, `boundaryCount = 4`, and the no-fall-through identity at lines 457/460/463; that docstring also uniquely records the witness and consumer that justify `.discharged` (`instWeightSemanticsNet`, `NetPenalty.layer_penalty_exact`), the scope limitation (fixed width `AffineLayer (Fin n)` vs `Lattice.Core.Chain`), and the `gov/BLOCKER-variable-width.md` pointer -- none of which is stated in the `note` field or repeated elsewhere. With no statement present, 'delete' is undefined at this coordinate and acting on it risks damaging documentation of a counted registry entry, so the correct fix is in the extractor (skip `/-- ... -/` blocks, or require `theorem <name>` on one line followed by `:`/`:=`), not in Slots.lean. Verdict against the first reviewer: overturned (they correctly saw 'non-statement' but 'delete' does not follow from it).",
+   "new_stmt": ""
+  }
+ ]
+}

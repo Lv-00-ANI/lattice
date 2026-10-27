@@ -36,11 +36,11 @@
 | 判定 | 条数 |
 |:--|--:|
 | `delete` | 45 |
-| `strengthen` | 32 |
+| `strengthen` | 34 |
 | `downgrade` | 3 |
-| `register` | 105 |
-| `keep` | 1175 |
-| **合计审阅** | **1360** |
+| `register` | 107 |
+| `keep` | 1193 |
+| **合计审阅** | **1382** |
 
 > **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。
 > 它们最初是按**旧的、有缺陷的** `in_degree` 选出来的「第一层」。
@@ -57,6 +57,7 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
+| `Lift/EndToEnd.lean:132` | `ladder_forward` | 13 | 只投影结构字段：证明体 = `L.l2l3_sound s hsat`；doc 的「does not collapse into a restatement of l2l3_sound」为假——它就是该字段。 |
 | `Lib/Chain/RealTaylorMultivariate.lean:195` | `second_order_taylor` | 2 | 纯占位：`∃ R, a = b + R` 与 `True` 同义（证明体就是取 `R := RHS 差` 再 `linarith`）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean:206` | `closed_loop_adds_nothing` | 2 | F: 重言 (P↔Q)↔(P↔Q),信息量为零 |
 | `Lib/Editing/RealOperatorSplit.lean:51` | `t1_decompose` | 2 | 重言：加法逆元恒等式（`add_sub_cancel`）。 |
@@ -69,7 +70,6 @@
 | `Lib/Concentration/RealMeasureTheoryBase.lean:194` | `prob_isFinite` | 1 | 只复述类型类：proof = `inferInstance`，结论由环境实例直接得到，零信息。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:180` | `decidable_zeroFixing_siluZ` | 1 | ZeroFixing act_siluZ 展开为 ∀ y, (y = 0 ↔ y = 0)；证明体两方向分别就是 `hy` 与 `hy ▸ rfl`，是重言。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:185` | `decidable_zeroFixing_geluZ` | 1 | ZeroFixing act_geluZ 展开为 ∀ y, (y = 0 ↔ y = 0)，证明体两方向都是 hy / hy ▸ rfl：重言。 |
-| `Lift/EndToEnd.lean:132` | `ladder_forward` | 1 | 只投影结构字段：证明体 = `L.l2l3_sound s hsat`；doc 的「does not collapse into a restatement of l2l3_sound」为假——它就是该字段。 |
 | `Lift/WeightToSymbolEquivalence.lean:44` | `roundtrip_behavior` | 1 | 第一项展开 `extract`/`ConstraintSat`/`NeuronOut`（`ConvertLinear:52/62/67`）后两边是同一个表达式，`simpa using h` 即 `fun h => h`；第二项是 `convert_preserves_semantics`（`ConvertLinear:73`）的 `.mpr`。零新增信息。 |
 | `Lift/WeightToSymbolEquivalence.lean:72` | `extract_is_valid` | 1 | 展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。 |
 | `Audit/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
@@ -124,6 +124,8 @@
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
 | `Lift/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
+| `Lift/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 1 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
+| `Lift/StackCodegen.lean:194` | `compileProg_correct` | 1 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
 | `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
@@ -158,6 +160,7 @@
 | `Lib/Attention/RealAttention.lean:69` | `sqrt_d_scale_bound` | 2 | 登记理由：装饰性前件 hd（唯一用处是一个未再使用的 hd'）。删掉它对调用方是净收益，属清理级。 |
 | `Lib/Attention/RealSoftmaxLipschitz.lean:124` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
 | `Lib/Attention/RealTemporalLayer.lean:335` | `suspend_preserves_base` | 2 | 登记理由：rfl 级定义事实被当作法则级成果引用，且同文件已有一条逐字重复的定理。建议：要么删掉（下游写 rfl），要么保留但改 doc 为「定义即得」，并把法则 5 的承载放到真正的语义定理上。 |
+| `Lift/EndToEnd.lean:60` | `decode_encode` | 2 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 | `Lib/Architectures/RealBlockConstants.lean:79` | `weight_l1_diff_bound` | 1 | 数学正确、常数可用；唯一问题是前件 hM' 可证可删，属清理项，登记。 |
 | `Lib/Architectures/RealGatingGeneral.lean:40` | `softMasked_is_gated` | 1 | 纯投影/命名别名；因它是唯一的「激活类 ⊆ 门控类」入口，不宜直接删，登记为接口债务。 |
 | `Lib/Architectures/RealLayerScale.lean:79` | `layerscale_lipschitz` | 1 | 结论与常数都正确，唯一缺陷是冗余前件 _hL，一行可删；登记清理。 |
@@ -166,9 +169,11 @@
 | `Lib/Attention/RealTemporalLayer.lean:354` | `suspend_idempotent` | 1 | 登记理由：零信息 rfl 被命名为法则级结论，下游可能据此论证「撤回不丢失结构」。建议降为定义别名注释，或改述 withGaze 的代数律。 |
 | `Lib/Chain/Geometry.lean:54` | `collinear_preserves` | 1 | 被 Lift/RealContractAxioms:132 当作 C11 契约锚点。零信息量却承担「保语义」名义——正是本库的点名病症。登记 PROOF-DEBT：要么补编译层等式，要么把契约措辞降级。 |
 | `Lib/Chain/RealGeometry.lean:44` | `collinearR_preserves` | 1 | 与 47 同型，被 RealContractAxioms:180 当作 C11' 契约锚点。登记同一条 PROOF-DEBT（与 47 合并处理）。 |
+| `Lib/Chain/RealLv00AxiomDischargeClosure.lean:91` | `dependenciesClosed_mono` | 1 | 登记理由：同名同义的定理在 Lattice.Lv00.AxiomDischarge / AxiomPackages / AxiomDischargeJia 三个命名空间各有一份，且各自定义了自己的 AxiomPackageInstance / PackageDependenciesClosed；三处签名已漂移（`∀ n, n ∈ extra → …` vs `∀ n ∈ extra, …`）。这是「同一语义多处实现」的典型，登记待收敛。 |
 | `Lib/Chain/RealModelFamilyChainWiring.lean:63` | `convertVec_bias_eq_convertRealVec_bias` | 1 | 【实测】证明体是 `rfl`。doc 的字段级说法准确，但「这就是边的承重点」易被下游读成「语义等价已证」——而宏可达性只需提及两个常量名即可成立，与证明内容无关。下游 `RealSeamBridges2.lean` 又以 rfl 链（`castConstraint_b_eq_convertVec_b`）复述同一事实。⇒ 登记「语义抬升未接通」的 PROOF-DEBT；不删（它确实把「模型族 → 链核心」的可达边接成真实 import 依赖，删了该文件就不再提及 `co… |
 | `Lib/Compiler/RealWhileTotalCorrectness.lean:215` | `triple_iff_wpT` | 1 | register：定义展开冒充定理。建议标为 @[simp] 展开引理或直接内联到 RealWPWhile；不要把它当作『Hoare 三元组与 wp 等价』的独立证据（真正的证据是 180/226/263）。 |
 | `Lib/Editing/RealConversionCategorical.lean:150` | `compile_galoisConnection_galois` | 1 | 定理真且被真实使用（RealConversionCategoryNew.lean:298、333 作为 `GaloisConnection.toGaloisInsertion / toGaloisCoinsertion` 的输入），但 doc 的『须满射 / 等价于满射』是错误归因，正是本库『叙述强度 > 陈述强度』的老毛病。建议改 doc 为『像-原像对任意函数成伴随，故不携带编译信息』，并以 `GaloisInsertion`（真需要满射）为主交付；因不影响证明，登… |
+| `Lib/Editing/RealEditSemantics.lean:1014` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:229` | `constrained_sum_one_via_realMaskFamily` | 1 | 本文件已有 constrainedSoftmax_sum_one；本条是同一命题的第二次证明，以并列定理身份进入 API 会让「本文件定理数」虚高，且两条日后可能漂移。保留「复用确认」的意图可以理解，但应按 alias 登记而非计入定理数。verdict=register。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:85` | `allowed_is_convex_weights` | 1 | 合取包不是数学内容，调用点写 `⟨nonneg, sum_one⟩` 等价。doc 自称「可复用的假设包」，但以定理身份计数会虚高。verdict=register：删除或标为 convenience alias。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:101` | `support_from_decoded_constraints` | 1 | 与 constrained_agrees_with_constraint_set 同义同型，属别名转发。若下游只要短名字，建议 `alias` 或 @[simp] 转发并注明来源，不应作为并列定理计数。verdict=register。 |
@@ -177,6 +182,7 @@
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
 | `Lib/Quantization/RealMixedPrecision.lean:179` | `accumulation_error_bound` | 1 | 清理级（C）：`_hM` 未用，且由 `hmag` 在 k=0 处即得（`accSum ad 0 x = 0`）。删除不影响证明与结论，下游 `RealMixedPrecisionRounding:408` 少传一个参数。定理本体与 doc 的『用统一幅度尺度 M 代替 Σ\|x_i\|』说明一致。 |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
+| `Lift/CompilerScheme.lean:103` | `backend_sound` | 1 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
 | `Audit/ChainTransitivity.lean:116` | `preserves_three` | 0 | 登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。 |
 | `Audit/CompositionAlgebra.lean:182` | `verdict_monoid` | 0 | 登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。 |
 | `Audit/CompositionAlgebra.lean:196` | `bridgedCount_hom` | 0 | 登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。 |
@@ -194,7 +200,6 @@
 | `Lib/Attention/RealTemporalLayer.lean:243` | `split_exposes_parts_to_upward_gaze` | 0 | 同文件同陈述两个名字（:203 / :243），下游按 :243 引用。登记为重复命名债，合并时改调用点；不直接删是因为 Ext 的叙述依赖此名。 |
 | `Lib/Chain/RealChainAxioms3.lean:148` | `b194_anchor_consumer` | 0 | doc 自认「不证明任何新数学——它把锚点取用一次」，作用只是编译期依赖锚点（防整节被删），且拦不住两处同删。作为「定理」零内容；登记 PROOF-DEBT，建议与 _holds 合并或换成真正的消费证明。 |
 | `Lib/Chain/RealEndToEnd.lean:205` | `e2e_vacuous_composition` | 0 | doc 自己说「内容量：零（作为组合而言）」，这是诚实的。但把一条诊断并入主库需登记：E2E 组合的空洞性进 PROOF-DEBT，本条留作审计证据（RealHypothesisAudit 引用合理）。 |
-| `Lib/Chain/RealLv00AxiomDischargeClosure.lean:91` | `dependenciesClosed_mono` | 0 | 登记理由：同名同义的定理在 Lattice.Lv00.AxiomDischarge / AxiomPackages / AxiomDischargeJia 三个命名空间各有一份，且各自定义了自己的 AxiomPackageInstance / PackageDependenciesClosed；三处签名已漂移（`∀ n, n ∈ extra → …` vs `∀ n ∈ extra, …`）。这是「同一语义多处实现」的典型，登记待收敛。 |
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:104` | `dependenciesClosed_of_subset` | 0 | 登记理由同 :91：与 RealLv00AxiomPackages:240 及 RealN2AxiomDischargeJia:786 是平行实现的三份副本之一，应统一或补桥。 |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:88` | `computabilityTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（55）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:129` | `modalLogic_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 28、Jia 27（本文件多 1 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 27 条」，与定理值 28 及 Jia 的 27 三者不一致。登记：doc 改为「27 上游 + 1 注入」，并补分解/对齐断言或删除一侧副本。 |
@@ -255,7 +260,6 @@
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
 | `Lift/ApproxExact.lean:150` | `epsSat_of_loss_le_sq` | 0 | 登记 PROOF-DEBT：名实不符的重复别名。要么删掉并把 Audit 表指向 abs_resid_le_of_loss_le_sq，要么改成真正的 EpsSat 版本（结论 EpsSat E p (ε^2) x）。引用它的只有 Audit 的假设表与反例说明，不是证明依赖，改名成本低。 |
 | `Lift/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
-| `Lift/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 | `Semantics/Annotations.lean:118` | `holdsSet_member` | 0 | 内容正确、形状正确，但这是 `Geo/ConstraintSet.lean:128 holdsSet_mem` 的第二份副本（本文件 namespace 是 `Lattice.Semantics.Annotations`）。唯一跨文件引用 `Semantics/Merge.lean:142` 写的是裸名 `holdsSet_member`，而该文件只 `import Lattice.Geo.ConstraintSet` 且 `open Lattice.Geo Latti… |
 
 ## 已处理（修好的条目**保留**在这里，不删）
@@ -267,6 +271,44 @@
 |:--|:--|:--|
 | `Lift/ConvertVectorLinear.lean` | `convertVec_preserves_semantics` | strengthen → 分两部分处理。(1) docstring 补上两条警告：它是定义展开（`convertVec` 只拷贝系数与偏置）、且两侧共享 `dot` 的 `List.zip` 截断，对元数错误零诊断力。(2) 新增否定定理 `convertVec_preserves_semantics_blind_to_arity`：`{a:=[3,5],b:=0}` 配 `x:=[]` 时两侧同时成立，故该等价永远抓不到这类错误。**P 侧（把 `dot` 接到真正的线性型）没做**——我试了加元数前提，Lean 报 `unused variable h`，说明「加前提」在这里是假的加强；真加强需要一条 `zip`/`foldl` 的桥，未做且已在文件里写明。 |
 | `Lift/SymbolToWeightCorrectness.lean` | `symbolToWeight_correct` | strengthen → 同上的第二层。docstring 写明它的强度**完全继承**自 `convertVec_preserves_semantics`：结构上它经 `forall_mem_map_iff` 逐点提升（真定理，非重言），但内容不超出被提升的那条。新增 `symbolToWeight_correct_blind_to_arity` 把盲区变成同一层的否定定理。 |
+| `(8 处，见本条)` | `delete × 8` | 对抗性复核确认无信息量且无依赖，已删除并逐一通过全库构建：`ChainTransitivity.preserves_one`（陈述就是 binder 的类型）、`CompositionClass.sequential_evidence_trivial`（陈述是常值 True，被同文件 `evidence_kinds_differ` 更强覆盖）、`CompositionClass.bridged_needs_bridge`（与 `BridgedComposition.bridge_is_necessary` 逐字相同）、`MultiComposition.chain_nil_identity`（展开即 `hx`）、`RealCanonicalCompileComm.comm_via_extract`（条件恒真）、`RealExtractSurjectivity.extractVec_range_ne_proper`（与紧邻上一条逻辑等价）、`ConstraintToLoss.compile_changes_type` 与 `RatRepresentation.compile_changes_type`（各与同文件前 8–16 行的另一份逐字同陈述同 `rfl` 证明，删的是后一份副本）。 |
+
+## 对抗性复核：第一审判错的 **34 / 45**
+
+把 45 条 `delete` 判定交给第二批子代理，任务设定为**论证第一审判错了**。结果：
+
+| 结论 | 条数 |
+|:--|--:|
+| **推翻**（keep） | **34** |
+| 确认可删（delete-safe） | 8 |
+| 应改写而非删除（rewrite） | 3 |
+
+**76% 的误判率**，原因高度集中：
+
+1. **删除会让构建断裂。** 多条「空定理」被同文件后面的定理当作 `atomic` 义务的实参
+   （`ObligationIndependence:95`/`:144` 就是 `absorbs_not_derivable`/`decreases_not_derivable` 的实参），
+   还有的被 `#print axioms` 审计行点名——而 `#print axioms` 对不存在的名字是**硬错误**。
+   第一审只看了 `proof` 与同名重复，没看后文调用点。
+2. **「重复」常常是删错了对象。** `softThresh_le_of_is_min` 是已授权改名后的成果，
+   真正重复的是同文件 `:428`，且 `:598` 用的是后者。
+3. **「证明便宜」被误当成「陈述为空」。** `add_norm_bound` 是三角不等式，便宜但不是重言。
+4. **4 条根本不是声明**，是 docstring 散文被旧提取器误抽（`stated`、`rather`、`applies`、
+   `eq_softThresh_of_is_min`）。提取器已修，**这些是陈旧数据而非新 bug**。
+
+**所以本文件把「一次判定」当线索，不当结论。** 任何 `delete` 必须经过
+（a）对抗性复核 与（b）全库构建通过，两步都过才落地。
+
+## 第二把尺子也是错的：点号记法
+
+对抗性复核发现 `in_degree` 漏掉**点号记法**：token 正则把 `.` 算进标识符，
+于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。
+实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。
+
+修正后（标识符按 `.` 切开）入度 ≥ 1 的定理从 839 升到 **872**，排名重排：
+`roundtrip_extractVec` 升到首位（18）。
+
+**这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。
+两次都由审阅人发现，两次都无法由守卫自身发现。
 
 ## 后续
 

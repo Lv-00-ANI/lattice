@@ -834,13 +834,13 @@
 | module | theorem/lemma | other |
 |:--|--:|--:|
 | `Lattice.Audit.BridgedComposition` | 3 | 0 |
-| `Lattice.Audit.ChainTransitivity` | 7 | 0 |
+| `Lattice.Audit.ChainTransitivity` | 6 | 0 |
 | `Lattice.Audit.CompositionAlgebra` | 10 | 3 |
-| `Lattice.Audit.CompositionClass` | 7 | 3 |
+| `Lattice.Audit.CompositionClass` | 4 | 3 |
 | `Lattice.Audit.Counterexamples` | 4 | 0 |
 | `Lattice.Audit.DecreasesRole` | 2 | 0 |
 | `Lattice.Audit.Hypotheses` | 3 | 3 |
-| `Lattice.Audit.MultiComposition` | 5 | 3 |
+| `Lattice.Audit.MultiComposition` | 4 | 3 |
 | `Lattice.Audit.ObligationIndependence` | 8 | 2 |
 | `Lattice.Audit.PredicateWitnesses` | 5 | 0 |
 | `Lattice.Audit.StructureCensus` | 4 | 3 |
@@ -1255,7 +1255,7 @@
 | `Lattice.Lib.Editing` | 0 | 0 |
 | `Lattice.Lib.Editing.RealBatchEdit` | 1 | 1 |
 | `Lattice.Lib.Editing.RealBatchEditClosed` | 13 | 2 |
-| `Lattice.Lib.Editing.RealCanonicalCompileComm` | 21 | 3 |
+| `Lattice.Lib.Editing.RealCanonicalCompileComm` | 20 | 3 |
 | `Lattice.Lib.Editing.RealCanonicalCompileCommEvidence` | 7 | 0 |
 | `Lattice.Lib.Editing.RealCanonicalForm` | 34 | 9 |
 | `Lattice.Lib.Editing.RealChainEdit` | 2 | 0 |
@@ -1294,7 +1294,7 @@
 | `Lattice.Lib.Editing.RealExtractDecidability` | 29 | 9 |
 | `Lattice.Lib.Editing.RealExtractInvertibility` | 25 | 5 |
 | `Lattice.Lib.Editing.RealExtractNonInjective` | 15 | 3 |
-| `Lattice.Lib.Editing.RealExtractSurjectivity` | 17 | 3 |
+| `Lattice.Lib.Editing.RealExtractSurjectivity` | 16 | 3 |
 | `Lattice.Lib.Editing.RealExtractionDirection` | 15 | 4 |
 | `Lattice.Lib.Editing.RealGramEdit` | 13 | 2 |
 | `Lattice.Lib.Editing.RealLayerSemanticQuotient` | 20 | 8 |
@@ -1572,7 +1572,7 @@
 | `Lattice.Lift.ComboN` | 5 | 3 |
 | `Lattice.Lift.CompilerScheme` | 5 | 2 |
 | `Lattice.Lift.ConstraintEmbeddingSoundness` | 4 | 1 |
-| `Lattice.Lift.ConstraintToLoss` | 5 | 1 |
+| `Lattice.Lift.ConstraintToLoss` | 4 | 1 |
 | `Lattice.Lift.ConvertLinear` | 4 | 7 |
 | `Lattice.Lift.ConvertVectorLinear` | 11 | 11 |
 | `Lattice.Lift.EncodingAbstraction` | 3 | 0 |
@@ -1597,7 +1597,7 @@
 | `Lattice.Lift.PenaltyEmbedding` | 10 | 5 |
 | `Lattice.Lift.ProgramAST` | 9 | 9 |
 | `Lattice.Lift.QuantErrorPropagation` | 2 | 0 |
-| `Lattice.Lift.RatRepresentation` | 5 | 1 |
+| `Lattice.Lift.RatRepresentation` | 4 | 1 |
 | `Lattice.Lift.RealLV` | 6 | 5 |
 | `Lattice.Lift.RealLinear` | 7 | 12 |
 | `Lattice.Lift.RealModLoss` | 6 | 2 |
@@ -2413,7 +2413,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bridgedCount_empty` -> `Audit`, `mul`, `one`
 - `bridgedCount_hom` -> `Audit`
 - `bridgedCount_sequential` -> `Audit`, `induction`, `mul`, `one`
-- `bridged_needs_bridge` -> `Audit`, `bridge_is_necessary`
 - `brier_nonneg` -> `apply`, `le`
 - `bump_ne` -> `flatEquiv`, `seg`, `unflatten`
 - `bump_self` -> `flatEquiv`, `seg`, `unflatten`
@@ -2631,7 +2630,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chain_mgf_bound` -> `card_fin`, `convert`, `le`
 - `chain_mgf_bound_uniform` -> `card_fin`, `convert`
 - `chain_mgf_prod` -> `card_fin`, `convert`, `le`
-- `chain_nil_identity` -> `Audit`
 - `chain_single` -> `Audit`
 - `chain_split_at` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `induction`, `subst`, `zero`
 - `chain_two` -> `Audit`
@@ -2768,7 +2766,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comm_holds_at_one` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`
 - `comm_honesty_register` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `scaleVec`, `sign`
 - `comm_scaleVec_fails_of_ne_pm_one` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `comm_via_extract` -> `VectorConstraint`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
 - `commutativeBlock_trivial` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
 - `commute_comp_right` -> `Compiler`, `comp`, `induction`, `subst`, `trans`
 - `commute_iff_on_generators` -> `Compiler`, `comp`
@@ -2829,9 +2826,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileToLayer_sound` -> `AffineLayer`, `Ladder`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`, `satSym`, `satW`
 - `compileZ_not_injective` -> `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
-- `compile_apply` -> `compile`, `compile_changes_type`, `compile_injective`, `extract`, `roundtrip`
+- `compile_apply` -> `compile`, `compile_injective`, `extract`, `roundtrip`
 - `compile_bridge_sem` -> `Compiler`, `IRConstraint`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `compile_program`, `compile_program_contains_compiled_constraints`, `eval_program`, `graph_satisfiable`, `initialState`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `satisfiable`
-- `compile_changes_type` -> `E`, `PenaltyEmbedding`, `apply`, `compile`, `compile_injective`, `encode`, `extract`, `loss`, `roundtrip`, `satW`
 - `compile_commutes_symEdit_iff_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`
 - `compile_compatible_with_itself` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `compile_constraint_degenerately_satisfied` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `ir_sem`, `lvConstraint`, `parallel`, `subst`
@@ -2943,10 +2939,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
 - `compose_act` -> `Chain`, `W`, `induction`
-- `compose_bridged` -> `Audit`, `bridge_is_necessary`
+- `compose_bridged` -> `Audit`
 - `compose_chain` -> `Audit`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
-- `compose_sequential` -> `Audit`, `bridge_is_necessary`
+- `compose_sequential` -> `Audit`
 - `compose_three_with_bridges` -> `Audit`
 - `compose_via_calculus` -> `ErrorBound`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `roundtrip_error_le_one`, `triangle_combine`
 - `compose_with_bridge` -> `Audit`
@@ -3444,7 +3440,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `deltaOf_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`
 - `delta_is_input` -> `Audit`
 - `delta_not_determined_by_base_only` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `den_positive` -> `compile`, `compile_changes_type`, `compile_injective`, `extract`, `roundtrip`
+- `den_positive` -> `compile`, `compile_injective`, `extract`, `roundtrip`
 - `denote_neg_core` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
 - `denote_scale` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `denote_zero` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
@@ -4050,7 +4046,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evidenceCheck_sound_of_sound` -> `apply`, `step`
 - `evidenceCheck_unsound_exists` -> `apply`, `induction`, `step`
 - `evidenceCheck_unsound_unless_hypothesis_free` -> `step`
-- `evidence_kinds_differ` -> `Audit`, `bridge_is_necessary`
 - `ewcPenalty_nonneg` -> `induction`, `zero`
 - `ewcQuadratic_nonneg` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
 - `ewcQuadratic_nonneg_diagonal` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
@@ -4176,7 +4171,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_is_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `extractVec_mem_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `extractVec_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
-- `extractVec_range_ne_proper` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -6854,7 +6848,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `preserves_free` -> `Repair`, `Sat`
 - `preserves_iterate` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `preserves_of_sat` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `zero`
-- `preserves_one` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `preserves_three` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `preserves_two` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `principal_curvatures_product_eq_gaussian` -> `E`, `S2`
@@ -7955,7 +7948,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seqRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
 - `seq_skip_step` -> `Compiler`, `induction`, `subst`, `trans`
 - `seq_step_ctx` -> `Compiler`, `induction`, `subst`, `trans`
-- `sequential_evidence_trivial` -> `Audit`, `bridge_is_necessary`
 - `sgd_average_iterate_gap` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_rate_bound`
 - `sgd_average_jensen` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_expected_avg_gap`, `sgd_rate_bound`
 - `sgd_avg_gap_bound` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_expected_avg_gap`, `sgd_rate_bound`
@@ -8000,8 +7992,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sign_eq_one_or_neg_one` -> `ScaleClass`, `VectorConstraint`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_ne_cast`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`
 - `sign_preserves` -> `induction`, `relu`, `sign`
 - `sign_unconditional_version_is_false` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `signature_bridged` -> `Audit`, `bridge_is_necessary`
-- `signature_sequential` -> `Audit`, `bridge_is_necessary`
+- `signature_bridged` -> `Audit`
+- `signature_sequential` -> `Audit`
 - `siluA_close` -> `le_trans`
 - `siluGLU_bound` -> `SoftMasked`, `W`, `act`, `apply`, `silu_is_soft_masked`
 - `siluGLU_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`

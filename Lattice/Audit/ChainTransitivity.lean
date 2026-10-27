@@ -106,13 +106,6 @@ theorem preserves_two {α : Type} (P : α → Prop) (f g : α → α)
     P (g (f x)) :=
   hg (f x) (hf x hx)
 
-/-- **单段是特例**。单段、双段、任意多段是**同一条定理的三个投影**，
-不是三条独立定理。 -/
-theorem preserves_one {α : Type} (P : α → Prop) (f : α → α)
-    (hf : ∀ x, P x → P (f x)) (x : α) (hx : P x) : P (f x) :=
-  hf x hx
-
-/-- **三段**：显式给出，说明链式右结合与 `foldl` 一致。 -/
 theorem preserves_three {α : Type} (P : α → Prop) (f g h : α → α)
     (hf : ∀ x, P x → P (f x)) (hg : ∀ x, P x → P (g x)) (hh : ∀ x, P x → P (h x))
     (x : α) (hx : P x) : P (h (g (f x))) :=

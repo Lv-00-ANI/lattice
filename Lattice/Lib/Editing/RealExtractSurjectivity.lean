@@ -121,15 +121,6 @@ theorem extractVec_injective_layer : Function.Injective extractVec := by
 theorem extractVec_range_eq_univ : Set.range convertVec = Set.univ :=
   Set.range_eq_univ.mpr extractVec_exists_preimage
 
-/-- **值域是真子集的否定**（把 §一 的「平凡」写成否命题，便于 §四 对照）。
-
-⚠ 本条**不新**（`range_eq_univ` 的重新包装），登记在此只为**消融对照**。 -/
-theorem extractVec_range_ne_proper : ¬ (Set.range convertVec ⊂ Set.univ) := by
-  rw [extractVec_range_eq_univ]
-  -- `Set` 的 `⊂` 实例是格序 `<`（`Data/Set/Basic.lean:86-87`），
-  -- 故 `univ ⊂ univ` 即 `univ < univ`，由非自反性排除。
-  exact lt_irrefl _
-
 /-! ## 二、⚠ 类型层缺口：`extractVec` 的定义域**不是** `Layer`
 
 任务书说「任意 `Layer` 都有符号原像（`extractVec` 的值域刻画）」，

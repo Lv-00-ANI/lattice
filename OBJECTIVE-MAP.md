@@ -19,12 +19,12 @@
 | 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
 | 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 22 | 5 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 11 | 7 | `Lift.lean`, `Lib/Linear/Multivar.lean` |
-| 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 13 | — |
+| 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
 | 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
 | 2.3 forward: structured init | `compile_sound_n` | `Lift/WeightLadderN.lean` | 0 **← 死代码** | 0 | — |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Lift/ApproxExtraction.lean` | 2 | 4 | `Lift/ApproxLadder.lean`, `Lift/ExtractionStrength.lean` |
-| 3.1 inverse: extraction | `ratRepresentation` | `Lift/RatRepresentation.lean` | 0 *(仅本文件)* | 8 | — |
+| 3.1 inverse: extraction | `ratRepresentation` | `Lift/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
 | 3.2 inverse: verification | `EpsSat` | `Lift/ApproxExact.lean` | 1 | 3 | `Lift/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | `Geo/GeoSampledBound.lean` | 2 | 0 | `Geo/ClauseComposition.lean`, `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistFix` | `Geo/RepairCoverage.lean` | 1 | 3 | `Geo/EqualLengthRepair.lean` |

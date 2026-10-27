@@ -117,13 +117,6 @@ theorem den_positive (q : ℚ) : 0 < q.den := q.den_pos
 
 /-! ## 三、非平凡性 -/
 
-/-- **`compile` 改变类型**：`ℚ → ℤ × ℕ`；恒等映射做不到。 -/
-theorem compile_changes_type (q : ℚ) : ratRepresentation.compile q = (q.num, q.den) := rfl
-
-/-- **`compile` 是单射**：不同的有理数有不同的分子分母对。
-
-⇒ **这个编码不丢信息**，与 `ofEquiv` 的「任意双射」不同——
-它的单射性来自**分子分母的算术性质**。 -/
 theorem compile_injective : Function.Injective ratRepresentation.compile := by
   intro q₁ q₂ h
   have h1 : q₁.num = q₂.num := by
