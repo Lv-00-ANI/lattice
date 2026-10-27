@@ -12,13 +12,16 @@
 > 简言之：按「训练框架」衡量的分数（约 3%）**不是它该被打的分**；
 > 按它自己的范式（表示格，约 40%）才是有意义的衡量。
 >
+> **语义信息主攻方向**：见 [`SEMANTICS-MAINLINE.md`](SEMANTICS-MAINLINE.md)。
+> 它把「语义信息」定义为语义域上的行为/符号/几何对应关系，并给出约束几何 → 程序语义 → 隐空间几何的三阶段路线。
+>
 > **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §6`）：
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 802 | `audit_counts.py` |
-> | 定理 / 引理 | 8385 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Geo/Lib | 18 / 64 / 95 / 605 | `audit_counts.py` |
+> | Lean 模块 | 803 | `audit_counts.py` |
+> | 定理 / 引理 | 8394 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 18 / 65 / 95 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 61（44 门禁 + 17 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -103,7 +106,7 @@ lattice-new/
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
 │   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/      64       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
+│   ├── Lift/      65       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       95       # 约束几何与精确惩罚
 │   ├── Lib/      605       # 应用库，按主题（建立在链路层之上）

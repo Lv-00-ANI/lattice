@@ -17,6 +17,8 @@
 2. **程序语义**：语义 = 程序 AST 的指称；几何 = 程序结构；标注 = 程序片段到约束/功能的映射。可证明，但需要非线性原语与模型级 `Representation`。
 3. **隐空间几何语义**：语义 = 对激活/隐空间的解释函数。这是经验科学；只能证**条件性**定理，不能假装它是已证的。
 
+**词表不是固定接口**：词表编辑（置换/增删/合并/拆分）必须诱导权重变换；这是语义层与模型层之间的第一座桥。
+
 **先做第 1 层，再做第 2 层；第 3 层是研究赌注，不作为近期承诺。**
 
 ---
@@ -27,9 +29,10 @@
 
 1. **多个专业基础模型**：每个模型在极端特化的结构化语料上常规预训练，避免数据冲突。
 2. **权重 → 符号**：把每个模型的权重/结构映射成符号画像（profile）。
-3. **人工整合**：由人决定专家之间如何合并、冲突如何裁决、优先级如何排。
-4. **LATTICE 做后训练与精细编辑**：约束损失、验证、修复、编辑、回滚。
-5. **C 实现**：Lean 出规范/证明，C 出可执行运行时。
+3. **词表可修改**：词表编辑必须配权重变换；不同专家的词表先对齐到共享词表。
+4. **人工整合**：由人决定专家之间如何合并、冲突如何裁决、优先级如何排。
+5. **LATTICE 做后训练与精细编辑**：约束损失、验证、修复、编辑、回滚。
+6. **C 实现**：Lean 出规范/证明，C 出可执行运行时。
 
 本文只讨论 **Lean 侧的语义层**与它对 C 的接口；C 代码独立实现。
 
@@ -48,6 +51,40 @@ structure Vocab where
 ```
 
 `denote` 是**约定**，不是从权重里学出来的。词表提供的是**符号接口**：人类可读、可标注、可编辑。它本身不保证模型「按这个指称使用 token」；后者是行为语义，需要另证。
+
+### 2.1.1 词表可修改：词表编辑必须配权重变换
+
+词表不是固定的：可以重排、重命名、合并、拆分、增删 token。**词表编辑不是只改 `Token` 类型；它必须在模型上诱导一个权重变换 `T(σ)`，否则行为不再对应。**
+
+```
+Token* --encode_V--> 序列 --W--> Meaning
+  | map σ                    | T(σ)
+  v                          v
+Token'* --encode_V'--> 序列 --W'--> Meaning
+```
+
+要求交换图成立（精确或近似）：
+
+```lean
+-- σ : V → V' 是词表编辑；T : W → W' 是权重变换
+∀ w tokens, behavior (T w) (tokens.map σ) = behavior w tokens
+```
+
+| 编辑 | 例子 | 权重侧 | 精确性 |
+|:--|:--|:--|:--|
+| **置换/重命名** | token ID 重排 | embedding 行、输出头列同步置换 | **精确** |
+| **增加未使用 token** | 新 special token | 追加 embedding 行/输出列，初始任意 | **精确**（未使用） |
+| **删除未使用 token** | 裁剪词表 | 删除对应行/列 | **精确**（未使用） |
+| **合并 token** | 两个 token → 一个 | embedding 合并、输出头合并/求和 | **一般有损**；仅当两者嵌入与头部一致时精确 |
+| **拆分 token** | 一个 token → 两个 | 复制/分区 embedding、拆输出头 | **一般有损**；仅当初始分片一致时精确 |
+| **改 `denote`** | 同一个 token 改含义 | **没有权重变换能保持行为** | 不是纯词表编辑；归入 `Annotation` + 重训/修复 |
+
+**结论**：词表编辑分两类：
+
+- **句法编辑**（ID/集合）：可诱导权重变换；置换/未用增删可精确，合并/拆分是有损的，需要 `LossyRep` + 误差界；
+- **语义编辑**（`denote` 改变）：不是权重变换问题，是语义重定义；必须走「标注 + 重训/修复」，不能假装权重变换免费保持语义。
+
+这也解决了多专家整合的一个前置问题：**不同专家的词表不同**。整合前必须先做**词表对齐**（置换/增/删/合并/拆分），并证明每个专家在共享词表上的行为保持（精确或 ε）。
 
 ### 2.2 「权重 + 词表可以携带语义信息且完整」
 
@@ -118,6 +155,7 @@ structure Vocab (D : SemanticDomain) where
 
 -- 模型：权重 + 行为
 structure Model (D : SemanticDomain) where
+  Token : Type
   Weights : Type
   behavior : List Token → D.Meaning
 
@@ -131,9 +169,24 @@ structure Inherits (D) (G : Geometry D) (M : Model D) where
   embed : M.Weights → G.Carrier
   sound : ∀ w x, G.label (embed w x) = M.behavior w x
   complete : ∀ m : D.Meaning, ∃ w x, G.label (embed w x) = m
+
+-- 词表编辑：ID 置换/重命名/增删/合并/拆分
+structure VocabEdit (V V' : Vocab D) where
+  map : V.Token → V'.Token
+  kind : EditKind          -- perm | rename | add | delete | merge | split
+
+-- 词表编辑诱导的权重变换
+structure WeightTransform (M M' : Model D) where
+  apply : M.Weights → M'.Weights
+
+-- 交换条件：词表编辑与权重变换必须一致
+structure VocabCompat (σ : VocabEdit V V') (T : WeightTransform M M') where
+  commutes : ∀ w tokens,
+    M'.behavior (T.apply w) (tokens.map σ.map) = M.behavior w tokens
+  exact : Prop             -- 精确；否则用 ≈ε 版本
 ```
 
-**关键设计**：`Inherits` 是**结构**，不是假设。`sound`/`complete` 是字段，必须由实例填充；没有实例就没有继承。
+**关键设计**：`Inherits` 与 `VocabCompat` 都是**结构**，不是假设。`sound`/`commutes` 是字段，必须由实例填充；没有实例就没有继承/兼容。
 
 ### 3.1 编辑的五个义务
 
@@ -170,10 +223,13 @@ structure MergeSound (R : MergeRecord) (M : Model) where
 ## 4. 流程（与 LATTICE 的接口）
 
 ```
-专家模型 W_i
+专家模型 W_i, Vocab_i
    │  extract（结构符号/约束画像；标注 exact / approx / unknown）
    ▼
 Profile P_i
+   │  词表对齐 σ_i（perm/add/delete/merge/split）+ 权重变换 T(σ_i)
+   ▼
+Profile P_i' on shared Vocab*
    │  人工整合（MergeRecord：约束、优先级、冲突裁决）
    ▼
 Merged Profile P
@@ -193,6 +249,7 @@ Edited M''
 | 步骤 | 义务 |
 |:--|:--|
 | `extract` | `extract_sound`：抽出的 profile 在专家域内与行为一致；`exact/approx` 显式标注 |
+| `vocab-align` | `VocabCompat`：每个专家在共享词表上行为保持（精确或 ε）；合并/拆分需 `LossyRep` |
 | `merge` | `MergeSound`：专家域保持 + 全局约束 + 冲突裁决 |
 | `compile` | `compile_sound`：编译后的程序/权重满足 merged profile |
 | `post-train` | `preserves_constraints`：后训练步骤后约束仍成立（或由 repair 恢复） |
@@ -211,7 +268,17 @@ Edited M''
 - 证明：`realizes`/`frame`/`reversible`/`conflict_free`；
 - C 接口：profile、check、compile、edit、rollback。
 
-**交付标准**：一个结构化专家域（如线性/几何约束）上，端到端演示「抽取 → 人工整合 → 编译 → 约束后训练 → 标注编辑 → 回滚」，并给出 `frame` 定理。
+**交付标准**：一个结构化专家域（如线性/几何约束）上，端到端演示「抽取 → 词表对齐 → 人工整合 → 编译 → 约束后训练 → 标注编辑 → 回滚」，并给出 `frame` 定理。
+
+### 阶段 1.5：词表编辑与对齐（与阶段 1 并行/紧随）
+
+- `VocabEdit` / `WeightTransform` / `VocabCompat` 三件套；
+- **置换/重命名/未用增删**：精确权重变换；
+- **合并/拆分**：`LossyRep` + 误差界（不是免费精确）；
+- **改 `denote`**：不是权重变换，走 `Annotation` + 重训/修复；
+- 多专家共享词表对齐：每个专家一个 `σ_i` 与 `T(σ_i)`，证明 `VocabCompat`。
+
+**交付标准**：一个共享词表对齐 + 一个 merge/split 的误差界 + 一个「改 `denote` 必须重训」的反例。
 
 ### 阶段 2：程序语义（中期）
 
@@ -250,8 +317,15 @@ Edited M''
 | S11 | `program_representation_roundtrip` | 程序语法精确往返 |
 | S12 | `transformer_eval` | block/model 的 `eval` 语义 |
 | S13 | `float_refinement` | 若 C 用 double，给出误差界；否则显式信任边界 |
+| S14 | `vocab_edit_permutation_exact` | 置换/重命名 → 权重置换，行为精确保持 |
+| S15 | `vocab_edit_add_exact` | 未使用 token 的增删 → 精确 |
+| S16 | `vocab_edit_merge_lossy` | 合并 → `LossyRep` + ε 界 |
+| S17 | `vocab_edit_split_lossy` | 拆分 → `LossyRep` + ε 界 |
+| S18 | `vocab_edit_commutes` | 交换图（精确或 ≈ε） |
+| S19 | `vocab_edit_reversible` | 置换/重命名可逆；merge/split 存逆数据 |
+| S20 | `vocab_align_merge_sound` | 多专家对齐后 `MergeSound` 保持 |
 
-**S1–S8 是阶段 1 的核心；S9–S12 是阶段 2；S13 是 C 正确性的前置。**
+**S1–S8 是阶段 1 的核心；S14–S20 是阶段 1.5；S9–S12 是阶段 2；S13 是 C 正确性的前置。**
 
 ---
 
@@ -262,6 +336,8 @@ Lean 侧只需要给**数据格式 + 定理**；C 侧独立实现。
 | 接口 | 输入 | 输出 | 对应 Lean |
 |:--|:--|:--|:--|
 | `profile_load` | 权重/程序 | `Profile`（约束、标注、provenance） | `extract` |
+| `vocab_transform` | 权重 + `σ`（置换/增删/合并/拆分） | 变换后权重 | `WeightTransform` + `VocabCompat` |
+| `vocab_align` | 多专家 `Profile_i` + `Vocab_i` + `σ_i` | 共享词表下的 `Profile_i'` + 误差报告 | `vocab_align_merge_sound` |
 | `merge_check` | 多 `Profile` + `MergeRecord` | 通过/冲突报告 | `MergeSound` |
 | `compile` | `Merged Profile` | 程序/权重 | `compile_sound` |
 | `check` | 约束 + 点/输入 | 判定 | 12/12 可执行判定 |
@@ -278,6 +354,8 @@ Lean 侧只需要给**数据格式 + 定理**；C 侧独立实现。
 | 指标 | 定义 |
 |:--|:--|
 | 抽取保真度 | `extract` 在专家域内与行为一致的比例；exact/approx/unknown 分类 |
+| 词表对齐保真度 | `VocabCompat` 在专家域上的行为差（精确/ε）；置换/增删应接近 0 |
+| 合并/拆分误差 | merge/split 后任务分数与嵌入差；有损时必须给 ε |
 | 约束满足率 | 合并/编辑后，约束在测试输入上的满足比例 |
 | 编辑局部性 | 目标区域变化 / 非目标区域变化 |
 | 回滚精确度 | `rollback(edit(S))` 与 `S` 的行为差 |
@@ -291,6 +369,8 @@ Lean 侧只需要给**数据格式 + 定理**；C 侧独立实现。
 ## 9. 非目标与非声称
 
 - **不声称**「权重 + 词表对所有语义完整」；只对显式语义域 `D` 声称。
+- **不声称** 任意词表编辑都精确：置换/未用增删精确；**合并/拆分有损**；**改 `denote` 不是权重变换**，必须重训/修复。
+- **不声称** 词表对齐免费：每个专家都要给 `σ_i`/`T(σ_i)` 与误差界。
 - **不声称**「隐空间几何自动继承语义」；这是阶段 3 的研究假设。
 - **不声称**「标注即编辑」；标注必须配 `Edit` 的 `realizes/frame/reversible`。
 - **不声称** LATTICE 替代优化器/后训练算法；它提供约束/验证/修复层。
@@ -304,7 +384,7 @@ Lean 侧只需要给**数据格式 + 定理**；C 侧独立实现。
 | 文档 | 关系 |
 |:--|:--|
 | `PARADIGM.md` | 定义表示格与 8 维记分卡；本文是其上的语义层 |
-| `OBJECTIVE-MAP.md` | 14 条目标条款的载体；本文的 S1–S13 是新增语义义务，暂不计入既有 14 条 |
+| `OBJECTIVE-MAP.md` | 14 条目标条款的载体；本文的 S1–S20 是新增语义义务，暂不计入既有 14 条 |
 | `OBJECTIVE-AUDIT.md` | 「定理/检查/定位」三分法；本文每条也应按这三类标注 |
 | `STATE-FINAL.md` / `DELIVERY.md` | 交付状态；本文不修改其数字，只新增方向 |
 | `Slots.lean` | 新义务若承重，应登记为 slot；未登记前不得声称「owed 0 覆盖本文」 |
@@ -323,15 +403,17 @@ Lean 侧只需要给**数据格式 + 定理**；C 侧独立实现。
 
 1. **写 `SemanticDomain`/`Vocab`/`Geometry`/`Inherits` 的最小定义**（阶段 1，约束几何）。
 2. **把 `Annotation`/`Edit` 的五个义务写成 structure 字段**，先对几何约束实现。
-3. **`MergeRecord`/`MergeSound`**：人工整合证书的最小版本。
-4. **一个端到端 MVP**：2–3 个结构化专家域，抽取→整合→编译→编辑→回滚。
-5. **阶段 2 的原语与 AST**：非线性算子、Transformer block、程序级 `Representation`。
-6. **阶段 3 只在阶段 1/2 有论文级结果后启动**；在此之前只写研究假设，不写承诺。
+3. **`VocabEdit`/`WeightTransform`/`VocabCompat`**：先做置换/未用增删的精确版，再做 merge/split 的 `LossyRep` 误差界。
+4. **`MergeRecord`/`MergeSound`**：人工整合证书的最小版本。
+5. **一个端到端 MVP**：2–3 个结构化专家域，抽取→词表对齐→整合→编译→编辑→回滚。
+6. **阶段 2 的原语与 AST**：非线性算子、Transformer block、程序级 `Representation`。
+7. **阶段 3 只在阶段 1/2 有论文级结果后启动**；在此之前只写研究假设，不写承诺。
 
 ---
 
 ## 12. 一句话总结
 
 **语义信息不是「权重里藏着可以被读出的意义」，而是「在显式语义域上，行为、符号、几何三者之间可证明的对应关系」。**
-**主攻方向 = 约束几何语义（可证）→ 程序语义（可证，需非线性/Transformer）→ 隐空间几何语义（条件性，研究）。**
+**词表不是固定接口：词表编辑必须配权重变换；置换/未用增删可精确，合并/拆分有损，改 `denote` 必须重训/修复。**
+**主攻方向 = 约束几何语义（可证）→ 词表编辑/对齐（阶段 1.5）→ 程序语义（可证，需非线性/Transformer）→ 隐空间几何语义（条件性，研究）。**
 **标注只有在带上 `realizes/frame/reversible` 时才等于编辑；否则它只是注释。**
