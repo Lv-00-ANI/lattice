@@ -5,11 +5,22 @@
 > 它与 `PARADIGM.md` 的关系是：`PARADIGM` 定义「表示格」这一层；本文定义「语义信息」这一层，并把后者定为**主攻方向**。
 > 本文不写数字；所有可漂移的计数交给 `gov/` 守卫。
 >
-> **实现进度（第 204 轮起）**：§3 的骨架已经落成 Lean，见
-> [`Lattice/Semantics/Stage1.lean`](Lattice/Semantics/Stage1.lean)。
-> 已实现 S0（`SemanticDomain`）、S1 的阶段 1 形式（`constraintVocab_denote_sound`）、
-> S2（`complete_on`）、S3（`Inherits.sound` 与 `inherits_sound`）、S5（`edit_frame` 的前置：`holdsSet_equiv_append_left`）。
-> **S4 与 S6–S20 未做**，见 §6 的义务清单。
+> **实现进度（第 204–205 轮）**
+>
+> **阶段 1**（`Lattice/Semantics/Stage1.lean`）：
+> S0（`SemanticDomain`）、S1 的阶段 1 形式（`constraintVocab_denote_sound`）、
+> S2（`complete_on`）、S3（`Inherits.sound` 与 `inherits_sound`）、
+> S5 的前置（`holdsSet_equiv_append_left`）。
+>
+> **阶段 1.5**（`Lattice/Semantics/VocabEdit.lean`）：
+> **S14**（`vocab_edit_permutation_exact`，精确）、**S15**（`vocab_edit_add_unused_exact`，精确）、
+> **S16**（`merge_error_bound` + `merge_not_exact`，有损**且证明精确不可能**）、
+> **S17**（`split_error_bound`）、**S18**（`vocab_compat_permutation`）、
+> **S19**（`vocab_edit_reversible`）。
+>
+> **S4、S6–S13、S20 未做**，见 §6 的义务清单。
+> S14–S19 的实现定下了 §3 里悬着的形状：`Embedding V d := V → Fin d → ℝ`（即 `V × d` 矩阵），
+> 理由是它是**唯一**能让 `merge` 误差界可陈述的形状——更抽象的形状里「两个嵌入差多少」没有定义。
 >
 > **一处对 §3 骨架的修正**（实现时发现，记在这里而不是悄悄改）：
 > `Geometry.Carrier` 在阶段 1 取成**约束集**，不是配置空间。
