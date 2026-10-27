@@ -135,7 +135,12 @@ def main(argv):
         return 0
     io.open(OUT, "w", encoding="utf-8", newline="\n").write(text)
     print("wrote", OUT)
-    print("clauses=%d carriers=%d dead=%d localonly=%d" % (len(CLAUSES), 0, weak, localonly))
+    # `carriers` was a literal 0 in this format string while the document listed 27. A generator that
+    # misreports its own output is the same shape as a guard that reads its own constant: the summary
+    # line and the table could disagree and nothing compared them.
+    carriers = sum(len(v) for v in CLAUSES.values())
+    print("clauses=%d carriers=%d dead=%d localonly=%d"
+          % (len(CLAUSES), carriers, weak, localonly))
     return 0 if weak == 0 else 1
 
 

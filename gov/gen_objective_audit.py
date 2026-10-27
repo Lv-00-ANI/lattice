@@ -52,7 +52,7 @@ SENTENCES = [
      "check", "`check_scope_boundary.py`（无训练循环 / 优化器结构 / Module 式 forward）",
      "「不写训练循环」可机器检查；第 158 轮补上"),
     ("正确性由 Lean 4 形式化保证",
-     "theorem", "全库 8,279 条定理，`gate.py` 的 I1（无 axiom）/ I2（无 sorry）",
+     "theorem", "全库 {theorems} 条定理，`gate.py` 的 I1（无 axiom）/ I2（无 sorry）",
      "「保证」的含义是：无 axiom、无 sorry、内核检查通过"),
     ("所有 LLM 的训练与后训练都可落在这条链路上",
      "positioning",
@@ -98,8 +98,14 @@ def render():
     L.append("| 目标原句 | 类别 | 证据 | 备注 |")
     L.append("|:--|:--|:--|:--|")
     counts = {}
+    # The theorem count is MEASURED, not written down: this document used to say 8,279 while the
+    # tree had 8,296, because the number was a literal in SENTENCES. A generated file that carries a
+    # hand-copied count is the same defect the census documents had.
+    from audit_counts import total_theorems
+    theorems = "{:,}".format(total_theorems())
     for sentence, kind, evidence, note in SENTENCES:
         counts[kind] = counts.get(kind, 0) + 1
+        evidence = evidence.replace("{theorems}", theorems)
         L.append("| %s | **%s** | %s | %s |" % (sentence, kind, evidence, note or ""))
     L.append("")
     L.append("## 汇总")
