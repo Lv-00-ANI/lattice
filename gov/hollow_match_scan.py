@@ -28,7 +28,12 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
-ROOT = os.path.join(ZERO, "Lattice", "LvFormal")
+# Round 178, P2-16. This used to point at `Lattice/LvFormal`, which DOES NOT EXIST -- the Lv-00
+# sources live under `Lattice/Reference/LvFormal`. So the scan walked nothing, printed
+# "0 files, 0 findings", and exited 0: a checker reporting "all clear" about a directory it never
+# opened. That is round 57's defect class again, and it is why this file now refuses to report a clean
+# result over zero inputs.
+ROOT = os.path.join(ZERO, "Lattice", "Reference", "LvFormal")
 sys.path.insert(0, os.path.join(HERE, "tools"))
 from sorry_axiom_census import strip_comments  # noqa: E402
 
@@ -133,6 +138,10 @@ def main():
     print("空壳 match 扫描  目标:", asc(ROOT))
     print("=" * 78)
     print("文件数:", len(files), "  发现:", len(findings))
+    if not files:
+        print()
+        print("SCAN FOUND NO FILES under %s -- the scanner is misconfigured, not the tree clean." % ROOT)
+        return 1
     print()
     for f in findings:
         ctors = (" [%d 个构造子]" % f["n_ctors"]) if f["n_ctors"] else ""
