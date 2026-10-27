@@ -40,7 +40,7 @@ PAIRS = [
     # The old patterns required a `|` in both and matched NEITHER, so this measurement was dead.
     ("N4 apostrophes in the kernel",
      [r"N4 撇号违规 \*\*(\d+)\*\*",
-      r"撇号名\s+\*\*(\d+)\*\*"]),
+      r"\| 撇号名 \| \*\*(\d+)\*\*"]),
     ("files over 60 declarations",
      [r"超 60 声明的文件（(\d+) 个）",
       r"### 7\.3 F1 超 60 声明：(\d+) 个文件",

@@ -273,7 +273,7 @@ CLAIMS = [
      r"\| F1 超 60 声明 \| \*\*(\d+)\*\* \|",
      measure_oversized, "CONVENTIONS.md"),
     ("CONVENTIONS: camelCase theorems",
-     r"\| N3 camelCase 定理 \| \*\*(\d+)\*\*",
+     r"\| camelCase 定理 \| \*\*(\d+)\*\*",
      measure_camel_theorems, "CONVENTIONS.md"),
     ("DELIVERY: module count",
      r"\| 源模块（不含 `Reference/`） \| \*\*(\d+)\*\* \|",
@@ -297,11 +297,26 @@ def run(usage_text=None):
         text = _read(path)
         ms = re.findall(pat, text)
         if not ms:
-            print("%-38s %-10s %-10s %s" % (label, "(absent)", "-", "report-only"))
+            # A CLAIM WHOSE PATTERN MATCHES NOTHING IS A FAILURE, not a pass.
+            #
+            # This branch used to print `(absent) report-only` and `continue`. Three claims had been
+            # silently in that state -- `内核声明总数`, `camelCase 定理`, `F1 超 60 声明` -- because their
+            # patterns still expected pipe-table rows (`| X | **N** |`) while CONVENTIONS had been
+            # rewritten as space-aligned text. So a number could DISAPPEAR from a document and this
+            # checker would go green; worse, `内核声明总数` read 10,836 while the tree had 10,983.
+            #
+            # Deleting a number is now as loud as changing it. If a claim is genuinely obsolete,
+            # delete it from CLAIMS -- do not let it rot into a no-op.
+            print("%-38s %-10s %-10s %s"
+                  % (label, "(absent)", "-", "*** PATTERN MATCHED NOTHING ***"))
+            bad += 1
             continue
         measured = measure()
         if measured is None:
-            print("%-38s %-10s %-10s %s" % (label, ms[0], "(unmeasurable)", "report-only"))
+            # same reasoning: a measurement that cannot run is not agreement
+            print("%-38s %-10s %-10s %s"
+                  % (label, ms[0], "(unmeasurable)", "*** CANNOT MEASURE ***"))
+            bad += 1
             continue
         ok = all(int(x.replace(",", "")) == measured for x in ms)
         print("%-38s %-10s %-10s %s" % (label, ms[0], measured,
@@ -351,16 +366,24 @@ def self_test():
     Instead of rewriting the checked documents (which would make the test destructive), evaluate
     each claim's comparison against a deliberately wrong documented value and require it to be
     reported as wrong.
+
+    Round 169: this also requires that EVERY claim's pattern finds its number. It used to `continue`
+    past a claim whose pattern matched nothing, which is how three claims stayed dead -- a self-test
+    that skips the broken cases certifies the broken state.
     """
     checked = 0
+    absent = []
+    unmeasurable = []
     failed = []
     for label, pat, measure, doc in CLAIMS:
         text = _read(os.path.join(LAKE, doc))
         ms = re.findall(pat, text)
         if not ms:
+            absent.append(label)
             continue
         measured = measure()
         if measured is None:
+            unmeasurable.append(label)
             continue
         checked += 1
         # a number that is certainly not the measurement
@@ -374,10 +397,19 @@ def self_test():
         for f in failed:
             print("SELF-TEST FAILED: %s" % f)
         return 2
+    if absent:
+        for a in absent:
+            print("SELF-TEST FAILED: claim %r matched nothing in its document" % a)
+        return 2
+    if unmeasurable:
+        for u in unmeasurable:
+            print("SELF-TEST FAILED: claim %r could not be measured" % u)
+        return 2
     if checked == 0:
         print("SELF-TEST FAILED: no claim was verifiable, so nothing could be caught")
         return 2
-    print("SELF-TEST: %d claim(s) verify, and a differing value would be reported" % checked)
+    print("SELF-TEST: %d claim(s) verify, every pattern finds its number, and a differing value"
+          " would be reported" % checked)
     return 0
 
 
