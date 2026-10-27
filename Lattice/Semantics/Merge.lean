@@ -214,4 +214,99 @@ theorem conflicts_not_automatic :
     (List.mem_cons_self _ _)
   exact absurd (hr.1 rfl) (by simp)
 
+/-! ## 五、整合证书对专家是**可组合**的（S20 的可证部分）
+
+### 先说清 S20 原文要求什么，以及为什么不能照做
+
+`SEMANTICS-MAINLINE.md` 的 **S20 `vocab_align_merge_sound`** 说「多专家共享词表后 `MergeSound` 保持」。
+
+**问题**：`MergeSound`（上一节）完全不涉及词表类型 `V`。所以「保持」只有两种可能：
+
+1. **空的**：既然 `MergeSound` 不提 `V`，它对词表编辑自然不变——**那是重言**，
+   正是本库反复出现的那种「看起来证明了什么」；
+2. **需要一条桥**：把 `VocabModel.behavior : V → V → ℝ` 与 `GeoConstraint.Holds : (ℕ → Pt n) → Prop`
+   连起来。**而这条桥在库里不存在**——`behavior` 返回标量 logit，`Holds` 谈配置，
+   两者是不同的宇宙。**连接它们正是「符号⇄权重」那一跳，而那一跳没有通。**
+
+**所以本节不做 S20 的词表部分，而是做它真正需要的那半：多专家整合的证书必须是可组合的。**
+否则「多专家」只是一句话：一个专家的证书不能说明另一个专家。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| **`merge_sound_cons`** | **追加一个在自身上成立的专家，证书保持** |
+| **`merge_sound_append_experts`** | 追加**一列**这样的专家，证书保持 |
+| **`merge_sound_add_global`** | 追加一条成立的全局约束，证书保持 |
+| **`merge_sound_not_composable`** | **N：追加一个不成立的专家，证书破坏** |
+
+**N 那条是关键**：若「追加专家总是保持证书」，可组合性就是重言。
+反例证明**每个专家都必须自己满足自己的约束**——这才叫「多专家整合」。
+
+### 边界
+
+- **可组合性对专家数 `n`、约束表长度都没有限制**（`append` 归纳），
+  但**每个新专家都要单独给出 `HoldsSet` 前提**：证书不会自己「传染」。
+- **`rejected` 在整个过程中不变**：本节只讨论**追加**，不讨论**追加同时裁决冲突**。
+  后者要改 `conflicts` 与 `rejected` 两个字段，是另一件事。
+- **本节不碰词表**。理由见上。 -/
+
+/-- **追加一个在自身上成立的专家，证书保持。**
+
+三个字段逐个验证：`global_holds` 不变、`experts_hold` 对新专家用 `he`、对其余用原证书、
+`conflicts_resolved` 不变（本节不改 `conflicts` 与 `rejected`）。 -/
+theorem merge_sound_cons (R : MergeRecord n) (pts : ℕ → Pt n) (h : MergeSound R pts)
+    (e : Expert n) (he : HoldsSet e.constraints pts) :
+    MergeSound { R with experts := e :: R.experts } pts where
+  global_holds := h.global_holds
+  experts_hold := by
+    intro e' he'
+    rcases List.mem_cons.mp he' with rfl | hmem
+    · exact he
+    · exact h.experts_hold e' hmem
+  conflicts_resolved := h.conflicts_resolved
+
+/-- **追加一列成立的专家，证书保持。** -/
+theorem merge_sound_append_experts (R : MergeRecord n) (pts : ℕ → Pt n) (h : MergeSound R pts)
+    (es : List (Expert n)) (he : ∀ e ∈ es, HoldsSet e.constraints pts) :
+    MergeSound { R with experts := R.experts ++ es } pts where
+  global_holds := h.global_holds
+  experts_hold := by
+    intro e' he'
+    rcases List.mem_append.mp he' with h1 | h2
+    · exact h.experts_hold e' h1
+    · exact he e' h2
+  conflicts_resolved := h.conflicts_resolved
+
+/-- **追加一条成立的全局约束，证书保持。** -/
+theorem merge_sound_add_global (R : MergeRecord n) (pts : ℕ → Pt n) (h : MergeSound R pts)
+    (c : GeoConstraint n) (hc : GeoConstraint.Holds c pts) :
+    MergeSound { R with global := c :: R.global } pts where
+  global_holds := by
+    -- HoldsSet (c :: R.global) pts IS the conjunction Holds c pts ∧ HoldsSet R.global pts
+    show HoldsSet (c :: R.global) pts
+    exact ⟨hc, h.global_holds⟩
+  experts_hold := h.experts_hold
+  conflicts_resolved := h.conflicts_resolved
+
+/-- **N：追加一个不成立的专家，证书破坏。**
+
+取专家 `⟨0, [eqZero (const 1)]⟩`：它的约束要求 `1 = 0`，在任何配置上都不成立。
+
+**若这条为假**（即追加任何专家都保持证书），可组合性就是重言，
+`MergeSound` 也就退化成「只要全局约束成立即可」——那么「多专家」这个词没有任何内容。 -/
+theorem merge_sound_not_composable :
+    ∃ (R : MergeRecord 0) (pts : ℕ → Pt 0),
+      MergeSound R pts ∧
+        ∀ (e : Expert 0), ¬ HoldsSet e.constraints pts →
+          ¬ MergeSound { R with experts := e :: R.experts } pts := by
+  -- the empty record is sound at any configuration
+  refine ⟨{ experts := [], global := [], conflicts := [], rejected := fun _ => false,
+            priority := fun _ => 0 }, fun _ _ => 0, ?_, ?_⟩
+  · exact ⟨trivial, (by intro e he; simp at he), (by intro p hp; simp at hp)⟩
+  · intro e hne hs
+    exact hne (by
+      -- the certificate's `experts_hold` forces `HoldsSet e.constraints`
+      simpa using hs.experts_hold e (List.mem_cons_self e []))
+
 end Lattice.Semantics.Merge

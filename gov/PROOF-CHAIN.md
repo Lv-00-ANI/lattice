@@ -1642,7 +1642,7 @@
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
-| `Lattice.Semantics.Merge` | 8 | 6 |
+| `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
@@ -3027,8 +3027,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `configOf_inv` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `configOf_roundtrip` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `flatten_unflatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `conflict_empty_trail` -> `apply`, `children`, `induction`, `length`, `trans`
-- `conflict_loser_absent` -> `Pt`
+- `conflict_loser_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
 - `conflict_resolve_fixed_point` -> `apply`, `children`, `induction`, `length`, `trans`
+- `conflicts_not_automatic` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
 - `confluence_of_commuting` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `confluent_normalForm_unique` -> `induction`, `subst`, `trans`
 - `confluent_of_wf` -> `induction`, `subst`, `trans`
@@ -4954,13 +4955,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holder_two_is_cauchy` -> `card_fin`
 - `holdsSet_append` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_equiv_append_left` -> `Domain`, `GeoConstraint`, `Holds`, `Pt`, `Token`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
-- `holdsSet_flatMap_experts` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
+- `holdsSet_flatMap_experts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `holdsSet_meaning_equiv` -> `Domain`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `Token`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_mem` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_member` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `induction`, `length`, `nil_append`
 - `holdsSet_mono` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `holdsSet_nil` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
-- `holdsSet_of_sublist` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
+- `holdsSet_of_sublist` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
@@ -5951,9 +5952,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `merge_not_exact` -> `E`, `col`
 - `merge_output_bound` -> `apply`, `topk_output_bound`
 - `merge_output_bound_subprob` -> `apply`, `topk_output_bound`
-- `merge_parts` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`
-- `merge_sound` -> `GeoConstraint`, `HoldsSet`, `Pt`
-- `merged_sublist` -> `GeoConstraint`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
+- `merge_parts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_append`
+- `merge_sound` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
+- `merge_sound_add_global` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
+- `merge_sound_append_experts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
+- `merge_sound_cons` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
+- `merge_sound_not_composable` -> `HoldsSet`, `Pt`
+- `merged_sublist` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`
 - `metric_eq_kernel_expansion` -> `apply`, `featScore`
 - `metric_kernel_nonneg` -> `apply`, `featScore`
 - `mfcq_one_dim_agrees` -> `LICQOneDim`, `le_refl`, `subst`
@@ -7319,7 +7324,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reinject_perpendicular` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`
 - `reinject_sound` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`
 - `rejectSet_antitone` -> `alpha`, `le_trans`
-- `rejected_absent` -> `GeoConstraint`, `Pt`
+- `rejected_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
 - `relative_perturbation_bound` -> `E`, `apply`, `comp`, `trans`
 - `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `trans`
