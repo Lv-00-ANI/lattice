@@ -317,7 +317,21 @@ HEAD 等于该 rev，并用 `grep -qE '^error' build.log` 把构建错误变成 
 `gov/check_ci_workflow.py` 守着这些性质，`check_ci_workflow_reactivity.py` 证明它**会红**
 （4 个注入的缺陷全部被检出）。
 
-**仍然要说清楚**：这台机器跑不了 git transport（`git ls-remote` 报
+**第 176 轮查明了「从未跑过」的第二个机制，比第一个更彻底。**
+`on.push.branches` 只列了 `main`，而**本仓库的默认分支是 `master`**——
+所以每一次 push **都不会触发任何东西**。这比路径写错的上一层更隐蔽：
+一个匹配不到任何分支的 workflow，与一个通过的 workflow，从外面看都是「没有红色」。
+
+已修：触发列表改为 `[main, master]`，并**把这条变成可检测的缺陷**——
+`gov/check_ci_locally.py` 现在读 `git branch --show-current` 拿到真实分支，
+要求它出现在触发列表里。实测植入旧的 `branches: [main]` 会报
+`push trigger fires on the default branch 'master'  ** FAIL **`。
+
+同一轮还修了两处**静默降级**：`lake exe cache get || echo ...` 会把缓存不可用藏成
+「CI 很慢」，现在改为 `if/else` + `::warning::` + 记录 `hit`；
+`workflow_dispatch` 与「缓存失败不被吞掉」也各有独立检查，`--self-test` **逐条植入**验证它们各自会红。
+
+**（仍然）要说清楚**：这台机器跑不了 git transport（`git ls-remote` 报
 `sh.exe: fatal error - couldn't create signal pipe, Win32 error 5`），
 所以 workflow 里**联网、elan 安装、cache 服务这三段只经过静态检查，没有实跑过**。
 第一次真实 CI 运行仍是未验证的。

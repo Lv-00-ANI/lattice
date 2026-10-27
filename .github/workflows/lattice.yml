@@ -30,7 +30,12 @@ name: lattice
 
 on:
   push:
-    branches: [main]
+    # `master` is this repository's default branch. The file used to list only `main`, so a push to
+    # the branch that actually exists triggered NOTHING -- which is the concrete mechanism behind
+    # "CI has never run on a real runner". Both names are listed so a future rename cannot silently
+    # disable the whole workflow again: a CI trigger that matches no branch is indistinguishable from
+    # a passing CI from the outside.
+    branches: [main, master]
   pull_request:
   workflow_dispatch:
 
@@ -137,10 +142,21 @@ jobs:
           test "$(git -C "$DEST" rev-parse HEAD)" = "$REV"
 
       # Fetching the prebuilt oleans is what makes this job finish in minutes instead of
-      # hours. If it fails (rate limit, outage) the job still proceeds and simply builds
-      # from source.
+      # hours. If it fails (rate limit, outage) the job still proceeds and builds mathlib from
+      # source -- but it says so LOUDLY and records it, because a silent fallback turns a
+      # 3-hour timeout into a mysterious "CI is slow" instead of "the cache was unavailable".
       - name: fetch mathlib cache
-        run: lake exe cache get || echo "cache unavailable; building mathlib from source"
+        id: cache
+        run: |
+          set -uo pipefail
+          if lake exe cache get; then
+            echo "cache hit: prebuilt mathlib oleans fetched"
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::mathlib cache unavailable; this job will build mathlib from source and may time out"
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+        timeout-minutes: 30
 
       - name: lake build Lattice
         run: lake build Lattice 2>&1 | tee build.log

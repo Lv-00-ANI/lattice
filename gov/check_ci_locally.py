@@ -99,7 +99,52 @@ def job2_audit(root=None, wf=None):
 
     for pat in ("powershell", "pwsh", ".ps1", "Select-String", "Get-ChildItem"):
         results.append(("no Windows-ism %r" % pat, pat not in code))
+
+    # Round 176, P2-10. THE MOST IMPORTANT LINE IN THIS FILE.
+    #
+    # `on.push.branches` listed only `main`, while this repository's default branch is `master` --
+    # so **every push triggered nothing**. That is the concrete mechanism behind "CI has never run on
+    # a real runner", and it is invisible from the outside: a workflow that matches no branch and a
+    # workflow that passes both show a green (or absent) check.
+    #
+    # So the trigger list is now checked against the branch that actually exists. If the default
+    # branch is renamed and this list is not updated, the build goes red instead of quiet.
+    branches = []
+    m = re.search(r"(?ms)^on:.*?^\s+push:.*?^\s+branches:\s*\[([^\]]*)\]", text)
+    if m:
+        branches = [b.strip().strip("\"'") for b in m.group(1).split(",") if b.strip()]
+    default_branch = current_branch(root)
+    if default_branch is None:
+        results.append(("push trigger: branch list readable", False))
+    else:
+        results.append(("push trigger fires on the default branch %r" % default_branch,
+                        default_branch in branches))
+    # a workflow that cannot be triggered by hand cannot be checked by hand either
+    results.append(("workflow_dispatch present", "workflow_dispatch" in code))
+    # a `|| echo` around the cache fetch hides an outage behind a from-source build that will time out
+    results.append(("mathlib cache failure is not silently swallowed",
+                    "lake exe cache get ||" not in code))
     return results
+
+
+def current_branch(root=None):
+    """The repository's default branch, read from git; `None` if it cannot be determined.
+
+    Using `git symbolic-ref refs/remotes/origin/HEAD` first would need a remote; this tree has none,
+    so the checked-out branch is the honest answer on a developer machine. In CI the runner checks out
+    a detached HEAD, where this returns `None` and the trigger check reports "not readable" rather
+    than a false pass.
+    """
+    root = root or ROOT
+    try:
+        r = subprocess.run(["git", "-C", root, "branch", "--show-current"],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+    except (OSError, ValueError):
+        return None
+    if r.returncode != 0:
+        return None
+    name = (r.stdout or "").strip()
+    return name or None
 
 
 def main(argv):
@@ -118,22 +163,59 @@ def main(argv):
 
     print()
     if "--self-test" in argv:
-        # plant a workflow that would fail every audit, assert the audit reports it
+        # Round 176: this used to plant one broken workflow and assert only that SOMETHING failed,
+        # which cannot show that any particular check works. Each rule is now planted on its own and
+        # must be the one that fires.
         import shutil
-        planted = "run: powershell -c 'Select-String'\nworking-directory: nowhere\n"
         tmp_dir = os.path.join(ROOT, ".ci-selftest")
-        tmp_wf = os.path.join(tmp_dir, "wf.yml")
         os.makedirs(tmp_dir, exist_ok=True)
+
+        def audit_text(t):
+            p = os.path.join(tmp_dir, "wf.yml")
+            io.open(p, "w", encoding="utf-8", newline="\n").write(t)
+            return {name: ok for name, ok in job2_audit(root=ROOT, wf=p)}
+
         try:
-            with io.open(tmp_wf, "w", encoding="utf-8", newline="\r\n") as f:
-                f.write(planted)
-            planted_results = job2_audit(root=tmp_dir, wf=tmp_wf)
+            good = io.open(os.path.join(ROOT, ".github", "workflows", "lattice.yml"),
+                           encoding="utf-8").read()
+            base = audit_text(good)
+            failures = []
+            if not all(base.values()):
+                failures.append("the real workflow is reported broken: %s"
+                                % [n for n, ok in base.items() if not ok])
+
+            # (a) the original defect: the push trigger names a branch that does not exist
+            planted = good.replace("branches: [main, master]", "branches: [main]")
+            if planted == good:
+                failures.append("could not plant the branch defect (text changed?)")
+            else:
+                r = audit_text(planted)
+                hit = [n for n, ok in r.items() if not ok and "push trigger" in n]
+                if not hit:
+                    failures.append("a push trigger naming no real branch was NOT caught")
+
+            # (b) a silently swallowed cache failure. Appending the pattern is enough: the rule is
+            # "this string must not appear", so a planted line is the most direct test of it and does
+            # not depend on the exact wording of the real step.
+            planted = good + "\n      - name: planted\n        run: lake exe cache get || echo swallowed\n"
+            r = audit_text(planted)
+            if not [n for n, ok in r.items() if not ok and "swallow" in n]:
+                failures.append("a swallowed cache failure was NOT caught")
+
+            # (c) no manual trigger
+            planted = good.replace("  workflow_dispatch:\n", "")
+            r = audit_text(planted)
+            if not [n for n, ok in r.items() if not ok and "workflow_dispatch" in n]:
+                failures.append("a workflow with no workflow_dispatch was NOT caught")
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
-        if all(p for _, p in planted_results):
-            print("SELF-TEST FAILED: a broken workflow was audited clean")
+
+        if failures:
+            for f in failures:
+                print("SELF-TEST FAILED: %s" % f)
             return 2
-        print("SELF-TEST: a broken workflow is caught")
+        print("SELF-TEST: real workflow clean; branch trigger, swallowed cache and missing"
+              " workflow_dispatch each caught on their own")
         return 0
 
     print("CI LOCAL SIMULATION: %s" % ("ok" if ok else "PROBLEM"))
