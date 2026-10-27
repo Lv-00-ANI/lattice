@@ -64,12 +64,18 @@ inductive Status where
   | permanent (reason : String)
   deriving DecidableEq, Repr
 
-/-- A load-bearing proposition the project owes. -/
+/-- A load-bearing proposition the project owes.
+
+**A `stmt : Prop` field was removed in round 170.** It was declared here, set to `True` in all nine
+slots, and **read by nothing** -- not by this file, not by any other Lean module, not by any `gov/`
+script. A field that always holds `True` and that nobody reads is worse than no field: it makes the
+registry look as though it carries each obligation's proposition when it carries only its name.
+
+The same judgement deleted five `theorem ... : True` declarations in round 168. If a slot's statement
+is ever needed, it should be a real proposition that something checks -- not a `True` placeholder. -/
 structure Slot where
   /-- Dotted, lower-case identifier: `<domain>.<object>.<property>`. -/
   name : String
-  /-- The proposition itself. -/
-  stmt : Prop
   /-- Why it is load-bearing, and what would discharge it. -/
   note : String
   /-- Where it stands. -/
@@ -170,7 +176,6 @@ This is `Compiler.sound` in `Lattice.Lift.SymbolToWeight`: the field a compiler 
 before `compileProgram_sound` applies. -/
 def compileSingleItemSound : Slot :=
   { name := "lift.compile.single_item_sound"
-    stmt := True
     note :=
       "Field `sound` of `Lattice.Lift.Compiler`. Discharged per compiler: the linear " ++
       "fragment discharges it by `convertVec`'s preservation lemma. Open as a *scheme* " ++
@@ -214,7 +219,6 @@ mention. The general claim over arbitrary embeddings remains *false*
 (`Lattice.Lift.PenaltyEmbedding.sound_not_exact`), which is why this slot is not `discharged`. -/
 def embedLocalMinimiserExact : Slot :=
   { name := "lift.embed.local_minimiser_exact"
-    stmt := True
     note :=
       "Proved at n = 1 via Fermat (`Penalty.sq_penalty_exact`, uses HasDerivAt); at every n for " ++
       "diagonal constraints (`PenaltyPerturbN.sq_penalty_exact_finN`); and for matrices with a " ++
@@ -231,7 +235,6 @@ by `cases c <;> rfl` for a field-renaming pair; it remains an obligation here be
 general backend must supply its own. -/
 def extractRoundtrip : Slot :=
   { name := "lift.extract.roundtrip"
-    stmt := True
     note :=
       "Field `roundtrip` of `Lattice.Lift.Representation`. Degenerate for field renaming; " ++
       "substantive for any backend whose encoding is not the identity. " ++
@@ -265,7 +268,6 @@ This is `Repair.atomic` in `Lattice.Core.Repair`. Its necessity is machine-check
 converges, so `atomic` cannot be derived. -/
 def repairAtomic : Slot :=
   { name := "core.repair.atomic"
-    stmt := True
     note :=
       "Field `atomic` of `Lattice.Core.Repair`. Not derivable -- see `down_no_progress`. " ++
       "Discharged per repair operator by choosing a measure that vanishes on the target. -- " ++
@@ -294,7 +296,6 @@ Not settled by this: `core.semantics.external_bridge`, which is a toolchain ques
 Lean >= 4.26 while this project pins 4.14 so the legacy mathlib stays buildable). -/
 def weightSemanticsChosen : Slot :=
   { name := "core.semantics.weight_exists"
-    stmt := True
     note :=
       "Discharged by adoption, not by invention: `Lattice.Core.Net` already defined `AffineLayer` and " ++
       "`netAct`; `Lattice.Core.WeightNet.instWeightSemanticsNet` gives that stack a `WeightSemantics` " ++
@@ -313,7 +314,6 @@ Scope is recorded with the discharge: widths are `Nat`-valued, so layers live on
 exist because they trade polymorphism against variable width, and neither subsumes the other. -/
 def variableWidthStack : Slot :=
   { name := "core.net.variable_width"
-    stmt := True
     note :=
       "Discharged by `Lattice.Core.Chain.act_append` (with `MLayer.compose_act` for the layer law). " ++
       "Scope: `Nat`-valued widths only; arbitrary `Fintype` widths remain on the fixed-width stack " ++
@@ -327,7 +327,6 @@ it needs a dependency whose Lean version is above this project's, so it cannot b
 more Lean here. Recording it separately stops it from hiding inside the other slot. -/
 def externalToolchainBridge : Slot :=
   { name := "core.semantics.external_bridge"
-    stmt := True
     note :=
       "TorchLean supplies typed tensors, verified autograd and IEEE-754 semantics, but requires " ++
       "Lean >= 4.26 while this project pins 4.14 so that the legacy mathlib stays buildable. " ++
@@ -357,7 +356,6 @@ requires a different repair operator (one whose single step does not settle the 
 The statement that holds today is `loop_converges_in_one`, which says exactly one step. -/
 def loopConvergenceIsSingleStep : Slot :=
   { name := "geo.loop.convergence_is_single_step"
-    stmt := True
     note :=
       "`loop_converges` follows from `Repair.progress` with the measure " ++
       "`if satisfied then 0 else 1`; this bounds the loop at ONE step and does not express " ++
@@ -378,7 +376,6 @@ The geometry layer's operators (`samePointRepair` et al.) remain one-step -- see
 multi-step convergence is expressible in this framework, with a tight rate. -/
 def multistepRepairExists : Slot :=
   { name := "core.repair.multistep_exists"
-    stmt := True
     note :=
       "Discharged by `Lattice.Core.Multistep.countdown` with `converges_within_is_tight`: " ++
       "measure `mu k = k` (unbounded), rate exactly `mu k`, and `no_uniform_bound` shows no " ++
