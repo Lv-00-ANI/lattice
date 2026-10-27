@@ -39,6 +39,7 @@ import Lattice.Lift.RectangularWeightEncoding
 import Lattice.Lift.RectangularRepresentation
 import Lattice.Lift.LayerQuantization
 import Lattice.Lift.LayerQuantizationBits
+import Lattice.Lift.SaturationQuantization
 
 /-!
 # Lattice.Lift -- the representation ladder
