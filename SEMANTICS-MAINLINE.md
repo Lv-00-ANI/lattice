@@ -23,7 +23,12 @@
 > **S6 · reversible**（`edit_undo_restores_removed` + `edit_undo_drops_add`）、
 > **S7 · idempotent**（`edit_apply_idempotent_of_no_add` + `edit_apply_not_idempotent_of_add`）。
 >
-> **S8–S13、S20 未做**，见 §6 的义务清单。
+> **阶段 1 · 整合证书**（`Lattice/Semantics/Merge.lean`）：
+> **S8**（`merge_sound` + `conflicts_not_automatic`），以及它的**可组合性**
+> （`merge_sound_cons` / `merge_sound_append_experts` / `merge_sound_add_global`，
+> 加上否定侧 `merge_sound_not_composable`）。
+>
+> **S9–S13 未做。S20 被阻塞——原因见 §6.1，不是「没做完」。**
 > S14–S19 的实现定下了 §3 里悬着的形状：`Embedding V d := V → Fin d → ℝ`（即 `V × d` 矩阵），
 > 理由是它是**唯一**能让 `merge` 误差界可陈述的形状——更抽象的形状里「两个嵌入差多少」没有定义。
 >
@@ -350,9 +355,39 @@ Edited M''
 | S17 | `vocab_edit_split_lossy` | 拆分 → `LossyRep` + ε 界 |
 | S18 | `vocab_edit_commutes` | 交换图（精确或 ≈ε） |
 | S19 | `vocab_edit_reversible` | 置换/重命名可逆；merge/split 存逆数据 |
-| S20 | `vocab_align_merge_sound` | 多专家对齐后 `MergeSound` 保持 |
+| S20 | `vocab_align_merge_sound` | **被阻塞**（见 §6.1）：`MergeSound` 不含词表类型，所以它要么是重言，要么需要一条库里没有的桥 |
 
 **S1–S8 是阶段 1 的核心；S14–S20 是阶段 1.5；S9–S12 是阶段 2；S13 是 C 正确性的前置。**
+
+### 6.1 S20 为什么被阻塞（而不是「还没做」）
+
+S20 说「多专家对齐后 `MergeSound` 保持」。**但 `MergeSound`（`Semantics/Merge.lean`）里没有词表类型
+`V` 出现**——它只谈 `GeoConstraint` 与配置 `pts`。所以「保持」只有两种可能：
+
+1. **空的**：`MergeSound` 不提 `V`，自然对词表编辑不变。**那是重言**，
+   正是本库反复出现的形态（一条看起来证明了的定理，实际什么都没说）。
+2. **需要一条桥**：把
+
+   ```lean
+   VocabModel.behavior : V → V → ℝ          -- 标量 logit
+   GeoConstraint.Holds : (ℕ → Pt n) → Prop  -- 配置上的谓词
+   ```
+
+   连起来。**这条桥在库里不存在**，而连接它们正是**符号 ⇄ 权重那一跳**——
+   目标说「真正的难点只有这一跳」，而这一跳**没有通**。
+
+**所以 S20 不是一个可以靠「再写一个文件」解决的义务。** 它的前置是：
+
+| 缺什么 | 在哪 |
+|:--|:--|
+| 模型级 `behavior` 与约束级 `Holds` 的对应 | 需要 `Inherits`（本文件 §3）在**模型层**被实例化，而其 `sound` 是**字段**，必须由实例提供 |
+| `Embedding`/`OutputHead` 到配置空间的解码 | `Semantics/VocabEdit.lean` 只有 logit，没有「配置」 |
+| 那条对应要能承载 `HoldsSet` | 目前 `HoldsSet` 只在 `GeoConstraint` 上定义 |
+
+**已经做的替代**：`Semantics/Merge.lean` §五 给出**整合证书对专家可组合**
+（`merge_sound_cons` / `merge_sound_append_experts` / `merge_sound_add_global`）
+以及**否定侧** `merge_sound_not_composable`——后者证明「追加任何专家都保持证书」是假的，
+因此「多专家」这个词有内容。**这是 S20 在多专家方向上的可证部分；词表方向被上面那条桥挡住。**
 
 ---
 
