@@ -129,8 +129,7 @@ hypothesis: it invites the reader to believe the compiler has a depth limit it d
 theorem toStack_correct (e : Lattice.Geo.ComputableExpr.CExpr n) (pts : ℕ → Fin n → Float) (seed : Float) :
     Lattice.Lift.StackCodegen.runProg (fun pa : ℕ × Fin n => pts pa.1 pa.2) (Lattice.Lift.StackCodegen.compileProg (toStack e)) [seed] =
       some (Lattice.Geo.ComputableExpr.CExpr.evalC e pts :: [seed]) := by
-  rw [Lattice.Lift.StackCodegen.compileProg_correct (fun pa : ℕ × Fin n => pts pa.1 pa.2) (toStack e) seed (by
-    rw [stackDepth_toStack, CExpr.depth_eq_one])]
+  rw [Lattice.Lift.StackCodegen.compileProg_correct (fun pa : ℕ × Fin n => pts pa.1 pa.2) (toStack e) seed]
   rw [evalStack_toStack]
 
 end Lattice.Geo.CExprCodegen

@@ -25,7 +25,7 @@ IsometryScalar  (T : E → E) : Prop := ∀ q k, ⟪T q, T k⟫ = ⟪q, k⟫
 
 | 谓词 | 见证 | 说明 |
 |:--|:--|:--|
-| `IsRedundant` | `isRedundant_true` | `IsRedundant true` 平凡成立 |
+| `IsRedundant` | `isRedundant_nonempty` | 存在 `b` 使 `IsRedundant b`（不是「`true = true` 展开」） |
 | `CommutativeBlock` | `commutativeBlock_trivial` | 恒真关系显然对称 |
 | `IsPolicyDensity` | `isPolicyDensity_const_one` | 概率测度上常函数 `1` 是密度 |
 | `KeyOrthogonal` | `keyOrthogonal_zero` | 键为零向量的行与任何行正交 |
@@ -63,10 +63,16 @@ open MeasureTheory
 
 /-! ## 一、`IsRedundant`（`Audit/Hypotheses.lean`） -/
 
-/-- **`IsRedundant` 非空**：`provableWithout = true` 时它成立。
+/-- **`IsRedundant` 非空**：存在一个 `Bool` 使它成立。
 
-这是它最直接的模型——「不需要额外前提即可证」，正是名字的意思。 -/
-theorem isRedundant_true : IsRedundant true := rfl
+**第 197 轮把原陈述 `IsRedundant true` 改成了存在式。** 原陈述的证明是 `rfl`——
+因为 `IsRedundant b` 展开就是 `b = true`，所以 `IsRedundant true` 是 `true = true`。
+**那和 `True` 同义，不构成「这个谓词不是空的」的证据**：一个只在 `true` 上展开为真的谓词
+仍然可能是空谓词（如果 `IsRedundant` 的定义改一行）。
+
+存在式 `∃ b, IsRedundant b` 说的是「这个谓词至少有一个模型」，
+**那才是本节要证明的东西**，而且它对定义的小改动是稳健的。 -/
+theorem isRedundant_nonempty : ∃ b : Bool, IsRedundant b := ⟨true, rfl⟩
 
 /-! ## 二、`CommutativeBlock`（`Lib/Compiler/RealEffectOrdering.lean`） -/
 

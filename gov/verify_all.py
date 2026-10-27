@@ -191,6 +191,13 @@ CHECKS = [
     # proof) with a two-way baseline: a new one fails, and a baselined one that stops firing also
     # fails, so the ledger can only shrink. Semantic strength is audited separately -- see PROOF-DEBT.md.
     ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
+    # Round 197. A hypothesis that is PROVABLE OUTRIGHT makes the theorem weaker than its statement
+    # suggests. `compileProg_correct`'s `(h : stackDepth e ≤ 1)` was exactly that: it was passed to
+    # `compileAcc_correct`, so `linter.unusedVariables` stayed silent -- while `stackDepth e = 1` for
+    # every expression. No linter finds this class. This gate catches the syntactically visible
+    # sub-class (`a = a`, `a ↔ a`, `True`) with zero false positives, and the file states plainly
+    # which sub-class it does NOT catch.
+    ("meta: no vacuously true hypothesis", "check_vacuous_hypotheses.py"),
     # Round 179, P2-16. 21 wildcard `| _ => none` decoders exist in the kernel and nobody had judged
     # them. Judging them once by hand is not the fix -- a 22nd would appear unexamined. Each file is now
     # registered with one of three reasons (covered by a round-trip theorem / upstream Lv-00 carried /

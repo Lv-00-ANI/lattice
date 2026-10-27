@@ -1613,7 +1613,7 @@
 | `Lattice.Lift.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
-| `Lattice.Lift.StackCodegen` | 10 | 11 |
+| `Lattice.Lift.StackCodegen` | 11 | 11 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -5201,7 +5201,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isRIP_mono` -> `apply`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_upper_bound` -> `apply`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_zero` -> `apply`, `l0Norm`, `l0_eq_zero_iff`, `sqNorm`, `subst`
-- `isRedundant_true` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsRedundant`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
+- `isRedundant_nonempty` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsRedundant`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
 - `isSaddle_cube` -> `comp`, `const_add`
 - `isStrictLocalMax_eq_neg_isStrictLocalMin` -> `ConstraintSet`, `IsKSparse`, `IsSparse`, `IsStrictLocalMax`, `IsStrictLocalMin`, `Layer`, `VectorConstraint`, `apply`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compile`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `coreVecToReal`, `ctr`, `extractLayer_alt`, `extractLayer_eq_extractLayer`, `l0Norm`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `toIsLocalMax`, `toRealVec`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `isStrictLocalMax_iff_neg` -> `IsStrictLocalMin`, `exists_box_of_continuousAt_neg`, `mono`, `second_order_sufficient`, `strict_local_min_of_deriv_sign`, `toIsLocalMin`
@@ -8290,6 +8290,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ssm_state_compose` -> `E`, `apply`, `induction`, `rnnState`, `zero`
 - `ssm_state_growth_bound` -> `E`, `apply`
 - `stable` -> `Sat`, `induction`, `iterate`, `zero`
+- `stackDepth_eq_one` -> `add`, `induction`, `length`, `lit`, `mul`
 - `stackDepth_left` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `stackDepth_right` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `stackDepth_toStack` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`, `stackDepth`

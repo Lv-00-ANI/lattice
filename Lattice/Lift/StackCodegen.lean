@@ -191,10 +191,36 @@ theorem compileAcc_correct [Add α] [Sub α] [Mul α] (cfg : σ → α) (e : Sta
             (evalStack cfg y :: evalStack cfg x :: st') hiy]
       rfl
 
-theorem compileProg_correct [Add α] [Sub α] [Mul α] (cfg : σ → α) (e : StackExpr σ α) (seed : α)
-    (h : stackDepth e ≤ 1) :
+/-- **`StackExpr` 的栈深度恒为 1。**
+
+与 `CExpr.depth` 同一形状（`lit`/`load` 给 1，二元节点 `max (d x) (d y - 1)`），
+而叶子已贡献 1，所以 `- 1` 永不生效。**归纳与 `Geo.CExprCodegen.CExpr.depth_eq_one` 逐字同构。** -/
+theorem stackDepth_eq_one {σ α : Type} (e : StackExpr σ α) : stackDepth e = 1 := by
+  induction e with
+  | lit a => rfl
+  | load p => rfl
+  | add x y ihx ihy =>
+      show max (stackDepth x) (stackDepth y - 1) = 1
+      rw [ihx, ihy]; decide
+  | sub x y ihx ihy =>
+      show max (stackDepth x) (stackDepth y - 1) = 1
+      rw [ihx, ihy]; decide
+  | mul x y ihx ihy =>
+      show max (stackDepth x) (stackDepth y - 1) = 1
+      rw [ihx, ihy]; decide
+
+/-- **编译正确性**：运行生成的程序得到表达式的值。
+
+**第 197 轮删掉了原来的 `(h : stackDepth e ≤ 1)` 假设。** 它是**恒真的**：
+`stackDepth_eq_one` 说 `stackDepth e = 1`，而初始栈 `[seed]` 的长度也是 1，所以
+`stackDepth e ≤ [seed].length` 自动成立。
+
+⚠ **这类假设比未使用变量更隐蔽**：它在证明里**被使用**（传给 `compileAcc_correct`），
+所以 `linter.unusedVariables` 不会报它。它在 `Geo.CExprCodegen` 里有一份**同款**，
+第 195 轮已删；**上游这一份当时被漏掉了**——同款缺陷成对存在，正是本库反复出现的形态。 -/
+theorem compileProg_correct [Add α] [Sub α] [Mul α] (cfg : σ → α) (e : StackExpr σ α) (seed : α) :
     runProg cfg (compileProg e) [seed] = some (evalStack cfg e :: [seed]) := by
-  have := compileAcc_correct cfg e [] [seed] [seed] rfl (by simpa using h)
+  have := compileAcc_correct cfg e [] [seed] [seed] rfl (by simp [stackDepth_eq_one])
   simpa [compileProg] using this
 
 /-! ## 5. 实例化：泛化的意义在于它真的能用 -/

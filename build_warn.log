@@ -1,0 +1,2132 @@
+﻿⚠ [5699/6504] Replayed Lattice.Core.Check
+warning: .\.\.\.\Lattice\Core\Check.lean:42:30: application type mismatch
+  twoVar.denote noVar
+argument
+  noVar
+has type
+  Point ℤ 0 : Type
+but is expected to have type
+  Point ℤ 2 : Type
+info: .\.\.\.\Lattice\Core\Check.lean:42:0: twoVar.denote sorry : ℤ
+⚠ [5707/6504] Replayed Lattice.Core.Simulation
+warning: .\.\.\.\Lattice\Core\Simulation.lean:109:7: unused variable `R`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Core\Simulation.lean:109:9: unused variable `R'`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Core\Simulation.lean:109:12: unused variable `R''`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Core\Simulation.lean:110:7: unused variable `R`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Core\Simulation.lean:110:9: unused variable `R'`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5712/6504] Replayed Lattice.Core.RepairAtomicity
+warning: .\.\.\.\Lattice\Core\RepairAtomicity.lean:90:5: unused variable `hle`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5723/6504] Replayed Lattice.Lift.VerificationSoundness
+warning: .\.\.\.\Lattice\Lift\VerificationSoundness.lean:143:43: unused variable `hε`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5724/6504] Replayed Lattice.Lift.EndToEndApproximation
+warning: .\.\.\.\Lattice\Lift\EndToEndApproximation.lean:99:18: unused variable `hε`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lift\EndToEndApproximation.lean:162:10: `pow_le_pow_left` has been deprecated, use `pow_le_pow_left₀` instead
+⚠ [5728/6504] Replayed Lattice.Lift.GeoSampledBound
+warning: .\.\.\.\Lattice\Lift\GeoSampledBound.lean:74:5: unused variable `hd_nonneg`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5729/6504] Replayed Lattice.Lift.L1L2Roundtrip
+warning: .\.\.\.\Lattice\Lift\L1L2Roundtrip.lean:80:0: automatically included section variable(s) unused in theorem 'Lattice.Lift.L1L2Roundtrip.filterMap_sym_append':
+  [DecidableEq R]
+  [Inhabited R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq R] [Inhabited R] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lift\L1L2Roundtrip.lean:93:0: automatically included section variable(s) unused in theorem 'Lattice.Lift.L1L2Roundtrip.filterMap_comp_append':
+  [DecidableEq R]
+  [Inhabited R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq R] [Inhabited R] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5730/6504] Replayed Lattice.Lift.NonIdenticalEncoding
+warning: .\.\.\.\Lattice\Lift\NonIdenticalEncoding.lean:143:15: unused variable `p`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lift\NonIdenticalEncoding.lean:143:17: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5752/6504] Replayed Lattice.Lift.MultiLayerLadder
+warning: .\.\.\.\Lattice\Lift\MultiLayerLadder.lean:195:5: unused variable `hs`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lift\MultiLayerLadder.lean:195:28: unused variable `ht`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5765/6504] Replayed Lattice.Lift.SaturationQuantization
+warning: .\.\.\.\Lattice\Lift\SaturationQuantization.lean:84:33: unused variable `hB`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5767/6504] Replayed Lattice.Lift.ProgramAST
+warning: .\.\.\.\Lattice\Lift\ProgramAST.lean:145:39: unused variable `hn`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lift\ProgramAST.lean:162:33: unused variable `hn`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5775/6504] Replayed Lattice.Geo.Loop
+warning: .\.\.\.\Lattice\Geo\Loop.lean:180:4: 'subst_vars' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [5778/6504] Replayed Lattice.Geo.LoopPerp
+warning: .\.\.\.\Lattice\Geo\LoopPerp.lean:49:5: unused variable `hv`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\LoopPerp.lean:129:43: unused variable `hab`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\LoopPerp.lean:129:57: unused variable `hcb`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\LoopPerp.lean:129:71: unused variable `heb`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5779/6504] Replayed Lattice.Geo.ConjRepair
+warning: .\.\.\.\Lattice\Geo\ConjRepair.lean:119:18: unused variable `hqa`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\ConjRepair.lean:119:46: unused variable `hqc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\ConjRepair.lean:119:60: unused variable `hqe`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5789/6504] Replayed Lattice.Geo.Differentiable
+warning: .\.\.\.\Lattice\Geo\Differentiable.lean:117:56: unused variable `v`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\Differentiable.lean:120:14: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Geo\Differentiable.lean:120:14: 'simp [coordProj, ContinuousLinearMap.proj]' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [5794/6504] Replayed Lattice.Geo.Exec
+warning: .\.\.\.\Lattice\Geo\Exec.lean:127:58: unused variable `G`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5795/6504] Replayed Lattice.Geo.ExprDeriv
+warning: .\.\.\.\Lattice\Geo\ExprDeriv.lean:127:29: unused variable `e`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5797/6504] Replayed Lattice.Geo.Square
+warning: .\.\.\.\Lattice\Geo\Square.lean:154:24: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5811/6504] Replayed Lattice.Geo.Nondegenerate
+warning: .\.\.\.\Lattice\Geo\Nondegenerate.lean:126:5: unused variable `hne0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\Nondegenerate.lean:217:5: unused variable `a`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\Nondegenerate.lean:217:9: unused variable `c`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\Nondegenerate.lean:217:11: unused variable `e`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5819/6504] Replayed Lattice.Geo.RepairBridge
+warning: .\.\.\.\Lattice\Geo\RepairBridge.lean:133:34: unused variable `hstep`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5823/6504] Replayed Lattice.Geo.Synthesis
+warning: .\.\.\.\Lattice\Geo\Synthesis.lean:123:5: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5826/6504] Replayed Lattice.Geo.ApproxEmbedding
+warning: .\.\.\.\Lattice\Geo\ApproxEmbedding.lean:91:20: unused variable `c`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\ApproxEmbedding.lean:91:22: unused variable `pts`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5827/6504] Replayed Lattice.Geo.Lipschitz
+warning: .\.\.\.\Lattice\Geo\Lipschitz.lean:206:20: unused variable `hB₂`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5828/6504] Replayed Lattice.Geo.DistLipschitz
+warning: .\.\.\.\Lattice\Geo\DistLipschitz.lean:120:31: unused variable `hB`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5838/6504] Replayed Lattice.Geo.ReinjectionGeneral
+warning: .\.\.\.\Lattice\Geo\ReinjectionGeneral.lean:129:9: unused variable `q`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5840/6504] Replayed Lattice.Geo.RepairCoverage
+warning: .\.\.\.\Lattice\Geo\RepairCoverage.lean:85:25: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\RepairCoverage.lean:104:7: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\RepairCoverage.lean:142:11: unused variable `d`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5843/6504] Replayed Lattice.Geo.EqualLengthRepair
+warning: .\.\.\.\Lattice\Geo\EqualLengthRepair.lean:73:7: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5844/6504] Replayed Lattice.Geo.PartialReinjection
+warning: .\.\.\.\Lattice\Geo\PartialReinjection.lean:89:5: unused variable `hε`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5846/6504] Replayed Lattice.Geo.SynthesisCoverage
+warning: .\.\.\.\Lattice\Geo\SynthesisCoverage.lean:97:25: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5854/6504] Replayed Lattice.Geo.RealToken
+warning: .\.\.\.\Lattice\Geo\RealToken.lean:77:7: The namespace 'EqTok' is duplicated in the declaration 'Lattice.Geo.EqTok.EqTok'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+⚠ [5863/6504] Replayed Lattice.Geo.TokenizerPattern
+warning: .\.\.\.\Lattice\Geo\TokenizerPattern.lean:99:4: unused variable `t`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\TokenizerPattern.lean:99:9: unused variable `d`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\TokenizerPattern.lean:99:14: unused variable `rest`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5868/6504] Replayed Lattice.Geo.WeightSideLadder
+warning: .\.\.\.\Lattice\Geo\WeightSideLadder.lean:127:56: unused variable `a`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Geo\WeightSideLadder.lean:145:43: unused variable `b`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5870/6504] Replayed Lattice.Lift.RealNonlinear
+warning: .\.\.\.\Lattice\Lift\RealNonlinear.lean:152:108: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [5879/6504] Replayed Lattice.Lib.Architectures.RealGroupNorm
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGroupNorm.lean:69:0: automatically included section variable(s) unused in theorem 'Lattice.gnorm_scale_invariant':
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5880/6504] Replayed Lattice.Lib.Architectures.RealNormLipschitz
+warning: .\.\.\.\Lattice\Lib\Architectures\RealNormLipschitz.lean:189:8: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [5882/6504] Replayed Lattice.Lib.Architectures.RealBatchNormConsistency
+warning: .\.\.\.\Lattice\Lib\Architectures\RealBatchNormConsistency.lean:99:5: unused variable `hconst`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealBatchNormConsistency.lean:428:37: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [5883/6504] Replayed Lattice.Lib.Architectures.RealBlock
+info: .\.\.\.\Lattice\Lib\Architectures\RealBlock.lean:114:64: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Architectures\RealBlock.lean:123:58: Try this: ring_nf
+⚠ [5885/6504] Replayed Lattice.Lib.Chain.RealChain
+warning: .\.\.\.\Lattice\Lib\Chain\RealChain.lean:77:0: automatically included section variable(s) unused in theorem 'Lattice.chain_edit_locality':
+  [NormedSpace ℝ X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ X] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5886/6504] Replayed Lattice.Lib.Architectures.RealBlockLipschitz
+warning: .\.\.\.\Lattice\Lib\Architectures\RealBlockLipschitz.lean:57:0: automatically included section variable(s) unused in theorem 'Lattice.lipschitz_residual':
+  [NormedSpace ℝ X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ X] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealBlockLipschitz.lean:83:0: automatically included section variable(s) unused in theorem 'Lattice.block_lipschitz_bound':
+  [NormedSpace ℝ X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ X] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealBlockLipschitz.lean:108:0: automatically included section variable(s) unused in theorem 'Lattice.chainN_identical_blocks_bound':
+  [NormedSpace ℝ X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ X] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [5893/6504] Replayed Lattice.Lib.Attention.RealSoftmaxLipschitz
+info: .\.\.\.\Lattice\Lib\Attention\RealSoftmaxLipschitz.lean:216:14: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealSoftmaxLipschitz.lean:245:22: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealSoftmaxLipschitz.lean:260:16: Try this: ring_nf
+ℹ [5895/6504] Replayed Lattice.Lib.Architectures.RealBlockConstants
+info: .\.\.\.\Lattice\Lib\Architectures\RealBlockConstants.lean:374:76: Try this: abel_nf
+info: .\.\.\.\Lattice\Lib\Architectures\RealBlockConstants.lean:384:12: Try this: abel_nf
+⚠ [5897/6504] Replayed Lattice.Lib.Editing.RealROME
+warning: .\.\.\.\Lattice\Lib\Editing\RealROME.lean:44:0: automatically included section variable(s) unused in theorem 'Lattice.ROME_writes_fact':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealROME.lean:75:0: automatically included section variable(s) unused in theorem 'Lattice.ROME_pointwise_edit':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealROME.lean:97:0: automatically included section variable(s) unused in theorem 'Lattice.ROME_row_change':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5898/6504] Replayed Lattice.Lib.Editing.RealEditCrosstalk
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:38:0: automatically included section variable(s) unused in theorem 'Lattice.applyEdit_writes_fact':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:59:64: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:75:69: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:94:78: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:103:71: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCrosstalk.lean:122:74: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5900/6504] Replayed Lattice.Lib.Editing.RealBatchEditClosed
+warning: .\.\.\.\Lattice\Lib\Editing\RealBatchEditClosed.lean:82:0: automatically included section variable(s) unused in theorem 'Lattice.batchClosed_orthogonal_writes':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealBatchEditClosed.lean:133:0: automatically included section variable(s) unused in theorem 'Lattice.batchN_orthogonal_preserves':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealBatchEditClosed.lean:162:0: automatically included section variable(s) unused in theorem 'Lattice.batch2_orthogonal_writes_first':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealBatchEditClosed.lean:175:0: automatically included section variable(s) unused in theorem 'Lattice.batch2_orthogonal_writes_second':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5901/6504] Replayed Lattice.Lib.Architectures.RealCrosstalkGeneral
+warning: .\.\.\.\Lattice\Lib\Architectures\RealCrosstalkGeneral.lean:71:0: automatically included section variable(s) unused in theorem 'Lattice.batchClosed_exact_residual':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealCrosstalkGeneral.lean:108:0: automatically included section variable(s) unused in theorem 'Lattice.batchClosed_crosstalk_bound':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealCrosstalkGeneral.lean:227:0: automatically included section variable(s) unused in theorem 'Lattice.batch2_exact_residual_first':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealCrosstalkGeneral.lean:242:0: automatically included section variable(s) unused in theorem 'Lattice.batch2_exact_residual_second':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5907/6504] Replayed Lattice.Lib.Architectures.RealGNNEquivariance
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:154:0: automatically included section variable(s) unused in theorem 'Lattice.permActFeat_eq_iff':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:223:0: automatically included section variable(s) unused in theorem 'Lattice.gnnLayer_equivariant':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:256:0: automatically included section variable(s) unused in theorem 'Lattice.readout_invariant':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:283:0: automatically included section variable(s) unused in theorem 'Lattice.msgPass_bound_perm':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:294:0: automatically included section variable(s) unused in theorem 'Lattice.msgPass_lipschitz_perm':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:383:0: automatically included section variable(s) unused in theorem 'Lattice.indicator_permActEdge':
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:425:0: automatically included section variable(s) unused in theorem 'Lattice.permActEdge_mul':
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:433:0: automatically included section variable(s) unused in theorem 'Lattice.permActEdge_one':
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:442:0: automatically included section variable(s) unused in theorem 'Lattice.permActEdge_card':
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:497:0: automatically included section variable(s) unused in theorem 'Lattice.permActChan_mul':
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:509:0: automatically included section variable(s) unused in theorem 'Lattice.permActChan_one':
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:517:0: automatically included section variable(s) unused in theorem 'Lattice.msgPassChan_equivariant':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGNNEquivariance.lean:528:0: automatically included section variable(s) unused in theorem 'Lattice.chanMap_permActChan_comm':
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [5908/6504] Replayed Lattice.Lib.Architectures.RealGeluDerivBound
+info: .\.\.\.\Lattice\Lib\Architectures\RealGeluDerivBound.lean:259:4: Try this: ring_nf
+⚠ [5911/6504] Replayed Lattice.Lib.Architectures.RealNormalEquation
+warning: .\.\.\.\Lattice\Lib\Architectures\RealNormalEquation.lean:56:4: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealNormalEquation.lean:77:0: automatically included section variable(s) unused in theorem 'Lattice.fderiv_loss_apply':
+  [CompleteSpace E]
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5914/6504] Replayed Lattice.Lib.Architectures.RealGraphExpressivity
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:98:0: automatically included section variable(s) unused in theorem 'Lattice.uniformMsgPass_const':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:123:0: automatically included section variable(s) unused in theorem 'Lattice.uniformMsgPass_deviation':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:135:0: automatically included section variable(s) unused in theorem 'Lattice.uniformMsgPass_mean_zero':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:142:0: automatically included section variable(s) unused in theorem 'Lattice.uniformMsgPass_is_const':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:175:0: automatically included section variable(s) unused in theorem 'Lattice.overSmoothing_exact':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:210:0: automatically included section variable(s) unused in theorem 'Lattice.regular_uniform_aggregate_eq':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealGraphExpressivity.lean:228:0: automatically included section variable(s) unused in theorem 'Lattice.uniformMsgPass_readout_conserved':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [5916/6504] Replayed Lattice.Lib.Optim.RealListFinBridge
+info: .\.\.\.\Lattice\Lib\Optim\RealListFinBridge.lean:124:0: 'Lattice.dot_eq_dotProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealListFinBridge.lean:125:0: 'Lattice.toVec_injective' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Optim\RealListFinBridge.lean:126:0: 'Lattice.toVec_not_injective_without_length' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [5919/6504] Replayed Lattice.Lib.Architectures.RealLayerScaleDepth
+warning: .\.\.\.\Lattice\Lib\Architectures\RealLayerScaleDepth.lean:117:24: unused variable `hL0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5925/6504] Replayed Lattice.Lib.Architectures.RealLoopFixedPointExistence
+warning: .\.\.\.\Lattice\Lib\Architectures\RealLoopFixedPointExistence.lean:71:0: automatically included section variable(s) unused in theorem 'Lattice.lipschitz_with_of_le':
+  [NormedSpace ℝ X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ X] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5927/6504] Replayed Lattice.Lib.Attention.RealHardAttention
+warning: .\.\.\.\Lattice\Lib\Attention\RealHardAttention.lean:52:57: unused variable `hi`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5928/6504] Replayed Lattice.Lib.Architectures.RealMoE
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoE.lean:77:0: automatically included section variable(s) unused in theorem 'Lattice.moe_expert_selection':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5929/6504] Replayed Lattice.Lib.Architectures.RealMoELoadBalance
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoELoadBalance.lean:72:0: automatically included section variable(s) unused in theorem 'Lattice.droppedAt_eq_zero_iff':
+  [Fintype iota]
+  [DecidableEq iota]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype iota] [DecidableEq iota] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoELoadBalance.lean:102:0: automatically included section variable(s) unused in theorem 'Lattice.imbalance_forces_drop':
+  [DecidableEq iota]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq iota] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoELoadBalance.lean:123:0: automatically included section variable(s) unused in theorem 'Lattice.drop_lower_bound':
+  [DecidableEq iota]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq iota] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoELoadBalance.lean:150:0: automatically included section variable(s) unused in theorem 'Lattice.uniform_drop_le_total':
+  [DecidableEq iota]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq iota] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5931/6504] Replayed Lattice.Lib.Attention.RealDynamicRoute
+warning: .\.\.\.\Lattice\Lib\Attention\RealDynamicRoute.lean:76:0: automatically included section variable(s) unused in theorem 'Lattice.exists_topk_one':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealDynamicRoute.lean:126:0: automatically included section variable(s) unused in theorem 'Lattice.routed_output_bound':
+  [Fintype ι]
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealDynamicRoute.lean:134:0: automatically included section variable(s) unused in theorem 'Lattice.routeOutput_hard':
+  [Fintype ι]
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealDynamicRoute.lean:212:0: automatically included section variable(s) unused in theorem 'Lattice.topk_route_stable_unique':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealDynamicRoute.lean:235:0: automatically included section variable(s) unused in theorem 'Lattice.route_lipschitz':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5932/6504] Replayed Lattice.Lib.Architectures.RealMoERouteCapacity
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoERouteCapacity.lean:83:0: automatically included section variable(s) unused in theorem 'Lattice.routeLoad_drop_eq_zero_iff':
+  [Fintype tau]
+  [DecidableEq tau]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype tau] [DecidableEq tau] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoERouteCapacity.lean:89:0: automatically included section variable(s) unused in theorem 'Lattice.route_over_capacity_drops':
+  [Fintype tau]
+  [DecidableEq tau]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype tau] [DecidableEq tau] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoERouteCapacity.lean:95:0: automatically included section variable(s) unused in theorem 'Lattice.balanced_route_no_drop':
+  [Fintype tau]
+  [DecidableEq tau]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype tau] [DecidableEq tau] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealMoERouteCapacity.lean:103:0: automatically included section variable(s) unused in theorem 'Lattice.routeLoad_sum_eq_card_mul':
+  [Fintype tau]
+  [DecidableEq tau]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype tau] [DecidableEq tau] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5943/6504] Replayed Lattice.Lib.Architectures.RealNormStability
+warning: .\.\.\.\Lattice\Lib\Architectures\RealNormStability.lean:56:0: automatically included section variable(s) unused in theorem 'Lattice.safe_normalize_denom_pos':
+  [NormedSpace ℝ E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealNormStability.lean:116:5: unused variable `hx`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5944/6504] Replayed Lattice.Lib.Architectures.RealOverSmoothingSharp
+warning: .\.\.\.\Lattice\Lib\Architectures\RealOverSmoothingSharp.lean:182:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealOverSmoothingSharp.avgSmooth_eq_mean':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealOverSmoothingSharp.lean:195:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealOverSmoothingSharp.avgSmooth_sub_mean':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealOverSmoothingSharp.lean:246:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealOverSmoothingSharp.avgSmooth_deviation_shrink':
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealOverSmoothingSharp.lean:321:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealOverSmoothingSharp.mean_bound_pos_of_ne':
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealOverSmoothingSharp.lean:417:45: unused variable `hA`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [5949/6504] Replayed Lattice.Lib.Architectures.RealResidual
+info: .\.\.\.\Lattice\Lib\Architectures\RealResidual.lean:63:4: Try this: ring_nf
+⚠ [5951/6504] Replayed Lattice.Lib.Architectures.RealSelectiveSSM
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:96:4: unused variable `k`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:100:0: automatically included section variable(s) unused in theorem 'Lattice.selProd_eq_from':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:139:0: automatically included section variable(s) unused in theorem 'Lattice.selProd_self':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:149:0: automatically included section variable(s) unused in theorem 'Lattice.selState_succ':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:153:0: automatically included section variable(s) unused in theorem 'Lattice.selState_one':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:172:0: automatically included section variable(s) unused in theorem 'Lattice.selProd_concat':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSelectiveSSM.lean:343:0: automatically included section variable(s) unused in theorem 'Lattice.selProd_const':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5953/6504] Replayed Lattice.Lib.Architectures.RealSSDBridge
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:114:0: automatically included section variable(s) unused in theorem 'Lattice.sum_mulVec_range':
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:124:0: automatically included section variable(s) unused in theorem 'Lattice.dotProduct_sum_range':
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:182:0: automatically included section variable(s) unused in theorem 'Lattice.ssdEntryMasked_eq_zero':
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:272:0: automatically included section variable(s) unused in theorem 'Lattice.ssdEntryMasked_eq_of_lt':
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:325:6: Try this: ring_nf
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:348:0: automatically included section variable(s) unused in theorem 'Lattice.maskedAttn_sum_eq':
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:416:0: 'Lattice.sum_mulVec_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:417:0: 'Lattice.dotProduct_sum_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:418:0: 'Lattice.ssdEntry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:419:0: 'Lattice.ssdMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:420:0: 'Lattice.ssdEntry_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:421:0: 'Lattice.ssdEntryMasked' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:422:0: 'Lattice.ssdEntryMasked_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:423:0: 'Lattice.ssdEntry_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:424:0: 'Lattice.ssd_prod_concat' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:425:0: 'Lattice.ssdMatVec_eq_selState' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:426:0: 'Lattice.ssd_row_succ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:427:0: 'Lattice.ssd_row_succ_extra' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:428:0: 'Lattice.ssdEntryMasked_eq_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:429:0: 'Lattice.ssd_unmasked_row_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:430:0: 'Lattice.maskedAttn' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:431:0: 'Lattice.maskedAttn_sum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:432:0: 'Lattice.ssd_quadForm_eq_stateSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:433:0: 'Lattice.ssd_stateSum_eq_quadForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:434:0: 'Lattice.maskedAttn_eq_ssd_row' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Architectures\RealSSDBridge.lean:435:0: 'Lattice.ssd_scan_compose' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [5954/6504] Replayed Lattice.Lib.Architectures.RealSSMDiscretization
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:222:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.zohStep_pow_eq':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:242:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.ssmDisc_pow_sub_pow_norm_le':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:371:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.ssmDisc_cnRight_eq':
+  [NormOneClass 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:378:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.ssmDisc_exp_sub_one_sub_self':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:432:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.ssmDisc_exp_commute':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMDiscretization.lean:569:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Architectures.RealSSMDiscretization.ssmDisc_cn_contraction_factor':
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5955/6504] Replayed Lattice.Lib.Architectures.RealSSMContinuous
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:100:0: automatically included section variable(s) unused in theorem 'Lattice.zohGain_scalar_le':
+  [NormedAlgebra ℝ 𝔸]
+  [NormOneClass 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [NormOneClass 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:199:0: automatically included section variable(s) unused in theorem 'Lattice.exp_smul_sub_one_eq_tsum':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:271:0: automatically included section variable(s) unused in theorem 'Lattice.exp_smul_commute':
+  [NormOneClass 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:311:0: automatically included section variable(s) unused in theorem 'Lattice.zohStepGen_zero_input':
+  [NormOneClass 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormOneClass 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:322:0: automatically included section variable(s) unused in theorem 'Lattice.zoh_recurrence_eq_selState':
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:339:0: automatically included section variable(s) unused in theorem 'Lattice.zoh_state_explicit':
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:352:0: automatically included section variable(s) unused in theorem 'Lattice.zoh_state_norm_bound':
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:370:0: automatically included section variable(s) unused in theorem 'Lattice.selStateGated_explicit':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:381:0: automatically included section variable(s) unused in theorem 'Lattice.selStateGated_norm_bound':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:395:0: automatically included section variable(s) unused in theorem 'Lattice.selState_gate_perturbation_step':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:416:0: automatically included section variable(s) unused in theorem 'Lattice.sel_spectral_norm_criterion':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:437:0: automatically included section variable(s) unused in theorem 'Lattice.sel_spectral_eigen_criterion':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Architectures\RealSSMContinuous.lean:448:0: automatically included section variable(s) unused in theorem 'Lattice.sel_LTI_zoh_spectral_criterion':
+  [NormedAlgebra ℝ 𝔸]
+  [CompleteSpace 𝔸]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedAlgebra ℝ 𝔸] [CompleteSpace 𝔸] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5972/6504] Replayed Lattice.Lib.Attention.RealAttentionMonotonicity
+warning: .\.\.\.\Lattice\Lib\Attention\RealAttentionMonotonicity.lean:127:59: unused variable `hT`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5977/6504] Replayed Lattice.Lib.Attention.RealCrossAttention
+warning: .\.\.\.\Lattice\Lib\Attention\RealCrossAttention.lean:328:0: automatically included section variable(s) unused in theorem 'Lattice.encoder_decoder_comp_bound':
+  [InnerProductSpace ℝ E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [InnerProductSpace ℝ E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5980/6504] Replayed Lattice.Lib.LearningTheory.RealTopKExistence
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:57:0: automatically included section variable(s) unused in theorem 'Lattice.tk_exists_aux':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:104:0: automatically included section variable(s) unused in theorem 'Lattice.topK_card_le':
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:111:0: automatically included section variable(s) unused in theorem 'Lattice.topK_eq_univ_of_card_eq':
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:116:0: automatically included section variable(s) unused in theorem 'Lattice.topK_dominated':
+  [Fintype ι]
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:124:0: automatically included section variable(s) unused in theorem 'Lattice.topK_unique_of_lt':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:169:0: automatically included section variable(s) unused in theorem 'Lattice.topK_swap_of_eq':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:205:0: automatically included section variable(s) unused in theorem 'Lattice.topK_sum_max':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:275:0: automatically included section variable(s) unused in theorem 'Lattice.topK_sum_mono_of_subset':
+  [Fintype ι]
+  [Nonempty ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] [DecidableEq ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealTopKExistence.lean:492:0: automatically included section variable(s) unused in theorem 'Lattice.topKIn_sum_mono_candidate':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5981/6504] Replayed Lattice.Lib.Attention.RealHeadPruningOptimal
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:101:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.headMass_add_prunedMass':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:130:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.uniform_head_case':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:141:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.head_pruning_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:186:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.headMass_mono_budget':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:191:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.retain_all_exact':
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:195:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.prunedMass_univ':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:352:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.retrainedMass_eq_smul':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealHeadPruningOptimal.lean:376:0: automatically included section variable(s) unused in theorem 'Lattice.Lib.Attention.RealHeadPruningOptimal.retraining_improves_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5984/6504] Replayed Lattice.Lib.Attention.RealKVBudget
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:123:0: automatically included section variable(s) unused in theorem 'Lattice.retainedMass_add_droppedMass':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:131:0: automatically included section variable(s) unused in theorem 'Lattice.droppedMass_nonneg':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:136:0: automatically included section variable(s) unused in theorem 'Lattice.droppedMass_eq_zero_iff':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:157:0: automatically included section variable(s) unused in theorem 'Lattice.budgetError_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:221:0: automatically included section variable(s) unused in theorem 'Lattice.retainedMass_mono_budget':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:231:0: automatically included section variable(s) unused in theorem 'Lattice.full_budget_exact':
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:237:0: automatically included section variable(s) unused in theorem 'Lattice.droppedMass_univ':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:266:0: automatically included section variable(s) unused in theorem 'Lattice.budget_error_sharp_zero':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:318:0: automatically included section variable(s) unused in theorem 'Lattice.norm_adversarialVec':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealKVBudget.lean:323:0: automatically included section variable(s) unused in theorem 'Lattice.smul_adversarialVec':
+  [Fintype ι]
+  [DecidableEq ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [5985/6504] Replayed Lattice.Lib.Attention.RealLinearAttention
+warning: .\.\.\.\Lattice\Lib\Attention\RealLinearAttention.lean:141:0: automatically included section variable(s) unused in theorem 'Lattice.linear_attn_weights_pmf':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Attention\RealLinearAttention.lean:151:0: automatically included section variable(s) unused in theorem 'Lattice.linear_attn_output_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [5990/6504] Replayed Lattice.Lib.Attention.RealMixedAttention
+info: .\.\.\.\Lattice\Lib\Attention\RealMixedAttention.lean:260:16: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealMixedAttention.lean:287:24: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealMixedAttention.lean:300:18: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealMixedAttention.lean:497:64: Try this: abel_nf
+info: .\.\.\.\Lattice\Lib\Attention\RealMixedAttention.lean:503:58: Try this: abel_nf
+⚠ [5991/6504] Replayed Lattice.Lib.Attention.RealPosEncodingInterface
+warning: .\.\.\.\Lattice\Lib\Attention\RealPosEncodingInterface.lean:105:71: unused variable `hdelta`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [5992/6504] Replayed Lattice.Lib.Attention.RealPositionalInterpolation
+warning: .\.\.\.\Lattice\Lib\Attention\RealPositionalInterpolation.lean:131:5: unused variable `hwin`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [5996/6504] Replayed Lattice.Lib.Attention.RealSoftmaxTemp
+info: .\.\.\.\Lattice\Lib\Attention\RealSoftmaxTemp.lean:242:20: Try this: ring_nf
+⚠ [5997/6504] Replayed Lattice.Lib.FCA.RealFCA
+warning: .\.\.\.\Lattice\Lib\FCA\RealFCA.lean:167:5: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\FCA\RealFCA.lean:177:32: unused variable `R`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6003/6504] Replayed Lattice.Lib.Convex.RealSubgradientDescent
+warning: .\.\.\.\Lattice\Lib\Convex\RealSubgradientDescent.lean:308:36: unused variable `t`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6006/6504] Replayed Lattice.Lib.Optim.RealApprox
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:159:0: 'Lattice.approx_trans' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:160:0: 'Lattice.layer_out_error_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:161:0: 'Lattice.layer_approx_on' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:162:0: 'Lattice.loss_tolerance_under_perturbation' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:163:0: 'Lattice.approxOn_trans' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:164:0: 'Lattice.approxOn_trans_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:165:0: 'Lattice.approx_to_approxOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealApprox.lean:166:0: 'Lattice.approxOn_mono_domain' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [6008/6504] Replayed Lattice.Lib.InfoTheory.RealOptimalTransport
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealOptimalTransport.lean:41:0: automatically included section variable(s) unused in theorem 'Lattice.continuous_apply₂':
+  [Fintype α]
+  [Fintype β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [Fintype β] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6010/6504] Replayed Lattice.Lib.Convex.RealKKT
+warning: .\.\.\.\Lattice\Lib\Convex\RealKKT.lean:63:2: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6011/6504] Replayed Lattice.Lib.Lift.RealWeightedConstraints
+warning: .\.\.\.\Lattice\Lib\Lift\RealWeightedConstraints.lean:47:0: automatically included section variable(s) unused in theorem 'Lattice.weighted2_fderiv':
+  [CompleteSpace E]
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6016/6504] Replayed Lattice.Lib.Convex.RealConstraintQualification
+warning: .\.\.\.\Lattice\Lib\Convex\RealConstraintQualification.lean:339:61: unused variable `hd`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6017/6504] Replayed Lattice.Lib.Convex.RealSupportingHyperplane
+warning: .\.\.\.\Lattice\Lib\Convex\RealSupportingHyperplane.lean:95:14: unused variable `hx₀`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Convex\RealSupportingHyperplane.lean:138:14: unused variable `hx₀`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6025/6504] Replayed Lattice.Lib.Chain.RealAdjoinRootCard
+warning: .\.\.\.\Lattice\Lib\Chain\RealAdjoinRootCard.lean:133:0: automatically included section variable(s) unused in theorem 'Lattice.arc_card_adjoinRoot':
+  [DecidableEq F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealAdjoinRootCard.lean:152:0: automatically included section variable(s) unused in theorem 'Lattice.arc_natDegree_pos':
+  [Fintype F]
+  [DecidableEq F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype F] [DecidableEq F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealAdjoinRootCard.lean:228:0: automatically included section variable(s) unused in theorem 'Lattice.arc_pow_card_eq_self':
+  [Fintype F]
+  [DecidableEq F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype F] [DecidableEq F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6028/6504] Replayed Lattice.Lift.WeightToSymbolEquivalence
+warning: .\.\.\.\Lattice\Lift\WeightToSymbolEquivalence.lean:39:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lift\WeightToSymbolEquivalence.lean:63:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6034/6504] Replayed Lattice.Lib.Editing.RealRoundtripRat
+warning: .\.\.\.\Lattice\Lib\Editing\RealRoundtripRat.lean:135:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealRoundtripRat.lean:139:10: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ℹ [6035/6504] Replayed Lattice.Lib.Meta.RealDotRepresentationAudit
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:210:0: 'Lattice.dot_eq_dotL' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:211:0: 'Lattice.dot_cast_eq_foldl_rat' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:212:0: 'Lattice.dotQ_eq_dot_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:213:0: 'Lattice.dot_representation_agreement' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:214:0: 'Lattice.dot_audit_counterexample_axis' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Meta\RealDotRepresentationAudit.lean:215:0: 'Lattice.toVec_audit_counterexample_axis' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [6040/6504] Replayed Lattice.Lib.Chain.RealEndToEnd
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEnd.lean:205:33: unused variable `ts`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEnd.lean:300:6: try 'simp at h' instead of 'simpa using h'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEnd.lean:308:6: try 'simp at hcs' instead of 'simpa using hcs'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEnd.lean:492:5: unused variable `h0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEnd.lean:492:33: unused variable `h1`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6043/6504] Replayed Lattice.Lib.Meta.RealNegativeCore
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:92:0: 'Lattice.reluZ_not_zeroFixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:93:0: 'Lattice.reluZ_counterexample' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:94:0: 'Lattice.activated_closure_iff_zeroFixing' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:95:0: 'Lattice.closed_loop_adds_nothing' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:96:0: 'Lattice.dot_append_false' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:97:0: 'Lattice.Lib.Editing.RealReversibilityBoundary.scaleVec_ne_self_two' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Meta\RealNegativeCore.lean:98:0: 'Lattice.Lib.Editing.RealReversibilityBoundary.no_extractor_preserves_both' depends on axioms: [propext]
+⚠ [6044/6504] Replayed Lattice.Lib.Optim.RealCrossUniverseBridge
+warning: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:142:52: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:156:0: 'Lattice.symDot_eq_realDot' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:157:0: 'Lattice.layerOut_cast_eq_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:158:0: 'Lattice.layerOut_zero_iff_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:159:0: 'Lattice.layerOut_cast_eq_clm_zero_dim_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Optim\RealCrossUniverseBridge.lean:160:0: 'Lattice.symVec_one_not_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [6045/6504] Replayed Lattice.Lib.Editing.RealEditSemantics
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditSemantics.lean:495:7: unused variable `l`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6046/6504] Replayed Lattice.Lib.Chain.RealCrossUniverseConsumer
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:230:0: 'Lattice.residual_cast_eq_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:231:0: 'Lattice.residual_zero_iff_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:232:0: 'Lattice.realDot_eq_symDot_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:233:0: 'Lattice.realDot_symW_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:234:0: 'Lattice.compiledToCLM_apply_convertVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:235:0: 'Lattice.vectorConstraintSat_iff_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseConsumer.lean:236:0: 'Lattice.residual_zero_iff_clm_zero_dim_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6049/6504] Replayed Lattice.Lib.Chain.RealChainAxioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:79:0: 'Lattice.Lift.SymbolToWeightCorrectness.symbolToWeight_correct' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:80:0: 'Lattice.convertVec_preserves_semantics' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:81:0: 'Lattice.dot_eq_dotProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:82:0: 'Lattice.recover_injective' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:83:0: 'Lattice.Lib.Chain.RealEndToEnd.recover_readback' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:84:0: 'Lattice.Lib.Chain.RealEndToEnd.e2e_path_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:88:0: 'Lattice.convertVec_preserves_solution_set' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:89:0: 'Lattice.foldBlanks_idem' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:90:0: 'Lattice.mkConstraint_append_singleton' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:91:0: 'Lattice.closed_loop_adds_nothing' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:92:0: 'Lattice.activated_closure_iff_zeroFixing' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:93:0: 'Lattice.Lib.Editing.RealReversibilityBoundary.no_extractor_preserves_both' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:94:0: 'Lattice.layerOut_not_injective' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:95:0: 'Lattice.editSemantics_layer_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:96:0: 'Lattice.vectorConstraintSat_iff_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:97:0: 'Lattice.no_function_recovers_do' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms.lean:98:0: 'Lattice.Lib.Editing.RealReversibilityBoundary.semantic_layer_not_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [6055/6504] Replayed Lattice.Lib.Chain.RealChainAxioms2
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:80:0: 'Lattice.roundtrip_extractVec' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:84:0: 'Lattice.foldl_init_add' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:85:0: 'Lattice.dot_map_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:86:0: 'Lattice.convert_preserves_semantics' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:90:0: 'Lattice.decode_encode' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:91:0: 'Lattice.encode_injective' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:92:0: 'Lattice.tokenize_never_none' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:93:0: 'Lattice.tokenize_detok' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:94:0: 'Lattice.tokenize_not_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:95:0: 'Lattice.detokenize_left_inverse_on_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:99:0: 'Lattice.chain_edit_locality' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:100:0: 'Lattice.chainN_error_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:104:0: 'Lattice.int_sq_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:108:0: 'Lattice.extractVec_injective_recover' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:109:0: 'Lattice.Lib.Chain.RealEndToEnd.compileToLayer_injective' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:110:0: 'Lattice.Lib.Chain.RealEndToEnd.semantic_not_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:114:0: 'Lattice.layerOut_cast_eq_clm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:115:0: 'Lattice.layerToCLM_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:116:0: 'Lattice.symDot_eq_realDot' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms2.lean:117:0: 'Lattice.realDot_eq_symDot_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6056/6504] Replayed Lattice.Lib.Chain.RealChainAxioms3
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:69:0: 'Lattice.even_combo_preserves' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:70:0: 'Lattice.Lift.SymbolToWeightCorrectness.forall_mem_map_iff' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:74:0: 'Lattice.bestPrefix_spec' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:75:0: 'Lattice.bestPrefix_ne_none' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:76:0: 'Lattice.lookupTok_eq_some' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:77:0: 'Lattice.tokAux_detok' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:78:0: 'Lattice.tokAux_ne_none' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:79:0: 'Lattice.foldGo_idem' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:80:0: 'Lattice.tokenize_detokenize_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:81:0: 'Lattice.detokenize_tokenize_on_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:82:0: 'Lattice.toSegs_map_sym_append_sep' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:83:0: 'Lattice.splitLast_append_singleton' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:87:0: 'Lattice.dot_eq_fin_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:91:0: 'Lattice.dot_zipWith_add_of_length' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:92:0: 'Lattice.editLayerList_outputs_eq_iff' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:93:0: 'Lattice.EditLayer_delta_not_unique' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:94:0: 'Lattice.editLayer_delta_closed_form' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:95:0: 'Lattice.editLayer_zero_delta' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:96:0: 'Lattice.decode_drops_trailing_partial' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:100:0: 'Lattice.chain_split_at' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:101:0: 'Lattice.chain_weight_edit_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:105:0: 'Lattice.recover_compileToLayer' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:106:0: 'Lattice.Lib.Chain.RealEndToEnd.e2e_bridge_sep_is_load_bearing' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:107:0: 'Lattice.Lib.Chain.RealEndToEnd.L1Bridge_length' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:111:0: 'Lattice.sqSum_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:112:0: 'Lattice.sqSum_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:113:0: 'Lattice.int_sq_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:114:0: 'Lattice.even_loop_converges' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:115:0: 'Lattice.iterateRepairEven_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:119:0: 'Lattice.foldl_zip_add' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms3.lean:153:0: 'Lattice.b194_anchor_consumer' depends on axioms: [propext, Quot.sound]
+ℹ [6057/6504] Replayed Lattice.Lib.LearningTheory.RealConstrainedDecoding
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:363:0: 'Lattice.constrainedDenom_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:364:0: 'Lattice.constrainedDenom_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:365:0: 'Lattice.constrainedSoftmax_eq_zero_of_not_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:366:0: 'Lattice.constrainedSoftmax_pos_of_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:367:0: 'Lattice.constrainedSoftmax_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:368:0: 'Lattice.constrainedSoftmax_sum_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:369:0: 'Lattice.constrainedSoftmax_support_iff_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:370:0: 'Lattice.constrained_via_maskedSoftmax' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:371:0: 'Lattice.constrained_sum_one_via_realMaskFamily' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:372:0: 'Lattice.posMask_row_is_dummy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:373:0: 'Lattice.empty_allowed_row_sum_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:374:0: 'Lattice.mask_actually_changes_distribution' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:375:0: 'Lattice.nonempty_allowed_row_sum_eq_one_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecoding.lean:376:0: 'Lattice.constrained_agrees_with_constraint_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6058/6504] Replayed Lattice.Lib.LearningTheory.RealConstrainedDecodingVerify
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecodingVerify.lean:144:0: 'Lattice.not_allowed_contribution_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecodingVerify.lean:145:0: 'Lattice.mass_concentrated_on_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecodingVerify.lean:146:0: 'Lattice.allowed_is_convex_weights' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecodingVerify.lean:147:0: 'Lattice.support_from_decoded_constraints' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealConstrainedDecodingVerify.lean:148:0: 'Lattice.feasibility_is_caller_obligation' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6059/6504] Replayed Lattice.Lib.Chain.RealChainAxioms4
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:61:0: 'Lattice.constrainedDenom_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:62:0: 'Lattice.constrainedDenom_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:63:0: 'Lattice.constrainedSoftmax_eq_zero_of_not_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:64:0: 'Lattice.constrainedSoftmax_pos_of_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:65:0: 'Lattice.constrainedSoftmax_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:66:0: 'Lattice.constrainedSoftmax_sum_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:67:0: 'Lattice.constrainedSoftmax_support_iff_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:68:0: 'Lattice.constrained_via_maskedSoftmax' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:69:0: 'Lattice.constrained_sum_one_via_realMaskFamily' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:70:0: 'Lattice.posMask_row_is_dummy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:71:0: 'Lattice.empty_allowed_row_sum_ne_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:72:0: 'Lattice.mask_actually_changes_distribution' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:73:0: 'Lattice.nonempty_allowed_row_sum_eq_one_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:74:0: 'Lattice.constrained_agrees_with_constraint_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:79:0: 'Lattice.not_allowed_contribution_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:80:0: 'Lattice.mass_concentrated_on_allowed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:81:0: 'Lattice.allowed_is_convex_weights' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:82:0: 'Lattice.support_from_decoded_constraints' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainAxioms4.lean:83:0: 'Lattice.feasibility_is_caller_obligation' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6061/6504] Replayed Lattice.Lib.Chain.RealChainEntryOOV
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:319:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:322:0: 2
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:325:0: 1
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:328:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:331:0: false
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:334:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:337:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:340:0: 1
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOV.lean:341:0: 1
+ℹ [6062/6504] Replayed Lattice.Lib.Chain.RealChainEntryOOVAxioms
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:21:0: 'Lattice.e2e_path_exists_str' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:22:0: 'Lattice.runChainStr_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:26:0: 'Lattice.tokAuxV_VAll_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:27:0: 'Lattice.tokenizeV_VAll_eq_tokenizeRaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:28:0: 'Lattice.tokenizeV_Vzz_in' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:29:0: 'Lattice.tokenizeV_Vzz_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:30:0: 'Lattice.tokenizeV_can_fail' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:31:0: 'Lattice.tokenizeV_VAll_accepts_where_Vzz_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealChainEntryOOVAxioms.lean:32:0: 'Lattice.tokenize_never_none_fails_for_tokenizeV' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6064/6504] Replayed Lattice.Lib.Chain.RealChainRun
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:35:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:45:0: 1
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:48:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:51:0: 0
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:54:0: 6
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:57:0: 0
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:79:0: 3
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:80:0: 1
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:81:0: 0
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:97:0: true
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:104:0: false
+info: .\.\.\.\Lattice\Lib\Chain\RealChainRun.lean:105:0: 5
+⚠ [6066/6504] Replayed Lattice.Lib.Chain.RealComplexGD
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:37:0: automatically included section variable(s) unused in theorem 'Lattice.complex_GD_error_identity':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ ℂ E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ ℂ F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ ℂ E] [NormedSpace ℝ F] [IsScalarTower ℝ ℂ F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:45:0: automatically included section variable(s) unused in theorem 'Lattice.complex_GD_contraction_step':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ ℂ E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ ℂ F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ ℂ E] [NormedSpace ℝ F] [IsScalarTower ℝ ℂ F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:53:0: automatically included section variable(s) unused in theorem 'Lattice.complex_GD_sq_contraction_step':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ ℂ E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ ℂ F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ ℂ E] [NormedSpace ℝ F] [IsScalarTower ℝ ℂ F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:62:0: automatically included section variable(s) unused in theorem 'Lattice.complex_GD_converges':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ ℂ E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ ℂ F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ ℂ E] [NormedSpace ℝ F] [IsScalarTower ℝ ℂ F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:64:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:70:0: automatically included section variable(s) unused in theorem 'Lattice.complex_GD_iterate_contraction':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ ℂ E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ ℂ F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ ℂ E] [NormedSpace ℝ F] [IsScalarTower ℝ ℂ F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:72:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealComplexGD.lean:82:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6072/6504] Replayed Lattice.Lib.Chain.RealCrossUniverseApplication
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:484:0: 'Lattice.w3_layerOut_unfold' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:485:0: 'Lattice.w3_layerOut_convertVec' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:486:0: 'Lattice.w3_clm_eq_layerOut_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:487:0: 'Lattice.w3_clm_plus_b_eq_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:488:0: 'Lattice.w3_mod_ne_zero' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:489:0: 'Lattice.modSinLoss_eq_clm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:490:0: 'Lattice.modSinLoss_zero_iff_clm_as_equality_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:491:0: 'Lattice.modSinLoss_zero_iff_clm_congruent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:492:0: 'Lattice.modSinLoss_zero_iff_clm_congruent_without_succ_ablation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:493:0: 'Lattice.modSinLoss_zero_iff_vectorConstraintSat_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:494:0: 'Lattice.modSinLoss_zero_clm_zero_dim_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealCrossUniverseApplication.lean:495:0: 'Lattice.crossUniverse_loss_chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [6076/6504] Replayed Lattice.Lib.Chain.RealEndToEndStrict
+warning: .\.\.\.\Lattice\Lib\Chain\RealEndToEndStrict.lean:183:6: try 'simp at h' instead of 'simpa using h'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+ℹ [6095/6504] Replayed Lattice.Lib.Chain.RealLv00AxiomDischarge
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:94:0: 'Lattice.Lv00.AxiomDischarge.not_computabilityTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:95:0: 'Lattice.Lv00.AxiomDischarge.computabilityTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:96:0: 'Lattice.Lv00.AxiomDischarge.not_modalLogic_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:97:0: 'Lattice.Lv00.AxiomDischarge.modalLogic_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:98:0: 'Lattice.Lv00.AxiomDischarge.not_zfcSetTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:99:0: 'Lattice.Lv00.AxiomDischarge.zfcSetTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:100:0: 'Lattice.Lv00.AxiomDischarge.graphTheory_orig_true' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:101:0: 'Lattice.Lv00.AxiomDischarge.graphTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:102:0: 'Lattice.Lv00.AxiomDischarge.not_measureTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:103:0: 'Lattice.Lv00.AxiomDischarge.measureTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:104:0: 'Lattice.Lv00.AxiomDischarge.not_functionalAnalysis_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:105:0: 'Lattice.Lv00.AxiomDischarge.functionalAnalysis_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:106:0: 'Lattice.Lv00.AxiomDischarge.not_probabilityTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:107:0: 'Lattice.Lv00.AxiomDischarge.probabilityTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:108:0: 'Lattice.Lv00.AxiomDischarge.not_informationTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:109:0: 'Lattice.Lv00.AxiomDischarge.informationTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:110:0: 'Lattice.Lv00.AxiomDischarge.not_linearAlgebra_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:111:0: 'Lattice.Lv00.AxiomDischarge.linearAlgebra_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:112:0: 'Lattice.Lv00.AxiomDischarge.not_projectiveGeometry_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:113:0: 'Lattice.Lv00.AxiomDischarge.projectiveGeometry_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:114:0: 'Lattice.Lv00.AxiomDischarge.not_orderTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:115:0: 'Lattice.Lv00.AxiomDischarge.orderTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:116:0: 'Lattice.Lv00.AxiomDischarge.not_affineGeometry_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:117:0: 'Lattice.Lv00.AxiomDischarge.affineGeometry_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:118:0: 'Lattice.Lv00.AxiomDischarge.closed_nil_iff' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:119:0: 'Lattice.Lv00.AxiomDischarge.dependenciesClosed_mono' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealLv00AxiomDischarge.lean:120:0: 'Lattice.Lv00.AxiomDischarge.not_forall_packageDependenciesValid' depends on axioms: [propext, Quot.sound]
+⚠ [6097/6504] Replayed Lattice.Lib.Chain.RealLv00GeometryHilbert
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryHilbert.lean:166:55: unused variable `n`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryHilbert.lean:171:7: unused variable `O`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryHilbert.lean:205:69: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryHilbert.lean:210:66: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryHilbert.lean:215:59: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6100/6504] Replayed Lattice.Lib.Chain.RealLv00GeometryDifferential
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryDifferential.lean:296:8: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00GeometryDifferential.lean:308:8: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6105/6504] Replayed Lattice.Lib.Chain.RealLv00Solver
+warning: .\.\.\.\Lattice\Lib\Chain\RealLv00Solver.lean:829:20: `mul_left_inv` has been deprecated, use `inv_mul_cancel` instead
+ℹ [6107/6504] Replayed Lattice.Lib.Chain.RealModelFamilyChainWiring
+info: .\.\.\.\Lattice\Lib\Chain\RealModelFamilyChainWiring.lean:89:0: 'Lattice.convertVec_bias_eq_convertRealVec_bias' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealModelFamilyChainWiring.lean:90:0: 'Lattice.convertVec_weight_eq_convertRealVec_weight' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealModelFamilyChainWiring.lean:91:0: 'Lattice.core_semantics_lifts_to_real_bias' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealModelFamilyChainWiring.lean:92:0: 'Lattice.concrete_lift_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6108/6504] Replayed Lattice.Lib.Chain.RealN2AxiomDischargeJia
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1255:0: 'Lattice.Lv00.AxiomDischargeJia.not_computabilityTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1256:0: 'Lattice.Lv00.AxiomDischargeJia.computabilityTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1257:0: 'Lattice.Lv00.AxiomDischargeJia.not_modalLogic_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1258:0: 'Lattice.Lv00.AxiomDischargeJia.modalLogic_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1259:0: 'Lattice.Lv00.AxiomDischargeJia.not_zfcSetTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1260:0: 'Lattice.Lv00.AxiomDischargeJia.zfcSetTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1261:0: 'Lattice.Lv00.AxiomDischargeJia.not_graphTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1262:0: 'Lattice.Lv00.AxiomDischargeJia.graphTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1263:0: 'Lattice.Lv00.AxiomDischargeJia.not_measureTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1264:0: 'Lattice.Lv00.AxiomDischargeJia.measureTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1265:0: 'Lattice.Lv00.AxiomDischargeJia.not_functionalAnalysis_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1266:0: 'Lattice.Lv00.AxiomDischargeJia.functionalAnalysis_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1267:0: 'Lattice.Lv00.AxiomDischargeJia.not_probabilityTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1268:0: 'Lattice.Lv00.AxiomDischargeJia.probabilityTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1269:0: 'Lattice.Lv00.AxiomDischargeJia.not_informationTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1270:0: 'Lattice.Lv00.AxiomDischargeJia.informationTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1271:0: 'Lattice.Lv00.AxiomDischargeJia.not_linearAlgebra_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1272:0: 'Lattice.Lv00.AxiomDischargeJia.linearAlgebra_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1273:0: 'Lattice.Lv00.AxiomDischargeJia.not_projectiveGeometry_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1274:0: 'Lattice.Lv00.AxiomDischargeJia.projectiveGeometry_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1275:0: 'Lattice.Lv00.AxiomDischargeJia.not_orderTheory_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1276:0: 'Lattice.Lv00.AxiomDischargeJia.orderTheory_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1277:0: 'Lattice.Lv00.AxiomDischargeJia.not_affineGeometry_orig' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1278:0: 'Lattice.Lv00.AxiomDischargeJia.affineGeometry_closed' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1279:0: 'Lattice.Lv00.AxiomDischargeJia.closed_nil_iff' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1280:0: 'Lattice.Lv00.AxiomDischargeJia.dependenciesClosed_mono' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Chain\RealN2AxiomDischargeJia.lean:1281:0: 'Lattice.Lv00.AxiomDischargeJia.not_forall_packageDependenciesValid' depends on axioms: [propext, Quot.sound]
+⚠ [6113/6504] Replayed Lattice.Lib.Editing.RealEditVerdict
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditVerdict.lean:56:6: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6119/6504] Replayed Lattice.Lib.Chain.RealPMix
+warning: .\.\.\.\Lattice\Lib\Chain\RealPMix.lean:48:2: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6120/6504] Replayed Lattice.Lib.Chain.RealPMixN
+warning: .\.\.\.\Lattice\Lib\Chain\RealPMixN.lean:46:6: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Chain\RealPMixN.lean:74:12: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6124/6504] Replayed Lattice.Lib.LinearAlgebra.RealHessian
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealHessian.lean:138:77: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ℹ [6132/6504] Replayed Lattice.Lib.Compiler.LvDSLPartial
+info: .\.\.\.\Lattice\Lib\Compiler\LvDSLPartial.lean:94:0: 'lvFormal.Theory.LvDSLPartial.empty_program_no_constraints' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Compiler\LvDSLPartial.lean:95:0: 'lvFormal.Theory.LvDSLPartial.empty_program_no_prove' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Compiler\LvDSLPartial.lean:96:0: 'lvFormal.Theory.LvDSLPartial.getConstraints_length_nonneg' does not depend on any axioms
+⚠ [6141/6504] Replayed Lattice.Lib.Compiler.RealAbstractInterpretation
+warning: .\.\.\.\Lattice\Lib\Compiler\RealAbstractInterpretation.lean:191:0: automatically included section variable(s) unused in theorem 'Lattice.soundAbstract_image_subset':
+  [CompleteLattice Abstract]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteLattice Abstract] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Compiler\RealAbstractInterpretation.lean:199:0: automatically included section variable(s) unused in theorem 'Lattice.image_subset_soundAbstract':
+  [CompleteLattice Abstract]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteLattice Abstract] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6150/6504] Replayed Lattice.Lib.Editing.RealEditRollback
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditRollback.lean:79:0: automatically included section variable(s) unused in theorem 'Lattice.rollback_edit':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditRollback.lean:95:0: automatically included section variable(s) unused in theorem 'Lattice.batch_rollback':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6151/6504] Replayed Lattice.Lib.Concentration.RealEditOrder
+warning: .\.\.\.\Lattice\Lib\Concentration\RealEditOrder.lean:104:0: automatically included section variable(s) unused in theorem 'Lattice.freeSum_append':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealEditOrder.lean:114:0: automatically included section variable(s) unused in theorem 'Lattice.editSeq_closed_form':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealEditOrder.lean:164:0: automatically included section variable(s) unused in theorem 'Lattice.romeEditSeq_orthogonal_fixed':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealEditOrder.lean:216:0: automatically included section variable(s) unused in theorem 'Lattice.order_dependence_general':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6154/6504] Replayed Lattice.Lib.Compiler.RealEffectOrdering
+warning: .\.\.\.\Lattice\Lib\Compiler\RealEffectOrdering.lean:164:5: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6170/6504] Replayed Lattice.Lib.Compiler.RealRegisterAllocation
+warning: .\.\.\.\Lattice\Lib\Compiler\RealRegisterAllocation.lean:172:11: unused variable `u`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Compiler\RealRegisterAllocation.lean:172:13: unused variable `v`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Compiler\RealRegisterAllocation.lean:196:5: unused variable `hloop`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6189/6504] Replayed Lattice.Lib.Concentration.RealBernsteinCondition
+warning: .\.\.\.\Lattice\Lib\Concentration\RealBernsteinCondition.lean:255:31: unused variable `hB`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealBernsteinCondition.lean:256:5: unused variable `hcond`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6191/6504] Replayed Lattice.Lib.Concentration.RealSubExponentialTail
+warning: .\.\.\.\Lattice\Lib\Concentration\RealSubExponentialTail.lean:566:15: unused variable `ha`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealSubExponentialTail.lean:566:28: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealSubExponentialTail.lean:569:17: unused variable `ht`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6192/6504] Replayed Lattice.Lib.Concentration.RealConcentrationDuality
+info: .\.\.\.\Lattice\Lib\Concentration\RealConcentrationDuality.lean:310:2: Try this: ring_nf
+⚠ [6200/6504] Replayed Lattice.Lib.Concentration.RealMcDiarmid
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMcDiarmid.lean:151:8: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMcDiarmid.lean:172:56: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMcDiarmid.lean:205:21: unused variable `hN`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMcDiarmid.lean:205:47: unused variable `hn`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMcDiarmid.lean:358:31: unused variable `hn`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6214/6504] Replayed Lattice.Lib.Concentration.RealMartingaleConcentration
+warning: .\.\.\.\Lattice\Lib\Concentration\RealMartingaleConcentration.lean:359:9: unused variable `j`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6224/6504] Replayed Lattice.Lib.Optim.RealLeastSquares
+warning: .\.\.\.\Lattice\Lib\Optim\RealLeastSquares.lean:133:2: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealLeastSquares.lean:138:0: automatically included section variable(s) unused in theorem 'Lattice.normal_equation_iff_global_min':
+  [CompleteSpace E]
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealLeastSquares.lean:147:0: automatically included section variable(s) unused in theorem 'Lattice.consistent_stationarity_iff_min':
+  [CompleteSpace E]
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6225/6504] Replayed Lattice.Lib.LinearAlgebra.RealRKHSKernel
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealRKHSKernel.lean:305:51: unused variable `hsymm`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealRKHSKernel.lean:460:23: unused variable `hU`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealRKHSKernel.lean:852:43: unused variable `hn`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6226/6504] Replayed Lattice.Lib.LearningTheory.RealGaussianProcess
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:224:36: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:755:5: unused variable `hK`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:755:25: unused variable `hM`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:756:23: unused variable `hsigma`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:757:5: unused variable `hMpsd`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealGaussianProcess.lean:951:24: unused variable `hInv`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6227/6504] Replayed Lattice.Lib.Concentration.RealTalagrandConcentration
+warning: .\.\.\.\Lattice\Lib\Concentration\RealTalagrandConcentration.lean:164:39: unused variable `f`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6228/6504] Replayed Lattice.Lib.Concentration.RealUnionBoundTightness
+warning: .\.\.\.\Lattice\Lib\Concentration\RealUnionBoundTightness.lean:144:46: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6236/6504] Replayed Lattice.Lib.Convex.RealConvexCalculus
+warning: .\.\.\.\Lattice\Lib\Convex\RealConvexCalculus.lean:126:57: unused variable `ha`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Convex\RealConvexCalculus.lean:139:28: is syntactical
+⚠ [6237/6504] Replayed Lattice.Lib.Optim.RealProjGrad
+warning: .\.\.\.\Lattice\Lib\Optim\RealProjGrad.lean:185:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealProjGrad.lean:210:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6240/6504] Replayed Lattice.Lib.Convex.RealFarkas
+warning: .\.\.\.\Lattice\Lib\Convex\RealFarkas.lean:334:10: `div_lt_iff` has been deprecated, use `div_lt_iff₀` instead
+⚠ [6242/6504] Replayed Lattice.Lib.Convex.RealFenchelLSC
+warning: .\.\.\.\Lattice\Lib\Convex\RealFenchelLSC.lean:94:5: unused variable `hbd`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6244/6504] Replayed Lattice.Lib.Convex.RealKKTMultivariate
+warning: .\.\.\.\Lattice\Lib\Convex\RealKKTMultivariate.lean:105:16: unused variable `hfeas`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6248/6504] Replayed Lattice.Lib.Convex.RealStrictConvexEquality
+warning: .\.\.\.\Lattice\Lib\Convex\RealStrictConvexEquality.lean:156:48: unused variable `ht`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6255/6504] Replayed Lattice.Lib.Editing.RealConstraintEdit
+warning: .\.\.\.\Lattice\Lib\Editing\RealConstraintEdit.lean:305:14: unused variable `cs`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealConstraintEdit.lean:305:50: unused variable `n`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6256/6504] Replayed Lattice.Lib.Editing.RealConversionCategorical
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionCategorical.lean:327:4: try 'simp at this' instead of 'simpa using this'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6257/6504] Replayed Lattice.Lib.Editing.RealConversionCategoryNew
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionCategoryNew.lean:443:18: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionCategoryNew.lean:578:4: try 'simp at hb' instead of 'simpa using hb'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6258/6504] Replayed Lattice.Lib.Editing.RealConversionComposition
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionComposition.lean:57:14: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6259/6504] Replayed Lattice.Lib.Editing.RealConversionInformation
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionInformation.lean:229:8: try 'simp at this' instead of 'simpa using this'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6260/6504] Replayed Lattice.Lib.Editing.RealConversionMinimality
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionMinimality.lean:75:33: unused variable `Rel`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionMinimality.lean:242:4: try 'simp at this' instead of 'simpa using this'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionMinimality.lean:308:30: unused variable `hek`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6263/6504] Replayed Lattice.Lib.Editing.RealConversionRobustness
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionRobustness.lean:229:42: unused variable `hw`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6269/6504] Replayed Lattice.Lib.LinearAlgebra.RealSpectralRadius
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSpectralRadius.lean:95:0: automatically included section variable(s) unused in theorem 'Lattice.diagonal_eigenpair':
+  [Nonempty (Fin n)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty (Fin n)] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSpectralRadius.lean:142:0: automatically included section variable(s) unused in theorem 'Lattice.spectral_radius_le_opNorm_diag':
+  [Nonempty (Fin n)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty (Fin n)] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSpectralRadius.lean:150:0: automatically included section variable(s) unused in theorem 'Lattice.matvecE_diagonal':
+  [Nonempty (Fin n)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty (Fin n)] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6272/6504] Replayed Lattice.Lib.Editing.RealConversionStabilityReversibility
+warning: .\.\.\.\Lattice\Lib\Editing\RealConversionStabilityReversibility.lean:111:13: unused variable `hT`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6275/6504] Replayed Lattice.Lib.Editing.RealEditCommute
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCommute.lean:367:5: unused variable `hN₁`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditCommute.lean:367:20: unused variable `hN₂`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6280/6504] Replayed Lattice.Lib.Editing.RealEditSymbolAgreement
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditSymbolAgreement.lean:165:31: unused variable `c`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditSymbolAgreement.lean:263:38: try 'simp at ha' instead of 'simpa using ha'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditSymbolAgreement.lean:356:38: try 'simp at ha' instead of 'simpa using ha'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6281/6504] Replayed Lattice.Lib.Editing.RealEditToSymbol
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditToSymbol.lean:152:6: unused variable `c₁`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealEditToSymbol.lean:152:12: unused variable `c₂`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6284/6504] Replayed Lattice.Lib.Editing.RealExtractCanonical
+warning: .\.\.\.\Lattice\Lib\Editing\RealExtractCanonical.lean:252:5: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealExtractCanonical.lean:367:56: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealExtractCanonical.lean:368:56: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6286/6504] Replayed Lattice.Lib.Editing.RealLayerSemanticQuotient
+warning: .\.\.\.\Lattice\Lib\Editing\RealLayerSemanticQuotient.lean:156:14: unused variable `c`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealLayerSemanticQuotient.lean:156:16: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealLayerSemanticQuotient.lean:162:14: unused variable `l`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealLayerSemanticQuotient.lean:162:16: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6287/6504] Replayed Lattice.Lib.Editing.RealExtractCanonicalExistence
+warning: .\.\.\.\Lattice\Lib\Editing\RealExtractCanonicalExistence.lean:221:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealExtractCanonicalExistence.lean:222:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6291/6504] Replayed Lattice.Lib.Editing.RealGramEdit
+warning: .\.\.\.\Lattice\Lib\Editing\RealGramEdit.lean:63:0: automatically included section variable(s) unused in theorem 'Lattice.gramMatrix_mulVec_apply':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealGramEdit.lean:190:0: automatically included section variable(s) unused in theorem 'Lattice.gram_vs_closed_residual':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6293/6504] Replayed Lattice.Lib.Editing.RealLoRAEditJoint
+warning: .\.\.\.\Lattice\Lib\Editing\RealLoRAEditJoint.lean:85:0: automatically included section variable(s) unused in theorem 'Lattice.lora_edit_additive':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealLoRAEditJoint.lean:132:0: automatically included section variable(s) unused in theorem 'Lattice.lora_edit_constraint_drift':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Editing\RealLoRAEditJoint.lean:158:0: automatically included section variable(s) unused in theorem 'Lattice.edit_rollback_with_lora':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [6307/6504] Replayed Lattice.Lib.Editing.RealTwoSidedEditEquiv
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:298:0: @E8Merges : {α β : Type} → (α → β) → Prop
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:299:0: @E8_merges_iff_not_injective : ∀ {α β : Type} (f : α → β), E8Merges f ↔ ¬Injective f
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:300:0: E8_merge_at_L0L1_witness : ['a', ' ', ' ', 'b'] ≠ ['a', ' ', 'b'] ∧
+  tokenize ['a', ' ', ' ', 'b'] = tokenize ['a', ' ', 'b']
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:301:0: E8_source_at_L0L1_exists : E8Merges tokenize
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:302:0: E8_nonInjective_map_merges : E8Merges E8CollapseLayer
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:303:0: E8_injective_map_is_second_source_free : ¬E8Merges compileToLayer
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:304:0: @E8_later_ring_inert : ∀ {f : List Char → Option ConstraintSet} (s s' : List Char),
+  f s = f s' ↔ Option.map compileToLayer (f s) = Option.map compileToLayer (f s')
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:305:0: E8_null_source_control : ¬E8Merges id
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:306:0: E8_merges_is_nonvacuous : E8Merges tokenize ∧ ¬E8Merges id
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:307:0: E8_L1L2_ring_is_lossless : ¬E8Merges encode
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:308:0: E8_source_count_exactly_one : (E8Merges tokenize ∧ tokenize ['a', ' ', ' ', 'b'] = tokenize ['a', ' ', 'b']) ∧
+  ¬E8Merges compileToLayer ∧ E8Merges E8CollapseLayer ∧ ¬E8Merges encode
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:309:0: E8_load_bearing_summary : ¬E8Merges compileToLayer ∧ E8Merges E8CollapseLayer ∧ ¬E8Merges encode
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:310:0: @E8_e2e_kernel_inert : ∀ {f : List Char → Option ConstraintSet} (s s' : List Char),
+  f s = f s' ↔ Option.map compileToLayer (f s) = Option.map compileToLayer (f s')
+info: .\.\.\.\Lattice\Lib\Editing\RealTwoSidedEditEquiv.lean:311:0: E8_merges_aligns_with_SameTokens : ∀ (s t : List Char), SameTokens s t ↔ tokenize s = tokenize t
+⚠ [6316/6504] Replayed Lattice.Lib.FCA.RealFCAImplicationBasis
+warning: .\.\.\.\Lattice\Lib\FCA\RealFCAImplicationBasis.lean:248:5: unused variable `hext`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6321/6504] Replayed Lattice.Lib.FCA.RealFCATriadicCompleteLattice
+warning: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:355:7: unused variable `O'₁`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:355:11: unused variable `O'₂`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:359:0: 'Lattice.tcl_proj_is_formal_concept' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:360:0: 'Lattice.intent2_iUnion' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:361:0: 'Lattice.extent2_iUnion' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:362:0: 'Lattice.intent2_union' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:363:0: 'Lattice.tcl_triExtent_iUnion_subset' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:364:0: 'Lattice.tcl_triExtent_extensive' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:365:0: 'Lattice.tcl_triExtent_idempotent' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:366:0: 'Lattice.tcl_triExtent_monotone' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:367:0: 'Lattice.tcl_triExtent_galois' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:368:0: 'Lattice.tcl_inj' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:369:0: 'Lattice.tcl_collision_iff' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:370:0: 'Lattice.tcl_projection_not_injective_without_hyp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:371:0: 'Lattice.tcl_triConcept_gives_formalConcept' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:372:0: 'Lattice.tcl_formalConcept_gives_triConcept' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\FCA\RealFCATriadicCompleteLattice.lean:373:0: 'Lattice.tcl_davenport_decomposition' depends on axioms: [propext, Quot.sound]
+⚠ [6322/6504] Replayed Lattice.Lib.FCA.RealImplicationExt
+warning: .\.\.\.\Lattice\Lib\FCA\RealImplicationExt.lean:95:4: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6336/6504] Replayed Lattice.Lib.InfoTheory.RealInformationGeometry
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:947:62: unused variable `hp0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:948:5: unused variable `hpos`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:1116:45: unused variable `hF`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:1116:58: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:1133:52: unused variable `hF`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealInformationGeometry.lean:1134:5: unused variable `hu`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6340/6504] Replayed Lattice.Lib.InfoTheory.RealKLJointConvex
+warning: .\.\.\.\Lattice\Lib\InfoTheory\RealKLJointConvex.lean:287:40: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6345/6504] Replayed Lattice.Lib.Optim.RealDPSGD
+warning: .\.\.\.\Lattice\Lib\Optim\RealDPSGD.lean:177:22: unused variable `σ`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6355/6504] Replayed Lattice.Lib.LearningTheory.RealCurriculumOrdering
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealCurriculumOrdering.lean:122:0: automatically included section variable(s) unused in theorem 'Lattice.cumLoss_eq_sum_posWeight':
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealCurriculumOrdering.lean:152:0: automatically included section variable(s) unused in theorem 'Lattice.posWeight_le_one':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealCurriculumOrdering.lean:166:0: automatically included section variable(s) unused in theorem 'Lattice.posWeight_sum_eq':
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealCurriculumOrdering.lean:246:5: unused variable `hγ0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealCurriculumOrdering.lean:246:19: unused variable `hγ1`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6359/6504] Replayed Lattice.Lib.LearningTheory.RealDistill
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealDistill.lean:181:0: automatically included section variable(s) unused in theorem 'Lattice.chain_distill_bound_lipschitz':
+  [NormedSpace ℝ E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6360/6504] Replayed Lattice.Lib.LearningTheory.RealDistillGeneralization
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealDistillGeneralization.lean:215:5: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealDistillGeneralization.lean:217:5: unused variable `hB0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6363/6504] Replayed Lattice.Lib.LearningTheory.RealPACBayes
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealPACBayes.lean:240:44: unused variable `hk`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6365/6504] Replayed Lattice.Lib.LearningTheory.RealHyperparameterBound
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHyperparameterBound.lean:209:8: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6366/6504] Replayed Lattice.Lib.LearningTheory.RealHypothesisTesting
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:101:0: automatically included section variable(s) unused in theorem 'Lattice.size_nonneg':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:105:0: automatically included section variable(s) unused in theorem 'Lattice.power_nonneg':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:136:0: automatically included section variable(s) unused in theorem 'Lattice.typeI_typeII_tradeoff':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:221:0: automatically included section variable(s) unused in theorem 'Lattice.np_replace_same_size':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:231:0: automatically included section variable(s) unused in theorem 'Lattice.np_replace_ratio':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:252:0: automatically included section variable(s) unused in theorem 'Lattice.typeI_typeII_equal_of_same_law':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealHypothesisTesting.lean:365:0: automatically included section variable(s) unused in theorem 'Lattice.greedy_order_matters':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6372/6504] Replayed Lattice.Lib.LearningTheory.RealMAMLSecondOrder
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:179:5: unused variable `hh`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:179:18: unused variable `hL2`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:203:18: unused variable `hL2`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:231:65: unused variable `hL2`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:581:59: Try this: ring_nf
+info: .\.\.\.\Lattice\Lib\LearningTheory\RealMAMLSecondOrder.lean:612:4: Try this: ring_nf
+⚠ [6373/6504] Replayed Lattice.Lib.LearningTheory.RealOODDetection
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:131:0: automatically included section variable(s) unused in theorem 'Lattice.tpr_mono':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:142:0: automatically included section variable(s) unused in theorem 'Lattice.fpr_mono':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:161:0: automatically included section variable(s) unused in theorem 'Lattice.auroc_nonneg':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:187:0: automatically included section variable(s) unused in theorem 'Lattice.auroc_le_one':
+  [Fintype α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:284:0: automatically included section variable(s) unused in theorem 'Lattice.auroc_symmetric_tie':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:327:0: automatically included section variable(s) unused in theorem 'Lattice.separation_from_threshold':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:329:29: unused variable `hidne`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:350:0: automatically included section variable(s) unused in theorem 'Lattice.perfect_separation_auroc_one':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:447:0: automatically included section variable(s) unused in theorem 'Lattice.auroc_zero_of_reverse_separation':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealOODDetection.lean:474:0: automatically included section variable(s) unused in theorem 'Lattice.threshold_separation_iff':
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6377/6504] Replayed Lattice.Lib.LearningTheory.RealSpeculativeDecoding
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeDecoding.lean:80:0: automatically included section variable(s) unused in theorem 'Lattice.accept_mass_eq_min':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeDecoding.lean:107:0: automatically included section variable(s) unused in theorem 'Lattice.residualMass_eq':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeDecoding.lean:122:0: automatically included section variable(s) unused in theorem 'Lattice.speculative_eq_target':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6378/6504] Replayed Lattice.Lib.LearningTheory.RealSpeculativeOptimal
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:102:0: automatically included section variable(s) unused in theorem 'Lattice.acceptMass_nonneg':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:110:0: automatically included section variable(s) unused in theorem 'Lattice.acceptMass_le_sum_p':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:135:0: automatically included section variable(s) unused in theorem 'Lattice.acceptMass_eq_one_sub_tv':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:176:0: automatically included section variable(s) unused in theorem 'Lattice.coupling_accept_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:203:0: automatically included section variable(s) unused in theorem 'Lattice.speculative_acceptMass_eq':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:266:0: automatically included section variable(s) unused in theorem 'Lattice.tree_accept_bound':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:339:0: automatically included section variable(s) unused in theorem 'Lattice.acceptMass_eq_sum_p_iff':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:339:47: unused variable `hq`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:364:42: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:412:0: automatically included section variable(s) unused in theorem 'Lattice.tree_acceptMass_le_sum_q':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:414:24: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:418:0: automatically included section variable(s) unused in theorem 'Lattice.tree_acceptMass_eq_sum_q_iff':
+  [Fintype ι]
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealSpeculativeOptimal.lean:446:0: automatically included section variable(s) unused in theorem 'Lattice.tree_acceptMass_le_one':
+  [Nonempty ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty ι] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6381/6504] Replayed Lattice.Lib.LearningTheory.RealVariationalBayes
+warning: .\.\.\.\Lattice\Lib\LearningTheory\RealVariationalBayes.lean:588:5: unused variable `p`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [6385/6504] Replayed Lattice.Lib.Lift.RealContractAxioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:91:0: 'Lattice.convertVec_preserves_semantics' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:92:0: 'Lattice.scaleVec_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:93:0: 'Lattice.convertVec_preserves_solution_set' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:96:0: 'Lattice.Lift.SymbolToWeightCorrectness.symbolToWeight_correct' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:97:0: 'Lattice.Lift.SymbolToWeightCorrectness.symbolToWeight_verify' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:98:0: 'Lattice.Lift.SymbolToWeightCorrectness.symbolToWeight_empty' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:101:0: 'Lattice.embedding_soundness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:102:0: 'Lattice.embedding_no_false_solutions' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:103:0: 'Lattice.embedding_no_missing_solutions' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:106:0: 'Lattice.totalLoss_eq_zero_iff_allSatisfied' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:107:0: 'Lattice.totalLoss_verify' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:110:0: 'Lattice.roundtrip_extract' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:111:0: 'Lattice.roundtrip_extractVec' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:112:0: 'Lattice.roundtrip_behavior' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:113:0: 'Lattice.extract_is_valid' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:119:0: 'Lattice.disjN_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:120:0: 'Lattice.disj_embedding' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:123:0: 'Lattice.andC_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:124:0: 'Lattice.orC_eq_zero_iff' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:125:0: 'Lattice.and_comm_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:126:0: 'Lattice.or_comm_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:127:0: 'Lattice.dist_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:128:0: 'Lattice.and_assoc_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:129:0: 'Lattice.or_assoc_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:132:0: 'Lattice.collinear_preserves' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:133:0: 'Lattice.collinear_translate' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:134:0: 'Lattice.collinear_cyclic' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:135:0: 'Lattice.collinear_swap' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:136:0: 'Lattice.collinear_degenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:139:0: 'Lattice.le_ge_iff_sq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:140:0: 'Lattice.le_preserves' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:141:0: 'Lattice.le_and_ge_iff_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:142:0: 'Lattice.bound_embedding_chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:145:0: 'Lattice.constraint_satisfaction_propagates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:146:0: 'Lattice.layerFwd_allzero' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:147:0: 'Lattice.layerSeq_three' depends on axioms: [propext]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:150:0: 'Lattice.congruent_trans' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:151:0: 'Lattice.congruent_refl' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:152:0: 'Lattice.congruent_symm' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:153:0: 'Lattice.congruent_add' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:154:0: 'Lattice.congruent_mod_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:155:0: 'Lattice.congruent_mod_one' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:156:0: 'Lattice.congruent_mod_neg_one' depends on axioms: [propext, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:157:0: 'Lattice.mod_preserves' does not depend on any axioms
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:160:0: 'Lattice.convertReal_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:161:0: 'Lattice.convertRealVec_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:162:0: 'Lattice.realVec_scale_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:163:0: 'Lattice.realLoss_soundness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:164:0: 'Lattice.real_sq_sum_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:165:0: 'Lattice.real_scale_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:168:0: 'Lattice.realTotalLoss_soundness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:169:0: 'Lattice.realTotalLoss_zero_iff_all_outputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:170:0: 'Lattice.realTotalLoss_verify' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:171:0: 'Lattice.realTotalLoss_pos_of_unsatisfied' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:174:0: 'Lattice.realConstraint_satisfaction_propagates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:175:0: 'Lattice.realLayer_allSatisfied_iff_zero_output' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:178:0: 'Lattice.orthogonalR_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:179:0: 'Lattice.distSqR_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:180:0: 'Lattice.collinearR_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:181:0: 'Lattice.collinearR_translate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:182:0: 'Lattice.collinearR_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:183:0: 'Lattice.collinearR_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:184:0: 'Lattice.distSqR_translate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:187:0: 'Lattice.relu_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:188:0: 'Lattice.sign_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:189:0: 'Lattice.relu_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:190:0: 'Lattice.relu_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:191:0: 'Lattice.sumRelu_all_constraints' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:192:0: 'Lattice.sumRelu_pos_of_unsatisfied' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:195:0: 'Lattice.relu_propagation' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:196:0: 'Lattice.ReLUSum_zero_iff_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:197:0: 'Lattice.ReLUSum_iff_all_constraints' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:198:0: 'Lattice.reluLayer_out_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealContractAxioms.lean:199:0: 'Lattice.reluLayer_zero_input' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [6388/6504] Replayed Lattice.Lib.Lift.RealNonlinearFidelity_parts.C
+info: .\.\.\.\Lattice\Lib\Lift\RealNonlinearFidelity_parts\C.lean:384:0: [("reluZ", false), ("leakyReluZ", true), ("siluZ", true), ("geluZ", true), ("sigmoidZ", false), ("softplusZ", false),
+  ("hardswishZ", false), ("modreluZ", false), ("cubeZ", true), ("negZ", true), ("idZ", true), ("signZ", true)]
+ℹ [6390/6504] Replayed Lattice.Lib.Lift.RealParamLoss
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:183:0: 'Lattice.paramLoss_zero_iff_all_outputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:184:0: 'Lattice.paramLoss_zero_iff_pConstraint' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:185:0: 'Lattice.paramLoss_symParam_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:186:0: 'Lattice.paramLoss_pos_of_unsatisfied' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:187:0: 'Lattice.paramLoss_forall_p_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:188:0: 'Lattice.paramLoss_not_const' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: .\.\.\.\Lattice\Lib\Lift\RealParamLoss.lean:189:0: 'Lattice.paramLoss_one_eq_layerOut_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [6391/6504] Replayed Lattice.Lib.Lift.RealTrainVerify
+warning: .\.\.\.\Lattice\Lib\Lift\RealTrainVerify.lean:43:0: automatically included section variable(s) unused in theorem 'Lattice.train_verify_protocol':
+  [NormedSpace ℝ E]
+  [IsScalarTower ℝ 𝕜 E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ 𝕜 F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] [IsScalarTower ℝ 𝕜 E] [NormedSpace ℝ F] [IsScalarTower ℝ 𝕜 F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Lift\RealTrainVerify.lean:45:15: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Lift\RealTrainVerify.lean:47:11: unused variable `x`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6392/6504] Replayed Lattice.Lib.Lift.RealWeightedConstraintsN
+warning: .\.\.\.\Lattice\Lib\Lift\RealWeightedConstraintsN.lean:46:0: automatically included section variable(s) unused in theorem 'Lattice.weightedN_fderiv':
+  [CompleteSpace E]
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [6409/6504] Replayed Lattice.Lib.LinearAlgebra.RealReproducingKernelTheory
+info: .\.\.\.\Lattice\Lib\LinearAlgebra\RealReproducingKernelTheory.lean:440:4: Try this: ring_nf
+⚠ [6412/6504] Replayed Lattice.Lib.LinearAlgebra.RealSparseCodingCounterexamples
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:563:12: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:564:12: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:565:12: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:566:12: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:567:12: this tactic is never executed
+note: this linter can be disabled with `set_option linter.unreachableTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:557:25: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:563:12: '(rw [abs_of_nonpos (by linarith : y₂ - y₁ ≤ 0)]; linarith)' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:564:12: '(rw [abs_of_nonneg (by linarith : (0 : ℝ) ≤ y₂ - y₁)]; linarith)' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:565:12: '(rw [abs_of_nonneg (show (0 : ℝ) ≤ 0 by norm_num)]; linarith)' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:566:12: '(rw [abs_of_nonpos (show (0 : ℝ) ≤ 0 by norm_num)]; linarith)' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCounterexamples.lean:567:12: '(ring_nf; linarith)' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [6413/6504] Replayed Lattice.Lib.LinearAlgebra.RealSparseCodingCoherence
+warning: .\.\.\.\Lattice\Lib\LinearAlgebra\RealSparseCodingCoherence.lean:283:45: unused variable `A`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6419/6504] Replayed Lattice.Lib.Meta.RealCounterexamples
+warning: .\.\.\.\Lattice\Lib\Meta\RealCounterexamples.lean:119:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+note: this linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [6421/6504] Replayed Lattice.Lib.Meta.RealRflAudit
+warning: .\.\.\.\Lattice\Lib\Meta\RealRflAudit.lean:139:35: unused variable `i`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6426/6504] Replayed Lattice.Lib.Optim.RealAdam
+warning: .\.\.\.\Lattice\Lib\Optim\RealAdam.lean:128:37: unused variable `hB`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6428/6504] Replayed Lattice.Lib.Optim.RealCheckpointAveraging
+warning: .\.\.\.\Lattice\Lib\Optim\RealCheckpointAveraging.lean:200:5: unused variable `hlam0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6431/6504] Replayed Lattice.Lib.Optim.RealEvalBridge
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:99:0: (3.000000, 0.000000)
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:101:0: (0.500000, 0.731059)
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:103:0: (0.731059, 0.693147)
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:106:0: (0.693147, 1.313262)
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:108:0: 0.693147
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:110:0: 5.436564
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:112:0: (1.000000, 0.000000)
+info: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:118:0: "selfcheck: OK"
+warning: .\.\.\.\Lattice\Lib\Optim\RealEvalBridge.lean:165:2: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6434/6504] Replayed Lattice.Lib.Optim.RealFedAsync
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:157:5: unused variable `hμ`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:157:18: unused variable `hη`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:390:5: unused variable `hμ`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:390:18: unused variable `hη`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:390:31: unused variable `hG`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealFedAsync.lean:390:44: unused variable `hζ`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6437/6504] Replayed Lattice.Lib.Optim.RealGradientFlowDiscretization
+warning: .\.\.\.\Lattice\Lib\Optim\RealGradientFlowDiscretization.lean:84:66: unused variable `hL`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6439/6504] Replayed Lattice.Lib.Optim.RealLRDecay
+warning: .\.\.\.\Lattice\Lib\Optim\RealLRDecay.lean:96:5: unused variable `he`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealLRDecay.lean:143:5: unused variable `he`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6441/6504] Replayed Lattice.Lib.Optim.RealSGD
+warning: .\.\.\.\Lattice\Lib\Optim\RealSGD.lean:97:0: automatically included section variable(s) unused in theorem 'Lattice.momentum_gd_recovery':
+  [IsScalarTower ℝ 𝕜 E]
+  [NormedSpace ℝ F]
+  [IsScalarTower ℝ 𝕜 F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsScalarTower ℝ 𝕜 E] [NormedSpace ℝ F] [IsScalarTower ℝ 𝕜 F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+info: .\.\.\.\Lattice\Lib\Optim\RealSGD.lean:116:8: Try this: abel_nf
+warning: .\.\.\.\Lattice\Lib\Optim\RealSGD.lean:162:16: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealSGD.lean:270:20: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [6443/6504] Replayed Lattice.Lib.Optim.RealNesterovRate
+warning: .\.\.\.\Lattice\Lib\Optim\RealNesterovRate.lean:105:37: unused variable `hAnonneg`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6447/6504] Replayed Lattice.Lib.Optim.RealNewtonRate
+warning: .\.\.\.\Lattice\Lib\Optim\RealNewtonRate.lean:67:8: `div_le_div_iff` has been deprecated, use `div_le_div_iff₀` instead
+warning: .\.\.\.\Lattice\Lib\Optim\RealNewtonRate.lean:71:8: `div_le_div_iff` has been deprecated, use `div_le_div_iff₀` instead
+⚠ [6448/6504] Replayed Lattice.Lib.Optim.RealPLCondition
+warning: .\.\.\.\Lattice\Lib\Optim\RealPLCondition.lean:76:5: unused variable `hmu`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealPLCondition.lean:77:26: unused variable `hg0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6454/6504] Replayed Lattice.Lib.Optim.RealProximalMoreau
+warning: .\.\.\.\Lattice\Lib\Optim\RealProximalMoreau.lean:652:23: unused variable `hprox`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6456/6504] Replayed Lattice.Lib.Optim.RealRegularizedMDP
+warning: .\.\.\.\Lattice\Lib\Optim\RealRegularizedMDP.lean:236:21: unused variable `hπ0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealRegularizedMDP.lean:328:43: unused variable `hrefsum`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealRegularizedMDP.lean:368:43: unused variable `hrefsum`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6457/6504] Replayed Lattice.Lib.Optim.RealRidge
+warning: .\.\.\.\Lattice\Lib\Optim\RealRidge.lean:45:0: automatically included section variable(s) unused in theorem 'Lattice.normSq_fderiv_scalar':
+  [CompleteSpace E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: .\.\.\.\Lattice\Lib\Optim\RealRidge.lean:55:0: automatically included section variable(s) unused in theorem 'Lattice.ridge_fderiv':
+  [CompleteSpace F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace F] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6471/6504] Replayed Lattice.Lib.Quantization.RealCompressionRandom
+warning: .\.\.\.\Lattice\Lib\Quantization\RealCompressionRandom.lean:133:73: unused variable `hp0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Quantization\RealCompressionRandom.lean:187:58: unused variable `hδ0`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Quantization\RealCompressionRandom.lean:400:69: unused variable `hlam1`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6476/6504] Replayed Lattice.Lib.Quantization.RealQAT
+warning: .\.\.\.\Lattice\Lib\Quantization\RealQAT.lean:138:0: automatically included section variable(s) unused in theorem 'Lattice.quantization_error_reduction':
+  [NormedSpace ℝ E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℝ E] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [6479/6504] Replayed Lattice.Lib.Quantization.RealQuantizationError
+warning: .\.\.\.\Lattice\Lib\Quantization\RealQuantizationError.lean:84:5: unused variable `hlo`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6480/6504] Replayed Lattice.Lib.Quantization.RealSTEError
+warning: .\.\.\.\Lattice\Lib\Quantization\RealSTEError.lean:162:5: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: .\.\.\.\Lattice\Lib\Quantization\RealSTEError.lean:177:5: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6492/6504] Replayed Lattice.Audit.MultiComposition
+warning: .\.\.\.\Lattice\Audit\MultiComposition.lean:103:13: unused variable `Q`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [6494/6504] Replayed Lattice.Audit.VerdictLattice
+warning: .\.\.\.\Lattice\Audit\VerdictLattice.lean:156:62: unused variable `c`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+Build completed successfully.
