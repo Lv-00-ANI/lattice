@@ -247,4 +247,130 @@ theorem two_layer_descent_can_stall :
   · intro j
     fin_cases j <;> simp [Fin.sum_univ_two]
 
+/-! ## 五、任意深度：输出量级随深度**乘积**增长
+
+§二 只给单层的界。§三 只给两层的。本节给**任意 `k` 层**，而这正是「网络能深到多少」的问题。
+
+### 为什么要 `max (layerMag L) 1`
+
+归纳的障碍在**假设的形式**：`affineAct_abs_le` 要求输入的界 `M ≥ 1`
+（因为偏置项要用 `|b| ≤ M|b|`）。而 `layerMag L` **可以小于 1**（权重全是 `0.1` 的层），
+所以「`M ≥ 1`」在归纳里**传不下去**——`layerMag L * M` 可能小于 1。
+
+**修法不是加假设，是换形式**：把每层的增益取 `g L := max (layerMag L) 1 ≥ 1`，
+把输入的界取 `max M 1 ≥ 1`。于是
+
+```
+M' := g L * max M 1   ≥ 1        -- 假设可传
+g L * max M 1 = max (layerMag L * max M 1) 1   -- 与 affineAct_abs_le 的输出形式对上
+```
+
+**这是「换形式而不是砍定理」的一个具体例子**：定理没有被削弱成 `layerMag ≥ 1` 的特殊情形，
+它对**所有**层成立。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| **`netAct_abs_le`** | **`\|netAct ls x j\| ≤ (∏ max (layerMag L) 1) · max M 1`** |
+| `depth_growth` | 上述界随层数的乘性形式 |
+| **`layerMag_can_exceed_one`** | **N：存在层使 `layerMag ≥ 2`**——所以乘积**真的会**指数增长 |
+
+### 边界
+
+- 界是**乘性**的：`k` 层给 `∏ g L`。**这不是紧界**（`layerMag` 是列和的粗界，见 §1），
+  但它是**可归纳**的，而这正是「深度」需要的性质。
+- **本节给的是量级，不是误差**。误差在 §三 只到两层；`k` 层的误差会把每层的 `ε` 累加成几何级数，
+  **本节不做**（见 §六 的边界）。
+- **N 定理只说乘积可以增长，不说它一定增长**：`layerMag < 1` 的层会让乘积收缩。
+  **两种都可能，本节不声称任何一种。** -/
+
+/-- **每层的增益**：`max (layerMag L) 1`，恒 `≥ 1`，使归纳的假设可传。 -/
+noncomputable def gain (L : AffineLayer (Fin n)) : ℝ := max (layerMag L) 1
+
+/-- 增益至少为 1。 -/
+theorem one_le_gain (L : AffineLayer (Fin n)) : 1 ≤ gain L := le_max_right _ _
+
+/-- 增益非负。 -/
+theorem gain_nonneg (L : AffineLayer (Fin n)) : 0 ≤ gain L := le_trans zero_le_one (one_le_gain L)
+
+/-- **任意深度的输出量级界**：`|netAct ls x j| ≤ (∏ g L) · max M 1`。
+
+对 `ls` 归纳。归纳步用 `netAct_append` 把 `L :: ls` 拆成「先走 `L`、再走 `ls`」，
+然后 `affineAct_abs_le` 给第一段的界、归纳假设给第二段。 -/
+theorem netAct_abs_le (ls : List (AffineLayer (Fin n))) (x : Fin n → ℝ) {M : ℝ}
+    (hx : ∀ i, |x i| ≤ M) :
+    ∀ j, |netAct ls x j| ≤ ((ls.map gain).prod) * max M 1 := by
+  induction ls generalizing x M with
+  | nil =>
+      intro j
+      rw [netAct_nil]
+      have h1 : |x j| ≤ M := hx j
+      have h2 : M ≤ max M 1 := le_max_left _ _
+      simp only [List.map_nil, List.prod_nil, one_mul]
+      linarith
+  | cons L rest ih =>
+      intro j
+      -- `netAct (L :: rest) x = netAct rest (affineAct L x)`
+      have hstep : netAct (L :: rest) x = netAct rest (affineAct L x) := by
+        rw [show (L :: rest) = [L] ++ rest from rfl, netAct_append]
+        rfl
+      rw [hstep]
+      -- the intermediate bound: `M' := gain L * max M 1`, which is `≥ 1`
+      have hM1 : 1 ≤ max M 1 := le_max_right _ _
+      have hMnn : 0 ≤ max M 1 := le_trans zero_le_one hM1
+      have hmid : ∀ i, |affineAct L x i| ≤ gain L * max M 1 := by
+        intro i
+        have h := affineAct_abs_le L x hM1 (fun i => le_trans (hx i) (le_max_left _ _)) i
+        calc |affineAct L x i| ≤ layerMag L * max M 1 := h
+          _ ≤ gain L * max M 1 := by
+              apply mul_le_mul_of_nonneg_right _ hMnn
+              exact le_max_left _ _
+      have hM'1 : 1 ≤ gain L * max M 1 := by
+        calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
+          _ ≤ gain L * max M 1 := mul_le_mul (one_le_gain L) hM1 zero_le_one (gain_nonneg L)
+      have hmax : max (gain L * max M 1) 1 = gain L * max M 1 := max_eq_left hM'1
+      have hih := ih (affineAct L x) (M := gain L * max M 1) hmid j
+      rw [hmax] at hih
+      calc |netAct rest (affineAct L x) j|
+          ≤ ((rest.map gain).prod) * (gain L * max M 1) := hih
+        _ = ((L :: rest).map gain).prod * max M 1 := by
+            rw [List.map_cons, List.prod_cons]
+            ring
+
+/-- **深度增长**：`k` 层之后，量级被各层增益之积放大。
+
+这是 `netAct_abs_le` 的直接读法，单独列出是因为**它是「深度的代价」那句话的定理形式**。 -/
+theorem depth_growth (ls : List (AffineLayer (Fin n))) (x : Fin n → ℝ) {M : ℝ}
+    (hM : 1 ≤ M) (hx : ∀ i, |x i| ≤ M) (j : Fin n) :
+    |netAct ls x j| ≤ ((ls.map gain).prod) * M := by
+  have h := netAct_abs_le ls x hx j
+  rwa [max_eq_left hM] at h
+
+/-! ### N：乘积**真的会**增长
+
+上面的界若恒为 `≤ 1`，它就是空的。下面给出一个 `layerMag ≥ 2` 的层——
+于是 `k` 层的界至少是 `2 ^ k`。**深度的代价是真实的，不是记号。** -/
+
+/-- **存在使 `layerMag ≥ 2` 的层。**
+
+`W i j = 2`、`b = 0` 在 `Fin 1` 上：`colMag 0 = |2| + |0| = 2`，`layerMag = 2`。 -/
+theorem layerMag_can_exceed_one :
+    ∃ L : AffineLayer (Fin 1), 2 ≤ layerMag L := by
+  refine ⟨⟨fun _ _ => 2, fun _ => 0⟩, ?_⟩
+  have hcol : colMag (⟨fun _ _ => (2 : ℝ), fun _ => 0⟩ : AffineLayer (Fin 1)) 0 = 2 := by
+    unfold colMag
+    simp
+  unfold layerMag
+  rw [Fin.sum_univ_one, hcol]
+
+/-- **所以 `k` 层的界至少是 `2 ^ k`**——「深度的代价」的具体形式。 -/
+theorem depth_growth_at_least_two_pow (k : ℕ) :
+    ∃ L : AffineLayer (Fin 1), 2 ^ k ≤ ((List.replicate k L).map gain).prod := by
+  obtain ⟨L, hL⟩ := layerMag_can_exceed_one
+  refine ⟨L, ?_⟩
+  rw [List.map_replicate, List.prod_replicate]
+  have hg : 2 ≤ gain L := le_trans hL (le_max_left _ _)
+  exact pow_le_pow_left₀ (by norm_num) hg k
+
 end Lattice.Lift.StackError

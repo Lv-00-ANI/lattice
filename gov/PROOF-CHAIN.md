@@ -1624,7 +1624,7 @@
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
 | `Lattice.Lift.StackCodegen` | 11 | 11 |
-| `Lattice.Lift.StackError` | 7 | 2 |
+| `Lattice.Lift.StackError` | 13 | 3 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -2002,8 +2002,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `admm_x_stationarity` -> `contraction_converges`
 - `admm_z_minimizer` -> `add`
 - `aestronglyMeasurable_of_measurable` -> `apply`, `mono`
-- `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `le_trans`
-- `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `le_trans`
+- `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
 - `affineExpr_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `le_refl`
 - `affineGeometry_closed` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
@@ -2756,8 +2756,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cofactor_eq_zero_of_plucker_zero` -> `Pt`, `apply`, `cofactor`, `pluckerNorm`, `subst`
 - `cofactor_swap` -> `GeoConstraint`, `Pt`, `seg`
 - `coherence_le_mutualCoherence` -> `l0Norm`, `le_trans`, `sqrt_one`
-- `colMag_le_layerMag` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `le_trans`
-- `colMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `le_trans`
+- `colMag_le_layerMag` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `colMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `colMin_eq_pairing_dirac` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `colMin_le_pairing` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `col_norm_le_opNorm` -> `apply`, `card_fin`
@@ -3473,6 +3473,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depthList_nil` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
+- `depth_growth` -> `AffineLayer`, `le_trans`, `netAct`
+- `depth_growth_at_least_two_pow` -> `AffineLayer`, `le_trans`
 - `depth_le_depthList` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_lt_of_mem` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
@@ -4604,6 +4606,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `functionalAnalysis_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `functionalAnalysisTemplateNames`, `informationTheoryTemplateNames`, `length`, `mkTemplates`, `probabilityTheoryPackage`, `probabilityTheoryTemplateNames`, `probabilityTheoryTemplates`, `probabilityTheoryUnconstructibles`, `probabilityTheory_templateNames_length`
 - `functionalAnalysis_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `g02_criteria` -> `lt`
+- `gain_nonneg` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `galoisConnection_chainLift` -> `compose`, `induction`, `trans`, `zero`
 - `galoisConnection_interval_pointwise` -> `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `galoisConnection_of_pointwise` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
@@ -5469,7 +5472,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `le_trans`
+- `layerMag_can_exceed_one` -> `AffineLayer`, `le_trans`
+- `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerNorm_in_family` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
 - `layerOfListFull_W` -> `AffineLayer`, `W`, `layerOfList`
 - `layerOfListFull_b` -> `AffineLayer`, `W`, `layerOfList`
@@ -6297,9 +6301,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nesterov_lyapunov_telescope` -> `Smooth`, `induction`, `le_trans`, `nesterov_descent_lemma_le`, `zero`
 - `nesterov_rate` -> `Smooth`, `SubgradientIterate`
 - `nesterov_rate_of_lyapunov` -> `Smooth`, `nesterov_descent_lemma_le`
+- `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
-- `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`
+- `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `netLoss_empty` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `netLoss_eq_zero_of_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
@@ -6572,6 +6577,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_dim_lower_witness_core` -> `apply`, `le_refl`
 - `one_le_ceMag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `one_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `one_le_prod_one_add` -> `eps`, `induction`, `le_trans`, `zero`
 - `one_mem_Subdiff_max_not_mem` -> `apply`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
@@ -8931,7 +8937,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_families_connected` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `two_hop_msg` -> `apply`, `le_trans`
 - `two_layer_block_edit_bound` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
-- `two_layer_descent_can_stall` -> `W`
+- `two_layer_descent_can_stall` -> `AffineLayer`, `W`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `two_layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_layer_distill_bound_closed` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
 - `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
