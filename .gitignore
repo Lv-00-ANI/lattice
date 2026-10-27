@@ -40,3 +40,5 @@ __pycache__/
 gov/repro/_work/
 __pycache__/
 *.pyc
+# build artifacts captured for the vacuous-hypothesis guard
+build_warn.log
