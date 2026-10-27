@@ -42,6 +42,7 @@ import Lattice.Lift.LayerQuantizationBits
 import Lattice.Lift.SaturationQuantization
 import Lattice.Lift.QuantErrorPropagation
 import Lattice.Lift.ProgramAST
+import Lattice.Lift.StackError
 
 /-!
 # Lattice.Lift -- the representation ladder
