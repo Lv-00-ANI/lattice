@@ -62,7 +62,7 @@
 | `Loop` | 209 | 10 | — |
 | `LoopPerp` | 164 | 7 | — |
 | `LoopRate` | 89 | 3 | — |
-| `Loss` | 194 | 10 | — |
+| `Loss` | 199 | 10 | — |
 | `MissingRepairs` | 145 | 4 | — |
 | `MultiSeedCoverage` | 165 | 5 | — |
 | `MultistepLoop` | 183 | 8 | — |
@@ -71,6 +71,7 @@
 | `ParallelRepair` | 182 | 4 | — |
 | `PartialReinjection` | 158 | 6 | — |
 | `PathContinuity` | 245 | 12 | — |
+| `PenaltyLoss` | 275 | 13 | — |
 | `PenaltySmooth` | 105 | 4 | — |
 | `Perturb` | 126 | 8 | — |
 | `Pipeline` | 170 | 7 | — |

@@ -91,6 +91,7 @@ import Lattice.Geo.CExprCodegen
 import Lattice.Geo.CodegenLadder
 import Lattice.Geo.ExecutableGeoCheck
 import Lattice.Geo.WeightSideLadder
+import Lattice.Geo.PenaltyLoss
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points
@@ -126,7 +127,12 @@ This layer keeps what was good in Lv-00 (the fifteen geometric predicates, and i
 
 ## What is owed
 
-`GeoConstraint.leZero` / `ltZero` have no penalty loss: an inequality is not the zero set of anything,
+**`GeoConstraint` 的 12 个构造子现在都有 penalty loss**（`Geo/PenaltyLoss.lean`，第 198 轮）。
+本节此前写的是「`leZero`/`ltZero` 没有 penalty loss：不等式不是任何东西的零点集，
+硬套 `g²` 会是虚构」——**那句话对「零集恰好等于解集」是对的，但结论下得太早**：
+`(max e 0)²` 的零集是 `e ≤ 0`，**它恰好是 `leZero` 的解集**，所以 `leZero` 是精确可表示的。
+只有**严格**不等式（`ltZero`/`gtZero`）因为解集是开集而只能松弛，**那条限制仍然成立**。
+下面的原文保留，作为当时的判断记录：
 and forcing a `g²` form onto it would be a fiction. `collinear` is polynomial but its statement carries
 an existential, so it has no loss either until the existential is eliminated.
 -/

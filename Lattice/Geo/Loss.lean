@@ -19,15 +19,20 @@ solution set, and the loss is `f²`. The reduction is per-constructor and explic
 | `samePoint a b` | `sqDist a b` | `sqDist = 0 → a = b` |
 | `perpendicular a b c e` | `∑ᵢ segᵢ·segᵢ` | by definition |
 | `collinear a b c` | *(not reduced)* | needs a quantifier over `t`; see below |
-| `leZero` / `ltZero` | *(not reduced)* | an inequality is not the zero set of anything |
+| `leZero` / `ltZero` | *(not reduced here)* | **covered instead by `Geo/PenaltyLoss.lean`**: `leZero` exactly via `(max e 0)²`, `ltZero` only as a relaxation |
 
 ## What this file does *not* claim
 
 A "loss whose minimum is the solution set" is only meaningful for **equality** constraints. For an
 inequality `f ≤ 0`, the natural penalty is `max f 0` squared or a hinge, which is differentiable but not
-of the form `g²` with `g` polynomial. Rather than pretend otherwise, the loss is defined only on the
+of the form `g²` with `g` polynomial. Rather than pretend otherwise, THIS FILE defines the loss only on the
 equality layer, and `leZero`/`ltZero` are excluded by the type of its domain -- so the gap cannot be
-silently skipped.
+silently skipped **here**.
+
+⚠ **第 198 轮补上了那个缺口，在另一个文件里**：`Geo/PenaltyLoss.lean` 为**全部 12 个构造子**
+定义了 `penaltyLoss`，含 `leZero`（用 `(max e 0)²`，零集**恰好**是 `e ≤ 0`，即精确）
+与严格不等式（`(max e 0)²` 的零集是 `e ≤ 0`，比 `e < 0` **宽**，所以只是**松弛**）。
+本文件仍是 `EqConstraint`（4 个构造子）的损失；两者服务不同层，**不是重复**。
 
 `collinear` is excluded for a different reason: its statement is `∃ t, seg a b = t • seg a c`, and a
 loss cannot be built from a quantifier without eliminating it first. The elimination
