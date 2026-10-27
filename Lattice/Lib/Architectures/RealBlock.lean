@@ -54,10 +54,16 @@ theorem chain3_error_propagation (f g h : ℝ → ℝ) (Lf Lg Lh : ℝ)
 
 /-! ## 定理三：块级编辑局部性（外层 Lipschitz 放大）
 子组件输出扰动 δ（编辑影响）⟹ 块输出变化 ≤ Lf·δ（外层放大，
-无跨组件放大以外的泄漏）。-/
+无跨组件放大以外的泄漏）。
+
+**第 210 轮删掉了前提 `(_hLf : 0 ≤ Lf)`**（定理三与定理四各一处）：
+`LipschitzOn` **不要求**常数非负，两个证明都是 `hf …` 之后 `simp`/`ring`，
+从未用到它。删掉前提让两条定理**更强**，而这对定理三尤其重要——
+「Lipschitz 放大」的名字说的是**任意** `Lf` 下的界，加一条 `0 ≤ Lf` 是无依据的收窄。
+`gov/check_underscore_hypotheses.py` 是发现它的工具。 -/
 
 theorem outer_lipschitz_amplifies (f : ℝ → ℝ) (Lf : ℝ) (y δ : ℝ)
-    (hf : LipschitzOn f Lf Set.univ) (_hLf : 0 ≤ Lf) :
+    (hf : LipschitzOn f Lf Set.univ) :
     |f (y + δ) - f y| ≤ Lf * |δ| := by
   calc
     |f (y + δ) - f y| ≤ Lf * |(y + δ) - y| := hf (y + δ) y trivial trivial
@@ -68,7 +74,7 @@ theorem outer_lipschitz_amplifies (f : ℝ → ℝ) (Lf : ℝ) (y δ : ℝ)
 端到端变化 ≤ Lf·δ（外层放大，G 的编辑经 F 的 Lipschitz 传递）。-/
 
 theorem two_layer_block_edit_bound (F G : ℝ → ℝ) (Lf : ℝ) (x : ℝ) (δ : ℝ)
-    (hf : LipschitzOn F Lf Set.univ) (_hLf : 0 ≤ Lf)
+    (hf : LipschitzOn F Lf Set.univ)
     (hG : |G x + δ - G x| = |δ|) :
     |F (G x + δ) - F (G x)| ≤ Lf * |δ| := by
   calc

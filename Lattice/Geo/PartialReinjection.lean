@@ -140,7 +140,7 @@ theorem exact_is_zero (c : EqConstraint n) (pts : ℕ → Pt n)
 theorem error_to_penalty (d : (ℕ → Pt n) → (ℕ → Pt n) → ℝ)
     (c : EqConstraint n) (pts₀ pts₁ pts₂ : ℕ → Pt n) {ε₁ ε₂ : ℝ}
     (hε₁ : 0 ≤ ε₁) (hε₂ : 0 ≤ ε₂)
-    (_htri : ∀ a b c', d a c' ≤ d a b + d b c')
+    (htri : ∀ a b c', d a c' ≤ d a b + d b c')
     (h₁ : Lattice.Lift.ErrorCalculus.ErrorBound d pts₀ pts₁ ε₁)
     (h₂ : Lattice.Lift.ErrorCalculus.ErrorBound d pts₁ pts₂ ε₂)
     (hpoly : ∀ pts, |EqConstraint.poly c pts| ≤ d pts₀ pts) :
@@ -149,7 +149,7 @@ theorem error_to_penalty (d : (ℕ → Pt n) → (ℕ → Pt n) → ℝ)
   have hd : d pts₀ pts₂ ≤ ε₁ + ε₂ := by
     have h1' : d pts₀ pts₁ ≤ ε₁ := h₁
     have h2' : d pts₁ pts₂ ≤ ε₂ := h₂
-    exact le_trans (_htri pts₀ pts₁ pts₂) (by linarith)
+    exact le_trans (htri pts₀ pts₁ pts₂) (by linarith)
   exact loss_le_sq_of_resid_le c pts₂ hsum (le_trans (hpoly pts₂) hd)
 
 end PartialReinjection

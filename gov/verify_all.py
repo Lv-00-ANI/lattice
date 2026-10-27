@@ -198,6 +198,12 @@ CHECKS = [
     # sub-class (`a = a`, `a ↔ a`, `True`) with zero false positives, and the file states plainly
     # which sub-class it does NOT catch.
     ("meta: no vacuously true hypothesis", "check_vacuous_hypotheses.py"),
+    # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
+    # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
+    # `linter.unusedVariables`. 139 such binders existed; this gate makes them enumerable. One was
+    # prefixed AND used (`_htri`, renamed); the rest are redundant or structurally unreachable
+    # hypotheses. Baselined with the theorem name so each reason is one lookup away.
+    ("meta: no underscore-prefixed hypothesis", "check_underscore_hypotheses.py"),
     # Round 179, P2-16. 21 wildcard `| _ => none` decoders exist in the kernel and nobody had judged
     # them. Judging them once by hand is not the fix -- a 22nd would appear unexamined. Each file is now
     # registered with one of three reasons (covered by a round-trip theorem / upstream Lv-00 carried /
