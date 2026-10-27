@@ -5,7 +5,7 @@
 
 | total | owed | discharged | permanent |
 |--:|--:|--:|--:|
-| 9 | 0 | 6 | 3 |
+| 10 | 0 | 6 | 4 |
 
 **`owed` is debt. `permanent` is a recorded boundary** -- an obligation no amount of work in
 this library can close, because the general proposition is false, the obligation is not
@@ -23,6 +23,7 @@ _none_
 | `lift.embed.local_minimiser_exact` | general claim FALSE (sound_not_exact); only instances hold |
 | `core.repair.atomic` | not derivable (down_no_progress); every operator supplies it |
 | `core.semantics.external_bridge` | external toolchain: TorchLean needs Lean >= 4.26 |
+| `lift.tokenize.ml_vocabulary` | needs a corpus-derived finite vocabulary; not a formalisation question |
 
 ## Discharged
 

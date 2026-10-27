@@ -383,6 +383,31 @@ def multistepRepairExists : Slot :=
       "geometric operators remain one-step."
     status := .discharged "Lattice.Core.Multistep.converges_within_is_tight" }
 
+/-- **The L1 "tokenizer" is a proved codec, not an ML tokenizer.** Recorded as a boundary.
+
+An ML tokenizer needs a **countable, typically finite** vocabulary with integer ids, plus a
+segmentation algorithm (BPE / byte-level / subword) learned from a corpus. What this library proves at
+L1 is a **codec**: `EqTok := ℕ ⊕ ℝ` is a sum of an uncountable type with itself, there is no vocabulary
+id, and there is no segmentation — `encCon`/`decCon` are a proved round-trip over the symbolic syntax.
+
+That is the correct object for the formalisation (the round-trip is what a proof can establish) and the
+wrong object to call a tokenizer. Two consequences, both recorded rather than glossed:
+
+* documents must not describe L1 as an ML tokenizer;
+* the coverage is **4 of 12** `GeoConstraint` constructors, because only those have a codec here.
+
+**This is permanent**: choosing a vocabulary needs a corpus and a segmentation objective, neither of
+which is a formalisation question. It is not "unfinished work in this library" — it is work whose input
+does not exist here. -/
+def tokenizeMlVocabulary : Slot :=
+  { name := "lift.tokenize.ml_vocabulary"
+    note :=
+      "L1 is a proved CODEC (`EqTok := ℕ ⊕ ℝ`, uncountable; no vocab ids, no BPE/byte-level " ++
+      "segmentation) covering 4 of 12 `GeoConstraint` constructors. A real ML tokenizer needs a finite " ++
+      "vocabulary learned from a corpus, which is outside a formalisation. Naming must therefore say " ++
+      "codec; see DELIVERY §6.5."
+    status := .permanent "needs a corpus-derived finite vocabulary; not a formalisation question" }
+
 /-- The full registry. -/
 
 def fullRegistry : List Slot :=
@@ -394,7 +419,8 @@ def fullRegistry : List Slot :=
   , variableWidthStack
   , externalToolchainBridge
   , loopConvergenceIsSingleStep
-  , multistepRepairExists ]
+  , multistepRepairExists
+  , tokenizeMlVocabulary ]
 
 /-- The registry is structurally well formed: distinct, non-empty names.
 
@@ -430,8 +456,8 @@ History, because the number moving is the point:
 The `decide` below failed to compile at EVERY step, which is exactly what it is for. -/
 example : Slot.owedCount fullRegistry = 0 := by decide
 
-/-- **The other three are recorded as boundaries, and the count is also machine-checked.** -/
-example : Slot.boundaryCount fullRegistry = 3 := by decide
+/-- **The other four are recorded as boundaries, and the count is also machine-checked.** -/
+example : Slot.boundaryCount fullRegistry = 4 := by decide
 
 /-- **No slot falls through the three views**: every slot is owed, discharged, or a boundary. -/
 example :

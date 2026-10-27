@@ -13,10 +13,10 @@
 
 **本库交付了一个带证明的符号 ⇄ 权重转换内核；「完成」这件事是被机器检查的，不是被声明的。**
 
-- **791 个模块、8,305 条定理、11,001 条声明、209,491 行**
+- **791 个模块、8,305 条定理、11,002 条声明、209,491 行**
 - **检查器逐个运行，全部 exit 0**；其中 **40 项是能失败的门禁**
 - **目标原文里每一条可机械检验的断言，都有对应规则**（A–G 七条 + I1–I8 八条不变量）
-- **未清欠账 0**；**永久边界 3**（见 §6.4——它们不是「缺一个证明」，而是数学上或工具链上关不掉）
+- **未清欠账 0**；**永久边界 4**（见 §6.4——它们不是「缺一个证明」，而是数学上或工具链上关不掉）
 
 **仍然开放的库内项**：见 §6.5。**需要本库之外决策/工程的**：见 §6.3。
 
@@ -28,12 +28,12 @@
 |:--|--:|
 | 源模块（不含 `Reference/`） | **791** |
 | └ Core / Lift / Geo / Lib / Audit / Usage / Root | 18 / 57 / 93 / 605 / 10 / 1 / 7 |
-| 声明总数 | **11,001** |
+| 声明总数 | **11,002** |
 | 定理 / 引理（官方口径） | **8,305** |
 | 代码行（含注释与空行） | **209,491** |
 | 内核逃逸（`axiom`/`opaque`/`sorry`/`admit`） | **0** |
 | 未清欠账 | **0** |
-| 永久边界 | **3** |
+| 永久边界 | **4** |
 
 **这些数字由 `gov/check_usage_claims.py` 守卫**：`STATE-FINAL.md` 与本文的同一组数字若与树不符，
 守卫失败。层文件数由 `gov/check_doc_consistency.py` 的**有序四元组**比对——第 131 轮发现过
@@ -172,7 +172,7 @@
 | `check_doc_consistency.py` | 文档内部自洽（含有序四元组；**pattern 匹配为空即失败**） |
 | `check_usage_claims.py` | 14 项文档数字 + 过时数字回归 |
 | `check_objective_coverage.py` | A–G 七条规则 |
-| `check_slots.py` | 欠账登记（0 欠账 / 3 永久边界，与 `Slots.lean` 的 `decide` 交叉核对） |
+| `check_slots.py` | 欠账登记（0 欠账 / 4 永久边界，与 `Slots.lean` 的 `decide` 交叉核对） |
 | `check_scope_boundary.py` | 「不实现引擎/模型/训练框架」 |
 
 **完整 `verify_all --full`：PASS，57 项检查，40 个门禁，约 500 秒。**
@@ -267,17 +267,22 @@ genAcc (.add a b) acc = compileAcc y (compileAcc x acc) ++ [.add]
 **「生成目标语言」曾列为所有者决策，第 155–157 轮已按路线 C 自决完成**（生成到 Lean 内部的
 指令列表，不生成外部语言）。
 
-### 6.4 三个永久边界（不是欠账）
+### 6.4 四个永久边界（不是欠账）
 
 | slot | 为什么关不掉 |
 |:--|:--|
 | `lift.embed.local_minimiser_exact` | **一般命题是假的**（`sound_not_exact`）；只有实例成立 |
 | `core.repair.atomic` | **不可导出**（`down_no_progress`）；每个算子必须自己供给 |
 | `core.semantics.external_bridge` | **外部工具链**（TorchLean 需 Lean ≥ 4.26） |
+| `lift.tokenize.ml_vocabulary` | **需库外语料**：L1 是带证明的**编解码器**（`EqTok := ℕ ⊕ ℝ` 不可数、无词表 id、无 BPE），真 tokenizer 需要从语料学出的有限词表，那不是形式化问题 |
 
-**「未清欠账 0」与「三个永久边界」是两个不同的陈述**，`Slots.lean` 用 `SlotState.permanent`
-把二者分开，`owedCount = 0` 与 `boundaryCount = 3` 都由 `decide` 机器检查。
+**「未清欠账 0」与「四个永久边界」是两个不同的陈述**，`Slots.lean` 用 `SlotState.permanent`
+把二者分开，`owedCount = 0` 与 `boundaryCount = 4` 都由 `decide` 机器检查。
 **把它们算成债务会制造「删掉记录即完成」的压力**——第 162 轮记录了这个推理。
+
+**第 171 轮新增第 4 条**：此前 `lift.tokenize.ml_vocabulary` 这个缺口只写在本文 §6.5 的散文里，
+现在它是一个 `decision` 可查的槽位。**把缺口写进散文与把它写进登记表的区别是：前者靠人记得读，
+后者在 `boundaryCount` 变化时会让 `decide` 失败。**
 
 ### 6.5 仍在库内的开放项（审计 P1，本文如实列出）
 

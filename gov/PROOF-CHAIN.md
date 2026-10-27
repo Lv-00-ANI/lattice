@@ -1605,7 +1605,7 @@
 | `Lattice.Geo` | 0 | 0 |
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Lift` | 0 | 0 |
-| `Lattice.Slots` | 1 | 20 |
+| `Lattice.Slots` | 1 | 21 |
 | `Lattice.Usage` | 0 | 0 |
 | `Lattice.Usage.Examples` | 0 | 8 |
 
@@ -8932,6 +8932,7 @@ _none_
 | `lift.embed.local_minimiser_exact` | general claim FALSE (sound_not_exact); only instances hold |
 | `core.repair.atomic` | not derivable (down_no_progress); every operator supplies it |
 | `core.semantics.external_bridge` | external toolchain: TorchLean needs Lean >= 4.26 |
+| `lift.tokenize.ml_vocabulary` | needs a corpus-derived finite vocabulary; not a formalisation question |
 
 ## The four target theorems and what each rests on
 
