@@ -107,11 +107,18 @@ def main():
     rows.append(("(3a) no module name outside the ASCII namespace",
                  "%d modules, %d offenders" % (len(mods), len(bad_acc)), not bad_acc))
     over = []
+    over_ref = []
     for p in srcs:
         n = io.open(p, "rb").read().count(b"\n") + 1
         if n > 500:
-            over.append((os.path.basename(p), n))
-    rows.append(("(3b) file budget 500 lines", "over-budget: %s" % (over or "none"), not over))
+            # Round 174: same scope bug as (2b). `srcs` includes `Reference/`, which is frozen upstream
+            # evidence -- listing its 31 over-budget files inside a row that reads as a verdict on this
+            # library makes the row unreadable and permanently red for a reason nobody can act on.
+            (over_ref if "Reference" in p else over).append((os.path.basename(p), n))
+    rows.append(("(3b) file budget 500 lines -- KERNEL (build graph)",
+                 "%d over budget: %s" % (len(over), over[:6] or "none"), not over))
+    rows.append(("(3c) file budget, frozen `Reference/` -- INFORMATIONAL",
+                 "%d over budget (frozen, not a claim)" % len(over_ref), True))
 
     # (4) the four target theorems
     targets = {
