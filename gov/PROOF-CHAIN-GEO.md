@@ -21,6 +21,7 @@
 | `ComputableExpr` | 249 | 7 | — |
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
+| `ConstraintDescent` | 254 | 10 | — |
 | `ConstraintSet` | 175 | 7 | — |
 | `ConstraintTokenizer` | 420 | 12 | — |
 | `Derivative` | 94 | 3 | — |
