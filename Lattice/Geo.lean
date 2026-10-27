@@ -90,6 +90,7 @@ import Lattice.Geo.EqConstraintListTokens
 import Lattice.Geo.CExprCodegen
 import Lattice.Geo.CodegenLadder
 import Lattice.Geo.ExecutableGeoCheck
+import Lattice.Geo.WeightSideLadder
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

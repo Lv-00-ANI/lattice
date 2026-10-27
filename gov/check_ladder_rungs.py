@@ -131,6 +131,10 @@ IDENTITY_OK = {
     # `weightLadderN`'s rank-one encoder provably has none.
     "Lift/WeightLadderFullWidthInstance.lean":
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok; the substance is the full-width l2l3",
+    # Round 200. Same reason: Sym = List Unit and Tok = Unit. The substance is l2l3, which produces a
+    # REAL affine weight layer whose action is exactly the coordinate difference -- and `satW` is `∀`.
+    "Geo/WeightSideLadder.lean":
+        "Sym = List Unit and Tok = Unit, so Sym IS List Tok; the substance is the weight-side l2l3",
 }
 
 #: The classification strings that count as an identity rung.
