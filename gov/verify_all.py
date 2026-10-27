@@ -160,6 +160,16 @@ CHECKS = [
     # Round 159: a clause whose every carrier sits in a leaf module is unreachable -- the objective
     # would depend on something nothing can import. This checks the clause reachability graph.
     ("structure: every clause reachable", "gen_lib_structure.py"),
+    # Round 171. Three checks were found that had silently stopped checking: a shape test whose regex
+    # could never match a single-line `def`, two doc-consistency patterns that hardcoded a count the
+    # tree had outgrown, and a usage-claim rule that `continue`d when its pattern matched nothing. Each
+    # was caught by writing a self-test, never by reading the code.
+    #
+    # So the question "does this gate have a self-test?" is now a build error rather than a matter of
+    # diligence. Every gate must carry `--self-test`, have a `*_reactivity.py` companion, or be listed
+    # in `check_selftest_coverage.EXEMPT` with the reason it is verified some other way -- and that
+    # exemption table is itself checked for rot.
+    ("meta: every gate can demonstrate its own failure", "check_selftest_coverage.py"),
     # Round 164: module-level reachability is coarse. This lists skeleton theorems whose name
     # claims a main result and which nothing references -- a reading list, all terminal.
     ("usage: skeleton main theorems", "gen_theorem_usage.py"),
