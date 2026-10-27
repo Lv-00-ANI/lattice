@@ -258,6 +258,16 @@
 | `Lift/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 | `Semantics/Annotations.lean:118` | `holdsSet_member` | 0 | 内容正确、形状正确，但这是 `Geo/ConstraintSet.lean:128 holdsSet_mem` 的第二份副本（本文件 namespace 是 `Lattice.Semantics.Annotations`）。唯一跨文件引用 `Semantics/Merge.lean:142` 写的是裸名 `holdsSet_member`，而该文件只 `import Lattice.Geo.ConstraintSet` 且 `open Lattice.Geo Latti… |
 
+## 已处理（修好的条目**保留**在这里，不删）
+
+**为什么保留**：一个只会增长的债单没人信；而修好的条目悄悄消失更糟——
+读者分不清「修好了」与「把发现删掉了」。
+
+| 位置 | 定理 | 做了什么 |
+|:--|:--|:--|
+| `Lift/ConvertVectorLinear.lean` | `convertVec_preserves_semantics` | strengthen → 分两部分处理。(1) docstring 补上两条警告：它是定义展开（`convertVec` 只拷贝系数与偏置）、且两侧共享 `dot` 的 `List.zip` 截断，对元数错误零诊断力。(2) 新增否定定理 `convertVec_preserves_semantics_blind_to_arity`：`{a:=[3,5],b:=0}` 配 `x:=[]` 时两侧同时成立，故该等价永远抓不到这类错误。**P 侧（把 `dot` 接到真正的线性型）没做**——我试了加元数前提，Lean 报 `unused variable h`，说明「加前提」在这里是假的加强；真加强需要一条 `zip`/`foldl` 的桥，未做且已在文件里写明。 |
+| `Lift/SymbolToWeightCorrectness.lean` | `symbolToWeight_correct` | strengthen → 同上的第二层。docstring 写明它的强度**完全继承**自 `convertVec_preserves_semantics`：结构上它经 `forall_mem_map_iff` 逐点提升（真定理，非重言），但内容不超出被提升的那条。新增 `symbolToWeight_correct_blind_to_arity` 把盲区变成同一层的否定定理。 |
+
 ## 后续
 
 1. **按修正后的入度重跑第一层**（839 条），再补齐其余 7,587 条。

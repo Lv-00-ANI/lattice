@@ -1,0 +1,9 @@
+# 已处理的 PROOF-DEBT 条目
+#
+# 由 `gov/gen_proof_debt.py` 渲染进 PROOF-DEBT.md 的「已处理」一节。
+# 修好的条目**不从这里删**：读者要能区分「修好了」与「把发现删掉了」。
+#
+# 格式：file<TAB>decl<TAB>做了什么
+#
+Lift/ConvertVectorLinear.lean	convertVec_preserves_semantics	strengthen → 分两部分处理。(1) docstring 补上两条警告：它是定义展开（`convertVec` 只拷贝系数与偏置）、且两侧共享 `dot` 的 `List.zip` 截断，对元数错误零诊断力。(2) 新增否定定理 `convertVec_preserves_semantics_blind_to_arity`：`{a:=[3,5],b:=0}` 配 `x:=[]` 时两侧同时成立，故该等价永远抓不到这类错误。**P 侧（把 `dot` 接到真正的线性型）没做**——我试了加元数前提，Lean 报 `unused variable h`，说明「加前提」在这里是假的加强；真加强需要一条 `zip`/`foldl` 的桥，未做且已在文件里写明。
+Lift/SymbolToWeightCorrectness.lean	symbolToWeight_correct	strengthen → 同上的第二层。docstring 写明它的强度**完全继承**自 `convertVec_preserves_semantics`：结构上它经 `forall_mem_map_iff` 逐点提升（真定理，非重言），但内容不超出被提升的那条。新增 `symbolToWeight_correct_blind_to_arity` 把盲区变成同一层的否定定理。

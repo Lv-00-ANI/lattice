@@ -1574,7 +1574,7 @@
 | `Lattice.Lift.ConstraintEmbeddingSoundness` | 4 | 1 |
 | `Lattice.Lift.ConstraintToLoss` | 5 | 1 |
 | `Lattice.Lift.ConvertLinear` | 4 | 7 |
-| `Lattice.Lift.ConvertVectorLinear` | 10 | 11 |
+| `Lattice.Lift.ConvertVectorLinear` | 11 | 11 |
 | `Lattice.Lift.EncodingAbstraction` | 3 | 0 |
 | `Lattice.Lift.EndToEnd` | 7 | 3 |
 | `Lattice.Lift.EndToEndApproximation` | 3 | 0 |
@@ -1615,7 +1615,7 @@
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
 | `Lattice.Lift.StackCodegen` | 10 | 11 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
-| `Lattice.Lift.SymbolToWeightCorrectness` | 4 | 5 |
+| `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
 | `Lattice.Lift.TotalLoss` | 5 | 2 |
 | `Lattice.Lift.VerificationSoundness` | 5 | 0 |
@@ -3167,6 +3167,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convertVec_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
 - `convertVec_mem_fiber` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `convertVec_preserves_semantics` -> `dot`, `induction`, `length`, `subst`
+- `convertVec_preserves_semantics_blind_to_arity` -> `dot`, `induction`, `length`, `subst`
 - `convertVec_preserves_semantics_rfl` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `convertVec_preserves_solution_set` -> `dot`, `induction`, `length`, `subst`
 - `convertVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
@@ -4505,7 +4506,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `foldl_zip_add` -> `apply`, `dot`, `induction`, `length`, `length_cons`
 - `forall_constraint_verify` -> `out`
-- `forall_mem_map_iff` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`
+- `forall_mem_map_iff` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `length`
 - `forall_mem_map_iff_ablation` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `forall_mem_map_iff_ablation_lhs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `forall_proper_subset_roundtrip_is_rfl` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
@@ -8566,7 +8567,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symTwoPoint_sum_zero` -> `card_fin`, `uniformExpectation`
 - `symVec_one_not_injective` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`
 - `symbolToWeight_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
-- `symbolToWeight_correct` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`
+- `symbolToWeight_correct` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `length`
+- `symbolToWeight_correct_blind_to_arity` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `length`
 - `symbolToWeight_correct_via_residual` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `symbolToWeight_nonlinear_correct` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `act`, `convertVec`, `convertVec_preserves_semantics`
 - `symbolToWeight_residual_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`

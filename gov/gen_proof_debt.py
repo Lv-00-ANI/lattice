@@ -129,6 +129,25 @@ for sev in ORDER:
         A("| `%s:%d` | `%s` | %d | %s |" % (v["file"], v["line"], v["name"], v["in_degree"], why))
     A("")
 
+RESOLVED = os.path.join(HERE, "proof_debt_resolved.txt")
+if os.path.exists(RESOLVED):
+    A("## 已处理（修好的条目**保留**在这里，不删）")
+    A("")
+    A("**为什么保留**：一个只会增长的债单没人信；而修好的条目悄悄消失更糟——")
+    A("读者分不清「修好了」与「把发现删掉了」。")
+    A("")
+    A("| 位置 | 定理 | 做了什么 |")
+    A("|:--|:--|:--|")
+    for ln in io.open(RESOLVED, encoding="utf-8"):
+        ln = ln.rstrip("\n")
+        if not ln or ln.startswith("#"):
+            continue
+        parts = ln.split("\t")
+        if len(parts) >= 3:
+            what = parts[2].replace("|", "\\|")
+            A("| `%s` | `%s` | %s |" % (parts[0], parts[1], what))
+    A("")
+
 A("## 后续")
 A("")
 A("1. **按修正后的入度重跑第一层**（839 条），再补齐其余 7,587 条。")

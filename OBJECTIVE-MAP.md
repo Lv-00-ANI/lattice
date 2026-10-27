@@ -15,7 +15,7 @@
 | 1.1 data -> token | `CharToken` | `Lift/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `SymToken` | `Lift/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Lift/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Lift/SymbolToWeightCorrectness.lean` | 37 | 5 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Lift/SymbolToWeightCorrectness.lean` | 37 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
 | 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 22 | 5 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 11 | 7 | `Lift.lean`, `Lib/Linear/Multivar.lean` |

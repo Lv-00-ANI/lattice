@@ -148,12 +148,72 @@ def LayerOut (l : LinearLayer) (x : List Int) : Int :=
 def convertVec (c : VectorConstraint) : LinearLayer :=
   { w := c.a, b := c.b }
 
-/-! ## 定理一：转换保语义
-约束满足 ⟺ 线性层输出为零。-/
+/-! ## 定理一：转换保语义——**但这是定义展开，而且它看不见截断**
+
+约束满足 ⟺ 线性层输出为零。
+
+⚠ **两条必须在读这条定理之前知道的事**（第 195 轮补，此前 docstring 没有）：
+
+1. **本定理是定义展开，不是语义定理。** `convertVec` 把 `c.a` 拷成 `w`、`c.b` 拷成 `b`
+   （`:148`），而 `VectorConstraintSat` 与 `LayerOut` 是同一个式子 `dot _ _ + _ = 0`。
+   所以「转换保语义」在这里等于「同一个式子等于零 ⟺ 同一个式子等于零」。**它没有说出
+   「符号约束的意思」与「层输出的意思」之间的任何联系**——那个联系由下标化载体
+   （`VecConstraint` / `vecDot`，本文件 §下标化载体）给出。
+
+2. **它两侧共享同一个截断缺陷，因此对元数错误没有任何诊断力。**
+   `dot` 用 `List.zip`，静默截断到较短表。于是 `{a := [3,5], b := 0}` 在 `x = []` 上
+   被报「满足」，而编译出的层在同一个 `x` 上也输出 `0`——**两边一起错，所以等价成立**。
+   反例已由 `Lib/Editing/RealSymbolToWeightWidened.sat_ragged_false_positive` 与
+   `layer_ragged_also_zero` 机器验证。
+
+   ⚠ **本节不能 import 那个文件**：`ConvertVectorLinear` 在 `Lift`（层 2），
+   `RealSymbolToWeightWidened` 在 `Lib`（层 3），依赖方向不允许反向 import。
+   所以本文件**自己陈述**那条否定事实：`convertVec_preserves_semantics_blind_to_arity`。
+
+**下面把这条定理的弱点变成定理，而不是留在散文里**：
+`convertVec_preserves_semantics_blind_to_arity`（N：元数不足时两侧照样同时成立，故无诊断力）。
+
+**P 侧（把 `dot` 接到真正的线性型）本轮没做**——见该否定定理前的说明，
+加元数前提是**假的加强**，真加强需要一条 `zip`/`foldl` 的桥。 -/
 
 theorem convertVec_preserves_semantics (c : VectorConstraint) (x : List Int) :
     VectorConstraintSat c x ↔ LayerOut (convertVec c) x = 0 := by
   simp [VectorConstraintSat, LayerOut, convertVec, dot]
+
+/-! ### 定理一的补强：把它的盲区写成否定定理
+
+**先说清一条我本想做但做不到的事**：给等价加一个元数前提（`c.a.length ≤ x.length`）
+**并不能加强它**——我试了，Lean 报 `unused variable h`，因为两边是同一个式子，
+前提用不上。**「加前提」在这里是假的加强。**
+
+真正能加强的两条路：
+1. 把 `dot` 接到数学上的线性型（`∑ c.a[i] * x[i]`）——需要一条 `zip`/`foldl` 的桥，
+   代价不小，**本轮没做**；
+2. **把这个定理的盲区写成否定定理**——一条真实的反例，机器验证。
+
+**第 2 条本轮做了**，因为它是这条承重定理真实的强度上限，而且必须和它放在一起，
+否则读 `convertVec_preserves_semantics` 的人不会知道它对元数错误零诊断力。 -/
+
+/-- **N · 这条等价看不见元数错误**：存在元数不足的输入，`VectorConstraintSat` 与
+`LayerOut` **同时**成立。
+
+`{a := [3,5], b := 0}` 配 `x = []`：`zip` 把系数全丢光，`dot = 0`，于是「约束满足」成立；
+编译出的层走同一个 `dot`，也输出 `0`。
+
+**所以 `convertVec_preserves_semantics` 对这类错误零诊断力**——两侧共享同一个截断，
+等价关系两边一起错，因此等价永远为真。**这是否定结果，也是这条承重定理的真实强度上限。**
+
+⚠ 同一反例的 Lib 层版本见 `Lib/Editing/RealSymbolToWeightWidened.sat_ragged_false_positive`
+与 `layer_ragged_also_zero`（本文件不能 import 它们：`Lift` 层 2 不能反向依赖 `Lib` 层 3）。 -/
+theorem convertVec_preserves_semantics_blind_to_arity :
+    ∃ (c : VectorConstraint) (x : List Int),
+      x.length < c.a.length ∧
+        VectorConstraintSat c x ∧ LayerOut (convertVec c) x = 0 := by
+  refine ⟨{ a := [3, 5], b := 0 }, [], by decide, ?_, ?_⟩
+  · unfold VectorConstraintSat
+    decide
+  · unfold LayerOut convertVec
+    decide
 
 /-! ## 定理二：转换不改变解集 -/
 

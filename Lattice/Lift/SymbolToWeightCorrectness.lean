@@ -60,7 +60,20 @@ lemma forall_mem_map_iff {α β : Type} (f : α → β) (P : α → Prop) (Q : �
     exact (h a).mpr (hq (f a) (List.mem_map.mpr ⟨a, ha, rfl⟩))
 
 /-! ## 定理：SymbolToWeightCorrectness（最小版本）
-编译保语义：全部约束满足 ⟺ 网络所有输出为零。-/
+
+编译保语义：全部约束满足 ⟺ 网络所有输出为零。
+
+⚠ **这条定理的强度上限由 `convertVec_preserves_semantics` 决定，而那条有两处弱点**
+（第 195 轮补，此前本节没有说明）：
+
+1. **结构上它是真的**：本定理是 `convertVec_preserves_semantics` 经 `forall_mem_map_iff`
+   对 `List` 的逐点提升，不是重言——`compileToLayer` 真的遍历了约束表。
+2. **但内容上它不超出它提升的那条**：那条是定义展开（`convertVec` 只是拷贝系数与偏置），
+   且两侧共享 `dot` 的 `List.zip` 截断，**对元数错误零诊断力**。
+
+所以「编译保语义」在本库里**只保证**：「约束表逐条满足」与「编译出的层逐条输出零」同真同假。
+它**不保证**这些式子彼此之间有意义对应（那是下标化载体 `VecConstraint`/`vecDot` 的事），
+也**不保证**元数不足的输入会被拒绝（那是被证明的盲区，见 `symbolToWeight_correct_blind_to_arity`）。 -/
 
 theorem symbolToWeight_correct (cs : ConstraintSet) (x : List Int) :
     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x := by
@@ -68,6 +81,32 @@ theorem symbolToWeight_correct (cs : ConstraintSet) (x : List Int) :
   exact forall_mem_map_iff convertVec (fun c => VectorConstraintSat c x)
     (fun l => LayerOut l x = 0)
     (fun c => convertVec_preserves_semantics c x) cs
+
+/-- **N · 「编译保语义」看不见元数错误**：存在约束表与输入，使
+`AllSatisfied` 与 `AllZeroOutputs` **同时**成立，而输入元数不足。
+
+`cs = [{a := [3,5], b := 0}]` 配 `x = []`。编译出的层走同一个截断 `dot`，输出也是零，
+所以等价成立——**但那个 `x` 根本不是这个约束的合法赋值**。
+
+**这是 `symbolToWeight_correct` 的真实强度上限**：两侧共享同一个截断，
+等价关系两边一起错，因此它对这类错误**永远**抓不到。
+同一反例的 Lib 层版本见 `Lib/Editing/RealSymbolToWeightWidened.sat_ragged_false_positive`。 -/
+theorem symbolToWeight_correct_blind_to_arity :
+    ∃ (cs : ConstraintSet) (x : List Int),
+      (∃ c ∈ cs, x.length < c.a.length) ∧
+        AllSatisfied cs x ∧ AllZeroOutputs (compileToLayer cs) x := by
+  refine ⟨[{ a := [3, 5], b := 0 }], [], ⟨{ a := [3, 5], b := 0 }, by simp, by decide⟩, ?_, ?_⟩
+  · intro c hc
+    have h1 : c = { a := [3, 5], b := 0 } := by simpa using hc
+    rw [h1]
+    unfold VectorConstraintSat
+    decide
+  · intro l hl
+    rcases List.mem_map.mp hl with ⟨c, hc, rfl⟩
+    have h1 : c = { a := [3, 5], b := 0 } := by simpa using hc
+    rw [h1]
+    unfold LayerOut convertVec
+    decide
 
 /-! ## 推论：验证器判定
 网络输出全零 ⟹ 全部约束满足（可直接用于验证器）。-/
