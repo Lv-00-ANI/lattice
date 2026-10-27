@@ -9,7 +9,7 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 19 | no imports from lift/lib |
-| lift | 54 | may import core only |
+| lift | 55 | may import core only |
 | slots | 1 | metadata, imports nothing |
 | lib | 606 | instantiated library, may import core only |
 | geo | 93 | the geometry/constraint layer |
@@ -735,7 +735,7 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`
+- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`, `Lattice.Lift.WeightLadderFullWidth`
 - `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lift.PenaltyAnalysis`
 - `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproxLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RoundingBackend`
@@ -787,6 +787,7 @@
 - `Lattice.Lift.VerifierRate` <- `Lattice.Lift.RealVerifierReliable`
 - `Lattice.Lift.VerifyLoopProgress` <- `Lattice.Lift.ConvertLinear`
 - `Lattice.Lift.WeightLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
+- `Lattice.Lift.WeightLadderFullWidth` <- `Lattice.Lift.WeightLadderN`
 - `Lattice.Lift.WeightLadderN` <- `Lattice.Lift.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice` <- `Lattice.Core`, `Lattice.Lift`, `Lattice.Slots`, `Lattice.Geo`, `Lattice.Lib`, `Lattice.Audit`, `Lattice.Usage`
@@ -1700,6 +1701,7 @@
 | `Lattice.Lift.VerifierRate` | 5 | 0 |
 | `Lattice.Lift.VerifyLoopProgress` | 5 | 2 |
 | `Lattice.Lift.WeightLadder` | 3 | 4 |
+| `Lattice.Lift.WeightLadderFullWidth` | 6 | 1 |
 | `Lattice.Lift.WeightLadderN` | 5 | 5 |
 | `Lattice.Lift.WeightToSymbolEquivalence` | 4 | 3 |
 | `Lattice` | 0 | 0 |
@@ -4528,6 +4530,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encode_pipeline_soundness` -> `Theory`, `apply`, `induction`
 - `encoder_decoder_block_bound` -> `E`, `block_lipschitz_bound`, `dec`, `enc`, `lipschitz_add`, `lipschitz_comp`
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `enc`, `lipschitz_comp`
+- `encoders_differ` -> `AffineLayer`, `W`, `layerOfList`, `mk`
 - `encoding_completeness` -> `Theory`, `apply`, `collinear`, `induction`, `length`
 - `encoding_soundness` -> `Theory`, `apply`, `collinear`, `induction`, `length`
 - `engine_core_invariant` -> `SafeStmt`, `Theory`, `cgen_graph`, `cgen_graph_safe`, `compile_program`, `lvProgram`
@@ -6382,6 +6385,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
 - `layerNorm_in_family` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
+- `layerOfListFull_W` -> `AffineLayer`, `W`, `layerOfList`, `mk`
+- `layerOfListFull_b` -> `AffineLayer`, `W`, `layerOfList`, `mk`
 - `layerOut_applySymEdit` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `layerOut_beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `length`
 - `layerOut_cast_eq_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
@@ -7342,6 +7347,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `neumann_summable` -> `E`, `Matrix`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `norm_nonneg`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
 - `neuronCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `neg`, `tiny`
 - `neutral_is_not_a_decision_procedure` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `succ`, `zero`
+- `new_not_rank_one_at_two` -> `AffineLayer`, `W`, `layerOfList`, `mk`
 - `newman` -> `induction`, `subst`, `trans`
 - `newton_contraction_half` -> `NewtonStep`, `Quadratic`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `succ`, `zero`
 - `newton_doubly_exponential` -> `NewtonStep`, `Quadratic`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `succ`, `zero`
@@ -7590,6 +7596,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `offSupport_is_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `mk`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `ogd_regret_bound` -> `sqrt`
 - `ogd_regret_sqrt` -> `sqrt`
+- `old_not_injective` -> `AffineLayer`, `layerOfList`, `mk`
+- `old_rank_one_at_two` -> `AffineLayer`, `W`, `layerOfList`, `mk`
 - `omegaStar_eq_singleton` -> `BetaStar`, `Compiler`, `Term`, `betaSubst`, `ext`, `lift`, `redI`
 - `omegaStar_iff` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `ext`, `lift`, `redI`, `star_refl`
 - `omegaStar_self` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `ext`, `lift`, `redI`, `star_refl`

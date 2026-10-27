@@ -21,7 +21,7 @@
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 18 | 8 | `Lift.lean`, `Slots.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 15 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 1 | 1 | `Geo/MultiSeedCoverage.lean` |
-| 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 3 | 6 | `Geo/GeoLadder.lean`, `Lift/MultiLayerLadder.lean` |
+| 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 4 | 6 | `Geo/GeoLadder.lean`, `Lift/MultiLayerLadder.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Lift/ApproxExtraction.lean` | 3 | 9 | `Lift/ApproxLadder.lean`, `Lift/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Lift/RatRepresentation.lean` | 0 *(仅本文件)* | 10 | — |
