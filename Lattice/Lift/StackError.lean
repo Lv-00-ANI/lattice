@@ -500,4 +500,154 @@ theorem netAct_lipschitz_replicate (L : AffineLayer (Fin n)) (k : ℕ) (u v : Fi
   have := netAct_lipschitz (List.replicate k L) u v hδ h j
   rwa [List.map_replicate, List.prod_replicate] at this
 
+/-! ## 七、`k` 层误差的**闭式界**：每多一层加一项
+
+§六 给了 `k` 层的 Lipschitz 常数，但那只是「同一个栈喂不同输入」。
+**误差累积要的是「不同栈喂同一输入」的闭式界**——第 205 轮只做到两层，
+本节做到任意层，**这就是把那个半成品做完。**
+
+### 为什么用递归定义而不是 `∑_{i<k} ε G^i`
+
+几何和的闭式要 `G ≠ 1` 的分情形；而更麻烦的是 `∑ ε G^i` 里每一项的 `G` 是**部分乘积**
+（第 `i` 层之后的增益之积），要把它与全乘积 `∏ gain` 比较，需要一条「子乘积 ≤ 全乘积」的引理
+（对非负且 `≥ 1` 的因子成立，但要单独证）。
+
+**递归定义绕开这两件事**：`devB ε B ls` 直接按栈结构展开，
+
+```
+devB ε B []          = 0
+devB ε B (L :: rest) = devB ε (gain L · B) rest
+                        + (ε · n · B + ε) · (∏ gain rest)
+```
+
+第二项的读法是：**首层产生的误差 `ε·n·B + ε`，被后面所有层放大 `∏ gain rest` 倍。**
+各层相加，正是累积。
+
+**代价**：`devB` 不是一个数而是栈的函数。**收益**：不需要任何分情形、不需要子乘积比较，
+而且这个形式**直接给出每层的贡献**，比一个 `k·G^k` 的粗界信息更多。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| `devB` | 逐层累积的误差界 |
+| `devB_nonneg` | 非负（`ε ≥ 0`、`B ≥ 1`） |
+| **`netAct_deviation_le_devB`** | **`\|netAct ls x − netAct ls' x\| ≤ devB ε B ls`**——**任意层数** |
+
+### 边界
+
+- **`1 ≤ B` 是必需**：`affineAct_abs_le` 要它（偏置项 `|b| ≤ M|b|`）。
+  输入有界且界 `≥ 1` 是这个界系统的统一约定，`devB` 把 `gain L · B` 传给下一层，仍然 `≥ 1`。
+- **逐层 `ε` 相同**：本节假设每层的扰动都被同一个 `ε` 界住。
+  不同层的不同 `ε` 会让 `devB` 多一个参数序列，**本节不做**。
+- **`Forall₂` 而不是 `zip`**：`Forall₂` 自带等长且能干净析构（`Forall₂.nil` / `Forall₂.cons`），
+  `zip` 要额外处理 `length` 相等。 -/
+
+/-- **`gain` 的列表乘积非负**。（`List.prod_nonneg` 的签名在本 mathlib 里与我的猜测不符，
+又一次：**猜引理名不可靠，写一条三行的自己的版本更快**。） -/
+theorem prod_gain_nonneg {n : ℕ} (ls : List (AffineLayer (Fin n))) :
+    0 ≤ (ls.map gain).prod := by
+  induction ls with
+  | nil => simp
+  | cons L rest ih =>
+      rw [List.map_cons, List.prod_cons]
+      exact mul_nonneg (gain_nonneg L) ih
+
+/-- **逐层累积的误差界**，以**全局增益界 `G`** 为参数。
+
+```
+devB ε B G []          = 0
+devB ε B G (L :: rest) = devB ε (G · B) G rest
+                          + (ε · n · B + ε) · (∏ gain rest)
+```
+
+第二项的读法：**首层产生的误差 `ε·n·B + ε` 被后面所有层放大 `∏ gain rest` 倍**；各层相加即累积。
+
+**为什么用全局 `G` 而不是各层自己的 `gain L`**：`netAct_deviation_step` 需要一个 `M`
+同时界住 `affineAct L x` 与 `affineAct L' x`，**而这两个的首层增益不同**。
+用 `G` 界住两者后 `M := G · B` 同时适用，递归就通了。
+**代价**是界更松；**收益**是不需要 `max (gain L) (gain L')` 那种逐对的记账。
+这与 §五 用 `layerMag` 而非谱范数是同一个取舍：**松但可复合**。 -/
+noncomputable def devB {n : ℕ} (ε B G : ℝ) : List (AffineLayer (Fin n)) → ℝ
+  | [] => 0
+  | _L :: rest => devB ε (G * B) G rest
+      + (ε * (Fintype.card (Fin n) : ℝ) * B + ε) * ((rest.map gain).prod)
+
+/-- **`devB` 非负**（`0 ≤ ε`、`1 ≤ B`、`1 ≤ G`）。 -/
+theorem devB_nonneg {n : ℕ} {ε B G : ℝ} (hε : 0 ≤ ε) (hB : 1 ≤ B) (hG : 1 ≤ G)
+    (ls : List (AffineLayer (Fin n))) : 0 ≤ devB ε B G ls := by
+  induction ls generalizing B with
+  | nil => simp [devB]
+  | cons L rest ih =>
+      rw [devB]
+      have hB' : 1 ≤ G * B :=
+        calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
+          _ ≤ G * B := by nlinarith
+      have hmain : 0 ≤ devB ε (G * B) G rest := ih hB'
+      have hBnn : 0 ≤ B := le_trans zero_le_one hB
+      have hterm : 0 ≤ (ε * (Fintype.card (Fin n) : ℝ) * B + ε) * ((rest.map gain).prod) :=
+        mul_nonneg (by positivity) (prod_gain_nonneg rest)
+      linarith
+
+/-- **任意层数的误差闭式界**：两个栈逐层 `ε`-接近、所有增益被 `G` 界住，
+则输出偏差 ≤ `devB ε B G ls`。
+
+**这是第 205 轮「两层」的完整推广。**
+
+`B` 与 `x` 放在结论里（`∀ B x, …`）而不是绑定在外面：这样 `induction` 能对它们泛化，
+递归时尾栈的界从 `B` 变成 `G · B`。**放在外面则 `ih` 被钉在旧的 `B` 上**——这是我第一次的错。 -/
+theorem netAct_deviation_le_devB {n : ℕ} {ε : ℝ} (hε : 0 ≤ ε)
+    (ls ls' : List (AffineLayer (Fin n)))
+    (hF : List.Forall₂ (fun L L' =>
+      (∀ i j, |L.W i j - L'.W i j| ≤ ε) ∧ (∀ j, |L.b j - L'.b j| ≤ ε)) ls ls')
+    {G : ℝ} (hG : 1 ≤ G) (hGl : ∀ L ∈ ls, gain L ≤ G) (hGr : ∀ L ∈ ls', gain L ≤ G) :
+    ∀ (B : ℝ) (x : Fin n → ℝ), (∀ i, |x i| ≤ B) → 1 ≤ B →
+    ∀ j, |netAct ls x j - netAct ls' x j| ≤ devB ε B G ls := by
+  induction hF with
+  | nil =>
+      intro B x _ _ j
+      simp [devB]
+  | @cons L L' rest rest' hstep _htl ih =>
+      intro B x hx hB j
+      have hδfirst : ∀ i,
+          |affineAct L x i - affineAct L' x i| ≤ ε * (Fintype.card (Fin n) : ℝ) * B + ε :=
+        fun i => Lattice.Lift.QuantErrorProp.affineAct_perturbation L L' x hε
+          hstep.1 hstep.2 hx i
+      have hBnn : 0 ≤ B := le_trans zero_le_one hB
+      have hGnn : 0 ≤ G := le_trans zero_le_one hG
+      -- both first layers' outputs are bounded by `G * B`
+      have hmag : ∀ i, |affineAct L x i| ≤ G * B := by
+        intro i
+        have h1 := affineAct_abs_le L x hB hx i
+        calc |affineAct L x i| ≤ layerMag L * B := h1
+          _ ≤ G * B := by
+              apply mul_le_mul_of_nonneg_right _ hBnn
+              exact le_trans (le_max_left _ _) (hGl L (List.mem_cons_self L rest))
+      have hmag' : ∀ i, |affineAct L' x i| ≤ G * B := by
+        intro i
+        have h1 := affineAct_abs_le L' x hB hx i
+        calc |affineAct L' x i| ≤ layerMag L' * B := h1
+          _ ≤ G * B := by
+              apply mul_le_mul_of_nonneg_right _ hBnn
+              exact le_trans (le_max_left _ _) (hGr L' (List.mem_cons_self L' rest'))
+      have hB' : 1 ≤ G * B := by nlinarith
+      have hD : ∀ (w : Fin n → ℝ), (∀ i, |w i| ≤ G * B) →
+          ∀ j, |netAct rest w j - netAct rest' w j| ≤ devB ε (G * B) G rest := by
+        intro w hw
+        -- the lambda binders must NOT be called L/L': they shadow the cons heads, and then
+        -- List.mem_cons_of_mem receives the shadowed name as the head and fails to unify.
+        exact ih (fun M hM => hGl M (List.mem_cons_of_mem L hM))
+          (fun M hM => hGr M (List.mem_cons_of_mem L' hM)) (G * B) w hw hB'
+      have hδ : 0 ≤ ε * (Fintype.card (Fin n) : ℝ) * B + ε := by positivity
+      have hmain := netAct_deviation_step (L := L) (L' := L') (rest := rest) (rest' := rest')
+        (x := x) (δ := ε * (Fintype.card (Fin n) : ℝ) * B + ε)
+        (D := devB ε (G * B) G rest) (M := G * B)
+        hδ (devB_nonneg hε hB' hG rest) (prod_gain_nonneg rest) hmag hmag' hδfirst hD j
+      rw [devB]
+      calc |netAct (L :: rest) x j - netAct (L' :: rest') x j|
+          ≤ devB ε (G * B) G rest
+              + (rest.map gain).prod * (ε * (Fintype.card (Fin n) : ℝ) * B + ε) := hmain
+        _ = devB ε (G * B) G rest
+              + (ε * (Fintype.card (Fin n) : ℝ) * B + ε) * ((rest.map gain).prod) := by ring
+
 end Lattice.Lift.StackError

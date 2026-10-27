@@ -1624,7 +1624,7 @@
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
 | `Lattice.Lift.StackCodegen` | 11 | 11 |
-| `Lattice.Lift.StackError` | 16 | 3 |
+| `Lattice.Lift.StackError` | 19 | 4 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -3473,8 +3473,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depthList_nil` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
-- `depth_growth` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `depth_growth_at_least_two_pow` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `depth_growth` -> `AffineLayer`, `W`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `depth_growth_at_least_two_pow` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `depth_le_depthList` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_lt_of_mem` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
@@ -3512,6 +3512,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `detokenize_gives_quotient_left_inverse` -> `CharToken`, `SameTokens`, `detokenize`, `sound`, `tokenize`
 - `detokenize_is_section` -> `CharToken`, `SameTokens`, `detokenize`, `detokenize_left_inverse_on_quotient`, `sound`, `tokenize`
 - `detokenize_singleton` -> `append_assoc`, `apply`, `induction`, `length`, `length_cons`, `split`, `subst`, `zero`
+- `devB_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
 - `diagRadius_nonneg` -> `HasRealEigenvalue`, `apply`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `spectral_radius_le_opNorm`, `subst`
 - `diagRadius_one` -> `apply`, `le_antisymm`, `matCLME`
 - `diagRadius_pow` -> `HasRealEigenvalue`, `apply`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `spectral_radius_le_opNorm`, `subst`
@@ -5472,7 +5473,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerMag_can_exceed_one` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `layerMag_can_exceed_one` -> `AffineLayer`, `W`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerNorm_in_family` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
 - `layerOfListFull_W` -> `AffineLayer`, `W`, `layerOfList`
@@ -6303,9 +6304,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nesterov_rate_of_lyapunov` -> `Smooth`, `nesterov_descent_lemma_le`
 - `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
-- `netAct_deviation_step` -> `AffineLayer`, `affineAct`, `netAct`, `netAct_append`
-- `netAct_lipschitz` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `netAct`, `netAct_append`, `netAct_nil`
-- `netAct_lipschitz_replicate` -> `AffineLayer`, `netAct`
+- `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
+- `netAct_deviation_step` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`
+- `netAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `netAct_lipschitz_replicate` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
@@ -6938,6 +6940,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prodZero_iff` -> `ApproxOn`, `le_antisymm`
 - `prod_const_one_add` -> `eps`, `induction`, `le_trans`, `zero`
 - `prod_eq_zero_iff_exists` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `convert`, `convert_preserves_semantics`, `induction`, `out`
+- `prod_gain_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
 - `prod_one_add_le_exp` -> `eps`
 - `prod_sum_factor` -> `card_fin`, `convert`, `le`
 - `productPlan_isPlan` -> `e2`, `mul`, `sInf`
