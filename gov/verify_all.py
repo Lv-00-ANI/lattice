@@ -184,6 +184,12 @@ CHECKS = [
     # the line. A path that serves only the author's machine and is silent to a reader is the most
     # common packaging defect there is.
     ("packaging: licence file exists, outside paths documented", "check_packaging.py"),
+    # Round 179, P2-16. 21 wildcard `| _ => none` decoders exist in the kernel and nobody had judged
+    # them. Judging them once by hand is not the fix -- a 22nd would appear unexamined. Each file is now
+    # registered with one of three reasons (covered by a round-trip theorem / upstream Lv-00 carried /
+    # partial decoder by design), and a file with an unregistered arm fails. Bookkeeping, NOT a
+    # reachability proof, and the checker says so in its own output.
+    ("scope: every wildcard none branch has a reason", "check_none_branches.py"),
     # Round 164: module-level reachability is coarse. This lists skeleton theorems whose name
     # claims a main result and which nothing references -- a reading list, all terminal.
     ("usage: skeleton main theorems", "gen_theorem_usage.py"),

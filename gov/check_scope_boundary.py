@@ -162,9 +162,73 @@ def main(argv):
         print("SCOPE BOUNDARY: %d executable-framework marker(s) -- the objective forbids implementing"
               " an engine, model or training framework" % len(hits))
         return 1
+
+    # Round 179, P2-7. The positioning has TWO halves and they must agree with each other:
+    #   "it is a general infrastructure / certification layer"   and   "it does not implement a
+    #   framework".
+    # README's subtitle used to call it a "训练 / 后训练框架" while the positioning block four lines
+    # below said it does NOT implement a training framework. Both sentences were in the same document,
+    # nine lines apart, and nothing compared them -- the code half of the boundary was guarded and the
+    # prose half was not.
+    doc_problems = positioning_docs()
+    for rel, line, text in doc_problems:
+        print("  SELF-CONTRADICTION %s:%d  %s" % (rel, line, text))
+    if doc_problems:
+        print()
+        print("SCOPE BOUNDARY: the documents call this a framework while also saying it does not"
+              " implement one")
+        return 1
+
     print("SCOPE BOUNDARY: no training loop, optimiser structure or Module-style forward;"
-          " the \"does not implement a framework\" half of the positioning holds")
+          " and no document calls it a framework while denying it implements one")
     return 0
+
+
+#: Phrases that ASSERT the project IS a framework -- as an ASSERTION, not a mention.
+#:
+#: Round 179. The first version flagged any occurrence of the words, and reported two false positives in
+#: a row: `STATE-FINAL` "目标排除的是「实现引擎/模型/训练框架」" (quoting the exclusion) and `README` "按
+#: 「训练框架」衡量的分数" (quoting the phrase as a yardstick it rejects). Mentioning a phrase is not
+#: claiming it, and chasing that with a regex over prose is a losing game.
+#:
+#: So the rule is now the narrow assertion shape: the words must appear as the PREDICATE of the project
+#: -- "…的训练/后训练框架" with no quoting mark immediately before them, i.e. the README subtitle's
+#: actual defect.
+CLAIMS_TO_BE_FRAMEWORK = re.compile(r"(?<![「」\"'])(?:训练|后训练)\s*/\s*后训练框架|(?<![「」\"'])训练框架(?![」」\"'])\s*[，。,]$")
+
+#: Phrases that DENY implementing a framework. If one of these is present, the document is claiming the
+#: exclusion, and any `CLAIMS_TO_BE_FRAMEWORK` hit in the same document is a contradiction.
+DENIES_FRAMEWORK = re.compile(r"不实现[^。\n]{0,20}(?:训练)?框架|不实现引擎、模型")
+
+
+def positioning_docs():
+    """Documents that both claim to be a framework and deny implementing one."""
+    import glob
+    out = []
+    root = os.path.abspath(os.path.join(HERE, ".."))
+    for p in sorted(glob.glob(os.path.join(root, "*.md"))):
+        base = os.path.basename(p)
+        if base.startswith("ROADMAP-v"):
+            continue  # frozen: describes the tree at the time
+        text = io.open(p, encoding="utf-8", errors="replace").read()
+        if not DENIES_FRAMEWORK.search(text):
+            continue
+        for i, ln in enumerate(text.split("\n"), 1):
+            if not CLAIMS_TO_BE_FRAMEWORK.search(ln):
+                continue
+            # A line that quotes the EXCLUSION ("the objective excludes implementing an engine / model
+            # / training framework") names the phrase without claiming it. The first run flagged
+            # exactly such a line in STATE-FINAL.md, so quotation context is excluded here rather than
+            # by trying to make the regex clever about grammar.
+            if QUOTES_EXCLUSION.search(ln):
+                continue
+            out.append((base, i, ln.strip()[:80]))
+    return out
+
+
+#: A line that mentions the excluded thing in order to EXCLUDE it -- quoting the objective's own
+#: exclusion is not a claim to be that thing.
+QUOTES_EXCLUSION = re.compile(r"排除|不实现|禁止|不得|不做|不可")
 
 
 if __name__ == "__main__":
