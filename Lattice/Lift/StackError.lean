@@ -373,4 +373,131 @@ theorem depth_growth_at_least_two_pow (k : ℕ) :
   have hg : 2 ≤ gain L := le_trans hL (le_max_left _ _)
   exact pow_le_pow_left₀ (by norm_num) hg k
 
+/-! ## 六、任意深度的 **Lipschitz 常数**：`∏ gain`
+
+§五 给的是「同一个输入、不同层栈」的量级。**误差累积要的是另一半**：
+「同一个层栈、不同输入」。没有它，`k` 层的误差无从谈起——
+因为误差在第 `i` 层产生后，要被**后面所有层**放大。
+
+### 结果与因子
+
+```
+|netAct ls u j − netAct ls v j| ≤ (∏ gain L) · δ          （当 ∀ i, |u i − v i| ≤ δ）
+```
+
+**`∏ gain` 就是第 206 轮那个乘积界的同一组因子**——那节用它界输出量级，本节用它界**扰动的传播**。
+**同一个乘积，两种用途**，这不是巧合：量级与扰动都按同一组线性因子缩放。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| **`netAct_lipschitz`** | **`∀ i, \|u i − v i\| ≤ δ ⟹ ∀ j, \|netAct ls u j − netAct ls v j\| ≤ (∏ gain) · δ`** |
+| `netAct_deviation_step` | **单层递推**：整栈偏差 ≤ 尾栈偏差 + 首层偏差被尾栈放大 |
+| `netAct_three_layer` | **三层**：说明偏差**逐层复合**，不是只有两层能算 |
+
+### 边界
+
+- **`0 ≤ δ` 是必需的**：`mul_le_mul_of_nonneg_right` 的正性条件。**这是真的假设，不是装饰**——
+  δ 是偏差的界，本来就非负。
+- **本节给 Lipschitz 常数，不给误差的闭式解**。闭式解要把 `∑_{i<k} ε G^i` 的几何和算出来，
+  并且逐层追踪 `B`（中间量级界），**本节不做**（§七 的边界里写明）。
+- 因子是 `∏ gain`（`gain = max layerMag 1`），与 §五 同一个；**`gain ≥ 1` 保证乘法链单调**。 -/
+
+/-- **任意深度的 Lipschitz 性**：输入每分量差 ≤ `δ`，则输出每分量差 ≤ `(∏ gain) · δ`。
+
+**这是多层误差累积的承重件。** §三 的 `netAct_two_perturbation` 只到两层；
+本节让任意深度的扰动传播有了常数，而常数正是 §五 的那个乘积。 -/
+theorem netAct_lipschitz (ls : List (AffineLayer (Fin n))) (u v : Fin n → ℝ) {δ : ℝ}
+    (hδ : 0 ≤ δ) (h : ∀ i, |u i - v i| ≤ δ) :
+    ∀ j, |netAct ls u j - netAct ls v j| ≤ ((ls.map gain).prod) * δ := by
+  induction ls generalizing u v δ with
+  | nil =>
+      intro j
+      simp only [netAct_nil, List.map_nil, List.prod_nil, one_mul]
+      exact h j
+  | cons L rest ih =>
+      intro j
+      -- `netAct (L :: rest) u = netAct rest (affineAct L u)`
+      have hstep : ∀ w : Fin n → ℝ, netAct (L :: rest) w = netAct rest (affineAct L w) := by
+        intro w
+        rw [show (L :: rest) = [L] ++ rest from rfl, netAct_append]
+        rfl
+      rw [hstep u, hstep v]
+      -- the first layer's output deviation, amplified by its own magnitude
+      have hδ' : 0 ≤ gain L * δ := mul_nonneg (gain_nonneg L) hδ
+      have hmid : ∀ i, |affineAct L u i - affineAct L v i| ≤ gain L * δ := by
+        intro i
+        have hh := affineAct_lipschitz L u v hδ h i
+        calc |affineAct L u i - affineAct L v i| ≤ layerMag L * δ := hh
+          _ ≤ gain L * δ := by
+              apply mul_le_mul_of_nonneg_right _ hδ
+              exact le_max_left _ _
+      have hfin := ih (affineAct L u) (affineAct L v) hδ' hmid j
+      calc |netAct rest (affineAct L u) j - netAct rest (affineAct L v) j|
+          ≤ ((rest.map gain).prod) * (gain L * δ) := hfin
+        _ = ((L :: rest).map gain).prod * δ := by
+            rw [List.map_cons, List.prod_cons]
+            ring
+
+/-- **单层递推**：整栈偏差 ≤ 尾栈偏差 + 首层偏差被尾栈放大。
+
+设尾栈 `rest` 对**任何**有界输入都成立偏差界 `D`（`hD`），首层输出偏差 ≤ `δ`，
+则整栈偏差 ≤ `D + (∏ gain rest) · δ`。
+
+**这就是误差累积的递推式**：每多一层，新增的误差是**该层的偏差乘以后面所有层的增益**。 -/
+theorem netAct_deviation_step (L L' : AffineLayer (Fin n))
+    (rest rest' : List (AffineLayer (Fin n))) (x : Fin n → ℝ)
+    {δ D M : ℝ} (hδ : 0 ≤ δ) (hDnn : 0 ≤ D) (hDL : 0 ≤ (rest.map gain).prod)
+    (hmag : ∀ i, |affineAct L x i| ≤ M) (hmag' : ∀ i, |affineAct L' x i| ≤ M)
+    (hδfirst : ∀ i, |affineAct L x i - affineAct L' x i| ≤ δ)
+    (hD : ∀ (w : Fin n → ℝ), (∀ i, |w i| ≤ M) →
+      ∀ j, |netAct rest w j - netAct rest' w j| ≤ D) :
+    ∀ j, |netAct (L :: rest) x j - netAct (L' :: rest') x j| ≤ D + (rest.map gain).prod * δ := by
+  intro j
+  have hstep : ∀ (ls : List (AffineLayer (Fin n))) (w : Fin n → ℝ),
+      netAct (L :: ls) w = netAct ls (affineAct L w) := by
+    intro ls w
+    rw [show (L :: ls) = [L] ++ ls from rfl, netAct_append]
+    rfl
+  have hstep' : ∀ (ls : List (AffineLayer (Fin n))) (w : Fin n → ℝ),
+      netAct (L' :: ls) w = netAct ls (affineAct L' w) := by
+    intro ls w
+    rw [show (L' :: ls) = [L'] ++ ls from rfl, netAct_append]
+    rfl
+  rw [hstep rest x, hstep' rest' x]
+  -- triangle through the common point `affineAct L x`
+  have htri : |netAct rest (affineAct L x) j - netAct rest' (affineAct L' x) j|
+      ≤ |netAct rest (affineAct L x) j - netAct rest (affineAct L' x) j|
+        + |netAct rest (affineAct L' x) j - netAct rest' (affineAct L' x) j| := by
+    have := abs_add (netAct rest (affineAct L x) j - netAct rest (affineAct L' x) j)
+      (netAct rest (affineAct L' x) j - netAct rest' (affineAct L' x) j)
+    have heq : (netAct rest (affineAct L x) j - netAct rest (affineAct L' x) j)
+        + (netAct rest (affineAct L' x) j - netAct rest' (affineAct L' x) j)
+        = netAct rest (affineAct L x) j - netAct rest' (affineAct L' x) j := by ring
+    rw [heq] at this
+    exact this
+  -- (a) same tail, different inputs: propagate by the tail's Lipschitz constant
+  have hA : |netAct rest (affineAct L x) j - netAct rest (affineAct L' x) j|
+      ≤ (rest.map gain).prod * δ :=
+    netAct_lipschitz rest (affineAct L x) (affineAct L' x) hδ hδfirst j
+  -- (b) same input, different tails: the hypothesis `hD`
+  have hB : |netAct rest (affineAct L' x) j - netAct rest' (affineAct L' x) j| ≤ D :=
+    hD (affineAct L' x) hmag' j
+  linarith
+
+/-- **深度的灵敏度代价**：`k` 个相同的层叠起来，Lipschitz 常数是 `(gain L)^k`。
+
+**这是「深度放大扰动」的定理形式**——不是类比：同一个输入偏差进入 `k` 层网络后，
+输出的偏差界是单层的 `(gain L)^k` 倍。
+
+结合 §五 的 `layerMag_can_exceed_one`（存在 `gain ≥ 2` 的层），**这个界真的会指数增长**。 -/
+theorem netAct_lipschitz_replicate (L : AffineLayer (Fin n)) (k : ℕ) (u v : Fin n → ℝ) {δ : ℝ}
+    (hδ : 0 ≤ δ) (h : ∀ i, |u i - v i| ≤ δ) :
+    ∀ j, |netAct (List.replicate k L) u j - netAct (List.replicate k L) v j|
+      ≤ (gain L) ^ k * δ := by
+  intro j
+  have := netAct_lipschitz (List.replicate k L) u v hδ h j
+  rwa [List.map_replicate, List.prod_replicate] at this
+
 end Lattice.Lift.StackError

@@ -1624,7 +1624,7 @@
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
 | `Lattice.Lift.StackCodegen` | 11 | 11 |
-| `Lattice.Lift.StackError` | 13 | 3 |
+| `Lattice.Lift.StackError` | 16 | 3 |
 | `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
@@ -3473,8 +3473,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depthList_nil` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
-- `depth_growth` -> `AffineLayer`, `le_trans`, `netAct`
-- `depth_growth_at_least_two_pow` -> `AffineLayer`, `le_trans`
+- `depth_growth` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `depth_growth_at_least_two_pow` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `depth_le_depthList` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_lt_of_mem` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
@@ -5472,7 +5472,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerMag_can_exceed_one` -> `AffineLayer`, `le_trans`
+- `layerMag_can_exceed_one` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerNorm_in_family` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
 - `layerOfListFull_W` -> `AffineLayer`, `W`, `layerOfList`
@@ -6303,6 +6303,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nesterov_rate_of_lyapunov` -> `Smooth`, `nesterov_descent_lemma_le`
 - `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
+- `netAct_deviation_step` -> `AffineLayer`, `affineAct`, `netAct`, `netAct_append`
+- `netAct_lipschitz` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `netAct`, `netAct_append`, `netAct_nil`
+- `netAct_lipschitz_replicate` -> `AffineLayer`, `netAct`
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
