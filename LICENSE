@@ -1,0 +1,34 @@
+MIT License
+
+Copyright (c) 2026 level0000x
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Scope note, so a reader is not misled by the file's presence:
+
+  * This licence covers the Lean sources, the `gov/` tooling and the documents in
+    this repository.
+  * `Lattice/Reference/` is NOT my work. It is upstream Lv-00 evidence kept
+    verbatim as historical record, and it carries whatever licence it carried
+    upstream. It is excluded from the build graph but it is in the tree, so the
+    distinction is stated rather than left implicit.
+  * The pinned mathlib revision is a separate dependency under its own licence
+    (Apache-2.0); nothing here relicenses it.

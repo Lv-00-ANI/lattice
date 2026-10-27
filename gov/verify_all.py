@@ -177,6 +177,13 @@ CHECKS = [
     # documents -- the only reason they are right is that I remembered. That is the pattern this whole
     # project keeps paying for, so it is now a gate.
     ("docs: freshness of the tree's own figures", "check_doc_freshness.py"),
+    # Round 177. `lakefile.toml` declared `license = "MIT"` while no LICENSE file existed, and it
+    # carries `packagesDir = "../lattice/lean/.lake/packages"` -- a path outside this repository. The
+    # path is a deliberate local optimisation (removing it makes lake report a stale manifest on every
+    # invocation), so the fix is to REQUIRE the README to document the override rather than to delete
+    # the line. A path that serves only the author's machine and is silent to a reader is the most
+    # common packaging defect there is.
+    ("packaging: licence file exists, outside paths documented", "check_packaging.py"),
     # Round 164: module-level reachability is coarse. This lists skeleton theorems whose name
     # claims a main result and which nothing references -- a reading list, all terminal.
     ("usage: skeleton main theorems", "gen_theorem_usage.py"),

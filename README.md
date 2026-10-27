@@ -19,7 +19,7 @@
 > | 定理 / 引理 | 8328 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Geo/Lib | 18 / 57 / 93 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
-> | 检查器注册项 | 59（42 门禁 + 17 报告器） | `audit_counts.py` |
+> | 检查器注册项 | 60（43 门禁 + 17 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
 > | **永久边界** | **4** | 同上；因数学事实、外部工具链或需库外语料，本库无法关闭 |
 > | 已登记否证 | 285 | `check_refutation_census.py` |
@@ -114,7 +114,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 59 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 60 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -255,7 +255,7 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 59 项检查 + 反应性自检（逐项打印耗时）
+# 全套 60 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
@@ -270,6 +270,25 @@ cd gov && python verify_all.py
 `lakefile.toml` 的 `packagesDir` 指向 `../lattice/lean/.lake/packages`，复用第一代已编译的
 mathlib（5,387 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新拉取编译需要数小时，
 且两份缓存会各自老化。代价是 CI 必须把同一 revision 物化到同一路径 —— workflow 里显式做了这件事。
+
+**全新机器怎么做（这一步必须写明，否则「指向仓库外」就是一个陷阱）。**
+`packagesDir` 是**本地便利**，不是可移植前提。在没有 `../lattice/` 的机器上，删掉那一行即可：
+
+```bash
+# 全新 checkout。删掉 packagesDir，让 lake 用本仓库默认的 .lake/packages 并从 manifest 拉取
+sed -i '/^packagesDir/d' lakefile.toml
+lake update          # 按 lake-manifest.json 记录的 rev 物化 mathlib
+lake exe cache get   # 拉预编译 olean（否则从源码编译 mathlib 需要数小时）
+lake build Lattice
+```
+
+**为什么不直接把那行删掉交付**：我试过。删掉后 lake 每次调用都报
+`manifest out of date: packages directory changed; use lake update`——
+因为 `lake-manifest.json` 记录了那个目录。要消除它就得跑 `lake update` 重写 manifest，
+而那是**改依赖锁定**，风险高于收益。所以选择：**保留本地优化，并把覆盖步骤写在这里**。
+
+`gov/check_packaging.py` 守着这条：`packagesDir` 指向仓库外时，README **必须**提到它，
+否则门禁失败——一个只为作者机器服务、却对读者静默的路径，正是打包问题最常见的形态。
 
 > 写 `lakefile.toml` 的两个坑（已实测）：PowerShell 5.1 的 `Out-File -Encoding utf8` 会写 BOM，
 > 导致 `expected end of input`；TOML 会把反斜杠当转义序列，路径必须用正斜杠。
@@ -344,7 +363,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **59 项**检查：42 项能失败的**门禁**，17 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **60 项**检查：43 项能失败的**门禁**，17 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 
