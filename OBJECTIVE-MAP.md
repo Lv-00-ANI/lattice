@@ -17,7 +17,7 @@
 | 1.2 token -> symbol | `decodePayload` | `Lift/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Lift/SymbolToWeightCorrectness.lean` | 37 | 5 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
-| 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 21 | 5 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 22 | 5 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 11 | 7 | `Lift.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 13 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
