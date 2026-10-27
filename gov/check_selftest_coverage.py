@@ -76,10 +76,10 @@ EXEMPT = {
         "a breakpoint survey: it reports every hop's user count and fails on a zero, which is the "
         "defect.",
     "verify_g4.py":
-        "it shells out to `lake build` and compares an artifact hash, so a self-test would have to "
-        "plant a module and build it -- the same cost as the check itself. It already passes or fails "
-        "on the real artifact. NOTE: it needs `lake` and a warm build tree, so it is the one gate that "
-        "cannot run offline; that is backlog item P2-12, not a reason it is unverified.",
+        "it shells out to `lake build` and compares whether the G4 theorem turns red, so a planted "
+        "self-test would cost the same as the check itself. Since round 175 it detects an unavailable "
+        "toolchain and reports SKIP instead of failing, so it is no longer a gate that can only run "
+        "online (P2-12).",
 }
 
 

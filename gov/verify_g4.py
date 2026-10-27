@@ -69,6 +69,24 @@ theorem probe_downstream (x : Unit) (hmin : IsLocalMin (probeEmbedding.loss ()) 
 """
 
 
+def toolchain_available():
+    """Can this check run at all? Returns `(ok, why_not)`.
+
+    Round 175, P2-12. This is the ONE gate that shells out to `lake` and needs a warm build tree, so it
+    is the only gate that cannot run offline. Failing for that reason reads as "G4 is broken" when the
+    truth is "the check did not run", and a reader cannot tell the two apart from an exit code.
+
+    So the availability of the toolchain is checked FIRST and reported as `SKIP`, not as a pass and not
+    as a failure. `SKIP` is printed loudly and the exit code is 0 only because a check that could not
+    execute has not found anything.
+    """
+    if shutil.which("lake") is None:
+        return False, "`lake` is not on PATH"
+    if not os.path.isdir(os.path.join(ZERO, ".lake")):
+        return False, "no `.lake/` build directory (nothing has been built here)"
+    return True, ""
+
+
 def build(target=None):
     cmd = ["lake", "build"] + ([target] if target else [])
     r = subprocess.run(cmd, cwd=ZERO, capture_output=True, text=True,
@@ -77,6 +95,15 @@ def build(target=None):
 
 
 def main():
+    ok, why = toolchain_available()
+    if not ok:
+        print("  SKIP: cannot run -- %s" % why)
+        print()
+        print("G4 REACTIVITY: SKIPPED (toolchain unavailable, NOT a pass and NOT a failure)")
+        print("This check proves the G4 theorem goes red when its filler is withdrawn, which needs a")
+        print("real `lake build`. Offline it cannot run; see backlog item P2-12.")
+        return 0
+
     failures = 0
     try:
         io.open(PROBE, "w", encoding="utf-8", newline="\n").write(WITH_FILLER)
