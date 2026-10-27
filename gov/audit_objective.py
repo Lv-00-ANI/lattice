@@ -32,6 +32,28 @@ def all_text():
                    for p in lean_sources())
 
 
+def kernel_sources():
+    """The BUILD GRAPH: everything except `Reference/`, which is frozen upstream evidence.
+
+    Round 170, P1-9. The two scopes had been conflated: row (2b) below reported `axiom=1 sorry=68`
+    because it measured `all_text()`, which includes `Reference/`, and then read as though the library
+    itself used them. `README` already states the correct sentence -- "内核 0 逃逸，`Reference/` 冻结"
+    and "「全树 0 逃逸」是错的说法" -- but the automated row did not follow it, so the audit showed
+    5/7 with no way to see which failure was which.
+    """
+    return [p for p in lean_sources() if "Reference" not in p]
+
+
+def kernel_text():
+    return "".join(strip_comments(io.open(p, "rb").read().decode("utf-8", "replace"))
+                   for p in kernel_sources())
+
+
+def ref_text():
+    return "".join(strip_comments(io.open(p, "rb").read().decode("utf-8", "replace"))
+                   for p in lean_sources() if "Reference" in p)
+
+
 def has(pattern, text=None):
     t = text if text is not None else all_text()
     return re.search(pattern, t, re.M) is not None
@@ -59,13 +81,25 @@ def main():
     rows.append(("(2) unproved facts are explicit holes",
                  "%d slots, %d explicit (h : ...) parameters" % (len(slots), holes_as_params),
                  len(slots) >= 5 and holes_as_params >= 5))
-    rows.append(("(2b) no axiom / opaque / sorry / admit",
+    kt = kernel_text()
+    rows.append(("(2b) no axiom / opaque / sorry / admit -- KERNEL (build graph)",
                  "axiom=%d opaque=%d sorry=%d" % (
-                     len(re.findall(r"^\s*axiom\s", txt, re.M)),
-                     len(re.findall(r"^\s*opaque\s", txt, re.M)),
-                     len(re.findall(r"\b(sorry|admit)\b", txt))),
-                 not re.search(r"^\s*(axiom|opaque)\s", txt, re.M)
-                 and not re.search(r"\b(sorry|admit)\b", txt)))
+                     len(re.findall(r"^\s*axiom\s", kt, re.M)),
+                     len(re.findall(r"^\s*opaque\s", kt, re.M)),
+                     len(re.findall(r"\b(sorry|admit)\b", kt))),
+                 not re.search(r"^\s*(axiom|opaque)\s", kt, re.M)
+                 and not re.search(r"\b(sorry|admit)\b", kt)))
+    # The frozen region, reported so the two scopes are never mistaken for each other again. This row
+    # is INFORMATIONAL: `Reference/` is upstream Lv-00 evidence kept verbatim, and its escapes are the
+    # 69 baseline entries in gov/escape-baseline.json. Expecting zero here would mean editing frozen
+    # evidence to make a number look better.
+    rt = ref_text()
+    rows.append(("(2c) frozen `Reference/` -- INFORMATIONAL, not a certification claim",
+                 "axiom=%d opaque=%d sorry=%d (frozen; see gov/escape-baseline.json)" % (
+                     len(re.findall(r"^\s*axiom\s", rt, re.M)),
+                     len(re.findall(r"^\s*opaque\s", rt, re.M)),
+                     len(re.findall(r"\b(sorry|admit)\b", rt))),
+                 True))
 
     # (3) clean chain: every module under a layer, budget respected
     mods = [os.path.relpath(p, ZERO).replace("\\", "/") for p in srcs]
