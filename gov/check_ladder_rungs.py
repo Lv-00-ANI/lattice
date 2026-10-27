@@ -126,6 +126,11 @@ IDENTITY_OK = {
     # `ShallowCExpr n`. The substantive rung here is l2l3, whose proof uses `toStack_correct`.
     "Geo/CodegenLadder.lean":
         "Sym = ShallowCExpr and Tok = ShallowCExpr -- the same type; the substance is in l2l3",
+    # Round 180. Same types (`List ℝ` / `ℝ`), so `identityTokenizer` is the honest rung. The point of
+    # this ladder is l2l3: it uses the FULL-WIDTH encoder, which has an exact inverse, where
+    # `weightLadderN`'s rank-one encoder provably has none.
+    "Lift/WeightLadderFullWidthInstance.lean":
+        "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok; the substance is the full-width l2l3",
 }
 
 #: The classification strings that count as an identity rung.
