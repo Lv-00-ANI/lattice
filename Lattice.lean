@@ -5,6 +5,7 @@ import Lattice.Geo
 import Lattice.Lib
 import Lattice.Audit
 import Lattice.Usage
+import Lattice.Semantics
 
 /-!
 # LATTICE

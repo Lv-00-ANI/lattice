@@ -4,6 +4,17 @@
 > 本文定义「语义信息」在 LATTICE 里的含义、形式化骨架、证明义务与三阶段路线。
 > 它与 `PARADIGM.md` 的关系是：`PARADIGM` 定义「表示格」这一层；本文定义「语义信息」这一层，并把后者定为**主攻方向**。
 > 本文不写数字；所有可漂移的计数交给 `gov/` 守卫。
+>
+> **实现进度（第 204 轮起）**：§3 的骨架已经落成 Lean，见
+> [`Lattice/Semantics/Stage1.lean`](Lattice/Semantics/Stage1.lean)。
+> 已实现 S0（`SemanticDomain`）、S1 的阶段 1 形式（`constraintVocab_denote_sound`）、
+> S2（`complete_on`）、S3（`Inherits.sound` 与 `inherits_sound`）、S5（`edit_frame` 的前置：`holdsSet_equiv_append_left`）。
+> **S4 与 S6–S20 未做**，见 §6 的义务清单。
+>
+> **一处对 §3 骨架的修正**（实现时发现，记在这里而不是悄悄改）：
+> `Geometry.Carrier` 在阶段 1 取成**约束集**，不是配置空间。
+> 因为 `Meaning := 配置 → Prop` 是「哪些配置被接受」，所以载体侧的对象必须是**接受者**；
+> 取配置会让 `label` 的类型对不上，而且语义上也说不通。
 
 ---
 
