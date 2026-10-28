@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Editing.RealSymbolToWeightNonlinear
 import Lattice.Lib.Editing.RealSymbolToWeightWidened

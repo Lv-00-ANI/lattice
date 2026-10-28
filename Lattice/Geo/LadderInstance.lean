@@ -65,9 +65,9 @@ L0→L1 用恒等是**刻意的最小选择**（`Data = List Tok`），不是回
   那正是 `PenaltyEmbedding.sound_not_exact` 否证的东西，见 README §3.3。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Geo.Expr
-import Lattice.Lift.L1L2Roundtrip
+import Lattice.Runtime.L1L2Roundtrip
 
 open scoped BigOperators
 

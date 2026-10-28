@@ -46,7 +46,7 @@
 - 本节**不改** `Core/Activation`、`Lift/MultiLayerLadder` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Core.Activation
 
 namespace Lattice.Lift

@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 /-!
 # LATTICE: 符号 → 权重转换层推广到非线性
 

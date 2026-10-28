@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertLinear
+import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
 /-!
 # LATTICE: WeightToSymbolEquivalence（最小版本）—— 编译-提取往返恒等

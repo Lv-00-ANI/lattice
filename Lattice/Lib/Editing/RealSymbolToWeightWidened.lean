@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 /-!
 # LATTICE S-01：符号 → 权重的**语义保持**加强
 

@@ -63,7 +63,7 @@
   那超出「符号知识 → 权重」的直接映射——本节的选择是**最小非平凡的**。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Core.Net
 import Lattice.Core.Semantics
 

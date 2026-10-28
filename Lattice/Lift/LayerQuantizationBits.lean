@@ -76,7 +76,7 @@ theorem quant_error_lt_two_pow (b : ℕ) (x : ℤ) :
 - 本节**不改** `LayerQuantization.lean`、`RoundingBackend.lean` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.LossyRepresentation
+import Lattice.Runtime.LossyRepresentation
 import Lattice.Lift.LayerQuantization
 
 namespace Lattice.Lift.IntQuant

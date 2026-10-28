@@ -71,7 +71,7 @@ x  : Fin n → ℝ                       -- 输入：某个点/坐标向量的�
   两者并存。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Geo.Constraint
 import Lattice.Geo.GeoLadder
 import Lattice.Core.Net

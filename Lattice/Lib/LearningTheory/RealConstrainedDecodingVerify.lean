@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.LearningTheory.RealConstrainedDecoding
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 /-!
 # LATTICE U03-(a) 消费者: RealConstrainedDecodingVerify
 

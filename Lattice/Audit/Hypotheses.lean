@@ -89,13 +89,13 @@ A hypothesis h of theorem T is REDUNDANT iff T is provable without h.
   脚本 `agent-tmp/find_redundant.py`，本轮共 4 个候选，逐个审计后无冗余。
 -/
 import Mathlib
-import Lattice.Lift.L1L2Roundtrip
+import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
 import Lattice.Core.RepairConvergence
-import Lattice.Lift.VerificationSoundness
+import Lattice.Runtime.VerificationSoundness
 import Lattice.Geo.Reinjection
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 
 namespace Lattice.Audit
 

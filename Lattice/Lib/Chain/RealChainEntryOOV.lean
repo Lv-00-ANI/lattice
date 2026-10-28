@@ -1,7 +1,7 @@
-import Lattice.Lift.RealTokenizationEntry
+import Lattice.Runtime.RealTokenizationEntry
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Chain.RealEndToEnd
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 open Lattice.Lift.SymbolToWeightCorrectness
 /-!
 # LATTICE: RealChainEntryOOV -- 入口桥的【端到端行使】与 OOV 分词器

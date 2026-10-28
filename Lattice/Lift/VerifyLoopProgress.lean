@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertLinear
+import Lattice.Runtime.ConvertLinear
 /-!
 # LATTICE: VerifyLoopProgress（最小版本）—— 验证回路不破坏已满足语义
 

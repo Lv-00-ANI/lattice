@@ -1,7 +1,7 @@
 import Mathlib
-import Lattice.Lift.ConvertLinear
+import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 /-!
 # LATTICE: ConstraintEmbeddingSoundness（最小版本）—— 约束嵌入平方损失
 

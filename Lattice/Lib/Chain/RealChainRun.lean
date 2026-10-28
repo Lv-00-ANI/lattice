@@ -1,8 +1,8 @@
 import Mathlib
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenizationEntry
+import Lattice.Runtime.RealTokenizationEntry
 import Lattice.Lift.RealTokenSymbolLink
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.LearningTheory.RealRecoverEndpoint
 /-!

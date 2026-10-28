@@ -1,6 +1,6 @@
-import Lattice.Lift.ConvertLinear
+import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Attention.RealMaskFamily
 import Lattice.Lib.LearningTheory.RealConstrainedDecoding
 import Lattice.Lib.LearningTheory.RealConstrainedDecodingVerify

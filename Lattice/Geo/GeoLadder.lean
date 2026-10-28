@@ -72,7 +72,7 @@
 - **不改**任何既有 `Ladder` 实例。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Geo.Loss
 import Lattice.Geo.EqConstraintTokens
 import Lattice.Geo.EqConstraintListTokens

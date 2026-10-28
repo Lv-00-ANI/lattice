@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Editing.RealCanonicalForm
 /-!

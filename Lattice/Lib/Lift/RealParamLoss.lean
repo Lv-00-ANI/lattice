@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Optim.RealCrossUniverseBridge
 /-!
 # LATTICE W17: RealParamLoss —— MPO-1「参数化损失」

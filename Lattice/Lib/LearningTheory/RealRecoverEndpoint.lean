@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lift.WeightToSymbolEquivalence
 import Lattice.Lift.RealTokenSymbolLink
 -- 注意 `extractLayer` 有【三个】roots 模块各自声明（`RealCompileExtractClosed:100` /

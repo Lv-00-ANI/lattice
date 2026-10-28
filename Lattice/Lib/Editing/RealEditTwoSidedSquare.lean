@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Editing.RealConstraintEdit
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 open Lattice.Lift.SymbolToWeightCorrectness
 /-!
 # LATTICE D1-4：两侧编辑的交换图 —— 符号侧编辑 ⇄ 权重侧编辑

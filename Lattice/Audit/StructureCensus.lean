@@ -99,7 +99,7 @@
 import Mathlib
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Core.Repair
 
 namespace Lattice.Audit

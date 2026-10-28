@@ -4,7 +4,7 @@ import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealCanonicalForm
 import Lattice.Lib.Editing.RealExtractionDirection
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 /-!
 # LATTICE: RealClosureReversibility —— FCA 闭包是否形式化了「失效可识别」
 

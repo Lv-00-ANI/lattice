@@ -58,7 +58,7 @@ Representation ──ofRepresentation──▶ LossyRep        (obs := Eq)
 -/
 import Mathlib
 import Lattice.Runtime.Extraction
-import Lattice.Lift.LossyRepresentation
+import Lattice.Runtime.LossyRepresentation
 import Lattice.Lift.ApproxExtraction
 
 namespace Lattice.Lift

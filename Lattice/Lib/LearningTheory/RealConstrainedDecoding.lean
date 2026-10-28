@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.Attention.RealMaskFamily
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lift.RealTokenSymbolLink
 /-!
 # LATTICE U03-(a): RealConstrainedDecoding —— 约束解码的可行性掩码（L2⇄L3 的运行时落点）

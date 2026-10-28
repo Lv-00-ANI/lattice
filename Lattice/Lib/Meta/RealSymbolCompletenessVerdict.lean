@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealSymbolCompleteness
 /-!
 # LATTICE D3-2: 完备性的**代价** —— 实现一个层需要几条约束？
