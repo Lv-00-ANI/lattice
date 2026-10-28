@@ -406,17 +406,40 @@ def iterate  (measure : Input → ℕ) (f : Primitive) : Primitive
 ## 9. 依赖与门禁
 
 ```
-lib 0
-kernel 1
-runtime 2
-domains 3
-primitives 4
-compose 5
-cinterface 6
-evidence 7
-usage 8
+core 0
+lift 2           （slots 1 保留在 core 与 lift 之间）
+lib 3
+geo 4
+audit 5
+compose 6
 top 99
 ```
+
+### ⚠ 第 228 轮修订：`lib` **不放在 0**，**保持今天的 rank 3**
+
+原表把 `lib` 放在 **0**，理由是「`Lib` 是数学库，保持独立」。**这条与本树冲突**：
+实测 **244 个 `Lib` 文件 import `Lift`，16 个 import `Core`**（`grep '^import Lattice\.'`）。
+按原表（`lib 0` < `lift 2`）这 260 个 import 全部变成向上依赖。
+
+**裁决（第 228 轮）：`Lib` 保持 rank 3 —— 沿用今天的 `core < lift < lib`。**
+
+**理由不是「搬家太贵」，而是职责**：`Lib` 要负责**两类**内容——
+
+1. **无法迁移的**：依赖 `Core`/`Lift` 多个层、又无法干净切分的（`Lib/Chain`、`Lib/Editing`、
+   `Lib/Linear` 等，即上面那 244 + 16 个文件）；
+2. **后续新增的同类**：将来新写的、需要同时看见 `Kernel`/`Runtime` 的内容。
+
+把 `Lib` 钉在**最底层**会逼这些内容要么被硬塞进某一层、要么被拆碎——**那是有损的**，
+而且「新东西该放哪」会没有答案。**保留 rank 3，这个问题才有归宿。**
+
+**为什么不是更上面的 9**：本节第一版把 `lib` 移到 **9**，结果 I4 立刻报 **14 处**违规——
+`Geo` 依赖 `Lib`（`Geo/Derivative`、`Geo/Unified`、`Geo/QualityBridge`、`Geo/RepairPerp`），
+把 `lib` 抬到 `geo` 之上就把那些依赖变成向上依赖。
+**而实测 `Lib` 不 import 任何 `Geo`**，所以 `lib 3`（低于 `geo`）**两边都不冲突**。
+
+**代价（必须记账）**：`Lib` 可以 import `Core` 与 `Lift`，所以 **`Lib` 里的定理不能一律当作
+「独立于架构的数学」**——其中相当一部分依赖 `Lift` 的定义。强度审计里 `Lib` 的定理按它
+**实际 import 的层**计，不按「数学库」计。
 
 - `Primitives` 只能 import `Kernel`/`Runtime`/`Domains`；
 - `Primitives` 之间零 import；

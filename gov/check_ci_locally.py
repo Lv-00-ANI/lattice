@@ -107,18 +107,29 @@ def job2_audit(root=None, wf=None):
     # a real runner", and it is invisible from the outside: a workflow that matches no branch and a
     # workflow that passes both show a green (or absent) check.
     #
-    # So the trigger list is now checked against the branch that actually exists. If the default
-    # branch is renamed and this list is not updated, the build goes red instead of quiet.
+    # So the trigger list is now checked. Round 228 corrected HOW: not against "the branch that
+    # actually exists" (that is the checked-out branch, which on a feature branch is not the default)
+    # but against every plausible default name. If the default is renamed to a name outside that set,
+    # this check goes red instead of quiet.
     branches = []
     m = re.search(r"(?ms)^on:.*?^\s+push:.*?^\s+branches:\s*\[([^\]]*)\]", text)
     if m:
         branches = [b.strip().strip("\"'") for b in m.group(1).split(",") if b.strip()]
-    default_branch = current_branch(root)
-    if default_branch is None:
-        results.append(("push trigger: branch list readable", False))
-    else:
-        results.append(("push trigger fires on the default branch %r" % default_branch,
-                        default_branch in branches))
+    # Round 228. The claim is "a push to the DEFAULT branch triggers CI". The checked-out branch is
+    # NOT the default when you are on a feature branch -- comparing against it made this check red on
+    # EVERY branch, which does not fix anything and would force people to abandon the branch workflow.
+    # (It is how this was found: the restructure is being done on `restructure-p0`, and the whole suite
+    # went red for a reason that had nothing to do with the tree.)
+    #
+    # The check is now branch-INDEPENDENT: every plausible default name must be listed. That is what
+    # the workflow's own comment claims ("Both names are listed so a future rename cannot silently...").
+    plausible = {"main", "master"}
+    missing = sorted(plausible - set(branches))
+    results.append(("push trigger covers every plausible default branch %s" % sorted(plausible),
+                    not missing))
+    if missing:
+        print("    the trigger omits %s -- a push to that branch would start nothing"
+              % ", ".join(missing))
     # a workflow that cannot be triggered by hand cannot be checked by hand either
     results.append(("workflow_dispatch present", "workflow_dispatch" in code))
     # a `|| echo` around the cache fetch hides an outage behind a from-source build that will time out
