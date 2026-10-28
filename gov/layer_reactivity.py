@@ -14,7 +14,14 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NEW = os.path.abspath(os.path.join(HERE, ".."))
-PROBE = os.path.join(NEW, "Lattice", "Lift", "LayeringProbe.lean")
+# Round 242. This used to plant the probe in `Lattice/Lift/`, which is now EMPTY (the 66 modules moved
+# to `Runtime/` in rounds 234-241). The test still worked -- writing a file recreates the directory --
+# but it left `Lattice/Lift/` behind as an untracked empty directory after every `verify_all`.
+#
+# `Runtime` has the SAME rank as `Lift` (both 2), so the planted defect is unchanged: a rank-2 module
+# importing `Lattice.Geo.*` (rank 4) must make I4 report exit 4. Only the location moved, into a
+# layer that actually contains modules.
+PROBE = os.path.join(NEW, "Lattice", "Runtime", "LayeringProbe.lean")
 GATE = os.path.join(HERE, "gate.py")
 
 PROBE_SRC = "import Lattice.Geo.Dist\n\ntheorem layeringProbe : True := trivial\n"

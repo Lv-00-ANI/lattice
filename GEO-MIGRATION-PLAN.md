@@ -503,3 +503,101 @@ IMPORT = re.compile(r"^import\s+(Zero\.Geo\.\S+)", re.M)   # 第 25 行
 **没做**：**没有移动任何 `Lattice/Geo/` 文件**；没有改任何 Geo 模块的 import（除了被 `Lift → Runtime`
 搬迁强制改写的 1 处）；没有改 §2.6/§10 的文本（那是设计裁决，不是搬运）；没有给 `Kernel/Primitives/Domains`
 加 rank。
+
+---
+
+# 补正（第 242 轮）：**传递闭包**的读数，以及它推翻了 §10 的两行
+
+## 0. 为什么要有这一节：**我自己的第一次测量是错的**
+
+第一次统计把每个 `Geo` 模块按它的**直接**非 `Geo` import 分组，得到「62 个只用 Mathlib」，
+并据此判断 §10 的 `Kernel/Constraints` 行可行。
+
+**那个判断是错的。** 反例：
+
+```
+PenaltyLoss.lean : import Lattice.Geo.Constraint, Lattice.Geo.Dist
+Dist.lean        : import Lattice.Lib.Linear.PenaltyVector
+```
+
+`PenaltyLoss` 的**直接**非 `Geo` import 是零，但它**传递地**需要 `Lib`。
+**这正是 `MACRO-STATUS.md` §2 被推翻过两次的同一个错误——「数 import 忘了传递」。**
+
+（附带说明：`GEO-MIGRATION-PLAN.md` 的原文就已经点出 `PenaltyLoss → Dist → Lib` 这条链，
+**是本节的测量差点把它否掉**。记在这里，是因为「直接 import」这个读法很自然会再犯。）
+
+## 1. 正确读数（对全库 946 个模块的图做传递闭包）
+
+| 传递可达的非 `Geo` 层 | 模块数 |
+|:--|--:|
+| `Core + Lib + Runtime` | **80** |
+| `Core` | 9 |
+| `Core + Runtime` | 8 |
+| （只有 Mathlib） | **2** |
+
+「需要的 rank」= `max(可达层的 rank)`：
+
+| 需要的 rank | 模块数 | 含义 |
+|--:|--:|:--|
+| **0** | **11** | 只到 `Core`（rank 0）或只有 Mathlib——**放哪都行** |
+| **2** | **8** | 只到 `Core`+`Runtime`（rank 2） |
+| **3** | **80** | **必须 ≥ `lib`**——因为传递地用到 `Lib` |
+
+**关键结论：99 个里 80 个必须落在 rank ≥ 3。**
+
+## 2. §10 的两行被推翻
+
+### `Kernel/Constraints`（`Kernel` = rank **1**）
+
+| 模块 | 需要的 rank | 传递依赖 | 裁决 |
+|:--|--:|:--|:--|
+| `Expr` | 0 | `Core` | ✅ 可以 |
+| `Constraint` | 3 | `Core+Lib+Runtime` | ❌ **向上依赖** |
+| `Loss` | 3 | `Core+Lib+Runtime` | ❌ **向上依赖** |
+| `PenaltyLoss` | 3 | `Core+Lib+Runtime` | ❌ **向上依赖** |
+| `ConstraintSet` | 3 | `Core+Lib+Runtime` | ❌ **向上依赖** |
+
+**5 条里 4 条不可实现。** §10 的 `Geo/Constraint、Expr、Loss、PenaltyLoss、ConstraintSet → Kernel/Constraints`
+这一整行**按字面无法落地**。
+
+### `Primitives/Train`（rank 4）
+
+`NetLoss`（rank 0）与 `ConstraintDescent`（rank 0）都**只需要 rank 0**，所以
+**放到 `Primitives/Train`（rank 4）是合法的**——它们是向上富余，不是违规。
+`WeightDescent` 同理（rank 0）。**这一行 §10 是对的。**
+
+### `Domains/Geometry` / `Primitives/Model` / `Primitives/Repair` / `Primitives/Verify`
+
+这些目标都是 rank ≥ 3，所以对那 80 个模块**都合法**。
+**§10 的问题只出在 `Kernel/Constraints` 那一行。**
+
+## 3. 修正后的目标建议
+
+**不要**把 `Geo/Constraint`、`Loss`、`PenaltyLoss`、`ConstraintSet` 放进 `Kernel`。
+它们**传递依赖 `Lib`**，而 `Kernel` 是 rank 1。三条可行路线：
+
+| 路线 | 内容 | 代价 |
+|:--|:--|:--|
+| **A（推荐）** | 把这一组放进 **`Domains/Constraints`（rank 3）**，并把 §10 的 `Kernel/Constraints` 行改成它 | 只改文档一行；**与 `PenaltyLoss → Lib` 的实测一致** |
+| B | 把 `Lib.Linear.PenaltyVector` 上移到 `Kernel`，使这一组真的能进 `Kernel` | 要动 `Lib`（本轮明确不碰），且 `PenaltyVector` 是数学内容，进 `Kernel` 名不副实 |
+| C | 接受 `Domains/Constraints` 与 `Primitives/Constraints` 并存 | 多一层概念，收益不明 |
+
+**路线 A 的理由是测量的**：4 个模块需要 rank 3，而 `Domains` 就是 3。
+
+## 4. 这对迁移顺序的约束
+
+- **11 个「rank 0」模块可以最先搬**（`ComputableExpr`、`ConstraintTokenizer`、`Expr`、`Lipschitz`、
+  `MultistepLoop`、`RealToken`、`RealTokenRoundtrip`、`RhoMetric`、`TokenizeStrategy`、
+  `TokenizerPattern`、`WeightDescent`）——它们**放在任何层都合法**，所以搬动**不可能**产生新的向上依赖。
+- **8 个「rank 2」模块次之。**
+- **80 个「rank 3」模块最后**，且**必须**落到 `Domains`/`Primitives`，**不能**是 `Kernel`。
+
+**所以 `Geo` 的第一批应该是那 11 个**，不是计划原文推荐的前缀 1（前缀 1 含 `Constraint`/`Loss`，
+它们的 rank 需求是 3，一旦落到 `Kernel` 就违规）。
+
+## 5. 本节没有做的事
+
+- **没有搬任何 `Geo` 文件。**
+- **没有改 §10**——那一行该怎么改是设计决策，本节只给出测量与三条路线。
+- **没有量「搬动后的 rank 需求是否变化」**：移动会改变 import 图，所以每一批之后都要重算，
+  与 `Lift` 的做法相同。
