@@ -129,6 +129,9 @@ CHECKS = [
     # udit_duplicates.py groups by NAME and is report-only, so it sees neither of these.
     ("audit: alias census", "audit_aliases.py"),
     ("audit: alias self-test", "audit_aliases.py --self-test"),
+    # Round 14. A splice ate a file's final end Lattice and lake build still passed.
+    ("audit: namespace closure", "check_namespace_balance.py"),
+    ("audit: namespace self-test", "check_namespace_balance.py --self-test"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not
