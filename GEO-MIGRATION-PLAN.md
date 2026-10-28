@@ -416,7 +416,7 @@ import `NetLoss`/`PenaltyLoss` 的 `Primitive`（或它们的定义），而共�
 
 | 方案 | 目标 | rank | §2.6 | I4 | 代价 |
 |:--|:--|--:|:--|:--|:--|
-| **A（推荐）** | 三者 + `WeightDescent` → `Primitives/Train`，作为**同组定义+事实** | 4 | **成立**（0 个 `Primitive`） | ✓（`Dist`/`Lib` 都在它下面） | 需改 §10 的 `PenaltyLoss` 行；`NetLoss`/`PenaltyLoss` 与 `ConstraintDescent` 同目录同层，**目录内 import 合法但 §2.6 的"包成 Primitive"要等 §5.2 的裁决** |
+| **A（推荐）** | 三者 + `WeightDescent` → `Primitives/Train`，作为**同组定义+事实** | 4 | **成立**（0 个 `Primitive`） | ✓（`Dist` 与 `Lib` 的 rank 都 ≤ 4；同层 import 不触犯 I4，只有 rank **严格更大**才算上行） | 需改 §10 的 `PenaltyLoss` 行；`NetLoss`/`PenaltyLoss` 与 `ConstraintDescent` 同目录同层，**目录内 import 合法但 §2.6 的"包成 Primitive"要等 §5.2 的裁决** |
 | B | `PenaltyLoss`/`NetLoss` → `Kernel/Constraints`，`ConstraintDescent` → `Primitives/Train` | 1 / 4 | ✓ | **✗** 9 条 Geo→Lib 边中的 `Loss`、以及 `PenaltyLoss→Dist` 全部上行 | 需把 `Lib` 降到 0（第 228 轮已否决，244 个文件） |
 | C | 三者合并成一个 `Primitives/Train` 文件 | 4 | ✓ | ✓ | 有损：3→1，`PATH_MAP` 无法表达，定理归属改变 |
 | D | 三者留在 `Geo`，只把 `WeightDescent` 搬去 `Train` | 4 | ✓ | ✓ | 不解决 §10 的目标；但 `WeightDescent` 是**唯一零 Geo 依赖**的候选（只 import `Core.Net`），可以现在就搬，且不产生任何跨目录边 |
