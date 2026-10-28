@@ -26,7 +26,7 @@
 > |:--|--:|:--|
 > | Lean 模块 | 828 | `audit_counts.py` |
 > | 定理 / 引理 | 8559 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 101 / 0 / 607 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 4 / 66 / 97 / 607 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -115,12 +115,14 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/       0       # 链路层已清空：66 个模块并入 Runtime/（P2 完成）
-│   ├── Domains/  101       # 链路层已清空：66 个模块并入 Runtime/（P2 完成）
-│   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
-│   ├── Geo/       0       # 约束几何与精确惩罚
-│   ├── Lib/      607       # 应用库，按主题（建立在链路层之上）
+│   ├── Core/        18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
+│   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
+│   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
+│   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
+│   ├── Domains/     97       # 领域实例：Constraints 28 + Geometry 71（原 Geo/ 的 99 个迁入后子划分）
+│   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
+│   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
+│   ├── Lib/        607       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26

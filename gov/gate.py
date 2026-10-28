@@ -311,6 +311,10 @@ LAYER_OF = {
     # measured transitively in round 242: 80 of the 99 Geo modules reach `Lib`, so a home at rank 3
     # can host almost all of them. `Kernel` (rank 1) could not, which is why §10's
     # `Kernel/Constraints` row is blocked.
+    # Round 249 (route A). **rank 2, BELOW `Domains`** -- measured: every module §10 wanted in
+    # `Primitives` at rank 4 has consumers staying at rank <= 3 (worst in-degree 8), so rank 4 would
+    # be an upward import. A "basic call used by domain instances" must live at or below them.
+    "Lattice/Primitives": "primitives",
     "Lattice/Domains": "domains",
     "Lattice/Geo": "geo",
     # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
@@ -342,7 +346,8 @@ def check_layering(rep):
     # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
     # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
     # and `Geo/Unified` rely on).
-    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "lib": 3, "domains": 3, "geo": 4, "audit": 5,
+    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3, "domains": 3,
+            "geo": 4, "audit": 5,
             "compose": 6, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
