@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5471 | 64.1% |
-| 1 | 1349 | 15.8% |
+| 0 | 5452 | 63.8% |
+| 1 | 1348 | 15.8% |
 | 2 | 697 | 8.2% |
-| 3 | 512 | 6.0% |
-| 4 | 436 | 5.1% |
-| 5 | 67 | 0.8% |
+| 3 | 508 | 5.9% |
+| 4 | 457 | 5.4% |
+| 5 | 76 | 0.9% |
 | 6 | 2 | 0.0% |
-| **合计** | **8534** | |
+| **合计** | **8540** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -31,9 +31,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 5 | `compose_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `composeWith_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `composeWith_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_strength` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_coverage` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_run_assoc` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `identity_compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
@@ -42,18 +44,25 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `choice_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `choice_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `choice_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `optional_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `optional_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `Primitive.withCoverage_sound` (`Compose/Primitive.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `MatrixRow.strength_eq` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `foldStrength_le_of_mem` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `exact_of_foldStrength_exact` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `all_twelve_discharged` (`Lib/Chain/RealLv00AxiomDischargeSummary.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `all_twelve_discharged` (`Lib/Chain/RealN2AxiomDischargeJia.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `compile_program_go_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `compile_program_go_contains` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
@@ -79,15 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `edit_undo_drops_add` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `holdsSet_samePoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `holdsSet_midpoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `compile_sound` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `compile_sound_midpoint` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_of_sublist` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merged_sublist` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_flatMap_experts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_parts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_sound` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `rejected_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `conflict_loser_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

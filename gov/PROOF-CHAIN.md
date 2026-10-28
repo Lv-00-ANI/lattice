@@ -1652,10 +1652,10 @@
 | `Lattice.Lift.WeightToSymbolEquivalence` | 4 | 3 |
 | `Lattice.Audit` | 0 | 0 |
 | `Lattice.Compose` | 0 | 0 |
-| `Lattice.Compose.Combinators` | 6 | 2 |
+| `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
-| `Lattice.Compose.More` | 3 | 1 |
-| `Lattice.Compose.Primitive` | 7 | 8 |
+| `Lattice.Compose.More` | 8 | 3 |
+| `Lattice.Compose.Primitive` | 6 | 8 |
 | `Lattice.Compose.Registry` | 3 | 6 |
 | `Lattice.Core` | 0 | 0 |
 | `Lattice.Geo` | 0 | 0 |
@@ -1696,7 +1696,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `Coverage.inter_none_left` -> `run`, `sound`
 - `Coverage.inter_none_right` -> `run`, `sound`
-- `Coverage.inter_subset_left` -> `run`, `sound`
 - `Coverage.union_none_left` -> `run`, `sound`
 - `D1_compile_ignores_constraint_name` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D1_compile_loses_distance_value` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`, `sqrt_one`
@@ -2720,6 +2719,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chiSq_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `child_sizeOf_lt` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `children_node` -> `apply`, `depth`, `size`
+- `choice_coverage` -> `Primitive`, `dec`, `run`, `sound`, `union`
+- `choice_sound` -> `Primitive`, `dec`, `min`, `run`, `sound`, `union`
+- `choice_strength` -> `Primitive`, `dec`, `min`, `run`, `sound`, `union`
 - `chord_bound_symm_measure` -> `condexp_add`, `condexp_const`, `condexp_mono`, `mono`, `trans`
 - `chord_exp_le_cosh_sinh` -> `apply`, `card_fin`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `chord_hull` -> `add`, `div_const`, `le`, `mono`, `trans`
@@ -2772,12 +2774,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closureOperator_extensive` -> `IsFormalConcept`, `extent_antitone`, `intent_antitone`, `relu`, `subset_extent_intent`
 - `closureOperator_isClosureOperator` -> `PiecewiseConstraint`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closureOperator_monotone` -> `IsFormalConcept`, `extent_antitone`, `intent_antitone`, `relu`
-- `closure_fixedPoints_eq_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `inter_subset_left`, `mono`, `obs`, `trans`
-- `closure_fixed_iff_mem_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `inter_subset_left`, `mono`, `obs`, `trans`
-- `closure_fixed_inter` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `inter_subset_left`, `mono`, `obs`, `trans`
+- `closure_fixedPoints_eq_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
+- `closure_fixed_iff_mem_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
+- `closure_fixed_inter` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
 - `closure_fixpoint_iff_mem_range` -> `PiecewiseConstraint`, `closureOperator`, `extent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closure_fixpoint_subset_image` -> `PiecewiseConstraint`, `closureOperator`, `extent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
-- `closure_idempotent` -> `apply`, `inter_subset_left`
+- `closure_idempotent` -> `apply`
 - `closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `closure_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `beqShape`, `induction`, `mul`, `zero`
 - `cmat_vec_normSq_le` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
@@ -2993,12 +2995,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
+- `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
+- `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_act` -> `Chain`, `W`, `compose`, `induction`
 - `compose_bridged` -> `Audit`
 - `compose_chain` -> `Audit`
 - `compose_coverage` -> `Primitive`, `inter`, `run`, `sound`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
-- `compose_run` -> `Primitive`, `run`, `sound`
+- `compose_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_run_assoc` -> `Primitive`, `run`, `sound`
 - `compose_sequential` -> `Audit`
 - `compose_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
@@ -3026,7 +3030,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `computabilityTheory_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `computabilityTheoryExtra`, `computabilityTheoryPackage`, `computabilityTheory_closed`, `computabilityTheory_extra_length`, `computabilityTheory_false_but_repairable`, `computabilityTheory_validB_eq_false`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_computabilityTheory_orig`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `computabilityTheory_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `computabilityTheoryExtra`, `computabilityTheoryPackage`, `computabilityTheory_closed`, `computabilityTheory_closedB_eq_true`, `computabilityTheory_false_but_repairable`, `computabilityTheory_validB_eq_false`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_computabilityTheory_orig`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `computabilityTheory_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `computabilityTheoryExtra`, `computabilityTheoryPackage`, `computabilityTheory_closed`, `computabilityTheory_extra_length`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_computabilityTheory_orig`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
-- `computabilityTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `computabilityTheoryTemplateNames`, `graphTheoryTemplateNames`, `length`, `mkTemplates`, `modalLogicPackage`, `modalLogicTemplateNames`, `modalLogicTemplates`, `modalLogicUnconstructibles`, `modalLogic_templateNames_length`, `pairing`, `path`, `singleton`, `union`, `zfcSetTheoryPackage`, `zfcSetTheoryTemplateNames`, `zfcSetTheoryTemplates`, `zfcSetTheoryUnconstructibles`, `zfcSetTheory_templateNames_length`
+- `computabilityTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `choice`, `computabilityTheoryTemplateNames`, `graphTheoryTemplateNames`, `length`, `mkTemplates`, `modalLogicPackage`, `modalLogicTemplateNames`, `modalLogicTemplates`, `modalLogicUnconstructibles`, `modalLogic_templateNames_length`, `pairing`, `path`, `singleton`, `union`, `zfcSetTheoryPackage`, `zfcSetTheoryTemplateNames`, `zfcSetTheoryTemplates`, `zfcSetTheoryUnconstructibles`, `zfcSetTheory_templateNames_length`
 - `computabilityTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `computabilityTheoryExtra`, `computabilityTheoryPackage`, `computabilityTheory_closed`, `computabilityTheory_closedB_eq_true`, `computabilityTheory_extra_length`, `computabilityTheory_false_but_repairable`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_computabilityTheory_orig`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `conceptToConstraint_agrees_with_extent` -> `IsFormalConcept`, `RealConstraint`, `extent`
 - `conceptToConstraint_def` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
@@ -3036,9 +3040,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conceptToConstraint_sat_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
 - `conceptToConstraint_side_condition_is_necessary` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
 - `concept_extent_determined` -> `IsFormalConcept`, `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
-- `concept_extraction_idempotent` -> `apply`, `inter_subset_left`
+- `concept_extraction_idempotent` -> `apply`
 - `concept_intent_unique` -> `IsFormalConcept`, `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
-- `concept_meet_is_concept` -> `apply`, `inter_subset_left`
+- `concept_meet_is_concept` -> `apply`
 - `concrete_lift_witness` -> `dot`
 - `condExpFiber_add` -> `apply`
 - `condExpFiber_const` -> `apply`
@@ -4176,11 +4180,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_symbol_same_function` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_symbol_semantically_equivalent` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_syntactic_inverse_recovers_behavior` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `dot`, `length`, `recover`, `recover_injective`
-- `exists_topK` -> `IsTopK`, `insert`, `inter_subset_left`
-- `exists_topKIn` -> `IsTopK`, `dec`, `induction`, `insert`, `inter_subset_left`, `zero`
+- `exists_topK` -> `IsTopK`, `insert`
+- `exists_topKIn` -> `IsTopK`, `dec`, `induction`, `insert`, `zero`
 - `exists_topk_one` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `exists_unique_optimal_kl_policy` -> `le`
-- `exists_unique_topK_of_injective` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
+- `exists_unique_topK_of_injective` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
 - `exists_violation_positive` -> `out`
 - `expNegDiv_le_expNegSqDiv_iff` -> `apply`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `exp_budget_eq` -> `uniformExpectation`, `uniformProb`, `union_bound_finite`
@@ -4210,14 +4214,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extendAt_comm` -> `add`, `induction`, `lit`, `subst`, `trans`
 - `extendAt_extendAt_same` -> `add`, `induction`, `subst`
 - `extent2_iUnion` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
-- `extent_antitone` -> `apply`, `inter_subset_left`
+- `extent_antitone` -> `apply`
 - `extent_antitone_here` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
 - `extent_iInter_subset_iInter` -> `IsFormalConcept`, `apply`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `extent_iInter_subset_iUnion` -> `extent`, `intent`
 - `extent_iInter_subset_twoSided` -> `IsFormalConcept`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `extent_iUnion` -> `extent`, `intent`
 - `extent_iUnion_eq_iInter` -> `IsFormalConcept`, `apply`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
-- `extent_intent_extent` -> `apply`, `inter_subset_left`
+- `extent_intent_extent` -> `apply`
 - `extent_intent_extent_here` -> `IsFormalConcept`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `extent_intent_monotone` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
 - `extent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
@@ -4294,7 +4298,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `factorsThrough_of_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `factors_id` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `factors_project` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
-- `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `families_satisfiable` -> `Compiler`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `bvar`, `induction`, `subst`
 - `farkas_alternative` -> `dotV`, `le_refl`
@@ -4586,7 +4590,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `forgetting_bound_of_drift` -> `induction`, `zero`
 - `forgetting_self` -> `induction`, `zero`
 - `formal_concept_extent_is_norm_fixed` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `formal_concept_iff_closure` -> `apply`, `inter_subset_left`
+- `formal_concept_iff_closure` -> `apply`
 - `format_add_error` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `format_error_bound` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `format_error_bound_of_le` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
@@ -4669,7 +4673,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `galoisConnection_of_pointwise` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
 - `galoisMem_intro` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
 - `galoisMem_pointwise` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
-- `galois_connection` -> `apply`, `inter_subset_left`
+- `galois_connection` -> `apply`
 - `galois_connection_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `galois_connection_temporal` -> `extent`, `galois_connection`, `subset_extent_intent`, `subset_intent_extent`
 - `galois_preimage_comp` -> `trans`
@@ -5227,10 +5231,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `integral_exp_neg_sq_zero_to_le` -> `le`
 - `intent2_iUnion` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
 - `intent2_union` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
-- `intent_antitone` -> `apply`, `inter_subset_left`
+- `intent_antitone` -> `apply`
 - `intent_antitone_here` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
 - `intent_antitone_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
-- `intent_closure_idempotent` -> `apply`, `inter_subset_left`
+- `intent_closure_idempotent` -> `apply`
 - `intent_closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `intent_extent_intent_here` -> `IsFormalConcept`, `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `intent_extent_monotone` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
@@ -5367,9 +5371,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `jensen_two` -> `kl`
 - `jensen_two_eq_of_strictConvexOn` -> `kl`
 - `jensen_two_strict` -> `kl`
-- `join_absorb_meet` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `intent`, `intent_antitone`, `inter_subset_left`
+- `join_absorb_meet` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `intent`, `intent_antitone`
 - `join_app_disjoint` -> `Compiler`, `Term`, `app_l`, `app_r`
-- `join_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`, `inter_subset_left`
+- `join_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
 - `join_isLUB` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`
 - `joinable_refl` -> `induction`, `star_single`, `star_trans`, `subst`, `trans`
 - `joinable_symm` -> `induction`, `star_single`, `star_trans`, `subst`, `trans`
@@ -5617,7 +5621,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `le_tsum_of_nonneg` -> `apply`, `infinite_sum_bound`
 - `least_fixed_point_finite` -> `induction`, `zero`
 - `leftInverse_covers_non_factoring_P` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
-- `leftInverse_iff_injective` -> `apply`, `le_trans`, `subst`
+- `leftInverse_iff_injective` -> `apply`, `choice`, `le_trans`, `subst`
 - `leftInverse_separates` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
 - `lengthBound_le_of_le` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `length_cons` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
@@ -5990,10 +5994,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `measure_unbounded` -> `Sat`, `iterate`
 - `median_minimizes_abs_risk_gen` -> `apply`, `le`, `le_trans`
 - `median_minimizes_abs_risk_left_support` -> `le`, `le_refl`, `le_trans`
-- `meet_absorb_join` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`, `inter_subset_left`
-- `meet_assoc` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`, `inter_subset_left`
-- `meet_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`, `inter_subset_left`
-- `meet_isGLB` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `inter_subset_left`
+- `meet_absorb_join` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
+- `meet_assoc` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
+- `meet_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
+- `meet_isGLB` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`
 - `memShape_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `beqShape`, `beqShape_eq`, `induction`, `mul`, `rule_entails`, `zero`
 - `mem_Subdiff` -> `Subgradient`, `relu`
 - `mem_activeSet` -> `LICQOneDim`, `le_refl`, `subst`
@@ -6160,7 +6164,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `modalLogic_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `modalLogic_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `modalLogic_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_extra_length`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
-- `modalLogic_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `graphTheoryTemplateNames`, `graphTheoryTemplates`, `graphTheoryUnconstructibles`, `length`, `mkTemplates`, `modalLogicTemplateNames`, `pairing`, `path`, `singleton`, `union`, `zfcSetTheoryPackage`, `zfcSetTheoryTemplateNames`, `zfcSetTheoryTemplates`, `zfcSetTheoryUnconstructibles`, `zfcSetTheory_templateNames_length`
+- `modalLogic_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `choice`, `graphTheoryTemplateNames`, `graphTheoryTemplates`, `graphTheoryUnconstructibles`, `length`, `mkTemplates`, `modalLogicTemplateNames`, `pairing`, `path`, `singleton`, `union`, `zfcSetTheoryPackage`, `zfcSetTheoryTemplateNames`, `zfcSetTheoryTemplates`, `zfcSetTheoryUnconstructibles`, `zfcSetTheory_templateNames_length`
 - `modalLogic_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `model_block_lb_nonneg` -> `ChainFwd`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `transformer_block_numeric`, `zero`
 - `model_block_lipschitz_numeric` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `transformer_block_numeric`, `zero`
@@ -6710,10 +6714,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `optimal_lambda_algebra_wrong_shape` -> `convert`, `crossEntropy`, `kl`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
 - `optimality_principle` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
 - `optimality_principle_greedy` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
+- `optional_sound` -> `Primitive`, `dec`, `run`, `sound`
 - `optional_stopping_bounded_martingale` -> `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_eq_last` -> `le_refl`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_min` -> `le_refl`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_tower` -> `le_refl`, `martingale_expected_stoppedValue_eq_of_le`, `mgf_le_of_condexp_le`
+- `optional_strength` -> `Primitive`, `dec`
 - `orC_pos_of_both_ne` -> `subst`
 - `orderTheory_closed` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `orderTheory_closedB_eq_true` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
@@ -6799,11 +6805,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parallelFix_reaches` -> `Pt`, `apply`, `seg`
 - `parallelPenalty_eq_zero_iff_of_ne` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
 - `parallelPenalty_nonneg` -> `Pt`
-- `parallel_coverage` -> `Primitive`, `inter`
+- `parallel_coverage` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_gap_closed` -> `Pt`, `seg`
 - `parallel_skolemized` -> `Pt`, `seg`
-- `parallel_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
-- `parallel_strength` -> `Primitive`, `inter`, `min`
+- `parallel_sound` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
+- `parallel_strength` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `parallel`, `seg`, `sqDist`, `sqNorm`
 - `paramLoss_forall_p_false` -> `LinearLayer`, `RealConstraint`, `RealDot`, `symW`
 - `paramLoss_not_const` -> `LinearLayer`, `RealConstraint`, `RealDot`, `symW`
@@ -8029,7 +8035,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `second_order_taylor` -> `add`, `comp`, `normSq`, `quadForm`, `smul`
 - `second_order_taylor_unconditional` -> `IsSymmMat`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
 - `second_substantive_instance` -> `E`, `PenaltyEmbedding`, `compile`, `encode`, `loss`, `satW`
-- `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `segComp_fderiv_apply` -> `mul`, `unflatten`
 - `seg_bump_far` -> `seg`
@@ -8334,8 +8340,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sparse_uniqueness_of_nullspace` -> `l0Norm`
 - `spec_pmf` -> `min`
 - `spec_retract_minimal` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
-- `spec_retract_of_failure_identifiable` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
-- `spec_retract_without_rep` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `spec_retract_of_failure_identifiable` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `spec_retract_without_rep` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `spectral_concentration_around_expectation` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `spectral_concentration_of_markov` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `spectral_radius_concentration_transfer` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `matCLME`, `spectral_radius_le_opNorm`
@@ -8576,7 +8582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subGaussianTail_of_subExponential_tail` -> `apply`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `subGaussian_strictly_weaker_than_subExponential_at_small_t` -> `apply`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `sub_le_mul_log_div` -> `le`, `subst`
-- `subconcept_trans` -> `apply`, `inter_subset_left`
+- `subconcept_trans` -> `apply`
 - `subdiffN_affine_precomp` -> `apply`, `le_refl`, `relu`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `subdiffN_affine_precomp_id` -> `le_refl`, `relu`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `subdiff_add_const` -> `Subgradient`, `apply`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
@@ -8605,12 +8611,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subgradient_monotone` -> `Subgradient`
 - `subgradient_step_decrease` -> `Subgradient`
 - `submartingale_of_condexp_le` -> `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
-- `subset_extent_intent` -> `apply`, `inter_subset_left`
+- `subset_extent_intent` -> `apply`
 - `subset_fcaClosure` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `closure_idempotent`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `subset_extent_intent`
 - `subset_gazeDown_gazeUp` -> `extent`, `subset_extent_intent`, `subset_intent_extent`
 - `subset_gazeUp_gazeDown` -> `extent`, `subset_intent_extent`
 - `subset_image_preimage_iff_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `subset_intent_extent` -> `apply`, `inter_subset_left`
+- `subset_intent_extent` -> `apply`
 - `subspaceConstraint_bot` -> `E`, `card_fin`
 - `subspaceConstraint_top` -> `E`, `card_fin`
 - `subspace_inf` -> `E`, `card_fin`
@@ -8646,7 +8652,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_finStdBasisVec_smul` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `sum_iclReadout_mul` -> `apply`
 - `sum_ite_mem` -> `apply`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`
-- `sum_le_of_dominated_in` -> `dec`, `inter_subset_left`
+- `sum_le_of_dominated_in` -> `dec`
 - `sum_marginal_mul_card` -> `card_fin`, `induction`, `uniformExpectation`, `variance`, `zero`
 - `sum_mgf_factor` -> `apply`, `card_fin`, `comp`, `const_add`, `markov_counting`, `uniformExpectation`, `uniformProb`
 - `sum_mgf_le` -> `apply`, `comp`, `const_add`, `convert`, `markov_counting`, `subst`, `uniformExpectation`, `uniformProb`
@@ -8818,7 +8824,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tanh_pos_of_pos` -> `ZeroFixingR`, `apply`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`
 - `tanh_strictMonoOn_Ici_zero` -> `apply`
 - `tanh_strictMonoOn_Ici_zero_fid` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `apply`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `zeroFixingHoldsBounded`
-- `task_section_shape_is_rfl` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `task_section_shape_is_rfl` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `taylor_denom_bridge` -> `subst`
 - `taylor_denom_correction` -> `subst`
 - `taylor_denom_ratio` -> `subst`
@@ -8933,21 +8939,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokenize_not_injective` -> `apply`, `induction`, `length`, `length_cons`, `trans`, `zero`
 - `top1_output_bound` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `top1_output_is_hard` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
-- `topKIn_dominated` -> `IsTopK`, `dec`, `induction`, `insert`, `inter_subset_left`, `zero`
-- `topKIn_mass_deficit` -> `IsTopK`, `dec`, `inter_subset_left`
-- `topKIn_of_topK_subset` -> `IsTopK`, `dec`, `inter_subset_left`
-- `topKIn_sum_le_topK` -> `IsTopK`, `dec`, `inter_subset_left`
-- `topKIn_unique_of_lt` -> `IsTopK`, `dec`, `inter_subset_left`
-- `topK_card_le` -> `IsTopK`, `insert`, `inter_subset_left`, `le_antisymm`
-- `topK_dominated` -> `IsTopK`, `insert`, `inter_subset_left`, `le_antisymm`
-- `topK_eq_univ_of_card_eq` -> `IsTopK`, `insert`, `inter_subset_left`, `le_antisymm`
-- `topK_sum_eq` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
-- `topK_sum_max` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
-- `topK_sum_mono_of_subset` -> `IsTopK`, `dec`, `induction`, `insert`, `inter_subset_left`, `zero`
-- `topK_swap_of_eq` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
-- `topK_unique_of_gap` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
-- `topK_unique_of_injective` -> `IsTopK`, `induction`, `insert`, `inter_subset_left`, `le_antisymm`, `zero`
-- `topK_unique_of_lt` -> `IsTopK`, `insert`, `inter_subset_left`, `le_antisymm`
+- `topKIn_dominated` -> `IsTopK`, `dec`, `induction`, `insert`, `zero`
+- `topKIn_mass_deficit` -> `IsTopK`, `dec`
+- `topKIn_of_topK_subset` -> `IsTopK`, `dec`
+- `topKIn_sum_le_topK` -> `IsTopK`, `dec`
+- `topKIn_unique_of_lt` -> `IsTopK`, `dec`
+- `topK_card_le` -> `IsTopK`, `insert`, `le_antisymm`
+- `topK_dominated` -> `IsTopK`, `insert`, `le_antisymm`
+- `topK_eq_univ_of_card_eq` -> `IsTopK`, `insert`, `le_antisymm`
+- `topK_sum_eq` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
+- `topK_sum_max` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
+- `topK_sum_mono_of_subset` -> `IsTopK`, `dec`, `induction`, `insert`, `zero`
+- `topK_swap_of_eq` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
+- `topK_unique_of_gap` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
+- `topK_unique_of_injective` -> `IsTopK`, `induction`, `insert`, `le_antisymm`, `zero`
+- `topK_unique_of_lt` -> `IsTopK`, `insert`, `le_antisymm`
 - `topk_one_is_argmax` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `topk_output_bound` -> `apply`, `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `topk_route_capacity_exceeded` -> `apply`, `drop_of_total_exceeds_capacity`

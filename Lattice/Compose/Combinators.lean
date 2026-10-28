@@ -1,77 +1,102 @@
 /-
-# `Compose/Combinators` —— 组合子与它们的定律（P0）
+# `Compose/Combinators` —— 串联与恒等（**参数版**）
 
-## 0. ⚠ 先说一处**设计文档的签名错误**，本节修正了它
+## 0. 参数化消掉的是 **cast**，不是**兼容性义务**
 
-`DIRECTORY-DESIGN.md` §6 写的是
+字段版里 `compose` 有两个附加参数：`adapt : f.Output → g.Input` 与
+`h : ∀ x y, f.post x y → g.pre (adapt y)`。
 
-```lean
-def compose (f g : Primitive) (h : ∀ x y, f.post x y → g.pre y) : Primitive
-```
+**它们承担的是两件不同的事**：
 
-**这个签名不可类型化。** `f : Primitive` 的 `Output` 与 `g : Primitive` 的 `Input` 是**两个独立的
-`Type` 字段**，结构里没有任何东西强制它们相等，所以 `g.pre y` 里的 `y : f.Output` 通不过类型检查。
+| 参数 | 它解决什么 | 参数化后还在吗 |
+|:--|:--|:--|
+| `adapt : f.Output → g.Input` | **类型不匹配**（`f.Output` 与 `g.Input` 是两个独立字段） | **不在了**——中间类型 `M` 由推断配出 |
+| `h : ∀ x y, f.post x y → g.pre …` | **语义义务**：`f` 的后置必须蕴含 `g` 的前置 | **还在** |
 
-实测报错（本文件第一版）：
+**这是必须分清的一件事**：第 228 轮的实测报错是类型错误（`g.pre y` 的 `y` 类型不对），
+但那只是**表象**；即使类型对上，`g.pre y` 也**不会**从 `f.post x y` 推出。
+`sound` 需要 `g.pre y` 才能调用 `g.sound`，**所以 `h` 无论如何都得由调用方给。**
 
-```
-error: application type mismatch
-  g.pre y
-argument y has type f.Output : Type
-but is expected to have type g.Input : Type
-```
+**本节按这个分清的结果写**：`compose` 无适配器、保留 `h`；`composeWith` 两者都有。
 
-§7 第 1 条说「所有 `Input/Output` 都是 `Kernel` 类型」——**那不等于同一个类型**。
-§7 第 5 条自己说了「缺边用显式适配器」，所以正确的签名必须**显式带适配器**：
-
-```lean
-def compose (f g : Primitive) (adapt : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (adapt y)) : Primitive
-```
-
-**适配器不是可选的语法糖，是这条组合能成立的前提**——这是 §7 第 5 条在类型上的必然结果。
-本节按修正后的签名实现。
+**参数化的真实收益有两处，都不是 `compose` 的 `h`**：
+1. `compose` 不再需要 `adapt`；
+2. **`identity_compose_run` 不再需要任何兼容性假设**（见 §2）——字段版需要它，因为 `id` 的
+   `α` 无法与 `f.Input` 对上。
 
 ## 1. 交付
 
 | 声明 | 内容 |
 |:--|:--|
-| **`compose`** | **串联，需要适配器 + `post → pre` 的证明** |
-| **`compose_sound`** | 两个 sound 的 primitive 串起来仍 sound |
-| `compose_run_assoc` | `run` 的结合律（`Option` 单子的 `bind_assoc`） |
-| `identity` | 恒等 primitive（`exact` / `univ`） |
-| `identity_compose_run` | **左单位**：`compose identity f` 的 `run` 与 `f` 相同 |
-| `compose_strength` / `compose_coverage` | 强度取最小 / 覆盖取交集 |
+| **`compose`** | `Primitive I M` → `Primitive M O` →（`h`）→ `Primitive I O` |
+| **`composeWith`** | 同上但带 `adapt : A → B`（§7 第 5 条的情形） |
+| `compose_sound` / `composeWith_sound` | 串联保持正确性 |
+| `compose_run` / `composeWith_run` | `run` 的展开式 |
+| `compose_run_assoc` | `run` 的结合律（`Option.bind_assoc`） |
+| `compose_strength` / `compose_coverage` | 强度取最小 / 覆盖取交 |
+| **`identity`** | `Primitive α α`，`exact`，覆盖不限制 |
+| `identity_compose_run` | **左单位**——**不需要任何兼容性假设** |
 
-## 2. 为什么只证 `run` 层的结合律
+## 2. 左单位**仍需要 `h`** —— 参数化只省掉 `adapt`
 
-`Primitive` 带 `sound` 字段——**一个证明项**。两个 `Primitive` 的 `sound` 不会定义相等，
-所以 `compose (compose f g) h = compose f (compose g h)` **不可证**（需要证明无关性）。
-但 **`run` 的结合律可证**，而 `run` 才是使用者调用的东西。
-**把不可证的东西写成「定理」是名义完成**，所以本节只证 `run` 层并说明理由。
+**第一版写错了**：它说参数版下左单位的 `h` 可以「由 `trivial` 给出」。**不成立**。
+`compose` 的 `h` 要求 `∀ x y, (identity I).post x y → f.pre y`，而 `(identity I).post x y` 是 `y = x`，
+于是 `h` 要产出 `f.pre y`——**而 `f.pre` 是任意的，`y = x` 推不出它。** 实测报错：
+
+```
+type mismatch: trivial has type True
+ but is expected to have type f.pre x✝¹
+```
+
+**准确的收益是「少一个参数」，不是「不用证明」**：
+
+| 版本 | 调用形态 | 缺什么 |
+|:--|:--|:--|
+| 字段版 | `compose (identity α) f id h` | `α` 要对上 `f.Input`（靠 `id` 的类型推断）**且**给 `h` |
+| **参数版** | `compose (identity I) f h` | **只给 `h`** |
+
+`α` 与 `f.Input` 的配对由推断完成，**适配器 `id` 不需要写出来了**——这是参数化在这里的**全部**收益。
+`h` 是语义义务，与类型无关，**两种版本都要给**。
 
 ## 3. 边界
 
-- **只做 `compose` 与 `identity`**。`parallel`/`choice`/`optional`/`iterate` 的 `Input`/`Output`
-  是积/和类型，`sound` 写法各异，**P1 再做**。
-- **`identity` 的覆盖是 `Finset.univ`**：含义是「不限制」，不是「覆盖了全部字符串」。
-- **不注册任何 primitive**，不写 `Registry`。 -/
+- **不证结构相等**：`Primitive` 带 `sound` 证明项，所以
+  `compose (compose f g) h = compose f (compose g h)` **不可证**（需要证明无关性）。
+  `run` 层**可证**，而 `run` 才是使用者调用的东西。
+- **`identity` 的覆盖是 `none`**：含义是「不限制」。 -/
 import Mathlib
 import Lattice.Compose.Primitive
 
 namespace Lattice.Compose
 
-/-! ## 一、串联（带适配器） -/
+/-! ## 一、串联（中间类型相同，无适配器） -/
 
-/-- **串联**：先跑 `f`，用 `adapt` 把结果送进 `g`，再跑 `g`。
+/-- **串联**：`f` 的输出类型就是 `g` 的输入类型。
 
-**`adapt` 是必需的**：`f.Output` 与 `g.Input` 是不同的类型（见 §0）。
-**`h` 是兼容性证明**——`f` 的后置必须蕴含 `g` 在**适配后**的前置。
-**这就是「库不打包能力」在类型上的实现**：想串两步，中间接口由调用方给出并证明。 -/
-def compose (f g : Primitive) (adapt : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (adapt y)) : Primitive where
-  Input := f.Input
-  Output := g.Output
+**没有适配器**——中间类型 `M` 由类型推断配出。
+**`h` 仍在**：`f` 的后置必须蕴含 `g` 的前置，**这是语义义务，不是类型产物**（见 §0）。 -/
+def compose {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ x y, f.post x y → g.pre y) : Primitive I O where
+  pre := f.pre
+  post := fun x z => ∃ y, f.post x y ∧ g.post y z
+  run := fun x => (f.run x).bind g.run
+  sound := by
+    intro x hx
+    obtain ⟨y, hfy, hfpost⟩ := f.sound x hx
+    have hgpre : g.pre y := h x y hfpost
+    obtain ⟨z, hgz, hgpost⟩ := g.sound y hgpre
+    exact ⟨z, by simp only [Option.bind, hfy, hgz], y, hfpost, hgpost⟩
+  strength := f.strength.min g.strength
+  coverage := f.coverage.inter g.coverage
+  frame := fun x z => ∃ y, f.frame x y ∧ g.frame y z
+
+/-! ## 二、串联（中间类型不同，带适配器） -/
+
+/-- **带适配器的串联**：§7 第 5 条「缺边用显式适配器」的情形。
+
+`adapt : A → B` 把 `f` 的输出送成 `g` 的输入类型。 -/
+def composeWith {I A B O : Type} (adapt : A → B) (f : Primitive I A) (g : Primitive B O)
+    (h : ∀ x y, f.post x y → g.pre (adapt y)) : Primitive I O where
   pre := f.pre
   post := fun x z => ∃ y, f.post x y ∧ g.post (adapt y) z
   run := fun x => (f.run x).bind (fun y => g.run (adapt y))
@@ -85,61 +110,63 @@ def compose (f g : Primitive) (adapt : f.Output → g.Input)
   coverage := f.coverage.inter g.coverage
   frame := fun x z => ∃ y, f.frame x y ∧ g.frame (adapt y) z
 
+/-! ## 三、定律 -/
+
 /-- **串联保持正确性。** -/
-theorem compose_sound (f g : Primitive) (adapt : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (adapt y)) (x : f.Input) (hx : f.pre x) :
-    ∃ z, (compose f g adapt h).run x = some z ∧ (compose f g adapt h).post x z :=
-  (compose f g adapt h).sound x hx
+theorem compose_sound {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ x y, f.post x y → g.pre y) (x : I) (hx : f.pre x) :
+    ∃ z, (compose f g h).run x = some z ∧ (compose f g h).post x z :=
+  (compose f g h).sound x hx
+
+/-- **带适配器的串联保持正确性。** -/
+theorem composeWith_sound {I A B O : Type} (adapt : A → B)
+    (f : Primitive I A) (g : Primitive B O)
+    (h : ∀ x y, f.post x y → g.pre (adapt y)) (x : I) (hx : f.pre x) :
+    ∃ z, (composeWith adapt f g h).run x = some z ∧ (composeWith adapt f g h).post x z :=
+  (composeWith adapt f g h).sound x hx
+
+/-- **`run` 的展开式**（无适配器）。 -/
+theorem compose_run {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ x y, f.post x y → g.pre y) (x : I) :
+    (compose f g h).run x = (f.run x).bind g.run := rfl
+
+/-- **`run` 的展开式**（带适配器）。 -/
+theorem composeWith_run {I A B O : Type} (adapt : A → B)
+    (f : Primitive I A) (g : Primitive B O)
+    (h : ∀ x y, f.post x y → g.pre (adapt y)) (x : I) :
+    (composeWith adapt f g h).run x = (f.run x).bind (fun y => g.run (adapt y)) := rfl
 
 /-- **串联的强度取最小**：组合不会让承诺变强。 -/
-theorem compose_strength (f g : Primitive) (adapt : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (adapt y)) :
-    (compose f g adapt h).strength = f.strength.min g.strength := rfl
+theorem compose_strength {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ x y, f.post x y → g.pre y) :
+    (compose f g h).strength = f.strength.min g.strength := rfl
 
 /-- **串联的覆盖取交集**：组合不会让覆盖变大。 -/
-theorem compose_coverage (f g : Primitive) (adapt : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (adapt y)) :
-    (compose f g adapt h).coverage = f.coverage.inter g.coverage := rfl
+theorem compose_coverage {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ x y, f.post x y → g.pre y) :
+    (compose f g h).coverage = f.coverage.inter g.coverage := rfl
 
-/-- **`run` 的展开式**：串联的执行就是两次 `bind`。
+/-- **`run` 的结合律**：`(f 然后 g) 然后 k` 与 `f 然后 (g 然后 k)` 的执行相同。
 
-这条是后面所有 `run` 层定律的地基——它把「组合的语义」变成一条可改写的事实。 -/
-theorem compose_run (f g : Primitive) (a : f.Output → g.Input)
-    (h : ∀ x y, f.post x y → g.pre (a y)) (x : f.Input) :
-    (compose f g a h).run x = (f.run x).bind (fun y => g.run (a y)) := rfl
+`Option.bind_assoc` 的直接推论。**只在 `run` 层成立**——结构层需要证明无关性，见 §3。
 
-/-- **`run` 的结合律**：`(f 然后 g) 然后 k` 的执行等于 `f 然后 (g 然后 k)`。
+**右边写成显式三层 `bind`**：写成两个 `compose` 的相等要为右边再造兼容性证明，
+而那些证明**不进入 `run`**。显式 `bind` 才是这条定律的**内容**。 -/
+theorem compose_run_assoc {I A B C : Type}
+    (f : Primitive I A) (g : Primitive A B) (k : Primitive B C)
+    (h₁ : ∀ x y, f.post x y → g.pre y)
+    (h₂ : ∀ y z, g.post y z → k.pre z)
+    (h₃ : ∀ x z, (compose f g h₁).post x z → k.pre z) (x : I) :
+    (compose (compose f g h₁) k h₃).run x
+      = (f.run x).bind (fun y => (g.run y).bind (fun z => k.run z)) := by
+  show ((f.run x).bind g.run).bind k.run
+      = (f.run x).bind (fun y => (g.run y).bind (fun z => k.run z))
+  exact Option.bind_assoc (f.run x) g.run k.run
 
-`Option.bind_assoc` 的直接推论。**只在 `run` 层成立**——结构层需要证明无关性（`sound` 是证明项），
-见 §2。
+/-! ## 四、恒等 -/
 
-**注意它没有把右边写成 `compose f (compose g k …)`**：那需要为右边的复合再造一个适配器与兼容性证明，
-而那些证明**不进入 `run`**。写成显式的三层 `bind` 才是这条定律的**内容**，
-写成两个 `compose` 的相等只是把它藏进适配器里。 -/
-theorem compose_run_assoc (f g k : Primitive)
-    (a₁ : f.Output → g.Input) (a₂ : g.Output → k.Input)
-    (h₁ : ∀ x y, f.post x y → g.pre (a₁ y))
-    (h₂ : ∀ y z, g.post y z → k.pre (a₂ z)) (x : f.Input) :
-    (compose (compose f g a₁ h₁) k a₂
-        (by
-          intro x z hz
-          obtain ⟨y, _, hgz⟩ := hz
-          exact h₂ (a₁ y) z hgz)).run x
-      = (f.run x).bind (fun y => (g.run (a₁ y)).bind (fun z => k.run (a₂ z))) := by
-  -- Unfold `run` twice and then use `Option.bind_assoc`.
-  -- NOT via `simp only [compose_run]`: `simp` renames the bound variables, and the goal then shows
-  -- `fun y => ... fun y => ...` while the right-hand side uses `y` and `z`. The rewriting is the same;
-  -- the *display* differs, and that is what made the first attempt look unsolvable.
-  show ((f.run x).bind (fun y => g.run (a₁ y))).bind (fun z => k.run (a₂ z))
-      = (f.run x).bind (fun y => (g.run (a₁ y)).bind (fun z => k.run (a₂ z)))
-  exact Option.bind_assoc (f.run x) (fun y => g.run (a₁ y)) (fun z => k.run (a₂ z))
-
-/-! ## 二、恒等 -/
-
-/-- **恒等 primitive**：`exact` 强度，不限制覆盖（`none`）。 -/
-def identity (α : Type) : Primitive where
-  Input := α
-  Output := α
+/-- **恒等 primitive**：`exact` 强度，覆盖不限制（`none`）。 -/
+def identity (α : Type) : Primitive α α where
   pre := fun _ => True
   post := fun x y => y = x
   run := fun x => some x
@@ -148,19 +175,14 @@ def identity (α : Type) : Primitive where
   coverage := none
   frame := fun _ _ => True
 
-/-- **左单位**：`compose identity f` 的 `run` 就是 `f` 的 `run`。
+/-- **左单位**：`compose (identity I) f` 的 `run` 就是 `f` 的 `run`。
 
-**`α` 必须是 `f.Input`**：`compose` 的适配器类型是 `(identity α).Output → f.Input`，即 `α → f.Input`。
-只有取 `α := f.Input` 时 `id` 才类型正确。**第一版把 `α` 留成任意类型，`id` 通不过类型检查**——
-「恒等接在前面」这件事本身就要求两边的载体相同。
-
-**兼容性证明由调用方给出**（`h`）：`identity` 的后置是 `y = x`，把它变成 `f.pre (id y)`
-需要知道 `f.pre` 在 `x` 上成立。**这是 §2.2「组合是用户的事」在最小处的一次体现**：
-连「恒等接在前面」这一步，接口也要有人担保。 -/
-theorem identity_compose_run (f : Primitive)
-    (h : ∀ x y, (identity f.Input).post x y → f.pre (id y)) (x : f.Input) :
-    (compose (identity f.Input) f id h).run x = f.run x := by
-  -- Option.bind (some x) g is g x by definition, and id x is x by definition.
+**`h` 仍是参数**——见 §2：`f.pre` 是任意的，`y = x` 推不出 `f.pre y`，
+所以兼容性义务不能凭空消掉。参数化省掉的是 `adapt`（`α` 与 `f.Input` 的配对），**不是 `h`**。 -/
+theorem identity_compose_run {I O : Type} (f : Primitive I O)
+    (h : ∀ x y, (identity I).post x y → f.pre y) (x : I) :
+    (compose (identity I) f h).run x = f.run x := by
+  show (some x).bind f.run = f.run x
   rfl
 
 end Lattice.Compose

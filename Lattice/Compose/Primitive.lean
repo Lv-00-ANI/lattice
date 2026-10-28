@@ -1,49 +1,72 @@
 /-
-# `Compose/Primitive` —— 基础调用的契约（P0）
+# `Compose/Primitive` —— 基础调用的契约（**参数版**）
 
-## 0. 这一层为什么先建
+## 0. ⚠ 第 232 轮：`Input`/`Output` 从**字段**改成**参数**
 
-`DIRECTORY-DESIGN.md` §2.1 的定位是「库只提供基础 `Primitive`，不打包任何能力」。**这个契约本身
-是新的**：现有 816 个模块里没有 `Primitive` 结构，也没有 `strength`/`coverage` 的类型化表示
-（第 219 轮的六维审计是在**散文里**做这件事的）。
+`sections §4` 原先写成结构字段：
 
-**所以 P0 从契约开始，而不是从搬目录开始**——契约能独立编译、能被证、能立刻约束后续工作；
-搬目录不能。
+```lean
+structure Primitive where
+  Input : Type
+  Output : Type
+  ...
+```
+
+**那让组合无法干净地类型化。** 第 228 轮实测到两处后果：
+
+1. `compose` 的 `f.Output` 与 `g.Input` 是两个独立类型字段，**没有任何东西强制它们相等**，
+   所以 `g.pre y`（`y : f.Output`）通不过类型检查——必须补一个适配器；
+2. `choice` 更糟：它只能取一支的 `Output`，另一支的输出要经等式搬运，
+   而 `hio.symm ▸ (hio ▸ z)` **不是** `rfl` 相等（`hio` 是变量，两次 `Eq.rec` 卡住），
+   于是 `choice` **根本写不出来**。
+
+**第 232 轮的裁决：改成参数。**
+
+```lean
+structure Primitive (I O : Type) where
+  pre : I → Prop
+  post : I → O → Prop
+  run : I → Option O
+  sound : ∀ x, pre x → ∃ y, run x = some y ∧ post x y
+  strength : Strength
+  coverage : Coverage
+  frame : I → O → Prop
+```
+
+**收益是决定性的**：
+
+| 组合子 | 字段版 | 参数版 |
+|:--|:--|:--|
+| `compose` | 必须带适配器 + `Eq` 等式 | **`Primitive I M` 接 `Primitive M O`，直接** |
+| 不同中间类型 | 适配器 | `composeWith`（**保留**——§7 第 5 条要的就是它） |
+| `choice` | **写不出** | **两个 `Primitive I O`，无 cast** |
+| `optional` | 需 `Output = Input` 等式 | **`Primitive I I`，无 cast** |
+| `parallel` | 字段投影 | **`Primitive (I₁ × I₂) (O₁ × O₂)`** |
+
+**代价**：「一个 `Primitive` 列表」需要 `Sigma` 包装（见 `Registry.MatrixRow`）。
+**这是类型系统要求我付的价，不是设计缺陷。**
 
 ## 1. 强度格（§2.7）
 
-`DIRECTORY-DESIGN.md` §2.7 要求
-`strength: exact | approx(ε) | conditional | existence | negative`
-且「**不允许把 `approx` 静默升级成 `exact`**」。
+次序（由弱到强）：`negative < existence < conditional < approx < exact`。
 
-本文件把它做成**带 `rank` 的归纳类型**，于是「取最小」是一条 `min`，
-「不允许升级」是一条**可证的单调性**（`min_le_left`），不是一句口头纪律。
+`negative` 是**否证性**结果（「这条路走不通」），不是「更弱的正面结论」。
+`rank` 把它排在最低只是为了让 `min` 有全序。
 
 ## 2. 覆盖（§2.7）
 
-`coverage: all | 12/12 | n=2 | single-point`。本文件把它做成**被覆盖情形的集合**（`Finset String`），
-于是「取交集」是一条 `∩`，而「组合不会扩大覆盖」是一条可证的 `inter_subset_left`。
+`Coverage := Option (Finset String)`，`none` = 不限制。
 
-**为什么不用「12/12 这样的分数」**：分数不能表达「覆盖了哪些 12 个」——两个都报 `11/12` 的
-primitive 可能覆盖不同的 11 个，交集是 `10/12` 而不是 `11/12`。**集合能表达，分数不能。**
+**为什么不用 `Finset String`**：`String` 不是 `Fintype`，`.univ` 造不出来——「不限制」不能用集合表示。
+**为什么不用「12/12」这样的分数**：分数不能表达「覆盖了哪 12 个中的哪几个」，
+而两个都报 `11/12` 的 primitive 可能覆盖**不同的** 11 个，交集是 `10/12` 而不是 `11/12`。
+**集合能表达，分数不能。**
 
-## 3. 交付
+## 3. 边界
 
-| 声明 | 内容 |
-|:--|:--|
-| `Strength` / `rank` / `min` | 强度格 |
-| `Coverage` | 被覆盖情形的集合 |
-| **`Primitive`** | **§4 的七个字段**（`Input/Output/pre/post/run/sound/strength/coverage/frame`） |
-| `Primitive.withCoverage` | 收窄覆盖（用于组合） |
-
-## 4. 边界
-
-- **`sound` 是字段**：一个没有 `sound` 的 `Primitive` **构造不出来**（§11.2 第 5 条：
-  「不写 `Sound` 的 primitive 不注册；不用 `True`/`sorry`」）。**这是类型级别的纪律，不是文档纪律。**
-- **本节不注册任何具体 primitive**：那是 P1。**本节只给契约。**
-- **`frame` 是字段但没有定律**：帧条件的内容因 primitive 而异，P1 才逐条写。
-- **`Strength.approx` 不带 `ε`**：带 `ε` 会让「取最小」没有全序。**代价**是精度数值不在类型里，
-  **收益**是 `min` 与单调性可证。ε 属于具体 primitive 的 `post`，不属于强度格。 -/
+- **`sound` 是字段**：没有它的 primitive **构造不出来**。§11.2 第 5 条的要求从文档纪律变成**类型纪律**。
+- **`Strength.approx` 不带 `ε`**：带 `ε` 会让「取最小」没有全序。ε 属于具体 primitive 的 `post`。
+- **本节不注册任何具体 primitive。** -/
 import Mathlib
 
 namespace Lattice.Compose
@@ -54,9 +77,7 @@ namespace Lattice.Compose
 
 次序（由弱到强）：`negative < existence < conditional < approx < exact`。
 
-`negative` 是**否证性**结果（「这条路走不通」），它在 `DIRECTORY-DESIGN.md` §2.7 里与其余并列，
-但**不是「更弱」的正面结论**——它是另一类。`rank` 把它排在最低，只是为了让 `min` 有全序；
-**读 `min` 的结论时不能把 `negative` 读成「弱的存在性」**。 -/
+`negative` 是**否证性**结果，不是「更弱的正面结论」。`rank` 把它排在最低只是为了 `min` 有全序。 -/
 inductive Strength where
   | negative
   | existence
@@ -77,7 +98,7 @@ def Strength.rank : Strength → ℕ
 def Strength.min (a b : Strength) : Strength :=
   if a.rank ≤ b.rank then a else b
 
-/-- **取最小确实不大于两边**——这就是「不允许把 `approx` 静默升级成 `exact`」的可证形式。
+/-- **取最小确实不大于左边**——「不允许把 `approx` 静默升级成 `exact`」的可证形式。
 
 `min` 若可能变大，组合就能凭空加强结论；这条定理排除了那件事。 -/
 theorem Strength.min_rank_le_left (a b : Strength) :
@@ -99,21 +120,12 @@ theorem Strength.min_rank_le_right (a b : Strength) :
 
 /-- **覆盖**：这个 `Primitive` 真正处理了**哪些**情形。
 
-`none` 表示**不限制**（例如恒等），`some s` 表示**恰好**处理 `s` 里点名的情形。
-
-**为什么用 `Option (Finset String)` 而不是 `Finset String`**：
-`String` 不是 `Fintype`，所以 `Finset.univ` 造不出来——**「不限制」不能用一个集合表示**。
-第二版试过 `Finset String` 直接配 `Finset.univ`，编译器报
-`failed to synthesize Fintype String`。`Option` 把「不限制」变成一个**显式的构造子**。
-
-**为什么不用「12/12」这样的分数**：分数不能表达「覆盖了哪 12 个中的哪几个」，
-而两个都报 `11/12` 的 primitive 可能覆盖**不同的** 11 个，交集是 `10/12` 而不是 `11/12`。
-**集合能表达这件事，分数不能。** -/
+`none` 表示**不限制**（例如恒等），`some s` 表示**恰好**处理 `s` 里点名的情形。 -/
 abbrev Coverage := Option (Finset String)
 
 /-- **覆盖取交集**——§2.7 的「组合时覆盖取交集」。
 
-`none` 是单位元：不限制 ∩ 任何 = 任何。这正是把 `none` 读成「不限制」而不是「什么都不覆盖」的理由。 -/
+`none` 是单位元：不限制 ∩ 任何 = 任何。 -/
 def Coverage.inter : Coverage → Coverage → Coverage
   | none, b => b
   | a, none => a
@@ -121,65 +133,58 @@ def Coverage.inter : Coverage → Coverage → Coverage
 
 /-- **覆盖取并**：`choice` 用。
 
-`none`（不限制）与任何集合取并仍是 `none`——**不限制吸收一切**。这与 `inter` 里 `none` 是单位元
-是对偶的两条。 -/
+`none`（不限制）吸收一切——与 `inter` 里 `none` 是单位元对偶。 -/
 def Coverage.union : Coverage → Coverage → Coverage
   | none, _ => none
   | _, none => none
   | some a, some b => some (a ∪ b)
 
-/-- **`none` 是左零元**（取并）。 -/
-theorem Coverage.union_none_left (b : Coverage) : Coverage.union none b = none := by
-  cases b <;> rfl
-
-/-- **`none` 是左单位**。 -/
+/-- **`none` 是 `inter` 的左单位。** -/
 theorem Coverage.inter_none_left (b : Coverage) : Coverage.inter none b = b := by
   cases b <;> rfl
 
-/-- **`none` 是右单位**。 -/
+/-- **`none` 是 `inter` 的右单位。** -/
 theorem Coverage.inter_none_right (a : Coverage) : Coverage.inter a none = a := by
   cases a <;> rfl
 
-/-- **组合不会扩大覆盖**（`some` 情形的集合包含）。 -/
-theorem Coverage.inter_subset_left (a b : Finset String) :
-    some (a ∩ b) = Coverage.inter (some a) (some b) := rfl
+/-- **`none` 是 `union` 的左零元。** -/
+theorem Coverage.union_none_left (b : Coverage) : Coverage.union none b = none := by
+  cases b <;> rfl
 
-/-! ## 三、契约本身 -/
+/-! ## 三、契约本身（**参数版**） -/
 
-/-- **基础调用的契约**（`DIRECTORY-DESIGN.md` §4）。
+/-- **基础调用的契约**（§4，第 232 轮改为**参数**）。
 
-**`sound` 是字段**：没有它，一个 `Primitive` **构造不出来**。
-§11.2 第 5 条要求「不写 `Sound` 的 primitive 不注册；不用 `True`/`sorry`」——
-把 `sound` 放进结构，那条要求就从**文档纪律**变成**类型纪律**。 -/
-structure Primitive where
-  /-- 输入类型。 -/
-  Input : Type
-  /-- 输出类型。 -/
-  Output : Type
+`I` 是输入类型，`O` 是输出类型。**它们是参数而不是字段**，所以：
+
+- `Primitive I M` 接 `Primitive M O` 可以直接 `compose`，**不需要任何等式或 cast**；
+- `choice` 取两个 `Primitive I O` 也是直接的。
+
+`sound` 是**字段**：没有它，一个 `Primitive` **构造不出来**。 -/
+structure Primitive (I O : Type) where
   /-- 前置条件。 -/
-  pre : Input → Prop
+  pre : I → Prop
   /-- 后置条件。 -/
-  post : Input → Output → Prop
+  post : I → O → Prop
   /-- 执行。失败用 `none` 传播。 -/
-  run : Input → Option Output
+  run : I → Option O
   /-- **正确性**：前置成立则执行成功且后置成立。 -/
   sound : ∀ x, pre x → ∃ y, run x = some y ∧ post x y
   /-- 这个 primitive 承诺到什么程度。 -/
   strength : Strength
   /-- 它真正处理了哪些情形。 -/
   coverage : Coverage
-  /-- 帧条件：它不改变什么。内容因 primitive 而异，P1 才逐条写。 -/
-  frame : Input → Output → Prop
+  /-- 帧条件：它不改变什么。内容因 primitive 而异。 -/
+  frame : I → O → Prop
 
 /-- **收窄覆盖**：把一个 `Primitive` 的覆盖声明改成给定的集合。
 
-**不是「让它覆盖更多」**——`Coverage.inter` 只能变小。这个函数用于把一个 primitive
-**登记为**它在某次组合里实际被用到的部分，从而让 `Registry` 的记录与实际一致。 -/
-def Primitive.withCoverage (p : Primitive) (c : Coverage) : Primitive :=
+`Coverage.inter` 只能变小，所以这不是「让它覆盖更多」。 -/
+def Primitive.withCoverage {I O : Type} (p : Primitive I O) (c : Coverage) : Primitive I O :=
   { p with coverage := c }
 
 /-- **收窄覆盖不改变正确性**：`sound` 与覆盖无关。 -/
-theorem Primitive.withCoverage_sound (p : Primitive) (c : Coverage) :
+theorem Primitive.withCoverage_sound {I O : Type} (p : Primitive I O) (c : Coverage) :
     (p.withCoverage c).sound = p.sound := rfl
 
 end Lattice.Compose

@@ -63,10 +63,11 @@ open Lattice.Core Lattice.Geo Lattice.Geo.NetLoss Lattice.Geo.ConstraintDescent 
 
 /-- **一步训练的 `Primitive`**：`pre` 是「约束尚未满足」，`post` 是「损失严格下降且归零」。
 
-**它把第 200–204 轮的四条定理收成一个契约实例**，从而使 `compose`/`parallel`/`Matrix` 能用它。 -/
-noncomputable def descentStep (c : ℝ) (pts : ℕ → Pt 1) : Primitive where
-  Input := ℝ
-  Output := ℝ
+**它把第 200–204 轮的四条定理收成一个契约实例**，从而使 `compose`/`parallel`/`Matrix` 能用它。
+
+**类型是 `Primitive ℝ ℝ`**（第 232 轮参数化）：`Input`/`Output` 是**参数**，不是字段，
+所以它可以与任何 `Primitive ℝ ℝ` 直接 `compose`，**不需要适配器**。 -/
+noncomputable def descentStep (c : ℝ) (pts : ℕ → Pt 1) : Primitive ℝ ℝ where
   pre := fun β => β + c ≠ 0
   post := fun β β' =>
     netLoss [shiftLayer β'] [linearConstraint c] pts

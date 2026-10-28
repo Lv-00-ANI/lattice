@@ -72,6 +72,46 @@ def compose (f g : Primitive) (adapt : f.Output → g.Input)
 强度审计里 `Lib` 的定理按它**实际 import 的层**计，不按「数学库」计。
 
 **⇒ 矛盾二已闭，P2 的 `Lib` 部分不再是阻塞项。**
+## 5. 裁决 A（第 232 轮）：`Primitive` 的 `Input`/`Output` **改成参数**
+
+第 228 轮记下的阻塞（`choice` 写不出来）的裁决是：**把 `Input`/`Output` 从字段改成参数**。
+
+```lean
+structure Primitive (I O : Type) where
+  pre : I → Prop
+  post : I → O → Prop
+  run : I → Option O
+  sound : ∀ x, pre x → ∃ y, run x = some y ∧ post x y
+  strength : Strength
+  coverage : Coverage
+  frame : I → O → Prop
+```
+
+**改动前后的实测对照**：
+
+| 组合子 | 字段版（第 228 轮） | 参数版（第 232 轮） |
+|:--|:--|:--|
+| `compose` | 带 `adapt` + `Eq` 等式 | **无适配器**；`composeWith` 保留给类型不同的情形 |
+| **`choice`** | **写不出来**（`Eq.rec` 卡住） | **`Primitive I O` × 2，无 cast，已证 `choice_sound`** |
+| **`optional`** | 需 `Output = Input` 等式 | **`Primitive I I`，无 cast，已证 `optional_sound`** |
+| `parallel` | 字段投影 | `Primitive (I₁ × I₂) (O₁ × O₂)` |
+| `identity_compose_run` | 需要 `α` 与 `f.Input` 配对 | **只需要 `h`**（少一个参数） |
+
+### ⚠ 一处我写错又改回的判断
+
+第 232 轮第一版在 `Combinators.lean` §2 写「参数化后左单位不需要任何兼容性假设」。**不成立**：
+`compose` 的 `h` 要 `∀ x y, (identity I).post x y → f.pre y`，而 `post` 是 `y = x`，
+于是要产出 `f.pre y`——**`f.pre` 是任意的，推不出来**。实测报
+`trivial has type True but is expected to have type f.pre x`。
+
+**准确的说法**：参数化消掉的是 **cast**（`adapt`），**不是语义义务**（`h`）。
+两者是不同的问题，混在一起会写出一个假的「不用证明」的结论。已在文件里写清。
+
+### 代价
+
+`Primitive` 不再是单一 `Type`，所以「混合列表」需要 `Sigma` 包装——
+`Registry.MatrixRow` 现在带 `I`/`O` 两个字段。**这是类型系统要求付的价，不是设计缺陷。**
+
 
 ## 3. 矛盾三：§2.6「Primitives 之间零 import」与 §10 的映射冲突，且破坏前向链
 

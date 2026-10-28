@@ -1,53 +1,53 @@
 /-
-# `Compose/More` —— `parallel` 与 `choice`
+# `Compose/More` —— `parallel` / `choice` / `optional`（**参数版**）
 
-## 0. 两处契约缺口，本节都写成了显式假设
+## 0. `choice` 现在写得出来了 —— 这是第 232 轮裁决的直接兑现
 
-`DIRECTORY-DESIGN.md` §6 给的签名是
+第 228 轮记下的阻塞是：`choice` 的 `Output` 只能取一支，另一支的输出要经 `hio` 搬运，
+而 `hio.symm ▸ (hio ▸ z)` **不是** `rfl` 相等（`hio` 是变量，两次 `Eq.rec` 卡住），
+于是 `choice` **写不出来**。
+
+**参数版下根本没有 `hio`**：两个 primitive 都是 `Primitive I O`，同一个 `I` 同一个 `O`。
+`run` 是 `if sel x then f.run x else g.run x`，**两支的输出类型相同，无需任何搬运。**
+
+## 1. `choice` 的 `pre` 必须按派发分情况
+
+若把 `pre` 写成 `f.pre`，则走 `g` 那一支时 `g.sound` 拿不到 `g.pre`。**所以 `pre` 与 `post` 同形**：
 
 ```lean
-def parallel (f g : Primitive) : Primitive
-def choice   (f g : Primitive) : Primitive
+pre  := fun x   => (sel x = true → f.pre x)  ∧ (sel x = false → g.pre x)
+post := fun x z => (sel x = true → f.post x z) ∧ (sel x = false → g.post x z)
 ```
 
-### 缺口一：`choice` 无法按 `f.pre` 派发
+**从 `pre` 的对应分支就能拿到对应一侧的前置**——这正是第 228 轮缺的那块
+（那时 `pre` 只有一个，不可能同时等于两边的）。
 
-第一版写成 `if h : f.pre x then f.run x else g.run x`。**这不可类型化**：`f.pre x` 是一个任意 `Prop`，
-Lean 需要 `Decidable (f.pre x)` 才能 `if`，而 `Primitive` 契约**不提供**它
-（`pre : Input → Prop`，没有可判定性字段）。实测会报 `failed to synthesize Decidable (f.pre x)`。
-
-**所以 `choice` 的派发必须由调用方给出**——一个 `Bool` 谓词 `sel`。
-**这与 §2.2「组合是用户的事」完全一致**：库不替你决定走哪一支。
-
-### 缺口二：`choice` 需要两个分支有同一个 `pre`
-
-若 `f.pre` 与 `g.pre` 不同，则「选 `g`」时 `f.sound` 用不上，而 `g.sound` 需要 `g.pre`——
-而 `pre` 只能写一个。**所以 `choice` 要求 `f.pre ↔ g.pre`**，作为显式假设 `hpre`。
-
-**这两条都不是削弱**：它们把「`choice` 到底需要什么」写出来了，而原设计把它们藏在了没有的字段里。
-
-## 1. 交付
+## 2. 交付
 
 | 声明 | 内容 |
 |:--|:--|
-| **`parallel`** | 两者各跑一次，输入输出成对 |
+| **`parallel`** | `Primitive (I₁ × I₂) (O₁ × O₂)` |
 | `parallel_sound` / `parallel_strength` / `parallel_coverage` | 定律 |
-| **`choice`** | **派发由 `sel : Input → Bool` 决定**，要求 `hpre : f.pre ↔ g.pre`、`hio : f.Output = g.Output` |
-| `choice_sound` | 两支都 sound ⟹ `choice` sound |
+| **`choice`** | **两个 `Primitive I O` + `sel : I → Bool`，无 cast** |
+| `choice_sound` / `choice_strength` / `choice_coverage` | 定律（强度 `min`、覆盖**并**） |
+| **`optional`** | `Primitive I I` + `dec : I → Bool`：条件跳过 |
+| `optional_sound` / `optional_strength` | 定律 |
 
-## 2. 强度与覆盖
+## 3. 强度与覆盖
 
 - `parallel`：强度 **min**（两者都成功才叫成功），覆盖 **交**。
-- `choice`：强度 **min**，覆盖 **并**——任一支能处理就算能处理。**这是唯一一处覆盖取并**，
-  理由：`choice` 把两支的覆盖面加起来，而 `compose`/`parallel` 要求**都**适用。
+- `choice`：强度 **min**，覆盖 **并**——**这是唯一一处取并**，理由：`choice` 把两支的覆盖面加起来，
+  而 `compose`/`parallel` 要求**都**适用。
+- `optional`：强度 **不变**（它不新增承诺），覆盖 **不变**。
 
-## 3. 边界
+## 4. 边界
 
-- **不做 `optional`**：它可以由 `choice` + `identity` 导出，而单独写会重复一遍上面两个缺口
-  （「还是跳过」同样要 `pre` 与可判定性）。**导出而非复制。**
-- **不做 `iterate`**：需要终止测度 + 循环不变式，§6 只给一行。
-  **没有测度的「循环」在 Lean 里不终止**，写成一行实现必然是错的。下一轮单独做。
-- **不做 `Registry`/`Matrix`**：组合子未齐时登记的是不完整集合。 -/
+- **不做 `iterate`**：需要终止测度与循环不变式，§6 只给一行。
+  **没有测度的「循环」在 Lean 里不终止**，写成一行实现必然是错的。
+- **`choice` 的派发由调用方给 `Bool`**，不是「在 f 与 g 之间自由选择」——
+  后者要选择策略，那是 `Compose` 之上的东西。
+- **`optional` 要求 `Primitive I I`**（自映射）：跳过时要返回一个 `O`，而手上只有 `I`。
+  这是参数化把「`optional` 只对自映射有意义」**写进类型**的地方。 -/
 import Mathlib
 import Lattice.Compose.Primitive
 
@@ -58,9 +58,8 @@ namespace Lattice.Compose
 /-- **并行**：两个 primitive 各跑一次，输入与输出都成对。
 
 强度取 `min`（**两个都成功才叫成功**），覆盖取交（两个都适用的情形才适用）。 -/
-def parallel (f g : Primitive) : Primitive where
-  Input := f.Input × g.Input
-  Output := f.Output × g.Output
+def parallel {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂) :
+    Primitive (I₁ × I₂) (O₁ × O₂) where
   pre := fun p => f.pre p.1 ∧ g.pre p.2
   post := fun p q => f.post p.1 q.1 ∧ g.post p.2 q.2
   run := fun p => (f.run p.1).bind (fun y => (g.run p.2).map (fun z => (y, z)))
@@ -74,62 +73,110 @@ def parallel (f g : Primitive) : Primitive where
   frame := fun p q => f.frame p.1 q.1 ∧ g.frame p.2 q.2
 
 /-- **并行保持正确性。** -/
-theorem parallel_sound (f g : Primitive) (p : f.Input × g.Input)
-    (hp : f.pre p.1 ∧ g.pre p.2) :
+theorem parallel_sound {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂)
+    (p : I₁ × I₂) (hp : f.pre p.1 ∧ g.pre p.2) :
     ∃ q, (parallel f g).run p = some q ∧ (parallel f g).post p q :=
   (parallel f g).sound p hp
 
 /-- **并行的强度取最小。** -/
-theorem parallel_strength (f g : Primitive) :
+theorem parallel_strength {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂) :
     (parallel f g).strength = f.strength.min g.strength := rfl
 
 /-- **并行的覆盖取交。** -/
-theorem parallel_coverage (f g : Primitive) :
+theorem parallel_coverage {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂) :
     (parallel f g).coverage = f.coverage.inter g.coverage := rfl
 
-/-! ## 二、二选一（派发由调用方给出） -/
+/-! ## 二、二选一 -/
 
-/-! ## 二、`choice`：**本轮未完成，阻塞点是 `Eq` cast 管道，不是数学**
+/-- **二选一**：`sel x = true` 走 `f`，否则走 `g`。
 
-### 设计已定，两处契约缺口已查明
+**两支都是 `Primitive I O`**——同一个输入、同一个输出，所以**没有任何 cast**（见 §0）。
 
-**缺口一（已证）**：`choice` 不能按 `f.pre` 派发。`f.pre x` 是任意 `Prop`，Lean 需要
-`Decidable (f.pre x)` 才能 `if`，而 `Primitive` 契约没有可判定性字段。**所以派发必须由调用方给
-`Bsel : Input → Bool`**——这与 §2.2「组合是用户的事」一致。
+**`pre` 按派发分情况**（见 §1）：否则走 `g` 那一支时 `g.sound` 拿不到 `g.pre`。 -/
+def choice {I O : Type} (f g : Primitive I O) (sel : I → Bool) : Primitive I O where
+  pre := fun x => (sel x = true → f.pre x) ∧ (sel x = false → g.pre x)
+  post := fun x z => (sel x = true → f.post x z) ∧ (sel x = false → g.post x z)
+  run := fun x => if sel x then f.run x else g.run x
+  sound := by
+    intro x hx
+    by_cases hs : sel x = true
+    · have hpre : f.pre x := hx.1 hs
+      obtain ⟨y, hy, hpy⟩ := f.sound x hpre
+      refine ⟨y, ?_, ?_, ?_⟩
+      · simp only [hs, if_pos]; exact hy
+      · intro _; exact hpy
+      · intro hf; rw [hf] at hs; exact absurd hs (by simp)
+    · have hfalse : sel x = false := by
+        cases hv : sel x
+        · rfl
+        · exact absurd hv hs
+      have hpre : g.pre x := hx.2 hfalse
+      obtain ⟨z, hz, hpz⟩ := g.sound x hpre
+      refine ⟨z, ?_, ?_, ?_⟩
+      · simp only [hfalse, Bool.false_eq_true, if_false]; exact hz
+      · intro ht; rw [ht] at hfalse; exact absurd hfalse (by simp)
+      · intro _; exact hpz
+  strength := f.strength.min g.strength
+  coverage := f.coverage.union g.coverage
+  frame := fun x z => (sel x = true → f.frame x z) ∧ (sel x = false → g.frame x z)
 
-**缺口二（已证）**：两支必须共享 `Input` 与 `Output`。`f.Input` 与 `g.Input` 是两个独立类型字段，
-所以 `g.pre x`（`x : f.Input`）通不过类型检查——**与 `compose` 需要适配器是同一件事**。
-要写成显式等式 `hin : g.Input = f.Input`、`hio : g.Output = f.Output`。
+/-- **二选一保持正确性。** -/
+theorem choice_sound {I O : Type} (f g : Primitive I O) (sel : I → Bool) (x : I)
+    (hx : (choice f g sel).pre x) :
+    ∃ z, (choice f g sel).run x = some z ∧ (choice f g sel).post x z :=
+  (choice f g sel).sound x hx
 
-### 阻塞点
+/-- **二选一的强度取最小。** -/
+theorem choice_strength {I O : Type} (f g : Primitive I O) (sel : I → Bool) :
+    (choice f g sel).strength = f.strength.min g.strength := rfl
 
-`choice` 的 `Output` 只能取一支（`f.Output`），于是 `g` 支的输出必须经 `hio` 搬运：
+/-- **二选一的覆盖取并**——**组合子里唯一取并的地方**。
 
-```lean
-post := fun x z => (sel x = true → f.post x z)
-                 ∧ (sel x = false → g.post (hin.symm ▸ x) (hio.symm ▸ z))
-```
+理由：`choice` 把两支的覆盖面**加起来**；而 `compose` 与 `parallel` 要求两者**都**适用，所以取交。
+把 `choice` 也写成取交会**低估**它的覆盖，把 `compose` 写成取并会**高估**——
+后者正是 §2.7 禁止的「把 `approx` 静默升级成 `exact`」的覆盖版本。 -/
+theorem choice_coverage {I O : Type} (f g : Primitive I O) (sel : I → Bool) :
+    (choice f g sel).coverage = f.coverage.union g.coverage := rfl
 
-`g.sound` 给出的见证是 `z₀ : g.Output`，返回时要做 `hio ▸ z₀ : f.Output`，于是 `post` 要求
-`g.post … (hio.symm ▸ (hio ▸ z₀))`。**而 `hio.symm ▸ (hio ▸ z₀)` 不是 `rfl` 相等**——
-`hio` 是变量，两次 `Eq.rec` 卡住；`simpa` 也不化简。实测报
+/-! ## 三、条件跳过 -/
 
-```
-type mismatch: hpz has type g.post (⋯ ▸ x) z
-             but is expected to have type g.post (⋯ ▸ x) (⋯ ▸ hio ▸ z)
-```
+/-- **条件跳过**：`dec x = true` 时跑 `p`，否则原样返回。
 
-**正确做法是让 `hio`/`hin` 在证明里被 `subst`/`cases` 消掉**，这样根本没有 cast。
-但 `Input`/`Output` 是 `Primitive` 的**字段**，`cases hio` 不会重写 `f` 与 `g` 本身；
-需要先 `cases f; cases g`，而它们含证明项——**那要把 `Primitive` 拆成「纯数据 + 证明」两半**，
-或者给 `irreducible`/`subsingleton` 实例。**这是下一轮的活，不是这一轮能顺手做完的。**
+**`p` 必须是 `Primitive I I`**（自映射）——跳过时要返回一个 `O`，而手上只有 `I`。
+这是参数化把「`optional` 只对自映射有意义」**写进类型**的地方：字段版只能靠等式约束。 -/
+def optional {I : Type} (p : Primitive I I) (dec : I → Bool) : Primitive I I where
+  pre := fun x => (dec x = true → p.pre x) ∧ (dec x = false → True)
+  post := fun x z => (dec x = true → p.post x z) ∧ (dec x = false → z = x)
+  run := fun x => if dec x then p.run x else some x
+  sound := by
+    intro x hx
+    by_cases hd : dec x = true
+    · have hpre : p.pre x := hx.1 hd
+      obtain ⟨y, hy, hpy⟩ := p.sound x hpre
+      refine ⟨y, ?_, ?_, ?_⟩
+      · simp only [hd, if_pos]; exact hy
+      · intro _; exact hpy
+      · intro hf; rw [hf] at hd; exact absurd hd (by simp)
+    · have hfalse : dec x = false := by
+        cases hv : dec x
+        · rfl
+        · exact absurd hv hd
+      refine ⟨x, ?_, ?_, ?_⟩
+      · simp only [hfalse, Bool.false_eq_true, if_false]
+      · intro ht; rw [ht] at hfalse; exact absurd hfalse (by simp)
+      · intro _; rfl
+  strength := p.strength
+  coverage := p.coverage
+  frame := fun _ _ => True
 
-### 替代路径（也记在这里）
+/-- **条件跳过保持正确性。** -/
+theorem optional_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (x : I)
+    (hx : (optional p dec).pre x) :
+    ∃ z, (optional p dec).run x = some z ∧ (optional p dec).post x z :=
+  (optional p dec).sound x hx
 
-把 `Primitive` 的 `Input/Output` 从**字段**改成**参数**（`Primitive (I O : Type)`），
-则 `choice`/`compose` 都不需要任何等式与 cast。**但那与 §4 的结构冲突，需要一次裁决。**
-
-**所以 `choice` 的阻塞点其实是「`Primitive` 的类型参数该是字段还是参数」这个设计问题。**
-它不是编码问题，编码只是把它暴露出来。 -/
+/-- **条件跳过的强度不变**：它不新增承诺。 -/
+theorem optional_strength {I : Type} (p : Primitive I I) (dec : I → Bool) :
+    (optional p dec).strength = p.strength := rfl
 
 end Lattice.Compose

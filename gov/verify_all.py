@@ -47,6 +47,7 @@ REPORT_ONLY = {
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
     "census: end-to-end by content",
+    "gen: primitive matrix",
       "usage: skeleton main theorems",
 }
 
@@ -116,6 +117,11 @@ CHECKS = [
     # analysis I5 uses, on EVERY theorem instead of only the ones named `e2e` -- round 219
     # measured that the name filter left the chain's own work (Geo) entirely outside coverage.
     ("census: end-to-end by content", "check_endtoend_content.py"),
+    # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
+    # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not
+    # necessary for "no adapter needed" -- a type synonym or an unfoldable abbrev would be the
+    # same type with different text. That is why it is report-only: it is a census, not a gate.
+    ("gen: primitive matrix", "gen_primitive_matrix.py"),
     ("gen: proof chain (kernel)", "chain.py"),
     ("scope: escape baseline", "escape_baseline.py --check"),
     # Three of this round's fixes were the SAME defect: one measurement written down in two
