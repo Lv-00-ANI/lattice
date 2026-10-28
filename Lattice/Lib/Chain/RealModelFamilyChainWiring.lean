@@ -55,11 +55,28 @@ def toRealVec (n : Nat) (x : List Int) : Fin n → ℝ := fun i => ((toVec n x) 
 def castConstraint (n : Nat) (c : VectorConstraint) : RealVectorConstraint (Fin n) :=
   { a := toRealVec n c.a, b := (c.b : ℝ) }
 
-/-! ## §2 要点 主定理：两侧转换在 ℝ 提升下逐字一致（偏置分量） -/
+/-! ## §2 主定理：两侧转换在 ℝ 提升下逐字一致（**偏置分量，`rfl`**） -/
 
 /-- 链核心 `convertVec` 与模型族 `convertRealVec` 的**偏置分量**在 ℝ 提升下相等。
-    要点 本命题**同时**需要链核心的 `convertVec`、`VectorConstraint`
-    与模型族的 `convertRealVec`、`RealLinearLayer` ⟹ 这就是边的承重点。 -/
+
+⚠⚠ **第 19 轮降级。** 原文写「本命题**同时**需要链核心的 `convertVec`、`VectorConstraint`
+与模型族的 `convertRealVec`、`RealLinearLayer` ⟹ **这就是边的承重点**」。
+
+**那句话让读者以为语义抬升已证，而本条只证了字段相等，且证明是 `rfl`**：
+`castConstraint` 把 `b` 定义成 `(c.b : ℝ)`，`convertRealVec` 又原样搬 `.b`，
+两侧展开成**同一个项** `((c.b : ℤ) : ℝ)`。**数学信息约等于 0。**
+
+⭐ **真正的承重点应当是「交换方块」**：
+
+```lean
+RealLayerOut (convertRealVec (castConstraint n c)) (toRealVec n x)
+  = toRealVec n (LayerOut (convertVec c) x)
+```
+
+即「在实数侧算」与「在整数侧算再抬升」给出同一个结果。**那条【没有】证，也没有写。**
+
+**本条仍然保留**：它把「模型族 → 链核心」的可达边接成**真实 import 依赖**，
+删了该文件就不再提及 `convertVec`。**但下游不得据此声称语义等价。** -/
 theorem convertVec_bias_eq_convertRealVec_bias (n : Nat) (c : VectorConstraint) :
     (convertRealVec (castConstraint n c)).b = ((convertVec c).b : ℝ) := rfl
 

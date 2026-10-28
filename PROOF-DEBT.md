@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 100 |
+| `register` | 97 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -187,7 +187,6 @@
 | `Lib/Chain/Geometry.lean:54` | `collinear_preserves` | 1 | 被 Lift/RealContractAxioms:132 当作 C11 契约锚点。零信息量却承担「保语义」名义——正是本库的点名病症。登记 PROOF-DEBT：要么补编译层等式，要么把契约措辞降级。 |
 | `Lib/Chain/RealGeometry.lean:44` | `collinearR_preserves` | 1 | 与 47 同型，被 RealContractAxioms:180 当作 C11' 契约锚点。登记同一条 PROOF-DEBT（与 47 合并处理）。 |
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:91` | `dependenciesClosed_mono` | 1 | 登记理由：同名同义的定理在 Lattice.Lv00.AxiomDischarge / AxiomPackages / AxiomDischargeJia 三个命名空间各有一份，且各自定义了自己的 AxiomPackageInstance / PackageDependenciesClosed；三处签名已漂移（`∀ n, n ∈ extra → …` vs `∀ n ∈ extra, …`）。这是「同一语义多处实现」的典型，登记待收敛。 |
-| `Lib/Chain/RealModelFamilyChainWiring.lean:63` | `convertVec_bias_eq_convertRealVec_bias` | 1 | 【实测】证明体是 `rfl`。doc 的字段级说法准确，但「这就是边的承重点」易被下游读成「语义等价已证」——而宏可达性只需提及两个常量名即可成立，与证明内容无关。下游 `RealSeamBridges2.lean` 又以 rfl 链（`castConstraint_b_eq_convertVec_b`）复述同一事实。⇒ 登记「语义抬升未接通」的 PROOF-DEBT；不删（它确实把「模型族 → 链核心」的可达边接成真实 import 依赖，删了该文件就不再提及 `co… |
 | `Lib/Compiler/RealWhileTotalCorrectness.lean:215` | `triple_iff_wpT` | 1 | register：定义展开冒充定理。建议标为 @[simp] 展开引理或直接内联到 RealWPWhile；不要把它当作『Hoare 三元组与 wp 等价』的独立证据（真正的证据是 180/226/263）。 |
 | `Lib/Editing/RealConversionCategorical.lean:150` | `compile_galoisConnection_galois` | 1 | 定理真且被真实使用（RealConversionCategoryNew.lean:298、333 作为 `GaloisConnection.toGaloisInsertion / toGaloisCoinsertion` 的输入），但 doc 的『须满射 / 等价于满射』是错误归因，正是本库『叙述强度 > 陈述强度』的老毛病。建议改 doc 为『像-原像对任意函数成伴随，故不携带编译信息』，并以 `GaloisInsertion`（真需要满射）为主交付；因不影响证明，登… |
 | `Lib/Editing/RealEditSemantics.lean:1014` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
@@ -204,7 +203,6 @@
 | `Audit/CompositionAlgebra.lean:196` | `bridgedCount_hom` | 0 | 登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。 |
 | `Audit/Counterexamples.lean:85` | `lipschitz_needs_nonneg` | 0 | 登记（不是删）：反例本身正确，`lipschitz_needs_nonneg` 这个名字也诚实；问题是它被 `Audit/Hypotheses:133` 当作 `0 ≤ L` 的承重证据引用，而它并未触及 `residual_le_of_zero_on_dense` 的推导。要么补上真正的那一步（乘法单调性的前提必要性），要么把 Hypotheses 那行的证据换成散文并注明「未机器核对」。同文件 :60/:70 两条是真反例（`r² ≤ ε²` 与 `EpsSat` … |
 | `Audit/DecreasesRole.lean:144` | `decreases_role` | 0 | 登记：删掉第二合取项（它就是 `hstep`），只留 `decreases_of_one_step`；若想强调「一步收敛 + 原子 ⟹ decreases 且已收敛」，应把它写成 `Repair` 结构上的实例（`hstep` 换成一个真实的收敛字段并证明），而不是把假设重列一遍。 |
-| `Audit/Hypotheses.lean:160` | `chainAudit_length` | 0 | 登记：这是「清单从 7 扩到 10、doc 没跟上」的残留，恰好是本库「文档与陈述脱节」的样本。修 doc 一行即可；顺带把 4 行散文证据标成「未机器核对」，否则 `no_redundant_hypotheses` 与 `every_judgement_carries_a_reason` 会一起把散文当证据用。 |
 | `Audit/Hypotheses.lean:167` | `every_judgement_carries_a_reason` | 0 | 登记：doc 的「类型保证」不成立（`loadBearing`/`structurallyRequired` 带 `String` 是真的，但「没有第三构造子出现」只能查表）。改 doc，或把 `redundant` 从数据里去掉、改成单独的待办清单，这样这条才真的变成类型事实。 |
 | `Audit/StructureCensus.lean:150` | `total_obligations` | 0 | 登记：与 :141/:144/:156 同一处理——这组 `decide` 是清单纪律，不是「义务总数」的定理。若要当审计结果，doc 必须写清「入表 5 个结构」，否则读者会把它当成全库统计（而 `Representation` 那行已有字段数错误，说明表并未随代码维护）。 |
 | `Audit/VerdictLattice.lean:211` | `lattice_holds_per_segment_not_per_sequence` | 0 | 登记：作为文件结论的汇总条可以留，但应标注它是索引（`:149` 与 `:177` 的合取），不要与 `kind_is_bounded_lattice` 并列计为两条成果；doc 的「两条定理」改成三条。 |
@@ -257,7 +255,6 @@
 | `Lib/Compiler/RealLv00CompilerSpec.lean:119` | `compile_constraint_degenerately_satisfied` | 0 | register：doc 已诚实标 (B/空洞)，但下游 RealLv00CompilerSat 仍可能把它当编译正确性引用。登记 PROOF-DEBT：补任意 env 的 sound/complete，退化版降为示例。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:311` | `compile_bridge_sem` | 0 | register：与 119 条同一债务。名字 compile_bridge_sem 容易让下游误以为完成了编译语义桥接，实际只是退化模型特化；登记 PROOF-DEBT 并考虑改名。 |
 | `Lib/Editing/RealCanonicalForm.lean:642` | `canonicalize_injective_on_quotient_boundary` | 0 | 数学上没问题（本库少见的真否定结论），问题只在名字与 doc 首句『性质③（商上单射）』同陈述（全称否定）不一致。建议改名 `canonicalize_not_constant_on_scaleClass`；改名会波及 RealExtractDecidability.lean:557 的文档引用，故登记而非现在改。 |
-| `Lib/Editing/RealCompileExtractClosed.lean:170` | `compile_extract_end_to_end` | 0 | 作为接口保留可以，但必须把 doc 的『★端到端闭环★』降级为『把 symbolToWeight_correct 经定义级等式 extract∘compile=id 换到 AllSatisfied (extract ...) 形态』，并登记 PROOF-DEBT：真端到端需要非平凡 extract。唯一『用户』RealConstraintEdit.lean 只在文档里引用它（:33、:450），代码无消费。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :185 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:221` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealSymbolToWeightWidened.lean:304 同名同义重复；两文件互不 import，文件内也没有证明使用（in_degree=1 是同名声明碰撞而非语义引用）。doc 把它当「承重件」，实际是死件 + 双副本：登记 PROOF-DEBT，建议收敛为一份并接上消费者。 |
 | `Lib/Editing/RealExtractNonInjective.lean:137` | `convertVec_injective` | 0 | 同一声明在库内至少三份（另见 RealEditToSymbol:122、RealReversibilityBoundary:85）。doc 已诚实标注为「本文件内导出」，但正是这种自包含再导出在积累漂移面。建议登记 PROOF-DEBT：统一引用一处；当前不影响正确性。 |
@@ -310,6 +307,9 @@
 | `Semantics/Annotations.lean` | `holdsSet_member` | 处理完成：它与 `Domains/Constraints/ConstraintSet.holdsSet_mem` **同一条定理**，只差参数顺序，而两份**都各自做了归纳**。已改为**一行转发**（`holdsSet_mem hmem pts h`），保留本地名字是因为 `edit_frame_holds`使用这个参数顺序。**判定里「唯一跨文件引用 `Semantics/Merge.lean:142`」已经不成立**——那一行现在是 `merge_parts`，而 `Merge.lean` 既没 import 本文件也没 open 本 namespace。 |
 | `Runtime/CompilerScheme.lean` | `scheme_covers_all` | 处理完成（**doc / 状态修正**）：`Slots.lean` 的 `lift.compile.single_item_sound` 把它当作`.discharged` 的凭证，而它是 `⟨rfl, rfl, rfl⟩`——**字段自等**。已把 note 改为「**CLOSED — STRUCTURALLY ONLY**」，并写明**本条证的是「一个方案适用于所有后端」的结构事实，不证任何语义声称性**，并指出真正的声称性证明在 `Geo/Compile.geoCompiler.sound`（`unfold loss; rw [hx]; ring`）。 |
 | `Runtime/CompilerScheme.lean` | `backend_sound` | 同上同一处修正：`every_backend_sound` 是 `Compiler.sound` 的**字段投影**，它给出 `sound` 是因为 `sound` 是结构的**假设**，sound 并非白得。note 现已写明这一点，并且指向一个真实的逐实例证明。 |
+| `Audit/Hypotheses.lean` | `chainAudit_length` | 处理完成（**doc 修正**）：三处写「**七**条」（§1 标题、§二 标题、本定理 doc），而 `chainAudit` 实际是 **10 行**。清单从 7 扩到 10 时 doc 没跟上。**关键：`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**已把三处改为 10，并在三处各写一句说明这个机械局限。 |
+| `Lib/Chain/RealModelFamilyChainWiring.lean` | `convertVec_bias_eq_convertRealVec_bias` | 处理完成（**doc 降级**）：原 doc 说「本命题同时需要两侧的四个定义 ⟹ **这就是边的承重点**」，而证明是 **`rfl`**，只钉了**偏置字段**。**那句话会让读者以为语义抬升已证。**doc 已改为「只证字段相等」，并写出**真正该证的交换方块**（`RealLayerOut (convertRealVec c) (toRealVec x) = toRealVec (LayerOut (convertVec c) x)`）——**那条没有证、也没有写**。本条保留（它把可达边接成真实 import 依赖）。 |
+| `Lib/Editing/RealCompileExtractClosed.lean` | `compile_extract_end_to_end` | 处理完成（**doc 降级**）：标题原本是「**★ 端到端闭环定理（target form）★**」。**实际证的是**：`extractLayer_compileToLayer`（**`rfl`**）把左式换成 `AllSatisfied cs`，再由 `symbolToWeight_correct` 收尾——**证明体是 `rw` 一行 + 一次实例化，零往返内容**。为什么闭环在这里是免费的：那一跳的 `extract` 是**字段重命名**，所以 `extract ∘ compile = id` 是定义级的。真正的端到端需要**一条信息有损的编译路径**——**没有，也不声称。**保留本条仍有用：它把两个此前从不互相引用的文件接成一条定理。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

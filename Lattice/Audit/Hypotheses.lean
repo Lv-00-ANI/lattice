@@ -14,7 +14,11 @@
 | **结构必需** | 删掉后命题**无法陈述**（类型不合法） | 保留，但须说明原因 |
 | **冗余** | 删掉后仍可证明 | **删除** |
 
-## 1. 审计对象：证明链上的七条承重定理
+## 1. 审计对象：证明链上的十条承重定理
+
+⚠ **第 19 轮修正**：本节、§二、以及 `chainAudit_length` 的 doc 原先都写「**七**条」，
+而 `chainAudit` 实际是 **10 行**——清单从 7 扩到 10 时 doc 没跟上（`PROOF-DEBT` 的 `register` 条目
+记的就是这件事）。**`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**
 
 `PROOF-CHAIN-RUNG.md` 与四跳链路的核心定理：
 
@@ -121,7 +125,7 @@ inductive HypStatus where
 这是「命题在更弱假设下成立」，不是「命题被重新表述」。 -/
 def IsRedundant (provableWithout : Bool) : Prop := provableWithout = true
 
-/-! ## 二、审计记录：证明链上的七条核心定理 -/
+/-! ## 二、审计记录：证明链上的十条核心定理 -/
 
 /-- 证明链审计的结论。
 
@@ -160,7 +164,12 @@ theorem no_redundant_entries_in_audit_table :
     (chainAudit.filter (fun p => p.2 == HypStatus.redundant)).length = 0 := by
   decide
 
-/-- 审计覆盖了七条定理。 -/
+/-- **审计表有 10 条记录。**
+
+⚠ **第 19 轮修正**：这里原写「审计覆盖了**七**条定理」，而 `decide` 证的是 `= 10`。
+**两句话同时在文件里，且都不报错**——`decide` 只看表内算术。
+清单从 7 扩到 10（后加的 `ladder_forward`、`epsSat_of_loss_le_sq`、`sampled bound` 等），
+doc 没跟上。现在 doc 与陈述一致。 -/
 theorem chainAudit_length : chainAudit.length = 10 := by decide
 
 /-- **每一条非冗余前提都附了理由**（反例或结构原因），没有空口断言。
