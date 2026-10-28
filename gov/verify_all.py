@@ -116,6 +116,10 @@ CHECKS = [
     # defect is CLAIMING otherwise, and I5 is the gate for that. This runs the same transitive
     # analysis I5 uses, on EVERY theorem instead of only the ones named `e2e` -- round 219
     # measured that the name filter left the chain's own work (Geo) entirely outside coverage.
+    # Round 234. A `git mv` orphans every PROOF-DEBT verdict for the moved file; the join then
+    # misses and `in_degree` silently falls back to 0, so the ledger reports reviewed files as
+    # unreviewed while the coverage table still claims 100% of the load-bearing set.
+    ("debt: no orphaned verdicts", "check_proof_debt_orphans.py"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not

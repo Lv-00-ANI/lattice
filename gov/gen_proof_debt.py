@@ -22,6 +22,17 @@ OUT = os.path.join(ZERO, "PROOF-DEBT.md")
 # in-degree is taken from the inventory, not from the verdict (the reviewer did not compute it)
 # Keyed by (file, name), NOT line: deleting a theorem shifts every line below it, and a line-keyed
 # join would silently attach the wrong in-degree afterwards.
+# ---------------------------------------------------------------- PATH_MAP
+# DIRECTORY-DESIGN §2.8 says "PROOF-DEBT is regenerated with a `PATH_MAP`". **That mechanism did not
+# exist** -- round 234 found it missing while piloting the P2 move. The 1369 verdicts are keyed on
+# `(file, name)` where `file` is relative to `Lattice/`, so ANY `git mv` silently orphans every verdict
+# for the moved file: the join misses, `in_degree` falls back to 0, and the ledger quietly loses the
+# review. That is the "silent empty" failure mode again, in the ledger.
+#
+# The guard is `check_proof_debt_orphans.py`: a verdict whose file is gone AND is not listed here fails
+# the build. So a future move that forgets this map is caught instead of absorbed.
+from _debt_path_map import PATH_MAP
+
 inv = {}
 for line in io.open(os.path.join(REV, "inv.jsonl"), encoding="utf-8"):
     r = json.loads(line)
@@ -40,6 +51,8 @@ for f in sorted(os.listdir(REV)):
             v = json.loads(line)
         except json.JSONDecodeError:
             continue
+        # a moved file keeps its verdicts only because of PATH_MAP; see the comment above
+        v["file"] = PATH_MAP.get(v.get("file"), v.get("file"))
         key = (v.get("file"), v.get("name"))
         rec = inv.get(key, {})
         v["in_degree"] = rec.get("in_degree", 0)

@@ -22,7 +22,7 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 824 | `audit_counts.py` |
+> | Lean 模块 | 825 | `audit_counts.py` |
 > | 定理 / 引理 | 8551 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Geo/Lib | 18 / 66 / 99 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
@@ -121,7 +121,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 66 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 67 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -262,7 +262,7 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 66 项检查 + 反应性自检（逐项打印耗时）
+# 全套 67 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
@@ -370,7 +370,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **66 项**检查：47 项能失败的**门禁**，19 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **67 项**检查：48 项能失败的**门禁**，19 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 
