@@ -102,7 +102,7 @@
 | `Lattice.Domains.SeqRepresentation` | 102 | 4 | Expr |
 | `Lattice.Domains.Shape` | 204 | 3 | Derive |
 | `Lattice.Domains.Square` | 161 | 10 | Loss, Dist |
-| `Lattice.Domains.Synthesis` | 140 | 6 | Invariant, Initialise |
+| `Lattice.Domains.Synthesis` | 215 | 8 | Invariant, Initialise |
 | `Lattice.Domains.SynthesisConnection` | 158 | 7 | Synthesis, SynthesisMulti |
 | `Lattice.Domains.SynthesisCoverage` | 179 | 7 | Synthesis, Constraint |
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |

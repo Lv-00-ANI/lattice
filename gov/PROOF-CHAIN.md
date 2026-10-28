@@ -1593,7 +1593,7 @@
 | `Lattice.Domains.Geometry.Semantic` | 7 | 1 |
 | `Lattice.Domains.Geometry.Shape` | 3 | 2 |
 | `Lattice.Domains.Geometry.Square` | 10 | 5 |
-| `Lattice.Domains.Geometry.Synthesis` | 6 | 5 |
+| `Lattice.Domains.Geometry.Synthesis` | 7 | 5 |
 | `Lattice.Domains.Geometry.SynthesisConnection` | 6 | 0 |
 | `Lattice.Domains.Geometry.SynthesisCoverage` | 7 | 1 |
 | `Lattice.Domains.Geometry.SynthesisMulti` | 4 | 1 |
@@ -5098,7 +5098,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `icl_precond_identity_recovers_thm1` -> `apply`
 - `icl_precond_one_step` -> `apply`
 - `icl_two_proofs_agree` -> `apply`
-- `idT_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
+- `idT_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `length`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `id_is_not_a_repair_when_unsat_exists` -> `ConstraintSat`, `LinearConstraint`, `iterate_succ`, `preserves`
 - `id_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`
@@ -6057,6 +6057,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mem_reachL_self` -> `dist`, `induction`, `le_trans`, `zero`
 - `mem_reachL_succ` -> `dist`, `induction`, `le_trans`, `zero`
 - `mem_reachL_zero` -> `dist`, `induction`, `le_trans`, `zero`
+- `mem_replicate_eq` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `length`, `samePoint_scale`, `samePoint_translate`
 - `mem_span_X_sub_C_iff_eval_eq_zero` -> `depth`, `eval`, `induction`, `step`
 - `mem_span_X_sub_C_iff_isRoot` -> `depth`, `eval`, `induction`, `step`
 - `mem_span_add` -> `depth`, `eval`, `induction`, `step`
@@ -6926,7 +6927,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perpResid_localMin_of_nondegenerate` -> `localMin_implies_zero`, `seg`, `segComp`
 - `perpResid_moving_direction` -> `HasNonzeroDeriv`, `add`, `bump`, `const_add`, `coordProj`, `flatEquiv`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`, `unflatten`
 - `perpResid_not_strictMin_of_ne_zero` -> `HasNonzeroDeriv`, `add`, `bump`, `const_add`, `coordProj`, `flatEquiv`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`, `unflatten`
-- `perpTransform_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
+- `perpTransform_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `length`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `perp_loop_converges` -> `GeoConstraint`, `Holds`, `Pt`, `Sat`, `fixPerp`, `fixPerp_holds`, `iterate`, `progress`
 - `perp_loop_converges_in_one` -> `GeoConstraint`, `Holds`, `Pt`, `fixPerp`, `fixPerp_holds`
 - `perp_loop_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `fixPerp`
@@ -7953,7 +7954,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samplesOf_sound` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `standardFamily`, `standardFamily_preserves_perpendicular`
 - `samples_distinct` -> `Pt`, `apply`, `translateBy`
 - `samples_separated` -> `Pt`, `translateBy`
-- `samples_sound` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
+- `samples_sound` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `length`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `satQuant_rounding` -> `clampTo`, `quant_error_lt_two_pow`
 - `satQuant_saturation` -> `clampTo`
 - `satSetR_wellDefined` -> `VectorConstraint`, `trans`
@@ -8519,7 +8520,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stackDepth_left` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `stackDepth_right` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `stackDepth_toStack` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`, `stackDepth`
-- `standardFamily_preserves_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `samePoint_scale`, `samePoint_translate`
+- `standardFamily_preserves_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `length`, `samePoint_scale`, `samePoint_translate`
 - `star_appL` -> `Compiler`, `Term`, `app_l`, `app_r`, `induction`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `star_appR` -> `Compiler`, `Term`, `app_l`, `app_r`, `induction`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `star_from_skip` -> `Compiler`, `induction`, `subst`, `trans`
@@ -8821,9 +8822,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `synthesize_empty_family` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`
 - `synthesize_for` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `samples_sound`, `satSym`, `satW`
 - `synthesize_for_multi` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `satSym`, `satW`
-- `synthesize_from_initialisation` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `samePoint_scale`, `samePoint_translate`
+- `synthesize_from_initialisation` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `length`, `samePoint_scale`, `samePoint_translate`
 - `synthesize_perpendicular_multi` -> `GeoConstraint`, `Holds`, `Pt`, `standardFamily`, `standardFamily_preserves_perpendicular`
-- `synthesize_perpendicular_samples` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `samePoint_scale`, `samePoint_translate`
+- `synthesize_perpendicular_samples` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `length`, `samePoint_scale`, `samePoint_translate`
 - `synthesize_singleton` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`
 - `system_covers_all_kinds` -> `Rule`, `length`
 - `system_rules_length` -> `Rule`, `length`
