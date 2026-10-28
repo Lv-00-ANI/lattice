@@ -21,8 +21,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 3 | 545 | 6.3% |
 | 4 | 443 | 5.2% |
 | 5 | 185 | 2.2% |
-| 6 | 16 | 0.2% |
-| **合计** | **8596** | |
+| 6 | 20 | 0.2% |
+| **合计** | **8600** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -33,6 +33,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `primitiveNames_eq_abi` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `conformance_names_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `conformance_iff_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -84,10 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `iterate_shift` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `progress_on_wf` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `preserves_of_sat` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `repair_then_reinject` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
-| 5 | `rate_then_repair` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
-| 5 | `geometric_loop_fixed_point` (`Domains/Geometry/ClosedLoop.lean`) | Compose, Core, Lib, Runtime, root |
-| 5 | `geometric_loop_reaches_satisfied` (`Domains/Geometry/ClosedLoop.lean`) | Compose, Core, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
