@@ -15,6 +15,7 @@ import Lattice.Lib.LearningTheory.RealCurriculumOrdering
 import Lattice.Lib.LearningTheory.RealDPOTheory
 import Lattice.Lib.LearningTheory.RealDataflowFixedPoint
 import Lattice.Lib.LearningTheory.RealDecisionTheory
+import Lattice.Lib.LearningTheory.DistillLip
 import Lattice.Lib.LearningTheory.RealDistill
 import Lattice.Lib.LearningTheory.RealDistillGeneralization
 import Lattice.Lib.LearningTheory.RealECEContinuous
