@@ -158,15 +158,26 @@ theorem compileToLayer_bijective : Function.Bijective compileToLayer :=
 `WeightToSymbolEquivalence`（提取往返）**放进同一条定理**——
 这正是全库此前缺失的那条交叉引用。 -/
 
-/-- **★ 端到端闭环定理（target form）★**
+/-- **把 `symbolToWeight_correct` 经定义级等式 `extract ∘ compile = id` 换形。**
 
 「编译 `cs` 得到权重层 → 从权重层提取回符号 → 全约束满足」
 **⟺**「编译得到的权重层输出全零」。
 
-这是任务要求的 `extract ∘ compile = id` 语义形式
-（`∀ x, AllSatisfied (extract (compile cs)) x ↔ AllZeroOutputs (compile cs) x`），
-由 `extractLayer_compileToLayer`（本文件）+ `symbolToWeight_correct`（编译侧）合成。
-**在此之前，全库没有任何一条定理同时引用这两个文件。** -/
+⚠⚠ **第 19 轮降级：标题原来是「★ 端到端闭环定理（target form）★」，那个标题声称的比这里证的多。**
+
+**它证的是**：`extractLayer (compileToLayer cs) = cs`（本文件的 `extractLayer_compileToLayer`，**`rfl`**），
+于是左式的 `AllSatisfied` 变成 `AllSatisfied cs`，再由 `symbolToWeight_correct` 收尾。
+**证明体是 `rw` 一行 + 一次既有定理的实例化，没有任何往返内容。**
+
+**为什么「闭环」在这里是免费的**：那一跳的 `extract` 是**字段重命名**（本文件自己的
+`RealConstraintEdit.lean:33`、`:450` 把它判为「`rfl` 级空壳缺陷」），
+所以 `extract ∘ compile = id` **是定义级的**，第二个方向不花任何代价。
+
+⭐ **真正的端到端需要一条信息有损的编译路径**——`extract` 不再是字段重命名。
+**那条没有，本条也不声称有。**
+
+**保留本条仍有用**：它把两个此前从不互相引用的文件接成一条定理，
+所以「同时引用」这件事本身是真的。 -/
 theorem compile_extract_end_to_end (cs : ConstraintSet) (x : List Int) :
     AllSatisfied (extractLayer (compileToLayer cs)) x ↔
       AllZeroOutputs (compileToLayer cs) x := by
