@@ -6484,7 +6484,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_order_counterexample` -> `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `no_positive_uniform_bound_at_zero_map` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `no_quality_loss` -> `min`
-- `no_redundant_hypotheses` -> `Audit`, `length`
+- `no_redundant_entries_in_audit_table` -> `Audit`, `length`
 - `no_rules_no_steps` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `no_saddle_in_convex` -> `comp`, `const_add`
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
@@ -6496,7 +6496,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_upper_iff_no_split` -> `extent`
 - `no_weight_solution_of_input_zero` -> `W`, `residual`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
-- `no_zero_obligation_structure` -> `Audit`
+- `no_zero_obligation_in_census_table` -> `Audit`
 - `node_inj` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
 - `noiseMatrix_apply` -> `mulVec`
 - `noiseMatrix_mulVec_alpha` -> `mulVec`

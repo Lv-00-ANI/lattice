@@ -30,7 +30,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 |--:|:--|:--|
 | 6 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `no_redundant_entries_in_audit_table` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |

@@ -148,11 +148,15 @@ def chainAudit : List (String × HypStatus) :=
     ("sampled bound : delta", .loadBearing
       "machine-checked: delta_is_input shows delta changes the bound") ]
 
-/-- **审计没有发现冗余前提。**
+/-- **审计表里没有 `.redundant` 条目。**
 
-这是结论而非假设：`chainAudit` 中 `redundant` 的条目数为 0。
-这条定理让「无冗余」可以被机器核对——若将来加入一条 `.redundant`，它会变成假。 -/
-theorem no_redundant_hypotheses :
+⚠ **第 5 轮降级：名字原来是 `no_redundant_hypotheses`，那个名字声称的比这里证的多。**
+
+它证的是**本表**的条目数，**不是**「定理库里没有冗余前提」——
+后者要对**每一条**定理逐条给出「删掉某前提仍可证」，而本文件只给出一张**人工判定**的表。
+
+改名之后名字与陈述一致；若将来表里加入一条 `.redundant`，它仍然会变成假。 -/
+theorem no_redundant_entries_in_audit_table :
     (chainAudit.filter (fun p => p.2 == HypStatus.redundant)).length = 0 := by
   decide
 
