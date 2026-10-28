@@ -33,7 +33,7 @@
 **只有 1 条义务，4 条数据。** `satP`/`satW` 虽是 `Prop` 类型，但它们是**待判定的关系**，
 不是**待证明的断言**——这是分类的关键区别。
 
-### 2.2 `Representation P W`（8 字段）
+### 2.2 `Representation P W`（**7** 字段）
 
 | 字段 | 分类 | 理由 |
 |:--|:--|:--|
@@ -72,7 +72,7 @@
 | 结构 | 字段 | 义务 | 密度 |
 |:--|--:|--:|--:|
 | `Compiler` | 5 | 1 | 20% |
-| `Representation` | 8 | 1 | 12.5% |
+| `Representation` | **7** | 1 | 14.3% |
 | `Ladder` | 6 | 1（+2 嵌套） | 17%（+33% 嵌套） |
 | `Tokenizer` | 3 | 1 | 33% |
 | **`Repair`** | 6 | **3** | **50%** |
@@ -129,10 +129,29 @@ structure StructureCensus where
   nestedObligations : ℕ
   deriving DecidableEq, Repr
 
-/-- **四个结构 + `Tokenizer` 的实测清册。** -/
+/-- **四个结构 + `Tokenizer` 的清册（**人工维护**）。**
+
+⚠⚠ **第 9 轮修正：这里的数字不是「实测」，而且没有任何机器核对。**
+
+`decide` 只能核对**表内算术**（`census.length = 5`、`obligations ≥ 1`、密度的比较），
+**它核对不了表里的数字是否与真实结构相符**。本轮就发现了一处错的：
+
+| 行 | 原值 | 真实值 | 依据 |
+|:--|--:|--:|:--|
+| `Representation` | 8 | **7** | `Runtime/Extraction.lean:58` 的字段：`inputP`、`inputW`、`encode`、`decode`、`compile`、`extract`、`roundtrip` |
+
+**8 不符合任何一种口径**（连把类型参数 `P W` 算进去也是 9）。已改为 7。
+
+⚠ **这个缺陷的性质**：`decide` 定理（`census_length`、`no_zero_obligation_in_census_table`、
+`repair_is_densest`）全部**照旧为真**——它们证明的是**表自己的性质**，不是表**关于库**的准确性。
+**所以这张表可以在不触发任何门禁的情况下漂移**，而在漂移之后，
+那几条 `decide` 定理会**以「已核对」的外表继续为真**。
+
+⭐ **要真正锁住它**，需要让每行与结构本身绑定（例如用反射取字段数），
+那在 Lean 里需要 `Lean` 的元编程而非 `decide`。**在那之前，这张表的数字一律按「人工录入、未经核对」读。** -/
 def census : List StructureCensus :=
   [ { name := "Compiler", fields := 5, obligations := 1, nestedObligations := 0 },
-    { name := "Representation", fields := 8, obligations := 1, nestedObligations := 0 },
+    { name := "Representation", fields := 7, obligations := 1, nestedObligations := 0 },
     { name := "Ladder", fields := 6, obligations := 1, nestedObligations := 2 },
     { name := "Tokenizer", fields := 3, obligations := 1, nestedObligations := 0 },
     { name := "Repair", fields := 6, obligations := 3, nestedObligations := 0 } ]
