@@ -38,8 +38,10 @@ import Lattice.Lib.Concentration.RealHoeffding
 `distill_generalization_bound` 的 `huc`；`capacity_term_antitone` 的 `hδ`；
 `distill_beneficial_large_n` 的 `hc`/`hC`；`capacity_term_gap` 的 `hSF`/`hn`；
 `bounded_params_give_sup_bound` 的 `hLnet`。
-⚠ **未改**：`distill_excess_from_layer` 的 `hc`/`hB0`（Lean 报过 `unused`，
-但它们位于 `linarith` 的上下文中，删除有回归风险 ⟹ **保留并标注**，见该定理 docstring）。
+✅ **第 225 轮补做了**：`distill_excess_from_layer` 的 `hc`/`hB0`（以及上游
+`distill_excess_from_chain_lipschitz` 的同名两条）**已删除**。此前本节写的是
+「删除有回归风险 ⟹ 保留并标注」——**那是顾虑，不是证据**，而本节上面那 9 条同样是 `linarith`
+上下文里的装饰性前提、同样被删成功了。**删除实验现在做了：全库构建通过，两个定理都严格变强。**
 8. **去掉 `hR` 假设（B29，本轮新增，见第五节）**：`popRisk`（损失期望）、
    `LossLipschitzInPred`（Lipschitz 损失谓词）、
    **`risk_lipschitz_of_loss_lipschitz`（**推出** `hR`，`c = L`）**、
@@ -212,9 +214,9 @@ RealDistillGeneralization.lean:181:5: warning: unused variable `hB0`
 `linarith` 语义），**非**基于「删除后能否编译」的实验。**标注：未做删除实验。** -/
 theorem distill_excess_from_layer {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     [NormedAddCommGroup F] [NormedSpace ℝ F] (R : (E → F) → ℝ) (gs gt : E → F) (c B : ℝ)
-    (hc : 0 ≤ c) (hlayer : ∀ x, ‖gs x - gt x‖ ≤ B)
-    (hR : ∀ (f g : E → F) (B' : ℝ), (∀ x, ‖f x - g x‖ ≤ B') → |R f - R g| ≤ c * B')
-    (hB0 : 0 ≤ B) : R gs ≤ R gt + c * B := by
+    (hlayer : ∀ x, ‖gs x - gt x‖ ≤ B)
+    (hR : ∀ (f g : E → F) (B' : ℝ), (∀ x, ‖f x - g x‖ ≤ B') → |R f - R g| ≤ c * B') :
+    R gs ≤ R gt + c * B := by
   have h := hR gs gt B hlayer
   have h2 := (abs_le.mp h).2
   linarith
@@ -232,13 +234,11 @@ theorem distill_excess_from_chain_lipschitz {E : Type*} [NormedAddCommGroup E]
     (hLs : ∀ i, i < n → ∀ x y, ‖Fs i x - Fs i y‖ ≤ Ls i * ‖x - y‖)
     (hL0 : ∀ i, i < n → 0 ≤ Ls i)
     (hε : ∀ i, i < n → ∀ y, ‖Ft i y - Fs i y‖ ≤ ε i)
-    (hc : 0 ≤ c)
-    (hR : ∀ (f g : E → E) (B' : ℝ), (∀ x, ‖f x - g x‖ ≤ B') → |R f - R g| ≤ c * B')
-    (hB0 : 0 ≤ ∑ i in Finset.range n, (∏ j in Finset.Ioo i n, Ls j) * ε i) :
+    (hR : ∀ (f g : E → E) (B' : ℝ), (∀ x, ‖f x - g x‖ ≤ B') → |R f - R g| ≤ c * B') :
     R (ChainFwd Ft n) ≤ R (ChainFwd Fs n) +
       c * (∑ i in Finset.range n, (∏ j in Finset.Ioo i n, Ls j) * ε i) := by
   refine distill_excess_from_layer R (ChainFwd Ft n) (ChainFwd Fs n) c
-    (∑ i in Finset.range n, (∏ j in Finset.Ioo i n, Ls j) * ε i) hc ?_ hR hB0
+    (∑ i in Finset.range n, (∏ j in Finset.Ioo i n, Ls j) * ε i) ?_ hR
   intro x
   exact chain_distill_bound_lipschitz Ft Fs Ls ε n hLt hLs hL0 hε x
 

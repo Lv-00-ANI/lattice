@@ -3579,7 +3579,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `distill_excess_from_layer` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_excess_fully_derived` -> `popRisk`
 - `distill_excess_no_hR` -> `popRisk`
-- `distill_excess_of_uniform_distance` -> `ChainFwd`, `E`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
+- `distill_excess_of_uniform_distance` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_generalization_bound` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_generalization_bound_sharp` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_uniform` -> `E`, `apply`, `induction`, `le_antisymm`, `quantFwd`, `quantized_uniform_error`, `zero`
