@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 96 |
+| `register` | 95 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -193,7 +193,6 @@
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:229` | `constrained_sum_one_via_realMaskFamily` | 1 | 本文件已有 constrainedSoftmax_sum_one；本条是同一命题的第二次证明，以并列定理身份进入 API 会让「本文件定理数」虚高，且两条日后可能漂移。保留「复用确认」的意图可以理解，但应按 alias 登记而非计入定理数。verdict=register。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:85` | `allowed_is_convex_weights` | 1 | 合取包不是数学内容，调用点写 `⟨nonneg, sum_one⟩` 等价。doc 自称「可复用的假设包」，但以定理身份计数会虚高。verdict=register：删除或标为 convenience alias。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:101` | `support_from_decoded_constraints` | 1 | 与 constrained_agrees_with_constraint_set 同义同型，属别名转发。若下游只要短名字，建议 `alias` 或 @[simp] 转发并注明来源，不应作为并列定理计数。verdict=register。 |
-| `Lib/LearningTheory/RealDistill.lean:181` | `chain_distill_bound_lipschitz` | 1 | 名为「块级蒸馏入口」，实为既有 Lipschitz 复合误差定理的角色互换实例。保留一个蒸馏词汇的名字可以接受，但应显式标注 derived-from，并补 B 中那条「由结构导出 Ls」的桥；否则下游会把自由参数 Ls 当成已验证的层常数。verdict=register。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:263` | `neg_zeroFixing_reluZ` | 1 | 为了 neg_zeroFixing_* 统一命名而转发可以理解，但作为独立定理它只是 B11 已有结论的改名。verdict=register：改为 alias/@[simp] 转发并在 doc 标 derived-from，不计入定理数。 |
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
@@ -310,6 +309,7 @@
 | `Lib/Chain/RealModelFamilyChainWiring.lean` | `convertVec_bias_eq_convertRealVec_bias` | 处理完成（**doc 降级**）：原 doc 说「本命题同时需要两侧的四个定义 ⟹ **这就是边的承重点**」，而证明是 **`rfl`**，只钉了**偏置字段**。**那句话会让读者以为语义抬升已证。**doc 已改为「只证字段相等」，并写出**真正该证的交换方块**（`RealLayerOut (convertRealVec c) (toRealVec x) = toRealVec (LayerOut (convertVec c) x)`）——**那条没有证、也没有写**。本条保留（它把可达边接成真实 import 依赖）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean` | `compile_extract_end_to_end` | 处理完成（**doc 降级**）：标题原本是「**★ 端到端闭环定理（target form）★**」。**实际证的是**：`extractLayer_compileToLayer`（**`rfl`**）把左式换成 `AllSatisfied cs`，再由 `symbolToWeight_correct` 收尾——**证明体是 `rw` 一行 + 一次实例化，零往返内容**。为什么闭环在这里是免费的：那一跳的 `extract` 是**字段重命名**，所以 `extract ∘ compile = id` 是定义级的。真正的端到端需要**一条信息有损的编译路径**——**没有，也不声称。**保留本条仍有用：它把两个此前从不互相引用的文件接成一条定理。 |
 | `Lib/Quantization/RealMixedPrecision.lean` | `accumulation_error_bound` | 处理完成（**删未用前提**）：签名里的 `(_hM : 0 ≤ M)` **在证明中从未被引用**（`_` 前缀就是证据），而且**它是可导出的**：`hmag 0 (Nat.zero_le n)` 给出 `\|accSum ad 0 x\| ≤ M`，而 `accSum ad 0 x = 0`，所以 `0 ≤ M`。**删掉它使本条更强**。下游 `ieee_accumulation_error_bound` 的 `hM` **只用来传给本条**，因此一并去掉（它也因此更强，且它**没有调用者**，所以改元数不破任何东西）。**门禁表现**：`check_underscore_hypotheses` 报 **STALE** 并指名要删哪一行，基线从 127 降到 126（new 0 / stale 0）——**那是双向基线正常工作的样子**。 |
+| `Lib/LearningTheory/RealDistill.lean` | `chain_distill_bound_lipschitz` | 处理完成（**桥补上了**）：`Ls : ℕ → ℝ` 原本是**自由函数**，doc 自己写着「诚实假设：若不同取 max」。实测发现**零件已经在树里**：`Runtime/StackError.affineAct_lipschitz`（**逐分量**）与 `layerMag_nonneg`。缺的是两步：**(1)** 逐分量 → sup 范数；**(2)** 师生取 max。新增 **`affineAct_lipschitz_norm`**与 **`chain_distill_affine`**（`Ls i := max (layerMag (Wt i)) (layerMag (Ws i))`）。⚠ **四次失败后才找到原因**：`pi_norm_le_iff_of_nonneg` 的正确用法是 `rw […]` 然后 `intro`，而**不是** `\|>.mpr`——`rw` 能从目标推断隐含的 `f`，项级 `mpr` 不能。★ **可迁移的教训：卡在一条 mathlib 引理上时，去读它的调用点，而不是猜它的参数形状。**边界：只做仿射层；**不声称 `layerMag` 是最优算子范数**；非线性层未接上。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 
