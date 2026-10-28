@@ -3,6 +3,7 @@ import Lattice.Semantics.VocabEdit
 import Lattice.Semantics.Annotations
 import Lattice.Semantics.Merge
 import Lattice.Semantics.CompileSound
+import Lattice.Semantics.PostTrain
 
 /-!
 # 语义信息主线：阶段划分与聚合

@@ -18,11 +18,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 0 | 5445 | 63.5% |
 | 1 | 1346 | 15.7% |
 | 2 | 611 | 7.1% |
-| 3 | 536 | 6.3% |
-| 4 | 447 | 5.2% |
-| 5 | 169 | 2.0% |
-| 6 | 19 | 0.2% |
-| **合计** | **8573** | |
+| 3 | 536 | 6.2% |
+| 4 | 449 | 5.2% |
+| 5 | 172 | 2.0% |
+| 6 | 21 | 0.2% |
+| **合计** | **8580** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -46,6 +46,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `multistep_geometric_exists` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
 | 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
+| 6 | `post_train_preserves_holds` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `post_train_preserves_set` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `fullRegistry_wellFormed` (`Slots.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `iterate_succ` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `iterate_shift` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `progress_on_wf` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `preserves_of_sat` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `repair_then_reinject` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
