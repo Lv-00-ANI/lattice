@@ -24,8 +24,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 829 | `audit_counts.py` |
-> | 定理 / 引理 | 8584 | `audit_counts.py` |
+> | Lean 模块 | 831 | `audit_counts.py` |
+> | 定理 / 引理 | 8589 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 4 / 66 / 97 / 607 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -131,7 +131,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  121  # Lv-00 上游（唯一源）
-├── gov/                    # 门禁与审计（8 条不变量 + 72 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 74 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -303,7 +303,7 @@ lattice-new/
 Lean 只检查“定理是真的”，不检查“它有多强”。本项目把强度单独登记：
 
 - `PROOF-DEBT` 第一层审阅：1,382 条；`delete` 45、`strengthen` 34、`downgrade` 3、`register` 107、`keep` 1,193；
-- 未用前提 127 条（入度 ≥2 已 0）；
+- 未用前提 128 条（入度 ≥2 已 0）；
 - 零入度未审约 7,587 条；
 - 每个 `Primitive` 声明 `strength` 与 `coverage`；
 - 组合时强度取最小、覆盖取交集，不允许把 `approx` 静默升级成 `exact`。
@@ -342,11 +342,11 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 72 项检查 + 反应性自检（逐项打印耗时）
+# 全套 74 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
-> 当前 `verify_all.py` 注册 **72 项**检查（含门禁与报告器；报告器退出码不是判决）。
+> 当前 `verify_all.py` 注册 **74 项**检查（含门禁与报告器；报告器退出码不是判决）。
 > 活树 `gate.py` 可以绿；**干净 checkout 的 I7 仍可能红**（无 `.olean`）。
 > 仓库无 remote，CI 仍未真实运行。
 
@@ -454,7 +454,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **72 项**检查：49 项能失败的**门禁**，19 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **74 项**检查：49 项能失败的**门禁**，19 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 

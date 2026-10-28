@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 191 | aggregator at `Lattice/`, re-exports only |
+| root | 193 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -659,6 +659,8 @@
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
+- `Lattice.CInterface` <- `Lattice.CInterface.ABI`
+- `Lattice.CInterface.ABI` 
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
@@ -1493,6 +1495,8 @@
 | `Lattice.Lib.Quantization.RealSTEError` | 13 | 4 |
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.Audit` | 0 | 0 |
+| `Lattice.CInterface` | 0 | 0 |
+| `Lattice.CInterface.ABI` | 5 | 7 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
@@ -1921,6 +1925,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `le_trans`
+- `abiTable_errors_wellFormed` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
+- `abiTable_length` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `length`, `optional`, `parallel`
+- `abiTable_names_nodup` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
+- `abiTable_returns_a_value` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
 - `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`

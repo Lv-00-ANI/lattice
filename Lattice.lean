@@ -3,6 +3,7 @@ import Lattice.Runtime
 import Lattice.Slots
 import Lattice.Primitives
 import Lattice.Domains
+import Lattice.CInterface
 import Lattice.Lib
 import Lattice.Audit
 import Lattice.Usage

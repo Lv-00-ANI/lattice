@@ -4,6 +4,8 @@ copy	Audit/VerdictLattice.lean	kindInf_le_left
 copy	Audit/VerdictLattice.lean	kindInf_le_right
 copy	Audit/VerdictLattice.lean	kindLe_sup_left
 copy	Audit/VerdictLattice.lean	kindLe_sup_right
+copy	CInterface/ABI.lean	abiTable_errors_wellFormed
+copy	CInterface/ABI.lean	abiTable_returns_a_value
 copy	Core/Repair.lean	preserves
 copy	Core/RepairWF.lean	preserves_of_sat
 copy	Domains/Constraints/Loss.lean	loss_eq_zero_expr
