@@ -273,4 +273,237 @@ def programRep (n : ℕ) (hn : 0 < n) : Representation (LayerProgram n) (List �
 **一个满足不了 `roundtrip` 的实例比没有实例更糟**——它会让读者以为有一条不存在的往返。
 初稿确实写了那样一个 `extract`（返回空列表），删掉了。 -/
 
+/-! ## 六、**整程序**的语法往返（S11）
+
+### §五 只做到单条指令
+
+`decodeInstr_encode_relu` / `_scale` / `_affine` 三条证明的是
+「**一条**指令编码后再解码得到它自己」。**而 S11 要的是整程序**：
+
+```lean
+decodeProgram (encodeProgram p) = some p
+```
+
+**这两件事不一样**：`decodeInstr` 用 `getD … 0` 读整个列表，**它不知道一条指令到哪里结束**，
+所以整程序必须先按指令长度切分。**这就是 §五 停下的地方。**
+
+### 如何切分而不重做 `getD` 的工作
+
+指令长度由 **tag** 决定：
+
+| 指令 | 编码长度 |
+|:--|:--|
+| `affine W b` | `1 + n·n + n` |
+| `relu` | `1 + n` |
+| `scale c` | `2` |
+
+于是 `decodeProgram` 按 tag 取长度 `len`，对 `xs.take len` 调 `decodeInstr`，对 `xs.drop len` 递归。
+
+**关键点：不需要任何新的 `getD` 引理。** 因为
+
+```
+(xs ++ rest).take xs.length = xs          -- `List.take_left`
+(xs ++ rest).drop xs.length = rest        -- `List.drop_left`
+```
+
+于是 `decodeInstr hn ((encodeInstr hn i ++ rest).take (encodeInstr hn i).length)`
+**就是** `decodeInstr hn (encodeInstr hn i)`——**追加的 `rest` 被 `take` 完全隔离掉了**。
+剩下的正是已有的三条逐指令引理。**把工作放在「切分」上，已有的 `getD` 证明就原封不动可用。**
+
+### 交付
+
+| 声明 | 内容 |
+|:--|:--|
+| `instrLength` | 一条指令的编码长度 |
+| `instrLengthOfTag` | 由 tag 决定的长度（供解码端使用） |
+| **`encodeInstr_length`** | **`(encodeInstr hn i).length = instrLength i`** |
+| **`encodeInstr_length_ofTag`** | **由 tag 读出的长度 = 实际长度**（解码端依赖它） |
+| `decodeProgram` | 整程序解码 |
+| `encodeProgram` | 整程序编码 |
+| **`decodeProgram_encodeProgram`** | **整程序精确往返** |
+| `encodeProgram_eval` | 编码/解码不改变求值语义 |
+
+### 边界
+
+- **`0 < n` 是必需的**：`encodeInstr` 的 `affine` 情形要 `n` 做行主序除法，`n = 0` 时无坐标可编码。
+- **`decodeProgram` 对垃圾输入返回 `none` 或截断**：未知 tag 一律 `none`（不是「尽力而为」）。
+  **拒绝比猜测好**——一个静默截断的解码器会让「程序往返」这条规格变成空话。
+- **本节只做语法往返，不做语义等价**：`encodeProgram_eval` 说的是「解码后再编码求值相同」，
+  那是**由往返推出**的，不是独立建立的等价。 -/
+
+/-- **由 tag 决定的编码长度**——解码端只有列表，所以只能从 tag 推。
+
+`noncomputable`：`t = TAG_AFFINE` 是 `ℝ` 上的等式判定，而 `ℝ` 没有可计算的 `DecidableEq`。
+**这是本库反复出现的同一件事**（`GeoConstraint` 无 `DecidableEq`、`Edit.del` 用谓词）。 -/
+noncomputable def instrLengthOfTag (n : ℕ) (t : ℝ) : ℕ :=
+  if t = TAG_AFFINE then 1 + (n * n + n)
+  else if t = TAG_RELU then 1
+  else 2
+
+/-- **由 tag 决定的长度至少为 1**——解码端靠它保证每次递归都真的缩短列表。 -/
+theorem one_le_instrLengthOfTag (n : ℕ) (t : ℝ) : 1 ≤ instrLengthOfTag n t := by
+  unfold instrLengthOfTag
+  split_ifs <;> omega
+
+/-- **由 tag 读出的长度就是实际编码长度。**
+
+这条是解码端的地基：`decodeProgram` 只能用 tag 推长度，所以它必须与实际长度一致，
+否则 `take` 会切错位置。 -/
+theorem encodeInstr_length_ofTag {n : ℕ} (hn : 0 < n) (i : Instr n) :
+    instrLengthOfTag n ((encodeInstr hn i).headD 0) = (encodeInstr hn i).length := by
+  cases i with
+  | affine W b =>
+      have htag : (encodeInstr hn (.affine W b : Instr n)).headD 0 = TAG_AFFINE := rfl
+      have hlen : (encodeInstr hn (.affine W b : Instr n)).length = 1 + (n * n + n) := by
+        show (TAG_AFFINE :: (List.ofFn (fun k : Fin (n * n) =>
+            W ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+            ⟨k.val % n, Nat.mod_lt _ hn⟩) ++ List.ofFn b)).length = 1 + (n * n + n)
+        rw [List.length_cons, List.length_append, List.length_ofFn, List.length_ofFn]
+        ring
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_pos rfl]
+  | relu =>
+      have htag : (encodeInstr hn (.relu : Instr n)).headD 0 = TAG_RELU := rfl
+      -- `relu` encodes to `[TAG_RELU]`: one element, no payload. An earlier draft of this table
+      -- said `1 + n`, which was simply wrong about the encoding.
+      have hlen : (encodeInstr hn (.relu : Instr n)).length = 1 := rfl
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_neg (by unfold TAG_AFFINE TAG_RELU; norm_num), if_pos rfl]
+  | scale c =>
+      have htag : (encodeInstr hn (.scale c : Instr n)).headD 0 = TAG_SCALE := rfl
+      have hlen : (encodeInstr hn (.scale c : Instr n)).length = 2 := rfl
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_neg (by unfold TAG_AFFINE TAG_SCALE; norm_num),
+          if_neg (by unfold TAG_RELU TAG_SCALE; norm_num)]
+
+/-- **整程序编码**：把每条指令的编码拼起来。 -/
+noncomputable def encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) : List ℝ :=
+  p.flatMap (encodeInstr hn)
+
+/-- **整程序解码（带燃料）**：按 tag 取长度切分，逐条解码。
+
+**为什么用显式燃料而不是 `termination_by`**：`termination_by` 的方程引理在 `rw`/`simp` 下
+**不展开**（第 216 轮实测两次失败），于是「解一次 `decodeProgram`」这件事本身写不出来。
+燃料版是**对 `ℕ` 的结构递归**：终止性免费，方程引理干净，`rw` 与 `simp` 都能用。
+**代价**是多一个参数，而它由 `decodeProgram` 自动填成 `xs.length`。**
+
+**未知 tag 返回 `none`，不猜。** 一个静默截断的解码器会让「程序往返」这条规格变成空话。 -/
+noncomputable def decodeProgramGo {n : ℕ} (hn : 0 < n) : ℕ → List ℝ → Option (LayerProgram n)
+  | 0, _ => some []
+  | _ + 1, [] => some []
+  | k + 1, (t :: rest) =>
+      let len := instrLengthOfTag n t
+      match decodeInstr hn ((t :: rest).take len) with
+      | some i => (decodeProgramGo hn k ((t :: rest).drop len)).map (fun p => i :: p)
+      | none => none
+
+/-- **整程序解码**：燃料取输入长度，所以一定够用。 -/
+noncomputable def decodeProgram {n : ℕ} (hn : 0 < n) (xs : List ℝ) : Option (LayerProgram n) :=
+  decodeProgramGo hn xs.length xs
+
+/-- **编码至少一个元素长**——燃料够用与「每步真的前进」都靠它。 -/
+theorem one_le_encodeInstr_length {n : ℕ} (hn : 0 < n) (i : Instr n) :
+    1 ≤ (encodeInstr hn i).length := by
+  rw [← encodeInstr_length_ofTag hn i]
+  exact one_le_instrLengthOfTag n _
+
+/-- **燃料够用**：程序长度不超过它的编码长度。 -/
+theorem length_le_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) :
+    p.length ≤ (encodeProgram hn p).length := by
+  induction p with
+  | nil => simp [encodeProgram]
+  | cons i rest ih =>
+      rw [List.length_cons, show encodeProgram hn (i :: rest)
+            = encodeInstr hn i ++ encodeProgram hn rest from by
+          unfold encodeProgram; rw [List.flatMap_cons],
+          List.length_append]
+      have := one_le_encodeInstr_length hn i
+      omega
+
+/-- **`decodeProgramGo` 在 cons 上的方程**（`rfl`：定义就是长这样）。
+
+单独列出来是因为主证明里 `encodeInstr hn i ++ …` **不是语法上的 cons**，
+必须先经 `cases` 把它写成 `t0 :: ts`，这条引理才能应用。 -/
+theorem decodeProgramGo_cons {n : ℕ} (hn : 0 < n) (k : ℕ) (t : ℝ) (rest : List ℝ) :
+    decodeProgramGo hn (k + 1) (t :: rest)
+      = (match decodeInstr hn ((t :: rest).take (instrLengthOfTag n t)) with
+         | some i =>
+             (decodeProgramGo hn k ((t :: rest).drop (instrLengthOfTag n t))).map (fun p => i :: p)
+         | none => none) := rfl
+
+/-- **燃料版往返**：燃料够用时，解码编码后的程序得到原程序。 -/
+theorem decodeProgramGo_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) :
+    ∀ k : ℕ, p.length ≤ k → decodeProgramGo hn k (encodeProgram hn p) = some p := by
+  induction p with
+  | nil =>
+      intro k _
+      cases k with
+      | zero => rfl
+      | succ k => rfl
+  | cons i rest ih =>
+      intro k hk
+      -- write the encoded first instruction as a syntactic cons
+      obtain ⟨t0, ts, ht0⟩ : ∃ t0 ts, encodeInstr hn i = t0 :: ts := by
+        cases h : encodeInstr hn i with
+        | nil =>
+            exfalso
+            have h1 := one_le_encodeInstr_length hn i
+            rw [h] at h1
+            simp at h1
+        | cons t0 ts => exact ⟨t0, ts, rfl⟩
+      have hk1 : 1 ≤ k := by
+        have : 0 < (i :: rest).length := by simp
+        omega
+      obtain ⟨k', rfl⟩ : ∃ k', k = k' + 1 := ⟨k - 1, by omega⟩
+      have hsplit : encodeProgram hn (i :: rest) = t0 :: (ts ++ encodeProgram hn rest) := by
+        unfold encodeProgram
+        rw [List.flatMap_cons, ht0, List.cons_append]
+      rw [hsplit, decodeProgramGo_cons]
+      -- the tag determines exactly the first instruction's length
+      have hlen : instrLengthOfTag n t0 = (t0 :: ts).length := by
+        have h := encodeInstr_length_ofTag hn i
+        rw [ht0] at h
+        exact h
+      -- `← List.cons_append` puts the list back in `(t0 :: ts) ++ _` shape so `take_left` applies
+      have htake : (t0 :: (ts ++ encodeProgram hn rest)).take (instrLengthOfTag n t0)
+          = t0 :: ts := by
+        rw [hlen, ← List.cons_append, List.take_left]
+      have hdrop : (t0 :: (ts ++ encodeProgram hn rest)).drop (instrLengthOfTag n t0)
+          = encodeProgram hn rest := by
+        rw [hlen, ← List.cons_append, List.drop_left]
+      have honly : decodeInstr hn
+          ((t0 :: (ts ++ encodeProgram hn rest)).take (instrLengthOfTag n t0)) = some i := by
+        rw [htake, ← ht0]
+        cases i with
+        | affine W b => exact decodeInstr_encode_affine hn W b
+        | relu => exact decodeInstr_encode_relu hn
+        | scale c => exact decodeInstr_encode_scale hn c
+      rw [honly, hdrop, ih k' (by simpa using hk)]
+      rfl
+
+/-- **整程序的精确语法往返**（**S11**）。
+
+`decodeProgram` 的燃料取 `xs.length`，而 `length_le_encodeProgram` 保证它够用，
+于是 `decodeProgramGo_encodeProgram` 直接给出结论。 -/
+theorem decodeProgram_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) :
+    decodeProgram hn (encodeProgram hn p) = some p := by
+  unfold decodeProgram
+  exact decodeProgramGo_encodeProgram hn p (encodeProgram hn p).length
+    (length_le_encodeProgram hn p)
+
+/-- **编码不改变求值**：编码后再解码再求值，等于直接求值。
+
+**这是往返引理的直接推论，不是独立建立的语义等价**——所以它不声称「编码保留了语义」，
+只声称「`decode` 之后拿到的是同一个程序」。两者的区别在 `ProgramAST` 里必须分清：
+**语法往返是本节证的；语义等价是靠往返得到的。** -/
+theorem evalProgram_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n)
+    (x : Fin n → ℝ) :
+    (decodeProgram hn (encodeProgram hn p)).map (fun q => evalProgram x q)
+      = some (evalProgram x p) := by
+  rw [decodeProgram_encodeProgram hn p]
+  rfl
+
 end Lattice.Lift.ProgramAST

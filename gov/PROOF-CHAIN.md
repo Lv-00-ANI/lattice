@@ -1605,7 +1605,7 @@
 | `Lattice.Lift.NondegenerateInstance` | 5 | 2 |
 | `Lattice.Lift.PenaltyAnalysis` | 3 | 0 |
 | `Lattice.Lift.PenaltyEmbedding` | 10 | 5 |
-| `Lattice.Lift.ProgramAST` | 9 | 9 |
+| `Lattice.Lift.ProgramAST` | 17 | 13 |
 | `Lattice.Lift.QuantErrorPropagation` | 2 | 0 |
 | `Lattice.Lift.RatRepresentation` | 4 | 1 |
 | `Lattice.Lift.RealLV` | 6 | 5 |
@@ -3421,10 +3421,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
-- `decodeInstr_encode_affine` -> `Instr`, `W`, `apply`
-- `decodeInstr_encode_relu` -> `Instr`, `W`, `apply`, `relu`, `scale`
-- `decodeInstr_encode_scale` -> `Instr`, `W`, `apply`, `scale`
+- `decodeInstr_encode_affine` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
+- `decodeInstr_encode_relu` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
+- `decodeInstr_encode_scale` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `decodePayload_encodeForm` -> `LinearForm`, `decodePayload`, `encodeForm`, `payload`
+- `decodeProgramGo_cons` -> `W`, `induction`, `length`, `relu`, `scale`, `zero`
+- `decodeProgramGo_encodeProgram` -> `W`, `induction`, `length`, `relu`, `scale`, `zero`
+- `decodeProgram_encodeProgram` -> `length`
 - `decodeTotal_satisfies_discriminant` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decodeWith_encode` -> `GeoExpr`, `append_nil`, `enc`, `encLen`
 - `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `roundtrip`, `satSym`, `satW`
@@ -3579,7 +3582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `distract_excess_of_uniform_distance` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `div_abs_self_eq_pm_one` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `div_mod_unique` -> `depth`, `eval`, `induction`, `step`
-- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`
+- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `relu`, `scale`
 - `div_scaleVec_pos` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `div_scaleVec_sign` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `divisible_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
@@ -3938,6 +3941,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encodeForm_length` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
 - `encodeForm_payload_length` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
+- `encodeInstr_length_ofTag` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `encode_cons_eq` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
 - `encode_drop_b_roundtrip_fails` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `flatten`, `length`
 - `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
@@ -4034,7 +4038,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalStack_toStack` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`
 - `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_append` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`
+- `eval_append` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`
 - `eval_congr` -> `induction`, `trans`
 - `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
@@ -4045,7 +4049,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`
-- `eval_nil` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`
+- `eval_nil` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`
 - `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_ofClause` -> `Compiler`, `induction`
 - `eval_ofDNF` -> `Compiler`, `induction`
@@ -4767,10 +4771,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geometric_tail_scope` -> `induction`, `le`, `zero`
 - `gershgorin_bound` -> `apply`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
 - `getConstraints_length_nonneg` -> `Theory`, `length`
-- `getD_append_left` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`
-- `getD_append_right` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`
+- `getD_append_left` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `relu`, `scale`
+- `getD_append_right` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `relu`, `scale`
 - `getD_eq_getElem` -> `apply`, `dot`, `length`
-- `getD_ofFn_payload` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `relu`, `scale`
+- `getD_ofFn_payload` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `gfp_X_pow_card_sub_X_eq_prod` -> `eval`, `eval_mul`
 - `gfp_card_roots_le_natDegree` -> `apply`, `eval`, `eval_mul`, `le_trans`
 - `gfp_eval_X_pow_card_sub_X_eq_zero` -> `eval`
@@ -5562,6 +5566,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_cons` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_generalization` -> `E`, `le_trans`
 - `length_generalization_hetero` -> `E`, `le_trans`
+- `length_le_encodeProgram` -> `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `length_le_of_prefix` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_nil_le` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lfp_eq_inf_all_fixpoints` -> `apply`, `card_fin`
@@ -6581,8 +6586,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_dim_lower_witness_bounded` -> `apply`, `le_refl`
 - `one_dim_lower_witness_core` -> `apply`, `le_refl`
 - `one_le_ceMag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
+- `one_le_encodeInstr_length` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `one_le_instrLengthOfTag` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
 - `one_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `one_le_prod_one_add` -> `eps`, `induction`, `le_trans`, `zero`
 - `one_mem_Subdiff_max_not_mem` -> `apply`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
