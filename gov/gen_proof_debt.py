@@ -27,6 +27,7 @@ for line in io.open(os.path.join(REV, "inv.jsonl"), encoding="utf-8"):
     r = json.loads(line)
     inv[(r["file"], r["name"])] = r
 
+_reviewed_keys = set()
 verdicts = []
 for f in sorted(os.listdir(REV)):
     if not (f.startswith("verdicts_") and f.endswith(".jsonl")):
@@ -43,6 +44,7 @@ for f in sorted(os.listdir(REV)):
         rec = inv.get(key, {})
         v["in_degree"] = rec.get("in_degree", 0)
         v["users"] = rec.get("users", [])
+        _reviewed_keys.add(key)
         verdicts.append(v)
 
 ORDER = ["delete", "strengthen", "downgrade", "register"]
@@ -102,6 +104,9 @@ A("**于是「剩余」会用行数算出假数字**（它会显示 `delete` 还
 A("8 条删除、34 条被对抗性复核推翻、3 条改写）。**错的统计比没有统计更糟。**")
 A("")
 A("真正做了什么，看下面的「已处理」一节与「对抗性复核」一节——**那两节逐条列出，不做汇总。**")
+
+import _debt_coverage
+_debt_coverage.emit(A, inv, _reviewed_keys)
 A("")
 A("")
 A("> **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。")

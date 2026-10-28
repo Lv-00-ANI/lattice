@@ -1,8 +1,8 @@
 # 语义信息：基础 Primitive 与证明义务（SEMANTICS-MAINLINE）
 
-> **状态**：Lean 侧设计/证明路线，不是完成声明。
-> **范围**：语义域、词表编辑、语义编辑、基础 `Primitive`、证明义务。
-> **C 全部推迟**：C ABI、序列化、conformance、C runtime 不在本文范围。
+> **状态**：Lean 规格/证明 + C 接口规格，不是完成声明。
+> **范围**：语义域、词表编辑、语义编辑、基础 `Primitive`、证明义务、C 接口/前置。
+> **C 实现最后**：C ABI、序列化、conformance、C runtime 的**接口与前置现在定义**；C 代码最后写。
 > **不提供打包能力**：没有 `VocabEdit`、`SemanticEdit`、`Import`、`PostTrain` 这类入口；只提供基础 `Primitive`，组合由用户完成。
 
 ---
@@ -29,7 +29,7 @@
 4. **没有固定流程**；`extract → align → merge → compile → post-train → edit` 只是示例组合，不是库规定。
 5. **每个 `Primitive` 有 `pre/post/sound/strength/coverage/frame`**。
 6. **Primitive 之间不互相 import**；只依赖 `Kernel`/`Runtime`/`Domains`。
-7. **C 推迟**；当前只做 Lean 语义与证明。
+7. **C 接口/前置现在定义，C 实现最后**；接口规格属于本文，C 代码不属于。
 
 ---
 
@@ -342,6 +342,35 @@ m := programAssemble (p, v)?;
 
 迁移时保留旧路径别名；不改声明名。
 
+### 7.1 C 接口（Lean 侧规格；C 实现最后）
+
+C 接口不是 C 代码；它是 Lean 侧的 ABI/布局/序列化/conformance 规格。每个 `Primitive` 对应一个 C 函数；组合在 C 侧由用户写，不提供打包入口。
+
+| Primitive | C 函数 | 备注 |
+|:--|:--|:--|
+| `weightsCheck` | `lattice_weights_check` | 返回 status + certificate |
+| `bindVocab` | `lattice_bind_vocab` | weights + vocab → model |
+| `synthesize` | `lattice_synthesize` | spec → program |
+| `programAssemble` | `lattice_program_assemble` | program + vocab → model |
+| `tokenMap` | `lattice_token_map` | vocab × vocab → token map |
+| `applyTokenMap` | `lattice_apply_token_map` | model × map → model |
+| `vocabCompat` | `lattice_vocab_compat` | certificate |
+| `annotate` | `lattice_annotate` | model × meaning → annotation |
+| `applyDelta` | `lattice_apply_delta` | model × delta → model |
+| `semanticCheck` | `lattice_semantic_check` | certificate |
+| `frameCheck` | `lattice_frame_check` | certificate |
+| `undo` | `lattice_undo` | model × record → model |
+
+**C 前置（现在定义）**：
+
+- `CInterface/ABI.lean`：函数签名、错误码、所有权；
+- `CInterface/Layout.lean`：`Model`/`Profile`/`Program`/`Certificate` 的内存布局；
+- `CInterface/Serialization.lean`：token/weight/profile 的字节格式；
+- `CInterface/Conformance.lean`：Lean `#eval` 向量与 C 对照格式；
+- S13 的 Lean 侧 Float 模型/误差界（C 的 `double` 路径据此标注信任边界）。
+
+**C 实现最后**：在 Lean 侧 `Primitive`/`Sound`/`Compose` 稳定后再写 C；未实现前，C 侧是信任边界，不能声称“证明保证 C 正确”。
+
 ---
 
 ## 8. 非目标与非声称
@@ -352,7 +381,7 @@ m := programAssemble (p, v)?;
 - **不声称** 隐空间几何自动继承语义。
 - **不声称** 标注即编辑：标注是数据，编辑由 `applyDelta + semanticCheck + frameCheck + undo` 组成。
 - **不声称** 所有 LLM 的语义完整；只对显式 `D` 声称。
-- **不做 C**：C 全部推迟到 Lean 完成后。
+- **C 实现最后**：C 接口/ABI/布局/序列化/conformance 现在定义；C 代码最后写，未实现前是信任边界。
 
 ---
 
@@ -362,18 +391,20 @@ m := programAssemble (p, v)?;
 - `Primitives/Vocab`：S14–S19 的实际操作。
 - `Primitives/Semantics`：S4–S8、S20 的实际操作与检查。
 - `Compose`：只提供 `compose / parallel / choice / optional / iterate`；语义编辑的组合由用户写。
+- `CInterface`：ABI/布局/序列化/conformance 的 Lean 侧规格；C 实现最后。
 - 不存在 `Lattice/Semantics` 这样的打包能力目录；`Semantics` 只是 `Kernel/Semantics` + `Primitives/{Vocab,Semantics}`。
 
 ---
 
-## 10. 执行顺序（Lean-only）
+## 10. 执行顺序（Lean → C 接口 → C 实现）
 
 1. **P0**：`Kernel/Semantics` 类型；`Primitives/Vocab` 的 `tokenMap/applyTokenMap/vocabCompat` 骨架；`Primitives/Semantics` 的 `annotate/applyDelta/semanticCheck/frameCheck/undo` 骨架。不注册没有 `sound` 的 Primitive。
 2. **P1**：S14–S19 拆到 `Primitives/Vocab`；S4–S8 拆到 `Primitives/Semantics`；S0–S3 留 `Kernel/Semantics`；补 S9/S10。
 3. **P2**：S11–S13 接进 `Runtime`/`Domains`；S20 的桥放 `Kernel/Semantics`，不要塞进 `Primitives/Merge`。
 4. **P3**：旧路径别名、`PROOF-DEBT` 路径映射、`Compose/Matrix` 覆盖语义组合。
 5. **P4**：`THEOREM-INDEX` 语义部分；全量构建与检查。
-6. **C**：不做，等 Lean 完成。
+6. **C 接口**：`CInterface/ABI`、`Layout`、`Serialization`、`Conformance` 规格与 Lean 测试向量；与 `Primitive` 一一对应。
+7. **C 实现最后**：在 Lean `Primitive`/`Sound`/`Compose` 稳定后写 C；未实现前是信任边界。
 
 ---
 
@@ -382,3 +413,4 @@ m := programAssemble (p, v)?;
 **语义信息是“在显式语义域上，行为、符号、几何三者可证明的对应”，不是“权重里藏着可读出的意义”。**
 **词表-句法编辑可配权重变换；语义编辑没有纯权重变换，必须由用户组合 `applyDelta + Train/Repair + semanticCheck + frameCheck + undo`。**
 **库只提供 `Primitives/Vocab` 与 `Primitives/Semantics` 的基础调用；不存在打包的 `VocabEdit` / `SemanticEdit`，也没有固定的语义使用链。**
+**C 接口/ABI/布局/序列化/conformance 现在定义；C 实现最后。**

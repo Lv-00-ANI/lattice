@@ -1,8 +1,8 @@
 # 目录设计思想（DIRECTORY-DESIGN）
 
-> **状态**：Lean 侧目录设计，不是完成声明。
-> **范围**：目录、`Primitive` 契约、组合方式、迁移流程。
-> **C 全部推迟**：C ABI、序列化、conformance、C runtime、C trainer 不进入本设计。
+> **状态**：Lean 侧目录设计 + C 接口规格，不是完成声明。
+> **范围**：目录、`Primitive` 契约、组合方式、迁移流程、C 接口/前置。
+> **C 实现最后**：C ABI、布局、序列化、conformance 的接口与前置现在定义；C 代码最后写。
 > **核心原则**：库只提供基础 `Primitive`，不打包任何能力；组合是用户的事。
 
 ---
@@ -189,6 +189,12 @@ Lattice/
     Laws.lean
     Matrix.lean
     Registry.lean
+  CInterface/                   -- Lean 侧 C 契约（现在定义）
+    ABI.lean                    -- 函数签名/错误码/所有权
+    Layout.lean                 -- Model/Profile/Program 内存布局
+    Serialization.lean          -- token/weight/profile 字节格式
+    Conformance.lean            -- Lean #eval 向量与 C 对照格式
+  C/                            -- C 实现（最后；现在不建）
   Lib/                          -- 数学库，保持独立
   Evidence/                     -- Audit / PROOF-DEBT / census / negative
     Debt/
@@ -374,6 +380,27 @@ def iterate  (measure : Input → ℕ) (f : Primitive) : Primitive
 
 细节见 `SEMANTICS-MAINLINE.md`。
 
+### 8.1 CInterface（现在）与 C 实现（最后）
+
+`CInterface/` 是 **Lean 侧 C 契约**，不是 C 代码：
+
+| 文件 | 内容 |
+|:--|:--|
+| `ABI.lean` | 每个 `Primitive` 一个 C 函数签名、错误码、所有权 |
+| `Layout.lean` | `Model`/`Profile`/`Program`/`Certificate` 的内存布局 |
+| `Serialization.lean` | token/weight/profile 的字节格式 |
+| `Conformance.lean` | Lean `#eval` 向量与 C 对照格式 |
+
+**C 接口原则**：
+
+- 一个 `Primitive` 一个 C 函数；没有 `importModel`/`trainLoop` 打包函数；
+- C 侧组合由用户写；
+- 失败用 status/`Option` 传播；
+- 每个函数返回输出 + certificate（如适用）；
+- S13 的 Lean 侧 Float 模型/误差界是 C 的 `double` 路径前置；未做前 C 是信任边界。
+
+**C 实现最后**：在 `Primitive`/`Sound`/`Compose` 稳定后再写 `C/`；当前只定义接口与前置，不写 C 代码。
+
 ---
 
 ## 9. 依赖与门禁
@@ -385,8 +412,9 @@ runtime 2
 domains 3
 primitives 4
 compose 5
-evidence 6
-usage 7
+cinterface 6
+evidence 7
+usage 8
 top 99
 ```
 
@@ -442,8 +470,10 @@ top 99
 | **P2 拆 Lift/Geo** | 2–4 周 | `Kernel/Runtime/Domains`；旧路径别名；`PATH_MAP` | 构建通过；`PROOF-DEBT` 条目数不变 |
 | **P3 Core/Audit** | 1–2 周 | `Core→Kernel`、`Audit→Evidence`、gate rank、独立性守卫 | 无 primitive 互相 import |
 | **P4 清理** | 1 周 | `PRIMITIVE-INDEX`、删别名、文档 | 61 检查绿；构建时间 +≤20% |
+| **P5 C 接口规格** | 1 周 | `CInterface/ABI`、`Layout`、`Serialization`、`Conformance` | 每个 primitive 有 C 签名/布局/字节格式/测试向量；无 C 代码 |
+| **P6 C 实现** | 最后，另行排期 | `C/` 实现 | 与 `CInterface` 一致；不在 Lean 阶段 |
 
-**总工作量**：约 6–10 周（1–2 人）。
+**Lean 阶段总工作量**：约 6–10 周（1–2 人）；C 接口规格 +1 周；C 实现最后。
 
 ### 11.1 迁移机制
 
