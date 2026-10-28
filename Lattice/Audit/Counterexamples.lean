@@ -34,7 +34,7 @@
 | 定理 | 前提 | 反例 | 判定 |
 |:--|:--|:--|:--|
 | `abs_le_of_sq_le` | `0 ≤ ε` | `r = 0, ε = -1` | **承重** |
-| `epsSat_of_loss_le_sq` | `0 ≤ ε` | 同上 | **承重** |
+| `abs_resid_le_of_loss_le_sq` | `0 ≤ ε` | 同上 | **承重** |
 | `residue_bound_of_zero_sample` | `δ` 相关 | 见下 | 承重 |
 
 ## 4. 边界
@@ -63,7 +63,7 @@ theorem sq_le_needs_nonneg :
   have hinst := h 0 (-1) (by norm_num)
   norm_num at hinst
 
-/-- **同一反例也适用于 `epsSat_of_loss_le_sq` 的 `0 ≤ ε`。**
+/-- **同一反例适用于 `abs_resid_le_of_loss_le_sq` 的 `0 ≤ ε`。**
 
 `EpsSat` 的定义含 `≤ ε`，所以负的 `ε` 会让它不可满足，
 而 `loss ≤ ε²` 却可以被满足。 -/

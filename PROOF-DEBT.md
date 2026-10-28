@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 107 |
+| `register` | 106 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -276,7 +276,6 @@
 | `Lib/Penalty/PolyExact.lean:79` | `hasFDerivAt_sq` | 0 | `Lattice.hasFDerivAt_sq` 与 `Lattice.Lift.hasFDerivAt_sq`（Lift/PenaltyAnalysis.lean:45）**陈述逐字相同**，证明体只调用后者——本条不引入任何新数学，是缩短命名空间的再导出。另注意：本条 `users` 指向 Lift/PenaltyAnalysis.lean，而该文件正是被转发的**下层原件**，不可能反向依赖本文件，这条引用是命名比对产物而非真实使用。建议改为 `export`/别… |
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
-| `Runtime/ApproxExact.lean:150` | `epsSat_of_loss_le_sq` | 0 | 登记 PROOF-DEBT：名实不符的重复别名。要么删掉并把 Audit 表指向 abs_resid_le_of_loss_le_sq，要么改成真正的 EpsSat 版本（结论 EpsSat E p (ε^2) x）。引用它的只有 Audit 的假设表与反例说明，不是证明依赖，改名成本低。 |
 | `Runtime/CompilerScheme.lean:103` | `backend_sound` | 0 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
 | `Runtime/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
 | `Runtime/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
@@ -310,6 +309,7 @@
 | `Audit/BridgedComposition.lean` | `compose_three_with_bridges` | 降级已完成。两处：(1) doc 原写「这是非相邻组合的一般形式：**段数不限**」——那句话**没有定理支撑**（定理字面上只有 `P Q R` 三个性质、`f g h` 三个映射），已改为「**三段** + 逐段桥」并写明 **N 段未证、不再声称**；(2) 上方表格列的是 `compose_list_with_bridges`——**那个名字在文件里不存在**，已改为真实的 `compose_three_with_bridges`。对现有用途（两段对照、桥数 2）三段已够。 |
 | `Audit/Hypotheses.lean` | `no_redundant_hypotheses` | 降级已完成：**名字**才是过度声称的地方。它读作「审计没有发现冗余前提」（关于**整个定理库**），而定理只说 `chainAudit` 里没有 `.redundant` 条目。已改名为 **`no_redundant_entries_in_audit_table`**（入度 0，无依赖者），doc 也写清「证的是本表，不是库」。 |
 | `Audit/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
+| `Runtime/ApproxExact.lean` | `epsSat_of_loss_le_sq` | 处理完成：**它原本是一条别名**。结论 `\|E.resid p x\| ≤ ε` 与 `abs_resid_le_of_loss_le_sq` **逐字相同**，而名字说「`EpsSat` 的连接」——`EpsSat` **根本没出现**。现在结论是 **`EpsSat E.toPenaltyEmbedding p (ε ^ 2) x`**，**并且 `0 ≤ ε` 不再需要**（右端是 `ε ^ 2`，自动非负）——**谓词形式比残差形式更强**。三处计划外修正：`Audit/Counterexamples.lean` 的表行与 docstring 改指 `abs_resid_le_of_loss_le_sq`（反例 `r = 0, ε = -1` 对谓词形式**不适用**）；`Audit/Hypotheses.lean` 的「`0 ≤ ε` 承重」条目同样改指残差形式。四次脚本失败后的**结构性修正**：CJK 文本不再嵌入 Python 字符串，改为**片段写成文件 + ASCII 锚点拼接**。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 
