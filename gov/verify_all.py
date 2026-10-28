@@ -125,6 +125,10 @@ CHECKS = [
     # misses and `in_degree` silently falls back to 0, so the ledger reports reviewed files as
     # unreviewed while the coverage table still claims 100% of the load-bearing set.
     ("debt: no orphaned verdicts", "check_proof_debt_orphans.py"),
+    # Round 11. A new defect class: a theorem whose whole proof forwards to another declaration.
+    # udit_duplicates.py groups by NAME and is report-only, so it sees neither of these.
+    ("audit: alias census", "audit_aliases.py"),
+    ("audit: alias self-test", "audit_aliases.py --self-test"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not
