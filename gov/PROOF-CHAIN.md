@@ -5629,7 +5629,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerSeq_three` -> `Layer`
 - `layerStack_equivariant` -> `E`, `W`, `apply`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `layerToCLM_apply` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
-- `layerWords_length` -> `AffineLayer`, `W`, `flatten`, `induction`, `length`
+- `layerWords_length` -> `AffineLayer`, `length`
 - `layerWords_zero` -> `AffineLayer`
 - `layer_act_injective` -> `BehaviourallyEquivalent`, `W`
 - `layer_approx_on` -> `le_trans`, `min`
