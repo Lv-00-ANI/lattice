@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Lib.Linear.PenaltyMatrix
-import Lattice.Lift.PenaltyAnalysis
-
+import Lattice.Runtime.PenaltyAnalysis
 /-!
 # `Lattice.Lib.Penalty.PolyExact` -- penalty exactness for a nonlinear residual
 

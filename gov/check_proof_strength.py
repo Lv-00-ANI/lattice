@@ -262,6 +262,17 @@ def main(argv):
     findings = scan()
 
     # Two-way baseline discipline: the baseline may only shrink.
+    #
+    # Round 237. The baseline is keyed on (path, line, shape), so a `git mv` makes every entry for the
+    # moved file look BOTH "paid off" (old path vanishes from the scan) AND "new" (the finding now
+    # appears at the new path). That is the same orphaning defect as PROOF-DEBT's key join, and it is
+    # fixed the same way: map the baseline's path through `PATH_MAP` before comparing. The baseline
+    # FILE is not edited by a move -- only the map is.
+    sys.path.insert(0, HERE)
+    try:
+        from _debt_path_map import PATH_MAP
+    except ImportError:
+        PATH_MAP = {}
     base_path = os.path.join(HERE, "proof_strength_baseline.txt")
     baseline = {}
     if os.path.exists(base_path):
@@ -271,6 +282,7 @@ def main(argv):
                 continue
             parts = ln.split("\t")
             if len(parts) >= 4:
+                parts[0] = PATH_MAP.get(parts[0], parts[0])
                 baseline[(parts[0], parts[1], parts[2])] = parts[3]
 
     bad = 0

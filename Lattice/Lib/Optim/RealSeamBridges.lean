@@ -5,7 +5,7 @@ import Lattice.Lib.Architectures.RealBatchNorm
 import Lattice.Lib.Architectures.RealLayerNorm
 import Lattice.Lib.Architectures.RealBatchNormConsistency
 import Lattice.Lift.RealLV
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 /-!
 # LATTICE: RealSeamBridges -- 接缝桥模块
 

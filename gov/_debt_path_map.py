@@ -24,4 +24,10 @@ Paths are relative to `Lattice/`, matching the `file` field in `verdicts_*.jsonl
 PATH_MAP = {
     # round 234, P2 pilot: the first module moved out of `Lift/`
     "Lift/ProgramAST.lean": "Runtime/ProgramAST.lean",
+    # round 237, batch A1: the five `Lift/` modules that import NO other Lattice module at all
+    "Lift/ComboN.lean": "Runtime/ComboN.lean",
+    "Lift/RealLinear.lean": "Runtime/RealLinear.lean",
+    "Lift/StackCodegen.lean": "Runtime/StackCodegen.lean",
+    "Lift/ErrorCalculus.lean": "Runtime/ErrorCalculus.lean",
+    "Lift/PenaltyAnalysis.lean": "Runtime/PenaltyAnalysis.lean",
 }

@@ -67,8 +67,7 @@
 import Mathlib
 import Lattice.Geo.Loss
 import Lattice.Geo.Reinjection
-import Lattice.Lift.ErrorCalculus
-
+import Lattice.Runtime.ErrorCalculus
 open scoped BigOperators
 
 namespace Lattice.Geo

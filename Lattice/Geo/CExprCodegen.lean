@@ -40,7 +40,7 @@ theorem toStack_correct (e : CExpr n) (pts : ℕ → Fin n → Float) (seed : Fl
 - 本节**不改** `CExpr` 与 `evalC` 的定义。
 -/
 import Mathlib
-import Lattice.Lift.StackCodegen
+import Lattice.Runtime.StackCodegen
 import Lattice.Geo.ComputableExpr
 
 /-! ## Mapping `CExpr` onto the machine -/

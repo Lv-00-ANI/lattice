@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lib.Optim.RealApprox
 import Lattice.Lift.WeightToSymbolEquivalence
 import Lattice.Lib.LinearAlgebra.RealSparsity

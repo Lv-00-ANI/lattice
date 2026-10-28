@@ -15,12 +15,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5450 | 63.7% |
-| 1 | 1346 | 15.7% |
-| 2 | 669 | 7.8% |
-| 3 | 377 | 4.4% |
-| 4 | 597 | 7.0% |
-| 5 | 121 | 1.4% |
+| 0 | 5422 | 63.3% |
+| 1 | 1319 | 15.4% |
+| 2 | 710 | 8.3% |
+| 3 | 386 | 4.5% |
+| 4 | 598 | 7.0% |
+| 5 | 125 | 1.5% |
 | 6 | 2 | 0.0% |
 | **合计** | **8562** | |
 
@@ -82,12 +82,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `exact_of_foldStrength_exact` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `applySgd_run` (`Compose/Steps.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `applyMomentum_velocity` (`Compose/Steps.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `codegenLadder_forward` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
+| 5 | `codegenLadder_satW_iff` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
+| 5 | `codegenLadder_l2l3_changes_representation` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
+| 5 | `error_to_penalty` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics, root |
 | 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `all_twelve_discharged` (`Lib/Chain/RealLv00AxiomDischargeSummary.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

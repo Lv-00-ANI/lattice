@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 /-!
 # LATTICE: IG 完备性（线性版）—— 差异分解恒等式
 

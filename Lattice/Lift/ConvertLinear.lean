@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ComboN
+import Lattice.Runtime.ComboN
 /-!
 # LATTICE: 符号→权重转换的最小保语义证明
 

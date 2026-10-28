@@ -75,7 +75,7 @@ import Lattice.Lib.Chain.Geometry
 import Lattice.Lib.Compiler.Inequality
 import Lattice.Lift.LayerComposition
 import Lattice.Lib.Compiler.ModConstraint
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lift.RealTotalLoss
 import Lattice.Lib.Architectures.RealLayerPropagation
 import Lattice.Lib.Chain.RealGeometry

@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Lift.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lib.Optim.RealListFinBridge
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 /-!
 # LATTICE S02: RealCrossUniverseBridge —— 符号宇宙 ⇄ 权重宇宙的最小可行桥（治 F-C）
 
