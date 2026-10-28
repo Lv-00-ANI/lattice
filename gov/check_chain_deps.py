@@ -45,8 +45,8 @@ _RAW_EXPECTED = {
     "sound_of_factors": ("Lift/EncodingAbstraction.lean", 2),
     "scheme_covers_all": ("Lift/CompilerScheme.lean", 3),
     "reinject_of_hold": ("Geo/ReinjectionGeneral.lean", 3),
-    "decreases_of_one_step": ("Audit/DecreasesRole.lean", 1),
-    "absorbs_not_derivable": ("Audit/ObligationIndependence.lean", 5),
+    "decreases_of_one_step": ("Evidence/DecreasesRole.lean", 1),
+    "absorbs_not_derivable": ("Evidence/ObligationIndependence.lean", 5),
 }
 
 KEYWORDS = {

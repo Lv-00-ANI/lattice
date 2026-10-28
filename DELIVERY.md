@@ -27,7 +27,7 @@
 | 指标 | 值 |
 |:--|--:|
 | 源模块（不含 `Reference/`） | **833** |
-| └ Core / Lift / Domains / Geo / Lib / Audit / Usage / Root | 18 / 0 / 4 / 66 / 97 / 608 |
+| └ Core / Lift / Domains / Geo / Lib / Evidence / Usage / Root | 18 / 0 / 4 / 66 / 97 / 608 |
 | 声明总数 | **11437** |
 | 定理 / 引理（官方口径） | **8,593** |
 | 代码行（含注释与空行） | **209,491** |
@@ -149,7 +149,7 @@
 | 成果 | 内容 | 轮次 |
 |:--|:--|--:|
 | 组合代数 | 组合判定是 **monoid**，桥需求是到 `ℕ` 的**同态** | 68 |
-| **格结构（分层）** | **每段判定是有界格；判定序列不是**——`Audit/VerdictLattice.lean` | **173** |
+| **格结构（分层）** | **每段判定是有界格；判定序列不是**——`Evidence/VerdictLattice.lean` | **173** |
 | 表示族（权重） | **三族**连通（`AffineLayer` / `LayerParams` / `MLayer`） | 71 |
 | 表示族（符号） | **两族**连通（构造子 / 约束集） | 72 |
 | 误差演算 | 误差**可复合**（三角、链式，`chain_error_three`） | 70 |
@@ -173,7 +173,7 @@
 （`verdict_lub_of_length_eq`）——这不是空话，它是「如果需要格结构该走哪条路」的回答。
 
 ⇒ **「格」不是空的，也不是全的。** 它在单段判定的强弱上真实存在，在判定序列上不存在。
-**所以 `Audit/CompositionAlgebra.lean` 注册 `Monoid Verdict` 是对的**——不是没找到格结构，
+**所以 `Evidence/CompositionAlgebra.lean` 注册 `Monoid Verdict` 是对的**——不是没找到格结构，
 是格结构在另一层，而 `++` 作用在序列上。**名字叫 lattice，结构是「单段格 + 序列单子」，
 这一点现在有定理支撑，不只是措辞。**
 

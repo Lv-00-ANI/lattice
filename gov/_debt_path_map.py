@@ -22,6 +22,19 @@ Paths are relative to `Lattice/`, matching the `file` field in `verdicts_*.jsonl
 
 #: (old path relative to Lattice/) : (new path relative to Lattice/)
 PATH_MAP = {
+    "Audit/BridgedComposition.lean": "Evidence/BridgedComposition.lean",
+    "Audit/ChainTransitivity.lean": "Evidence/ChainTransitivity.lean",
+    "Audit/CompositionAlgebra.lean": "Evidence/CompositionAlgebra.lean",
+    "Audit/CompositionClass.lean": "Evidence/CompositionClass.lean",
+    "Audit/Counterexamples.lean": "Evidence/Counterexamples.lean",
+    "Audit/DecreasesRole.lean": "Evidence/DecreasesRole.lean",
+    "Audit/Hypotheses.lean": "Evidence/Hypotheses.lean",
+    "Audit/MultiComposition.lean": "Evidence/MultiComposition.lean",
+    "Audit/ObligationIndependence.lean": "Evidence/ObligationIndependence.lean",
+    "Audit/PredicateWitnesses.lean": "Evidence/PredicateWitnesses.lean",
+    "Audit/StructureCensus.lean": "Evidence/StructureCensus.lean",
+    "Audit/VerdictLattice.lean": "Evidence/VerdictLattice.lean",
+
     # round 234, P2 pilot: the first module moved out of `Lift/`
     "Lift/ProgramAST.lean": "Runtime/ProgramAST.lean",
     # round 237, batch A1: the five `Lift/` modules that import NO other Lattice module at all

@@ -32,9 +32,6 @@
 
 | 文件 | 定理 |
 |:--|:--|
-| `Audit/MultiComposition.lean` | `chain_single` |
-| `Audit/MultiComposition.lean` | `chain_two` |
-| `Audit/PredicateWitnesses.lean` | `isometryScalar_id` |
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Core/Repair.lean` | `parity_terminates` |
@@ -116,6 +113,9 @@
 | `Domains/Geometry/Unified.lean` | `linearRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `perpRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `samePointRepair_unified` |
+| `Evidence/MultiComposition.lean` | `chain_single` |
+| `Evidence/MultiComposition.lean` | `chain_two` |
+| `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
 | `Lib/Architectures/RealBatchNorm.lean` | `infer_bn_slope_intercept` |
 | `Lib/Architectures/RealBatchNormConsistency.lean` | `bn_train_eq_infer_of_const` |
 | `Lib/Architectures/RealBatchNormConsistency.lean` | `gnorm_scale_invariant_reuse` |
@@ -743,10 +743,6 @@
 
 | 文件 | 定理 |
 |:--|:--|
-| `Audit/VerdictLattice.lean` | `kindInf_le_left` |
-| `Audit/VerdictLattice.lean` | `kindInf_le_right` |
-| `Audit/VerdictLattice.lean` | `kindLe_sup_left` |
-| `Audit/VerdictLattice.lean` | `kindLe_sup_right` |
 | `CInterface/ABI.lean` | `abiTable_errors_wellFormed` |
 | `CInterface/ABI.lean` | `abiTable_returns_a_value` |
 | `Core/Repair.lean` | `preserves` |
@@ -773,6 +769,10 @@
 | `Domains/Geometry/Unified.lean` | `linearRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `perpRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `samePointRepair_unified` |
+| `Evidence/VerdictLattice.lean` | `kindInf_le_left` |
+| `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
+| `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
+| `Evidence/VerdictLattice.lean` | `kindLe_sup_right` |
 | `Lib/Architectures/RealMoELoadBalance.lean` | `witness_balanced_no_drop` |
 | `Lib/Architectures/RealMoELoadBalance.lean` | `witness_imbalanced_drops` |
 | `Lib/Architectures/RealMoERouteCapacity.lean` | `nc_k_fits_no_drop` |

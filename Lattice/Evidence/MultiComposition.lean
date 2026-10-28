@@ -74,7 +74,7 @@ inductive Chain : (α → Prop) → Type
   本节允许性质逐步改变。
 -/
 import Mathlib
-import Lattice.Audit.CompositionClass
+import Lattice.Evidence.CompositionClass
 
 namespace Lattice.Audit
 

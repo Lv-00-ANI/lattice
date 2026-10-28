@@ -54,7 +54,7 @@
   逐段桥，是可以做的推广，但不在本轮范围。
 -/
 import Mathlib
-import Lattice.Audit.BridgedComposition
+import Lattice.Evidence.BridgedComposition
 
 namespace Lattice.Audit
 

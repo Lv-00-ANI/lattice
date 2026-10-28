@@ -15,11 +15,11 @@
 | `Lift` | 0 | 0.0% |
 | `Runtime` | 9 | 3.2% |
 | `Domains` | 6 | 2.1% |
-| `Audit` | 8 | 2.8% |
+| `Evidence` | 8 | 2.8% |
 | `Core` | 5 | 1.8% |
 | `Geo` | 0 | 0.0% |
 
-**分布值得注意**：90% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Audit`）
+**分布值得注意**：90% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
 而是钉住少数几条**关键**不可能性——而它们恰恰都在那里（见 §3）。
 
@@ -44,14 +44,14 @@
 
 | 层 | 定理 | 否证的内容 |
 |:--|:--|:--|
-| `Audit` | `bridge_is_necessary` | `¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ), (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))` |
-| `Audit` | `bridged_needs_bridge` | `¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ), (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))` |
-| `Audit` | `sq_le_needs_nonneg` | `¬ (∀ r ε : ℝ, r ^ 2 ≤ ε ^ 2 → \|r\| ≤ ε)` |
-| `Audit` | `eps_needs_nonneg` | `¬ (∀ ε : ℝ, (0 : ℝ) ^ 2 ≤ ε ^ 2 → (0 : ℝ) ≤ ε)` |
-| `Audit` | `lipschitz_needs_nonneg` | `¬ (∀ L δ : ℝ, 0 ≤ δ → (0 : ℝ) ≤ L * δ)` |
-| `Audit` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
-| `Audit` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
-| `Audit` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
+| `Evidence` | `bridge_is_necessary` | `¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ), (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))` |
+| `Evidence` | `bridged_needs_bridge` | `¬ (∀ (P Q : ℕ → Prop) (f g : ℕ → ℕ), (∀ x, P x → P (f x)) → (∀ x, Q x → Q (g x)) → ∀ x, P x → Q (g (f x))` |
+| `Evidence` | `sq_le_needs_nonneg` | `¬ (∀ r ε : ℝ, r ^ 2 ≤ ε ^ 2 → \|r\| ≤ ε)` |
+| `Evidence` | `eps_needs_nonneg` | `¬ (∀ ε : ℝ, (0 : ℝ) ^ 2 ≤ ε ^ 2 → (0 : ℝ) ≤ ε)` |
+| `Evidence` | `lipschitz_needs_nonneg` | `¬ (∀ L δ : ℝ, 0 ≤ δ → (0 : ℝ) ≤ L * δ)` |
+| `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
+| `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
+| `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
 | `Core` | `relu_not_injective` | `¬ Function.Injective relu` |
 | `Core` | `netRelu_not_injective` | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
 | `Core` | `no_uniform_bound` | `¬ countdown.Sat (countdown.iterate n k)` |

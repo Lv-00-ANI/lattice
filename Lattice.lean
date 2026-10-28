@@ -5,7 +5,7 @@ import Lattice.Primitives
 import Lattice.Domains
 import Lattice.CInterface
 import Lattice.Lib
-import Lattice.Audit
+import Lattice.Evidence
 import Lattice.Usage
 import Lattice.Semantics
 

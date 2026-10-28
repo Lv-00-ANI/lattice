@@ -51,7 +51,7 @@ IsometryScalar  (T : E → E) : Prop := ∀ q k, ⟪T q, T k⟫ = ⟪q, k⟫
   一个真正对称但非恒真的关系，那属于 `RealEffectOrdering` 的主题内容。
 -/
 import Mathlib
-import Lattice.Audit.Hypotheses
+import Lattice.Evidence.Hypotheses
 import Lattice.Lib.Compiler.RealEffectOrdering
 import Lattice.Lib.Concentration.RealMeasurePD
 import Lattice.Lib.Editing.RealEditCommute

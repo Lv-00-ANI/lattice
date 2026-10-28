@@ -1,9 +1,5 @@
 # duplication baseline -- `kind	path	name`, kind in {forward, copy}.
 # Adding a line means: this duplicate was decided and is intentional (usually a vocabulary instance).
-copy	Audit/VerdictLattice.lean	kindInf_le_left
-copy	Audit/VerdictLattice.lean	kindInf_le_right
-copy	Audit/VerdictLattice.lean	kindLe_sup_left
-copy	Audit/VerdictLattice.lean	kindLe_sup_right
 copy	CInterface/ABI.lean	abiTable_errors_wellFormed
 copy	CInterface/ABI.lean	abiTable_returns_a_value
 copy	Core/Repair.lean	preserves
@@ -30,6 +26,10 @@ copy	Domains/Geometry/SynthesisCoverage.lean	sqDistAt_nonneg
 copy	Domains/Geometry/Unified.lean	linearRepair_unified
 copy	Domains/Geometry/Unified.lean	perpRepair_unified
 copy	Domains/Geometry/Unified.lean	samePointRepair_unified
+copy	Evidence/VerdictLattice.lean	kindInf_le_left
+copy	Evidence/VerdictLattice.lean	kindInf_le_right
+copy	Evidence/VerdictLattice.lean	kindLe_sup_left
+copy	Evidence/VerdictLattice.lean	kindLe_sup_right
 copy	Lib/Architectures/RealMoELoadBalance.lean	witness_balanced_no_drop
 copy	Lib/Architectures/RealMoELoadBalance.lean	witness_imbalanced_drops
 copy	Lib/Architectures/RealMoERouteCapacity.lean	nc_k_fits_no_drop
@@ -156,9 +156,6 @@ copy	Runtime/RealTokenization.lean	tokenize_collision
 copy	Runtime/VerificationSoundness.lean	residual_le_of_zero_on_dense
 copy	Semantics/CompileSound.lean	holdsSet_midpoint_single
 copy	Semantics/CompileSound.lean	holdsSet_samePoint_single
-forward	Audit/MultiComposition.lean	chain_single
-forward	Audit/MultiComposition.lean	chain_two
-forward	Audit/PredicateWitnesses.lean	isometryScalar_id
 forward	Core/OneStepBridge.lean	natCountdownAsRepair_converges
 forward	Core/OneStepBridge.lean	oneStepRepair_converges
 forward	Core/Repair.lean	parity_terminates
@@ -240,6 +237,9 @@ forward	Domains/Geometry/Unified.lean	every_repair_preserves_at_sat
 forward	Domains/Geometry/Unified.lean	linearRepair_unified
 forward	Domains/Geometry/Unified.lean	perpRepair_unified
 forward	Domains/Geometry/Unified.lean	samePointRepair_unified
+forward	Evidence/MultiComposition.lean	chain_single
+forward	Evidence/MultiComposition.lean	chain_two
+forward	Evidence/PredicateWitnesses.lean	isometryScalar_id
 forward	Lib/Architectures/RealBatchNorm.lean	infer_bn_slope_intercept
 forward	Lib/Architectures/RealBatchNormConsistency.lean	bn_train_eq_infer_of_const
 forward	Lib/Architectures/RealBatchNormConsistency.lean	gnorm_scale_invariant_reuse

@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1136 | 13.5% |
+| 定理 + 引理 | 8409 | 1065 | 12.7% |
 | **入度 ≥ 1（承重集）** | **872** | **682** | **78.2%** |
-| **入度 = 0** | **7537** | **454** | **6.0%** |
+| **入度 = 0** | **7537** | **383** | **5.1%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.0%**：7537 条入度为 0 的定理里只审了 454 条。**这才是「样本」真正指的东西。**
+- **零入度只有 5.1%**：7537 条入度为 0 的定理里只审了 383 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -102,21 +102,21 @@
 | `Lib/Concentration/RealMeasureTheoryBase.lean:194` | `prob_isFinite` | 1 | 只复述类型类：proof = `inferInstance`，结论由环境实例直接得到，零信息。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:180` | `decidable_zeroFixing_siluZ` | 1 | ZeroFixing act_siluZ 展开为 ∀ y, (y = 0 ↔ y = 0)；证明体两方向分别就是 `hy` 与 `hy ▸ rfl`，是重言。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:185` | `decidable_zeroFixing_geluZ` | 1 | ZeroFixing act_geluZ 展开为 ∀ y, (y = 0 ↔ y = 0)，证明体两方向都是 hy / hy ▸ rfl：重言。 |
-| `Audit/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
-| `Audit/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
-| `Audit/CompositionAlgebra.lean:191` | `verdict_monoid_instance_agrees` | 0 | `⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。 |
-| `Audit/CompositionClass.lean:117` | `evidence_kinds_differ` | 0 | `⟨rfl, rfl⟩`：两个合取项都是定义性自等（`Evidence .sequential P Q` 归约到 `True`，`Evidence .bridged P Q` 归约到 `∀ x, P x → Q x`），零信息量。 |
-| `Audit/CompositionClass.lean:124` | `sequential_evidence_trivial` | 0 | 陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。 |
-| `Audit/CompositionClass.lean:130` | `bridged_needs_bridge` | 0 | 证明是 `BridgedComposition.bridge_is_necessary`：一字不改地引用另一条定理，零新增信息。 |
-| `Audit/MultiComposition.lean:123` | `chain_single` | 0 | 归约后是 `h x hx`：只应用了一次假设，零信息量。 |
-| `Audit/MultiComposition.lean:128` | `chain_nil_identity` | 0 | `compose_chain (Chain.nil P) x hx` 归约后就是 `hx`：只复述假设。 |
-| `Audit/ObligationIndependence.lean:95` | `destructiveFix_atomic` | 0 | `fun _ hn => hn`：`n = 0 → n = 0` 是重言，且与同文件 :144 `ascendingFix_atomic` 的陈述逐字相同（两条一模一样的定理名）。 |
-| `Audit/ObligationIndependence.lean:144` | `ascendingFix_atomic` | 0 | `fun _ hn => hn`：重言；且与 :95 `destructiveFix_atomic` 的陈述逐字相同——同一文件里两条同名实不同名的重言。 |
-| `Audit/PredicateWitnesses.lean:69` | `isRedundant_true` | 0 | `rfl`：陈述是 `true = true`，重言（a=a），零信息量。 |
 | `Core/Repair.lean:117` | `stable` | 0 | 证明体就是 R.absorbs x h，即 Repair 结构体的一个字段投影，一字未改；等于把构造 Repair 时承诺的假设原样复述成「定理」。 |
 | `Core/RepairAtomicity.lean:73` | `atomic_of_zero_iff` | 0 | 证明是 fun x hx => (h x).mp hx：结论就是前提的一个方向，重言。 |
 | `Domains/Constraints/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
 | `Domains/Geometry/RepairCoverage.lean:84` | `sqDist_nonneg` | 0 | 逐字重复（同陈述、同 4 行证明），位于 `Lattice.Geo.RepairCoverage` 命名空间下。 |
+| `Evidence/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
+| `Evidence/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
+| `Evidence/CompositionAlgebra.lean:191` | `verdict_monoid_instance_agrees` | 0 | `⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。 |
+| `Evidence/CompositionClass.lean:117` | `evidence_kinds_differ` | 0 | `⟨rfl, rfl⟩`：两个合取项都是定义性自等（`Evidence .sequential P Q` 归约到 `True`，`Evidence .bridged P Q` 归约到 `∀ x, P x → Q x`），零信息量。 |
+| `Evidence/CompositionClass.lean:124` | `sequential_evidence_trivial` | 0 | 陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。 |
+| `Evidence/CompositionClass.lean:130` | `bridged_needs_bridge` | 0 | 证明是 `BridgedComposition.bridge_is_necessary`：一字不改地引用另一条定理，零新增信息。 |
+| `Evidence/MultiComposition.lean:123` | `chain_single` | 0 | 归约后是 `h x hx`：只应用了一次假设，零信息量。 |
+| `Evidence/MultiComposition.lean:128` | `chain_nil_identity` | 0 | `compose_chain (Chain.nil P) x hx` 归约后就是 `hx`：只复述假设。 |
+| `Evidence/ObligationIndependence.lean:95` | `destructiveFix_atomic` | 0 | `fun _ hn => hn`：`n = 0 → n = 0` 是重言，且与同文件 :144 `ascendingFix_atomic` 的陈述逐字相同（两条一模一样的定理名）。 |
+| `Evidence/ObligationIndependence.lean:144` | `ascendingFix_atomic` | 0 | `fun _ hn => hn`：重言；且与 :95 `destructiveFix_atomic` 的陈述逐字相同——同一文件里两条同名实不同名的重言。 |
+| `Evidence/PredicateWitnesses.lean:69` | `isRedundant_true` | 0 | `rfl`：陈述是 `true = true`，重言（a=a），零信息量。 |
 | `Lib/Architectures/RealOperatorNorm.lean:54` | `add_norm_bound` | 0 | 与 norm_add_le 逐字同义，零信息 |
 | `Lib/Attention/RealTemporalLayer.lean:275` | `element_iff_no_upper` | 0 | Iff.rfl：isElementUnderUpGaze := ¬ hasUpper，命题即 P↔P。 |
 | `Lib/Concentration/RealHoeffdingInequality.lean:333` | `condexp_hoeffding` | 0 | 重言：stmt 是假设的逐字复制，proof 体为 `hcond`（exact h）。 |
@@ -148,9 +148,9 @@
 | `Lib/Optim/RealSGDStochastic.lean:202` | `sgd_expected_gap_sum_seq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
-| `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Domains/Geometry/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 0 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
 | `Domains/Geometry/LoopPerp.lean:47` | `fixPerp_absorbs` | 0 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
+| `Evidence/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:95` | `modalLogic_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 5` 是超集大小：1 个已在模板表内（second_order_logic），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:85` | `probabilityTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 4` 是超集大小：2 个已在模板表内（axiom_of_choice, computational_complexity_theory），实际缺口 2。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:119` | `informationTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 12` 是超集大小：11 个已在模板表内（adversary_model, channel_model, channel_model_specification, channel_models, cryptographic_protocol, distortion_measure, network_topology, program_termination, received_signal, source_distr… |
@@ -196,18 +196,18 @@
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:263` | `neg_zeroFixing_reluZ` | 1 | 为了 neg_zeroFixing_* 统一命名而转发可以理解，但作为独立定理它只是 B11 已有结论的改名。verdict=register：改为 alias/@[simp] 转发并在 doc 标 derived-from，不计入定理数。 |
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
-| `Audit/ChainTransitivity.lean:116` | `preserves_three` | 0 | 登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。 |
-| `Audit/CompositionAlgebra.lean:182` | `verdict_monoid` | 0 | 登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。 |
-| `Audit/CompositionAlgebra.lean:196` | `bridgedCount_hom` | 0 | 登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。 |
-| `Audit/Counterexamples.lean:85` | `lipschitz_needs_nonneg` | 0 | 登记（不是删）：反例本身正确，`lipschitz_needs_nonneg` 这个名字也诚实；问题是它被 `Audit/Hypotheses:133` 当作 `0 ≤ L` 的承重证据引用，而它并未触及 `residual_le_of_zero_on_dense` 的推导。要么补上真正的那一步（乘法单调性的前提必要性），要么把 Hypotheses 那行的证据换成散文并注明「未机器核对」。同文件 :60/:70 两条是真反例（`r² ≤ ε²` 与 `EpsSat` … |
-| `Audit/DecreasesRole.lean:144` | `decreases_role` | 0 | 登记：删掉第二合取项（它就是 `hstep`），只留 `decreases_of_one_step`；若想强调「一步收敛 + 原子 ⟹ decreases 且已收敛」，应把它写成 `Repair` 结构上的实例（`hstep` 换成一个真实的收敛字段并证明），而不是把假设重列一遍。 |
-| `Audit/Hypotheses.lean:167` | `every_judgement_carries_a_reason` | 0 | 登记：doc 的「类型保证」不成立（`loadBearing`/`structurallyRequired` 带 `String` 是真的，但「没有第三构造子出现」只能查表）。改 doc，或把 `redundant` 从数据里去掉、改成单独的待办清单，这样这条才真的变成类型事实。 |
-| `Audit/StructureCensus.lean:150` | `total_obligations` | 0 | 登记：与 :141/:144/:156 同一处理——这组 `decide` 是清单纪律，不是「义务总数」的定理。若要当审计结果，doc 必须写清「入表 5 个结构」，否则读者会把它当成全库统计（而 `Representation` 那行已有字段数错误，说明表并未随代码维护）。 |
-| `Audit/VerdictLattice.lean:211` | `lattice_holds_per_segment_not_per_sequence` | 0 | 登记：作为文件结论的汇总条可以留，但应标注它是索引（`:149` 与 `:177` 的合取），不要与 `kind_is_bounded_lattice` 并列计为两条成果；doc 的「两条定理」改成三条。 |
 | `Core/RepairAtomicity.lean:89` | `atomic_of_binary` | 0 | 登记 PROOF-DEBT：这是「把假设写成定理」的样本。要么改成上面的真引理（从「非满足处测度非零」推出 atomic），要么删掉并把 Slots 的 note 降级为「atomic 仍是逐算子假设」。 |
 | `Domains/Geometry/GeoSampledBound.lean:57` | `geo_sampled_bound` | 0 | 登记理由：真定理，但「验证回路最终形式」的标题超出陈述。修法有二：补有限采样版本（首选），或把 docstring 改成「若零点集在 rho 下 δ-稠密则误差 ≤ Lδ」并与文件头 §3 对齐。 |
 | `Domains/Geometry/PartialReinjection.lean:88` | `loss_le_sq_of_resid_le` | 0 | 登记理由仅为前件冗余（C）。属清理级问题，不阻塞用途；建议顺手删 hε。 |
 | `Domains/Geometry/RepairBridge.lean:74` | `converges` | 0 | 与 Core.Repair.progress 定义等价，属 API 别名；保留会增加「又一条收敛定理」的账面，建议合并（register 而非 delete，因为改名涉及 4-5 处调用点）。 |
+| `Evidence/ChainTransitivity.lean:116` | `preserves_three` | 0 | 登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。 |
+| `Evidence/CompositionAlgebra.lean:182` | `verdict_monoid` | 0 | 登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。 |
+| `Evidence/CompositionAlgebra.lean:196` | `bridgedCount_hom` | 0 | 登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。 |
+| `Evidence/Counterexamples.lean:85` | `lipschitz_needs_nonneg` | 0 | 登记（不是删）：反例本身正确，`lipschitz_needs_nonneg` 这个名字也诚实；问题是它被 `Audit/Hypotheses:133` 当作 `0 ≤ L` 的承重证据引用，而它并未触及 `residual_le_of_zero_on_dense` 的推导。要么补上真正的那一步（乘法单调性的前提必要性），要么把 Hypotheses 那行的证据换成散文并注明「未机器核对」。同文件 :60/:70 两条是真反例（`r² ≤ ε²` 与 `EpsSat` … |
+| `Evidence/DecreasesRole.lean:144` | `decreases_role` | 0 | 登记：删掉第二合取项（它就是 `hstep`），只留 `decreases_of_one_step`；若想强调「一步收敛 + 原子 ⟹ decreases 且已收敛」，应把它写成 `Repair` 结构上的实例（`hstep` 换成一个真实的收敛字段并证明），而不是把假设重列一遍。 |
+| `Evidence/Hypotheses.lean:167` | `every_judgement_carries_a_reason` | 0 | 登记：doc 的「类型保证」不成立（`loadBearing`/`structurallyRequired` 带 `String` 是真的，但「没有第三构造子出现」只能查表）。改 doc，或把 `redundant` 从数据里去掉、改成单独的待办清单，这样这条才真的变成类型事实。 |
+| `Evidence/StructureCensus.lean:150` | `total_obligations` | 0 | 登记：与 :141/:144/:156 同一处理——这组 `decide` 是清单纪律，不是「义务总数」的定理。若要当审计结果，doc 必须写清「入表 5 个结构」，否则读者会把它当成全库统计（而 `Representation` 那行已有字段数错误，说明表并未随代码维护）。 |
+| `Evidence/VerdictLattice.lean:211` | `lattice_holds_per_segment_not_per_sequence` | 0 | 登记：作为文件结论的汇总条可以留，但应标注它是索引（`:149` 与 `:177` 的合取），不要与 `kind_is_bounded_lattice` 并列计为两条成果；doc 的「两条定理」改成三条。 |
 | `Lib/Architectures/RealOperatorNorm.lean:47` | `comp_norm_bound` | 0 | Re-export 债务：不影响正确性但虚增定理数；与同文件 add_norm_bound（建议删）一并治理。 |
 | `Lib/Attention/RealTemporalLayer.lean:243` | `split_exposes_parts_to_upward_gaze` | 0 | 同文件同陈述两个名字（:203 / :243），下游按 :243 引用。登记为重复命名债，合并时改调用点；不直接删是因为 Ext 的叙述依赖此名。 |
 | `Lib/Chain/RealChainAxioms3.lean:148` | `b194_anchor_consumer` | 0 | doc 自认「不证明任何新数学——它把锚点取用一次」，作用只是编译期依赖锚点（防整节被删），且拦不住两处同删。作为「定理」零内容；登记 PROOF-DEBT，建议与 _holds 合并或换成真正的消费证明。 |
@@ -282,9 +282,9 @@
 | `(8 处，见本条)` | `delete × 8` | 对抗性复核确认无信息量且无依赖，已删除并逐一通过全库构建：`ChainTransitivity.preserves_one`（陈述就是 binder 的类型）、`CompositionClass.sequential_evidence_trivial`（陈述是常值 True，被同文件 `evidence_kinds_differ` 更强覆盖）、`CompositionClass.bridged_needs_bridge`（与 `BridgedComposition.bridge_is_necessary` 逐字相同）、`MultiComposition.chain_nil_identity`（展开即 `hx`）、`RealCanonicalCompileComm.comm_via_extract`（条件恒真）、`RealExtractSurjectivity.extractVec_range_ne_proper`（与紧邻上一条逻辑等价）、`ConstraintToLoss.compile_changes_type` 与 `RatRepresentation.compile_changes_type`（各与同文件前 8–16 行的另一份逐字同陈述同 `rfl` 证明，删的是后一份副本）。 |
 | `Lift/WeightToSymbolEquivalence.lean` | `roundtrip_behavior` | 删掉了合取的第一项，那一项是 `h → h`（`NeuronOut l x = 0` 与 `ConstraintSat (extract l) x` 按定义相同，`simpa using h` 就是 `id`）。名字保留，因为 `Lib/Lift/RealContractAxioms.lean` 有 `#print axioms roundtrip_behavior`——改断言会断构建。并给本模块三条定理加上诚实 docstring：它们的往返恒等**是定义展开**（`rfl` / `simp [ConstraintSat, NeuronOut, convert]`），**没有建立任何对应关系**。 |
 | `Lib/Chain/RealTaylorMultivariate.lean` | `second_order_taylor` | 判定从 `rewrite` **改为 `register`**：`∃ R, a = b + R` 与 `True` 同义（证明体把 `R` 取成 `a − b`），**当前假设下写不出更强的陈述**。要让它有内容必须把余项界 `\|R\| ≤ (C/2)‖v‖²` 并进结论，那需要 `n` 维 Taylor 余项定理（本文件正是用 `hg2`/`hC` 回避了它）。已把这段写进源码 docstring，明确「结论空洞，全部内容在假设里」，并指出 `second_order_taylor_unconditional` 的价值在于弱化假设（`hg2` → `ContDiffAt ℝ 2 f x`）而非让结论有内容。 |
-| `Audit/VerdictLattice.lean` | `kind_is_bounded_lattice` | 强化：名字说「有界格」，而原合取里**没有反对称性、没有下确界的泛性质**——所以它证的是「带上下界的并半格」。补上两项。**注意**：这两条的**定理早就存在**（`kindLe_antisymm`、`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`），只是**没被并进这个合取**——缺陷不在证明，在**陈述漏了它自己名字要求的项**。 |
+| `Evidence/VerdictLattice.lean` | `kind_is_bounded_lattice` | 强化：名字说「有界格」，而原合取里**没有反对称性、没有下确界的泛性质**——所以它证的是「带上下界的并半格」。补上两项。**注意**：这两条的**定理早就存在**（`kindLe_antisymm`、`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`），只是**没被并进这个合取**——缺陷不在证明，在**陈述漏了它自己名字要求的项**。 |
 | `Geo/LoopPerp.lean` | `fixPerp_absorbs` | 强化：**删掉了前提** `(∑ j, (pts e j − pts c j)²) ≠ 0`。它**从未被用到**——证明体走 `rw [hzero, zero_div, zero_mul, sub_zero]`，而 `zero_div` 对**任何**除数成立（`0/0 = 0` 是 Lean 的总函数约定）。删掉后定理**更强**：它现在对退化参考段（`e = c`）也成立。两处调用点（`LoopPerp` 内两处、`Geo/ConjRepair.lean` 一处）同步更新。**这是「说的比该说的弱」的正确修法：不是加结论，是减前提。** |
-| `Audit/StructureCensus.lean` | `repair_is_densest` | 强化：名字说「`Repair` 是义务密度最高的结构」，而原陈述是 `(census.filter (fun s => s.obligations * 2 ≥ s.fields)).length = 1`——**全文没有一个字符提到 `Repair`**，换掉清册里一项它可能仍为真。现在陈述**直接点名且全称**：除 `Repair` 外每个结构密度严格 < 1/2，且 `Repair` 在册且密度 ≥ 1/2。两项合起来才等于「唯一」。 |
+| `Evidence/StructureCensus.lean` | `repair_is_densest` | 强化：名字说「`Repair` 是义务密度最高的结构」，而原陈述是 `(census.filter (fun s => s.obligations * 2 ≥ s.fields)).length = 1`——**全文没有一个字符提到 `Repair`**，换掉清册里一项它可能仍为真。现在陈述**直接点名且全称**：除 `Repair` 外每个结构密度严格 < 1/2，且 `Repair` 在册且密度 ≥ 1/2。两项合起来才等于「唯一」。 |
 | `Lib/LearningTheory/RealTopK.lean` | `top1_output_is_hard` | 强化：原陈述在**单元素集** `{i}` 上求和，所以 `_hrest`（其余权重为 0）**必然用不到**；结论退化成 `w i • v i = v i`，即 `1 • v i = v i`，**与「硬路由」无关**。现在求和范围是 `Finset.univ`，`hrest` 成为**必需**：和之所以塌缩成一项，正是因为其余权重为零。**这才是硬路由的定义。** |
 | `Lib/Attention/RealDynamicRoute.lean` | `routeOutput_hard` | 强化：**与 `top1_output_is_hard` 同一个缺陷的下游副本**——路由集取 `{i}`，`hrest` 无从使用，结论退化。现在路由集是 `Finset.univ`。**同款缺陷成对存在**——与 `stackDepth`/`depth`、`CExprCodegen`/`StackCodegen` 是同一种形态，本轮一次收两个。 |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean` | `constrained_agrees_with_constraint_set` | 判定从 `strengthen` **改为 `downgrade`**：原陈述带前提 `(_hts : DecodesTo ts cs)`，而 `allowedByConstraints cs tok` **是 `cs` 与 `tok` 的函数、不含 `ts`**，所以 `_hts` 从未被用到——这条定理对**任何掩码**成立，`cs`、`ts` 都是装饰。**它没有建立「符号约束决定采样支撑」。**那个连接是 `allowedByConstraints` 的**定义**携带的，而「`cs` 非空」这一半由**调用方**以 `hne` 提供，**`DecodesTo` 给不出来**（非空性是 `tok` 的性质）。同一错误在消费方 `RealConstrainedDecodingVerify.support_from_decoded_constraints` 重复：其文档声称「使下游模块只需给出『解码成功』这一事实」，**而下游还必须自己给 `hne`**。两处陈述已收窄，前提已删。 |
@@ -295,17 +295,17 @@
 | `Domains/Geometry/Engine.lean` | `derivation_sound` | 强化了：新增「按步数索引的可导性」`DerivableIn` 与它的声称性 `derivableIn_sound`、`derivable_sound`。原定理的前提形状是 `∀ d ∈ r.prems, EntailsGeo G d`——**前提只能来自 `G`**，所以推导里更早的结论**不能当作后来的前提**：`steps` 只是一张清单，条目互不相干。**新定义的规则支取的是`DerivableIn rules G k d`**，所以链式可表达；并且新增**`derivable_two_step`** 作为链式的具体见证（旧陈述表达不了），以及 **`derivable_of_flat`** 证明新定义**包含**旧陈述。三次失败都是 Lean 的正确拒绝：嵌套归纳类型 `Exists`、`induction` 不支持互归纳、互归纳的终止性。最终形态是**在 `ℕ` 上的结构递归**，没有嵌套、没有互归纳、终止性平凡。 |
 | `Domains/Geometry/Synthesis.lean` | `synthesize_from_initialisation` | 强化：原陈述的 `h : ∀ c ∈ G, ∃ a b, c = .samePoint a b` **在证明里没被用到**，`G` 也**不在结论里**，结论只讲一个与 `G` 无关的 `samePoint a b`——**所以它名不副实**：它没说「初始化的约束集 ⟹ 合成样本满足该约束集」。强化后的前提是 `hG : G = List.replicate G.length (.samePoint a b)`（**一致性**），结论覆盖 `G` 的**每一条**，且 `hG` 在证明中承重（逐条用 `mem_replicate_eq`）。新增 `mem_replicate_eq`（自证，不依赖 mathlib 的名字）。两次失败：`obtain ⟨a', b', rfl⟩` 之后 `subst` 会消掉参数 `a`/`b` 本身；改 `rw [hcab, ha, hb]` 后依赖类型上的多重 `rw` 不收敛。最终用一个**不依赖逐条改写**的入口。 |
 | `Lib/Chain/RealEndToEnd.lean` | `e2e_loss_compound` | 强化：原来的四个合取项**全是既存定理的打包**（`tokenize_collision`、`semantic_not_injective`、`decode_encode`、`encode_injective`），**没有任何一条断言两处损失之间的关系**——而定理名说「不可互相归约」。新增**两条新定理**作为第五、六个合取项：**(7) 下沉** `l0_loss_survives_pipeline`（`∃ s ≠ t, pipeline s = pipeline t`，其中 `pipeline` 是**新定义**的整条链）——L0 的损失**不可被任何下游环节修复**；**(8) 上浮** `l2_loss_visible_at_L1`（②的见证对在 `encode` 下**仍然不同**）——②的损失**不是** L0 损失。**两者合起来才排除「端到端就是某一环的损失」**：若只是 L0 的，则 (7) 成立而 (8) 不成立；若只是 L2⇄L3 的，则反之。四处修正：插入点落在文档块内；`Lattice.Core.VectorCoord` 是我猜的类型（不存在），改为不注解让 Lean 推断；`(n := n)` 多余；`semantic_not_injective` 的返回是三元合取，需逐层析构。 |
-| `Audit/BridgedComposition.lean` | `compose_three_with_bridges` | 降级已完成。两处：(1) doc 原写「这是非相邻组合的一般形式：**段数不限**」——那句话**没有定理支撑**（定理字面上只有 `P Q R` 三个性质、`f g h` 三个映射），已改为「**三段** + 逐段桥」并写明 **N 段未证、不再声称**；(2) 上方表格列的是 `compose_list_with_bridges`——**那个名字在文件里不存在**，已改为真实的 `compose_three_with_bridges`。对现有用途（两段对照、桥数 2）三段已够。 |
-| `Audit/Hypotheses.lean` | `no_redundant_hypotheses` | 降级已完成：**名字**才是过度声称的地方。它读作「审计没有发现冗余前提」（关于**整个定理库**），而定理只说 `chainAudit` 里没有 `.redundant` 条目。已改名为 **`no_redundant_entries_in_audit_table`**（入度 0，无依赖者），doc 也写清「证的是本表，不是库」。 |
-| `Audit/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
+| `Evidence/BridgedComposition.lean` | `compose_three_with_bridges` | 降级已完成。两处：(1) doc 原写「这是非相邻组合的一般形式：**段数不限**」——那句话**没有定理支撑**（定理字面上只有 `P Q R` 三个性质、`f g h` 三个映射），已改为「**三段** + 逐段桥」并写明 **N 段未证、不再声称**；(2) 上方表格列的是 `compose_list_with_bridges`——**那个名字在文件里不存在**，已改为真实的 `compose_three_with_bridges`。对现有用途（两段对照、桥数 2）三段已够。 |
+| `Evidence/Hypotheses.lean` | `no_redundant_hypotheses` | 降级已完成：**名字**才是过度声称的地方。它读作「审计没有发现冗余前提」（关于**整个定理库**），而定理只说 `chainAudit` 里没有 `.redundant` 条目。已改名为 **`no_redundant_entries_in_audit_table`**（入度 0，无依赖者），doc 也写清「证的是本表，不是库」。 |
+| `Evidence/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
 | `Runtime/ApproxExact.lean` | `epsSat_of_loss_le_sq` | 处理完成：**它原本是一条别名**。结论 `\|E.resid p x\| ≤ ε` 与 `abs_resid_le_of_loss_le_sq` **逐字相同**，而名字说「`EpsSat` 的连接」——`EpsSat` **根本没出现**。现在结论是 **`EpsSat E.toPenaltyEmbedding p (ε ^ 2) x`**，**并且 `0 ≤ ε` 不再需要**（右端是 `ε ^ 2`，自动非负）——**谓词形式比残差形式更强**。三处计划外修正：`Audit/Counterexamples.lean` 的表行与 docstring 改指 `abs_resid_le_of_loss_le_sq`（反例 `r = 0, ε = -1` 对谓词形式**不适用**）；`Audit/Hypotheses.lean` 的「`0 ≤ ε` 承重」条目同样改指残差形式。四次脚本失败后的**结构性修正**：CJK 文本不再嵌入 Python 字符串，改为**片段写成文件 + ASCII 锚点拼接**。 |
 | `Lib/Optim/RealSGDStochastic.lean` | `sgd_rate_bound` | 处理完成（**doc 修正**，不是证明修正）：原 doc 的假设清单只列 `D > 0`、`G > 0`、`T > 0`，**漏掉了真正承重的 `hstep`**。现在清单补齐并给出每条的作用。**并且写清了为什么 `hstep` 不是可补的缺口**：接口里有 `Subgradient f (x t) (Expect p (g t))`，而 `x : ℕ → Ω → ℝ` 是**随机过程**，两者**类型上就对不齐**（`PROOF-DEBT` 里那条 `B_missing` 写的 `Subgradient f (x t) (…)` 本身就是病式）；逐路径要求 `Subgradient f (x t ω) (g t ω)` 等于说**每个采样都是真次梯度**，噪声就没了。**标准证明靠条件期望 `E[g_t \| x_t] = ∇f(x_t)`，而本形式化只有 `Expect p Y = ∑ ω, p ω · Y ω`，没有 σ-代数与滤流。**能推出的是**确定性 `x` 的单步**，即 `sgd_expectation_contraction`。 |
 | `Lib/Chain/RealEndToEnd.lean` | `e2e_vacuous_composition` | 处理完成（**补上正面对照**）：原条目只报了**反例**（结论可以不带 `ts`），而 `B_missing` 要的是一条**真正用上 L1⇄L2 一跳**的语义结论。新增 **`e2e_contribution_of_L1L2`**（三段）：① `(toSegs ts).map mkConstraint = cs`（`ts` 的**段结构**恰好给出 `cs`）；② `∀ cs', Extract ts cs' → cs' = cs`（`ts` 的**读法唯一**）；③ `cs` 决定权重行为。另单独成条 **`extract_functional`**：`Extract` 是**部分函数**。**关键认识：「去掉 `ts` 结论不变」与「`ts` 无所贡献」不是同一件事**——`ts` 的全部贡献**已经在 `cs` 里用尽**，那是信息单向流动 `ts → cs → 权重` 的貌似。一处修正：`Option.some.injEq` 的方向需 `.symm`。 |
-| `Audit/StructureCensus.lean` | `census_length` | 处理完成：本轮发现清册里有一行**数字是错的**——`Representation` 写 `fields := 8`，而 `Runtime/Extraction.lean:58` 的结构只有 **7** 个字段（`inputP`/`inputW`/`encode`/`decode`/`compile`/`extract`/`roundtrip`），**8 不符合任何一种口径**（连把类型参数算进去也是 9）。已改为 7（清册行、§2.2 标题、汇总表三处，密度 12.5% → 14.3%）。**关键：三条 `decide` 定理照旧为真**——它们核对的是**表内算术**，不是**表与库的一致性**。已在 `census` 的 doc 里写明这一点，并列出本轮找到的错行。真正锁住它需要**反射取字段数**（Lean 元编程），不是 `decide`；在那之前这些数字只能按「人工录入」读。 |
+| `Evidence/StructureCensus.lean` | `census_length` | 处理完成：本轮发现清册里有一行**数字是错的**——`Representation` 写 `fields := 8`，而 `Runtime/Extraction.lean:58` 的结构只有 **7** 个字段（`inputP`/`inputW`/`encode`/`decode`/`compile`/`extract`/`roundtrip`），**8 不符合任何一种口径**（连把类型参数算进去也是 9）。已改为 7（清册行、§2.2 标题、汇总表三处，密度 12.5% → 14.3%）。**关键：三条 `decide` 定理照旧为真**——它们核对的是**表内算术**，不是**表与库的一致性**。已在 `census` 的 doc 里写明这一点，并列出本轮找到的错行。真正锁住它需要**反射取字段数**（Lean 元编程），不是 `decide`；在那之前这些数字只能按「人工录入」读。 |
 | `Semantics/Annotations.lean` | `holdsSet_member` | 处理完成：它与 `Domains/Constraints/ConstraintSet.holdsSet_mem` **同一条定理**，只差参数顺序，而两份**都各自做了归纳**。已改为**一行转发**（`holdsSet_mem hmem pts h`），保留本地名字是因为 `edit_frame_holds`使用这个参数顺序。**判定里「唯一跨文件引用 `Semantics/Merge.lean:142`」已经不成立**——那一行现在是 `merge_parts`，而 `Merge.lean` 既没 import 本文件也没 open 本 namespace。 |
 | `Runtime/CompilerScheme.lean` | `scheme_covers_all` | 处理完成（**doc / 状态修正**）：`Slots.lean` 的 `lift.compile.single_item_sound` 把它当作`.discharged` 的凭证，而它是 `⟨rfl, rfl, rfl⟩`——**字段自等**。已把 note 改为「**CLOSED — STRUCTURALLY ONLY**」，并写明**本条证的是「一个方案适用于所有后端」的结构事实，不证任何语义声称性**，并指出真正的声称性证明在 `Geo/Compile.geoCompiler.sound`（`unfold loss; rw [hx]; ring`）。 |
 | `Runtime/CompilerScheme.lean` | `backend_sound` | 同上同一处修正：`every_backend_sound` 是 `Compiler.sound` 的**字段投影**，它给出 `sound` 是因为 `sound` 是结构的**假设**，sound 并非白得。note 现已写明这一点，并且指向一个真实的逐实例证明。 |
-| `Audit/Hypotheses.lean` | `chainAudit_length` | 处理完成（**doc 修正**）：三处写「**七**条」（§1 标题、§二 标题、本定理 doc），而 `chainAudit` 实际是 **10 行**。清单从 7 扩到 10 时 doc 没跟上。**关键：`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**已把三处改为 10，并在三处各写一句说明这个机械局限。 |
+| `Evidence/Hypotheses.lean` | `chainAudit_length` | 处理完成（**doc 修正**）：三处写「**七**条」（§1 标题、§二 标题、本定理 doc），而 `chainAudit` 实际是 **10 行**。清单从 7 扩到 10 时 doc 没跟上。**关键：`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**已把三处改为 10，并在三处各写一句说明这个机械局限。 |
 | `Lib/Chain/RealModelFamilyChainWiring.lean` | `convertVec_bias_eq_convertRealVec_bias` | 处理完成（**doc 降级**）：原 doc 说「本命题同时需要两侧的四个定义 ⟹ **这就是边的承重点**」，而证明是 **`rfl`**，只钉了**偏置字段**。**那句话会让读者以为语义抬升已证。**doc 已改为「只证字段相等」，并写出**真正该证的交换方块**（`RealLayerOut (convertRealVec c) (toRealVec x) = toRealVec (LayerOut (convertVec c) x)`）——**那条没有证、也没有写**。本条保留（它把可达边接成真实 import 依赖）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean` | `compile_extract_end_to_end` | 处理完成（**doc 降级**）：标题原本是「**★ 端到端闭环定理（target form）★**」。**实际证的是**：`extractLayer_compileToLayer`（**`rfl`**）把左式换成 `AllSatisfied cs`，再由 `symbolToWeight_correct` 收尾——**证明体是 `rw` 一行 + 一次实例化，零往返内容**。为什么闭环在这里是免费的：那一跳的 `extract` 是**字段重命名**，所以 `extract ∘ compile = id` 是定义级的。真正的端到端需要**一条信息有损的编译路径**——**没有，也不声称。**保留本条仍有用：它把两个此前从不互相引用的文件接成一条定理。 |
 | `Lib/Quantization/RealMixedPrecision.lean` | `accumulation_error_bound` | 处理完成（**删未用前提**）：签名里的 `(_hM : 0 ≤ M)` **在证明中从未被引用**（`_` 前缀就是证据），而且**它是可导出的**：`hmag 0 (Nat.zero_le n)` 给出 `\|accSum ad 0 x\| ≤ M`，而 `accSum ad 0 x = 0`，所以 `0 ≤ M`。**删掉它使本条更强**。下游 `ieee_accumulation_error_bound` 的 `hM` **只用来传给本条**，因此一并去掉（它也因此更强，且它**没有调用者**，所以改元数不破任何东西）。**门禁表现**：`check_underscore_hypotheses` 报 **STALE** 并指名要删哪一行，基线从 127 降到 126（new 0 / stale 0）——**那是双向基线正常工作的样子**。 |

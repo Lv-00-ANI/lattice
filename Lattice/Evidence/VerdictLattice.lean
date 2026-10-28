@@ -54,7 +54,7 @@
 - 本节**不改** `CompositionAlgebra`、`CompositionClass` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Audit.CompositionClass
+import Lattice.Evidence.CompositionClass
 
 namespace Lattice.Audit
 

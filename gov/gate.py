@@ -321,7 +321,10 @@ LAYER_OF = {
     # check_layering skipped it entirely -- 4 modules / 38 theorems with no I4 validation at all.
     # It imports Geo and nothing outside it imports Semantics, so it sits above geo.
     "Lattice/Semantics": "audit",
-    "Lattice/Audit": "audit",
+    # Round 23. `Audit` is renamed `Evidence`: it is the bypass layer that products must not import,
+    # which is what the design calls it. **Namespaces stay `Lattice.Audit` (rule 2.8), so no theorem
+    # is renamed**; only module paths change.
+    "Lattice/Evidence": "evidence",
     # Round 227 (restructure P0): the new `Compose/` top-level from DIRECTORY-DESIGN.md §3.
     # Placed above `audit` because the design's chain is
     # `lib 0 < kernel 1 < runtime 2 < domains 3 < primitives 4 < compose 5`;
@@ -351,7 +354,7 @@ def check_layering(rep):
     # and `Geo/Unified` rely on).
     rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
             "domains": 3, "cinterface": 6,
-            "geo": 4, "audit": 5,
+            "geo": 4, "audit": 5, "evidence": 5,
             "compose": 6, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
