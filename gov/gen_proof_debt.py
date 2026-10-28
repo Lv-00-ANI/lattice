@@ -142,7 +142,16 @@ A("")
 A("真正做了什么，看下面的「已处理」一节与「对抗性复核」一节——**那两节逐条列出，不做汇总。**")
 
 import _debt_coverage
-_debt_coverage.emit(A, inv, _reviewed_keys)
+# Round 27. The coverage table used to be computed from inv's STORED in_degree, which came from the
+# review inventory and was itself computed by a defective metric -- so the page carried three numbers for
+# one quantity (78.2% in the table, 100% in the prose, 839 in the caveat) and no instrument that could
+# recompute any of them.  check_coverage_claim.measure() IS that instrument, and the gate compares the
+# document against it; passing its result here means generator and gate share one measurement and cannot
+# drift.  It is a full-tree scan, so the generator is a few tens of seconds slower -- that is the price of
+# a number that can be checked.
+import check_coverage_claim
+_COV = check_coverage_claim.measure()
+_debt_coverage.emit(A, _COV)
 A("")
 A("")
 A("> **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。")

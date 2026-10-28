@@ -139,6 +139,11 @@ CHECKS = [
     # nothing. This is the floor -- losing one fails, gaining one does not.
     ("census: cross-layer floor", "check_endtoend_floor.py"),
     ("census: cross-layer floor self-test", "check_endtoend_floor.py --self-test"),
+    # Round 27, L4-1/L4-2. PROOF-DEBT.md carried THREE numbers for one quantity (78.2% in its table,
+    # 100% in its prose, 839 in a caveat saying the set was computed wrongly) and no instrument could
+    # recompute any of them. This gate recomputes and compares.
+    ("debt: coverage table equals the measurement", "check_coverage_claim.py"),
+    ("debt: coverage claim self-test", "check_coverage_claim.py --self-test"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not
