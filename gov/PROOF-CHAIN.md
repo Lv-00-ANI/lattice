@@ -969,7 +969,7 @@
 | `Lattice.Geo.Unconditional` | 7 | 0 |
 | `Lattice.Geo.Unified` | 4 | 0 |
 | `Lattice.Geo.WeightDescent` | 9 | 5 |
-| `Lattice.Geo.WeightSideLadder` | 6 | 4 |
+| `Lattice.Geo.WeightSideLadder` | 9 | 7 |
 | `Lattice.Lib.Architectures` | 0 | 0 |
 | `Lattice.Lib.Architectures.RealActClass` | 7 | 4 |
 | `Lattice.Lib.Architectures.RealActComplete` | 19 | 3 |
@@ -6015,6 +6015,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mi_eq_zero_of_independent` -> `apply`
 - `midpointFix_preserves` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpointFix_reaches` -> `GeoConstraint`, `Holds`, `Pt`
+- `midpointLadder_forward` -> `enc`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `midpointLadder_satW_iff` -> `enc`, `netAct`, `satW`
+- `midpointLayer_act` -> `AffineLayer`, `Ladder`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `midpointPenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `midpointPenalty_nonneg` -> `Pt`
 - `midpoint_iff` -> `Pt`
@@ -7805,9 +7808,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sameFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `sameLayer_imp_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `sameLayer_strictly_finer_than_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `convertVec`, `dot`, `extractVec`, `extractVec_respects_semEq`, `induction`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
-- `samePointLadder_forward` -> `enc`, `ladder_forward`, `netAct`, `satSym`, `satW`
-- `samePointLadder_satW_iff` -> `enc`, `netAct`, `satW`
-- `samePointLayer_act` -> `AffineLayer`, `Ladder`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `samePointLadder_forward` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `samePointLadder_satW_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `samePointLayer_act` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `samePointMeasureFin_le_one` -> `Pt`, `samePointMeasureFin`, `split`
 - `samePointMeasure_eq_zero_iff` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`, `progress`
 - `samePointRepair_unified` -> `Pt`, `Repair`, `Sat`, `linearRepair`, `perpRepair`, `preserves_of_sat`, `samePointRepair`

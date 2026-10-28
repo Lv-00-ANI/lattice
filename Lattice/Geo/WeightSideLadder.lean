@@ -185,4 +185,94 @@ theorem samePointLadder_satW_iff (enc : ℕ → Fin n → ℝ) (a b : ℕ) :
     show Lattice.Core.netAct [samePointLayer enc a b] (enc a) j = 0
     rw [Lattice.Core.netAct, List.foldl_cons, List.foldl_nil, samePointLayer_act, h j, sub_self]
 
+/-! ## 六、第二个实证：`midpoint` 的权重侧桥
+
+### 为什么只有这两个构造子能做这件事
+
+`samePoint` 能被**一层真正的仿射权重**表示，是因为它的 `Holds` 是
+
+```
+∀ j, enc a j = enc b j          -- 逐坐标的仿射等式
+```
+
+`midpoint` 是**同一个形状**：
+
+```
+∀ j, 2 · enc m j = enc a j + enc b j      -- 同样是逐坐标的仿射等式
+```
+
+于是 `W = 2·I`、`b j = −(enc a j + enc b j)` 就能把残差做成 `2·enc m j − enc a j − enc b j`。
+
+**其余 10 个构造子不是这个形状**，理由分三类：
+
+| 类 | 构造子 | 为什么不行 |
+|:--|:--|:--|
+| 单个仿射泛函 | `eqZero`、`leZero`、`ltZero`、`gtZero` | `Holds` 是**一个标量**的条件，不是 `n` 个坐标的条件。一层能产出它，但 `satW` 的形状要改成「某个输出 ≤ 0」，不是本节这个 `∀ j` |
+| 二次 | `sqDistEq`、`equalLength` | 零点集是球面/双曲面。**`no_affine_represents_sphere` 已经证明 `d > 0` 时不可能用仿射表示** |
+| 双线性 | `perpendicular`、`rightAngle`、`collinear`、`parallel` | 零点集是锥面，同样不是仿射子空间 |
+
+**所以「12 个构造子里有几个能走到权重侧」的答案是 2 个（`samePoint`、`midpoint`），
+另外 4 个是「一个泛函」、6 个是「非线性零点集」。这不是没做，是分类的结果。** -/
+
+/-- **`midpoint` 的权重侧层**：`W = 2·I`、`b j = −(enc a j + enc b j)`。
+
+作用在 `enc m` 上，残差就是 `2·enc m j − enc a j − enc b j`。 -/
+noncomputable def midpointLayer (enc : ℕ → Fin n → ℝ) (m a b : ℕ) : AffineLayer (Fin n) where
+  W := fun i j => if i = j then 2 else 0
+  b := fun j => -(enc a j + enc b j)
+
+/-- **残差正是 `2·m − a − b` 的逐坐标形式。** -/
+theorem midpointLayer_act (enc : ℕ → Fin n → ℝ) (m a b : ℕ) (j : Fin n) :
+    Lattice.Core.affineAct (midpointLayer enc m a b) (enc m) j
+      = 2 * enc m j - enc a j - enc b j := by
+  unfold Lattice.Core.affineAct midpointLayer
+  simp only
+  rw [Finset.sum_eq_single j]
+  · simp only [↓reduceIte]
+    ring
+  · intro k _ hk
+    simp [hk]
+  · intro hj
+    exact absurd (Finset.mem_univ j) hj
+
+/-- **权重侧谓词**：所有坐标的残差为零。 -/
+def midpointSatW (enc : ℕ → Fin n → ℝ) (m a b : ℕ) (L : List (AffineLayer (Fin n))) : Prop :=
+  ∀ j : Fin n, netAct L (enc m) j = 0
+
+/-- **`midpoint` 的权重侧 `Ladder`**：与 `samePoint` 同构，只是 `W` 是 `2·I`、偏置带两项。 -/
+noncomputable def midpointLadder (enc : ℕ → Fin n → ℝ) (m a b : ℕ) :
+    Lattice.Lift.Ladder (List Unit) Unit (List Unit) (List (AffineLayer (Fin n))) where
+  l0l1 := Lattice.Lift.identityTokenizer Unit
+  l1l2 := Lattice.Lift.identityTokenizer Unit
+  l2l3 := fun _ => [midpointLayer enc m a b]
+  satSym := fun _ => ∀ j : Fin n, 2 * enc m j = enc a j + enc b j
+  satW := midpointSatW enc m a b
+  l2l3_sound := by
+    intro _ h j
+    show Lattice.Core.netAct [midpointLayer enc m a b] (enc m) j = 0
+    rw [Lattice.Core.netAct, List.foldl_cons, List.foldl_nil, midpointLayer_act]
+    linarith [h j]
+
+/-- **端到端**：`2m = a + b` 逐坐标成立 ⟹ 权重层残差全零。 -/
+theorem midpointLadder_forward (enc : ℕ → Fin n → ℝ) (m a b : ℕ)
+    (h : (midpointLadder enc m a b).satSym []) :
+    (midpointLadder enc m a b).satW ((midpointLadder enc m a b).l2l3 []) :=
+  (midpointLadder enc m a b).ladder_forward [] h
+
+/-- **反过来也成立**：残差全零 ⟹ `2m = a + b` 逐坐标。
+
+**这条让实例不是重言**：`satW` 与 `satSym` 在 `l2l3` 的像上**等价**。 -/
+theorem midpointLadder_satW_iff (enc : ℕ → Fin n → ℝ) (m a b : ℕ) :
+    (midpointLadder enc m a b).satW ((midpointLadder enc m a b).l2l3 []) ↔
+      (∀ j : Fin n, 2 * enc m j = enc a j + enc b j) := by
+  constructor
+  · intro h j
+    have hz : Lattice.Core.netAct [midpointLayer enc m a b] (enc m) j = 0 := h j
+    rw [Lattice.Core.netAct, List.foldl_cons, List.foldl_nil, midpointLayer_act] at hz
+    linarith
+  · intro h j
+    show Lattice.Core.netAct [midpointLayer enc m a b] (enc m) j = 0
+    rw [Lattice.Core.netAct, List.foldl_cons, List.foldl_nil, midpointLayer_act]
+    linarith [h j]
+
 end Lattice.Geo.WeightSide
