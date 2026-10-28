@@ -26,7 +26,7 @@
 > |:--|--:|:--|
 > | Lean 模块 | 826 | `audit_counts.py` |
 > | 定理 / 引理 | 8559 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 23 / 76 / 607 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 99 / 0 / 607 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -117,9 +117,9 @@ lattice-new/
 ├── Lattice/
 │   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
 │   ├── Lift/       0       # 链路层已清空：66 个模块并入 Runtime/（P2 完成）
-│   ├── Domains/  23       # 链路层已清空：66 个模块并入 Runtime/（P2 完成）
+│   ├── Domains/  99       # 链路层已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
-│   ├── Geo/       76       # 约束几何与精确惩罚
+│   ├── Geo/       0       # 约束几何与精确惩罚
 │   ├── Lib/      607       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25

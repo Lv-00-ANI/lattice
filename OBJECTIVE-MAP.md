@@ -20,22 +20,22 @@
 | 1.4 weight -> symbol | `extract` | `Runtime/WeightToSymbolEquivalence.lean` | 22 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
-| 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
+| 2.2 forward: data synthesis | `synth_coverage` | `Domains/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 0 **← 死代码** | 0 | — |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 3 | `Runtime/ApproximationBridge.lean` |
-| 3.2 inverse: verification | `geo_sampled_bound` | `Geo/GeoSampledBound.lean` | 2 | 0 | `Geo/ClauseComposition.lean`, `Usage/Examples.lean` |
-| 3.3 inverse: repair | `sqDistFix` | `Geo/RepairCoverage.lean` | 1 | 3 | `Geo/EqualLengthRepair.lean` |
-| 3.3 inverse: repair | `parallelFix` | `Geo/ParallelRepair.lean` | 0 *(仅本文件)* | 12 | — |
-| 3.3 inverse: repair | `midpointFix` | `Geo/MissingRepairs.lean` | 0 *(仅本文件)* | 13 | — |
-| 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Geo/Reinjection.lean` | 2 | 1 | `Geo/ClauseComposition.lean`, `Geo/PartialReinjection.lean` |
-| 3.4 inverse: re-injection | `partial_reinject_bound` | `Geo/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
+| 3.2 inverse: verification | `geo_sampled_bound` | `Domains/GeoSampledBound.lean` | 2 | 0 | `Domains/ClauseComposition.lean`, `Usage/Examples.lean` |
+| 3.3 inverse: repair | `sqDistFix` | `Domains/RepairCoverage.lean` | 1 | 3 | `Domains/EqualLengthRepair.lean` |
+| 3.3 inverse: repair | `parallelFix` | `Domains/ParallelRepair.lean` | 0 *(仅本文件)* | 12 | — |
+| 3.3 inverse: repair | `midpointFix` | `Domains/MissingRepairs.lean` | 0 *(仅本文件)* | 13 | — |
+| 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Reinjection.lean` | 2 | 1 | `Domains/ClauseComposition.lean`, `Domains/PartialReinjection.lean` |
+| 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairConvergence.lean` | 7 | 2 | `Audit/Hypotheses.lean`, `Core/OneStepBridge.lean` |
 | 4 loop | `bidirRepair` | `Domains/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
-| 5 symbolic engine | `evalPts` | `Domains/Expr.lean` | 19 | 22 | `Domains/Constraint.lean`, `Domains/Finite.lean` |
-| 5 symbolic engine | `derivation_sound` | `Geo/Engine.lean` | 1 | 0 | `Geo/Rules.lean` |
+| 5 symbolic engine | `evalPts` | `Domains/Expr.lean` | 19 | 22 | `Domains/Constraint.lean`, `Domains/ConstraintDescent.lean` |
+| 5 symbolic engine | `derivation_sound` | `Domains/Engine.lean` | 1 | 0 | `Domains/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Audit/Hypotheses.lean`, `Domains/LadderInstance.lean` |
 

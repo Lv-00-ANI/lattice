@@ -8,87 +8,6 @@
 
 依赖严格向下，无环。自底向上读：
 
-### L0 —— 表达式基座
-
-| 模块 | 行数 | 定理 | 依赖 |
-|:--|--:|--:|:--|
-| `ApproxEmbedding` | 106 | 1 | — |
-| `ClauseComposition` | 171 | 6 | — |
-| `ClosedLoop` | 203 | 10 | — |
-| `Compile` | 98 | 2 | — |
-| `ConjRepair` | 157 | 3 | — |
-| `ConstraintDescent` | 452 | 17 | — |
-| `ConstraintSet` | 175 | 7 | — |
-| `Derivative` | 94 | 3 | — |
-| `Derive` | 71 | 2 | — |
-| `Differentiable` | 131 | 9 | — |
-| `Engine` | 147 | 6 | — |
-| `EqConstraintListTokens` | 199 | 7 | — |
-| `EqConstraintToken` | 275 | 8 | — |
-| `EqConstraintTokenizer` | 211 | 4 | — |
-| `EqConstraintTokens` | 141 | 4 | — |
-| `EqualLengthRepair` | 113 | 3 | — |
-| `Eval` | 98 | 3 | — |
-| `Exact` | 91 | 4 | — |
-| `Exec` | 132 | 6 | — |
-| `ExecutableCheck` | 189 | 4 | — |
-| `ExecutableGeoCheck` | 237 | 7 | — |
-| `ExprDeriv` | 179 | 8 | — |
-| `ExprLocalMin` | 74 | 3 | — |
-| `Exterior` | 110 | 5 | — |
-| `ExteriorSmooth` | 150 | 9 | — |
-| `Extract` | 101 | 2 | — |
-| `FormDeriv` | 158 | 8 | — |
-| `GeoLadder` | 199 | 4 | — |
-| `GeoSampledBound` | 79 | 1 | — |
-| `IRBridge` | 307 | 13 | — |
-| `IRRepair` | 86 | 3 | — |
-| `Initialise` | 125 | 9 | — |
-| `Invariant` | 189 | 12 | — |
-| `LayerExact` | 127 | 3 | — |
-| `Loop` | 209 | 10 | — |
-| `LoopPerp` | 170 | 7 | — |
-| `LoopRate` | 89 | 3 | — |
-| `Loss` | 199 | 10 | — |
-| `MissingRepairs` | 145 | 4 | — |
-| `MultiSeedCoverage` | 165 | 5 | — |
-| `NetLoss` | 175 | 5 | — |
-| `Nondegenerate` | 307 | 13 | — |
-| `NondegenerateInstance` | 143 | 6 | — |
-| `ParallelRepair` | 182 | 4 | — |
-| `PartialReinjection` | 157 | 6 | — |
-| `PathContinuity` | 245 | 12 | — |
-| `PenaltyLoss` | 275 | 13 | — |
-| `PenaltySmooth` | 105 | 4 | — |
-| `Pipeline` | 169 | 7 | — |
-| `Plucker` | 105 | 2 | — |
-| `PolyAssemble` | 128 | 4 | — |
-| `PolyConstants` | 159 | 5 | — |
-| `PolyLipschitz` | 114 | 1 | — |
-| `PolyNondegenerate` | 210 | 8 | — |
-| `PolyRepair` | 174 | 5 | — |
-| `PolySpecificRepair` | 216 | 7 | — |
-| `QualityBridge` | 76 | 3 | — |
-| `Reinjection` | 121 | 3 | — |
-| `ReinjectionGeneral` | 134 | 5 | — |
-| `Repair` | 90 | 4 | — |
-| `RepairBridge` | 247 | 14 | — |
-| `RepairCoverage` | 148 | 5 | — |
-| `RepairPenalty` | 79 | 4 | — |
-| `RepairPerp` | 193 | 6 | — |
-| `RepairQuality` | 151 | 9 | — |
-| `Rules` | 135 | 1 | — |
-| `Semantic` | 179 | 7 | — |
-| `Shape` | 204 | 3 | — |
-| `Square` | 161 | 10 | — |
-| `Synthesis` | 140 | 6 | — |
-| `SynthesisConnection` | 158 | 7 | — |
-| `SynthesisCoverage` | 179 | 7 | — |
-| `SynthesisMulti` | 132 | 4 | — |
-| `Unconditional` | 117 | 7 | — |
-| `Unified` | 91 | 4 | — |
-| `WeightSideLadder` | 279 | 9 | — |
-
 ## 二、四条靶定理在几何层中的落点
 
 ### T1 编译保语义
@@ -101,24 +20,24 @@
 
 | 文件 | 声明 |
 |:--|:--|
-| `Lattice/Geo/Exact.lean` | `geo_penalty_exact` |
-| `Lattice/Geo/Nondegenerate.lean` | `perpResid_bump` |
-| `Lattice/Geo/Differentiable.lean` | `hasFDerivAt_coord` |
+| `Lattice/Geo/Exact.lean` | `geo_penalty_exact` **（缺失）** |
+| `Lattice/Geo/Nondegenerate.lean` | `perpResid_bump` **（缺失）** |
+| `Lattice/Geo/Differentiable.lean` | `hasFDerivAt_coord` **（缺失）** |
 | `Lattice/Lib/Penalty/PolyExact.lean` | `sq_eq_zero_of_localMin` |
 
 ### T3 提取等价
 
 | 文件 | 声明 |
 |:--|:--|
-| `Lattice/Geo/Extract.lean` | `configOf` |
-| `Lattice/Geo/Extract.lean` | `perp_neg_iff` |
+| `Lattice/Geo/Extract.lean` | `configOf` **（缺失）** |
+| `Lattice/Geo/Extract.lean` | `perp_neg_iff` **（缺失）** |
 | `Lattice/Geo/Flatten.lean` | `flattenEquiv` **（缺失）** |
 
 ### T4 回路收敛
 
 | 文件 | 声明 |
 |:--|:--|
-| `Lattice/Geo/Repair.lean` | `no_identity_repair` |
+| `Lattice/Geo/Repair.lean` | `no_identity_repair` **（缺失）** |
 | `Lattice/Core/Repair.lean` | `progress` |
 
 ## 三、一条贯穿的读法
