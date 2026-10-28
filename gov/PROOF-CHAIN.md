@@ -1036,7 +1036,7 @@
 | `Lattice.Lib.Architectures.RealSwiGLU` | 3 | 2 |
 | `Lattice.Lib.Architectures.RealTensorNorm` | 11 | 2 |
 | `Lattice.Lib.Architectures.RealTensorNormN` | 15 | 5 |
-| `Lattice.Lib.Architectures.RealTransformerEval` | 3 | 5 |
+| `Lattice.Lib.Architectures.RealTransformerEval` | 6 | 5 |
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
@@ -1671,7 +1671,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `BetaRedStar.app_r` -> `depth`, `induction`, `step`
 - `BetaRedStar.lam_body` -> `depth`, `induction`, `step`
 - `BetaRedStar.trans` -> `depth`, `induction`, `step`
-- `Block.eval_lipschitz` -> `apply`
+- `Block.eval_lipschitz` -> `apply`, `induction`
 - `C6Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
 - `C6_twoK3_1WL_blind` -> `nbhdSum`
 - `C6_twoK3_partition_eq` -> `nbhdSum`
@@ -1810,7 +1810,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MStmt.size_seq_right_lt` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MStmt.size_skip` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MatLayerOut_eq_matvecE` -> `W`, `apply`, `matvecE`, `matvecE_sub`
-- `Model.eval_nil` -> `apply`
+- `Model.eval_lipschitz` -> `apply`
+- `Model.eval_nil` -> `apply`, `induction`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `trans`
 - `P0_normal_equation_scalar` -> `E`
@@ -4531,6 +4532,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `convertVec`, `dot`, `induction`, `length`, `subst`
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `foldl_eval_lipschitz` -> `apply`, `induction`
 - `foldl_init_add` -> `dot`, `induction`, `length`, `subst`
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `foldl_zip_add` -> `apply`, `dot`, `induction`, `length`, `length_cons`
@@ -6963,6 +6965,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prod_const_one_add` -> `eps`, `induction`, `le_trans`, `zero`
 - `prod_eq_zero_iff_exists` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `convert`, `convert_preserves_semantics`, `induction`, `out`
 - `prod_gain_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
+- `prod_nonneg_of_forall` -> `apply`, `induction`
 - `prod_one_add_le_exp` -> `eps`
 - `prod_sum_factor` -> `card_fin`, `convert`, `le`
 - `productPlan_isPlan` -> `e2`, `mul`, `sInf`
@@ -7493,7 +7496,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_le_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `dist`, `trans`
 - `residual_le_of_zero_on_dense_from_generic` -> `dist`, `dist_nonneg`
 - `residual_le_of_zero_on_dense_of_d` -> `dist`, `dist_nonneg`, `trans`
-- `residual_lipschitz` -> `apply`
+- `residual_lipschitz` -> `apply`, `induction`
 - `residual_lower_bound` -> `SoftmaxAttnOp`, `W`, `apply`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
 - `residual_lower_bound_free` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_lower_bound_pointwise` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`

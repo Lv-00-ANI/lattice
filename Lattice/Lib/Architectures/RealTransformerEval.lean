@@ -195,4 +195,78 @@ theorem Block.eval_lipschitz_identity {La Lf Ln : ℝ} (h : La = 0) (h2 : Lf = 0
 退化情形的结论本来就是**定义上的**（`La = Lf = 0` 时 `1 + 0·(1+0) = 1`），
 不需要一条定理去「核对公式」。**公式对不对，靠读推导链，不靠一条 `ring`。** -/
 
+/-! ## 五、`Model` 的 Lipschitz 常数：`L_head · ∏ (块的常数)`
+
+### 与 `Lift/StackError` 的 `netAct_lipschitz` 同构
+
+两者都是「一串映射的折叠」，常数都是**逐项相乘**。差别只在于这里的每项是 `Block.eval`
+（自己已经有 §三 的常数），而那里的每项是 `affineAct`。
+
+**先证 `foldl` 的通用引理，再套两次**——这与 `netAct_lipschitz` 把归纳做在列表上、
+把单层界留给 `affineAct_lipschitz` 是同一个分法。
+
+### 为什么用 `List.Forall₂`
+
+`Forall₂` 自带**等长**，而且能干净析构（`Forall₂.nil` / `Forall₂.cons`）。
+用 `get?` 下标配对要额外维护长度假设，**多一个不变量就多一处能写错的地方**。
+
+### 边界
+
+- **常数是 `L_head · ∏ L_i`，随深度乘性增长**——与 §三 的单块 `Ln·(1+Lf)(1+La)` 复合起来，
+  就是「深度的代价」在模型层的完整形式。
+- **每块的 Lipschitz 性仍是假设**：本节不声称某个具体的 `attn`/`ff`/`norm` 满足它。
+  §四已经把这条边界写清（`Attention/` 与本文件之间没有桥）。 -/
+
+/-- **实数列表乘积非负**（各项非负时）。 -/
+theorem prod_nonneg_of_forall {Ls : List ℝ} (h : ∀ L ∈ Ls, 0 ≤ L) : 0 ≤ Ls.prod := by
+  induction Ls with
+  | nil => simp
+  | cons L rest ih =>
+      rw [List.prod_cons]
+      exact mul_nonneg (h L (List.mem_cons_self L rest))
+        (ih (fun M hM => h M (List.mem_cons_of_mem L hM)))
+
+/-- **`foldl` 的 Lipschitz 引理**：一串 `L_i`-Lipschitz 的块折起来，
+常数是各 `L_i` 之积。
+
+**这是 `Model` 常数的主体**；`Model.eval_lipschitz` 只是再乘上 `head` 的常数。 -/
+theorem foldl_eval_lipschitz (bs : List (Block n)) (Ls : List ℝ)
+    (hF : List.Forall₂ (fun B L => ∀ u v, ‖B.eval u - B.eval v‖ ≤ L * ‖u - v‖) bs Ls)
+    (hLnn : ∀ L ∈ Ls, 0 ≤ L) (x y : Fin n → ℝ) :
+    ‖bs.foldl (fun acc B => B.eval acc) x - bs.foldl (fun acc B => B.eval acc) y‖
+      ≤ Ls.prod * ‖x - y‖ := by
+  induction hF generalizing x y with
+  | nil =>
+      simp
+  | @cons B L rest Ls' hB _htl ih =>
+      rw [List.foldl_cons, List.foldl_cons, List.prod_cons]
+      have hrest : ∀ M ∈ Ls', 0 ≤ M := fun M hM => hLnn M (List.mem_cons_of_mem L hM)
+      have hih := ih hrest (B.eval x) (B.eval y)
+      calc ‖rest.foldl (fun acc B => B.eval acc) (B.eval x)
+            - rest.foldl (fun acc B => B.eval acc) (B.eval y)‖
+          ≤ Ls'.prod * ‖B.eval x - B.eval y‖ := hih
+        _ ≤ Ls'.prod * (L * ‖x - y‖) := by
+            apply mul_le_mul_of_nonneg_left (hB x y) (prod_nonneg_of_forall hrest)
+        _ = (L * Ls'.prod) * ‖x - y‖ := by ring
+
+/-- **`Model` 的 Lipschitz 常数**：`L_head · ∏ (块的常数)`。
+
+`eval = head ∘ (逐块折叠)`，所以两个常数相乘——与 `netAct_lipschitz` 的 `∏ gain` 同构。 -/
+theorem Model.eval_lipschitz (M : Model n) (Ls : List ℝ) {Lh : ℝ}
+    (hLh : 0 ≤ Lh)
+    (hhead : ∀ x y, ‖M.head.apply x - M.head.apply y‖ ≤ Lh * ‖x - y‖)
+    (hF : List.Forall₂ (fun B L => ∀ u v, ‖B.eval u - B.eval v‖ ≤ L * ‖u - v‖)
+      M.blocks Ls)
+    (hLnn : ∀ L ∈ Ls, 0 ≤ L) :
+    ∀ x y, ‖M.eval x - M.eval y‖ ≤ (Lh * Ls.prod) * ‖x - y‖ := by
+  intro x y
+  unfold Model.eval
+  calc ‖M.head.apply (M.blocks.foldl (fun acc B => B.eval acc) x)
+        - M.head.apply (M.blocks.foldl (fun acc B => B.eval acc) y)‖
+      ≤ Lh * ‖M.blocks.foldl (fun acc B => B.eval acc) x
+          - M.blocks.foldl (fun acc B => B.eval acc) y‖ := hhead _ _
+    _ ≤ Lh * (Ls.prod * ‖x - y‖) := by
+        apply mul_le_mul_of_nonneg_left (foldl_eval_lipschitz M.blocks Ls hF hLnn x y) hLh
+    _ = (Lh * Ls.prod) * ‖x - y‖ := by ring
+
 end Lattice.Lib.TransformerEval
