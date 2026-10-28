@@ -363,7 +363,19 @@ theorem sgd_rate_bound_aux (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω) (f : ℝ 
 ——**没有条件期望，就没有这一步**。
 
 ⭐ **所以 `hstep` 是这个接口下诚实的假设。** 能推出的是**确定性 `x` 的单步**：
-见 `sgd_expectation_contraction`（`x : ℝ` 固定，`E[g]` 是次梯度，`E[g²] ≤ G²`）。 -/
+见 `sgd_expectation_contraction`（`x : ℝ` 固定，`E[g]` 是次梯度，`E[g²] ≤ G²`）。
+
+⭐ **第 13 轮补充**：上面那句「能推出的只有单步」已经**不再完整**。
+新增的 `sgd_averaged_step`（§九）证明：对**确定性的平均迭代**
+`X : ℕ → ℝ`、`X (t+1) = X t − η·E[g t]`，`hstep` 是**可导出的**——
+关键是平方的 Jensen `Expect_sq_le`：`(E[Y])² ≤ E[Y²]`。
+
+**边界因此更精确了，而不是更松**：
+
+| 迭代类型 | `hstep` 能否导出 | 原因 |
+|:--|:--|:--|
+| 确定性 `X : ℕ → ℝ`，平均梯度更新 | **能**（`sgd_averaged_step`） | `Subgradient f (X t) (E[g t])` 与 `X t : ℝ` 类型对齐 |
+| **随机** `x : ℕ → Ω → ℝ` | **不能**（本条仍需假设） | 逐 `ω` 的次梯度条件会消灭噪声；真证明需要条件期望 | -/
 theorem sgd_rate_bound (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω) (f : ℝ → ℝ)
     (x : ℕ → Ω → ℝ) (xstar G D η : ℝ) (T : ℕ)
     (hG : 0 < G) (hT : 0 < T) (hD : 0 < D)
@@ -386,4 +398,82 @@ theorem sgd_rate_bound (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω) (f : ℝ → 
   方差恒等式（sgd_variance_identity）显式分离出噪声项：η²·Var 是随机的代价。
   诚实标注：逐步期望收缩 hstep 作为假设给出（见文件头「诚实边界」）。 -/
 
-end Lattice
+/-! ## 九、⭐ Jensen（平方）：`(E[Y])² ≤ E[Y²]`，以及用它**导出的**一步界
+
+### 为什么需要它
+
+第 7 轮判定 `sgd_rate_bound` 的 `hstep`（逐步期望收缩）**不能**从接口推出，
+并写清了理由：`Subgradient f (x t) (Expect p (g t))` 与**随机过程** `x : ℕ → Ω → ℝ` 类型上对不齐，
+而标准证明需要**条件期望**，本形式化没有。
+
+**那个结论是对的，但它有一个可做的特例**：若迭代是**确定的** `X : ℕ → ℝ`、
+更新用**平均梯度** `X (t+1) = X t - η·E[g t]`，则 `E` 只在**一步之内**出现，
+`Subgradient f (X t) (E[g t])` 与 `X t : ℝ` **类型对齐**。此时缺的只有一步：
+
+> `‖E[Y]‖² ≤ E[‖Y‖²]`
+
+即平方的 Jensen。有了它，`sgd_expectation_contraction`（确定性 `x` 的单步收缩）
+就能推到**确定性的平均迭代**上，`hstep` 因此**可导**。
+
+### 证明思路
+
+加权 Cauchy–Schwarz：`(∑ pᵢyᵢ)² ≤ (∑ pᵢ)(∑ pᵢyᵢ²)`，再用 `∑ p = 1`。
+写成 `√pᵢ` 的形式即可调用 mathlib 的 Cauchy–Schwarz。 -/
+
+/-- ⭐⭐ **平方的 Jensen**：对概率权重，`(E[Y]) ^ 2 ≤ E[Y ^ 2]`。
+
+`hp0`（非负）与 `hpsum`（和为 1）都承重：去掉 `hpsum` 结论变成 `(∑p)` 倍的关系；
+去掉 `hp0` 则 `√p` 不成立。
+
+证明是**加权 Cauchy–Schwarz**：`(∑ pᵢyᵢ)² ≤ (∑ pᵢ)(∑ pᵢyᵢ²)`，再用 `∑ p = 1`。
+写成 `√pᵢ` 的形式即可调用 mathlib 的 Cauchy–Schwarz。 -/
+theorem Expect_sq_le {Ω : Type*} [Fintype Ω] (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω)
+    (hpsum : (∑ ω, p ω) = 1) (Y : Ω → ℝ) :
+    (Expect p Y) ^ 2 ≤ Expect p (fun ω => (Y ω) ^ 2) := by
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq (Finset.univ : Finset Ω)
+    (fun ω => Real.sqrt (p ω)) (fun ω => Real.sqrt (p ω) * Y ω)
+  have h1 : (∑ ω, Real.sqrt (p ω) * (Real.sqrt (p ω) * Y ω)) = Expect p Y := by
+    unfold Expect
+    refine Finset.sum_congr rfl ?_
+    intro ω _
+    rw [← mul_assoc, Real.mul_self_sqrt (hp0 ω)]
+  have h2 : (∑ ω, Real.sqrt (p ω) ^ 2) = ∑ ω, p ω := by
+    refine Finset.sum_congr rfl ?_
+    intro ω _
+    exact Real.sq_sqrt (hp0 ω)
+  have h3 : (∑ ω, (Real.sqrt (p ω) * Y ω) ^ 2) = Expect p (fun ω => Y ω ^ 2) := by
+    unfold Expect
+    refine Finset.sum_congr rfl ?_
+    intro ω _
+    rw [mul_pow, Real.sq_sqrt (hp0 ω)]
+  rw [h1, h2, h3, hpsum, one_mul] at hcs
+  exact hcs
+theorem sgd_averaged_step {Ω : Type*} [Fintype Ω] (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω)
+    (hpsum : (∑ ω, p ω) = 1) (f : ℝ → ℝ) (X : ℕ → ℝ) (g : ℕ → Ω → ℝ)
+    (xstar G η : ℝ) (hη : 0 ≤ η)
+    (hupd : ∀ t, X (t + 1) = X t - η * Expect p (g t))
+    (hsub : ∀ t, Subgradient f (X t) (Expect p (g t)))
+    (hbnd : ∀ t, Expect p (fun ω => (g t ω) ^ 2) ≤ G ^ 2) :
+    ∀ t, ‖X (t + 1) - xstar‖ ^ 2 ≤
+      ‖X t - xstar‖ ^ 2 - 2 * η * (f (X t) - f xstar) + η ^ 2 * G ^ 2 := by
+  intro t
+  have hc := sgd_expectation_contraction (p := p) (g := g t) hpsum (X t) xstar η G hη
+    (hsub t) (hbnd t)
+  -- stated AFTER unfolding `sgd_update`, so the lambda shape matches `Expect_sub` syntactically
+  have hlin : Expect p (fun ω => X t - η * g t ω) = X t - η * Expect p (g t) := by
+    rw [Expect_sub, Expect_const, Expect_const_mul, hpsum, one_mul]
+  have hmean : Expect p (fun ω => sgd_update η (X t) (g t ω) - xstar) = X (t + 1) - xstar := by
+    unfold sgd_update
+    rw [Expect_sub, Expect_const, hlin, hpsum, one_mul, hupd t]
+  -- Jensen on `Y ω = sgd_update η (X t) (g t ω) - xstar`
+  have hj := Expect_sq_le p hp0 hpsum (fun ω => sgd_update η (X t) (g t ω) - xstar)
+  rw [hmean] at hj
+  calc ‖X (t + 1) - xstar‖ ^ 2
+      = (X (t + 1) - xstar) ^ 2 := by rw [Real.norm_eq_abs, sq_abs]
+    _ ≤ Expect p (fun ω => (sgd_update η (X t) (g t ω) - xstar) ^ 2) := hj
+    _ = Expect p (fun ω => ‖sgd_update η (X t) (g t ω) - xstar‖ ^ 2) := by
+        unfold Expect
+        refine Finset.sum_congr rfl ?_
+        intro ω _
+        simp only [Real.norm_eq_abs, sq_abs]
+    _ ≤ ‖X t - xstar‖ ^ 2 - 2 * η * (f (X t) - f xstar) + η ^ 2 * G ^ 2 := hc
