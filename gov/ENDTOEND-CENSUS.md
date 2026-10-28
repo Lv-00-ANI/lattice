@@ -20,9 +20,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 2 | 669 | 7.8% |
 | 3 | 377 | 4.4% |
 | 4 | 597 | 7.0% |
-| 5 | 120 | 1.4% |
+| 5 | 121 | 1.4% |
 | 6 | 2 | 0.0% |
-| **合计** | **8561** | |
+| **合计** | **8562** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -57,6 +57,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `loop_step` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_mono` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_witness` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `iterate_sound` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `iterate_strength` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
@@ -87,7 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

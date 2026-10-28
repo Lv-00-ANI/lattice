@@ -216,33 +216,119 @@ pre x := ∃ n z, n ≤ meas x ∧ loop p dec n x = some z ∧ dec z = true
 
 **把没证的东西写进 `post` 会让 `sound` 变成假声称。** -/
 
+/-! ## 五、从成功的循环抽出可达链
+
+### 需要的假设恰好是「要迈步时前置成立」
+
+循环的执行走 `p.run`，而 `p.post` 只在 `p.pre` 成立时由 `p.sound` 保证。
+所以要断言 `Reaches`，需要一条关于 `p.pre` 的假设。
+
+**两条候选，选弱的那条**：
+
+| 假设 | 是否够 | 对 `descentStep` 是否成立 |
+|:--|:--|:--|
+| `∀ y, p.pre y`（处处成立） | 够，但过强 | ❌ **在解处不成立**（`β + c = 0` 时 `pre` 是假） |
+| **`∀ y, dec y = false → p.pre y`**（要迈步时成立） | **够** | ✅ 正好：`dec` 为假就是「还没到解」 |
+
+**所以用第二条**：它恰好是循环需要的那一点，不多不少。
+`dec y = true` 时不迈步，所以那时 `p.pre` 真假无关。
+
+### 结果
+
+`loop p dec n x = some z` ⟹ **存在 `k ≤ n` 与一条 `Reaches p k x z`**。
+
+**这把 `loop` 的成功与 §二 的 `Reaches` 接上了**，因此 `iterate.post` 可以升级为含可达性。 -/
+
+/-- **成功的循环给出可达链**：`loop p dec n x = some z` ⟹ `∃ k ≤ n, Reaches p k x z`。
+
+归纳在燃料 `n` 上。迈步那支需要 `p.pre x`——由 `hp` 与 `dec x = false` 得到，
+再由 `p.sound` 得到 `p.post x y`（`y` 是 `p.run x` 的实际输出）。 -/
+theorem loop_witness {I : Type} (p : Primitive I I) (dec : I → Bool)
+    (hp : ∀ y, dec y = false → p.pre y) :
+    ∀ (n : ℕ) (x z : I), loop p dec n x = some z → ∃ k, k ≤ n ∧ Reaches p k x z := by
+  intro n
+  induction n with
+  | zero =>
+      intro x z h
+      have hx : dec x = true := by
+        by_contra hne
+        have hf : dec x = false := by
+          cases hv : dec x
+          · rfl
+          · exact absurd hv hne
+        rw [show loop p dec 0 x = none from by simp [loop, hf]] at h
+        exact absurd h (by simp)
+      have hz : z = x := by
+        rw [show loop p dec 0 x = some x from by simp [loop, hx]] at h
+        exact (Option.some.inj h).symm
+      refine ⟨0, by omega, ?_⟩
+      rw [hz]
+      exact Reaches.refl x
+  | succ n ih =>
+      intro x z h
+      by_cases hd : dec x = true
+      · have hz : z = x := by
+          rw [show loop p dec (n + 1) x = some x from by simp [loop, hd]] at h
+          exact (Option.some.inj h).symm
+        refine ⟨0, by omega, ?_⟩
+        rw [hz]
+        exact Reaches.refl x
+      · have hf : dec x = false := by
+          cases hv : dec x
+          · rfl
+          · exact absurd hv hd
+        rw [show loop p dec (n + 1) x = (p.run x).bind (loop p dec n) from by simp [loop, hf]] at h
+        cases hr : p.run x with
+        | none => simp [hr] at h
+        | some y =>
+            have hly : loop p dec n y = some z := by simpa [hr] using h
+            obtain ⟨k, hk, hR⟩ := ih y z hly
+            have hpre : p.pre x := hp x hf
+            obtain ⟨y', hy', hpost⟩ := p.sound x hpre
+            have hyy : y' = y := by
+              rw [hr] at hy'
+              exact (Option.some.inj hy').symm
+            exact ⟨k + 1, by omega, Reaches.step (hyy ▸ hpost) hR⟩
+
+/-! ## 六、`iterate`：出口条件为显式 `pre`，且 `post` 含可达性 -/
+
 /-- **循环组合子**：在测度下重复 `p`，直到 `dec` 为真。
 
-`pre` 是**显式的出口假设**（第 235 轮裁决）：某个不超过 `meas x` 的燃料足以成功。
-`sound` 靠 `loop_mono` 把它推到 `meas x` 格。 -/
-def iterate {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) : Primitive I I where
+**`pre`（显式出口假设，第 235 轮裁决）**：某个不超过 `meas x` 的燃料足以成功。
+
+**`post`（第 236 轮升级）**：`dec z = true` **且** `z` 由一条合法的 `p` 链可达。
+升级靠 `loop_witness`；它需要 `hp`——「要迈步时 `p.pre` 成立」。
+
+⚠ **`hp` 是第 236 轮新增的假设**：`post` 变强，代价是多一个前提。
+**这是加价不是白拿**，写在这里以免被读成「免费升级」。 -/
+def iterate {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ)
+    (hp : ∀ y, dec y = false → p.pre y) : Primitive I I where
   pre := fun x => ∃ (n : ℕ) (z : I), n ≤ meas x ∧ loop p dec n x = some z ∧ dec z = true
-  post := fun _ z => dec z = true
+  post := fun _ z => dec z = true ∧ ∃ k, Reaches p k _ z
   run := fun x => loop p dec (meas x) x
   sound := by
     intro x hx
     obtain ⟨n, z, hn, hl, hd⟩ := hx
-    refine ⟨z, ?_, hd⟩
-    have hmono : loop p dec (n + (meas x - n)) x = some z := loop_mono p dec n x z hl (meas x - n)
-    have he : n + (meas x - n) = meas x := by omega
-    rwa [he] at hmono
+    refine ⟨z, ?_, hd, ?_⟩
+    · have hmono : loop p dec (n + (meas x - n)) x = some z := loop_mono p dec n x z hl (meas x - n)
+      have he : n + (meas x - n) = meas x := by omega
+      rwa [he] at hmono
+    · have hmono : loop p dec (n + (meas x - n)) x = some z := loop_mono p dec n x z hl (meas x - n)
+      obtain ⟨k, _hk, hR⟩ := loop_witness p dec hp n x z hl
+      exact ⟨k, hR⟩
   strength := p.strength
   coverage := p.coverage
   frame := fun _ _ => True
 
 /-- **`iterate` 的 `sound`**：可直接引用的一条。 -/
-theorem iterate_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) (x : I)
-    (hx : (iterate p dec meas).pre x) :
-    ∃ z, (iterate p dec meas).run x = some z ∧ (iterate p dec meas).post x z :=
-  (iterate p dec meas).sound x hx
+theorem iterate_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ)
+    (hp : ∀ y, dec y = false → p.pre y) (x : I) (hx : (iterate p dec meas hp).pre x) :
+    ∃ z, (iterate p dec meas hp).run x = some z ∧ (iterate p dec meas hp).post x z :=
+  (iterate p dec meas hp).sound x hx
 
 /-- **`iterate` 的强度不变**：循环不新增承诺。 -/
-theorem iterate_strength {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) :
-    (iterate p dec meas).strength = p.strength := rfl
+theorem iterate_strength {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ)
+    (hp : ∀ y, dec y = false → p.pre y) :
+    (iterate p dec meas hp).strength = p.strength := rfl
 
 end Lattice.Compose

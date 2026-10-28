@@ -1658,7 +1658,7 @@
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
-| `Lattice.Compose.Iterate` | 8 | 3 |
+| `Lattice.Compose.Iterate` | 9 | 3 |
 | `Lattice.Compose.Laws` | 9 | 0 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
@@ -1875,7 +1875,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ReLUSumLoss_const_on_open` -> `apply`, `relu`
 - `ReLUSum_iff_all_constraints` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
 - `ReLUSum_zero_iff_all` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
-- `Reaches.length_le` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `Reaches.length_le` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `Reaches.meas_add_le` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `RealConstraintSatRel_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
 - `RealDot_sub` -> `RealDot`, `apply`, `subst`
@@ -5783,7 +5783,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_converges` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`, `progress`
 - `loop_converges_in_one` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`
 - `loop_converges_to_fixed_point` -> `W`, `contraction_converges`, `iterate`, `iterate_step_swap`
-- `loop_done` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `loop_done` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_exit_wp` -> `Compiler`, `State`, `iterate`
 - `loop_fixed_point` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `progress`, `roundtrip`
 - `loop_fixed_point_exists` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
@@ -5795,12 +5795,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_iterate_tendsto_fixedPoint` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `op_norm_pow_apply_le`, `zero`
 - `loop_lower_bound` -> `Adj`
 - `loop_model_contraction` -> `W`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
-- `loop_mono` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `loop_mono` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
-- `loop_step` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
-- `loop_zero_none` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `loop_step` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
+- `loop_witness` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
+- `loop_zero_none` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `lora_edit_additive` -> `E`, `LoRAEdit`, `W`, `lora_edit_bound`
 - `lora_edit_bound` -> `E`, `W`, `comp`, `le_trans`
 - `lora_edit_constraint` -> `E`, `W`
