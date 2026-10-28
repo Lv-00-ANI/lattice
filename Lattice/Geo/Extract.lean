@@ -1,8 +1,8 @@
 import Mathlib
-import Lattice.Geo.Flatten
-import Lattice.Geo.Constraint
+import Lattice.Domains.Flatten
+import Lattice.Domains.Constraint
 import Lattice.Geo.Loss
-import Lattice.Geo.Perturb
+import Lattice.Domains.Perturb
 
 /-!
 # `Lattice.Geo.Extract` -- reading a symbolic constraint back out of a weight vector

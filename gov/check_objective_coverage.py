@@ -36,6 +36,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _paths import resolve  # noqa: E402  (path-keyed artifact: see _paths.py)
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -143,7 +146,10 @@ def name_violations(corpus):
 CORPUS_ITEMS = []
 
 SATISFACTION_OWNERS = {
-    "GeoConstraint.Holds": "Geo/Constraint.lean",
+    # Round 244. THE NINTH path-keyed artifact in this tree (see gov/_paths.py). `Geo/Constraint.lean`
+    # moved to `Domains/Constraint.lean` in Geo batch B2, and this table reported the definition as
+    # "found in [Domains/Constraint.lean]" while still expecting the old path. Resolved at load time.
+    "GeoConstraint.Holds": resolve("Geo/Constraint.lean"),
 }
 
 

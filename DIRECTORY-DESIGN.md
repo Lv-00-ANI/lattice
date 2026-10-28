@@ -489,11 +489,32 @@ top 99
 | `Lift/ProgramAST`、`StackCodegen` | `Runtime/Program`、`Runtime/Codegen` |
 | `Lift/LayerQuantization*`、`Saturation*`、`QuantErrorPropagation` | `Runtime/Quantization` + `Primitives/Quantize` |
 | `Lift/Approx*`、`ExtractionStrength` | `Kernel/Representations`（approx） |
-| `Geo/Constraint`、`Expr`、`Loss`、`PenaltyLoss`、`ConstraintSet` | `Kernel/Constraints` |
+| `Domains/Constraint`（原 `Geo/Constraint`）、`Expr`、`Dist`、`Loss`、`PenaltyLoss`、`ConstraintSet` | **`Domains/Constraints`（rank 3）** |
 | `Geo/GeoLadder`、`WeightSideLadder`、`LadderInstance` | `Domains/Geometry` + `Primitives/Model` |
 | `Geo/Repair*`、`Loop*`、`Reinjection*` | `Primitives/Repair` + `Domains/Geometry/Repairs` |
 | `Geo/Executable*Check`、`GeoSampledBound` | `Primitives/Verify` |
 | `Geo/NetLoss`、`ConstraintDescent`、`WeightDescent` | `Primitives/Train` |
+
+### ⚠ 第 244 轮修订：`Kernel/Constraints` → **`Domains/Constraints`（rank 3）**
+
+本节原先写 `Geo/Constraint、Expr、Loss、PenaltyLoss、ConstraintSet → Kernel/Constraints`。
+**`Kernel` 是 rank 1，而第 242 轮的传递测量显示其中四个模块需要 rank 3**：
+
+| 模块 | 传递可达 | 需要的 rank |
+|:--|:--|--:|
+| `Expr` | `Core` | 0 |
+| `Constraint` / `Loss` / `PenaltyLoss` / `ConstraintSet` | `Core + Lib + Runtime` | **3** |
+
+**所以那一行按字面是向上依赖，无法落地。** 链路是
+`PenaltyLoss → Geo.Dist → Lib.Linear.PenaltyVector`——**直接** import 里看不到 `Lib`，
+**传递**才看到（第 242 轮我第一遍就栽在这里，与 `MACRO-STATUS` §2 被推翻两次是同一个错误）。
+
+**第 244 轮的做法不是改文档了事，而是用构造解决**：把 `Constraint` 连同 `Dist`、`DistContinuous`、
+`DistLipschitz` 一起搬进 `Domains`（rank 3，批次 B2）。**文档现在写的是测量允许的东西。**
+
+`Expr` 留在 `Domains` 而不是单列一层：它是 rank 0，理论上可以更低，但 `Constraint` 依赖它，
+**把一对直接依赖拆进不同 rank 段没有任何测量依据。**
+
 | `Semantics/Stage1` | `Kernel/Semantics` |
 | `Semantics/VocabEdit` | `Primitives/Vocab` |
 | `Semantics/Annotations` | `Primitives/Semantics` |

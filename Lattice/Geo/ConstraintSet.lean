@@ -81,7 +81,7 @@ holdsSet_nodup_of_holdsSet : HoldsSet cs pts → HoldsSet cs.dedup pts
   **仍未做**，本节不声称完成它。
 -/
 import Mathlib
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 namespace Lattice.Geo
 

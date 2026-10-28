@@ -52,7 +52,7 @@ seg_bump_far : seg a b i (v + t • bump k n b i) = seg a b i v + t      -- b �
 - 本节**不接** `perp_gradient_nonzero` 的前提（那是连接层面的事）。
 -/
 import Mathlib
-import Lattice.Geo.Perturb
+import Lattice.Domains.Perturb
 import Lattice.Geo.Nondegenerate
 
 open scoped BigOperators

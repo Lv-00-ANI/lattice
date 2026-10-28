@@ -16,29 +16,19 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 5266 | 61.5% |
-| 1 | 1495 | 17.5% |
-| 2 | 361 | 4.2% |
-| 3 | 1125 | 13.1% |
-| 4 | 301 | 3.5% |
-| 5 | 14 | 0.2% |
+| 1 | 1488 | 17.4% |
+| 2 | 402 | 4.7% |
+| 3 | 1104 | 12.9% |
+| 4 | 298 | 3.5% |
+| 5 | 4 | 0.0% |
 | **合计** | **8562** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
-| 5 | `activationLadder_forward` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `activationLadder_l2l3_is_a_split` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `decode_encode` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `encode_injective` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, root |
 | 5 | `residue_bound_of_zero_sample` (`Runtime/EndToEndApproximation.lean`) | Core, Geo, Lib, Semantics, root |
 | 5 | `loss_le_sq_of_resid_le` (`Runtime/EndToEndApproximation.lean`) | Core, Geo, Lib, Semantics, root |
-| 5 | `encode_cons_eq` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `decode_encode` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `encode_injective` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `decode_encode_sat_iff` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `Text.encode_injective` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, root |
-| 5 | `tokenizeStr_detok` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, root |
 | 5 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, root |
 | 5 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, root |
 | 4 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Core, Geo, Lib, root |
@@ -87,6 +77,16 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 4 | `choice_coverage` (`Compose/More.lean`) | Core, Geo, Lib, root |
 | 4 | `optional_sound` (`Compose/More.lean`) | Core, Geo, Lib, root |
 | 4 | `optional_strength` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `Primitive.withCoverage_sound` (`Compose/Primitive.lean`) | Core, Geo, Lib, root |
+| 4 | `MatrixRow.strength_eq` (`Compose/Registry.lean`) | Core, Geo, Lib, root |
+| 4 | `foldStrength_le_of_mem` (`Compose/Registry.lean`) | Core, Geo, Lib, root |
+| 4 | `exact_of_foldStrength_exact` (`Compose/Registry.lean`) | Core, Geo, Lib, root |
+| 4 | `applySgd_run` (`Compose/Steps.lean`) | Core, Geo, Lib, root |
+| 4 | `applyMomentum_velocity` (`Compose/Steps.lean`) | Core, Geo, Lib, root |
+| 4 | `codegenLadder_forward` (`Domains/CodegenLadder.lean`) | Audit, Core, Lib, root |
+| 4 | `codegenLadder_satW_iff` (`Domains/CodegenLadder.lean`) | Audit, Core, Lib, root |
+| 4 | `codegenLadder_l2l3_changes_representation` (`Domains/CodegenLadder.lean`) | Audit, Core, Lib, root |
+| 4 | `sqDistEq_rhs_nonneg` (`Domains/Constraint.lean`) | Core, Geo, Lib, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

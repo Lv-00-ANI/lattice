@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Geo.Loss
-import Lattice.Geo.Dist
+import Lattice.Domains.Dist
 
 /-!
 # `Lattice.Geo.Square` -- penalties for the `square` layer

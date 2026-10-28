@@ -1,6 +1,6 @@
 import Mathlib
-import Lattice.Geo.Constraint
-import Lattice.Geo.Flatten
+import Lattice.Domains.Constraint
+import Lattice.Domains.Flatten
 import Lattice.Geo.Loss
 
 /-!

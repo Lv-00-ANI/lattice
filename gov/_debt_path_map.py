@@ -107,4 +107,17 @@ PATH_MAP = {
     "Geo/TokenizeStrategy.lean": "Domains/TokenizeStrategy.lean",
     "Geo/TokenizerPattern.lean": "Domains/TokenizerPattern.lean",
     "Geo/WeightDescent.lean": "Domains/WeightDescent.lean",
+    # round 244, Geo batch B2: the prefix that includes `Constraint` and `Dist`
+    "Geo/CExprCodegen.lean": "Domains/CExprCodegen.lean",
+    "Geo/CodegenLadder.lean": "Domains/CodegenLadder.lean",
+    "Geo/Constraint.lean": "Domains/Constraint.lean",
+    "Geo/Dist.lean": "Domains/Dist.lean",
+    "Geo/DistContinuous.lean": "Domains/DistContinuous.lean",
+    "Geo/DistLipschitz.lean": "Domains/DistLipschitz.lean",
+    "Geo/Finite.lean": "Domains/Finite.lean",
+    "Geo/Flatten.lean": "Domains/Flatten.lean",
+    "Geo/FlattenAgreement.lean": "Domains/FlattenAgreement.lean",
+    "Geo/LadderInstance.lean": "Domains/LadderInstance.lean",
+    "Geo/Perturb.lean": "Domains/Perturb.lean",
+    "Geo/SeqRepresentation.lean": "Domains/SeqRepresentation.lean",
 }

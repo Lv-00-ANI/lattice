@@ -64,7 +64,7 @@ approxHolds (tol : Float) (c : GeoConstraint) (pts : ...Float) : Bool
 - 本节**不改** `Holds`：ℝ 轨道完全不动。
 -/
 import Mathlib
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Domains.ComputableExpr
 
 namespace Lattice.Geo

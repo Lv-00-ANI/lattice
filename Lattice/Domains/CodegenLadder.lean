@@ -45,7 +45,7 @@
 -/
 import Mathlib
 import Lattice.Runtime.EndToEnd
-import Lattice.Geo.CExprCodegen
+import Lattice.Domains.CExprCodegen
 
 namespace Lattice.Lift
 

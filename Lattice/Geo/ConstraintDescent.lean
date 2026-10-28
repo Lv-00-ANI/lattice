@@ -84,7 +84,7 @@ step η β := β - η * (2 * (β + c))
 -/
 import Mathlib
 import Lattice.Core.Net
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Geo.PenaltyLoss
 import Lattice.Geo.NetLoss
 

@@ -72,7 +72,7 @@ x  : Fin n → ℝ                       -- 输入：某个点/坐标向量的�
 -/
 import Mathlib
 import Lattice.Runtime.EndToEnd
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Geo.GeoLadder
 import Lattice.Core.Net
 

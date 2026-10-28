@@ -68,7 +68,7 @@ coord p axis = -c
 -/
 import Mathlib
 import Lattice.Geo.Loss
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 open scoped BigOperators
 

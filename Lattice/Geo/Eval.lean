@@ -1,6 +1,6 @@
 import Mathlib
-import Lattice.Geo.Constraint
-import Lattice.Geo.Dist
+import Lattice.Domains.Constraint
+import Lattice.Domains.Dist
 
 /-!
 # `Lattice.Geo.Eval` -- which constraints have a value, and why the answer is not "all of them"

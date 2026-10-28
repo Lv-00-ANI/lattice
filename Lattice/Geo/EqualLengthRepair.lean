@@ -53,7 +53,7 @@ e' := c + k·(e − c)
 -/
 import Mathlib
 import Lattice.Geo.RepairCoverage
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 open scoped BigOperators
 

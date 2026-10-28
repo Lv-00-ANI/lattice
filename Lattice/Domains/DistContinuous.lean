@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.Dist
+import Lattice.Domains.Dist
 
 /-!
 # `Lattice.Geo.DistContinuous` -- continuity of `sqDist`

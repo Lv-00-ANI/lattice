@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Domains.Expr
-import Lattice.Geo.Dist
-import Lattice.Geo.Constraint
+import Lattice.Domains.Dist
+import Lattice.Domains.Constraint
 import Lattice.Lib.Linear.PenaltyVector
 
 /-!

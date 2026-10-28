@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.Flatten
+import Lattice.Domains.Flatten
 
 /-!
 # `Lattice.Geo.Perturb` -- algebraic properties of `unflatten` under perturbation

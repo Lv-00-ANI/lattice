@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1224 | 14.6% |
-| **入度 ≥ 1（承重集）** | **872** | **752** | **86.2%** |
-| **入度 = 0** | **7537** | **472** | **6.3%** |
+| 定理 + 引理 | 8409 | 1213 | 14.4% |
+| **入度 ≥ 1（承重集）** | **872** | **742** | **85.1%** |
+| **入度 = 0** | **7537** | **471** | **6.2%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.3%**：7537 条入度为 0 的定理里只审了 472 条。**这才是「样本」真正指的东西。**
+- **零入度只有 6.2%**：7537 条入度为 0 的定理里只审了 471 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -117,7 +117,7 @@
 | `Audit/PredicateWitnesses.lean:69` | `isRedundant_true` | 0 | `rfl`：陈述是 `true = true`，重言（a=a），零信息量。 |
 | `Core/Repair.lean:117` | `stable` | 0 | 证明体就是 R.absorbs x h，即 Repair 结构体的一个字段投影，一字未改；等于把构造 Repair 时承诺的假设原样复述成「定理」。 |
 | `Core/RepairAtomicity.lean:73` | `atomic_of_zero_iff` | 0 | 证明是 fun x hx => (h x).mp hx：结论就是前提的一个方向，重言。 |
-| `Geo/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
+| `Domains/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
 | `Lib/Architectures/RealOperatorNorm.lean:54` | `add_norm_bound` | 0 | 与 norm_add_le 逐字同义，零信息 |
 | `Lib/Attention/RealTemporalLayer.lean:275` | `element_iff_no_upper` | 0 | Iff.rfl：isElementUnderUpGaze := ¬ hasUpper，命题即 P↔P。 |
 | `Lib/Concentration/RealHoeffdingInequality.lean:333` | `condexp_hoeffding` | 0 | 重言：stmt 是假设的逐字复制，proof 体为 `hcond`（exact h）。 |

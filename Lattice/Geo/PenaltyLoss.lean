@@ -72,8 +72,8 @@ EqConstraint.loss  : …                                    -- poly 的平方
   本节是 `GeoConstraint` 的并列新增，两者服务不同层。
 -/
 import Mathlib
-import Lattice.Geo.Constraint
-import Lattice.Geo.Dist
+import Lattice.Domains.Constraint
+import Lattice.Domains.Dist
 
 namespace Lattice.Geo.PenaltyLoss
 

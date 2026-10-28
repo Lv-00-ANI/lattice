@@ -70,7 +70,7 @@
 -/
 import Mathlib
 import Lattice.Geo.RepairCoverage
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 namespace Lattice.Geo
 
