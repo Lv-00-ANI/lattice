@@ -15,18 +15,25 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5472 | 64.3% |
-| 1 | 1344 | 15.8% |
-| 2 | 865 | 10.2% |
+| 0 | 5471 | 64.2% |
+| 1 | 1348 | 15.8% |
+| 2 | 865 | 10.1% |
 | 3 | 727 | 8.5% |
-| 4 | 105 | 1.2% |
-| 5 | 1 | 0.0% |
-| **合计** | **8514** | |
+| 4 | 107 | 1.3% |
+| 5 | 8 | 0.1% |
+| **合计** | **8526** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 5 | `compose_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_strength` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_coverage` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_run_assoc` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `identity_compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `Primitive.withCoverage_sound` (`Compose/Primitive.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `fullRegistry_wellFormed` (`Slots.lean`) | Audit, Core, Geo, Lib, Lift |
 | 4 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift |
 | 4 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift |
@@ -36,6 +43,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 4 | `repair_is_densest` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
 | 4 | `total_obligations` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
 | 4 | `no_zero_obligation_structure` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
+| 4 | `compose_act` (`Core/VariableNet.lean`) | Geo, Lib, Lift, root |
 | 4 | `eqConstraint_loss_le_sq_of_resid_le` (`Geo/ApproxEmbedding.lean`) | Core, Lib, Lift, Semantics |
 | 4 | `codegenLadder_forward` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift |
 | 4 | `codegenLadder_satW_iff` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift |
@@ -66,6 +74,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 4 | `e2e_loss_strictly_compounds` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
 | 4 | `e2e_L1L2_cannot_absorb_L2L3_loss` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
 | 4 | `e2e_sameLayer_comp_is_wellTyped` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
+| 4 | `chainLift_two` (`Lib/Chain/RealGaloisChainLift.lean`) | Core, Geo, Lift, root |
 | 4 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
 | 4 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
 | 4 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
@@ -78,15 +87,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 4 | `run_append` (`Lib/Compiler/RealConcurrentSemantics.lean`) | Audit, Core, Geo, Lift |
 | 4 | `compile_program_go_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
 | 4 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_program_go_contains` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_program_contains_compiled_constraints` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_program_vars_subset` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_append_satisfiable` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_preserves_satisfiability` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_preserves_satisfiability_hypothesis_unused` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift |
-| 4 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift |
-| 4 | `three_rings_quotient_dichotomy` (`Lib/Editing/RealClosureReversibility.lean`) | Audit, Core, Geo, Lift |
-| 4 | `cEx_actAllZero_neg5` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift |
 
 ## ⚠ 层数高**不等于**更端到端
 

@@ -309,6 +309,12 @@ LAYER_OF = {
     # It imports Geo and nothing outside it imports Semantics, so it sits above geo.
     "Lattice/Semantics": "audit",
     "Lattice/Audit": "audit",
+    # Round 227 (restructure P0): the new `Compose/` top-level from DIRECTORY-DESIGN.md §3.
+    # Placed above `audit` because the design's chain is
+    # `lib 0 < kernel 1 < runtime 2 < domains 3 < primitives 4 < compose 5`;
+    # in the CURRENT rank map that means rank 6. `Compose` imports only `Mathlib`, so the
+    # placement is forward-compatible and does not restrict anything today.
+    "Lattice/Compose": "compose",
 }
 
 
@@ -321,7 +327,14 @@ def layer_of(p):
 
 
 def check_layering(rep):
-    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "audit": 5, "top": 99}
+        # Round 228: `lib` KEEPS its current rank 3 -- above `core`/`lift`, below `geo`.
+    # That is the decision on DIRECTORY-DESIGN §9's open question: `Lib` is the responsible home for
+    # the un-migratable (244 files import `Lift`, 16 import `Core`) and for future content of that
+    # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
+    # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
+    # and `Geo/Unified` rely on).
+    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "audit": 5,
+            "compose": 6, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":
