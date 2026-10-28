@@ -1,4 +1,5 @@
 import Lattice.CInterface.ABI
+import Lattice.CInterface.Conformance
 import Lattice.CInterface.Serialization
 
 /-!

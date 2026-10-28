@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 206 | aggregator at `Lattice/`, re-exports only |
+| root | 207 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -647,8 +647,9 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Serialization`
+- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` 
+- `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
@@ -1487,6 +1488,7 @@
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
+| `Lattice.CInterface.Conformance` | 4 | 15 |
 | `Lattice.CInterface.Serialization` | 2 | 1 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
@@ -3139,6 +3141,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conformal_quantile_ge` -> `alpha`
 - `conformal_quantile_minimal` -> `alpha`
 - `conformal_validity_le_one` -> `alpha`
+- `conformance_iff_abi` -> `CFunction`, `abiTable`
+- `conformance_length` -> `CFunction`, `abiTable`, `length`
+- `conformance_names_eq_abi` -> `CFunction`, `abiTable`
+- `conformance_names_nodup` -> `CFunction`, `abiTable`
 - `congruentInt_iff_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `congruentInt_to_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `congruent_divisible_via_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
