@@ -35,11 +35,11 @@
 
 | 判定 | 条数 |
 |:--|--:|
-| `delete` | 45 |
-| `strengthen` | 34 |
-| `downgrade` | 3 |
+| `delete` | 44 |
+| `strengthen` | 24 |
+| `downgrade` | 0 |
 | `register` | 107 |
-| `keep` | 1193 |
+| `keep` | 1192 |
 | **合计审阅** | **1382** |
 
 **这张表是「第一审判了多少条」，不是「还剩多少条没做」。**
@@ -92,7 +92,6 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lib/Chain/RealTaylorMultivariate.lean:195` | `second_order_taylor` | 2 | 纯占位：`∃ R, a = b + R` 与 `True` 同义（证明体就是取 `R := RHS 差` 再 `linarith`）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean:206` | `closed_loop_adds_nothing` | 2 | F: 重言 (P↔Q)↔(P↔Q),信息量为零 |
 | `Lib/Editing/RealOperatorSplit.lean:51` | `t1_decompose` | 2 | 重言：加法逆元恒等式（`add_sub_cancel`）。 |
 | `Lib/Architectures/RealNormalEquation.lean:115` | `fderiv_eq_zero_iff_all` | 1 | 纯重言：fderiv f x = 0 ↔ ∀v, fderiv f x v = 0 是 CLM 外延 + map_zero，零信息；另有 _scalar 版重复（RealNormalEquationScalar:162） |
@@ -142,32 +141,22 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lib/LearningTheory/RealConstrainedDecoding.lean:266` | `constrained_agrees_with_constraint_set` | 2 | 不足。`_hts : DecodesTo ts cs` 未使用；`cs` 只经 `allowedByConstraints` 里的 `cs.isEmpty = false` 进入，故「符号约束决定采样支撑」的实质内容为零。 |
-| `Lib/Optim/RealStrongConvex.lean:251` | `strong_convex_iterate_contraction` | 2 | 用途上够用（Nesterov 的 heavyBall、ProxGrad 的收缩只消费这条不等式），问题在前件而非结论：_hμL 是死前件，陈述比实际能证的弱。 |
 | `Lib/Architectures/RealReLULayer.lean:80` | `ReLUSum_iff_all_constraints` | 1 | doc 声称给出「全部约束满足」的批量判定，但陈述里 as/bs 与 ls、x 没有任何结构联系，撑不起该用途 |
 | `Lib/Chain/RealChainEntryOOV.lean:249` | `e2e_path_exists_str` | 1 | 陈述太弱：只要求 ∃ts 使 tokenizeStr s = some ts，没把 ts 与 Text.encode s 的关系写进结论；encode 被改成常函数 [] 时它仍为真（文件自身 :268 的 V01 实测）。撑不起文件头 Z04-G2 宣称的「入口桥闭合」。 |
 | `Lib/Compiler/RealNonlinearCompile.lean:228` | `linearization_global_fails` | 1 | 陈述只断言存在 f 与恒零 L，未断言 L 是 f 的线性化/近似（无 ApproxOn、无任何编译函数出现），因此不构成对『线性化编译保全局语义』的反例；必须把近似关系写进陈述才能支撑 users（RealCompileExtractClosed）。 |
 | `Lib/Editing/RealEditSemantics.lean:172` | `EditLayer_delta_not_unique` | 1 | 不足：结论 deltaOf Δ₁ x ≠ deltaOf Δ₂ x 与 EditLayer 合取项完全无关（Δ₁=⟨[1],0⟩、Δ₂=⟨[0],0⟩ 在任意 W 下都给出 1 ≠ 0）；因此它没有机器验证 doc 声称的「EditLayer_consequence 的 ∃ Δ 不能换成 ∀ Δ」。 |
-| `Lib/LearningTheory/RealTopK.lean:59` | `top1_output_is_hard` | 1 | 陈述把求和限制在单元素集 {i} 上，`_hrest`（其余权重为 0）完全未使用，于是结论退化为 w i • v i = v i，与「top-1 硬路由」无关：真正该证的是全和 Σ_{j} w j • v j = v i（用 hw 与 hrest），这才是下游 RealDynamicRoute 需要的事实。当前形状即使其余权重任意也成立，名字 overclaim。 |
 | `Lib/Optim/RealSGDStochastic.lean:202` | `sgd_expected_gap_sum_seq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
-| `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
-| `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
-| `Domains/Geometry/Engine.lean:134` | `derivation_sound` | 0 | 强度不足:步骤前提被要求已被 G 蕴含,序列无法链式推理;doc 的 transitivity along a derivation 没有兑现。 |
 | `Domains/Geometry/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 0 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
 | `Domains/Geometry/LoopPerp.lean:47` | `fixPerp_absorbs` | 0 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
-| `Domains/Geometry/Synthesis.lean:122` | `synthesize_from_initialisation` | 0 | 强度不足:前提 G/h 是与结论无关的装饰,结论没有覆盖 initialisation 提供的约束集。 |
-| `Lib/Chain/RealEndToEnd.lean:491` | `e2e_sound` | 0 | 陈述太弱：h0、h1 在证明体中完全未使用（证明就是 symbolToWeight_correct cs x），结论 `∀ x, AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x` 对任意 cs 成立，因此这里没有任何 L0→L1→桥→L2 的内容；它只是 symbolToWeight_correct 的改名。doc 声称「结论的类型里出现了 s、ts、L1Bridge ts」，与事实不符：结论里一个都没有… |
-| `Lib/Chain/RealEndToEnd.lean:713` | `e2e_loss_compound` | 0 | 四个合取项都是既有定理的打包，缺 doc 标题宣称的「两处损失不可互相归约」；而且 ④ `Function.Injective encode` 可由 ③ `decode (encode cs) = some cs`（左逆⇒单射）直接推出，是冗余合取；③ 只说明 encode 是截面，并不表达「①的见证在 L1⇄L2 上被保留」（①说的是 List Char 上的 tokenize 碰撞，和 ConstraintSet→List SymToken 的 encode 单射是… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:95` | `modalLogic_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 5` 是超集大小：1 个已在模板表内（second_order_logic），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:85` | `probabilityTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 4` 是超集大小：2 个已在模板表内（axiom_of_choice, computational_complexity_theory），实际缺口 2。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:119` | `informationTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 12` 是超集大小：11 个已在模板表内（adversary_model, channel_model, channel_model_specification, channel_models, cryptographic_protocol, distortion_measure, network_topology, program_termination, received_signal, source_distr… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean:87` | `projectiveGeometry_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 11` 是超集大小：10 个已在模板表内（alternative_division_ring, bruck_ryser_chowla_theorem, combinatorial_design_theory, computational_search, coordinate_field_construction, desargues_theorem_failure, finite_field_theory, non_… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean:120` | `orderTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 9` 是超集大小：5 个已在模板表内（convex_geometry, dilworth_theorem, partial_order, realizer, topological_sort），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Editing/RealExtractionDirection.lean:449` | `extract_to_weights` | 0 | 不足。doc 声称「L1 → L2 → L3 语义串联（从 token 流直达权重层）」，但陈述里 `ts` 只出现在死前提 `_h : Extract ts cs` 中，结论完全不依赖 `ts`。 |
-| `Lib/LearningTheory/RealDistillGeneralization.lean:213` | `distill_excess_from_layer` | 0 | Lean 实测报 179:5 `unused variable hc`、181:5 `unused variable hB0`，证明体只用 h2 : R gs − R gt ≤ c·B（来自 hR 与 hlayer），hc、hB0 不参与任何推导。二者既不可由其余前件推出，又被写进签名，删掉后定理严格更一般且证明不变。doc 的保留理由①「linarith 会隐式消费、删了会假失败」不成立：linarith 只在线性组合里搜索，删去未使用的假设不会使原本可证的线性目标不… |
 | `Lib/Optim/RealFedAvg.lean:208` | `fedAvg_rate` | 0 | 强度够（对唯一用户足够） |
 | `Lib/Quantization/RealIEEE754/Basic.lean:173` | `ieee_relative_error_bound` | 0 | 强度够（对唯一用户足够） |
 | `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 0 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
@@ -179,11 +168,7 @@
 
 ## 三、`downgrade`：声称过强
 
-| 位置 | 定理 | 入度 | 判定依据 |
-|:--|:--|--:|:--|
-| `Audit/BridgedComposition.lean:90` | `compose_three_with_bridges` | 0 | 降级方向：把 doc 从「段数不限」改为「三段特例（`compose_with_bridge` 再套一次）」，删掉表里 `compose_list_with_bridges` 那一行并指向 `MultiComposition.compose_chain`；对现有用途（第 59 轮两段对照、桥数 2）三段形式已够，不必新证 N 段。 |
-| `Audit/Hypotheses.lean:155` | `no_redundant_hypotheses` | 0 | 降级方向：把声称从「审计没有发现冗余前提」改为「审计表中没有 `.redundant` 条目」——当前证明恰好只支持后者，而且不失用途：它保证清单不会少一条处置记录。核实冗余性另立条目，逐条给「删前提仍可证」的定理。 |
-| `Audit/StructureCensus.lean:156` | `no_zero_obligation_structure` | 0 | 降级方向：把名字/doc 降到「入表的 5 个结构 `obligations ≥ 1`」；且 `≥ 1` 只是表字段，不能推出「有实质义务」（那是作者填的数字，不是证明义务）。 |
+（无）
 
 ## 四、`register`：已登记的债
 
@@ -322,6 +307,9 @@
 | `Domains/Geometry/Engine.lean` | `derivation_sound` | 强化了：新增「按步数索引的可导性」`DerivableIn` 与它的声称性 `derivableIn_sound`、`derivable_sound`。原定理的前提形状是 `∀ d ∈ r.prems, EntailsGeo G d`——**前提只能来自 `G`**，所以推导里更早的结论**不能当作后来的前提**：`steps` 只是一张清单，条目互不相干。**新定义的规则支取的是`DerivableIn rules G k d`**，所以链式可表达；并且新增**`derivable_two_step`** 作为链式的具体见证（旧陈述表达不了），以及 **`derivable_of_flat`** 证明新定义**包含**旧陈述。三次失败都是 Lean 的正确拒绝：嵌套归纳类型 `Exists`、`induction` 不支持互归纳、互归纳的终止性。最终形态是**在 `ℕ` 上的结构递归**，没有嵌套、没有互归纳、终止性平凡。 |
 | `Domains/Geometry/Synthesis.lean` | `synthesize_from_initialisation` | 强化：原陈述的 `h : ∀ c ∈ G, ∃ a b, c = .samePoint a b` **在证明里没被用到**，`G` 也**不在结论里**，结论只讲一个与 `G` 无关的 `samePoint a b`——**所以它名不副实**：它没说「初始化的约束集 ⟹ 合成样本满足该约束集」。强化后的前提是 `hG : G = List.replicate G.length (.samePoint a b)`（**一致性**），结论覆盖 `G` 的**每一条**，且 `hG` 在证明中承重（逐条用 `mem_replicate_eq`）。新增 `mem_replicate_eq`（自证，不依赖 mathlib 的名字）。两次失败：`obtain ⟨a', b', rfl⟩` 之后 `subst` 会消掉参数 `a`/`b` 本身；改 `rw [hcab, ha, hb]` 后依赖类型上的多重 `rw` 不收敛。最终用一个**不依赖逐条改写**的入口。 |
 | `Lib/Chain/RealEndToEnd.lean` | `e2e_loss_compound` | 强化：原来的四个合取项**全是既存定理的打包**（`tokenize_collision`、`semantic_not_injective`、`decode_encode`、`encode_injective`），**没有任何一条断言两处损失之间的关系**——而定理名说「不可互相归约」。新增**两条新定理**作为第五、六个合取项：**(7) 下沉** `l0_loss_survives_pipeline`（`∃ s ≠ t, pipeline s = pipeline t`，其中 `pipeline` 是**新定义**的整条链）——L0 的损失**不可被任何下游环节修复**；**(8) 上浮** `l2_loss_visible_at_L1`（②的见证对在 `encode` 下**仍然不同**）——②的损失**不是** L0 损失。**两者合起来才排除「端到端就是某一环的损失」**：若只是 L0 的，则 (7) 成立而 (8) 不成立；若只是 L2⇄L3 的，则反之。四处修正：插入点落在文档块内；`Lattice.Core.VectorCoord` 是我猜的类型（不存在），改为不注解让 Lean 推断；`(n := n)` 多余；`semantic_not_injective` 的返回是三元合取，需逐层析构。 |
+| `Audit/BridgedComposition.lean` | `compose_three_with_bridges` | 降级已完成。两处：(1) doc 原写「这是非相邻组合的一般形式：**段数不限**」——那句话**没有定理支撑**（定理字面上只有 `P Q R` 三个性质、`f g h` 三个映射），已改为「**三段** + 逐段桥」并写明 **N 段未证、不再声称**；(2) 上方表格列的是 `compose_list_with_bridges`——**那个名字在文件里不存在**，已改为真实的 `compose_three_with_bridges`。对现有用途（两段对照、桥数 2）三段已够。 |
+| `Audit/Hypotheses.lean` | `no_redundant_hypotheses` | 降级已完成：**名字**才是过度声称的地方。它读作「审计没有发现冗余前提」（关于**整个定理库**），而定理只说 `chainAudit` 里没有 `.redundant` 条目。已改名为 **`no_redundant_entries_in_audit_table`**（入度 0，无依赖者），doc 也写清「证的是本表，不是库」。 |
+| `Audit/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

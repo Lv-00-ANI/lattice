@@ -61,6 +61,29 @@ for f in sorted(os.listdir(REV)):
         verdicts.append(v)
 
 ORDER = ["delete", "strengthen", "downgrade", "register"]
+# Round 5. **The counts never went down.** `proof_debt_resolved.txt` was only *rendered* as a table
+# ("已处理"), never subtracted from the flagged totals -- so after four rounds of real work the headline
+# still read "34 strengthen / 3 downgrade / 107 register". A metric that cannot fall is not a metric:
+# it tells a reader the work is at its starting point no matter what has been done.
+#
+# Fixed by matching `(path, name)` against the resolved entries and marking each verdict `resolved`.
+RESOLVED_KEYS = set()
+_RES = os.path.join(HERE, "proof_debt_resolved.txt")
+if os.path.exists(_RES):
+    for _ln in io.open(_RES, encoding="utf-8"):
+        _ln = _ln.rstrip("\n")
+        if not _ln or _ln.startswith("#"):
+            continue
+        _p = _ln.split("\t")
+        if len(_p) >= 2:
+            RESOLVED_KEYS.add((_p[0].strip(), _p[1].strip()))
+
+for _v in verdicts:
+    _f = (_v.get("file") or "").replace("\\", "/")
+    _n = _v.get("name") or ""
+    if (_f, _n) in RESOLVED_KEYS:
+        _v["verdict"] = "resolved"
+
 counts = Counter(v.get("verdict", "?") for v in verdicts)
 flagged = [v for v in verdicts if v.get("verdict") in ORDER]
 flagged.sort(key=lambda v: (ORDER.index(v["verdict"]), -v["in_degree"], v["file"] or "", v["line"] or 0))
@@ -232,6 +255,7 @@ A("")
 
 io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(lines))
 print("wrote %s" % OUT)
-print("verdicts: %d  flagged: %d" % (len(verdicts), len(flagged)))
+print("verdicts: %d  flagged: %d  resolved: %d"
+      % (len(verdicts), len(flagged), counts.get("resolved", 0)))
 for k in ORDER:
     print("  %-10s %d" % (k, counts.get(k, 0)))

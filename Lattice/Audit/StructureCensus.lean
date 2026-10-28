@@ -173,10 +173,19 @@ theorem repair_is_densest :
 theorem total_obligations :
     (census.map (fun s => s.obligations + s.nestedObligations)).sum = 9 := by decide
 
-/-- **没有结构是零义务的**：每个结构都至少承诺一件事。
+/-- **清册里的每个结构 `obligations ≥ 1`。**
 
-这条排除了「结构只是数据容器」的可能——库里的每个结构都有实质义务。 -/
-theorem no_zero_obligation_structure :
+⚠ **第 5 轮降级，两处。名字和 doc 都声称过强。**
+
+1. **名字**原来是 `no_zero_obligation_structure`，读作「没有结构是零义务的」——
+   而陈述只覆盖 `census` 的 **5 个条目**。改成现在这个名字后两者一致。
+
+2. **doc** 原来接着写「**库里的每个结构都有实质义务**」。⚠ **那句话没有任何机器依据**：
+   `obligations` 是**作者填的数字字段**，不是证明义务；而这 5 行**也不是库里的全部结构**。
+   **从一张手填的五行表推全库，是无效推理。**
+
+所以本条现在只声称：**这张表里没有 0**。它是一条**表一致性**检查，不是关于库的结论。 -/
+theorem no_zero_obligation_in_census_table :
     ∀ s ∈ census, s.obligations ≥ 1 := by
   intro s hs
   simp [census] at hs
