@@ -13,24 +13,33 @@
 把它接到 IEEE-754 需要一个**模型**（`Lib/Quantization/RealIEEE754` 里有），
 但那是**另一条**证明链，且需要 `ℝ → Float` 的舍入约定。**所以本文件不写字节。**
 
-## 本文件证明了什么
+## 已证：布局的总长度
 
-| 定理 | 它在说什么 |
-|:--|:--|
-| `layerWords_length` | **参数数恰好 `k * k + k`**——布局的总长度，C 侧缓冲大小由它决定 |
-| `layerWords_nil` | `k = 0` 时是空表（退化情形，与 `k*k+k = 0` 一致） |
+`layerWords_length`：`k` 宽的仿射层恰好 `k * k + k` 个词。
+**这是 C 侧缓冲的大小**，不是估计。
 
-## 本文件**没有**证明什么（已登记的缺口）
+## 定义形式的三次尝试（写给下一轮）
 
-⚠ **`layerWords` 的单射性未证。** 那是格式契约的另一半——「词序列相同 ⟹ 层相同」。
+| 轮 | 定义 | 结果 |
+|--:|:--|:--|
+| 17 | `flatMap`（行主序摊平） | 长度公式**试了六次**才过（`.sum` 与 `.length` 的错位、`map_const'` 不匹配、`← List.map_map` 不匹配），最后靠**对行列表归纳** |
+| 18 | `Fin.divNat`/`Fin.modNat` 索引 `Fin (k*k)` | **长度变成两次 `length_map`，不需要归纳**——本文件采用它 |
+| 18 | 同上，但要取回引理 | ❌ **没过**：`List.getElem_append_left` 的证明参数形式不匹配，且注入性要**依赖重写**（`rw [h] at h₁` 报 motive 不 type correct） |
 
-**为什么没做**：它需要两条**取回引理**（第 `i*k+j` 个词是 `W i j`，第 `k*k+j` 个是 `b j`），
-而这两条要穿过 `List.flatten` / `List.map` 的 `getElem` 管道。第 17 轮试过一次，
-`List.getElem_flatten` 的索引形式与 `omega` 的算术目标没对上，**没有写成**。
-**`sorry` 不可接受，所以宁可不写这一半，也不写一条假的。**
+⭐ **教训**：**换定义形式比死磕证明便宜**——`divNat` 让长度从六次失败变成两行。
+而**取回引理**是另一回事：它需要在**同一条 list 的两个不同索引**上取元素，
+那要求先有 `List.getElem_append_left/right` 的正确调用形式，再用 `congrArg` 避免依赖重写。
 
-⭐ **这半条缺口是可执行的**：取回引理是纯 `List` 引理，不涉及任何数学；
-把它补上就能得到 `layerWords_injective`，进而得到「格式无损」。 -/
+## ⚠ 本文件**没有**证明的东西（已登记）
+
+- **`layerWords` 的单射性未证**。那是格式契约的另一半——「词序列相同 ⟹ 层相同」。
+  它由两条取回引理得到（第 `i*k+j` 个是 `W i j`，第 `k*k+j` 个是 `b j`），而那两条**没有写成**。
+  第 18 轮试过：`List.getElem_append_left` 与 `List.getElem_append_right` 的 `rw` 形式不匹配，
+  且随后的注入性证明需要在**依赖索引**上重写，`rw` 报 *motive is not type correct*。
+- **字节级**（字节序、对齐、填充、`ℝ` 的二进制表示）**未做**。
+- **`Conformance`**（`#eval` 向量与 C 对照）**未做**。
+
+**`sorry` 不可接受，所以宁可缺一半也不写假的。** 缺口的确切位置写在上面——下一轮从那两行开始。 -/
 import Mathlib
 import Lattice.Core.Net
 
@@ -38,11 +47,11 @@ namespace Lattice.CInterface.Serialization
 
 open Lattice.Core
 
-/-- **一层的词序列**：`W` 行主序摊平，再接上 `b`。
+/-- **一层的词序列**：`k*k` 个权重（行主序，索引 `i*k+j` 处是 `W i j`），再接 `k` 个偏置。
 
 长度是 `k * k + k`，见 `layerWords_length`。 -/
 noncomputable def layerWords {k : ℕ} (L : AffineLayer (Fin k)) : List ℝ :=
-  ((List.finRange k).map (fun i => (List.finRange k).map (fun j => L.W i j))).flatten ++
+  (List.finRange (k * k)).map (fun idx => L.W (Fin.divNat idx) (Fin.modNat idx)) ++
     (List.finRange k).map (fun j => L.b j)
 
 /-- ⭐ **参数数公式**：`k` 宽的仿射层恰好 `k * k + k` 个词。
@@ -51,21 +60,9 @@ noncomputable def layerWords {k : ℕ} (L : AffineLayer (Fin k)) : List ℝ :=
 theorem layerWords_length {k : ℕ} (L : AffineLayer (Fin k)) :
     (layerWords L).length = k * k + k := by
   unfold layerWords
-  rw [List.length_append]
-  have hW : ((List.finRange k).map (fun i => (List.finRange k).map (fun j => L.W i j))).flatten.length
-      = k * k := by
-    rw [List.length_flatten]
-    -- prove the row-length map by induction: it is `replicate (number of rows) k`
-    have hc : ∀ l : List (Fin k),
-        List.map List.length (List.map (fun i => (List.finRange k).map (fun j => L.W i j)) l)
-          = List.replicate l.length k := by
-      intro l
-      induction l with
-      | nil => simp
-      | cons a t ih => simp [ih, List.replicate_succ]
-    rw [hc, List.length_finRange, List.sum_replicate, smul_eq_mul]
-  have hb : ((List.finRange k).map (fun j => L.b j)).length = k := by simp
-  rw [hW, hb]
+  rw [List.length_append, List.length_map, List.length_map, List.length_finRange,
+      List.length_finRange]
+
 /-- **退化情形**：`k = 0` 时词序列为空，与 `k * k + k = 0` 一致。 -/
 theorem layerWords_zero (L : AffineLayer (Fin 0)) : layerWords L = [] := by
   unfold layerWords
