@@ -50,8 +50,8 @@ W := fun i _ => (s.take n).getD i.val 0     -- 第二下标被忽略
 -/
 import Mathlib
 import Lattice.Runtime.EndToEnd
-import Lattice.Lift.WeightLadderFullWidth
-import Lattice.Lift.WeightLadderInverse
+import Lattice.Runtime.WeightLadderFullWidth
+import Lattice.Runtime.WeightLadderInverse
 import Lattice.Runtime.WeightLadderN
 
 namespace Lattice.Lift.FullWidthLadder

@@ -67,7 +67,7 @@ collision-free against this file's set:
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.ConstraintEmbeddingSoundness
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Compiler.Disjunction
 import Lattice.Lib.Compiler.Combinators

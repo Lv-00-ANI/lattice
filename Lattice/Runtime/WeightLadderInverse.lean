@@ -57,7 +57,7 @@ motive 就不再 type-correct。必须先把减法移进 `getD`，再重写长�
 -/
 
 import Mathlib
-import Lattice.Lift.WeightLadderFullWidth
+import Lattice.Runtime.WeightLadderFullWidth
 
 namespace FullWidth
 

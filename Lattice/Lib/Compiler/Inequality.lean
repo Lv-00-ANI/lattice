@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 /-!
 # LATTICE: 不等式约束 —— 上下界夹逼 ⟺ 等式 ⟺ 平方损失
 

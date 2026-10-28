@@ -43,7 +43,7 @@ P := { s : List ℝ // s.length = m * n + n }
 -/
 import Mathlib
 import Lattice.Runtime.Extraction
-import Lattice.Lift.RectangularWeightEncoding
+import Lattice.Runtime.RectangularWeightEncoding
 import Lattice.Lift.WeightSymbolRepresentation
 
 namespace Lattice.Lift.Rectangular

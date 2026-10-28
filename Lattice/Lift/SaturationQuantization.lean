@@ -60,7 +60,7 @@ satQuant b B x := clampTo B (x / 2^b) * 2^b        -- 先丢位，再截断
   **本节选择陈述定理而不硬塞进结构。**
 -/
 import Mathlib
-import Lattice.Lift.LayerQuantizationBits
+import Lattice.Runtime.LayerQuantizationBits
 
 namespace Lattice.Lift.IntQuant
 

@@ -3,7 +3,7 @@ import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Runtime.ConstraintEmbeddingSoundness
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 import Lattice.Runtime.VerifyLoopProgress
 import Lattice.Lib.Lift.VerifyLoopConvergence
 import Lattice.Runtime.RealTokenization

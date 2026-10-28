@@ -1,64 +1,16 @@
-import Lattice.Runtime.SymbolToWeight
-import Lattice.Runtime.PenaltyEmbedding
-import Lattice.Runtime.ApproxExact
-import Lattice.Runtime.VerificationSoundness
-import Lattice.Lift.EndToEndApproximation
-import Lattice.Runtime.Extraction
-import Lattice.Runtime.L1L2
-import Lattice.Runtime.EndToEnd
-import Lattice.Runtime.GeoSampledBound
-import Lattice.Runtime.L1L2Roundtrip
-import Lattice.Runtime.NonIdenticalEncoding
-import Lattice.Runtime.EncodingAbstraction
-import Lattice.Runtime.LossyRepresentation
-import Lattice.Runtime.CompilerScheme
-import Lattice.Runtime.RoundingBackend
-import Lattice.Runtime.WeightLadder
-import Lattice.Runtime.ChainComposition
-import Lattice.Runtime.VerifierRate
-import Lattice.Lift.ApproximationBridge
-import Lattice.Runtime.WeightLadderN
-import Lattice.Lift.TokenAlphabet
-import Lattice.Lift.IntRoundtrip
-import Lattice.Lift.NondegenerateInstance
-import Lattice.Runtime.ErrorCalculus
-import Lattice.Runtime.RepresentationFamilies
-import Lattice.Lift.ApproxExtraction
-import Lattice.Runtime.RatRepresentation
-import Lattice.Runtime.GridDensity
-import Lattice.Lift.MultiLayerLadder
-import Lattice.Runtime.StackCodegen
-import Lattice.Lift.ApproxLadder
-import Lattice.Lift.ExtractionStrength
-import Lattice.Lift.WeightLadderFullWidth
-import Lattice.Lift.WeightLadderInverse
-import Lattice.Lift.WeightSymbolRepresentation
-import Lattice.Runtime.ActivationLadder
-import Lattice.Lift.WeightLadderFullWidthInstance
-import Lattice.Lift.RectangularWeightEncoding
-import Lattice.Lift.RectangularRepresentation
-import Lattice.Lift.LayerQuantization
-import Lattice.Lift.LayerQuantizationBits
-import Lattice.Lift.SaturationQuantization
 import Lattice.Lift.QuantErrorPropagation
-import Lattice.Runtime.ProgramAST
+import Lattice.Lift.RectangularRepresentation
+import Lattice.Lift.SaturationQuantization
 import Lattice.Lift.StackError
+import Lattice.Lift.WeightLadderFullWidthInstance
+import Lattice.Lift.WeightSymbolRepresentation
 
 /-!
-# Lattice.Lift -- the representation ladder
+# `Lattice.Lift` —— 链路层（P2 搬迁完成后仅剩的模块）
 
-Each module here is one rung of data <-> token <-> symbol <-> weight, and each
-correctness theorem has the shape of a forward simulation (Lattice.Core.Simulation),
-so that consecutive rungs compose via sim_comp.
+`DIRECTORY-DESIGN.md` §3 的 P2 把表示/编译/量化/代码生成/tokenizer 的模块逐批搬进
+`Lattice/Runtime/`。**本聚合器只 import 仍在 `Lift/` 下的模块**；搬走的模块由
+`Lattice/Runtime.lean` 聚合，避免同一个声明有两条 import 路径。
 
-* SymbolToWeight -- T1: compilation preserves meaning (**done**)
-* PenaltyEmbedding -- T2: constraint embedding is sound (**conditional only**)
-* Extraction -- T3: extraction equivalence and the reversibility boundary (**done**)
-
-T2's boundary has to be stated wherever it is named, because its unconditional form is
-FALSE and has been refuted in-tree: `PenaltyEmbedding.sound_not_exact` exhibits an
-embedding whose zero-loss layer holds vacuously while every local minimiser violates the
-constraint. What `embedding_sound_at_minimiser` proves is the conditional statement
-"IF the embedding is exact THEN a local minimiser satisfies the constraint" -- and the
-embedding being exact is exactly what no general argument delivers. See README §3.3.
+本文件随最后一批搬空后删除；删除时 `Lattice.lean` 的 `import Lattice.Lift` 一并去掉。
 -/

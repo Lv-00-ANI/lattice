@@ -50,7 +50,7 @@ structure LayerParams (m n : Type) where
 -/
 import Mathlib
 import Lattice.Core.Weight
-import Lattice.Lift.WeightLadderFullWidth
+import Lattice.Runtime.WeightLadderFullWidth
 
 namespace Lattice.Lift.Rectangular
 

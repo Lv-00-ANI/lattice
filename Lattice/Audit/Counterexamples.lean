@@ -46,7 +46,7 @@
 -/
 import Mathlib
 import Lattice.Runtime.ApproxExact
-import Lattice.Lift.EndToEndApproximation
+import Lattice.Runtime.EndToEndApproximation
 
 namespace Lattice.Audit
 

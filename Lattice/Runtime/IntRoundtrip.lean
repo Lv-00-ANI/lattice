@@ -54,7 +54,7 @@ def IntRoundtripExists : Prop :=
   **这不破坏往返**（往返从 `enc` 出发），但 `dec` 不是单射。**已记录。**
 -/
 import Mathlib
-import Lattice.Lift.TokenAlphabet
+import Lattice.Runtime.TokenAlphabet
 
 namespace Lattice.Lift
 
