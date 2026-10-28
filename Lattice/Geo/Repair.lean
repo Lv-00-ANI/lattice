@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Core.Repair
 import Lattice.Geo.Loss
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 /-!
 # `Lattice.Geo.Repair` -- what T4 does and does not give on geometric constraints

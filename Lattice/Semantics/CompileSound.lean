@@ -53,7 +53,7 @@ MergeSound R pts  ⟹  HoldsSet R.merged pts  ⟹  权重侧饱和
   本节不声称。
 - **本节不碰词表**。理由同 S20：`MergeSound` 不含词表类型。 -/
 import Mathlib
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Geo.ConstraintSet
 import Lattice.Geo.WeightSideLadder
 import Lattice.Semantics.Merge

@@ -62,7 +62,7 @@
 -/
 import Mathlib
 import Lattice.Geo.LoopPerp
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Geo.RepairPerp
 
 open scoped BigOperators

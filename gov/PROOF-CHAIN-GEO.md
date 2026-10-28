@@ -13,21 +13,15 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `ApproxEmbedding` | 106 | 1 | — |
-| `CExprCodegen` | 136 | 5 | — |
 | `ClauseComposition` | 171 | 6 | — |
 | `ClosedLoop` | 203 | 10 | — |
-| `CodegenLadder` | 110 | 3 | — |
 | `Compile` | 98 | 2 | — |
 | `ConjRepair` | 157 | 3 | — |
-| `Constraint` | 161 | 4 | — |
 | `ConstraintDescent` | 452 | 17 | — |
 | `ConstraintSet` | 175 | 7 | — |
 | `Derivative` | 94 | 3 | — |
 | `Derive` | 71 | 2 | — |
 | `Differentiable` | 131 | 9 | — |
-| `Dist` | 129 | 8 | — |
-| `DistContinuous` | 53 | 2 | — |
-| `DistLipschitz` | 151 | 3 | — |
 | `Engine` | 147 | 6 | — |
 | `EqConstraintListTokens` | 199 | 7 | — |
 | `EqConstraintToken` | 275 | 8 | — |
@@ -44,9 +38,6 @@
 | `Exterior` | 110 | 5 | — |
 | `ExteriorSmooth` | 150 | 9 | — |
 | `Extract` | 101 | 2 | — |
-| `Finite` | 106 | 1 | — |
-| `Flatten` | 130 | 4 | — |
-| `FlattenAgreement` | 67 | 4 | — |
 | `FormDeriv` | 158 | 8 | — |
 | `GeoLadder` | 199 | 4 | — |
 | `GeoSampledBound` | 79 | 1 | — |
@@ -54,7 +45,6 @@
 | `IRRepair` | 86 | 3 | — |
 | `Initialise` | 125 | 9 | — |
 | `Invariant` | 189 | 12 | — |
-| `LadderInstance` | 130 | 2 | — |
 | `LayerExact` | 127 | 3 | — |
 | `Loop` | 209 | 10 | — |
 | `LoopPerp` | 170 | 7 | — |
@@ -70,7 +60,6 @@
 | `PathContinuity` | 245 | 12 | — |
 | `PenaltyLoss` | 275 | 13 | — |
 | `PenaltySmooth` | 105 | 4 | — |
-| `Perturb` | 126 | 8 | — |
 | `Pipeline` | 169 | 7 | — |
 | `Plucker` | 105 | 2 | — |
 | `PolyAssemble` | 128 | 4 | — |
@@ -90,7 +79,6 @@
 | `RepairQuality` | 151 | 9 | — |
 | `Rules` | 135 | 1 | — |
 | `Semantic` | 179 | 7 | — |
-| `SeqRepresentation` | 102 | 4 | — |
 | `Shape` | 204 | 3 | — |
 | `Square` | 161 | 10 | — |
 | `Synthesis` | 140 | 6 | — |
@@ -124,7 +112,7 @@
 |:--|:--|
 | `Lattice/Geo/Extract.lean` | `configOf` |
 | `Lattice/Geo/Extract.lean` | `perp_neg_iff` |
-| `Lattice/Geo/Flatten.lean` | `flattenEquiv` |
+| `Lattice/Geo/Flatten.lean` | `flattenEquiv` **（缺失）** |
 
 ### T4 回路收敛
 

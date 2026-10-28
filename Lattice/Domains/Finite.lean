@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Domains.Expr
-import Lattice.Geo.Flatten
+import Lattice.Domains.Flatten
 
 /-!
 # `Lattice.Geo.Finite` -- evaluating an expression in a configuration of known size

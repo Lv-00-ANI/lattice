@@ -69,7 +69,7 @@ failed to synthesize Decidable (c ∉ e.del)
 -/
 import Mathlib
 import Lattice.Geo.ConstraintSet
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 namespace Lattice.Semantics.Annotations
 

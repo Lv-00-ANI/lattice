@@ -27,7 +27,7 @@
 | 指标 | 值 |
 |:--|--:|
 | 源模块（不含 `Reference/`） | **826** |
-| └ Core / Lift / Domains / Geo / Lib / Audit / Usage / Root | 18 / 0 / 11 / 88 / 607 |
+| └ Core / Lift / Domains / Geo / Lib / Audit / Usage / Root | 18 / 0 / 23 / 76 / 607 |
 | 声明总数 | **11392** |
 | 定理 / 引理（官方口径） | **8,559** |
 | 代码行（含注释与空行） | **209,491** |

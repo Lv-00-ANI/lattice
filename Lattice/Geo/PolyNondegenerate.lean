@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Geo.Loss
 import Lattice.Geo.ExprLocalMin
-import Lattice.Geo.Dist
+import Lattice.Domains.Dist
 import Lattice.Geo.Derivative
 
 /-!

@@ -60,7 +60,7 @@
 -/
 import Mathlib
 import Lattice.Domains.Lipschitz
-import Lattice.Geo.Dist
+import Lattice.Domains.Dist
 
 open scoped BigOperators
 

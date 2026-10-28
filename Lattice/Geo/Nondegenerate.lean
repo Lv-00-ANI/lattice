@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Geo.Differentiable
-import Lattice.Geo.Perturb
+import Lattice.Domains.Perturb
 import Lattice.Geo.Derivative
 import Lattice.Lib.Penalty.PolyExact
 

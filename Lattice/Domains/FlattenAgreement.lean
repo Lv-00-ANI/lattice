@@ -1,6 +1,6 @@
 import Mathlib
-import Lattice.Geo.Flatten
-import Lattice.Geo.SeqRepresentation
+import Lattice.Domains.Flatten
+import Lattice.Domains.SeqRepresentation
 
 /-!
 # `Lattice.Geo.FlattenAgreement` -- the finite and infinite flattenings agree on a shared slot

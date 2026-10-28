@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.DistContinuous
+import Lattice.Domains.DistContinuous
 import Lattice.Geo.PolyNondegenerate
 
 /-!

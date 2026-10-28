@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Domains.Expr
-import Lattice.Geo.Dist
+import Lattice.Domains.Dist
 
 /-!
 # `Lattice.Geo.Constraint` -- geometric constraints over `n`-dimensional points

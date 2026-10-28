@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Geo.Square
 
 /-!

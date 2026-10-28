@@ -73,7 +73,7 @@ if t₁ ≠ t₂ then  dist (sample t₁) (sample t₂) > 0
 -/
 import Mathlib
 import Lattice.Geo.Synthesis
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 open scoped BigOperators
 

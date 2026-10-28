@@ -33,7 +33,7 @@ uᵢ·wᵢ - uᵢ'·wᵢ' = uᵢ·(wᵢ - wᵢ') + (uᵢ - uᵢ')·wᵢ'
 -/
 import Mathlib
 import Lattice.Domains.Lipschitz
-import Lattice.Geo.DistLipschitz
+import Lattice.Domains.DistLipschitz
 import Lattice.Geo.Loss
 
 open scoped BigOperators

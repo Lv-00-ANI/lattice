@@ -59,7 +59,7 @@
 -/
 import Mathlib
 import Lattice.Geo.ConstraintSet
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 
 namespace Lattice.Semantics.Merge
 

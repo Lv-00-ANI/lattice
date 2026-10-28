@@ -52,7 +52,7 @@ poly_lipschitz :
 -/
 import Mathlib
 import Lattice.Domains.Lipschitz
-import Lattice.Geo.DistLipschitz
+import Lattice.Domains.DistLipschitz
 import Lattice.Geo.PolyLipschitz
 import Lattice.Geo.Loss
 

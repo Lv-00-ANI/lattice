@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Core.Repair
-import Lattice.Geo.Constraint
+import Lattice.Domains.Constraint
 import Lattice.Lib.Linear.PenaltyVector
 
 /-!
