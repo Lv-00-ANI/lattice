@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 190 | aggregator at `Lattice/`, re-exports only |
+| root | 191 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -840,10 +840,11 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
@@ -1677,6 +1678,7 @@
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
+| `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
@@ -3102,6 +3104,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cone_unique_of_same_squares` -> `eval`, `le`
 - `configOf_inv` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `configOf_roundtrip` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `flatten_unflatten`, `seg`, `unflatten`, `unflatten_flatten`
+- `config_step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `netAct`, `shiftLayer`, `step`
 - `conflict_empty_trail` -> `apply`, `children`, `induction`, `length`, `min`, `trans`
 - `conflict_loser_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`
 - `conflict_resolve_fixed_point` -> `apply`, `children`, `induction`, `length`, `min`, `trans`
@@ -7017,6 +7020,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pos_commutation_version_is_false` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`
 - `posenc_interface_instances` -> `E`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `positive_curvature_implies_elliptic` -> `Geometry`, `S2`
+- `post_train_preserves` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `netAct`, `shiftLayer`, `step`
+- `post_train_preserves_holds` -> `GeoConstraint`, `Holds`, `HoldsSet`, `netAct`, `shiftLayer`, `step`
+- `post_train_preserves_set` -> `GeoConstraint`, `HoldsSet`, `netAct`, `shiftLayer`, `step`
 - `posteriorMean_eq` -> `mulVec`
 - `posteriorMean_interpolates` -> `mulVec`
 - `posteriorMean_mulVec` -> `mulVec`
@@ -8193,6 +8199,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `shared_vs_independent_strict` -> `apply`
 - `shiftLayerVec_netAct` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`
 - `shiftLayer_netAct` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `evalPts`, `induction`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `zero`
+- `shiftLayer_step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `netAct`, `shiftLayer`, `step`
 - `shift_by_one_fails_to_preserve` -> `ConstraintSat`, `LinearConstraint`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `shift_typing` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `length`, `length_cons`, `nil_append`, `subst`, `zero`
 - `sigA_close` -> `le_trans`
@@ -8559,6 +8566,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_T_V` -> `Compiler`, `Term`, `app_r`
 - `step_absorbs` -> `Repair`, `Sat`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `step_app_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
+- `step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `netAct`, `shiftLayer`, `step`
+- `step_changes_off_solution` -> `step`
 - `step_descent_lemma` -> `E`, `induction`, `le_trans`, `zero`
 - `step_half` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`
 - `step_lam_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
