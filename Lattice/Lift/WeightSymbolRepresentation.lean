@@ -72,7 +72,7 @@ roundtrip : ∀ p, extract (compile p) = p
 -/
 import Mathlib
 import Lattice.Runtime.Extraction
-import Lattice.Lift.WeightLadderInverse
+import Lattice.Runtime.WeightLadderInverse
 
 namespace FullWidth
 

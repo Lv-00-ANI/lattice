@@ -77,7 +77,7 @@ theorem quant_error_lt_two_pow (b : ℕ) (x : ℤ) :
 -/
 import Mathlib
 import Lattice.Runtime.LossyRepresentation
-import Lattice.Lift.LayerQuantization
+import Lattice.Runtime.LayerQuantization
 
 namespace Lattice.Lift.IntQuant
 

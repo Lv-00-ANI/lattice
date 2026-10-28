@@ -1,7 +1,7 @@
 import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 import Lattice.Lib.Lift.VerifyLoopConvergence
 import Lattice.Runtime.RealTokenization
 import Lattice.Runtime.RealTokenSymbolLink

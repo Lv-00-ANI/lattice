@@ -56,7 +56,7 @@ noncomputable def loss (c : EqConstraint n) (pts : ℕ → Pt n) : ℝ := poly c
   结构的一致性由编译器看守。
 -/
 import Mathlib
-import Lattice.Lift.EndToEndApproximation
+import Lattice.Runtime.EndToEndApproximation
 import Lattice.Geo.Loss
 
 open scoped ContinuousLinearMap

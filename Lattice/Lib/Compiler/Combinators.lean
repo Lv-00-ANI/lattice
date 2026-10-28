@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 /-!
 # LATTICE: 组合子代数健全性 —— AND/OR 嵌入保持交换律与分配律
 

@@ -66,7 +66,7 @@ theorem affineAct_perturbation
 -/
 import Mathlib
 import Lattice.Core.Net
-import Lattice.Lift.LayerQuantizationBits
+import Lattice.Runtime.LayerQuantizationBits
 
 namespace Lattice.Lift.QuantErrorProp
 

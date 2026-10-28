@@ -15,79 +15,78 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5351 | 62.5% |
-| 1 | 1379 | 16.1% |
-| 2 | 697 | 8.1% |
-| 3 | 708 | 8.3% |
-| 4 | 319 | 3.7% |
-| 5 | 100 | 1.2% |
-| 6 | 8 | 0.1% |
+| 0 | 5337 | 62.3% |
+| 1 | 1398 | 16.3% |
+| 2 | 674 | 7.9% |
+| 3 | 838 | 9.8% |
+| 4 | 301 | 3.5% |
+| 5 | 14 | 0.2% |
 | **合计** | **8562** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
-| 6 | `activationLadder_forward` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `activationLadder_l2l3_is_a_split` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `decode_encode` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `encode_injective` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `decode_encode` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `encode_injective` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `decode_encode_sat_iff` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `Text.encode_injective` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 5 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `commutativeBlock_trivial` (`Audit/PredicateWitnesses.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `census_length` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `repair_is_densest` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `total_obligations` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `no_zero_obligation_structure` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `eqConstraint_loss_le_sq_of_resid_le` (`Geo/ApproxEmbedding.lean`) | Core, Lib, Lift, Semantics, root |
-| 5 | `codegenLadder_forward` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `codegenLadder_satW_iff` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `codegenLadder_l2l3_changes_representation` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `eqConstraintListTokenizer_two` (`Geo/EqConstraintListTokens.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `eqConstraintTokenizer_nontrivial` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `eqConstraintTokenizer_roundtrip` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `eqConstraintTokenizer_roundtrip_expr` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `geoLadder_forward` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `ladder_crosses_geo_layer` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `l1l2_is_real_tokenizer` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `linearLadder_l1l2_roundtrip` (`Geo/LadderInstance.lean`) | Audit, Core, Lib, Lift, root |
-| 5 | `loss_le_sq_of_resid_le` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics, root |
-| 5 | `partial_reinject_bound` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics, root |
-| 5 | `exact_is_zero` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics, root |
-| 5 | `error_to_penalty` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics, root |
-| 5 | `structural_loss_propagates_but_symbol_layer_is_lossless` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `e2e_L1L2_is_lossless` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_readback` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_is_load_bearing` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `d41_two_scale_loss_coexist` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `d41_loss_locality` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `e2e_loss_strictly_compounds` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `e2e_L1L2_cannot_absorb_L2L3_loss` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `e2e_sameLayer_comp_is_wellTyped` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_program_contains_compiled_constraints` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_program_vars_subset` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_append_satisfiable` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_preserves_satisfiability` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_preserves_satisfiability_hypothesis_unused` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `edit_breaks_zeroing_generically` (`Lib/Editing/RealEditInvariantCatalog.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `extract_render_left_inverse` (`Lib/Editing/RealExtractionDirection.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `renderSurjective_holds` (`Lib/Editing/RealExtractionDirection.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `encode_is_section_of_decodeTotal` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `decodeTotal_satisfies_discriminant` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `quotient_reversibility_final_register` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_then_behavior_preserved` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_not_behavior_injective` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `exists_syntactic_inverse_recovers_behavior` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_not_factor_through_behavior` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `recover_not_complete_behavioral_invariant` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `activationLadder_forward` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `activationLadder_l2l3_is_a_split` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `decode_encode` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `encode_injective` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `residue_bound_of_zero_sample` (`Runtime/EndToEndApproximation.lean`) | Core, Geo, Lib, Semantics, root |
+| 5 | `loss_le_sq_of_resid_le` (`Runtime/EndToEndApproximation.lean`) | Core, Geo, Lib, Semantics, root |
+| 5 | `encode_cons_eq` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `decode_encode` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `encode_injective` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `decode_encode_sat_iff` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `Text.encode_injective` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `tokenizeStr_detok` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, root |
+| 5 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, root |
+| 4 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Core, Geo, Lib, root |
+| 4 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, root |
+| 4 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, root |
+| 4 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, root |
+| 4 | `commutativeBlock_trivial` (`Audit/PredicateWitnesses.lean`) | Core, Geo, Lib, root |
+| 4 | `census_length` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, root |
+| 4 | `repair_is_densest` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, root |
+| 4 | `total_obligations` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, root |
+| 4 | `no_zero_obligation_structure` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `composeWith_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `composeWith_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_strength` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_coverage` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_run_assoc` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `identity_compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, root |
+| 4 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, root |
+| 4 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, root |
+| 4 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, root |
+| 4 | `Reaches.meas_add_le` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `Reaches.length_le` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_done` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_step` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_mono` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `loop_witness` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `iterate_sound` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `iterate_strength` (`Compose/Iterate.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_comm_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_identity_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `choice_self_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `optional_true_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `optional_false_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_identity_right` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `compose_choice_distrib_run` (`Compose/Laws.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `choice_sound` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `choice_strength` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `choice_coverage` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `optional_sound` (`Compose/More.lean`) | Core, Geo, Lib, root |
+| 4 | `optional_strength` (`Compose/More.lean`) | Core, Geo, Lib, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

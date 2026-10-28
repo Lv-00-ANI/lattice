@@ -5,7 +5,7 @@ import Lattice.Lib.Editing.RealConstraintEdit
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Editing.RealSymbolToWeightNonlinear
 import Lattice.Lib.Editing.RealCompileExtractClosed
-import Lattice.Lift.TotalLoss
+import Lattice.Runtime.TotalLoss
 
 open Lattice.Lift.SymbolToWeightCorrectness
 /-!
