@@ -61,7 +61,7 @@
   但那样陈述会更复杂且需额外可测性条件，此处不取。
 -/
 import Mathlib
-import Lattice.Lift.ApproxExact
+import Lattice.Runtime.ApproxExact
 import Lattice.Runtime.VerificationSoundness
 
 open scoped ContinuousLinearMap

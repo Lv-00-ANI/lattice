@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealSymbolToWeightNonlinear
 import Lattice.Lib.Compiler.RealNonlinearCompile
 import Lattice.Lib.Meta.RealDotRepresentationAudit

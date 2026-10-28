@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
 import Lattice.Lib.Optim.RealApprox
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.LinearAlgebra.RealSparsity
 /-!
 # LATTICE: 编译-提取往返的误差界

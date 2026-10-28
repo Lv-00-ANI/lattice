@@ -77,7 +77,7 @@ alphabet_classifiable :  任一 CharToken 可被归类
 -/
 import Mathlib
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 
 namespace Lattice.Lift
 

@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealCompileExtractClosed
 /-!
 # LATTICE: 转换的**信息不增** —— 用集合基数与纤维大小表述（**不引熵**）

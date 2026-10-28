@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1289 | 15.3% |
-| **入度 ≥ 1（承重集）** | **872** | **802** | **92.0%** |
-| **入度 = 0** | **7537** | **487** | **6.5%** |
+| 定理 + 引理 | 8409 | 1258 | 15.0% |
+| **入度 ≥ 1（承重集）** | **872** | **780** | **89.4%** |
+| **入度 = 0** | **7537** | **478** | **6.3%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.5%**：7537 条入度为 0 的定理里只审了 487 条。**这才是「样本」真正指的东西。**
+- **零入度只有 6.3%**：7537 条入度为 0 的定理里只审了 478 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -104,8 +104,6 @@
 | `Lib/Concentration/RealMeasureTheoryBase.lean:194` | `prob_isFinite` | 1 | 只复述类型类：proof = `inferInstance`，结论由环境实例直接得到，零信息。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:180` | `decidable_zeroFixing_siluZ` | 1 | ZeroFixing act_siluZ 展开为 ∀ y, (y = 0 ↔ y = 0)；证明体两方向分别就是 `hy` 与 `hy ▸ rfl`，是重言。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:185` | `decidable_zeroFixing_geluZ` | 1 | ZeroFixing act_geluZ 展开为 ∀ y, (y = 0 ↔ y = 0)，证明体两方向都是 hy / hy ▸ rfl：重言。 |
-| `Lift/WeightToSymbolEquivalence.lean:44` | `roundtrip_behavior` | 1 | 第一项展开 `extract`/`ConstraintSat`/`NeuronOut`（`ConvertLinear:52/62/67`）后两边是同一个表达式，`simpa using h` 即 `fun h => h`；第二项是 `convert_preserves_semantics`（`ConvertLinear:73`）的 `.mpr`。零新增信息。 |
-| `Lift/WeightToSymbolEquivalence.lean:72` | `extract_is_valid` | 1 | 展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。 |
 | `Audit/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
 | `Audit/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
 | `Audit/CompositionAlgebra.lean:191` | `verdict_monoid_instance_agrees` | 0 | `⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。 |
@@ -131,11 +129,13 @@
 | `Lib/Editing/RealExtractionDirection.lean:303` | `renderSurjective_holds` | 0 | 空洞真：任何有 section 的全函数都满足，与「抽取能恢复什么」无关。 |
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:439` | `eq_softThresh_of_is_min` | 0 | 零信息量：载体是注释文本而非声明 |
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:472` | `softThresh_le_of_is_min` | 0 | 零边际信息：同一陈述的第二个名字 |
-| `Lift/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
 | `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
 | `Runtime/EndToEnd.lean:132` | `ladder_forward` | 0 | 只投影结构字段：证明体 = `L.l2l3_sound s hsat`；doc 的「does not collapse into a restatement of l2l3_sound」为假——它就是该字段。 |
 | `Runtime/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
 | `Runtime/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
+| `Runtime/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
+| `Runtime/WeightToSymbolEquivalence.lean:44` | `roundtrip_behavior` | 0 | 第一项展开 `extract`/`ConstraintSat`/`NeuronOut`（`ConvertLinear:52/62/67`）后两边是同一个表达式，`simpa using h` 即 `fun h => h`；第二项是 `convert_preserves_semantics`（`ConvertLinear:73`）的 `.mpr`。零新增信息。 |
+| `Runtime/WeightToSymbolEquivalence.lean:72` | `extract_is_valid` | 0 | 展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。 |
 | `Slots.lean:287` | `stated` | 0 | 非陈述：`stmt` 是 Slots 文档注释的散文段落。 |
 
 ## 二、`strengthen`：说的比该说的弱
@@ -144,7 +144,6 @@
 |:--|:--|--:|:--|
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:266` | `constrained_agrees_with_constraint_set` | 2 | 不足。`_hts : DecodesTo ts cs` 未使用；`cs` 只经 `allowedByConstraints` 里的 `cs.isEmpty = false` 进入，故「符号约束决定采样支撑」的实质内容为零。 |
 | `Lib/Optim/RealStrongConvex.lean:251` | `strong_convex_iterate_contraction` | 2 | 用途上够用（Nesterov 的 heavyBall、ProxGrad 的收缩只消费这条不等式），问题在前件而非结论：_hμL 是死前件，陈述比实际能证的弱。 |
-| `Lift/RealTokenSymbolLink.lean:306` | `decode_drops_trailing_partial` | 2 | A: 需要更强:把单点见证换成一般命题,否则 doc 的一般结论无机器依据 |
 | `Geo/Engine.lean:134` | `derivation_sound` | 1 | 强度不足:步骤前提被要求已被 G 蕴含,序列无法链式推理;doc 的 transitivity along a derivation 没有兑现。 |
 | `Geo/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 1 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
 | `Geo/LoopPerp.lean:47` | `fixPerp_absorbs` | 1 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
@@ -157,7 +156,6 @@
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
 | `Lift/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
-| `Lift/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 1 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
 | `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
@@ -174,6 +172,8 @@
 | `Lib/Optim/RealFedAvg.lean:208` | `fedAvg_rate` | 0 | 强度够（对唯一用户足够） |
 | `Lib/Quantization/RealIEEE754/Basic.lean:173` | `ieee_relative_error_bound` | 0 | 强度够（对唯一用户足够） |
 | `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 0 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
+| `Runtime/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 0 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
+| `Runtime/RealTokenSymbolLink.lean:306` | `decode_drops_trailing_partial` | 0 | A: 需要更强:把单点见证换成一般命题,否则 doc 的一般结论无机器依据 |
 | `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 0 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
 | `Runtime/SymbolToWeightCorrectness.lean:65` | `symbolToWeight_correct` | 0 | 强度不足：名字声称 symbol→weight 的正确性，实际内容是「∀-map 分配（forall_mem_map_iff）+ 逐元素 rfl 级桥」，而且它认证的满足语义带有截断假阳性。本仓 RealSymbolToWeightWidened 已逐条给出消融：删掉逐元素桥则命题为假 ⟹ 「原定理的全部内容都集中在这个 rfl 桥上」；并给出 layer_ragged_also_zero 说明两侧共享缺陷、定理无诊断力。 |
 
@@ -291,7 +291,7 @@
 | `Lib/Penalty/PolyExact.lean:79` | `hasFDerivAt_sq` | 0 | `Lattice.hasFDerivAt_sq` 与 `Lattice.Lift.hasFDerivAt_sq`（Lift/PenaltyAnalysis.lean:45）**陈述逐字相同**，证明体只调用后者——本条不引入任何新数学，是缩短命名空间的再导出。另注意：本条 `users` 指向 Lift/PenaltyAnalysis.lean，而该文件正是被转发的**下层原件**，不可能反向依赖本文件，这条引用是命名比对产物而非真实使用。建议改为 `export`/别… |
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
-| `Lift/ApproxExact.lean:150` | `epsSat_of_loss_le_sq` | 0 | 登记 PROOF-DEBT：名实不符的重复别名。要么删掉并把 Audit 表指向 abs_resid_le_of_loss_le_sq，要么改成真正的 EpsSat 版本（结论 EpsSat E p (ε^2) x）。引用它的只有 Audit 的假设表与反例说明，不是证明依赖，改名成本低。 |
+| `Runtime/ApproxExact.lean:150` | `epsSat_of_loss_le_sq` | 0 | 登记 PROOF-DEBT：名实不符的重复别名。要么删掉并把 Audit 表指向 abs_resid_le_of_loss_le_sq，要么改成真正的 EpsSat 版本（结论 EpsSat E p (ε^2) x）。引用它的只有 Audit 的假设表与反例说明，不是证明依赖，改名成本低。 |
 | `Runtime/CompilerScheme.lean:103` | `backend_sound` | 0 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
 | `Runtime/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
 | `Runtime/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |

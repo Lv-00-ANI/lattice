@@ -33,7 +33,7 @@ import Mathlib
 import Lattice.Geo.Lipschitz
 import Lattice.Geo.RhoMetric
 import Lattice.Geo.PolyAssemble
-import Lattice.Lift.GeoSampledBound
+import Lattice.Runtime.GeoSampledBound
 
 namespace Lattice.Geo
 

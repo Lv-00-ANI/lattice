@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Lib.FCA.RealFCA
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealCanonicalForm
 import Lattice.Lib.Editing.RealExtractionDirection
 import Lattice.Runtime.SymbolToWeightCorrectness

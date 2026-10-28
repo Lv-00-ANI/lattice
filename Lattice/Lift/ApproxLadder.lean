@@ -55,7 +55,7 @@
 import Mathlib
 import Lattice.Runtime.EndToEnd
 import Lattice.Lift.ApproxExtraction
-import Lattice.Lift.RoundingBackend
+import Lattice.Runtime.RoundingBackend
 
 open Lattice.Lift.ApproxExtraction
 

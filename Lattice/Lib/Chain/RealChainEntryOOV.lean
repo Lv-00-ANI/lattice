@@ -1,5 +1,5 @@
 import Lattice.Runtime.RealTokenizationEntry
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Chain.RealEndToEnd
 import Lattice.Runtime.SymbolToWeightCorrectness
 open Lattice.Lift.SymbolToWeightCorrectness

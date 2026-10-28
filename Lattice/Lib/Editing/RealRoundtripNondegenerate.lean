@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealLayerSemanticQuotient
 /-!
 # LATTICE D2-1：往返律非退化的精确条件 —— 商上的往返

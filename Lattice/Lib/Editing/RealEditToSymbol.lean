@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealConversionRobustness
 /-!
 # LATTICE E-02: 编辑 → 符号更新的存在性（`RealEditToSymbol`）

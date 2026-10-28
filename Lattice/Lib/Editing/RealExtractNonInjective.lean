@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 /-!
 # LATTICE R-03：往返的「单射性障碍」 —— ⚠ **目标前提为假，以及真实缺口**
 

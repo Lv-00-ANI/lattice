@@ -4,7 +4,7 @@ import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lift.TotalLoss
 import Lattice.Lib.Lift.VerifyLoopConvergence
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Optim.RealListFinBridge
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Editing.RealChainEdit

@@ -36,6 +36,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _paths import resolve  # noqa: E402  (path-keyed artifact: see _paths.py)
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -77,6 +80,11 @@ COVERED = {
         "partial decoder by design", "the file's name and docstring say `Partial`."),
 }
 
+# Round 241. The table is keyed on `Lattice/`-relative paths, so a `git mv` orphans the entry and the
+# moved file is then reported as "wildcard with no reason" while its entry is reported "stale" -- the
+# same double failure as the three baselines. Map the KEYS (not the scanned paths) at load time.
+COVERED = {resolve(k): v for k, v in COVERED.items()}
+
 VALID_REASONS = {"covered by round-trip", "upstream Lv-00 carried", "partial decoder by design"}
 
 
@@ -90,7 +98,7 @@ def scan(root=None):
             if not f.endswith(".lean"):
                 continue
             p = os.path.join(dirpath, f)
-            rel = os.path.relpath(p, root).replace("\\", "/")
+            rel = os.path.relpath(p, root).replace(chr(92), '/')
             src = io.open(p, "rb").read().decode("utf-8", "replace")
             lines = [src[:m.start()].count("\n") + 1 for m in WILDCARD_NONE.finditer(src)]
             if not lines:
@@ -102,7 +110,8 @@ def scan(root=None):
     # an entry whose file no longer has any wildcard arm is stale
     stale = []
     for rel in COVERED:
-        p = os.path.join(root, rel)
+        # a moved file is NOT stale: resolve before testing existence
+        p = os.path.join(root, resolve(rel))
         if not os.path.exists(p):
             stale.append((rel, "file does not exist"))
             continue

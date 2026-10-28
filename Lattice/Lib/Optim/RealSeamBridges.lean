@@ -4,7 +4,7 @@ import Lattice.Lib.LearningTheory.RealCausalInference
 import Lattice.Lib.Architectures.RealBatchNorm
 import Lattice.Lib.Architectures.RealLayerNorm
 import Lattice.Lib.Architectures.RealBatchNormConsistency
-import Lattice.Lift.RealLV
+import Lattice.Runtime.RealLV
 import Lattice.Runtime.RealLinear
 /-!
 # LATTICE: RealSeamBridges -- 接缝桥模块

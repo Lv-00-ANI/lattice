@@ -41,6 +41,9 @@ import sys
 
 import census_docs
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _paths import resolve_abs  # noqa: E402  (path-keyed artifact: see _paths.py)
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -92,7 +95,7 @@ def measure_gate_invariants():
 
 def measure_rounding_bound():
     """The bound stated by `roundtrip_error_le_one`: read it from the theorem's own statement."""
-    src = _read(os.path.join(LAT, "Lift", "RoundingBackend.lean"))
+    src = _read(resolve_abs(LAT, "Lift/RoundingBackend.lean"))
     # the statement is on one line: `theorem roundtrip_error_le_one (x : Z) : |...| <= 1`
     m = re.search(r"theorem roundtrip_error_le_one[^\n]*\|\s*≤\s*(\d+)", src)
     return int(m.group(1)) if m else None

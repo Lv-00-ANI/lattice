@@ -1,9 +1,9 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Chain.RealEndToEnd
 import Lattice.Lib.Editing.RealEditSemantics

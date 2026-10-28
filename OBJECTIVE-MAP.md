@@ -13,19 +13,19 @@
 |:--|:--|:--|--:|--:|:--|
 | 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
-| 1.2 token -> symbol | `SymToken` | `Lift/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
+| 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Lift/WeightLadder.lean` | 37 | 5 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
-| 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
-| 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 22 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 37 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
+| 1.4 weight -> symbol | `extract` | `Runtime/WeightToSymbolEquivalence.lean` | 22 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Lift.lean`, `Runtime.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
-| 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
-| 2.3 forward: structured init | `compile_sound_n` | `Lift/WeightLadderN.lean` | 0 **← 死代码** | 0 | — |
+| 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
+| 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 0 **← 死代码** | 0 | — |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Lift/ApproxExtraction.lean` | 2 | 4 | `Lift/ApproxLadder.lean`, `Lift/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
-| 3.2 inverse: verification | `EpsSat` | `Lift/ApproxExact.lean` | 1 | 3 | `Lift/ApproximationBridge.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 3 | `Lift/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | `Geo/GeoSampledBound.lean` | 2 | 0 | `Geo/ClauseComposition.lean`, `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistFix` | `Geo/RepairCoverage.lean` | 1 | 3 | `Geo/EqualLengthRepair.lean` |
 | 3.3 inverse: repair | `parallelFix` | `Geo/ParallelRepair.lean` | 0 *(仅本文件)* | 12 | — |
