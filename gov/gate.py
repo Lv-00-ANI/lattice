@@ -327,6 +327,9 @@ LAYER_OF = {
     # `lib 0 < kernel 1 < runtime 2 < domains 3 < primitives 4 < compose 5`;
     # in the CURRENT rank map that means rank 6. `Compose` imports only `Mathlib`, so the
     # placement is forward-compatible and does not restrict anything today.
+    # Round 16. Same rank as `Compose` (6): the ABI table refers to the primitives, and a
+    # C contract that could be imported by `Lib` would invert the direction the design wants.
+    "Lattice/CInterface": "cinterface",
     "Lattice/Compose": "compose",
 }
 
@@ -346,7 +349,8 @@ def check_layering(rep):
     # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
     # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
     # and `Geo/Unified` rely on).
-    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3, "domains": 3,
+    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
+            "domains": 3, "cinterface": 6,
             "geo": 4, "audit": 5,
             "compose": 6, "top": 99}
     for f in lean_files():
