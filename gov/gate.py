@@ -301,6 +301,10 @@ def check_unique_definitions(rep):
 LAYER_OF = {
     "Lattice/Core": "core",
     "Lattice/Lift": "lift",
+    # Round 234 (P2 pilot): `Runtime/` per DIRECTORY-DESIGN §3. Rank 2 == `lift`, because
+    # `Runtime` is where `Lift`'s operation-semantics modules go; nothing is above it except
+    # `Lib`/`Geo`/`Audit`/`Compose`, exactly as before.
+    "Lattice/Runtime": "runtime",
     "Lattice/Lib": "lib",
     "Lattice/Slots": "slots",
     "Lattice/Geo": "geo",
@@ -333,7 +337,7 @@ def check_layering(rep):
     # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
     # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
     # and `Geo/Unified` rely on).
-    rank = {"core": 0, "slots": 1, "lift": 2, "lib": 3, "geo": 4, "audit": 5,
+    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "lib": 3, "geo": 4, "audit": 5,
             "compose": 6, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
