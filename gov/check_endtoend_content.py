@@ -48,7 +48,12 @@ THM = re.compile(
     r"(?:theorem|lemma)\s+([\w'.ᵢ-₉]+)")
 TOKEN = re.compile(r"[A-Za-z_\u03b1-\u03c9][\w'ᵢ-₉]*")
 
-LAYERS = ["Core", "Slots", "Lift", "Lib", "Geo", "Audit", "Semantics", "Usage"]
+LAYERS = ["Core", "Slots", "Lift", "Runtime", "Domains", "Compose", "Lib", "Geo", "Audit", "Semantics", "Usage"]
+# Round 245. `Runtime` (66 modules), `Domains` (99) and `Compose` (8) were created by the P2/P3
+# migration, and this list was never extended -- so this audit silently IGNORED 173 modules, more
+# than a fifth of the tree. The census that I5 rests on (`check_endtoend_content.py`) was among the
+# blind ones, which is the worst place for a blind spot: it measures coverage.
+
 
 
 def strip_comments(src):

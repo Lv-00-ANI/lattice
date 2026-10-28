@@ -27,7 +27,12 @@ ZERO = os.path.abspath(os.path.join(HERE, ".."))
 sys.path.insert(0, os.path.join(HERE, "tools"))
 from sorry_axiom_census import strip_comments  # noqa: E402
 
-LAYERS = ["Core", "Lift", "Lib", "Geo"]
+LAYERS = ["Core", "Lift", "Domains", "Runtime", "Compose", "Semantics", "Lib", "Geo"]
+# Round 245. `Runtime` (66 modules), `Domains` (99) and `Compose` (8) were created by the P2/P3
+# migration, and this list was never extended -- so this audit silently IGNORED 173 modules, more
+# than a fifth of the tree. The census that I5 rests on (`check_endtoend_content.py`) was among the
+# blind ones, which is the worst place for a blind spot: it measures coverage.
+
 
 DECL = re.compile(r"^\s*(?:noncomputable\s+|private\s+|protected\s+|@\[[^\]]*\]\s*)*"
                   r"(?:theorem|lemma|def|abbrev|structure|inductive|class)\s+([A-Za-z0-9_']+)", re.M)

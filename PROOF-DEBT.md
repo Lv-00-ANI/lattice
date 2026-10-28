@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1213 | 14.4% |
-| **入度 ≥ 1（承重集）** | **872** | **742** | **85.1%** |
-| **入度 = 0** | **7537** | **471** | **6.2%** |
+| 定理 + 引理 | 8409 | 1136 | 13.5% |
+| **入度 ≥ 1（承重集）** | **872** | **682** | **78.2%** |
+| **入度 = 0** | **7537** | **454** | **6.0%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.2%**：7537 条入度为 0 的定理里只审了 471 条。**这才是「样本」真正指的东西。**
+- **零入度只有 6.0%**：7537 条入度为 0 的定理里只审了 454 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -95,7 +95,6 @@
 | `Lib/Chain/RealTaylorMultivariate.lean:195` | `second_order_taylor` | 2 | 纯占位：`∃ R, a = b + R` 与 `True` 同义（证明体就是取 `R := RHS 差` 再 `linarith`）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean:206` | `closed_loop_adds_nothing` | 2 | F: 重言 (P↔Q)↔(P↔Q),信息量为零 |
 | `Lib/Editing/RealOperatorSplit.lean:51` | `t1_decompose` | 2 | 重言：加法逆元恒等式（`add_sub_cancel`）。 |
-| `Geo/RepairCoverage.lean:84` | `sqDist_nonneg` | 1 | 逐字重复（同陈述、同 4 行证明），位于 `Lattice.Geo.RepairCoverage` 命名空间下。 |
 | `Lib/Architectures/RealNormalEquation.lean:115` | `fderiv_eq_zero_iff_all` | 1 | 纯重言：fderiv f x = 0 ↔ ∀v, fderiv f x v = 0 是 CLM 外延 + map_zero，零信息；另有 _scalar 版重复（RealNormalEquationScalar:162） |
 | `Lib/Attention/RealTemporalLayer.lean:224` | `split_immediately_confers_concept` | 1 | 证明体就是 h（P→P）；命题 = extent 的成员定义，属「只复述假设」。 |
 | `Lib/Attention/RealTemporalLayer.lean:284` | `up_gaze_element_or_concept` | 1 | by_cases hasUpper 后两分支 exact Or.inr/inl，即 em；非穷尽性证明。 |
@@ -118,6 +117,7 @@
 | `Core/Repair.lean:117` | `stable` | 0 | 证明体就是 R.absorbs x h，即 Repair 结构体的一个字段投影，一字未改；等于把构造 Repair 时承诺的假设原样复述成「定理」。 |
 | `Core/RepairAtomicity.lean:73` | `atomic_of_zero_iff` | 0 | 证明是 fun x hx => (h x).mp hx：结论就是前提的一个方向，重言。 |
 | `Domains/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
+| `Domains/RepairCoverage.lean:84` | `sqDist_nonneg` | 0 | 逐字重复（同陈述、同 4 行证明），位于 `Lattice.Geo.RepairCoverage` 命名空间下。 |
 | `Lib/Architectures/RealOperatorNorm.lean:54` | `add_norm_bound` | 0 | 与 norm_add_le 逐字同义，零信息 |
 | `Lib/Attention/RealTemporalLayer.lean:275` | `element_iff_no_upper` | 0 | Iff.rfl：isElementUnderUpGaze := ¬ hasUpper，命题即 P↔P。 |
 | `Lib/Concentration/RealHoeffdingInequality.lean:333` | `condexp_hoeffding` | 0 | 重言：stmt 是假设的逐字复制，proof 体为 `hcond`（exact h）。 |
@@ -144,9 +144,6 @@
 |:--|:--|--:|:--|
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:266` | `constrained_agrees_with_constraint_set` | 2 | 不足。`_hts : DecodesTo ts cs` 未使用；`cs` 只经 `allowedByConstraints` 里的 `cs.isEmpty = false` 进入，故「符号约束决定采样支撑」的实质内容为零。 |
 | `Lib/Optim/RealStrongConvex.lean:251` | `strong_convex_iterate_contraction` | 2 | 用途上够用（Nesterov 的 heavyBall、ProxGrad 的收缩只消费这条不等式），问题在前件而非结论：_hμL 是死前件，陈述比实际能证的弱。 |
-| `Geo/Engine.lean:134` | `derivation_sound` | 1 | 强度不足:步骤前提被要求已被 G 蕴含,序列无法链式推理;doc 的 transitivity along a derivation 没有兑现。 |
-| `Geo/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 1 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
-| `Geo/LoopPerp.lean:47` | `fixPerp_absorbs` | 1 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
 | `Lib/Architectures/RealReLULayer.lean:80` | `ReLUSum_iff_all_constraints` | 1 | doc 声称给出「全部约束满足」的批量判定，但陈述里 as/bs 与 ls、x 没有任何结构联系，撑不起该用途 |
 | `Lib/Chain/RealChainEntryOOV.lean:249` | `e2e_path_exists_str` | 1 | 陈述太弱：只要求 ∃ts 使 tokenizeStr s = some ts，没把 ts 与 Text.encode s 的关系写进结论；encode 被改成常函数 [] 时它仍为真（文件自身 :268 的 V01 实测）。撑不起文件头 Z04-G2 宣称的「入口桥闭合」。 |
 | `Lib/Compiler/RealNonlinearCompile.lean:228` | `linearization_global_fails` | 1 | 陈述只断言存在 f 与恒零 L，未断言 L 是 f 的线性化/近似（无 ApproxOn、无任何编译函数出现），因此不构成对『线性化编译保全局语义』的反例；必须把近似关系写进陈述才能支撑 users（RealCompileExtractClosed）。 |
@@ -158,7 +155,10 @@
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
 | `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
-| `Geo/Synthesis.lean:122` | `synthesize_from_initialisation` | 0 | 强度不足:前提 G/h 是与结论无关的装饰,结论没有覆盖 initialisation 提供的约束集。 |
+| `Domains/Engine.lean:134` | `derivation_sound` | 0 | 强度不足:步骤前提被要求已被 G 蕴含,序列无法链式推理;doc 的 transitivity along a derivation 没有兑现。 |
+| `Domains/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 0 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
+| `Domains/LoopPerp.lean:47` | `fixPerp_absorbs` | 0 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
+| `Domains/Synthesis.lean:122` | `synthesize_from_initialisation` | 0 | 强度不足:前提 G/h 是与结论无关的装饰,结论没有覆盖 initialisation 提供的约束集。 |
 | `Lib/Chain/RealEndToEnd.lean:491` | `e2e_sound` | 0 | 陈述太弱：h0、h1 在证明体中完全未使用（证明就是 symbolToWeight_correct cs x），结论 `∀ x, AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x` 对任意 cs 成立，因此这里没有任何 L0→L1→桥→L2 的内容；它只是 symbolToWeight_correct 的改名。doc 声称「结论的类型里出现了 s、ts、L1Bridge ts」，与事实不符：结论里一个都没有… |
 | `Lib/Chain/RealEndToEnd.lean:713` | `e2e_loss_compound` | 0 | 四个合取项都是既有定理的打包，缺 doc 标题宣称的「两处损失不可互相归约」；而且 ④ `Function.Injective encode` 可由 ③ `decode (encode cs) = some cs`（左逆⇒单射）直接推出，是冗余合取；③ 只说明 encode 是截面，并不表达「①的见证在 L1⇄L2 上被保留」（①说的是 List Char 上的 tokenize 碰撞，和 ConstraintSet→List SymToken 的 encode 单射是… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:95` | `modalLogic_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 5` 是超集大小：1 个已在模板表内（second_order_logic），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
@@ -190,7 +190,6 @@
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
 | `Lib/Optim/RealSGDStochastic.lean:335` | `sgd_rate_bound` | 3 | 定理本身是标准代数(给定逐步收缩 hstep,取 η=D/(G√T) 得 DG/√T),证明无误。但 doc 的「⟹」只列 D²、η 与 D,G,T>0(「防退化」),漏掉了真正承重的 hstep:∀t, E_{t+1} ≤ E_t − 2η·Gap_t + η²G²——读者会以为率由方差/步长条件直接得出。三个下游(RealErrorFeedback:213、RealSGDRate:230、RealCompressionRate:269)都把 hstep 继续当假设往… |
-| `Geo/GeoSampledBound.lean:57` | `geo_sampled_bound` | 2 | 登记理由：真定理，但「验证回路最终形式」的标题超出陈述。修法有二：补有限采样版本（首选），或把 docstring 改成「若零点集在 rho 下 δ-稠密则误差 ≤ Lδ」并与文件头 §3 对齐。 |
 | `Lib/Architectures/RealBlockConstants.lean:324` | `transformer_block_numeric` | 2 | 登记理由：定理本体可交付，但 doc 与 stmt 已不同步，且 doc 的「不可满足」结论对本条不成立。修法：把 B53/B60/B357 的历史段移入 CORRECTIONS，只保留与本陈述匹配的契约说明，再计入成果。 |
 | `Lib/Attention/RealAttention.lean:69` | `sqrt_d_scale_bound` | 2 | 登记理由：装饰性前件 hd（唯一用处是一个未再使用的 hd'）。删掉它对调用方是净收益，属清理级。 |
 | `Lib/Attention/RealSoftmaxLipschitz.lean:124` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
@@ -227,8 +226,9 @@
 | `Audit/StructureCensus.lean:150` | `total_obligations` | 0 | 登记：与 :141/:144/:156 同一处理——这组 `decide` 是清单纪律，不是「义务总数」的定理。若要当审计结果，doc 必须写清「入表 5 个结构」，否则读者会把它当成全库统计（而 `Representation` 那行已有字段数错误，说明表并未随代码维护）。 |
 | `Audit/VerdictLattice.lean:211` | `lattice_holds_per_segment_not_per_sequence` | 0 | 登记：作为文件结论的汇总条可以留，但应标注它是索引（`:149` 与 `:177` 的合取），不要与 `kind_is_bounded_lattice` 并列计为两条成果；doc 的「两条定理」改成三条。 |
 | `Core/RepairAtomicity.lean:89` | `atomic_of_binary` | 0 | 登记 PROOF-DEBT：这是「把假设写成定理」的样本。要么改成上面的真引理（从「非满足处测度非零」推出 atomic），要么删掉并把 Slots 的 note 降级为「atomic 仍是逐算子假设」。 |
-| `Geo/PartialReinjection.lean:88` | `loss_le_sq_of_resid_le` | 0 | 登记理由仅为前件冗余（C）。属清理级问题，不阻塞用途；建议顺手删 hε。 |
-| `Geo/RepairBridge.lean:74` | `converges` | 0 | 与 Core.Repair.progress 定义等价，属 API 别名；保留会增加「又一条收敛定理」的账面，建议合并（register 而非 delete，因为改名涉及 4-5 处调用点）。 |
+| `Domains/GeoSampledBound.lean:57` | `geo_sampled_bound` | 0 | 登记理由：真定理，但「验证回路最终形式」的标题超出陈述。修法有二：补有限采样版本（首选），或把 docstring 改成「若零点集在 rho 下 δ-稠密则误差 ≤ Lδ」并与文件头 §3 对齐。 |
+| `Domains/PartialReinjection.lean:88` | `loss_le_sq_of_resid_le` | 0 | 登记理由仅为前件冗余（C）。属清理级问题，不阻塞用途；建议顺手删 hε。 |
+| `Domains/RepairBridge.lean:74` | `converges` | 0 | 与 Core.Repair.progress 定义等价，属 API 别名；保留会增加「又一条收敛定理」的账面，建议合并（register 而非 delete，因为改名涉及 4-5 处调用点）。 |
 | `Lib/Architectures/RealOperatorNorm.lean:47` | `comp_norm_bound` | 0 | Re-export 债务：不影响正确性但虚增定理数；与同文件 add_norm_bound（建议删）一并治理。 |
 | `Lib/Attention/RealTemporalLayer.lean:243` | `split_exposes_parts_to_upward_gaze` | 0 | 同文件同陈述两个名字（:203 / :243），下游按 :243 引用。登记为重复命名债，合并时改调用点；不直接删是因为 Ext 的叙述依赖此名。 |
 | `Lib/Chain/RealChainAxioms3.lean:148` | `b194_anchor_consumer` | 0 | doc 自认「不证明任何新数学——它把锚点取用一次」，作用只是编译期依赖锚点（防整节被删），且拦不住两处同删。作为「定理」零内容；登记 PROOF-DEBT，建议与 _holds 合并或换成真正的消费证明。 |

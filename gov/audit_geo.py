@@ -20,7 +20,16 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
-GEO = os.path.join(ZERO, "Lattice", "Geo")
+# Round 245. The whole of `Geo/` moved to `Domains/` (99 modules), so this audit was pointing at an
+# empty directory and reported "合计 0 行" -- **an audit of zero files must not be a pass.** That is
+# precisely the failure mode its old self-test exemption rationalised ("the geometry walk is a pure
+# enumeration whose failure mode is an empty result"): the enumeration went empty and nothing said so.
+#
+# It now audits both directories (either may be populated during a migration) and **fails when the
+# total module count is zero**. The name is kept because renaming a gate is a separate change; the
+# docstring says what it actually covers.
+GEO = os.path.join(ZERO, "Lattice", "Domains")
+GEO_LEGACY = os.path.join(ZERO, "Lattice", "Geo")
 
 # Round 242. This matched `Zero.Geo.`, the OLD library's module prefix. Measured on the current tree:
 # **183** `import Lattice.Geo.*` and **0** `import Zero.Geo.*` -- so the regex matched nothing, the
@@ -31,14 +40,24 @@ GEO = os.path.join(ZERO, "Lattice", "Geo")
 #
 # It now matches the prefix the tree actually uses. Both are still accepted, so the file keeps
 # working if the old prefix ever reappears in a vendored fragment.
-IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.Geo\.(\S+)", re.M)
+# Round 245. Same defect, third variant. The regex matched `Lattice.Geo.` -- then the whole layer moved
+# to `Domains/`, so every internal edge became invisible and "无环" was vacuous AGAIN. A regex that
+# silently matches nothing is the failure mode this file has now hit three times.
+#
+# It now matches the layer it actually scans, and `main` asserts NON-VACUITY below: a scan with zero
+# internal edges on a multi-module layer is a defect, not a pass.
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)\.(\S+)", re.M)
 DECL = re.compile(r"^(?:noncomputable\s+|private\s+|protected\s+|@\[[^\]]*\]\s*)*"
                   r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
                   r"([A-Za-z0-9_']+)", re.M)
 
 
 def mod_of(f):
-    return "Lattice.Geo." + f[:-5]
+    # Round 245: files may live under `Domains/` (post-migration) or `Geo/` (legacy). The module
+    # prefix follows the directory, so that the dependency graph keys match the `import` lines.
+    base = f[:-5]
+    hit = "Lattice.Domains." if (os.sep + "Domains" + os.sep) in f else "Lattice.Geo."
+    return hit + base
 
 
 WHITE, GREY, BLACK = 0, 1, 2
@@ -92,20 +111,31 @@ def self_test():
 
 def main():
     problems = 0
-    files = sorted(f for f in os.listdir(GEO) if f.endswith(".lean"))
+    files = []
+    for d in (GEO, GEO_LEGACY):
+        if os.path.isdir(d):
+            files.extend(os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".lean"))
+    if not files:
+        print("GEO AUDIT: no modules found -- refusing to pass on an empty scan")
+        return 1
     deps = {}
     decls = {}
     for f in files:
-        src = io.open(os.path.join(GEO, f), encoding="utf-8").read()
-        deps[mod_of(f)] = [d for d in IMPORT.findall(src) if d != mod_of(f)]
-        decls[mod_of(f)] = DECL.findall(src)
+        src = io.open(f, encoding="utf-8").read()
+        deps[mod_of(os.path.basename(f))] = [d for d in IMPORT.findall(src) if d != mod_of(os.path.basename(f))]
+        decls[mod_of(os.path.basename(f))] = DECL.findall(src)
+
+    edges = sum(len(v) for v in deps.values())
+    if len(deps) > 1 and edges == 0:
+        print("GEO AUDIT: %d modules but ZERO internal edges -- the import scan is vacuous" % len(deps))
+        return 1
 
     # 1. 依赖方向
     print("=" * 72)
     print("1. 依赖图")
     print("=" * 72)
     for m in sorted(deps):
-        print("  %-26s -> %s" % (m.replace("Lattice.Geo.", ""), 
+        print("  %-26s -> %s" % (m.replace("Lattice.Geo.", "").replace("Lattice.Domains.", ""), 
                                  [d.replace("Lattice.Geo.", "") for d in deps[m]] or "-"))
 
     # 2. 环检测
@@ -190,10 +220,10 @@ def main():
     print("=" * 72)
     total = 0
     for f in files:
-        n = io.open(os.path.join(GEO, f), encoding="utf-8").read().count("\n") + 1
+        n = io.open(f, encoding="utf-8").read().count("\n") + 1
         total += n
         flag = "  ** 超预算 **" if n > 500 else ""
-        print("  %-26s %4d 行%s" % (f, n, flag))
+        print("  %-26s %4d 行%s" % (os.path.basename(f), n, flag))
     print("  %-26s %4d 行" % ("合计", total))
     if problems:
         print("\nGEO AUDIT: %d problem(s)" % problems)

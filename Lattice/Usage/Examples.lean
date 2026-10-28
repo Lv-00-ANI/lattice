@@ -14,11 +14,11 @@ import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Domains.ComputableExpr
-import Lattice.Geo.ExecutableCheck
-import Lattice.Geo.GeoSampledBound
-import Lattice.Geo.Reinjection
-import Lattice.Geo.Synthesis
-import Lattice.Geo.PolyConstants
+import Lattice.Domains.ExecutableCheck
+import Lattice.Domains.GeoSampledBound
+import Lattice.Domains.Reinjection
+import Lattice.Domains.Synthesis
+import Lattice.Domains.PolyConstants
 
 namespace Lattice.Usage
 

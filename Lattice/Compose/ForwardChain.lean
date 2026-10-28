@@ -54,7 +54,7 @@ capstone 从「一条孤立定理」变成「**一个可被组合的契约实例
   它们是 `Geo` 层的损失事实，不是组合层的东西。
 - **`Geo/ConstraintDescent.lean` 里那两条已删除**（裁决是「搬」，不是「复制」）。 -/
 import Mathlib
-import Lattice.Geo.ConstraintDescent
+import Lattice.Domains.ConstraintDescent
 import Lattice.Compose.Primitive
 
 namespace Lattice.Compose.ForwardChain

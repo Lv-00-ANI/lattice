@@ -68,7 +68,7 @@ failed to synthesize Decidable (c ∉ e.del)
   这不是形式化的要求，是信息论的事实——删掉的东西不存下来就回不去。
 -/
 import Mathlib
-import Lattice.Geo.ConstraintSet
+import Lattice.Domains.ConstraintSet
 import Lattice.Domains.Constraint
 
 namespace Lattice.Semantics.Annotations
