@@ -135,6 +135,10 @@ CHECKS = [
     # Round 16. The C ABI names are strings; nothing in Lean ties them to the primitives that exist.
     ("audit: C ABI matches primitives", "check_cinterface_abi.py"),
     ("audit: C ABI self-test", "check_cinterface_abi.py --self-test"),
+    # Round 26, L4-7. The content census was a REPORTER: 1,827 cross-layer theorems printed and gated on
+    # nothing. This is the floor -- losing one fails, gaining one does not.
+    ("census: cross-layer floor", "check_endtoend_floor.py"),
+    ("census: cross-layer floor self-test", "check_endtoend_floor.py --self-test"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not

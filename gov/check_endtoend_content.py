@@ -202,9 +202,20 @@ def main():
     A("- **层取自定义模块的顶层目录**。声明在层间移动会改变普查——那是有意的。")
     A("- **传递性意味着「依赖」而不是「陈述关于」**。一条定理可以通过辅助引理触及三层，")
     A("  而它自己的陈述只关于一层。**这是跨层程度的上界。**")
-    A("- **不要把它接成门禁**：0 层定理是合法的（纯 `Mathlib` 陈述）。")
+    A("- **不要按它的计数设门禁**：0 层定理是合法的（纯 `Mathlib` 陈述）。")
+    A("")
+    A("⚠ **第 26 轮补充**：上面那条说的是**不要按绝对计数**设门禁。**下降**是另一件事——")
+    A("`gov/check_endtoend_floor.py` 只对「某条定理**不再**跨 >= 2 层」失败，")
+    A("而对「新增跨层定理」放行。**增长是改进，下降是回归**，两者不该用同一把尺子。")
     A("")
     io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(lines))
+
+    # Round 26, L4-7. A FLOOR gate needs the NAME SET, and it must not re-implement this scan -- two
+    # implementations would be two authorities. So the census emits the list and the gate reads it.
+    tsv = os.path.join(HERE, "endtoend-cross.tsv")
+    io.open(tsv, "w", encoding="utf-8", newline="\n").write(
+        "# theorems touching >= 2 layers BY CONTENT -- written by check_endtoend_content.py\n"
+        + "".join("%s\t%s\n" % (rel, name) for _k, rel, name, _lays in cross))
 
     print("END-TO-END CENSUS (by content)")
     for k in sorted(dist):
