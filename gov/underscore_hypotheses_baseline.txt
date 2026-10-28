@@ -110,7 +110,6 @@ Lib/Optim/RealValueIteration.lean	value_iteration_contraction	_hγ1	unused
 Lib/Quantization/RealConversionStabilityFloatBounds.lean	ce_float_abs_le_mag	_hA	unused
 Lib/Quantization/RealConversionStabilityFloatBounds.lean	float_zero_criterion_needs_axiom	_htiny	unused
 Lib/Quantization/RealMixedPrecision.lean	fp16_underflow_dominated	_hu	unused
-Lib/Quantization/RealMixedPrecision.lean	accumulation_error_bound	_hM	unused
 Lib/Quantization/RealMixedPrecision.lean	mixed_layer_error	_hX	unused
 Lib/Quantization/RealIEEE754/Basic.lean	ieee_relative_error_bound	_hx	unused
 Lib/Quantization/RealIEEE754/Overflow.lean	clampTo_eq_self	_hM	unused

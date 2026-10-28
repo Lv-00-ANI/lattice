@@ -397,15 +397,19 @@ theorem ieee_mixed_matrix_op_error {m n : ℕ} (F : FloatFormat) (md : RoundMode
   mixed_matrix_op_error F (ieeeToRoundOp F md R) A θ hθ hA
 
 /-- **一致性定理**：`accumulation_error_bound`（`2·n·eps·M`，
-经 `ieeeToFPAdder` 桥接，需 `tiny = 0`）。 -/
+经 `ieeeToFPAdder` 桥接，需 `tiny = 0`）。
+
+⚠ **第 20 轮**：`(hM : 0 ≤ M)` 被删掉——它在本文件里**只用来传给 `accumulation_error_bound`**，
+而后者已不再需要它（那个前提是未使用的，且可由 `hmag 0` 导出）。
+**所以本条也更强了**：前提少一个，断言不变。 -/
 theorem ieee_accumulation_error_bound (F : FloatFormat) (md : RoundMode) (R : IEEERound F md)
-    (htiny : F.tiny = 0) (heps : F.eps ≤ 1) (M : ℝ) (hM : 0 ≤ M) :
+    (htiny : F.tiny = 0) (heps : F.eps ≤ 1) (M : ℝ) :
     ∀ (n : ℕ) (x : ℕ → ℝ),
       (∀ k, k ≤ n → |accSum (ieeeToFPAdder F md R htiny heps) k x| ≤ M) →
       (∀ k, k < n → |x k| ≤ M) →
       |accSum (ieeeToFPAdder F md R htiny heps) n x - ∑ k in Finset.range n, x k|
         ≤ 2 * (n : ℝ) * F.eps * M :=
-  accumulation_error_bound (ieeeToFPAdder F md R htiny heps) M hM
+  accumulation_error_bound (ieeeToFPAdder F md R htiny heps) M
 
 /-- **一致性定理**：`mixed_vs_full_precision`（n 层混合精度模型端到端闭式链界）。 -/
 theorem ieee_mixed_vs_full_precision {n : ℕ} (F : FloatFormat) (md : RoundMode)
