@@ -521,11 +521,26 @@ top 99
 3. 更新 `README`/`PROOF-DEBT`/`MACRO-STATUS`。
 4. 全量 `lake build` + 61 检查。
 
+### 11.7 P5 细节：C 接口规格
+
+1. `CInterface/ABI.lean`：每个 `Primitive` 一个 C 函数签名、错误码、所有权。
+2. `CInterface/Layout.lean`：`Model`/`Profile`/`Program`/`Certificate` 的内存布局。
+3. `CInterface/Serialization.lean`：token/weight/profile 字节格式。
+4. `CInterface/Conformance.lean`：Lean `#eval` 向量与 C 对照格式。
+5. S13 的 Lean 侧 Float 模型/误差界；C 的 `double` 路径以此标注信任边界。
+
+### 11.8 P6 细节：C 实现（最后）
+
+- 在 `Primitive`/`Sound`/`Compose`/`CInterface` 稳定后开始；
+- 一个 primitive 一个 C 函数；不提供 `importModel`/`trainLoop` 打包函数；
+- C 侧组合由用户写；
+- 与 `CInterface`/conformance 对齐后，才能声称 C 实现符合 Lean 规格。
+
 ---
 
 ## 12. 验收标准
 
-1. 顶层 = `Kernel / Runtime / Domains / Primitives / Compose / Lib / Evidence / Usage / Compat`。
+1. 顶层 = `Kernel / Runtime / Domains / Primitives / Compose / CInterface / Lib / Evidence / Usage / Compat`。
 2. `Primitives/**` 每个文件是基础调用；没有 `Import`/`PostTrain`/`Merge` 打包能力。
 3. 每个 primitive 有 `sound`；无 `True`/`sorry`/`:= h`。
 4. **Primitive 之间零 import**（守卫）。
@@ -534,7 +549,7 @@ top 99
 7. 强度/覆盖组合规则有定理；不允许静默升级。
 8. `lake build` 通过，61 检查绿；`PROOF-DEBT` 条目数不变。
 9. `Usage` 至少三种用户自组合示例；库不提供固定流程。
-10. **没有 C 目录、C ABI、序列化、conformance。**
+10. `CInterface/` 的 ABI/Layout/Serialization/Conformance 规格存在；**C 实现最后**，不要求现在有 C 代码。
 
 ---
 
@@ -544,25 +559,31 @@ top 99
 - 不提供固定使用链；
 - 不搬 `Lib`；
 - 不在迁移中改声明名；
-- 不做 C；
+- **C 实现最后**；C 接口/前置现在定义；
 - 不声称本设计等于证明完成（S9/S10/S20、PROOF-DEBT 是并行任务）。
 
 ---
 
-## 14. C：推迟
+## 14. C 接口（现在）与 C 实现（最后）
 
-当前不做：
+**现在定义**：
 
-- C ABI/头文件/类型布局；
-- 序列化/字节码格式；
-- C conformance 向量；
-- C runtime / C trainer；
-- C 性能与部署。
+- `CInterface/ABI.lean`：每个 primitive 的 C 函数签名、错误码、所有权；
+- `CInterface/Layout.lean`：`Model`/`Profile`/`Program`/`Certificate` 内存布局；
+- `CInterface/Serialization.lean`：token/weight/profile 字节格式；
+- `CInterface/Conformance.lean`：Lean `#eval` 向量与 C 对照格式；
+- S13 的 Lean 侧 Float 模型/误差界（C `double` 的信任边界依据）。
 
-Lean 完成后，`Primitive` 的 `Input/Output/Certificate` 是 C 的 handoff；到那时再设计。
+**最后写**：
+
+- `C/` 实现：ABI、序列化、conformance、runtime、trainer、性能/部署；
+- 在 `Primitive`/`Sound`/`Compose`/`CInterface` 稳定后开始；
+- 一个 primitive 一个 C 函数；不提供打包入口；C 侧组合由用户写。
+
+**未实现前**：C 是信任边界，不能声称“证明保证 C 正确”。
 
 ---
 
 ## 15. 一句话总结
 
-**顶层只放基础调用；`Kernel` 放共享类型与链定律；`Compose` 只给组合子；没有打包能力、没有固定流程、没有 C；每个 primitive 独立、可证明、可组合；语义编辑拆成 `Primitives/Vocab` 与 `Primitives/Semantics`。**
+**顶层只放基础调用；`Kernel` 放共享类型与链定律；`Compose` 只给组合子；`CInterface` 定义 C 契约与前置；没有打包能力、没有固定流程；C 实现最后；每个 primitive 独立、可证明、可组合；语义编辑拆成 `Primitives/Vocab` 与 `Primitives/Semantics`。**
