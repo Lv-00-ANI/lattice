@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 66 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 606 | instantiated library, may import core only |
+| lib | 607 | instantiated library, may import core only |
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -216,6 +216,7 @@
 - `Lattice.Lib.Architectures.RealSwiGLU` <- `Lattice.Lib.Architectures.RealActClass`
 - `Lattice.Lib.Architectures.RealTensorNorm` 
 - `Lattice.Lib.Architectures.RealTensorNormN` <- `Lattice.Lib.Architectures.RealTensorNorm`
+- `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
 - `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`
 - `Lattice.Lib.Attention.RealALiBi` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Optim.RealValueIteration`
@@ -825,7 +826,7 @@
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
 - `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`, `Lattice.Geo.CExprCodegen`, `Lattice.Geo.CodegenLadder`, `Lattice.Geo.ExecutableGeoCheck`, `Lattice.Geo.WeightSideLadder`, `Lattice.Geo.PenaltyLoss`, `Lattice.Geo.NetLoss`, `Lattice.Geo.ConstraintDescent`, `Lattice.Geo.WeightDescent`
-- `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`
+- `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`
 - `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Lift.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Lift.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`, `Lattice.Lift.WeightLadderFullWidth`, `Lattice.Lift.WeightLadderInverse`, `Lattice.Lift.WeightSymbolRepresentation`, `Lattice.Lift.ActivationLadder`, `Lattice.Lift.WeightLadderFullWidthInstance`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.RectangularRepresentation`, `Lattice.Lift.LayerQuantization`, `Lattice.Lift.LayerQuantizationBits`, `Lattice.Lift.SaturationQuantization`, `Lattice.Lift.QuantErrorPropagation`, `Lattice.Lift.ProgramAST`, `Lattice.Lift.StackError`
 - `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.Annotations` <- `Lattice.Geo.ConstraintSet`, `Lattice.Geo.Constraint`
@@ -1035,6 +1036,7 @@
 | `Lattice.Lib.Architectures.RealSwiGLU` | 3 | 2 |
 | `Lattice.Lib.Architectures.RealTensorNorm` | 11 | 2 |
 | `Lattice.Lib.Architectures.RealTensorNormN` | 15 | 5 |
+| `Lattice.Lib.Architectures.RealTransformerEval` | 3 | 5 |
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
@@ -1661,14 +1663,15 @@ An edge `A -> B` means the body of `A` mentions declaration `B` from another
 module. These are the edges that make the chain a chain rather than a list.
 
 - `B275_2_and_LoadBearing_independent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`
-- `BDD.eval_ff` -> `apply`, `children`, `induction`, `length`, `trans`
-- `BDD.eval_ite` -> `apply`, `children`, `induction`, `trans`
-- `BDD.eval_tt` -> `apply`, `children`, `induction`, `trans`
-- `BDD.isOrdered_mono` -> `children`, `e2`, `induction`
+- `BDD.eval_ff` -> `apply`, `children`, `eval`, `induction`, `length`, `trans`
+- `BDD.eval_ite` -> `apply`, `children`, `eval`, `induction`, `trans`
+- `BDD.eval_tt` -> `apply`, `children`, `eval`, `induction`, `trans`
+- `BDD.isOrdered_mono` -> `children`, `e2`, `eval`, `induction`
 - `BetaRedStar.app_l` -> `depth`, `induction`, `step`
 - `BetaRedStar.app_r` -> `depth`, `induction`, `step`
 - `BetaRedStar.lam_body` -> `depth`, `induction`, `step`
 - `BetaRedStar.trans` -> `depth`, `induction`, `step`
+- `Block.eval_lipschitz` -> `apply`
 - `C6Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
 - `C6_twoK3_1WL_blind` -> `nbhdSum`
 - `C6_twoK3_partition_eq` -> `nbhdSum`
@@ -1807,6 +1810,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MStmt.size_seq_right_lt` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MStmt.size_skip` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MatLayerOut_eq_matvecE` -> `W`, `apply`, `matvecE`, `matvecE_sub`
+- `Model.eval_nil` -> `apply`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `trans`
 - `P0_normal_equation_scalar` -> `E`
@@ -1835,7 +1839,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `R02_sign_obstruction_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `R02_uniqueness_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `RMSNormOp_eq_rmsNormE` -> `W`, `convComb_lipschitz_prob`, `linear_map_lipschitz`, `lipschitz_add`, `rmsNormE`, `rmsNormE_sqrt_lipschitz`
-- `ROBDD.isOrdered_of_lt` -> `children`, `e2`, `induction`
+- `ROBDD.isOrdered_of_lt` -> `children`, `e2`, `eval`, `induction`
 - `ROME_pointwise_edit` -> `E`, `W`
 - `ROME_preserves_orthogonal` -> `E`, `W`
 - `ROME_row_change` -> `E`, `W`
@@ -2086,7 +2090,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `nil_append`
 - `append_nil` -> `Audit`, `induction`, `mul`, `one`
 - `application_outputs_absorbable` -> `Rule`, `layer`, `length`
-- `applyCorrect_tt_const` -> `apply`, `children`, `induction`, `length`, `trans`
+- `applyCorrect_tt_const` -> `apply`, `children`, `eval`, `induction`, `length`, `trans`
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applySymEdit_getD` -> `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `subst`, `zero`
@@ -5221,7 +5225,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isOneLipschitz_neg` -> `IsOneLipschitz`, `IsTransportPlan`, `dual_weak`, `le_trans`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `isOpen_measurableSet` -> `apply`, `mono`
 - `isOptimalPolicy_zero` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
-- `isOrdered_not_downward` -> `children`, `e2`, `induction`
+- `isOrdered_not_downward` -> `children`, `e2`, `eval`, `induction`
 - `isPSDKernel_of_featureMap` -> `IsPSDKernel`, `IsSymmKernel`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`
 - `isPolicyDensity_const_one` -> `Audit`, `E`, `IsPolicyDensity`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
 - `isPosDefKernel_add` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
@@ -7482,6 +7486,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_le_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `dist`, `trans`
 - `residual_le_of_zero_on_dense_from_generic` -> `dist`, `dist_nonneg`
 - `residual_le_of_zero_on_dense_of_d` -> `dist`, `dist_nonneg`, `trans`
+- `residual_lipschitz` -> `apply`
 - `residual_lower_bound` -> `SoftmaxAttnOp`, `W`, `apply`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
 - `residual_lower_bound_free` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_lower_bound_pointwise` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
@@ -7597,8 +7602,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rnn_stability_bound` -> `W`, `geom_sum_eq`, `induction`, `iterate`, `le_antisymm`, `zero`
 - `rnn_step_input_lipschitz` -> `E`, `W`, `apply`, `geom_sum_eq`, `induction`, `trans`, `zero`
 - `rnn_step_lipschitz` -> `E`, `W`, `apply`, `induction`, `trans`, `zero`
-- `robdd_canonical` -> `children`, `e2`, `induction`, `subst`
-- `robdd_ite_ordered` -> `children`, `e2`, `induction`, `subst`
+- `robdd_canonical` -> `children`, `e2`, `eval`, `induction`, `subst`
+- `robdd_ite_ordered` -> `children`, `e2`, `eval`, `induction`, `subst`
 - `roc_power_mono` -> `alpha`
 - `roc_size_mono` -> `alpha`
 - `roc_trajectory_mono` -> `E`, `apply`
