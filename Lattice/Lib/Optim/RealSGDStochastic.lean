@@ -477,3 +477,73 @@ theorem sgd_averaged_step {Ω : Type*} [Fintype Ω] (p : Ω → ℝ) (hp0 : ∀ 
         intro ω _
         simp only [Real.norm_eq_abs, sq_abs]
     _ ≤ ‖X t - xstar‖ ^ 2 - 2 * η * (f (X t) - f xstar) + η ^ 2 * G ^ 2 := hc
+
+/-! ## 十、⭐⭐ **最终形态**：一条**不带 `hstep`** 的率定理
+
+§九 把 `hstep` 导出到了**确定性平均迭代**上。本节的率定理因此**前提里没有 `hstep`**——
+它是被推出来的。
+
+**做法**：把 `X : ℕ → ℝ` 嵌入为**常数随机变量** `x t := fun _ => X t`。
+于是
+
+- `ExpDist p (fun _ => c) xstar = (∑ p) · ‖c − x*‖²`；
+- `ExpGap p f (fun _ => c) xstar = (∑ p) · (f c − f x*)`。
+
+在 `∑ p = 1` 下两者退化成普通量，`sgd_averaged_step` 给出 `hstep`，再交给既有的
+`sgd_rate_bound`。**所以这条定理的假设清单里只有更新规则、次梯度条件与二阶矩界。** -/
+
+/-- **常数随机变量的期望平方距离**：`E‖c − x*‖² = (∑ p) · ‖c − x*‖²`。 -/
+theorem ExpDist_const (p : Ω → ℝ) (c xstar : ℝ) :
+    ExpDist p (fun _ : Ω => c) xstar = (∑ ω, p ω) * ‖c - xstar‖ ^ 2 := by
+  unfold ExpDist
+  rw [Expect_const]
+
+/-- **常数随机变量的期望差距**：`E[f c − f x*] = (∑ p) · (f c − f x*)`。 -/
+theorem ExpGap_const (p : Ω → ℝ) (f : ℝ → ℝ) (c xstar : ℝ) :
+    ExpGap p f (fun _ : Ω => c) xstar = (∑ ω, p ω) * (f c - f xstar) := by
+  unfold ExpGap
+  rw [Expect_const]
+
+/-- ⭐⭐ **率定理（平均迭代版）：前提里没有 `hstep`。**
+
+`η = D/(G√T)`、`‖X 0 − x*‖² = D²`、平均梯度更新、`E[g_t]` 是次梯度、`E[g_t²] ≤ G²`
+⟹ `∃ t < T, f (X t) − f x* ≤ D·G/√T`。
+
+**与 `sgd_rate_bound` 的唯一区别**：那条把 `hstep` 当假设（因为它讲的是**随机**迭代，
+那里的 `hstep` 在本接口下不可导出，见 §八 的边界说明）；本条把它**推出来**，
+代价是把迭代限定为**确定性**的 `X : ℕ → ℝ`。 -/
+theorem sgd_rate_bound_averaged (p : Ω → ℝ) (hp0 : ∀ ω, 0 ≤ p ω)
+    (hpsum : (∑ ω, p ω) = 1) (f : ℝ → ℝ) (X : ℕ → ℝ) (g : ℕ → Ω → ℝ)
+    (xstar G D η : ℝ) (T : ℕ)
+    (hG : 0 < G) (hT : 0 < T) (hD : 0 < D)
+    (hD2 : ‖X 0 - xstar‖ ^ 2 = D ^ 2)
+    (hη : η = D / (G * Real.sqrt (T : ℝ)))
+    (hupd : ∀ t, X (t + 1) = X t - η * Expect p (g t))
+    (hsub : ∀ t, Subgradient f (X t) (Expect p (g t)))
+    (hbnd : ∀ t, Expect p (fun ω => (g t ω) ^ 2) ≤ G ^ 2) :
+    ∃ t : ℕ, t < T ∧ f (X t) - f xstar ≤ D * G / Real.sqrt (T : ℝ) := by
+  -- the constant extension of `X`
+  set x : ℕ → Ω → ℝ := fun t _ => X t with hx
+  -- η > 0 from η = D / (G * √T)
+  have hsq : 0 < Real.sqrt (T : ℝ) := Real.sqrt_pos.2 (by exact_mod_cast hT)
+  have hηpos : 0 ≤ η := by
+    rw [hη]
+    exact le_of_lt (div_pos hD (mul_pos hG hsq))
+  have hstep : ∀ t : ℕ, ExpDist p (x (t + 1)) xstar ≤
+      ExpDist p (x t) xstar - 2 * η * ExpGap p f (x t) xstar + η ^ 2 * G ^ 2 := by
+    intro t
+    have h := sgd_averaged_step p hp0 hpsum f X g xstar G η hηpos
+      hupd hsub hbnd t
+    -- rewrite the `ExpDist` / `ExpGap` of constant random variables
+    simp only [hx, ExpDist_const, ExpGap_const, hpsum, one_mul]
+    exact h
+  have hD2' : ExpDist p (x 0) xstar = D ^ 2 := by
+    simp only [hx, ExpDist_const, hpsum, one_mul]
+    exact hD2
+  obtain ⟨t, ht, hgap⟩ :=
+    sgd_rate_bound p hp0 f x xstar G D η T hG hT hD hD2' hη hstep
+  refine ⟨t, ht, ?_⟩
+  simp only [hx, ExpGap_const, hpsum, one_mul] at hgap
+  exact hgap
+
+end Lattice

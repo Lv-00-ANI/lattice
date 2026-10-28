@@ -1454,7 +1454,7 @@
 | `Lattice.Lib.Optim.RealRiemannianGD` | 23 | 5 |
 | `Lattice.Lib.Optim.RealSGD` | 15 | 13 |
 | `Lattice.Lib.Optim.RealSGDRate` | 8 | 1 |
-| `Lattice.Lib.Optim.RealSGDStochastic` | 19 | 4 |
+| `Lattice.Lib.Optim.RealSGDStochastic` | 22 | 4 |
 | `Lattice.Lib.Optim.RealSaddlePoint` | 18 | 2 |
 | `Lattice.Lib.Optim.RealSeamBridges` | 7 | 0 |
 | `Lattice.Lib.Optim.RealSeamBridges2` | 28 | 3 |
@@ -1761,7 +1761,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `EditLayer_ORIGINAL_is_too_weak_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `subst`, `symVec`
 - `EditLayer_consequence` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
 - `EditLayer_delta_not_unique` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `dot`, `foldl_init_add`, `induction`, `length`, `subst`
+- `ExpDist_const` -> `Subgradient`
 - `ExpDist_nonneg` -> `Subgradient`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
+- `ExpGap_const` -> `Subgradient`
 - `Expect_add` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `Expect_const` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`
 - `Expect_const_mul` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
@@ -8189,6 +8191,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sgd_projected_rate_bound` -> `ExpDist`, `ExpGap`, `sgd_rate_bound`
 - `sgd_rate_bound` -> `Subgradient`
 - `sgd_rate_bound_aux` -> `Subgradient`
+- `sgd_rate_bound_averaged` -> `Subgradient`
 - `sgd_variance_identity` -> `Subgradient`, `exists_le_sum_mul`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sharedChain_eq_iterate` -> `ChainFwd`, `ChainTail`, `apply`, `chainN_identical_blocks_bound`, `chain_edit_locality`, `induction`, `iterate`, `iterate_step_swap`, `zero`

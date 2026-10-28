@@ -1,0 +1,39 @@
+# files whose outermost namespace is not closed by the last line.
+# Lean ACCEPTS these; the convention is to close them, and a baseline entry means
+# 'this one predates the check'. A NEW one is almost always script damage.
+Domains/Geometry/PolySpecificRepair.lean
+Domains/Geometry/QualityBridge.lean
+Lib/Attention/RealSoftmaxLipschitz.lean
+Lib/Chain/RealCrossUniverseApplication.lean
+Lib/Chain/RealCrossUniverseConsumer.lean
+Lib/Chain/RealLv00AxiomDischargePerPackage.lean
+Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean
+Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean
+Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean
+Lib/Chain/RealLv00LinearAlgebra.lean
+Lib/Chain/RealModelFamilyChainWiring.lean
+Lib/Chain/RealN2AxiomDischargeJia.lean
+Lib/Chain/RealNumericChainOrder.lean
+Lib/Chain/RealNumericChainOrder_parts/A.lean
+Lib/Chain/RealNumericChainOrder_parts/B.lean
+Lib/Compiler/LvDSLPartial.lean
+Lib/Compiler/RealMutualRecursion.lean
+Lib/Compiler/RealMutualRecursion_parts/A.lean
+Lib/Compiler/RealMutualRecursion_parts/B.lean
+Lib/FCA/RealFCATriadicCompleteLattice.lean
+Lib/LearningTheory/RealConstrainedDecoding.lean
+Lib/LearningTheory/RealConstrainedDecodingVerify.lean
+Lib/Lift/RealNonlinearFidelity.lean
+Lib/Lift/RealNonlinearFidelity_parts/A.lean
+Lib/Lift/RealNonlinearFidelity_parts/B.lean
+Lib/Lift/RealParamLoss.lean
+Lib/Meta/RealDotRepresentationAudit.lean
+Lib/Optim/RealApprox.lean
+Lib/Optim/RealCrossUniverseBridge.lean
+Lib/Optim/RealListFinBridge.lean
+Lib/Quantization/RealIEEE754/Basic.lean
+Lib/Quantization/RealIEEE754/BitWidth.lean
+Lib/Quantization/RealIEEE754/Compat.lean
+Lib/Quantization/RealIEEE754/Overflow.lean
+Runtime/EndToEnd.lean
+Runtime/SymbolToWeight.lean
