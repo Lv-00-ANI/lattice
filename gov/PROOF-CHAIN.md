@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 193 | aggregator at `Lattice/`, re-exports only |
+| root | 194 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -659,8 +659,9 @@
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
-- `Lattice.CInterface` <- `Lattice.CInterface.ABI`
+- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` 
+- `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
@@ -1497,6 +1498,7 @@
 | `Lattice.Audit` | 0 | 0 |
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
+| `Lattice.CInterface.Serialization` | 2 | 1 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
@@ -5627,6 +5629,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerSeq_three` -> `Layer`
 - `layerStack_equivariant` -> `E`, `W`, `apply`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `layerToCLM_apply` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
+- `layerWords_length` -> `AffineLayer`, `W`, `flatten`, `induction`, `length`
+- `layerWords_zero` -> `AffineLayer`
 - `layer_act_injective` -> `BehaviourallyEquivalent`, `W`
 - `layer_approx_on` -> `le_trans`, `min`
 - `layer_behaviourally_separates` -> `BehaviourallyEquivalent`
