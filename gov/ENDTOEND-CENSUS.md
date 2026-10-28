@@ -16,13 +16,13 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 5450 | 63.7% |
-| 1 | 1344 | 15.7% |
+| 1 | 1346 | 15.7% |
 | 2 | 669 | 7.8% |
 | 3 | 377 | 4.4% |
 | 4 | 597 | 7.0% |
-| 5 | 118 | 1.4% |
+| 5 | 120 | 1.4% |
 | 6 | 2 | 0.0% |
-| **合计** | **8557** | |
+| **合计** | **8561** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -79,6 +79,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `MatrixRow.strength_eq` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `foldStrength_le_of_mem` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `exact_of_foldStrength_exact` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `applySgd_run` (`Compose/Steps.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `applyMomentum_velocity` (`Compose/Steps.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `all_twelve_discharged` (`Lib/Chain/RealLv00AxiomDischargeSummary.lean`) | Audit, Core, Geo, Lift, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

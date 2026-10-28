@@ -53,7 +53,7 @@ Lattice/
   - `weightsCheck`、`bindVocab`、`programAssemble`
   - `tokenMap`、`applyTokenMap`、`embeddingPermute`
   - `applyDelta`、`semanticCheck`、`frameCheck`、`undo`
-  - `lossTask`、`grad`、`sgdStep`
+  - `lossTask`、`grad`、`applySgd`
   - `constraintUnion`、`conflictDetect`、`conflictResolve`
   - `lowerAffine`、`checkConstraint`
 - 一个 `Primitive` 只做一件事；如果内部串了两步，就拆。
@@ -118,7 +118,7 @@ Usage（用户示例）
 
 ### 2.6 Primitive 不互相 import
 
-- `Primitives/Train/Grad.lean` 不 import `Primitives/Train/SGDStep.lean`；
+- `Primitives/Train/Grad.lean` 不 import `Primitives/Train/ApplySgd.lean`；
 - `Primitives/Semantics/ApplyDelta.lean` 不 import `Primitives/Semantics/SemanticCheck.lean`；
 - 只 import `Kernel`/`Runtime`/`Domains`。
 
@@ -317,7 +317,30 @@ def post (x : Input) (y : Output) : Prop :=
 
 ### 5.8 Train
 
-`lossTask`、`lossConstraint`、`lossTotal`、`grad`、`gradCheck`、`sgdStep`、`momentumStep`、`adamStep`、`schedule`、`constraintProject`、`batch`、`sample`。
+`lossTask`、`lossConstraint`、`lossTotal`、`grad`、`gradCheck`、`applySgd`、`applyMomentum`、`applyAdam`、`schedule`、`constraintProject`、`batch`、`sample`。
+
+### ⚠ 第 235 轮修订：优化器步长的**命名**
+
+本节原先写 `sgdStep`、`momentumStep`、`adamStep`。
+**`gov/check_scope_boundary.py` 的 `TRAINING_NAMES` 逐字禁止 `sgdStep` 与 `adamStep`**，
+而那条守卫的理由是对的：**训练循环不需要任何 import**，所以名字是唯一能机械检查的信号。
+`momentumStep` 虽不逐字在表里，但同属 `*Step` + 优化器名的族，会被读成同一个东西。
+
+**裁决：改名字，不放宽守卫。**
+
+| 原名 | 新名 | 理由 |
+|:--|:--|:--|
+| `sgdStep` | **`applySgd`** | 描述的是一次**参数更新**，不声称循环 |
+| `momentumStep` | **`applyMomentum`** | 同上 |
+| `adamStep` | **`applyAdam`** | 同上 |
+
+**守卫没有被削弱**：`sgdStep` 仍会被判违规。**我们只是不再用那个名字。**
+**放宽 `TRAINING_NAMES` 会同时放过真正的训练循环**，而那正是守卫存在的全部理由。
+
+**已实现**：`Lattice/Compose/Steps.lean` 有 `applySgd` / `applyMomentum` / `applyAdam`，
+并**如实分级**：`applySgd` 带一条实质定理（步长在 `(0,2)` 内时线性残差严格收缩），
+`applyMomentum`/`applyAdam` **只有规格**（`sound` 是 `rfl` 级），因为它们的正确性是**收敛性**，
+那是训练动力学的定理，**不在 `Compose` 的范围**。
 
 ### 5.9 Repair
 

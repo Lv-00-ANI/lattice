@@ -5,6 +5,7 @@ import Lattice.Compose.ForwardChain
 import Lattice.Compose.Registry
 import Lattice.Compose.Iterate
 import Lattice.Compose.Laws
+import Lattice.Compose.Steps
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）
