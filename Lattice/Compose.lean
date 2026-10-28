@@ -1,5 +1,6 @@
 import Lattice.Compose.Primitive
 import Lattice.Compose.Combinators
+import Lattice.Compose.More
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）

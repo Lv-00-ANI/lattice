@@ -15,78 +15,79 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5471 | 64.2% |
-| 1 | 1348 | 15.8% |
-| 2 | 865 | 10.1% |
-| 3 | 727 | 8.5% |
-| 4 | 107 | 1.3% |
-| 5 | 8 | 0.1% |
-| **合计** | **8526** | |
+| 0 | 5471 | 64.1% |
+| 1 | 1349 | 15.8% |
+| 2 | 697 | 8.2% |
+| 3 | 512 | 6.0% |
+| 4 | 438 | 5.1% |
+| 5 | 61 | 0.7% |
+| 6 | 2 | 0.0% |
+| **合计** | **8530** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 5 | `compose_sound` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_strength` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_coverage` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_run_assoc` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `identity_compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `Primitive.withCoverage_sound` (`Compose/Primitive.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `fullRegistry_wellFormed` (`Slots.lean`) | Audit, Core, Geo, Lib, Lift |
-| 4 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift |
-| 4 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift |
-| 4 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift |
-| 4 | `commutativeBlock_trivial` (`Audit/PredicateWitnesses.lean`) | Core, Geo, Lib, Lift |
-| 4 | `census_length` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
-| 4 | `repair_is_densest` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
-| 4 | `total_obligations` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
-| 4 | `no_zero_obligation_structure` (`Audit/StructureCensus.lean`) | Core, Geo, Lib, Lift |
-| 4 | `compose_act` (`Core/VariableNet.lean`) | Geo, Lib, Lift, root |
-| 4 | `eqConstraint_loss_le_sq_of_resid_le` (`Geo/ApproxEmbedding.lean`) | Core, Lib, Lift, Semantics |
-| 4 | `codegenLadder_forward` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `codegenLadder_satW_iff` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `codegenLadder_l2l3_changes_representation` (`Geo/CodegenLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `eqConstraintListTokenizer_two` (`Geo/EqConstraintListTokens.lean`) | Audit, Core, Lib, Lift |
-| 4 | `eqConstraintTokenizer_nontrivial` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift |
-| 4 | `eqConstraintTokenizer_roundtrip` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift |
-| 4 | `eqConstraintTokenizer_roundtrip_expr` (`Geo/EqConstraintTokens.lean`) | Audit, Core, Lib, Lift |
-| 4 | `geoLadder_forward` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `ladder_crosses_geo_layer` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `l1l2_is_real_tokenizer` (`Geo/GeoLadder.lean`) | Audit, Core, Lib, Lift |
-| 4 | `linearLadder_l1l2_roundtrip` (`Geo/LadderInstance.lean`) | Audit, Core, Lib, Lift |
-| 4 | `loss_le_sq_of_resid_le` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics |
-| 4 | `partial_reinject_bound` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics |
-| 4 | `exact_is_zero` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics |
-| 4 | `error_to_penalty` (`Geo/PartialReinjection.lean`) | Core, Lib, Lift, Semantics |
-| 4 | `structural_loss_propagates_but_symbol_layer_is_lossless` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift |
-| 4 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift |
-| 4 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift |
-| 4 | `e2e_L1L2_is_lossless` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift |
-| 4 | `recover_readback` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift |
-| 4 | `recover_is_load_bearing` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift |
-| 4 | `d41_e2e_length_conservation` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift |
-| 4 | `d41_e2e_length_conservation_is_ts_only` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift |
-| 4 | `d41_e2e_neurons_bounded_by_data` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift |
-| 4 | `d41_two_scale_loss_coexist` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift |
-| 4 | `d41_loss_locality` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift |
-| 4 | `e2e_loss_strictly_compounds` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
-| 4 | `e2e_L1L2_cannot_absorb_L2L3_loss` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
-| 4 | `e2e_sameLayer_comp_is_wellTyped` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift |
-| 4 | `chainLift_two` (`Lib/Chain/RealGaloisChainLift.lean`) | Core, Geo, Lift, root |
-| 4 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift |
-| 4 | `run_append` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_correct` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_correct_empty` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift |
-| 4 | `run_append` (`Lib/Compiler/RealConcurrentSemantics.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_program_go_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
-| 4 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift |
+| 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_program_go_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_program_go_contains` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_program_contains_compiled_constraints` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_program_vars_subset` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_append_satisfiable` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_preserves_satisfiability` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `compile_preserves_satisfiability_hypothesis_unused` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `preservation` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `type_soundness` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `type_preservation_add` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `multistep_preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `soundness` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Core, Geo, Lift, Semantics, root |
+| 5 | `edit_frame` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_member` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `edit_frame_holds` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `edit_realizes` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `annotation_realizes` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `edit_undo_restores_removed` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `edit_undo_drops_add` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_samePoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_midpoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compile_sound` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compile_sound_midpoint` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_of_sublist` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merged_sublist` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_flatMap_experts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_parts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_sound` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `rejected_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `conflict_loser_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `conflicts_not_automatic` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_sound_cons` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_sound_append_experts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_sound_add_global` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `merge_sound_not_composable` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `holdsSet_meaning_equiv` (`Semantics/Stage1.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

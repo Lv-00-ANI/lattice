@@ -119,6 +119,19 @@ def Coverage.inter : Coverage → Coverage → Coverage
   | a, none => a
   | some a, some b => some (a ∩ b)
 
+/-- **覆盖取并**：`choice` 用。
+
+`none`（不限制）与任何集合取并仍是 `none`——**不限制吸收一切**。这与 `inter` 里 `none` 是单位元
+是对偶的两条。 -/
+def Coverage.union : Coverage → Coverage → Coverage
+  | none, _ => none
+  | _, none => none
+  | some a, some b => some (a ∪ b)
+
+/-- **`none` 是左零元**（取并）。 -/
+theorem Coverage.union_none_left (b : Coverage) : Coverage.union none b = none := by
+  cases b <;> rfl
+
 /-- **`none` 是左单位**。 -/
 theorem Coverage.inter_none_left (b : Coverage) : Coverage.inter none b = b := by
   cases b <;> rfl
