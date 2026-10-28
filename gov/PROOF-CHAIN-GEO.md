@@ -31,7 +31,7 @@
 | `Lattice.Domains.Dist` | 129 | 8 | Expr |
 | `Lattice.Domains.DistContinuous` | 53 | 2 | Dist |
 | `Lattice.Domains.DistLipschitz` | 151 | 3 | Lipschitz, Dist |
-| `Lattice.Domains.Engine` | 147 | 6 | Constraint |
+| `Lattice.Domains.Engine` | 290 | 14 | Constraint |
 | `Lattice.Domains.EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
 | `Lattice.Domains.EqConstraintToken` | 275 | 8 | RealTokenRoundtrip, Loss |
 | `Lattice.Domains.EqConstraintTokenizer` | 211 | 4 | ConstraintTokenizer, Loss |

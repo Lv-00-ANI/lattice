@@ -143,4 +143,147 @@ theorem derivation_sound (rules : List (Rule n)) (G : GeoConstraintSet n)
     exact hG c hin
   · exact step_sound rules G c hrule
 
+/-! ## 七、可导性：**按步数索引的闭包**，而不是一张平铺的清单
+
+### 为什么 `derivation_sound` 不够
+
+前提形状是 `∀ d ∈ r.prems, EntailsGeo G d`——**前提必须由 `G` 本身蕴含**。
+于是推导里**更早的结论不能当作后来的前提**：`steps` 只是一张清单，条目互不相干。
+**那不是推导，是「一批各自成立的结论」。**
+
+### 三次失败，都是 Lean 的正确拒绝
+
+1. 递归出现放进 `∃ r ∈ rules, … ∀ d, Derivable …` ⟹ **`invalid nested inductive datatype 'Exists'`**；
+2. 改互归纳，用 `induction` ⟹ **`'induction' tactic does not support mutual inductives`**；
+3. 改互归纳 + 方程形式 ⟹ **`fail to show termination`**（递归调用的结构参数在另一个归纳类型上）。
+
+**最终形态**：不用归纳类型，用**按步数索引的谓词**。
+
+```lean
+def DerivableIn (rules) (G) : ℕ → GeoConstraint n → Prop
+  | 0,     c => EntailsGeo G c
+  | k + 1, c => EntailsGeo G c ∨ ∃ r ∈ rules, c = r.concl ∧ ∀ d ∈ r.prems, DerivableIn rules G k d
+```
+
+这是**在 `ℕ` 上的结构递归**：没有嵌套、没有互归纳、终止性平凡。
+「可导」定义为 `∃ k, DerivableIn rules G k c`。
+
+**关键**：`rule` 那一支的前提是 `DerivableIn rules G k d`（**有预算的可导性**），不是 `EntailsGeo`。
+所以「`d` 先被推出，再把 `d` 当作前提」是**可表达**的——**这就是链式**。
+
+### 交付
+
+| 定理 | 内容 |
+|:--|:--|
+| `derivableIn_mono` | 预算单调：`k` 步可导 ⟹ `k+j` 步可导 |
+| `derivableIn_of_entails` | 蕴含 ⟹ 任意预算可导 |
+| **`derivableIn_sound`** | **`k` 步可导 ⟹ 语义蕴含**（归纳在 `k` 上） |
+| `derivable_sound` | `∃ k` 版本 |
+| **`derivable_of_flat`** | **平铺清单能推的，闭包都能推** |
+| **`derivable_two_step`** | **链式两步**——旧陈述表达不了 | -/
+
+/-- **`k` 步可导**。第 `0` 步只有假设；第 `k+1` 步要么仍由假设蕴含，要么由一条前提**都 `k` 步可导**的规则得出。 -/
+def DerivableIn (rules : List (Rule n)) (G : GeoConstraintSet n) :
+    ℕ → GeoConstraint n → Prop
+  | 0, c => EntailsGeo G c
+  | k + 1, c =>
+      EntailsGeo G c ∨
+        ∃ r ∈ rules, c = r.concl ∧ ∀ d ∈ r.prems, DerivableIn rules G k d
+
+/-- **可导**：存在某个步数界。 -/
+def Derivable (rules : List (Rule n)) (G : GeoConstraintSet n) (c : GeoConstraint n) : Prop :=
+  ∃ k, DerivableIn rules G k c
+
+/-- **预算单调**：多给预算不会减少可导性。 -/
+theorem derivableIn_mono {rules : List (Rule n)} {G : GeoConstraintSet n} :
+    ∀ (k : ℕ) {c : GeoConstraint n}, DerivableIn rules G k c →
+      ∀ j : ℕ, DerivableIn rules G (k + j) c
+  | 0, c, h, j => by
+      -- `h : EntailsGeo G c`; any budget keeps it
+      induction j with
+      | zero => simpa using h
+      | succ j ih => exact Or.inl h
+  | k + 1, c, h, j => by
+      induction j with
+      | zero => simpa using h
+      | succ j ih =>
+          rcases h with hE | ⟨r, hr, hc, hpre⟩
+          · exact Or.inl hE
+          · refine Or.inr ⟨r, hr, hc, fun d hd => ?_⟩
+            -- each premise gets `k + j` budget, which is what the IH's shape provides at `k+j`
+            -- at budget k + j + 2 the rule branch needs premises at k + j + 1;
+            -- the two additions are equal but not syntactically, so normalise
+            have h' : DerivableIn rules G (k + (j + 1)) d := derivableIn_mono k (hpre d hd) (j + 1)
+            simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using h'
+
+/-- **蕴含 ⟹ 任意预算可导。** -/
+theorem derivableIn_of_entails {rules : List (Rule n)} {G : GeoConstraintSet n}
+    {c : GeoConstraint n} (h : EntailsGeo G c) (k : ℕ) : DerivableIn rules G k c := by
+  cases k with
+  | zero => exact h
+  | succ k => exact Or.inl h
+
+/-- ⭐⭐ **`k` 步可导 ⟹ 语义蕴含**。归纳在 `k` 上。
+
+`k+1` 的两支：`EntailsGeo` 直接给出；规则那一支对每个前提用 **`k` 的归纳假设**拿到
+`EntailsGeo G d`，再由 `rule_entails` 收尾。**这一步就是「链式仍然保真」。** -/
+theorem derivableIn_sound {rules : List (Rule n)} {G : GeoConstraintSet n} :
+    ∀ (k : ℕ) {c : GeoConstraint n}, DerivableIn rules G k c → EntailsGeo G c
+  | 0, c, h => h
+  | k + 1, c, h => by
+      rcases h with hE | ⟨r, hr, hc, hpre⟩
+      · exact hE
+      · subst hc
+        exact rule_entails r G (fun d hd => derivableIn_sound k (hpre d hd))
+
+/-- ⭐⭐ **可导 ⟹ 语义蕴含**。 -/
+theorem derivable_sound {rules : List (Rule n)} {G : GeoConstraintSet n}
+    {c : GeoConstraint n} (h : Derivable rules G c) : EntailsGeo G c := by
+  obtain ⟨k, hk⟩ := h
+  exact derivableIn_sound k hk
+
+/-- **假设可导**（零预算）。 -/
+theorem derivable_of_mem {rules : List (Rule n)} {G : GeoConstraintSet n}
+    {c : GeoConstraint n} (h : c ∈ G) : Derivable rules G c :=
+  ⟨0, fun _pts hG => hG c h⟩
+
+/-- **蕴含可导**（零预算）。 -/
+theorem derivable_of_entails {rules : List (Rule n)} {G : GeoConstraintSet n}
+    {c : GeoConstraint n} (h : EntailsGeo G c) : Derivable rules G c :=
+  ⟨0, h⟩
+
+/-- **旧陈述是特例**：平铺清单能推的，闭包都能推。所以新定义**包含**旧陈述的表达力。 -/
+theorem derivable_of_flat {rules : List (Rule n)} {G : GeoConstraintSet n}
+    (steps : List (GeoConstraint n))
+    (hstep : ∀ c ∈ steps,
+      (c ∈ G) ∨ (∃ r ∈ rules, c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d)) :
+    ∀ c ∈ steps, Derivable rules G c := by
+  intro c hc
+  rcases hstep c hc with hin | ⟨r, hr, hconcl, hpre⟩
+  · exact derivable_of_mem hin
+  · refine ⟨1, Or.inr ⟨r, hr, hconcl, fun d hd => ?_⟩⟩
+    exact derivableIn_of_entails (hpre d hd) 0
+
+/-- ⭐⭐ **链式推理：两步**——强化**多出来的**内容，而且可证。
+
+`r₁` 从 `G` 蕴含的前提推出 `c₁`（预算 1）；`r₂` 用 **`c₁` 作为前提之一**、其余前提由 `G` 蕴含，
+推出 `c₂`（预算 2）。**平铺形状表达不了这一步**：它要求每个前提 `EntailsGeo G d`，
+而 `c₁` 只是**被推出**。 -/
+theorem derivable_two_step {rules : List (Rule n)} {G : GeoConstraintSet n}
+    {c₁ c₂ : GeoConstraint n}
+    (h₁ : ∃ r ∈ rules, c₁ = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d)
+    (h₂ : ∃ r ∈ rules, c₂ = r.concl ∧ c₁ ∈ r.prems ∧
+            ∀ d ∈ r.prems, d ≠ c₁ → EntailsGeo G d) :
+    Derivable rules G c₂ := by
+  obtain ⟨r₁, hr₁, hc₁, hpre₁⟩ := h₁
+  obtain ⟨r₂, hr₂, hconcl₂, hc₁mem, hother⟩ := h₂
+  -- `c₁` is derivable in one step
+  have hc₁₁ : DerivableIn rules G 1 c₁ :=
+    Or.inr ⟨r₁, hr₁, hc₁, fun d hd => derivableIn_of_entails (hpre₁ d hd) 0⟩
+  -- `c₂` in two: premise `c₁` at budget 1, the rest at budget 0 (lifted by monotonicity)
+  refine ⟨2, Or.inr ⟨r₂, hr₂, hconcl₂, fun d hd => ?_⟩⟩
+  by_cases hdc : d = c₁
+  · subst hdc; exact hc₁₁
+  · exact derivableIn_of_entails (hother d hd hdc) 1
+
 end Lattice.Geo

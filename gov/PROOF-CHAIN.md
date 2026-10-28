@@ -1541,7 +1541,7 @@
 | `Lattice.Domains.Geometry.ConstraintDescent` | 17 | 8 |
 | `Lattice.Domains.Geometry.Derivative` | 3 | 1 |
 | `Lattice.Domains.Geometry.Derive` | 2 | 2 |
-| `Lattice.Domains.Geometry.Engine` | 6 | 5 |
+| `Lattice.Domains.Geometry.Engine` | 14 | 7 |
 | `Lattice.Domains.Geometry.EqualLengthRepair` | 3 | 1 |
 | `Lattice.Domains.Geometry.Exact` | 4 | 0 |
 | `Lattice.Domains.Geometry.Exec` | 6 | 4 |
@@ -3569,7 +3569,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `deriv_quadForm_two_snd` -> `add`, `second_order_necessary`
 - `deriv_relu_sq_gt` -> `apply`, `relu`
 - `deriv_sq_linear` -> `apply`
-- `derivation_sound` -> `GeoConstraint`
+- `derivableIn_mono` -> `GeoConstraint`, `induction`, `subst`, `zero`
+- `derivableIn_of_entails` -> `GeoConstraint`, `subst`, `zero`
+- `derivableIn_sound` -> `GeoConstraint`, `subst`
+- `derivable_of_entails` -> `GeoConstraint`, `subst`
+- `derivable_of_flat` -> `GeoConstraint`, `subst`
+- `derivable_of_mem` -> `GeoConstraint`, `subst`
+- `derivable_sound` -> `GeoConstraint`, `subst`
+- `derivable_two_step` -> `GeoConstraint`, `subst`
+- `derivation_sound` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `descentStep_sound` -> `GeoConstraint`, `Holds`, `Pt`, `constraint_satisfied_after_one_step`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `run`, `shiftLayer`, `sound`, `step`
 - `descent_direction_exists` -> `comp`, `const_add`
 - `destructiveFix_atomic` -> `Audit`, `Sat`, `subst`
@@ -4021,8 +4029,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entailmentSet_eq_closure` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `constraint_entailment_closure`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailmentSet_scaled_eq` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailment_closure_idempotent` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
-- `entailsGeo_mono` -> `GeoConstraint`, `Holds`, `Pt`, `sound`, `subst`
-- `entailsGeo_refl` -> `GeoConstraint`, `Holds`, `Pt`, `sound`, `subst`
+- `entailsGeo_mono` -> `GeoConstraint`, `Holds`, `Pt`, `induction`, `sound`, `subst`, `zero`
+- `entailsGeo_refl` -> `GeoConstraint`, `Holds`, `Pt`, `induction`, `sound`, `subst`, `zero`
 - `entails_cons` -> `Constraint`, `Point`
 - `entails_mono` -> `Constraint`, `Point`
 - `entails_nil` -> `bvar`, `induction`
@@ -6471,7 +6479,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_positive_uniform_bound_at_zero_map` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `no_quality_loss` -> `min`
 - `no_redundant_hypotheses` -> `Audit`, `length`
-- `no_rules_no_steps` -> `GeoConstraint`
+- `no_rules_no_steps` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `no_saddle_in_convex` -> `comp`, `const_add`
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `no_stuck_well_typed_literals` -> `Compiler`, `Step`
@@ -7869,7 +7877,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rt_fixedPoints_eq_univ` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
 - `rt_funext` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
 - `rt_isClosureOp` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
-- `rule_entails` -> `GeoConstraint`, `sound`, `subst`
+- `rule_entails` -> `GeoConstraint`, `induction`, `sound`, `subst`, `zero`
 - `runChainStr_eq` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `runProg_append` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `edit_seq_comm`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `subst`
@@ -8556,7 +8564,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_redU` -> `Compiler`, `Term`, `app_r`
 - `step_redV` -> `Compiler`, `Term`, `app_r`
 - `step_residual` -> `Repair`, `Sat`, `dot`, `iterate`, `progress`, `residual`, `step`
-- `step_sound` -> `GeoConstraint`, `subst`
+- `step_sound` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `step_zero` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
 - `stmt_compiled_edge_correct_constraint` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
 - `stmt_compiled_edge_correct_normalize` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
