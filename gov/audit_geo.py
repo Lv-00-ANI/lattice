@@ -22,7 +22,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
 GEO = os.path.join(ZERO, "Lattice", "Geo")
 
-IMPORT = re.compile(r"^import\s+(Zero\.Geo\.\S+)", re.M)
+# Round 242. This matched `Zero.Geo.`, the OLD library's module prefix. Measured on the current tree:
+# **183** `import Lattice.Geo.*` and **0** `import Zero.Geo.*` -- so the regex matched nothing, the
+# graph was empty, every downstream finding (cycles, topological layers, upward edges) was vacuous,
+# and because it is registered as a GATING check (it is not in REPORT_ONLY) it was a gate that could
+# never fail. The project's own rule, from `check_selftest_coverage.py`: "a check which cannot
+# demonstrate its own failure is indistinguishable from a check that passes."
+#
+# It now matches the prefix the tree actually uses. Both are still accepted, so the file keeps
+# working if the old prefix ever reappears in a vendored fragment.
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.Geo\.(\S+)", re.M)
 DECL = re.compile(r"^(?:noncomputable\s+|private\s+|protected\s+|@\[[^\]]*\]\s*)*"
                   r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
                   r"([A-Za-z0-9_']+)", re.M)
@@ -32,7 +41,57 @@ def mod_of(f):
     return "Lattice.Geo." + f[:-5]
 
 
+WHITE, GREY, BLACK = 0, 1, 2
+
+
+def find_cycles(deps):
+    """Every cycle in `deps`, as a node list. Empty means the graph is acyclic.
+
+    Round 242. This was inline in `main`, which **always returned 0** and had no `--self-test`, so the
+    gate could not fail -- and for its entire life it was fed an EMPTY graph (the import regex matched
+    `Zero.Geo.`, the old library's prefix). Extracted so a self-test can exercise it on synthetic data
+    without touching the tree.
+    """
+    color = {m: WHITE for m in deps}
+    cycles = []
+
+    def dfs(u, stack):
+        color[u] = GREY
+        for v in deps.get(u, []):
+            if v not in color:
+                continue
+            if color[v] == GREY:
+                cycles.append(stack + [u, v])
+            elif color[v] == WHITE:
+                dfs(v, stack + [u])
+        color[u] = BLACK
+
+    sys.setrecursionlimit(10000)
+    for m in sorted(deps):
+        if color[m] == WHITE:
+            dfs(m, [])
+    return cycles
+
+
+def self_test():
+    """The detector must find a planted cycle and must not invent one in an acyclic graph."""
+    cyc = find_cycles({"A": ["B"], "B": ["A"]})
+    if not cyc:
+        print("SELF-TEST FAIL: a 2-cycle was NOT detected")
+        return 1
+    self_loop = find_cycles({"A": ["A"]})
+    if not self_loop:
+        print("SELF-TEST FAIL: a self-loop was NOT detected")
+        return 1
+    if find_cycles({"A": ["B"], "B": [], "C": ["A"]}):
+        print("SELF-TEST FAIL: an acyclic graph was reported as cyclic")
+        return 1
+    print("SELF-TEST PASS: detects 2-cycles and self-loops, and leaves a DAG alone")
+    return 0
+
+
 def main():
+    problems = 0
     files = sorted(f for f in os.listdir(GEO) if f.endswith(".lean"))
     deps = {}
     decls = {}
@@ -54,28 +113,11 @@ def main():
     print("=" * 72)
     print("2. 环检测")
     print("=" * 72)
-    WHITE, GREY, BLACK = 0, 1, 2
-    color = {m: WHITE for m in deps}
-    cycles = []
-
-    def dfs(u, stack):
-        color[u] = GREY
-        for v in deps.get(u, []):
-            if v not in color:
-                continue
-            if color[v] == GREY:
-                cycles.append(stack + [u, v])
-            elif color[v] == WHITE:
-                dfs(v, stack + [u])
-        color[u] = BLACK
-
-    sys.setrecursionlimit(10000)
-    for m in deps:
-        if color[m] == WHITE:
-            dfs(m, [])
+    cycles = find_cycles(deps)
     if cycles:
         for c in cycles:
             print("  环:", " -> ".join(x.replace("Lattice.Geo.", "") for x in c))
+        problems += len(cycles)
     else:
         print("  无环，依赖严格向下")
 
@@ -153,8 +195,13 @@ def main():
         flag = "  ** 超预算 **" if n > 500 else ""
         print("  %-26s %4d 行%s" % (f, n, flag))
     print("  %-26s %4d 行" % ("合计", total))
+    if problems:
+        print("\nGEO AUDIT: %d problem(s)" % problems)
+        return 1
     return 0
 
 
 if __name__ == "__main__":
+    if "--self-test" in sys.argv:
+        sys.exit(self_test())
     sys.exit(main())

@@ -54,8 +54,8 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1258 | 15.0% |
-| **入度 ≥ 1（承重集）** | **872** | **780** | **89.4%** |
+| 定理 + 引理 | 8409 | 1242 | 14.8% |
+| **入度 ≥ 1（承重集）** | **872** | **764** | **87.6%** |
 | **入度 = 0** | **7537** | **478** | **6.3%** |
 
 **两个方向都要读；只读一个是误导。**
@@ -155,7 +155,6 @@
 | `Lib/Optim/RealSGDStochastic.lean:202` | `sgd_expected_gap_sum_seq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
-| `Lift/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
 | `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
@@ -172,6 +171,7 @@
 | `Lib/Optim/RealFedAvg.lean:208` | `fedAvg_rate` | 0 | 强度够（对唯一用户足够） |
 | `Lib/Quantization/RealIEEE754/Basic.lean:173` | `ieee_relative_error_bound` | 0 | 强度够（对唯一用户足够） |
 | `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 0 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
+| `Runtime/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 0 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
 | `Runtime/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 0 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
 | `Runtime/RealTokenSymbolLink.lean:306` | `decode_drops_trailing_partial` | 0 | A: 需要更强:把单点见证换成一般命题,否则 doc 的一般结论无机器依据 |
 | `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 0 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |

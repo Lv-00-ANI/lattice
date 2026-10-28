@@ -87,6 +87,11 @@ CHECKS = [
     ("audit: duplicates", "audit_duplicates.py"),
     ("audit: bodies", "audit_bodies.py"),
     ("audit: geo structure", "audit_geo.py"),
+    # Round 242. `audit_geo.py` matched `Zero.Geo.` (the OLD library prefix) for its whole life,
+    # so its graph was empty and every finding was vacuous while it sat here as a GATING check.
+    # It now has a real `--self-test`; running it is the difference between "has a self-test" and
+    # "the self-test is known to work".
+    ("audit: geo self-test", "audit_geo.py --self-test"),
     ("audit: docs vs code", "audit_docs.py"),
     ("audit: reachable", "audit_reach.py"),
     ("audit: claims", "audit_claims.py"),

@@ -60,9 +60,6 @@ EXEMPT = {
         "tree moves. Planting a defect would mean mutating the tree it measures.",
     "gen_objective_audit.py":
         "same shape as gen_objective_map.py: `--check` compares its output against a fresh run.",
-    "audit_geo.py":
-        "covered by `audit_tables_reactivity.py` for the table half; the geometry walk is a pure "
-        "enumeration whose failure mode is an empty result, which `gen_lib_structure.py` reports.",
     "escape_baseline.py":
         "a baseline comparison: it fails when the tree's escape count differs from the recorded "
         "baseline, which is already the defect it looks for.",
