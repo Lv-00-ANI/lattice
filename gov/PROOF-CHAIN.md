@@ -15,7 +15,7 @@
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 17 | aggregator at `Lattice/`, re-exports only |
+| root | 18 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -824,8 +824,9 @@
 - `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
+- `Lattice.Compose.ForwardChain` <- `Lattice.Geo.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
@@ -885,7 +886,7 @@
 | `Lattice.Geo.ComputableExpr` | 12 | 5 |
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
-| `Lattice.Geo.ConstraintDescent` | 19 | 8 |
+| `Lattice.Geo.ConstraintDescent` | 17 | 8 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |
 | `Lattice.Geo.ConstraintTokenizer` | 17 | 9 |
 | `Lattice.Geo.Derivative` | 3 | 1 |
@@ -1651,6 +1652,7 @@
 | `Lattice.Audit` | 0 | 0 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 6 | 2 |
+| `Lattice.Compose.ForwardChain` | 3 | 1 |
 | `Lattice.Compose.More` | 3 | 1 |
 | `Lattice.Compose.Primitive` | 7 | 8 |
 | `Lattice.Core` | 0 | 0 |
@@ -3540,6 +3542,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `deriv_relu_sq_gt` -> `apply`, `relu`
 - `deriv_sq_linear` -> `apply`
 - `derivation_sound` -> `GeoConstraint`
+- `descentStep_sound` -> `GeoConstraint`, `Holds`, `Pt`, `constraint_satisfied_after_one_step`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `run`, `shiftLayer`, `sound`, `step`
 - `descent_direction_exists` -> `comp`, `const_add`
 - `destructiveFix_atomic` -> `Audit`, `Sat`, `subst`
 - `destructiveFix_decreases` -> `Audit`, `Sat`, `subst`
@@ -4585,8 +4588,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `format_mul_error` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `format_round_idempotent` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `forwardSim_preorder` -> `induction`
-- `forward_chain_at_solution` -> `Pt`, `netLoss`
-- `forward_chain_capstone` -> `GeoConstraint`, `Holds`, `Pt`, `netAct`, `netLoss`
+- `forward_chain_at_solution` -> `Pt`, `linearConstraint`, `netLoss`, `netLoss_shiftLayer`, `netLoss_step_half`, `shiftLayer`, `step`
+- `forward_chain_capstone` -> `GeoConstraint`, `Holds`, `Pt`, `constraint_satisfied_after_one_step`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `run`, `shiftLayer`, `step`
 - `forward_not_backward` -> `Compiler`, `ForwardSim`
 - `fp16Sat_abs_le` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `fpOverflow`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`
 - `fp16Sat_eq_self` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `fpOverflow`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`

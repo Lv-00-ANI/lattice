@@ -93,7 +93,57 @@ ConstraintDescent.lean:
 | (a) 三者合并成一个 primitive（`lossAndDescent`） | 违背「一个 primitive 只做一件事」 |
 | (b) capstone 搬到 `Compose` | 正确，但 `Compose` 需要 `Primitives/Train` 的两个 primitive 加一个适配器——**而 capstone 的陈述会变**（它现在是「一步梯度步使约束成立」，搬到 `Compose` 后要写成组合的 `post`） |
 
-**(b) 与设计一致，但它意味着 capstone 的陈述**要重写**，不是搬文件。**
+### 裁决（第 228 轮）：取 **(b)** —— capstone 搬到 `Compose` 并重写陈述
+
+**已落地**：`Lattice/Compose/ForwardChain.lean`。
+
+| 声明 | 内容 |
+|:--|:--|
+| **`trainStep c pts : Primitive`** | 一步梯度下降作为一个契约实例：`pre` = 「约束尚未满足」（`β + c ≠ 0`），`post` = 损失严格下降 ∧ 归零 |
+| `trainStep_sound` | 它的 `sound` |
+| **`forward_chain_capstone`** | **四环**：严格下降、归零、约束成立、零损失 ⟺ 成立 |
+| `forward_chain_at_solution` | 已满足时一步不改变损失（保守性） |
+
+**陈述确实变了，这是裁决的一部分**：`Geo` 里那条是**孤立定理**，`compose`/`parallel`/`Matrix` 都用不上；
+`Compose` 版本把它做成 `Primitive`，**`post` 是结构字段，因而可被组合**。
+第 220 轮「四环写进一条陈述」的价值保留，同时获得**可组合性**。
+
+**`Geo/ConstraintDescent.lean` 的那两条已删除**（裁决是「搬」，不是「复制」）。
+### ⚠ 第 228 轮新增：**第五个矛盾** —— §5.8 的 primitive 名字会撞上定位守卫
+
+`Compose/ForwardChain.lean` 的第一版把那个一步下降的 `Primitive` 命名为 `trainStep`。
+**`gov/check_scope_boundary.py` 立刻失败**：
+
+```
+Compose/ForwardChain.lean  L67  trainStep  training-loop name
+SCOPE BOUNDARY: 1 executable-framework marker(s)
+```
+
+那条守卫的 `TRAINING_NAMES` 是
+
+```python
+["trainStep", "trainingStep", "trainLoop", "trainingLoop", "sgdStep", "adamStep",
+ "backward", "zeroGrad", "optimizerStep", "fitModel", "trainModel"]
+```
+
+**它的理由写在文件里，而且是对的**：训练循环**不需要任何 import**，所以「按 import 判引擎」抓不到它；
+**名字是唯一的机械信号**。所以把 `trainStep` 判为违规不是误报，**是这条守卫按设计工作**。
+
+**但这把 §5.8 的清单顶住了**：那里把 `sgdStep`、`momentumStep`、`adamStep` 列为 `Primitives/Train` 的成员——
+**其中两个直接在禁止表里，第三个的命名族也在**。**照 §5.8 实现会立刻让定位守卫变红。**
+
+**本轮的处置**：改名为 **`descentStep`**——它是**一步下降**，不是循环，
+`descentStep` 既准确又不在禁表内。**守卫不放宽。**
+
+**需要裁决的问题**：§5.8 要的是「优化器步长」这类基础调用，
+而守卫要的是「不实现训练框架」。**两者并不冲突**——冲突在**命名**上。
+建议把 §5.8 的 `sgdStep`/`momentumStep`/`adamStep` 改成不含 `Step`+优化器名的形式
+（例如 `applySgd`/`applyMomentum`/`applyAdam`），**而不是**放宽 `TRAINING_NAMES`：
+后者会同时放过真正的训练循环。
+
+
+留下的是两条**损失层事实**：`netLoss_pos_of_ne`、`netLoss_zero_iff_holds`——它们不涉及 `Primitive`，
+而 `Compose` 之上的任何东西都需要它们。
 
 ## 4. 矛盾四：§11.2 的「`Kernel/Types` 先 `abbrev` 指向现有类型」只能做到一部分
 

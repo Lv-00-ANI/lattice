@@ -110,6 +110,14 @@
 
 **这是当前最大的单点缺口**，也是最便宜的一个：四块都在，缺的是一块**把链写进陈述**的 capstone。
 
+### 第 220 → 228 轮的后续
+
+第 220 轮补了 `forward_chain_capstone`（四环一条陈述）。**第 228 轮它搬到了
+`Lattice/Compose/ForwardChain.lean` 并重写成 `Primitive` 形式**（裁决见
+[`DIRECTORY-MIGRATION.md`](DIRECTORY-MIGRATION.md) §3）：
+`Geo` 里那条是孤立定理，而新版本是 `trainStep : Primitive`，其 `post` 是结构字段，
+**因此可以被 `compose`/`parallel`/`Matrix` 消费**。四环内容未减，**可组合性是新得的**。
+
 ## 6. 债务总量（实测）
 
 | 账 | 数量 | 已偿 |

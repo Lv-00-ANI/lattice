@@ -19,10 +19,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 1 | 1349 | 15.8% |
 | 2 | 697 | 8.2% |
 | 3 | 512 | 6.0% |
-| 4 | 438 | 5.1% |
-| 5 | 61 | 0.7% |
+| 4 | 436 | 5.1% |
+| 5 | 64 | 0.8% |
 | 6 | 2 | 0.0% |
-| **合计** | **8530** | |
+| **合计** | **8531** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -36,6 +36,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `compose_run_assoc` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `identity_compose_run` (`Compose/Combinators.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
@@ -85,9 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `conflicts_not_automatic` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `merge_sound_cons` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `merge_sound_append_experts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_sound_add_global` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_sound_not_composable` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_meaning_equiv` (`Semantics/Stage1.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
