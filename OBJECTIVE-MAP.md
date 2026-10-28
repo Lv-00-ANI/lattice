@@ -33,8 +33,8 @@
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Geo/Reinjection.lean` | 2 | 1 | `Geo/ClauseComposition.lean`, `Geo/PartialReinjection.lean` |
 | 3.4 inverse: re-injection | `partial_reinject_bound` | `Geo/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairConvergence.lean` | 7 | 2 | `Audit/Hypotheses.lean`, `Core/OneStepBridge.lean` |
-| 4 loop | `bidirRepair` | `Geo/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
-| 5 symbolic engine | `evalPts` | `Geo/Expr.lean` | 19 | 22 | `Geo/Constraint.lean`, `Geo/ConstraintDescent.lean` |
+| 4 loop | `bidirRepair` | `Domains/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
+| 5 symbolic engine | `evalPts` | `Domains/Expr.lean` | 19 | 22 | `Domains/Lipschitz.lean`, `Geo/Constraint.lean` |
 | 5 symbolic engine | `derivation_sound` | `Geo/Engine.lean` | 1 | 0 | `Geo/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |

@@ -66,7 +66,7 @@ L0→L1 用恒等是**刻意的最小选择**（`Data = List Tok`），不是回
 -/
 import Mathlib
 import Lattice.Runtime.EndToEnd
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 import Lattice.Runtime.L1L2Roundtrip
 
 open scoped BigOperators

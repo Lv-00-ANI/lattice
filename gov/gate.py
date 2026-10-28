@@ -307,6 +307,11 @@ LAYER_OF = {
     "Lattice/Runtime": "runtime",
     "Lattice/Lib": "lib",
     "Lattice/Slots": "slots",
+    # Round 243 (Geo batch B1): `Domains/` per DIRECTORY-DESIGN §3. **Rank 3, the same as `lib`** --
+    # measured transitively in round 242: 80 of the 99 Geo modules reach `Lib`, so a home at rank 3
+    # can host almost all of them. `Kernel` (rank 1) could not, which is why §10's
+    # `Kernel/Constraints` row is blocked.
+    "Lattice/Domains": "domains",
     "Lattice/Geo": "geo",
     # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
     # check_layering skipped it entirely -- 4 modules / 38 theorems with no I4 validation at all.
@@ -337,7 +342,7 @@ def check_layering(rep):
     # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
     # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
     # and `Geo/Unified` rely on).
-    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "lib": 3, "geo": 4, "audit": 5,
+    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "lib": 3, "domains": 3, "geo": 4, "audit": 5,
             "compose": 6, "top": 99}
     for f in lean_files():
         lay = layer_of(f)

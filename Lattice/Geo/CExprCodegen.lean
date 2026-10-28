@@ -41,7 +41,7 @@ theorem toStack_correct (e : CExpr n) (pts : ℕ → Fin n → Float) (seed : Fl
 -/
 import Mathlib
 import Lattice.Runtime.StackCodegen
-import Lattice.Geo.ComputableExpr
+import Lattice.Domains.ComputableExpr
 
 /-! ## Mapping `CExpr` onto the machine -/
 

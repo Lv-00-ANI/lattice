@@ -100,7 +100,7 @@ evalC (toC e) pts ≈ evalPts (mapConst round e) (fun i => pts i)
   **但 `executable_smoke` 是一条定理**，它证明求值返回了预期值。
 -/
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 
 namespace Lattice.Geo
 

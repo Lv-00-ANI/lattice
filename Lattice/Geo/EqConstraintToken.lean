@@ -59,7 +59,7 @@
 - 本节**只做编码与解码**，不涉及语义（`poly`、`loss`）——那些在 `Loss.lean`，且不依赖 token 层。
 -/
 import Mathlib
-import Lattice.Geo.RealTokenRoundtrip
+import Lattice.Domains.RealTokenRoundtrip
 import Lattice.Geo.Loss
 
 open Lattice.Geo

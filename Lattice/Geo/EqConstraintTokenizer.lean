@@ -63,7 +63,7 @@ fillConsts (constsOf e ++ cs) (toSExpr e) = some (e, cs)
 - 本节**不改** `geoLadder`，只提供可用的适配器；把它接进去是下一步。
 -/
 import Mathlib
-import Lattice.Geo.ConstraintTokenizer
+import Lattice.Domains.ConstraintTokenizer
 import Lattice.Geo.Loss
 
 open Lattice.Geo.ConstraintTokenizer

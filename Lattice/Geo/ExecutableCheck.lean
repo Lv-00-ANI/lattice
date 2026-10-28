@@ -65,7 +65,7 @@ approxHolds (tol : Float) (c : GeoConstraint) (pts : ...Float) : Bool
 -/
 import Mathlib
 import Lattice.Geo.Constraint
-import Lattice.Geo.ComputableExpr
+import Lattice.Domains.ComputableExpr
 
 namespace Lattice.Geo
 

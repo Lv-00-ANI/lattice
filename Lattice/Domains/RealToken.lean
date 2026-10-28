@@ -63,7 +63,7 @@
 **前者已完整证明；后者编码器与解码器已就位，缺三个二元分支的往返。**
 -/
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 
 namespace Lattice.Geo
 

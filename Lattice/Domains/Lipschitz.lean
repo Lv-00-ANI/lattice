@@ -57,7 +57,7 @@ rho n k pts pts' = max { |pts p i - pts' p i| : p < k, i < n }
   不约束绝对位置。
 -/
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 
 open scoped BigOperators
 
