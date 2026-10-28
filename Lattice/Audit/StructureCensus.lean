@@ -97,8 +97,8 @@
 - 本节**不**改变任何结构。它是对既有设计的刻画。
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 import Lattice.Lift.EndToEnd
 import Lattice.Core.Repair
 

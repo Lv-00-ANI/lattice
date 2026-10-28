@@ -64,9 +64,8 @@ extract : α × Bool → α      (p, _) ↦ p
   因为它需要先决定「提取」如何处理损失，属后续工作。
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 namespace Lattice.Lift
 
 namespace NonIdentical

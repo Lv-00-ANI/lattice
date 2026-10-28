@@ -1,4 +1,4 @@
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 /-!
 # LATTICE: RealTokenizationEntry —— L0 的【入边】桥（String → List Char）
 

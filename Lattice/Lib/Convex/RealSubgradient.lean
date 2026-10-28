@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lib.Architectures.RealReLUStationarity
 /-!
 # LATTICE: ReLU 次梯度 —— 非光滑驻点的次梯度刻画（§5 约束行「次梯度」）

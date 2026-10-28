@@ -11,14 +11,14 @@
 
 | 条款 | 载体 | 定义于 | 跨文件 | 同文件 | 例 |
 |:--|:--|:--|--:|--:|:--|
-| 1.1 data -> token | `tokenize_detok` | `Lift/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
-| 1.1 data -> token | `CharToken` | `Lift/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
+| 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `SymToken` | `Lift/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
-| 1.2 token -> symbol | `decodePayload` | `Lift/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
+| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Lift/SymbolToWeightCorrectness.lean` | 37 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
 | 1.4 weight -> symbol | `extract` | `Lift/WeightToSymbolEquivalence.lean` | 22 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Lift/PenaltyEmbedding.lean` | 11 | 7 | `Lift.lean`, `Lib/Linear/Multivar.lean` |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Lift.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Lift/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Geo/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
 | 2.3 forward: structured init | `weightLadderN` | `Lift/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
@@ -36,7 +36,7 @@
 | 4 loop | `bidirRepair` | `Geo/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
 | 5 symbolic engine | `evalPts` | `Geo/Expr.lean` | 19 | 22 | `Geo/Constraint.lean`, `Geo/ConstraintDescent.lean` |
 | 5 symbolic engine | `derivation_sound` | `Geo/Engine.lean` | 1 | 0 | `Geo/Rules.lean` |
-| 8 Lean guarantee | `sound_not_exact` | `Lift/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
+| 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Lift/L1L2Roundtrip.lean` | 3 | 0 | `Audit/Hypotheses.lean`, `Geo/LadderInstance.lean` |
 
 ## 汇总

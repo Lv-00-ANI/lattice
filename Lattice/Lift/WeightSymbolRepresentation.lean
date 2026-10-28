@@ -71,7 +71,7 @@ roundtrip : ∀ p, extract (compile p) = p
   的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
+import Lattice.Runtime.Extraction
 import Lattice.Lift.WeightLadderInverse
 
 namespace FullWidth

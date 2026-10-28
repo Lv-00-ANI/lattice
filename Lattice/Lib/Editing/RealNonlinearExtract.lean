@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.FCA.RealFCA
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: 非线性提取 —— FCA 结构解与激活的分段可逆性
 

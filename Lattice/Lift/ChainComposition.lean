@@ -86,8 +86,8 @@ theorem compile_then_extract (p : P) :
   这是一个**可检验的形式**，而不是一句判断。
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 import Lattice.Lift.EndToEnd
 
 namespace Lattice.Lift

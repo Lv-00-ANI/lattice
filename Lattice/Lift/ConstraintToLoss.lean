@@ -59,9 +59,8 @@
   本节给结构，前者给具体约束的定量界。**两者互补。**
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.PenaltyEmbedding
-
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.PenaltyEmbedding
 namespace Lattice.Lift
 
 namespace PenaltyToLossCompiler

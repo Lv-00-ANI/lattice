@@ -30,4 +30,16 @@ PATH_MAP = {
     "Lift/StackCodegen.lean": "Runtime/StackCodegen.lean",
     "Lift/ErrorCalculus.lean": "Runtime/ErrorCalculus.lean",
     "Lift/PenaltyAnalysis.lean": "Runtime/PenaltyAnalysis.lean",
+    # round 238, batch A2: the remaining batch-A modules, plus the ProgramAST alias removed
+    "Lift/ConvertVectorLinear.lean": "Runtime/ConvertVectorLinear.lean",
+    "Lift/RealModLoss.lean": "Runtime/RealModLoss.lean",
+    "Lift/RealNonlinear.lean": "Runtime/RealNonlinear.lean",
+    "Lift/RealRandomVerify.lean": "Runtime/RealRandomVerify.lean",
+    "Lift/RealTokenization.lean": "Runtime/RealTokenization.lean",
+    "Lift/RealVerifierReliable.lean": "Runtime/RealVerifierReliable.lean",
+    "Lift/Extraction.lean": "Runtime/Extraction.lean",
+    "Lift/L1L2.lean": "Runtime/L1L2.lean",
+    "Lift/PenaltyEmbedding.lean": "Runtime/PenaltyEmbedding.lean",
+    "Lift/RepresentationFamilies.lean": "Runtime/RepresentationFamilies.lean",
+    "Lift/SymbolToWeight.lean": "Runtime/SymbolToWeight.lean",
 }

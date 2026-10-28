@@ -1,4 +1,4 @@
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.ConvertLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lift.WeightToSymbolEquivalence
@@ -6,7 +6,7 @@ import Lattice.Lift.ConstraintEmbeddingSoundness
 import Lattice.Lift.TotalLoss
 import Lattice.Lift.VerifyLoopProgress
 import Lattice.Lib.Lift.VerifyLoopConvergence
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Optim.RealListFinBridge

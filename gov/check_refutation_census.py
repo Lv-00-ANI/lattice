@@ -123,7 +123,10 @@ def main(argv):
     print("%-8s %-10d %-10d %s" % ("total", want_total, total, "ok" if ok else "DRIFT"))
     if not ok:
         problems += 1
-    for layer in ("Lib", "Lift", "Audit", "Core", "Geo"):
+    # Round 238: `Runtime` joined the tree (P2 moves), so it must be a named layer here too --
+    # otherwise its refutations are counted in the total but attributed to no layer, and the
+    # per-layer rows no longer add up.
+    for layer in ("Lib", "Lift", "Runtime", "Audit", "Core", "Geo"):
         want = want_layers.get(layer, 0)
         got = lay.get(layer, 0)
         ok = want == got
@@ -135,9 +138,9 @@ def main(argv):
     if planted:
         if problems > 0:
             print("SELF-TEST PASS: a wrong number in the document is reported")
-            return 1
+            return 0
         print("SELF-TEST FAIL: a wrong number was NOT reported")
-        return 0
+        return 1
     print("REFUTATION CENSUS: %s" % ("consistent with REFUTATION-CENSUS.md" if problems == 0
                                      else "%d drift(s) -- update REFUTATION-CENSUS.md" % problems))
     return 0 if problems == 0 else 1

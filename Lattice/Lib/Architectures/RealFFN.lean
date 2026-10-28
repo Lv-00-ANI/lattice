@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: FFN 激活模式 → 有效线性映射（模型无关）
 

@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 
 open Lattice.Lift.SymbolToWeightCorrectness

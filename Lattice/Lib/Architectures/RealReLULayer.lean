@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lib.Architectures.RealLayerPropagation
 /-!
 # LATTICE: ReLU 层组合传播 —— 非线性层的约束流

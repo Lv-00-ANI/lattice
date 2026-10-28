@@ -8,7 +8,7 @@ import Lattice.Lib.Editing.RealConversionQuotient
 -- 该理由随之消失，故合并已完成**（详见下方 §0「文件拆分说明」与 §八）。
 -- 注意 **该 import 是合并的必要代价**：§八 的 L0⇄L1 实例化需要 `tokenize` / `detokenize` /
 -- `SameTokens` / `CharToken`，全部来自 `RealTokenization`。
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 /-!
 # LATTICE: RealQuotientReversibility —— 「商可逆」的**一般定理**与**判别条件**
 

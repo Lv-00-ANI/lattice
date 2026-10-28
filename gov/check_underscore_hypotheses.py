@@ -118,6 +118,16 @@ def scan(root=None):
 def load_baseline():
     if not os.path.exists(BASELINE):
         return set()
+    # Round 238. This is the THIRD path-keyed baseline in the tree, and it had the same defect as the
+    # other two: a `git mv` makes every entry for the moved file look BOTH "new" (the finding appears at
+    # the new path) AND "stale" (the old path vanishes). Measured this round on `Runtime/Extraction.lean`
+    # `_hsem`. Fixed identically: map the baseline's path through `PATH_MAP`, never edit the baseline
+    # file for a move.
+    sys.path.insert(0, HERE)
+    try:
+        from _debt_path_map import PATH_MAP
+    except ImportError:
+        PATH_MAP = {}
     out = set()
     for ln in io.open(BASELINE, encoding="utf-8"):
         ln = ln.rstrip("\n")
@@ -125,7 +135,7 @@ def load_baseline():
             continue
         p = ln.split("\t")
         if len(p) >= 2:
-            out.add((p[0].strip(), p[1].strip()))
+            out.add((PATH_MAP.get(p[0].strip(), p[0].strip()), p[1].strip()))
     return out
 
 

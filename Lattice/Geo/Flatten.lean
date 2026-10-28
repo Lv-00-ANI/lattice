@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Geo.Expr
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Geo.Flatten` -- configurations as finite vectors
 

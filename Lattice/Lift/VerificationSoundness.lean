@@ -53,8 +53,7 @@
   不在本定理范围。这一条与 `RealVerifierReliable` 头部记的边界同源。
 -/
 import Mathlib
-import Lattice.Lift.RealVerifierReliable
-
+import Lattice.Runtime.RealVerifierReliable
 open scoped ContinuousLinearMap
 
 namespace Lattice.Lift

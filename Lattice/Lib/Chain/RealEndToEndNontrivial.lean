@@ -1,8 +1,8 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Chain.RealEndToEnd

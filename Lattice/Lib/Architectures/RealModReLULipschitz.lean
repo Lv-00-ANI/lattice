@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.Architectures.RealModReLU
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: modReLU 的 1-Lipschitz（`b ≤ 0`）与 `b > 0` 的机器验证反例
 

@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.Attention.RealAttention
 import Lattice.Lib.Optim.RealListFinBridge
 /-!

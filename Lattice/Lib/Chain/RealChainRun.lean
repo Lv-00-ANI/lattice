@@ -1,9 +1,9 @@
 import Mathlib
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenizationEntry
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lift.SymbolToWeightCorrectness
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.LearningTheory.RealRecoverEndpoint
 /-!
 # LATTICE: RealChainRun —— 端到端链路的【可执行驱动】（只接线，无新数学）

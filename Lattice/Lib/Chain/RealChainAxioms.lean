@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lib.Optim.RealListFinBridge
 import Lattice.Lib.LearningTheory.RealRecoverEndpoint
@@ -10,7 +10,7 @@ import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Chain.RealCrossUniverseConsumer
 import Lattice.Lib.LearningTheory.RealSCMIdentification
 import Lattice.Lib.Editing.RealReversibilityBoundary
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 /-!
 # LATTICE: chain-core axiom probes (U06 judgement C)

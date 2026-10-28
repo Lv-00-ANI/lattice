@@ -72,8 +72,7 @@ structure Backend (P W : Type) where
   从「这个实例满足 sound」变成「所有后端满足 sound」。
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
-
+import Lattice.Runtime.SymbolToWeight
 namespace Lattice.Lift
 
 namespace CompilerScheme

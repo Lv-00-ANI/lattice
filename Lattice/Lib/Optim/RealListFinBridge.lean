@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 /-!
 # LATTICE: RealListFinBridge —— `List Int` 与 `Fin n → Int` 之间的桥
 

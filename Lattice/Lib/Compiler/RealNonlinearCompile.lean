@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lib.Optim.RealApprox
 /-!
 # LATTICE: 非线性约束的编译 —— sign / relu 编码与分段线性保语义

@@ -13,6 +13,16 @@ It is a checker, so it must be able to fail. `--self-test` plants a wrong expect
 asserts the checker reports it.
 """
 import io
+
+# Round 238. This table hardcodes paths, which is the SAME defect as the three path-keyed baselines
+# (PROOF-DEBT, proof_strength, underscore_hypotheses): after a `git mv` the lookup reports MISSING even
+# though the theorem is right there under the new path. Measured this round: `extract_compile` and
+# `compileProgram_sound` went MISSING because their modules moved to `Runtime/`.
+# Fixed the same way -- resolve through the shared map, never edit the table for a move.
+import os as _os
+import sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from _debt_path_map import PATH_MAP
 import os
 import re
 import sys
@@ -24,7 +34,7 @@ LAKE = os.path.abspath(os.path.join(HERE, ".."))
 LAT = os.path.join(LAKE, "Lattice")
 
 # theorem -> (file, expected number of kernel declarations cited in its proof)
-EXPECTED = {
+_RAW_EXPECTED = {
     "decodePayload_encodeForm": ("Lift/L1L2Roundtrip.lean", 5),
     "compileProgram_sound": ("Lift/SymbolToWeight.lean", 0),
     "extract_compile": ("Lift/Extraction.lean", 0),
@@ -103,8 +113,12 @@ def count_citations(name, relpath, name_index):
 
 def main(argv):
     name_index = build_name_index()
-    expectations = dict(EXPECTED)
-
+    # Round 238. Resolve the hardcoded paths through the shared map, so a `git mv` no longer
+    # reports MISSING. This table is the FOURTH path-keyed artifact found in the tree (after
+    # PROOF-DEBT, the proof-strength baseline and the underscore baseline) -- all with the same
+    # defect and all fixed the same way: map at lookup time, never edit the table for a move.
+    expectations = {name: (PATH_MAP.get(rel, rel), want)
+                    for name, (rel, want) in _RAW_EXPECTED.items()}
     self_test = "--self-test" in argv
     if self_test:
         # plant a wrong expectation: claim `ladder_forward` cites 3
@@ -126,11 +140,15 @@ def main(argv):
 
     print("\n" + "=" * 62)
     if self_test:
+        # Round 238. This used to `return 1` on SUCCESS -- i.e. a working self-test looked like a
+        # failing check, and a broken one looked like a pass. Nothing invoked it, which is why the
+        # inversion survived; but `check_selftest_coverage.py` counts a `--self-test` by PRESENCE, so
+        # "the gate can demonstrate its own red" was being claimed on the strength of a string.
         if problems > 0:
             print("SELF-TEST PASS: a wrong expectation is reported")
-            return 1
+            return 0
         print("SELF-TEST FAIL: a wrong expectation was NOT reported")
-        return 0
+        return 1
     print("CHAIN DEPS: %s" % ("consistent with the recorded structure"
                               if problems == 0 else "%d drift(s)" % problems))
     return 0 if problems == 0 else 1

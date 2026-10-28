@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Core.Syntax
-import Lattice.Lift.PenaltyEmbedding
+import Lattice.Runtime.PenaltyEmbedding
 import Lattice.Lib.Linear.PenaltyVector
 
 /-!

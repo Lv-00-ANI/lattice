@@ -83,8 +83,7 @@ roundtrip : ∀ p, extract (compile p) = p
 - `extract` 的分母用 `natAbs` + 符号：`q.den` 在 Lean 中恒正，所以 `extract` 直接做除法。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.Extraction
 namespace Lattice.Lift
 
 namespace RatRepresentation

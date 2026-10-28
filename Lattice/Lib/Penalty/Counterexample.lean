@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Lib.Penalty.PolyExact
-import Lattice.Lift.PenaltyEmbedding
-
+import Lattice.Runtime.PenaltyEmbedding
 /-!
 # `Lattice.Lib.Penalty.Counterexample` -- the polynomial penalty is not exact
 

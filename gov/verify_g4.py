@@ -27,7 +27,7 @@ ZERO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROBE = os.path.join(ZERO, "Lattice", "G4Probe.lean")
 
 WITH_FILLER = """import Mathlib
-import Lattice.Lift.PenaltyEmbedding
+import Lattice.Runtime.PenaltyEmbedding
 
 /-! Probe for G4: a filler is present, so the downstream theorem builds. -/
 
@@ -50,7 +50,7 @@ theorem probe_downstream (x : Unit) (hmin : IsLocalMin (probeEmbedding.loss ()) 
 """
 
 WITHOUT_FILLER = """import Mathlib
-import Lattice.Lift.PenaltyEmbedding
+import Lattice.Runtime.PenaltyEmbedding
 
 /-! Probe for G4: the filler has been WITHDRAWN; the downstream theorem must fail. -/
 

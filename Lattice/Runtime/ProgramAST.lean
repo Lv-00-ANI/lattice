@@ -63,8 +63,7 @@ dependent match elimination failed, inaccessible pattern found
 - 本节**不改** `ActivationLadder`：那个 `Ladder` 只做「程序切两段」，没有反解析。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.Extraction
 namespace Lattice.Lift.ProgramAST
 
 /-! ## 一、指令与程序 -/

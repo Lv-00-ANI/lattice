@@ -1,5 +1,5 @@
 import Lattice.Runtime.RealLinear
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lift.RealTotalLoss
 import Mathlib
 

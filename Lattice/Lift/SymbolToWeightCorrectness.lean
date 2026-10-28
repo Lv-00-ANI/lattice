@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 /-!
 # LATTICE: SymbolToWeightCorrectness（最小版本）—— 约束集合 → 单层网络
 

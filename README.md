@@ -8,28 +8,32 @@
 > 给定符号约束，给出**带 Lean 4 证明**的权重构造、提取与修复方案。
 > **不实现**引擎、模型与训练框架；**可插入**现有训练栈，不绑定任何厂商或框架。
 >
-> **这个项目该用什么标准衡量**，见 [`PARADIGM.md`](PARADIGM.md)。
-> 简言之：按「训练框架」衡量的分数（约 3%）**不是它该被打的分**；
-> 按它自己的范式（表示格，约 40%）才是有意义的衡量。
+> **定位与记分卡**：见 [`PARADIGM.md`](PARADIGM.md)。
+> 其中“约 40%”是**旧记分卡**，不再作为当前进度；当前结构状态见 [`MACRO-STATUS.md`](MACRO-STATUS.md)，
+> 证明强度见 [`PROOF-DEBT.md`](PROOF-DEBT.md)。
+> 按“训练框架”衡量的分数不是本项目该被打的分。
 >
 > **语义信息主攻方向**：见 [`SEMANTICS-MAINLINE.md`](SEMANTICS-MAINLINE.md)。
 >
-> **宏观状态（第 219 轮实测，不依赖既有文档）**：见 [MACRO-STATUS.md](MACRO-STATUS.md)。
-> 它记录三件本文件不说的结构事实：**85% 的定理在 Lib 而非链路上**、**83% 的模块按构造不可能端到端**、**I5 只按名字检查、覆盖 0.4%**。
-> 它把「语义信息」定义为语义域上的行为/符号/几何对应关系，并给出约束几何 → 程序语义 → 隐空间几何的三阶段路线。
+> **宏观状态（独立测量）**：见 [`MACRO-STATUS.md`](MACRO-STATUS.md)。
+> 它记录：**约 85% 的定理在 Lib**、**链路本体约 13%**、**I5 只按名字检查、覆盖约 0.4%**。
+> 其中“83% 模块按构造不可能端到端”是旧判断，已按内容重测推翻；现在约 20% 定理跨 ≥2 层。
+> 它还把「语义信息」定义为语义域上的行为/符号/几何对应关系，并给出约束几何 → 程序语义 → 隐空间几何的三阶段路线。
 >
 > **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §6`）：
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 826 | `audit_counts.py` |
+> | Lean 模块 | 825 | `audit_counts.py` |
 > | 定理 / 引理 | 8559 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Geo/Lib | 18 / 61 / 99 / 605 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 18 / 49 / 99 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
-> | 检查器注册项 | 61（47 门禁 + 19 报告器） | `audit_counts.py` |
+> | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
 > | **永久边界** | **4** | 同上；因数学事实、外部工具链或需库外语料，本库无法关闭 |
 > | 已登记否证 | 285 | `check_refutation_census.py` |
+>
+> **数字是当前快照；迁移进行中，模块数会短暂波动，以 `audit_counts.py` 为准。**
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
 > 同一测量在不同口径下曾给出 **7,919 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
@@ -39,9 +43,12 @@
 > 裸 `∃ …` **不算**否证——那是正面存在性定理（第 56 轮修正，曾因此多计 109 条）。
 > 详见 `check_refutation_census.is_negative`。
 >
-> **入口**：想用它 → [`USAGE.md`](USAGE.md)（每个代码块可编译）；
+> **入口**：想用它 → [`USAGE.md`](USAGE.md)；
 > 想知道它做不到什么 → [`REFUTATION-CENSUS.md`](REFUTATION-CENSUS.md)；
-> 当前路线 → [`ROADMAP-v11.md`](ROADMAP-v11.md)。
+> 语义主攻方向 → [`SEMANTICS-MAINLINE.md`](SEMANTICS-MAINLINE.md)；
+> 目录与 Primitive 设计 → [`DIRECTORY-DESIGN.md`](DIRECTORY-DESIGN.md)；
+> 证明债务 → [`PROOF-DEBT.md`](PROOF-DEBT.md)；
+> 独立结构测量 → [`MACRO-STATUS.md`](MACRO-STATUS.md)。
 
 ---
 
@@ -109,7 +116,7 @@ lattice-new/
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
 │   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/      61       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
+│   ├── Lift/      49       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       99       # 约束几何与精确惩罚
 │   ├── Lib/      607       # 应用库，按主题（建立在链路层之上）
@@ -251,6 +258,76 @@ lattice-new/
 ⇒ 因此本库当前能诚实声称的是：**精确嵌入不成立（已证否）；逼近精确的各个误差界
 已分别在若干载体上成立；把它们接到 T2 上的那条桥尚未建立。**
 
+### 3.4 当前主攻方向：语义信息
+
+语义信息不是“权重里藏着可读出的意义”，而是：
+
+> **在显式语义域 `D` 上，模型行为、符号指称、几何标注之间可证明的对应关系。**
+
+核心对象是 `SemanticDomain` / `Vocab.denote` / `Geometry.label` / `Inherits`。
+
+**词表编辑与语义编辑必须分开**：
+
+| 编辑 | 改什么 | 纯权重变换？ |
+|:--|:--|:--|
+| 词表-句法编辑 | token ID/集合、embedding 行、输出头列 | **有** `T(σ)` |
+| 词表-语义编辑 | `denote : Token → Meaning` | **没有** |
+| 模型-行为编辑 | 权重/程序/约束 | 通过 Train/Repair |
+
+- 置换/未用增删：精确；merge/split：有损，有 ε 界；
+- 改 `denote`：必须 `applyDelta + Train/Repair + semanticCheck`，没有免费权重变换；
+- 标注不是编辑：`Annotation` 是数据，编辑由 `applyDelta / semanticCheck / frameCheck / undo` 组成。
+
+当前状态：S0–S8、S11–S13、S14–S19 大部分已闭合；**S9、S10 未做；S20 阻塞**（`MergeSound` 不含词表类型，缺 behavior→Holds 桥）。
+
+详见 [`SEMANTICS-MAINLINE.md`](SEMANTICS-MAINLINE.md)。
+
+### 3.5 Primitive 与组合：不打包能力
+
+库只提供基础 `Primitive`，不提供 `Import` / `PostTrain` / `Merge` / `semanticEdit` 这类打包能力，也不规定固定使用链。
+
+- 共享类型与链定律在 `Kernel`；
+- 执行语义在 `Runtime`；
+- 领域实例在 `Domains`；
+- 基础调用在 `Primitives`（Model / Vocab / Semantics / Extract / Align / Merge / Compile / Train / Repair / Verify / Quantize / Evaluate）；
+- 组合子只在 `Compose`：`compose / parallel / choice / optional / iterate`；
+- 组合是用户的事；`Usage/` 只是示例。
+
+目标目录与迁移方案见 [`DIRECTORY-DESIGN.md`](DIRECTORY-DESIGN.md)。
+
+### 3.6 证明强度：有定理 ≠ 证明完成
+
+Lean 只检查“定理是真的”，不检查“它有多强”。本项目把强度单独登记：
+
+- `PROOF-DEBT` 第一层审阅：1,382 条；`delete` 45、`strengthen` 34、`downgrade` 3、`register` 107、`keep` 1,193；
+- 未用前提 127 条（入度 ≥2 已 0）；
+- 零入度未审约 7,587 条；
+- 每个 `Primitive` 声明 `strength` 与 `coverage`；
+- 组合时强度取最小、覆盖取交集，不允许把 `approx` 静默升级成 `exact`。
+
+`MACRO-STATUS` 的独立测量给出三个结构事实：
+
+- 约 **85%** 的定理在 `Lib`，不在链路上；
+- 链路本体约 **13%** 定理；
+- I5 只按名字检查，覆盖约 **0.4%**，且全在 `Lib`；
+- 曾经声称“83% 模块按构造不可能端到端”，后按内容重测**推翻**：约 **20%** 定理跨 ≥2 层。
+
+详见 [`PROOF-DEBT.md`](PROOF-DEBT.md) 与 [`MACRO-STATUS.md`](MACRO-STATUS.md)。
+
+### 3.7 C 接口现在，C 实现最后
+
+C 不是不做，是**最后做**。
+
+现在定义：
+
+- `CInterface/ABI`：每个 Primitive 一个 C 函数、错误码、所有权；
+- `CInterface/Layout`：`Model` / `Profile` / `Program` / `Certificate` 内存布局；
+- `CInterface/Serialization`：token / weight / profile 字节格式；
+- `CInterface/Conformance`：Lean `#eval` 向量与 C 对照格式；
+- S13 的 Lean 侧 Float 模型/误差界。
+
+最后写：`C/` 实现（ABI、序列化、conformance、runtime、trainer、性能/部署）。在 `Primitive` / `Sound` / `Compose` / `CInterface` 稳定前，C 是信任边界。
+
 ---
 
 ## 4. 构建与验证
@@ -265,6 +342,10 @@ cd gov && python gate.py
 # 全套 67 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
+
+> 当前 `verify_all.py` 注册 **67 项**检查（含门禁与报告器；报告器退出码不是判决）。
+> 活树 `gate.py` 可以绿；**干净 checkout 的 I7 仍可能红**（无 `.olean`）。
+> 仓库无 remote，CI 仍未真实运行。
 
 **实测耗时**（本机，2026-10-25）：全量 `verify_all.py` **PASS，43/43 ok（6.1 分钟）**。
 最重的一项是 `reactivity: gate`（约 200 秒，它要连跑四次构建来验证门禁确实会红），

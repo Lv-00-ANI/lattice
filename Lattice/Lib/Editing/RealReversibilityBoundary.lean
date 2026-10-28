@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lift.ConvertLinear
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.WeightToSymbolEquivalence
 import Lattice.Runtime.RealLinear
 import Lattice.Lib.Editing.RealExtractInvertibility
@@ -8,7 +8,7 @@ import Lattice.Lib.Editing.RealExtractInvertibility
 -- brings it in transitively.  Lines 146 and 167 use it, so this file could never
 -- have compiled -- it is one of the ten unknown-constant-class breakages.  The
 -- missing import is the fifth cause of `unknown constant` (B214).
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: 可逆性的真假边界 —— 逐层判定与机器验证反例
 

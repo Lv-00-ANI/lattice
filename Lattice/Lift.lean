@@ -1,10 +1,10 @@
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.PenaltyEmbedding
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.PenaltyEmbedding
 import Lattice.Lift.ApproxExact
 import Lattice.Lift.VerificationSoundness
 import Lattice.Lift.EndToEndApproximation
-import Lattice.Lift.Extraction
-import Lattice.Lift.L1L2
+import Lattice.Runtime.Extraction
+import Lattice.Runtime.L1L2
 import Lattice.Lift.EndToEnd
 import Lattice.Lift.GeoSampledBound
 import Lattice.Lift.L1L2Roundtrip
@@ -22,7 +22,7 @@ import Lattice.Lift.TokenAlphabet
 import Lattice.Lift.IntRoundtrip
 import Lattice.Lift.NondegenerateInstance
 import Lattice.Runtime.ErrorCalculus
-import Lattice.Lift.RepresentationFamilies
+import Lattice.Runtime.RepresentationFamilies
 import Lattice.Lift.ApproxExtraction
 import Lattice.Lift.RatRepresentation
 import Lattice.Lift.GridDensity
@@ -41,7 +41,7 @@ import Lattice.Lift.LayerQuantization
 import Lattice.Lift.LayerQuantizationBits
 import Lattice.Lift.SaturationQuantization
 import Lattice.Lift.QuantErrorPropagation
-import Lattice.Lift.ProgramAST
+import Lattice.Runtime.ProgramAST
 import Lattice.Lift.StackError
 
 /-!

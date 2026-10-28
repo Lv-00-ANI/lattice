@@ -15,9 +15,9 @@
 | `ApproxEmbedding` | 106 | 1 | — |
 | `CExprCodegen` | 136 | 5 | — |
 | `ClauseComposition` | 171 | 6 | — |
-| `ClosedLoop` | 204 | 10 | — |
+| `ClosedLoop` | 203 | 10 | — |
 | `CodegenLadder` | 110 | 3 | — |
-| `Compile` | 99 | 2 | — |
+| `Compile` | 98 | 2 | — |
 | `ComputableExpr` | 249 | 7 | — |
 | `ConjRepair` | 157 | 3 | — |
 | `Constraint` | 161 | 4 | — |
@@ -48,7 +48,7 @@
 | `ExteriorSmooth` | 150 | 9 | — |
 | `Extract` | 101 | 2 | — |
 | `Finite` | 106 | 1 | — |
-| `Flatten` | 131 | 4 | — |
+| `Flatten` | 130 | 4 | — |
 | `FlattenAgreement` | 67 | 4 | — |
 | `FormDeriv` | 158 | 8 | — |
 | `GeoLadder` | 199 | 4 | — |
@@ -76,7 +76,7 @@
 | `PenaltyLoss` | 275 | 13 | — |
 | `PenaltySmooth` | 105 | 4 | — |
 | `Perturb` | 126 | 8 | — |
-| `Pipeline` | 170 | 7 | — |
+| `Pipeline` | 169 | 7 | — |
 | `Plucker` | 105 | 2 | — |
 | `PolyAssemble` | 128 | 4 | — |
 | `PolyConstants` | 159 | 5 | — |
@@ -98,7 +98,7 @@
 | `RhoMetric` | 120 | 5 | — |
 | `Rules` | 135 | 1 | — |
 | `Semantic` | 179 | 7 | — |
-| `SeqRepresentation` | 103 | 4 | — |
+| `SeqRepresentation` | 102 | 4 | — |
 | `Shape` | 204 | 3 | — |
 | `Square` | 161 | 10 | — |
 | `Synthesis` | 140 | 6 | — |

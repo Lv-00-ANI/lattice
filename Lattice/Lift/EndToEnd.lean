@@ -2,10 +2,9 @@ import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
 import Lattice.Core.Logic
-import Lattice.Lift.L1L2
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.L1L2
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Lift.EndToEnd` -- the whole ladder, composed
 

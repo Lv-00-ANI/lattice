@@ -76,7 +76,7 @@ alphabet_classifiable :  任一 CharToken 可被归类
   但若将来的编码允许前缀相同，`classify` 需要相应收紧——**已在此记录**。
 -/
 import Mathlib
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 
 namespace Lattice.Lift

@@ -69,8 +69,7 @@ LossyRepresentation.semEq : ∀ p, SemEq (extract (compile p)) p
   是具体工程，不是一般定理。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.Extraction
 namespace Lattice.Lift
 
 open Lattice.Core
