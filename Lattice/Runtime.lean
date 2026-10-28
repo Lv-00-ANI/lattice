@@ -31,6 +31,7 @@ import Lattice.Runtime.NondegenerateInstance
 import Lattice.Runtime.PenaltyAnalysis
 import Lattice.Runtime.PenaltyEmbedding
 import Lattice.Runtime.ProgramAST
+import Lattice.Runtime.QuantErrorPropagation
 import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.RealLV
 import Lattice.Runtime.RealLinear
@@ -42,10 +43,13 @@ import Lattice.Runtime.RealTokenization
 import Lattice.Runtime.RealTokenizationEntry
 import Lattice.Runtime.RealTotalLoss
 import Lattice.Runtime.RealVerifierReliable
+import Lattice.Runtime.RectangularRepresentation
 import Lattice.Runtime.RectangularWeightEncoding
 import Lattice.Runtime.RepresentationFamilies
 import Lattice.Runtime.RoundingBackend
+import Lattice.Runtime.SaturationQuantization
 import Lattice.Runtime.StackCodegen
+import Lattice.Runtime.StackError
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.TokenAlphabet
@@ -55,14 +59,18 @@ import Lattice.Runtime.VerifierRate
 import Lattice.Runtime.VerifyLoopProgress
 import Lattice.Runtime.WeightLadder
 import Lattice.Runtime.WeightLadderFullWidth
+import Lattice.Runtime.WeightLadderFullWidthInstance
 import Lattice.Runtime.WeightLadderInverse
 import Lattice.Runtime.WeightLadderN
+import Lattice.Runtime.WeightSymbolRepresentation
 import Lattice.Runtime.WeightToSymbolEquivalence
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
 
-按 `DIRECTORY-DESIGN.md` §3，`Runtime/` 放操作语义；它由 `Lift/` 的搬迁逐步填充。
+按 `DIRECTORY-DESIGN.md` §3，`Runtime/` 放操作语义；它由 `Lift/` 的搬迁填充。
+**第 242 轮搬迁完成**：`Lift/` 的 66 个模块全部在此，`Lattice/Lift/` 已清空，
+`Lattice/Lift.lean` 一并删除（没有第二条聚合路径，见 §2.8 的「零轮」定义）。
 
 ## 为什么这个文件是必要的，而不只是整齐
 

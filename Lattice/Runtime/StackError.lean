@@ -78,7 +78,7 @@ r a = ∑ j, W₂ j a · (∑ i, W₁ i j x i + b₁ j) + b₂ a + c a
 -/
 import Mathlib
 import Lattice.Core.Net
-import Lattice.Lift.QuantErrorPropagation
+import Lattice.Runtime.QuantErrorPropagation
 
 namespace Lattice.Lift.StackError
 

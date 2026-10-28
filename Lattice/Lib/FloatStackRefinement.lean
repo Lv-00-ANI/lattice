@@ -63,7 +63,7 @@ roundLayer R L := { W := fun i j => R.toFun (L.W i j), b := fun j => R.toFun (L.
 这与 `Geo.NetLoss` 从 `Lift` 移到 `Geo` 是同一个判据：**模块的层由它 import 的最高层决定。**
 -/
 import Mathlib
-import Lattice.Lift.StackError
+import Lattice.Runtime.StackError
 import Lattice.Lib.Quantization.RealIEEE754.Basic
 
 namespace Lattice.Lib.FloatStackRefinement
