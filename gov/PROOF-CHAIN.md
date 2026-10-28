@@ -1489,7 +1489,7 @@
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
 | `Lattice.CInterface.Conformance` | 4 | 15 |
-| `Lattice.CInterface.Serialization` | 2 | 1 |
+| `Lattice.CInterface.Serialization` | 6 | 2 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
@@ -5132,6 +5132,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `l0Norm`, `sqNorm`
+- `idxB_lt` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `length`
+- `idxW_lt` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `length`
 - `ieeeAccN_error` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `clampTo`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fpOverflow`, `geom_sum_mul`, `ieeeToRoundOp`, `induction`, `roundToFormat`, `tiny`, `zero`
 - `ieeeAccN_growth` -> `eps`, `induction`, `le_trans`, `zero`
 - `ieeeAccN_growth_error` -> `eps`, `induction`, `le_trans`, `zero`
@@ -5639,7 +5641,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerSeq_three` -> `Layer`
 - `layerStack_equivariant` -> `E`, `W`, `apply`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `layerToCLM_apply` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
-- `layerWords_length` -> `AffineLayer`, `length`
+- `layerWords_getD_W` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `length`
+- `layerWords_length` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `length`
 - `layerWords_zero` -> `AffineLayer`
 - `layer_act_injective` -> `BehaviourallyEquivalent`, `W`
 - `layer_approx_on` -> `le_trans`, `min`
@@ -9320,6 +9323,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `w3_layerOut_convertVec` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_layerOut_unfold` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_mod_ne_zero` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `modSinLoss_zero_iff_congruent`, `symVec`, `symW`
+- `wPart_length` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `length`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`
 - `weakSim_comp` -> `Compiler`, `ForwardSim`, `Star`, `induction`, `obs`, `trans`
 - `weakSim_of_sim` -> `Compiler`, `ForwardSim`, `Star`, `induction`, `obs`, `trans`
