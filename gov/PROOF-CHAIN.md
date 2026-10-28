@@ -1454,7 +1454,7 @@
 | `Lattice.Lib.Optim.RealRiemannianGD` | 23 | 5 |
 | `Lattice.Lib.Optim.RealSGD` | 15 | 13 |
 | `Lattice.Lib.Optim.RealSGDRate` | 8 | 1 |
-| `Lattice.Lib.Optim.RealSGDStochastic` | 17 | 4 |
+| `Lattice.Lib.Optim.RealSGDStochastic` | 19 | 4 |
 | `Lattice.Lib.Optim.RealSaddlePoint` | 18 | 2 |
 | `Lattice.Lib.Optim.RealSeamBridges` | 7 | 0 |
 | `Lattice.Lib.Optim.RealSeamBridges2` | 28 | 3 |
@@ -1768,6 +1768,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Expect_finset_sum` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_add`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `empty`, `induction`, `insert`, `sgd_expected_avg_gap`, `sgd_rate_bound`
 - `Expect_nonneg` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `Expect_norm_sq_sgd_update` -> `Subgradient`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
+- `Expect_sq_le` -> `Subgradient`
 - `Expect_sub` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `ExpectedOf_add` -> `E`, `geom_sum_mul`, `induction`, `zero`
 - `ExpectedOf_const` -> `E`, `geom_sum_mul`, `induction`, `zero`
@@ -8177,14 +8178,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seq_step_ctx` -> `Compiler`, `induction`, `subst`, `trans`
 - `sgd_average_iterate_gap` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_rate_bound`
 - `sgd_average_jensen` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_expected_avg_gap`, `sgd_rate_bound`
+- `sgd_averaged_step` -> `Subgradient`
 - `sgd_avg_gap_bound` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_expected_avg_gap`, `sgd_rate_bound`
 - `sgd_deterministic_recovery` -> `Subgradient`, `subgradient_descent_step`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_expectation_contraction` -> `E`, `Subgradient`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_expectation_contraction_variance` -> `Subgradient`, `exists_le_sum_mul`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
-- `sgd_expected_avg_gap` -> `exists_le_sum_mul`
+- `sgd_expected_avg_gap` -> `Subgradient`, `exists_le_sum_mul`
 - `sgd_expected_gap_sum_seq` -> `exists_le_sum_mul`, `sum_range_sub_telescoping`
-- `sgd_expected_min_gap` -> `exists_le_sum_mul`
+- `sgd_expected_min_gap` -> `Subgradient`, `exists_le_sum_mul`
 - `sgd_projected_rate_bound` -> `ExpDist`, `ExpGap`, `sgd_rate_bound`
+- `sgd_rate_bound` -> `Subgradient`
+- `sgd_rate_bound_aux` -> `Subgradient`
 - `sgd_variance_identity` -> `Subgradient`, `exists_le_sum_mul`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sharedChain_eq_iterate` -> `ChainFwd`, `ChainTail`, `apply`, `chainN_identical_blocks_bound`, `chain_edit_locality`, `induction`, `iterate`, `iterate_step_swap`, `zero`
