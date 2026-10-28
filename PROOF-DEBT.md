@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 106 |
+| `register` | 105 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -174,7 +174,6 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lib/Optim/RealSGDStochastic.lean:335` | `sgd_rate_bound` | 3 | 定理本身是标准代数(给定逐步收缩 hstep,取 η=D/(G√T) 得 DG/√T),证明无误。但 doc 的「⟹」只列 D²、η 与 D,G,T>0(「防退化」),漏掉了真正承重的 hstep:∀t, E_{t+1} ≤ E_t − 2η·Gap_t + η²G²——读者会以为率由方差/步长条件直接得出。三个下游(RealErrorFeedback:213、RealSGDRate:230、RealCompressionRate:269)都把 hstep 继续当假设往… |
 | `Lib/Architectures/RealBlockConstants.lean:324` | `transformer_block_numeric` | 2 | 登记理由：定理本体可交付，但 doc 与 stmt 已不同步，且 doc 的「不可满足」结论对本条不成立。修法：把 B53/B60/B357 的历史段移入 CORRECTIONS，只保留与本陈述匹配的契约说明，再计入成果。 |
 | `Lib/Attention/RealAttention.lean:69` | `sqrt_d_scale_bound` | 2 | 登记理由：装饰性前件 hd（唯一用处是一个未再使用的 hd'）。删掉它对调用方是净收益，属清理级。 |
 | `Lib/Attention/RealSoftmaxLipschitz.lean:124` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
@@ -310,6 +309,7 @@
 | `Audit/Hypotheses.lean` | `no_redundant_hypotheses` | 降级已完成：**名字**才是过度声称的地方。它读作「审计没有发现冗余前提」（关于**整个定理库**），而定理只说 `chainAudit` 里没有 `.redundant` 条目。已改名为 **`no_redundant_entries_in_audit_table`**（入度 0，无依赖者），doc 也写清「证的是本表，不是库」。 |
 | `Audit/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
 | `Runtime/ApproxExact.lean` | `epsSat_of_loss_le_sq` | 处理完成：**它原本是一条别名**。结论 `\|E.resid p x\| ≤ ε` 与 `abs_resid_le_of_loss_le_sq` **逐字相同**，而名字说「`EpsSat` 的连接」——`EpsSat` **根本没出现**。现在结论是 **`EpsSat E.toPenaltyEmbedding p (ε ^ 2) x`**，**并且 `0 ≤ ε` 不再需要**（右端是 `ε ^ 2`，自动非负）——**谓词形式比残差形式更强**。三处计划外修正：`Audit/Counterexamples.lean` 的表行与 docstring 改指 `abs_resid_le_of_loss_le_sq`（反例 `r = 0, ε = -1` 对谓词形式**不适用**）；`Audit/Hypotheses.lean` 的「`0 ≤ ε` 承重」条目同样改指残差形式。四次脚本失败后的**结构性修正**：CJK 文本不再嵌入 Python 字符串，改为**片段写成文件 + ASCII 锚点拼接**。 |
+| `Lib/Optim/RealSGDStochastic.lean` | `sgd_rate_bound` | 处理完成（**doc 修正**，不是证明修正）：原 doc 的假设清单只列 `D > 0`、`G > 0`、`T > 0`，**漏掉了真正承重的 `hstep`**。现在清单补齐并给出每条的作用。**并且写清了为什么 `hstep` 不是可补的缺口**：接口里有 `Subgradient f (x t) (Expect p (g t))`，而 `x : ℕ → Ω → ℝ` 是**随机过程**，两者**类型上就对不齐**（`PROOF-DEBT` 里那条 `B_missing` 写的 `Subgradient f (x t) (…)` 本身就是病式）；逐路径要求 `Subgradient f (x t ω) (g t ω)` 等于说**每个采样都是真次梯度**，噪声就没了。**标准证明靠条件期望 `E[g_t \| x_t] = ∇f(x_t)`，而本形式化只有 `Expect p Y = ∑ ω, p ω · Y ω`，没有 σ-代数与滤流。**能推出的是**确定性 `x` 的单步**，即 `sgd_expectation_contraction`。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 
