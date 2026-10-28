@@ -244,8 +244,8 @@ fr := frameCheck (m1, delta)?;
 | S6 | `edit_reversible` | 已闭合 | `Annotations.lean` |
 | S7 | `edit_idempotent` / `conflict_free` | 部分：idempotence 有；冲突自由在 S8 | `Annotations.lean`、`Merge.lean` |
 | S8 | `merge_sound` / 冲突可检测 | 已闭合（多专家可组合） | `Merge.lean` |
-| S9 | `compile_sound` | **未做** | 待 `Primitives/Compile` |
-| S10 | `post_train_preserves` | **未做** | 待 `Primitives/Train` |
+| S9 | `compile_sound` | **已闭合**（第 227 轮，限于能到仿射权重的两个构造子） | `Semantics/CompileSound.lean` |
+| S10 | `post_train_preserves` | **未做** | 尚未有对应文件；`Primitives/Train` 是计划中的位置，**当前树里不存在该目录** |
 | S11 | `program_representation_roundtrip` | 已闭合 | `Lift/ProgramAST.lean` |
 | S12 | `transformer_eval` | 已闭合 | `Lib/Architectures/RealTransformerEval.lean` |
 | S13 | `float_refinement` | 已闭合（Lean 侧） | `Lib/FloatStackRefinement.lean` |

@@ -304,6 +304,10 @@ LAYER_OF = {
     "Lattice/Lib": "lib",
     "Lattice/Slots": "slots",
     "Lattice/Geo": "geo",
+    # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
+    # check_layering skipped it entirely -- 4 modules / 38 theorems with no I4 validation at all.
+    # It imports Geo and nothing outside it imports Semantics, so it sits above geo.
+    "Lattice/Semantics": "audit",
     "Lattice/Audit": "audit",
 }
 
