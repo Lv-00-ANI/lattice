@@ -15,6 +15,7 @@ import Lattice.Lib.Meta
 import Lattice.Lib.Optim
 import Lattice.Lib.Penalty
 import Lattice.Lib.Quantization
+import Lattice.Lib.FloatStackRefinement
 /-!
 # Lattice.Lib -- harvested instances
 
