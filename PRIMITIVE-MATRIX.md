@@ -24,9 +24,10 @@
 | 2 | `composeWith` | `Lattice/Compose/Combinators.lean:98` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
 | 3 | `identity` | `Lattice/Compose/Combinators.lean:169` | `α` | `α` | `.exact` | `none` |
 | 4 | `descentStep` | `Lattice/Compose/ForwardChain.lean:70` | `ℝ` | `ℝ` | `.exact` | `some ({"constraint.eqZero"} : Finset String)` |
-| 5 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 6 | `choice` | `Lattice/Compose/More.lean:96` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
-| 7 | `optional` | `Lattice/Compose/More.lean:147` | `I` | `I` | `p.strength` | `p.coverage` |
+| 5 | `iterate` | `Lattice/Compose/Iterate.lean:223` | `I` | `I` | `p.strength` | `p.coverage` |
+| 6 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 7 | `choice` | `Lattice/Compose/More.lean:96` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
+| 8 | `optional` | `Lattice/Compose/More.lean:147` | `I` | `I` | `p.strength` | `p.coverage` |
 
 ## 二、适配器矩阵
 
@@ -36,25 +37,26 @@
 - **`POLY`**：至少一侧是**裸类型变量**（如 `α`），调用方可**实例化**它，所以原则上不需要适配器；
 - **`ADAPT`**：文本不同且没有可实例化的变量，**必须**提供适配器。
 
-| 先 \\ 后 | `compose` | `composeWith` | `identity` | `descentStep` | `parallel` | `choice` | `optional` |
-|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| `compose` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT |
-| `composeWith` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT |
-| `identity` | POLY | POLY | — | POLY | POLY | POLY | POLY |
-| `descentStep` | ADAPT | ADAPT | POLY | — | ADAPT | ADAPT | ADAPT |
-| `parallel` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT |
-| `choice` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT |
-| `optional` | — | — | POLY | ADAPT | ADAPT | — | — |
+| 先 \\ 后 | `compose` | `composeWith` | `identity` | `descentStep` | `iterate` | `parallel` | `choice` | `optional` |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| `compose` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
+| `composeWith` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
+| `identity` | POLY | POLY | — | POLY | POLY | POLY | POLY | POLY |
+| `descentStep` | ADAPT | ADAPT | POLY | — | ADAPT | ADAPT | ADAPT | ADAPT |
+| `iterate` | — | — | POLY | ADAPT | — | ADAPT | — | — |
+| `parallel` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
+| `choice` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
+| `optional` | — | — | POLY | ADAPT | — | ADAPT | — | — |
 
 ## 三、读数
 
 | 指标 | 值 |
 |:--|--:|
-| 已登记的 `Primitive` | 7 |
-| 有序对总数 | 49 |
-| **`—` 文本相同** | **6** |
-| **`POLY` 可实例化** | **12** |
-| **`ADAPT` 必须给适配器** | **31** |
+| 已登记的 `Primitive` | 8 |
+| 有序对总数 | 64 |
+| **`—` 文本相同** | **12** |
+| **`POLY` 可实例化** | **14** |
+| **`ADAPT` 必须给适配器** | **38** |
 
 **这三行就是 §6 那个签名的错误规模**：`ADAPT` 的比例越高，
 原签名（`compose (f g : Primitive) (h : ∀ x y, f.post x y → g.pre y)`）

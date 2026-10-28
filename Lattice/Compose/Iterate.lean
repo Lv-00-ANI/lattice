@@ -138,4 +138,111 @@ theorem loop_zero_none {I : Type} (p : Primitive I I) (dec : I → Bool) (x : I)
     (h : dec x = false) : loop p dec 0 x = none := by
   simp [loop, h]
 
+/-! ## 四、燃料单调性：更多燃料只会更好 -/
+
+/-- **更多燃料不会变坏**：若 `n` 格燃料已成功，则任何 `n + k` 格也成功，且**结果相同**。
+
+**它是 `iterate` 那条 `pre` 与 `run` 之间的桥**：`pre` 只许诺「某个不超过 `meas x` 的燃料成功」，
+而 `run` 用的是 `meas x` 格。没有这条，`sound` 就得假设「恰好 `meas x` 格成功」——那是 `id`。
+
+归纳做在 `n` 上：`n = 0` 时成功意味着 `dec x` 已真，于是任何燃料都直接返回 `x`；
+`n + 1` 时分 `dec x` 两种情况，真则同上，假则把 `bind` 拆开并对输出用归纳假设。 -/
+theorem loop_mono {I : Type} (p : Primitive I I) (dec : I → Bool) :
+    ∀ (n : ℕ) (x z : I), loop p dec n x = some z → ∀ k, loop p dec (n + k) x = some z := by
+  intro n
+  induction n with
+  | zero =>
+      intro x z h k
+      have hx : dec x = true := by
+        by_contra hne
+        have hf : dec x = false := by
+          cases hv : dec x
+          · rfl
+          · exact absurd hv hne
+        rw [show loop p dec 0 x = none from by simp [loop, hf]] at h
+        exact absurd h (by simp)
+      have hz : z = x := by
+        rw [show loop p dec 0 x = some x from by simp [loop, hx]] at h
+        exact (Option.some.inj h).symm
+      rw [hz]
+      exact loop_done p dec (0 + k) x hx
+  | succ n ih =>
+      intro x z h k
+      by_cases hd : dec x = true
+      · have hz : z = x := by
+          rw [show loop p dec (n + 1) x = some x from by simp [loop, hd]] at h
+          exact (Option.some.inj h).symm
+        rw [hz]
+        exact loop_done p dec (n + 1 + k) x hd
+      · have hf : dec x = false := by
+          cases hv : dec x
+          · rfl
+          · exact absurd hv hd
+        rw [show loop p dec (n + 1) x = (p.run x).bind (loop p dec n) from by simp [loop, hf]] at h
+        -- split on p.run x instead of using Option.bind_eq_some_iff, whose name differs here
+        cases hr : p.run x with
+        | none => simp [hr] at h
+        | some y =>
+        have hly : loop p dec n y = some z := by simpa [hr] using h
+        have him : loop p dec (n + k) y = some z := ih y z hly k
+        have hstep : loop p dec (n + 1 + k) x = (p.run x).bind (loop p dec (n + k)) := by
+          have he : n + 1 + k = (n + k) + 1 := by omega
+          rw [he]
+          simp [loop, hf]
+        rw [hstep, hr]
+        simpa using him
+
+/-! ## 五、`iterate`：把出口条件作为**显式 `pre`**（第 235 轮的裁决）
+
+### `pre` 写什么
+
+**不能写成「循环成功」**——那样 `sound` 就是 `id`，是审计判过的 `:= h` 复述形状。
+
+**写成**：存在一个**不超过 `meas x` 的燃料** `n`，使循环在 `n` 格内成功抵达一个 `dec` 为真的状态：
+
+```lean
+pre x := ∃ n z, n ≤ meas x ∧ loop p dec n x = some z ∧ dec z = true
+```
+
+**它比 `run` 的成功严格弱**：`run` 用 `meas x` 格，而 `pre` 只许诺**某个** `n ≤ meas x`。
+所以 `sound` 必须干活——干的是 `loop_mono`：把 `n` 格的保证推到 `meas x` 格。
+
+### `post` 只说 `dec z = true`
+
+**不说可达性**。原因是诚实的：`pre` 许诺的那条链是「某个 `n` 的成功」，而 `run` 的实际路径
+是唯一的；要断言 `Reaches`，需要从 `loop` 抽出见证链——那可以再证（`loop_witness`），
+**但本节不做**，因为 `post := dec z = true` 已经是 `iterate` 的正确性内容，
+而可达性属于 §二 的 `Reaches`（它有自己的 `meas_add_le`）。
+
+**把没证的东西写进 `post` 会让 `sound` 变成假声称。** -/
+
+/-- **循环组合子**：在测度下重复 `p`，直到 `dec` 为真。
+
+`pre` 是**显式的出口假设**（第 235 轮裁决）：某个不超过 `meas x` 的燃料足以成功。
+`sound` 靠 `loop_mono` 把它推到 `meas x` 格。 -/
+def iterate {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) : Primitive I I where
+  pre := fun x => ∃ (n : ℕ) (z : I), n ≤ meas x ∧ loop p dec n x = some z ∧ dec z = true
+  post := fun _ z => dec z = true
+  run := fun x => loop p dec (meas x) x
+  sound := by
+    intro x hx
+    obtain ⟨n, z, hn, hl, hd⟩ := hx
+    refine ⟨z, ?_, hd⟩
+    have hmono : loop p dec (n + (meas x - n)) x = some z := loop_mono p dec n x z hl (meas x - n)
+    have he : n + (meas x - n) = meas x := by omega
+    rwa [he] at hmono
+  strength := p.strength
+  coverage := p.coverage
+  frame := fun _ _ => True
+
+/-- **`iterate` 的 `sound`**：可直接引用的一条。 -/
+theorem iterate_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) (x : I)
+    (hx : (iterate p dec meas).pre x) :
+    ∃ z, (iterate p dec meas).run x = some z ∧ (iterate p dec meas).post x z :=
+  (iterate p dec meas).sound x hx
+
+/-- **`iterate` 的强度不变**：循环不新增承诺。 -/
+theorem iterate_strength {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ) :
+    (iterate p dec meas).strength = p.strength := rfl
+
 end Lattice.Compose

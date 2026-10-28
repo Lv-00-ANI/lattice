@@ -1657,7 +1657,7 @@
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
-| `Lattice.Compose.Iterate` | 5 | 2 |
+| `Lattice.Compose.Iterate` | 8 | 3 |
 | `Lattice.Compose.Laws` | 9 | 0 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
@@ -1873,8 +1873,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ReLUSumLoss_const_on_open` -> `apply`, `relu`
 - `ReLUSum_iff_all_constraints` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
 - `ReLUSum_zero_iff_all` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
-- `Reaches.length_le` -> `Primitive`, `dec`, `run`, `zero`
-- `Reaches.meas_add_le` -> `Primitive`, `dec`, `induction`, `run`, `step`, `zero`
+- `Reaches.length_le` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `Reaches.meas_add_le` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `RealConstraintSatRel_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
 - `RealDot_sub` -> `RealDot`, `apply`, `subst`
 - `Repair.absorbs_is_idempotentOn` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`
@@ -5084,7 +5084,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `idT_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `id_is_not_a_repair_when_unsat_exists` -> `ConstraintSat`, `LinearConstraint`, `iterate_succ`, `preserves`
 - `id_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
-- `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`
+- `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `l0Norm`, `sqNorm`
 - `ieeeAccN_error` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `clampTo`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fpOverflow`, `geom_sum_mul`, `ieeeToRoundOp`, `induction`, `roundToFormat`, `tiny`, `zero`
@@ -5353,7 +5353,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `iterateStep_tendsto_fixedPoint` -> `complete`, `iterateStep`
 - `iterateStep_zero` -> `E`, `apply`, `eps`, `induction`, `op_apply_le`, `prod_one_add_le_exp`, `zero`
 - `iterate_comm` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `trans`, `zero`
-- `iterate_comp_of_leftInverse` -> `W`, `compile`, `extract`
+- `iterate_comp_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`
 - `iterate_fix_of_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `iterate_fixed_point` -> `W`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `zero`
 - `iterate_from_fold` -> `Audit`, `Repair`, `Sat`, `iterate`
@@ -5361,7 +5361,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `iterate_lipschitz` -> `W`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `zero`
 - `iterate_sat_of_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `iterate_shift` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `preserves_of_sat`, `zero`
+- `iterate_sound` -> `Primitive`, `dec`, `run`, `sound`
 - `iterate_step_swap` -> `induction`, `iterate`, `repair`, `zero`
+- `iterate_strength` -> `Primitive`, `dec`
 - `iterate_succ` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `lt`, `preserves_of_sat`, `zero`
 - `iterate_to_starAny` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `zero`
 - `ito_discrete_pointwise` -> `apply`, `induction`, `path`, `quadForm`, `second_order_taylor`, `zero`
@@ -5775,7 +5777,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_converges` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`, `progress`
 - `loop_converges_in_one` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`
 - `loop_converges_to_fixed_point` -> `W`, `contraction_converges`, `iterate`, `iterate_step_swap`
-- `loop_done` -> `Primitive`, `dec`, `run`, `zero`
+- `loop_done` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
 - `loop_exit_wp` -> `Compiler`, `State`, `iterate`
 - `loop_fixed_point` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `progress`, `roundtrip`
 - `loop_fixed_point_exists` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
@@ -5787,11 +5789,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_iterate_tendsto_fixedPoint` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `op_norm_pow_apply_le`, `zero`
 - `loop_lower_bound` -> `Adj`
 - `loop_model_contraction` -> `W`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
+- `loop_mono` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
-- `loop_step` -> `Primitive`, `dec`, `run`
-- `loop_zero_none` -> `Primitive`, `dec`
+- `loop_step` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
+- `loop_zero_none` -> `Primitive`, `dec`, `induction`, `run`, `sound`, `zero`
 - `lora_edit_additive` -> `E`, `LoRAEdit`, `W`, `lora_edit_bound`
 - `lora_edit_bound` -> `E`, `W`, `comp`, `le_trans`
 - `lora_edit_constraint` -> `E`, `W`

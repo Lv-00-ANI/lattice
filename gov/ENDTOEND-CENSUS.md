@@ -16,13 +16,13 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 5450 | 63.7% |
-| 1 | 1348 | 15.8% |
-| 2 | 700 | 8.2% |
-| 3 | 389 | 4.5% |
-| 4 | 552 | 6.5% |
-| 5 | 113 | 1.3% |
+| 1 | 1344 | 15.7% |
+| 2 | 669 | 7.8% |
+| 3 | 377 | 4.4% |
+| 4 | 597 | 7.0% |
+| 5 | 118 | 1.4% |
 | 6 | 2 | 0.0% |
-| **合计** | **8554** | |
+| **合计** | **8557** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -30,6 +30,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 |--:|:--|:--|
 | 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 5 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
@@ -54,6 +56,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `loop_done` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_step` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_mono` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `iterate_sound` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `iterate_strength` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_comm_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_identity_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
@@ -83,11 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `all_twelve_discharged` (`Lib/Chain/RealN2AxiomDischargeJia.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `run_append` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_correct` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compile_correct_empty` (`Lib/Compiler/RealCompilerCorrectness.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `run_append` (`Lib/Compiler/RealConcurrentSemantics.lean`) | Audit, Core, Geo, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
