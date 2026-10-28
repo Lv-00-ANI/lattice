@@ -15,7 +15,7 @@
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 18 | aggregator at `Lattice/`, re-exports only |
+| root | 19 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -824,11 +824,12 @@
 - `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Geo.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
+- `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
 - `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`, `Lattice.Geo.CExprCodegen`, `Lattice.Geo.CodegenLadder`, `Lattice.Geo.ExecutableGeoCheck`, `Lattice.Geo.WeightSideLadder`, `Lattice.Geo.PenaltyLoss`, `Lattice.Geo.NetLoss`, `Lattice.Geo.ConstraintDescent`, `Lattice.Geo.WeightDescent`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`
@@ -1655,6 +1656,7 @@
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
 | `Lattice.Compose.More` | 3 | 1 |
 | `Lattice.Compose.Primitive` | 7 | 8 |
+| `Lattice.Compose.Registry` | 3 | 6 |
 | `Lattice.Core` | 0 | 0 |
 | `Lattice.Geo` | 0 | 0 |
 | `Lattice.Lib` | 0 | 0 |
@@ -1826,6 +1828,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MStmt.size_seq_right_lt` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MStmt.size_skip` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MatLayerOut_eq_matvecE` -> `W`, `apply`, `matvecE`, `matvecE_sub`
+- `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `Model.eval_lipschitz` -> `apply`
 - `Model.eval_nil` -> `apply`, `induction`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
@@ -3163,8 +3166,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `contDiff_pathMap` -> `add`, `comp`, `smul`
 - `contDiff_two_gives_interval_hypotheses` -> `comp`, `mono`
 - `contLinMap_prod_coords` -> `subst`, `supporting_functional_of_not_mem_interior`
-- `containment_add` -> `find`, `subst`
-- `containment_mul_nonneg` -> `find`, `subst`
+- `containment_add` -> `empty`, `find`, `subst`
+- `containment_mul_nonneg` -> `empty`, `find`, `subst`
 - `contains_true_mem` -> `append_assoc`, `contains`, `induction`, `step`, `subst`
 - `contentOk_of_canonical_ne_none` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `content_cCommVec` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
@@ -3964,7 +3967,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_graph_satisfiable` -> `Compiler`
 - `empty_program_no_constraints` -> `Theory`, `length`
 - `empty_program_no_prove` -> `Theory`, `length`
-- `empty_table_unique` -> `apply`, `find`
+- `empty_table_unique` -> `apply`, `empty`, `find`
 - `encCon_head_inl` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
 - `encCon_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `length_cons`
 - `encCon_ne_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
@@ -4124,6 +4127,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ewc_psd_counterexample` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
 - `exact_implies_sound` -> `E`, `Sat`, `loss`
 - `exact_is_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
+- `exact_of_foldStrength_exact` -> `Strength`, `le_antisymm`, `rank`
 - `exact_reinject_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
 - `exampleFloat_compiles` -> `length`
 - `exampleInt_runs` -> `add`, `length`, `lit`, `mul`
@@ -4562,6 +4566,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldGo_idem` -> `append_assoc`, `induction`, `length`, `split`, `subst`, `zero`
 - `foldGo_length_le` -> `induction`, `length`, `length_cons`, `trans`
 - `foldProgram_preserves` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `foldStrength_le_of_mem` -> `Strength`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `fold_weights_sum` -> `card_fin`
 - `foldlQ_init_add` -> `induction`
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
@@ -5588,7 +5593,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lcm_assoc` -> `apply`, `le_trans`, `length`, `satisfiable`, `trans`
 - `lcm_gcd_distrib_dvd` -> `apply`, `children`, `le_trans`, `length`, `satisfiable`, `trans`
 - `le_and_ge_iff_eq` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
-- `le_antisymm` -> `find`, `subst`
+- `le_antisymm` -> `empty`, `find`, `subst`
 - `le_antisymm_from_injective` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `le_clamp` -> `apply`, `clampTo`, `le_antisymm`, `le_refl`, `le_trans`, `min`, `quant_error_lt_two_pow`
 - `le_exp_of_le_sq` -> `le_trans`, `uniformProb`
@@ -5604,11 +5609,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `le_moreauEnvelope` -> `IsProx`, `apply`, `le_refl`, `prox_linear`
 - `le_opNorm_diagonal` -> `apply`, `le_antisymm`, `matCLME`, `matCLME_apply`
 - `le_preserves` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
-- `le_refl` -> `find`, `subst`
+- `le_refl` -> `empty`, `find`, `subst`
 - `le_roundUpN` -> `subst`
 - `le_succ_of_pred_le` -> `add`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
-- `le_total` -> `apply`, `find`
-- `le_trans` -> `find`, `subst`
+- `le_total` -> `apply`, `empty`, `find`
+- `le_trans` -> `empty`, `find`, `subst`
 - `le_tsum_of_nonneg` -> `apply`, `infinite_sum_bound`
 - `least_fixed_point_finite` -> `induction`, `zero`
 - `leftInverse_covers_non_factoring_P` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
@@ -5821,7 +5826,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lr_decay_antitone` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `induction`, `le_trans`, `subst`, `zero`
 - `lr_decay_finite_phase` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `le_trans`, `subst`
 - `lstsqGrad_zero` -> `apply`
-- `lt_imp_le` -> `apply`, `find`
+- `lt_imp_le` -> `apply`, `empty`, `find`
 - `lt_of_apply_eq_of_strictMono` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `lt_of_le_maxPoint` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `lt_of_natToReal_add_lt` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
@@ -7730,7 +7735,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundTrip_perturbation_id` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
 - `roundTrip_preserves_order_iff` -> `ConstraintSet`, `Layer`, `Rel`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_range_eq_fixedPoints` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
-- `roundUpN_mono` -> `find`, `subst`
+- `roundUpN_mono` -> `empty`, `find`, `subst`
 - `round_close` -> `eps`, `induction`, `tiny`, `zero`
 - `round_growth_contract` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `round_keeps` -> `GeoConstraintSet`, `Rule`
@@ -8192,8 +8197,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `single_dev_tail` -> `card_fin`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `single_solution_constraint_concept` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
 - `single_var_is_multivar` -> `dot`
-- `singleton_contains_iff` -> `apply`, `find`
-- `singleton_contains_self` -> `apply`, `find`
+- `singleton_contains_iff` -> `apply`, `empty`, `find`
+- `singleton_contains_self` -> `apply`, `empty`, `find`
 - `singleton_minimal_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `singularValueSq_eq_gram_eigenvalues` -> `E`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `singularValueSq_nonneg` -> `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`

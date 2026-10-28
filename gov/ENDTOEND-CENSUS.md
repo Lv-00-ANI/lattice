@@ -20,9 +20,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 2 | 697 | 8.2% |
 | 3 | 512 | 6.0% |
 | 4 | 436 | 5.1% |
-| 5 | 64 | 0.8% |
+| 5 | 67 | 0.8% |
 | 6 | 2 | 0.0% |
-| **合计** | **8531** | |
+| **合计** | **8534** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -43,6 +43,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `Primitive.withCoverage_sound` (`Compose/Primitive.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `MatrixRow.strength_eq` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `foldStrength_le_of_mem` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `exact_of_foldStrength_exact` (`Compose/Registry.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Core, Geo, Lift, root |
@@ -85,9 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `merge_sound` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `rejected_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `conflict_loser_absent` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `conflicts_not_automatic` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_sound_cons` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `merge_sound_append_experts` (`Semantics/Merge.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
