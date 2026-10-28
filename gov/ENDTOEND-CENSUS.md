@@ -15,79 +15,79 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5460 | 63.8% |
-| 1 | 1339 | 15.6% |
-| 2 | 666 | 7.8% |
-| 3 | 494 | 5.8% |
-| 4 | 543 | 6.3% |
-| 5 | 57 | 0.7% |
-| 6 | 3 | 0.0% |
+| 0 | 5444 | 63.6% |
+| 1 | 1346 | 15.7% |
+| 2 | 611 | 7.1% |
+| 3 | 535 | 6.2% |
+| 4 | 439 | 5.1% |
+| 5 | 168 | 2.0% |
+| 6 | 19 | 0.2% |
 | **合计** | **8562** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 6 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `type_soundness` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `soundness` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `bidir_steps` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `multistep_geometric_exists` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
 | 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
 | 6 | `fullRegistry_wellFormed` (`Slots.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
-| 5 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `losses_are_not_mutually_reducible` (`Lib/Chain/RealE2EComposite.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `e2e_loss_compound` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `all_twelve_discharged` (`Lib/Chain/RealLv00AxiomDischargeSummary.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `all_twelve_discharged` (`Lib/Chain/RealN2AxiomDischargeJia.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_program_go_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_program_append` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_program_go_contains` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_program_contains_compiled_constraints` (`Lib/Compiler/RealLv00CompilerReal.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_program_vars_subset` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_append_satisfiable` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_preserves_satisfiability` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `compile_preserves_satisfiability_hypothesis_unused` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `preservation` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `type_soundness` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `type_preservation_add` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `multistep_preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `soundness` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Compose, Core, Domains, Runtime |
-| 5 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Compose, Core, Domains, Runtime, Semantics |
-| 5 | `edit_frame` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_member` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `edit_frame_holds` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `edit_realizes` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `annotation_realizes` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `edit_undo_restores_removed` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `edit_undo_drops_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_samePoint_single` (`Semantics/CompileSound.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_midpoint_single` (`Semantics/CompileSound.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `compile_sound` (`Semantics/CompileSound.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `compile_sound_midpoint` (`Semantics/CompileSound.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_of_sublist` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merged_sublist` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_flatMap_experts` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_parts` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_sound` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `rejected_absent` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `conflict_loser_absent` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `conflicts_not_automatic` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_sound_cons` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_sound_append_experts` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_sound_add_global` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `merge_sound_not_composable` (`Semantics/Merge.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_meaning_equiv` (`Semantics/Stage1.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `holdsSet_equiv_append_left` (`Semantics/Stage1.lean`) | Compose, Core, Domains, Lib, Runtime |
-| 5 | `constraintVocab_denote_sound` (`Semantics/Stage1.lean`) | Compose, Core, Domains, Lib, Runtime |
+| 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `Reaches.meas_add_le` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `Reaches.length_le` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `loop_done` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `loop_step` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `loop_mono` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `loop_witness` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `iterate_sound` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `iterate_strength` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `optional_true_run` (`Compose/Laws.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `optional_false_run` (`Compose/Laws.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `optional_sound` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `optional_strength` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `IdempotentOn.iterate` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_comp_of_leftInverse` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `preserves_of_sat` (`Core/Invariant.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `oneStepRepair_converges` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `oneStepRepair_one_step` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `natCountdownAsRepair_converges` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_succ` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `progress` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `preserves` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `parity_terminates` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `down_stays_neg` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `down_no_progress` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `converges_within` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `converges_within_steps` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `progress_of_rate` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `countdown_iterate` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `countdown_converges_in` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `no_uniform_bound` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `converges_within_is_tight` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_succ` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_shift` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `progress_on_wf` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `preserves_of_sat` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `repair_then_reinject` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

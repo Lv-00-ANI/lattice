@@ -33,7 +33,7 @@ import Lattice.Domains.Geometry.LoopPerp
 import Lattice.Domains.Geometry.LoopRate
 import Lattice.Domains.Geometry.MissingRepairs
 import Lattice.Domains.Geometry.MultiSeedCoverage
-import Lattice.Domains.Geometry.MultistepLoop
+import Lattice.Primitives.MultistepLoop
 import Lattice.Domains.Geometry.Nondegenerate
 import Lattice.Domains.Geometry.NondegenerateInstance
 import Lattice.Domains.Geometry.ParallelRepair
@@ -67,7 +67,7 @@ import Lattice.Domains.Geometry.SynthesisCoverage
 import Lattice.Domains.Geometry.SynthesisMulti
 import Lattice.Domains.Geometry.Unconditional
 import Lattice.Domains.Geometry.Unified
-import Lattice.Domains.Geometry.WeightDescent
+import Lattice.Primitives.WeightDescent
 import Lattice.Domains.Geometry.WeightSideLadder
 
 /-!

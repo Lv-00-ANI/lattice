@@ -24,8 +24,8 @@ import Lattice.Domains.Constraints.Pipeline
 import Lattice.Domains.Constraints.RealToken
 import Lattice.Domains.Constraints.RealTokenRoundtrip
 import Lattice.Domains.Constraints.SeqRepresentation
-import Lattice.Domains.Constraints.TokenizeStrategy
-import Lattice.Domains.Constraints.TokenizerPattern
+import Lattice.Primitives.TokenizeStrategy
+import Lattice.Primitives.TokenizerPattern
 
 /-!
 # `Lattice.Domains.Constraints`

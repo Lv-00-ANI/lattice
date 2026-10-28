@@ -24,7 +24,7 @@
 | `Lattice.Domains.ConstraintDescent` | 452 | 17 | Constraint, PenaltyLoss, NetLoss |
 | `Lattice.Domains.ConstraintSet` | 175 | 7 | Constraint |
 | `Lattice.Domains.ConstraintTokenizer` | 420 | 12 | Expr |
-| `Lattice.Domains.Constraints` | 40 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, TokenizeStrategy, TokenizerPattern |
+| `Lattice.Domains.Constraints` | 40 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation |
 | `Lattice.Domains.Derivative` | 94 | 3 | Pipeline |
 | `Lattice.Domains.Derive` | 71 | 2 | Engine |
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
@@ -54,7 +54,7 @@
 | `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
 | `Lattice.Domains.GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
 | `Lattice.Domains.GeoSampledBound` | 79 | 1 | Lipschitz, RhoMetric, PolyAssemble |
-| `Lattice.Domains.Geometry` | 83 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, MultistepLoop, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightDescent, WeightSideLadder |
+| `Lattice.Domains.Geometry` | 83 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder |
 | `Lattice.Domains.IRBridge` | 307 | 13 | LayerExact, Loss |
 | `Lattice.Domains.IRRepair` | 86 | 3 | IRBridge, ConjRepair, LoopPerp |
 | `Lattice.Domains.Initialise` | 125 | 9 | Constraint, Invariant |
@@ -68,7 +68,6 @@
 | `Lattice.Domains.Loss` | 199 | 10 | Expr, Dist, Constraint |
 | `Lattice.Domains.MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
 | `Lattice.Domains.MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
-| `Lattice.Domains.MultistepLoop` | 183 | 8 | — |
 | `Lattice.Domains.NetLoss` | 175 | 5 | ConstraintSet, PenaltyLoss |
 | `Lattice.Domains.Nondegenerate` | 307 | 13 | Differentiable, Perturb, Derivative |
 | `Lattice.Domains.NondegenerateInstance` | 143 | 6 | Perturb, Nondegenerate |
@@ -107,11 +106,8 @@
 | `Lattice.Domains.SynthesisConnection` | 158 | 7 | Synthesis, SynthesisMulti |
 | `Lattice.Domains.SynthesisCoverage` | 179 | 7 | Synthesis, Constraint |
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
-| `Lattice.Domains.TokenizeStrategy` | 518 | 5 | — |
-| `Lattice.Domains.TokenizerPattern` | 178 | 6 | — |
 | `Lattice.Domains.Unconditional` | 117 | 7 | FormDeriv, Derivative |
 | `Lattice.Domains.Unified` | 91 | 4 | Loop, LoopPerp |
-| `Lattice.Domains.WeightDescent` | 252 | 9 | — |
 | `Lattice.Domains.WeightSideLadder` | 279 | 9 | Constraint, GeoLadder |
 
 ## 二、四条靶定理在几何层中的落点
