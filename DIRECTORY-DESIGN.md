@@ -114,6 +114,19 @@ Usage（用户示例）
 
 ### 2.5 共享类型集中在 `Kernel`
 
+> ⚠⚠ **第 15 轮实测：本节不可执行。** 见 `KERNEL-MEASUREMENT.md`。
+>
+> 下面点名的 23 个类型里，**17 个在活树里根本不存在**（`Profile`、`Weights`、`Spec`、`Param`、
+> `Grad`、`Annotation`、`Delta`、`EditRecord`、`Violation`、`Operator`、`Certificate`、`QuantParams`、
+> `QuantizedWeights`、`Metrics`、`Data`、`Batch`、`TokenMap`），
+> 存在的 4 个**都需要 rank ≥ 2**（`Program` 2、`Vocab` 3、`ConstraintSet` 2、`MergeRecord` 3）。
+>
+> ⚠ **连 §6 的退路「先 `abbrev` 指向现有类型」也不成立**：仅存的两个 rank ≤ 1 的类型
+> （`Model`、`Loss`）**定义在 `Lib`（rank 3）里**，所以 `abbrev` 也必须 import `Lib`，
+> `Kernel/Types.lean` 于是同样要 rank 3。
+>
+> **所以本节是愿景，不是计划。** 实测的层形态见 §2.4 的修订与 `KERNEL-MEASUREMENT.md`。
+
 `Model`、`Profile`、`Program`、`Weights`、`Spec`、`Vocab`、`ConstraintSet`、`Param`、`Loss`、`Grad`、`Annotation`、`Delta`、`EditRecord`、`Violation`、`Operator`、`Certificate`、`QuantParams`、`QuantizedWeights`、`Metrics`、`Data`、`Batch`、`TokenMap`、`MergeRecord` 全部在 `Kernel/Types.lean`。
 
 ### 2.6 Primitive 不互相 import
