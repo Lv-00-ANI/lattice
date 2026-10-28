@@ -17,24 +17,20 @@ import Lattice.Core.Net
 |:--|:--|
 | `layerWords_length` | **参数数恰好 `k * k + k`**——布局总长度，C 侧缓冲大小由它决定 |
 | `wPart_length` | `W` 段长度是 `k*k` |
-| `idxW_lt` / `idxB_lt` | 两个索引在界内的算术 |
-| **`layerWords_getD_W`** | **第 `i*k+j` 个词就是 `W i j`**（行主序可逆的**权重那一半**） |
+| `idxW_lt` / `idxB_lt` | 两个下标在界内的算术 |
+| **`layerWords_getD_W`** | **第 `i*k+j` 个词就是 `W i j`** |
+| **`bl_getD`** | 偏置段的第 `j` 个词就是 `b j` |
+| **`layerWords_getD_b`** | **第 `k*k+j` 个词就是 `b j`** |
+| **`wordsLayer_layerWords`** | **解码器是编码器的左逆**（L0-2） |
+| **`layerWords_injective`** | **无损**：词序列相同 ⟹ 层相同（L0-1） |
 
-## ⚠ 本文件**没有**证明什么（已登记）
+**`getD_W` 与 `getD_b` 合起来**就是格式契约的另一半：**摊平是可逆的**。
 
-- **`b` 那一半的取回未证。** 目标形状是
-  `(layerWords L).getD (k*k + j.val) 0 = L.b j`。第 25 轮试到第 10 次仍未过：
-  `List.getElem_append_right` 的 `i - as.length` 让目标落在 `Fin.cast` 的**依赖位置**上，
-  `rw [hWlen]` 报 *motive is not type correct*；
-  改走 `List.getD_append_right`（普通 `Nat` 索引）是对的方向，但
-  `unfold layerWords` 之后目标里的 `map` 已被化简，`getD_eq_getElem` 的默认值/列表形状与我预期的不一致。
-  **下一步的确切起点**：`set` 住 `wl := (finRange (k*k)).map …` 与 `bl := (finRange k).map (fun j => L.b j)`
-  再做 `getD_append_right`，让两侧都不被 `unfold` 化简。
-- **`layerWords_injective`** 依赖上面那一半，故也未证。
-- **字节级**（字节序、对齐、填充、`ℝ` 的二进制表示）未做；**`Conformance`** 的 `Float` 模型见该文件。
+## 本文件**没有**做的事
 
-**`sorry` 不可接受，所以缺的那一半留空，并把两次尝试的确切障碍写在这里。** -/
-
+⚠ **字节级**（字节序、对齐、填充、`ℝ` 的二进制表示）**未做**——原因见上。
+**`CInterface/Layout`** 需要 `Model`/`Profile`/`Program`/`Certificate` 的布局，而其中**三个在活树里
+不存在**（第 15 轮实测），所以那一块**被测量挡住**，不是被难度挡住。 -/
 namespace Lattice.CInterface.Serialization
 
 open Lattice.Core
@@ -79,8 +75,7 @@ theorem idxB_lt {k : ℕ} (j : Fin k) : k * k + j.val < k * k + k := by
 
 /-- ⭐ **行主序的可逆性（权重那一半）**：第 `i*k+j` 个词就是 `W i j`。
 
-这条把「摊平」变成**可逆**的——`Fin.divNat`/`Fin.modNat` 把 `Fin (k*k)` 拆回 `(i, j)`，
-两个除法引理再确认它们正是 `i` 与 `j`。 -/
+`Fin.divNat`/`Fin.modNat` 把 `Fin (k*k)` 拆回 `(i, j)`，两个除法引理再确认它们正是 `i` 与 `j`。 -/
 theorem layerWords_getD_W {k : ℕ} (L : AffineLayer (Fin k)) (i j : Fin k) :
     (layerWords L).getD (i.val * k + j.val) 0 = L.W i j := by
   have hjk : j.val < k := j.isLt
@@ -104,6 +99,50 @@ theorem layerWords_getD_W {k : ℕ} (L : AffineLayer (Fin k)) (i j : Fin k) :
   · apply Fin.ext
     show (i.val * k + j.val) % k = j.val
     exact hmod
+
+/-- ⭐ **偏置段的取回**：`(finRange k).map (fun j => L.b j)` 的第 `j` 个词就是 `b j`。
+
+**单独成条**，因为它的元素类型是 `ℝ`（而不是 `Fin k`）——这正是第 25 轮把
+`getD_eq_getElem` 的默认值搞错的地方。把这一条与 `getD_append_right` 的整段下标算术分开，
+两边都不必穿过 `Fin.cast` 的依赖位置。 -/
+theorem bl_getD {k : ℕ} (L : AffineLayer (Fin k)) (j : Fin k) :
+    ((List.finRange k).map (fun j => L.b j)).getD j.val 0 = L.b j := by
+  have hidx : j.val < ((List.finRange k).map (fun j => L.b j)).length := by
+    rw [List.length_map, List.length_finRange]
+    exact j.isLt
+  rw [List.getD_eq_getElem _ _ hidx]
+  rw [List.getElem_map, List.getElem_finRange]
+  -- `congr 1` closes it: the `Fin` produced by `getElem_finRange` is definitionally `j`
+  congr 1
+
+/-- ⭐ **行主序的可逆性（偏置那一半）**：第 `k*k+j` 个词就是 `b j`。
+
+走 `List.getD_append_right`（**普通 `Nat` 下标**），再交给 `bl_getD`——
+所以这一段不需要在 `Fin.cast` 的依赖位置上重写。 -/
+theorem layerWords_getD_b {k : ℕ} (L : AffineLayer (Fin k)) (j : Fin k) :
+    (layerWords L).getD (k * k + j.val) 0 = L.b j := by
+  have hWlen := wPart_length L
+  unfold layerWords
+  rw [List.getD_append_right _ _ _ _ (by rw [hWlen]; exact Nat.le_add_right _ _)]
+  rw [hWlen, Nat.add_sub_cancel_left]
+  exact bl_getD L j
+
+/-- ⭐⭐ **L0-2：解码器是编码器的左逆。** -/
+theorem wordsLayer_layerWords {k : ℕ} (L : AffineLayer (Fin k)) :
+    wordsLayer (layerWords L) = L := by
+  cases L with
+  | mk W b =>
+    simp only [wordsLayer, layerWords_getD_W, layerWords_getD_b]
+
+/-- ⭐⭐ **L0-1：无损**——词序列相同 ⟹ 层相同。
+
+**证明走解码器，不走依赖重写**：`congrArg` 作用在**列表**相等上，得到的两个等式都是**层**等式，
+再用左逆消掉编码器。（第 18 轮直接 `rw [h] at h₁` 会报 *motive is not type correct*，
+因为那条等式的索引依赖 `L`；`congrArg` 之后就没有依赖索引了。） -/
+theorem layerWords_injective {k : ℕ} : Function.Injective (layerWords (k := k)) := by
+  intro L₁ L₂ h
+  have h' := congrArg (wordsLayer (k := k)) h
+  rwa [wordsLayer_layerWords, wordsLayer_layerWords] at h'
 
 /-- **退化情形**：`k = 0` 时词序列为空，与 `k * k + k = 0` 一致。 -/
 theorem layerWords_zero (L : AffineLayer (Fin 0)) : layerWords L = [] := by
