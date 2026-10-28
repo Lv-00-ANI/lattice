@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Lib.FCA.RealFCA
 import Lattice.Lib.Attention.RealTemporalLayer
 import Lattice.Lib.FCA.RealFCAInstance
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lift.ConvertVectorLinear
 import Lattice.Lift.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealCompileExtractClosed

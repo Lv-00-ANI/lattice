@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.FCA.RealFCA
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lib.Compiler.RealAbstractInterpretation
 /-!
 # RealFCAAbstractionSoundness —— FCA 抽象化的**可靠性**（P1-1 / P2-1）

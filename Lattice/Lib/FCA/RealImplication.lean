@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lib.Compiler.RealCombinators
 import Lattice.Lift.RealNonlinear
 /-!

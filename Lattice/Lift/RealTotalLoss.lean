@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 /-!
 # LATTICE: ℝ 总损失 —— Σ (out_i)² = 0 ⟺ 全部约束满足
 

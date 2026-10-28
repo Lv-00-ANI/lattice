@@ -21,13 +21,13 @@ import Lattice.Lift.WeightLadderN
 import Lattice.Lift.TokenAlphabet
 import Lattice.Lift.IntRoundtrip
 import Lattice.Lift.NondegenerateInstance
-import Lattice.Lift.ErrorCalculus
+import Lattice.Runtime.ErrorCalculus
 import Lattice.Lift.RepresentationFamilies
 import Lattice.Lift.ApproxExtraction
 import Lattice.Lift.RatRepresentation
 import Lattice.Lift.GridDensity
 import Lattice.Lift.MultiLayerLadder
-import Lattice.Lift.StackCodegen
+import Lattice.Runtime.StackCodegen
 import Lattice.Lift.ApproxLadder
 import Lattice.Lift.ExtractionStrength
 import Lattice.Lift.WeightLadderFullWidth

@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lift.RealTotalLoss
 /-!
 # LATTICE: 编译器优化的保语义性 —— 常量折叠 / 死约束消除 / 公共子表达式消除

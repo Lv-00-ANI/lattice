@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 /-!
 # LATTICE: P0 向量版 —— 平方损失 fderiv 驻点 ⟺ 满足（法方程）
 

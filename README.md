@@ -24,7 +24,7 @@
 > |:--|--:|:--|
 > | Lean 模块 | 826 | `audit_counts.py` |
 > | 定理 / 引理 | 8559 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Geo/Lib | 18 / 66 / 99 / 605 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Geo/Lib | 18 / 61 / 99 / 605 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 61（47 门禁 + 19 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -109,7 +109,7 @@ lattice-new/
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
 │   ├── Core/      18       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
-│   ├── Lift/      66       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
+│   ├── Lift/      61       # 链路层：L0⇄L1⇄L2⇄L3 全部环节 + zero 的抽象接口
 │   ├── Slots.lean  1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/       99       # 约束几何与精确惩罚
 │   ├── Lib/      607       # 应用库，按主题（建立在链路层之上）

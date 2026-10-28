@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ComboN
+import Lattice.Runtime.ComboN
 /-!
 # LATTICE: VerifyLoopProgress 收敛性 —— 真实修复器的最终满足
 

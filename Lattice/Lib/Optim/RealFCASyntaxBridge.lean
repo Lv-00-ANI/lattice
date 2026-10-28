@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.FCA.RealFCA
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lib.FCA.RealFCAInstance
 import Lattice.Lib.FCA.RealFCAElementApplication
 /-!

@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Lift.ConvertLinear
 import Lattice.Lift.ConvertVectorLinear
 import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.RealLinear
+import Lattice.Runtime.RealLinear
 import Lattice.Lib.Editing.RealExtractInvertibility
 -- B352: `relu` is defined in RealNonlinear and NOWHERE else, and no import above
 -- brings it in transitively.  Lines 146 and 167 use it, so this file could never

@@ -79,7 +79,7 @@ dist_extract_two_le : dist (extract₂ (compile₂ (extract₁ (compile₁ p))))
 -/
 import Mathlib
 import Lattice.Lift.Extraction
-import Lattice.Lift.ErrorCalculus
+import Lattice.Runtime.ErrorCalculus
 import Lattice.Lift.RoundingBackend
 
 namespace Lattice.Lift
