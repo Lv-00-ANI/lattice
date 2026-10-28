@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1314 | 15.6% |
-| **入度 ≥ 1（承重集）** | **872** | **820** | **94.0%** |
-| **入度 = 0** | **7537** | **494** | **6.6%** |
+| 定理 + 引理 | 8409 | 1289 | 15.3% |
+| **入度 ≥ 1（承重集）** | **872** | **802** | **92.0%** |
+| **入度 = 0** | **7537** | **487** | **6.5%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.6%**：7537 条入度为 0 的定理里只审了 494 条。**这才是「样本」真正指的东西。**
+- **零入度只有 6.5%**：7537 条入度为 0 的定理里只审了 487 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -92,7 +92,6 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lift/EndToEnd.lean:132` | `ladder_forward` | 13 | 只投影结构字段：证明体 = `L.l2l3_sound s hsat`；doc 的「does not collapse into a restatement of l2l3_sound」为假——它就是该字段。 |
 | `Lib/Chain/RealTaylorMultivariate.lean:195` | `second_order_taylor` | 2 | 纯占位：`∃ R, a = b + R` 与 `True` 同义（证明体就是取 `R := RHS 差` 再 `linarith`）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean:206` | `closed_loop_adds_nothing` | 2 | F: 重言 (P↔Q)↔(P↔Q),信息量为零 |
 | `Lib/Editing/RealOperatorSplit.lean:51` | `t1_decompose` | 2 | 重言：加法逆元恒等式（`add_sub_cancel`）。 |
@@ -132,17 +131,17 @@
 | `Lib/Editing/RealExtractionDirection.lean:303` | `renderSurjective_holds` | 0 | 空洞真：任何有 section 的全函数都满足，与「抽取能恢复什么」无关。 |
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:439` | `eq_softThresh_of_is_min` | 0 | 零信息量：载体是注释文本而非声明 |
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:472` | `softThresh_le_of_is_min` | 0 | 零边际信息：同一陈述的第二个名字 |
-| `Lift/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
-| `Lift/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
 | `Lift/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
+| `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
+| `Runtime/EndToEnd.lean:132` | `ladder_forward` | 0 | 只投影结构字段：证明体 = `L.l2l3_sound s hsat`；doc 的「does not collapse into a restatement of l2l3_sound」为假——它就是该字段。 |
 | `Runtime/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
+| `Runtime/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
 | `Slots.lean:287` | `stated` | 0 | 非陈述：`stmt` 是 Slots 文档注释的散文段落。 |
 
 ## 二、`strengthen`：说的比该说的弱
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lift/SymbolToWeightCorrectness.lean:65` | `symbolToWeight_correct` | 12 | 强度不足：名字声称 symbol→weight 的正确性，实际内容是「∀-map 分配（forall_mem_map_iff）+ 逐元素 rfl 级桥」，而且它认证的满足语义带有截断假阳性。本仓 RealSymbolToWeightWidened 已逐条给出消融：删掉逐元素桥则命题为假 ⟹ 「原定理的全部内容都集中在这个 rfl 桥上」；并给出 layer_ragged_also_zero 说明两侧共享缺陷、定理无诊断力。 |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:266` | `constrained_agrees_with_constraint_set` | 2 | 不足。`_hts : DecodesTo ts cs` 未使用；`cs` 只经 `allowedByConstraints` 里的 `cs.isEmpty = false` 进入，故「符号约束决定采样支撑」的实质内容为零。 |
 | `Lib/Optim/RealStrongConvex.lean:251` | `strong_convex_iterate_contraction` | 2 | 用途上够用（Nesterov 的 heavyBall、ProxGrad 的收缩只消费这条不等式），问题在前件而非结论：_hμL 是死前件，陈述比实际能证的弱。 |
 | `Lift/RealTokenSymbolLink.lean:306` | `decode_drops_trailing_partial` | 2 | A: 需要更强:把单点见证换成一般命题,否则 doc 的一般结论无机器依据 |
@@ -176,6 +175,7 @@
 | `Lib/Quantization/RealIEEE754/Basic.lean:173` | `ieee_relative_error_bound` | 0 | 强度够（对唯一用户足够） |
 | `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 0 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
 | `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 0 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
+| `Runtime/SymbolToWeightCorrectness.lean:65` | `symbolToWeight_correct` | 0 | 强度不足：名字声称 symbol→weight 的正确性，实际内容是「∀-map 分配（forall_mem_map_iff）+ 逐元素 rfl 级桥」，而且它认证的满足语义带有截断假阳性。本仓 RealSymbolToWeightWidened 已逐条给出消融：删掉逐元素桥则命题为假 ⟹ 「原定理的全部内容都集中在这个 rfl 桥上」；并给出 layer_ragged_also_zero 说明两侧共享缺陷、定理无诊断力。 |
 
 ## 三、`downgrade`：声称过强
 
@@ -195,7 +195,6 @@
 | `Lib/Attention/RealAttention.lean:69` | `sqrt_d_scale_bound` | 2 | 登记理由：装饰性前件 hd（唯一用处是一个未再使用的 hd'）。删掉它对调用方是净收益，属清理级。 |
 | `Lib/Attention/RealSoftmaxLipschitz.lean:124` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
 | `Lib/Attention/RealTemporalLayer.lean:335` | `suspend_preserves_base` | 2 | 登记理由：rfl 级定义事实被当作法则级成果引用，且同文件已有一条逐字重复的定理。建议：要么删掉（下游写 rfl），要么保留但改 doc 为「定义即得」，并把法则 5 的承载放到真正的语义定理上。 |
-| `Lift/EndToEnd.lean:60` | `decode_encode` | 2 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 | `Lib/Architectures/RealBlockConstants.lean:79` | `weight_l1_diff_bound` | 1 | 数学正确、常数可用；唯一问题是前件 hM' 可证可删，属清理项，登记。 |
 | `Lib/Architectures/RealGatingGeneral.lean:40` | `softMasked_is_gated` | 1 | 纯投影/命名别名；因它是唯一的「激活类 ⊆ 门控类」入口，不宜直接删，登记为接口债务。 |
 | `Lib/Architectures/RealLayerScale.lean:79` | `layerscale_lipschitz` | 1 | 结论与常数都正确，唯一缺陷是冗余前件 _hL，一行可删；登记清理。 |
@@ -217,7 +216,6 @@
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
 | `Lib/Quantization/RealMixedPrecision.lean:179` | `accumulation_error_bound` | 1 | 清理级（C）：`_hM` 未用，且由 `hmag` 在 k=0 处即得（`accSum ad 0 x = 0`）。删除不影响证明与结论，下游 `RealMixedPrecisionRounding:408` 少传一个参数。定理本体与 doc 的『用统一幅度尺度 M 代替 Σ\|x_i\|』说明一致。 |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
-| `Lift/CompilerScheme.lean:103` | `backend_sound` | 1 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
 | `Audit/ChainTransitivity.lean:116` | `preserves_three` | 0 | 登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。 |
 | `Audit/CompositionAlgebra.lean:182` | `verdict_monoid` | 0 | 登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。 |
 | `Audit/CompositionAlgebra.lean:196` | `bridgedCount_hom` | 0 | 登记：要么注册 `MonoidHom`（成本极低，两条现成），要么把 doc 降为「`bridgedCount` 保持单位与乘法（两条独立定理）」。「同态」在本库是会被当成结构事实引用的词，不宜只落在合取上。 |
@@ -294,7 +292,9 @@
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
 | `Lift/ApproxExact.lean:150` | `epsSat_of_loss_le_sq` | 0 | 登记 PROOF-DEBT：名实不符的重复别名。要么删掉并把 Audit 表指向 abs_resid_le_of_loss_le_sq，要么改成真正的 EpsSat 版本（结论 EpsSat E p (ε^2) x）。引用它的只有 Audit 的假设表与反例说明，不是证明依赖，改名成本低。 |
-| `Lift/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
+| `Runtime/CompilerScheme.lean:103` | `backend_sound` | 0 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
+| `Runtime/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
+| `Runtime/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 | `Semantics/Annotations.lean:118` | `holdsSet_member` | 0 | 内容正确、形状正确，但这是 `Geo/ConstraintSet.lean:128 holdsSet_mem` 的第二份副本（本文件 namespace 是 `Lattice.Semantics.Annotations`）。唯一跨文件引用 `Semantics/Merge.lean:142` 写的是裸名 `holdsSet_member`，而该文件只 `import Lattice.Geo.ConstraintSet` 且 `open Lattice.Geo Latti… |
 
 ## 已处理（修好的条目**保留**在这里，不删）

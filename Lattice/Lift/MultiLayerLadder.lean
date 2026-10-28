@@ -69,7 +69,7 @@ netAct (ls ++ ms) x = netAct ms (netAct ls x)
 import Mathlib
 import Lattice.Core.Net
 import Lattice.Lift.WeightLadderN
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 
 open scoped BigOperators
 

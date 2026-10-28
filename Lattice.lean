@@ -1,5 +1,6 @@
 import Lattice.Core
 import Lattice.Lift
+import Lattice.Runtime
 import Lattice.Slots
 import Lattice.Geo
 import Lattice.Lib

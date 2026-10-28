@@ -58,8 +58,8 @@
   `core.semantics.external_bridge` 因此**仍然 open**，但它**不再阻塞 `Ladder` 的 `W`**。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
-import Lattice.Lift.L1L2Roundtrip
+import Lattice.Runtime.EndToEnd
+import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Core.Net
 import Lattice.Core.Semantics
 

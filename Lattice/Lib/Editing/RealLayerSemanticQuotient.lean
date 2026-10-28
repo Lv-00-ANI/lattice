@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lift.WeightToSymbolEquivalence
 /-!
 # LATTICE R-04：语义等价类的商 —— ⚠ **「穿过商单射」的两个读法，一对一假**

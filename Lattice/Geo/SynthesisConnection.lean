@@ -66,7 +66,7 @@ theorem synthesize_from_initialisation (G : List (GeoConstraint n))
 import Mathlib
 import Lattice.Geo.Synthesis
 import Lattice.Geo.SynthesisMulti
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 
 open scoped BigOperators
 

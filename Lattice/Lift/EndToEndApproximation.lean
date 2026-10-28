@@ -62,7 +62,7 @@
 -/
 import Mathlib
 import Lattice.Lift.ApproxExact
-import Lattice.Lift.VerificationSoundness
+import Lattice.Runtime.VerificationSoundness
 
 open scoped ContinuousLinearMap
 

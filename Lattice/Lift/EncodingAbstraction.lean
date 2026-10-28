@@ -70,7 +70,7 @@ theorem sound_of_factors {encode : inputP → inputW} {satP satW}
 -/
 import Mathlib
 import Lattice.Runtime.SymbolToWeight
-import Lattice.Lift.NonIdenticalEncoding
+import Lattice.Runtime.NonIdenticalEncoding
 
 namespace Lattice.Lift
 

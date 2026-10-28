@@ -4,7 +4,7 @@ import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 import Lattice.Lib.LearningTheory.RealRecoverEndpoint
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 open Lattice.Lift.SymbolToWeightCorrectness
 /-!
 # LATTICE E2E-Composite: the composite map `F`, defined -- and the irreducibility

@@ -88,7 +88,7 @@ theorem eqConstraintTokenizer_nontrivial :
 -/
 import Mathlib
 import Lattice.Geo.EqConstraintToken
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 
 open Lattice.Geo
 open Lattice.Geo.EqTok

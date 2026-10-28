@@ -80,7 +80,7 @@ satW w := ∀ x, netAct w x = 0
 -/
 import Mathlib
 import Lattice.Core.Net
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Lift.WeightLadderN
 
 open scoped BigOperators

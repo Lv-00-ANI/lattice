@@ -44,7 +44,7 @@
 - 本节**不改** `MultiLayerLadder`、`CExprCodegen`、`StackCodegen` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Geo.CExprCodegen
 
 namespace Lattice.Lift

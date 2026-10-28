@@ -89,7 +89,7 @@ Sat  : P → X → Prop
 -/
 import Mathlib
 import Lattice.Runtime.PenaltyEmbedding
-import Lattice.Lift.RealTotalLoss
+import Lattice.Runtime.RealTotalLoss
 import Lattice.Runtime.PenaltyAnalysis
 open scoped ContinuousLinearMap
 

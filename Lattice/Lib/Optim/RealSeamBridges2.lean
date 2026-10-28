@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Convex.RealKKTSecondOrder
 import Lattice.Lib.Optim.RealSaddlePoint
 import Lattice.Lib.Quantization.RealCompressedSensing

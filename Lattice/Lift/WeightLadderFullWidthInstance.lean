@@ -49,7 +49,7 @@ W := fun i _ => (s.take n).getD i.val 0     -- 第二下标被忽略
 - 本节**不改** `WeightLadderN`、`WeightLadderFullWidth`、`WeightLadderInverse` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 import Lattice.Lift.WeightLadderFullWidth
 import Lattice.Lift.WeightLadderInverse
 import Lattice.Lift.WeightLadderN

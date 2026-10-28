@@ -45,7 +45,7 @@
 - Lipschitz 常数 `L` 对 `x`、`s` 依赖的载体由调用方给出（几何侧就是 `PolyAssemble` 的常数）。
 -/
 import Mathlib
-import Lattice.Lift.VerificationSoundness
+import Lattice.Runtime.VerificationSoundness
 
 open scoped BigOperators
 

@@ -8,11 +8,11 @@
 -/
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
-import Lattice.Lift.EndToEnd
-import Lattice.Lift.CompilerScheme
+import Lattice.Runtime.EndToEnd
+import Lattice.Runtime.CompilerScheme
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
-import Lattice.Lift.L1L2Roundtrip
+import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Geo.ComputableExpr
 import Lattice.Geo.ExecutableCheck
 import Lattice.Geo.GeoSampledBound

@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertLinear
+import Lattice.Runtime.ConvertLinear
 /-!
 # LATTICE: 析取组合律架桥 —— OR ⟺ 乘积为零
 

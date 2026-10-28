@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lift.WeightToSymbolEquivalence
 import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink

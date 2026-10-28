@@ -61,7 +61,7 @@ obs x y := |x - y| ≤ 1
   再加一个数值字段会让结构变重而没有新信息。若将来需要数值，那是一次结构调整。
 -/
 import Mathlib
-import Lattice.Lift.LossyRepresentation
+import Lattice.Runtime.LossyRepresentation
 
 namespace Lattice.Lift
 

@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealConstraintEdit
 /-!
 # LATTICE D3-1：符号 → 权重的**定义域**不是太窄，而是**语义本身错了**

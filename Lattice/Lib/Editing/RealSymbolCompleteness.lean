@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
 /-!
 # LATTICE S-02: 符号→权重的**完备性**（`RealSymbolicRealization`）

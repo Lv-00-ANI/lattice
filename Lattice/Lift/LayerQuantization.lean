@@ -54,7 +54,7 @@ obsEntrywise p q := (∀ i j, |p.1 i j - q.1 i j| ≤ 1) ∧ (∀ j, |p.2 j - q.
 - 本节**不改** `RoundingBackend`、`LossyRepresentation` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.LossyRepresentation
+import Lattice.Runtime.LossyRepresentation
 import Lattice.Lift.RoundingBackend
 
 namespace Lattice.Lift.IntQuant

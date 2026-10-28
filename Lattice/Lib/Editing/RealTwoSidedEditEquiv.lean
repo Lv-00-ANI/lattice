@@ -3,7 +3,7 @@ import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 import Lattice.Lib.Chain.RealEndToEnd
-import Lattice.Lift.SymbolToWeightCorrectness
+import Lattice.Runtime.SymbolToWeightCorrectness
 open Lattice.Lift.SymbolToWeightCorrectness
 /-!
 # E-08：端到端核的**损失来源计数** —— 「恰好一个来源」的机器定理

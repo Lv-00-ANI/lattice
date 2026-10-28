@@ -88,7 +88,7 @@ theorem compile_then_extract (p : P) :
 import Mathlib
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
-import Lattice.Lift.EndToEnd
+import Lattice.Runtime.EndToEnd
 
 namespace Lattice.Lift
 
