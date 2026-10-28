@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 97 |
+| `register` | 96 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -196,7 +196,6 @@
 | `Lib/LearningTheory/RealDistill.lean:181` | `chain_distill_bound_lipschitz` | 1 | 名为「块级蒸馏入口」，实为既有 Lipschitz 复合误差定理的角色互换实例。保留一个蒸馏词汇的名字可以接受，但应显式标注 derived-from，并补 B 中那条「由结构导出 Ls」的桥；否则下游会把自由参数 Ls 当成已验证的层常数。verdict=register。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:263` | `neg_zeroFixing_reluZ` | 1 | 为了 neg_zeroFixing_* 统一命名而转发可以理解，但作为独立定理它只是 B11 已有结论的改名。verdict=register：改为 alias/@[simp] 转发并在 doc 标 derived-from，不计入定理数。 |
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
-| `Lib/Quantization/RealMixedPrecision.lean:179` | `accumulation_error_bound` | 1 | 清理级（C）：`_hM` 未用，且由 `hmag` 在 k=0 处即得（`accSum ad 0 x = 0`）。删除不影响证明与结论，下游 `RealMixedPrecisionRounding:408` 少传一个参数。定理本体与 doc 的『用统一幅度尺度 M 代替 Σ\|x_i\|』说明一致。 |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
 | `Audit/ChainTransitivity.lean:116` | `preserves_three` | 0 | 登记：要么把 doc 改成「三段显式形式（`preserves_two` 再套一次）」，要么补 `preserves_foldl P [f,g,h] _ x hx` 的对照等式。当前它属于「有名字、有 0 sorry、doc 里有结论」但结论未被陈述承载的典型，恰好是本库要治的那类。 |
 | `Audit/CompositionAlgebra.lean:182` | `verdict_monoid` | 0 | 登记：`verdict_monoid` 与 :174 的实例提供同一事实（实例更强），建议删除或在 doc 首句注明「仅为逐条核对索引，非独立成果」，否则审计计数会把 monoid 结构算两遍。 |
@@ -310,6 +309,7 @@
 | `Audit/Hypotheses.lean` | `chainAudit_length` | 处理完成（**doc 修正**）：三处写「**七**条」（§1 标题、§二 标题、本定理 doc），而 `chainAudit` 实际是 **10 行**。清单从 7 扩到 10 时 doc 没跟上。**关键：`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**已把三处改为 10，并在三处各写一句说明这个机械局限。 |
 | `Lib/Chain/RealModelFamilyChainWiring.lean` | `convertVec_bias_eq_convertRealVec_bias` | 处理完成（**doc 降级**）：原 doc 说「本命题同时需要两侧的四个定义 ⟹ **这就是边的承重点**」，而证明是 **`rfl`**，只钉了**偏置字段**。**那句话会让读者以为语义抬升已证。**doc 已改为「只证字段相等」，并写出**真正该证的交换方块**（`RealLayerOut (convertRealVec c) (toRealVec x) = toRealVec (LayerOut (convertVec c) x)`）——**那条没有证、也没有写**。本条保留（它把可达边接成真实 import 依赖）。 |
 | `Lib/Editing/RealCompileExtractClosed.lean` | `compile_extract_end_to_end` | 处理完成（**doc 降级**）：标题原本是「**★ 端到端闭环定理（target form）★**」。**实际证的是**：`extractLayer_compileToLayer`（**`rfl`**）把左式换成 `AllSatisfied cs`，再由 `symbolToWeight_correct` 收尾——**证明体是 `rw` 一行 + 一次实例化，零往返内容**。为什么闭环在这里是免费的：那一跳的 `extract` 是**字段重命名**，所以 `extract ∘ compile = id` 是定义级的。真正的端到端需要**一条信息有损的编译路径**——**没有，也不声称。**保留本条仍有用：它把两个此前从不互相引用的文件接成一条定理。 |
+| `Lib/Quantization/RealMixedPrecision.lean` | `accumulation_error_bound` | 处理完成（**删未用前提**）：签名里的 `(_hM : 0 ≤ M)` **在证明中从未被引用**（`_` 前缀就是证据），而且**它是可导出的**：`hmag 0 (Nat.zero_le n)` 给出 `\|accSum ad 0 x\| ≤ M`，而 `accSum ad 0 x = 0`，所以 `0 ≤ M`。**删掉它使本条更强**。下游 `ieee_accumulation_error_bound` 的 `hM` **只用来传给本条**，因此一并去掉（它也因此更强，且它**没有调用者**，所以改元数不破任何东西）。**门禁表现**：`check_underscore_hypotheses` 报 **STALE** 并指名要删哪一行，基线从 127 降到 126（new 0 / stale 0）——**那是双向基线正常工作的样子**。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

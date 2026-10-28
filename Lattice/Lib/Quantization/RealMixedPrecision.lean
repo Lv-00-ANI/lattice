@@ -171,12 +171,22 @@ lemma accSum_succ_sub (ad : FPAdder) (n : ℕ) (x : ℕ → ℝ) :
   ring
 
 /-- **FP32 累加误差界**：每一步加法的相对误差 `≤ eps`、各步中间和的幅度
-`≤ M`（`M ≥ 0`）、各输入幅度 `≤ M` ⟹
+`≤ M`、各输入幅度 `≤ M` ⟹
 `|fl(Σ_{k<n} x_k) − Σ_{k<n} x_k| ≤ 2·n·eps·M`。
-**诚实说明**：标准叙事写作 `n·ε·Σ|x_i|`；本文件用统一的幅度尺度 `M`
+
+⚠⚠ **第 20 轮：`0 ≤ M` 这个前提被删掉了。**
+
+原来签名里有 `(_hM : 0 ≤ M)`，但它**在证明里从未被引用**（`_` 前缀就是证据），
+而且**它是可导出的**：`hmag 0 (Nat.zero_le n)` 给出 `|accSum ad 0 x| ≤ M`，
+而 `accSum ad 0 x = 0`，所以 `0 ≤ M`。
+
+**删掉它使本条更强**（前提更少），不是更弱。下游 `ieee_accumulation_error_bound`
+的 `hM` 只用来传给本条，因此一并去掉。
+
+**诚��说明**：标准叙事写作 `n·ε·Σ|x_i|`；本文件用统一的幅度尺度 `M`
 （`M = max(中间和幅度, 输入幅度)`），由 `Σ|x_i| ≤ n·M` 即得
 `2·n·eps·M ≥ 2·eps·Σ|x_i|`——两种写法等价到常数因子，此处选择假设更少的形式。 -/
-theorem accumulation_error_bound (ad : FPAdder) (M : ℝ) (_hM : 0 ≤ M) :
+theorem accumulation_error_bound (ad : FPAdder) (M : ℝ) :
     ∀ (n : ℕ) (x : ℕ → ℝ),
       (∀ k, k ≤ n → |accSum ad k x| ≤ M) → (∀ k, k < n → |x k| ≤ M) →
       |accSum ad n x - ∑ k in Finset.range n, x k| ≤ 2 * (n : ℝ) * ad.eps * M := by
