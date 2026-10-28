@@ -263,3 +263,48 @@ SCOPE BOUNDARY: 1 executable-framework marker(s)
 
 `lake build Lattice` 通过；`gate.py` I1–I8 全绿；`Lattice/Compose` 已进 `LAYER_OF`（rank 6）。
 **P0 对既有 816 个模块零 import 影响**，所以这次重构的每一步都可独立回滚。
+
+## 8. 第 242 轮：`Lift` 层清空（P2 的 `Lift` 部分完成）
+
+§4b 测出「`Lift` 没有向上依赖，可以整体搬进 `Runtime`」；第 234–242 轮把它做完了。
+
+| 批次 | 模块数 | 内容 |
+|:--|--:|:--|
+| 第 234 轮 pilot | 1 | `ProgramAST`（`Lift` → `Runtime` 的第一块，证明路径可改） |
+| A1 | 5 | 不 import 任何其他 Lattice 模块的 5 个 |
+| A2 | 11 | 首批剩余模块（+ 删掉 pilot 留下的旧路径别名） |
+| A3 | 14 | `Lift` 图的最小闭前缀 |
+| A4 | 14 | 下一层闭前缀（搬完重算，frontier 会变） |
+| A5 | 15 | 重算后的闭前缀（21 个里的 15 个；A5 实测 34 个 import 点、20 个文件） |
+| A6 | 6 | 最后 6 个（对剩下的集合仍是闭集；A6 实测 9 个 import 点、4 个文件） |
+| **合计** | **66** | `Lift/` 原有 66 个模块，全部迁入 `Runtime/` |
+
+### 8.1 为什么删除 `Lattice/Lift.lean`（而不是留一个空聚合器）
+
+`Lattice/Lift.lean` 的唯一职责是聚合 `Lift/` 的模块。`Lift/` 空了以后：
+
+- 留着它 import `Runtime/` 的模块，就是**第二条聚合路径**——`Lattice.Runtime` 与 `Lattice.Lift`
+  会指向同一批声明。§2.8 的「一个周期」在第 237 轮被定义为**零轮**（同一提交改完调用点），
+  理由之一正是「别名会让模块数虚增，而模块数是被守卫核对的数字」；
+- 留成空文件则是一个没有任何声明的死模块，`Lattice.lean` 仍然 import 它，读者无法从树里看出它已退役。
+
+所以 `Lattice/Lift.lean` 与 `Lattice.lean` 的 `import Lattice.Lift` 在同一次提交里一起删除。
+**模块数 826 → 825**，定理数与声明数不变（那个文件里没有声明）。
+
+**`namespace` 没有改**（§2.8）：66 个模块的声明仍在 `Lattice.Lift.*` 命名空间下，只是文件在
+`Runtime/` 里。这是 §2.8 明说的代价——路径与命名空间不再一一对应。
+
+### 8.2 这一步验证了什么
+
+- `lake build Lattice` exit 0（6515 个 target）；`gate.py` I1–I8 全绿；
+  `verify_all.py` full PASS；`check_proof_debt_orphans` 384 个已复核文件全部 resolve；
+  `check_proof_strength` 24 个已知形状，**none new, none paid off silently**。
+- **`gov/` 的八件路径键控工件全部靠 `_paths.resolve` 工作，A5/A6 没有为搬迁改过一个守卫。**
+  A5 需要改的只有 `OBJECTIVE-MAP.md`（它由 `gen_objective_map.py` 从树重新生成，不是手写）。
+- `Lib`/`Reference/` 未动；`Lift/` 的搬迁没有改任何定理陈述。
+
+### 8.3 还没做
+
+- **`Geo/`（99 个模块）**：分析与有损清单见 `GEO-MIGRATION-PLAN.md`。**一个文件都没搬。**
+- `Core → Kernel`、`Audit → Evidence`、`Lib` 的定位：P3/P4，仍未动。
+

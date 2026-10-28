@@ -88,4 +88,11 @@ PATH_MAP = {
     "Lift/TotalLoss.lean": "Runtime/TotalLoss.lean",
     "Lift/WeightLadderFullWidth.lean": "Runtime/WeightLadderFullWidth.lean",
     "Lift/WeightLadderInverse.lean": "Runtime/WeightLadderInverse.lean",
+    # round 242, batch A6 = the last 6 (prefix 4 minus prefix 2); `Lattice/Lift.lean` is deleted here
+    "Lift/QuantErrorPropagation.lean": "Runtime/QuantErrorPropagation.lean",
+    "Lift/RectangularRepresentation.lean": "Runtime/RectangularRepresentation.lean",
+    "Lift/SaturationQuantization.lean": "Runtime/SaturationQuantization.lean",
+    "Lift/StackError.lean": "Runtime/StackError.lean",
+    "Lift/WeightLadderFullWidthInstance.lean": "Runtime/WeightLadderFullWidthInstance.lean",
+    "Lift/WeightSymbolRepresentation.lean": "Runtime/WeightSymbolRepresentation.lean",
 }

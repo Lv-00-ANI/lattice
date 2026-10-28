@@ -1,5 +1,4 @@
 import Lattice.Core
-import Lattice.Lift
 import Lattice.Runtime
 import Lattice.Slots
 import Lattice.Geo
@@ -15,11 +14,11 @@ import Lattice.Semantics
 
 ## 分层
 
-* `Lattice.Core`   -- 语言层：语法、语义、满足关系、修复、权重接口（唯一权威语义）
-* `Lattice.Lift`   -- 链路层：L0 <-> L1 <-> L2 <-> L3
-* `Lattice.Slots`  -- 空位层：未证但承重的命题，只声明不证明
-* `Lattice.Geo`    -- 约束几何与精确惩罚
-* `Lattice.Lib`    -- 应用库：各主题的实例与定理
+* `Lattice.Core`    -- 语言层：语法、语义、满足关系、修复、权重接口（唯一权威语义）
+* `Lattice.Runtime` -- 链路层：L0 <-> L1 <-> L2 <-> L3（第 242 轮起，原 `Lattice.Lift` 的 66 个模块全在这里）
+* `Lattice.Slots`   -- 空位层：未证但承重的命题，只声明不证明
+* `Lattice.Geo`     -- 约束几何与精确惩罚
+* `Lattice.Lib`     -- 应用库：各主题的实例与定理
 
 ## 不变量
 
