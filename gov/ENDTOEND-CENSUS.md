@@ -19,10 +19,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 1 | 1348 | 15.8% |
 | 2 | 697 | 8.2% |
 | 3 | 508 | 5.9% |
-| 4 | 457 | 5.4% |
-| 5 | 76 | 0.9% |
+| 4 | 457 | 5.3% |
+| 5 | 81 | 0.9% |
 | 6 | 2 | 0.0% |
-| **合计** | **8540** | |
+| **合计** | **8545** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -41,6 +41,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `Reaches.meas_add_le` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `Reaches.length_le` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_done` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_step` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
@@ -83,11 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `holdsSet_member` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `edit_frame_holds` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `edit_realizes` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `annotation_realizes` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `edit_undo_restores_removed` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `edit_undo_drops_add` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_samePoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_midpoint_single` (`Semantics/CompileSound.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

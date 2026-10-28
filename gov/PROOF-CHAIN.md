@@ -15,7 +15,7 @@
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 19 | aggregator at `Lattice/`, re-exports only |
+| root | 20 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -824,9 +824,10 @@
 - `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Geo.ConstraintDescent`, `Lattice.Compose.Primitive`
+- `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
@@ -1654,6 +1655,7 @@
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
+| `Lattice.Compose.Iterate` | 5 | 2 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
 | `Lattice.Compose.Registry` | 3 | 6 |
@@ -1867,6 +1869,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ReLUSumLoss_const_on_open` -> `apply`, `relu`
 - `ReLUSum_iff_all_constraints` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
 - `ReLUSum_zero_iff_all` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `convertReal`, `relu`, `relu_eq_zero_iff`
+- `Reaches.length_le` -> `Primitive`, `dec`, `run`, `zero`
+- `Reaches.meas_add_le` -> `Primitive`, `dec`, `induction`, `run`, `step`, `zero`
 - `RealConstraintSatRel_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`
 - `RealDot_sub` -> `RealDot`, `apply`, `subst`
 - `Repair.absorbs_is_idempotentOn` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`
@@ -2335,8 +2339,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bestPrefixV_empty` -> `CharToken`
 - `bestPrefix_degenerate_succeeds` -> `CharToken`, `bestPrefix`
 - `bestPrefix_eq_max_intent` -> `CharToken`, `bestPrefix`, `length`, `lookupTok_ne_none`, `pieceOf`
-- `bestPrefix_index_length` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
-- `bestPrefix_longer_candidate_fails` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `bestPrefix_index_length` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `bestPrefix_longer_candidate_fails` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `bestPrefix_ne_none` -> `apply`, `induction`, `length`, `length_cons`, `trans`, `zero`
 - `bestPrefix_pieceOf_mem_candidateSet` -> `CharToken`, `bestPrefix`, `length`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`
 - `bestPrefix_pieceOf_mem_intent` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `length`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`
@@ -2502,7 +2506,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cache_size_eq_processed` -> `apply`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `cache_weights_supported_on_prefix` -> `apply`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`
 - `candidateSearch_iff` -> `QProgram`, `ZProgram`, `qSatAllB_iff`
-- `candidateSet_eq` -> `CharToken`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `candidateSet_eq` -> `CharToken`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `canonicalKinds_length` -> `Rule`, `length`
 - `canonical_abs` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`
 - `canonical_eq_none_of_not_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
@@ -2780,7 +2784,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closure_fixpoint_iff_mem_range` -> `PiecewiseConstraint`, `closureOperator`, `extent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closure_fixpoint_subset_image` -> `PiecewiseConstraint`, `closureOperator`, `extent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closure_idempotent` -> `apply`
-- `closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `closure_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `beqShape`, `induction`, `mul`, `zero`
 - `cmat_vec_normSq_le` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
 - `coarsen_apply` -> `FibreBound`, `card_fin`, `convert`, `fiber`, `induction`, `le`, `tower_hoeffding_transfer`, `zero`
@@ -2835,11 +2839,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compBound_monotone` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_nonneg` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_succ` -> `E`, `apply`, `induction`, `le_trans`, `zero`
-- `comp_apply_strictMono` -> `comp`, `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
+- `comp_apply_strictMono` -> `comp`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `comp_assoc_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
 - `comp_id_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
 - `comp_norm_bound` -> `E`, `W`
-- `comp_strictMono_of_strictMono` -> `comp`, `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
+- `comp_strictMono_of_strictMono` -> `comp`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `compatible_iff_witness` -> `Repair`, `Sat`
 - `compatible_roundtrip` -> `W`, `comp`, `compile`, `extract`, `roundtrip`
 - `compileAcc_correct` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mul`
@@ -4224,7 +4228,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extent_intent_extent` -> `apply`
 - `extent_intent_extent_here` -> `IsFormalConcept`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `extent_intent_monotone` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
-- `extent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `extent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `extent_sInf_subset` -> `extent`, `intent`
 - `extent_sSup` -> `extent`, `intent`
 - `extent_scaled_eq` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
@@ -4674,7 +4678,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `galoisMem_intro` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
 - `galoisMem_pointwise` -> `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
 - `galois_connection` -> `apply`
-- `galois_connection_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `galois_connection_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `galois_connection_temporal` -> `extent`, `galois_connection`, `subset_extent_intent`, `subset_intent_extent`
 - `galois_preimage_comp` -> `trans`
 - `gamma_interval_monotone` -> `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -5071,7 +5075,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `icl_two_proofs_agree` -> `apply`
 - `idT_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `id_is_not_a_repair_when_unsat_exists` -> `ConstraintSat`, `LinearConstraint`, `iterate_succ`, `preserves`
-- `id_strictMono` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
+- `id_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `l0Norm`, `sqNorm`
@@ -5184,7 +5188,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `inherits_sound` -> `Domain`, `behavior`, `embed`, `sound`
 - `initVerifier_satisfiable` -> `apply`, `step`
 - `init_then_weight` -> `SymOne`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`
-- `inits_reverse_getElem` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `inits_reverse_getElem` -> `CharToken`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `injection_is_load_bearing` -> `Beh`, `Layer`, `SymToken`, `recover`
 - `injective_not_complete_behavioral_invariant` -> `Layer`, `SymToken`
 - `injective_of_zeroFixing_sufficient` -> `ZeroFixing`, `ZeroFixingR`, `act`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`, `tanh_pos_of_pos`, `trans`
@@ -5233,9 +5237,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intent2_union` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
 - `intent_antitone` -> `apply`
 - `intent_antitone_here` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
-- `intent_antitone_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `intent_antitone_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `intent_closure_idempotent` -> `apply`
-- `intent_closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `intent_closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `intent_extent_intent_here` -> `IsFormalConcept`, `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `intent_extent_monotone` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
 - `intent_iInter_subset_iInter` -> `IsFormalConcept`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
@@ -5243,7 +5247,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intent_iInter_subset_twoSided` -> `IsFormalConcept`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `intent_iUnion` -> `extent`, `intent`
 - `intent_iUnion_eq_iInter` -> `IsFormalConcept`, `apply`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
-- `intent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `intent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `intent_sInf_subset` -> `extent`, `intent`
 - `intent_sSup` -> `extent`, `intent`
 - `interface_iff_no_witness` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
@@ -5282,9 +5286,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isPosDefKernel_add` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `isPosDefKernel_gram_psd` -> `apply`, `symmetric_spectral_theorem`
 - `isPosDefKernel_smul` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
-- `isPrefixRel_iff_isPrefix` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
-- `isPrefixRel_refl` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
-- `isPrefixRel_trans` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
+- `isPrefixRel_iff_isPrefix` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
+- `isPrefixRel_refl` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
+- `isPrefixRel_trans` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
 - `isPrincipalIdealRing_polynomial` -> `depth`, `induction`, `step`
 - `isRIP_iff_two_sided` -> `apply`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_lower_bound` -> `apply`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
@@ -5628,8 +5632,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_generalization` -> `E`, `le_trans`
 - `length_generalization_hetero` -> `E`, `le_trans`
 - `length_le_encodeProgram` -> `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `zero`
-- `length_le_of_prefix` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
-- `length_nil_le` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `length_le_of_prefix` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `length_nil_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lfp_eq_inf_all_fixpoints` -> `apply`, `card_fin`
 - `lfp_on_kleene_orbit` -> `apply`, `card_fin`
 - `licq_implies_mfcq_single` -> `LICQOneDim`, `e2`, `le_refl`, `subst`
@@ -5763,6 +5767,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_converges` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`, `progress`
 - `loop_converges_in_one` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`
 - `loop_converges_to_fixed_point` -> `W`, `contraction_converges`, `iterate`, `iterate_step_swap`
+- `loop_done` -> `Primitive`, `dec`, `run`, `zero`
 - `loop_exit_wp` -> `Compiler`, `State`, `iterate`
 - `loop_fixed_point` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `progress`, `roundtrip`
 - `loop_fixed_point_exists` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
@@ -5777,6 +5782,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
+- `loop_step` -> `Primitive`, `dec`, `run`
+- `loop_zero_none` -> `Primitive`, `dec`
 - `lora_edit_additive` -> `E`, `LoRAEdit`, `W`, `lora_edit_bound`
 - `lora_edit_bound` -> `E`, `W`, `comp`, `le_trans`
 - `lora_edit_constraint` -> `E`, `W`
@@ -5831,10 +5838,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lr_decay_finite_phase` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `le_trans`, `subst`
 - `lstsqGrad_zero` -> `apply`
 - `lt_imp_le` -> `apply`, `empty`, `find`
-- `lt_of_apply_eq_of_strictMono` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
+- `lt_of_apply_eq_of_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `lt_of_le_maxPoint` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
-- `lt_of_natToReal_add_lt` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
-- `lt_of_natToReal_lt` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
+- `lt_of_natToReal_add_lt` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `lt_of_natToReal_lt` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lv00RoundDownHere_counterexample` -> `roundDownN`, `roundDownN_le`, `toNat`
 - `lv00RoundDownHere_fails_lower_bound` -> `roundDownN`, `roundDownN_le`
 - `lv00RoundDownHere_neg_le_zero` -> `roundDownN`, `roundDownN_le`, `toNat`
@@ -6026,7 +6033,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mem_span_of_multiplier` -> `LICQOneDim`, `le_refl`, `subst`
 - `mem_span_singleton_iff_dvd` -> `depth`, `eval`, `induction`, `step`
 - `mem_structuredSet` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneError`, `pruneMatrix`, `prune_magnitude_bound`, `prune_sub_eq_error`
-- `mem_vocab_iff_ne_nil` -> `CharToken`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `mem_vocab_iff_ne_nil` -> `CharToken`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `member_identity_implies_part_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `up`, `withGaze`
 - `memit_additive_bound` -> `E`, `W`, `apply`, `le_trans`
 - `memit_edit_bound` -> `E`, `W`, `le_trans`
@@ -6276,7 +6283,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `natToInt_add` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToInt_injective` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToInt_lt_iff` -> `le_antisymm`
-- `natToInt_lt_iff_symm` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToInt_lt_iff_symm` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
 - `natToInt_mul` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToInt_refl_lt` -> `le_antisymm`
 - `natToInt_strictMono` -> `le_antisymm`
@@ -6289,14 +6296,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `natToReal_eq_zero_of_le_zero` -> `le_antisymm`
 - `natToReal_eq_zero_of_lt_one` -> `le_antisymm`
 - `natToReal_injective` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
-- `natToReal_le_of_le` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToReal_le_of_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `natToReal_length_lt` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `natToReal_length_monotone` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `natToReal_lt_iff` -> `le_antisymm`
-- `natToReal_lt_iff_add` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
-- `natToReal_lt_iff_symm` -> `le_trans`, `length`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
-- `natToReal_lt_of_add_lt` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
-- `natToReal_monotone` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToReal_lt_iff_add` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToReal_lt_iff_symm` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToReal_lt_of_add_lt` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
+- `natToReal_monotone` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `natToReal_mul` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToReal_not_surjective` -> `Surjective`, `intToReal`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToReal_refl_lt` -> `le_antisymm`
@@ -6989,7 +6996,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prec_terminating` -> `induction`, `subst`
 - `preconditionedRichardson_contraction` -> `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
 - `prefProd_nonneg` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
-- `prefixConcept_is_concept` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
+- `prefixConcept_is_concept` -> `CharToken`, `IsFormalConcept`, `apply`, `bestPrefix`, `bestPrefix_spec`, `intent`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `prefixScores_of_le` -> `apply`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `prefixScores_of_not_le` -> `apply`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `preimage_eq_extractVec` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -7274,7 +7281,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ratToReal_add` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `ratToReal_injective` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `ratToReal_lt_iff` -> `le_antisymm`
-- `ratToReal_lt_iff_symm` -> `le_trans`, `length`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
+- `ratToReal_lt_iff_symm` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`
 - `ratToReal_mul` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `ratToReal_not_surjective` -> `Surjective`, `ratToReal`
 - `ratToReal_refl_lt` -> `le_antisymm`
