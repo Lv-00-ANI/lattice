@@ -377,5 +377,107 @@ theorem all_coord_constraints_after_one_step {n : ℕ} (c β : Fin n → ℝ) (p
   unfold stepVec
   ring
 
+/-! ## 六、**正向链的 capstone**：一条定理里读得到整条链
+
+### 为什么需要它
+
+第 219 轮的宏观盘点发现：正向链（约束 → 损失 → 参数 → 满足）在本文件里是**四条分开的定理**：
+
+| 环节 | 定理 |
+|:--|:--|
+| 约束 → 惩罚 | `Lattice.Geo.PenaltyLoss.penaltyLoss_eq_zero_of_holds` |
+| 惩罚 → 参数化损失 | `netLoss_shiftLayer` |
+| 一步更新 | `netLoss_step_half` |
+| 更新 → 约束成立 | `constraint_satisfied_after_one_step` |
+
+**但它们没有一条把链陈述出来。** 尤其 `constraint_satisfied_after_one_step` 的**陈述里没有 `netLoss`**——
+「它是对损失做梯度步」只在证明体里。**读者无法从任何一条陈述读到完整的链。**
+
+这条定理补的就是那个：**四个合取项，每一个都是链上的一环，合起来是整条链**：
+
+1. **损失严格下降**（当约束尚未满足时）；
+2. **损失归零**；
+3. **约束成立**；
+4. **`损失 = 0` ⟺ `约束成立`**——把损失与约束的等价关系也写进陈述。
+
+第 4 项是关键：**它让「训练到零损失」与「约束被满足」在一条定理里成为同一件事**，
+而不是靠读者自己去拼 `penaltyLoss_eq_zero_eqZero` 与 `netLoss_eq_zero_of_holds`。
+
+### 严格性需要什么
+
+第 1 项要 `β + c ≠ 0`——**这正是「约束尚未满足」的条件**（残差是 `β + c`）。
+**所以这条定理说的不是「损失不增」，是「只要还没满足，一步就真的把它降下去」。**
+
+已满足时（`β + c = 0`）的行为由 `forward_chain_at_solution` 给出：损失本来是零，一步之后仍是零——
+**与 `Geo/LoopPerp.lean` 的 `fixPerp_absorbs` 同一件保守性**：已经不成立的事不会被「修」坏。 -/
+
+/-- **残差非零时损失为正**：`β + c ≠ 0 ⟹ 0 < netLoss`。
+
+这是 `netLoss_shiftLayer` 的 `(β + c)²` 形状的直接推论。 -/
+theorem netLoss_pos_of_ne (c β : ℝ) (hne : β + c ≠ 0) (pts : ℕ → Pt 1) :
+    0 < netLoss [shiftLayer β] [linearConstraint c] pts := by
+  rw [netLoss_shiftLayer]
+  exact sq_pos_of_ne_zero hne
+
+/-- **损失为零 ⟺ 约束成立**（单条 `eqZero` 线性约束）。
+
+两个方向分别来自 `penaltyLoss` 的**精确性**（第 198 轮：`eqZero` 的零集恰是解集）
+与 `netLoss` 的 `sound` 方向（第 199 轮）。 -/
+theorem netLoss_zero_iff_holds (c β : ℝ) (pts : ℕ → Pt 1) :
+    netLoss [shiftLayer β] [linearConstraint c] pts = 0 ↔
+      GeoConstraint.Holds (linearConstraint c)
+        (fun k => netAct [shiftLayer β] (pts k)) := by
+  rw [netLoss_shiftLayer]
+  constructor
+  · intro h
+    -- `(β + c)^2 = 0` means the residual is zero, which IS `Holds` for `eqZero`
+    have hz : β + c = 0 := by
+      have := sq_eq_zero_iff.mp h
+      exact this
+    unfold linearConstraint
+    show GeoExpr.evalPts (.add (.coord 0 0) (.const c))
+      (fun k => netAct [shiftLayer β] (pts k)) = 0
+    simp only [GeoExpr.evalPts]
+    rw [shiftLayer_netAct]
+    simpa using hz
+  · intro h
+    unfold linearConstraint at h
+    have hres : GeoExpr.evalPts (.add (.coord 0 0) (.const c))
+        (fun k => netAct [shiftLayer β] (pts k)) = 0 := h
+    simp only [GeoExpr.evalPts] at hres
+    rw [shiftLayer_netAct] at hres
+    rw [hres]
+    ring
+
+/-- **正向链 capstone**：一步梯度步同时**严格降低**损失、把它**归零**、使约束**成立**，
+并且把「零损失 ⟺ 约束成立」也写进同一条陈述。
+
+**这是整条正向链的唯一可引用形式。** 四个合取项依次是链的四环；
+删掉任何一项，读者就必须自己去拼——那正是第 219 轮盘点发现的问题。 -/
+theorem forward_chain_capstone (c β : ℝ) (hne : β + c ≠ 0) (pts : ℕ → Pt 1) :
+    netLoss [shiftLayer (step (1 / 2) c β)] [linearConstraint c] pts
+        < netLoss [shiftLayer β] [linearConstraint c] pts ∧
+      netLoss [shiftLayer (step (1 / 2) c β)] [linearConstraint c] pts = 0 ∧
+      GeoConstraint.Holds (linearConstraint c)
+        (fun k => netAct [shiftLayer (step (1 / 2) c β)] (pts k)) ∧
+      (netLoss [shiftLayer (step (1 / 2) c β)] [linearConstraint c] pts = 0 ↔
+        GeoConstraint.Holds (linearConstraint c)
+          (fun k => netAct [shiftLayer (step (1 / 2) c β)] (pts k))) := by
+  have hpos := netLoss_pos_of_ne c β hne pts
+  have hzero := netLoss_step_half c β pts
+  have hholds := constraint_satisfied_after_one_step c β pts
+  have hiff := netLoss_zero_iff_holds c (step (1 / 2) c β) pts
+  exact ⟨by rw [hzero]; exact hpos, hzero, hholds, hiff⟩
+
+/-- **已满足时一步不改变损失**：`β + c = 0` 时损失本来是零，一步之后仍是零。
+
+**这是保守性**：一条已经满足的约束不会被「修」坏——与 `Geo/LoopPerp.lean` 的
+`fixPerp_absorbs` 是同一件事在训练侧的形式。 -/
+theorem forward_chain_at_solution (c β : ℝ) (h : β + c = 0) (pts : ℕ → Pt 1) :
+    netLoss [shiftLayer (step (1 / 2) c β)] [linearConstraint c] pts
+      = netLoss [shiftLayer β] [linearConstraint c] pts := by
+  rw [netLoss_step_half, netLoss_shiftLayer, h]
+  ring
+
 end Lattice.Geo.ConstraintDescent
 

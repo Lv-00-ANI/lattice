@@ -880,7 +880,7 @@
 | `Lattice.Geo.ComputableExpr` | 12 | 5 |
 | `Lattice.Geo.ConjRepair` | 3 | 2 |
 | `Lattice.Geo.Constraint` | 4 | 5 |
-| `Lattice.Geo.ConstraintDescent` | 15 | 8 |
+| `Lattice.Geo.ConstraintDescent` | 19 | 8 |
 | `Lattice.Geo.ConstraintSet` | 7 | 1 |
 | `Lattice.Geo.ConstraintTokenizer` | 17 | 9 |
 | `Lattice.Geo.Derivative` | 3 | 1 |
@@ -2059,7 +2059,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `allSatisfied_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `decode`, `encode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `allZeroOutputs_append` -> `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
 - `all_contains_of_subset` -> `append_assoc`, `contains`, `induction`, `step`, `subst`
-- `all_coord_constraints_after_one_step` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`
+- `all_coord_constraints_after_one_step` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
 - `all_deviations_tail` -> `card_fin`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_deviations_tail_classic` -> `apply`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_residuals_zero_at_newton` -> `W`
@@ -4551,6 +4551,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `format_mul_error` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `format_round_idempotent` -> `eps`, `induction`, `le_trans`, `tiny`, `zero`
 - `forwardSim_preorder` -> `induction`
+- `forward_chain_at_solution` -> `Pt`, `netLoss`
+- `forward_chain_capstone` -> `GeoConstraint`, `Holds`, `Pt`, `netAct`, `netLoss`
 - `forward_not_backward` -> `Compiler`, `ForwardSim`
 - `fp16Sat_abs_le` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `fpOverflow`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`
 - `fp16Sat_eq_self` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `fpOverflow`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`
@@ -6327,6 +6329,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netLoss_empty` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `netLoss_eq_zero_of_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `netLoss_nonneg` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `penaltyLoss_nonneg`
+- `netLoss_pos_of_ne` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_shiftLayer` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `evalPts`, `induction`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `zero`
 - `netLoss_shiftLayerVec` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`
 - `netLoss_step` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `induction`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `zero`
@@ -6337,6 +6340,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netLoss_step_half` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`
 - `netLoss_step_le` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `induction`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `zero`
 - `netLoss_tendsto_zero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`
+- `netLoss_zero_iff_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_zero_without_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `netAct`, `penaltyLoss`
 - `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`
