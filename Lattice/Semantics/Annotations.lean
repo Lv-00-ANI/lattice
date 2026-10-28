@@ -113,19 +113,18 @@ theorem edit_frame (e : Edit n) (cs : List (GeoConstraint n)) (c : GeoConstraint
 
 /-- **`HoldsSet` 逐个要求成员**：若整个约束集成立且 `c` 是其中之一，则 `c` 成立。
 
-**这是 `HoldsSet` 的定义的直接后果**：`HoldsSet (c :: cs) pts` 就是
-`Holds c pts ∧ HoldsSet cs pts`，所以归纳不需要任何额外引理。 -/
+⚠ **第 10 轮：这里原来有一份完整的手写归纳证明，现在改为一行的转发。**
+
+`Domains/Constraints/ConstraintSet.holdsSet_mem` 是**同一条定理**，只差参数顺序
+（权威版：`(hmem) (pts) : HoldsSet cs pts → Holds c pts`；本地版把 `h` 提为普通参数）。
+两份都做过归纳，**将来一处改动另一处会漂移**。
+
+**保留这个名字而不是删掉**，因为本文件的 `edit_frame_holds` 用它的参数顺序；
+但**证明体只剩一行**，内容只有一个权威来源。 -/
 theorem holdsSet_member {n : ℕ} {cs : List (GeoConstraint n)} {c : GeoConstraint n}
     (pts : ℕ → Pt n) (h : HoldsSet cs pts) (hmem : c ∈ cs) :
-    GeoConstraint.Holds c pts := by
-  induction cs with
-  | nil => exact absurd hmem (List.not_mem_nil c)
-  | cons d ds ih =>
-      obtain ⟨hd, hds⟩ := h
-      rcases List.mem_cons.mp hmem with rfl | htl
-      · exact hd
-      · exact ih hds htl
-
+    GeoConstraint.Holds c pts :=
+  holdsSet_mem hmem pts h
 /-- **`frame` 的语义层形式**：编辑保留的约束，其 `Holds` 在编辑结果上仍成立。
 
 **这是列表层 `edit_frame` 的 `Holds` 对应物**，方向是 `Holds c pts → HoldsSet ... pts` 的

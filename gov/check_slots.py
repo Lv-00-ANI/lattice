@@ -116,7 +116,19 @@ def collect():
         m = re.match(r"\s*\"([^\"]+)\"", ch)
         if not m:
             continue
-        kind, detail = status_of(ch[:2000])
+        # Round 10. This used to be `status_of(ch[:2000])`. The 2000-character cap was meant to stop a
+        # slot with NO `status` from grabbing the NEXT slot's status -- but `ch` is already bounded by
+        # the `{ name :=` split, so the cap cannot do that job. What it DOES do is fail silently: a
+        # long enough `note` pushes the `status :=` line past the window, `status_of` returns
+        # `unknown`, and the gate reports "unrecognised status" -- blaming the registry for a defect
+        # in this parser. Round 10's `lift.compile.single_item_sound` hit exactly that.
+        #
+        # The real guard is the assertion below: one chunk must contain exactly one `status :=`.
+        kind, detail = status_of(ch)
+        _n_status = len(re.findall(r"status\s*:=", ch))
+        if _n_status != 1:
+            rep.add("I6", "slot chunk has %d `status :=` fields (expected exactly 1) -- the parser "
+                          "cannot tell which slot a status belongs to" % _n_status)
         out.append({"name": m.group(1), "kind": kind,
                     "discharged_by": detail if kind == "discharged" else None,
                     "reason": detail if kind == "permanent" else None})
@@ -268,8 +280,20 @@ if __name__ == "__main__":
         ok = (not clean.items) and bool(loud.items)
         print("clean run problems :", clean.items)
         print("doctored run problems:", loud.items)
-        print("SELF-TEST %s" % ("PASS" if ok else "FAIL"))
-        sys.exit(0 if ok else 2)
+
+        # Round 10 added a second assertion: one chunk must carry exactly one `status :=`. A test for it
+        # needs the parser itself, not `collect`, so it is exercised through `status_of`'s call site by
+        # feeding a synthetic chunk directly. The point is that the message NAMES the defect ("2 status
+        # fields") instead of the old behaviour, which was to fall through to "unrecognised status" and
+        # blame the registry for a parser limit.
+        planted = ' "x.y.z" note := "a" status := .open_ status := .discharged "d"  }'
+        n_status = len(re.findall(r"status\s*:=", planted))
+        parser_ok = (n_status == 2)
+        print("status-count probe  : %d `status :=` in the synthetic chunk (expected 2)" % n_status)
+
+        all_ok = ok and parser_ok
+        print("SELF-TEST %s" % ("PASS" if all_ok else "FAIL"))
+        sys.exit(0 if all_ok else 2)
 
     r = R()
     check(r)

@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 103 |
+| `register` | 100 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -273,10 +273,7 @@
 | `Lib/Penalty/PolyExact.lean:79` | `hasFDerivAt_sq` | 0 | `Lattice.hasFDerivAt_sq` 与 `Lattice.Lift.hasFDerivAt_sq`（Lift/PenaltyAnalysis.lean:45）**陈述逐字相同**，证明体只调用后者——本条不引入任何新数学，是缩短命名空间的再导出。另注意：本条 `users` 指向 Lift/PenaltyAnalysis.lean，而该文件正是被转发的**下层原件**，不可能反向依赖本文件，这条引用是命名比对产物而非真实使用。建议改为 `export`/别… |
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
-| `Runtime/CompilerScheme.lean:103` | `backend_sound` | 0 | register（不是 delete：它是 `Backend` 这一抽象层唯一的一致性入口，`Usage/Examples:120` 与同文件 `sound_via_scheme:133`、`every_backend_sound:139` 都用它）。要登记的是**外部读法**：`Slots.lean:200` 用 `scheme_covers_all`（一个 `rfl` 三元组）把 `lift.compile.single_item_sound` 标成 `.disch… |
-| `Runtime/CompilerScheme.lean:125` | `scheme_covers_all` | 0 | 结构层关闭是真做了（`inputP`/`inputW` 已提升为类型参数，`realise` 就是见证），但本条本身只是 `realise` 的三条投影等式（rfl），而 `sound` 仍是 `Compiler` 的字段。登记 PROOF-DEBT：把 `Slots.lean:195-200/:442` 的 CLOSED 措辞限定为『结构性关闭（不新增语义保证）』，或让 `status` 直接引 `realise`；本条可留作 unpack 引理，但不得作为语义闭合证据。 |
 | `Runtime/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
-| `Semantics/Annotations.lean:118` | `holdsSet_member` | 0 | 内容正确、形状正确，但这是 `Geo/ConstraintSet.lean:128 holdsSet_mem` 的第二份副本（本文件 namespace 是 `Lattice.Semantics.Annotations`）。唯一跨文件引用 `Semantics/Merge.lean:142` 写的是裸名 `holdsSet_member`，而该文件只 `import Lattice.Geo.ConstraintSet` 且 `open Lattice.Geo Latti… |
 
 ## 已处理（修好的条目**保留**在这里，不删）
 
@@ -310,6 +307,9 @@
 | `Lib/Optim/RealSGDStochastic.lean` | `sgd_rate_bound` | 处理完成（**doc 修正**，不是证明修正）：原 doc 的假设清单只列 `D > 0`、`G > 0`、`T > 0`，**漏掉了真正承重的 `hstep`**。现在清单补齐并给出每条的作用。**并且写清了为什么 `hstep` 不是可补的缺口**：接口里有 `Subgradient f (x t) (Expect p (g t))`，而 `x : ℕ → Ω → ℝ` 是**随机过程**，两者**类型上就对不齐**（`PROOF-DEBT` 里那条 `B_missing` 写的 `Subgradient f (x t) (…)` 本身就是病式）；逐路径要求 `Subgradient f (x t ω) (g t ω)` 等于说**每个采样都是真次梯度**，噪声就没了。**标准证明靠条件期望 `E[g_t \| x_t] = ∇f(x_t)`，而本形式化只有 `Expect p Y = ∑ ω, p ω · Y ω`，没有 σ-代数与滤流。**能推出的是**确定性 `x` 的单步**，即 `sgd_expectation_contraction`。 |
 | `Lib/Chain/RealEndToEnd.lean` | `e2e_vacuous_composition` | 处理完成（**补上正面对照**）：原条目只报了**反例**（结论可以不带 `ts`），而 `B_missing` 要的是一条**真正用上 L1⇄L2 一跳**的语义结论。新增 **`e2e_contribution_of_L1L2`**（三段）：① `(toSegs ts).map mkConstraint = cs`（`ts` 的**段结构**恰好给出 `cs`）；② `∀ cs', Extract ts cs' → cs' = cs`（`ts` 的**读法唯一**）；③ `cs` 决定权重行为。另单独成条 **`extract_functional`**：`Extract` 是**部分函数**。**关键认识：「去掉 `ts` 结论不变」与「`ts` 无所贡献」不是同一件事**——`ts` 的全部贡献**已经在 `cs` 里用尽**，那是信息单向流动 `ts → cs → 权重` 的貌似。一处修正：`Option.some.injEq` 的方向需 `.symm`。 |
 | `Audit/StructureCensus.lean` | `census_length` | 处理完成：本轮发现清册里有一行**数字是错的**——`Representation` 写 `fields := 8`，而 `Runtime/Extraction.lean:58` 的结构只有 **7** 个字段（`inputP`/`inputW`/`encode`/`decode`/`compile`/`extract`/`roundtrip`），**8 不符合任何一种口径**（连把类型参数算进去也是 9）。已改为 7（清册行、§2.2 标题、汇总表三处，密度 12.5% → 14.3%）。**关键：三条 `decide` 定理照旧为真**——它们核对的是**表内算术**，不是**表与库的一致性**。已在 `census` 的 doc 里写明这一点，并列出本轮找到的错行。真正锁住它需要**反射取字段数**（Lean 元编程），不是 `decide`；在那之前这些数字只能按「人工录入」读。 |
+| `Semantics/Annotations.lean` | `holdsSet_member` | 处理完成：它与 `Domains/Constraints/ConstraintSet.holdsSet_mem` **同一条定理**，只差参数顺序，而两份**都各自做了归纳**。已改为**一行转发**（`holdsSet_mem hmem pts h`），保留本地名字是因为 `edit_frame_holds`使用这个参数顺序。**判定里「唯一跨文件引用 `Semantics/Merge.lean:142`」已经不成立**——那一行现在是 `merge_parts`，而 `Merge.lean` 既没 import 本文件也没 open 本 namespace。 |
+| `Runtime/CompilerScheme.lean` | `scheme_covers_all` | 处理完成（**doc / 状态修正**）：`Slots.lean` 的 `lift.compile.single_item_sound` 把它当作`.discharged` 的凭证，而它是 `⟨rfl, rfl, rfl⟩`——**字段自等**。已把 note 改为「**CLOSED — STRUCTURALLY ONLY**」，并写明**本条证的是「一个方案适用于所有后端」的结构事实，不证任何语义声称性**，并指出真正的声称性证明在 `Geo/Compile.geoCompiler.sound`（`unfold loss; rw [hx]; ring`）。 |
+| `Runtime/CompilerScheme.lean` | `backend_sound` | 同上同一处修正：`every_backend_sound` 是 `Compiler.sound` 的**字段投影**，它给出 `sound` 是因为 `sound` 是结构的**假设**，sound 并非白得。note 现已写明这一点，并且指向一个真实的逐实例证明。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 
