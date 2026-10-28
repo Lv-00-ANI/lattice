@@ -46,6 +46,7 @@ REPORT_ONLY = {
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
+    "census: end-to-end by content",
       "usage: skeleton main theorems",
 }
 
@@ -110,6 +111,11 @@ CHECKS = [
     ("audit: duplicate statements", "audit_duplicate_statements.py"),
     ("audit: untracked work", "audit_untracked.py"),
     ("gen: proof chain (geo)", "proof_chain_geo.py"),
+    # Census, NOT a gate: a theorem that touches one layer is not a defect. What would be a
+    # defect is CLAIMING otherwise, and I5 is the gate for that. This runs the same transitive
+    # analysis I5 uses, on EVERY theorem instead of only the ones named `e2e` -- round 219
+    # measured that the name filter left the chain's own work (Geo) entirely outside coverage.
+    ("census: end-to-end by content", "check_endtoend_content.py"),
     ("gen: proof chain (kernel)", "chain.py"),
     ("scope: escape baseline", "escape_baseline.py --check"),
     # Three of this round's fixes were the SAME defect: one measurement written down in two
