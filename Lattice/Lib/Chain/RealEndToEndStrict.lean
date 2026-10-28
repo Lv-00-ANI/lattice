@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 /-!

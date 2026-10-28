@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: 软掩码激活类 —— 激活族抽象的模型无关范式
 

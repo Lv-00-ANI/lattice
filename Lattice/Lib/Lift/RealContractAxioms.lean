@@ -64,7 +64,7 @@ collision-free against this file's set:
 `scripts/check-axioms.ps1` runs both and merges the results.
 -/
 
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lift.ConstraintEmbeddingSoundness
 import Lattice.Lift.TotalLoss
@@ -79,7 +79,7 @@ import Lattice.Runtime.RealLinear
 import Lattice.Lift.RealTotalLoss
 import Lattice.Lib.Architectures.RealLayerPropagation
 import Lattice.Lib.Chain.RealGeometry
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lib.Architectures.RealReLULayer
 open Lattice.Lift.SymbolToWeightCorrectness
 

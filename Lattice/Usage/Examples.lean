@@ -6,8 +6,8 @@
 
 这比「写出看起来正确的示例」强：示例的错误会立刻被内核发现。
 -/
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 import Lattice.Lift.EndToEnd
 import Lattice.Lift.CompilerScheme
 import Lattice.Core.Repair

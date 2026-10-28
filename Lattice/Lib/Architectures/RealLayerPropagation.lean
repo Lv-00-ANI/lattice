@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.Optim.RealListFinBridge
 /-!
 # LATTICE: ℝ 多层组合 —— 约束满足的层间传播（连续域版）

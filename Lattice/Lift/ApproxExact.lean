@@ -88,7 +88,7 @@ Sat  : P → X → Prop
   本文件只保证**若**有实例，桥就成立。
 -/
 import Mathlib
-import Lattice.Lift.PenaltyEmbedding
+import Lattice.Runtime.PenaltyEmbedding
 import Lattice.Lift.RealTotalLoss
 import Lattice.Runtime.PenaltyAnalysis
 open scoped ContinuousLinearMap

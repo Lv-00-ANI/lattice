@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.LearningTheory.RealSamplingBoost
-import Lattice.Lift.RealRandomVerify
+import Lattice.Runtime.RealRandomVerify
 /-!
 # LATTICE: 并集界（Boole 不等式）与多重验证 —— P(⋃ Aᵢ) ≤ Σ P(Aᵢ)
 

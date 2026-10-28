@@ -9,13 +9,13 @@
 | layer | modules | rule |
 |:--|--:|:--|
 | core | 18 | no imports from lift/lib |
-| lift | 61 | may import core only |
+| lift | 49 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 607 | instantiated library, may import core only |
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 28 | aggregator at `Lattice/`, re-exports only |
+| root | 39 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -27,11 +27,11 @@
 - `Lattice.Audit.CompositionClass` <- `Lattice.Audit.BridgedComposition`
 - `Lattice.Audit.Counterexamples` <- `Lattice.Lift.ApproxExact`, `Lattice.Lift.EndToEndApproximation`
 - `Lattice.Audit.DecreasesRole` <- `Lattice.Core.Repair`
-- `Lattice.Audit.Hypotheses` <- `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.VerificationSoundness`, `Lattice.Geo.Reinjection`, `Lattice.Lift.EndToEnd`
+- `Lattice.Audit.Hypotheses` <- `Lattice.Lift.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.VerificationSoundness`, `Lattice.Geo.Reinjection`, `Lattice.Lift.EndToEnd`
 - `Lattice.Audit.MultiComposition` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Audit.ObligationIndependence` <- `Lattice.Core.Repair`
 - `Lattice.Audit.PredicateWitnesses` <- `Lattice.Audit.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
-- `Lattice.Audit.StructureCensus` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Core.Repair`
+- `Lattice.Audit.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Audit.VerdictLattice` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Core.Activation` <- `Lattice.Core.Net`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
@@ -54,9 +54,9 @@
 - `Lattice.Geo.ApproxEmbedding` <- `Lattice.Lift.EndToEndApproximation`, `Lattice.Geo.Loss`
 - `Lattice.Geo.CExprCodegen` <- `Lattice.Runtime.StackCodegen`, `Lattice.Geo.ComputableExpr`
 - `Lattice.Geo.ClauseComposition` <- `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
-- `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Lift.Extraction`
+- `Lattice.Geo.ClosedLoop` <- `Lattice.Geo.Loop`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Flatten`, `Lattice.Runtime.Extraction`
 - `Lattice.Geo.CodegenLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.CExprCodegen`
-- `Lattice.Geo.Compile` <- `Lattice.Geo.Loss`, `Lattice.Geo.Constraint`, `Lattice.Lift.SymbolToWeight`
+- `Lattice.Geo.Compile` <- `Lattice.Geo.Loss`, `Lattice.Geo.Constraint`, `Lattice.Runtime.SymbolToWeight`
 - `Lattice.Geo.ComputableExpr` <- `Lattice.Geo.Expr`
 - `Lattice.Geo.ConjRepair` <- `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.RepairPerp`, `Lattice.Core.Repair`
 - `Lattice.Geo.Constraint` <- `Lattice.Geo.Expr`, `Lattice.Geo.Dist`
@@ -87,7 +87,7 @@
 - `Lattice.Geo.ExteriorSmooth` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExprDeriv`
 - `Lattice.Geo.Extract` <- `Lattice.Geo.Flatten`, `Lattice.Geo.Constraint`, `Lattice.Geo.Loss`, `Lattice.Geo.Perturb`
 - `Lattice.Geo.Finite` <- `Lattice.Geo.Expr`, `Lattice.Geo.Flatten`
-- `Lattice.Geo.Flatten` <- `Lattice.Geo.Expr`, `Lattice.Lift.Extraction`
+- `Lattice.Geo.Flatten` <- `Lattice.Geo.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Geo.FlattenAgreement` <- `Lattice.Geo.Flatten`, `Lattice.Geo.SeqRepresentation`
 - `Lattice.Geo.FormDeriv` <- `Lattice.Geo.ExprDeriv`, `Lattice.Geo.Perturb`
 - `Lattice.Geo.GeoLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Loss`, `Lattice.Geo.EqConstraintTokens`, `Lattice.Geo.EqConstraintListTokens`
@@ -115,7 +115,7 @@
 - `Lattice.Geo.PenaltyLoss` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Dist`
 - `Lattice.Geo.PenaltySmooth` <- `Lattice.Geo.Differentiable`, `Lattice.Geo.Square`, `Lattice.Geo.ExprDeriv`
 - `Lattice.Geo.Perturb` <- `Lattice.Geo.Flatten`
-- `Lattice.Geo.Pipeline` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Expr`, `Lattice.Geo.Loss`, `Lattice.Lift.L1L2`
+- `Lattice.Geo.Pipeline` <- `Lattice.Geo.Constraint`, `Lattice.Geo.Expr`, `Lattice.Geo.Loss`, `Lattice.Runtime.L1L2`
 - `Lattice.Geo.Plucker` <- `Lattice.Geo.Exterior`
 - `Lattice.Geo.PolyAssemble` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.Loss`
 - `Lattice.Geo.PolyConstants` <- `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyAssemble`
@@ -137,7 +137,7 @@
 - `Lattice.Geo.RhoMetric` <- `Lattice.Geo.Lipschitz`
 - `Lattice.Geo.Rules` <- `Lattice.Geo.Engine`
 - `Lattice.Geo.Semantic` <- `Lattice.Geo.Invariant`, `Lattice.Geo.Extract`
-- `Lattice.Geo.SeqRepresentation` <- `Lattice.Geo.Expr`, `Lattice.Lift.Extraction`
+- `Lattice.Geo.SeqRepresentation` <- `Lattice.Geo.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Geo.Shape` <- `Lattice.Geo.Derive`
 - `Lattice.Geo.Square` <- `Lattice.Geo.Loss`, `Lattice.Geo.Dist`
 - `Lattice.Geo.Synthesis` <- `Lattice.Geo.Invariant`, `Lattice.Geo.Initialise`
@@ -151,19 +151,19 @@
 - `Lattice.Geo.WeightDescent` <- `Lattice.Core.Net`
 - `Lattice.Geo.WeightSideLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Geo.Constraint`, `Lattice.Geo.GeoLadder`, `Lattice.Core.Net`
 - `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`
-- `Lattice.Lib.Architectures.RealActClass` <- `Lattice.Lift.RealNonlinear`
+- `Lattice.Lib.Architectures.RealActClass` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealActComplete` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealActDerivatives` <- `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`
 - `Lattice.Lib.Architectures.RealBatchNorm` 
 - `Lattice.Lib.Architectures.RealBatchNormConsistency` <- `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`
-- `Lattice.Lib.Architectures.RealBlock` <- `Lattice.Lift.RealVerifierReliable`
+- `Lattice.Lib.Architectures.RealBlock` <- `Lattice.Runtime.RealVerifierReliable`
 - `Lattice.Lib.Architectures.RealBlockConstants` <- `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.LinearAlgebra.RealBanach`
 - `Lattice.Lib.Architectures.RealBlockInstance` <- `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealBlockLipschitz`
 - `Lattice.Lib.Architectures.RealBlockLipschitz` <- `Lattice.Lib.Chain.RealChain`
 - `Lattice.Lib.Architectures.RealComplexNorm` 
 - `Lattice.Lib.Architectures.RealCrosstalkGeneral` <- `Lattice.Lib.Editing.RealBatchEditClosed`, `Lattice.Lib.Editing.RealEditCrosstalk`, `Lattice.Lib.Editing.RealROME`
 - `Lattice.Lib.Architectures.RealEmbedding` 
-- `Lattice.Lib.Architectures.RealFFN` <- `Lattice.Lift.RealNonlinear`
+- `Lattice.Lib.Architectures.RealFFN` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealGLUVariants` <- `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealGNN` 
 - `Lattice.Lib.Architectures.RealGNNEquivariance` <- `Lattice.Lib.Architectures.RealGNN`
@@ -175,7 +175,7 @@
 - `Lattice.Lib.Architectures.RealGroupNorm` <- `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealNormFamily`
 - `Lattice.Lib.Architectures.RealLayerNorm` 
 - `Lattice.Lib.Architectures.RealLayerNormComplete` <- `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealNormFamily`
-- `Lattice.Lib.Architectures.RealLayerPropagation` <- `Lattice.Runtime.RealLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`
+- `Lattice.Lib.Architectures.RealLayerPropagation` <- `Lattice.Runtime.RealLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`
 - `Lattice.Lib.Architectures.RealLayerScale` 
 - `Lattice.Lib.Architectures.RealLayerScaleDepth` <- `Lattice.Lib.Architectures.RealLayerScale`
 - `Lattice.Lib.Architectures.RealLayerwiseStability` 
@@ -186,8 +186,8 @@
 - `Lattice.Lib.Architectures.RealMoE` <- `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealMoELoadBalance` 
 - `Lattice.Lib.Architectures.RealMoERouteCapacity` <- `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Attention.RealDynamicRoute`
-- `Lattice.Lib.Architectures.RealModReLU` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Chain.RealComplex`, `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Architectures.RealActClass`
-- `Lattice.Lib.Architectures.RealModReLULipschitz` <- `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lift.RealNonlinear`
+- `Lattice.Lib.Architectures.RealModReLU` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Chain.RealComplex`, `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Architectures.RealActClass`
+- `Lattice.Lib.Architectures.RealModReLULipschitz` <- `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealNormFamily` <- `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealRMSNorm`
 - `Lattice.Lib.Architectures.RealNormLipschitz` 
 - `Lattice.Lib.Architectures.RealNormSharpConstant` <- `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealRMSNorm`
@@ -200,8 +200,8 @@
 - `Lattice.Lib.Architectures.RealRMSNorm` 
 - `Lattice.Lib.Architectures.RealRMSNormGeneral` <- `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormSharpness`
 - `Lattice.Lib.Architectures.RealRMSNormSharpness` <- `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealRMSNorm`
-- `Lattice.Lib.Architectures.RealReLULayer` <- `Lattice.Runtime.RealLinear`, `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealLayerPropagation`
-- `Lattice.Lib.Architectures.RealReLUStationarity` <- `Lattice.Lift.RealNonlinear`
+- `Lattice.Lib.Architectures.RealReLULayer` <- `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealLayerPropagation`
+- `Lattice.Lib.Architectures.RealReLUStationarity` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealResidual` <- `Lattice.Lib.Editing.RealEditBound`
 - `Lattice.Lib.Architectures.RealSSDBridge` <- `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Attention.RealCausalAttention`
 - `Lattice.Lib.Architectures.RealSSM` <- `Lattice.Lib.Architectures.RealLoopModel`
@@ -222,7 +222,7 @@
 - `Lattice.Lib.Attention.RealALiBi` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.Attention.RealAbsPosEncoding` <- `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealRelPosEncoding`
 - `Lattice.Lib.Attention.RealAttention` 
-- `Lattice.Lib.Attention.RealAttentionCoreBridge` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Optim.RealListFinBridge`
+- `Lattice.Lib.Attention.RealAttentionCoreBridge` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Optim.RealListFinBridge`
 - `Lattice.Lib.Attention.RealAttentionLipschitz` <- `Lattice.Lib.Architectures.RealBlockLipschitz`
 - `Lattice.Lib.Attention.RealAttentionMonotonicity` <- `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Attention.RealBlockSparse` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealAttentionLipschitz`
@@ -260,27 +260,27 @@
 - `Lattice.Lib.Chain.RealAbstractionRegistry` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.InfoTheory.RealOptimalTransport`, `Lattice.Lib.Convex.RealSupportingHyperplane`, `Lattice.Lib.Optim.RealRiemannianGD`
 - `Lattice.Lib.Chain.RealAdjoinRootCard` <- `Lattice.Lib.LearningTheory.RealGaloisFieldPoly`
 - `Lattice.Lib.Chain.RealChain` 
-- `Lattice.Lib.Chain.RealChainAxioms` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Meta.RealNegativeCore`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.LearningTheory.RealSCMIdentification`, `Lattice.Lib.Editing.RealReversibilityBoundary`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`
-- `Lattice.Lib.Chain.RealChainAxioms2` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.ConstraintEmbeddingSoundness`, `Lattice.Lift.TotalLoss`, `Lattice.Lift.VerifyLoopProgress`, `Lattice.Lib.Lift.VerifyLoopConvergence`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Editing.RealChainEdit`
-- `Lattice.Lib.Chain.RealChainAxioms3` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.TotalLoss`, `Lattice.Lib.Lift.VerifyLoopConvergence`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealChainEdit`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`
-- `Lattice.Lib.Chain.RealChainAxioms4` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.LearningTheory.RealConstrainedDecoding`, `Lattice.Lib.LearningTheory.RealConstrainedDecodingVerify`
+- `Lattice.Lib.Chain.RealChainAxioms` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Meta.RealNegativeCore`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.LearningTheory.RealSCMIdentification`, `Lattice.Lib.Editing.RealReversibilityBoundary`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`
+- `Lattice.Lib.Chain.RealChainAxioms2` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.ConstraintEmbeddingSoundness`, `Lattice.Lift.TotalLoss`, `Lattice.Lift.VerifyLoopProgress`, `Lattice.Lib.Lift.VerifyLoopConvergence`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Editing.RealChainEdit`
+- `Lattice.Lib.Chain.RealChainAxioms3` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.TotalLoss`, `Lattice.Lib.Lift.VerifyLoopConvergence`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealChainEdit`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Chain.RealEndToEnd`
+- `Lattice.Lib.Chain.RealChainAxioms4` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.LearningTheory.RealConstrainedDecoding`, `Lattice.Lib.LearningTheory.RealConstrainedDecodingVerify`
 - `Lattice.Lib.Chain.RealChainEntryOOV` <- `Lattice.Lift.RealTokenizationEntry`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lift.SymbolToWeightCorrectness`
 - `Lattice.Lib.Chain.RealChainEntryOOVAxioms` <- `Lattice.Lib.Chain.RealChainEntryOOV`
 - `Lattice.Lib.Chain.RealChainLiftGeneral` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Chain.RealModelChain`
-- `Lattice.Lib.Chain.RealChainRun` <- `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenizationEntry`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`
+- `Lattice.Lib.Chain.RealChainRun` <- `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenizationEntry`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`
 - `Lattice.Lib.Chain.RealClosedFieldAxiomatic` 
 - `Lattice.Lib.Chain.RealComplex` <- `Lattice.Lib.LinearAlgebra.RealInnerScalar`, `Lattice.Lib.Chain.RealScalarField`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Meta.RealScalarVerdict`, `Lattice.Lib.Architectures.RealNormalEquationScalar`
 - `Lattice.Lib.Chain.RealComplexGD` <- `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Chain.RealComplex`
 - `Lattice.Lib.Chain.RealComplexTrain` 
 - `Lattice.Lib.Chain.RealComplexWirtinger` <- `Lattice.Lib.Chain.RealComplexTrain`
 - `Lattice.Lib.Chain.RealCountableSum` <- `Lattice.Lib.LinearAlgebra.RealInfiniteDim`
-- `Lattice.Lib.Chain.RealCrossUniverseApplication` <- `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lift.RealModLoss`
+- `Lattice.Lib.Chain.RealCrossUniverseApplication` <- `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Runtime.RealModLoss`
 - `Lattice.Lib.Chain.RealCrossUniverseConsumer` <- `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Editing.RealSymbolToWeightWidened`
 - `Lattice.Lib.Chain.RealDvdLatticeStratification` 
-- `Lattice.Lib.Chain.RealE2EComposite` <- `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lib.Chain.RealEndToEnd` <- `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`
-- `Lattice.Lib.Chain.RealEndToEndNontrivial` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Editing.RealEditSemantics`
-- `Lattice.Lib.Chain.RealEndToEndStrict` <- `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`
+- `Lattice.Lib.Chain.RealE2EComposite` <- `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Chain.RealEndToEnd` <- `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`
+- `Lattice.Lib.Chain.RealEndToEndNontrivial` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Editing.RealEditSemantics`
+- `Lattice.Lib.Chain.RealEndToEndStrict` <- `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`
 - `Lattice.Lib.Chain.RealEqualityCharacterization` <- `Lattice.Lib.InfoTheory.RealKL`
 - `Lattice.Lib.Chain.RealErf` 
 - `Lattice.Lib.Chain.RealFiniteField` 
@@ -313,7 +313,7 @@
 - `Lattice.Lib.Chain.RealLv00Systems` 
 - `Lattice.Lib.Chain.RealModelChain` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockConstants`
 - `Lattice.Lib.Chain.RealModelChainHetero` <- `Lattice.Lib.Chain.RealModelChain`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealBlockConstants`
-- `Lattice.Lib.Chain.RealModelFamilyChainWiring` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Runtime.RealLinear`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Optim.RealListFinBridge`
+- `Lattice.Lib.Chain.RealModelFamilyChainWiring` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.RealLinear`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Optim.RealListFinBridge`
 - `Lattice.Lib.Chain.RealN2AxiomDischargeJia` 
 - `Lattice.Lib.Chain.RealNumericChainOrder` <- `Lattice.Lib.Chain.RealNumericChainOrder_parts.A`, `Lattice.Lib.Chain.RealNumericChainOrder_parts.B`, `Lattice.Lib.Chain.RealNumericChainOrder_parts.C`
 - `Lattice.Lib.Chain.RealNumericChainOrder_parts.A` 
@@ -367,7 +367,7 @@
 - `Lattice.Lib.Compiler.RealMutualRecursion_parts.A` 
 - `Lattice.Lib.Compiler.RealMutualRecursion_parts.B` <- `Lattice.Lib.Compiler.RealMutualRecursion_parts.A`
 - `Lattice.Lib.Compiler.RealMutualRecursion_parts.C` <- `Lattice.Lib.Compiler.RealMutualRecursion_parts.B`
-- `Lattice.Lib.Compiler.RealNonlinearCompile` <- `Lattice.Runtime.RealLinear`, `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Optim.RealApprox`
+- `Lattice.Lib.Compiler.RealNonlinearCompile` <- `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Optim.RealApprox`
 - `Lattice.Lib.Compiler.RealRecursiveSemantics` <- `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Compiler.RealRefinementCalculus` 
 - `Lattice.Lib.Compiler.RealRegisterAllocation` 
@@ -398,7 +398,7 @@
 - `Lattice.Lib.Concentration.RealHoeffding` <- `Lattice.Lib.LearningTheory.RealSamplingBoost`
 - `Lattice.Lib.Concentration.RealHoeffdingInequality` <- `Lattice.Lib.Concentration.RealHoeffdingLemmaMeasure`, `Lattice.Lib.Concentration.RealHoeffdingMeasure`, `Lattice.Lib.Concentration.RealAzumaMartingale`
 - `Lattice.Lib.Concentration.RealHoeffdingLemmaMeasure` <- `Lattice.Lib.Concentration.RealHoeffdingMeasure`
-- `Lattice.Lib.Concentration.RealHoeffdingMeasure` <- `Lattice.Lift.RealRandomVerify`
+- `Lattice.Lib.Concentration.RealHoeffdingMeasure` <- `Lattice.Runtime.RealRandomVerify`
 - `Lattice.Lib.Concentration.RealHoeffdingMeasureGeneral` <- `Lattice.Lib.Concentration.RealMeasureTheoryBase`, `Lattice.Lib.Concentration.RealHoeffdingLemmaMeasure`
 - `Lattice.Lib.Concentration.RealItoCalculus` <- `Lattice.Lib.Chain.RealTaylorMultivariate`, `Lattice.Lib.LinearAlgebra.RealHessian`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`
 - `Lattice.Lib.Concentration.RealJensenGeneral` 
@@ -417,7 +417,7 @@
 - `Lattice.Lib.Concentration.RealStochasticProcess` <- `Lattice.Lib.Concentration.RealHoeffding`
 - `Lattice.Lib.Concentration.RealSubExponentialTail` <- `Lattice.Lib.Concentration.RealHoeffding`
 - `Lattice.Lib.Concentration.RealTalagrandConcentration` <- `Lattice.Lib.Concentration.RealHoeffding`, `Lattice.Lib.LearningTheory.RealGaussianProcess`
-- `Lattice.Lib.Concentration.RealUnionBound` <- `Lattice.Lib.LearningTheory.RealSamplingBoost`, `Lattice.Lift.RealRandomVerify`
+- `Lattice.Lib.Concentration.RealUnionBound` <- `Lattice.Lib.LearningTheory.RealSamplingBoost`, `Lattice.Runtime.RealRandomVerify`
 - `Lattice.Lib.Concentration.RealUnionBoundTightness` <- `Lattice.Lib.Concentration.RealUnionBound`
 - `Lattice.Lib.Convex` <- `Lattice.Lib.Convex.RealConjugateDuality`, `Lattice.Lib.Convex.RealConstraintQualification`, `Lattice.Lib.Convex.RealConvexCalculus`, `Lattice.Lib.Convex.RealConvexProjection`, `Lattice.Lib.Convex.RealConvexToolkit`, `Lattice.Lib.Convex.RealDualTheory`, `Lattice.Lib.Convex.RealFCADuality`, `Lattice.Lib.Convex.RealFarkas`, `Lattice.Lib.Convex.RealFenchel`, `Lattice.Lib.Convex.RealFenchelEReal`, `Lattice.Lib.Convex.RealFenchelLSC`, `Lattice.Lib.Convex.RealFenchelMoreau`, `Lattice.Lib.Convex.RealInfConvAttain`, `Lattice.Lib.Convex.RealKKT`, `Lattice.Lib.Convex.RealKKTMultivariate`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Convex.RealKRDuality`, `Lattice.Lib.Convex.RealPareto`, `Lattice.Lib.Convex.RealStrictConvexEquality`, `Lattice.Lib.Convex.RealStrongDuality`, `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Convex.RealSubgradientCalculus`, `Lattice.Lib.Convex.RealSubgradientDescent`, `Lattice.Lib.Convex.RealSubgradientExistence`, `Lattice.Lib.Convex.RealSupportingHyperplane`
 - `Lattice.Lib.Convex.RealConjugateDuality` <- `Lattice.Lib.Convex.RealFenchel`, `Lattice.Lib.Convex.RealFenchelMoreau`, `Lattice.Lib.Convex.RealSubgradient`
@@ -440,7 +440,7 @@
 - `Lattice.Lib.Convex.RealPareto` <- `Lattice.Lib.Lift.RealWeightedConstraints`
 - `Lattice.Lib.Convex.RealStrictConvexEquality` 
 - `Lattice.Lib.Convex.RealStrongDuality` <- `Lattice.Lib.Convex.RealDualTheory`
-- `Lattice.Lib.Convex.RealSubgradient` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealReLUStationarity`
+- `Lattice.Lib.Convex.RealSubgradient` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealReLUStationarity`
 - `Lattice.Lib.Convex.RealSubgradientCalculus` <- `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Convex.RealSubgradientDescent`
 - `Lattice.Lib.Convex.RealSubgradientDescent` <- `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealGradDescent`
 - `Lattice.Lib.Convex.RealSubgradientExistence` <- `Lattice.Lib.Convex.RealSubgradient`
@@ -448,21 +448,21 @@
 - `Lattice.Lib.Editing` <- `Lattice.Lib.Editing.RealBatchEdit`, `Lattice.Lib.Editing.RealBatchEditClosed`, `Lattice.Lib.Editing.RealCanonicalCompileComm`, `Lattice.Lib.Editing.RealCanonicalCompileCommEvidence`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealChainEdit`, `Lattice.Lib.Editing.RealClosureReversibility`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealConstraintEdit`, `Lattice.Lib.Editing.RealConversionCategorical`, `Lattice.Lib.Editing.RealConversionCategoryNew`, `Lattice.Lib.Editing.RealConversionComposition`, `Lattice.Lib.Editing.RealConversionInformation`, `Lattice.Lib.Editing.RealConversionMinimality`, `Lattice.Lib.Editing.RealConversionQuotient`, `Lattice.Lib.Editing.RealConversionRobustness`, `Lattice.Lib.Editing.RealConversionRoundTrip`, `Lattice.Lib.Editing.RealConversionStability`, `Lattice.Lib.Editing.RealConversionStabilityInformation`, `Lattice.Lib.Editing.RealConversionStabilityReversibility`, `Lattice.Lib.Editing.RealEditBound`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.Editing.RealEditCostPropagation`, `Lattice.Lib.Editing.RealEditCrosstalk`, `Lattice.Lib.Editing.RealEditInvariantCatalog`, `Lattice.Lib.Editing.RealEditInvariants`, `Lattice.Lib.Editing.RealEditLocality`, `Lattice.Lib.Editing.RealEditRollback`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealEditSeq`, `Lattice.Lib.Editing.RealEditSeqNonuniform`, `Lattice.Lib.Editing.RealEditSymbolAgreement`, `Lattice.Lib.Editing.RealEditToSymbol`, `Lattice.Lib.Editing.RealEditToSymbolConstructive`, `Lattice.Lib.Editing.RealEditTwoSidedSquare`, `Lattice.Lib.Editing.RealEditVerdict`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealExtractCanonicalExistence`, `Lattice.Lib.Editing.RealExtractDecidability`, `Lattice.Lib.Editing.RealExtractInvertibility`, `Lattice.Lib.Editing.RealExtractNonInjective`, `Lattice.Lib.Editing.RealExtractSurjectivity`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.Editing.RealGramEdit`, `Lattice.Lib.Editing.RealLayerSemanticQuotient`, `Lattice.Lib.Editing.RealLoRAEditJoint`, `Lattice.Lib.Editing.RealMEMIT`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Editing.RealOpContract`, `Lattice.Lib.Editing.RealOperatorSplit`, `Lattice.Lib.Editing.RealOperatorSplitCompose`, `Lattice.Lib.Editing.RealPruningRecovery`, `Lattice.Lib.Editing.RealQuotientReversibility`, `Lattice.Lib.Editing.RealROME`, `Lattice.Lib.Editing.RealRecoverBehavior`, `Lattice.Lib.Editing.RealRepairMetric`, `Lattice.Lib.Editing.RealReversibilityBoundary`, `Lattice.Lib.Editing.RealRoundTripVacuity`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.Editing.RealRoundtripNondegenerate`, `Lattice.Lib.Editing.RealRoundtripNontrivial`, `Lattice.Lib.Editing.RealRoundtripRat`, `Lattice.Lib.Editing.RealSeparation`, `Lattice.Lib.Editing.RealSparseEdit`, `Lattice.Lib.Editing.RealSymbolCompleteness`, `Lattice.Lib.Editing.RealSymbolDomainWidening`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Editing.RealSymbolToWeightWidened`, `Lattice.Lib.Editing.RealTwoSidedEditEquiv`
 - `Lattice.Lib.Editing.RealBatchEdit` <- `Lattice.Lib.Editing.RealEditCrosstalk`
 - `Lattice.Lib.Editing.RealBatchEditClosed` <- `Lattice.Lib.Editing.RealBatchEdit`
-- `Lattice.Lib.Editing.RealCanonicalCompileComm` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
-- `Lattice.Lib.Editing.RealCanonicalCompileCommEvidence` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
-- `Lattice.Lib.Editing.RealCanonicalForm` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealCanonicalCompileComm` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
+- `Lattice.Lib.Editing.RealCanonicalCompileCommEvidence` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
+- `Lattice.Lib.Editing.RealCanonicalForm` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.Editing.RealChainEdit` <- `Lattice.Lib.Chain.RealChain`
-- `Lattice.Lib.Editing.RealClosureReversibility` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lib.Editing.RealCompileExtractClosed` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Meta.RealDotRepresentationAudit`
-- `Lattice.Lib.Editing.RealConstraintEdit` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealConversionCategorical` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.FCA.RealFCA`
-- `Lattice.Lib.Editing.RealConversionCategoryNew` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealReversibilityBoundary`, `Lattice.Lib.Editing.RealConversionCategorical`
-- `Lattice.Lib.Editing.RealConversionComposition` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealConversionInformation` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealConversionMinimality` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealConversionQuotient` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealConversionRoundTrip`
-- `Lattice.Lib.Editing.RealConversionRobustness` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealConversionRoundTrip` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealClosureReversibility` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Editing.RealCompileExtractClosed` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Meta.RealDotRepresentationAudit`
+- `Lattice.Lib.Editing.RealConstraintEdit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealConversionCategorical` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.FCA.RealFCA`
+- `Lattice.Lib.Editing.RealConversionCategoryNew` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealReversibilityBoundary`, `Lattice.Lib.Editing.RealConversionCategorical`
+- `Lattice.Lib.Editing.RealConversionComposition` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealConversionInformation` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealConversionMinimality` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealConversionQuotient` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealConversionRoundTrip`
+- `Lattice.Lib.Editing.RealConversionRobustness` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealConversionRoundTrip` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.Editing.RealConversionStability` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Editing.RealConversionStabilityReversibility`, `Lattice.Lib.Editing.RealConversionStabilityInformation`
 - `Lattice.Lib.Editing.RealConversionStabilityInformation` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.Editing.RealConversionStabilityReversibility`
 - `Lattice.Lib.Editing.RealConversionStabilityReversibility` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`
@@ -470,67 +470,67 @@
 - `Lattice.Lib.Editing.RealEditCommute` <- `Lattice.Lib.Editing.RealEditCrosstalk`, `Lattice.Lib.Concentration.RealEditOrder`, `Lattice.Lib.Editing.RealEditRollback`, `Lattice.Lib.Editing.RealBatchEditClosed`
 - `Lattice.Lib.Editing.RealEditCostPropagation` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Editing.RealChainEdit`
 - `Lattice.Lib.Editing.RealEditCrosstalk` <- `Lattice.Lib.Editing.RealROME`
-- `Lattice.Lib.Editing.RealEditInvariantCatalog` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealConstraintEdit`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lift.TotalLoss`
+- `Lattice.Lib.Editing.RealEditInvariantCatalog` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealConstraintEdit`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lift.TotalLoss`
 - `Lattice.Lib.Editing.RealEditInvariants` 
 - `Lattice.Lib.Editing.RealEditLocality` <- `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.LinearAlgebra.RealSparsity`
 - `Lattice.Lib.Editing.RealEditRollback` <- `Lattice.Lib.Editing.RealBatchEditClosed`, `Lattice.Lib.Editing.RealROME`, `Lattice.Lib.Editing.RealEditCrosstalk`
-- `Lattice.Lib.Editing.RealEditSemantics` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Optim.RealCrossUniverseBridge`
+- `Lattice.Lib.Editing.RealEditSemantics` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Optim.RealCrossUniverseBridge`
 - `Lattice.Lib.Editing.RealEditSeq` 
 - `Lattice.Lib.Editing.RealEditSeqNonuniform` <- `Lattice.Lib.Editing.RealEditSeq`
-- `Lattice.Lib.Editing.RealEditSymbolAgreement` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealConversionRobustness`
-- `Lattice.Lib.Editing.RealEditToSymbol` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealConversionRobustness`
-- `Lattice.Lib.Editing.RealEditToSymbolConstructive` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealCanonicalForm`
+- `Lattice.Lib.Editing.RealEditSymbolAgreement` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealConversionRobustness`
+- `Lattice.Lib.Editing.RealEditToSymbol` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealConversionRobustness`
+- `Lattice.Lib.Editing.RealEditToSymbolConstructive` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealCanonicalForm`
 - `Lattice.Lib.Editing.RealEditTwoSidedSquare` <- `Lattice.Lib.Editing.RealEditSemantics`, `Lattice.Lib.Editing.RealConstraintEdit`, `Lattice.Lift.SymbolToWeightCorrectness`
 - `Lattice.Lib.Editing.RealEditVerdict` 
-- `Lattice.Lib.Editing.RealExtractCanonical` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
-- `Lattice.Lib.Editing.RealExtractCanonicalExistence` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealQuotientReversibility`, `Lattice.Lib.Editing.RealLayerSemanticQuotient`
+- `Lattice.Lib.Editing.RealExtractCanonical` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`
+- `Lattice.Lib.Editing.RealExtractCanonicalExistence` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealQuotientReversibility`, `Lattice.Lib.Editing.RealLayerSemanticQuotient`
 - `Lattice.Lib.Editing.RealExtractDecidability` <- `Lattice.Lib.Editing.RealCanonicalForm`
 - `Lattice.Lib.Editing.RealExtractInvertibility` 
-- `Lattice.Lib.Editing.RealExtractNonInjective` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`
-- `Lattice.Lib.Editing.RealExtractSurjectivity` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealEditToSymbol`, `Lattice.Lib.Chain.RealEndToEnd`
-- `Lattice.Lib.Editing.RealExtractionDirection` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractInvertibility`
+- `Lattice.Lib.Editing.RealExtractNonInjective` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`
+- `Lattice.Lib.Editing.RealExtractSurjectivity` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealEditToSymbol`, `Lattice.Lib.Chain.RealEndToEnd`
+- `Lattice.Lib.Editing.RealExtractionDirection` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractInvertibility`
 - `Lattice.Lib.Editing.RealGramEdit` <- `Lattice.Lib.Editing.RealBatchEditClosed`
-- `Lattice.Lib.Editing.RealLayerSemanticQuotient` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`
+- `Lattice.Lib.Editing.RealLayerSemanticQuotient` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`
 - `Lattice.Lib.Editing.RealLoRAEditJoint` <- `Lattice.Lib.Quantization.RealLoRA`, `Lattice.Lib.Editing.RealEditRollback`, `Lattice.Lib.Architectures.RealResidual`
 - `Lattice.Lib.Editing.RealMEMIT` 
-- `Lattice.Lib.Editing.RealNonlinearExtract` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lift.RealNonlinear`
+- `Lattice.Lib.Editing.RealNonlinearExtract` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Editing.RealOpContract` <- `Lattice.Lib.Editing.RealOperatorSplit`, `Lattice.Lib.Chain.RealLimitDiscrete`
 - `Lattice.Lib.Editing.RealOperatorSplit` 
 - `Lattice.Lib.Editing.RealOperatorSplitCompose` <- `Lattice.Lib.Optim.RealOperatorSplitBridge`
 - `Lattice.Lib.Editing.RealPruningRecovery` 
-- `Lattice.Lib.Editing.RealQuotientReversibility` <- `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.Editing.RealConversionQuotient`, `Lattice.Lift.RealTokenization`
+- `Lattice.Lib.Editing.RealQuotientReversibility` <- `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.Editing.RealConversionQuotient`, `Lattice.Runtime.RealTokenization`
 - `Lattice.Lib.Editing.RealROME` 
-- `Lattice.Lib.Editing.RealRecoverBehavior` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Meta.RealNegativeCore`
+- `Lattice.Lib.Editing.RealRecoverBehavior` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.LearningTheory.RealRecoverEndpoint`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Meta.RealNegativeCore`
 - `Lattice.Lib.Editing.RealRepairMetric` <- `Lattice.Lift.ConvertLinear`
-- `Lattice.Lib.Editing.RealReversibilityBoundary` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Runtime.RealLinear`, `Lattice.Lib.Editing.RealExtractInvertibility`, `Lattice.Lift.RealNonlinear`
-- `Lattice.Lib.Editing.RealRoundTripVacuity` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCanonicalForm`
+- `Lattice.Lib.Editing.RealReversibilityBoundary` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Runtime.RealLinear`, `Lattice.Lib.Editing.RealExtractInvertibility`, `Lattice.Runtime.RealNonlinear`
+- `Lattice.Lib.Editing.RealRoundTripVacuity` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCanonicalForm`
 - `Lattice.Lib.Editing.RealRoundtripBound` <- `Lattice.Runtime.RealLinear`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.LinearAlgebra.RealSparsity`
-- `Lattice.Lib.Editing.RealRoundtripNondegenerate` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealLayerSemanticQuotient`
-- `Lattice.Lib.Editing.RealRoundtripNontrivial` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealCanonicalCompileComm`
-- `Lattice.Lib.Editing.RealRoundtripRat` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Compiler.RealConstraintSat`
+- `Lattice.Lib.Editing.RealRoundtripNondegenerate` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealLayerSemanticQuotient`
+- `Lattice.Lib.Editing.RealRoundtripNontrivial` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.ConvertLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCanonicalForm`, `Lattice.Lib.Editing.RealCanonicalCompileComm`
+- `Lattice.Lib.Editing.RealRoundtripRat` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Compiler.RealConstraintSat`
 - `Lattice.Lib.Editing.RealSeparation` <- `Lattice.Lib.Convex.RealStrongDuality`
 - `Lattice.Lib.Editing.RealSparseEdit` <- `Lattice.Lib.LinearAlgebra.RealSparsity`
-- `Lattice.Lib.Editing.RealSymbolCompleteness` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`
-- `Lattice.Lib.Editing.RealSymbolDomainWidening` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealConstraintEdit`
-- `Lattice.Lib.Editing.RealSymbolToWeightNonlinear` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lib.Editing.RealSymbolToWeightWidened` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lib.Editing.RealTwoSidedEditEquiv` <- `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Editing.RealSymbolCompleteness` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Editing.RealSymbolDomainWidening` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealConstraintEdit`
+- `Lattice.Lib.Editing.RealSymbolToWeightNonlinear` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Editing.RealSymbolToWeightWidened` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Editing.RealTwoSidedEditEquiv` <- `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealExtractionDirection`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lift.SymbolToWeightCorrectness`
 - `Lattice.Lib.FCA` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.FCA.RealFCAAbstractionSoundness`, `Lattice.Lib.FCA.RealFCAClosureOperatorLattice`, `Lattice.Lib.FCA.RealFCACompleteLattice`, `Lattice.Lib.FCA.RealFCAConceptLatticeAlgebra`, `Lattice.Lib.FCA.RealFCAElementApplication`, `Lattice.Lib.FCA.RealFCAImplicationBasis`, `Lattice.Lib.FCA.RealFCAInstance`, `Lattice.Lib.FCA.RealFCAManyValued`, `Lattice.Lib.FCA.RealFCARoughSet`, `Lattice.Lib.FCA.RealFCATokenization`, `Lattice.Lib.FCA.RealFCATriadic`, `Lattice.Lib.FCA.RealFCATriadicCompleteLattice`, `Lattice.Lib.FCA.RealImplication`, `Lattice.Lib.FCA.RealImplicationExt`
 - `Lattice.Lib.FCA.RealFCA` 
 - `Lattice.Lib.FCA.RealFCAAbstractionSoundness` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Runtime.RealLinear`, `Lattice.Lib.Compiler.RealAbstractInterpretation`
 - `Lattice.Lib.FCA.RealFCAClosureOperatorLattice` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.FCA.RealFCACompleteLattice` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.FCA.RealFCAConceptLatticeAlgebra` <- `Lattice.Lib.FCA.RealFCA`
-- `Lattice.Lib.FCA.RealFCAElementApplication` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.FCA.RealFCAInstance`, `Lattice.Runtime.RealLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.FCA.RealFCAElementApplication` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.FCA.RealFCAInstance`, `Lattice.Runtime.RealLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.FCA.RealFCAImplicationBasis` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.FCA.RealFCAInstance` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.FCA.RealImplication`
 - `Lattice.Lib.FCA.RealFCAManyValued` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.FCA.RealFCARoughSet` <- `Lattice.Lib.FCA.RealFCA`
-- `Lattice.Lib.FCA.RealFCATokenization` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lift.RealTokenization`
+- `Lattice.Lib.FCA.RealFCATokenization` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Runtime.RealTokenization`
 - `Lattice.Lib.FCA.RealFCATriadic` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.FCA.RealFCATriadicCompleteLattice` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.FCA.RealFCATriadic`
-- `Lattice.Lib.FCA.RealImplication` <- `Lattice.Runtime.RealLinear`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Lift.RealNonlinear`
-- `Lattice.Lib.FCA.RealImplicationExt` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.FCA.RealImplication`
+- `Lattice.Lib.FCA.RealImplication` <- `Lattice.Runtime.RealLinear`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Runtime.RealNonlinear`
+- `Lattice.Lib.FCA.RealImplicationExt` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.FCA.RealImplication`
 - `Lattice.Lib.FloatStackRefinement` <- `Lattice.Lift.StackError`, `Lattice.Lib.Quantization.RealIEEE754.Basic`
 - `Lattice.Lib.InfoTheory` <- `Lattice.Lib.InfoTheory.RealContinuousKL`, `Lattice.Lib.InfoTheory.RealCrossEntropy`, `Lattice.Lib.InfoTheory.RealDPIComplete`, `Lattice.Lib.InfoTheory.RealDPIEquality`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.InfoTheory.RealDroppedMass`, `Lattice.Lib.InfoTheory.RealELBO`, `Lattice.Lib.InfoTheory.RealEntropyConcavity`, `Lattice.Lib.InfoTheory.RealFDivergence`, `Lattice.Lib.InfoTheory.RealFisherInfo`, `Lattice.Lib.InfoTheory.RealFisherMatrix`, `Lattice.Lib.InfoTheory.RealInfoNCELowerBound`, `Lattice.Lib.InfoTheory.RealInformationGeometry`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealKLChainRule`, `Lattice.Lib.InfoTheory.RealKLConvexity`, `Lattice.Lib.InfoTheory.RealKLJointConvex`, `Lattice.Lib.InfoTheory.RealKleeneFixedPoint`, `Lattice.Lib.InfoTheory.RealLogSumEquality`, `Lattice.Lib.InfoTheory.RealMaxEntropy`, `Lattice.Lib.InfoTheory.RealMaxEntropyII`, `Lattice.Lib.InfoTheory.RealMutualInformation`, `Lattice.Lib.InfoTheory.RealOptimalTransport`, `Lattice.Lib.InfoTheory.RealRNGibbs`, `Lattice.Lib.InfoTheory.RealRenyiDP`, `Lattice.Lib.InfoTheory.RealWasserstein`
 - `Lattice.Lib.InfoTheory.RealContinuousKL` <- `Lattice.Lib.InfoTheory.RealKL`
@@ -570,7 +570,7 @@
 - `Lattice.Lib.LearningTheory.RealConstrainedDecodingVerify` <- `Lattice.Lib.LearningTheory.RealConstrainedDecoding`, `Lattice.Lift.SymbolToWeightCorrectness`
 - `Lattice.Lib.LearningTheory.RealContinualLearning` <- `Lattice.Lib.Convex.RealSubgradientDescent`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.LearningTheory.RealContrastive` <- `Lattice.Lib.InfoTheory.RealCrossEntropy`, `Lattice.Lib.Attention.RealSoftmaxTemp`
-- `Lattice.Lib.LearningTheory.RealConversionFixedPoint` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.LearningTheory.RealConversionFixedPoint` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.LearningTheory.RealCrossValidation` 
 - `Lattice.Lib.LearningTheory.RealCrossValidationIID` <- `Lattice.Lib.LearningTheory.RealCrossValidation`, `Lattice.Lib.Concentration.RealHoeffding`
 - `Lattice.Lib.LearningTheory.RealCurriculumOrdering` 
@@ -594,7 +594,7 @@
 - `Lattice.Lib.LearningTheory.RealOODDetection` <- `Lattice.Lib.LearningTheory.RealSamplingBoost`, `Lattice.Lib.Concentration.RealUnionBound`
 - `Lattice.Lib.LearningTheory.RealPACBayes` <- `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.Concentration.RealHoeffding`
 - `Lattice.Lib.LearningTheory.RealPacBayesRefinement` <- `Lattice.Lib.LearningTheory.RealPACBayes`
-- `Lattice.Lib.LearningTheory.RealRecoverEndpoint` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.LearningTheory.RealRecoverEndpoint` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.RealTokenSymbolLink`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.LearningTheory.RealSCMIdentification` <- `Lattice.Lib.LearningTheory.RealCausalInference`
 - `Lattice.Lib.LearningTheory.RealSamplingBoost` 
 - `Lattice.Lib.LearningTheory.RealScalingLawBound` <- `Lattice.Lib.Concentration.RealHoeffding`, `Lattice.Lib.Concentration.RealMcDiarmid`, `Lattice.Lib.LearningTheory.RealGeneralizationBound`
@@ -608,25 +608,25 @@
 - `Lattice.Lib.LearningTheory.RealVariationalInference` <- `Lattice.Lib.InfoTheory.RealELBO`, `Lattice.Lib.InfoTheory.RealEntropyConcavity`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Lift` <- `Lattice.Lib.Lift.RealBranch`, `Lattice.Lib.Lift.RealContractAxioms`, `Lattice.Lib.Lift.RealNonlinearFidelity`, `Lattice.Lib.Lift.RealParamLoss`, `Lattice.Lib.Lift.RealTrainVerify`, `Lattice.Lib.Lift.RealWeightedConstraints`, `Lattice.Lib.Lift.RealWeightedConstraintsN`, `Lattice.Lib.Lift.VerifyLoopConvergence`
 - `Lattice.Lib.Lift.RealBranch` <- `Lattice.Lib.Architectures.RealActClass`
-- `Lattice.Lib.Lift.RealContractAxioms` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConstraintEmbeddingSoundness`, `Lattice.Lift.TotalLoss`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Compiler.Disjunction`, `Lattice.Lib.Compiler.Combinators`, `Lattice.Lib.Chain.Geometry`, `Lattice.Lib.Compiler.Inequality`, `Lattice.Lift.LayerComposition`, `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Runtime.RealLinear`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealGeometry`, `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealReLULayer`
+- `Lattice.Lib.Lift.RealContractAxioms` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConstraintEmbeddingSoundness`, `Lattice.Lift.TotalLoss`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lib.Compiler.Disjunction`, `Lattice.Lib.Compiler.Combinators`, `Lattice.Lib.Chain.Geometry`, `Lattice.Lib.Compiler.Inequality`, `Lattice.Lift.LayerComposition`, `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Runtime.RealLinear`, `Lattice.Lift.RealTotalLoss`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealGeometry`, `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealReLULayer`
 - `Lattice.Lib.Lift.RealNonlinearFidelity` <- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.A`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.B`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.C`
-- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.A` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`
-- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.B` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.A`
-- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.C` <- `Lattice.Lift.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.B`
-- `Lattice.Lib.Lift.RealParamLoss` <- `Lattice.Runtime.RealLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealCrossUniverseBridge`
-- `Lattice.Lib.Lift.RealTrainVerify` <- `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lift.RealRandomVerify`
+- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.A` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`
+- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.B` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.A`
+- `Lattice.Lib.Lift.RealNonlinearFidelity_parts.C` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Lift.RealNonlinearFidelity_parts.B`
+- `Lattice.Lib.Lift.RealParamLoss` <- `Lattice.Runtime.RealLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealCrossUniverseBridge`
+- `Lattice.Lib.Lift.RealTrainVerify` <- `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Runtime.RealRandomVerify`
 - `Lattice.Lib.Lift.RealWeightedConstraints` <- `Lattice.Lib.Architectures.RealNormalEquationScalar`
 - `Lattice.Lib.Lift.RealWeightedConstraintsN` <- `Lattice.Lib.Architectures.RealNormalEquationScalar`
 - `Lattice.Lib.Lift.VerifyLoopConvergence` <- `Lattice.Runtime.ComboN`
 - `Lattice.Lib.Linear` <- `Lattice.Lib.Linear.Multivar`, `Lattice.Lib.Linear.NetPenalty`, `Lattice.Lib.Linear.Penalty`, `Lattice.Lib.Linear.PenaltyMatrix`, `Lattice.Lib.Linear.PenaltyPerturb`, `Lattice.Lib.Linear.PenaltyPerturbN`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Linear.Residual`
-- `Lattice.Lib.Linear.Multivar` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Lift.PenaltyEmbedding`
+- `Lattice.Lib.Linear.Multivar` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Linear.NetPenalty` <- `Lattice.Core.WeightNet`, `Lattice.Lib.Linear.PenaltyMatrix`
-- `Lattice.Lib.Linear.Penalty` <- `Lattice.Core.Syntax`, `Lattice.Lift.PenaltyEmbedding`
-- `Lattice.Lib.Linear.PenaltyMatrix` <- `Lattice.Core.Syntax`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Lib.Linear.PenaltyPerturb` <- `Lattice.Core.Syntax`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Linear.PenaltyPerturbN`
-- `Lattice.Lib.Linear.PenaltyPerturbN` <- `Lattice.Core.Syntax`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Lib.Linear.PenaltyVector` <- `Lattice.Core.Syntax`, `Lattice.Lift.PenaltyEmbedding`
-- `Lattice.Lib.Linear.Residual` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Lift.PenaltyEmbedding`
+- `Lattice.Lib.Linear.Penalty` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`
+- `Lattice.Lib.Linear.PenaltyMatrix` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Lib.Linear.PenaltyPerturb` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Linear.PenaltyPerturbN`
+- `Lattice.Lib.Linear.PenaltyPerturbN` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Lib.Linear.PenaltyVector` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`
+- `Lattice.Lib.Linear.Residual` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.LinearAlgebra` <- `Lattice.Lib.LinearAlgebra.RealBanach`, `Lattice.Lib.LinearAlgebra.RealComplexSpectral`, `Lattice.Lib.LinearAlgebra.RealConditionNumber`, `Lattice.Lib.LinearAlgebra.RealEckartYoung`, `Lattice.Lib.LinearAlgebra.RealFrobeniusDichotomy`, `Lattice.Lib.LinearAlgebra.RealGelfand`, `Lattice.Lib.LinearAlgebra.RealGelfandMathlib`, `Lattice.Lib.LinearAlgebra.RealHessian`, `Lattice.Lib.LinearAlgebra.RealInfiniteDim`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`, `Lattice.Lib.LinearAlgebra.RealIsometry`, `Lattice.Lib.LinearAlgebra.RealL2Operator`, `Lattice.Lib.LinearAlgebra.RealLowRank`, `Lattice.Lib.LinearAlgebra.RealMatrix`, `Lattice.Lib.LinearAlgebra.RealMatrixStability`, `Lattice.Lib.LinearAlgebra.RealOperatorInvertibility`, `Lattice.Lib.LinearAlgebra.RealPseudoInverse`, `Lattice.Lib.LinearAlgebra.RealRKHSKernel`, `Lattice.Lib.LinearAlgebra.RealRandomMatrixTheory`, `Lattice.Lib.LinearAlgebra.RealReproducingKernelTheory`, `Lattice.Lib.LinearAlgebra.RealSVD`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.LinearAlgebra.RealSparseCodingCoherence`, `Lattice.Lib.LinearAlgebra.RealSparseCodingCounterexamples`, `Lattice.Lib.LinearAlgebra.RealSparseCodingOptimality`, `Lattice.Lib.LinearAlgebra.RealSparseCodingSoftThreshold`, `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.LinearAlgebra.RealSpectral`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.LinearAlgebra.RealStructuredMatrix`, `Lattice.Lib.LinearAlgebra.RealSubspaceConstraint`, `Lattice.Lib.LinearAlgebra.RealSuperpositionCapacity`, `Lattice.Lib.LinearAlgebra.RealWeightSharing`
 - `Lattice.Lib.LinearAlgebra.RealBanach` <- `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.LinearAlgebra.RealComplexSpectral` <- `Lattice.Lib.LinearAlgebra.RealSpectral`
@@ -664,14 +664,14 @@
 - `Lattice.Lib.Meta` <- `Lattice.Lib.Meta.RealCounterexamples`, `Lattice.Lib.Meta.RealDotLengthCondition`, `Lattice.Lib.Meta.RealDotRepresentationAudit`, `Lattice.Lib.Meta.RealHypothesisAudit`, `Lattice.Lib.Meta.RealNegativeCore`, `Lattice.Lib.Meta.RealRflAudit`, `Lattice.Lib.Meta.RealScalarVerdict`, `Lattice.Lib.Meta.RealSymbolCompletenessVerdict`
 - `Lattice.Lib.Meta.RealCounterexamples` <- `Lattice.Lib.InfoTheory.RealCrossEntropy`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealKLJointConvex`, `Lattice.Lib.Convex.RealStrongDuality`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Convex.RealPareto`, `Lattice.Lib.Architectures.RealActComplete`
 - `Lattice.Lib.Meta.RealDotLengthCondition` 
-- `Lattice.Lib.Meta.RealDotRepresentationAudit` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Meta.RealDotLengthCondition`, `Lattice.Lib.Editing.RealRoundtripRat`
-- `Lattice.Lib.Meta.RealHypothesisAudit` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lib.Meta.RealNegativeCore` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Editing.RealSymbolToWeightWidened`, `Lattice.Lib.Editing.RealReversibilityBoundary`
-- `Lattice.Lib.Meta.RealRflAudit` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalCompileComm`, `Lattice.Lib.Editing.RealRoundTripVacuity`
+- `Lattice.Lib.Meta.RealDotRepresentationAudit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Meta.RealDotLengthCondition`, `Lattice.Lib.Editing.RealRoundtripRat`
+- `Lattice.Lib.Meta.RealHypothesisAudit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lib.Meta.RealNegativeCore` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealSymbolToWeightNonlinear`, `Lattice.Lib.Editing.RealSymbolToWeightWidened`, `Lattice.Lib.Editing.RealReversibilityBoundary`
+- `Lattice.Lib.Meta.RealRflAudit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.WeightToSymbolEquivalence`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalCompileComm`, `Lattice.Lib.Editing.RealRoundTripVacuity`
 - `Lattice.Lib.Meta.RealScalarVerdict` <- `Lattice.Lib.Chain.RealScalarField`
-- `Lattice.Lib.Meta.RealSymbolCompletenessVerdict` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealSymbolCompleteness`
+- `Lattice.Lib.Meta.RealSymbolCompletenessVerdict` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealSymbolCompleteness`
 - `Lattice.Lib.Optim` <- `Lattice.Lib.Optim.ModEqBridge`, `Lattice.Lib.Optim.RealADMM`, `Lattice.Lib.Optim.RealAdam`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lib.Optim.RealBFGS`, `Lattice.Lib.Optim.RealCheckpointAveraging`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Optim.RealDPSGD`, `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Optim.RealEarlyStoppingStatistics`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Optim.RealEvalBridge`, `Lattice.Lib.Optim.RealFCASyntaxBridge`, `Lattice.Lib.Optim.RealFedAsync`, `Lattice.Lib.Optim.RealFedAvg`, `Lattice.Lib.Optim.RealFloatSharpBridge`, `Lattice.Lib.Optim.RealGLUTraining`, `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Optim.RealGradientFlowDiscretization`, `Lattice.Lib.Optim.RealIterativeSolver`, `Lattice.Lib.Optim.RealLRDecay`, `Lattice.Lib.Optim.RealLeastSquares`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealMirrorDescent`, `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovLower`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealNewtonMethod`, `Lattice.Lib.Optim.RealNewtonRate`, `Lattice.Lib.Optim.RealOperatorSplitBridge`, `Lattice.Lib.Optim.RealPLCondition`, `Lattice.Lib.Optim.RealPerceptron`, `Lattice.Lib.Optim.RealPolicyGradient`, `Lattice.Lib.Optim.RealPolicyGradientVector`, `Lattice.Lib.Optim.RealProjGrad`, `Lattice.Lib.Optim.RealProxExistence`, `Lattice.Lib.Optim.RealProxGrad`, `Lattice.Lib.Optim.RealProximal`, `Lattice.Lib.Optim.RealProximalMoreau`, `Lattice.Lib.Optim.RealRatApproxLowerBound`, `Lattice.Lib.Optim.RealRateLower`, `Lattice.Lib.Optim.RealRegularizedMDP`, `Lattice.Lib.Optim.RealRidge`, `Lattice.Lib.Optim.RealRiemannianGD`, `Lattice.Lib.Optim.RealSGD`, `Lattice.Lib.Optim.RealSGDRate`, `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Optim.RealSeamBridges`, `Lattice.Lib.Optim.RealSeamBridges2`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`, `Lattice.Lib.Optim.RealStationarity`, `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealTD`, `Lattice.Lib.Optim.RealUpDown`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.Optim.RealVectorStationarity`
-- `Lattice.Lib.Optim.ModEqBridge` <- `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Lift.RealModLoss`
+- `Lattice.Lib.Optim.ModEqBridge` <- `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Runtime.RealModLoss`
 - `Lattice.Lib.Optim.RealADMM` <- `Lattice.Lib.Chain.RealPMix`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealAdam` 
 - `Lattice.Lib.Optim.RealApprox` 
@@ -679,7 +679,7 @@
 - `Lattice.Lib.Optim.RealCheckpointAveraging` 
 - `Lattice.Lib.Optim.RealConvergence` 
 - `Lattice.Lib.Optim.RealConversionStabilityConvergence` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`
-- `Lattice.Lib.Optim.RealCrossUniverseBridge` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Runtime.RealLinear`
+- `Lattice.Lib.Optim.RealCrossUniverseBridge` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Runtime.RealLinear`
 - `Lattice.Lib.Optim.RealDPSGD` <- `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Convex.RealSubgradientDescent`
 - `Lattice.Lib.Optim.RealEarlyStopping` <- `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealEarlyStoppingStatistics` <- `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Concentration.RealHoeffding`, `Lattice.Lib.Concentration.RealUnionBound`
@@ -695,7 +695,7 @@
 - `Lattice.Lib.Optim.RealIterativeSolver` <- `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Architectures.RealMatrixNorm`
 - `Lattice.Lib.Optim.RealLRDecay` <- `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealLeastSquares` <- `Lattice.Lib.Architectures.RealNormalEquationScalar`
-- `Lattice.Lib.Optim.RealListFinBridge` <- `Lattice.Lift.ConvertVectorLinear`
+- `Lattice.Lib.Optim.RealListFinBridge` <- `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Lib.Optim.RealMirrorDescent` <- `Lattice.Lib.Optim.RealStrongConvex`
 - `Lattice.Lib.Optim.RealNesterov` <- `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealSGD`
 - `Lattice.Lib.Optim.RealNesterovLower` <- `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealRateLower`
@@ -722,7 +722,7 @@
 - `Lattice.Lib.Optim.RealSGDStochastic` <- `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Convex.RealSubgradientDescent`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealSaddlePoint` <- `Lattice.Lib.Convex.RealKKTSecondOrder`
 - `Lattice.Lib.Optim.RealSeamBridges` <- `Lattice.Lib.LearningTheory.RealCausalDoCalculus`, `Lattice.Lib.LearningTheory.RealCausalInference`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lift.RealLV`, `Lattice.Runtime.RealLinear`
-- `Lattice.Lib.Optim.RealSeamBridges2` <- `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealModelFamilyChainWiring`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealDecisionTheory`, `Lattice.Lib.LearningTheory.RealBayesOptimality`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealExtractSurjectivity`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Optim.RealSeamBridges2` <- `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealModelFamilyChainWiring`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealDecisionTheory`, `Lattice.Lib.LearningTheory.RealBayesOptimality`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealExtractSurjectivity`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.Optim.RealSecondOrderNoModulus` <- `Lattice.Lib.LinearAlgebra.RealHessian`
 - `Lattice.Lib.Optim.RealSecondOrderUpgrade` <- `Lattice.Lib.LinearAlgebra.RealHessian`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Chain.RealTaylorMultivariate`
 - `Lattice.Lib.Optim.RealStationarity` 
@@ -732,7 +732,7 @@
 - `Lattice.Lib.Optim.RealValueIteration` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealVectorStationarity` <- `Lattice.Runtime.RealLinear`
 - `Lattice.Lib.Penalty` <- `Lattice.Lib.Penalty.Counterexample`, `Lattice.Lib.Penalty.PolyExact`
-- `Lattice.Lib.Penalty.Counterexample` <- `Lattice.Lib.Penalty.PolyExact`, `Lattice.Lift.PenaltyEmbedding`
+- `Lattice.Lib.Penalty.Counterexample` <- `Lattice.Lib.Penalty.PolyExact`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Penalty.PolyExact` <- `Lattice.Lib.Linear.PenaltyMatrix`, `Lattice.Runtime.PenaltyAnalysis`
 - `Lattice.Lib.Quantization` <- `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.Quantization.RealCompressionJoint`, `Lattice.Lib.Quantization.RealCompressionRandom`, `Lattice.Lib.Quantization.RealCompressionRate`, `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Quantization.RealFloatConsistency`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754`, `Lattice.Lib.Quantization.RealLoRA`, `Lattice.Lib.Quantization.RealMixedPrecision`, `Lattice.Lib.Quantization.RealMixedPrecisionRounding`, `Lattice.Lib.Quantization.RealQAT`, `Lattice.Lib.Quantization.RealQATRate`, `Lattice.Lib.Quantization.RealQuantifier`, `Lattice.Lib.Quantization.RealQuantizationError`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealSTEError`, `Lattice.Lib.Quantization.RealStructuredPruning`
 - `Lattice.Lib.Quantization.RealCompressedSensing` <- `Lattice.Lib.LinearAlgebra.RealSparseCoding`
@@ -758,66 +758,54 @@
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
 - `Lattice.Lift.ActivationLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Core.Activation`
-- `Lattice.Lift.ApproxExact` <- `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Runtime.PenaltyAnalysis`
-- `Lattice.Lift.ApproxExtraction` <- `Lattice.Lift.Extraction`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
+- `Lattice.Lift.ApproxExact` <- `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lift.RealTotalLoss`, `Lattice.Runtime.PenaltyAnalysis`
+- `Lattice.Lift.ApproxExtraction` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproxLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.ApproximationBridge` <- `Lattice.Lift.ApproxExact`
-- `Lattice.Lift.ChainComposition` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`
-- `Lattice.Lift.CompilerScheme` <- `Lattice.Lift.SymbolToWeight`
-- `Lattice.Lift.ConstraintEmbeddingSoundness` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lift.ConstraintToLoss` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`
+- `Lattice.Lift.ChainComposition` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Lift.EndToEnd`
+- `Lattice.Lift.CompilerScheme` <- `Lattice.Runtime.SymbolToWeight`
+- `Lattice.Lift.ConstraintEmbeddingSoundness` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lift.ConstraintToLoss` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lift.ConvertLinear` <- `Lattice.Runtime.ComboN`
-- `Lattice.Lift.ConvertVectorLinear` 
-- `Lattice.Lift.EncodingAbstraction` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.NonIdenticalEncoding`
-- `Lattice.Lift.EndToEnd` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Lift.L1L2`, `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`
+- `Lattice.Lift.EncodingAbstraction` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Lift.NonIdenticalEncoding`
+- `Lattice.Lift.EndToEnd` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`
 - `Lattice.Lift.EndToEndApproximation` <- `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`
-- `Lattice.Lift.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Idempotent`, `Lattice.Core.Repair`
-- `Lattice.Lift.ExtractionStrength` <- `Lattice.Lift.Extraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.ApproxExtraction`
+- `Lattice.Lift.ExtractionStrength` <- `Lattice.Runtime.Extraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.ApproxExtraction`
 - `Lattice.Lift.GeoSampledBound` <- `Lattice.Lift.VerificationSoundness`
-- `Lattice.Lift.GridDensity` <- `Lattice.Lift.RealVerifierReliable`
+- `Lattice.Lift.GridDensity` <- `Lattice.Runtime.RealVerifierReliable`
 - `Lattice.Lift.IntRoundtrip` <- `Lattice.Lift.TokenAlphabet`
-- `Lattice.Lift.L1L2` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
-- `Lattice.Lift.L1L2Roundtrip` <- `Lattice.Lift.L1L2`
-- `Lattice.Lift.LayerComposition` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lift.L1L2Roundtrip` <- `Lattice.Runtime.L1L2`
+- `Lattice.Lift.LayerComposition` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
 - `Lattice.Lift.LayerQuantization` <- `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.RoundingBackend`
 - `Lattice.Lift.LayerQuantizationBits` <- `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.LayerQuantization`
-- `Lattice.Lift.LossyRepresentation` <- `Lattice.Lift.Extraction`
+- `Lattice.Lift.LossyRepresentation` <- `Lattice.Runtime.Extraction`
 - `Lattice.Lift.MultiLayerLadder` <- `Lattice.Core.Net`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.EndToEnd`
-- `Lattice.Lift.NonIdenticalEncoding` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`
+- `Lattice.Lift.NonIdenticalEncoding` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`
 - `Lattice.Lift.NondegenerateInstance` <- `Lattice.Core.Net`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.WeightLadderN`
-- `Lattice.Lift.PenaltyEmbedding` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
-- `Lattice.Lift.ProgramAST` <- `Lattice.Runtime.ProgramAST`
 - `Lattice.Lift.QuantErrorPropagation` <- `Lattice.Core.Net`, `Lattice.Lift.LayerQuantizationBits`
-- `Lattice.Lift.RatRepresentation` <- `Lattice.Lift.Extraction`
-- `Lattice.Lift.RealLV` <- `Lattice.Runtime.RealLinear`, `Lattice.Lift.RealNonlinear`, `Lattice.Lift.RealTotalLoss`
-- `Lattice.Lift.RealModLoss` 
-- `Lattice.Lift.RealNonlinear` 
-- `Lattice.Lift.RealRandomVerify` 
-- `Lattice.Lift.RealTokenSymbolLink` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
-- `Lattice.Lift.RealTokenization` 
-- `Lattice.Lift.RealTokenizationEntry` <- `Lattice.Lift.RealTokenization`
+- `Lattice.Lift.RatRepresentation` <- `Lattice.Runtime.Extraction`
+- `Lattice.Lift.RealLV` <- `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealNonlinear`, `Lattice.Lift.RealTotalLoss`
+- `Lattice.Lift.RealTokenSymbolLink` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`
+- `Lattice.Lift.RealTokenizationEntry` <- `Lattice.Runtime.RealTokenization`
 - `Lattice.Lift.RealTotalLoss` <- `Lattice.Runtime.RealLinear`
-- `Lattice.Lift.RealVerifierReliable` 
-- `Lattice.Lift.RectangularRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.WeightSymbolRepresentation`
+- `Lattice.Lift.RectangularRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.WeightSymbolRepresentation`
 - `Lattice.Lift.RectangularWeightEncoding` <- `Lattice.Core.Weight`, `Lattice.Lift.WeightLadderFullWidth`
-- `Lattice.Lift.RepresentationFamilies` <- `Lattice.Core.Net`, `Lattice.Core.Weight`, `Lattice.Core.VariableNet`
 - `Lattice.Lift.RoundingBackend` <- `Lattice.Lift.LossyRepresentation`
 - `Lattice.Lift.SaturationQuantization` <- `Lattice.Lift.LayerQuantizationBits`
 - `Lattice.Lift.StackError` <- `Lattice.Core.Net`, `Lattice.Lift.QuantErrorPropagation`
-- `Lattice.Lift.SymbolToWeight` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
-- `Lattice.Lift.SymbolToWeightCorrectness` <- `Lattice.Lift.ConvertVectorLinear`
-- `Lattice.Lift.TokenAlphabet` <- `Lattice.Lift.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`
-- `Lattice.Lift.TotalLoss` <- `Lattice.Lift.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConstraintEmbeddingSoundness`
-- `Lattice.Lift.VerificationSoundness` <- `Lattice.Lift.RealVerifierReliable`
-- `Lattice.Lift.VerifierRate` <- `Lattice.Lift.RealVerifierReliable`
+- `Lattice.Lift.SymbolToWeightCorrectness` <- `Lattice.Runtime.ConvertVectorLinear`
+- `Lattice.Lift.TokenAlphabet` <- `Lattice.Runtime.RealTokenization`, `Lattice.Lift.RealTokenSymbolLink`
+- `Lattice.Lift.TotalLoss` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lift.SymbolToWeightCorrectness`, `Lattice.Lift.ConstraintEmbeddingSoundness`
+- `Lattice.Lift.VerificationSoundness` <- `Lattice.Runtime.RealVerifierReliable`
+- `Lattice.Lift.VerifierRate` <- `Lattice.Runtime.RealVerifierReliable`
 - `Lattice.Lift.VerifyLoopProgress` <- `Lattice.Lift.ConvertLinear`
 - `Lattice.Lift.WeightLadder` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Lift.WeightLadderFullWidth` <- `Lattice.Lift.WeightLadderN`
 - `Lattice.Lift.WeightLadderFullWidthInstance` <- `Lattice.Lift.EndToEnd`, `Lattice.Lift.WeightLadderFullWidth`, `Lattice.Lift.WeightLadderInverse`, `Lattice.Lift.WeightLadderN`
 - `Lattice.Lift.WeightLadderInverse` <- `Lattice.Lift.WeightLadderFullWidth`
 - `Lattice.Lift.WeightLadderN` <- `Lattice.Lift.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
-- `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
-- `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
+- `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Lift.WeightLadderInverse`
+- `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
@@ -831,13 +819,24 @@
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
 - `Lattice.Geo` <- `Lattice.Geo.ClosedLoop`, `Lattice.Geo.Compile`, `Lattice.Geo.ConjRepair`, `Lattice.Geo.Constraint`, `Lattice.Geo.Derivative`, `Lattice.Geo.Derive`, `Lattice.Geo.Differentiable`, `Lattice.Geo.Dist`, `Lattice.Geo.DistContinuous`, `Lattice.Geo.Engine`, `Lattice.Geo.Eval`, `Lattice.Geo.Exact`, `Lattice.Geo.Exec`, `Lattice.Geo.Expr`, `Lattice.Geo.ExprDeriv`, `Lattice.Geo.ExprLocalMin`, `Lattice.Geo.Exterior`, `Lattice.Geo.ExteriorSmooth`, `Lattice.Geo.Extract`, `Lattice.Geo.Finite`, `Lattice.Geo.Flatten`, `Lattice.Geo.FlattenAgreement`, `Lattice.Geo.FormDeriv`, `Lattice.Geo.IRBridge`, `Lattice.Geo.IRRepair`, `Lattice.Geo.Initialise`, `Lattice.Geo.Invariant`, `Lattice.Geo.LayerExact`, `Lattice.Geo.Loop`, `Lattice.Geo.LoopPerp`, `Lattice.Geo.Loss`, `Lattice.Geo.Nondegenerate`, `Lattice.Geo.PathContinuity`, `Lattice.Geo.PenaltySmooth`, `Lattice.Geo.Perturb`, `Lattice.Geo.Pipeline`, `Lattice.Geo.Plucker`, `Lattice.Geo.PolyNondegenerate`, `Lattice.Geo.QualityBridge`, `Lattice.Geo.Repair`, `Lattice.Geo.RepairBridge`, `Lattice.Geo.RepairPenalty`, `Lattice.Geo.RepairPerp`, `Lattice.Geo.RepairQuality`, `Lattice.Geo.Rules`, `Lattice.Geo.Semantic`, `Lattice.Geo.SeqRepresentation`, `Lattice.Geo.Shape`, `Lattice.Geo.Square`, `Lattice.Geo.Synthesis`, `Lattice.Geo.Unconditional`, `Lattice.Geo.Unified`, `Lattice.Geo.ApproxEmbedding`, `Lattice.Geo.Lipschitz`, `Lattice.Geo.DistLipschitz`, `Lattice.Geo.PolyLipschitz`, `Lattice.Geo.PolyAssemble`, `Lattice.Geo.RhoMetric`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.LadderInstance`, `Lattice.Geo.PolyConstants`, `Lattice.Geo.LoopRate`, `Lattice.Geo.Reinjection`, `Lattice.Geo.SynthesisMulti`, `Lattice.Geo.ReinjectionGeneral`, `Lattice.Geo.ClauseComposition`, `Lattice.Geo.RepairCoverage`, `Lattice.Geo.PolyRepair`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.EqualLengthRepair`, `Lattice.Geo.PartialReinjection`, `Lattice.Geo.MultistepLoop`, `Lattice.Geo.SynthesisCoverage`, `Lattice.Geo.MissingRepairs`, `Lattice.Geo.ParallelRepair`, `Lattice.Geo.PolySpecificRepair`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.MultiSeedCoverage`, `Lattice.Geo.SynthesisConnection`, `Lattice.Geo.GeoLadder`, `Lattice.Geo.ConstraintTokenizer`, `Lattice.Geo.NondegenerateInstance`, `Lattice.Geo.TokenizeStrategy`, `Lattice.Geo.TokenizerPattern`, `Lattice.Geo.EqConstraintTokenizer`, `Lattice.Geo.RealToken`, `Lattice.Geo.RealTokenRoundtrip`, `Lattice.Geo.EqConstraintListTokens`, `Lattice.Geo.CExprCodegen`, `Lattice.Geo.CodegenLadder`, `Lattice.Geo.ExecutableGeoCheck`, `Lattice.Geo.WeightSideLadder`, `Lattice.Geo.PenaltyLoss`, `Lattice.Geo.NetLoss`, `Lattice.Geo.ConstraintDescent`, `Lattice.Geo.WeightDescent`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`
-- `Lattice.Lift` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Lift.Extraction`, `Lattice.Lift.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Lift.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Runtime.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`, `Lattice.Lift.WeightLadderFullWidth`, `Lattice.Lift.WeightLadderInverse`, `Lattice.Lift.WeightSymbolRepresentation`, `Lattice.Lift.ActivationLadder`, `Lattice.Lift.WeightLadderFullWidthInstance`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.RectangularRepresentation`, `Lattice.Lift.LayerQuantization`, `Lattice.Lift.LayerQuantizationBits`, `Lattice.Lift.SaturationQuantization`, `Lattice.Lift.QuantErrorPropagation`, `Lattice.Lift.ProgramAST`, `Lattice.Lift.StackError`
+- `Lattice.Lift` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lift.ApproxExact`, `Lattice.Lift.VerificationSoundness`, `Lattice.Lift.EndToEndApproximation`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.L1L2`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.GeoSampledBound`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Lift.NonIdenticalEncoding`, `Lattice.Lift.EncodingAbstraction`, `Lattice.Lift.LossyRepresentation`, `Lattice.Lift.CompilerScheme`, `Lattice.Lift.RoundingBackend`, `Lattice.Lift.WeightLadder`, `Lattice.Lift.ChainComposition`, `Lattice.Lift.VerifierRate`, `Lattice.Lift.ApproximationBridge`, `Lattice.Lift.WeightLadderN`, `Lattice.Lift.TokenAlphabet`, `Lattice.Lift.IntRoundtrip`, `Lattice.Lift.NondegenerateInstance`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Runtime.RepresentationFamilies`, `Lattice.Lift.ApproxExtraction`, `Lattice.Lift.RatRepresentation`, `Lattice.Lift.GridDensity`, `Lattice.Lift.MultiLayerLadder`, `Lattice.Runtime.StackCodegen`, `Lattice.Lift.ApproxLadder`, `Lattice.Lift.ExtractionStrength`, `Lattice.Lift.WeightLadderFullWidth`, `Lattice.Lift.WeightLadderInverse`, `Lattice.Lift.WeightSymbolRepresentation`, `Lattice.Lift.ActivationLadder`, `Lattice.Lift.WeightLadderFullWidthInstance`, `Lattice.Lift.RectangularWeightEncoding`, `Lattice.Lift.RectangularRepresentation`, `Lattice.Lift.LayerQuantization`, `Lattice.Lift.LayerQuantizationBits`, `Lattice.Lift.SaturationQuantization`, `Lattice.Lift.QuantErrorPropagation`, `Lattice.Runtime.ProgramAST`, `Lattice.Lift.StackError`
 - `Lattice.Runtime.ComboN` 
+- `Lattice.Runtime.ConvertVectorLinear` 
 - `Lattice.Runtime.ErrorCalculus` 
+- `Lattice.Runtime.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Idempotent`, `Lattice.Core.Repair`
+- `Lattice.Runtime.L1L2` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
 - `Lattice.Runtime.PenaltyAnalysis` 
-- `Lattice.Runtime.ProgramAST` <- `Lattice.Lift.Extraction`
+- `Lattice.Runtime.PenaltyEmbedding` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
+- `Lattice.Runtime.ProgramAST` <- `Lattice.Runtime.Extraction`
 - `Lattice.Runtime.RealLinear` 
+- `Lattice.Runtime.RealModLoss` 
+- `Lattice.Runtime.RealNonlinear` 
+- `Lattice.Runtime.RealRandomVerify` 
+- `Lattice.Runtime.RealTokenization` 
+- `Lattice.Runtime.RealVerifierReliable` 
+- `Lattice.Runtime.RepresentationFamilies` <- `Lattice.Core.Net`, `Lattice.Core.Weight`, `Lattice.Core.VariableNet`
 - `Lattice.Runtime.StackCodegen` 
+- `Lattice.Runtime.SymbolToWeight` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
 - `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`
 - `Lattice.Semantics.Annotations` <- `Lattice.Geo.ConstraintSet`, `Lattice.Geo.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Geo.Constraint`, `Lattice.Geo.ConstraintSet`, `Lattice.Geo.WeightSideLadder`, `Lattice.Semantics.Merge`
@@ -846,7 +845,7 @@
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Lift.SymbolToWeight`, `Lattice.Lift.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Geo.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Lift.EndToEnd`, `Lattice.Lift.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Lift.L1L2Roundtrip`, `Lattice.Geo.ComputableExpr`, `Lattice.Geo.ExecutableCheck`, `Lattice.Geo.GeoSampledBound`, `Lattice.Geo.Reinjection`, `Lattice.Geo.Synthesis`, `Lattice.Geo.PolyConstants`
 
 ## Declarations per module
 
@@ -1598,16 +1597,13 @@
 | `Lattice.Lift.ConstraintEmbeddingSoundness` | 4 | 1 |
 | `Lattice.Lift.ConstraintToLoss` | 4 | 1 |
 | `Lattice.Lift.ConvertLinear` | 4 | 7 |
-| `Lattice.Lift.ConvertVectorLinear` | 11 | 11 |
 | `Lattice.Lift.EncodingAbstraction` | 3 | 0 |
 | `Lattice.Lift.EndToEnd` | 7 | 3 |
 | `Lattice.Lift.EndToEndApproximation` | 3 | 0 |
-| `Lattice.Lift.Extraction` | 17 | 6 |
 | `Lattice.Lift.ExtractionStrength` | 3 | 1 |
 | `Lattice.Lift.GeoSampledBound` | 2 | 0 |
 | `Lattice.Lift.GridDensity` | 6 | 1 |
 | `Lattice.Lift.IntRoundtrip` | 5 | 4 |
-| `Lattice.Lift.L1L2` | 6 | 9 |
 | `Lattice.Lift.L1L2Roundtrip` | 10 | 0 |
 | `Lattice.Lift.LayerComposition` | 6 | 2 |
 | `Lattice.Lift.LayerQuantization` | 5 | 5 |
@@ -1616,26 +1612,17 @@
 | `Lattice.Lift.MultiLayerLadder` | 4 | 8 |
 | `Lattice.Lift.NonIdenticalEncoding` | 4 | 6 |
 | `Lattice.Lift.NondegenerateInstance` | 5 | 2 |
-| `Lattice.Lift.PenaltyEmbedding` | 10 | 5 |
-| `Lattice.Lift.ProgramAST` | 0 | 0 |
 | `Lattice.Lift.QuantErrorPropagation` | 2 | 0 |
 | `Lattice.Lift.RatRepresentation` | 4 | 1 |
 | `Lattice.Lift.RealLV` | 6 | 5 |
-| `Lattice.Lift.RealModLoss` | 6 | 2 |
-| `Lattice.Lift.RealNonlinear` | 8 | 4 |
-| `Lattice.Lift.RealRandomVerify` | 3 | 0 |
 | `Lattice.Lift.RealTokenSymbolLink` | 11 | 7 |
-| `Lattice.Lift.RealTokenization` | 23 | 12 |
 | `Lattice.Lift.RealTokenizationEntry` | 12 | 5 |
 | `Lattice.Lift.RealTotalLoss` | 4 | 2 |
-| `Lattice.Lift.RealVerifierReliable` | 2 | 3 |
 | `Lattice.Lift.RectangularRepresentation` | 6 | 1 |
 | `Lattice.Lift.RectangularWeightEncoding` | 5 | 2 |
-| `Lattice.Lift.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Lift.RoundingBackend` | 5 | 4 |
 | `Lattice.Lift.SaturationQuantization` | 10 | 2 |
 | `Lattice.Lift.StackError` | 19 | 4 |
-| `Lattice.Lift.SymbolToWeight` | 6 | 7 |
 | `Lattice.Lift.SymbolToWeightCorrectness` | 5 | 5 |
 | `Lattice.Lift.TokenAlphabet` | 5 | 4 |
 | `Lattice.Lift.TotalLoss` | 5 | 2 |
@@ -1664,11 +1651,22 @@
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Lift` | 0 | 0 |
 | `Lattice.Runtime.ComboN` | 5 | 3 |
+| `Lattice.Runtime.ConvertVectorLinear` | 11 | 11 |
 | `Lattice.Runtime.ErrorCalculus` | 7 | 1 |
+| `Lattice.Runtime.Extraction` | 17 | 6 |
+| `Lattice.Runtime.L1L2` | 6 | 9 |
 | `Lattice.Runtime.PenaltyAnalysis` | 3 | 0 |
+| `Lattice.Runtime.PenaltyEmbedding` | 10 | 5 |
 | `Lattice.Runtime.ProgramAST` | 17 | 13 |
 | `Lattice.Runtime.RealLinear` | 7 | 12 |
+| `Lattice.Runtime.RealModLoss` | 6 | 2 |
+| `Lattice.Runtime.RealNonlinear` | 8 | 4 |
+| `Lattice.Runtime.RealRandomVerify` | 3 | 0 |
+| `Lattice.Runtime.RealTokenization` | 23 | 12 |
+| `Lattice.Runtime.RealVerifierReliable` | 2 | 3 |
+| `Lattice.Runtime.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Runtime.StackCodegen` | 11 | 11 |
+| `Lattice.Runtime.SymbolToWeight` | 6 | 7 |
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
@@ -2896,7 +2894,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileToLayer_sound` -> `AffineLayer`, `Ladder`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`, `satSym`, `satW`
 - `compileZ_not_injective` -> `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
-- `compile_apply` -> `compile`, `compile_injective`, `extract`, `roundtrip`
+- `compile_apply` -> `compile`, `extract`, `roundtrip`
 - `compile_bridge_sem` -> `Compiler`, `IRConstraint`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `compile_program`, `compile_program_contains_compiled_constraints`, `eval_program`, `graph_satisfiable`, `initialState`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `satisfiable`
 - `compile_commutes_symEdit_iff_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`
 - `compile_compatible_with_itself` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
@@ -3527,7 +3525,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `deltaOf_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`
 - `delta_is_input` -> `Audit`
 - `delta_not_determined_by_base_only` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `den_positive` -> `compile`, `compile_injective`, `extract`, `roundtrip`
+- `den_positive` -> `compile`, `extract`, `roundtrip`
 - `denote_neg_core` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
 - `denote_scale` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `denote_zero` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
@@ -4269,7 +4267,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extract_compile` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
+- `extract_compile` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `compile_injective`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `extract_compile_identity` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_int` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_vec` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convertReal`, `convertVec`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extractVec`
@@ -8659,7 +8657,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_preserves_typing` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`
 - `subst_ren` -> `Closed`, `apply`, `induction`, `zero`
 - `subst_subst` -> `Closed`, `apply`, `induction`, `zero`
-- `substantive_representation_instance` -> `compile`, `compile_injective`, `extract`, `roundtrip`
+- `substantive_representation_instance` -> `compile`, `extract`, `roundtrip`
 - `substitution_ext` -> `add`, `e2`, `induction`, `step`, `subst`
 - `sumEven_eq_zero_iff` -> `induction`
 - `sumRelu_all_constraints` -> `induction`, `relu`

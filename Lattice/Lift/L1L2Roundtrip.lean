@@ -61,8 +61,7 @@
   与 L0 的 `tokenize_not_injective` 同源，属设计而非缺陷。
 -/
 import Mathlib
-import Lattice.Lift.L1L2
-
+import Lattice.Runtime.L1L2
 namespace Lattice.Lift
 
 namespace L1L2Roundtrip

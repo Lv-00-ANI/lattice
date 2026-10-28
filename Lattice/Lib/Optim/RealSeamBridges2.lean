@@ -8,7 +8,7 @@ import Lattice.Lib.Architectures.RealNormSharpConstant
 import Lattice.Lib.Architectures.RealRMSNormSharpness
 import Lattice.Lib.Architectures.RealLayerPropagation
 import Lattice.Lib.Chain.RealModelFamilyChainWiring
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.Optim.RealListFinBridge
 import Lattice.Lib.LearningTheory.RealDecisionTheory
 import Lattice.Lib.LearningTheory.RealBayesOptimality

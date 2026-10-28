@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 /-!
 # LATTICE: 多层网络组合 —— 前向传播与约束满足的传播

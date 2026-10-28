@@ -283,13 +283,21 @@ def main(argv):
             parts = ln.split("\t")
             if len(parts) >= 4:
                 parts[0] = PATH_MAP.get(parts[0], parts[0])
-                baseline[(parts[0], parts[1], parts[2])] = parts[3]
+                # Round 238. The key used to include the LINE NUMBER, which made the baseline break on
+                # any edit that added or removed a line above the theorem -- including a purely
+                # mechanical import rewrite. Round 238 hit exactly that: rewriting 127 import lines with
+                # `^import ...\s*$` swallowed a following blank line in two files, shifting two
+                # theorems from 93 to 92 and from 128 to 127, and the baseline reported them as BOTH
+                # "new finding" and "paid off" for the same theorems.
+                # The name is already in the entry and is unique within a file, so (path, kind, name) is
+                # a stable key. The line is kept in the file for a human reader, not for the join.
+                baseline[(parts[0], parts[2], parts[3])] = parts[3]
 
     bad = 0
     fired = set()
     for rel, line, kind, detail in findings:
         name = detail.split(":")[0].split()[-1]
-        key = (rel, str(line), kind)
+        key = (rel, kind, name)
         fired.add(key)
         if kind == "reflexive":
             print("  FINDING  %s:%d  [reflexive]  %s" % (rel, line, detail))
@@ -304,8 +312,8 @@ def main(argv):
 
     for key, name in sorted(baseline.items()):
         if key not in fired:
-            print("  PAID OFF %s:%s  [%s]  %s -- delete this line from the baseline"
-                  % (key[0], key[1], key[2], name))
+            print("  PAID OFF %s  [%s]  %s -- delete this line from the baseline"
+                  % (key[0], key[1], name))
             bad += 1
 
     print()

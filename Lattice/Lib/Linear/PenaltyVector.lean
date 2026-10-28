@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Core.Syntax
-import Lattice.Lift.PenaltyEmbedding
-
+import Lattice.Runtime.PenaltyEmbedding
 /-!
 # `Lattice.Lib.Linear.PenaltyVector` -- the vector penalty, and where its proof stops
 

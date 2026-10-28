@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lift.SymbolToWeightCorrectness
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 import Lattice.Lift.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 import Lattice.Lib.LearningTheory.RealRecoverEndpoint

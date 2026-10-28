@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: ReLU 梯度与驻点 —— P2a 正面 + P2b 反例
 

@@ -42,7 +42,7 @@ P := { s : List ℝ // s.length = m * n + n }
   `RectangularWeightEncoding.lean` 的任何既有定理。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
+import Lattice.Runtime.Extraction
 import Lattice.Lift.RectangularWeightEncoding
 import Lattice.Lift.WeightSymbolRepresentation
 

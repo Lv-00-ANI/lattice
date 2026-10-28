@@ -2,8 +2,7 @@ import Mathlib
 import Lattice.Geo.Constraint
 import Lattice.Geo.Expr
 import Lattice.Geo.Loss
-import Lattice.Lift.L1L2
-
+import Lattice.Runtime.L1L2
 /-!
 # `Lattice.Geo.Pipeline` -- the four-hop chain, stated end to end
 

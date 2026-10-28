@@ -54,8 +54,7 @@ grid h := { k * h | k : ℤ }
 - 本节**不**处理多维。`DeltaDense` 只定义在一维，多维需要新的定义。
 -/
 import Mathlib
-import Lattice.Lift.RealVerifierReliable
-
+import Lattice.Runtime.RealVerifierReliable
 namespace Lattice.Lift
 
 namespace GridDensity

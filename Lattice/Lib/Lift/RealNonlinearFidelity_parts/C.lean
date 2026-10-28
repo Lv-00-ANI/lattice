@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 import Lattice.Lib.Architectures.RealActComplete
 import Lattice.Lib.Architectures.RealActDerivatives
 import Lattice.Lib.Editing.RealSymbolToWeightNonlinear

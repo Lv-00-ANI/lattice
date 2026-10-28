@@ -1,8 +1,7 @@
 import Mathlib
 import Lattice.Geo.Loss
 import Lattice.Geo.Constraint
-import Lattice.Lift.SymbolToWeight
-
+import Lattice.Runtime.SymbolToWeight
 /-!
 # `Lattice.Geo.Compile` -- the geometric layer as an inhabitant of `Lift.Compiler`
 

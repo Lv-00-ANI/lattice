@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
 import Lattice.Lib.Compiler.RealCombinators
-import Lattice.Lift.RealNonlinear
+import Lattice.Runtime.RealNonlinear
 /-!
 # LATTICE: 蕴含与否定 —— 组合子层面的逻辑扩展
 

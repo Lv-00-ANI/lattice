@@ -1,5 +1,5 @@
 import Lattice.Lib.Optim.RealGradDescent
-import Lattice.Lift.RealRandomVerify
+import Lattice.Runtime.RealRandomVerify
 import Mathlib
 
 /-!

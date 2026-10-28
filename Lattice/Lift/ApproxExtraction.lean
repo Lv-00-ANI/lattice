@@ -78,7 +78,7 @@ dist_extract_two_le : dist (extract₂ (compile₂ (extract₁ (compile₁ p))))
   那需要更强的假设（如压缩映射），属后续。
 -/
 import Mathlib
-import Lattice.Lift.Extraction
+import Lattice.Runtime.Extraction
 import Lattice.Runtime.ErrorCalculus
 import Lattice.Lift.RoundingBackend
 

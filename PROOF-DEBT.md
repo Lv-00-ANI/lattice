@@ -54,15 +54,15 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8409 | 1369 | 16.3% |
-| **入度 ≥ 1（承重集）** | **872** | **872** | **100.0%** |
-| **入度 = 0** | **7537** | **497** | **6.6%** |
+| 定理 + 引理 | 8409 | 1314 | 15.6% |
+| **入度 ≥ 1（承重集）** | **872** | **820** | **94.0%** |
+| **入度 = 0** | **7537** | **494** | **6.6%** |
 
 **两个方向都要读；只读一个是误导。**
 
 - **承重集 100% 覆盖**：入度 ≥ 1 的定理**全部**审过。这是「只是样本」这个说法的**反例**——
   被下游真正消费的那部分**没有漏**。
-- **零入度只有 6.6%**：7537 条入度为 0 的定理里只审了 497 条。**这才是「样本」真正指的东西。**
+- **零入度只有 6.6%**：7537 条入度为 0 的定理里只审了 494 条。**这才是「样本」真正指的东西。**
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -133,16 +133,15 @@
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:439` | `eq_softThresh_of_is_min` | 0 | 零信息量：载体是注释文本而非声明 |
 | `Lib/LinearAlgebra/RealSparseCodingCounterexamples.lean:472` | `softThresh_le_of_is_min` | 0 | 零边际信息：同一陈述的第二个名字 |
 | `Lift/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
-| `Lift/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
 | `Lift/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
 | `Lift/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
+| `Runtime/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
 | `Slots.lean:287` | `stated` | 0 | 非陈述：`stmt` 是 Slots 文档注释的散文段落。 |
 
 ## 二、`strengthen`：说的比该说的弱
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Lift/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 12 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
 | `Lift/SymbolToWeightCorrectness.lean:65` | `symbolToWeight_correct` | 12 | 强度不足：名字声称 symbol→weight 的正确性，实际内容是「∀-map 分配（forall_mem_map_iff）+ 逐元素 rfl 级桥」，而且它认证的满足语义带有截断假阳性。本仓 RealSymbolToWeightWidened 已逐条给出消融：删掉逐元素桥则命题为假 ⟹ 「原定理的全部内容都集中在这个 rfl 桥上」；并给出 layer_ragged_also_zero 说明两侧共享缺陷、定理无诊断力。 |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:266` | `constrained_agrees_with_constraint_set` | 2 | 不足。`_hts : DecodesTo ts cs` 未使用；`cs` 只经 `allowedByConstraints` 里的 `cs.isEmpty = false` 进入，故「符号约束决定采样支撑」的实质内容为零。 |
 | `Lib/Optim/RealStrongConvex.lean:251` | `strong_convex_iterate_contraction` | 2 | 用途上够用（Nesterov 的 heavyBall、ProxGrad 的收缩只消费这条不等式），问题在前件而非结论：_hμL 是死前件，陈述比实际能证的弱。 |
@@ -160,7 +159,6 @@
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
 | `Lift/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
 | `Lift/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 1 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
-| `Lift/StackCodegen.lean:194` | `compileProg_correct` | 1 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
 | `Audit/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
 | `Audit/StructureCensus.lean:144` | `repair_is_densest` | 0 | 强度不足：名字说「`Repair` 是义务密度最高的结构」，但陈述里根本没有 `Repair`——它只说「`2*obligations ≥ fields` 的行恰有 1 行」。 |
 | `Audit/VerdictLattice.lean:149` | `kind_is_bounded_lattice` | 0 | 强度不足：名字是「有界格」，合取里给了 refl/trans/bot/top/上确界，缺 `kindLe_antisymm`（反对称）与全部交律（`kindInf_le_left`/`kindInf_le_right`/`kindLe_inf`）——即缺从有界偏序到格的判据。doc 也写「`kindInf_*` 给出下确界」，但那几条不在合取里。 |
@@ -176,6 +174,8 @@
 | `Lib/LearningTheory/RealDistillGeneralization.lean:213` | `distill_excess_from_layer` | 0 | Lean 实测报 179:5 `unused variable hc`、181:5 `unused variable hB0`，证明体只用 h2 : R gs − R gt ≤ c·B（来自 hR 与 hlayer），hc、hB0 不参与任何推导。二者既不可由其余前件推出，又被写进签名，删掉后定理严格更一般且证明不变。doc 的保留理由①「linarith 会隐式消费、删了会假失败」不成立：linarith 只在线性组合里搜索，删去未使用的假设不会使原本可证的线性目标不… |
 | `Lib/Optim/RealFedAvg.lean:208` | `fedAvg_rate` | 0 | 强度够（对唯一用户足够） |
 | `Lib/Quantization/RealIEEE754/Basic.lean:173` | `ieee_relative_error_bound` | 0 | 强度够（对唯一用户足够） |
+| `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 0 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
+| `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 0 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
 
 ## 三、`downgrade`：声称过强
 

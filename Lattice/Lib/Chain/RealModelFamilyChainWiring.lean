@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.RealLinear
 import Lattice.Lib.Architectures.RealLayerPropagation
 import Lattice.Lib.Optim.RealListFinBridge

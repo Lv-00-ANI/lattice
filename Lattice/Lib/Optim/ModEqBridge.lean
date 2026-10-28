@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.Compiler.ModConstraint
-import Lattice.Lift.RealModLoss
+import Lattice.Runtime.RealModLoss
 /-!
 # LATTICE: 同余三重桥接 —— Congruent ↔ CongruentInt ↔ Int.ModEq ↔ Divisible
 

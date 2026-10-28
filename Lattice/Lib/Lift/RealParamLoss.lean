@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealLinear
-import Lattice.Lift.ConvertVectorLinear
+import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lift.SymbolToWeightCorrectness
 import Lattice.Lib.Optim.RealCrossUniverseBridge
 /-!

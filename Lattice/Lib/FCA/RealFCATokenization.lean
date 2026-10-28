@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.FCA.RealFCA
-import Lattice.Lift.RealTokenization
+import Lattice.Runtime.RealTokenization
 /-!
 # LATTICE: RealFCATokenization —— ⭐ **FCA 的 `intent` 就是分词的选择集**
 

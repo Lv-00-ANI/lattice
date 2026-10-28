@@ -70,8 +70,7 @@
   `ε₀ = 0` 的精确情形由 `eps0_zero_gives_arbitrary_precision` 覆盖。
 -/
 import Mathlib
-import Lattice.Lift.RealVerifierReliable
-
+import Lattice.Runtime.RealVerifierReliable
 namespace Lattice.Lift
 
 namespace VerifierRate

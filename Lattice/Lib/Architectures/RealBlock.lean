@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealVerifierReliable
+import Lattice.Runtime.RealVerifierReliable
 /-!
 # LATTICE: 完整块的组合误差传播（transformer 块级，模型无关）
 

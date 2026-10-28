@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.Optim.RealCrossUniverseBridge
-import Lattice.Lift.RealModLoss
+import Lattice.Runtime.RealModLoss
 /-!
 # LATTICE EXEC-W3: RealCrossUniverseApplication -- cross-universe bridge application
 

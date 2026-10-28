@@ -69,7 +69,7 @@ theorem sound_of_factors {encode : inputP → inputW} {satP satW}
   而 scheme 还需要「把 `inputP`/`inputW` 从字段提升为参数」的重构。
 -/
 import Mathlib
-import Lattice.Lift.SymbolToWeight
+import Lattice.Runtime.SymbolToWeight
 import Lattice.Lift.NonIdenticalEncoding
 
 namespace Lattice.Lift

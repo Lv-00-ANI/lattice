@@ -90,8 +90,8 @@ A hypothesis h of theorem T is REDUNDANT iff T is provable without h.
 -/
 import Mathlib
 import Lattice.Lift.L1L2Roundtrip
-import Lattice.Lift.SymbolToWeight
-import Lattice.Lift.Extraction
+import Lattice.Runtime.SymbolToWeight
+import Lattice.Runtime.Extraction
 import Lattice.Core.RepairConvergence
 import Lattice.Lift.VerificationSoundness
 import Lattice.Geo.Reinjection

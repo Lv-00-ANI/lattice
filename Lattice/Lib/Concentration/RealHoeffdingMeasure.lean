@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Lift.RealRandomVerify
+import Lattice.Runtime.RealRandomVerify
 /-!
 # LATTICE: 测度论 Hoeffding / Chernoff —— 独立变量之和的指数型尾界
 

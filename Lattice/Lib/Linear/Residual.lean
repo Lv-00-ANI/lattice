@@ -3,8 +3,7 @@ import Lattice.Core.Syntax
 import Lattice.Core.Semantics
 import Lattice.Core.Logic
 import Lattice.Core.Repair
-import Lattice.Lift.PenaltyEmbedding
-
+import Lattice.Runtime.PenaltyEmbedding
 /-!
 # `Lattice.Lib.Linear.Residual` -- the first real instance of the repair framework
 

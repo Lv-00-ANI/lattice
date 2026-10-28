@@ -105,9 +105,9 @@ def main(argv):
     if planted:
         if problems > 0:
             print("SELF-TEST PASS: a wrong number in the document is reported")
-            return 1
+            return 0
         print("SELF-TEST FAIL: a wrong number was NOT reported")
-        return 0
+        return 1
     print("REPAIR CENSUS: %s" % ("consistent with REPAIR-CENSUS.md" if problems == 0
                                  else "%d drift(s) -- update REPAIR-CENSUS.md" % problems))
     return 0 if problems == 0 else 1

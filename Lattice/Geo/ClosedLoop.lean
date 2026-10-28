@@ -3,8 +3,7 @@ import Lattice.Geo.Loop
 import Lattice.Geo.SeqRepresentation
 import Lattice.Geo.ConjRepair
 import Lattice.Geo.Flatten
-import Lattice.Lift.Extraction
-
+import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Geo.ClosedLoop` -- the verification loop closed on a concrete geometric object
 
