@@ -50,7 +50,7 @@
 （每个一个标签），并把 `l1l2` 的往返定理补上。**那是下一步，不是本节。**
 -/
 import Mathlib
-import Lattice.Geo.RealToken
+import Lattice.Domains.RealToken
 
 open Lattice.Geo
 open Lattice.Geo.EqTok

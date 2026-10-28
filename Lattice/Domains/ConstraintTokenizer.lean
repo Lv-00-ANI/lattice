@@ -44,7 +44,7 @@ Lean 拒绝。本轮改成在 `t :: d :: rest` 上做模式匹配，递归时用
 - **不接进 `geoLadder`**：那需要 `Sym := SExpr` 且 `satSym` 重新定义。
 -/
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 
 namespace Lattice.Geo
 

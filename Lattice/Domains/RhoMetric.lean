@@ -34,7 +34,7 @@ rho_le_iff :  0 ≤ L  →  (rho n k a b ≤ L  ↔  ∀ pi ∈ ptIndex n k, |a 
 因此 `rho_le_iff` 带前提 `0 ≤ L`——这不是弱化，而是空集情形的正确形式。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 
 namespace Lattice.Geo
 

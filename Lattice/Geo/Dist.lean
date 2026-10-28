@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 import Lattice.Lib.Linear.PenaltyVector
 
 /-!

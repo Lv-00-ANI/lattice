@@ -30,8 +30,8 @@
 - `δ` 是输入。收敛率不在本定理范围。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
-import Lattice.Geo.RhoMetric
+import Lattice.Domains.Lipschitz
+import Lattice.Domains.RhoMetric
 import Lattice.Geo.PolyAssemble
 import Lattice.Runtime.GeoSampledBound
 

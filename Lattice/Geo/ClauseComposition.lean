@@ -83,7 +83,7 @@ loss c pts ≤ (L·δ)²
 -/
 import Mathlib
 import Lattice.Geo.GeoSampledBound
-import Lattice.Geo.RhoMetric
+import Lattice.Domains.RhoMetric
 import Lattice.Geo.Reinjection
 import Lattice.Geo.Synthesis
 import Lattice.Runtime.ChainComposition

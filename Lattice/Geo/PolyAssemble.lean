@@ -51,7 +51,7 @@ poly_lipschitz :
   这个额外要求写进前提而不是悄悄放宽。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 import Lattice.Geo.DistLipschitz
 import Lattice.Geo.PolyLipschitz
 import Lattice.Geo.Loss

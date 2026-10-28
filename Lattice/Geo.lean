@@ -11,7 +11,7 @@ import Lattice.Geo.Engine
 import Lattice.Geo.Eval
 import Lattice.Geo.Exact
 import Lattice.Geo.Exec
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 import Lattice.Geo.ExprDeriv
 import Lattice.Geo.ExprLocalMin
 import Lattice.Geo.Exterior
@@ -51,11 +51,11 @@ import Lattice.Geo.Synthesis
 import Lattice.Geo.Unconditional
 import Lattice.Geo.Unified
 import Lattice.Geo.ApproxEmbedding
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 import Lattice.Geo.DistLipschitz
 import Lattice.Geo.PolyLipschitz
 import Lattice.Geo.PolyAssemble
-import Lattice.Geo.RhoMetric
+import Lattice.Domains.RhoMetric
 import Lattice.Geo.GeoSampledBound
 import Lattice.Geo.LadderInstance
 import Lattice.Geo.PolyConstants
@@ -69,23 +69,23 @@ import Lattice.Geo.PolyRepair
 import Lattice.Geo.ConstraintSet
 import Lattice.Geo.EqualLengthRepair
 import Lattice.Geo.PartialReinjection
-import Lattice.Geo.MultistepLoop
+import Lattice.Domains.MultistepLoop
 import Lattice.Geo.SynthesisCoverage
 import Lattice.Geo.MissingRepairs
 import Lattice.Geo.ParallelRepair
 import Lattice.Geo.PolySpecificRepair
-import Lattice.Geo.ComputableExpr
+import Lattice.Domains.ComputableExpr
 import Lattice.Geo.ExecutableCheck
 import Lattice.Geo.MultiSeedCoverage
 import Lattice.Geo.SynthesisConnection
 import Lattice.Geo.GeoLadder
-import Lattice.Geo.ConstraintTokenizer
+import Lattice.Domains.ConstraintTokenizer
 import Lattice.Geo.NondegenerateInstance
-import Lattice.Geo.TokenizeStrategy
-import Lattice.Geo.TokenizerPattern
+import Lattice.Domains.TokenizeStrategy
+import Lattice.Domains.TokenizerPattern
 import Lattice.Geo.EqConstraintTokenizer
-import Lattice.Geo.RealToken
-import Lattice.Geo.RealTokenRoundtrip
+import Lattice.Domains.RealToken
+import Lattice.Domains.RealTokenRoundtrip
 import Lattice.Geo.EqConstraintListTokens
 import Lattice.Geo.CExprCodegen
 import Lattice.Geo.CodegenLadder
@@ -94,7 +94,7 @@ import Lattice.Geo.WeightSideLadder
 import Lattice.Geo.PenaltyLoss
 import Lattice.Geo.NetLoss
 import Lattice.Geo.ConstraintDescent
-import Lattice.Geo.WeightDescent
+import Lattice.Domains.WeightDescent
 
 /-!
 # `Lattice.Geo` -- geometric constraints over `n`-dimensional points

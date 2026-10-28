@@ -59,7 +59,7 @@
 - 本文件只处理 `sqDist`；`poly` 四分支的组装在下一层。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 import Lattice.Geo.Dist
 
 open scoped BigOperators

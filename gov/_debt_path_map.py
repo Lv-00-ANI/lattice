@@ -95,4 +95,16 @@ PATH_MAP = {
     "Lift/StackError.lean": "Runtime/StackError.lean",
     "Lift/WeightLadderFullWidthInstance.lean": "Runtime/WeightLadderFullWidthInstance.lean",
     "Lift/WeightSymbolRepresentation.lean": "Runtime/WeightSymbolRepresentation.lean",
+    # round 243, Geo batch B1: the 11 rank-0 Geo modules -> Domains
+    "Geo/ComputableExpr.lean": "Domains/ComputableExpr.lean",
+    "Geo/ConstraintTokenizer.lean": "Domains/ConstraintTokenizer.lean",
+    "Geo/Expr.lean": "Domains/Expr.lean",
+    "Geo/Lipschitz.lean": "Domains/Lipschitz.lean",
+    "Geo/MultistepLoop.lean": "Domains/MultistepLoop.lean",
+    "Geo/RealToken.lean": "Domains/RealToken.lean",
+    "Geo/RealTokenRoundtrip.lean": "Domains/RealTokenRoundtrip.lean",
+    "Geo/RhoMetric.lean": "Domains/RhoMetric.lean",
+    "Geo/TokenizeStrategy.lean": "Domains/TokenizeStrategy.lean",
+    "Geo/TokenizerPattern.lean": "Domains/TokenizerPattern.lean",
+    "Geo/WeightDescent.lean": "Domains/WeightDescent.lean",
 }

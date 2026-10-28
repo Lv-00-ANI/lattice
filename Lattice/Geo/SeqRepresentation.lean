@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Geo.Expr
+import Lattice.Domains.Expr
 import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Geo.SeqRepresentation` -- the object-level round trip over an infinite index

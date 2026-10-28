@@ -1,6 +1,7 @@
 import Lattice.Core
 import Lattice.Runtime
 import Lattice.Slots
+import Lattice.Domains
 import Lattice.Geo
 import Lattice.Lib
 import Lattice.Audit

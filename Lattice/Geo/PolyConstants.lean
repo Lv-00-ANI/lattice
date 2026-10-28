@@ -47,7 +47,7 @@ K(mul e₁ e₂) = K(e₁)·B(e₂) + K(e₂)·B(e₁)
   本节给的是**规则与计算**，用于让常数落地为数字。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 import Lattice.Geo.DistLipschitz
 import Lattice.Geo.PolyAssemble
 

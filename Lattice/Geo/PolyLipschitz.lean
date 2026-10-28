@@ -32,7 +32,7 @@ uᵢ·wᵢ - uᵢ'·wᵢ' = uᵢ·(wᵢ - wᵢ') + (uᵢ - uᵢ')·wᵢ'
   因为它们的前件（`expr` 分支需要表达式的 `K`）形式不同。
 -/
 import Mathlib
-import Lattice.Geo.Lipschitz
+import Lattice.Domains.Lipschitz
 import Lattice.Geo.DistLipschitz
 import Lattice.Geo.Loss
 

@@ -126,7 +126,7 @@ def main(argv):
     # Round 238: `Runtime` joined the tree (P2 moves), so it must be a named layer here too --
     # otherwise its refutations are counted in the total but attributed to no layer, and the
     # per-layer rows no longer add up.
-    for layer in ("Lib", "Lift", "Runtime", "Audit", "Core", "Geo"):
+    for layer in ("Lib", "Lift", "Runtime", "Domains", "Audit", "Core", "Geo"):
         want = want_layers.get(layer, 0)
         got = lay.get(layer, 0)
         ok = want == got

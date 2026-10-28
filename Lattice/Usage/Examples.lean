@@ -13,7 +13,7 @@ import Lattice.Runtime.CompilerScheme
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
-import Lattice.Geo.ComputableExpr
+import Lattice.Domains.ComputableExpr
 import Lattice.Geo.ExecutableCheck
 import Lattice.Geo.GeoSampledBound
 import Lattice.Geo.Reinjection
