@@ -38,7 +38,7 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 105 |
+| `register` | 104 |
 | `keep` | 1192 |
 | **合计审阅** | **1382** |
 
@@ -216,7 +216,6 @@
 | `Lib/Architectures/RealOperatorNorm.lean:47` | `comp_norm_bound` | 0 | Re-export 债务：不影响正确性但虚增定理数；与同文件 add_norm_bound（建议删）一并治理。 |
 | `Lib/Attention/RealTemporalLayer.lean:243` | `split_exposes_parts_to_upward_gaze` | 0 | 同文件同陈述两个名字（:203 / :243），下游按 :243 引用。登记为重复命名债，合并时改调用点；不直接删是因为 Ext 的叙述依赖此名。 |
 | `Lib/Chain/RealChainAxioms3.lean:148` | `b194_anchor_consumer` | 0 | doc 自认「不证明任何新数学——它把锚点取用一次」，作用只是编译期依赖锚点（防整节被删），且拦不住两处同删。作为「定理」零内容；登记 PROOF-DEBT，建议与 _holds 合并或换成真正的消费证明。 |
-| `Lib/Chain/RealEndToEnd.lean:205` | `e2e_vacuous_composition` | 0 | doc 自己说「内容量：零（作为组合而言）」，这是诚实的。但把一条诊断并入主库需登记：E2E 组合的空洞性进 PROOF-DEBT，本条留作审计证据（RealHypothesisAudit 引用合理）。 |
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:104` | `dependenciesClosed_of_subset` | 0 | 登记理由同 :91：与 RealLv00AxiomPackages:240 及 RealN2AxiomDischargeJia:786 是平行实现的三份副本之一，应统一或补桥。 |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:88` | `computabilityTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（55）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:129` | `modalLogic_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 28、Jia 27（本文件多 1 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 27 条」，与定理值 28 及 Jia 的 27 三者不一致。登记：doc 改为「27 上游 + 1 注入」，并补分解/对齐断言或删除一侧副本。 |
@@ -310,6 +309,7 @@
 | `Audit/StructureCensus.lean` | `no_zero_obligation_structure` | 降级已完成，**两处**。(1) 名字读作「没有结构是零义务的」，而陈述只覆盖 `census` 的 **5 个条目**；已改名为 **`no_zero_obligation_in_census_table`**。(2) doc 原接着写「**库里的每个结构都有实质义务**」——**那句话没有机器依据**：`obligations` 是作者填的数字字段，不是证明义务，而这 5 行也不是库里的全部结构；**从一张手填的五行表推全库是无效推理**。已删掉该句，改为「这是一条**表一致性**检查，不是关于库的结论」。 |
 | `Runtime/ApproxExact.lean` | `epsSat_of_loss_le_sq` | 处理完成：**它原本是一条别名**。结论 `\|E.resid p x\| ≤ ε` 与 `abs_resid_le_of_loss_le_sq` **逐字相同**，而名字说「`EpsSat` 的连接」——`EpsSat` **根本没出现**。现在结论是 **`EpsSat E.toPenaltyEmbedding p (ε ^ 2) x`**，**并且 `0 ≤ ε` 不再需要**（右端是 `ε ^ 2`，自动非负）——**谓词形式比残差形式更强**。三处计划外修正：`Audit/Counterexamples.lean` 的表行与 docstring 改指 `abs_resid_le_of_loss_le_sq`（反例 `r = 0, ε = -1` 对谓词形式**不适用**）；`Audit/Hypotheses.lean` 的「`0 ≤ ε` 承重」条目同样改指残差形式。四次脚本失败后的**结构性修正**：CJK 文本不再嵌入 Python 字符串，改为**片段写成文件 + ASCII 锚点拼接**。 |
 | `Lib/Optim/RealSGDStochastic.lean` | `sgd_rate_bound` | 处理完成（**doc 修正**，不是证明修正）：原 doc 的假设清单只列 `D > 0`、`G > 0`、`T > 0`，**漏掉了真正承重的 `hstep`**。现在清单补齐并给出每条的作用。**并且写清了为什么 `hstep` 不是可补的缺口**：接口里有 `Subgradient f (x t) (Expect p (g t))`，而 `x : ℕ → Ω → ℝ` 是**随机过程**，两者**类型上就对不齐**（`PROOF-DEBT` 里那条 `B_missing` 写的 `Subgradient f (x t) (…)` 本身就是病式）；逐路径要求 `Subgradient f (x t ω) (g t ω)` 等于说**每个采样都是真次梯度**，噪声就没了。**标准证明靠条件期望 `E[g_t \| x_t] = ∇f(x_t)`，而本形式化只有 `Expect p Y = ∑ ω, p ω · Y ω`，没有 σ-代数与滤流。**能推出的是**确定性 `x` 的单步**，即 `sgd_expectation_contraction`。 |
+| `Lib/Chain/RealEndToEnd.lean` | `e2e_vacuous_composition` | 处理完成（**补上正面对照**）：原条目只报了**反例**（结论可以不带 `ts`），而 `B_missing` 要的是一条**真正用上 L1⇄L2 一跳**的语义结论。新增 **`e2e_contribution_of_L1L2`**（三段）：① `(toSegs ts).map mkConstraint = cs`（`ts` 的**段结构**恰好给出 `cs`）；② `∀ cs', Extract ts cs' → cs' = cs`（`ts` 的**读法唯一**）；③ `cs` 决定权重行为。另单独成条 **`extract_functional`**：`Extract` 是**部分函数**。**关键认识：「去掉 `ts` 结论不变」与「`ts` 无所贡献」不是同一件事**——`ts` 的全部贡献**已经在 `cs` 里用尽**，那是信息单向流动 `ts → cs → 权重` 的貌似。一处修正：`Option.some.injEq` 的方向需 `.symm`。 |
 
 ## 对抗性复核：第一审判错的 **34 / 45**
 

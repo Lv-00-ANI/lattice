@@ -213,6 +213,57 @@ theorem e2e_extract_hypothesis_is_not_load_bearing (ts : List SymToken) (cs : Co
     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x :=
   symbolToWeight_correct cs x
 
+
+/-! ## 一之二、⭐ **正面对照**：`ts` 到底贡献了什么（第 8 轮补）
+
+`e2e_vacuous_composition` 是**反例**：它证明 `ts` 在结论里**可以缺席**。
+但只报反例是不完整的——读者会问「那么 L1⇄L2 这一跳**到底**贡献了什么」。
+
+**答案是三条，每一条都真正用到 `ts`**：
+
+| 合取项 | 内容 | 用到了什么 |
+|:--|:--|:--|
+| ① | `(toSegs ts).map mkConstraint = cs` | **`ts` 的段结构**——这是 `extract_sound`，本条只是把它接进端到端 |
+| ② | 任何被 `ts` 读成 `cs'` 的，都等于 `cs` | **`ts` 的确定性**：`Extract` 是**部分函数**，所以 `ts` 只有**一个**读法 |
+| ③ | `AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x` | `cs` → 权重那一跳 |
+
+⭐ **①②③ 合起来才是「L1⇄L2 这一跳贡献了什么」的完整回答**：
+
+- **信息只沿 `ts → cs → 权重` 单向流动**；
+- `ts` 的贡献**恰好**是「决定了 `cs`」，**不多不少**——
+  这正是 `e2e_vacuous_composition` 的反面：`ts` **不是没用**，而是**它的全部用处已经在 `cs` 里用完了**。
+
+⚠ 所以「去掉 `ts` 结论不变」与「`ts` 无所贡献」**不是同一件事**，而原来的反例只说了前者。 -/
+
+/-- ⭐⭐ **端到端链路是承重的，而且承重点被定位到 `ts → cs` 这一步。**
+
+三段：`ts` 的段结构**恰好**给出 `cs`；`ts` 的读法**唯一**；`cs` 决定权重行为。
+
+**与 `e2e_vacuous_composition` 的关系**：那条说「结论可以不带 `ts`」，本条说
+「`ts` 的全部贡献**在 `cs` 里已经用尽**」——两者合起来才是完整的事实。 -/
+theorem e2e_contribution_of_L1L2 (ts : List SymToken) (cs : ConstraintSet) (x : List Int)
+    (h : Extract ts cs) :
+    -- ① `ts` 的段结构给出 `cs`
+    (toSegs ts).map mkConstraint = cs ∧
+    -- ② `ts` 只有这一个读法：`Extract` 是部分函数
+    (∀ cs' : ConstraintSet, Extract ts cs' → cs' = cs) ∧
+    -- ③ `cs` 决定权重行为
+    (AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x) := by
+  refine ⟨extract_sound ts cs h, ?_, symbolToWeight_correct cs x⟩
+  intro cs' h'
+  unfold Extract at h h'
+  rw [h] at h'
+  exact ((Option.some.injEq _ _).mp h').symm
+
+/-- **② 单独成条**：`Extract` 是**部分函数**——同一组 token 不会给出两个不同的约束集。
+
+这是「L1⇄L2 这一跳**保信息**」的精确含义：方向是 `ts → cs`，而它是确定性的。
+（反方向**不**保信息，那由 `e2e_vacuous_composition` 与 `semantic_not_injective` 负责。） -/
+theorem extract_functional (ts : List SymToken) (cs₁ cs₂ : ConstraintSet)
+    (h₁ : Extract ts cs₁) (h₂ : Extract ts cs₂) : cs₁ = cs₂ := by
+  unfold Extract at h₁ h₂
+  rw [h₁] at h₂
+  exact (Option.some.injEq _ _).mp h₂
 /-! ## 二、⚠⚠ **订正后的标题**：L2→L3 **不**贡献核（`compileToLayer` **是单射**）
 
 ⚠⚠ **原标题为「二、L2→L3 的损失：`compileToLayer` **非单射**」—— 该标题为假，已订正。**
