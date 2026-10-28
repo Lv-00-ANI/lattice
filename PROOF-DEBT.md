@@ -38,9 +38,9 @@
 | `delete` | 44 |
 | `strengthen` | 24 |
 | `downgrade` | 0 |
-| `register` | 95 |
-| `keep` | 1192 |
-| **合计审阅** | **1382** |
+| `register` | 97 |
+| `keep` | 1217 |
+| **合计审阅** | **1409** |
 
 **这张表是「第一审判了多少条」，不是「还剩多少条没做」。**
 
@@ -63,52 +63,21 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 8445 | 1211 | 14.3% |
-| **入度 ≥ 1（承重集）** | **885** | **858** | **96.9%** |
+| 定理 + 引理 | 8445 | 1238 | 14.7% |
+| **入度 ≥ 1（承重集）** | **885** | **885** | **100.0%** |
 | **入度 = 0** | **7560** | **353** | **4.7%** |
 
 **两个方向都要读；只读一个是误导。**
 
-- **承重集 96.9% 覆盖**：885 条被下游真正消费的定理里审了 858 条。
+- **承重集 100.0% 覆盖**：885 条被下游真正消费的定理里审了 885 条。
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
 - **零入度只有 4.7%**：7560 条入度为 0 的定理里审了 353 条。**这才是「样本」真正指的东西。**
 
-### 承重集里**尚未审阅**的 27 条（逐条列出，不做汇总）
+### 承重集**已全部审阅**
 
-**这是本轮唯一还没做到的百分之几。** 它们入度 ≥ 1、被下游引用、但还没有判定：
-
-- `affineAct_lipschitz`
-- `affineAct_perturbation`
-- `beqShape_eq`
-- `comp`
-- `constraint_satisfied_after_one_step`
-- `extract_sound`
-- `holdsSet_mem`
-- `ieee_error_bound_of_le`
-- `iterate`
-- `layerMag_nonneg`
-- `merge_sound`
-- `midpointLadder_satW_iff`
-- `min_rank_le_left`
-- `min_rank_le_right`
-- `mul`
-- `netAct_deviation_le_devB`
-- `netLoss_nonneg`
-- `netLoss_pos_of_ne`
-- `netLoss_shiftLayer`
-- `netLoss_step_half`
-- `netLoss_zero_iff_holds`
-- `penaltyLoss_eq_zero_eqZero`
-- `penaltyLoss_eq_zero_of_holds`
-- `penaltyLoss_nonneg`
-- `samePointLadder_satW_iff`
-- `toIsLocalMax`
-- `toIsLocalMin`
-
-**为什么列出来而不是抹平**：把这 27 条补审之后，承重集才能真的说 100%。
-在此之前它说 **96.9%**，并且**说得出缺的是哪些**——这比一个漂亮的整数有用。
+入度 ≥ 1 的定理全部有判定。这不是声称，是 `check_coverage_claim.py` 每次重新算出来的。
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -256,6 +225,7 @@
 | `Lib/Quantization/RealMixedPrecision.lean:104` | `fp16_underflow_dominated` | 1 | 定理为真，但证明机制与 doc 脱节：`_hu` 完全没进证明，结论对任意 x 都成立（只要 `eps·\|x\| ≤ tiny`），doc 却把它叙述成『下溢区』特有的界。登记 PROOF-DEBT：(i) 删 `_hu`，改名为通用绝对底界 `eps·\|x\| ≤ tiny → \|round x − x\| ≤ 2·tiny`，下游 `RealMixedPrecisionRounding:365` 同步改签名；(ii) 若要保留『下溢区』叙事，需补真正消费 `0… |
 | `Lib/Quantization/RealMixedPrecision.lean:241` | `mixed_layer_error` | 1 | 清理级（C）：`_hX` 是死假设（n>0 时由 `hx` 推出，n=0 时结论平凡）。删掉后下游 `RealMixedPrecisionRounding:381` 同步即可。结论与证明一致，无误。 |
 | `Core/RepairAtomicity.lean:89` | `atomic_of_binary` | 0 | 登记 PROOF-DEBT：这是「把假设写成定理」的样本。要么改成上面的真引理（从「非满足处测度非零」推出 atomic），要么删掉并把 Slots 的 note 降级为「atomic 仍是逐算子假设」。 |
+| `Domains/Constraints/ConstraintSet.lean:128` | `holdsSet_mem` | 0 | `Semantics/Annotations.lean:118` 自己写着「`Domains/Constraints/ConstraintSet.holdsSet_mem` 是**同一条定理**，只差参数顺序」。**这是第四类重复（同陈述、不同证明），任何语法仪器都测不到**——声明式比较会因为参数重排而给出不同签名。**登记而非删除**：两条都已在用，删除会让 `Annotations` 的调用点断裂，而合并需要同时改两处签名。 |
 | `Domains/Geometry/GeoSampledBound.lean:57` | `geo_sampled_bound` | 0 | 登记理由：真定理，但「验证回路最终形式」的标题超出陈述。修法有二：补有限采样版本（首选），或把 docstring 改成「若零点集在 rho 下 δ-稠密则误差 ≤ Lδ」并与文件头 §3 对齐。 |
 | `Domains/Geometry/PartialReinjection.lean:88` | `loss_le_sq_of_resid_le` | 0 | 登记理由仅为前件冗余（C）。属清理级问题，不阻塞用途；建议顺手删 hε。 |
 | `Domains/Geometry/RepairBridge.lean:74` | `converges` | 0 | 与 Core.Repair.progress 定义等价，属 API 别名；保留会增加「又一条收敛定理」的账面，建议合并（register 而非 delete，因为改名涉及 4-5 处调用点）。 |
@@ -316,6 +286,7 @@
 | `Lib/Editing/RealEditInvariantCatalog.lean:221` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealSymbolToWeightWidened.lean:304 同名同义重复；两文件互不 import，文件内也没有证明使用（in_degree=1 是同名声明碰撞而非语义引用）。doc 把它当「承重件」，实际是死件 + 双副本：登记 PROOF-DEBT，建议收敛为一份并接上消费者。 |
 | `Lib/Editing/RealExtractNonInjective.lean:137` | `convertVec_injective` | 0 | 同一声明在库内至少三份（另见 RealEditToSymbol:122、RealReversibilityBoundary:85）。doc 已诚实标注为「本文件内导出」，但正是这种自包含再导出在积累漂移面。建议登记 PROOF-DEBT：统一引用一处；当前不影响正确性。 |
 | `Lib/Editing/RealExtractSurjectivity.lean:369` | `extractVec_convertVec_rfl` | 0 | 与 RealCanonicalCompileComm:148 的同名定理（那里是真 `rfl`）构成两处同义声明，均由 Meta/RealRflAudit 消费。作为审计证据可以留，但应在 Meta 层只引一处。登记 PROOF-DEBT，现值不值得改。 |
+| `Lib/Editing/RealExtractionDirection.lean:162` | `extract_sound` | 0 | 读的是 L162-165 与 `Lib/Chain/RealEndToEnd.lean:252` 的调用点。**`Extract ts cs` 的定义就是`some ((toSegs ts).map mkConstraint) = some cs`**，所以这条定理是**定义的投影**——它诚实（`extract_sound` 这个名字说的正是这件事），但它不新增数学。登记而非删除：`RealEndToEnd` 的端到端合取需要它作为一个具名条款。 |
 | `Lib/Editing/RealRoundTripVacuity.lean:347` | `rt2_leftInverse` | 0 | 零新增内容的纯别名，仅作为「实例 2」的标签在 RealRoundTripVacuity:354/363 使用；不影响正确性，登记 PROOF-DEBT（合并或直接引用），不值得现在动。 |
 | `Lib/Editing/RealSymbolCompleteness.lean:428` | `s02_twoAxisLayer_needs_two` | 0 | 定理本身真且三个合取项都被用到，但 doc 把它读成一般计数结论（n 个神经元 ⟹ n 条约束），实际只有 2 轴实例；且无证明级消费者（唯一引用是 Meta 文件的注释）。登记覆盖债。 |
 | `Lib/Editing/RealSymbolToWeightWidened.lean:304` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealEditInvariantCatalog.lean:221 同名同义重复（两文件互不 import）；本文件内该名只出现在 doc 里，in_degree=1 是同名声明碰撞。doc 称「主定理」，实际无消费者，登记重复/死件债。 |
