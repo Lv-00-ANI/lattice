@@ -1,4 +1,5 @@
 import Lattice.CInterface.ABI
+import Lattice.CInterface.Serialization
 
 /-!
 # `Lattice.CInterface` —— Lean 侧的 C 契约（**规格，不是 C 代码**）
