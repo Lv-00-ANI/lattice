@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 188 | aggregator at `Lattice/`, re-exports only |
+| root | 190 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -27,7 +27,7 @@
 - `Lattice.Audit.CompositionClass` <- `Lattice.Audit.BridgedComposition`
 - `Lattice.Audit.Counterexamples` <- `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.EndToEndApproximation`
 - `Lattice.Audit.DecreasesRole` <- `Lattice.Core.Repair`
-- `Lattice.Audit.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Domains.Reinjection`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Audit.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Audit.MultiComposition` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Audit.ObligationIndependence` <- `Lattice.Core.Repair`
 - `Lattice.Audit.PredicateWitnesses` <- `Lattice.Audit.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
@@ -661,7 +661,7 @@
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
-- `Lattice.Compose.ForwardChain` <- `Lattice.Domains.ConstraintDescent`, `Lattice.Compose.Primitive`
+- `Lattice.Compose.ForwardChain` <- `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Laws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
@@ -669,107 +669,109 @@
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
-- `Lattice.Domains` <- `Lattice.Domains.ApproxEmbedding`, `Lattice.Domains.CExprCodegen`, `Lattice.Domains.ClauseComposition`, `Lattice.Domains.ClosedLoop`, `Lattice.Domains.CodegenLadder`, `Lattice.Domains.Compile`, `Lattice.Domains.ComputableExpr`, `Lattice.Domains.ConjRepair`, `Lattice.Domains.Constraint`, `Lattice.Domains.ConstraintDescent`, `Lattice.Domains.ConstraintSet`, `Lattice.Domains.ConstraintTokenizer`, `Lattice.Domains.Derivative`, `Lattice.Domains.Derive`, `Lattice.Domains.Differentiable`, `Lattice.Domains.Dist`, `Lattice.Domains.DistContinuous`, `Lattice.Domains.DistLipschitz`, `Lattice.Domains.Engine`, `Lattice.Domains.EqConstraintListTokens`, `Lattice.Domains.EqConstraintToken`, `Lattice.Domains.EqConstraintTokenizer`, `Lattice.Domains.EqConstraintTokens`, `Lattice.Domains.EqualLengthRepair`, `Lattice.Domains.Eval`, `Lattice.Domains.Exact`, `Lattice.Domains.Exec`, `Lattice.Domains.ExecutableCheck`, `Lattice.Domains.ExecutableGeoCheck`, `Lattice.Domains.Expr`, `Lattice.Domains.ExprDeriv`, `Lattice.Domains.ExprLocalMin`, `Lattice.Domains.Exterior`, `Lattice.Domains.ExteriorSmooth`, `Lattice.Domains.Extract`, `Lattice.Domains.Finite`, `Lattice.Domains.Flatten`, `Lattice.Domains.FlattenAgreement`, `Lattice.Domains.FormDeriv`, `Lattice.Domains.GeoLadder`, `Lattice.Domains.GeoSampledBound`, `Lattice.Domains.IRBridge`, `Lattice.Domains.IRRepair`, `Lattice.Domains.Initialise`, `Lattice.Domains.Invariant`, `Lattice.Domains.LadderInstance`, `Lattice.Domains.LayerExact`, `Lattice.Domains.Lipschitz`, `Lattice.Domains.Loop`, `Lattice.Domains.LoopPerp`, `Lattice.Domains.LoopRate`, `Lattice.Domains.Loss`, `Lattice.Domains.MissingRepairs`, `Lattice.Domains.MultiSeedCoverage`, `Lattice.Domains.MultistepLoop`, `Lattice.Domains.NetLoss`, `Lattice.Domains.Nondegenerate`, `Lattice.Domains.NondegenerateInstance`, `Lattice.Domains.ParallelRepair`, `Lattice.Domains.PartialReinjection`, `Lattice.Domains.PathContinuity`, `Lattice.Domains.PenaltyLoss`, `Lattice.Domains.PenaltySmooth`, `Lattice.Domains.Perturb`, `Lattice.Domains.Pipeline`, `Lattice.Domains.Plucker`, `Lattice.Domains.PolyAssemble`, `Lattice.Domains.PolyConstants`, `Lattice.Domains.PolyLipschitz`, `Lattice.Domains.PolyNondegenerate`, `Lattice.Domains.PolyRepair`, `Lattice.Domains.PolySpecificRepair`, `Lattice.Domains.QualityBridge`, `Lattice.Domains.RealToken`, `Lattice.Domains.RealTokenRoundtrip`, `Lattice.Domains.Reinjection`, `Lattice.Domains.ReinjectionGeneral`, `Lattice.Domains.Repair`, `Lattice.Domains.RepairBridge`, `Lattice.Domains.RepairCoverage`, `Lattice.Domains.RepairPenalty`, `Lattice.Domains.RepairPerp`, `Lattice.Domains.RepairQuality`, `Lattice.Domains.RhoMetric`, `Lattice.Domains.Rules`, `Lattice.Domains.Semantic`, `Lattice.Domains.SeqRepresentation`, `Lattice.Domains.Shape`, `Lattice.Domains.Square`, `Lattice.Domains.Synthesis`, `Lattice.Domains.SynthesisConnection`, `Lattice.Domains.SynthesisCoverage`, `Lattice.Domains.SynthesisMulti`, `Lattice.Domains.TokenizeStrategy`, `Lattice.Domains.TokenizerPattern`, `Lattice.Domains.Unconditional`, `Lattice.Domains.Unified`, `Lattice.Domains.WeightDescent`, `Lattice.Domains.WeightSideLadder`
-- `Lattice.Domains.ApproxEmbedding` <- `Lattice.Runtime.EndToEndApproximation`, `Lattice.Domains.Loss`
-- `Lattice.Domains.CExprCodegen` <- `Lattice.Runtime.StackCodegen`, `Lattice.Domains.ComputableExpr`
-- `Lattice.Domains.ClauseComposition` <- `Lattice.Domains.GeoSampledBound`, `Lattice.Domains.RhoMetric`, `Lattice.Domains.Reinjection`, `Lattice.Domains.Synthesis`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
-- `Lattice.Domains.ClosedLoop` <- `Lattice.Domains.Loop`, `Lattice.Domains.SeqRepresentation`, `Lattice.Domains.ConjRepair`, `Lattice.Domains.Flatten`, `Lattice.Runtime.Extraction`
-- `Lattice.Domains.CodegenLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.CExprCodegen`
-- `Lattice.Domains.Compile` <- `Lattice.Domains.Loss`, `Lattice.Domains.Constraint`, `Lattice.Runtime.SymbolToWeight`
-- `Lattice.Domains.ComputableExpr` <- `Lattice.Domains.Expr`
-- `Lattice.Domains.ConjRepair` <- `Lattice.Domains.Loop`, `Lattice.Domains.LoopPerp`, `Lattice.Domains.RepairPerp`, `Lattice.Core.Repair`
-- `Lattice.Domains.Constraint` <- `Lattice.Domains.Expr`, `Lattice.Domains.Dist`
-- `Lattice.Domains.ConstraintDescent` <- `Lattice.Core.Net`, `Lattice.Domains.Constraint`, `Lattice.Domains.PenaltyLoss`, `Lattice.Domains.NetLoss`
-- `Lattice.Domains.ConstraintSet` <- `Lattice.Domains.Constraint`
-- `Lattice.Domains.ConstraintTokenizer` <- `Lattice.Domains.Expr`
-- `Lattice.Domains.Derivative` <- `Lattice.Domains.Pipeline`, `Lattice.Lib.Penalty.PolyExact`
-- `Lattice.Domains.Derive` <- `Lattice.Domains.Engine`
-- `Lattice.Domains.Differentiable` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Flatten`, `Lattice.Domains.Loss`
-- `Lattice.Domains.Dist` <- `Lattice.Domains.Expr`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Domains.DistContinuous` <- `Lattice.Domains.Dist`
-- `Lattice.Domains.DistLipschitz` <- `Lattice.Domains.Lipschitz`, `Lattice.Domains.Dist`
-- `Lattice.Domains.Engine` <- `Lattice.Domains.Constraint`, `Lattice.Core.Logic`
-- `Lattice.Domains.EqConstraintListTokens` <- `Lattice.Domains.EqConstraintTokens`
-- `Lattice.Domains.EqConstraintToken` <- `Lattice.Domains.RealTokenRoundtrip`, `Lattice.Domains.Loss`
-- `Lattice.Domains.EqConstraintTokenizer` <- `Lattice.Domains.ConstraintTokenizer`, `Lattice.Domains.Loss`
-- `Lattice.Domains.EqConstraintTokens` <- `Lattice.Domains.EqConstraintToken`, `Lattice.Runtime.EndToEnd`
-- `Lattice.Domains.EqualLengthRepair` <- `Lattice.Domains.RepairCoverage`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.Eval` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Dist`
-- `Lattice.Domains.Exact` <- `Lattice.Domains.Differentiable`, `Lattice.Domains.Loss`, `Lattice.Lib.Penalty.PolyExact`
-- `Lattice.Domains.Exec` <- `Lattice.Domains.Shape`, `Lattice.Domains.Derive`
-- `Lattice.Domains.ExecutableCheck` <- `Lattice.Domains.Constraint`, `Lattice.Domains.ComputableExpr`
-- `Lattice.Domains.ExecutableGeoCheck` <- `Lattice.Domains.ExecutableCheck`
-- `Lattice.Domains.Expr` <- `Lattice.Core.Syntax`
-- `Lattice.Domains.ExprDeriv` <- `Lattice.Domains.Differentiable`, `Lattice.Domains.Pipeline`
-- `Lattice.Domains.ExprLocalMin` <- `Lattice.Domains.ExprDeriv`, `Lattice.Domains.Derivative`
-- `Lattice.Domains.Exterior` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Square`
-- `Lattice.Domains.ExteriorSmooth` <- `Lattice.Domains.Differentiable`, `Lattice.Domains.Exterior`, `Lattice.Domains.ExprDeriv`
-- `Lattice.Domains.Extract` <- `Lattice.Domains.Flatten`, `Lattice.Domains.Constraint`, `Lattice.Domains.Loss`, `Lattice.Domains.Perturb`
-- `Lattice.Domains.Finite` <- `Lattice.Domains.Expr`, `Lattice.Domains.Flatten`
-- `Lattice.Domains.Flatten` <- `Lattice.Domains.Expr`, `Lattice.Runtime.Extraction`
-- `Lattice.Domains.FlattenAgreement` <- `Lattice.Domains.Flatten`, `Lattice.Domains.SeqRepresentation`
-- `Lattice.Domains.FormDeriv` <- `Lattice.Domains.ExprDeriv`, `Lattice.Domains.Perturb`
-- `Lattice.Domains.GeoLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Loss`, `Lattice.Domains.EqConstraintTokens`, `Lattice.Domains.EqConstraintListTokens`
-- `Lattice.Domains.GeoSampledBound` <- `Lattice.Domains.Lipschitz`, `Lattice.Domains.RhoMetric`, `Lattice.Domains.PolyAssemble`, `Lattice.Runtime.GeoSampledBound`
-- `Lattice.Domains.IRBridge` <- `Lattice.Domains.LayerExact`, `Lattice.Domains.Loss`
-- `Lattice.Domains.IRRepair` <- `Lattice.Domains.IRBridge`, `Lattice.Domains.ConjRepair`, `Lattice.Domains.LoopPerp`
-- `Lattice.Domains.Initialise` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Invariant`
-- `Lattice.Domains.Invariant` <- `Lattice.Domains.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Domains.LadderInstance` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Expr`, `Lattice.Runtime.L1L2Roundtrip`
-- `Lattice.Domains.LayerExact` <- `Lattice.Domains.Plucker`
-- `Lattice.Domains.Lipschitz` <- `Lattice.Domains.Expr`
-- `Lattice.Domains.Loop` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraint`, `Lattice.Domains.Engine`
-- `Lattice.Domains.LoopPerp` <- `Lattice.Domains.RepairPerp`, `Lattice.Core.Repair`
-- `Lattice.Domains.LoopRate` <- `Lattice.Core.RepairConvergence`, `Lattice.Domains.Loop`
-- `Lattice.Domains.Loss` <- `Lattice.Domains.Expr`, `Lattice.Domains.Dist`, `Lattice.Domains.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Domains.MissingRepairs` <- `Lattice.Domains.RepairPerp`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.MultiSeedCoverage` <- `Lattice.Domains.SynthesisCoverage`, `Lattice.Domains.SynthesisMulti`, `Lattice.Domains.Synthesis`
-- `Lattice.Domains.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
-- `Lattice.Domains.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.ConstraintSet`, `Lattice.Domains.PenaltyLoss`
-- `Lattice.Domains.Nondegenerate` <- `Lattice.Domains.Differentiable`, `Lattice.Domains.Perturb`, `Lattice.Domains.Derivative`, `Lattice.Lib.Penalty.PolyExact`
-- `Lattice.Domains.NondegenerateInstance` <- `Lattice.Domains.Perturb`, `Lattice.Domains.Nondegenerate`
-- `Lattice.Domains.ParallelRepair` <- `Lattice.Domains.RepairCoverage`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.PartialReinjection` <- `Lattice.Domains.Loss`, `Lattice.Domains.Reinjection`, `Lattice.Runtime.ErrorCalculus`
-- `Lattice.Domains.PathContinuity` <- `Lattice.Domains.DistContinuous`, `Lattice.Domains.PolyNondegenerate`
-- `Lattice.Domains.PenaltyLoss` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Dist`
-- `Lattice.Domains.PenaltySmooth` <- `Lattice.Domains.Differentiable`, `Lattice.Domains.Square`, `Lattice.Domains.ExprDeriv`
-- `Lattice.Domains.Perturb` <- `Lattice.Domains.Flatten`
-- `Lattice.Domains.Pipeline` <- `Lattice.Domains.Constraint`, `Lattice.Domains.Expr`, `Lattice.Domains.Loss`, `Lattice.Runtime.L1L2`
-- `Lattice.Domains.Plucker` <- `Lattice.Domains.Exterior`
-- `Lattice.Domains.PolyAssemble` <- `Lattice.Domains.Lipschitz`, `Lattice.Domains.DistLipschitz`, `Lattice.Domains.PolyLipschitz`, `Lattice.Domains.Loss`
-- `Lattice.Domains.PolyConstants` <- `Lattice.Domains.Lipschitz`, `Lattice.Domains.DistLipschitz`, `Lattice.Domains.PolyAssemble`
-- `Lattice.Domains.PolyLipschitz` <- `Lattice.Domains.Lipschitz`, `Lattice.Domains.DistLipschitz`, `Lattice.Domains.Loss`
-- `Lattice.Domains.PolyNondegenerate` <- `Lattice.Domains.Loss`, `Lattice.Domains.ExprLocalMin`, `Lattice.Domains.Dist`, `Lattice.Domains.Derivative`
-- `Lattice.Domains.PolyRepair` <- `Lattice.Domains.RepairCoverage`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.PolySpecificRepair` <- `Lattice.Domains.Loss`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.QualityBridge` <- `Lattice.Core.Invariant`, `Lattice.Domains.RepairQuality`, `Lattice.Lib.Linear.Residual`
-- `Lattice.Domains.RealToken` <- `Lattice.Domains.Expr`
-- `Lattice.Domains.RealTokenRoundtrip` <- `Lattice.Domains.RealToken`
-- `Lattice.Domains.Reinjection` <- `Lattice.Domains.Loop`, `Lattice.Domains.Loss`, `Lattice.Domains.LoopRate`
-- `Lattice.Domains.ReinjectionGeneral` <- `Lattice.Domains.Reinjection`, `Lattice.Domains.LoopPerp`
-- `Lattice.Domains.Repair` <- `Lattice.Core.Repair`, `Lattice.Domains.Loss`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.RepairBridge` <- `Lattice.Core.Repair`, `Lattice.Core.Invariant`, `Lattice.Core.Simulation`, `Lattice.Core.Idempotent`, `Lattice.Domains.Loop`, `Lattice.Domains.Loss`
-- `Lattice.Domains.RepairCoverage` <- `Lattice.Domains.LoopPerp`, `Lattice.Domains.Constraint`, `Lattice.Domains.RepairPerp`
-- `Lattice.Domains.RepairPenalty` <- `Lattice.Domains.Loop`, `Lattice.Domains.Loss`, `Lattice.Domains.RepairBridge`
-- `Lattice.Domains.RepairPerp` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Domains.RepairQuality` <- `Lattice.Domains.Loop`, `Lattice.Domains.LoopPerp`
-- `Lattice.Domains.RhoMetric` <- `Lattice.Domains.Lipschitz`
-- `Lattice.Domains.Rules` <- `Lattice.Domains.Engine`
-- `Lattice.Domains.Semantic` <- `Lattice.Domains.Invariant`, `Lattice.Domains.Extract`
-- `Lattice.Domains.SeqRepresentation` <- `Lattice.Domains.Expr`, `Lattice.Runtime.Extraction`
-- `Lattice.Domains.Shape` <- `Lattice.Domains.Derive`
-- `Lattice.Domains.Square` <- `Lattice.Domains.Loss`, `Lattice.Domains.Dist`
-- `Lattice.Domains.Synthesis` <- `Lattice.Domains.Invariant`, `Lattice.Domains.Initialise`
-- `Lattice.Domains.SynthesisConnection` <- `Lattice.Domains.Synthesis`, `Lattice.Domains.SynthesisMulti`, `Lattice.Runtime.EndToEnd`
-- `Lattice.Domains.SynthesisCoverage` <- `Lattice.Domains.Synthesis`, `Lattice.Domains.Constraint`
-- `Lattice.Domains.SynthesisMulti` <- `Lattice.Domains.Synthesis`
-- `Lattice.Domains.TokenizeStrategy` 
-- `Lattice.Domains.TokenizerPattern` 
-- `Lattice.Domains.Unconditional` <- `Lattice.Domains.FormDeriv`, `Lattice.Domains.Derivative`
-- `Lattice.Domains.Unified` <- `Lattice.Core.Invariant`, `Lattice.Domains.Loop`, `Lattice.Domains.LoopPerp`, `Lattice.Lib.Linear.Residual`
-- `Lattice.Domains.WeightDescent` <- `Lattice.Core.Net`
-- `Lattice.Domains.WeightSideLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Constraint`, `Lattice.Domains.GeoLadder`, `Lattice.Core.Net`
-- `Lattice.Geo` <- `Lattice.Domains.ClosedLoop`, `Lattice.Domains.Compile`, `Lattice.Domains.ConjRepair`, `Lattice.Domains.Constraint`, `Lattice.Domains.Derivative`, `Lattice.Domains.Derive`, `Lattice.Domains.Differentiable`, `Lattice.Domains.Dist`, `Lattice.Domains.DistContinuous`, `Lattice.Domains.Engine`, `Lattice.Domains.Eval`, `Lattice.Domains.Exact`, `Lattice.Domains.Exec`, `Lattice.Domains.Expr`, `Lattice.Domains.ExprDeriv`, `Lattice.Domains.ExprLocalMin`, `Lattice.Domains.Exterior`, `Lattice.Domains.ExteriorSmooth`, `Lattice.Domains.Extract`, `Lattice.Domains.Finite`, `Lattice.Domains.Flatten`, `Lattice.Domains.FlattenAgreement`, `Lattice.Domains.FormDeriv`, `Lattice.Domains.IRBridge`, `Lattice.Domains.IRRepair`, `Lattice.Domains.Initialise`, `Lattice.Domains.Invariant`, `Lattice.Domains.LayerExact`, `Lattice.Domains.Loop`, `Lattice.Domains.LoopPerp`, `Lattice.Domains.Loss`, `Lattice.Domains.Nondegenerate`, `Lattice.Domains.PathContinuity`, `Lattice.Domains.PenaltySmooth`, `Lattice.Domains.Perturb`, `Lattice.Domains.Pipeline`, `Lattice.Domains.Plucker`, `Lattice.Domains.PolyNondegenerate`, `Lattice.Domains.QualityBridge`, `Lattice.Domains.Repair`, `Lattice.Domains.RepairBridge`, `Lattice.Domains.RepairPenalty`, `Lattice.Domains.RepairPerp`, `Lattice.Domains.RepairQuality`, `Lattice.Domains.Rules`, `Lattice.Domains.Semantic`, `Lattice.Domains.SeqRepresentation`, `Lattice.Domains.Shape`, `Lattice.Domains.Square`, `Lattice.Domains.Synthesis`, `Lattice.Domains.Unconditional`, `Lattice.Domains.Unified`, `Lattice.Domains.ApproxEmbedding`, `Lattice.Domains.Lipschitz`, `Lattice.Domains.DistLipschitz`, `Lattice.Domains.PolyLipschitz`, `Lattice.Domains.PolyAssemble`, `Lattice.Domains.RhoMetric`, `Lattice.Domains.GeoSampledBound`, `Lattice.Domains.LadderInstance`, `Lattice.Domains.PolyConstants`, `Lattice.Domains.LoopRate`, `Lattice.Domains.Reinjection`, `Lattice.Domains.SynthesisMulti`, `Lattice.Domains.ReinjectionGeneral`, `Lattice.Domains.ClauseComposition`, `Lattice.Domains.RepairCoverage`, `Lattice.Domains.PolyRepair`, `Lattice.Domains.ConstraintSet`, `Lattice.Domains.EqualLengthRepair`, `Lattice.Domains.PartialReinjection`, `Lattice.Domains.MultistepLoop`, `Lattice.Domains.SynthesisCoverage`, `Lattice.Domains.MissingRepairs`, `Lattice.Domains.ParallelRepair`, `Lattice.Domains.PolySpecificRepair`, `Lattice.Domains.ComputableExpr`, `Lattice.Domains.ExecutableCheck`, `Lattice.Domains.MultiSeedCoverage`, `Lattice.Domains.SynthesisConnection`, `Lattice.Domains.GeoLadder`, `Lattice.Domains.ConstraintTokenizer`, `Lattice.Domains.NondegenerateInstance`, `Lattice.Domains.TokenizeStrategy`, `Lattice.Domains.TokenizerPattern`, `Lattice.Domains.EqConstraintTokenizer`, `Lattice.Domains.RealToken`, `Lattice.Domains.RealTokenRoundtrip`, `Lattice.Domains.EqConstraintListTokens`, `Lattice.Domains.CExprCodegen`, `Lattice.Domains.CodegenLadder`, `Lattice.Domains.ExecutableGeoCheck`, `Lattice.Domains.WeightSideLadder`, `Lattice.Domains.PenaltyLoss`, `Lattice.Domains.NetLoss`, `Lattice.Domains.ConstraintDescent`, `Lattice.Domains.WeightDescent`
+- `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
+- `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Constraints.TokenizeStrategy`, `Lattice.Domains.Constraints.TokenizerPattern`
+- `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
+- `Lattice.Domains.Constraints.Constraint` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Constraints.ConstraintSet` <- `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Constraints.ConstraintTokenizer` <- `Lattice.Domains.Constraints.Expr`
+- `Lattice.Domains.Constraints.Differentiable` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Constraints.Dist` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Domains.Constraints.DistContinuous` <- `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Constraints.DistLipschitz` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Constraints.EqConstraintListTokens` <- `Lattice.Domains.Constraints.EqConstraintTokens`
+- `Lattice.Domains.Constraints.EqConstraintToken` <- `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Constraints.EqConstraintTokenizer` <- `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Constraints.EqConstraintTokens` <- `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Domains.Constraints.Eval` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Constraints.Expr` <- `Lattice.Core.Syntax`
+- `Lattice.Domains.Constraints.ExprDeriv` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Pipeline`
+- `Lattice.Domains.Constraints.Flatten` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
+- `Lattice.Domains.Constraints.FlattenAgreement` <- `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`
+- `Lattice.Domains.Constraints.Lipschitz` <- `Lattice.Domains.Constraints.Expr`
+- `Lattice.Domains.Constraints.Loss` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Domains.Constraints.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`
+- `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Constraints.Perturb` <- `Lattice.Domains.Constraints.Flatten`
+- `Lattice.Domains.Constraints.Pipeline` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Loss`, `Lattice.Runtime.L1L2`
+- `Lattice.Domains.Constraints.RealToken` <- `Lattice.Domains.Constraints.Expr`
+- `Lattice.Domains.Constraints.RealTokenRoundtrip` <- `Lattice.Domains.Constraints.RealToken`
+- `Lattice.Domains.Constraints.SeqRepresentation` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
+- `Lattice.Domains.Constraints.TokenizeStrategy` 
+- `Lattice.Domains.Constraints.TokenizerPattern` 
+- `Lattice.Domains.Geometry` <- `Lattice.Domains.Geometry.ApproxEmbedding`, `Lattice.Domains.Geometry.CExprCodegen`, `Lattice.Domains.Geometry.ClauseComposition`, `Lattice.Domains.Geometry.ClosedLoop`, `Lattice.Domains.Geometry.CodegenLadder`, `Lattice.Domains.Geometry.Compile`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Domains.Geometry.Derive`, `Lattice.Domains.Geometry.Engine`, `Lattice.Domains.Geometry.EqualLengthRepair`, `Lattice.Domains.Geometry.Exact`, `Lattice.Domains.Geometry.Exec`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.ExecutableGeoCheck`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Geometry.ExteriorSmooth`, `Lattice.Domains.Geometry.Extract`, `Lattice.Domains.Geometry.Finite`, `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.IRRepair`, `Lattice.Domains.Geometry.Initialise`, `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.LadderInstance`, `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Geometry.LoopRate`, `Lattice.Domains.Geometry.MissingRepairs`, `Lattice.Domains.Geometry.MultiSeedCoverage`, `Lattice.Domains.Geometry.MultistepLoop`, `Lattice.Domains.Geometry.Nondegenerate`, `Lattice.Domains.Geometry.NondegenerateInstance`, `Lattice.Domains.Geometry.ParallelRepair`, `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.PathContinuity`, `Lattice.Domains.Geometry.PenaltySmooth`, `Lattice.Domains.Geometry.Plucker`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Domains.Geometry.PolyConstants`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Geometry.PolyNondegenerate`, `Lattice.Domains.Geometry.PolyRepair`, `Lattice.Domains.Geometry.PolySpecificRepair`, `Lattice.Domains.Geometry.QualityBridge`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.ReinjectionGeneral`, `Lattice.Domains.Geometry.Repair`, `Lattice.Domains.Geometry.RepairBridge`, `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Geometry.RepairPenalty`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Rules`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisConnection`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.Unconditional`, `Lattice.Domains.Geometry.Unified`, `Lattice.Domains.Geometry.WeightDescent`, `Lattice.Domains.Geometry.WeightSideLadder`
+- `Lattice.Domains.Geometry.ApproxEmbedding` <- `Lattice.Runtime.EndToEndApproximation`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Geometry.CExprCodegen` <- `Lattice.Runtime.StackCodegen`, `Lattice.Domains.Constraints.ComputableExpr`
+- `Lattice.Domains.Geometry.ClauseComposition` <- `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
+- `Lattice.Domains.Geometry.ClosedLoop` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Runtime.Extraction`
+- `Lattice.Domains.Geometry.CodegenLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Geometry.CExprCodegen`
+- `Lattice.Domains.Geometry.Compile` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Runtime.SymbolToWeight`
+- `Lattice.Domains.Geometry.ConjRepair` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Core.Repair`
+- `Lattice.Domains.Geometry.ConstraintDescent` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.NetLoss`
+- `Lattice.Domains.Geometry.Derivative` <- `Lattice.Domains.Constraints.Pipeline`, `Lattice.Lib.Penalty.PolyExact`
+- `Lattice.Domains.Geometry.Derive` <- `Lattice.Domains.Geometry.Engine`
+- `Lattice.Domains.Geometry.Engine` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Core.Logic`
+- `Lattice.Domains.Geometry.EqualLengthRepair` <- `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.Exact` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Loss`, `Lattice.Lib.Penalty.PolyExact`
+- `Lattice.Domains.Geometry.Exec` <- `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Derive`
+- `Lattice.Domains.Geometry.ExecutableCheck` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ComputableExpr`
+- `Lattice.Domains.Geometry.ExecutableGeoCheck` <- `Lattice.Domains.Geometry.ExecutableCheck`
+- `Lattice.Domains.Geometry.ExprLocalMin` <- `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Geometry.Derivative`
+- `Lattice.Domains.Geometry.Exterior` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.Square`
+- `Lattice.Domains.Geometry.ExteriorSmooth` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Constraints.ExprDeriv`
+- `Lattice.Domains.Geometry.Extract` <- `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Perturb`
+- `Lattice.Domains.Geometry.Finite` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Flatten`
+- `Lattice.Domains.Geometry.FormDeriv` <- `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Perturb`
+- `Lattice.Domains.Geometry.GeoLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.EqConstraintListTokens`
+- `Lattice.Domains.Geometry.GeoSampledBound` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Runtime.GeoSampledBound`
+- `Lattice.Domains.Geometry.IRBridge` <- `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Geometry.IRRepair` <- `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Geometry.LoopPerp`
+- `Lattice.Domains.Geometry.Initialise` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.Invariant`
+- `Lattice.Domains.Geometry.Invariant` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Domains.Geometry.LadderInstance` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.L1L2Roundtrip`
+- `Lattice.Domains.Geometry.LayerExact` <- `Lattice.Domains.Geometry.Plucker`
+- `Lattice.Domains.Geometry.Loop` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.Engine`
+- `Lattice.Domains.Geometry.LoopPerp` <- `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Core.Repair`
+- `Lattice.Domains.Geometry.LoopRate` <- `Lattice.Core.RepairConvergence`, `Lattice.Domains.Geometry.Loop`
+- `Lattice.Domains.Geometry.MissingRepairs` <- `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.MultiSeedCoverage` <- `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.Synthesis`
+- `Lattice.Domains.Geometry.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
+- `Lattice.Domains.Geometry.Nondegenerate` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Lib.Penalty.PolyExact`
+- `Lattice.Domains.Geometry.NondegenerateInstance` <- `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Geometry.Nondegenerate`
+- `Lattice.Domains.Geometry.ParallelRepair` <- `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.PartialReinjection` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Runtime.ErrorCalculus`
+- `Lattice.Domains.Geometry.PathContinuity` <- `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Geometry.PolyNondegenerate`
+- `Lattice.Domains.Geometry.PenaltySmooth` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Constraints.ExprDeriv`
+- `Lattice.Domains.Geometry.Plucker` <- `Lattice.Domains.Geometry.Exterior`
+- `Lattice.Domains.Geometry.PolyAssemble` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Geometry.PolyConstants` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyAssemble`
+- `Lattice.Domains.Geometry.PolyLipschitz` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Geometry.PolyNondegenerate` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Geometry.Derivative`
+- `Lattice.Domains.Geometry.PolyRepair` <- `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.PolySpecificRepair` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.QualityBridge` <- `Lattice.Core.Invariant`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Lib.Linear.Residual`
+- `Lattice.Domains.Geometry.Reinjection` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.LoopRate`
+- `Lattice.Domains.Geometry.ReinjectionGeneral` <- `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.LoopPerp`
+- `Lattice.Domains.Geometry.Repair` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.RepairBridge` <- `Lattice.Core.Repair`, `Lattice.Core.Invariant`, `Lattice.Core.Simulation`, `Lattice.Core.Idempotent`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`
+- `Lattice.Domains.Geometry.RepairCoverage` <- `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.RepairPerp`
+- `Lattice.Domains.Geometry.RepairPenalty` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.RepairBridge`
+- `Lattice.Domains.Geometry.RepairPerp` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Domains.Geometry.RepairQuality` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`
+- `Lattice.Domains.Geometry.RhoMetric` <- `Lattice.Domains.Constraints.Lipschitz`
+- `Lattice.Domains.Geometry.Rules` <- `Lattice.Domains.Geometry.Engine`
+- `Lattice.Domains.Geometry.Semantic` <- `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.Extract`
+- `Lattice.Domains.Geometry.Shape` <- `Lattice.Domains.Geometry.Derive`
+- `Lattice.Domains.Geometry.Square` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Dist`
+- `Lattice.Domains.Geometry.Synthesis` <- `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.Initialise`
+- `Lattice.Domains.Geometry.SynthesisConnection` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Domains.Geometry.SynthesisCoverage` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.SynthesisMulti` <- `Lattice.Domains.Geometry.Synthesis`
+- `Lattice.Domains.Geometry.Unconditional` <- `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.Derivative`
+- `Lattice.Domains.Geometry.Unified` <- `Lattice.Core.Invariant`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Lib.Linear.Residual`
+- `Lattice.Domains.Geometry.WeightDescent` <- `Lattice.Core.Net`
+- `Lattice.Domains.Geometry.WeightSideLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Core.Net`
+- `Lattice.Geo` <- `Lattice.Domains.Geometry.ClosedLoop`, `Lattice.Domains.Geometry.Compile`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Domains.Geometry.Derive`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Geometry.Engine`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Geometry.Exact`, `Lattice.Domains.Geometry.Exec`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Geometry.ExteriorSmooth`, `Lattice.Domains.Geometry.Extract`, `Lattice.Domains.Geometry.Finite`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.IRRepair`, `Lattice.Domains.Geometry.Initialise`, `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.Nondegenerate`, `Lattice.Domains.Geometry.PathContinuity`, `Lattice.Domains.Geometry.PenaltySmooth`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Geometry.Plucker`, `Lattice.Domains.Geometry.PolyNondegenerate`, `Lattice.Domains.Geometry.QualityBridge`, `Lattice.Domains.Geometry.Repair`, `Lattice.Domains.Geometry.RepairBridge`, `Lattice.Domains.Geometry.RepairPenalty`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Domains.Geometry.Rules`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.Unconditional`, `Lattice.Domains.Geometry.Unified`, `Lattice.Domains.Geometry.ApproxEmbedding`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.LadderInstance`, `Lattice.Domains.Geometry.PolyConstants`, `Lattice.Domains.Geometry.LoopRate`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.ReinjectionGeneral`, `Lattice.Domains.Geometry.ClauseComposition`, `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Geometry.PolyRepair`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.EqualLengthRepair`, `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.MultistepLoop`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.MissingRepairs`, `Lattice.Domains.Geometry.ParallelRepair`, `Lattice.Domains.Geometry.PolySpecificRepair`, `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.MultiSeedCoverage`, `Lattice.Domains.Geometry.SynthesisConnection`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Geometry.NondegenerateInstance`, `Lattice.Domains.Constraints.TokenizeStrategy`, `Lattice.Domains.Constraints.TokenizerPattern`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Geometry.CExprCodegen`, `Lattice.Domains.Geometry.CodegenLadder`, `Lattice.Domains.Geometry.ExecutableGeoCheck`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Geometry.WeightDescent`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`
 - `Lattice.Runtime` <- `Lattice.Runtime.ActivationLadder`, `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.ApproxExtraction`, `Lattice.Runtime.ApproxLadder`, `Lattice.Runtime.ApproximationBridge`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.ComboN`, `Lattice.Runtime.CompilerScheme`, `Lattice.Runtime.ConstraintEmbeddingSoundness`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.EncodingAbstraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.EndToEndApproximation`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.ExtractionStrength`, `Lattice.Runtime.GeoSampledBound`, `Lattice.Runtime.GridDensity`, `Lattice.Runtime.IntRoundtrip`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.LayerComposition`, `Lattice.Runtime.LayerQuantization`, `Lattice.Runtime.LayerQuantizationBits`, `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.MultiLayerLadder`, `Lattice.Runtime.NonIdenticalEncoding`, `Lattice.Runtime.NondegenerateInstance`, `Lattice.Runtime.PenaltyAnalysis`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.ProgramAST`, `Lattice.Runtime.QuantErrorPropagation`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealModLoss`, `Lattice.Runtime.RealNonlinear`, `Lattice.Runtime.RealRandomVerify`, `Lattice.Runtime.RealTokenSymbolLink`, `Lattice.Runtime.RealTokenization`, `Lattice.Runtime.RealTokenizationEntry`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.RealVerifierReliable`, `Lattice.Runtime.RectangularRepresentation`, `Lattice.Runtime.RectangularWeightEncoding`, `Lattice.Runtime.RepresentationFamilies`, `Lattice.Runtime.RoundingBackend`, `Lattice.Runtime.SaturationQuantization`, `Lattice.Runtime.StackCodegen`, `Lattice.Runtime.StackError`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Runtime.TokenAlphabet`, `Lattice.Runtime.TotalLoss`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Runtime.VerifierRate`, `Lattice.Runtime.VerifyLoopProgress`, `Lattice.Runtime.WeightLadder`, `Lattice.Runtime.WeightLadderFullWidth`, `Lattice.Runtime.WeightLadderFullWidthInstance`, `Lattice.Runtime.WeightLadderInverse`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.WeightSymbolRepresentation`, `Lattice.Runtime.WeightToSymbolEquivalence`
 - `Lattice.Runtime.ActivationLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Activation`
@@ -839,14 +841,14 @@
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`
-- `Lattice.Semantics.Annotations` <- `Lattice.Domains.ConstraintSet`, `Lattice.Domains.Constraint`
-- `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraint`, `Lattice.Domains.ConstraintSet`, `Lattice.Domains.WeightSideLadder`, `Lattice.Semantics.Merge`
-- `Lattice.Semantics.Merge` <- `Lattice.Domains.ConstraintSet`, `Lattice.Domains.Constraint`
-- `Lattice.Semantics.Stage1` <- `Lattice.Domains.ConstraintSet`, `Lattice.Domains.Constraint`
+- `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
+- `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Domains.ComputableExpr`, `Lattice.Domains.ExecutableCheck`, `Lattice.Domains.GeoSampledBound`, `Lattice.Domains.Reinjection`, `Lattice.Domains.Synthesis`, `Lattice.Domains.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.PolyConstants`
 
 ## Declarations per module
 
@@ -1501,105 +1503,107 @@
 | `Lattice.Compose.Steps` | 4 | 4 |
 | `Lattice.Core` | 0 | 0 |
 | `Lattice.Domains` | 0 | 0 |
-| `Lattice.Domains.ApproxEmbedding` | 1 | 1 |
-| `Lattice.Domains.CExprCodegen` | 4 | 2 |
-| `Lattice.Domains.ClauseComposition` | 6 | 0 |
-| `Lattice.Domains.ClosedLoop` | 10 | 1 |
-| `Lattice.Domains.CodegenLadder` | 3 | 2 |
-| `Lattice.Domains.Compile` | 2 | 1 |
-| `Lattice.Domains.ComputableExpr` | 12 | 5 |
-| `Lattice.Domains.ConjRepair` | 3 | 2 |
-| `Lattice.Domains.Constraint` | 4 | 5 |
-| `Lattice.Domains.ConstraintDescent` | 17 | 8 |
-| `Lattice.Domains.ConstraintSet` | 7 | 1 |
-| `Lattice.Domains.ConstraintTokenizer` | 17 | 9 |
-| `Lattice.Domains.Derivative` | 3 | 1 |
-| `Lattice.Domains.Derive` | 2 | 2 |
-| `Lattice.Domains.Differentiable` | 10 | 2 |
-| `Lattice.Domains.Dist` | 8 | 3 |
-| `Lattice.Domains.DistContinuous` | 2 | 0 |
-| `Lattice.Domains.DistLipschitz` | 3 | 0 |
-| `Lattice.Domains.Engine` | 6 | 5 |
-| `Lattice.Domains.EqConstraintListTokens` | 7 | 3 |
-| `Lattice.Domains.EqConstraintToken` | 12 | 11 |
-| `Lattice.Domains.EqConstraintTokenizer` | 4 | 5 |
-| `Lattice.Domains.EqConstraintTokens` | 3 | 1 |
-| `Lattice.Domains.EqualLengthRepair` | 3 | 1 |
-| `Lattice.Domains.Eval` | 3 | 1 |
-| `Lattice.Domains.Exact` | 4 | 0 |
-| `Lattice.Domains.Exec` | 6 | 4 |
-| `Lattice.Domains.ExecutableCheck` | 4 | 4 |
-| `Lattice.Domains.ExecutableGeoCheck` | 7 | 9 |
-| `Lattice.Domains.Expr` | 8 | 5 |
-| `Lattice.Domains.ExprDeriv` | 8 | 3 |
-| `Lattice.Domains.ExprLocalMin` | 3 | 0 |
-| `Lattice.Domains.Exterior` | 5 | 4 |
-| `Lattice.Domains.ExteriorSmooth` | 9 | 1 |
-| `Lattice.Domains.Extract` | 4 | 2 |
-| `Lattice.Domains.Finite` | 6 | 2 |
-| `Lattice.Domains.Flatten` | 6 | 5 |
-| `Lattice.Domains.FlattenAgreement` | 3 | 0 |
-| `Lattice.Domains.FormDeriv` | 8 | 0 |
-| `Lattice.Domains.GeoLadder` | 4 | 3 |
-| `Lattice.Domains.GeoSampledBound` | 1 | 0 |
-| `Lattice.Domains.IRBridge` | 13 | 3 |
-| `Lattice.Domains.IRRepair` | 3 | 0 |
-| `Lattice.Domains.Initialise` | 9 | 1 |
-| `Lattice.Domains.Invariant` | 12 | 2 |
-| `Lattice.Domains.LadderInstance` | 2 | 2 |
-| `Lattice.Domains.LayerExact` | 3 | 0 |
-| `Lattice.Domains.Lipschitz` | 11 | 4 |
-| `Lattice.Domains.Loop` | 11 | 6 |
-| `Lattice.Domains.LoopPerp` | 7 | 2 |
-| `Lattice.Domains.LoopRate` | 3 | 0 |
-| `Lattice.Domains.Loss` | 10 | 4 |
-| `Lattice.Domains.MissingRepairs` | 4 | 1 |
-| `Lattice.Domains.MultiSeedCoverage` | 5 | 0 |
-| `Lattice.Domains.MultistepLoop` | 8 | 3 |
-| `Lattice.Domains.NetLoss` | 5 | 1 |
-| `Lattice.Domains.Nondegenerate` | 13 | 2 |
-| `Lattice.Domains.NondegenerateInstance` | 6 | 0 |
-| `Lattice.Domains.ParallelRepair` | 4 | 2 |
-| `Lattice.Domains.PartialReinjection` | 6 | 0 |
-| `Lattice.Domains.PathContinuity` | 12 | 0 |
-| `Lattice.Domains.PenaltyLoss` | 13 | 2 |
-| `Lattice.Domains.PenaltySmooth` | 4 | 0 |
-| `Lattice.Domains.Perturb` | 9 | 2 |
-| `Lattice.Domains.Pipeline` | 7 | 5 |
-| `Lattice.Domains.Plucker` | 2 | 0 |
-| `Lattice.Domains.PolyAssemble` | 4 | 1 |
-| `Lattice.Domains.PolyConstants` | 5 | 2 |
-| `Lattice.Domains.PolyLipschitz` | 1 | 0 |
-| `Lattice.Domains.PolyNondegenerate` | 8 | 0 |
-| `Lattice.Domains.PolyRepair` | 5 | 0 |
-| `Lattice.Domains.PolySpecificRepair` | 7 | 5 |
-| `Lattice.Domains.QualityBridge` | 3 | 0 |
-| `Lattice.Domains.RealToken` | 10 | 9 |
-| `Lattice.Domains.RealTokenRoundtrip` | 7 | 0 |
-| `Lattice.Domains.Reinjection` | 3 | 0 |
-| `Lattice.Domains.ReinjectionGeneral` | 5 | 0 |
-| `Lattice.Domains.Repair` | 3 | 0 |
-| `Lattice.Domains.RepairBridge` | 14 | 0 |
-| `Lattice.Domains.RepairCoverage` | 5 | 4 |
-| `Lattice.Domains.RepairPenalty` | 4 | 0 |
-| `Lattice.Domains.RepairPerp` | 8 | 4 |
-| `Lattice.Domains.RepairQuality` | 9 | 2 |
-| `Lattice.Domains.RhoMetric` | 5 | 0 |
-| `Lattice.Domains.Rules` | 1 | 6 |
-| `Lattice.Domains.Semantic` | 7 | 1 |
-| `Lattice.Domains.SeqRepresentation` | 4 | 3 |
-| `Lattice.Domains.Shape` | 3 | 2 |
-| `Lattice.Domains.Square` | 10 | 5 |
-| `Lattice.Domains.Synthesis` | 6 | 5 |
-| `Lattice.Domains.SynthesisConnection` | 6 | 0 |
-| `Lattice.Domains.SynthesisCoverage` | 7 | 1 |
-| `Lattice.Domains.SynthesisMulti` | 4 | 1 |
-| `Lattice.Domains.TokenizeStrategy` | 0 | 0 |
-| `Lattice.Domains.TokenizerPattern` | 9 | 7 |
-| `Lattice.Domains.Unconditional` | 7 | 0 |
-| `Lattice.Domains.Unified` | 4 | 0 |
-| `Lattice.Domains.WeightDescent` | 9 | 5 |
-| `Lattice.Domains.WeightSideLadder` | 9 | 7 |
+| `Lattice.Domains.Constraints` | 0 | 0 |
+| `Lattice.Domains.Constraints.ComputableExpr` | 12 | 5 |
+| `Lattice.Domains.Constraints.Constraint` | 4 | 5 |
+| `Lattice.Domains.Constraints.ConstraintSet` | 7 | 1 |
+| `Lattice.Domains.Constraints.ConstraintTokenizer` | 17 | 9 |
+| `Lattice.Domains.Constraints.Differentiable` | 10 | 2 |
+| `Lattice.Domains.Constraints.Dist` | 8 | 3 |
+| `Lattice.Domains.Constraints.DistContinuous` | 2 | 0 |
+| `Lattice.Domains.Constraints.DistLipschitz` | 3 | 0 |
+| `Lattice.Domains.Constraints.EqConstraintListTokens` | 7 | 3 |
+| `Lattice.Domains.Constraints.EqConstraintToken` | 12 | 11 |
+| `Lattice.Domains.Constraints.EqConstraintTokenizer` | 4 | 5 |
+| `Lattice.Domains.Constraints.EqConstraintTokens` | 3 | 1 |
+| `Lattice.Domains.Constraints.Eval` | 3 | 1 |
+| `Lattice.Domains.Constraints.Expr` | 8 | 5 |
+| `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
+| `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
+| `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
+| `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
+| `Lattice.Domains.Constraints.Loss` | 10 | 4 |
+| `Lattice.Domains.Constraints.NetLoss` | 5 | 1 |
+| `Lattice.Domains.Constraints.PenaltyLoss` | 13 | 2 |
+| `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
+| `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
+| `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
+| `Lattice.Domains.Constraints.RealTokenRoundtrip` | 7 | 0 |
+| `Lattice.Domains.Constraints.SeqRepresentation` | 4 | 3 |
+| `Lattice.Domains.Constraints.TokenizeStrategy` | 0 | 0 |
+| `Lattice.Domains.Constraints.TokenizerPattern` | 9 | 7 |
+| `Lattice.Domains.Geometry` | 0 | 0 |
+| `Lattice.Domains.Geometry.ApproxEmbedding` | 1 | 1 |
+| `Lattice.Domains.Geometry.CExprCodegen` | 4 | 2 |
+| `Lattice.Domains.Geometry.ClauseComposition` | 6 | 0 |
+| `Lattice.Domains.Geometry.ClosedLoop` | 10 | 1 |
+| `Lattice.Domains.Geometry.CodegenLadder` | 3 | 2 |
+| `Lattice.Domains.Geometry.Compile` | 2 | 1 |
+| `Lattice.Domains.Geometry.ConjRepair` | 3 | 2 |
+| `Lattice.Domains.Geometry.ConstraintDescent` | 17 | 8 |
+| `Lattice.Domains.Geometry.Derivative` | 3 | 1 |
+| `Lattice.Domains.Geometry.Derive` | 2 | 2 |
+| `Lattice.Domains.Geometry.Engine` | 6 | 5 |
+| `Lattice.Domains.Geometry.EqualLengthRepair` | 3 | 1 |
+| `Lattice.Domains.Geometry.Exact` | 4 | 0 |
+| `Lattice.Domains.Geometry.Exec` | 6 | 4 |
+| `Lattice.Domains.Geometry.ExecutableCheck` | 4 | 4 |
+| `Lattice.Domains.Geometry.ExecutableGeoCheck` | 7 | 9 |
+| `Lattice.Domains.Geometry.ExprLocalMin` | 3 | 0 |
+| `Lattice.Domains.Geometry.Exterior` | 5 | 4 |
+| `Lattice.Domains.Geometry.ExteriorSmooth` | 9 | 1 |
+| `Lattice.Domains.Geometry.Extract` | 4 | 2 |
+| `Lattice.Domains.Geometry.Finite` | 6 | 2 |
+| `Lattice.Domains.Geometry.FormDeriv` | 8 | 0 |
+| `Lattice.Domains.Geometry.GeoLadder` | 4 | 3 |
+| `Lattice.Domains.Geometry.GeoSampledBound` | 1 | 0 |
+| `Lattice.Domains.Geometry.IRBridge` | 13 | 3 |
+| `Lattice.Domains.Geometry.IRRepair` | 3 | 0 |
+| `Lattice.Domains.Geometry.Initialise` | 9 | 1 |
+| `Lattice.Domains.Geometry.Invariant` | 12 | 2 |
+| `Lattice.Domains.Geometry.LadderInstance` | 2 | 2 |
+| `Lattice.Domains.Geometry.LayerExact` | 3 | 0 |
+| `Lattice.Domains.Geometry.Loop` | 11 | 6 |
+| `Lattice.Domains.Geometry.LoopPerp` | 7 | 2 |
+| `Lattice.Domains.Geometry.LoopRate` | 3 | 0 |
+| `Lattice.Domains.Geometry.MissingRepairs` | 4 | 1 |
+| `Lattice.Domains.Geometry.MultiSeedCoverage` | 5 | 0 |
+| `Lattice.Domains.Geometry.MultistepLoop` | 8 | 3 |
+| `Lattice.Domains.Geometry.Nondegenerate` | 13 | 2 |
+| `Lattice.Domains.Geometry.NondegenerateInstance` | 6 | 0 |
+| `Lattice.Domains.Geometry.ParallelRepair` | 4 | 2 |
+| `Lattice.Domains.Geometry.PartialReinjection` | 6 | 0 |
+| `Lattice.Domains.Geometry.PathContinuity` | 12 | 0 |
+| `Lattice.Domains.Geometry.PenaltySmooth` | 4 | 0 |
+| `Lattice.Domains.Geometry.Plucker` | 2 | 0 |
+| `Lattice.Domains.Geometry.PolyAssemble` | 4 | 1 |
+| `Lattice.Domains.Geometry.PolyConstants` | 5 | 2 |
+| `Lattice.Domains.Geometry.PolyLipschitz` | 1 | 0 |
+| `Lattice.Domains.Geometry.PolyNondegenerate` | 8 | 0 |
+| `Lattice.Domains.Geometry.PolyRepair` | 5 | 0 |
+| `Lattice.Domains.Geometry.PolySpecificRepair` | 7 | 5 |
+| `Lattice.Domains.Geometry.QualityBridge` | 3 | 0 |
+| `Lattice.Domains.Geometry.Reinjection` | 3 | 0 |
+| `Lattice.Domains.Geometry.ReinjectionGeneral` | 5 | 0 |
+| `Lattice.Domains.Geometry.Repair` | 3 | 0 |
+| `Lattice.Domains.Geometry.RepairBridge` | 14 | 0 |
+| `Lattice.Domains.Geometry.RepairCoverage` | 5 | 4 |
+| `Lattice.Domains.Geometry.RepairPenalty` | 4 | 0 |
+| `Lattice.Domains.Geometry.RepairPerp` | 8 | 4 |
+| `Lattice.Domains.Geometry.RepairQuality` | 9 | 2 |
+| `Lattice.Domains.Geometry.RhoMetric` | 5 | 0 |
+| `Lattice.Domains.Geometry.Rules` | 1 | 6 |
+| `Lattice.Domains.Geometry.Semantic` | 7 | 1 |
+| `Lattice.Domains.Geometry.Shape` | 3 | 2 |
+| `Lattice.Domains.Geometry.Square` | 10 | 5 |
+| `Lattice.Domains.Geometry.Synthesis` | 6 | 5 |
+| `Lattice.Domains.Geometry.SynthesisConnection` | 6 | 0 |
+| `Lattice.Domains.Geometry.SynthesisCoverage` | 7 | 1 |
+| `Lattice.Domains.Geometry.SynthesisMulti` | 4 | 1 |
+| `Lattice.Domains.Geometry.Unconditional` | 7 | 0 |
+| `Lattice.Domains.Geometry.Unified` | 4 | 0 |
+| `Lattice.Domains.Geometry.WeightDescent` | 9 | 5 |
+| `Lattice.Domains.Geometry.WeightSideLadder` | 9 | 7 |
 | `Lattice.Geo` | 0 | 0 |
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Runtime` | 0 | 0 |

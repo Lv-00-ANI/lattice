@@ -46,18 +46,25 @@ GEO_LEGACY = os.path.join(ZERO, "Lattice", "Geo")
 #
 # It now matches the layer it actually scans, and `main` asserts NON-VACUITY below: a scan with zero
 # internal edges on a multi-module layer is a defect, not a pass.
-IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)\.(\S+)", re.M)
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
 DECL = re.compile(r"^(?:noncomputable\s+|private\s+|protected\s+|@\[[^\]]*\]\s*)*"
                   r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
                   r"([A-Za-z0-9_']+)", re.M)
 
 
 def mod_of(f):
-    # Round 245: files may live under `Domains/` (post-migration) or `Geo/` (legacy). The module
-    # prefix follows the directory, so that the dependency graph keys match the `import` lines.
-    base = f[:-5]
+    """Module name from a FILE PATH.
+
+    Round 245: files may live under `Domains/` (post-migration) or `Geo/` (legacy), and the module
+    prefix follows the directory so that graph keys match the `import` lines.
+
+    Round 246: it must take the FULL path (the subdirectory decides nothing here, but the prefix does) and
+    use only the basename for the module itself -- an earlier version did `f[:-5]` on whatever it was
+    given, which silently produced keys like `Lattice.Domains.C:/.../ConstraintSet`.
+    """
+    name = os.path.basename(f)[:-5]
     hit = "Lattice.Domains." if (os.sep + "Domains" + os.sep) in f else "Lattice.Geo."
-    return hit + base
+    return hit + name
 
 
 WHITE, GREY, BLACK = 0, 1, 2
@@ -111,10 +118,24 @@ def self_test():
 
 def main():
     problems = 0
+    # Round 246. The listing was NON-RECURSIVE, so after `Domains/` gained the `Constraints/` and
+    # `Geometry/` subdirectories this audit saw only the two aggregators (123 lines instead of 16,407)
+    # and passed. That is the FOURTH vacuity variant in this one file -- so the walk is recursive now,
+    # and the zero-modules assertion below still guards the total.
     files = []
     for d in (GEO, GEO_LEGACY):
-        if os.path.isdir(d):
-            files.extend(os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".lean"))
+        if not os.path.isdir(d):
+            continue
+        for root, _dirs, fs in os.walk(d):
+            files.extend(os.path.join(root, f) for f in sorted(fs) if f.endswith(".lean"))
+    files.sort()
+    # module -> file, so NO code path has to reconstruct a path from a module name again.
+    # Round 246: a second `os.path.join(GEO, name)` survived here and crashed once the modules
+    # moved into `Domains/Constraints/` and `Domains/Geometry/`.
+    file_of = {}
+    for _f in files:
+        _hit = "Lattice.Domains." if (os.sep + "Domains" + os.sep) in _f else "Lattice.Geo."
+        file_of[_hit + os.path.basename(_f)[:-5]] = _f
     if not files:
         print("GEO AUDIT: no modules found -- refusing to pass on an empty scan")
         return 1
@@ -122,8 +143,9 @@ def main():
     decls = {}
     for f in files:
         src = io.open(f, encoding="utf-8").read()
-        deps[mod_of(os.path.basename(f))] = [d for d in IMPORT.findall(src) if d != mod_of(os.path.basename(f))]
-        decls[mod_of(os.path.basename(f))] = DECL.findall(src)
+        # the FULL path is required: mod_of decides the module prefix from the directory
+        deps[mod_of(f)] = [d for d in IMPORT.findall(src) if d != mod_of(f)]
+        decls[mod_of(f)] = DECL.findall(src)
 
     edges = sum(len(v) for v in deps.values())
     if len(deps) > 1 and edges == 0:
@@ -198,8 +220,7 @@ def main():
                 if any(k in ("structure", "inductive", "class") for k in kinds):
                     continue
                 # 找该声明行，看是否是 Prop 值
-                text = io.open(os.path.join(GEO, m.replace("Lattice.Geo.", "") + ".lean"),
-                               encoding="utf-8").read()
+                text = io.open(file_of[m], encoding="utf-8").read()
                 mm = re.search(r"^[^\n]*\b" + re.escape(n) + r"\b(?:(?!\n\n)[^\n]*\n)*?[^\n]*:\s*[^\n]*Prop",
                                text, re.M)
                 if mm:

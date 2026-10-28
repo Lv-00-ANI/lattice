@@ -68,8 +68,8 @@ Meaning := (ℕ → Pt n) → Prop
   它们是下一节的内容，**不在本文件里假装有**。
 -/
 import Mathlib
-import Lattice.Domains.ConstraintSet
-import Lattice.Domains.Constraint
+import Lattice.Domains.Constraints.ConstraintSet
+import Lattice.Domains.Constraints.Constraint
 
 namespace Lattice.Semantics.Stage1
 

@@ -18,9 +18,14 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
-GEO = os.path.join(ZERO, "Lattice", "Geo")
+# Round 246. This pointed at `Lattice/Geo`, which no longer exists: the whole layer moved to
+# `Domains/` (99 modules), then split into `Domains/Constraints/` (28) and `Domains/Geometry/` (71).
+GEO = os.path.join(ZERO, "Lattice", "Domains")
 
-IMPORT = re.compile(r"^import\s+(Zero\.Geo\.\S+)", re.M)
+# Round 246, second defect in this line: it matched `Zero.Geo.`, the old library's module prefix.
+# The tree imports `Lattice.Geo.` (the namespace survived the move per §2.8) -- and the MODULE path
+# is `Lattice.Domains[.Constraints|.Geometry].`. Both are accepted; the walk is recursive.
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
 THEOREM = re.compile(r"^theorem\s+([A-Za-z0-9_']+)", re.M)
 DEFN = re.compile(r"^(?:noncomputable\s+)?(?:def|abbrev|structure|inductive)\s+([A-Za-z0-9_']+)", re.M)
 
@@ -48,12 +53,19 @@ TARGETS = {
 
 
 def main():
-    files = sorted(f for f in os.listdir(GEO) if f.endswith(".lean"))
+    files = []
+    for root, _dirs, fs in os.walk(GEO):
+        files.extend(os.path.join(root, f) for f in sorted(fs) if f.endswith(".lean"))
+    files.sort()
+    if not files:
+        print("PROOF CHAIN (geo): no modules found -- refusing to emit an empty chain")
+        return 1
     info = {}
     for f in files:
-        p = os.path.join(GEO, f)
+        p = f
         src = io.open(p, encoding="utf-8").read()
-        mod = "Lattice.Geo." + f[:-5]
+        _prefix = "Lattice.Domains." if (os.sep + "Domains" + os.sep) in f else "Lattice.Geo."
+        mod = _prefix + os.path.basename(f)[:-5]
         info[mod] = {
             "file": f,
             "lines": src.count("\n") + 1,
