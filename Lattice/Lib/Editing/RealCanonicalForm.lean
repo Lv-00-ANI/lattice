@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Lib.FCA.RealFCA
 import Lattice.Lib.Attention.RealTemporalLayer
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealCompileExtractClosed
 /-!
 # LATTICE: 规范化构造 —— 纤维 + `canonicalize` + 三性质

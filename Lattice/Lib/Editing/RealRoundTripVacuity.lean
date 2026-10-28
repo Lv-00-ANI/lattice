@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealCanonicalForm
 /-!
 # LATTICE: `RealRoundTripVacuity` —— 「闭环无新语义」的可检验结构性条件

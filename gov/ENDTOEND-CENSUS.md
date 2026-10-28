@@ -15,23 +15,27 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5363 | 62.6% |
-| 1 | 1270 | 14.8% |
-| 2 | 797 | 9.3% |
-| 3 | 477 | 5.6% |
-| 4 | 514 | 6.0% |
-| 5 | 137 | 1.6% |
-| 6 | 4 | 0.0% |
+| 0 | 5351 | 62.5% |
+| 1 | 1379 | 16.1% |
+| 2 | 697 | 8.1% |
+| 3 | 708 | 8.3% |
+| 4 | 319 | 3.7% |
+| 5 | 100 | 1.2% |
+| 6 | 8 | 0.1% |
 | **合计** | **8562** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 6 | `activationLadder_forward` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 6 | `activationLadder_l2l3_is_a_split` (`Runtime/ActivationLadder.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 6 | `decode_encode` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 6 | `encode_injective` (`Runtime/EndToEnd.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 6 | `decode_encode` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 6 | `encode_injective` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
+| 6 | `decode_encode_sat_iff` (`Runtime/RealTokenSymbolLink.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 6 | `Text.encode_injective` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, Lift, root |
-| 6 | `tokenizeStr_detok` (`Runtime/RealTokenizationEntry.lean`) | Audit, Core, Geo, Lib, Lift, root |
 | 5 | `no_redundant_hypotheses` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Core, Geo, Lib, Lift, root |
@@ -62,9 +66,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `e2e_L1L2_is_lossless` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `recover_readback` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `recover_is_load_bearing` (`Lib/Chain/RealEndToEnd.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `d41_e2e_length_conservation` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `d41_e2e_length_conservation_is_ts_only` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `d41_e2e_neurons_bounded_by_data` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `d41_two_scale_loss_coexist` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `d41_loss_locality` (`Lib/Chain/RealEndToEndNontrivial.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `e2e_loss_strictly_compounds` (`Lib/Chain/RealEndToEndStrict.lean`) | Audit, Core, Geo, Lift, root |
@@ -76,18 +77,17 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `compile_append_satisfiable` (`Lib/Compiler/RealLv00CompilerSat.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `compile_preserves_satisfiability` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `compile_preserves_satisfiability_hypothesis_unused` (`Lib/Compiler/RealLv00CompilerSpec.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `three_rings_quotient_dichotomy` (`Lib/Editing/RealClosureReversibility.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `cEx_actAllZero_neg5` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `activated_loop_breaks` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `activated_extract_cannot_repair` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `activated_closure_iff_zeroFixing` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `honesty_register` (`Lib/Editing/RealCompileExtractClosed.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compileToLayer_append_assoc` (`Lib/Editing/RealConversionComposition.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `compileToLayer_append_assoc_layer` (`Lib/Editing/RealConversionComposition.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `edit_breaks_zeroing_generically` (`Lib/Editing/RealEditInvariantCatalog.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `edited_activated_zero_iff_residual` (`Lib/Editing/RealEditInvariantCatalog.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Core, Geo, Lift, Semantics, root |
-| 5 | `compile_commutes_symEdit_iff_nil` (`Lib/Editing/RealEditTwoSidedSquare.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `extract_render_left_inverse` (`Lib/Editing/RealExtractionDirection.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `renderSurjective_holds` (`Lib/Editing/RealExtractionDirection.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `encode_is_section_of_decodeTotal` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `decodeTotal_satisfies_discriminant` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `quotient_reversibility_final_register` (`Lib/Editing/RealQuotientReversibility.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `recover_then_behavior_preserved` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `recover_not_behavior_injective` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `exists_syntactic_inverse_recovers_behavior` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `recover_not_factor_through_behavior` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
+| 5 | `recover_not_complete_behavioral_invariant` (`Lib/Editing/RealRecoverBehavior.lean`) | Audit, Core, Geo, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

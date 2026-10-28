@@ -4,7 +4,7 @@ import Lattice.Lib.Attention.RealTemporalLayer
 import Lattice.Lib.FCA.RealFCAInstance
 import Lattice.Runtime.RealLinear
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealCompileExtractClosed
 /-!
 # LATTICE: 要素层应用 —— 纤维索引的提取稳定性（FCA 时态层 + 约束实例化）

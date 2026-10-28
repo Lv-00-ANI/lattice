@@ -86,8 +86,8 @@ import Lattice.Geo.GeoSampledBound
 import Lattice.Geo.RhoMetric
 import Lattice.Geo.Reinjection
 import Lattice.Geo.Synthesis
-import Lattice.Lift.ChainComposition
-import Lattice.Lift.WeightLadder
+import Lattice.Runtime.ChainComposition
+import Lattice.Runtime.WeightLadder
 import Lattice.Core.RepairMultistep
 import Lattice.Core.RepairConvergence
 

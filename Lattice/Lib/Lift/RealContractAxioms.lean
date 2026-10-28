@@ -66,14 +66,14 @@ collision-free against this file's set:
 
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.ConstraintEmbeddingSoundness
+import Lattice.Runtime.ConstraintEmbeddingSoundness
 import Lattice.Lift.TotalLoss
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Compiler.Disjunction
 import Lattice.Lib.Compiler.Combinators
 import Lattice.Lib.Chain.Geometry
 import Lattice.Lib.Compiler.Inequality
-import Lattice.Lift.LayerComposition
+import Lattice.Runtime.LayerComposition
 import Lattice.Lib.Compiler.ModConstraint
 import Lattice.Runtime.RealLinear
 import Lattice.Runtime.RealTotalLoss

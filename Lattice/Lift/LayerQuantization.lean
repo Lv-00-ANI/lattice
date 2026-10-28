@@ -55,7 +55,7 @@ obsEntrywise p q := (∀ i j, |p.1 i j - q.1 i j| ≤ 1) ∧ (∀ j, |p.2 j - q.
 -/
 import Mathlib
 import Lattice.Runtime.LossyRepresentation
-import Lattice.Lift.RoundingBackend
+import Lattice.Runtime.RoundingBackend
 
 namespace Lattice.Lift.IntQuant
 

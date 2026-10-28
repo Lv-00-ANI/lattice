@@ -52,7 +52,7 @@ import Mathlib
 import Lattice.Runtime.EndToEnd
 import Lattice.Lift.WeightLadderFullWidth
 import Lattice.Lift.WeightLadderInverse
-import Lattice.Lift.WeightLadderN
+import Lattice.Runtime.WeightLadderN
 
 namespace Lattice.Lift.FullWidthLadder
 

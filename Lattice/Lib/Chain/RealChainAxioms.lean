@@ -11,7 +11,7 @@ import Lattice.Lib.Chain.RealCrossUniverseConsumer
 import Lattice.Lib.LearningTheory.RealSCMIdentification
 import Lattice.Lib.Editing.RealReversibilityBoundary
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 /-!
 # LATTICE: chain-core axiom probes (U06 judgement C)
 

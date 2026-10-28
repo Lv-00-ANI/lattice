@@ -45,7 +45,7 @@
 - **本节的真正产出是方法**：把「删掉试证」换成「找反例」，并留下可机器核对的证据。
 -/
 import Mathlib
-import Lattice.Lift.ApproxExact
+import Lattice.Runtime.ApproxExact
 import Lattice.Lift.EndToEndApproximation
 
 namespace Lattice.Audit

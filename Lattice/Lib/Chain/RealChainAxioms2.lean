@@ -1,13 +1,13 @@
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.ConstraintEmbeddingSoundness
+import Lattice.Runtime.WeightToSymbolEquivalence
+import Lattice.Runtime.ConstraintEmbeddingSoundness
 import Lattice.Lift.TotalLoss
-import Lattice.Lift.VerifyLoopProgress
+import Lattice.Runtime.VerifyLoopProgress
 import Lattice.Lib.Lift.VerifyLoopConvergence
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealEditSemantics
 import Lattice.Lib.Optim.RealListFinBridge
 import Lattice.Lib.Optim.RealCrossUniverseBridge

@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
-import Lattice.Lift.WeightToSymbolEquivalence
+import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Compiler.RealConstraintSat
 /-!
 # LATTICE N-01: 数值层 —— 有理数权重的往返（`RealRoundtripRat`）

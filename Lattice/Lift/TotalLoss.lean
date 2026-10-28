@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.ConstraintEmbeddingSoundness
+import Lattice.Runtime.ConstraintEmbeddingSoundness
 /-!
 # LATTICE: 总损失版本 —— Σ(out_i)² = 0 ⟺ 全部约束满足
 

@@ -46,7 +46,7 @@ docstring 说「前 `n` 项是系数」——**那描述的是秩 1 的层**；�
 -/
 
 import Mathlib
-import Lattice.Lift.WeightLadderN
+import Lattice.Runtime.WeightLadderN
 
 namespace FullWidth
 

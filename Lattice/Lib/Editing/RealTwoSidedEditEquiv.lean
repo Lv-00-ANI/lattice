@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 import Lattice.Lib.Chain.RealEndToEnd
 import Lattice.Runtime.SymbolToWeightCorrectness

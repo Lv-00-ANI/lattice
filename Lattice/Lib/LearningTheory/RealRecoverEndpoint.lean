@@ -1,8 +1,8 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.WeightToSymbolEquivalence
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.WeightToSymbolEquivalence
+import Lattice.Runtime.RealTokenSymbolLink
 -- 注意 `extractLayer` 有【三个】roots 模块各自声明（`RealCompileExtractClosed:100` /
 -- `RealExtractCanonical:79` / `RealRflAudit:69`，三处定义体**逐字相同** `ls.map extractVec`）。
 -- 同时 import 两个以上会产生**同名冲突**（正是 `SymToken` 改名登记所记的那类断裂，

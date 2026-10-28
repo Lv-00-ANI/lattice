@@ -33,6 +33,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _paths import resolve  # noqa: E402  (path-keyed artifact: see _paths.py)
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -136,6 +139,12 @@ IDENTITY_OK = {
     "Geo/WeightSideLadder.lean":
         "Sym = List Unit and Tok = Unit, so Sym IS List Tok; the substance is the weight-side l2l3",
 }
+
+# Round 241, the EIGHTH path-keyed artifact found in this tree (see gov/_paths.py for the list).
+# The table is keyed on `Lattice/`-relative paths, so a `git mv` produced TWO symptoms at once:
+# the moved file "has an identity l1l2 and is not registered", AND its entry "has no identity l1l2 any
+# more". Map the KEYS at load time; never edit the table for a move.
+IDENTITY_OK = {resolve(k): v for k, v in IDENTITY_OK.items()}
 
 #: The classification strings that count as an identity rung.
 IDENTITY_KINDS = ("identity (identityTokenizer)", "identity (singleton)")

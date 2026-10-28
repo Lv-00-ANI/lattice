@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractInvertibility
 /-!
 # LATTICE: RealExtractionDirection —— L1⇄L2「抽取方向」（文本 → 符号）的健全性边界

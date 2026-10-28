@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Runtime.RealTokenization
-import Lattice.Lift.RealTokenSymbolLink
+import Lattice.Runtime.RealTokenSymbolLink
 import Lattice.Lib.Editing.RealExtractionDirection
 /-!
 # E1: `e2e_loss_strictly_compounds` —— 端到端两损失源的**严格复合**

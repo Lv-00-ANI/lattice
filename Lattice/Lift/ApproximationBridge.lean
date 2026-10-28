@@ -71,7 +71,7 @@ T2（约束嵌入）的主线是：
 - 本节对**任意** `ResidualEmbedding` 成立，不限于线性或几何——这是推广而非特例。
 -/
 import Mathlib
-import Lattice.Lift.ApproxExact
+import Lattice.Runtime.ApproxExact
 
 namespace Lattice.Lift
 
