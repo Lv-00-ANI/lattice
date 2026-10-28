@@ -28,7 +28,16 @@
 > （`merge_sound_cons` / `merge_sound_append_experts` / `merge_sound_add_global`，
 > 加上否定侧 `merge_sound_not_composable`）。
 >
-> **S9–S13 未做。S20 被阻塞——原因见 §6.1，不是「没做完」。**
+> **S11 · S12 · S13 已完成**（第 213–216 轮）：
+> S11 整程序语法往返（`Lift/ProgramAST.lean` 的 `decodeProgram_encodeProgram`）、
+> S12 `Block`/`Model` 的 `eval` 与两级 Lipschitz 常数
+> （`Lib/Architectures/RealTransformerEval.lean`）、
+> S13 float 精化（`Lib/FloatStackRefinement.lean` 的 `float_stack_refinement`）。
+>
+> **S9 · S10 未做。S20 被阻塞——原因见 §6.1，不是「没做完」。**
+>
+> ⚠ 本节此前写的是「**S9–S13 未做**」，而那在 S11–S13 闭合之后**已不成立**。
+> 陈旧的进度声明比没有声明更糟：它让读者以为已完成的东西没做，也让「还差多少」无从计算。
 > S14–S19 的实现定下了 §3 里悬着的形状：`Embedding V d := V → Fin d → ℝ`（即 `V × d` 矩阵），
 > 理由是它是**唯一**能让 `merge` 误差界可陈述的形状——更抽象的形状里「两个嵌入差多少」没有定义。
 >

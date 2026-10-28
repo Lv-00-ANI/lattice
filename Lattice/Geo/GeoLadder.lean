@@ -116,7 +116,28 @@ theorem compileConstraint_sound (c : EqConstraint n) (pts : ℕ → Pt n)
 | **L1→L2** | **真 tokenizer：`encCon` / `decCon`（第 149 轮）** |
 | **L2→L3** | **约束 ↦ 损失函数（本节）** |
 | `satSym` | `poly c pts = 0`（符号侧：约束成立） |
-| `satW` | `L pts ≤ 0`（权重侧：损失为零） |
+| `satW` | `L pts ≤ 0`（**损失侧**：损失为零） |
+
+### ⚠ 这个 `Ladder` 的 `W` 是**损失**，不是权重
+
+`Lattice.Lift.Ladder` 对第四个参数 `W` 是**泛型**的，它的文档把这个位置称作
+「a weight artifact」。本节把 `W` 取成 `((ℕ → Pt n) → ℝ)`——**一个损失函数**。
+
+**类型上合法，语义上是范畴错误**：目标是「数据 ⇄ token ⇄ 符号模型 ⇄ **权重**」，
+而损失不是权重。**所以 `geoLadder` 是一条「损失侧」的 `Ladder`，不是权重侧的。**
+
+**为什么它不能改成真正的权重**：`EqConstraint` 的 `poly` 是**多项式**，
+它的零点集一般不是仿射子空间。本库已经有定理 `Geo/WeightSideLadder.lean` 的
+`no_affine_represents_sphere`：`d > 0` 时**不存在**仿射层以球面为零集。
+**所以多项式约束在一般情形下没有仿射权重表示**——这不是没做，是分类的结果
+（见 `Geo/WeightSideLadder.lean` §六 对 12 个构造子的划分）。
+
+**真正走到权重的实例只有两个**：`samePoint`（`Geo/WeightSideLadder.lean`）与
+`midpoint`（同文件 §六）。**它们在 `l2l3` 里产出 `List (AffineLayer (Fin n))`。**
+
+⇒ **读本文件时不要把 `satW` 读成「权重接受」；它是「损失为零」。**
+这个区别在本库是承重的：`satW` 一旦被读成权重侧，`geoLadder_forward` 就成了
+「约束成立 ⟹ 权重正确」的假声称，而它实际说的是「约束成立 ⟹ 损失为零」。
 
 **L1→L2 不再是恒等**：第 108 轮的占位实现已被第 144–153 轮的工作替换。
 `Tok := EqTok := ℕ ⊕ ℝ` 让实数进入 token 流，`decCon_enc_nil` 提供单约束往返，
