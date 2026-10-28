@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5452 | 63.8% |
-| 1 | 1348 | 15.8% |
-| 2 | 697 | 8.2% |
+| 0 | 5452 | 63.7% |
+| 1 | 1349 | 15.8% |
+| 2 | 697 | 8.1% |
 | 3 | 508 | 5.9% |
 | 4 | 457 | 5.3% |
-| 5 | 81 | 0.9% |
+| 5 | 89 | 1.0% |
 | 6 | 2 | 0.0% |
-| **合计** | **8545** | |
+| **合计** | **8554** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -46,6 +46,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `loop_done` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_step` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `loop_zero_none` (`Compose/Iterate.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_comm_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `parallel_identity_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `choice_self_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `optional_true_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `optional_false_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_identity_right` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
+| 5 | `compose_choice_distrib_run` (`Compose/Laws.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_sound` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_strength` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
 | 5 | `parallel_coverage` (`Compose/More.lean`) | Core, Geo, Lib, Lift, root |
@@ -80,14 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `type_soundness` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
 | 5 | `type_preservation_add` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `multistep_preservation` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `soundness` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Core, Geo, Lift, root |
-| 5 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Core, Geo, Lift, Semantics, root |
-| 5 | `edit_frame` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `holdsSet_member` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `edit_frame_holds` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
-| 5 | `edit_realizes` (`Semantics/Annotations.lean`) | Core, Geo, Lib, Lift, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

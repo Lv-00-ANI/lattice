@@ -15,7 +15,7 @@
 | geo | 99 | the geometry/constraint layer, may import lift |
 | audit | 12 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 20 | aggregator at `Lattice/`, re-exports only |
+| root | 21 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -824,10 +824,11 @@
 - `Lattice.Lift.WeightSymbolRepresentation` <- `Lattice.Lift.Extraction`, `Lattice.Lift.WeightLadderInverse`
 - `Lattice.Lift.WeightToSymbolEquivalence` <- `Lattice.Lift.ConvertLinear`, `Lattice.Lift.ConvertVectorLinear`
 - `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Geo.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
+- `Lattice.Compose.Laws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
@@ -1656,6 +1657,7 @@
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
 | `Lattice.Compose.Iterate` | 5 | 2 |
+| `Lattice.Compose.Laws` | 9 | 0 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
 | `Lattice.Compose.Registry` | 3 | 6 |
@@ -2398,6 +2400,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `binaryFormat_tiny_pos` -> `FloatFormat`, `eps`, `tiny`
 - `binaryFormat_toFloatFormat_eps` -> `eps`, `tiny`
 - `binaryFormat_toFloatFormat_tiny` -> `eps`, `tiny`
+- `bind_ite` -> `Primitive`, `choice`, `compose`, `run`
 - `blockDot_period_invariance` -> `Point2R`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
 - `blockSparseSoftmax_eq_masked` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedDenom_pos`, `maskedSoftmax`, `maskedSoftmax_nonneg`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
 - `block_causal_lipschitz` -> `E`
@@ -2724,6 +2727,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `child_sizeOf_lt` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `children_node` -> `apply`, `depth`, `size`
 - `choice_coverage` -> `Primitive`, `dec`, `run`, `sound`, `union`
+- `choice_self_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `run`
 - `choice_sound` -> `Primitive`, `dec`, `min`, `run`, `sound`, `union`
 - `choice_strength` -> `Primitive`, `dec`, `min`, `run`, `sound`, `union`
 - `chord_bound_symm_measure` -> `condexp_add`, `condexp_const`, `condexp_mono`, `mono`, `trans`
@@ -3004,8 +3008,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_act` -> `Chain`, `W`, `compose`, `induction`
 - `compose_bridged` -> `Audit`
 - `compose_chain` -> `Audit`
+- `compose_choice_distrib_run` -> `Primitive`, `choice`, `compose`, `run`
 - `compose_coverage` -> `Primitive`, `inter`, `run`, `sound`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
+- `compose_identity_right` -> `Primitive`, `choice`, `compose`, `identity`, `run`
 - `compose_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_run_assoc` -> `Primitive`, `run`, `sound`
 - `compose_sequential` -> `Audit`
@@ -6721,12 +6727,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `optimal_lambda_algebra_wrong_shape` -> `convert`, `crossEntropy`, `kl`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
 - `optimality_principle` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
 - `optimality_principle_greedy` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
+- `optional_false_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `run`
 - `optional_sound` -> `Primitive`, `dec`, `run`, `sound`
 - `optional_stopping_bounded_martingale` -> `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_eq_last` -> `le_refl`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_min` -> `le_refl`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `mgf_le_of_condexp_le`, `min`
 - `optional_stopping_tower` -> `le_refl`, `martingale_expected_stoppedValue_eq_of_le`, `mgf_le_of_condexp_le`
 - `optional_strength` -> `Primitive`, `dec`
+- `optional_true_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `run`
 - `orC_pos_of_both_ne` -> `subst`
 - `orderTheory_closed` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `orderTheory_closedB_eq_true` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
@@ -6812,8 +6820,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parallelFix_reaches` -> `Pt`, `apply`, `seg`
 - `parallelPenalty_eq_zero_iff_of_ne` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
 - `parallelPenalty_nonneg` -> `Pt`
+- `parallel_comm_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
 - `parallel_coverage` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_gap_closed` -> `Pt`, `seg`
+- `parallel_identity_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
+- `parallel_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
 - `parallel_skolemized` -> `Pt`, `seg`
 - `parallel_sound` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_strength` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
