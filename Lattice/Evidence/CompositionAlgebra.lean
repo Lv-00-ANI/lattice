@@ -97,7 +97,7 @@ bridgedCount_append : bridgedCount (a ++ b) = a + b   -- 同态
   **这是有意的边界，不是遗漏**——在依赖类型上硬做会写出难读且脆弱的证明。
 -/
 import Mathlib
-import Lattice.Audit.CompositionClass
+import Lattice.Evidence.CompositionClass
 
 namespace Lattice.Audit
 

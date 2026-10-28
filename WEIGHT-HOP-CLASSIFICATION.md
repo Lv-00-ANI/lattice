@@ -41,7 +41,7 @@
 | 6 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean` | `support_from_decoded_constraints` | `constrained_agrees_with_constraint_set` | 逐字别名；改 `alias` |
 | 7 | `Semantics/Annotations.lean` | `holdsSet_member` | `Domains/Constraints/ConstraintSet.holdsSet_mem` | **零消费者**（见 §5），改为直接引用 |
 
-⚠ **共同风险**：改 `alias` 或删副本会动 API 名，而 `Audit/Hypotheses.lean` 的表里有几条**以名字为键**
+⚠ **共同风险**：改 `alias` 或删副本会动 API 名，而 `Evidence/Hypotheses.lean` 的表里有几条**以名字为键**
 （`abs_le_of_sq_le`、`epsSat_of_loss_le_sq` 等）。**每改一条都要重跑 `check_proof_debt_orphans` 与 `audit_tables`。**
 
 ---
@@ -54,8 +54,8 @@
 | 9 | `Lib/Editing/RealCompileExtractClosed.lean` | `compile_extract_end_to_end` | doc 标「**★端到端闭环★**」，实为 `symbolToWeight_correct` 经 `extract∘compile = id` 换形 | doc 降级；「真端到端需要非平凡 `extract`」记成新债 |
 | 10 | `Lift/CompilerScheme.lean` | `scheme_covers_all` | 证明是 `⟨rfl,rfl,rfl⟩`，而 `Slots.lean:195-200` 把它当 `lift.compile.single_item_sound` 的 **CLOSED 凭证** | doc 与 `Slots` 措辞限定为「**结构性**关闭，不新增语义保证」 |
 | 11 | `Lift/CompilerScheme.lean` | `backend_sound` | 字段投影；同上 `Slots:200` 的 `.discharged` | 与 #10 同一处修 |
-| 12 | `Audit/StructureCensus.lean` | `census_length` | doc 称「**实测**清册」，而 `decide` 只核表内算术 | **本轮已修**：`Representation` 行 `8` → **`7`**（真值来自 `Runtime/Extraction.lean:58`），并写明「人工录入、未经核对」 |
-| 13 | `Audit/Hypotheses.lean` | `chainAudit_length` | doc 写「审计覆盖了**七**条定理」，而 `chainAudit` 是 **10** 行 | 改 doc 为 10，并把 4 行散文证据标为「未机器核对」 |
+| 12 | `Evidence/StructureCensus.lean` | `census_length` | doc 称「**实测**清册」，而 `decide` 只核表内算术 | **本轮已修**：`Representation` 行 `8` → **`7`**（真值来自 `Runtime/Extraction.lean:58`），并写明「人工录入、未经核对」 |
+| 13 | `Evidence/Hypotheses.lean` | `chainAudit_length` | doc 写「审计覆盖了**七**条定理」，而 `chainAudit` 是 **10** 行 | 改 doc 为 10，并把 4 行散文证据标为「未机器核对」 |
 
 ---
 

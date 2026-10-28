@@ -14,7 +14,7 @@
 | 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
-| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 5 | 0 | `Audit/Hypotheses.lean`, `Domains/Constraints/Pipeline.lean` |
+| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 5 | 0 | `Domains/Constraints/Pipeline.lean`, `Domains/Geometry/LadderInstance.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 37 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
 | 1.4 weight -> symbol | `extract` | `Runtime/WeightToSymbolEquivalence.lean` | 22 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
@@ -32,12 +32,12 @@
 | 3.3 inverse: repair | `midpointFix` | `Domains/Geometry/MissingRepairs.lean` | 0 *(仅本文件)* | 13 | — |
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
 | 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
-| 4 loop | `converges_within` | `Core/RepairConvergence.lean` | 7 | 2 | `Audit/Hypotheses.lean`, `Core/OneStepBridge.lean` |
+| 4 loop | `converges_within` | `Core/RepairConvergence.lean` | 7 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
 | 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 19 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
 | 5 symbolic engine | `derivation_sound` | `Domains/Geometry/Engine.lean` | 1 | 0 | `Domains/Geometry/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
-| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Audit/Hypotheses.lean`, `Domains/Geometry/LadderInstance.lean` |
+| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Domains/Geometry/LadderInstance.lean`, `Evidence/Hypotheses.lean` |
 
 ## 汇总
 

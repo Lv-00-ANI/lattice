@@ -13,26 +13,14 @@
 | slots | 0 | metadata, imports nothing |
 | lib | 608 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
-| audit | 12 | re-states results; may import anything below |
+| audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 194 | aggregator at `Lattice/`, re-exports only |
+| root | 206 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
 ## Import graph
 
-- `Lattice.Audit.BridgedComposition` 
-- `Lattice.Audit.ChainTransitivity` <- `Lattice.Core.Repair`
-- `Lattice.Audit.CompositionAlgebra` <- `Lattice.Audit.CompositionClass`
-- `Lattice.Audit.CompositionClass` <- `Lattice.Audit.BridgedComposition`
-- `Lattice.Audit.Counterexamples` <- `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.EndToEndApproximation`
-- `Lattice.Audit.DecreasesRole` <- `Lattice.Core.Repair`
-- `Lattice.Audit.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Runtime.EndToEnd`
-- `Lattice.Audit.MultiComposition` <- `Lattice.Audit.CompositionClass`
-- `Lattice.Audit.ObligationIndependence` <- `Lattice.Core.Repair`
-- `Lattice.Audit.PredicateWitnesses` <- `Lattice.Audit.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
-- `Lattice.Audit.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
-- `Lattice.Audit.VerdictLattice` <- `Lattice.Audit.CompositionClass`
 - `Lattice.Core.Activation` <- `Lattice.Core.Net`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.Idempotent` 
@@ -659,7 +647,6 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.Audit` <- `Lattice.Audit.Hypotheses`, `Lattice.Audit.Counterexamples`, `Lattice.Audit.ObligationIndependence`, `Lattice.Audit.DecreasesRole`, `Lattice.Audit.StructureCensus`, `Lattice.Audit.ChainTransitivity`, `Lattice.Audit.BridgedComposition`, `Lattice.Audit.CompositionClass`, `Lattice.Audit.MultiComposition`, `Lattice.Audit.CompositionAlgebra`, `Lattice.Audit.VerdictLattice`, `Lattice.Audit.PredicateWitnesses`
 - `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` 
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
@@ -771,6 +758,19 @@
 - `Lattice.Domains.Geometry.Unconditional` <- `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.Derivative`
 - `Lattice.Domains.Geometry.Unified` <- `Lattice.Core.Invariant`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Lib.Linear.Residual`
 - `Lattice.Domains.Geometry.WeightSideLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Core.Net`
+- `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
+- `Lattice.Evidence.BridgedComposition` 
+- `Lattice.Evidence.ChainTransitivity` <- `Lattice.Core.Repair`
+- `Lattice.Evidence.CompositionAlgebra` <- `Lattice.Evidence.CompositionClass`
+- `Lattice.Evidence.CompositionClass` <- `Lattice.Evidence.BridgedComposition`
+- `Lattice.Evidence.Counterexamples` <- `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.EndToEndApproximation`
+- `Lattice.Evidence.DecreasesRole` <- `Lattice.Core.Repair`
+- `Lattice.Evidence.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Evidence.MultiComposition` <- `Lattice.Evidence.CompositionClass`
+- `Lattice.Evidence.ObligationIndependence` <- `Lattice.Core.Repair`
+- `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
+- `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
+- `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
@@ -859,18 +859,6 @@
 
 | module | theorem/lemma | other |
 |:--|--:|--:|
-| `Lattice.Audit.BridgedComposition` | 3 | 0 |
-| `Lattice.Audit.ChainTransitivity` | 6 | 0 |
-| `Lattice.Audit.CompositionAlgebra` | 10 | 3 |
-| `Lattice.Audit.CompositionClass` | 4 | 3 |
-| `Lattice.Audit.Counterexamples` | 4 | 0 |
-| `Lattice.Audit.DecreasesRole` | 2 | 0 |
-| `Lattice.Audit.Hypotheses` | 3 | 3 |
-| `Lattice.Audit.MultiComposition` | 4 | 3 |
-| `Lattice.Audit.ObligationIndependence` | 8 | 2 |
-| `Lattice.Audit.PredicateWitnesses` | 5 | 0 |
-| `Lattice.Audit.StructureCensus` | 4 | 3 |
-| `Lattice.Audit.VerdictLattice` | 18 | 6 |
 | `Lattice.Core.Activation` | 6 | 3 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -1497,7 +1485,6 @@
 | `Lattice.Lib.Quantization.RealQuantizedError` | 16 | 2 |
 | `Lattice.Lib.Quantization.RealSTEError` | 13 | 4 |
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
-| `Lattice.Audit` | 0 | 0 |
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
 | `Lattice.CInterface.Serialization` | 2 | 1 |
@@ -1609,6 +1596,19 @@
 | `Lattice.Domains.Geometry.Unconditional` | 7 | 0 |
 | `Lattice.Domains.Geometry.Unified` | 4 | 0 |
 | `Lattice.Domains.Geometry.WeightSideLadder` | 9 | 7 |
+| `Lattice.Evidence` | 0 | 0 |
+| `Lattice.Evidence.BridgedComposition` | 3 | 0 |
+| `Lattice.Evidence.ChainTransitivity` | 6 | 0 |
+| `Lattice.Evidence.CompositionAlgebra` | 10 | 3 |
+| `Lattice.Evidence.CompositionClass` | 4 | 3 |
+| `Lattice.Evidence.Counterexamples` | 4 | 0 |
+| `Lattice.Evidence.DecreasesRole` | 2 | 0 |
+| `Lattice.Evidence.Hypotheses` | 3 | 3 |
+| `Lattice.Evidence.MultiComposition` | 4 | 3 |
+| `Lattice.Evidence.ObligationIndependence` | 8 | 2 |
+| `Lattice.Evidence.PredicateWitnesses` | 5 | 0 |
+| `Lattice.Evidence.StructureCensus` | 4 | 3 |
+| `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
@@ -1999,12 +1999,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `actStackEval_nil` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `netAct`, `relu`
 - `actStackEval_of_no_activation` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `netAct`, `relu`
 - `actStackSingle_affine` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `netAct`, `relu`
-- `act_append` -> `Chain`, `induction`
+- `act_append` -> `induction`
 - `act_apply` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `act_geluTanhR_injOn` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`
 - `act_geluTanhR_strictMonoOn` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `zeroFixingHoldsBounded`
 - `act_geluTanhR_zero` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`
-- `act_idf` -> `Chain`, `induction`
+- `act_idf` -> `induction`
 - `act_leakyReluZ_eq_zero_iff` -> `ZeroFixing`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`
 - `act_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `act_zero_all_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
@@ -2388,7 +2388,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bfgs_form_psd` -> `mulVec`
 - `bfgs_paraboloid` -> `mulVec`
 - `bfgs_secant` -> `mulVec`
-- `bias_compose` -> `Chain`, `W`, `apply`, `compose`, `induction`
+- `bias_compose` -> `W`, `apply`, `compose`, `induction`
 - `bias_variance_decomposition` -> `E`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `bidir_not_one_step` -> `Sat`, `iterate`, `step`
@@ -2717,9 +2717,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chain_mgf_bound` -> `card_fin`, `convert`, `le`
 - `chain_mgf_bound_uniform` -> `card_fin`, `convert`
 - `chain_mgf_prod` -> `card_fin`, `convert`, `le`
-- `chain_single` -> `Audit`
+- `chain_single` -> `Audit`, `Chain`
 - `chain_split_at` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `induction`, `subst`, `zero`
-- `chain_two` -> `Audit`
+- `chain_two` -> `Audit`, `Chain`
 - `chain_weight_edit_bound` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`
 - `chanMap_permActChan_comm` -> `apply`
 - `channelComp_pos` -> `apply`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`
@@ -3035,9 +3035,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
-- `compose_act` -> `Chain`, `W`, `compose`, `induction`
+- `compose_act` -> `W`, `compose`, `induction`
 - `compose_bridged` -> `Audit`
-- `compose_chain` -> `Audit`
+- `compose_chain` -> `Audit`, `Chain`
 - `compose_choice_distrib_run` -> `Primitive`, `choice`, `compose`, `run`
 - `compose_coverage` -> `Primitive`, `inter`, `run`, `sound`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
@@ -6805,7 +6805,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `orthogonal_step_fixes_nothing` -> `Repair`, `Sat`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `orthogonal_two_routes_agree` -> `BatchEditClosed`, `E`, `W`, `batchClosed_orthogonal_writes`
 - `otValue_le_cost` -> `le_antisymm`, `mul`, `sInf`
-- `out_determined_by_construction` -> `Audit`
+- `out_determined_by_construction` -> `Audit`, `Chain`
 - `outer_lipschitz_amplifies` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
 - `outer_rank_one` -> `apply`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `outward_rounding_safe` -> `subst`
@@ -9355,7 +9355,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weighted_avg_ge_min` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `weighted_avg_le_max` -> `ProbVec`
 - `weighted_cauchy_schwarz` -> `card_fin`
-- `weighted_compose` -> `Chain`, `W`, `apply`, `compose`, `induction`
+- `weighted_compose` -> `W`, `apply`, `compose`, `induction`
 - `weighted_hoeffding_lemma` -> `apply`
 - `weighted_minimizer_set_convex` -> `e2`
 - `weighted_optimal_is_pareto` -> `e2`

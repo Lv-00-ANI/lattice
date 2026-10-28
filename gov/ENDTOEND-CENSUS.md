@@ -15,45 +15,35 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5449 | 63.4% |
-| 1 | 1347 | 15.7% |
-| 2 | 612 | 7.1% |
-| 3 | 541 | 6.3% |
-| 4 | 449 | 5.2% |
-| 5 | 172 | 2.0% |
-| 6 | 26 | 0.3% |
+| 0 | 5410 | 62.9% |
+| 1 | 1369 | 15.9% |
+| 2 | 628 | 7.3% |
+| 3 | 545 | 6.3% |
+| 4 | 443 | 5.2% |
+| 5 | 185 | 2.2% |
+| 6 | 16 | 0.2% |
 | **合计** | **8596** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
-| 6 | `preserves_iterate` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `loop_preserves` (`Audit/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `no_redundant_entries_in_audit_table` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `chainAudit_length` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `every_judgement_carries_a_reason` (`Audit/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `primitiveNames_eq_abi` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `go_hypotheses_pushes_aux` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `go_hypotheses_pushes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `trivialProofTrace_passes` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `go_hypotheses_eq` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `evidenceCheck_accepts_unsatisfiable` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `evidenceCheck_unsound_exists` (`Lib/Chain/RealLv00Systems.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `preservation_multistep` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `type_soundness` (`Lib/Compiler/RealTypeSoundness.lean`) | Audit, Compose, Core, Domains, Runtime, root |
-| 6 | `soundness` (`Lib/Compiler/RealTypeSoundnessSTLC.lean`) | Audit, Compose, Core, Domains, Runtime, root |
+| 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bidir_steps` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `multistep_geometric_exists` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
-| 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
+| 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `post_train_preserves_holds` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `post_train_preserves_set` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `fullRegistry_wellFormed` (`Slots.lean`) | Audit, Compose, Core, Domains, Lib, Runtime |
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
@@ -88,6 +78,16 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `progress_of_rate` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `countdown_iterate` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `countdown_converges_in` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `no_uniform_bound` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `converges_within_is_tight` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_succ` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `iterate_shift` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `progress_on_wf` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `preserves_of_sat` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
+| 5 | `repair_then_reinject` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
+| 5 | `rate_then_repair` (`Domains/Geometry/ClauseComposition.lean`) | Compose, Core, Lib, Runtime, root |
+| 5 | `geometric_loop_fixed_point` (`Domains/Geometry/ClosedLoop.lean`) | Compose, Core, Lib, Runtime, root |
+| 5 | `geometric_loop_reaches_satisfied` (`Domains/Geometry/ClosedLoop.lean`) | Compose, Core, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
