@@ -672,6 +672,54 @@ theorem e2e_loss_at_L0L1 :
     ∃ s t : List Char, s ≠ t ∧ tokenize s = tokenize t :=
   tokenize_collision
 
+/-! ### ⑦⑧ 「不可互相归约」的**精确形式**
+
+上面的 ①–④ 是四条既存定理的打包，**没有任何一条断言两处损失之间的关系**——
+这正是审计指出的缺口：定理名说「不可互相归约」，而证明体里没有这一步。
+
+**「不可归约」落成两条可证的命题，一条说下沉、一条说上浮**：
+
+| | 命题 | 含义 |
+|:--|:--|:--|
+| **⑦ 下沉** | 存在 `s ≠ t` 使**整条流水线**给出**同一个**输出 | ①的损失**不可修复**：下游只看见 `tokenize` 的结果 |
+| **⑧ 上浮** | ②的见证对在 `encode` 下**仍然不同** | ②的损失**不是** L0 损失：它们在 L1 已可区分 |
+
+**两者合起来才排除「端到端就是某一环的损失」**：
+
+- 若只是 L0 的损失，⑦ 成立而 ⑧ 不成立——但 ⑧ 成立，所以不是；
+- 若只是 L2⇄L3 的损失，⑧ 成立而 ⑦ 不成立——但 ⑦ 成立，所以不是。
+
+⚠ **⑦ 不是 `rfl`**：内容是 `s ≠ t`（来自 `tokenize_collision`），
+而「下游给同一结果」要把流水线展开并说明它对 `tokenize` 的取值是函数。 -/
+
+/-- **整条流水线**：数据 → token → 符号 → 权重。返回类型由 `compileToLayer` 推断。 -/
+def pipeline (s : List Char) :=
+  (tokenize s).bind (fun ts => (decode (L1Bridge ts)).map compileToLayer)
+
+/-- ⭐⭐ **⑦ 下沉：L0 的损失不会被任何下游环节修复。**
+
+存在两个**不同的**数据串，它们在**整条流水线**上给出同一个输出。
+
+**为什么这是「不可归约」的一半**：下游只看见 `tokenize` 的结果，
+所以一旦两个串在那里重合，**任何**后续处理都无法把它们重新分开。 -/
+theorem l0_loss_survives_pipeline :
+    ∃ s t : List Char, s ≠ t ∧ pipeline s = pipeline t := by
+  obtain ⟨s, t, hne, htok⟩ := tokenize_collision
+  refine ⟨s, t, hne, ?_⟩
+  unfold pipeline
+  rw [htok]
+
+/-- ⭐⭐ **⑧ 上浮：L2⇄L3 的损失不是 L0 损失。**
+
+② 的见证对在 `encode` 下**仍然不同**——所以它们在 L1 已可区分，
+**不能**被解释成「L0 把两个东西合并了」。 -/
+theorem l2_loss_visible_at_L1 :
+    ∃ cs₁ cs₂ : ConstraintSet, cs₁ ≠ cs₂ ∧
+      (∀ x : List Int, (AllSatisfied cs₁ x ↔ AllSatisfied cs₂ x)) ∧
+      encode cs₁ ≠ encode cs₂ := by
+  obtain ⟨cs₁, cs₂, hne, _hcl, hsem⟩ := semantic_not_injective
+  exact ⟨cs₁, cs₂, hne, hsem, fun heq => hne (encode_injective heq)⟩
+
 /-- ⭐⭐ **主定理：两个层次上的损失不可互相解释**（⚠ **不是**"端到端核是严格复合"——
 ⭐ **那一步【未被证明】**，见本条末尾订正）。
 
@@ -719,8 +767,15 @@ theorem e2e_loss_compound :
     -- ③ ② 的见证在 L1⇄L2 上**无损**：`encode` 是截面，`decode_encode` 是其左逆
     (∀ cs : ConstraintSet, decode (encode cs) = some cs) ∧
     -- ④ ① 的见证在 L1⇄L2 上**被保留**（核不被符号层吸收）
-    (Function.Injective (encode : ConstraintSet → List SymToken)) :=
-  ⟨tokenize_collision, semantic_not_injective, decode_encode, encode_injective⟩
+    (Function.Injective (encode : ConstraintSet → List SymToken)) ∧
+    -- ⑤ ⭐ ①的下沉：L0 的损失不可被下游修复（整条流水线给出同一输出）
+    (∃ s t : List Char, s ≠ t ∧ pipeline s = pipeline t) ∧
+    -- ⑥ ⭐ ②的上浮：②的见证在 L1 仍可区分，所以它不是 L0 损失
+    (∃ cs₁ cs₂ : ConstraintSet, cs₁ ≠ cs₂ ∧
+        (∀ x : List Int, (AllSatisfied cs₁ x ↔ AllSatisfied cs₂ x)) ∧
+        encode cs₁ ≠ encode cs₂) :=
+  ⟨tokenize_collision, semantic_not_injective, decode_encode, encode_injective,
+   l0_loss_survives_pipeline, l2_loss_visible_at_L1⟩
 
 /-- ⭐⭐ **主定理的"严格性"读法（承重的一步）**：`encode` 是**单射**，
 ⟹ ⭐ **符号层【不能】把两个不同的约束集合并**。

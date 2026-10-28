@@ -1012,7 +1012,7 @@
 | `Lattice.Lib.Chain.RealCrossUniverseConsumer` | 9 | 1 |
 | `Lattice.Lib.Chain.RealDvdLatticeStratification` | 26 | 0 |
 | `Lattice.Lib.Chain.RealE2EComposite` | 11 | 3 |
-| `Lattice.Lib.Chain.RealEndToEnd` | 25 | 3 |
+| `Lattice.Lib.Chain.RealEndToEnd` | 27 | 4 |
 | `Lattice.Lib.Chain.RealEndToEndNontrivial` | 25 | 1 |
 | `Lattice.Lib.Chain.RealEndToEndStrict` | 13 | 6 |
 | `Lattice.Lib.Chain.RealEqualityCharacterization` | 7 | 0 |
@@ -2098,7 +2098,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `allSame_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `parallel`, `seg`
 - `allSame_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `seg`
 - `allSame_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `parallel`, `seg`
-- `allSatisfied_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `decode`, `encode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `allSatisfied_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `decode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `allZeroOutputs_append` -> `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
 - `all_contains_of_subset` -> `append_assoc`, `contains`, `induction`, `step`, `subst`
 - `all_coord_constraints_after_one_step` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
@@ -5530,6 +5530,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l0_eq_zero_iff` -> `apply`
 - `l0_le_l1_false_counterexample` -> `apply`
 - `l0_le_l1_of_one_le` -> `apply`
+- `l0_loss_survives_pipeline` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `tokenize`, `tokenize_collision`
 - `l0_two_spike_eq_two` -> `l0Norm`, `l1Norm`, `sqNorm`, `subst`, `trans`
 - `l0l1_foldBlanks_single_char` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l0l1_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `listGcdNat`, `no_left_inverse_at_all`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
@@ -5546,6 +5547,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l1l2_identifiable_norm_collapses` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_is_real_tokenizer` -> `Pt`, `cSamePoint`, `encode`
 - `l1l2_only_one_direction` -> `ConstraintSet`, `SymToken`, `decode`, `no_left_inverse_at_all`
+- `l2_loss_visible_at_L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `tokenize`, `tokenize_collision`
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `listGcdNat`, `no_left_inverse_at_all`
 - `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `ladder_compose_roundtrip` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
@@ -8144,7 +8146,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `semantic_fiber_has_two_points` -> `LinearLayer`, `apply`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `semantic_layer_not_injective` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_preserves_semantics`, `scaleVec`, `trans`
 - `semantic_loss_is_not_structural` -> `AllSatisfied`, `ConstraintSet`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `semantic_not_injective`, `tokenize`
-- `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `GeoConstraint`, `Holds`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Pt`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extract`, `extractVec`, `fiber`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`, `translate`
+- `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `GeoConstraint`, `Holds`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Pt`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `encode_injective`, `extract`, `extractVec`, `fiber`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`, `translate`
 - `sep_absent_gives_zero_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `toSegs`, `tokenize`
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `dec`, `enc`, `pieceOf`
