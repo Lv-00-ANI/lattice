@@ -192,11 +192,18 @@ def compileSingleItemSound : Slot :=
       "re-proving; what remains for the scheme is structural: `inputP`/`inputW` are still " ++
       "FIELDS of `Compiler`, so the abstraction cannot be stated once for all backends " ++
       "without a refactor that touches every existing instance. -- " ++
-      "**CLOSED** (branch `arch/compiler-type-params`): the refactor WAS done. " ++
+      "**CLOSED -- STRUCTURALLY ONLY** (branch `arch/compiler-type-params`): the refactor WAS done. " ++
       "`inputP`/`inputW` are now type parameters, `Lattice.Lift.CompilerScheme.Backend` " ++
       "is the concept of a backend, and `scheme_covers_all` states that every compiler " ++
-      "realises as one -- the single scheme the note asked for. `every_backend_sound` " ++
-      "then gives `sound` for ANY backend in one statement."
+      "realises as one -- the single scheme the note asked for. " ++
+      "== Round 10: this note used to end at \"one statement\", which read as \"sound is now " ++
+      "proved\". IT IS NOT. == " ++
+      "`scheme_covers_all` is the triple `<rfl, rfl, rfl>` -- field self-equalities of " ++
+      "`realise`. `every_backend_sound` is the `Compiler.sound` FIELD projected: it yields " ++
+      "`sound` for any backend **whose `sound` is supplied**, not for free. " ++
+      "**So this slot records a STRUCTURAL closure (one scheme for all backends) and " ++
+      "proves NO semantic soundness.** That obligation stays per-instance, as in " ++
+      "`Lattice.Geo.Compile.geoCompiler.sound`, which is a real proof (`unfold loss; rw [hx]; ring`)."
     status := .discharged "Lattice.Lift.CompilerScheme.scheme_covers_all" }
 
 /-- The obligation that a penalty's local minimisers are exactly its satisfying points.
