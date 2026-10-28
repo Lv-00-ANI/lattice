@@ -145,12 +145,27 @@ theorem abs_resid_le_of_loss_le_sq {P X : Type} [TopologicalSpace X]
   rw [E.loss_eq_sq] at h
   exact abs_le_of_sq_le hε h
 
-/-- **`EpsSat` 与 `ResidualEmbedding` 的连接**：同一事实的谓词形式。 -/
-theorem epsSat_of_loss_le_sq {P X : Type} [TopologicalSpace X]
-    (E : ResidualEmbedding P X) {ε : ℝ} (hε : 0 ≤ ε) (p : P) {x : X}
-    (h : E.loss p x ≤ ε ^ 2) : |E.resid p x| ≤ ε :=
-  abs_resid_le_of_loss_le_sq E hε p h
+/-- ⭐⭐ **`EpsSat` 与损失层的连接**——**这才是名字说的那条桥**。
 
+⚠ **第 6 轮修正。** 原来这条的结论是 `|E.resid p x| ≤ ε`，与 `abs_resid_le_of_loss_le_sq`
+**逐字相同**，也就是说它是一条**别名**：名字说「`EpsSat` 的连接」，而 `EpsSat` **根本没出现**。
+（`PROOF-DEBT` 的 `register` 条目正是这么判的：doc 声称的范围没有兑现。）
+
+现在结论是 `EpsSat E p (ε ^ 2) x`，即 `|E.loss p x| ≤ ε ^ 2`。
+
+⭐⭐ **并且 `0 ≤ ε` 不再需要**：右端是 `ε ^ 2`，**自动非负**。
+所以谓词形式**比残差形式更强**——残差形式必须带 `0 ≤ ε`
+（`Audit.eps_needs_nonneg` 给出 `r = 0, ε = -1` 的反例），**桥不需要**。
+
+证明只需下界：`loss = resid ^ 2 ≥ 0 ≥ -ε ^ 2`。 -/
+theorem epsSat_of_loss_le_sq {P X : Type} [TopologicalSpace X]
+    (E : ResidualEmbedding P X) (p : P) {x : X} {ε : ℝ}
+    (h : E.loss p x ≤ ε ^ 2) : EpsSat E.toPenaltyEmbedding p (ε ^ 2) x := by
+  unfold EpsSat
+  rw [abs_le]
+  refine ⟨?_, h⟩
+  have hsq : E.loss p x = E.resid p x ^ 2 := E.loss_eq_sq p x
+  nlinarith [sq_nonneg (E.resid p x), sq_nonneg ε]
 /-! ## 四、`ε = 0` 的退化 -/
 
 /-- **`ε = 0` 时 `EpsSat` 就是「零损失」。**

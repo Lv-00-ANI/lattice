@@ -25,7 +25,7 @@
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 0 **← 死代码** | 0 | — |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
-| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 3 | `Runtime/ApproximationBridge.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 5 | `Runtime/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | `Domains/Geometry/GeoSampledBound.lean` | 2 | 0 | `Domains/Geometry/ClauseComposition.lean`, `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistFix` | `Domains/Geometry/RepairCoverage.lean` | 1 | 3 | `Domains/Geometry/EqualLengthRepair.lean` |
 | 3.3 inverse: repair | `parallelFix` | `Domains/Geometry/ParallelRepair.lean` | 0 *(仅本文件)* | 12 | — |

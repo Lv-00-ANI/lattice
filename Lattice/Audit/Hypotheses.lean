@@ -143,7 +143,7 @@ def chainAudit : List (String × HypStatus) :=
       "l2l3_sound is exactly satSym -> satW, so the hypothesis is its antecedent"),
     ("abs_le_of_sq_le : 0 <= eps", .loadBearing
       "machine-checked counterexample: sq_le_needs_nonneg (r = 0, eps = -1)"),
-    ("epsSat_of_loss_le_sq : 0 <= eps", .loadBearing
+    ("abs_resid_le_of_loss_le_sq : 0 <= eps", .loadBearing
       "machine-checked counterexample: eps_needs_nonneg"),
     ("sampled bound : delta", .loadBearing
       "machine-checked: delta_is_input shows delta changes the bound") ]
