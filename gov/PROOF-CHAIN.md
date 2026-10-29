@@ -1676,7 +1676,7 @@
 | `Lattice.Runtime.L1L2` | 6 | 9 |
 | `Lattice.Runtime.L1L2Roundtrip` | 10 | 0 |
 | `Lattice.Runtime.LayerComposition` | 6 | 2 |
-| `Lattice.Runtime.LayerNormSemantics` | 2 | 0 |
+| `Lattice.Runtime.LayerNormSemantics` | 5 | 0 |
 | `Lattice.Runtime.LayerQuantization` | 5 | 5 |
 | `Lattice.Runtime.LayerQuantizationBits` | 4 | 4 |
 | `Lattice.Runtime.LossyRepresentation` | 2 | 3 |
@@ -2200,6 +2200,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_layernorm_mean_zero` -> `Instr`, `applyInstr`, `mean`
+- `applyInstr_layernorm_sq_sum` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_softmax_denom_pos` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_softmax_lipschitz` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`
 - `applyInstr_softmax_nonneg` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`
@@ -8880,6 +8881,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_mgf_le` -> `apply`, `comp`, `const_add`, `convert`, `markov_counting`, `subst`, `uniformExpectation`, `uniformProb`
 - `sum_mulVec_range` -> `induction`, `insert`, `mulVec`, `selProd`, `selProd_concat`, `selProd_eq_from`, `selProd_succ`, `selState`, `selState_explicit`, `zero`
 - `sum_nonneg_zero_iff_all` -> `out`
+- `sum_normalised_sq` -> `Instr`, `applyInstr`, `mean`
 - `sum_obsXZ_eq_pZobs` -> `apply`, `obs`
 - `sum_orthogonal_kill` -> `BatchEdit2`, `BatchEditN`, `E`, `ROME`, `ROME_writes_fact`, `W`, `apply`, `key_norm_sq_ne_zero`
 - `sum_partition` -> `apply`
@@ -9426,6 +9428,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `varOf_varNormalize_eq_one` -> `apply`, `gnorm`, `gnorm_scale_invariant`, `induction`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`, `zero`
 - `varOf_varNormalize_eq_one_via_rmsNorm` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `mean`, `normalize`, `rmsNorm`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `varOf_varNormalize_le_one` -> `gnorm`, `gnorm_scale_invariant`, `induction`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`, `zero`
+- `var_nonneg` -> `Instr`, `applyInstr`, `mean`
 - `var_normal_form` -> `induction`, `step`
 - `variance_eq_quotient` -> `apply`, `comp`, `gibbsDist`, `gibbsPartition`, `gibbsPartition_pos`
 - `variance_le_one_of_poincare` -> `W`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
