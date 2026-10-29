@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 207 | aggregator at `Lattice/`, re-exports only |
+| root | 208 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -649,9 +649,10 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.Serialization`
+- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` 
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
+- `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
@@ -1493,6 +1494,7 @@
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
 | `Lattice.CInterface.Conformance` | 7 | 18 |
+| `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
@@ -2397,6 +2399,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bfgs_form_psd` -> `mulVec`
 - `bfgs_paraboloid` -> `mulVec`
 - `bfgs_secant` -> `mulVec`
+- `biasOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bias_compose` -> `W`, `apply`, `compose`, `induction`
 - `bias_variance_decomposition` -> `E`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
@@ -2522,6 +2525,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bvmul_comm` -> `children`, `length`, `point`, `satisfiable`, `splitOn`
 - `bvmul_valid` -> `apply`, `children`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
 - `bvule_trans` -> `apply`, `children`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
+- `bytesPerWord_16bit_agree` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `bytesPerWord_bf16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `bytesPerWord_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `bytesPerWord_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `cDistEq_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`
 - `cEx_actAllZero_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
 - `cEx_not_allSatisfied_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
@@ -4060,6 +4067,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
 - `encode_is_section_of_decodeTotal` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode_encode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `encode_no_sep_roundtrip_fails` -> `ConstraintSet`, `flatten`, `length`
+- `encoded_layer_size` -> `AffineLayer`, `FloatFormat`, `enc`, `layerWords`, `length`
 - `encoder_decoder_block_bound` -> `E`, `block_lipschitz_bound`, `dec`, `enc`, `lipschitz_add`, `lipschitz_comp`
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `enc`, `lipschitz_comp`
 - `encoders_differ` -> `AffineLayer`, `W`, `layerOfList`
@@ -5612,7 +5620,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lagrangian_concave_in_lam` -> `e2`, `le_antisymm`, `le_trans`
 - `lagrangian_feasible_le` -> `e2`, `le_antisymm`, `le_trans`
 - `lagrangian_lower_bound` -> `e2`, `le_antisymm`, `le_trans`
+- `lastBias_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `layerWords`, `layerWords_length`, `length`, `size`
+- `lastWord_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
+- `layerBytes_eq` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `layerBytes_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `layerBytes_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `layerContentOk_layerAB` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerBA` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
@@ -9463,6 +9476,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `wlEq_zero` -> `E`, `induction`, `trans`, `zero`
 - `wlEq_zero_iff_gnnFeat_eq` -> `E`
 - `wlEq_zero_of_gnnFeat_eq` -> `E`
+- `wordOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `wordOffset_lt_biasOffset` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `wordsLayer_layerWords` -> `AffineLayer`, `W`
 - `worklist_terminates` -> `apply`, `card_fin`
 - `wpT_embed` -> `Compiler`, `State`, `Stmt`, `apply`, `exec`, `wp`
