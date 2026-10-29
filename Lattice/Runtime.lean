@@ -7,6 +7,7 @@ import Lattice.Runtime.ChainComposition
 import Lattice.Runtime.ComboN
 import Lattice.Runtime.CompilerScheme
 import Lattice.Runtime.ConstraintEmbeddingSoundness
+import Lattice.Runtime.ConstraintRepresentation
 import Lattice.Runtime.ConstraintToLoss
 import Lattice.Runtime.ConvertLinear
 import Lattice.Runtime.ConvertVectorLinear
