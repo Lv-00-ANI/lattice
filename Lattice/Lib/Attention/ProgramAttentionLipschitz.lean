@@ -64,4 +64,39 @@ theorem applyInstr_attention_lipschitz {n : ℕ} (hn : 0 < n) (W V : Fin n → F
         (Finset.mem_univ j)) hδ
   exact weighted_average_lipschitz _ _ _ hp0 hp1 hrow
 
+/-! ## 第二半：对**打分矩阵 `W`** 的 Lipschitz 界
+
+上一节fix住 `W`、让 `x` 动。**这一节反过来**：`x` 不动，`W` 动。
+
+`W` 只影响 softmax 权重 `p j = exp (W i j) / ∑ k, exp (W i k)`，所以
+
+    attention W V x i − attention W' V x i = ∑ j, (p j − p' j) · (V x) j
+
+**而 `|p j − p' j| ≤ 2ε·exp(2ε)`** 由 `SoftmaxLipschitzBound.softmax_lipschitz` 直接给出——
+**`p` 就是 `Lattice.softmax (W i)`，所以那条定理不加修改地适用。**
+
+⇒ 剩下的只是 `weighted_average_weights_lipschitz`：**权重扰动、值不动**。
+
+⚠ **这半的常数比 `x` 那半粗糙**：它是 `(2ε·exp(2ε)) · ∑ j, |(V x) j|`，
+**对 `j` 求和而非取最大**。紧的会是 `· max_j |(V x) j|`，**但那要 `Finset.sup`。**
+`W` 那半的常数还乘上了 softmax 自己的 Lipschitz 常数——**而 `x` 那半不需要它，因为权重不随 `x` 动。** -/
+
+/-- ⭐⭐ **`attention` 对打分矩阵 `W` 的 Lipschitz 界**。
+
+若 `∀ j, |W i j − W' i j| ≤ ε`（只扰动第 `i` 行，因为只有那一行决定查询 `i` 的权重），
+则输出的变化不超过 `(2ε·exp(2ε)) · ∑ j, |(V x) j|`。 -/
+theorem applyInstr_attention_lipschitz_W {n : ℕ} (hn : 0 < n)
+    (W W' V : Fin n → Fin n → ℝ) (x : Fin n → ℝ) (ε : ℝ) (hε : 0 ≤ ε)
+    (i : Fin n) (h : ∀ j : Fin n, |W i j - W' i j| ≤ ε) :
+    |Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i
+        - Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i|
+      ≤ (2 * ε * Real.exp (2 * ε)) * ∑ j, |∑ k, V j k * x k| := by
+  haveI := finNonempty hn
+  -- the two weight vectors are `softmax (W i)` and `softmax (W' i)`
+  have hM : ∀ j : Fin n,
+      |Real.exp (W i j) / ∑ k, Real.exp (W i k)
+        - Real.exp (W' i j) / ∑ k, Real.exp (W' i k)| ≤ 2 * ε * Real.exp (2 * ε) :=
+    fun j => Lattice.Lib.Attention.softmax_lipschitz (W i) (W' i) ε hε h j
+  exact weighted_average_weights_lipschitz _ _ _ hM
+
 end Lattice.Lib.Attention

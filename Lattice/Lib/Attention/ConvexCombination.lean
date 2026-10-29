@@ -75,4 +75,26 @@ theorem weighted_average_lipschitz {ι : Type*} [Fintype ι] [Nonempty ι]
     _ = (∑ j, p j) * M := by rw [Finset.sum_mul]
     _ = M := by rw [hp1, one_mul]
 
+/-- ⭐⭐ **权重被扰动时加权平均的变化**——上一引理的对偶。
+
+上一轮 `weighted_average_lipschitz` 谈的是「**值**变了、权重不变」；
+这一条谈「**权重**变了、值不变」。**两者合起来才是加权平均在两个自变量上的完整稳定性。**
+
+界是 `M * ∑ j, |w j|`——**对 `j` 求和而不是取最大**。技术上更松（真紧的是 `M * max_j |w j|`），
+**但它避免引入 `Finset.sup`**，而一条能用的界比一条要额外机器才能陈述的紧界更有价值。 -/
+theorem weighted_average_weights_lipschitz {ι : Type*} [Fintype ι] [Nonempty ι]
+    (p p' w : ι → ℝ) {M : ℝ} (hM : ∀ j, |p j - p' j| ≤ M) :
+    |∑ j, p j * w j - ∑ j, p' j * w j| ≤ M * ∑ j, |w j| := by
+  have hkey : ∑ j, p j * w j - ∑ j, p' j * w j = ∑ j, (p j - p' j) * w j := by
+    rw [← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun j _ => by ring)
+  rw [hkey]
+  calc |∑ j, (p j - p' j) * w j|
+      ≤ ∑ j, |(p j - p' j) * w j| := Finset.abs_sum_le_sum_abs _ _
+    _ = ∑ j, |p j - p' j| * |w j| :=
+        Finset.sum_congr rfl (fun j _ => by rw [abs_mul])
+    _ ≤ ∑ j, M * |w j| :=
+        Finset.sum_le_sum (fun j _ => mul_le_mul_of_nonneg_right (hM j) (abs_nonneg _))
+    _ = M * ∑ j, |w j| := by rw [Finset.mul_sum]
+
 end Lattice.Lib.Attention
