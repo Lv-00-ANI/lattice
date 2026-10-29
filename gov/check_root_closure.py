@@ -36,15 +36,14 @@ ENTRY = os.path.join(ROOT, "Lattice.lean")
 
 
 def layers():
-    """`[name]` for every `Lattice/<Name>.lean` that has a matching directory."""
-    out = []
-    for f in sorted(os.listdir(LAT)):
-        if not f.endswith(".lean"):
-            continue
-        name = f[:-5]
-        if os.path.isdir(os.path.join(LAT, name)):
-            out.append(name)
-    return out
+    """`[name]` for every top-level `Lattice/<Name>.lean`.
+
+    Round 44 corrected this: a layer is the **file**, not the directory. `Slots` is a single-file layer whose
+    directory (`Lattice/Slots/`) was empty and untracked and has been removed -- and while it existed, a
+    file-enumerating scan silently skipped the whole layer. Requiring a directory made the gate call a
+    legitimate import "EXTRA" once the directory was gone, which is the same confusion in the other direction.
+    """
+    return [f[:-5] for f in sorted(os.listdir(LAT)) if f.endswith(".lean")]
 
 
 def imported():
@@ -100,7 +99,7 @@ def main(argv):
         print("   MISSING  Lattice.%s  -- the layer exists on disk but `lake build Lattice` never reaches it"
               % m)
     for e in extra:
-        print("   EXTRA    Lattice.%s  -- imported by the root but there is no `Lattice/%s/` directory"
+        print("   EXTRA    Lattice.%s  -- imported by the root but there is no `Lattice/%s.lean`"
               % (e, e))
 
     if missing or extra:

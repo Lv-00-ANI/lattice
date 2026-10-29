@@ -239,6 +239,11 @@ CHECKS = [
     # rounds because the file was unreachable. I7 checks that oleans EXIST; it cannot see reachability.
     ("meta: root closure (every layer reachable)", "check_root_closure.py"),
     ("meta: root closure self-test", "check_root_closure.py --self-test"),
+    # Round 44. The same question one level down. It also reports EMPTY layer directories:
+    # `Lattice/Slots/` was empty, so a file-enumerating scan skipped that whole layer and reported
+    # zero unreachable modules for a tree it had not fully examined.
+    ("meta: layer reachability", "check_layer_reachability.py"),
+    ("meta: layer reachability self-test", "check_layer_reachability.py --self-test"),
     ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
     # Round 197. A hypothesis that is PROVABLE OUTRIGHT makes the theorem weaker than its statement
     # suggests. `compileProg_correct`'s `(h : stackDepth e ≤ 1)` was exactly that: it was passed to
