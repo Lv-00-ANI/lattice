@@ -1707,6 +1707,7 @@ Runtime/LayerComposition.lean	constraint_satisfaction_propagates
 Runtime/LayerComposition.lean	layerSeq_three
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_mean_zero
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum
+Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum_mono
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
 Runtime/LossyRepresentation.lean	ofRepresentation_roundtrip
 Runtime/LossyRepresentation.lean	lossy_weaker

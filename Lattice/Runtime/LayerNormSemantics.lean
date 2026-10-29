@@ -175,4 +175,55 @@ theorem applyInstr_layernorm_sq_sum {n : ℕ} (hn : 0 < n) (x : Fin n → ℝ) (
     _ = (var * (n : ℝ)) / (var + ε) :=
         sum_normalised_sq (fun j => x j - mean) var ε hv hε hvar'
 
+/-! ## 第三半：`ε` 越大，方差越小——把「`var/(var+ε)` 与 1 的关系」变成定理
+
+上一节证明了输出方差是 `var/(var+ε)`，而不是 1。**那留下一个定性问题**：
+`ε` 到底把它推向哪边？
+
+**答案是：推向 0。** 因为 `var/(var+ε)` 关于 `ε` 单调递减（`var ≥ 0` 时），
+而 `ε = 0` 时它恰好是 `var/var`——**在 `var > 0` 时等于 1**（那时分母非零）。
+
+⚠ **`var = 0` 时 `var/var = 0/0 = 0`，不是 1。** 所以「`ε = 0` 给 1」需要 `var ≠ 0`，
+**而那正是退化情形（所有输入相等）**——**那时归一化本来就没有意义。** 这个前提必须写在定理里，
+不能靠读者补。 -/
+
+/-- ⭐ **`ε` 单调：`ε` 越大，归一化后的平方和越小。**
+
+`0 ≤ v` 时 `v/(v+ε)` 关于 `ε` 单调递减。**这条把「`ε` 是稳定项，代价是方差被压小」写成可检查的事实。**
+
+**证明只用 `div_le_div` 类的算术**：`v/(v+ε₂) ≤ v/(v+ε₁)` 当 `ε₁ ≤ ε₂`、`v ≥ 0`、两个分母都正。 -/
+theorem normalised_sq_mono {n : ℕ} (y : Fin n → ℝ) (v : ℝ) (hv : 0 ≤ v)
+    {ε₁ ε₂ : ℝ} (hε₁ : 0 < ε₁) (hle : ε₁ ≤ ε₂) :
+    (v * (n : ℝ)) / (v + ε₂) ≤ (v * (n : ℝ)) / (v + ε₁) := by
+  have hε₂ : 0 < ε₂ := lt_of_lt_of_le hε₁ hle
+  have hd₁ : 0 < v + ε₁ := by linarith
+  have hd₂ : 0 < v + ε₂ := by linarith
+  have hden : v + ε₁ ≤ v + ε₂ := by linarith
+  have hnum : 0 ≤ v * (n : ℝ) := mul_nonneg hv (Nat.cast_nonneg n)
+  exact div_le_div_of_nonneg_left hnum hd₁ hden
+
+/-- ⭐⭐ **输出平方和的单调性**：把上一条搬到 `layernorm` 上。
+
+`ε` 从 `ε₁` 增到 `ε₂`，输出的平方和不增——**也就是「稳定项压小方差」的准确含义。** -/
+theorem applyInstr_layernorm_sq_sum_mono {n : ℕ} (hn : 0 < n) (x : Fin n → ℝ)
+    {ε₁ ε₂ : ℝ} (hε₁ : 0 < ε₁) (hle : ε₁ ≤ ε₂) :
+    let mean : ℝ := (∑ i, x i) / (n : ℝ)
+    let var : ℝ := (∑ i, (x i - mean) ^ 2) / (n : ℝ)
+    ∑ j, (applyInstr x (Instr.layernorm ε₂ : Instr n) j) ^ 2
+      ≤ ∑ j, (applyInstr x (Instr.layernorm ε₁ : Instr n) j) ^ 2 := by
+  set mean : ℝ := (∑ i, x i) / (n : ℝ) with hmean
+  set var : ℝ := (∑ i, (x i - mean) ^ 2) / (n : ℝ) with hvar
+  have hn' : (n : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.pos_iff_ne_zero.mp hn)
+  have hvar' : var * (n : ℝ) = ∑ j, (x j - mean) ^ 2 := by
+    rw [hvar]; field_simp
+  have hv : 0 ≤ var := by
+    rw [hvar]
+    exact div_nonneg (Finset.sum_nonneg (fun i _ => sq_nonneg _)) (Nat.cast_nonneg n)
+  have hε₂ : 0 < ε₂ := lt_of_lt_of_le hε₁ hle
+  -- both sides are already in normalised form
+  rw [applyInstr_layernorm_sq_sum hn x ε₂ hε₂,
+      applyInstr_layernorm_sq_sum hn x ε₁ hε₁]
+  exact normalised_sq_mono (fun j => x j - mean) var hv hε₁ hle
+
 end Lattice.Lift.ProgramAST
