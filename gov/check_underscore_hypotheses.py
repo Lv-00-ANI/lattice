@@ -115,6 +115,35 @@ def scan(root=None):
     return found
 
 
+def load_reasons():
+    """`(file, theorem) -> reason class`, and the set of entries that carry NO reason.
+
+    Round 30, L4-8. The checker's docstring has always said an entry "goes in the baseline **with a
+    reason**", and the baseline never had one -- so "each has a reason" was a claim, not a field. The fifth
+    column is now required, and an entry without it is a failure rather than a default.
+    """
+    if not os.path.exists(BASELINE):
+        return {}, []
+    sys.path.insert(0, HERE)
+    try:
+        from _debt_path_map import PATH_MAP
+    except ImportError:
+        PATH_MAP = {}
+    reasons, no_reason = {}, []
+    for ln in io.open(BASELINE, encoding="utf-8"):
+        ln = ln.rstrip("\n")
+        if not ln or ln.startswith("#"):
+            continue
+        p = ln.split("\t")
+        if len(p) >= 2:
+            k = (PATH_MAP.get(p[0].strip(), p[0].strip()), p[1].strip())
+            if len(p) >= 5 and p[4].strip():
+                reasons[k] = p[4].strip()
+            else:
+                no_reason.append(k)
+    return reasons, no_reason
+
+
 def load_baseline():
     if not os.path.exists(BASELINE):
         return set()
@@ -174,7 +203,35 @@ def main(argv):
             for f in failures:
                 print("SELF-TEST FAILED: %s" % f)
             return 2
-        print("SELF-TEST: `_h` caught, bare `_` ignored, plain binder ignored, implicit caught")
+        # Round 30, L4-8: the reason column must be able to FAIL. A checker whose new requirement can only
+        # pass is the defect it is meant to catch -- so write a baseline line with four columns (no reason)
+        # into a temporary file and confirm `load_reasons` reports it.
+        import tempfile, os as _os
+        global BASELINE
+        saved = BASELINE
+        try:
+            fd, tmp = tempfile.mkstemp(suffix=".txt")
+            _os.close(fd)
+            io.open(tmp, "w", encoding="utf-8", newline="\n").write(
+                "Some/File.lean\tsome_theorem\t_h\tunused\n"          # no reason -> must be reported
+                "Other/File.lean\tother_theorem\t_h\tunused\tA-numeric-bound\n")
+            BASELINE = tmp
+            reasons, no_reason = load_reasons()
+            if len(no_reason) != 1 or no_reason[0][1] != "some_theorem":
+                print("SELF-TEST FAILED: an entry with no reason was not reported")
+                return 2
+            if reasons.get(("Other/File.lean", "other_theorem")) != "A-numeric-bound":
+                print("SELF-TEST FAILED: a stated reason was not read back")
+                return 2
+        finally:
+            BASELINE = saved
+            try:
+                _os.unlink(tmp)
+            except OSError:
+                pass
+
+        print("SELF-TEST: `_h` caught, bare `_` ignored, plain binder ignored, implicit caught,"
+              " missing reason reported")
         return 0
 
     found = scan()
@@ -199,6 +256,26 @@ def main(argv):
     print("UNDERSCORE HYPOTHESES: %d total -- %d prefixed-but-used (rename), %d genuinely unused"
           % (len(found), n_used, len(found) - n_used))
     print("  baselined %d, new %d, stale %d" % (len(found) - len(new), len(new), len(gone)))
+    reasons, no_reason = load_reasons()
+    if no_reason:
+        print()
+        print("UNDERSCORE HYPOTHESES: %d baseline entry(ies) carry NO reason -- add the fifth column"
+              % len(no_reason))
+        for rel, name in no_reason[:10]:
+            print("   %s :: %s" % (rel, name))
+        return 1
+
+    # The reasons are only worth having if the ones that are still open are visible. `E-other` means
+    # "reason not yet established", and it must not hide inside a total.
+    from collections import Counter
+    dist = Counter(reasons[(rel, name)] for rel, _, name, _, _ in found if (rel, name) in reasons)
+    print()
+    print("  reasons: " + ", ".join("%s %d" % (k, dist[k]) for k in sorted(dist)))
+    if dist.get("E-other"):
+        print("  ⚠ %d entr(ies) still say `E-other` -- the reason is NOT YET ESTABLISHED for those,"
+              % dist["E-other"])
+        print("    and this line is the honest count of what L4-8 has left")
+
     if new or gone:
         return 1
     return 0
