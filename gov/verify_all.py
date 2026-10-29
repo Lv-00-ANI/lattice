@@ -234,6 +234,11 @@ CHECKS = [
     # This gate catches the two syntactically decidable shapes (reflexive conclusion, bare-hypothesis
     # proof) with a two-way baseline: a new one fails, and a baselined one that stops firing also
     # fails, so the ledger can only shrink. Semantic strength is audited separately -- see PROOF-DEBT.md.
+    # Round 43. Lattice/Compose.lean was on disk but NOT imported by Lattice.lean, so five rounds of
+    # Compose work were built only when named explicitly -- and a syntax error sat in that file for five
+    # rounds because the file was unreachable. I7 checks that oleans EXIST; it cannot see reachability.
+    ("meta: root closure (every layer reachable)", "check_root_closure.py"),
+    ("meta: root closure self-test", "check_root_closure.py --self-test"),
     ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
     # Round 197. A hypothesis that is PROVABLE OUTRIGHT makes the theorem weaker than its statement
     # suggests. `compileProg_correct`'s `(h : stackDepth e ≤ 1)` was exactly that: it was passed to
