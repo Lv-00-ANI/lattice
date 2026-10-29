@@ -170,7 +170,6 @@ Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 Domains/Constraints/Dist.lean	sqDist_eq_sqNorm
 Domains/Constraints/Dist.lean	sqDist_eq_sum
 Domains/Constraints/Dist.lean	sqDist_eq_zero_iff
-Domains/Constraints/Dist.lean	sqDist_lipschitz_on_bounded
 Domains/Constraints/Dist.lean	sqDist_nonneg
 Domains/Constraints/DistContinuous.lean	continuous_sqDist_right
 Domains/Constraints/DistLipschitz.lean	coordDiff_add_le

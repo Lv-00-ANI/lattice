@@ -29,7 +29,7 @@
 | `Lattice.Domains.Derivative` | 94 | 3 | Pipeline |
 | `Lattice.Domains.Derive` | 71 | 2 | Engine |
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
-| `Lattice.Domains.Dist` | 183 | 10 | Expr |
+| `Lattice.Domains.Dist` | 135 | 9 | Expr |
 | `Lattice.Domains.DistContinuous` | 47 | 1 | Dist |
 | `Lattice.Domains.DistLipschitz` | 151 | 3 | Lipschitz, Dist |
 | `Lattice.Domains.Engine` | 290 | 14 | Constraint |

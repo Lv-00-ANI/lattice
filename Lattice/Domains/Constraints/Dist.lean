@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Domains.Constraints.Expr
 import Lattice.Lib.Linear.PenaltyVector
-import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 
 /-!
 # `Lattice.Geo.Dist` -- distances and the square layer
@@ -131,53 +130,6 @@ A specialisation of `sqDist_eq_of_dist_eq` that is the form constraints actually
 theorem sqDist_eq_of_dist_eq_same (p q r s : Pt n) (d : ℝ)
     (h₁ : dist p q = d) (h₂ : dist r s = d) : sqDist p q = sqDist r s :=
   sqDist_eq_of_dist_eq p q r s (h₁.trans h₂.symm)
-
-
-/-! ## `sqDist` 是**局部** Lipschitz 的，常数是 `4·B`
-
-`Lattice.Lib.Penalty.QuadraticNotLipschitz.sq_not_lipschitz` 证明平方函数没有全局常数；
-`QuadraticLocallyLipschitz.sum_sq_lipschitz_on_bounded` 证明在半径 `R` 的球上是 `2R`-Lipschitz。
-
-**本节把后者搬到 `sqDist` 上。** 因为 `sqDist p q = sqNorm (diff p q) = ∑ i, (p i − q i)²`，
-取 `f i := p i − q i`、`g i := p' i − q' i`，并注意
-`|p i − q i| ≤ |p i| + |q i| ≤ 2B`，于是 `R = 2B`，常数是 `2R = 4B`。
-
-⚠ **`p`、`q` 两侧都要有界**：距离的平方对**任一端**的移动都是二次敏感的，
-所以只界一侧不够。这是「两点同时动」比「一点动」多出来的假设。
--/
-
-/-- ⭐⭐ **`sqDist` 在半径 `B` 的球上是 Lipschitz 的**，常数 `4B`。
-
-四个点（两组 `(p, q)`）都逐分量被 `B` 界住时，`sqDist` 的差不超过
-`4B · ∑ i, |(p i − q i) − (p' i − q' i)|`。
-
-**这是 `sum_sq_lipschitz_on_bounded` 的直接实例**，而那条在 `Lib/Penalty/` 里是抽象的；
-**本定理是它在本库真实载体上的第一个消费者。** -/
-theorem sqDist_lipschitz_on_bounded {n : ℕ} {B : ℝ} (hB : 0 ≤ B)
-    (p q p' q' : Pt n)
-    (hp : ∀ i, |p i| ≤ B) (hq : ∀ i, |q i| ≤ B)
-    (hp' : ∀ i, |p' i| ≤ B) (hq' : ∀ i, |q' i| ≤ B) :
-    |sqDist p q - sqDist p' q'|
-      ≤ 4 * B * ∑ i, |(p i - q i) - (p' i - q' i)| := by
-  -- each difference component is bounded by `2B`
-  have hf : ∀ i : Fin n, |(fun j => p j - q j) i| ≤ 2 * B := by
-    intro i
-    have h1 : |p i - q i| ≤ |p i| + |q i| := by
-      have := abs_add (p i) (-(q i))
-      simpa only [sub_eq_add_neg, abs_neg] using this
-    linarith [hp i, hq i]
-  have hg : ∀ i : Fin n, |(fun j => p' j - q' j) i| ≤ 2 * B := by
-    intro i
-    have h1 : |p' i - q' i| ≤ |p' i| + |q' i| := by
-      have := abs_add (p' i) (-(q' i))
-      simpa only [sub_eq_add_neg, abs_neg] using this
-    linarith [hp' i, hq' i]
-  have hmain := Lattice.Lib.Penalty.sum_sq_lipschitz_on_bounded
-    (fun j => p j - q j) (fun j => p' j - q' j) (by linarith : (0:ℝ) ≤ 2 * B) hf hg
-  -- `2 * (2 * B)` is `4 * B`
-  have h4 : 2 * (2 * B) = 4 * B := by ring
-  rw [h4] at hmain
-  simpa only [sqDist, sqNorm, diff] using hmain
 
 
 end Lattice.Geo
