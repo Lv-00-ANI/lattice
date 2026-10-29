@@ -1609,7 +1609,7 @@
 | `Lattice.Evidence.MultiComposition` | 4 | 3 |
 | `Lattice.Evidence.ObligationIndependence` | 8 | 2 |
 | `Lattice.Evidence.PredicateWitnesses` | 5 | 0 |
-| `Lattice.Evidence.StructureCensus` | 4 | 3 |
+| `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Primitives` | 0 | 0 |
@@ -2645,7 +2645,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ce_sum_neg` -> `apply`, `softmax`
 - `cellEdit_delta_closed_form` -> `W`, `apply`
 - `cellEdit_depends_only` -> `W`, `apply`
-- `census_length` -> `Audit`, `Repair`, `length`
+- `census_env_agrees` -> `Audit`, `size`
+- `census_length` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `length`, `size`
 - `centerSq_add_const` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_nonneg` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_scale` -> `apply`
@@ -6529,7 +6530,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_upper_iff_no_split` -> `extent`
 - `no_weight_solution_of_input_zero` -> `W`, `residual`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
-- `no_zero_obligation_in_census_table` -> `Audit`
+- `no_zero_obligation_in_census_table` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `size`
 - `node_inj` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
 - `noiseMatrix_apply` -> `mulVec`
 - `noiseMatrix_mulVec_alpha` -> `mulVec`
@@ -7603,7 +7604,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_coverage_geometric` -> `Pt`, `sqDist`
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
 - `repair_iff_satisfiable` -> `Repair`, `Sat`
-- `repair_is_densest` -> `Audit`, `Repair`
+- `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `size`
 - `repair_of_satisfiable` -> `Repair`, `Sat`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `induction`, `iterate_succ`, `preserves`, `zero`
@@ -9057,7 +9058,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalLoss_eq_zero_iff_allSatisfied` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `compileToLayer`, `symbolToWeight_correct`, `trans`
 - `totalLoss_verify` -> `AllSatisfied`, `ConstraintSet`
 - `totalResidual_wStep` -> `W`
-- `total_obligations` -> `Audit`
+- `total_obligations` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `size`
 - `totient_one` -> `apply`, `children`, `le_trans`, `satisfiable`
 - `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`
 - `tpr_mono` -> `E`, `apply`, `le_trans`
