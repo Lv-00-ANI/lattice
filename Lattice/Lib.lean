@@ -18,6 +18,7 @@ import Lattice.Lib.Quantization
 import Lattice.Lib.FloatStackRefinement
 import Lattice.Lib.Architectures.RealTransformerEval
 import Lattice.Lib.Penalty.QuadraticNotLipschitz
+import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 /-!
 # Lattice.Lib -- harvested instances
 
