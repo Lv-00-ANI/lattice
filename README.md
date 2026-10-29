@@ -24,9 +24,9 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 851 | `audit_counts.py` |
-> | 定理 / 引理 | 8705 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 4 / 66 / 98 / 614 | `audit_counts.py` |
+> | Lean 模块 | 852 | `audit_counts.py` |
+> | 定理 / 引理 | 8710 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 18 / 0 / 4 / 66 / 98 / 615 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -122,7 +122,7 @@ lattice-new/
 │   ├── Domains/     98       # 领域实例：Constraints 28 + Geometry 71（原 Geo/ 的 99 个迁入后子划分）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
-│   ├── Lib/        614       # 应用库，按主题（建立在链路层之上）
+│   ├── Lib/        615       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26

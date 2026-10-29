@@ -725,6 +725,10 @@ Lib/Architectures/RealReLUStationarity.lean	P2a_relu_sq_summary
 Lib/Architectures/RealSiluQuant.lean	mul_split_quant
 Lib/Architectures/RealSiluSplit.lean	mul_split_limit_discrete
 Lib/Architectures/RealTransformerEval.lean	Model.eval_nil
+Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_softmax_nonneg
+Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_softmax_sum_one
+Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_softmax_pos
+Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_softmax_lipschitz
 Lib/Attention/RealALiBi.lean	alibi_dist_cast
 Lib/Attention/RealALiBi.lean	alibi_bias_monotone
 Lib/Attention/RealALiBi.lean	alibi_bias_lipschitz
