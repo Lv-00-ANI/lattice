@@ -125,6 +125,38 @@ theorem e2e_sound {s : List Char} {ts : List CharToken} {cs : ConstraintSet}
 
 ---
 
+## 3.6 第 54 轮：**撤回**第 53 轮对 `audit_counts` 的一次错误指控
+
+第 53 轮的提交信息里写了：
+
+> 一条位于该文件高处的定理**对计数器是隐形的**。（`audit_counts` 报总数不变 8,688，移到 L595 才 8,689。）
+
+⭐ **那句话是错的，本轮撤回。** 真相：
+
+`RealEndToEnd.lean` 的 L29–39 是 **docstring 里的一个 Markdown 围栏代码块**，里面**引用了**
+`extract_to_weights`（含 `:= symbolToWeight_correct cs x`）。第 53 轮用**字符串锚点**插入新定理，
+锚点命中**那段引文**，于是新定理**落在注释里**。
+
+- **构建通过**（注释文本不参与 elaborate）；
+- **`audit_counts` 正确地没有数它**——它的 `strip_comments` 就是为此而写，文件里写着
+  「a `theorem` mentioned inside a docstring is not a declaration」。
+
+**⇒ 计数器是对的，插入是错的。** 我把一次**自己的编辑事故**记成了**仪器的盲区**。
+
+**真正的缺口不是「计数器看不看得见」**（它看得见，而且看得对），**而是「我的文本有没有落在注释里」——
+没有任何东西报告这件事**。
+
+**新增 `gov/check_comment_shadow_declarations.py`（report-only）**，按落点分三类：
+代码里 **8,687**、注释里的围栏引用 **61**、注释里但不在围栏中 **17**（多为散文，如「theorem that」）。
+
+⚠ **注意 8,687 与官方 8,689 差 2**：本文件的注释边界处理比 `audit_counts` 简单。
+**权威是 `audit_counts`**；这条普查的用途是**按落点分类**，不是提供第二个计数口径。
+
+**纪律**（写下来，因为它是这次事故唯一可迁移的教训）：
+> **加了一条声明之后，声明计数必须变动。** 没动，先去看它是不是落进了注释。
+
+---
+
 ## 4. 失效路径：评估里的 `Geo/`、`Lift/` 引用
 
 三次搬迁（`Lift`→`Runtime`、`Geo`→`Domains`、`Audit`→`Evidence`）之后，评估里这些引用**在树里不存在**：

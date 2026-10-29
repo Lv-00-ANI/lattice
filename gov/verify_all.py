@@ -48,6 +48,9 @@ REPORT_ONLY = {
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
     "census: end-to-end by content",
     "gen: primitive matrix",
+    # Round 54. The census returns 0 by construction (a `theorem` in a comment is not a declaration,
+    # and saying so is not a failure). Registered as gating it would be a check that cannot fail.
+    "report: comment shadow declarations",
       "usage: skeleton main theorems",
 }
 
@@ -250,6 +253,13 @@ CHECKS = [
     # defect, because `lake` decides from content hashes.
     ("meta: olean presence (non-Reference)", "check_olean_presence.py"),
     ("meta: olean presence self-test", "check_olean_presence.py --self-test"),
+    # Round 54. A theorem-shaped line can land in a comment -- round 53 lost one to a fenced
+    # quote of `extract_to_weights` inside RealEndToEnd's docstring, and blamed the counter.
+    # The counter was right; nothing reported "your text is in a comment".
+    ("report: comment shadow declarations", "check_comment_shadow_declarations.py"),
+    # The self-test exercises `comment_spans` and `fenced`, the two functions that can be wrong.
+    # It failed once already (on a snippet whose prose was not at the start of a line), so it gates.
+    ("report: comment shadow self-test", "check_comment_shadow_declarations.py --self-test"),
     ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
     # Round 197. A hypothesis that is PROVABLE OUTRIGHT makes the theorem weaker than its statement
     # suggests. `compileProg_correct`'s `(h : stackDepth e ≤ 1)` was exactly that: it was passed to
