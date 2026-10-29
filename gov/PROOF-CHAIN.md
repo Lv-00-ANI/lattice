@@ -971,7 +971,7 @@
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.AttentionLipschitz` | 3 | 0 |
 | `Lattice.Lib.Attention.ConvexCombination` | 3 | 0 |
-| `Lattice.Lib.Attention.ProgramAttentionLipschitz` | 2 | 0 |
+| `Lattice.Lib.Attention.ProgramAttentionLipschitz` | 5 | 0 |
 | `Lattice.Lib.Attention.ProgramSoftmaxBridge` | 9 | 1 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
@@ -2205,7 +2205,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_attention_between` -> `Instr`, `W`, `applyInstr`, `convex_combination_between`, `le`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`, `weighted_average_weights_lipschitz`
-- `applyInstr_attention_lipschitz_W` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `softmax_lipschitz`, `weighted_average_weights_lipschitz`
+- `applyInstr_attention_lipschitz_W` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `le_trans`, `softmax_lipschitz`, `weighted_average_weights_lipschitz`
+- `applyInstr_attention_lipschitz_joint` -> `Instr`, `W`, `applyInstr`, `le_trans`
+- `applyInstr_attention_lipschitz_joint_bounded` -> `Instr`, `W`, `applyInstr`, `le_trans`
 - `applyInstr_layernorm_mean_zero` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_layernorm_sq_sum` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_layernorm_sq_sum_mono` -> `Instr`, `applyInstr`, `mean`
@@ -8869,6 +8871,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sumRelu_eq_zero_iff_each` -> `induction`, `relu`
 - `sumRelu_nonneg` -> `induction`, `relu`
 - `sumRelu_pos_of_unsatisfied` -> `induction`, `relu`
+- `sum_abs_rowDot_le` -> `Instr`, `W`, `applyInstr`, `le_trans`
 - `sum_bool_binInd_eq_one` -> `obs`
 - `sum_bool_binInd_mul` -> `obs`
 - `sum_bool_doInd_eq_one` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`

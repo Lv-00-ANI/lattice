@@ -99,4 +99,102 @@ theorem applyInstr_attention_lipschitz_W {n : ℕ} (hn : 0 < n)
     fun j => Lattice.Lib.Attention.softmax_lipschitz (W i) (W' i) ε hε h j
   exact weighted_average_weights_lipschitz _ _ _ hM
 
+/-! ## 两半的合成：`x` 与 `W` **同时**扰动
+
+前两节各自固定一个自变量。**这一节让两者同时动**，用三角不等式把两个界加起来：
+
+    attention W V x i − attention W' V x' i
+      = (attention W V x i − attention W' V x i)   -- 只动 W，输入是 x
+      + (attention W' V x i − attention W' V x' i) -- 只动 x，矩阵是 W'
+
+⚠ **中间点的选择决定了常数的形状。** 取 `attention W' V x i` 意味着
+**`W` 那一项用 `x` 的取值**（`∑ j, |(V x) j|`），**`x` 那一项用 `W'`**（常数只含 `V`）。
+
+**另一个选法（中间点 `attention W V x'`）会把 `(V x')` 放进常数。** 两者都对，
+**但都无法消掉对输入取值的依赖**——因为 `W` 那半的界本质上依赖 `(V x)` 的大小。
+**要消掉它，就得给输入一个界 `B`**，那正是下面 `_bounded` 那条推论做的事。 -/
+
+/-- ⭐⭐ **`attention` 对 `(x, W)` 的联合 Lipschitz 界**。
+
+**两半相加**，常数是 `(2ε·exp(2ε))·∑ j, |(V x) j| + (∑ j, ∑ k, |V j k|)·δ`。
+
+⚠ **它依赖 `x` 的取值**（第一项里的 `∑ j, |(V x) j|`）——**这不是证明的缺陷，是 `W` 那一半的本质**：
+权重对 `W` 的敏感度与 `V x` 的大小相乘，而 `V x` 当然依赖 `x`。 -/
+theorem applyInstr_attention_lipschitz_joint {n : ℕ} (hn : 0 < n)
+    (W W' V : Fin n → Fin n → ℝ) (x x' : Fin n → ℝ) (ε δ : ℝ) (hε : 0 ≤ ε) (hδ : 0 ≤ δ)
+    (i : Fin n) (hx : ∀ k : Fin n, |x k - x' k| ≤ δ)
+    (hW : ∀ j : Fin n, |W i j - W' i j| ≤ ε) :
+    |Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i
+        - Lattice.Lift.ProgramAST.applyInstr x' (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i|
+      ≤ (2 * ε * Real.exp (2 * ε)) * ∑ j, |∑ k, V j k * x k|
+        + (∑ j, ∑ k, |V j k|) * δ := by
+  -- split at the point where only `W` has moved
+  have hsplit :
+      Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i
+        - Lattice.Lift.ProgramAST.applyInstr x' (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i
+      = (Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i
+          - Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i)
+        + (Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i
+          - Lattice.Lift.ProgramAST.applyInstr x' (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i) := by
+    ring
+  rw [hsplit]
+  refine le_trans (abs_add _ _) (add_le_add ?_ ?_)
+  · exact applyInstr_attention_lipschitz_W hn W W' V x ε hε i hW
+  · exact applyInstr_attention_lipschitz hn W' V x x' δ hδ hx i
+
+/-! ## 消掉对输入取值的依赖：给输入一个界 `B`
+
+上一节的界里有 `∑ j, |(V x) j|`——**依赖 `x` 的具体取值**，所以它不是一条"常数"界。
+**但若输入被 `B` 逐分量界住，它就可以被 `V` 与 `B` 表出**：
+
+    |(V x) j| ≤ ∑ k, |V j k| · |x k| ≤ B · ∑ k, |V j k|
+
+⇒ `∑ j, |(V x) j| ≤ B · ∑ j, ∑ k, |V j k|`，
+
+**于是整条界只依赖 `V`、`B`、`δ`、`ε`——不依赖任何具体的输入点。**
+**那才是通常意义上的 Lipschitz 陈述**，而上一节的是它的"逐点"版本。 -/
+
+/-- ⭐ **行点积的绝对值之和被 `B · (V 的绝对值和)` 界住**（输入逐分量被 `B` 界住时）。
+
+**可推广**：它不提 attention，只谈 `V x` 的范数界——任何"矩阵乘向量"的估计都能用它。 -/
+theorem sum_abs_rowDot_le {n : ℕ} (V : Fin n → Fin n → ℝ) (x : Fin n → ℝ) {B : ℝ}
+    (hB : ∀ k : Fin n, |x k| ≤ B) (hB0 : 0 ≤ B) :
+    ∑ j, |∑ k, V j k * x k| ≤ B * ∑ j, ∑ k, |V j k| := by
+  have hrow : ∀ j : Fin n, |∑ k, V j k * x k| ≤ B * ∑ k, |V j k| := by
+    intro j
+    calc |∑ k, V j k * x k|
+        ≤ ∑ k, |V j k * x k| := Finset.abs_sum_le_sum_abs _ _
+      _ = ∑ k, |V j k| * |x k| := Finset.sum_congr rfl (fun k _ => by rw [abs_mul])
+      _ ≤ ∑ k, |V j k| * B :=
+          Finset.sum_le_sum (fun k _ => mul_le_mul_of_nonneg_left (hB k) (abs_nonneg _))
+      _ = (∑ k, |V j k|) * B := by rw [Finset.sum_mul]
+      _ = B * ∑ k, |V j k| := by rw [mul_comm]
+  calc ∑ j, |∑ k, V j k * x k|
+      ≤ ∑ j, B * ∑ k, |V j k| := Finset.sum_le_sum (fun j _ => hrow j)
+    _ = B * ∑ j, ∑ k, |V j k| := by rw [Finset.mul_sum]
+
+/-- ⭐⭐ **`attention` 的常数型联合 Lipschitz 界**——输入被 `B` 界住时，界不依赖输入点。
+
+这是上一节那条的推论，**但它才是"Lipschitz 常数"这个说法的正式版本**：
+右边只含 `V`、`B`、`δ`、`ε`。 -/
+theorem applyInstr_attention_lipschitz_joint_bounded {n : ℕ} (hn : 0 < n)
+    (W W' V : Fin n → Fin n → ℝ) (x x' : Fin n → ℝ) (ε δ B : ℝ)
+    (hε : 0 ≤ ε) (hδ : 0 ≤ δ) (hB0 : 0 ≤ B) (i : Fin n)
+    (hx : ∀ k : Fin n, |x k - x' k| ≤ δ) (hB : ∀ k : Fin n, |x k| ≤ B)
+    (hW : ∀ j : Fin n, |W i j - W' i j| ≤ ε) :
+    |Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i
+        - Lattice.Lift.ProgramAST.applyInstr x' (Lattice.Lift.ProgramAST.Instr.attention W' V : _) i|
+      ≤ (2 * ε * Real.exp (2 * ε)) * (B * ∑ j, ∑ k, |V j k|)
+        + (∑ j, ∑ k, |V j k|) * δ := by
+  refine le_trans
+    (applyInstr_attention_lipschitz_joint hn W W' V x x' ε δ hε hδ i hx hW) ?_
+  -- replace the point-dependent mass `∑ j, |(V x) j|` by the uniform bound
+  have hle : ∑ j, |∑ k, V j k * x k| ≤ B * ∑ j, ∑ k, |V j k| :=
+    sum_abs_rowDot_le V x hB hB0
+  have hfac : 0 ≤ 2 * ε * Real.exp (2 * ε) := by positivity
+  have hterm : (2 * ε * Real.exp (2 * ε)) * ∑ j, |∑ k, V j k * x k|
+      ≤ (2 * ε * Real.exp (2 * ε)) * (B * ∑ j, ∑ k, |V j k|) :=
+    mul_le_mul_of_nonneg_left hle hfac
+  linarith
+
 end Lattice.Lib.Attention
