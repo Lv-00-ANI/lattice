@@ -33,6 +33,7 @@ import Lattice.Runtime.PenaltyAnalysis
 import Lattice.Runtime.PenaltyEmbedding
 import Lattice.Runtime.PartialRepresentation
 import Lattice.Runtime.ProgramAST
+import Lattice.Runtime.ProgramRepresentation
 import Lattice.Runtime.QuantErrorPropagation
 import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.RealLV
