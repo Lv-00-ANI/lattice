@@ -74,6 +74,57 @@
 
 ---
 
+## 3.4 第 51 轮：`e2e_sound` 的「可陈述性承重」辩护是**错的**
+
+清单 `P0-13` 说 `e2e_sound`「不能是单级重述」。**实测（第 51 轮）：**
+
+```lean
+theorem e2e_sound {s : List Char} {ts : List CharToken} {cs : ConstraintSet}
+    (h0 : tokenize s = some ts) (h1 : Extract (L1Bridge ts) cs) (x : List Int) :
+    AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x :=
+  symbolToWeight_correct cs x
+```
+
+**证明体就是 `symbolToWeight_correct cs x`，一个字没改。** `h0`/`h1` **在证明里没出现**（Lean 报两条
+`unused variable` 警告——实测确认过这条 linter 对这种形状会报）。
+
+**文件原来给出的辩护是**：「`h1` 提供 `cs`，**删掉它 `cs` 就没有来源，结论无法陈述**」。
+
+⭐ **这个辩护是错的**：`cs : ConstraintSet` 与 `x : List Int` **本身就是参数**。删掉 `h1`，
+结论 `AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x` **照样可以陈述**，而且**更强**（少了假设）。
+**`h0` 同理**：它只把 `s` 与 `ts` 绑在一起，而这两者不出现在结论里。
+
+**⇒ 精确结论**：`e2e_sound` 的**类型**里出现 L0/L1（经 `h0`/`h1` 的绑定），
+但**内容与 `symbolToWeight_correct` 完全相同**——L0/L1 的绑定**不约束结论**。
+**「e2e」在名字里，不在陈述里。**
+
+**端到端的内容在别的定理里**：`e2e_path_exists`（通路非空，**这是让上面那条不空洞的那一条**）、
+`e2e_loss_at_L2L3` / `e2e_loss_at_L0L1` / `e2e_loss_compound`（链路**在哪里丢信息**）、
+`e2e_not_injective` / `e2e_no_left_inverse`、`e2e_bridge_sep_is_load_bearing`。
+
+**为什么 L0→L3 的强陈述不存在，而不是没做**：要让 `AllSatisfied` 成为 `s` 的**性质**，需要 `Extract` 是
+**函数**；**而 `Extract` 是关系**，同一个 `ts` 可以有多个 `cs` 满足它。**那是可陈述性的障碍，不是工作量。**
+
+---
+
+## 3.5 第 51 轮：`check_vacuous_hypotheses` 把 Class A **委托给了一个没人读的输出**
+
+`check_vacuous_hypotheses.py` 的文件头写着：
+
+> **Class A -- dead hypothesis.** ... Lean's own `linter.unusedVariables` reports it, so this file does NOT
+> reimplement it: **the compiler already found all 182 of them** and `PROOF-DEBT.md` tracks the count.
+
+⭐ **「tracks the count」是全部**：**182 条被计数、从未失败**。**没有任何门禁读编译器的输出**——
+而编译器只在**重新编译**时才吐警告，所以连「读一次」都不稳定。
+
+**这是本会话那个模式的最外层变体**：不是「检查器不能失败」，而是「**检查器把工作交给了另一个检查器，
+而那个的输出没进判决**」。
+
+**第 51 轮量到的候选**：**139 条定理的某个绑定变量既没传给证明所用的引理、也没出现在结论里**
+（249 个绑定）。**那是待审清单，不是判决**——解析器在含类型归属的绑定上会误判。**未做成门禁。**
+
+---
+
 ## 4. 失效路径：评估里的 `Geo/`、`Lift/` 引用
 
 三次搬迁（`Lift`→`Runtime`、`Geo`→`Domains`、`Audit`→`Evidence`）之后，评估里这些引用**在树里不存在**：
