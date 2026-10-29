@@ -15,3 +15,4 @@ Lib/Editing/RealCanonicalCompileComm.lean	comm_via_extract	name is declared nowh
 Lib/Editing/RealExtractSurjectivity.lean	extractVec_range_ne_proper	name is declared nowhere in the live tree (renamed or deleted)
 Runtime/ConstraintToLoss.lean	compile_changes_type	name is declared nowhere in the live tree (renamed or deleted)
 Runtime/RatRepresentation.lean	compile_changes_type	name is declared nowhere in the live tree (renamed or deleted)
+Domains/Geometry/RepairCoverage.lean	sqDist_nonneg	verdict was "delete" (duplicate of Dist.sqDist_nonneg); executed in round 83

@@ -93,7 +93,7 @@
 | `Lattice.Domains.ReinjectionGeneral` | 134 | 5 | Reinjection, LoopPerp |
 | `Lattice.Domains.Repair` | 90 | 4 | Loss, Constraint |
 | `Lattice.Domains.RepairBridge` | 247 | 14 | Loop, Loss |
-| `Lattice.Domains.RepairCoverage` | 148 | 5 | LoopPerp, Constraint, RepairPerp |
+| `Lattice.Domains.RepairCoverage` | 142 | 4 | LoopPerp, Constraint, Dist, RepairPerp |
 | `Lattice.Domains.RepairPenalty` | 79 | 4 | Loop, Loss, RepairBridge |
 | `Lattice.Domains.RepairPerp` | 193 | 6 | Constraint |
 | `Lattice.Domains.RepairQuality` | 151 | 9 | Loop, LoopPerp |

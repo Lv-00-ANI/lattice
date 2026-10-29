@@ -761,7 +761,7 @@
 - `Lattice.Domains.Geometry.ReinjectionGeneral` <- `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.LoopPerp`
 - `Lattice.Domains.Geometry.Repair` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Domains.Geometry.RepairBridge` <- `Lattice.Core.Repair`, `Lattice.Core.Invariant`, `Lattice.Core.Simulation`, `Lattice.Core.Idempotent`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`
-- `Lattice.Domains.Geometry.RepairCoverage` <- `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Geometry.RepairPerp`
+- `Lattice.Domains.Geometry.RepairCoverage` <- `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Geometry.RepairPerp`
 - `Lattice.Domains.Geometry.RepairPenalty` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.RepairBridge`
 - `Lattice.Domains.Geometry.RepairPerp` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Domains.Geometry.RepairQuality` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`
@@ -1624,7 +1624,7 @@
 | `Lattice.Domains.Geometry.ReinjectionGeneral` | 5 | 0 |
 | `Lattice.Domains.Geometry.Repair` | 3 | 0 |
 | `Lattice.Domains.Geometry.RepairBridge` | 14 | 0 |
-| `Lattice.Domains.Geometry.RepairCoverage` | 5 | 4 |
+| `Lattice.Domains.Geometry.RepairCoverage` | 4 | 3 |
 | `Lattice.Domains.Geometry.RepairPenalty` | 4 | 0 |
 | `Lattice.Domains.Geometry.RepairPerp` | 8 | 4 |
 | `Lattice.Domains.Geometry.RepairQuality` | 9 | 2 |
@@ -8619,7 +8619,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistEq_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
-- `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_nonneg`
+- `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_along_path_split` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_eq_coord_add_rest` -> `Pt`, `diff`, `sqDist`, `sqDist_nonneg`, `sqNorm`
@@ -8631,7 +8631,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_eq_zero_iff` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
 - `sqDist_lipschitz_on_bounded` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`
-- `sqDist_nonneg` -> `Pt`, `sqDist`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `sqDist_nonneg` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
 - `sqDist_translateBy` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`

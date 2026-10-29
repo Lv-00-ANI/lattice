@@ -544,7 +544,6 @@ Domains/Geometry/RepairCoverage.lean	collinearFix_on_line
 Domains/Geometry/RepairCoverage.lean	one_step_suffices
 Domains/Geometry/RepairCoverage.lean	sqDistFix_reaches
 Domains/Geometry/RepairCoverage.lean	sqDist_affine
-Domains/Geometry/RepairCoverage.lean	sqDist_nonneg
 Domains/Geometry/RepairPenalty.lean	samePoint_loop_reaches_penalty_zero
 Domains/Geometry/RepairPenalty.lean	samePoint_penalty_iff_sat
 Domains/Geometry/RepairPenalty.lean	samePoint_penalty_zero_iff_sat_iff
