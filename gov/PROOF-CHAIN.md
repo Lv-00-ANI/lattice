@@ -1686,7 +1686,7 @@
 | `Lattice.Runtime.PartialRepresentation` | 1 | 3 |
 | `Lattice.Runtime.PenaltyAnalysis` | 3 | 0 |
 | `Lattice.Runtime.PenaltyEmbedding` | 10 | 5 |
-| `Lattice.Runtime.ProgramAST` | 24 | 15 |
+| `Lattice.Runtime.ProgramAST` | 25 | 16 |
 | `Lattice.Runtime.ProgramRepresentation` | 0 | 3 |
 | `Lattice.Runtime.QuantErrorPropagation` | 2 | 0 |
 | `Lattice.Runtime.RatRepresentation` | 4 | 1 |
@@ -3586,11 +3586,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
-- `decodeInstr_encode_affine` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
-- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_relu` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_scale` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
-- `decodeInstr_encode_softmax` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_affine` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_attention` -> `Instr`, `W`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `decode`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_relu` -> `Instr`, `W`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_scale` -> `Instr`, `W`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_softmax` -> `Instr`, `W`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `decodePayload_encodeForm` -> `LinearForm`, `decodePayload`, `encodeForm`, `payload`
 - `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
 - `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
@@ -3759,7 +3760,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `distract_excess_of_uniform_distance` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `div_abs_self_eq_pm_one` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `div_mod_unique` -> `depth`, `eval`, `induction`, `step`
-- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `div_scaleVec_pos` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `div_scaleVec_sign` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `divisible_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
@@ -4978,11 +4979,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geometric_tail_scope` -> `induction`, `le`, `zero`
 - `gershgorin_bound` -> `apply`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
 - `getConstraints_length_nonneg` -> `Theory`, `length`
-- `getD_append_left` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `getD_append_right` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `getD_append_left` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `getD_append_right` -> `Instr`, `W`, `apply`, `enc`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `getD_eq_getElem` -> `apply`, `dot`, `length`
-- `getD_ofFn_block` -> `Instr`, `W`, `apply`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `getD_ofFn_block_append` -> `Instr`, `W`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `getD_ofFn_block` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `getD_ofFn_block_append` -> `Instr`, `W`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `getD_ofFn_payload` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `gfp_X_pow_card_sub_X_eq_prod` -> `eval`, `eval_mul`
 - `gfp_card_roots_le_natDegree` -> `apply`, `eval`, `eval_mul`, `le_trans`

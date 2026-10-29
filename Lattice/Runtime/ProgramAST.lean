@@ -96,6 +96,16 @@ inductive Instr (n : ℕ) where
   `ε` 为负时 `sqrt` 给 0、分母为 0 时给 0——**那些情形在语义上是错的，但不是不成立的**，
   所以约束留给定理（`hn`/`hε`），不放定义里。 -/
   | layernorm (ε : ℝ)
+  /-- **单头注意力**（第 72 轮加）：对 `W` 做行 softmax，作用在 `V x` 上。
+
+  `fun i => ∑ j, (exp (W i j) ⧸ ∑ k, exp (W i k)) * (∑ k, V j k * x k)`
+
+  ⚠ **载荷是 `2n²` 个 `ℝ`**（`W` 与 `V` 各一块平铺），**编码长度 `1 + 2n²`**——
+  本 AST 里载荷最重的构造子。**它内部含 softmax，所以把非线性带进了程序语义。**
+
+  **索引读回由 `getD_ofFn_block`（第一块）与 `getD_ofFn_block_append`（第二块，偏移 `n*n`）提供**
+  ——第 71 轮把这两条从 `affine` 的证明里抽出来，正是为了这里不必重写 40 行索引论证。 -/
+  | attention (W V : Fin n → Fin n → ℝ)
 
 /-- **程序**是直序的指令序列。 -/
 abbrev LayerProgram (n : ℕ) := List (Instr n)
@@ -106,6 +116,8 @@ noncomputable def applyInstr {n : ℕ} (x : Fin n → ℝ) : Instr n → (Fin n 
   | .relu => fun j => max (x j) 0
   | .scale c => fun j => c * x j
   | .softmax => fun j => Real.exp (x j) / ∑ i, Real.exp (x i)
+  | .attention W V => fun i =>
+      ∑ j, (Real.exp (W i j) / ∑ k, Real.exp (W i k)) * (∑ k, V j k * x k)
   | .layernorm ε =>
       let mean : ℝ := (∑ i, x i) / (n : ℝ)
       let var : ℝ := (∑ i, (x i - mean) ^ 2) / (n : ℝ)
@@ -149,6 +161,8 @@ def TAG_SCALE : ℝ := 2
 def TAG_SOFTMAX : ℝ := 3
 /-- `layernorm` 的判别位。 -/
 def TAG_LAYERNORM : ℝ := 4
+/-- `attention` 的判别位。 -/
+def TAG_ATTENTION : ℝ := 5
 
 /-- **编码一条指令**为数值流。
 
@@ -165,6 +179,14 @@ noncomputable def encodeInstr {n : ℕ} (hn : 0 < n) : Instr n → List ℝ
   | .scale c => [TAG_SCALE, c]
   | .softmax => [TAG_SOFTMAX]
   | .layernorm ε => [TAG_LAYERNORM, ε]
+  | .attention W V =>
+      TAG_ATTENTION ::
+        (List.ofFn (fun k : Fin (n * n) =>
+          W ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+            ⟨k.val % n, Nat.mod_lt _ hn⟩))
+        ++ (List.ofFn (fun k : Fin (n * n) =>
+          V ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+            ⟨k.val % n, Nat.mod_lt _ hn⟩))
 
 /-- **反解析一条指令**：读判别位，按判别位决定读多少载荷。
 
@@ -181,6 +203,10 @@ noncomputable def decodeInstr {n : ℕ} (hn : 0 < n) : List ℝ → Option (Inst
       else if t = TAG_SCALE then some (.scale (rest.getD 0 0))
       else if t = TAG_SOFTMAX then some .softmax
       else if t = TAG_LAYERNORM then some (.layernorm (rest.getD 0 0))
+      else if t = TAG_ATTENTION then
+        some (.attention
+          (fun i j => rest.getD (i.val * n + j.val) 0)
+          (fun i j => rest.getD (n * n + i.val * n + j.val) 0))
       else none
 
 /-! ## 三、往返 -/
@@ -284,6 +310,42 @@ theorem decodeInstr_encode_softmax {n : ℕ} (hn : 0 < n) :
     decodeInstr hn (encodeInstr hn (.softmax : Instr n)) = some .softmax := by
   unfold decodeInstr encodeInstr TAG_AFFINE TAG_RELU TAG_SCALE TAG_SOFTMAX
   norm_num
+
+/-- ⭐ **`attention` 的语法往返**——**两个 `exact`，不是 40 行索引论证。**
+
+第 70 轮在这里失败六次：索引论证要写两遍，而每次都被 `getD` 的归一化绊住。
+第 71 轮把两块读回抽成 `getD_ofFn_block` / `getD_ofFn_block_append`，
+**于是这里只剩「哪一块用哪条引理」这个判断**：
+
+- 第一块（`W`）索引 `i*n + j`，在拼接的前缀里 → `getD_append_left` + `getD_ofFn_block`；
+- 第二块（`V`）索引 `n*n + i*n + j`，偏移恰好是前缀长度 → `getD_ofFn_block_append`。 -/
+theorem decodeInstr_encode_attention {n : ℕ} (hn : 0 < n) (W V : Fin n → Fin n → ℝ) :
+    decodeInstr hn (encodeInstr hn (.attention W V : Instr n)) = some (.attention W V) := by
+  show decodeInstr hn
+      (TAG_ATTENTION :: (List.ofFn (fun k : Fin (n * n) =>
+        W ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+          ⟨k.val % n, Nat.mod_lt _ hn⟩))
+        ++ (List.ofFn (fun k : Fin (n * n) =>
+          V ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+            ⟨k.val % n, Nat.mod_lt _ hn⟩)))
+    = some (.attention W V)
+  unfold decodeInstr
+  simp only [List.cons_append, TAG_AFFINE, TAG_RELU, TAG_SCALE, TAG_SOFTMAX, TAG_LAYERNORM,
+    TAG_ATTENTION, Option.some.injEq, Instr.attention.injEq]
+  norm_num
+  -- `simp` normalised `List.getD` to `[...]?.getD`; the block lemmas speak about `.getD`,
+  -- and `rw` matches syntactically, so fold it back (round 71's probe established this)
+  simp only [← List.getD_eq_getElem?_getD]
+  constructor
+  · funext i j
+    have hidx : i.val * n + j.val < n * n := by
+      have h1 : i.val < n := i.isLt
+      have h2 : j.val < n := j.isLt
+      nlinarith
+    rw [getD_append_left _ _ _ _ (by simp only [List.length_ofFn]; exact hidx)]
+    exact getD_ofFn_block hn W i j
+  · funext i j
+    exact getD_ofFn_block_append hn W V i j
 
 /-- **`layernorm` 的语法往返**：`decode (encode (layernorm ε)) = some (layernorm ε)`。 -/
 theorem decodeInstr_encode_layernorm {n : ℕ} (hn : 0 < n) (ε : ℝ) :
@@ -430,6 +492,7 @@ noncomputable def instrLengthOfTag (n : ℕ) (t : ℝ) : ℕ :=
   else if t = TAG_RELU then 1
   else if t = TAG_SOFTMAX then 1
   else if t = TAG_LAYERNORM then 2
+  else if t = TAG_ATTENTION then 1 + (n * n + n * n)
   else 2
 
 /-- **由 tag 决定的长度至少为 1**——解码端靠它保证每次递归都真的缩短列表。 -/
@@ -479,7 +542,29 @@ theorem encodeInstr_length_ofTag {n : ℕ} (hn : 0 < n) (i : Instr n) :
       rw [if_neg (by unfold TAG_AFFINE TAG_SCALE; norm_num),
           if_neg (by unfold TAG_RELU TAG_SCALE; norm_num),
           if_neg (by unfold TAG_SOFTMAX TAG_SCALE; norm_num),
-          if_neg (by unfold TAG_LAYERNORM TAG_SCALE; norm_num)]
+          if_neg (by unfold TAG_LAYERNORM TAG_SCALE; norm_num),
+          if_neg (by unfold TAG_ATTENTION TAG_SCALE; norm_num)]
+  | attention W V =>
+      have htag : (encodeInstr hn (.attention W V : Instr n)).headD 0 = TAG_ATTENTION := rfl
+      have hlen : (encodeInstr hn (.attention W V : Instr n)).length = 1 + (n * n + n * n) := by
+        show (TAG_ATTENTION :: (List.ofFn (fun k : Fin (n * n) =>
+            W ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+              ⟨k.val % n, Nat.mod_lt _ hn⟩))
+            ++ (List.ofFn (fun k : Fin (n * n) =>
+              V ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+                ⟨k.val % n, Nat.mod_lt _ hn⟩))).length = 1 + (n * n + n * n)
+        -- ⚠ `::` has precedence 67 and `++` has 65, so `a :: b ++ c` is `(a :: b) ++ c`:
+        -- the OUTERMOST constructor is `++`, hence `length_append` first. (This cost three
+        -- separate build iterations across rounds 62-72; recorded so it costs no more.)
+        rw [List.length_append, List.length_cons, List.length_ofFn, List.length_ofFn]
+        ring
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_neg (by unfold TAG_AFFINE TAG_ATTENTION; norm_num),
+          if_neg (by unfold TAG_RELU TAG_ATTENTION; norm_num),
+          if_neg (by unfold TAG_SOFTMAX TAG_ATTENTION; norm_num),
+          if_neg (by unfold TAG_LAYERNORM TAG_ATTENTION; norm_num),
+          if_pos rfl]
   | layernorm ε =>
       have htag : (encodeInstr hn (.layernorm ε : Instr n)).headD 0 = TAG_LAYERNORM := rfl
       have hlen : (encodeInstr hn (.layernorm ε : Instr n)).length = 2 := rfl
@@ -594,6 +679,7 @@ theorem decodeProgramGo_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n
         | scale c => exact decodeInstr_encode_scale hn c
         | softmax => exact decodeInstr_encode_softmax hn
         | layernorm ε => exact decodeInstr_encode_layernorm hn ε
+        | attention W V => exact decodeInstr_encode_attention hn W V
       rw [honly, hdrop, ih k' (by simpa using hk)]
       rfl
 
