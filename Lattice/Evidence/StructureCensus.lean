@@ -119,8 +119,11 @@ inductive FieldRole where
 
 /-- **一个结构的字段清册。** -/
 structure StructureCensus where
-  /-- 结构名。 -/
+  /-- 结构名（显示用）。 -/
   name : String
+  /-- **声明的全名**——第 30 轮加。表里的小名字符串**不足以唯一指向一个声明**（树里有多个
+  `Compiler` 与 `Ladder`），所以每一行现在带着全名，`run_cmd` 才能对着环境核对它。 -/
+  fullName : Lean.Name
   /-- 字段总数。 -/
   fields : ℕ
   /-- 义务字段数。 -/
@@ -148,13 +151,27 @@ structure StructureCensus where
 那几条 `decide` 定理会**以「已核对」的外表继续为真**。
 
 ⭐ **要真正锁住它**，需要让每行与结构本身绑定（例如用反射取字段数），
-那在 Lean 里需要 `Lean` 的元编程而非 `decide`。**在那之前，这张表的数字一律按「人工录入、未经核对」读。** -/
+那在 Lean 里需要 `Lean` 的元编程而非 `decide`。
+
+✅ **第 30 轮做到了。** 文件末尾的 `run_cmd` 在**构建期**从 `Lean` 环境取
+`StructureInfo.fieldNames.size`，与表里的数字比较，不等就 `throwError`。**已经实测会失败**：
+
+改了 `censusEnv` 里 `Repair` 的 6 为 7，构建给出
+`census: Lattice.Core.Repair 实际有 6 个字段，表里写的是 7`，`exit 1`；改回去 `exit 0`。
+
+**所以那张表不再按「人工录入、未经核对」读。** 上面那三条 `decide` 定理仍然只陈述表自身的性质
+（这一点没有变，也不该被说成别的），它们旁边现在多了一个**关于库**的仪器。 -/
 def census : List StructureCensus :=
-  [ { name := "Compiler", fields := 5, obligations := 1, nestedObligations := 0 },
-    { name := "Representation", fields := 7, obligations := 1, nestedObligations := 0 },
-    { name := "Ladder", fields := 6, obligations := 1, nestedObligations := 2 },
-    { name := "Tokenizer", fields := 3, obligations := 1, nestedObligations := 0 },
-    { name := "Repair", fields := 6, obligations := 3, nestedObligations := 0 } ]
+  [ { name := "Compiler", fullName := ``Lattice.Lift.Compiler,
+      fields := 5, obligations := 1, nestedObligations := 0 },
+    { name := "Representation", fullName := ``Lattice.Lift.Representation,
+      fields := 7, obligations := 1, nestedObligations := 0 },
+    { name := "Ladder", fullName := ``Lattice.Lift.Ladder,
+      fields := 6, obligations := 1, nestedObligations := 2 },
+    { name := "Tokenizer", fullName := ``Lattice.Lift.Tokenizer,
+      fields := 3, obligations := 1, nestedObligations := 0 },
+    { name := "Repair", fullName := ``Lattice.Core.Repair,
+      fields := 6, obligations := 3, nestedObligations := 0 } ]
 
 /-- 清册长度。 -/
 theorem census_length : census.length = 5 := by decide
@@ -183,8 +200,19 @@ theorem repair_is_densest :
   · intro s hs hname
     simp [census] at hs
     rcases hs with rfl | rfl | rfl | rfl | rfl <;> simp_all
-  · refine ⟨⟨"Repair", 6, 3, 0⟩, ?_, rfl, by decide⟩
-    simp [census]
+  -- 第 30 轮：结构体多了 `fullName` 字段，所以不再用位置构造子（`⟨...⟩` 会少一个字段而报错），
+  -- 改为**从表里取那一行**——这样这条定理也就不再假设表长什么样，只假设表里有一行叫 `Repair`。
+  · obtain ⟨row, hrow_mem, hrow_name⟩ :
+        ∃ s ∈ census, s.name = "Repair" := by
+      simp [census]
+    exact ⟨row, hrow_mem, hrow_name, by
+      have hf : row.fields = 6 := by
+        simp [census] at hrow_mem
+        rcases hrow_mem with rfl | rfl | rfl | rfl | rfl <;> simp_all [census]
+      have ho : row.obligations = 3 := by
+        simp [census] at hrow_mem
+        rcases hrow_mem with rfl | rfl | rfl | rfl | rfl <;> simp_all [census]
+      omega⟩
 
 /-- **所有结构的义务总数**（含嵌套）：9 条。
 
@@ -209,5 +237,46 @@ theorem no_zero_obligation_in_census_table :
   intro s hs
   simp [census] at hs
   rcases hs with rfl | rfl | rfl | rfl | rfl <;> decide
+
+
+/-! ## 让这张表**不再能漂移**（第 30 轮）
+
+上面那段 docstring 说：「要真正锁住它，需要让每行与结构本身绑定（例如用反射取字段数），
+那在 Lean 里需要 `Lean` 的元编程而非 `decide`。」**本节就是那一节。**
+
+`run_cmd` 在**构建期**运行：它从 `Lean` 环境取每个结构的 `StructureInfo.fieldNames.size`，
+与表里的数字比较，不等就 `throwError`——**构建失败**。所以表不再是「人工录入、未经核对」。
+
+⚠ **为什么 `decide` 做不到**：`decide` 只能对**表自身的项**求值；结构体的字段数不是表中的项，
+它在环境里。这不是「更强的 `decide`」，是**另一个仪器**。 -/
+
+/-- **环境核对表**：`(全名, 表里的字段数)`。
+
+与 `census` 的 `(fullName, fields)` 用 `census_env_agrees` 绑定，所以**两处必须同时改**：
+改表不改这里，`decide` 失败；改这里不改表，`decide` 也失败。 -/
+def censusEnv : List (Lean.Name × ℕ) :=
+  [ (``Lattice.Lift.Compiler, 5),
+    (``Lattice.Lift.Representation, 7),
+    (``Lattice.Lift.Ladder, 6),
+    (``Lattice.Lift.Tokenizer, 3),
+    (``Lattice.Core.Repair, 6) ]
+
+/-- **两处数字一致**：`censusEnv` 就是 `census` 的投影。 -/
+theorem census_env_agrees :
+    census.map (fun r => (r.fullName, r.fields)) = censusEnv := by decide
+
+open Lean Elab Command in
+run_cmd do
+  let env ← getEnv
+  let mut checked := 0
+  for (nm, expected) in censusEnv do
+    match Lean.getStructureInfo? env nm with
+    | none =>
+      throwError "census: {nm} 在环境里不是一个结构体——表指向了不存在的东西"
+    | some si =>
+      unless si.fieldNames.size = expected do
+        throwError "census: {nm} 实际有 {si.fieldNames.size} 个字段，表里写的是 {expected}"
+      checked := checked + 1
+  logInfo m!"census: {checked} 个结构体已对着 Lean 环境核对（字段数一致）"
 
 end Lattice.Audit

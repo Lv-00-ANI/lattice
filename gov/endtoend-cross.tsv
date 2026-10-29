@@ -618,6 +618,7 @@ Evidence/StructureCensus.lean	census_length
 Evidence/StructureCensus.lean	repair_is_densest
 Evidence/StructureCensus.lean	total_obligations
 Evidence/StructureCensus.lean	no_zero_obligation_in_census_table
+Evidence/StructureCensus.lean	census_env_agrees
 Evidence/VerdictLattice.lean	verdict_lub_of_length_eq
 Evidence/VerdictLattice.lean	lattice_holds_per_segment_not_per_sequence
 Lib/FloatStackRefinement.lean	float_stack_refinement
