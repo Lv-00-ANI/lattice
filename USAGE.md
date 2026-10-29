@@ -228,7 +228,7 @@ approxHoldsEqZero_sound : approxHoldsEqZero T e pts = true -> |evalC e pts| <= T
 
 ---
 
-## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 284 条）
+## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 285 条）
 
 | 做不到的事 | 定理 |
 |:--|:--|
@@ -280,7 +280,7 @@ lake build Lattice.Usage.Examples
 | 覆盖 | 不覆盖 |
 |:--|:--|
 | 第 2–8 节里出现的**每一个 Lean 代码块与每一条承诺** | 第 0、1、9、10 节（纯散文） |
-| 定理的**签名**（改名、改参数、消失都会失败） | 散文里的**数字**（如"全部 284 条"）：由 `check_doc_consistency.py` 管 |
+| 定理的**签名**（改名、改参数、消失都会失败） | 散文里的**数字**（如"全部 285 条"）：由 `check_doc_consistency.py` 管 |
 
 **两条守卫分工明确**：`Lattice/Usage/Examples.lean` 守代码，`check_doc_consistency.py` 守数字。
 本节第 9 节的否证总数**曾写错一个数**（写大了约三分之一），而当时没有任何守卫覆盖 `USAGE.md`——**那一处就是新守卫 `check_usage_claims.py` 的由来**。
