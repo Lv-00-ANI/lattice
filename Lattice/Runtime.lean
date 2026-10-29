@@ -31,6 +31,7 @@ import Lattice.Runtime.NonIdenticalEncoding
 import Lattice.Runtime.NondegenerateInstance
 import Lattice.Runtime.PenaltyAnalysis
 import Lattice.Runtime.PenaltyEmbedding
+import Lattice.Runtime.PartialRepresentation
 import Lattice.Runtime.ProgramAST
 import Lattice.Runtime.QuantErrorPropagation
 import Lattice.Runtime.RatRepresentation
