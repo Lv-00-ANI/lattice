@@ -83,6 +83,61 @@
 
 **第 1 步是纯推广，第 2 步是真正的新内容。**
 
+#### ⚠⚠ 第 88 轮：**`P2-02` 的卡点不是「AD 难」，是「参数空间是列表」**
+
+第 87 轮的下一步计划写的是「至少把二次损失那一阶的自动微分建起来」。**第 88 轮先量了库里的现状，
+而答案比那更根本。**
+
+**`Domains/Geometry/ConstraintDescent.lean` 的模块 docstring 早就写明了：**
+
+> `netLoss` 的一般形状是 `∑ penaltyLoss c (netAct params ·)`，其中 `params` 是 `List (AffineLayer (Fin n))`。
+> 要给**一般**情形证下降，需要 `netLoss` 在参数空间上的可微性 + Lipschitz 梯度——
+> **而参数空间是层的列表，库里没有它的赋范向量空间结构。** **那是独立的一块（M2-2 反向传播）。**
+
+**同一段还有一句更重要的话：**
+
+> **没有任何东西在最小化它。**
+
+**⇒ 所以这一段的真实状态是：`netLoss` 有了、`penaltyLoss` 有了、下降步在 `Fin 1` 上有了，
+而「一般参数空间」这一跳没做。而它没做的原因不是缺微积分，是缺【结构】。**
+
+### 精确的障碍
+
+| 对象 | 有没有向量空间结构 |
+|:--|:--|
+| 单个 `AffineLayer (Fin n)` | ✅ `W : Fin n → Fin n → ℝ`、`b : Fin n → ℝ`，两者都是实向量空间 |
+| 单层的扁平编码 | ✅ `Runtime/RectangularWeightEncoding`（`List ℝ`，`Representation` 实例） |
+| **`netAct` 的载体 `List (AffineLayer (Fin n))`** | ❌ **层数是变量 ⇒ 维数不固定 ⇒ 没有赋范向量空间** |
+| `WeightLadderN` 的 `SymN` | ❌ 它是**符号正规形**，不是参数向量 |
+
+**⇒ 所以「梯度」在一般情形下**连陈述都写不出来**——因为 `fderiv` 要求定义域是赋范向量空间。**
+
+### 修法：把深度固定成 `Fin k`
+
+```lean
+-- 现在的载体（变长）
+netAct : List (AffineLayer (Fin n)) → (Fin n → ℝ) → (Fin n → ℝ)
+
+-- 需要的载体（定长，维数 k * (n*n + n)）
+def stackParams (k n : ℕ) := Fin k → AffineLayer (Fin n)
+```
+
+**`Fin k → AffineLayer (Fin n)` 是有限积，维数 `k·(n²+n)`，**天然是赋范向量空间**，
+所以 `fderiv` 对它可陈述。** 然后把 `netAct` 从 `List` 改成 `Fin k →` 的版本
+（或证两者在定长片段上一致）。
+
+**这一步之后，`P2-02` 的第一阶才有落点**：`stackParams` 上的复合函数求导，
+**而 `applyInstr` 的导数按构造子给**（`affine` 是 `W` 本身、`scale c` 是 `c • id`、
+**`relu` 在折点 `0` 处不可导 ⇒ 前提必须排除折点**）。
+
+### 这一轮没有产物，而这是正确的
+
+**我没有写代码，因为写了也是第四个断头定理**——`fderiv` 在 `List` 上不可陈述，
+**任何「`netLoss` 的梯度」都会带一个不可满足的前提。**
+
+**⇒ 下一个具体任务：`stackParams` 的定义与它的 `Representation` 实例**（到 `Fin (k*(n*n+n)) → ℝ`），
+**然后才是 `fderiv`。** **顺序不能反。**
+
 #### 这也解释了第 79–80 轮那两条为什么没有消费者
 
 **`sq_lipschitz_on_bounded` 与 `sum_sq_lipschitz_on_bounded` 谈的是【函数值】在有界集上的 Lipschitz，
