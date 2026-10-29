@@ -1662,7 +1662,7 @@
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
 | `Lattice.Primitives.TokenizeStrategy` | 0 | 0 |
 | `Lattice.Primitives.TokenizerPattern` | 9 | 7 |
-| `Lattice.Primitives.WeightDescent` | 9 | 5 |
+| `Lattice.Primitives.WeightDescent` | 12 | 6 |
 | `Lattice.Runtime` | 0 | 0 |
 | `Lattice.Runtime.ActivationLadder` | 4 | 1 |
 | `Lattice.Runtime.ApproxExact` | 8 | 2 |
@@ -2029,6 +2029,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abs_pos_symmetry_cos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_pos_symmetry_sin` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_resid_le_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
+- `abs_residual_rowStepN` -> `W`, `residual`
+- `abs_residual_rowStepN_le` -> `W`, `residual`
 - `abs_round_le` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `abs_round_le_growth` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `abs_sin_sub_sin_le` -> `Point2R`, `abs_cos_sub_cos_le`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
@@ -7793,9 +7795,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_lower_bound_positive` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_nil_input` -> `LayerOut`, `LinearLayer`, `dot`, `nil_append`, `residual`
 - `residual_orthogonal_of_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
-- `residual_rowStep` -> `W`, `residual`
+- `residual_rowStep` -> `W`, `induction`, `residual`, `zero`
+- `residual_rowStepN` -> `W`, `induction`, `residual`, `zero`
 - `residual_rowStep_abs_le` -> `W`, `residual`
-- `residual_rowStep_newton` -> `W`, `residual`
+- `residual_rowStep_newton` -> `W`, `induction`, `residual`, `zero`
 - `residual_step` -> `Repair`, `Sat`, `apply`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `residual_two_layer_isolation_exact` -> `E`
 - `residual_uniform_bound_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `trans`
@@ -8641,7 +8644,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_translateBy` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
 - `sqDist_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
 - `sqLoss_deriv_zero_of_localMin` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
-- `sqNormIn_nonneg` -> `W`, `residual`
+- `sqNormIn_nonneg` -> `W`, `induction`, `residual`, `zero`
 - `sqPenalty_exact_gives_sound` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_levelA` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_nonneg` -> `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `loss`

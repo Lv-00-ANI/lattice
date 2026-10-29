@@ -125,6 +125,59 @@ theorem residual_rowStep_newton (u x : Fin n → ℝ) (b c : ℝ)
     field_simp
   rw [hfac, zero_mul]
 
+/-! ## ⭐ 多步：`k` 步之后残差是 `(1 − 2η‖x‖²) ^ k` 倍
+
+**这是 `Geo/ConstraintDescent.lean` 的 `stepN` 的权重行版本。** 那里 `stepN` 只在 `Fin 1` 上，
+而本节的 `rowStep` 已经是 `Fin n → ℝ` 的，**所以多步版本直接在向量上成立。**
+
+### 与 `Fin 1` 的 capstone 差在哪
+
+`Fin 1` 的 `forward_chain_capstone` 说**损失严格下降到零**——**那是因为 `η = 1/2` 且 `‖x‖² = 1` 让
+乘子恰好是 `0`。** **在 `Fin n` 上乘子是 `1 − 2η‖x‖²`，一般不为零。**
+
+⇒ **`Fin n` 的正确结论是【几何收敛】，不是【一步归零】。** **把 `Fin 1` 的强度照搬到多维是错的**——
+`netLoss = residual²`，所以残差乘 `c` 意味着损失乘 `c²`，`k` 步后是 `c ^ (2k)`。
+
+**这正是 `netLoss_stepN` 在 `Fin 1` 上的形状**（`((1-2η)^2)^k`），**只是那里的 `‖x‖² = 1`。** -/
+
+/-- **`k` 步权重行下降**：对 `rowStep η · x b c` 迭代 `k` 次。 -/
+noncomputable def rowStepN (η : ℝ) (x : Fin n → ℝ) (b c : ℝ) : ℕ → (Fin n → ℝ) → (Fin n → ℝ)
+  | 0, u => u
+  | k + 1, u => rowStep η (rowStepN η x b c k u) x b c
+
+/-- ⭐⭐ **`k` 步之后残差精确地是 `(1 − 2η‖x‖²) ^ k` 倍**——**等式，不是界。**
+
+**归纳步就是 `residual_rowStep`（那一条本身是精确的）。** -/
+theorem residual_rowStepN (η : ℝ) (x : Fin n → ℝ) (b c : ℝ) (u : Fin n → ℝ) :
+    ∀ k : ℕ, residual (rowStepN η x b c k u) x b c
+      = (1 - 2 * η * sqNormIn x) ^ k * residual u x b c := by
+  intro k
+  induction k with
+  | zero => simp [rowStepN]
+  | succ k ih =>
+      rw [rowStepN, residual_rowStep, ih]
+      ring
+
+/-- ⭐ **`k` 步之后残差的绝对值按 `|1 − 2η‖x‖²| ^ k` 增长**——把上一条取绝对值。 -/
+theorem abs_residual_rowStepN (η : ℝ) (x : Fin n → ℝ) (b c : ℝ) (u : Fin n → ℝ) (k : ℕ) :
+    |residual (rowStepN η x b c k u) x b c|
+      = |1 - 2 * η * sqNormIn x| ^ k * |residual u x b c| := by
+  rw [residual_rowStepN, abs_mul, abs_pow]
+
+/-- ⭐⭐ **收敛条件**：`|1 − 2η‖x‖²| < 1` 时，残差的绝对值随步数**几何衰减**。
+
+**这是 `Fin n` 上能得到的最强结论**——`Fin 1` 的「一步归零」要求乘子恰为 `0`，**那在多维不是通例。** -/
+theorem abs_residual_rowStepN_le (η : ℝ) (x : Fin n → ℝ) (b c : ℝ) (u : Fin n → ℝ) (k : ℕ)
+    (hrho : |1 - 2 * η * sqNormIn x| < 1) :
+    |residual (rowStepN η x b c k u) x b c| ≤ |residual u x b c| := by
+  rw [abs_residual_rowStepN]
+  calc |1 - 2 * η * sqNormIn x| ^ k * |residual u x b c|
+      ≤ 1 ^ k * |residual u x b c| := by
+        refine mul_le_mul_of_nonneg_right ?_ (abs_nonneg _)
+        have h1 : |1 - 2 * η * sqNormIn x| ≤ 1 := le_of_lt hrho
+        simpa only [one_pow] using pow_le_one₀ (abs_nonneg _) h1
+    _ = |residual u x b c| := by rw [one_pow, one_mul]
+
 /-- **`0 < η` 且 `2η‖x‖² < 2` 时残差的绝对值不增**：因为 `|1 − 2η‖x‖²| ≤ 1`。 -/
 theorem residual_rowStep_abs_le (η : ℝ) (u x : Fin n → ℝ) (b c : ℝ)
     (h0 : 0 < η) (hS : 0 < sqNormIn x) (h2 : 2 * η * sqNormIn x ≤ 2) :
