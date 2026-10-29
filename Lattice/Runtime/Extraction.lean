@@ -30,6 +30,7 @@ objects from meanings.
 | parameter, injectivity | `Function.Injective compile` | **proved from the round-trip** |
 | semantic, non-injectivity | `c ≠ c'` satisfied by the same points | **proved, with witness** |
 | both at once | no extractor achieves both | **proved only with `sem` as a PARAMETER** |
+| layered join | **exists** an extractor / **no** faithful extractor | **proved for the same `compile`** |
 
 The last row is the sharp statement of the difficulty: not that a good extractor has not
 been found, but that one cannot exist.
@@ -251,26 +252,64 @@ space and the second concerns the semantic quotient -- they are statements about
 said is that both hold, with their own witnesses, and that no extractor can be faithful to both. That is the
 content below. -/
 
-/-- **Reversibility is layered**: the object layer admits a left inverse, and the semantic layer does not admit one.
+/-- ⭐ **Reversibility is layered** -- **the honest version, strengthened in round 58.**
 
-Both halves carry their own witness, and the witnesses live at different arities and different carriers --
-`roundtrip` is an obligation of the `Representation` structure (so any instance satisfies it), while the semantic
-witness is concrete at arity one over `ZB`. Putting them in one conjunction is exactly the claim the objective
-asks for: *layered*, not a single verdict. -/
+## What the old version proved, and why it was not a join
+
+It concluded
+
+    (∀ p, extract (compile p) = p) ∧ (∃ c c', c ≠ c' ∧ SemEq c c')
+
+with the proof term `⟨hround, semantic_not_injective⟩`. **The left conjunct is the hypothesis returned
+unchanged, and the right conjunct does not mention `compile` or `extract` at all.** So the theorem was
+`A ∧ B` for an assumed `A` and an independent `B` -- **a pairing, not a join.** Its docstring was honest
+that a single verdict is impossible ("they are statements about different spaces"), but the shape did not
+carry even what the docstring claimed.
+
+## What is here now
+
+**Both halves are about the same `compile`:**
+
+- **object layer**: **there exists** an extractor inverting `compile` (witness `extract`);
+- **semantic layer**: **there does not exist** an extractor inverting `compile` **and** faithful to `sem`.
+
+**That is a real layering**: existence on one side, non-existence on the other, same `compile`. The negative
+half is `no_extractor_both_layers`, so the two theorems are now the same subject rather than two facts in a
+conjunction. -/
 theorem reversibility_is_layered {P W : Type} (compile : P → W) (extract : W → P)
+    (sem : P → P → Prop) {c c' : P} (hne : c ≠ c') (hsem : sem c c')
     (hround : ∀ p, extract (compile p) = p) :
-    (∀ p, extract (compile p) = p) ∧
-      (∃ c c' : LinearForm ZB 1, c ≠ c' ∧ SemEq c c') :=
-  ⟨hround, semantic_not_injective⟩
+    (∃ e : W → P, ∀ p, e (compile p) = p) ∧
+      ¬ ∃ e : W → P, (∀ p, e (compile p) = p) ∧
+          (∀ a b : P, sem a b → e (compile a) = e (compile b)) := by
+  refine ⟨⟨extract, hround⟩, ?_⟩
+  rintro ⟨e, hround_e, hfaithful_e⟩
+  exact no_extractor_both_layers compile sem hne hsem (extract := e) hround_e hfaithful_e
 
-/-- **The two layers conflict**: an extractor cannot be faithful to both.
+/-- ⭐ **A left inverse is injective** -- **a NAME correction, not a new theorem.**
 
-Stated without the semantic hypothesis that `no_extractor_both_layers` carries and does not use: the obstruction
-is already present at the parameter level, since a left inverse must separate points that the semantic quotient
-identifies.
+## What the name claimed
 
-`no_extractor_both_layers` remains the statement named in the file header's table; this version records that its
-`_hsem` hypothesis is redundant, so a reader is not left thinking semantic equality does any work in the argument. -/
+The old docstring said **"The two layers conflict: an extractor cannot be faithful to both."**
+**Nothing of the kind is proved.** The statement has one hypothesis, `hne : c ≠ c'`, and the proof is
+
+    rintro ⟨extract, hround, hsame⟩
+    rw [hround c, hround c'] at hsame
+    exact hne hsame
+
+**which is injectivity.** The semantic layer does not appear -- no `SemEq`, no quotient, no witness.
+
+## The old docstring's observation was right; its conclusion was not
+
+It correctly noted that `_hsem` was **redundant**. From "`_hsem` is unused" it concluded that "the
+obstruction is already present at the parameter level". **That inference is wrong**: the semantic content is
+not *already present*, **it is absent from both versions**. Removing a redundant hypothesis does not add
+content.
+
+**The genuine semantic statement is `no_extractor_both_layers`**, which takes `sem` as a parameter and
+**uses it** in `hfaithful`. This theorem is that statement's **injectivity core**, worth keeping only under
+a name that says so. `leftInverse_separates` below states the same fact as `Function.Injective compile`;
+this is its pointwise form. -/
 theorem layers_conflict {P W : Type} (compile : P → W) {c c' : P} (hne : c ≠ c') :
     ¬ ∃ extract : W → P, (∀ p, extract (compile p) = p) ∧
       extract (compile c) = extract (compile c') := by
