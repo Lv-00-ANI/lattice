@@ -2,9 +2,9 @@
 # A FLOOR: losing one is a regression; gaining one is an improvement and does not fail.
 CInterface/ABI.lean	abiTable_errors_wellFormed
 CInterface/ABI.lean	abiTable_length
+CInterface/ABI.lean	abiTable_names_eq_verified
 CInterface/ABI.lean	abiTable_names_nodup
 CInterface/ABI.lean	abiTable_returns_a_value
-CInterface/ABI.lean	primitiveNames_eq_abi
 CInterface/Conformance.lean	boundaryPrimitives_nodup
 CInterface/Conformance.lean	conformance_iff_abi
 CInterface/Conformance.lean	conformance_length
@@ -33,6 +33,11 @@ CInterface/Serialization.lean	layerWords_length
 CInterface/Serialization.lean	layerWords_zero
 CInterface/Serialization.lean	wPart_length
 CInterface/Serialization.lean	wordsLayer_layerWords
+Compose/AdapterMatrix.lean	combinatorPrimitives_length
+Compose/AdapterMatrix.lean	valuePrimitives_length
+Compose/AssocLaws.lean	compose_post_assoc_iff
+Compose/AssocLaws.lean	compose_pre_assoc
+Compose/AssocLaws.lean	compose_strength_coverage_assoc
 Compose/Combinators.lean	composeWith_run
 Compose/Combinators.lean	composeWith_sound
 Compose/Combinators.lean	compose_coverage
@@ -41,6 +46,13 @@ Compose/Combinators.lean	compose_run_assoc
 Compose/Combinators.lean	compose_sound
 Compose/Combinators.lean	compose_strength
 Compose/Combinators.lean	identity_compose_run
+Compose/ComposeObligation.lean	Composed.toPrimitive_run
+Compose/ComposeObligation.lean	blocked_pre
+Compose/ComposeObligation.lean	blocked_run_none
+Compose/ComposeObligation.lean	compose_h_not_derivable
+Compose/ComposeObligation.lean	compose_h_of_pre_true
+Compose/ComposeObligation.lean	identity_post
+Compose/ComposeObligation.lean	identity_pre
 Compose/ForwardChain.lean	descentStep_sound
 Compose/ForwardChain.lean	forward_chain_at_solution
 Compose/ForwardChain.lean	forward_chain_capstone
@@ -70,6 +82,9 @@ Compose/More.lean	parallel_coverage
 Compose/More.lean	parallel_sound
 Compose/More.lean	parallel_strength
 Compose/Primitive.lean	Primitive.withCoverage_sound
+Compose/PrimitiveShape.lean	primitiveFieldNames_length
+Compose/PrimitiveShape.lean	primitiveNames_length
+Compose/PrimitiveShape.lean	primitiveNames_nodup
 Compose/Registry.lean	MatrixRow.strength_eq
 Compose/Registry.lean	exact_of_foldStrength_exact
 Compose/Registry.lean	foldStrength_le_of_mem
@@ -781,6 +796,7 @@ Lib/Chain/RealEndToEnd.lean	e2e_loss_at_L2L3
 Lib/Chain/RealEndToEnd.lean	e2e_loss_compound
 Lib/Chain/RealEndToEnd.lean	e2e_path_exists
 Lib/Chain/RealEndToEnd.lean	e2e_sound
+Lib/Chain/RealEndToEnd.lean	e2e_sound_shape_premise_independent
 Lib/Chain/RealEndToEnd.lean	e2e_vacuous_composition
 Lib/Chain/RealEndToEnd.lean	extract_functional
 Lib/Chain/RealEndToEnd.lean	l0_loss_survives_pipeline

@@ -35,7 +35,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
 ABI = os.path.join(ZERO, "Lattice", "CInterface", "ABI.lean")
 
-NAMES = re.compile(r"def primitiveNames : List String :=\s*\[(.*?)\]", re.S)
+# Round 55: `ABI.lean` no longer keeps its own `primitiveNames`. It now proves
+#     abiTable_names_eq_verified : abiTable.map CFunction.name = Compose.primitiveNames
+# against the environment-checked list, so the strings this checker wants are the `name := "..."` fields
+# of `abiTable` itself -- which is the real source of truth, not a second copy of it.
+NAMES = re.compile(r"def abiTable : List CFunction :=\s*\[(.*?)\n\s*\]", re.S)
+NAME_FIELD = re.compile(r"\bname := \"([^\"]+)\"")
 STR = re.compile(r"\"([^\"]+)\"")
 
 
@@ -51,6 +56,8 @@ def compose_primitives():
 def abi_names():
     src = io.open(ABI, encoding="utf-8").read()
     m = NAMES.search(src)
+    if m:
+        return NAME_FIELD.findall(m.group(1))
     if not m:
         return None
     return STR.findall(m.group(1))

@@ -19,6 +19,11 @@
 本层只需要**已有的 11 个 `Primitive`**（`Compose/Primitive.lean`，第 232 轮参数化）+ 一张名字表。
 **名字表与 `Compose` 的一致性有门禁**（`gov/check_cinterface_abi.py`），所以它不会漂。 -/
 import Mathlib
+-- Round 55 (P3-02, first step). Until now this file imported ONLY Mathlib, so the C contract had
+-- no type-level connection to the primitives it contracts: `Primitive` appeared in prose and
+-- nowhere else. `PrimitiveShape.primitiveNames` is checked against the ENVIRONMENT by a `run_cmd`
+-- (round 40); importing it makes that check reach this layer.
+import Lattice.Compose.PrimitiveShape
 
 namespace Lattice.CInterface.ABI
 
@@ -136,13 +141,27 @@ theorem abiTable_returns_a_value : ∀ f ∈ abiTable, f.ret ≠ CType.void := b
   simp only [abiTable, List.mem_cons, List.not_mem_nil, or_false] at hf
   rcases hf with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> decide
 
-/-- **名字表**，供门禁与文档使用（`decide` 无法把 `String` 列成名字，故单列一条）。 -/
-def primitiveNames : List String :=
-  ["compose", "composeWith", "identity", "descentStep", "iterate", "parallel",
-   "choice", "optional", "applySgd", "applyMomentum", "applyAdam"]
+/-- ⭐⭐ **`abiTable` 的名字序列就是 `Compose.primitiveNames`** —— **跨模块的钉合**。
 
-/-- **`primitiveNames` 就是 `abiTable` 的名字序列**——这条把两份清单钉在一起，
-所以门禁只需要核对 `primitiveNames` 与 `Compose`。 -/
-theorem primitiveNames_eq_abi : abiTable.map CFunction.name = primitiveNames := by decide
+## 这条替换掉了什么，以及为什么重要
+
+此前本文件有**自己的一份** `primitiveNames`（手写的 11 个字符串），并用一条 `decide` 证明
+`abiTable.map name = primitiveNames`——**那是两张手写表互相比对**：
+**两张表一起改，证明照样通过；改一张，证明就失败，而失败的消息说的是「ABI 与 ABI 不一致」，
+看不出「与 `Primitive` 不一致」。**
+
+现在右侧是 `Lattice.Compose.primitiveNames`，而那一份**被 `run_cmd` 对着环境检查过**（第 40 轮，
+`PrimitiveShape`）：**11 个名字必须在环境中解析得到**。
+
+⇒ **链变成**：环境里的 11 个 `Primitive` →（`run_cmd`）→ `Compose.primitiveNames` →（**本条**）→
+`abiTable` 的名字。**ABI 的名字从此有了一个环境锚点。**
+
+## ⚠ 这条桥是**名字级**的，不是**类型级**的
+
+`Primitive I O` 的 `I`/`O` 是类型变量，`CFunction` 不可能真的持有一个 `Primitive` 值。
+**所以 `P3-02` 只完成了「名字」这一半**：`arity`、参数类型、错误码与 `Primitive` 的对应**仍未建立**，
+而那是 `P3-02` 的另一半，也是 `P3-05` 的前件。 -/
+theorem abiTable_names_eq_verified : abiTable.map CFunction.name = Lattice.Compose.primitiveNames := by
+  decide
 
 end Lattice.CInterface.ABI

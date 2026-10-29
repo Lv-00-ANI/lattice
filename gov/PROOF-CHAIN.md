@@ -654,7 +654,7 @@
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
 - `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
-- `Lattice.CInterface.ABI` 
+- `Lattice.CInterface.ABI` <- `Lattice.Compose.PrimitiveShape`
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
@@ -1505,7 +1505,7 @@
 | `Lattice.Lib.Quantization.RealSTEError` | 13 | 4 |
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.CInterface` | 0 | 0 |
-| `Lattice.CInterface.ABI` | 5 | 7 |
+| `Lattice.CInterface.ABI` | 5 | 6 |
 | `Lattice.CInterface.Conformance` | 7 | 18 |
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
@@ -1956,10 +1956,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `le_trans`
-- `abiTable_errors_wellFormed` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
-- `abiTable_length` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `length`, `optional`, `parallel`
-- `abiTable_names_nodup` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
-- `abiTable_returns_a_value` -> `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `descentStep`, `identity`, `iterate`, `optional`, `parallel`
+- `abiTable_errors_wellFormed` -> `primitiveNames`
+- `abiTable_length` -> `length`, `primitiveNames`
+- `abiTable_names_eq_verified` -> `primitiveNames`
+- `abiTable_names_nodup` -> `primitiveNames`
+- `abiTable_returns_a_value` -> `primitiveNames`
 - `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
@@ -7163,9 +7164,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `preserves_of_sat` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `zero`
 - `preserves_three` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `preserves_two` -> `Audit`, `Repair`, `Sat`, `induction`, `iterate`, `zero`
-- `primitiveFieldNames_length` -> `Primitive`, `length`, `primitiveNames`
-- `primitiveNames_length` -> `Primitive`, `length`, `primitiveNames`
-- `primitiveNames_nodup` -> `Primitive`, `length`, `primitiveNames`
+- `primitiveFieldNames_length` -> `Primitive`, `length`
+- `primitiveNames_length` -> `Primitive`, `length`
+- `primitiveNames_nodup` -> `Primitive`, `length`
 - `principal_curvatures_product_eq_gaussian` -> `E`, `S2`
 - `prob_iff_univ` -> `apply`, `mono`
 - `prob_isFinite` -> `apply`, `mono`

@@ -32,7 +32,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `primitiveNames_eq_abi` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `abiTable_names_eq_verified` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_names_dedup_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |

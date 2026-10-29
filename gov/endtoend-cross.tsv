@@ -4,7 +4,7 @@ CInterface/ABI.lean	abiTable_length
 CInterface/ABI.lean	abiTable_names_nodup
 CInterface/ABI.lean	abiTable_errors_wellFormed
 CInterface/ABI.lean	abiTable_returns_a_value
-CInterface/ABI.lean	primitiveNames_eq_abi
+CInterface/ABI.lean	abiTable_names_eq_verified
 CInterface/Conformance.lean	conformance_length
 CInterface/Conformance.lean	conformance_names_dedup_length
 CInterface/Conformance.lean	conformance_names_eq_abi
