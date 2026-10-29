@@ -516,29 +516,53 @@ theorem L1Bridge_length (ts : List CharToken) :
   §五 的 `e2e_bridge_sep_is_load_bearing` 证明结论变【假】** —— 这是"承重"的**强判据**
   （不是"证不出来"，是**假**）。 -/
 
-/-- ⭐⭐ **端到端健全性（主定理，正向）**：
-从**数据层** `List Char` 出发，经 L0→L1（`tokenize`）、**L1 桥**（`L1Bridge`）、
-L1→L2（`Extract`），到达 L3（`compileToLayer`）后，**语义与符号层一致**。
+/-- ⭐⭐ **端到端健全性（主定理，正向）** —— ⚠ **但它的名字比它的内容大。**
 
-⚠ **为什么它不是 §一 的重述**：结论的**类型**里出现了 `s : List Char`、`ts : List CharToken`
-与 `L1Bridge ts : List SymToken`（L0 与 L1 的两侧），⚠ **而 §一 的结论里只有 L2、L3**。
-⇒ **两者类型不同**，**不可能**是同一命题的重述。
+## 定理实际说了什么
 
-**每一环的承重方式**：`h0` 给出 `ts`；`L1Bridge` 给出 `decode` 能吃的 `List SymToken`；
-`h1` 给出 `cs`。⚠ **三者缺一，结论无法【陈述】。**
+    AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x
 
-⚠⚠ **必须与 §一 一起读（本文件最重要的诚实口径）**：本条的 **`h0`/`h1` 在证明中未被使用**
-（Lean 会报两条 `unused variable` 警告，与 §一 同）。⭐ **这不是缺陷，是【结论】**：
+**证明体是 `symbolToWeight_correct cs x`，一个字没改**（第 51 轮实测）。
 
-| | §一 | §三 |
-|:--|:--|:--|
-| 假设 | **无** | `h0`（L0→L1）、`h1`（L1→L2） |
-| 结论**类型** | 只有 L2、L3 | ⭐ **含 L0、L1 两侧** |
-| `Extract` 是否承重 | ❌ 它**不在**类型里 | ⭐ **在**：**删掉它 `cs` 就没有来源，结论无法陈述** |
+## ⚠ `h0` 与 `h1` 是**死假设**，而且第 51 轮确认了它们不承重
 
-⭐⭐ **⇒ 精确结论**：L1⇄L2 的 `Extract` 对**语义【内容】**不承重（§一），
-但对**结论的【可陈述性】**承重（§三）。
-⚠ **本文件不在两者间含糊** —— 上面这张表就是它的口径。 -/
+    h0 : tokenize s = some ts        -- 证明里没出现
+    h1 : Extract (L1Bridge ts) cs    -- 证明里没出现
+
+Lean 会报两条 `unused variable` 警告。**本文件此前给出的辩护是：**
+
+> 「`h1` 提供 `cs`，**删掉它 `cs` 就没有来源，结论无法陈述**」
+
+⭐ **这个辩护是错的。** `cs : ConstraintSet` 与 `x : List Int` **本身就是参数**——
+删掉 `h1`，结论 `AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x` **照样可以陈述**，
+而且**更强**（少了假设）。**`h0` 同理**：它只把 `s` 与 `ts` 绑在一起，**而这两者不出现在结论里**。
+
+## ⇒ 精确结论（第 51 轮更正）
+
+| | 说法 |
+|:--|:--|
+| **类型层** | 定理的 **Pi-类型** 里出现 `List Char`、`CharToken`、`SymToken`（经 `h0`/`h1` 的绑定） |
+| **内容层** | **与 `symbolToWeight_correct` 完全相同**——L0/L1 的绑定**不约束结论** |
+| ⚠ **承重与否** | **`h0`/`h1` 都不承重**；把它们删掉会得到一条**更强**的定理 |
+
+**所以这条定理是 L2⇄L3 的陈述，不是 L0→L3 的。** 「e2e」在名字里，不在陈述里。
+
+## 端到端的内容在别处
+
+- **`e2e_path_exists`**：通路**非空**（对任意 `s` 都存在 `ts`、`cs` 使前提成立）——
+  **这是让上面这条定理不空洞的那一条**；
+- **`e2e_loss_at_L2L3` / `e2e_loss_at_L0L1` / `e2e_loss_compound`**：链路**在哪里丢信息**；
+- **`e2e_not_injective` / `e2e_no_left_inverse`**：**不可逆**，且是定理；
+- **`e2e_bridge_sep_is_load_bearing`**：桥的分隔符**承重**（删掉它结论变**假**，不只是「证不出来」）。
+
+## 为什么 L0→L3 的强陈述**不存在**，而不是「还没做」
+
+要让 `AllSatisfied` 成为 `s` 的**性质**，需要 `Extract` 是**函数**（`s ↦ 唯一的 cs`）。
+**而 `Extract` 是关系**（`Prop`）：同一个 `ts` 可以有多个 `cs` 满足它。
+**所以「`s` 决定 `cs`」这件事本身不成立**——那是**可陈述性**的障碍，不是工作量。
+
+⚠ **要把这一点变成一条 L0→L3 定理，需要先给 `Extract` 一个决定性版本**（`decode` 已经是），
+**并证明 `decode ts` 与 `Extract` 一致**。**那是一个设计决定，本文件没有假装做了它。** -/
 theorem e2e_sound {s : List Char} {ts : List CharToken} {cs : ConstraintSet}
     (h0 : tokenize s = some ts) (h1 : Extract (L1Bridge ts) cs) (x : List Int) :
     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x :=
