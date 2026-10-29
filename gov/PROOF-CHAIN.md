@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 211 | aggregator at `Lattice/`, re-exports only |
+| root | 212 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -654,7 +654,8 @@
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
+- `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
@@ -1500,6 +1501,7 @@
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
+| `Lattice.Compose.AdapterMatrix` | 8 | 3 |
 | `Lattice.Compose.AssocLaws` | 5 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ComposeObligation` | 7 | 3 |
@@ -2877,6 +2879,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `collinear_translate` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `diff`, `parallel`, `seg`, `sqDist`, `sqNorm`
 - `collision_implies_not_injective` -> `LinearLayer`, `extractVec`
 - `colorable_iff_coloring` -> `Adj`
+- `combinatorPrimitives_length` -> `length`
 - `combine_disjoint_signatures_trivial` -> `children`, `le_trans`, `length`, `length_cons`, `point`, `satisfiable`, `split`, `splitOn`
 - `combine_isConvex` -> `children`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
 - `combine_symbols_subset_left` -> `children`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
@@ -9320,6 +9323,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `validation_gap_budget` -> `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `validation_gap_tail` -> `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `validity_does_not_determine_syntax` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`
+- `valuePrimitives_length` -> `length`
 - `value_iteration_contraction` -> `ChainFwd`, `geom_contraction_eventually`, `induction`, `zero`
 - `value_iteration_converges` -> `ChainFwd`, `geom_contraction_eventually`
 - `value_no_step` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`

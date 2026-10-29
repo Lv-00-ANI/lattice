@@ -33,6 +33,8 @@ CInterface/Serialization.lean	layerWords_getD_b
 CInterface/Serialization.lean	wordsLayer_layerWords
 CInterface/Serialization.lean	layerWords_injective
 CInterface/Serialization.lean	layerWords_zero
+Compose/AdapterMatrix.lean	valuePrimitives_length
+Compose/AdapterMatrix.lean	combinatorPrimitives_length
 Compose/AssocLaws.lean	compose_pre_assoc
 Compose/AssocLaws.lean	compose_post_assoc_iff
 Compose/AssocLaws.lean	compose_strength_coverage_assoc
