@@ -1750,6 +1750,10 @@ Runtime/ProgramAST.lean	evalProgram_encodeProgram
 Runtime/ProgramAST.lean	encodeProgram_append_length
 Runtime/ProgramAST.lean	encodeProgram_append_softmax_length
 Runtime/ProgramAST.lean	encodeProgram_singleton_softmax_length
+Runtime/ProgramLipschitz.lean	evalProgram_lipschitz
+Runtime/ProgramLipschitz.lean	relu_isLipschitz
+Runtime/ProgramLipschitz.lean	scale_isLipschitz
+Runtime/ProgramLipschitz.lean	affine_isLipschitz
 Runtime/QuantErrorPropagation.lean	affineAct_perturbation
 Runtime/QuantErrorPropagation.lean	quantizedLayer_output_error
 Runtime/RatRepresentation.lean	compile_apply
