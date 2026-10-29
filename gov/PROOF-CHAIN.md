@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 213 | aggregator at `Lattice/`, re-exports only |
+| root | 214 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -653,9 +653,10 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
+- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` <- `Lattice.Compose.PrimitiveShape`
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
+- `Lattice.CInterface.ContractBoundary` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
@@ -1507,6 +1508,7 @@
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 6 |
 | `Lattice.CInterface.Conformance` | 7 | 18 |
+| `Lattice.CInterface.ContractBoundary` | 4 | 2 |
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
@@ -1956,6 +1958,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `le_trans`
+- `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
 - `abiTable_errors_wellFormed` -> `primitiveNames`
 - `abiTable_length` -> `length`, `primitiveNames`
 - `abiTable_names_eq_verified` -> `primitiveNames`
@@ -3077,6 +3080,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
+- `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_act` -> `W`, `compose`, `induction`
@@ -4254,6 +4258,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exec_skip` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `executable_rule_conclusions_absorbable` -> `Rule`, `layer`, `length`
 - `executable_track_exists` -> `GeoExpr`
+- `exists_abi_entry_without_data_parameter` -> `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
 - `exists_argmax` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `exists_box_collision` -> `apply`, `card_fin`, `le`
 - `exists_box_of_continuousAt_neg` -> `add`, `le_trans`, `min`, `mono`, `subst`

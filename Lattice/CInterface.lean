@@ -1,4 +1,5 @@
 import Lattice.CInterface.ABI
+import Lattice.CInterface.ContractBoundary
 import Lattice.CInterface.Conformance
 import Lattice.CInterface.LayoutBytes
 import Lattice.CInterface.Serialization
