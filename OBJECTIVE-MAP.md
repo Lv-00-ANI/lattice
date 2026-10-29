@@ -14,10 +14,10 @@
 | 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
-| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 5 | 0 | `Domains/Constraints/Pipeline.lean`, `Domains/Geometry/LadderInstance.lean` |
+| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 6 | 0 | `Domains/Constraints/Pipeline.lean`, `Domains/Geometry/LadderInstance.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 38 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 1 | — |
-| 1.4 weight -> symbol | `extract` | `Runtime/WeightToSymbolEquivalence.lean` | 24 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract` | `Runtime/WeightToSymbolEquivalence.lean` | 25 | 3 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
@@ -37,7 +37,7 @@
 | 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 19 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
 | 5 symbolic engine | `derivation_sound` | `Domains/Geometry/Engine.lean` | 1 | 0 | `Domains/Geometry/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
-| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Domains/Geometry/LadderInstance.lean`, `Evidence/Hypotheses.lean` |
+| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 4 | 0 | `Domains/Geometry/LadderInstance.lean`, `Evidence/Hypotheses.lean` |
 
 ## 汇总
 

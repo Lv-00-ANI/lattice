@@ -1709,6 +1709,7 @@ Runtime/NondegenerateInstance.lean	act_apply
 Runtime/NondegenerateInstance.lean	act_zero_all_iff
 Runtime/NondegenerateInstance.lean	fullCompile_sound
 Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward
+Runtime/PartialRepresentation.lean	roundtrip_apply
 Runtime/PenaltyEmbedding.lean	exact_implies_sound
 Runtime/PenaltyEmbedding.lean	embedding_sound_at_minimiser
 Runtime/PenaltyEmbedding.lean	program_sound_at_minimiser
