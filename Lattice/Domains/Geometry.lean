@@ -69,6 +69,7 @@ import Lattice.Domains.Geometry.Unconditional
 import Lattice.Domains.Geometry.Unified
 import Lattice.Primitives.WeightDescent
 import Lattice.Domains.Geometry.WeightSideLadder
+import Lattice.Domains.Geometry.AffineClass
 
 /-!
 # `Lattice.Domains.Geometry`

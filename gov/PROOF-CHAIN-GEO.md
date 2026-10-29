@@ -12,6 +12,7 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
+| `Lattice.Domains.AffineClass` | 134 | 9 | WeightSideLadder |
 | `Lattice.Domains.ApproxEmbedding` | 106 | 1 | Loss |
 | `Lattice.Domains.CExprCodegen` | 136 | 5 | ComputableExpr |
 | `Lattice.Domains.ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
@@ -54,7 +55,7 @@
 | `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
 | `Lattice.Domains.GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
 | `Lattice.Domains.GeoSampledBound` | 79 | 1 | Lipschitz, RhoMetric, PolyAssemble |
-| `Lattice.Domains.Geometry` | 83 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder |
+| `Lattice.Domains.Geometry` | 85 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder, AffineClass |
 | `Lattice.Domains.IRBridge` | 307 | 13 | LayerExact, Loss |
 | `Lattice.Domains.IRRepair` | 86 | 3 | IRBridge, ConjRepair, LoopPerp |
 | `Lattice.Domains.Initialise` | 125 | 9 | Constraint, Invariant |

@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 212 | aggregator at `Lattice/`, re-exports only |
+| root | 213 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -696,7 +696,8 @@
 - `Lattice.Domains.Constraints.RealToken` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.RealTokenRoundtrip` <- `Lattice.Domains.Constraints.RealToken`
 - `Lattice.Domains.Constraints.SeqRepresentation` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
-- `Lattice.Domains.Geometry` <- `Lattice.Domains.Geometry.ApproxEmbedding`, `Lattice.Domains.Geometry.CExprCodegen`, `Lattice.Domains.Geometry.ClauseComposition`, `Lattice.Domains.Geometry.ClosedLoop`, `Lattice.Domains.Geometry.CodegenLadder`, `Lattice.Domains.Geometry.Compile`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Domains.Geometry.Derive`, `Lattice.Domains.Geometry.Engine`, `Lattice.Domains.Geometry.EqualLengthRepair`, `Lattice.Domains.Geometry.Exact`, `Lattice.Domains.Geometry.Exec`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.ExecutableGeoCheck`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Geometry.ExteriorSmooth`, `Lattice.Domains.Geometry.Extract`, `Lattice.Domains.Geometry.Finite`, `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.IRRepair`, `Lattice.Domains.Geometry.Initialise`, `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.LadderInstance`, `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Geometry.LoopRate`, `Lattice.Domains.Geometry.MissingRepairs`, `Lattice.Domains.Geometry.MultiSeedCoverage`, `Lattice.Primitives.MultistepLoop`, `Lattice.Domains.Geometry.Nondegenerate`, `Lattice.Domains.Geometry.NondegenerateInstance`, `Lattice.Domains.Geometry.ParallelRepair`, `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.PathContinuity`, `Lattice.Domains.Geometry.PenaltySmooth`, `Lattice.Domains.Geometry.Plucker`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Domains.Geometry.PolyConstants`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Geometry.PolyNondegenerate`, `Lattice.Domains.Geometry.PolyRepair`, `Lattice.Domains.Geometry.PolySpecificRepair`, `Lattice.Domains.Geometry.QualityBridge`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.ReinjectionGeneral`, `Lattice.Domains.Geometry.Repair`, `Lattice.Domains.Geometry.RepairBridge`, `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Geometry.RepairPenalty`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Rules`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisConnection`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.Unconditional`, `Lattice.Domains.Geometry.Unified`, `Lattice.Primitives.WeightDescent`, `Lattice.Domains.Geometry.WeightSideLadder`
+- `Lattice.Domains.Geometry` <- `Lattice.Domains.Geometry.ApproxEmbedding`, `Lattice.Domains.Geometry.CExprCodegen`, `Lattice.Domains.Geometry.ClauseComposition`, `Lattice.Domains.Geometry.ClosedLoop`, `Lattice.Domains.Geometry.CodegenLadder`, `Lattice.Domains.Geometry.Compile`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Domains.Geometry.Derive`, `Lattice.Domains.Geometry.Engine`, `Lattice.Domains.Geometry.EqualLengthRepair`, `Lattice.Domains.Geometry.Exact`, `Lattice.Domains.Geometry.Exec`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.ExecutableGeoCheck`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Geometry.ExteriorSmooth`, `Lattice.Domains.Geometry.Extract`, `Lattice.Domains.Geometry.Finite`, `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.IRRepair`, `Lattice.Domains.Geometry.Initialise`, `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.LadderInstance`, `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Geometry.LoopRate`, `Lattice.Domains.Geometry.MissingRepairs`, `Lattice.Domains.Geometry.MultiSeedCoverage`, `Lattice.Primitives.MultistepLoop`, `Lattice.Domains.Geometry.Nondegenerate`, `Lattice.Domains.Geometry.NondegenerateInstance`, `Lattice.Domains.Geometry.ParallelRepair`, `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.PathContinuity`, `Lattice.Domains.Geometry.PenaltySmooth`, `Lattice.Domains.Geometry.Plucker`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Domains.Geometry.PolyConstants`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Geometry.PolyNondegenerate`, `Lattice.Domains.Geometry.PolyRepair`, `Lattice.Domains.Geometry.PolySpecificRepair`, `Lattice.Domains.Geometry.QualityBridge`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.ReinjectionGeneral`, `Lattice.Domains.Geometry.Repair`, `Lattice.Domains.Geometry.RepairBridge`, `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Geometry.RepairPenalty`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Rules`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisConnection`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.Unconditional`, `Lattice.Domains.Geometry.Unified`, `Lattice.Primitives.WeightDescent`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Domains.Geometry.AffineClass`
+- `Lattice.Domains.Geometry.AffineClass` <- `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Domains.Geometry.ApproxEmbedding` <- `Lattice.Runtime.EndToEndApproximation`, `Lattice.Domains.Constraints.Loss`
 - `Lattice.Domains.Geometry.CExprCodegen` <- `Lattice.Runtime.StackCodegen`, `Lattice.Domains.Constraints.ComputableExpr`
 - `Lattice.Domains.Geometry.ClauseComposition` <- `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.WeightLadder`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairConvergence`
@@ -1543,6 +1544,7 @@
 | `Lattice.Domains.Constraints.RealTokenRoundtrip` | 7 | 0 |
 | `Lattice.Domains.Constraints.SeqRepresentation` | 4 | 3 |
 | `Lattice.Domains.Geometry` | 0 | 0 |
+| `Lattice.Domains.Geometry.AffineClass` | 9 | 0 |
 | `Lattice.Domains.Geometry.ApproxEmbedding` | 1 | 1 |
 | `Lattice.Domains.Geometry.CExprCodegen` | 4 | 2 |
 | `Lattice.Domains.Geometry.ClauseComposition` | 6 | 0 |
@@ -2422,6 +2424,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bigstep_of_while_false` -> `Compiler`, `induction`, `subst`, `trans`
 - `bigstep_to_smallstep` -> `Compiler`, `induction`, `subst`, `trans`
 - `bilinearSum_lipschitz` -> `Pt`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
+- `bilinear_not_affine` -> `aff`, `subst`
 - `binCount_le` -> `apply`, `card_fin`, `le`
 - `binInd_bool_sum` -> `obs`
 - `binInd_eq_self` -> `obs`
@@ -4118,6 +4121,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
+- `eqZero_representable` -> `aff`, `subst`
 - `eqZero_value_is_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
 - `eq_iff_children_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`
 - `eq_of_compileToLayer_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
@@ -4126,6 +4130,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `equalLengthFix_reaches` -> `Pt`, `sqDist`, `sqDistFix_reaches`, `sqDist_nonneg`
 - `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `equalLengthPenalty_nonneg` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
+- `equalLength_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `equalLength_sound` -> `Pt`, `sqDist`
 - `equalLength_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `erf_deriv` -> `le`
@@ -5027,6 +5032,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `group_axioms_implies_mul_one` -> `apply`, `children`, `le_trans`, `satisfiable`
 - `group_axioms_of_group` -> `apply`, `children`, `le_trans`, `satisfiable`
 - `grouped_output_bound` -> `E`, `convComb_norm_bound`, `softmax`
+- `gtZero_not_affine` -> `aff`, `subst`
 - `hDone_apply` -> `compile`, `step`
 - `hG_is_substantive` -> `dist`, `induction`, `zero`
 - `hG_satisfiable` -> `dist`, `induction`, `zero`
@@ -5714,6 +5720,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerwise_optimal_of_nonneg_coupling` -> `rho`
 - `lcm_assoc` -> `apply`, `le_trans`, `length`, `satisfiable`, `trans`
 - `lcm_gcd_distrib_dvd` -> `apply`, `children`, `le_trans`, `length`, `satisfiable`, `trans`
+- `leZero_halfspace` -> `aff`
+- `leZero_not_affine` -> `aff`, `le_refl`, `subst`
 - `le_and_ge_iff_eq` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `le_antisymm` -> `empty`, `find`, `subst`
 - `le_antisymm_from_injective` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
@@ -5954,6 +5962,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lr_decay_antitone` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `induction`, `le_trans`, `subst`, `zero`
 - `lr_decay_finite_phase` -> `apply`, `contraction_converges`, `contraction_pow_bound`, `le_trans`, `subst`
 - `lstsqGrad_zero` -> `apply`
+- `ltZero_not_affine` -> `aff`, `subst`
 - `lt_imp_le` -> `apply`, `empty`, `find`
 - `lt_of_apply_eq_of_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `lt_of_le_maxPoint` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
@@ -6544,6 +6553,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `newton_exact_step_on_quadratic` -> `NewtonStep`, `Quadratic`, `newton_step_quadratic`
 - `nil_append` -> `Audit`, `induction`, `mul`, `one`
 - `nlCompile_batch` -> `ApproxOn`, `le_antisymm`
+- `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `dot`, `recover`
 - `no_better_than_geometric` -> `Subgradient`
@@ -8519,6 +8529,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistConst_scale` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
+- `sqDistEq_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_nonneg`
