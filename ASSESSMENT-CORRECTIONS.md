@@ -223,6 +223,57 @@ theorem sqDist_eq_sum (p q : Pt n) :
 
 ---
 
+## 3.8 第 84 轮：**第三次**，我又加了一条已存在的引理
+
+### 事实
+
+第 80 轮我在 `Domains/Constraints/Dist.lean` 加了
+
+```lean
+theorem sqDist_lipschitz_on_bounded ... :
+    |sqDist p q - sqDist p' q'| ≤ 4 * B * ∑ i, |(p i - q i) - (p' i - q' i)|
+```
+
+**它已经存在。** `Domains/Constraints/DistLipschitz.lean:119`：
+
+```lean
+theorem sqDist_lipschitz ... :
+    |sqDist (pts a) (pts b) - sqDist (pts' a) (pts' b)| ≤ (8 * n * B) * rho n k pts pts'
+```
+
+**两者等价**：`rho n k pts pts' = sup' |pts p i − pts' p i|`（`Lipschitz.lean:75`），
+所以 `|(p i − q i) − (p' i − q' i)| ≤ 2ρ`，`∑ i` 之后是 `2nρ`，乘 `4B` 得 **`8nBρ`**——**与已有那条逐字相同。**
+
+⇒ **第 84 轮删除了 `sqDist_lipschitz_on_bounded`。**
+
+### 这已经是第三次
+
+| 轮 | 我加的 | 它早已存在于 |
+|:--|:--|:--|
+| 81 | `sqDist_eq_sum` | `DistContinuous.lean:38` |
+| 84 | `sqDist_lipschitz_on_bounded` | `DistLipschitz.lean:119` |
+| （81 之前） | —— | 无 |
+
+**两次都是「没搜就加」，两次都由构建或事后测量抓到。**
+
+### 所以这条纪律要写死
+
+> **在加任何引理之前，对它的名字和它的结论形状各 `grep` 一次。**
+>
+> - **名字**：`grep 'theorem <name>'`——抓到逐字重复；
+> - **形状**：`grep '<关键子项>'`（如 `sqDist`、`lipschitz`、`2 * R *`）——抓到**不同名但等价**的重复，
+>   而那正是本轮的情形（名字完全不同，结论等价）。
+
+**第一种重复构建会立刻抓到；第二种不会**——它会安静地编译通过，**然后库里有两条互为推论、各自被不同文件使用的定理。**
+**本轮的重复属于第二种，而它是被「找消费者」时偶然发现的，不是被任何门禁抓到的。**
+
+⚠ **这意味着：`audit_aliases` 抓不到这一类。** 它按**名字与证明体**分组，
+**而两条不同名、证明路径不同（一条走 `∑` 逐项，一条走 `rho` 的 `sup` 界）、结论等价的定理，不在它的判据里。**
+
+**这是一个已知的盲区，而非本轮新发现——但本轮给了它第二个实例。**
+
+---
+
 ## 4. 失效路径：评估里的 `Geo/`、`Lift/` 引用
 
 三次搬迁（`Lift`→`Runtime`、`Geo`→`Domains`、`Audit`→`Evidence`）之后，评估里这些引用**在树里不存在**：

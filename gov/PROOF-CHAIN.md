@@ -685,7 +685,7 @@
 - `Lattice.Domains.Constraints.ConstraintSet` <- `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Domains.Constraints.ConstraintTokenizer` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Differentiable` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.Loss`
-- `Lattice.Domains.Constraints.Dist` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Domains.Constraints.Dist` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Domains.Constraints.DistContinuous` <- `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Constraints.DistLipschitz` <- `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Constraints.EqConstraintListTokens` <- `Lattice.Domains.Constraints.EqConstraintTokens`
@@ -1548,7 +1548,7 @@
 | `Lattice.Domains.Constraints.ConstraintSet` | 7 | 1 |
 | `Lattice.Domains.Constraints.ConstraintTokenizer` | 17 | 9 |
 | `Lattice.Domains.Constraints.Differentiable` | 10 | 2 |
-| `Lattice.Domains.Constraints.Dist` | 10 | 3 |
+| `Lattice.Domains.Constraints.Dist` | 9 | 3 |
 | `Lattice.Domains.Constraints.DistContinuous` | 1 | 0 |
 | `Lattice.Domains.Constraints.DistLipschitz` | 3 | 0 |
 | `Lattice.Domains.Constraints.EqConstraintListTokens` | 7 | 3 |
@@ -3750,10 +3750,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `distBias_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `distEq_penalty_pos_of_neg_const` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `distEq_sq_penalty_ge_sq` -> `Pt`, `sqDist`, `sqDist_nonneg`
-- `dist_eq_of_sqDist_eq` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
-- `dist_nonneg` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `dist_eq_of_sqDist_eq` -> `Pt`, `trans`
+- `dist_nonneg` -> `Pt`, `trans`
 - `dist_self_const_one_unsatisfiable` -> `apply`, `eval`, `induction`, `step`
-- `dist_sq` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `dist_sq` -> `Pt`, `trans`
 - `dist_symm` -> `Geometry`, `Point`, `dist`
 - `dist_translation_invariant` -> `Point2R`, `alibiBias`, `dist`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `dist_zero_iff_eq` -> `Geometry`, `Point`, `dist`
@@ -8623,15 +8623,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_along_path_split` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_eq_coord_add_rest` -> `Pt`, `diff`, `sqDist`, `sqDist_nonneg`, `sqNorm`
-- `sqDist_eq_of_dist_eq` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
-- `sqDist_eq_of_dist_eq_same` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `sqDist_eq_of_dist_eq` -> `Pt`, `trans`
+- `sqDist_eq_of_dist_eq_same` -> `Pt`, `trans`
 - `sqDist_eq_resid` -> `GeoExpr`, `diff`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `segComp`, `sqDist`, `sqDistEqPenalty`, `sqNorm`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
-- `sqDist_eq_sqNorm` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
-- `sqDist_eq_sum` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
-- `sqDist_eq_zero_iff` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `sqDist_eq_sqNorm` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
+- `sqDist_eq_sum` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
+- `sqDist_eq_zero_iff` -> `Pt`, `sqNorm_eq_zero_iff`, `trans`
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
-- `sqDist_lipschitz_on_bounded` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`
-- `sqDist_nonneg` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
+- `sqDist_nonneg` -> `Pt`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
 - `sqDist_translateBy` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
