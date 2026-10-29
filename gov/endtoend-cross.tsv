@@ -1621,6 +1621,9 @@ Primitives/TokenizerPattern.lean	dec_c0_step
 Primitives/TokenizerPattern.lean	three_tactic_patterns_work
 Primitives/WeightDescent.lean	residual_rowStep
 Primitives/WeightDescent.lean	residual_rowStep_newton
+Primitives/WeightDescent.lean	residual_rowStepN
+Primitives/WeightDescent.lean	abs_residual_rowStepN
+Primitives/WeightDescent.lean	abs_residual_rowStepN_le
 Primitives/WeightDescent.lean	residual_rowStep_abs_le
 Primitives/WeightDescent.lean	residual_input_zero
 Primitives/WeightDescent.lean	no_weight_solution_of_input_zero
