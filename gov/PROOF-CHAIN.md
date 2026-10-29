@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 619 | instantiated library, may import core only |
+| lib | 620 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -567,7 +567,7 @@
 - `Lattice.Lib.Meta.RealRflAudit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.WeightToSymbolEquivalence`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalCompileComm`, `Lattice.Lib.Editing.RealRoundTripVacuity`
 - `Lattice.Lib.Meta.RealScalarVerdict` <- `Lattice.Lib.Chain.RealScalarField`
 - `Lattice.Lib.Meta.RealSymbolCompletenessVerdict` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealSymbolCompleteness`
-- `Lattice.Lib.Optim` <- `Lattice.Lib.Optim.ModEqBridge`, `Lattice.Lib.Optim.RealADMM`, `Lattice.Lib.Optim.RealAdam`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lib.Optim.RealBFGS`, `Lattice.Lib.Optim.RealCheckpointAveraging`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Optim.RealDPSGD`, `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Optim.RealEarlyStoppingStatistics`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Optim.RealEvalBridge`, `Lattice.Lib.Optim.RealFCASyntaxBridge`, `Lattice.Lib.Optim.RealFedAsync`, `Lattice.Lib.Optim.RealFedAvg`, `Lattice.Lib.Optim.RealFloatSharpBridge`, `Lattice.Lib.Optim.RealGLUTraining`, `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Optim.RealGradientFlowDiscretization`, `Lattice.Lib.Optim.RealIterativeSolver`, `Lattice.Lib.Optim.RealLRDecay`, `Lattice.Lib.Optim.RealLeastSquares`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealMirrorDescent`, `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovLower`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealNewtonMethod`, `Lattice.Lib.Optim.RealNewtonRate`, `Lattice.Lib.Optim.RealOperatorSplitBridge`, `Lattice.Lib.Optim.RealPLCondition`, `Lattice.Lib.Optim.RealPerceptron`, `Lattice.Lib.Optim.RealPolicyGradient`, `Lattice.Lib.Optim.RealPolicyGradientVector`, `Lattice.Lib.Optim.RealProjGrad`, `Lattice.Lib.Optim.RealProxExistence`, `Lattice.Lib.Optim.RealProxGrad`, `Lattice.Lib.Optim.RealProximal`, `Lattice.Lib.Optim.RealProximalMoreau`, `Lattice.Lib.Optim.RealRatApproxLowerBound`, `Lattice.Lib.Optim.RealRateLower`, `Lattice.Lib.Optim.RealRegularizedMDP`, `Lattice.Lib.Optim.RealRidge`, `Lattice.Lib.Optim.RealRiemannianGD`, `Lattice.Lib.Optim.RealSGD`, `Lattice.Lib.Optim.RealSGDRate`, `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Optim.RealSeamBridges`, `Lattice.Lib.Optim.RealSeamBridges2`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`, `Lattice.Lib.Optim.RealStationarity`, `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealTD`, `Lattice.Lib.Optim.RealUpDown`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.Optim.RealVectorStationarity`
+- `Lattice.Lib.Optim` <- `Lattice.Lib.Optim.ModEqBridge`, `Lattice.Lib.Optim.RealADMM`, `Lattice.Lib.Optim.RealAdam`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lib.Optim.RealBFGS`, `Lattice.Lib.Optim.RealCheckpointAveraging`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Optim.RealDPSGD`, `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Optim.RealEarlyStoppingStatistics`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Optim.RealEvalBridge`, `Lattice.Lib.Optim.RealFCASyntaxBridge`, `Lattice.Lib.Optim.RealFedAsync`, `Lattice.Lib.Optim.RealFedAvg`, `Lattice.Lib.Optim.RealFloatSharpBridge`, `Lattice.Lib.Optim.RealGLUTraining`, `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Optim.RealGradientFlowDiscretization`, `Lattice.Lib.Optim.RealIterativeSolver`, `Lattice.Lib.Optim.RealLRDecay`, `Lattice.Lib.Optim.RealLeastSquares`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealMirrorDescent`, `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovLower`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealNewtonMethod`, `Lattice.Lib.Optim.RealNewtonRate`, `Lattice.Lib.Optim.RealOperatorSplitBridge`, `Lattice.Lib.Optim.RealPLCondition`, `Lattice.Lib.Optim.RealPerceptron`, `Lattice.Lib.Optim.RealPolicyGradient`, `Lattice.Lib.Optim.RealPolicyGradientVector`, `Lattice.Lib.Optim.RealProjGrad`, `Lattice.Lib.Optim.RealProxExistence`, `Lattice.Lib.Optim.RealProxGrad`, `Lattice.Lib.Optim.RealProximal`, `Lattice.Lib.Optim.RealProximalMoreau`, `Lattice.Lib.Optim.RealRatApproxLowerBound`, `Lattice.Lib.Optim.RealRateLower`, `Lattice.Lib.Optim.RealRegularizedMDP`, `Lattice.Lib.Optim.RealRidge`, `Lattice.Lib.Optim.RealRiemannianGD`, `Lattice.Lib.Optim.RealSGD`, `Lattice.Lib.Optim.RealSGDRate`, `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Optim.RealSeamBridges`, `Lattice.Lib.Optim.RealSeamBridges2`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`, `Lattice.Lib.Optim.RealStationarity`, `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealTD`, `Lattice.Lib.Optim.RealUpDown`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.Optim.RealVectorStationarity`, `Lattice.Lib.Optim.RealVectorGD`
 - `Lattice.Lib.Optim.ModEqBridge` <- `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Runtime.RealModLoss`
 - `Lattice.Lib.Optim.RealADMM` <- `Lattice.Lib.Chain.RealPMix`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealAdam` 
@@ -627,6 +627,7 @@
 - `Lattice.Lib.Optim.RealTD` <- `Lattice.Lib.LinearAlgebra.RealBanach`
 - `Lattice.Lib.Optim.RealUpDown` 
 - `Lattice.Lib.Optim.RealValueIteration` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Optim.RealConvergence`
+- `Lattice.Lib.Optim.RealVectorGD` 
 - `Lattice.Lib.Optim.RealVectorStationarity` <- `Lattice.Runtime.RealLinear`
 - `Lattice.Lib.Penalty` <- `Lattice.Lib.Penalty.Counterexample`, `Lattice.Lib.Penalty.PolyExact`
 - `Lattice.Lib.Penalty.Counterexample` <- `Lattice.Lib.Penalty.PolyExact`, `Lattice.Runtime.PenaltyEmbedding`
@@ -1490,6 +1491,7 @@
 | `Lattice.Lib.Optim.RealTD` | 8 | 2 |
 | `Lattice.Lib.Optim.RealUpDown` | 7 | 0 |
 | `Lattice.Lib.Optim.RealValueIteration` | 6 | 2 |
+| `Lattice.Lib.Optim.RealVectorGD` | 5 | 3 |
 | `Lattice.Lib.Optim.RealVectorStationarity` | 5 | 1 |
 | `Lattice.Lib.Penalty` | 0 | 0 |
 | `Lattice.Lib.Penalty.Counterexample` | 6 | 1 |
@@ -6682,7 +6684,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normSq_add_le` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `normSq_eq_norm_sq` -> `PosDefQ`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `normSq_fderiv_scalar` -> `E`, `NormSqLossScalar`, `fderiv_apply_direction_scalar`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`, `norm_sq_line_deriv_scalar`
-- `normSq_nonneg` -> `apply`
+- `normSq_nonneg` -> `apply`, `eps`, `induction`, `le_trans`, `loss`, `normSq`, `zero`
 - `normSq_nonneg_euclid` -> `PosDefQ`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `normSq_pos` -> `apply`
 - `normSq_pos_euclid` -> `PosDefQ`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
@@ -9467,9 +9469,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vec2_zero` -> `add`
 - `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
 - `vecDot_toFinVec_eq_dot` -> `dot`, `induction`, `length`, `subst`
+- `vecGdSeq_succ` -> `eps`, `induction`, `le_trans`, `loss`, `normSq`, `normSq_nonneg`, `zero`
 - `vecMulVec_mulVec` -> `mulVec`
 - `vecNorm_nonneg` -> `apply`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `vecNorm_sq` -> `apply`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
+- `vec_gd_descent_of_smooth` -> `eps`, `induction`, `le_trans`, `loss`, `normSq`, `normSq_nonneg`, `zero`
+- `vec_gd_exists_small_gradient` -> `eps`, `le_trans`, `loss`, `normSq`
+- `vec_gd_telescope` -> `eps`, `induction`, `le_trans`, `loss`, `normSq`, `zero`
 - `vectorConstraintSat_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerToCLM`, `layerToCLM_apply`, `length`, `linFunc`, `residual`, `sat_iff_residual`, `symVec`, `symW`
 - `verdict_lub_of_length_eq` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `verdict_monoid` -> `Audit`

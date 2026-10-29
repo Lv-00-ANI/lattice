@@ -1598,6 +1598,9 @@ Lib/Optim/RealSeamBridges2.lean	extractLayer_range_and_roundtrip
 Lib/Optim/RealTD.lean	td_converges
 Lib/Optim/RealValueIteration.lean	value_iteration_contraction
 Lib/Optim/RealValueIteration.lean	value_iteration_converges
+Lib/Optim/RealVectorGD.lean	vec_gd_descent_of_smooth
+Lib/Optim/RealVectorGD.lean	vec_gd_telescope
+Lib/Optim/RealVectorGD.lean	vec_gd_exists_small_gradient
 Lib/Quantization/RealSTEError.lean	not_continuousAt_stepQuant_half
 Lib/Quantization/RealSTEError.lean	not_differentiableAt_stepQuant_half
 Primitives/MultistepLoop.lean	step_pos
