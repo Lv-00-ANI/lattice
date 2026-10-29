@@ -1737,6 +1737,9 @@ Runtime/ProgramAST.lean	decodeProgramGo_cons
 Runtime/ProgramAST.lean	decodeProgramGo_encodeProgram
 Runtime/ProgramAST.lean	decodeProgram_encodeProgram
 Runtime/ProgramAST.lean	evalProgram_encodeProgram
+Runtime/ProgramAST.lean	encodeProgram_append_length
+Runtime/ProgramAST.lean	encodeProgram_append_softmax_length
+Runtime/ProgramAST.lean	encodeProgram_singleton_softmax_length
 Runtime/QuantErrorPropagation.lean	affineAct_perturbation
 Runtime/QuantErrorPropagation.lean	quantizedLayer_output_error
 Runtime/RatRepresentation.lean	compile_apply

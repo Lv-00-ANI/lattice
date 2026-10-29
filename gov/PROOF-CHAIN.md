@@ -1684,7 +1684,7 @@
 | `Lattice.Runtime.PartialRepresentation` | 1 | 3 |
 | `Lattice.Runtime.PenaltyAnalysis` | 3 | 0 |
 | `Lattice.Runtime.PenaltyEmbedding` | 10 | 5 |
-| `Lattice.Runtime.ProgramAST` | 18 | 14 |
+| `Lattice.Runtime.ProgramAST` | 21 | 14 |
 | `Lattice.Runtime.ProgramRepresentation` | 0 | 3 |
 | `Lattice.Runtime.QuantErrorPropagation` | 2 | 0 |
 | `Lattice.Runtime.RatRepresentation` | 4 | 1 |
@@ -3586,9 +3586,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decodeInstr_encode_scale` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
 - `decodeInstr_encode_softmax` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
 - `decodePayload_encodeForm` -> `LinearForm`, `decodePayload`, `encodeForm`, `payload`
-- `decodeProgramGo_cons` -> `W`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
-- `decodeProgramGo_encodeProgram` -> `W`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
-- `decodeProgram_encodeProgram` -> `length`
+- `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
+- `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
+- `decodeProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `decodeTotal_satisfies_discriminant` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decodeWith_encode` -> `GeoExpr`, `append_nil`, `enc`, `encLen`
 - `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `roundtrip`, `satSym`, `satW`
@@ -4115,6 +4115,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
 - `encodeForm_payload_length` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
 - `encodeInstr_length_ofTag` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
+- `encodeProgram_append_length` -> `Instr`, `append_nil`, `length`, `softmax`
+- `encodeProgram_append_softmax_length` -> `Instr`, `length`, `softmax`
+- `encodeProgram_singleton_softmax_length` -> `Instr`, `length`, `softmax`
 - `encode_cons_eq` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
 - `encode_drop_b_roundtrip_fails` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `flatten`, `length`
 - `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
@@ -4205,6 +4208,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_append_softmax` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`
 - `evalProgram_append_softmax_nonneg` -> `Instr`, `LayerProgram`, `evalProgram`, `softmax`
 - `evalProgram_append_softmax_sum_one` -> `Instr`, `LayerProgram`, `evalProgram`, `softmax`
+- `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `evalPts_add` -> `add`, `mul`
 - `evalPts_const` -> `add`, `mul`
 - `evalPts_coord` -> `add`, `mul`
@@ -5793,7 +5797,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_cons` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_generalization` -> `E`, `le_trans`
 - `length_generalization_hetero` -> `E`, `le_trans`
-- `length_le_encodeProgram` -> `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
+- `length_le_encodeProgram` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
 - `length_le_of_prefix` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_nil_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lfp_eq_inf_all_fixpoints` -> `apply`, `card_fin`
@@ -6835,7 +6839,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_dim_lower_witness_bounded` -> `apply`, `le_refl`
 - `one_dim_lower_witness_core` -> `apply`, `le_refl`
 - `one_le_ceMag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
-- `one_le_encodeInstr_length` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
+- `one_le_encodeInstr_length` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
 - `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `one_le_instrLengthOfTag` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
