@@ -212,7 +212,26 @@ theorem samePointLadder_satW_iff (enc : ℕ → Fin n → ℝ) (a b : ℕ) :
 | 双线性 | `perpendicular`、`rightAngle`、`collinear`、`parallel` | 零点集是锥面，同样不是仿射子空间 |
 
 **所以「12 个构造子里有几个能走到权重侧」的答案是 2 个（`samePoint`、`midpoint`），
-另外 4 个是「一个泛函」、6 个是「非线性零点集」。这不是没做，是分类的结果。** -/
+另外 4 个是「一个泛函」、6 个是「非线性零点集」。**
+
+## ⚠ 第 61 轮更正：原句「这不是没做，是分类的结果」
+
+**那半句错，已删。** 准确的状态是**三态**，不是两态：
+
+| 状态 | 个数 | 是哪些 |
+|:--|--:|:--|
+| **真的建了仿射权重层** | **2** | `samePoint`、`midpoint` |
+| **有肯定结果、但没建层**（「未做」，**不是「不可能」**） | **4** | `eqZero`（`AffineClass.eqZero_representable` **已证明可表示**）、`leZero`/`ltZero`/`gtZero`（`leZero_halfspace` 已证**半空间**形式） |
+| **有形式化否定，但只限【等式】形式** | **6** | `sqDistEq`/`equalLength`（`*_not_affine`）、`perpendicular`/`rightAngle`/`collinear`/`parallel`（`bilinear_not_affine` 一条覆盖四个） |
+
+**两个必须说清的点：**
+
+1. **那 4 个标量构造子被排除，靠的是「`n` 个坐标」这个形状要求，不是不可能性定理。**
+   `eqZero_representable` 证明 `aff 1 (-c) x = 0 ↔ x = c`——**它可表示**；
+   `leZero_not_affine` 的 docstring 自己写着「这条说的是**等式**表示不可能；半空间表示当然可以」。
+
+2. **那 6 个非线性构造子的否定，全部只针对【仿射等式】表示。**
+   **「不存在任何非线性表示」没有被证明**，本文件也不声称。 -/
 
 /-- **`midpoint` 的权重侧层**：`W = 2·I`、`b j = −(enc a j + enc b j)`。
 
