@@ -104,6 +104,30 @@
 **若要全审**：正确做法是另开批次文件（`agent-tmp/review/batch_*.jsonl` 现有格式已支持），
 **不是把现状说成已审**。
 
+### 判定指向的声明**已不存在**的 12 条（第 29 轮登记）
+
+**这些判定不是错的，而是没有对象了**：它们判的那条定理在活树里已经不存在——
+`check_proof_debt_orphans.py` 只核对**文件**是否可解析，从不核对**名字**是否还在，
+所以它们此前和活判定长得一模一样。`check_verdict_freshness.py` 现在每次重算并拦住新增。
+
+| 原文件 | 定理 | 实测理由 |
+|:--|:--|:--|
+| `Evidence/ChainTransitivity.lean` | `preserves_one` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/CompositionClass.lean` | `bridged_needs_bridge` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/CompositionClass.lean` | `evidence_kinds_differ` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/CompositionClass.lean` | `sequential_evidence_trivial` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/Hypotheses.lean` | `no_redundant_hypotheses` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/MultiComposition.lean` | `chain_nil_identity` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/PredicateWitnesses.lean` | `isRedundant_true` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Evidence/StructureCensus.lean` | `no_zero_obligation_structure` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Lib/Editing/RealCanonicalCompileComm.lean` | `comm_via_extract` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Lib/Editing/RealExtractSurjectivity.lean` | `extractVec_range_ne_proper` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Runtime/ConstraintToLoss.lean` | `compile_changes_type` | name is declared nowhere in the live tree (renamed or deleted) |
+| `Runtime/RatRepresentation.lean` | `compile_changes_type` | name is declared nowhere in the live tree (renamed or deleted) |
+
+**为什么仍然列在这里而不是删掉**：它们记录的是「有人看过这一条、并给了判定」这一事实；
+把记录删掉会让账本看起来更干净，**而它并不会更干净**。
+
 
 > **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。
 > 它们最初是按**旧的、有缺陷的** `in_degree` 选出来的「第一层」。

@@ -144,6 +144,10 @@ CHECKS = [
     # recompute any of them. This gate recomputes and compares.
     ("debt: coverage table equals the measurement", "check_coverage_claim.py"),
     ("debt: coverage claim self-test", "check_coverage_claim.py --self-test"),
+    # Round 29, L4-5. Orphans checked the FILE; nothing checked the NAME. 12 verdicts were judging
+    # declarations that no longer exist anywhere, and they printed exactly like live ones.
+    ("debt: verdict freshness", "check_verdict_freshness.py"),
+    ("debt: verdict freshness self-test", "check_verdict_freshness.py --self-test"),
     ("census: end-to-end by content", "check_endtoend_content.py"),
     # Round 231. Reads each `Primitive`'s `Input := ...` / `Output := ...` SOURCE TEXT and
     # builds the adapter matrix. It CANNOT see Lean types, so "same text" is sufficient but not

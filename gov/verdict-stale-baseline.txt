@@ -1,0 +1,17 @@
+# verdicts whose declaration no longer exists.  Each line: file<TAB>name<TAB>reason.
+# A NEW stale verdict fails; a baselined one that RESOLVES AGAIN also fails.
+#
+# Round 29: every reason was measured, not assumed -- 'declaration moved to X' means the name is
+# declared in X today; the second form means a whole-tree scan found no declaration of that name.
+Evidence/ChainTransitivity.lean	preserves_one	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/CompositionClass.lean	bridged_needs_bridge	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/CompositionClass.lean	evidence_kinds_differ	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/CompositionClass.lean	sequential_evidence_trivial	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/Hypotheses.lean	no_redundant_hypotheses	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/MultiComposition.lean	chain_nil_identity	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/PredicateWitnesses.lean	isRedundant_true	name is declared nowhere in the live tree (renamed or deleted)
+Evidence/StructureCensus.lean	no_zero_obligation_structure	name is declared nowhere in the live tree (renamed or deleted)
+Lib/Editing/RealCanonicalCompileComm.lean	comm_via_extract	name is declared nowhere in the live tree (renamed or deleted)
+Lib/Editing/RealExtractSurjectivity.lean	extractVec_range_ne_proper	name is declared nowhere in the live tree (renamed or deleted)
+Runtime/ConstraintToLoss.lean	compile_changes_type	name is declared nowhere in the live tree (renamed or deleted)
+Runtime/RatRepresentation.lean	compile_changes_type	name is declared nowhere in the live tree (renamed or deleted)
