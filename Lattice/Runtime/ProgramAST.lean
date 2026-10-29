@@ -86,6 +86,16 @@ inductive Instr (n : ℕ) where
     **它不需要 `n > 0`**：`Fin 0` 没有元素，所以 `fun j => ...` 是空函数，
     定义在 `n = 0` 时仍然合法（Lean 的除法是全函数）。 -/
   | softmax
+  /-- **layer normalisation**（第 67 轮加）：`x ↦ (x - x̄) ⧸ √(var + ε)`。
+
+  ⚠ **带载荷（`ε`），不像 `softmax` 是零元的。** 理由：`ε` 是**实现参数**，
+  不同实现的取值不同（`1e-5`、`1e-6`、`1e-3` 都有）。**把它硬编码进 AST 会把一个设计选择藏起来**，
+  而那条选择会影响数值行为。带载荷的代价是编码多一个槽（2 而不是 1），**与 `scale` 同形。**
+
+  **定义不需要 `0 < ε`**：Lean 的除法与 `Real.sqrt` 都是全函数，
+  `ε` 为负时 `sqrt` 给 0、分母为 0 时给 0——**那些情形在语义上是错的，但不是不成立的**，
+  所以约束留给定理（`hn`/`hε`），不放定义里。 -/
+  | layernorm (ε : ℝ)
 
 /-- **程序**是直序的指令序列。 -/
 abbrev LayerProgram (n : ℕ) := List (Instr n)
@@ -96,6 +106,10 @@ noncomputable def applyInstr {n : ℕ} (x : Fin n → ℝ) : Instr n → (Fin n 
   | .relu => fun j => max (x j) 0
   | .scale c => fun j => c * x j
   | .softmax => fun j => Real.exp (x j) / ∑ i, Real.exp (x i)
+  | .layernorm ε =>
+      let mean : ℝ := (∑ i, x i) / (n : ℝ)
+      let var : ℝ := (∑ i, (x i - mean) ^ 2) / (n : ℝ)
+      fun j => (x j - mean) / Real.sqrt (var + ε)
 
 /-- **程序的语义**。 -/
 noncomputable def evalProgram {n : ℕ} (x : Fin n → ℝ) (p : LayerProgram n) : Fin n → ℝ :=
@@ -133,6 +147,8 @@ def TAG_RELU : ℝ := 1
 def TAG_SCALE : ℝ := 2
 /-- `softmax` 的判别位。 -/
 def TAG_SOFTMAX : ℝ := 3
+/-- `layernorm` 的判别位。 -/
+def TAG_LAYERNORM : ℝ := 4
 
 /-- **编码一条指令**为数值流。
 
@@ -148,6 +164,7 @@ noncomputable def encodeInstr {n : ℕ} (hn : 0 < n) : Instr n → List ℝ
   | .relu => [TAG_RELU]
   | .scale c => [TAG_SCALE, c]
   | .softmax => [TAG_SOFTMAX]
+  | .layernorm ε => [TAG_LAYERNORM, ε]
 
 /-- **反解析一条指令**：读判别位，按判别位决定读多少载荷。
 
@@ -163,6 +180,7 @@ noncomputable def decodeInstr {n : ℕ} (hn : 0 < n) : List ℝ → Option (Inst
       else if t = TAG_RELU then some .relu
       else if t = TAG_SCALE then some (.scale (rest.getD 0 0))
       else if t = TAG_SOFTMAX then some .softmax
+      else if t = TAG_LAYERNORM then some (.layernorm (rest.getD 0 0))
       else none
 
 /-! ## 三、往返 -/
@@ -209,6 +227,12 @@ theorem decodeInstr_encode_relu {n : ℕ} (hn : 0 < n) :
 theorem decodeInstr_encode_softmax {n : ℕ} (hn : 0 < n) :
     decodeInstr hn (encodeInstr hn (.softmax : Instr n)) = some .softmax := by
   unfold decodeInstr encodeInstr TAG_AFFINE TAG_RELU TAG_SCALE TAG_SOFTMAX
+  norm_num
+
+/-- **`layernorm` 的语法往返**：`decode (encode (layernorm ε)) = some (layernorm ε)`。 -/
+theorem decodeInstr_encode_layernorm {n : ℕ} (hn : 0 < n) (ε : ℝ) :
+    decodeInstr hn (encodeInstr hn (.layernorm ε : Instr n)) = some (.layernorm ε) := by
+  unfold decodeInstr encodeInstr TAG_AFFINE TAG_RELU TAG_SCALE TAG_SOFTMAX TAG_LAYERNORM
   norm_num
 
 /-- **`scale` 的语法往返**：`decode (encode (scale c)) = some (scale c)`。 -/
@@ -357,6 +381,7 @@ noncomputable def instrLengthOfTag (n : ℕ) (t : ℝ) : ℕ :=
   if t = TAG_AFFINE then 1 + (n * n + n)
   else if t = TAG_RELU then 1
   else if t = TAG_SOFTMAX then 1
+  else if t = TAG_LAYERNORM then 2
   else 2
 
 /-- **由 tag 决定的长度至少为 1**——解码端靠它保证每次递归都真的缩短列表。 -/
@@ -405,7 +430,17 @@ theorem encodeInstr_length_ofTag {n : ℕ} (hn : 0 < n) (i : Instr n) :
       unfold instrLengthOfTag
       rw [if_neg (by unfold TAG_AFFINE TAG_SCALE; norm_num),
           if_neg (by unfold TAG_RELU TAG_SCALE; norm_num),
-          if_neg (by unfold TAG_SOFTMAX TAG_SCALE; norm_num)]
+          if_neg (by unfold TAG_SOFTMAX TAG_SCALE; norm_num),
+          if_neg (by unfold TAG_LAYERNORM TAG_SCALE; norm_num)]
+  | layernorm ε =>
+      have htag : (encodeInstr hn (.layernorm ε : Instr n)).headD 0 = TAG_LAYERNORM := rfl
+      have hlen : (encodeInstr hn (.layernorm ε : Instr n)).length = 2 := rfl
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_neg (by unfold TAG_AFFINE TAG_LAYERNORM; norm_num),
+          if_neg (by unfold TAG_RELU TAG_LAYERNORM; norm_num),
+          if_neg (by unfold TAG_SOFTMAX TAG_LAYERNORM; norm_num),
+          if_pos rfl]
 
 /-- **整程序编码**：把每条指令的编码拼起来。 -/
 noncomputable def encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) : List ℝ :=
@@ -510,6 +545,7 @@ theorem decodeProgramGo_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n
         | relu => exact decodeInstr_encode_relu hn
         | scale c => exact decodeInstr_encode_scale hn c
         | softmax => exact decodeInstr_encode_softmax hn
+        | layernorm ε => exact decodeInstr_encode_layernorm hn ε
       rw [honly, hdrop, ih k' (by simpa using hk)]
       rfl
 
