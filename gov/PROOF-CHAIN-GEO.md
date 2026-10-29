@@ -109,7 +109,7 @@
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
 | `Lattice.Domains.Unconditional` | 117 | 7 | FormDeriv, Derivative |
 | `Lattice.Domains.Unified` | 91 | 4 | Loop, LoopPerp |
-| `Lattice.Domains.WeightSideLadder` | 279 | 9 | Constraint, GeoLadder |
+| `Lattice.Domains.WeightSideLadder` | 298 | 9 | Constraint, GeoLadder |
 
 ## 二、四条靶定理在几何层中的落点
 
