@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 706 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 156 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 158 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -796,6 +796,7 @@
 | `Lib/Attention/RealTemporalLayer.lean` | `element_concept_complement` |
 | `Lib/Attention/RealTemporalLayer.lean` | `element_or_concept` |
 | `Lib/Attention/RealTemporalLayer.lean` | `not_element_and_concept` |
+| `Lib/Attention/SoftmaxLipschitzBound.lean` | `sum_exp_pos` |
 | `Lib/Chain/RealEndToEnd.lean` | `allSatisfied_singleton` |
 | `Lib/Chain/RealEndToEnd.lean` | `recover_readback` |
 | `Lib/Chain/RealEndToEndStrict.lean` | `e2e_allSatisfied_singleton` |
@@ -861,6 +862,7 @@
 | `Lib/Editing/RealTwoSidedEditEquiv.lean` | `E8_source_at_L0L1_exists` |
 | `Lib/FCA/RealFCAManyValued.lean` | `thresh_galois` |
 | `Lib/FCA/RealFCATriadic.lean` | `tri_galois_oa` |
+| `Lib/InfoTheory/RealMaxEntropy.lean` | `gibbsPartition_pos` |
 | `Lib/LearningTheory/RealCausalDoCalculus.lean` | `rule1_condition_subset_Y` |
 | `Lib/LearningTheory/RealCausalDoCalculus.lean` | `rule2_condition_subset` |
 | `Lib/LearningTheory/RealCausalDoCalculus.lean` | `sum_bool_doInd_eq_one` |

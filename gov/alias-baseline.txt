@@ -862,3 +862,5 @@ forward	Semantics/PostTrain.lean	post_train_preserves_set
 forward	Semantics/Stage1.lean	inherits_sound
 forward	Semantics/VocabEdit.lean	split_error_bound
 forward	Semantics/VocabEdit.lean	vocab_compat_permutation
+copy	Lib/Attention/SoftmaxLipschitzBound.lean	sum_exp_pos
+copy	Lib/InfoTheory/RealMaxEntropy.lean	gibbsPartition_pos
