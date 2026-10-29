@@ -20,9 +20,9 @@
 
 | # | 名称 | 位置 | `Input` | `Output` | 强度 | 覆盖 |
 |--:|:--|:--|:--|:--|:--|:--|
-| 1 | `compose` | `Lattice/Compose/Combinators.lean:78` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 2 | `composeWith` | `Lattice/Compose/Combinators.lean:98` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 3 | `identity` | `Lattice/Compose/Combinators.lean:169` | `α` | `α` | `.exact` | `none` |
+| 1 | `compose` | `Lattice/Compose/Combinators.lean:91` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 2 | `composeWith` | `Lattice/Compose/Combinators.lean:111` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 3 | `identity` | `Lattice/Compose/Combinators.lean:182` | `α` | `α` | `.exact` | `none` |
 | 4 | `descentStep` | `Lattice/Compose/ForwardChain.lean:70` | `ℝ` | `ℝ` | `.exact` | `some ({"constraint.eqZero"} : Finset String)` |
 | 5 | `iterate` | `Lattice/Compose/Iterate.lean:304` | `I` | `I` | `p.strength` | `p.coverage` |
 | 6 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |

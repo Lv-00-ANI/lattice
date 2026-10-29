@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 210 | aggregator at `Lattice/`, re-exports only |
+| root | 211 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -654,7 +654,8 @@
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`
+- `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
@@ -1499,6 +1500,7 @@
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
+| `Lattice.Compose.AssocLaws` | 5 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ComposeObligation` | 7 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
@@ -3070,11 +3072,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_h_not_derivable` -> `Primitive`, `compose`, `identity`, `run`
 - `compose_h_of_pre_true` -> `Primitive`, `compose`, `run`
 - `compose_identity_right` -> `Primitive`, `choice`, `compose`, `identity`, `run`
+- `compose_post_assoc_iff` -> `Primitive`, `compose`
+- `compose_pre_assoc` -> `Primitive`, `compose`
 - `compose_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_run_assoc` -> `Primitive`, `run`, `sound`
 - `compose_sequential` -> `Audit`
 - `compose_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_strength` -> `Primitive`, `inter`, `min`, `run`, `sound`
+- `compose_strength_coverage_assoc` -> `Primitive`, `compose`
 - `compose_three_with_bridges` -> `Audit`
 - `compose_via_calculus` -> `ErrorBound`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `roundtrip_error_le_one`, `triangle_combine`
 - `compose_with_bridge` -> `Audit`
@@ -3360,6 +3365,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `covariant_pair_separated` -> `extent`, `galois_connection`, `intent`
 - `coverageValue_mono` -> `alpha`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
+- `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `inter`
 - `covers_mono` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `cps_call_by_value_shape` -> `Compiler`, `lit`
 - `cps_correct` -> `Compiler`, `add`, `induction`, `lit`
@@ -8665,6 +8671,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stoppedValue_neg` -> `le_antisymm`, `le_refl`, `min`
 - `stopping_property` -> `contraction_converges`
 - `stopsBy_mono` -> `contraction_converges`, `induction`, `le_refl`, `le_trans`, `step`, `zero`
+- `strength_min_assoc` -> `Coverage`, `Primitive`, `Strength`, `compose`, `inter`, `min`
 - `strictConcave_interior_gt_endpoint` -> `le`
 - `strictConvexLoss_unique_min` -> `Loss`, `ProbVec`
 - `strictConvexOn_eq_iff_lt` -> `subst`

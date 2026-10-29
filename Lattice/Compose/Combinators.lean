@@ -60,9 +60,22 @@ type mismatch: trivial has type True
 
 ## 3. 边界
 
-- **不证结构相等**：`Primitive` 带 `sound` 证明项，所以
-  `compose (compose f g) h = compose f (compose g h)` **不可证**（需要证明无关性）。
-  `run` 层**可证**，而 `run` 才是使用者调用的东西。
+- **不证结构相等**：`compose (compose f g) h = compose f (compose g h)` **没有在本文件里证**。
+
+  ⚠ **第 39 轮更正了这里的理由。** 原文写的是「**需要证明无关性**」——**结论对，理由反了**：
+  证明无关性（`Subsingleton.elim`）恰恰是**让**事情可证的工具，不是障碍。
+
+  真正的障碍是：`Primitive.sound` 的**类型**是
+  `∀ x, pre x → ∃ y, run x = some y ∧ post x y`，**它依赖 `post`**。
+  而两边的 `post` 只有**命题等价**（`AssocLaws.compose_post_assoc_iff`），**不是定义相等**。
+  于是比较两个 `sound` 必须**沿 `post` 的等式搬运一个证明**，而 `propext` 给的那条等式是**变量**，
+  `Eq.rec` 在依赖的 `sound` 字段上卡住。
+
+  **这与第 232 轮 `choice` 卡住是同一个现象**（`hio.symm ▸ (hio ▸ z)` 不是 `rfl`）。
+  它是「字段类型依赖另一个字段」的固有代价，不是可以靠更聪明的战术绕开的缺口。
+
+  **能证的层级见 `Compose/AssocLaws.lean`**：`pre`（定义相等）、`post` 与 `frame`（`∃` 结合）、
+  `strength`、`coverage` 都证了；`run` 层见下方的 `compose_run_assoc`。
 - **`identity` 的覆盖是 `none`**：含义是「不限制」。 -/
 import Mathlib
 import Lattice.Compose.Primitive
