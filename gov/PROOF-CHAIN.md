@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 620 | instantiated library, may import core only |
+| lib | 621 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -567,8 +567,9 @@
 - `Lattice.Lib.Meta.RealRflAudit` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.WeightToSymbolEquivalence`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealCompileExtractClosed`, `Lattice.Lib.Editing.RealCanonicalCompileComm`, `Lattice.Lib.Editing.RealRoundTripVacuity`
 - `Lattice.Lib.Meta.RealScalarVerdict` <- `Lattice.Lib.Chain.RealScalarField`
 - `Lattice.Lib.Meta.RealSymbolCompletenessVerdict` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Editing.RealSymbolCompleteness`
-- `Lattice.Lib.Optim` <- `Lattice.Lib.Optim.ModEqBridge`, `Lattice.Lib.Optim.RealADMM`, `Lattice.Lib.Optim.RealAdam`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lib.Optim.RealBFGS`, `Lattice.Lib.Optim.RealCheckpointAveraging`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Optim.RealDPSGD`, `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Optim.RealEarlyStoppingStatistics`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Optim.RealEvalBridge`, `Lattice.Lib.Optim.RealFCASyntaxBridge`, `Lattice.Lib.Optim.RealFedAsync`, `Lattice.Lib.Optim.RealFedAvg`, `Lattice.Lib.Optim.RealFloatSharpBridge`, `Lattice.Lib.Optim.RealGLUTraining`, `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Optim.RealGradientFlowDiscretization`, `Lattice.Lib.Optim.RealIterativeSolver`, `Lattice.Lib.Optim.RealLRDecay`, `Lattice.Lib.Optim.RealLeastSquares`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealMirrorDescent`, `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovLower`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealNewtonMethod`, `Lattice.Lib.Optim.RealNewtonRate`, `Lattice.Lib.Optim.RealOperatorSplitBridge`, `Lattice.Lib.Optim.RealPLCondition`, `Lattice.Lib.Optim.RealPerceptron`, `Lattice.Lib.Optim.RealPolicyGradient`, `Lattice.Lib.Optim.RealPolicyGradientVector`, `Lattice.Lib.Optim.RealProjGrad`, `Lattice.Lib.Optim.RealProxExistence`, `Lattice.Lib.Optim.RealProxGrad`, `Lattice.Lib.Optim.RealProximal`, `Lattice.Lib.Optim.RealProximalMoreau`, `Lattice.Lib.Optim.RealRatApproxLowerBound`, `Lattice.Lib.Optim.RealRateLower`, `Lattice.Lib.Optim.RealRegularizedMDP`, `Lattice.Lib.Optim.RealRidge`, `Lattice.Lib.Optim.RealRiemannianGD`, `Lattice.Lib.Optim.RealSGD`, `Lattice.Lib.Optim.RealSGDRate`, `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Optim.RealSeamBridges`, `Lattice.Lib.Optim.RealSeamBridges2`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`, `Lattice.Lib.Optim.RealStationarity`, `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealTD`, `Lattice.Lib.Optim.RealUpDown`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.Optim.RealVectorStationarity`, `Lattice.Lib.Optim.RealVectorGD`
+- `Lattice.Lib.Optim` <- `Lattice.Lib.Optim.ModEqBridge`, `Lattice.Lib.Optim.RealADMM`, `Lattice.Lib.Optim.RealAdam`, `Lattice.Lib.Optim.RealApprox`, `Lattice.Lib.Optim.RealBFGS`, `Lattice.Lib.Optim.RealCheckpointAveraging`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Optim.RealDPSGD`, `Lattice.Lib.Optim.RealEarlyStopping`, `Lattice.Lib.Optim.RealEarlyStoppingStatistics`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Optim.RealEvalBridge`, `Lattice.Lib.Optim.RealFCASyntaxBridge`, `Lattice.Lib.Optim.RealFedAsync`, `Lattice.Lib.Optim.RealFedAvg`, `Lattice.Lib.Optim.RealFloatSharpBridge`, `Lattice.Lib.Optim.RealGLUTraining`, `Lattice.Lib.Optim.RealGradDescent`, `Lattice.Lib.Optim.RealGradientFlowDiscretization`, `Lattice.Lib.Optim.RealIterativeSolver`, `Lattice.Lib.Optim.RealLRDecay`, `Lattice.Lib.Optim.RealLeastSquares`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.Optim.RealMirrorDescent`, `Lattice.Lib.Optim.RealNesterov`, `Lattice.Lib.Optim.RealNesterovLower`, `Lattice.Lib.Optim.RealNesterovRate`, `Lattice.Lib.Optim.RealNewtonMethod`, `Lattice.Lib.Optim.RealNewtonRate`, `Lattice.Lib.Optim.RealOperatorSplitBridge`, `Lattice.Lib.Optim.RealPLCondition`, `Lattice.Lib.Optim.RealPerceptron`, `Lattice.Lib.Optim.RealPolicyGradient`, `Lattice.Lib.Optim.RealPolicyGradientVector`, `Lattice.Lib.Optim.RealProjGrad`, `Lattice.Lib.Optim.RealProxExistence`, `Lattice.Lib.Optim.RealProxGrad`, `Lattice.Lib.Optim.RealProximal`, `Lattice.Lib.Optim.RealProximalMoreau`, `Lattice.Lib.Optim.RealRatApproxLowerBound`, `Lattice.Lib.Optim.RealRateLower`, `Lattice.Lib.Optim.RealRegularizedMDP`, `Lattice.Lib.Optim.RealRidge`, `Lattice.Lib.Optim.RealRiemannianGD`, `Lattice.Lib.Optim.RealSGD`, `Lattice.Lib.Optim.RealSGDRate`, `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Optim.RealSeamBridges`, `Lattice.Lib.Optim.RealSeamBridges2`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealSecondOrderUpgrade`, `Lattice.Lib.Optim.RealStationarity`, `Lattice.Lib.Optim.RealStrongConvex`, `Lattice.Lib.Optim.RealTD`, `Lattice.Lib.Optim.RealUpDown`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.Optim.RealVectorStationarity`, `Lattice.Lib.Optim.RealVectorGD`, `Lattice.Lib.Optim.ProgramLossLipschitz`
 - `Lattice.Lib.Optim.ModEqBridge` <- `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Runtime.RealModLoss`
+- `Lattice.Lib.Optim.ProgramLossLipschitz` <- `Lattice.Runtime.ProgramLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Lib.Optim.RealADMM` <- `Lattice.Lib.Chain.RealPMix`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealAdam` 
 - `Lattice.Lib.Optim.RealApprox` 
@@ -1433,6 +1434,7 @@
 | `Lattice.Lib.Meta.RealSymbolCompletenessVerdict` | 10 | 5 |
 | `Lattice.Lib.Optim` | 0 | 0 |
 | `Lattice.Lib.Optim.ModEqBridge` | 11 | 0 |
+| `Lattice.Lib.Optim.ProgramLossLipschitz` | 1 | 0 |
 | `Lattice.Lib.Optim.RealADMM` | 23 | 11 |
 | `Lattice.Lib.Optim.RealAdam` | 10 | 5 |
 | `Lattice.Lib.Optim.RealApprox` | 8 | 2 |
@@ -7250,6 +7252,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prod_sum_factor` -> `card_fin`, `convert`, `le`
 - `productPlan_isPlan` -> `e2`, `mul`, `sInf`
 - `product_exp_bound` -> `apply`, `le_trans`, `subst`
+- `programLoss_lipschitz` -> `IsLipschitzInstr`, `LayerProgram`, `card_fin`, `evalProgram`, `evalProgram_lipschitz`, `length`, `sum_sq_lipschitz_on_bounded`
 - `program_sound_at_minimiser` -> `E`, `Sat`, `loss`
 - `progress` -> `Compiler`, `HasType`, `Sat`, `Step`, `Ty`, `Value`, `add`, `e2`, `induction`, `iterate`, `preservation`, `step`, `zero`
 - `progress_aux` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`
