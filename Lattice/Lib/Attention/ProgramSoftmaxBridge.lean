@@ -102,4 +102,46 @@ theorem applyInstr_softmax_lipschitz (hn : 0 < n) (x x' : Fin n → ℝ) (ε : �
   haveI := finNonempty hn
   exact Lattice.Lib.Attention.softmax_lipschitz x x' ε hε h j
 
+/-! ## 把桥从「单条指令」升到「整个程序」
+
+上面五条都是关于 `applyInstr x .softmax` 的——**单条指令**。
+而 `evalProgram` 是它的折叠（`ProgramAST.lean` L101：`p.foldl applyInstr x`），
+并且 `eval_append` 已经证明了程序可组合。
+
+**所以「程序末尾加一条 `softmax`」是可以陈述的**：
+`evalProgram x (p ++ [.softmax])`。下面三条把它写出来。
+
+⚠ **三条都不是搬运**：它们的陈述里出现 `evalProgram` 与 `++`，而上面五条的陈述里没有。
+它们把**程序结构**（`eval_append`）与**指令性质**（本文件的五条）接起来——
+**这正是"含 softmax 的整程序"此前缺的那一层。** -/
+
+/-- ⭐ **程序末尾加一条 `softmax`**：`evalProgram x (p ++ [softmax]) = applyInstr (evalProgram x p) softmax`。
+
+**结构引理**，也是下面两条性质引理的前件。**它不是 `eval_append` 的复述**：
+它额外把 `[softmax]` 这个单元素程序折叠掉了。 -/
+theorem evalProgram_append_softmax (x : Fin n → ℝ) (p : Lattice.Lift.ProgramAST.LayerProgram n) :
+    Lattice.Lift.ProgramAST.evalProgram x
+        (p ++ [Lattice.Lift.ProgramAST.Instr.softmax]) =
+      Lattice.Lift.ProgramAST.applyInstr
+        (Lattice.Lift.ProgramAST.evalProgram x p)
+        (Lattice.Lift.ProgramAST.Instr.softmax : _) := by
+  rw [Lattice.Lift.ProgramAST.eval_append]
+  rfl
+
+/-- ⭐ **整程序输出非负**：任何程序末尾接一条 `softmax`，其输出每个分量非负。 -/
+theorem evalProgram_append_softmax_nonneg (hn : 0 < n) (x : Fin n → ℝ)
+    (p : Lattice.Lift.ProgramAST.LayerProgram n) (j : Fin n) :
+    0 ≤ Lattice.Lift.ProgramAST.evalProgram x
+          (p ++ [Lattice.Lift.ProgramAST.Instr.softmax]) j := by
+  rw [evalProgram_append_softmax]
+  exact applyInstr_softmax_nonneg hn _ j
+
+/-- ⭐ **整程序输出和为 1**：任何程序末尾接一条 `softmax`，其输出是概率分布。 -/
+theorem evalProgram_append_softmax_sum_one (hn : 0 < n) (x : Fin n → ℝ)
+    (p : Lattice.Lift.ProgramAST.LayerProgram n) :
+    ∑ j, Lattice.Lift.ProgramAST.evalProgram x
+          (p ++ [Lattice.Lift.ProgramAST.Instr.softmax]) j = 1 := by
+  rw [evalProgram_append_softmax]
+  exact applyInstr_softmax_sum_one hn _
+
 end Lattice.Lib.Attention
