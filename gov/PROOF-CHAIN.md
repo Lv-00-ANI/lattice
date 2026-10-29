@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 610 | instantiated library, may import core only |
+| lib | 611 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -39,7 +39,7 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`
+- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`, `Lattice.Lib.Architectures.SoftmaxSubLayer`
 - `Lattice.Lib.Architectures.RealActClass` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealActComplete` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealActDerivatives` <- `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`
@@ -107,6 +107,7 @@
 - `Lattice.Lib.Architectures.RealTensorNormN` <- `Lattice.Lib.Architectures.RealTensorNorm`
 - `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
 - `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
+- `Lattice.Lib.Architectures.SoftmaxSubLayer` <- `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`
 - `Lattice.Lib.Attention.RealALiBi` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.Attention.RealAbsPosEncoding` <- `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealRelPosEncoding`
@@ -954,6 +955,7 @@
 | `Lattice.Lib.Architectures.RealTensorNormN` | 15 | 5 |
 | `Lattice.Lib.Architectures.RealTransformerEval` | 6 | 5 |
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
+| `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
@@ -2662,15 +2664,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ceMag_nonneg` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `ce_compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_refl`, `le_trans`, `lit`, `tiny`
 - `ce_convex_in_q` -> `apply`, `ce_sum_neg`, `crossEntropy`, `kl`, `kl_as_sum_log_sub_log`, `mixDist`, `mul_log_convex_pair`
-- `ce_eq_zero_iff_support` -> `apply`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
-- `ce_eq_zero_of_onehot` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
+- `ce_eq_zero_iff_support` -> `apply`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
+- `ce_eq_zero_of_onehot` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `ce_float_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
-- `ce_ge_entropy` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
+- `ce_ge_entropy` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `ce_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `ce_nonneg` -> `apply`, `softmax`
 - `ce_not_joint_convex` -> `crossEntropy`, `mixDist`
 - `ce_onehot_eq_neg_log` -> `apply`, `const_add`, `softmax`
-- `ce_onehot_softmax_eq_neg_log` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
+- `ce_onehot_softmax_eq_neg_log` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `ce_sum_neg` -> `apply`, `softmax`
 - `cellEdit_delta_closed_form` -> `W`, `apply`
 - `cellEdit_depends_only` -> `W`, `apply`
@@ -4429,7 +4431,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fca_norm_gives_witness_shape` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `listGcdNat`, `mkConstraint`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fderiv_apply_bump` -> `HasNonzeroDeriv`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `fderiv_apply_direction` -> `E`, `const_add`, `trans`
-- `fderiv_apply_direction_fin` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
+- `fderiv_apply_direction_fin` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `fderiv_apply_direction_scalar` -> `E`, `apply`, `const_add`
 - `fderiv_apply_direction_vector` -> `E`, `apply`, `const_add`
 - `fderiv_eq_zero_iff_all` -> `E`, `trans`
@@ -8422,18 +8424,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softThresh_optimal` -> `le`, `le_refl`, `softThresh`, `softThresh_eq`, `softThresh_eq_zero_of_abs_le`, `softThresh_of_le`, `subst`
 - `softThresh_piecewise` -> `le_refl`, `le_total`, `softThresh`, `softThresh_eq`
 - `softmax2A_close` -> `le_trans`
+- `softmaxAttention_bound` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`
 - `softmaxAttnOp_fin_one` -> `SoftmaxAttnOp`, `convComb`, `softmax`
 - `softmaxAttnOp_norm_bound_tight` -> `SoftmaxAttnOp`, `convComb`, `softmax`
 - `softmaxAttnOp_norm_le` -> `SoftmaxAttnOp`, `attention_output_bound`, `convComb`, `softmax`, `softmax_sum_one`
 - `softmaxAttnOp_norm_le_needs_hV` -> `SoftmaxAttnOp`
 - `softmaxAttnOp_value_bound` -> `SoftmaxAttnOp`, `attention_output_bound`, `convComb`, `softmax`, `softmax_sum_one`
 - `softmaxAttnOp_zero` -> `SoftmaxAttnOp`, `W`, `apply`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
+- `softmaxBlock_attn` -> `SubLayer`, `W`, `apply`, `convComb`, `softmax`
 - `softmax_attention_eq_nwWeights` -> `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_is_nw` -> `apply`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_nw_is_prob` -> `apply`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_output_le` -> `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `softmax_ce_differentiableAt` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`
-- `softmax_ce_directional_deriv` -> `apply`, `comp`, `const_add`, `softmax`, `softmax_denom_pos`
+- `softmax_ce_differentiableAt` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
+- `softmax_ce_directional_deriv` -> `apply`, `comp`, `const_add`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `softmax_ce_fderiv_apply` -> `apply`, `softmax`
 - `softmax_ce_fderiv_eq_dot` -> `apply`, `softmax`
 - `softmax_fin_one_eq_one` -> `SoftmaxAttnOp`, `convComb`, `softmax`, `softmax_sum_one`
@@ -8443,8 +8447,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmax_numerator_eq_expKernel` -> `apply`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_policy_pmf` -> `E`
 - `softmax_policy_pos` -> `E`
-- `softmax_pos` -> `apply`, `softmax`, `softmax_denom_pos`
+- `softmax_pos` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`, `softmax_denom_pos`
 - `softmax_scale_invariant_denom` -> `apply`, `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`, `softmax_monotone`
+- `softmax_shift` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`, `softmax_denom_pos`
 - `softmax_temp_between_uniform` -> `exp_lipschitz_on`, `le_trans`, `softmax_denom_pos`
 - `softmax_temp_high_temp` -> `comp`
 - `softmax_temp_order_iff` -> `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`
