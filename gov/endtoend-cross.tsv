@@ -70,6 +70,9 @@ Compose/More.lean	choice_coverage
 Compose/More.lean	optional_sound
 Compose/More.lean	optional_strength
 Compose/Primitive.lean	Primitive.withCoverage_sound
+Compose/PrimitiveShape.lean	primitiveFieldNames_length
+Compose/PrimitiveShape.lean	primitiveNames_length
+Compose/PrimitiveShape.lean	primitiveNames_nodup
 Compose/Registry.lean	MatrixRow.strength_eq
 Compose/Registry.lean	foldStrength_le_of_mem
 Compose/Registry.lean	exact_of_foldStrength_exact
