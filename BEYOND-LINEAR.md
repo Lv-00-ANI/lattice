@@ -45,6 +45,56 @@
 
 ### P4-NL-3 非线性训练
 
+#### ⚠⚠ 第 85 轮的测量：**标量核心已经建好，缺的是向量化那一步**
+
+第 84 轮我写「下一轮在 `Lib/Optim/` 下新建一个文件，把『二次损失的梯度下降在有界迭代下收敛』
+的最小子结构写出来」。**那会是第四次重复。** 实测：
+
+**`Lib/Optim/RealGLUTraining.lean` 已经有完整的标量 GD 收敛链：**
+
+| 定理 | 内容 |
+|:--|:--|
+| `gdStep` / `gdSeq` | `w ↦ w − η·g w` 与它的迭代（**在 `ℝ` 上**） |
+| **`gd_descent_of_smooth`** | 光滑性**显式外置为假设** `hdesc`，结论 `L(w₊) ≤ L w − (η/2)(gw)²` |
+| **`gd_telescope`** | 望远镜求和：`L(w_n) + (η/2)Σ_{k<n}(g w_k)² ≤ L(w_0)` |
+| **`gd_exists_small_gradient`** | **ε-终止**：`∃ n, (g w_n)² ≤ ε` |
+
+**`Lib/Optim/RealNesterov.lean` 另有 `Smooth L f g`（一阶光滑性谓词）与 `nesterov_descent_lemma`**，
+**后者是「Lipschitz 梯度 + 步长 `η(1−Lη/2)`」的标准下降引理**——**比二次更一般。**
+
+⇒ **「二次 + 光滑 + 步长界 ⇒ 收敛」这一整套已经存在，而且用的是比我第 79–80 轮那两条二次引理
+更标准的抽象（`Smooth`，不是逐点局部 Lipschitz）。**
+
+#### 所以缺口精确地是这两条
+
+| 层 | 状态 |
+|:--|:--|
+| **标量** GD 收敛（`ℝ → ℝ`） | ✅ **完整**（`RealGLUTraining`） |
+| **向量** GD 收敛（`Fin n → ℝ`） | ❌ **缺**——`gdStep (g : ℝ → ℝ) (eta w : ℝ) : ℝ` 是标量的 |
+| **程序的 Lipschitz 界**（`Fin n → ℝ` 上） | ✅ 第 77 轮（`Runtime/ProgramLipschitz`） |
+| ⭐ **两者之间的桥** | ❌ **缺**——「`evalProgram` 的 Lipschitz 常数 ⇒ 损失的 `Smooth` 常数」 |
+
+**⇒ `P4-NL-3` 的正确下一步不是「新建收敛理论」，而是：**
+
+1. **把 `gdStep`/`gdSeq`/`gd_descent_of_smooth`/`gd_telescope`/`gd_exists_small_gradient`
+   从 `ℝ` 推广到 `Fin n → ℝ`**（需要一个范数或逐分量界；**`gd_exists_small_gradient` 的
+   阿基米德论证在向量情形要多一次 `Finset` 求和**）；
+2. **然后才写桥**：`Smooth L loss g` 里的 `L` 由**程序各层 Lipschitz 常数之积**给出。
+
+**第 1 步是纯推广，第 2 步是真正的新内容。**
+
+#### 这也解释了第 79–80 轮那两条为什么没有消费者
+
+**`sq_lipschitz_on_bounded` 与 `sum_sq_lipschitz_on_bounded` 谈的是【函数值】在有界集上的 Lipschitz，
+而 `Smooth` 谈的是【梯度】的 Lipschitz。两者是不同的对象。**
+
+⇒ **它们不是收敛工具**（收敛走 `Smooth`），**而属于「扰动下惩罚值如何变化」这一类**——
+**那属于鲁棒性/证书，不属于训练收敛。而那一段在库里还不存在。**
+
+**所以它们没有消费者不是缺陷，是那个下游还没建。** **但它们也不该被塞进收敛那一段。**
+
+
+
 **目标**：`grad` / AD 对 `LayerProgram` 的参数；优化器接 `netLoss`；**不再 `W=0`**。
 
 **当前状态**：`Momentum`/`Adam` 的 `sound` 是 `rfl` 级；无一般反向传播；无 data pipeline。
