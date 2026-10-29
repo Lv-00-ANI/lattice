@@ -62,6 +62,12 @@ noncomputable def sqDist (p q : Pt n) : ℝ := sqNorm (diff p q)
 /-- `sqDist` is `sqNorm` of the difference. Stated so callers can rewrite rather than unfold. -/
 theorem sqDist_eq_sqNorm (p q : Pt n) : sqDist p q = sqNorm (diff p q) := rfl
 
+/-- **`sqDist` unfolded to a finite sum.** The form every continuity argument here consumes; the definition itself
+goes through `sqNorm` and `diff`, which `simp` will not rewrite under an integral-like binder on its own. -/
+theorem sqDist_eq_sum (p q : Pt n) :
+    sqDist (n := n) p q = ∑ i : Fin n, (p i - q i) ^ 2 := by
+  simp [sqDist, Lib.Linear.PenaltyVector.sqNorm, diff]
+
 /-- **Squared distance is non-negative.** -/
 theorem sqDist_nonneg (p q : Pt n) : 0 ≤ sqDist p q :=
   sqNorm_nonneg _

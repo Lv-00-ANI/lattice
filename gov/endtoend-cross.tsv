@@ -163,6 +163,7 @@ Domains/Constraints/Differentiable.lean	hasFDerivAt_segComp
 Domains/Constraints/Differentiable.lean	segComp_fderiv_apply
 Domains/Constraints/Differentiable.lean	hasFDerivAt_perpResid
 Domains/Constraints/Dist.lean	sqDist_eq_sqNorm
+Domains/Constraints/Dist.lean	sqDist_eq_sum
 Domains/Constraints/Dist.lean	sqDist_nonneg
 Domains/Constraints/Dist.lean	sqDist_eq_zero_iff
 Domains/Constraints/Dist.lean	dist_nonneg
@@ -171,7 +172,6 @@ Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq
 Domains/Constraints/Dist.lean	dist_eq_of_sqDist_eq
 Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 Domains/Constraints/Dist.lean	sqDist_lipschitz_on_bounded
-Domains/Constraints/DistContinuous.lean	sqDist_eq_sum
 Domains/Constraints/DistContinuous.lean	continuous_sqDist_right
 Domains/Constraints/DistLipschitz.lean	coordDiff_sub_le
 Domains/Constraints/DistLipschitz.lean	coordDiff_add_le
@@ -443,7 +443,7 @@ Domains/Geometry/MissingRepairs.lean	midpointFix_reaches
 Domains/Geometry/MissingRepairs.lean	midpointFix_preserves
 Domains/Geometry/MissingRepairs.lean	rightAngle_eq_perpendicular
 Domains/Geometry/MissingRepairs.lean	coverage_corrected
-Domains/Geometry/MultiSeedCoverage.lean	SynthesisCoverage.sqDistAt_translate_apply
+Domains/Geometry/MultiSeedCoverage.lean	sqDist_translate_apply
 Domains/Geometry/MultiSeedCoverage.lean	same_transform_separated
 Domains/Geometry/MultiSeedCoverage.lean	samplesOf_length
 Domains/Geometry/MultiSeedCoverage.lean	samplesOf_length_single
@@ -598,8 +598,6 @@ Domains/Geometry/SynthesisConnection.lean	synthesize_singleton
 Domains/Geometry/SynthesisConnection.lean	synthesize_empty_family
 Domains/Geometry/SynthesisConnection.lean	synthesis_connects_to_chain
 Domains/Geometry/SynthesisConnection.lean	synthesis_pipeline
-Domains/Geometry/SynthesisCoverage.lean	sqDistAt_nonneg
-Domains/Geometry/SynthesisCoverage.lean	sqDistAt_eq_zero_iff
 Domains/Geometry/SynthesisCoverage.lean	translateBy_apply
 Domains/Geometry/SynthesisCoverage.lean	sqDist_translateBy
 Domains/Geometry/SynthesisCoverage.lean	samples_distinct

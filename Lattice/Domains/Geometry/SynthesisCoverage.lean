@@ -74,6 +74,7 @@ if t₁ ≠ t₂ then  dist (sample t₁) (sample t₂) > 0
 import Mathlib
 import Lattice.Domains.Geometry.Synthesis
 import Lattice.Domains.Constraints.Constraint
+import Lattice.Domains.Constraints.Dist
 
 open scoped BigOperators
 
@@ -85,36 +86,6 @@ variable {n : ℕ}
 
 /-! ## 一、配置间的距离（逐点） -/
 
-/-- **第 `k` 个点的欧氏距离平方**。
-
-配置是点序列 `ℕ → Pt n`；比较两个配置时取同一个下标 `k`。
-**这不是配置空间的完整距离**，而是**逐点距离**——对「合成样本是否分散」这个用途足够，
-且避免引入序列空间上的度量。 -/
-noncomputable def sqDistAt (p q : Pt n) : ℝ := ∑ i, (p i - q i) ^ 2
-
-/-- **逐点距离平方非负**。 -/
-theorem sqDistAt_nonneg (p q : Pt n) : 0 ≤ sqDistAt p q :=
-  Finset.sum_nonneg (fun i _ => sq_nonneg _)
-
-/-- **逐点距离为零 ⟺ 该点相同**。 -/
-theorem sqDistAt_eq_zero_iff (p q : Pt n) : sqDistAt p q = 0 ↔ p = q := by
-  constructor
-  · intro h
-    funext i
-    have hterm : (p i - q i) ^ 2 = 0 := by
-      have hsum := h
-      unfold sqDistAt at hsum
-      exact (Finset.sum_eq_zero_iff_of_nonneg (fun j _ => sq_nonneg (p j - q j))).mp hsum i
-        (Finset.mem_univ i)
-    have : p i - q i = 0 := by
-      by_contra hne
-      have hpos : 0 < (p i - q i) ^ 2 := by positivity
-      linarith
-    linarith
-  · intro h
-    subst h
-    unfold sqDistAt
-    simp
 
 /-! ## 二、平移不改变距离 -/
 
@@ -127,8 +98,8 @@ theorem translateBy_apply (t : Pt n) (seed : ℕ → Pt n) (k : ℕ) :
 两个不同的平移给同一下标加不同的向量，因此两点之差恰是**平移向量之差**，
 与种子无关。 -/
 theorem sqDist_translateBy (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) :
-    sqDistAt (translateBy s seed k) (translateBy t seed k) = sqDistAt s t := by
-  unfold sqDistAt
+    sqDist (translateBy s seed k) (translateBy t seed k) = sqDist s t := by
+  simp only [sqDist_eq_sum]
   congr 1
   funext i
   rw [translateBy_apply, translateBy_apply]
@@ -145,16 +116,16 @@ theorem samples_distinct (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) (h : s ≠
   apply h
   have hd := sqDist_translateBy s t seed k
   rw [heq] at hd
-  have hz : sqDistAt (translateBy t seed k) (translateBy t seed k) = 0 := by
-    unfold sqDistAt
+  have hz : sqDist (translateBy t seed k) (translateBy t seed k) = 0 := by
+    simp only [sqDist_eq_sum]
     simp
   rw [hz] at hd
-  exact (sqDistAt_eq_zero_iff s t).mp hd.symm
+  exact (sqDist_eq_zero_iff s t).mp hd.symm
 
 /-- **量化版**：平移向量距离 ≥ `ρ` ⟹ 样本逐点距离 ≥ `ρ`。 -/
 theorem samples_separated (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) {ρ : ℝ}
-    (h : ρ ≤ sqDistAt s t) :
-    ρ ≤ sqDistAt (translateBy s seed k) (translateBy t seed k) := by
+    (h : ρ ≤ sqDist s t) :
+    ρ ≤ sqDist (translateBy s seed k) (translateBy t seed k) := by
   rw [sqDist_translateBy]
   exact h
 
@@ -168,8 +139,8 @@ theorem samples_separated (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) {ρ : ℝ
 
 ⇒ **「合成多少样本 → 得到多少分散的样本」变成可检验的不等式。** -/
 theorem synth_coverage (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) {ρ : ℝ}
-    (hsep : ρ ≤ sqDistAt s t) (hne : s ≠ t) :
-    (ρ ≤ sqDistAt (translateBy s seed k) (translateBy t seed k)) ∧
+    (hsep : ρ ≤ sqDist s t) (hne : s ≠ t) :
+    (ρ ≤ sqDist (translateBy s seed k) (translateBy t seed k)) ∧
     (translateBy s seed k ≠ translateBy t seed k) :=
   ⟨samples_separated s t seed k hsep, samples_distinct s t seed k hne⟩
 

@@ -33,12 +33,6 @@ namespace Lattice.Geo
 
 variable {n : ℕ}
 
-/-- **`sqDist` unfolded to a finite sum.** The form every continuity argument here consumes; the definition itself
-goes through `sqNorm` and `diff`, which `simp` will not rewrite under an integral-like binder on its own. -/
-theorem sqDist_eq_sum (p q : Pt n) :
-    sqDist (n := n) p q = ∑ i : Fin n, (p i - q i) ^ 2 := by
-  simp [sqDist, Lib.Linear.PenaltyVector.sqNorm, diff]
-
 /-- **`sqDist p ·` is continuous in its second argument.**
 
 A finite sum of squared coordinate differences: subtraction and squaring are continuous, and a finite sum of
