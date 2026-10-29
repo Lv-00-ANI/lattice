@@ -116,6 +116,29 @@ theorem minorDefect_eq_zero_of_parallel (u v : Pt n) (t : ℝ) (h : u = fun i =>
   rw [h]
   ring
 
+/-! ## ⚠ **`penaltyLoss` 没有全局 Lipschitz 常数**（第 78 轮补）
+
+**12 个分支里没有一个是线性的**——它们是**平方**或**两个线性形式的乘积**：
+
+| 分支 | 形状 |
+|:--|:--|
+| `eqZero` / `leZero` / `ltZero` / `gtZero` | `(·)²` 或 `(max · 0)²` |
+| `sqDistEq` / `equalLength` | `(· − ·)²` |
+| `perpendicular` / `rightAngle` | `(∑ · ·)²` |
+| `midpoint` | `∑ (·)²` |
+| `collinear` / `parallel` | `minorDefect`（叉积型，二次） |
+| `samePoint` | `sqDist`（二次） |
+
+⇒ **每一个分支都含一个平方，所以没有全局 Lipschitz 常数。**
+抽象原因在 `Lattice.Lib.Penalty.QuadraticNotLipschitz.sq_not_lipschitz`：
+`¬ ∃ L, ∀ s t, |s² − t²| ≤ L·|s − t|`。
+
+**这条事实的用处**：它把「收敛估计需要假设迭代路径有界」从一句口头交代变成一条有原因的约束。
+**损失是二次的，`|L(θ) − L(θ')| ≤ C·‖θ − θ'‖` 形式的估计必须把 `θ` 限制在紧集里。**
+
+⚠ **上一轮的规划在这里写错过**：我写过「`eqZero` 是线性 ⇒ 全局 Lipschitz」。
+**实测是 `(e.evalPts pts)^2`——平方。** 记在这里以免那个错误再被引用。 -/
+
 /-- **12 个构造子的惩罚损失**，全部非负。
 
 `ltZero`/`gtZero` 用 `le_zero`/`ge_zero` 的松弛形式，理由见模块文档 §1。 -/
