@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 613 | instantiated library, may import core only |
+| lib | 614 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -108,7 +108,8 @@
 - `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
 - `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Lib.Architectures.SoftmaxSubLayer` <- `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Attention.RealAttention`
-- `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`, `Lattice.Lib.Attention.SoftmaxLipschitz`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`
+- `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`, `Lattice.Lib.Attention.SoftmaxLipschitz`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`, `Lattice.Lib.Attention.AttentionLipschitz`
+- `Lattice.Lib.Attention.AttentionLipschitz` <- `Lattice.Lib.Architectures.SoftmaxSubLayer`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`
 - `Lattice.Lib.Attention.RealALiBi` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.Attention.RealAbsPosEncoding` <- `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealRelPosEncoding`
 - `Lattice.Lib.Attention.RealAttention` 
@@ -959,6 +960,7 @@
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
 | `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
 | `Lattice.Lib.Attention` | 0 | 0 |
+| `Lattice.Lib.Attention.AttentionLipschitz` | 2 | 0 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
 | `Lattice.Lib.Attention.RealAttention` | 6 | 3 |
@@ -7940,6 +7942,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `route_over_capacity_drops` -> `apply`, `balanced_no_drop`, `drop_of_total_exceeds_capacity`, `imbalance_forces_drop`
 - `routed_output_bound` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `rowCount_add_compl` -> `induction`, `min`, `zero`
+- `rowDot_lipschitz` -> `W`
+- `rowDot_pointwise` -> `W`
 - `rowEditCexW_row0` -> `W`, `apply`
 - `rowEditCexX_one` -> `W`, `apply`
 - `rowEditCexX_zero_apply` -> `W`, `apply`
