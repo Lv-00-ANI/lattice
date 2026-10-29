@@ -535,4 +535,43 @@ theorem evalProgram_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n)
   rw [decodeProgram_encodeProgram hn p]
   rfl
 
+/-! ## 六、编码的**精确**布局律
+
+`length_le_encodeProgram`（上文）是**不等式**：`p.length ≤ (encodeProgram hn p).length`。
+它是**燃料上界**——够用，但不是布局。
+
+**C 侧需要的是精确值**：写一条指令占多少个 `ℝ` 槽。本节给出来，
+而且**对任意指令成立**，`softmax` 只是它的一个实例。
+
+⚠ **这两条不是 `length_le_encodeProgram` 的加强**：那条是 `≤`，这两条是 `=` 且带具体求和/增量。
+**它们也不是 `List.length_flatMap` 的复述**：陈述里出现 `encodeProgram` 与 `++`。 -/
+
+/-- ⭐ **追加一条指令的编码长度**：等于原程序编码长度加上那条指令的编码长度。
+
+**这是布局律的一般形式。** 证明只是 `flatMap` 对 `++` 的分配律加上 `length_append`——
+**但它是第一次把这个事实写成关于 `encodeProgram` 的定理**，而不是留给读者从定义里推。 -/
+theorem encodeProgram_append_length {n : ℕ} (hn : 0 < n) (p : LayerProgram n) (i : Instr n) :
+    (encodeProgram hn (p ++ [i])).length
+      = (encodeProgram hn p).length + (encodeInstr hn i).length := by
+  unfold encodeProgram
+  rw [List.flatMap_append]
+  simp only [List.flatMap_cons, List.flatMap_nil, List.append_nil, List.length_append]
+
+/-- ⭐⭐ **含 `softmax` 的程序，编码长度恰好加 1**。
+
+`softmax` 的编码是 `[TAG_SOFTMAX]`——**一个 tag，没有载荷**，所以它占一个槽。
+**这是 C 侧布局需要的定量事实**：任何程序末尾接一条 `softmax`，字节流长一个单位。 -/
+theorem encodeProgram_append_softmax_length {n : ℕ} (hn : 0 < n) (p : LayerProgram n) :
+    (encodeProgram hn (p ++ [Instr.softmax])).length
+      = (encodeProgram hn p).length + 1 := by
+  rw [encodeProgram_append_length]
+  rfl
+
+/-- **单条 `softmax` 程序的编码长度是 1**——上一条在 `p = []` 时的样子。 -/
+theorem encodeProgram_singleton_softmax_length {n : ℕ} (hn : 0 < n) :
+    (encodeProgram hn ([Instr.softmax] : LayerProgram n)).length = 1 := by
+  rw [show ([Instr.softmax] : LayerProgram n) = [] ++ [Instr.softmax] from rfl,
+      encodeProgram_append_softmax_length]
+  rfl
+
 end Lattice.Lift.ProgramAST
