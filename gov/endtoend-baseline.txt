@@ -5,10 +5,13 @@ CInterface/ABI.lean	abiTable_length
 CInterface/ABI.lean	abiTable_names_nodup
 CInterface/ABI.lean	abiTable_returns_a_value
 CInterface/ABI.lean	primitiveNames_eq_abi
+CInterface/Conformance.lean	boundaryPrimitives_nodup
 CInterface/Conformance.lean	conformance_iff_abi
 CInterface/Conformance.lean	conformance_length
+CInterface/Conformance.lean	conformance_names_dedup_length
 CInterface/Conformance.lean	conformance_names_eq_abi
-CInterface/Conformance.lean	conformance_names_nodup
+CInterface/Conformance.lean	every_primitive_has_boundary
+CInterface/Conformance.lean	interior_length
 CInterface/Serialization.lean	bl_getD
 CInterface/Serialization.lean	layerWords_getD_W
 CInterface/Serialization.lean	layerWords_getD_b
@@ -614,6 +617,7 @@ Evidence/PredicateWitnesses.lean	commutativeBlock_trivial
 Evidence/PredicateWitnesses.lean	isPolicyDensity_const_one
 Evidence/PredicateWitnesses.lean	isometryScalar_id
 Evidence/PredicateWitnesses.lean	keyOrthogonal_zero
+Evidence/StructureCensus.lean	census_env_agrees
 Evidence/StructureCensus.lean	census_length
 Evidence/StructureCensus.lean	no_zero_obligation_in_census_table
 Evidence/StructureCensus.lean	repair_is_densest

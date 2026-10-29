@@ -6,9 +6,12 @@ CInterface/ABI.lean	abiTable_errors_wellFormed
 CInterface/ABI.lean	abiTable_returns_a_value
 CInterface/ABI.lean	primitiveNames_eq_abi
 CInterface/Conformance.lean	conformance_length
-CInterface/Conformance.lean	conformance_names_nodup
+CInterface/Conformance.lean	conformance_names_dedup_length
 CInterface/Conformance.lean	conformance_names_eq_abi
 CInterface/Conformance.lean	conformance_iff_abi
+CInterface/Conformance.lean	every_primitive_has_boundary
+CInterface/Conformance.lean	boundaryPrimitives_nodup
+CInterface/Conformance.lean	interior_length
 CInterface/Serialization.lean	layerWords_length
 CInterface/Serialization.lean	wPart_length
 CInterface/Serialization.lean	layerWords_getD_W
