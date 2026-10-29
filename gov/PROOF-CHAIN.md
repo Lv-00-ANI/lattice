@@ -970,8 +970,8 @@
 | `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.AttentionLipschitz` | 3 | 0 |
-| `Lattice.Lib.Attention.ConvexCombination` | 2 | 0 |
-| `Lattice.Lib.Attention.ProgramAttentionLipschitz` | 1 | 0 |
+| `Lattice.Lib.Attention.ConvexCombination` | 3 | 0 |
+| `Lattice.Lib.Attention.ProgramAttentionLipschitz` | 2 | 0 |
 | `Lattice.Lib.Attention.ProgramSoftmaxBridge` | 9 | 1 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
@@ -2204,7 +2204,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_attention_between` -> `Instr`, `W`, `applyInstr`, `convex_combination_between`, `le`, `softmax_sum_one`, `sum_exp_pos`
-- `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`
+- `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`, `weighted_average_weights_lipschitz`
+- `applyInstr_attention_lipschitz_W` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `softmax_lipschitz`, `weighted_average_weights_lipschitz`
 - `applyInstr_layernorm_mean_zero` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_layernorm_sq_sum` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_layernorm_sq_sum_mono` -> `Instr`, `applyInstr`, `mean`
