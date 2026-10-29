@@ -63,6 +63,7 @@
 import Mathlib
 import Lattice.Domains.Geometry.LoopPerp
 import Lattice.Domains.Constraints.Constraint
+import Lattice.Domains.Constraints.Dist
 import Lattice.Domains.Geometry.RepairPerp
 
 open scoped BigOperators
@@ -77,19 +78,12 @@ variable {n : ℕ}
 
 /-! ## 一、`sqDistEq` 的修复 -/
 
-/-- **两点距离的平方。** -/
-noncomputable def sqDist (p q : Pt n) : ℝ := ∑ i, (p i - q i) ^ 2
-
-/-- **距离平方非负。** -/
-theorem sqDist_nonneg (p q : Pt n) : 0 ≤ sqDist p q :=
-  Finset.sum_nonneg (fun i _ => sq_nonneg _)
-
 /-- **伸缩后的距离平方**：`|a, a + k(b−a)|² = k²|ab|²`。
 
 这是 `sqDistFix` 正确性的核心计算。 -/
 theorem sqDist_affine (a b : Pt n) (k : ℝ) :
     sqDist a (fun i => a i + k * (b i - a i)) = k ^ 2 * sqDist a b := by
-  unfold sqDist
+  simp only [sqDist_eq_sum]
   have h : ∀ i, (a i - (a i + k * (b i - a i))) ^ 2 = k ^ 2 * (a i - b i) ^ 2 := by
     intro i; ring
   simp only [h]

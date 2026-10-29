@@ -540,7 +540,6 @@ Domains/Geometry/RepairBridge.lean	repair_run_preserved
 Domains/Geometry/RepairBridge.lean	repair_success_is_penalty_zero
 Domains/Geometry/RepairBridge.lean	Repair.absorbs_is_idempotentOn
 Domains/Geometry/RepairBridge.lean	Repair.iterate_fix_of_sat_via_idempotent
-Domains/Geometry/RepairCoverage.lean	sqDist_nonneg
 Domains/Geometry/RepairCoverage.lean	sqDist_affine
 Domains/Geometry/RepairCoverage.lean	sqDistFix_reaches
 Domains/Geometry/RepairCoverage.lean	collinearFix_on_line
