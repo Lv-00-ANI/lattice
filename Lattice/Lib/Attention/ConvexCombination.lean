@@ -50,4 +50,29 @@ theorem convex_combination_between {ι : Type*} [Fintype ι] [Nonempty ι]
 **所以它要么是空论，要么陈述错了。** 而"非负加权量的凸组合非负"本来就是
 `Finset.sum_nonneg` 加 `mul_nonneg`，不需要一条有名字的定理。**删掉，不留噪声。** -/
 
+/-- ⭐⭐ **加权平均的 Lipschitz 性**：若每个分量差不超过 `M`，则加权平均的差也不超过 `M`。
+
+**与上一条同一个主题**（权重非负、和为 1），但谈的是**差分**而不是**界**。
+它们合起来说明：凸组合在值上是内插、在扰动上是稳定。
+
+**证明只有两步**：把差写成 `∑ j, p j * (w j - w' j)`（用分配律），
+再 `|∑| ≤ ∑ |·| = ∑ p j * |w j - w' j| ≤ ∑ p j * M = M`。**没有用到任何分析学。** -/
+theorem weighted_average_lipschitz {ι : Type*} [Fintype ι] [Nonempty ι]
+    (p w w' : ι → ℝ) (hp0 : ∀ j, 0 ≤ p j) (hp1 : ∑ j, p j = 1)
+    {M : ℝ} (hM : ∀ j, |w j - w' j| ≤ M) :
+    |∑ j, p j * w j - ∑ j, p j * w' j| ≤ M := by
+  -- the difference is the weighted sum of the differences
+  have hkey : ∑ j, p j * w j - ∑ j, p j * w' j = ∑ j, p j * (w j - w' j) := by
+    rw [← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun j _ => by ring)
+  rw [hkey]
+  calc |∑ j, p j * (w j - w' j)|
+      ≤ ∑ j, |p j * (w j - w' j)| := Finset.abs_sum_le_sum_abs _ _
+    _ = ∑ j, p j * |w j - w' j| := by
+        exact Finset.sum_congr rfl (fun j _ => by rw [abs_mul, abs_of_nonneg (hp0 j)])
+    _ ≤ ∑ j, p j * M :=
+        Finset.sum_le_sum (fun j _ => mul_le_mul_of_nonneg_left (hM j) (hp0 j))
+    _ = (∑ j, p j) * M := by rw [Finset.sum_mul]
+    _ = M := by rw [hp1, one_mul]
+
 end Lattice.Lib.Attention

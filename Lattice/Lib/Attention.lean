@@ -39,4 +39,5 @@ import Lattice.Lib.Attention.SoftmaxLipschitzBound
 import Lattice.Lib.Attention.AttentionLipschitz
 import Lattice.Lib.Attention.ProgramSoftmaxBridge
 import Lattice.Lib.Attention.ConvexCombination
+import Lattice.Lib.Attention.ProgramAttentionLipschitz
 /-! `Lattice.Lib.Attention` -- 1 modules. -/
