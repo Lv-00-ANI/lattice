@@ -12,6 +12,9 @@ CInterface/Conformance.lean	conformance_iff_abi
 CInterface/Conformance.lean	every_primitive_has_boundary
 CInterface/Conformance.lean	boundaryPrimitives_nodup
 CInterface/Conformance.lean	interior_length
+CInterface/ContractBoundary.lean	composeArgs_has_no_data_parameter
+CInterface/ContractBoundary.lean	abiTable_compose_args
+CInterface/ContractBoundary.lean	exists_abi_entry_without_data_parameter
 CInterface/LayoutBytes.lean	bytesPerWord_fp16
 CInterface/LayoutBytes.lean	bytesPerWord_bf16
 CInterface/LayoutBytes.lean	bytesPerWord_fp32
