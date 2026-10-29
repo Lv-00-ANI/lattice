@@ -19,10 +19,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 1 | 1371 | 15.9% |
 | 2 | 635 | 7.3% |
 | 3 | 553 | 6.4% |
-| 4 | 446 | 5.2% |
-| 5 | 187 | 2.2% |
+| 4 | 447 | 5.2% |
+| 5 | 189 | 2.2% |
 | 6 | 23 | 0.3% |
-| **合计** | **8640** | |
+| **合计** | **8643** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -68,6 +68,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `optional_false_run` (`Compose/Laws.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `optional_sound` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `optional_strength` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `primitiveNames_length` (`Compose/PrimitiveShape.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `primitiveNames_nodup` (`Compose/PrimitiveShape.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `IdempotentOn.iterate` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `iterate_comp_of_leftInverse` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `preserves_of_sat` (`Core/Invariant.lean`) | Compose, Domains, Lib, Runtime, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `progress_of_rate` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `countdown_iterate` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `countdown_converges_in` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `no_uniform_bound` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `converges_within_is_tight` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
