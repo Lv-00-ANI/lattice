@@ -412,12 +412,25 @@ theorem ghost_hypothesis_is_vacuous {γ : Type*} [Nonempty γ] (Q : Prop) :
   ⟨fun h => h (Classical.arbitrary γ), fun h _ => h⟩
 
 /-- ⭐⭐ **M2 的"承重"对照（判据的另一半）**：
-若结论的类型**确实依赖**参数，则该参数**承重** ——
-删掉它**结论无法陈述**（这正是 `RealEndToEnd` §三 `e2e_sound` 的口径）。
+若结论的类型**确实依赖**参数，则该参数**承重** —— 删掉它**结论无法陈述**。
 
-⚠ **本文件把 B219.3/B219.4 的口径**逐字形式化**：
-"L1⇄L2 对**语义内容**不承重（§一），但对**结论的可陈述性**承重（§三）"。
-⇒ ⭐ **"承重"有两种，必须分开判** —— 这是 M2 的相对 M1 的额外结构。 -/
+⚠⚠ **第 53 轮更正：这一条【不】适用于 `RealEndToEnd` §三 的 `e2e_sound`。**
+
+本文件此前写「这正是 `e2e_sound` 的口径」，**那句话是错的**。`e2e_sound` 的结论是
+
+    AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x
+
+**其中没有 `s`，也没有 `ts`**，而 `cs` 与 `x` **本身就是参数**。所以：
+
+- **删掉 `h0` / `h1`，结论照样可以陈述**（而且更强）；
+- ⭐ **`e2e_sound` 属于上面 `ghost_hypothesis_is_vacuous` 那一类（`(∀ _t : γ, Q) ↔ Q`），
+  而不是本节 `ghost_hypothesis_dependent_is_load_bearing` 那一类**。
+
+**判据本身是对的；错的是把它套在 `e2e_sound` 上。** 本节这条定理描述的是**真正依赖**的情形
+（`Q : γ → Prop`，结论是 `Q t₀`，`t₀` 必须由假设给出）——**那正是 `e2e_sound` 不具备的性质。**
+
+⇒ ⭐ **"承重"有两种，必须分开判** —— 这是 M2 的相对 M1 的额外结构，
+**而分判的结论是：`e2e_sound` 的 L0/L1 绑定属于【不承重】那一种。** -/
 theorem ghost_hypothesis_dependent_is_load_bearing {γ : Type*} (Q : γ → Prop)
     (t₀ : γ) : (∀ t : γ, Q t) → Q t₀ :=
   fun h => h t₀
