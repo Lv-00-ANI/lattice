@@ -1293,6 +1293,10 @@ Lib/Editing/RealEditSemantics.lean	EditLayer_ORIGINAL_is_too_weak_ce
 Lib/Editing/RealEditSemantics.lean	EditLayer_ORIGINAL_delta_not_pinned_ce
 Lib/Editing/RealEditSemantics.lean	b194_counterexamples_intact_holds
 Lib/Editing/RealEditSemantics.lean	b194_counterexamples_referenced
+Lib/Editing/RealEditToSymbol.lean	convertVec_injective
+Lib/Editing/RealEditToSymbol.lean	toSymbol_convertVec_bijective
+Lib/Editing/RealEditToSymbol.lean	preimage_subsingleton
+Lib/Editing/RealEditToSymbol.lean	preimage_eq_extractVec
 Lib/Editing/RealEditToSymbol.lean	any_edit_relation_gives_symbol_preimage
 Lib/Editing/RealEditToSymbol.lean	semEq_coarser_than_eq
 Lib/Editing/RealEditToSymbol.lean	semEq_signature_check
@@ -1329,7 +1333,9 @@ Lib/Editing/RealExtractDecidability.lean	scaleClassB_not_naive_canonicalize
 Lib/Editing/RealExtractDecidability.lean	scaleClassB_zero_true
 Lib/Editing/RealExtractDecidability.lean	scaleClassLayerB_iff
 Lib/Editing/RealExtractInvertibility.lean	leftInverse_iff_injective
+Lib/Editing/RealExtractNonInjective.lean	convertVec_injective
 Lib/Editing/RealExtractNonInjective.lean	semantic_not_injective
+Lib/Editing/RealExtractNonInjective.lean	semantic_fiber_has_two_points
 Lib/Editing/RealExtractSurjectivity.lean	extractLayer_eq_extractLayer
 Lib/Editing/RealExtractSurjectivity.lean	extractLayer_surjective
 Lib/Editing/RealExtractSurjectivity.lean	compileToLayer_range_eq_univ
@@ -1374,10 +1380,14 @@ Lib/Editing/RealRecoverBehavior.lean	injection_is_load_bearing
 Lib/Editing/RealRepairMetric.lean	id_is_not_a_repair_when_unsat_exists
 Lib/Editing/RealRepairMetric.lean	repairTo_converges
 Lib/Editing/RealRepairMetric.lean	repairTo_is_a_repair
+Lib/Editing/RealReversibilityBoundary.lean	convertVec_injective
+Lib/Editing/RealReversibilityBoundary.lean	convertVec_scale_ne
 Lib/Editing/RealReversibilityBoundary.lean	relu_not_injective
 Lib/Editing/RealReversibilityBoundary.lean	relu_zero_not_implies_eq
 Lib/Editing/RealReversibilityBoundary.lean	relu_global_not_invertible
 Lib/Editing/RealReversibilityBoundary.lean	relu_zero_fiber_not_singleton
+Lib/Editing/RealReversibilityBoundary.lean	reversibility_boundary
+Lib/Editing/RealReversibilityBoundary.lean	semantic_layer_not_injective
 Lib/Editing/RealRoundTripVacuity.lean	rt1_leftInverse
 Lib/Editing/RealRoundTripVacuity.lean	rt1_is_instance_of_branch_B
 Lib/Editing/RealRoundTripVacuity.lean	rt1_matches_existing
@@ -1635,6 +1645,11 @@ Runtime/CompilerScheme.lean	every_backend_sound
 Runtime/ConstraintEmbeddingSoundness.lean	embedding_soundness
 Runtime/ConstraintEmbeddingSoundness.lean	embedding_no_false_solutions
 Runtime/ConstraintEmbeddingSoundness.lean	embedding_no_missing_solutions
+Runtime/ConstraintRepresentation.lean	extractLayer_convertVec
+Runtime/ConstraintRepresentation.lean	convertVec_injective
+Runtime/ConstraintRepresentation.lean	extractLayer_compileToLayer
+Runtime/ConstraintRepresentation.lean	roundtrip_preserves_semantics
+Runtime/ConstraintRepresentation.lean	extract_compile_semantically_equal
 Runtime/ConstraintToLoss.lean	compile_is_loss
 Runtime/ConstraintToLoss.lean	sound_holds
 Runtime/ConstraintToLoss.lean	compile_output_varies
