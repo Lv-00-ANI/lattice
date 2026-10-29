@@ -29,8 +29,8 @@
 | `Lattice.Domains.Derivative` | 94 | 3 | Pipeline |
 | `Lattice.Domains.Derive` | 71 | 2 | Engine |
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
-| `Lattice.Domains.Dist` | 177 | 9 | Expr |
-| `Lattice.Domains.DistContinuous` | 53 | 2 | Dist |
+| `Lattice.Domains.Dist` | 183 | 10 | Expr |
+| `Lattice.Domains.DistContinuous` | 47 | 1 | Dist |
 | `Lattice.Domains.DistLipschitz` | 151 | 3 | Lipschitz, Dist |
 | `Lattice.Domains.Engine` | 290 | 14 | Constraint |
 | `Lattice.Domains.EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
@@ -105,7 +105,7 @@
 | `Lattice.Domains.Square` | 161 | 10 | Loss, Dist |
 | `Lattice.Domains.Synthesis` | 215 | 8 | Invariant, Initialise |
 | `Lattice.Domains.SynthesisConnection` | 158 | 7 | Synthesis, SynthesisMulti |
-| `Lattice.Domains.SynthesisCoverage` | 179 | 7 | Synthesis, Constraint |
+| `Lattice.Domains.SynthesisCoverage` | 150 | 5 | Synthesis, Constraint, Dist |
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
 | `Lattice.Domains.Unconditional` | 117 | 7 | FormDeriv, Derivative |
 | `Lattice.Domains.Unified` | 91 | 4 | Loop, LoopPerp |

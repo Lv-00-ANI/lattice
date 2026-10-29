@@ -20,9 +20,7 @@ copy	Domains/Geometry/PartialReinjection.lean	exact_reinject_zero
 copy	Domains/Geometry/QualityBridge.lean	copy_preserves_at_sat
 copy	Domains/Geometry/QualityBridge.lean	linear_repair_preserves_at_sat
 copy	Domains/Geometry/QualityBridge.lean	project_preserves_at_sat
-copy	Domains/Geometry/RepairCoverage.lean	sqDist_nonneg
 copy	Domains/Geometry/Square.lean	midpointPenalty_nonneg
-copy	Domains/Geometry/SynthesisCoverage.lean	sqDistAt_nonneg
 copy	Domains/Geometry/Unified.lean	linearRepair_unified
 copy	Domains/Geometry/Unified.lean	perpRepair_unified
 copy	Domains/Geometry/Unified.lean	samePointRepair_unified

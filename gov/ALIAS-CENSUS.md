@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 706 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 156 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 154 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -763,9 +763,7 @@
 | `Domains/Geometry/QualityBridge.lean` | `copy_preserves_at_sat` |
 | `Domains/Geometry/QualityBridge.lean` | `linear_repair_preserves_at_sat` |
 | `Domains/Geometry/QualityBridge.lean` | `project_preserves_at_sat` |
-| `Domains/Geometry/RepairCoverage.lean` | `sqDist_nonneg` |
 | `Domains/Geometry/Square.lean` | `midpointPenalty_nonneg` |
-| `Domains/Geometry/SynthesisCoverage.lean` | `sqDistAt_nonneg` |
 | `Domains/Geometry/Unified.lean` | `linearRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `perpRepair_unified` |
 | `Domains/Geometry/Unified.lean` | `samePointRepair_unified` |

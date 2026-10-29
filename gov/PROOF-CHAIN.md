@@ -772,7 +772,7 @@
 - `Lattice.Domains.Geometry.Square` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Geometry.Synthesis` <- `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.Initialise`
 - `Lattice.Domains.Geometry.SynthesisConnection` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Runtime.EndToEnd`
-- `Lattice.Domains.Geometry.SynthesisCoverage` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.SynthesisCoverage` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Geometry.SynthesisMulti` <- `Lattice.Domains.Geometry.Synthesis`
 - `Lattice.Domains.Geometry.Unconditional` <- `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.Derivative`
 - `Lattice.Domains.Geometry.Unified` <- `Lattice.Core.Invariant`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Lib.Linear.Residual`
@@ -1548,8 +1548,8 @@
 | `Lattice.Domains.Constraints.ConstraintSet` | 7 | 1 |
 | `Lattice.Domains.Constraints.ConstraintTokenizer` | 17 | 9 |
 | `Lattice.Domains.Constraints.Differentiable` | 10 | 2 |
-| `Lattice.Domains.Constraints.Dist` | 9 | 3 |
-| `Lattice.Domains.Constraints.DistContinuous` | 2 | 0 |
+| `Lattice.Domains.Constraints.Dist` | 10 | 3 |
+| `Lattice.Domains.Constraints.DistContinuous` | 1 | 0 |
 | `Lattice.Domains.Constraints.DistLipschitz` | 3 | 0 |
 | `Lattice.Domains.Constraints.EqConstraintListTokens` | 7 | 3 |
 | `Lattice.Domains.Constraints.EqConstraintToken` | 12 | 11 |
@@ -1635,7 +1635,7 @@
 | `Lattice.Domains.Geometry.Square` | 10 | 5 |
 | `Lattice.Domains.Geometry.Synthesis` | 7 | 5 |
 | `Lattice.Domains.Geometry.SynthesisConnection` | 6 | 0 |
-| `Lattice.Domains.Geometry.SynthesisCoverage` | 7 | 1 |
+| `Lattice.Domains.Geometry.SynthesisCoverage` | 5 | 0 |
 | `Lattice.Domains.Geometry.SynthesisMulti` | 4 | 1 |
 | `Lattice.Domains.Geometry.Unconditional` | 7 | 0 |
 | `Lattice.Domains.Geometry.Unified` | 4 | 0 |
@@ -1960,7 +1960,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Subgradient.const_add` -> `Subgradient`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
 - `Subgradient.div_const` -> `Subgradient`, `apply`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
 - `Subgradient.smul` -> `Subgradient`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
-- `SynthesisCoverage.sqDistAt_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translate`, `translateBy`
 - `Text.encode_eq_toList` -> `CharToken`, `bestPrefix`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `length`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text.encode_injective` -> `CharToken`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text.encode_length` -> `CharToken`, `bestPrefix`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `length`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
@@ -8123,17 +8122,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `same_concept_iff_same_elementFiber` -> `VectorConstraint`, `apply`, `gazeUp`, `induction`, `scaleVec`, `trans`
 - `same_degree_noniso_witness` -> `E`, `nbhdSet`, `nbhdSum`
 - `same_row_orthogonal_keys_commute` -> `ApplyEdit`, `E`, `order_dependence_general`
-- `same_transform_separated` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translate`, `translateBy`
+- `same_transform_separated` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
 - `sampleCovariance_trace` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `sampleCovariance_trace_nonneg` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
-- `samplesOf_coverage` -> `Pt`, `length`, `samplesOf`, `sqDistAt`, `translateBy`
-- `samplesOf_length` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDistAt`, `translateBy`
+- `samplesOf_coverage` -> `Pt`, `length`, `samplesOf`, `sqDist`, `translateBy`
+- `samplesOf_length` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `translateBy`
 - `samplesOf_length_pos` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `standardFamily`, `standardFamily_preserves_perpendicular`
-- `samplesOf_length_single` -> `Pt`, `length`, `samplesOf`, `sqDistAt`, `translateBy`
+- `samplesOf_length_single` -> `Pt`, `length`, `samplesOf`, `sqDist`, `translateBy`
 - `samplesOf_singleton` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `samples`, `standardFamily`, `standardFamily_preserves_perpendicular`
 - `samplesOf_sound` -> `GeoConstraint`, `Holds`, `Pt`, `append_nil`, `length`, `standardFamily`, `standardFamily_preserves_perpendicular`
-- `samples_distinct` -> `Pt`, `apply`, `translateBy`
-- `samples_separated` -> `Pt`, `translateBy`
+- `samples_distinct` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
+- `samples_separated` -> `Pt`, `sqDist`, `translateBy`
 - `samples_sound` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `length`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `satQuant_rounding` -> `clampTo`, `quant_error_lt_two_pow`
 - `satQuant_saturation` -> `clampTo`
@@ -8613,8 +8612,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `split_exposes_parts_to_upward_gaze` -> `extent`
 - `split_iff_all` -> `extent`
 - `split_immediately_confers_concept` -> `extent`
-- `sqDistAt_eq_zero_iff` -> `Pt`, `apply`, `subst`, `translateBy`
-- `sqDistAt_nonneg` -> `Pt`, `apply`, `subst`, `translateBy`
 - `sqDistConst_one` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistConst_scale` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
@@ -8630,14 +8627,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_eq_of_dist_eq_same` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_eq_resid` -> `GeoExpr`, `diff`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `segComp`, `sqDist`, `sqDistEqPenalty`, `sqNorm`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
 - `sqDist_eq_sqNorm` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
-- `sqDist_eq_sum` -> `Pt`, `diff`, `sqDist`, `sqNorm`
+- `sqDist_eq_sum` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_eq_zero_iff` -> `Pt`, `sqNorm`, `sqNorm_eq_zero_iff`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
 - `sqDist_lipschitz_on_bounded` -> `Pt`, `sqNorm`, `sum_sq_lipschitz_on_bounded`
 - `sqDist_nonneg` -> `Pt`, `sqDist`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `sum_sq_lipschitz_on_bounded`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
-- `sqDist_translateBy` -> `Pt`, `apply`, `translateBy`
+- `sqDist_translateBy` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
+- `sqDist_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
 - `sqLoss_deriv_zero_of_localMin` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
 - `sqNormIn_nonneg` -> `W`, `residual`
 - `sqPenalty_exact_gives_sound` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
@@ -9024,7 +9022,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `syntacticFunctor_not_faithful` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntax_differs_semantics_same` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
-- `synth_coverage` -> `Pt`, `translateBy`
+- `synth_coverage` -> `Pt`, `sqDist`, `translateBy`
 - `synthesis_connects_to_chain` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`
 - `synthesis_pipeline` -> `GeoConstraint`, `Holds`, `Pt`, `samples`
 - `synthesis_then_verify` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Sat`, `SymOne`, `converges_within`, `countdown`, `iterate`, `loss`, `reinject_loss_eq_zero`, `samePointRepair`, `samples`, `samples_sound`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`
@@ -9246,7 +9244,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `transformer_block_closed` -> `W`, `convComb_lipschitz_prob`, `linear_map_lipschitz`, `lipschitz_add`, `rmsNormE_sqrt_lipschitz`
 - `transformer_block_closed_relaxed` -> `W`
 - `transformer_block_numeric` -> `E`, `RMSNormOp`, `RMSNormOp_eq_rmsNormE`, `W`, `linear_map_lipschitz`, `rmsNormE_sqrt_lipschitz`
-- `translateBy_apply` -> `Pt`, `apply`, `translateBy`
+- `translateBy_apply` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
 - `translate_ne_self` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `translate`
 - `translate_neg` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
 - `transportCost_absCost_nonneg` -> `IsTransportPlan`, `le_antisymm`, `productPlan_isPlan`, `sInf`, `transportCost`
