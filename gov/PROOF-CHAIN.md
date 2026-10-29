@@ -1660,7 +1660,7 @@
 | `Lattice.Runtime.EndToEnd` | 7 | 3 |
 | `Lattice.Runtime.EndToEndApproximation` | 3 | 0 |
 | `Lattice.Runtime.ErrorCalculus` | 7 | 1 |
-| `Lattice.Runtime.Extraction` | 17 | 6 |
+| `Lattice.Runtime.Extraction` | 18 | 6 |
 | `Lattice.Runtime.ExtractionStrength` | 3 | 1 |
 | `Lattice.Runtime.GeoSampledBound` | 2 | 0 |
 | `Lattice.Runtime.GridDensity` | 6 | 1 |
@@ -6580,6 +6580,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_counterexample_to_roundtrip` -> `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `no_drop_forces_no_overflow` -> `apply`
 - `no_extractor_both_layers` -> `IdempotentOn`, `LinearForm`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
+- `no_extractor_both_layers_witness` -> `IdempotentOn`, `LinearForm`, `Repair`, `Sat`, `SemEq`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `no_extractor_preserves_both` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_preserves_semantics`, `extract`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `no_faster_than_geometric` -> `Smooth`, `StrongConvex`, `Subgradient`, `strong_convex_gap_bound`
 - `no_fiber_of_extractVec_has_two_points` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`

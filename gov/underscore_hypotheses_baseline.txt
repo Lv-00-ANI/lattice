@@ -127,6 +127,5 @@ Lib/Quantization/RealMixedPrecision.lean	mixed_layer_error	_hX	unused	A-numeric-
 Lib/Quantization/RealIEEE754/Basic.lean	ieee_relative_error_bound	_hx	unused	A-numeric-bound
 Lib/Quantization/RealIEEE754/Overflow.lean	clampTo_eq_self	_hM	unused	A-numeric-bound
 Lift/EndToEndApproximation.lean	loss_le_sq_of_resid_le	_hε	unused	A-numeric-bound
-Lift/Extraction.lean	no_extractor_both_layers	_hsem	unused	B-equality-precondition
 Lift/RectangularRepresentation.lean	any_shape_is_exactly_representable	_hn	unused	A-numeric-bound
 Lift/VerifyLoopProgress.lean	verify_stable	_h	unused	F-assumption-predicate
