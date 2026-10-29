@@ -20,3 +20,4 @@ import Lattice.Compose.Steps
 先落地契约的原因。
 -/
 import Lattice.Compose.PrimitiveShape
+import Lattice.Compose.ComposeObligation

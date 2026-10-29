@@ -93,7 +93,7 @@ def repair_expected(path):
 #: The layers the refutation census reports separately.
 # Round 238: Runtime is a real layer now; leaving it out would make the per-layer rows
 # silently fail to add up to the total, which is the drift this parser exists to catch.
-REFUTATION_LAYERS = ("Lib", "Lift", "Runtime", "Domains", "Evidence", "Core", "Geo")
+REFUTATION_LAYERS = ("Lib", "Lift", "Runtime", "Domains", "Evidence", "Core", "Geo", "Compose")
 
 #: `**284 条**否定结论` -- the total in the prose above the layer table.
 TOTAL = re.compile(r"\*\*(\d+)\s*条\*\*\s*否定结论")

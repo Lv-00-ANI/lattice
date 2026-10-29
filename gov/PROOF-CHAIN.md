@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 209 | aggregator at `Lattice/`, re-exports only |
+| root | 210 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -654,8 +654,9 @@
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
+- `Lattice.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Laws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
@@ -1499,6 +1500,7 @@
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
+| `Lattice.Compose.ComposeObligation` | 7 | 3 |
 | `Lattice.Compose.ForwardChain` | 3 | 1 |
 | `Lattice.Compose.Iterate` | 9 | 3 |
 | `Lattice.Compose.Laws` | 9 | 0 |
@@ -1726,6 +1728,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`, `induction`, `zero`
 - `ChainFwd_const_add` -> `ChainFwd`, `ChainTail`, `W`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
+- `Composed.toPrimitive_run` -> `run`
 - `Coverage.inter_none_left` -> `run`, `sound`
 - `Coverage.inter_none_right` -> `run`, `sound`
 - `Coverage.union_none_left` -> `run`, `sound`
@@ -2473,6 +2476,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `block_sparse_nonneg` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_nonneg`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
 - `block_sparse_output_bound` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
 - `block_sparse_pmf` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
+- `blocked_pre` -> `Primitive`, `compose`, `identity`, `run`
+- `blocked_run_none` -> `Primitive`, `compose`, `run`
 - `bmean_eq_batchMean` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `convertReal`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lv_compile`, `lv_loss`, `lv_neuron_out`, `mean`, `normalize`, `realLoss`, `rms`, `rmsNorm`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `bmean_eq_mean` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `convertReal`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lv_compile`, `lv_loss`, `lv_neuron_out`, `mean`, `normalize`, `realLoss`, `rms`, `rmsNorm`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `bmean_scale` -> `apply`
@@ -3062,6 +3067,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_choice_distrib_run` -> `Primitive`, `choice`, `compose`, `run`
 - `compose_coverage` -> `Primitive`, `inter`, `run`, `sound`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
+- `compose_h_not_derivable` -> `Primitive`, `compose`, `identity`, `run`
+- `compose_h_of_pre_true` -> `Primitive`, `compose`, `run`
 - `compose_identity_right` -> `Primitive`, `choice`, `compose`, `identity`, `run`
 - `compose_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_run_assoc` -> `Primitive`, `run`, `sound`
@@ -5155,6 +5162,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `l0Norm`, `sqNorm`
+- `identity_post` -> `Primitive`, `compose`, `identity`, `run`
+- `identity_pre` -> `Primitive`, `compose`, `identity`, `run`
 - `idxB_lt` -> `AffineLayer`, `W`, `apply`, `getD_append_right`, `getD_eq_getElem`, `length`
 - `idxW_lt` -> `AffineLayer`, `W`, `apply`, `getD_append_right`, `getD_eq_getElem`, `length`
 - `ieeeAccN_error` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `clampTo`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fpOverflow`, `geom_sum_mul`, `ieeeToRoundOp`, `induction`, `roundToFormat`, `tiny`, `zero`
