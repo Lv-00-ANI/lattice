@@ -21,8 +21,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 3 | 548 | 6.4% |
 | 4 | 446 | 5.2% |
 | 5 | 186 | 2.2% |
-| 6 | 20 | 0.2% |
-| **合计** | **8609** | |
+| 6 | 23 | 0.3% |
+| **合计** | **8612** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -34,9 +34,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `primitiveNames_eq_abi` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `conformance_names_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `conformance_names_dedup_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `conformance_iff_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `every_primitive_has_boundary` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `boundaryPrimitives_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `interior_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -85,9 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `no_uniform_bound` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `converges_within_is_tight` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `iterate_succ` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `iterate_shift` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `progress_on_wf` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `preserves_of_sat` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

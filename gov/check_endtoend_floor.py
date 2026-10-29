@@ -133,6 +133,16 @@ def main(argv):
         print("   LOST  %s :: %s" % (rel, name))
     if lost:
         print("ENDTOEND FLOOR: a theorem stopped touching >= 2 layers -- coverage regression")
+        print()
+        print("  ⚠ A NAME-SET FLOOR CANNOT TELL A RENAME FROM A DELETION. Round 32 hit this:"
+              " `conformance_names_nodup`")
+        print("    was REPLACED by `conformance_names_dedup_length` (22 vectors make the raw name list"
+              " have duplicates,")
+        print("    so `Nodup` became false and the statement moved to the deduplicated list). The gate"
+              " reported it as a")
+        print("    loss, which is the correct thing for it to do and the wrong thing to conclude from it.")
+        print("    The only honest resolution is: regenerate the floor and SAY that the change was a"
+              " replacement.")
         return 1
     return 0
 

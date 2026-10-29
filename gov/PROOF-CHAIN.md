@@ -1488,7 +1488,7 @@
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 7 |
-| `Lattice.CInterface.Conformance` | 4 | 15 |
+| `Lattice.CInterface.Conformance` | 7 | 18 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
@@ -2482,6 +2482,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `both_roundtrips_rfl` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractVec`, `extractVec_convertVec_rfl`
 - `bound_embedding_chain` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `bound_monotone_in_length` -> `E`, `apply`, `induction`, `le_trans`, `zero`
+- `boundaryPrimitives_nodup` -> `length`
 - `boundedV_add` -> `GeoExpr`, `add`, `evalPts`, `le_trans`, `mul`, `trans`
 - `boundedV_const` -> `GeoExpr`, `add`, `evalPts`, `le_trans`, `mul`, `trans`
 - `boundedV_mul` -> `GeoExpr`, `evalPts`, `le_trans`, `mul`
@@ -3143,10 +3144,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conformal_quantile_ge` -> `alpha`
 - `conformal_quantile_minimal` -> `alpha`
 - `conformal_validity_le_one` -> `alpha`
-- `conformance_iff_abi` -> `CFunction`, `abiTable`
+- `conformance_iff_abi` -> `CFunction`, `abiTable`, `length`
 - `conformance_length` -> `CFunction`, `abiTable`, `length`
-- `conformance_names_eq_abi` -> `CFunction`, `abiTable`
-- `conformance_names_nodup` -> `CFunction`, `abiTable`
+- `conformance_names_dedup_length` -> `CFunction`, `abiTable`, `length`
+- `conformance_names_eq_abi` -> `CFunction`, `abiTable`, `length`
 - `congruentInt_iff_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `congruentInt_to_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `congruent_divisible_via_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
@@ -4172,6 +4173,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `every_backend_sound` -> `W`, `compile`, `encode`, `satW`
 - `every_function_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `canonicalize`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `every_judgement_carries_a_reason` -> `Audit`
+- `every_primitive_has_boundary` -> `CFunction`, `abiTable`, `length`
 - `every_repair_preserves_at_sat` -> `Repair`, `Sat`, `preserves_of_sat`
 - `evidenceCheckWitness_spec` -> `append_assoc`, `contains`, `eval`, `induction`, `step`, `subst`
 - `evidenceCheck_accepts_unsatisfiable` -> `apply`, `eval`, `induction`, `step`
@@ -5311,6 +5313,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interface_implies_no_new_semantics` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `interface_or_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `interior_improvingSet_nonempty` -> `apply`, `dist`, `le`, `le_antisymm`, `mono`
+- `interior_length` -> `length`
 - `interior_multImprovingSet_nonempty` -> `dist`, `eps`, `subst`, `supporting_functional_of_not_mem_interior`
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `interleaving_length` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`
