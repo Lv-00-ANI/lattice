@@ -78,6 +78,14 @@ inductive Instr (n : ℕ) where
   | relu
   /-- 逐元素缩放。 -/
   | scale (c : ℝ)
+    /-- **softmax**（第 62 轮加）：`x ↦ exp x ⧸ Σ exp x`。
+
+    **这是本 AST 里第一个真正非线性的构造子**：`affine` 是线性的，`relu` 是分段线性的，
+    而 softmax 是**全局非线性**的（它把整个向量耦合进分母）。
+
+    **它不需要 `n > 0`**：`Fin 0` 没有元素，所以 `fun j => ...` 是空函数，
+    定义在 `n = 0` 时仍然合法（Lean 的除法是全函数）。 -/
+  | softmax
 
 /-- **程序**是直序的指令序列。 -/
 abbrev LayerProgram (n : ℕ) := List (Instr n)
@@ -87,6 +95,7 @@ noncomputable def applyInstr {n : ℕ} (x : Fin n → ℝ) : Instr n → (Fin n 
   | .affine W b => fun j => (∑ i, W i j * x i) + b j
   | .relu => fun j => max (x j) 0
   | .scale c => fun j => c * x j
+  | .softmax => fun j => Real.exp (x j) / ∑ i, Real.exp (x i)
 
 /-- **程序的语义**。 -/
 noncomputable def evalProgram {n : ℕ} (x : Fin n → ℝ) (p : LayerProgram n) : Fin n → ℝ :=
@@ -122,6 +131,8 @@ C 侧的格式也是这样——一个 `double` 数组，头几个位置是 opco
 def TAG_AFFINE : ℝ := 0
 def TAG_RELU : ℝ := 1
 def TAG_SCALE : ℝ := 2
+/-- `softmax` 的判别位。 -/
+def TAG_SOFTMAX : ℝ := 3
 
 /-- **编码一条指令**为数值流。
 
@@ -136,6 +147,7 @@ noncomputable def encodeInstr {n : ℕ} (hn : 0 < n) : Instr n → List ℝ
         ++ (List.ofFn b)
   | .relu => [TAG_RELU]
   | .scale c => [TAG_SCALE, c]
+  | .softmax => [TAG_SOFTMAX]
 
 /-- **反解析一条指令**：读判别位，按判别位决定读多少载荷。
 
@@ -150,6 +162,7 @@ noncomputable def decodeInstr {n : ℕ} (hn : 0 < n) : List ℝ → Option (Inst
           (fun j => rest.getD (n * n + j.val) 0))
       else if t = TAG_RELU then some .relu
       else if t = TAG_SCALE then some (.scale (rest.getD 0 0))
+      else if t = TAG_SOFTMAX then some .softmax
       else none
 
 /-! ## 三、往返 -/
@@ -190,6 +203,12 @@ theorem getD_ofFn_payload {n : ℕ} (k : ℕ) (hk : k < n) (f : Fin n → ℝ) :
 theorem decodeInstr_encode_relu {n : ℕ} (hn : 0 < n) :
     decodeInstr hn (encodeInstr hn (.relu : Instr n)) = some .relu := by
   unfold decodeInstr encodeInstr TAG_AFFINE TAG_RELU
+  norm_num
+
+/-- **`softmax` 的语法往返**：`decode (encode softmax) = some softmax`。 -/
+theorem decodeInstr_encode_softmax {n : ℕ} (hn : 0 < n) :
+    decodeInstr hn (encodeInstr hn (.softmax : Instr n)) = some .softmax := by
+  unfold decodeInstr encodeInstr TAG_AFFINE TAG_RELU TAG_SCALE TAG_SOFTMAX
   norm_num
 
 /-- **`scale` 的语法往返**：`decode (encode (scale c)) = some (scale c)`。 -/
@@ -337,6 +356,7 @@ decodeProgram (encodeProgram p) = some p
 noncomputable def instrLengthOfTag (n : ℕ) (t : ℝ) : ℕ :=
   if t = TAG_AFFINE then 1 + (n * n + n)
   else if t = TAG_RELU then 1
+  else if t = TAG_SOFTMAX then 1
   else 2
 
 /-- **由 tag 决定的长度至少为 1**——解码端靠它保证每次递归都真的缩短列表。 -/
@@ -370,13 +390,22 @@ theorem encodeInstr_length_ofTag {n : ℕ} (hn : 0 < n) (i : Instr n) :
       rw [htag, hlen]
       unfold instrLengthOfTag
       rw [if_neg (by unfold TAG_AFFINE TAG_RELU; norm_num), if_pos rfl]
+  | softmax =>
+      have htag : (encodeInstr hn (.softmax : Instr n)).headD 0 = TAG_SOFTMAX := rfl
+      have hlen : (encodeInstr hn (.softmax : Instr n)).length = 1 := rfl
+      rw [htag, hlen]
+      unfold instrLengthOfTag
+      rw [if_neg (by unfold TAG_AFFINE TAG_SOFTMAX; norm_num),
+          if_neg (by unfold TAG_RELU TAG_SOFTMAX; norm_num),
+          if_pos rfl]
   | scale c =>
       have htag : (encodeInstr hn (.scale c : Instr n)).headD 0 = TAG_SCALE := rfl
       have hlen : (encodeInstr hn (.scale c : Instr n)).length = 2 := rfl
       rw [htag, hlen]
       unfold instrLengthOfTag
       rw [if_neg (by unfold TAG_AFFINE TAG_SCALE; norm_num),
-          if_neg (by unfold TAG_RELU TAG_SCALE; norm_num)]
+          if_neg (by unfold TAG_RELU TAG_SCALE; norm_num),
+          if_neg (by unfold TAG_SOFTMAX TAG_SCALE; norm_num)]
 
 /-- **整程序编码**：把每条指令的编码拼起来。 -/
 noncomputable def encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n) : List ℝ :=
@@ -480,6 +509,7 @@ theorem decodeProgramGo_encodeProgram {n : ℕ} (hn : 0 < n) (p : LayerProgram n
         | affine W b => exact decodeInstr_encode_affine hn W b
         | relu => exact decodeInstr_encode_relu hn
         | scale c => exact decodeInstr_encode_scale hn c
+        | softmax => exact decodeInstr_encode_softmax hn
       rw [honly, hdrop, ih k' (by simpa using hk)]
       rfl
 
