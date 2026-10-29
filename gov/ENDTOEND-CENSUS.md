@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5425 | 62.9% |
+| 0 | 5425 | 62.8% |
 | 1 | 1371 | 15.9% |
-| 2 | 628 | 7.3% |
-| 3 | 548 | 6.4% |
+| 2 | 635 | 7.3% |
+| 3 | 553 | 6.4% |
 | 4 | 446 | 5.2% |
-| 5 | 186 | 2.2% |
+| 5 | 187 | 2.2% |
 | 6 | 23 | 0.3% |
-| **合计** | **8627** | |
+| **合计** | **8640** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -51,6 +51,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `post_train_preserves_holds` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `post_train_preserves_set` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 5 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
@@ -87,7 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `countdown_converges_in` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `no_uniform_bound` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `converges_within_is_tight` (`Core/RepairMultistep.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `iterate_succ` (`Core/RepairWF.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
