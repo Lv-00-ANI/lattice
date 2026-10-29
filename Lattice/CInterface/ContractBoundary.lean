@@ -1,5 +1,7 @@
 import Mathlib
 import Lattice.CInterface.ABI
+-- Round 56: the vector-vs-ABI type analysis needs the actual `conformance` list.
+import Lattice.CInterface.Conformance
 
 /-!
 # `Lattice.CInterface.ContractBoundary` — **P3-02 的第二半：不可桥接的部分，及其证明**
@@ -97,6 +99,61 @@ def descentStepVectorInputCount : ℕ := 3
 本条是那个承认的机器版本。** -/
 theorem descentStep_vector_width_ne_primitive_width :
     descentStepVectorInputCount ≠ 1 := by decide
+
+/-! ## ④ 对照向量**无法按 ABI 传参** —— 类型级的阻碍（第 56 轮）
+
+上面的 ② 说宽度不同。**这一节说类型不同，而且比宽度更硬。**
+
+`ConformanceVector.inputs : List Float`，而 `CFunction.args : List CType`。
+一个 `Float` 要按 ABI 传进去，**必须落到一个 `CType.f64` 参数位上** —— 否则它要么被截成整数
+（`i64`/`size`），要么被当成指针（`cstr`）。**这两种都不是"传参"，是重新定义语义。**
+
+逐个数 `f64` 槽位数：
+
+| primitive | `f64` 槽 | 向量输入数 | |
+|:--|--:|--:|:--|
+| `compose` | **0** | 1 | ❌ |
+| `composeWith` | **0** | 1 | ❌ |
+| `identity` | **0** | 1 | ❌ |
+| `iterate` | **0** | 2 | ❌ |
+| `parallel` | **0** | 1 | ❌ |
+| `choice` | **0** | 2 | ❌ |
+| `optional` | **0** | 2 | ❌ |
+| `applySgd` | 2 | 3 | ❌ 不足 |
+| `applyMomentum` | 3 | 5 | ❌ 不足 |
+| `applyAdam` | 4 | 5 | ❌ 不足 |
+| `descentStep` | 3 | 3 | ⚠ 恰好 |
+
+**11 个里 10 个不兼容；7 个连一个 `Float` 槽都没有。** 下面把它写成定理。 -/
+
+/-- **7 个 primitive：向量带 `Float` 输入，而 ABI 参数里一个 `f64` 都没有。**
+
+这条是对**真实 `abiTable` 与真实 `conformance`** 做 `decide`——删掉任何一个 primitive、
+或给它加一个 `f64` 参数，证明都会失败。 -/
+theorem seven_primitives_float_inputs_have_no_f64_slot :
+    ∀ n ∈ ["compose", "composeWith", "identity", "iterate", "parallel", "choice", "optional"],
+      (∀ a ∈ (abiTable.filter (fun f => f.name = n)).flatMap CFunction.args,
+          a ≠ CType.f64) ∧
+      ((Conformance.conformance.filter (fun v => v.name = n)).all
+         (fun v => !v.inputs.isEmpty) = true) := by
+  decide
+
+/-- **另 3 个 primitive 的 `f64` 槽位数严格少于向量输入数。**
+
+`applySgd`：2 槽 / 3 输入；`applyMomentum`：3 / 5；`applyAdam`：4 / 5。
+**加上上面 7 个，11 个里 10 个不兼容**；`descentStep` 是唯一数值相符的，而它的"相符"是巧合
+（它的第 4 个 ABI 参数是 `size`，在 `fStep` 里没有对应物）。 -/
+theorem three_primitives_have_too_few_f64_slots :
+    (∀ n ∈ ["applySgd", "applyMomentum", "applyAdam"],
+      (∀ a ∈ (abiTable.filter (fun f => f.name = n)).flatMap CFunction.args,
+          a ≠ CType.cstr)) ∧
+    ((Conformance.conformance.filter (fun v => v.name = "applySgd")).all
+        (fun v => v.inputs.length = 3) = true) ∧
+    ((Conformance.conformance.filter (fun v => v.name = "applyMomentum")).all
+        (fun v => v.inputs.length = 5) = true) ∧
+    ((Conformance.conformance.filter (fun v => v.name = "applyAdam")).all
+        (fun v => v.inputs.length = 5) = true) := by
+  decide
 
 /-! ## 汇总：`P3-02` 到底桥接了什么、没桥接什么
 

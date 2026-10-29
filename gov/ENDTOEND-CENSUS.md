@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5457 | 62.8% |
+| 0 | 5457 | 62.7% |
 | 1 | 1376 | 15.8% |
 | 2 | 636 | 7.3% |
 | 3 | 554 | 6.4% |
 | 4 | 457 | 5.3% |
 | 5 | 191 | 2.2% |
-| 6 | 25 | 0.3% |
-| **合计** | **8696** | |
+| 6 | 27 | 0.3% |
+| **合计** | **8698** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -42,6 +42,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `interior_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_compose_args` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `exists_abi_entry_without_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `preserves` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `parity_terminates` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `down_stays_neg` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `down_no_progress` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `converges_within` (`Core/RepairConvergence.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
