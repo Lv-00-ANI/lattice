@@ -25,6 +25,7 @@ import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.LayerComposition
 import Lattice.Runtime.LayerQuantization
 import Lattice.Runtime.LayerQuantizationBits
+import Lattice.Runtime.LayerNormSemantics
 import Lattice.Runtime.LossyRepresentation
 import Lattice.Runtime.MultiLayerLadder
 import Lattice.Runtime.NonIdenticalEncoding
