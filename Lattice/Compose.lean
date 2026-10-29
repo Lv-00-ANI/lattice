@@ -21,3 +21,4 @@ import Lattice.Compose.Steps
 -/
 import Lattice.Compose.PrimitiveShape
 import Lattice.Compose.ComposeObligation
+import Lattice.Compose.AssocLaws
