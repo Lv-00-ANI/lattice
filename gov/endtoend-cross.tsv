@@ -41,6 +41,13 @@ Compose/Combinators.lean	compose_strength
 Compose/Combinators.lean	compose_coverage
 Compose/Combinators.lean	compose_run_assoc
 Compose/Combinators.lean	identity_compose_run
+Compose/ComposeObligation.lean	blocked_pre
+Compose/ComposeObligation.lean	identity_pre
+Compose/ComposeObligation.lean	identity_post
+Compose/ComposeObligation.lean	compose_h_not_derivable
+Compose/ComposeObligation.lean	blocked_run_none
+Compose/ComposeObligation.lean	compose_h_of_pre_true
+Compose/ComposeObligation.lean	Composed.toPrimitive_run
 Compose/ForwardChain.lean	descentStep_sound
 Compose/ForwardChain.lean	forward_chain_capstone
 Compose/ForwardChain.lean	forward_chain_at_solution

@@ -126,13 +126,27 @@ def main(argv):
     # Round 238: `Runtime` joined the tree (P2 moves), so it must be a named layer here too --
     # otherwise its refutations are counted in the total but attributed to no layer, and the
     # per-layer rows no longer add up.
-    for layer in ("Lib", "Lift", "Runtime", "Domains", "Audit", "Core", "Geo"):
+    # Round 38. The tuple used to be hand-written and it rotted twice: it still said `Audit` (renamed
+    # `Evidence` in round 23, so the `Evidence` row was compared against a key that no longer existed --
+    # `0 == 0`, a silent pass on 8 refutations), and it omitted `Compose`, whose refutations were counted
+    # in the TOTAL but attributed to no layer. The comment above preaches exactly this and the code did it.
+    #
+    # Now the row list is the UNION of the document's rows and the measured layers, so a new layer shows
+    # up as `want 0, got N` (a drift to fix) instead of vanishing, and the rows are required to add up.
+    row_layers = sorted(set(want_layers) | set(lay))
+    layer_sum = 0
+    for layer in row_layers:
         want = want_layers.get(layer, 0)
         got = lay.get(layer, 0)
+        layer_sum += got
         ok = want == got
         print("%-8s %-10d %-10d %s" % (layer, want, got, "ok" if ok else "DRIFT"))
         if not ok:
             problems += 1
+    if layer_sum != total:
+        print("%-8s %-10d %-10d %s" % ("(rows)", layer_sum, total,
+                                       "DRIFT: the rows do not add up to the total"))
+        problems += 1
 
     print("\n" + "=" * 56)
     if planted:
