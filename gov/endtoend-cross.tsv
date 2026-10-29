@@ -1573,6 +1573,7 @@ Lib/Meta/RealSymbolCompletenessVerdict.lean	d32_allZero_imp_row
 Lib/Meta/RealSymbolCompletenessVerdict.lean	d32_row_zero_does_not_imply_all_zero
 Lib/Meta/RealSymbolCompletenessVerdict.lean	d32_all_rows_agree_imp_single_realizable
 Lib/Meta/RealSymbolCompletenessVerdict.lean	d32_single_realizable_but_not_hyperplane
+Lib/Optim/ProgramLossLipschitz.lean	programLoss_lipschitz
 Lib/Optim/RealConversionStabilityConvergence.lean	lossComp_nonneg
 Lib/Optim/RealEarlyStopping.lean	mono_le_of_le
 Lib/Optim/RealEarlyStopping.lean	earlyStopping_vs_full
