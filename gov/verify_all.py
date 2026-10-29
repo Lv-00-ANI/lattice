@@ -244,6 +244,12 @@ CHECKS = [
     # zero unreachable modules for a tree it had not fully examined.
     ("meta: layer reachability", "check_layer_reachability.py"),
     ("meta: layer reachability self-test", "check_layer_reachability.py --self-test"),
+    # Round 45. The third variant of the same question: rounds 43 and 44 asked WHICH modules a
+    # build reaches; this asks whether a module entered a build at all. It also records the
+    # measurement that corrects the forwarded list: "310 stale oleans" is an mtime artifact, not a
+    # defect, because `lake` decides from content hashes.
+    ("meta: olean presence (non-Reference)", "check_olean_presence.py"),
+    ("meta: olean presence self-test", "check_olean_presence.py --self-test"),
     ("meta: no nominally-complete proof shapes", "check_proof_strength.py"),
     # Round 197. A hypothesis that is PROVABLE OUTRIGHT makes the theorem weaker than its statement
     # suggests. `compileProg_correct`'s `(h : stackDepth e ≤ 1)` was exactly that: it was passed to
