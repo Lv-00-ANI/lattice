@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 618 | instantiated library, may import core only |
+| lib | 619 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -631,6 +631,7 @@
 - `Lattice.Lib.Penalty` <- `Lattice.Lib.Penalty.Counterexample`, `Lattice.Lib.Penalty.PolyExact`
 - `Lattice.Lib.Penalty.Counterexample` <- `Lattice.Lib.Penalty.PolyExact`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Penalty.PolyExact` <- `Lattice.Lib.Linear.PenaltyMatrix`, `Lattice.Runtime.PenaltyAnalysis`
+- `Lattice.Lib.Penalty.QuadraticLocallyLipschitz` 
 - `Lattice.Lib.Penalty.QuadraticNotLipschitz` 
 - `Lattice.Lib.Quantization` <- `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.Quantization.RealCompressionJoint`, `Lattice.Lib.Quantization.RealCompressionRandom`, `Lattice.Lib.Quantization.RealCompressionRate`, `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Quantization.RealFloatConsistency`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754`, `Lattice.Lib.Quantization.RealLoRA`, `Lattice.Lib.Quantization.RealMixedPrecision`, `Lattice.Lib.Quantization.RealMixedPrecisionRounding`, `Lattice.Lib.Quantization.RealQAT`, `Lattice.Lib.Quantization.RealQATRate`, `Lattice.Lib.Quantization.RealQuantifier`, `Lattice.Lib.Quantization.RealQuantizationError`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealSTEError`, `Lattice.Lib.Quantization.RealStructuredPruning`
 - `Lattice.Lib.Quantization.RealCompressedSensing` <- `Lattice.Lib.LinearAlgebra.RealSparseCoding`
@@ -789,7 +790,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Primitives.TokenizeStrategy` 
@@ -1493,6 +1494,7 @@
 | `Lattice.Lib.Penalty` | 0 | 0 |
 | `Lattice.Lib.Penalty.Counterexample` | 6 | 1 |
 | `Lattice.Lib.Penalty.PolyExact` | 3 | 0 |
+| `Lattice.Lib.Penalty.QuadraticLocallyLipschitz` | 2 | 0 |
 | `Lattice.Lib.Penalty.QuadraticNotLipschitz` | 2 | 0 |
 | `Lattice.Lib.Quantization` | 0 | 0 |
 | `Lattice.Lib.Quantization.RealCompressedSensing` | 19 | 7 |
