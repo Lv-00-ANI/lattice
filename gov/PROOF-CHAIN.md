@@ -1686,7 +1686,7 @@
 | `Lattice.Runtime.PartialRepresentation` | 1 | 3 |
 | `Lattice.Runtime.PenaltyAnalysis` | 3 | 0 |
 | `Lattice.Runtime.PenaltyEmbedding` | 10 | 5 |
-| `Lattice.Runtime.ProgramAST` | 22 | 15 |
+| `Lattice.Runtime.ProgramAST` | 24 | 15 |
 | `Lattice.Runtime.ProgramRepresentation` | 0 | 3 |
 | `Lattice.Runtime.QuantErrorPropagation` | 2 | 0 |
 | `Lattice.Runtime.RatRepresentation` | 4 | 1 |
@@ -3586,11 +3586,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
-- `decodeInstr_encode_affine` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_relu` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_scale` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
-- `decodeInstr_encode_softmax` -> `Instr`, `W`, `apply`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_affine` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
+- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_relu` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `decodeInstr_encode_scale` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
+- `decodeInstr_encode_softmax` -> `Instr`, `W`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `decodePayload_encodeForm` -> `LinearForm`, `decodePayload`, `encodeForm`, `payload`
 - `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
 - `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
@@ -4227,7 +4227,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalStack_toStack` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`
 - `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_append` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `eval_append` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `eval_congr` -> `induction`, `trans`
 - `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
@@ -4238,7 +4238,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`
-- `eval_nil` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `eval_nil` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_ofClause` -> `Compiler`, `induction`
 - `eval_ofDNF` -> `Compiler`, `induction`
@@ -4981,6 +4981,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `getD_append_left` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `getD_append_right` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `getD_eq_getElem` -> `apply`, `dot`, `length`
+- `getD_ofFn_block` -> `Instr`, `W`, `apply`, `length`, `length_cons`, `relu`, `scale`, `softmax`
+- `getD_ofFn_block_append` -> `Instr`, `W`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `getD_ofFn_payload` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `gfp_X_pow_card_sub_X_eq_prod` -> `eval`, `eval_mul`
 - `gfp_card_roots_le_natDegree` -> `apply`, `eval`, `eval_mul`, `le_trans`

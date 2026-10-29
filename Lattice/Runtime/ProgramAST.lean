@@ -217,6 +217,62 @@ theorem getD_ofFn_payload {n : ℕ} (k : ℕ) (hk : k < n) (f : Fin n → ℝ) :
   rw [List.getD_eq_getElem _ _ (by rw [List.length_ofFn]; exact hk)]
   simp only [List.getElem_ofFn, Fin.val_mk]
 
+/-! ## 平铺矩阵块的读回——**从 `affine` 里抽出来，供 `attention` 用**
+
+`decodeInstr_encode_affine` 的证明里有一段索引论证：**平铺的 `n×n` 块按 `i*n+j` 读回 `M i j`**。
+第 70 轮加 `attention` 时需要**同样的论证做两遍**（两个块，第二个有偏移 `n*n`），
+而当时我把它们写在证明体里、调了六次都没过。
+
+**所以先把它抽成独立的引理。** 抽出来之后：
+
+- `affine` 的证明可以改用它（将来），**从而少一段重复**；
+- `attention` 只需**两次 `exact`**，不必再碰索引；
+- **两个引理可以单独测量**——而这正是上一轮缺的：那时的失败代价是一整轮的编辑。
+
+⚠ **第二条（偏移版）是新的**：`affine` 只有一个块，所以这个偏移从未被证过。 -/
+
+/-- ⭐ **平铺 `n×n` 块按行主序读回**：第 `i*n+j` 个元素是 `M i j`。
+
+**这是 `decodeInstr_encode_affine` 的第一个块，现在有了名字。** -/
+theorem getD_ofFn_block {n : ℕ} (hn : 0 < n) (M : Fin n → Fin n → ℝ) (i j : Fin n) :
+    (List.ofFn (fun k : Fin (n * n) =>
+      M ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+        ⟨k.val % n, Nat.mod_lt _ hn⟩)).getD (i.val * n + j.val) 0 = M i j := by
+  have hidx : i.val * n + j.val < n * n := by
+    have h1 : i.val < n := i.isLt
+    have h2 : j.val < n := j.isLt
+    nlinarith
+  rw [getD_ofFn_payload _ hidx]
+  congr 1
+  · apply Fin.ext
+    simp only [Fin.val_mk]
+    rw [Nat.mul_comm i.val n, Nat.mul_add_div (by omega), Nat.div_eq_of_lt j.isLt, Nat.add_zero]
+  · apply Fin.ext
+    simp only [Fin.val_mk]
+    rw [Nat.mul_comm i.val n, Nat.mul_add_mod, Nat.mod_eq_of_lt j.isLt]
+
+/-- ⭐⭐ **第二块的读回**：两个 `n×n` 块拼接后，**偏移 `n*n` 处的元素**是第二个矩阵的 `i j`。
+
+**这是 `affine` 里从未有过的东西**——它只有一个块。`attention` 的 `V` 块需要它，
+**所以它必须单独成立，而不是嵌在一个 40 行的证明里。** -/
+theorem getD_ofFn_block_append {n : ℕ} (hn : 0 < n)
+    (A B : Fin n → Fin n → ℝ) (i j : Fin n) :
+    ((List.ofFn (fun k : Fin (n * n) =>
+        A ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+          ⟨k.val % n, Nat.mod_lt _ hn⟩))
+      ++ (List.ofFn (fun k : Fin (n * n) =>
+        B ⟨k.val / n, (Nat.div_lt_iff_lt_mul hn).mpr k.isLt⟩
+          ⟨k.val % n, Nat.mod_lt _ hn⟩))).getD (n * n + i.val * n + j.val) 0 = B i j := by
+  have hidx : i.val * n + j.val < n * n := by
+    have h1 : i.val < n := i.isLt
+    have h2 : j.val < n := j.isLt
+    nlinarith
+  -- the prefix has length `n*n`, so the offset cancels
+  rw [getD_append_right _ _ _ _ (by simp only [List.length_ofFn]; omega)]
+  simp only [List.length_ofFn]
+  rw [Nat.add_assoc, Nat.add_sub_cancel_left]
+  exact getD_ofFn_block hn B i j
+
 /-- **`relu` 的语法往返**：`decode (encode relu) = some relu`。 -/
 theorem decodeInstr_encode_relu {n : ℕ} (hn : 0 < n) :
     decodeInstr hn (encodeInstr hn (.relu : Instr n)) = some .relu := by
@@ -265,19 +321,11 @@ theorem decodeInstr_encode_affine {n : ℕ} (hn : 0 < n) (W : Fin n → Fin n �
   simp only [List.cons_append, TAG_AFFINE, ↓reduceIte, Option.some.injEq, Instr.affine.injEq]
   constructor
   · funext i j
-    -- the flat index `i*n + j` addresses the coefficient block
+    -- the flat index `i*n + j` addresses the coefficient block; the indexing itself is
+    -- `getD_ofFn_block` (round 71), so this case is now three lines instead of fourteen
     have hidx := hcoef i j
     rw [getD_append_left _ _ _ _ (by simp only [List.length_ofFn]; exact hidx)]
-    rw [getD_ofFn_payload _ hidx]
-    congr 1
-    · -- (i*n + j) / n = i
-      apply Fin.ext
-      simp only [Fin.val_mk]
-      rw [Nat.mul_comm i.val n, Nat.mul_add_div (by omega), Nat.div_eq_of_lt j.isLt, Nat.add_zero]
-    · -- (i*n + j) % n = j
-      apply Fin.ext
-      simp only [Fin.val_mk]
-      rw [Nat.mul_comm i.val n, Nat.mul_add_mod, Nat.mod_eq_of_lt j.isLt]
+    exact getD_ofFn_block hn W i j
   · funext j
     -- the flat index `n*n + j` addresses the bias block
     rw [getD_append_right _ _ _ _ (by simp only [List.length_ofFn]; omega)]
