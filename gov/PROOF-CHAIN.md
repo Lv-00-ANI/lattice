@@ -967,7 +967,7 @@
 | `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.AttentionLipschitz` | 3 | 0 |
-| `Lattice.Lib.Attention.ProgramSoftmaxBridge` | 5 | 1 |
+| `Lattice.Lib.Attention.ProgramSoftmaxBridge` | 8 | 1 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
 | `Lattice.Lib.Attention.RealAttention` | 6 | 3 |
@@ -2197,11 +2197,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyCorrect_tt_const` -> `apply`, `children`, `eval`, `induction`, `length`, `min`, `trans`
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
-- `applyInstr_softmax_denom_pos` -> `Instr`, `applyInstr`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
-- `applyInstr_softmax_lipschitz` -> `Instr`, `applyInstr`, `softmax`, `softmax_lipschitz`
-- `applyInstr_softmax_nonneg` -> `Instr`, `applyInstr`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`
-- `applyInstr_softmax_pos` -> `Instr`, `applyInstr`, `softmax`, `softmax_lipschitz`, `softmax_pos`
-- `applyInstr_softmax_sum_one` -> `Instr`, `applyInstr`, `softmax`, `softmax_lipschitz`, `softmax_pos`, `softmax_sum_one`
+- `applyInstr_softmax_denom_pos` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
+- `applyInstr_softmax_lipschitz` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`
+- `applyInstr_softmax_nonneg` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`
+- `applyInstr_softmax_pos` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_pos`
+- `applyInstr_softmax_sum_one` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_pos`, `softmax_sum_one`
 - `applyMomentum_velocity` -> `Primitive`, `run`, `sound`
 - `applySgd_contracts` -> `Primitive`, `apply`, `run`, `sound`
 - `applySgd_run` -> `Primitive`, `apply`, `run`, `sound`
@@ -4202,6 +4202,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalLinearMap_apply` -> `IsPSDKernel`, `IsSymmKernel`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `evalList_cons` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `evalList_nil` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `evalProgram_append_softmax` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`
+- `evalProgram_append_softmax_nonneg` -> `Instr`, `LayerProgram`, `evalProgram`, `softmax`
+- `evalProgram_append_softmax_sum_one` -> `Instr`, `LayerProgram`, `evalProgram`, `softmax`
 - `evalPts_add` -> `add`, `mul`
 - `evalPts_const` -> `add`, `mul`
 - `evalPts_coord` -> `add`, `mul`
