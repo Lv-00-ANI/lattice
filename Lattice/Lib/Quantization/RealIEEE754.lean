@@ -1,6 +1,7 @@
 
 
 import Lattice.Lib.Quantization.RealIEEE754.Basic
+import Lattice.Lib.Quantization.RealIEEE754.Nonvacuous
 import Lattice.Lib.Quantization.RealIEEE754.Overflow
 import Lattice.Lib.Quantization.RealIEEE754.BitWidth
 import Lattice.Lib.Quantization.RealIEEE754.Compat

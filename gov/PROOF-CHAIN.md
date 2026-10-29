@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 608 | instantiated library, may import core only |
+| lib | 609 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -632,10 +632,11 @@
 - `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`
 - `Lattice.Lib.Quantization.RealFloatConsistency` <- `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.Lib.Quantization.RealFloatFormat` <- `Lattice.Lib.Optim.RealApprox`
-- `Lattice.Lib.Quantization.RealIEEE754` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`, `Lattice.Lib.Quantization.RealIEEE754.Compat`
+- `Lattice.Lib.Quantization.RealIEEE754` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`, `Lattice.Lib.Quantization.RealIEEE754.Compat`
 - `Lattice.Lib.Quantization.RealIEEE754.Basic` <- `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.Lib.Quantization.RealIEEE754.BitWidth` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`
 - `Lattice.Lib.Quantization.RealIEEE754.Compat` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`
+- `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`
 - `Lattice.Lib.Quantization.RealIEEE754.Overflow` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`
 - `Lattice.Lib.Quantization.RealLoRA` 
 - `Lattice.Lib.Quantization.RealMixedPrecision` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Optim.RealApprox`
@@ -1475,6 +1476,7 @@
 | `Lattice.Lib.Quantization.RealIEEE754.Basic` | 15 | 6 |
 | `Lattice.Lib.Quantization.RealIEEE754.BitWidth` | 21 | 7 |
 | `Lattice.Lib.Quantization.RealIEEE754.Compat` | 9 | 1 |
+| `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous` | 3 | 2 |
 | `Lattice.Lib.Quantization.RealIEEE754.Overflow` | 9 | 3 |
 | `Lattice.Lib.Quantization.RealLoRA` | 3 | 1 |
 | `Lattice.Lib.Quantization.RealMixedPrecision` | 18 | 10 |
@@ -5172,9 +5174,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ieee_relative_error_bound` -> `FloatFormat`, `eps`, `le_trans`, `tiny`
 - `ieee_roundToFormat_eq` -> `FloatFormat`, `IEEERound`, `RoundMode`, `eps`, `format_error_bound`, `format_round_idempotent`, `op_error_propagation`, `roundToFormat`, `round_close`, `tiny`
 - `ieee_round_close` -> `FloatFormat`, `IEEERound`, `RoundMode`, `eps`, `roundToFormat`, `round_close`, `tiny`
+- `ieee_round_eq_id_of_eps_zero` -> `FloatFormat`, `IEEERound`, `RoundMode`, `eps`, `le_antisymm`, `tiny`
 - `ieee_round_fixed_point` -> `FloatFormat`, `eps`, `le_trans`, `tiny`
 - `ieee_round_idempotent` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_mono` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
+- `ieee_round_nonempty` -> `FloatFormat`, `IEEERound`, `RoundMode`, `eps`, `le_antisymm`, `tiny`
 - `ieee_round_sign_neg` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_sign_pos` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_zero` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
