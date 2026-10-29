@@ -157,6 +157,72 @@ theorem e2e_sound {s : List Char} {ts : List CharToken} {cs : ConstraintSet}
 
 ---
 
+## 3.7 第 81 轮：一次**被我自己的重名定理**打断的重构，以及它揭示的纪律
+
+### 想做什么
+
+三个并存的平方距离定义，来源同一个函数：
+
+| 位置 | 定义 |
+|:--|:--|
+| `Domains/Constraints/Dist.lean` | `sqDist p q = sqNorm (diff p q)` |
+| `Domains/Geometry/RepairCoverage.lean` | `sqDist p q = ∑ i, (p i - q i)^2` |
+| `Domains/Geometry/SynthesisCoverage.lean` | `sqDistAt p q = ∑ i, (p i - q i)^2` |
+
+**三者展开后相同**，而后两者是逐字相同的重复。计划：删掉 `sqDistAt`（20 处 / 2 文件），
+全部改指向 `Lattice.Geo.sqDist`。
+
+### 断在哪
+
+为了让下游不必知道 `sqNorm` 与 `diff` 的名字，我在 `Dist.lean` 里**新增**了一条展开引理：
+
+```lean
+theorem sqDist_eq_sum (p q : Pt n) : sqDist p q = ∑ i, (p i - q i) ^ 2 := rfl
+```
+
+**然后 `DistContinuous.lean` 失败了**，错误是 `'Lattice.Geo.sqDist_eq_sum' has already been declared`。
+
+⚠ **它已经存在**——`Lattice/Domains/Constraints/DistContinuous.lean:38`：
+
+```lean
+theorem sqDist_eq_sum (p q : Pt n) :
+    sqDist (n := n) p q = ∑ i : Fin n, (p i - q i) ^ 2
+```
+
+**一字不差。** 我加了一条重名定理，而这个冲突**是在构建下游时才暴露的**，
+所以我第一反应是「影响范围比量的大」（原本量到 2 文件），**那个反应是错的**：
+**影响范围就是 2 文件，`DistContinuous` 的失败来自我的新增，不来自 `sqDistAt`。**
+
+### 于是本轮回退，不留改动
+
+`git checkout -- .`，构建恢复绿。
+
+**这不是失败，但它说明了两件事：**
+
+#### ① **加一条引理之前，先搜它的名字**
+
+**这条引理在库里的三个文件之一已经存在，而我没有搜。**
+`grep sqDist_eq_sum` 会立刻发现。**代价是一整轮。**
+
+#### ② **`sqDist_eq_sum` 与 `sqDistAt` 的重复是同一件事的两层**
+
+- **名字层**：`sqDist_eq_sum` 出现两次（我差点让它变成三次）；
+- **定义层**：`sqDist` / `sqDistAt` 是同一个函数。
+
+⇒ **`SynthesisCoverage` 的展开应当直接 `import` `DistContinuous` 并复用那里的 `sqDist_eq_sum`**，
+**而不是在 `Dist.lean` 里再造一条。** **但那是分层问题**（`DistContinuous` 依赖 `Dist`，反向不行），
+**所以正确的落点是：把 `sqDist_eq_sum` 移进 `Dist.lean`（它只依赖 `sqNorm`/`diff`），
+然后 `DistContinuous` 删除自己那份、改为引用。** **那是下一轮的正确形状。**
+
+### 教训（可迁移）
+
+> **新增一条引理之前先 `grep` 它的名字。** 库已经足够大，同名重述的代价是一整轮构建失败；
+> 而 `grep` 的代价是一秒。
+>
+> **以及：构建失败时，先怀疑自己刚加的东西，再怀疑影响范围。** 本轮我先怀疑了后者，错了。
+
+---
+
 ## 4. 失效路径：评估里的 `Geo/`、`Lift/` 引用
 
 三次搬迁（`Lift`→`Runtime`、`Geo`→`Domains`、`Audit`→`Evidence`）之后，评估里这些引用**在树里不存在**：
