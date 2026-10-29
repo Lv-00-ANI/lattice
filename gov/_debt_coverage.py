@@ -101,3 +101,44 @@ def emit(A, cov):
     A("")
     A("**若要全审**：正确做法是另开批次文件（`agent-tmp/review/batch_*.jsonl` 现有格式已支持），")
     A("**不是把现状说成已审**。")
+    A("")
+    _emit_obsolete(A)
+
+
+def _emit_obsolete(A):
+    """The verdicts whose declaration no longer exists anywhere in the tree (round 29, L4-5).
+
+    `check_proof_debt_orphans.py` checks that a verdict's **file** resolves. It never checked the **name**,
+    so a judgement about a renamed-or-deleted theorem printed exactly like a live one. Round 29 measured 12
+    such records and gated them (`check_verdict_freshness.py`); this section makes them visible in the
+    document a reader actually opens, instead of leaving the fact inside a gov file.
+    """
+    import io as _io
+    import os as _os
+    base = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
+                         "verdict-stale-baseline.txt")
+    if not _os.path.exists(base):
+        return
+    rows = []
+    for ln in _io.open(base, encoding="utf-8"):
+        ln = ln.rstrip("\n")
+        if not ln or ln.startswith("#"):
+            continue
+        p = ln.split("\t")
+        if len(p) >= 2:
+            rows.append((p[0], p[1], p[2] if len(p) > 2 else ""))
+    if not rows:
+        return
+    A("### 判定指向的声明**已不存在**的 %d 条（第 29 轮登记）" % len(rows))
+    A("")
+    A("**这些判定不是错的，而是没有对象了**：它们判的那条定理在活树里已经不存在——")
+    A("`check_proof_debt_orphans.py` 只核对**文件**是否可解析，从不核对**名字**是否还在，")
+    A("所以它们此前和活判定长得一模一样。`check_verdict_freshness.py` 现在每次重算并拦住新增。")
+    A("")
+    A("| 原文件 | 定理 | 实测理由 |")
+    A("|:--|:--|:--|")
+    for rel, name, reason in rows:
+        A("| `%s` | `%s` | %s |" % (rel, name, reason))
+    A("")
+    A("**为什么仍然列在这里而不是删掉**：它们记录的是「有人看过这一条、并给了判定」这一事实；")
+    A("把记录删掉会让账本看起来更干净，**而它并不会更干净**。")
