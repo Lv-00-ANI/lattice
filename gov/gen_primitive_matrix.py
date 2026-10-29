@@ -210,6 +210,32 @@ def main():
         A("`compose` 仍需要 `adapt : f.Output → g.Input`（此时可取 `id`）")
         A("**与兼容性证明 `h : ∀ x y, f.post x y → g.pre (adapt y)`**。")
         A("**后者是真正的工作量，本矩阵不测量它。**")
+        # Round 40, L1-1. 84/121 counts cells that have NO OBJECT: `compose`, `composeWith`,
+        # `parallel`, `choice`, `optional`, `iterate` take `Primitive` arguments, so they are not values
+        # and cannot stand in a "run f, then run g" position. Calling those cells `ADAPT` says "needs an
+        # adapter" about a pair that does not exist. Measured from the signatures themselves --
+        # `Lattice/Compose/AdapterMatrix.lean` -- there are 5 values and 6 combinators.
+        A("")
+        A("### ⚠ 第 40 轮更正：这 121 格里 **96 格没有对象**")
+        A("")
+        A("| 类 | 名字 | 数量 | 签名形状 |")
+        A("|:--|:--|--:|:--|")
+        A("| **值** | `identity`、`descentStep`、`applySgd`、`applyMomentum`、`applyAdam` "
+          "| **5** | 返回 `Primitive I O`，**不接收 `Primitive` 参数** |")
+        A("| **组合子** | `compose`、`composeWith`、`parallel`、`choice`、`optional`、`iterate` "
+          "| **6** | **接收 `Primitive` 参数**，返回 `Primitive I O` |")
+        A("")
+        A("**矩阵把组合子当作「输入 `I`、输出 `O` 的值」填进表里**——而那两个是**它结果的**类型。")
+        A("`compose` 在成为值之前需要**两个 `Primitive` 参数**，所以「`compose` 后面接 `descentStep` "
+          "需要适配器」这句话**没有对象**。")
+        A("")
+        A("**所以：121 格里有 121 − 25 = 96 格涉及组合子，它们是 `N/A（元数）`，不是 `ADAPT（义务）`。**")
+        A("真正有对象的只有 **5 × 5 = 25 格**（值 对 值）。")
+        A("")
+        A("**而适配器本身从不是类型层的障碍**（`AdapterMatrix.adapter_always_exists`）："
+          "只要目标类型有居民，`O → I` **总是**存在（常函数）。")
+        A("所以「必须提供适配器」不是不可能性——它是**语义**问题：常函数适配器几乎肯定违反 `g.pre`，"
+          "**而那正是 `h` 要挡住的**（见 `Compose/ComposeObligation.lean`）。")
     A("")
 
     io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(L) + "\n")
