@@ -1731,6 +1731,7 @@ Runtime/ProgramAST.lean	eval_nil
 Runtime/ProgramAST.lean	eval_append
 Runtime/ProgramAST.lean	decodeInstr_encode_relu
 Runtime/ProgramAST.lean	decodeInstr_encode_softmax
+Runtime/ProgramAST.lean	decodeInstr_encode_attention
 Runtime/ProgramAST.lean	decodeInstr_encode_layernorm
 Runtime/ProgramAST.lean	decodeInstr_encode_scale
 Runtime/ProgramAST.lean	decodeInstr_encode_affine
