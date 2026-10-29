@@ -51,6 +51,7 @@ import Lattice.Runtime.RoundingBackend
 import Lattice.Runtime.SaturationQuantization
 import Lattice.Runtime.StackCodegen
 import Lattice.Runtime.StackError
+import Lattice.Runtime.SemanticRepresentation
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.TokenAlphabet
