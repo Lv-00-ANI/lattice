@@ -1676,7 +1676,7 @@
 | `Lattice.Runtime.L1L2` | 6 | 9 |
 | `Lattice.Runtime.L1L2Roundtrip` | 10 | 0 |
 | `Lattice.Runtime.LayerComposition` | 6 | 2 |
-| `Lattice.Runtime.LayerNormSemantics` | 5 | 0 |
+| `Lattice.Runtime.LayerNormSemantics` | 7 | 0 |
 | `Lattice.Runtime.LayerQuantization` | 5 | 5 |
 | `Lattice.Runtime.LayerQuantizationBits` | 4 | 4 |
 | `Lattice.Runtime.LossyRepresentation` | 2 | 3 |
@@ -2201,6 +2201,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_layernorm_mean_zero` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_layernorm_sq_sum` -> `Instr`, `applyInstr`, `mean`
+- `applyInstr_layernorm_sq_sum_mono` -> `Instr`, `applyInstr`, `mean`
 - `applyInstr_softmax_denom_pos` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_softmax_lipschitz` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`
 - `applyInstr_softmax_nonneg` -> `Instr`, `LayerProgram`, `applyInstr`, `evalProgram`, `eval_append`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`
@@ -6688,6 +6689,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normal_equation_of_pseudoInverse` -> `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
 - `normal_equation_unique` -> `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
 - `normal_form_equiv` -> `Compiler`, `induction`, `trans`
+- `normalised_sq_mono` -> `Instr`, `applyInstr`, `mean`
 - `normalize_centerSq_eq_one` -> `apply`, `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
 - `normalize_id_on_unit_sphere` -> `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
 - `normalize_idempotent` -> `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
