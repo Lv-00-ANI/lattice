@@ -795,6 +795,7 @@ Lib/Chain/RealEndToEnd.lean	extract_functional
 Lib/Chain/RealEndToEnd.lean	compileToLayer_injective
 Lib/Chain/RealEndToEnd.lean	semantic_not_injective
 Lib/Chain/RealEndToEnd.lean	e2e_sound
+Lib/Chain/RealEndToEnd.lean	e2e_sound_shape_premise_independent
 Lib/Chain/RealEndToEnd.lean	e2e_path_exists
 Lib/Chain/RealEndToEnd.lean	e2e_bridge_sep_is_load_bearing
 Lib/Chain/RealEndToEnd.lean	e2e_loss_at_L2L3

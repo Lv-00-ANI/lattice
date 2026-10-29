@@ -33,6 +33,9 @@ theorem extract_to_weights (ts : List Token) (cs : ConstraintSet)
     (_h : Extract ts cs) (x : List Int) :
     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x :=
   symbolToWeight_correct cs x
+
+
+
 ```
 
 ⭐⭐ **注意它给假设起的名字是 `_h`（下划线 = 有意不用）** —— 证明体**逐字**就是
@@ -542,10 +545,23 @@ Lean 会报两条 `unused variable` 警告。**本文件此前给出的辩护是
 | | 说法 |
 |:--|:--|
 | **类型层** | 定理的 **Pi-类型** 里出现 `List Char`、`CharToken`、`SymToken`（经 `h0`/`h1` 的绑定） |
-| **内容层** | **与 `symbolToWeight_correct` 完全相同**——L0/L1 的绑定**不约束结论** |
+| **内容层** | ⭐ **是 `symbolToWeight_correct` 的【弱化】**：前提把 `cs` 限制到 `Extract ∘ L1Bridge ∘ tokenize` 的像上，**而结论不需要那个限制** |
 | ⚠ **承重与否** | **`h0`/`h1` 都不承重**；把它们删掉会得到一条**更强**的定理 |
 
 **所以这条定理是 L2⇄L3 的陈述，不是 L0→L3 的。** 「e2e」在名字里，不在陈述里。
+
+## ⚠ 精确的关系：**弱化**，不是**等价**
+
+`symbolToWeight_correct` 对**任意** `cs` 成立；`e2e_sound` 只对**有前提见证**的 `cs` 断言同一件事。
+所以：
+
+    symbolToWeight_correct  ⟹  e2e_sound
+
+**反向不成立**：不是每个 `cs` 都在 `Extract ∘ L1Bridge ∘ tokenize` 的像里
+（`e2e_path_exists` 只证明像非空，不证明它是全空间）。
+
+⇒ ⭐ **`e2e_sound` 是一个推论（corollary），不是一个更强的定理。**
+**它没有说"通路走通"；它说的是"在有通路的那部分 `cs` 上，L2⇄L3 成立"——而 L2⇄L3 本来对全部 `cs` 成立。**
 
 ## 端到端的内容在别处
 
@@ -567,6 +583,21 @@ theorem e2e_sound {s : List Char} {ts : List CharToken} {cs : ConstraintSet}
     (h0 : tokenize s = some ts) (h1 : Extract (L1Bridge ts) cs) (x : List Int) :
     AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x :=
   symbolToWeight_correct cs x
+
+/-- ⭐⭐ **`e2e_sound` 的形状是 `P → (H → P)`** —— **两个前提不约束结论**。
+
+这是 `RealRoundTripVacuity.ghost_hypothesis_is_vacuous`（`(∀ _t : γ, Q) ↔ Q`）
+在 `e2e_sound` 上的**实例**：结论 `P` 与 `s`、`ts` 无关，所以把它们的前提加回来**只是加了一层包装**。
+
+⚠ **这条定理不是装饰**：它把「`h0` / `h1` 不承重」从一句散文变成一条**可检查的陈述**。
+它和 `e2e_sound` 的关系是：`e2e_sound` 的证明体既然是 `symbolToWeight_correct cs x`，
+那么 `e2e_sound` 的**全部内容**就是下面这条的形状。 -/
+theorem e2e_sound_shape_premise_independent (cs : ConstraintSet) (x : List Int) :
+    (AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x) →
+      ∀ (s : List Char) (ts : List CharToken), tokenize s = some ts →
+        Extract (L1Bridge ts) cs →
+          (AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x) :=
+  fun h _ _ _ _ => h
 
 /-- ⭐⭐ **端到端通路的【存在性】**（§三 的必要补足）：
 对**任意**数据 `s : List Char`，**都存在**一条走通的端到端通路
