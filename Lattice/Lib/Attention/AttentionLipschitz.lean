@@ -17,14 +17,17 @@ import Lattice.Lib.Attention.SoftmaxLipschitzBound
 | **softmax** | `s ↦ softmax s` | `2ε·exp (2ε)` | ✅ 第 48 轮 `softmax_lipschitz` |
 | **值凸组合** | `p ↦ ∑ j, p j · V j i` | `≤ M`（不放大） | ✅ 第 42 轮 `softmaxAttention_bound` |
 
-## 合成公式（**未证**，但每个部件的常数都已就位）
+## ✅ 合成（第 50 轮证完）
 
 设输入逐点差 `≤ δ`、`|V j i| ≤ M`、`ε := (∑ k, |W i k|) · δ`，则
 
     |apply x i − apply x' i| ≤ n · M · (2ε · exp (2ε))
 
-**推导**：差是 `∑ j, (p_j − p'_j)·V j i`，绝对值 ≤ `∑ j, |p_j − p'_j|·|V j i|`
-≤ `∑ j, (2ε·exp(2ε))·M` = `n·M·(2ε·exp(2ε))`；而 `ε` 由行点积的差给出（本节的定理）。
+见 `softmaxAttention_lipschitz`。**推导**：差是 `∑ j, (p_j − p'_j)·V j i`，
+绝对值 ≤ `∑ j, |p_j − p'_j|·|V j i|` ≤ `∑ j, (2ε·exp(2ε))·M` = `n·M·(2ε·exp(2ε))`。
+
+**证明里没有用 `calc`**：四步各写成一条 `have`，用 `le_trans` 串起来。
+第 49 轮的失败全部来自把 `calc` 与 `have` 混在同一段里——**结构问题用结构手段解决**。
 
 ## ⚠ 一条必须说清的性质：`La` **依赖 `δ`**，不是常数
 
@@ -74,5 +77,62 @@ theorem rowDot_pointwise {n : ℕ} (W : Fin n → Fin n → ℝ) (i k : Fin n) (
   have h2 : |W i k| ≤ ∑ k, |W i k| :=
     Finset.single_le_sum (f := fun k => |W i k|) (fun k _ => abs_nonneg _) (Finset.mem_univ k)
   exact mul_le_mul h2 (h k) (abs_nonneg _) (Finset.sum_nonneg (fun k _ => abs_nonneg _))
+
+variable {n : ℕ}
+
+/-- ⭐⭐⭐ **attention 输出的 Lipschitz 界**。
+
+输入逐点差 `≤ δ`、值有界 `|V j i| ≤ M`，则
+
+    |apply x i − apply x' i| ≤ n · M · (2·L_W·δ · exp (2·L_W·δ)),      L_W := ∑ k, |W i k|
+
+**三个部件在这里合成**：打分（`rowDot_pointwise`，常数 `L_W`）、
+softmax（`softmax_lipschitz`，常数 `2ε·exp(2ε)`）、值凸组合（不放大，`≤ M`）。
+
+⚠ **`La` 依赖 `δ`**：softmax 的界是 `2ε·exp(2ε)` 而不是 `C·ε`，所以这不是全局 Lipschitz 常数。 -/
+theorem softmaxAttention_lipschitz [NeZero n] (W V : Fin n → Fin n → ℝ) (i : Fin n)
+    (x x' : Fin n → ℝ) (δ M : ℝ) (hδ : 0 ≤ δ)
+    (h : ∀ k, |x k - x' k| ≤ δ) (hV : ∀ j, |V j i| ≤ M) :
+    |(Lattice.Lib.TransformerEval.softmaxAttention W V).apply x i
+        - (Lattice.Lib.TransformerEval.softmaxAttention W V).apply x' i|
+      ≤ (n : ℝ) * M * (2 * ((∑ k, |W i k|) * δ) * Real.exp (2 * ((∑ k, |W i k|) * δ))) := by
+  -- 1. the scoring constant is non-negative
+  have hLW : 0 ≤ ∑ k, |W i k| := Finset.sum_nonneg (fun k _ => abs_nonneg _)
+  have hεpos : 0 ≤ (∑ k, |W i k|) * δ := mul_nonneg hLW hδ
+  -- 2. the scoring difference, pointwise
+  have hscore : ∀ k, |W i k * x k - W i k * x' k| ≤ (∑ k, |W i k|) * δ :=
+    fun k => rowDot_pointwise W i k x x' δ h
+  -- 3. softmax is Lipschitz at that epsilon
+  have hlip : ∀ j, |softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j|
+      ≤ 2 * ((∑ k, |W i k|) * δ) * Real.exp (2 * ((∑ k, |W i k|) * δ)) :=
+    fun j => softmax_lipschitz _ _ _ hεpos hscore j
+  -- 4. the difference is the sum of the pointwise differences
+  have hkey : (Lattice.Lib.TransformerEval.softmaxAttention W V).apply x i
+        - (Lattice.Lib.TransformerEval.softmaxAttention W V).apply x' i
+      = ∑ j, (softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j) * V j i := by
+    simp only [Lattice.Lib.TransformerEval.softmaxAttention, convComb, smul_eq_mul]
+    rw [← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun j _ => by ring)
+  -- 5. four inequalities, chained by `le_trans`
+  have h1 : |(Lattice.Lib.TransformerEval.softmaxAttention W V).apply x i
+          - (Lattice.Lib.TransformerEval.softmaxAttention W V).apply x' i|
+      ≤ ∑ j, |(softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j) * V j i| := by
+    rw [hkey]
+    exact Finset.abs_sum_le_sum_abs _ _
+  have h2 : ∑ j, |(softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j) * V j i|
+      = ∑ j, |softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j| * |V j i| :=
+    Finset.sum_congr rfl (fun j _ => by rw [abs_mul])
+  have h3 : ∑ j, |softmax (fun k => W i k * x k) j - softmax (fun k => W i k * x' k) j| * |V j i|
+      ≤ ∑ _j : Fin n, (2 * ((∑ k, |W i k|) * δ) * Real.exp (2 * ((∑ k, |W i k|) * δ))) * M :=
+    Finset.sum_le_sum (fun j _ =>
+      mul_le_mul (hlip j) (hV j) (abs_nonneg _) (by positivity))
+  have h4 : (∑ _j : Fin n, (2 * ((∑ k, |W i k|) * δ) * Real.exp (2 * ((∑ k, |W i k|) * δ))) * M)
+      = (n : ℝ) * M * (2 * ((∑ k, |W i k|) * δ) * Real.exp (2 * ((∑ k, |W i k|) * δ))) := by
+    rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+    ring
+  refine le_trans h1 ?_
+  rw [h2]
+  refine le_trans h3 ?_
+  rw [h4]
 
 end Lattice.Lib.Attention

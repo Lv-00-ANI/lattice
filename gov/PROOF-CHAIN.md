@@ -960,7 +960,7 @@
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
 | `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
 | `Lattice.Lib.Attention` | 0 | 0 |
-| `Lattice.Lib.Attention.AttentionLipschitz` | 2 | 0 |
+| `Lattice.Lib.Attention.AttentionLipschitz` | 3 | 0 |
 | `Lattice.Lib.Attention.RealALiBi` | 10 | 2 |
 | `Lattice.Lib.Attention.RealAbsPosEncoding` | 18 | 2 |
 | `Lattice.Lib.Attention.RealAttention` | 6 | 3 |
@@ -7942,8 +7942,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `route_over_capacity_drops` -> `apply`, `balanced_no_drop`, `drop_of_total_exceeds_capacity`, `imbalance_forces_drop`
 - `routed_output_bound` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `rowCount_add_compl` -> `induction`, `min`, `zero`
-- `rowDot_lipschitz` -> `W`
-- `rowDot_pointwise` -> `W`
+- `rowDot_lipschitz` -> `W`, `apply`, `card_fin`, `convComb`, `le_trans`, `softmax`, `softmaxAttention`, `softmax_lipschitz`
+- `rowDot_pointwise` -> `W`, `apply`, `card_fin`, `convComb`, `le_trans`, `softmax`, `softmaxAttention`, `softmax_lipschitz`
 - `rowEditCexW_row0` -> `W`, `apply`
 - `rowEditCexX_one` -> `W`, `apply`
 - `rowEditCexX_zero_apply` -> `W`, `apply`
@@ -8436,6 +8436,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softThresh_piecewise` -> `le_refl`, `le_total`, `softThresh`, `softThresh_eq`
 - `softmax2A_close` -> `le_trans`
 - `softmaxAttention_bound` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`
+- `softmaxAttention_lipschitz` -> `W`, `apply`, `card_fin`, `convComb`, `le_trans`, `softmax`, `softmaxAttention`, `softmax_lipschitz`
 - `softmaxAttnOp_fin_one` -> `SoftmaxAttnOp`, `convComb`, `softmax`
 - `softmaxAttnOp_norm_bound_tight` -> `SoftmaxAttnOp`, `convComb`, `softmax`
 - `softmaxAttnOp_norm_le` -> `SoftmaxAttnOp`, `attention_output_bound`, `convComb`, `softmax`, `softmax_sum_one`
