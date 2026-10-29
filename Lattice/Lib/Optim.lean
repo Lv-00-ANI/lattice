@@ -58,4 +58,5 @@ import Lattice.Lib.Optim.RealTD
 import Lattice.Lib.Optim.RealUpDown
 import Lattice.Lib.Optim.RealValueIteration
 import Lattice.Lib.Optim.RealVectorStationarity
+import Lattice.Lib.Optim.RealVectorGD
 /-! `Lattice.Lib.Optim` -- 6 modules. -/
