@@ -138,6 +138,65 @@ def stackParams (k n : ℕ) := Fin k → AffineLayer (Fin n)
 **⇒ 下一个具体任务：`stackParams` 的定义与它的 `Representation` 实例**（到 `Fin (k*(n*n+n)) → ℝ`），
 **然后才是 `fderiv`。** **顺序不能反。**
 
+#### ✅ 第 90 轮的宏观测量：**前向链在 `Fin 1` 上已经完整，缺的只有多维**
+
+**连续六轮（84–89）产出了五个孤儿定理和三份规划更正。** 本段重新量了整个链路，
+**而结论与我前几轮的焦虑相反：链条没有断在 `netLoss`。**
+
+**`netLoss` 的消费者（实测）：**
+
+| 文件 | 引用数 |
+|:--|--:|
+| `Domains/Geometry/ConstraintDescent.lean` | **44** |
+| **`Compose/ForwardChain.lean`** | **15** |
+| `Domains/Constraints/NetLoss.lean` | 24（自身） |
+| `Primitives/WeightDescent.lean` / `Semantics/PostTrain.lean` | 各 1 |
+
+**⇒ 损失是真的被用的。**
+
+**而 `Compose/ForwardChain.lean` 里已经有前向链的 capstone：**
+
+```lean
+theorem forward_chain_capstone (c β : ℝ) (hne : β + c ≠ 0) (pts) :
+    netLoss [shiftLayer (step (1/2) c β)] ... < netLoss [shiftLayer β] ... ∧
+    netLoss ... = 0 ∧ Holds ... ∧ (netLoss ... = 0 ↔ Holds ...)
+```
+
+**它同时说四件事：损失下降、损失为零、约束成立、两者等价。** 配套的 `descentStep_sound` 给出
+primitive 的 `sound`，`forward_chain_at_solution` 给解处的情形。
+
+⇒ ⭐ **「符号知识变成权重、权重下降、损失归零、约束成立」这条链，在 `Fin 1` 上是完整的。**
+
+### 而它的多维版本，文件自己写着缺什么
+
+`ForwardChain.lean` L48：
+
+> 多维版本要用 `Fin n → ℝ`，它的 `post` 相同，但 **`netLoss` 的实例化不同**。
+
+⇒ **缺的不是新理论，是同一套东西在 `Fin n` 上的实例化。**
+
+### 所以 `P4-NL-3` 的正确形状是三行，不是四节
+
+| # | 任务 | 前置 | 状态 |
+|:--|:--|:--|:--|
+| **1** | **`Fin n` 的 `descentStep`** | `Primitives/WeightDescent` 是否已有 `n` 维版 | 待量 |
+| **2** | **`netLoss` 的下降（`Fin n`）** | 1 + 损失在参数扰动下的界 | 待做 |
+| **3** | **`Fin n` 的 `forward_chain_capstone`** | 1 + 2 | 待做 |
+
+**而第 2 步的两条路：**
+- **导数路**：`fderiv` 需要参数空间的向量空间结构——**第 88 轮已证明那是 `List (AffineLayer)`，没有**；
+- **扰动路**：`netAct_deviation_step`（`StackError`）给「参数扰动 ⇒ 输出扰动」的**递推界**，
+  再配 `sq_lipschitz_on_bounded`（第 79 轮）给「输出扰动 ⇒ 损失扰动」。
+
+⇒ ⭐⭐ **扰动路不需要向量空间结构，所以它是当前唯一可走的路。**
+**而它正是第 79 轮那条「无家可归」的引理的归宿。**
+
+### 我前六轮错在哪，一句话
+
+**我在给「Lipschitz 引理」找消费者，而正确的顺序是：先确定那条要证的链（`Fin n` 的 capstone），
+再看它需要什么。** **产物没有浪费**（`sq_lipschitz_on_bounded` 正是第 2 步需要的），
+**但顺序反了，所以六轮里有五轮产出的是孤儿。**
+
 #### ⚠⚠⚠ 第 89 轮：**`StackError` 已经有整套栈的扰动理论——我的 `ProgramLipschitz` 用错了载体**
 
 第 88 轮的下一步说「做 `stackParams`」。**先量它是否已存在，而答案是：更该先量的是「栈的扰动理论是否已存在」，
