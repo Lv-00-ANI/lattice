@@ -34,4 +34,5 @@ import Lattice.Lib.Attention.RealSoftmaxLipschitz
 import Lattice.Lib.Attention.RealSoftmaxTemp
 import Lattice.Lib.Attention.RealTemporalLayer
 import Lattice.Lib.Attention.RealTemporalLayerExt
+import Lattice.Lib.Attention.SoftmaxLipschitz
 /-! `Lattice.Lib.Attention` -- 1 modules. -/

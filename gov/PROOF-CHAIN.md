@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 611 | instantiated library, may import core only |
+| lib | 612 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -108,7 +108,7 @@
 - `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
 - `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Lib.Architectures.SoftmaxSubLayer` <- `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Attention.RealAttention`
-- `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`
+- `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`, `Lattice.Lib.Attention.SoftmaxLipschitz`
 - `Lattice.Lib.Attention.RealALiBi` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.Attention.RealAbsPosEncoding` <- `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealRelPosEncoding`
 - `Lattice.Lib.Attention.RealAttention` 
@@ -145,6 +145,7 @@
 - `Lattice.Lib.Attention.RealSoftmaxTemp` <- `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`
 - `Lattice.Lib.Attention.RealTemporalLayer` <- `Lattice.Lib.FCA.RealFCA`
 - `Lattice.Lib.Attention.RealTemporalLayerExt` <- `Lattice.Lib.Attention.RealTemporalLayer`
+- `Lattice.Lib.Attention.SoftmaxLipschitz` <- `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Chain` <- `Lattice.Lib.Chain.Geometry`, `Lattice.Lib.Chain.RealAbstractionRegistry`, `Lattice.Lib.Chain.RealAdjoinRootCard`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Chain.RealChainAxioms`, `Lattice.Lib.Chain.RealChainAxioms2`, `Lattice.Lib.Chain.RealChainAxioms3`, `Lattice.Lib.Chain.RealChainAxioms4`, `Lattice.Lib.Chain.RealChainEntryOOV`, `Lattice.Lib.Chain.RealChainEntryOOVAxioms`, `Lattice.Lib.Chain.RealChainLiftGeneral`, `Lattice.Lib.Chain.RealChainRun`, `Lattice.Lib.Chain.RealClosedFieldAxiomatic`, `Lattice.Lib.Chain.RealComplex`, `Lattice.Lib.Chain.RealComplexGD`, `Lattice.Lib.Chain.RealComplexTrain`, `Lattice.Lib.Chain.RealComplexWirtinger`, `Lattice.Lib.Chain.RealCountableSum`, `Lattice.Lib.Chain.RealCrossUniverseApplication`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.Chain.RealDvdLatticeStratification`, `Lattice.Lib.Chain.RealE2EComposite`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Chain.RealEndToEndNontrivial`, `Lattice.Lib.Chain.RealEndToEndStrict`, `Lattice.Lib.Chain.RealEqualityCharacterization`, `Lattice.Lib.Chain.RealErf`, `Lattice.Lib.Chain.RealFiniteField`, `Lattice.Lib.Chain.RealGaloisChainLift`, `Lattice.Lib.Chain.RealGeometry`, `Lattice.Lib.Chain.RealHreachClosed`, `Lattice.Lib.Chain.RealHreachConditional`, `Lattice.Lib.Chain.RealHreachWired`, `Lattice.Lib.Chain.RealLimitDiscrete`, `Lattice.Lib.Chain.RealLv00AxiomDischarge`, `Lattice.Lib.Chain.RealLv00AxiomDischargeClosure`, `Lattice.Lib.Chain.RealLv00AxiomDischargeCore`, `Lattice.Lib.Chain.RealLv00AxiomDischargeInstances`, `Lattice.Lib.Chain.RealLv00AxiomDischargePerPackage`, `Lattice.Lib.Chain.RealLv00AxiomDischargeSummary`, `Lattice.Lib.Chain.RealLv00AxiomPackages`, `Lattice.Lib.Chain.RealLv00Geometry`, `Lattice.Lib.Chain.RealLv00GeometryAnalytic`, `Lattice.Lib.Chain.RealLv00GeometryCSG`, `Lattice.Lib.Chain.RealLv00GeometryDifferential`, `Lattice.Lib.Chain.RealLv00GeometryHilbert`, `Lattice.Lib.Chain.RealLv00GeometrySymbolics`, `Lattice.Lib.Chain.RealLv00GroebnerConstraint`, `Lattice.Lib.Chain.RealLv00LinearAlgebra`, `Lattice.Lib.Chain.RealLv00Solver`, `Lattice.Lib.Chain.RealLv00Systems`, `Lattice.Lib.Chain.RealModelChain`, `Lattice.Lib.Chain.RealModelChainHetero`, `Lattice.Lib.Chain.RealModelFamilyChainWiring`, `Lattice.Lib.Chain.RealN2AxiomDischargeJia`, `Lattice.Lib.Chain.RealNumericChainOrder`, `Lattice.Lib.Chain.RealOrphanWiring`, `Lattice.Lib.Chain.RealPAdicValuationAbstract`, `Lattice.Lib.Chain.RealPMix`, `Lattice.Lib.Chain.RealPMixN`, `Lattice.Lib.Chain.RealPolyInterp`, `Lattice.Lib.Chain.RealPrimeFieldExt`, `Lattice.Lib.Chain.RealReedSolomon`, `Lattice.Lib.Chain.RealScalarField`, `Lattice.Lib.Chain.RealSeriesLimit`, `Lattice.Lib.Chain.RealSimpleExtensionDegree`, `Lattice.Lib.Chain.RealTaylorMultivariate`, `Lattice.Lib.Chain.RealTorsionSubmoduleBasic`, `Lattice.Lib.Chain.RealZMod`
 - `Lattice.Lib.Chain.Geometry` 
 - `Lattice.Lib.Chain.RealAbstractionRegistry` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Optim.RealErrorFeedback`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.InfoTheory.RealOptimalTransport`, `Lattice.Lib.Convex.RealSupportingHyperplane`, `Lattice.Lib.Optim.RealRiemannianGD`
@@ -993,6 +994,7 @@
 | `Lattice.Lib.Attention.RealSoftmaxTemp` | 7 | 1 |
 | `Lattice.Lib.Attention.RealTemporalLayer` | 26 | 11 |
 | `Lattice.Lib.Attention.RealTemporalLayerExt` | 40 | 9 |
+| `Lattice.Lib.Attention.SoftmaxLipschitz` | 5 | 0 |
 | `Lattice.Lib.Chain` | 0 | 0 |
 | `Lattice.Lib.Chain.Geometry` | 7 | 6 |
 | `Lattice.Lib.Chain.RealAbstractionRegistry` | 33 | 2 |
@@ -1973,6 +1975,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abs_diff_eq_of_le_left` -> `apply`, `le`, `le_refl`, `le_trans`
 - `abs_diff_ge_neg` -> `apply`, `le`, `le_refl`, `le_trans`
 - `abs_div_sub` -> `LinfNorm`, `apply`, `bddAbove_abs`, `softmax`, `softmax_denom_pos`
+- `abs_exp_sub_le` -> `ProbDist`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `abs_exp_sub_taylor_two_le_real` -> `le_trans`, `uniformExpectation`, `uniformSecondMoment`, `uniformSecondMoment_nonneg`
 - `abs_floor_le_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `abs_floor_sub_lt_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
@@ -4301,6 +4304,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exp_neg_two_geluInner` -> `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `exp_smul_commute` -> `selProd`, `selState`, `selState_explicit`, `selState_norm_bound_contracting`, `selState_succ`, `sel_is_LTI_special`, `trans`, `zohStep`
 - `exp_smul_sub_one_eq_tsum` -> `apply`, `selProd`, `selState`, `selState_explicit`, `selState_norm_bound_contracting`, `selState_succ`, `sel_is_LTI_special`, `zohStep`
+- `exp_sub_le_of_le` -> `ProbDist`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `exp_sub_one_le` -> `ProbDist`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `exp_submartingale_of_cond` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
 - `expected_output_at_zero` -> `min`
 - `expected_output_geometric` -> `geom_sum_eq`, `min`
@@ -8442,12 +8447,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmax_ce_fderiv_eq_dot` -> `apply`, `softmax`
 - `softmax_fin_one_eq_one` -> `SoftmaxAttnOp`, `convComb`, `softmax`, `softmax_sum_one`
 - `softmax_gate_preserves_order` -> `softmax`, `softmax_monotone`
+- `softmax_le_one` -> `ProbDist`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_lipschitz_coord` -> `LinfNorm`, `bddAbove_abs`, `linfNorm_nonneg`, `softmax`, `softmax_denom_pos`
 - `softmax_monotone` -> `softmax`, `softmax_denom_pos`
 - `softmax_numerator_eq_expKernel` -> `apply`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_policy_pmf` -> `E`
 - `softmax_policy_pos` -> `E`
 - `softmax_pos` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`, `softmax_denom_pos`
+- `softmax_probDist` -> `ProbDist`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_scale_invariant_denom` -> `apply`, `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`, `softmax_monotone`
 - `softmax_shift` -> `Block`, `SubLayer`, `W`, `apply`, `attention_output_bound`, `convComb`, `softmax`, `softmax_denom_pos`
 - `softmax_temp_between_uniform` -> `exp_lipschitz_on`, `le_trans`, `softmax_denom_pos`
