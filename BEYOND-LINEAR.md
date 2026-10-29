@@ -138,6 +138,68 @@ def stackParams (k n : ℕ) := Fin k → AffineLayer (Fin n)
 **⇒ 下一个具体任务：`stackParams` 的定义与它的 `Representation` 实例**（到 `Fin (k*(n*n+n)) → ℝ`），
 **然后才是 `fderiv`。** **顺序不能反。**
 
+#### ⚠⚠⚠ 第 89 轮：**`StackError` 已经有整套栈的扰动理论——我的 `ProgramLipschitz` 用错了载体**
+
+第 88 轮的下一步说「做 `stackParams`」。**先量它是否已存在，而答案是：更该先量的是「栈的扰动理论是否已存在」，
+而它不但存在，还比我的丰富得多。**
+
+**`Runtime/StackError.lean` 的既有内容：**
+
+| 定理 | 内容 |
+|:--|:--|
+| `colMag` / `layerMag` / `gain` | 层与列的**量级**，`gain L = max (layerMag L) 1` |
+| **`affineAct_lipschitz`** | 单层对输入的 Lipschitz 性 |
+| **`netAct_lipschitz`** | **任意深度对输入**：`|netAct ls u j − netAct ls v j| ≤ (∏ gain) · δ` |
+| **`netAct_two_perturbation`** | **两层同时扰动**：`≤ (ε·n·layerMag L₁·M + ε) + layerMag L₂'·δ` |
+| **`netAct_deviation_step`** | **任意深度的递推**：整栈偏差 `≤ D + (∏ gain rest)·δ` |
+| `netAct_abs_le` / `depth_growth` / `devB` | 有界性的配套 |
+
+**载体是 `List (AffineLayer (Fin n))`——与 `netLoss` 的 `params` 参数逐字相同。**
+
+### 而 `netLoss` 的形状是
+
+```lean
+noncomputable def netLoss (params : List (AffineLayer (Fin n)))
+    (cs : List (GeoConstraint n)) (pts : ℕ → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (fun k => netAct params (pts k)))).sum
+```
+
+⇒ **`netLoss` 对 `params` 的依赖，完全通过 `netAct params`。**
+**而 `netAct` 对 `params` 的敏感度正是 `netAct_deviation_step` 给的。**
+
+### ⚠ 所以我的第 77、87 轮用错了载体
+
+| 我的 | 载体 | `netLoss` 用不用 |
+|:--|:--|:--|
+| `Runtime/ProgramLipschitz`（第 77 轮） | `LayerProgram n = List (Instr n)` | ❌ **不用** |
+| `Lib/Optim/ProgramLossLipschitz`（第 87 轮） | 同上 | ❌ **不用** |
+
+**`LayerProgram` 是更丰富的 AST**（`affine`/`relu`/`scale`/`softmax`/`layernorm`/`attention`），
+**而 `netLoss` 的 `params` 是纯仿射栈。** **两者是不同的语言，而损失只定义在后者上。**
+
+**⇒ 第 77、87 轮那两条不是错的，但它们连的是一个【损失用不到的】载体。**
+
+### 正确的桥，而且它的两半都已经在库里
+
+```lean
+theorem netLoss_lipschitz :
+  |netLoss params₁ cs pts − netLoss params₂ cs pts|
+    ≤ (Lipschitz of penaltyLoss) × (偏差界 from netAct_deviation_step)
+```
+
+**需要两块：**
+1. **`netAct params₁ (pts k)` 与 `netAct params₂ (pts k)` 的逐坐标偏差**——**`netAct_deviation_step` 给**（递推，常数是 `∏ gain`）；
+2. **`penaltyLoss` 对配置扰动的 Lipschitz 常数**——**它每个分支都是 `(线性形式)²`，所以正是
+   第 79 轮 `sq_lipschitz_on_bounded`（`|s² − t²| ≤ 2R|s − t|`）的用武之地。**
+
+⇒ ⭐ **这会给第 79 轮那条「无家可归」的引理一个真正的家**，而且是在**损失真正使用的载体上**。
+
+**⇒ 下一个具体任务：`netLoss_lipschitz`。** 顺序：
+1. **先证 `penaltyLoss` 的 Lipschitz**（12 个分支，每个用 `sq_lipschitz_on_bounded`；`minorDefect` 那条要走叉积的界）；
+2. **再用 `netAct_deviation_step` 把它抬到 `netLoss`。**
+
+**先量 `minorDefect` 的形状**（它是唯一不是明显平方的分支），**再决定是一条定理还是两条。**
+
 #### 这也解释了第 79–80 轮那两条为什么没有消费者
 
 **`sq_lipschitz_on_bounded` 与 `sum_sq_lipschitz_on_bounded` 谈的是【函数值】在有界集上的 Lipschitz，
