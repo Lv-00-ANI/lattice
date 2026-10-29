@@ -1705,6 +1705,7 @@ Runtime/LayerComposition.lean	dot_replicate_zero_any
 Runtime/LayerComposition.lean	layerFwd_allzero
 Runtime/LayerComposition.lean	constraint_satisfaction_propagates
 Runtime/LayerComposition.lean	layerSeq_three
+Runtime/LayerNormSemantics.lean	applyInstr_layernorm_mean_zero
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
 Runtime/LossyRepresentation.lean	ofRepresentation_roundtrip
 Runtime/LossyRepresentation.lean	lossy_weaker
