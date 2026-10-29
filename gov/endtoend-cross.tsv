@@ -15,6 +15,8 @@ CInterface/Conformance.lean	interior_length
 CInterface/ContractBoundary.lean	composeArgs_has_no_data_parameter
 CInterface/ContractBoundary.lean	abiTable_compose_args
 CInterface/ContractBoundary.lean	exists_abi_entry_without_data_parameter
+CInterface/ContractBoundary.lean	seven_primitives_float_inputs_have_no_f64_slot
+CInterface/ContractBoundary.lean	three_primitives_have_too_few_f64_slots
 CInterface/LayoutBytes.lean	bytesPerWord_fp16
 CInterface/LayoutBytes.lean	bytesPerWord_bf16
 CInterface/LayoutBytes.lean	bytesPerWord_fp32

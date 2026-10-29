@@ -656,7 +656,7 @@
 - `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` <- `Lattice.Compose.PrimitiveShape`
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
-- `Lattice.CInterface.ContractBoundary` <- `Lattice.CInterface.ABI`
+- `Lattice.CInterface.ContractBoundary` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
@@ -1508,7 +1508,7 @@
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 6 |
 | `Lattice.CInterface.Conformance` | 7 | 18 |
-| `Lattice.CInterface.ContractBoundary` | 4 | 2 |
+| `Lattice.CInterface.ContractBoundary` | 6 | 2 |
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
@@ -1958,7 +1958,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `le_trans`
-- `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
+- `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `abiTable_errors_wellFormed` -> `primitiveNames`
 - `abiTable_length` -> `length`, `primitiveNames`
 - `abiTable_names_eq_verified` -> `primitiveNames`
@@ -3080,7 +3080,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
-- `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
+- `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_act` -> `W`, `compose`, `induction`
@@ -3657,6 +3657,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `derivable_two_step` -> `GeoConstraint`, `subst`
 - `derivation_sound` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `descentStep_sound` -> `GeoConstraint`, `Holds`, `Pt`, `constraint_satisfied_after_one_step`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `run`, `shiftLayer`, `sound`, `step`
+- `descentStep_vector_width_ne_primitive_width` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `descent_direction_exists` -> `comp`, `const_add`
 - `destructiveFix_atomic` -> `Audit`, `Sat`, `subst`
 - `destructiveFix_decreases` -> `Audit`, `Sat`, `subst`
@@ -4258,7 +4259,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exec_skip` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `executable_rule_conclusions_absorbable` -> `Rule`, `layer`, `length`
 - `executable_track_exists` -> `GeoExpr`
-- `exists_abi_entry_without_data_parameter` -> `CType`, `ErrorCode`, `Ownership`, `abiTable`, `compose`
+- `exists_abi_entry_without_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `exists_argmax` -> `IsArgMax`, `apply`, `argmax_unique`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `exists_box_collision` -> `apply`, `card_fin`, `le`
 - `exists_box_of_continuousAt_neg` -> `add`, `le_trans`, `min`, `mono`, `subst`
@@ -8288,6 +8289,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seqRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
 - `seq_skip_step` -> `Compiler`, `induction`, `subst`, `trans`
 - `seq_step_ctx` -> `Compiler`, `induction`, `subst`, `trans`
+- `seven_primitives_float_inputs_have_no_f64_slot` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `sgd_average_iterate_gap` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_rate_bound`
 - `sgd_average_jensen` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `sgd_expected_avg_gap`, `sgd_rate_bound`
 - `sgd_averaged_step` -> `Subgradient`
@@ -9050,6 +9052,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
+- `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
 - `three_tactic_patterns_work` -> `dec`
 - `threshExtent_antitone_attrs` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
