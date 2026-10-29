@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 609 | instantiated library, may import core only |
+| lib | 610 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -632,12 +632,13 @@
 - `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`
 - `Lattice.Lib.Quantization.RealFloatConsistency` <- `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.Lib.Quantization.RealFloatFormat` <- `Lattice.Lib.Optim.RealApprox`
-- `Lattice.Lib.Quantization.RealIEEE754` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`, `Lattice.Lib.Quantization.RealIEEE754.Compat`
+- `Lattice.Lib.Quantization.RealIEEE754` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.TinyGrid`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`, `Lattice.Lib.Quantization.RealIEEE754.Compat`
 - `Lattice.Lib.Quantization.RealIEEE754.Basic` <- `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.Lib.Quantization.RealIEEE754.BitWidth` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`
 - `Lattice.Lib.Quantization.RealIEEE754.Compat` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Overflow`, `Lattice.Lib.Quantization.RealIEEE754.BitWidth`
 - `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`
 - `Lattice.Lib.Quantization.RealIEEE754.Overflow` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealIEEE754.Basic`
+- `Lattice.Lib.Quantization.RealIEEE754.TinyGrid` <- `Lattice.Lib.Quantization.RealIEEE754.Basic`, `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous`
 - `Lattice.Lib.Quantization.RealLoRA` 
 - `Lattice.Lib.Quantization.RealMixedPrecision` <- `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Optim.RealApprox`
 - `Lattice.Lib.Quantization.RealMixedPrecisionRounding` <- `Lattice.Lib.Quantization.RealIEEE754`, `Lattice.Lib.Quantization.RealMixedPrecision`
@@ -1478,6 +1479,7 @@
 | `Lattice.Lib.Quantization.RealIEEE754.Compat` | 9 | 1 |
 | `Lattice.Lib.Quantization.RealIEEE754.Nonvacuous` | 3 | 2 |
 | `Lattice.Lib.Quantization.RealIEEE754.Overflow` | 9 | 3 |
+| `Lattice.Lib.Quantization.RealIEEE754.TinyGrid` | 12 | 2 |
 | `Lattice.Lib.Quantization.RealLoRA` | 3 | 1 |
 | `Lattice.Lib.Quantization.RealMixedPrecision` | 18 | 10 |
 | `Lattice.Lib.Quantization.RealMixedPrecisionRounding` | 34 | 5 |
@@ -1957,6 +1959,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abs_diff_ge_neg` -> `apply`, `le`, `le_refl`, `le_trans`
 - `abs_div_sub` -> `LinfNorm`, `apply`, `bddAbove_abs`, `softmax`, `softmax_denom_pos`
 - `abs_exp_sub_taylor_two_le_real` -> `le_trans`, `uniformExpectation`, `uniformSecondMoment`, `uniformSecondMoment_nonneg`
+- `abs_floor_le_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `abs_floor_sub_lt_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `abs_hypRisk_le_one` -> `abs_mean_le_one`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `abs_le_abs_sq_is_false` -> `le_trans`, `uniformExpectation`, `uniformSecondMoment`, `uniformSecondMoment_nonneg`
 - `abs_le_diagRadius` -> `HasRealEigenvalue`, `apply`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `spectral_radius_le_opNorm`, `subst`
@@ -2388,6 +2392,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `beta_le_parStar` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
 - `beta_preserves_depth` -> `depth`, `induction`, `step`
 - `beta_strictly_decreases_size` -> `depth`, `induction`, `step`
+- `bf16_round_nonempty` -> `IEEERound`, `RoundMode`, `bf16`, `fp32`, `tiny`
 - `bfgs_form_pd` -> `mulVec`
 - `bfgs_form_psd` -> `mulVec`
 - `bfgs_paraboloid` -> `mulVec`
@@ -4674,10 +4679,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fp16_no_overflow_bounds` -> `FloatFormat`, `RoundOp`, `W`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `fp16_overflow_iff` -> `FloatFormat`, `RoundOp`, `W`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `fp16_round_abs_bound` -> `FloatFormat`, `RoundOp`, `W`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
+- `fp16_round_nonempty` -> `IEEERound`, `RoundMode`, `bf16`, `fp16`, `fp32`, `tiny`
 - `fp16_round_sat_error` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `induction`, `le_trans`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`, `zero`
 - `fp16_underflow_dominated` -> `FloatFormat`, `RoundOp`, `W`, `card_fin`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `fp16_underflow_iff` -> `FloatFormat`, `RoundOp`, `W`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `fp16_underflow_lt` -> `FloatFormat`, `RoundOp`, `W`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
+- `fp32_round_nonempty` -> `IEEERound`, `RoundMode`, `fp32`, `tiny`
 - `fpOverflow_fp16Max_iff_fp16Overflow` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `accSum`, `accumulation_error_bound`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fp16_underflow_dominated`, `fpOverflow`, `frobeniusNorm`, `fullForward`, `ieeeToRoundOp`, `induction`, `le_trans`, `loss_scaling_no_overflow`, `matCLME`, `mixedForward`, `mixedMatrix`, `mixed_layer_error`, `mixed_matrix_frobenius_error`, `mixed_matrix_op_error`, `mixed_vs_full_precision`, `quantFwd`, `roundToFormat`, `tiny`, `zero`
 - `fpOverflow_iff` -> `le_trans`, `min`
 - `fpToRat_exists` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`
@@ -5179,6 +5186,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ieee_round_idempotent` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_mono` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_nonempty` -> `FloatFormat`, `IEEERound`, `RoundMode`, `eps`, `le_antisymm`, `tiny`
+- `ieee_round_nonempty_of_tiny_pos` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `fp16`, `fp32`, `tiny`
 - `ieee_round_sign_neg` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_sign_pos` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `ieee_round_zero` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
@@ -8974,6 +8982,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `threshIntent_monotone_mu` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `thresh_concept_iff` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `thresh_galois` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
+- `tinyGrid_err` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `tinyGrid_idem` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `tinyGrid_mono` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `tinyGrid_sign_neg` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `tinyGrid_sign_pos` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
+- `tinyGrid_subnormal` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `fp16`, `fp32`, `tiny`
 - `tk_exists_aux` -> `IsTopK`, `induction`, `insert`, `zero`
 - `toC_add` -> `GeoExpr`, `add`
 - `toC_const` -> `GeoExpr`, `add`
