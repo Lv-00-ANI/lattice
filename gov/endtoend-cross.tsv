@@ -1779,6 +1779,8 @@ Runtime/RepresentationFamilies.lean	act_toParams
 Runtime/RepresentationFamilies.lean	toMLayer_ofMLayer
 Runtime/RepresentationFamilies.lean	ofMLayer_toMLayer
 Runtime/RepresentationFamilies.lean	three_families_connected
+Runtime/SemanticRepresentation.lean	semantic_roundtrip_compiles_agree
+Runtime/SemanticRepresentation.lean	semantic_of_extract
 Runtime/StackCodegen.lean	runProg_append
 Runtime/StackCodegen.lean	compileAcc_correct
 Runtime/StackCodegen.lean	compileProg_correct
