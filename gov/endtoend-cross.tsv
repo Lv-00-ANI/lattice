@@ -732,6 +732,7 @@ Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_softmax_lipschitz
 Lib/Attention/ProgramSoftmaxBridge.lean	evalProgram_append_softmax
 Lib/Attention/ProgramSoftmaxBridge.lean	evalProgram_append_softmax_nonneg
 Lib/Attention/ProgramSoftmaxBridge.lean	evalProgram_append_softmax_sum_one
+Lib/Attention/ProgramSoftmaxBridge.lean	applyInstr_attention_between
 Lib/Attention/RealALiBi.lean	alibi_dist_cast
 Lib/Attention/RealALiBi.lean	alibi_bias_monotone
 Lib/Attention/RealALiBi.lean	alibi_bias_lipschitz

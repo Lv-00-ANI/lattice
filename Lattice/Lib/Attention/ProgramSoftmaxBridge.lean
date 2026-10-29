@@ -1,5 +1,6 @@
 import Mathlib
 import Lattice.Lib.Attention.RealAttention
+import Lattice.Lib.Attention.ConvexCombination
 import Lattice.Lib.Attention.SoftmaxLipschitzBound
 import Lattice.Runtime.ProgramAST
 
@@ -143,5 +144,34 @@ theorem evalProgram_append_softmax_sum_one (hn : 0 < n) (x : Fin n → ℝ)
           (p ++ [Lattice.Lift.ProgramAST.Instr.softmax]) j = 1 := by
   rw [evalProgram_append_softmax]
   exact applyInstr_softmax_sum_one hn _
+
+/-! ## `attention` 的第一条语义定理：**输出是 `V x` 的凸组合**
+
+`applyInstr x (.attention W V) i = ∑ j, softmaxRow i j * (∑ k, V j k * x k)`
+——**权重非负、和为 1**，所以这是一个凸组合。
+
+⇒ ⭐ **它被 `V x` 各分量的最小值与最大值夹住。** 这条不依赖 `W` 的任何东西
+（除了它决定权重），也不依赖 `V` 的符号——**纯凸性。**
+
+⚠ **不是「行和为 1」**：attention 的**输出**行和一般不是 1（它是 `V x` 的加权平均，
+所以行和等于 `V x` 的加权平均之和，与 `V` 有关）。**上一轮我在规划里写对了一半**：
+正确的说法是凸组合界，不是行和。 -/
+
+/-- ⭐⭐ **`attention` 的输出被 `V x` 的极值夹住**——凸组合的直接后果。
+
+`hm`/`hM` 是 `V x` 各分量的上下界（**对每个 `j`，不是对每个 `i`**：
+被加权的是 `V x` 的 `j` 分量，`i` 只是查询行）。 -/
+theorem applyInstr_attention_between {n : ℕ} (hn : 0 < n) (W V : Fin n → Fin n → ℝ)
+    (x : Fin n → ℝ) (i : Fin n) {m M : ℝ}
+    (hm : ∀ j : Fin n, m ≤ ∑ k, V j k * x k)
+    (hM : ∀ j : Fin n, ∑ k, V j k * x k ≤ M) :
+    m ≤ Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i ∧
+      Lattice.Lift.ProgramAST.applyInstr x (Lattice.Lift.ProgramAST.Instr.attention W V : _) i ≤ M := by
+  haveI := finNonempty hn
+  have hp0 : ∀ j : Fin n, 0 ≤ Real.exp (W i j) / ∑ k, Real.exp (W i k) := fun j =>
+    div_nonneg (Real.exp_pos _).le (sum_exp_pos (W i)).le
+  have hp1 : ∑ j : Fin n, Real.exp (W i j) / ∑ k, Real.exp (W i k) = 1 :=
+    Lattice.softmax_sum_one (W i)
+  exact convex_combination_between _ _ hp0 hp1 hm hM
 
 end Lattice.Lib.Attention

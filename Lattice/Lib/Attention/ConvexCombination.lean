@@ -1,0 +1,53 @@
+import Mathlib
+
+/-!
+# `Lattice.Lib.Attention.ConvexCombination` — **加权平均落在极值之间**
+
+## 为什么单独一个文件
+
+这条引理**不提 softmax、不提 attention、不提任何本项目特有的东西**：
+它只说「非负且和为 1 的权重，其加权平均落在被加权量的最小与最大之间」。
+
+**所以它是通用的。** 放在 `Attention/` 下是因为第一次需要它的是 attention，
+**但它会被任何凸组合结构复用**（注意力头混合、模型平均、蒸馏的温度混合、随机策略的期望）。
+
+## 要证什么
+
+    m ≤ ∑ j, p j * w j ∧ ∑ j, p j * w j ≤ M
+
+前提是 `0 ≤ p j`、`∑ p j = 1`、`∀ j, m ≤ w j`、`∀ j, w j ≤ M`。
+
+**两侧的证明结构相同**：把常数写成 `c = ∑ j, p j * c`（用 `∑ p = 1`），
+然后逐项比较（用 `p j ≥ 0`）。**没有用到任何分析学，纯粹是求和与乘法的单调性。**
+-/
+
+namespace Lattice.Lib.Attention
+
+open Finset
+
+/-- ⭐ **凸组合落在极值之间**：非负且和为 1 的权重，其加权平均被上下界夹住。
+
+**这是「概率分布的期望落在支撑的凸包内」的标量版本**，
+而它正是 attention 输出有界的原因——那里 `p` 是 softmax 权重、`w` 是 `V x` 的分量。 -/
+theorem convex_combination_between {ι : Type*} [Fintype ι] [Nonempty ι]
+    (p w : ι → ℝ) (hp0 : ∀ j, 0 ≤ p j) (hp1 : ∑ j, p j = 1)
+    {m M : ℝ} (hm : ∀ j, m ≤ w j) (hM : ∀ j, w j ≤ M) :
+    m ≤ ∑ j, p j * w j ∧ ∑ j, p j * w j ≤ M := by
+  constructor
+  · -- `m = ∑ j, p j * m`, and each term is dominated by `p j * w j`
+    have h1 : m = ∑ j, p j * m := by
+      rw [← Finset.sum_mul, hp1, one_mul]
+    rw [h1]
+    exact Finset.sum_le_sum (fun j _ => mul_le_mul_of_nonneg_left (hm j) (hp0 j))
+  · -- `M = ∑ j, p j * M`, and each term dominates `p j * w j`
+    have h2 : M = ∑ j, p j * M := by
+      rw [← Finset.sum_mul, hp1, one_mul]
+    rw [h2]
+    exact Finset.sum_le_sum (fun j _ => mul_le_mul_of_nonneg_left (hM j) (hp0 j))
+
+/-! ⚠ **一条被删掉的引理**：初稿写了 `convex_combination_nonneg`，用 `m = 0, M = 0` 从上一条导出。
+**那要求 `hM : ∀ j, w j ≤ 0`**——与 `hw : 0 ≤ w j` 一起把 `w` 逼成零函数。
+**所以它要么是空论，要么陈述错了。** 而"非负加权量的凸组合非负"本来就是
+`Finset.sum_nonneg` 加 `mul_nonneg`，不需要一条有名字的定理。**删掉，不留噪声。** -/
+
+end Lattice.Lib.Attention
