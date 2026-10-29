@@ -147,8 +147,6 @@ copy	Lib/Optim/RealStrongConvex.lean	strong_convex_gap_nonneg
 copy	Lib/Optim/RealStrongConvex.lean	strong_convex_minimizer
 copy	Primitives/WeightDescent.lean	sqNormIn_nonneg
 copy	Runtime/ConvertVectorLinear.lean	foldl_init_add
-copy	Runtime/Extraction.lean	layers_conflict
-copy	Runtime/Extraction.lean	no_extractor_both_layers
 copy	Runtime/GeoSampledBound.lean	residual_le_of_zero_on_dense_of_d
 copy	Runtime/L1L2Roundtrip.lean	filterMap_comp_append
 copy	Runtime/L1L2Roundtrip.lean	filterMap_sym_append

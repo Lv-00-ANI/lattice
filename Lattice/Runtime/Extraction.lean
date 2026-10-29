@@ -29,10 +29,17 @@ objects from meanings.
 | parameter, round-trip | `extract (compile p) = p` | **obligation + consequence** |
 | parameter, injectivity | `Function.Injective compile` | **proved from the round-trip** |
 | semantic, non-injectivity | `c ≠ c'` satisfied by the same points | **proved, with witness** |
-| both at once | no extractor achieves both | **proved** |
+| both at once | no extractor achieves both | **proved only with `sem` as a PARAMETER** |
 
 The last row is the sharp statement of the difficulty: not that a good extractor has not
 been found, but that one cannot exist.
+
+⚠⚠ **Round 57 correction.** As written until this round, that last row was **vacuous**: its
+hypotheses were `hne : c ≠ c'` and `_hsem : c = c'` -- **contradictory**, so the theorem was
+`False → anything` and its proof never used `_hsem` at all (hence the underscore). The row is now
+stated the way it was meant: `sem` (a semantic equivalence relation) is a **parameter**, the two
+witnesses satisfy `hne` and `hsem` **consistently** (that is `semantic_not_injective`), and what is
+proved is that **a left inverse cannot also be faithful to the semantic quotient**.
 
 ## Scope remark: where the scaling witness lives
 
@@ -184,18 +191,53 @@ The legacy statement restricted to `VectorConstraint`/`LinearLayer`; here it is 
 an arbitrary `compile : P → W`, so it applies to every representation, including ones
 whose weighted side is a real tensor tree rather than a list. -/
 
-/-- **No extractor is faithful at both layers.**
+/-- ⭐ **No extractor is faithful at both layers** -- **the non-vacuous statement.**
 
-Assume `extract` inverts `compile` (parameter layer) and also maps semantically equal
-parameters to equal values (semantic layer). Take the two witnesses: injectivity would
-force them apart, semantic faithfulness would force them together. -/
-theorem no_extractor_both_layers {P W : Type} (compile : P → W)
-    {c c' : P} (hne : c ≠ c') (_hsem : c = c') :
-    ¬ (∃ extract : W → P,
-        (∀ p, extract (compile p) = p) ∧ (extract (compile c) = extract (compile c'))) := by
-  rintro ⟨extract, hround, hsame⟩
-  rw [hround c, hround c'] at hsame
-  exact hne hsame
+`sem : P → P → Prop` is a **semantic equivalence** (on `LinearForm` it is `SemEq`). An extractor
+`extract` that is
+
+- a **left inverse** of `compile` (`hround`), and
+- **constant on `sem`-equivalent** symbols (`hfaithful`)
+
+must contradict `hne : c ≠ c'` **whenever `sem` is coarser than `=` at `c`, `c'`**.
+
+## Why the old statement was vacuous, in one line
+
+It was
+
+    (hne : c ≠ c') (_hsem : c = c') → ¬ ∃ extract, ...
+
+**`c ≠ c'` and `c = c'` cannot both hold.** So the statement was `False → anything`, and its proof
+never touched `_hsem` -- the underscore says so. It did not express "no extractor is faithful at
+both layers"; it expressed "a left inverse is injective", which is true and has nothing to do with
+semantics.
+
+## What makes the new one non-vacuous
+
+`hne` and `hsem` are **compatible**, and the compatibility is a theorem with a witness:
+`semantic_not_injective` gives `unitForm ≠ scaledForm` with `SemEq unitForm scaledForm`.
+See `no_extractor_both_layers_witness` for the instantiation. -/
+theorem no_extractor_both_layers {P W : Type} (compile : P → W) (sem : P → P → Prop)
+    {c c' : P} (hne : c ≠ c') (hsem : sem c c')
+    {extract : W → P} (hround : ∀ p, extract (compile p) = p)
+    (hfaithful : ∀ a b : P, sem a b → extract (compile a) = extract (compile b)) : False := by
+  have h := hfaithful c c' hsem
+  rw [hround c, hround c'] at h
+  exact hne h
+
+/-- ⭐ **The witness instance**: over `LinearForm ℤ 1`, no self-extractor is both the identity and
+`s SemEq`-faithful.
+
+**This is the statement the file header's last table row was supposed to make**, and now the
+`hne`/`hsem` pair comes from `semantic_not_injective` rather than from an inconsistency. -/
+theorem no_extractor_both_layers_witness :
+    ¬ ∃ extract : (LinearForm ZB 1) → (LinearForm ZB 1),
+        (∀ p, extract p = p) ∧
+        (∀ a b : LinearForm ZB 1, SemEq a b → extract a = extract b) := by
+  rintro ⟨extract, hround, hfaithful⟩
+  -- `compile := id`, so the round-trip is `extract p = p`; the two witnesses are the scaling pair.
+  exact no_extractor_both_layers (P := LinearForm ZB 1) (W := LinearForm ZB 1)
+    id SemEq unit_ne_scaled (fun x => (scaled_semEq_unit x).symm) hround hfaithful
 
 /-! ## The four layers, joined
 

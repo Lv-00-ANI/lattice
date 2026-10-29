@@ -1657,6 +1657,7 @@ Runtime/Extraction.lean	semEq_scale
 Runtime/Extraction.lean	scaled_semEq_unit
 Runtime/Extraction.lean	semantic_not_injective
 Runtime/Extraction.lean	no_extractor_both_layers
+Runtime/Extraction.lean	no_extractor_both_layers_witness
 Runtime/Extraction.lean	reversibility_is_layered
 Runtime/Extraction.lean	layers_conflict
 Runtime/Extraction.lean	leftInverse_separates
