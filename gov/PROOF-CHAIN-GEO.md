@@ -31,7 +31,7 @@
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
 | `Lattice.Domains.Dist` | 135 | 9 | Expr |
 | `Lattice.Domains.DistContinuous` | 47 | 1 | Dist |
-| `Lattice.Domains.DistLipschitz` | 151 | 3 | Lipschitz, Dist |
+| `Lattice.Domains.DistLipschitz` | 182 | 4 | Lipschitz, Dist |
 | `Lattice.Domains.Engine` | 290 | 14 | Constraint |
 | `Lattice.Domains.EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
 | `Lattice.Domains.EqConstraintToken` | 275 | 8 | RealTokenRoundtrip, Loss |
@@ -75,7 +75,7 @@
 | `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
 | `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
 | `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `Lattice.Domains.PenaltyLoss` | 630 | 23 | Constraint, Dist, Lipschitz |
+| `Lattice.Domains.PenaltyLoss` | 647 | 24 | Constraint, Dist, Lipschitz, DistLipschitz |
 | `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
 | `Lattice.Domains.Perturb` | 126 | 8 | Flatten |
 | `Lattice.Domains.Pipeline` | 169 | 7 | Constraint, Expr, Loss |

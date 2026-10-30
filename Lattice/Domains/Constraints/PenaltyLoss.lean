@@ -75,6 +75,7 @@ import Mathlib
 import Lattice.Domains.Constraints.Constraint
 import Lattice.Domains.Constraints.Dist
 import Lattice.Domains.Constraints.Lipschitz
+import Lattice.Domains.Constraints.DistLipschitz
 import Lattice.Lib.Penalty.BilinearLocallyLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 
@@ -507,6 +508,22 @@ theorem gtZero_lipschitz {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
       ≤ K * rho n k pts pts' := le_trans max_zero_sub_le hneg
   have hstep := mul_le_mul_of_nonneg_left hmax (by linarith : (0 : ℝ) ≤ 2 * B)
   simpa only [penaltyLoss] using le_trans hsq hstep
+
+/-- ⭐ **`samePoint` 分支**：`penaltyLoss (.samePoint a b) pts = sqDist (pts a) (pts b)`，
+**不是平方，而就是 `sqDist` 本身。**
+
+⚠ **所以它的结论是【一阶】的**：常数是 `8·n·B`（来自 `sqDist_lipschitz`），
+**而不是已做的四支那种 `2B·(K·rho)` 的【平方型】常数。**
+**形状不同，值得单列**——`sqDistEq`／`equalLength` 会在这个一阶量外面再套一层平方。 -/
+theorem samePoint_lipschitz {n k : ℕ} {a b : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hB : 0 ≤ B)
+    (pts pts' : ℕ → Pt n)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B) :
+    |penaltyLoss (.samePoint a b) pts - penaltyLoss (.samePoint a b) pts'|
+      ≤ (8 * n * B) * rho n k pts pts' := by
+  show |sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts' a) (pts' b)|
+      ≤ (8 * (n : ℝ) * B) * rho n k pts pts'
+  exact sqDist_lipschitz ha hb hB hpts hpts'
 
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 
