@@ -636,4 +636,43 @@ theorem netLossFDerivRec_apply {K n : ℕ} (cs : List (GeoConstraint n))
       = (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p d)).sum := by
   rw [netLossFDerivRec_eq, netLossFDeriv_apply]
 
+/-! ## 第十三层：`netLossOn` 的导数关于输入的【求值】形式
+
+**显式 CLM 在这里断在 `netActN` 处**（它只有 `fderiv` 形式的导数）。
+**但可以给出一条【求值等式】：损失在方向 `d` 上的导数，等于「损失对激活的显式导数」作用于
+「激活关于 `d` 的线性化」。**
+
+**这就是链式法则的方向形式，而 `fderiv_comp` 提供它。** -/
+
+/-- **激活映射关于输入的 `fderiv`**——由第 135 轮的 `HasFDerivAt` 句柄给出。 -/
+noncomputable def activationFDeriv {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] (Fin K → Pt n) :=
+  fderiv ℝ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) p
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数在方向 `d` 上的【求值】**。
+
+**`netLossOn = lossOfActivations ∘ activation`，所以由 `fderiv_comp`：**
+
+`fderiv netLossOn p d = fderiv lossOfActivations (activation p) (fderiv activation p d)`。
+
+**而左内层的 `fderiv` 就是 `netLossFDerivRec`（第 142 轮），所以右边可以完全显式。** -/
+theorem netLossOn_fderiv_apply {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p d : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k Pf (p j))) :
+    fderiv ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p d
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k Pf (p j))
+          (activationFDeriv Pf p d) := by
+  have hcomp : (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) := by
+    funext r
+    exact netLossOn_eq_comp Pf cs r
+  rw [hcomp, fderiv_comp p
+    (lossOfActivations_differentiableAt cs
+      (fun j : Fin K => netActN n k Pf (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN Pf p), ContinuousLinearMap.comp_apply,
+    activationFDeriv]
+
 end Lattice.Geo
