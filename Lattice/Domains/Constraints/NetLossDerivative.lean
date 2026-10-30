@@ -166,69 +166,6 @@ let Ψ : ℕ → Pt n := fun j => netAct params (trunc r j)
 **这是第 111／124／130 轮同一族问题的第 N 次出现**：
 **隐式参数无唯一来源时，先给它一个有类型的名字，再使用。** -/
 
-/-! ## 第四层：`netLossOn` —— 有限前缀上的损失，整条链由此贯通
-
-## 为什么需要新定义
-
-**`netLoss` 的点列载体是 `ℕ → Pt n`，而 `NormedSpace ℝ (ℕ → Pt n)` 不存在**（第 115 轮实测）。
-**第 131 轮又发现：`netLoss` 的内层点列 `fun j => netAct params (pts j)` 在界外【不为零】，
-所以它不是任何 `trunc φ`——把 `trunc` 硬套上去得到的等式是【假的】。**
-
-**⇒ 正确的载体是 `Fin K → Pt n`，且内层【在构造时就用 `trunc`】**：
-
-```lean
-netLossOn params cs p := (cs.map (fun c =>
-  penaltyLoss c (trunc (n := n) (fun j => netAct params (p ⟨j, _⟩))))).sum
-```
-
-**⚠ `p ⟨j, _⟩` 需要 `j < K`。所以内层写成 `fun j => if h : j < K then netAct params (p ⟨j, h⟩) else 0`
-——【那正是 `trunc` 的定义】**，**所以 `penaltyLoss c (trunc Ψ)` 与 `penaltyLoss c Φ`
-（`Φ j = if j < K then netAct params (p ⟨j,_⟩) else 0`）逐字相同。**
-
-**于是第 128 轮的 `hasFDerivAt_penaltyLoss` 可以【直接】用在 `trunc Ψ` 上，
-而 `Ψ` 的界内值由 `p` 经 `netAct` 给出。** -/
-
-/-- **有限前缀上的内层点列**：`j < K` 处取 `netAct params (p ⟨j⟩)`，界外为 `0`。
-
-**它【就是】一个 `trunc` 形式**——这正是本层设计的目的。 -/
-noncomputable def netPoints {K n : ℕ} (params : List (AffineLayer (Fin n)))
-    (p : Fin K → Pt n) : ℕ → Pt n :=
-  fun j => if h : j < K then netAct params (p ⟨j, h⟩) else 0
-
-/-- **`netPoints` 就是 `trunc` 作用在「逐点 `netAct`」上**——**定义级等式。** -/
-theorem netPoints_eq_trunc {K n : ℕ} (params : List (AffineLayer (Fin n)))
-    (p : Fin K → Pt n) :
-    netPoints (n := n) params p
-      = trunc (n := n) (fun i : Fin K => netAct params (p i)) := by
-  funext j
-  simp only [netPoints, trunc]
-
-/-- **有限前缀上的 `netLoss`**——**内层点列用 `netPoints`，界外为零。** -/
-noncomputable def netLossOn {K n : ℕ} (params : List (AffineLayer (Fin n)))
-    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) : ℝ :=
-  (cs.map (fun c => penaltyLoss c (netPoints params p))).sum
-
-/-! ### ⚠ 未闭合：`netLossOn` 的可微性
-
-**`netPoints params p` 与 `trunc p` 的差别就是「界内经过 `netAct`」。**
-
-**而 `hasFDerivAt_penaltyLoss`（第 128 轮）的内层是 `trunc r`——`r` 是【点列本身】。**
-
-**⇒ 用它去证 `netLossOn` 的可微性，需要一条「内层点列经过 `netAct` 后」的 `penaltyLoss` 导数，
-而那正是 `penaltyLoss_nontrunc` 缺失的东西。**
-
-**本轮尝试的走法是：把 `netPoints` 写成 `trunc (fun i => netAct params (p i))`（这条【成立】，
-见 `netPoints_eq_trunc`），但接着 `hasFDerivAt_penaltyLoss` 要的是 `trunc r`，
-而 `trunc (netAct ∘ r)` 与 `trunc r` 的关系是【`netAct` 在界内逐点作用】——
-所以导数链是：`r ↦ netAct ∘ r`（逐点）↦ `trunc` ↦ `penaltyLoss`。**
-
-**⇒ 中间那一步 `r ↦ (fun i => netAct params (r i))` 是一个从 `Fin K → Pt n` 到 `Fin K → Pt n` 的映射，
-它的 `HasFDerivAt` 由 `hasFDerivAt_netAct_ofFn`（`Core/StackDerivative.lean:223`）给出——
-所以整条链是【可以接通】的，只差把它按顺序拼起来。**
-
-**本文件保留了可以独立成立的两条（`netPoints`、`netPoints_eq_trunc`）与 `netLossOn` 的定义，
-而【不声称】它的可微性。** -/
-
 /-! ## 第五层：`penaltyLoss` 对【任意逐点界内等价族】的导数
 
 **第 128 轮的 `hasFDerivAt_penaltyLoss` 说 `fun r => penaltyLoss c (trunc r)`。
@@ -381,64 +318,71 @@ theorem lossOfActivations_differentiableAt {K n : ℕ} (cs : List (GeoConstraint
       rw [hsplit]
       exact (hasFDerivAt_penaltyLoss c hc acts hkc).differentiableAt.add hrest
 
-/-! ### ⚠ 未闭合：`netLossOn = lossOfActivations ∘ pointwiseNetActN`
+/-! ## 第八层：`netLossOn` —— 有限前缀上的损失（`netActN` 载体）
 
-**要证的是 `netLossOn (List.ofFn Pf) cs r = lossOfActivations cs (fun j => netActN n k Pf (r j))`。**
+## 为什么载体是 `Fin k → AffineLayer (Fin n)`
 
-**它在【界内】是逐字的：两侧的 `j < K` 分支都给出 `netActN n k Pf (r j)`。**
+**第 134 轮实测：`netAct` 的可微性只对 `params = List.ofFn p` 有陈述，
+而库里没有 `List → Fin k →` 的桥。**
 
-**但 `netPoints` 用的是 `if h : j < K then netAct params (p ⟨j, h⟩) else 0`（`netAct` + `List`），
-而 `lossOfActivations` 的内层是 `trunc`（`netActN` + `Fin k →`）——两处【同时】差一个 `List.ofFn` 桥与一个 `netAct`/`netActN` 桥。**
+**⇒ 载体取 `Fin k →`，内层用 `netActN`（第 108–109 轮）——它直接以 `Fin k →` 为载体，不需要任何桥。**
 
-**⇒ 正确做法是把 `netPoints` 的定义【改成】`netActN` 版本**（`Fin k →` 载体，与第 135 轮一致），
-**这样两侧就只差 `trunc` 的展开，一行 `simp` 可收。**
+## 本节七个部件的顺序（受 Lean 单遍处理约束）
 
-**本轮未做这一步**：它要改 `netPoints` 与 `netLossOn` 的定义（以及 `netPoints_eq_trunc`），
-**而那是第 134 轮记录过的「载体改名」决策——应当先声明再做，而不是在一轮末尾改。** -/
-
-/-! ### ⚠ 载体改名的精确步骤（第 137 轮六次尝试后的结论）
-
-**目标：把 `netPoints`／`netLossOn` 的载体从 `List (AffineLayer (Fin n))` 换成 `Fin k → AffineLayer (Fin n)`，
-使内层成为 `netActN`，从而 `netLossOn = lossOfActivations ∘ pointwiseNetActN` 是一次 `simp`。**
-
-**第 137 轮实测：改动本身是机械的，但【定义顺序】必须一次排对，否则每一步都失败在同一个地方。**
-
-## 必需的文件内顺序
-
-**Lean 是单遍处理，所以凡是【引用】某定义的地方必须在它之后。当前文件里的依赖是：**
-
-```
-lossOfActivations            (第 136 轮，定义在文件偏后处)
-  ← lossOfActivations_differentiableAt
-  ← differentiableAt_pointwiseNetActN   (第 135 轮，更后)
-  ← netPoints / netLossOn / netPoints_eq_trunc   (第 132 轮，更前)
-```
-
-**⇒ 新的 `netPoints`／`netLossOn`／`netLossOn_eq_comp`／`netLossOn_differentiableAt`
-必须放在 **`pointwiseNetActN` 之后**，而**不能**放在它们当前的（文件偏前）位置。**
-
-**第 137 轮我两次尝试移动那个块，两次都因为「按 `end Lattice.Geo` 锚点插入」而落回原位——
-`end Lattice.Geo` 是文件唯一的收尾，所以「插到它前面」等于「插到文件末尾」，
-而末尾【已经】在 `pointwiseNetActN` 之后——**但那不是失败的原因：真正的失败是那块代码里
-`lossOfActivations` 的引用位置没有随之移动。**
-
-## 正确的做法（下一轮直接照做）
-
-**不要移动块，而是【重排整节】**：把下列五者按此顺序放成连续的第四节（`## 第四层`），
-从 `netPoints` 一直到 `netLossOn_differentiableAt`：
-
-1. `netPoints`（`Fin k → AffineLayer`）
+1. `netPoints`
 2. `netPoints_eq_trunc`
 3. `netLossOn`
-4. `lossOfActivations` + `lossOfActivations_differentiableAt`
-5. `differentiableAt_pointwiseNetActN`（或从第 135 轮处前置）
+4. `lossOfActivations`（在第七层，已定义于前）
+5. `differentiableAt_pointwiseNetActN`（第六层，已定义于前）
 6. `netLossOn_eq_comp`
 7. `netLossOn_differentiableAt`
 
-**⇒ 判据：改完后 `lake build Lattice.Domains.Constraints.NetLossDerivative` 必须一次通过；
-若仍报 `function expected at lossOfActivations`，那就是步骤 4 没有排在步骤 6 之前。**
+**⚠ 第 137 轮六次失败的原因就是没有按这个顺序：**
+**`netLossOn_eq_comp` 引用 `lossOfActivations`，而它定义在文件【后】面。**
+**本节把 1–3 放在 `end Lattice.Geo` 【之前】而 6–7 放在【最后】，
+所以两者都在 `lossOfActivations` 与 `pointwiseNetActN` 之后。** -/
 
-**本轮【未】做这个重排**——六次尝试说明我对 Lean 单遍处理的直觉在这条链上不够可靠，
-**而重排整个文件的一节是一个应当单独、完整地做的改动，不是在一轮末尾继续试。** -/
+/-- **有限前缀上的内层点列**：`j < K` 处取 `netActN n k Pf (p ⟨j⟩)`，界外为 `0`。 -/
+noncomputable def netPoints {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) : ℕ → Pt n :=
+  fun j => if h : j < K then netActN n k Pf (p ⟨j, h⟩) else 0
+
+/-- **`netPoints` 就是 `trunc` 作用在「逐点 `netActN`」上**——**定义级等式。** -/
+theorem netPoints_eq_trunc {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) :
+    netPoints (n := n) Pf p = trunc (n := n) (fun i : Fin K => netActN n k Pf (p i)) := by
+  funext j
+  simp only [netPoints, trunc]
+
+/-- **有限前缀上的 `netLoss`**——**内层点列用 `netPoints`，界外为零。** -/
+noncomputable def netLossOn {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (netPoints Pf p))).sum
+
+/-- ⭐⭐⭐ **`netLossOn` 就是 `lossOfActivations` 与「逐点 `netActN`」的复合**。
+
+**由 `netPoints_eq_trunc`：两侧的内层点列都是 `trunc (逐点 netActN)`，逐字相同。** -/
+theorem netLossOn_eq_comp {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (r : Fin K → Pt n) :
+    netLossOn Pf cs r = lossOfActivations cs (fun j : Fin K => netActN n k Pf (r j)) := by
+  simp only [netLossOn, lossOfActivations, netPoints_eq_trunc]
+
+/-- ⭐⭐⭐ **`netLossOn` 对输入点列可微**——**正向方向的这一块完成。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN`（激活关于输入）复合。** -/
+theorem netLossOn_differentiableAt {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k Pf (p j))) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p := by
+  rw [show (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) from by
+    funext r
+    exact netLossOn_eq_comp Pf cs r]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k Pf (p j)) hK hk).comp p
+    (differentiableAt_pointwiseNetActN Pf p)
 
 end Lattice.Geo
