@@ -122,4 +122,47 @@ theorem penaltyLoss_congr_of_indicesBelow {n : ℕ} (c : GeoConstraint n) (K : �
   | .samePoint a b, ⟨ha, hb⟩ =>
       simp only [penaltyLoss, sqDist_congr (h a ha) (h b hb)]
 
+/-! ## 第三层：把「点列一致」提升到「损失函数一致」
+
+**`netLoss` 的内层点列 `fun j => netAct params (pts j)` 不是任何 `trunc φ`**
+（`netAct params 0 ≠ 0`，见上一节）。
+
+**但上一节说的是：`penaltyLoss c` 只读 `[0,K)`。**
+**于是若有两条点列在 `[0,K)` 上逐点一致，则复合出的损失值【相等】。**
+**这条等式是纯函数的（不涉及导数）。** -/
+
+/-- ⭐⭐ **函数层面的版本**：若两【族】点列在界内逐点一致，则复合出的函数相等。 -/
+theorem penaltyLoss_comp_funext {E : Type*} {n : ℕ} (c : GeoConstraint n) (K : ℕ)
+    (hK : ConstraintIndicesBelow c K) (F G : E → ℕ → Pt n)
+    (h : ∀ e j, j < K → F e j = G e j) :
+    (fun e => penaltyLoss c (F e)) = fun e => penaltyLoss c (G e) := by
+  funext e
+  exact penaltyLoss_congr_of_indicesBelow c K hK (F e) (G e) (fun j hj => h e j hj)
+
+/-! ### ⚠ 未闭合：把 `netAct` 路径接上 `trunc`
+
+**要证的是**
+
+```lean
+(fun r : Fin K → Pt n => penaltyLoss c (fun j => netAct params (trunc r j)))
+  = fun r : Fin K → Pt n => penaltyLoss c (trunc (fun j => netAct params (trunc r j)))
+```
+
+**它由 `penaltyLoss_comp_funext` 加 `trunc_apply` 应当直接得到**——
+**逐点：`trunc (fun i => netAct params (trunc r i)) j = netAct params (trunc r j)`（`j < K`）。**
+
+**⚠ 但 `trunc {K n : ℕ}` 的 `n` 无法从 `fun i => netAct params (trunc r i)` 的返回类型推断，
+而显式写 `(n := n)` 时 `n` 又与定理自己的 `n` 同名，Lean 报
+`don't know how to synthesize implicit argument @trunc (?m …) n …`。**
+
+**⇒ 下一步的解法是先把这个复合点列绑定到一个**有类型的局部 `let`**：**
+
+```lean
+let Ψ : ℕ → Pt n := fun j => netAct params (trunc r j)
+-- 然后在 Ψ 上做 trunc Ψ，`n` 就从 Ψ 的类型里读出来了
+```
+
+**这是第 111／124／130 轮同一族问题的第 N 次出现**：
+**隐式参数无唯一来源时，先给它一个有类型的名字，再使用。** -/
+
 end Lattice.Geo
