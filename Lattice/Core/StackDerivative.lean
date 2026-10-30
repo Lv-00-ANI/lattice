@@ -164,4 +164,66 @@ theorem netActN_eq_netAct {k n : ℕ} (p : Fin k → AffineLayer (Fin n)) (x : F
       rw [netActN_succ, ih (fun i : Fin k => p i.succ)]
       simp only [netAct, List.ofFn_succ, List.foldl_cons]
 
+/-! ## ⭐⭐ `netActN` 对输入可微——**按 `k` 归纳**
+
+## 为什么这里是 `x` 而不是参数
+
+**参数侧（`singleParams k n = Fin k → (W, b)`）的可微性要更复杂的形状**：需要 `Fin k →` 上的 `fderiv`
+与逐层的 `HasFDerivAt.comp`，**而那要先把「第 `i` 层只依赖 `q i`」这件事显式化**——**那是下一轮。**
+
+**本节做的是【输入侧】，而它的归纳结构干净得多**：
+
+```
+netActN n (k+1) p y = netActN n k (p ∘ succ) (affineAct (p 0) y)
+```
+
+⇒ **它是「单层 `affineAct (p 0)`」与「前 `k` 层」的复合**，所以归纳步就是 `DifferentiableAt.comp`。
+
+## 为什么必须 `∀` 在陈述里
+
+**归纳时 `p` 会变成 `p ∘ succ`**，所以 `p` 不能固定在定理的 binder 上——
+**陈述写成 `∀ k p x, ...`，归纳对 `k` 做，`p`/`x` 在每一步重新引入。** -/
+
+/-- ⭐⭐ **`k` 层栈对输入可微**：对任意层表 `p` 与任意输入 `x`。
+
+**证明对 `k` 归纳**：`k = 0` 是恒等（`differentiableAt_id`）；
+`k + 1` 用 `netActN_succ` 把函数改写成复合，再用 `DifferentiableAt.comp` 拼「首层」与「其余」。 -/
+theorem differentiableAt_netActN {n : ℕ} :
+    ∀ (k : ℕ) (p : Fin k → AffineLayer (Fin n)) (x : Fin n → ℝ),
+      DifferentiableAt ℝ (netActN n k p) x
+  | 0, p, x => by
+      have hfun : netActN n 0 p = id := by
+        funext y
+        exact netActN_zero p y
+      rw [hfun]
+      exact differentiableAt_id
+  | k + 1, p, x => by
+      have hfun : netActN n (k + 1) p
+          = fun y => netActN n k (fun i => p i.succ) (affineAct (p 0) y) := by
+        funext y
+        exact netActN_succ p y
+      rw [hfun]
+      exact (differentiableAt_netActN k (fun i => p i.succ) (affineAct (p 0) x)).comp x
+        (hasFDerivAt_affineAct (p 0) x).differentiableAt
+
+/-- ⭐⭐ **`netAct` 对输入可微**——**把上一节的结论搬到 `netAct` 上**。
+
+**桥就是 `netActN_eq_netAct`（第 108 轮）**：`netAct (List.ofFn p) x = netActN n k p x`，
+所以 `netAct` 在层表 `List.ofFn p` 处的可微性就是 `netActN` 的可微性。 -/
+theorem differentiableAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin n))
+    (x : Fin n → ℝ) :
+    DifferentiableAt ℝ (fun y => netAct (List.ofFn p) y) x := by
+  have hfun : (fun y => netAct (List.ofFn p) y) = netActN n k p := by
+    funext y
+    exact (netActN_eq_netAct p y).symm
+  rw [hfun]
+  exact differentiableAt_netActN k p x
+
+/-- **`netAct` 在 `Fin k` 层表上的导数存在**——`HasFDerivAt` 的句柄，由 `fderiv` 给出。 -/
+theorem hasFDerivAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin n))
+    (x : Fin n → ℝ) :
+    HasFDerivAt (fun y => netAct (List.ofFn p) y)
+      (fderiv ℝ (fun y => netAct (List.ofFn p) y) x) x :=
+  (differentiableAt_netAct_ofFn p x).hasFDerivAt
+
 end Lattice.Core

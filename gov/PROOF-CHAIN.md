@@ -903,7 +903,7 @@
 | `Lattice.Core.RepairWF` | 4 | 3 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
-| `Lattice.Core.StackDerivative` | 7 | 3 |
+| `Lattice.Core.StackDerivative` | 10 | 3 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
@@ -2135,7 +2135,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `admm_z_minimizer` -> `add`
 - `aestronglyMeasurable_of_measurable` -> `apply`, `mono`
 - `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `affineAct_eq_affineCLM_add` -> `AffineLayer`, `W`, `affineAct`, `induction`, `netAct`, `zero`
+- `affineAct_eq_affineCLM_add` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
@@ -3742,7 +3742,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dichotomy_fails_without_mono` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`
 - `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `induction`, `netAct`, `zero`
+- `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `differentiableAt_netActN` -> `AffineLayer`, `affineAct`, `comp`, `netAct`
+- `differentiableAt_netAct_ofFn` -> `AffineLayer`, `netAct`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -5154,12 +5156,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasDerivAt_perpResid_affine` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_perpResid_along_bump` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_sqLoss` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
-- `hasFDerivAt_affineAct` -> `AffineLayer`, `W`, `affineAct`, `induction`, `netAct`, `zero`
-- `hasFDerivAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `induction`, `netAct`, `zero`
+- `hasFDerivAt_affineAct` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `hasFDerivAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `hasFDerivAt_coord` -> `mul`, `unflatten`
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
+- `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `netAct`
 - `hasFDerivAt_perpResid` -> `mul`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
 - `hasFDerivAt_sq` -> `E`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
@@ -6613,9 +6616,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nesterov_lyapunov_telescope` -> `Smooth`, `induction`, `le_trans`, `nesterov_descent_lemma_le`, `zero`
 - `nesterov_rate` -> `Smooth`, `SubgradientIterate`
 - `nesterov_rate_of_lyapunov` -> `Smooth`, `nesterov_descent_lemma_le`
-- `netActN_eq_netAct` -> `AffineLayer`, `induction`, `netAct`, `zero`
-- `netActN_succ` -> `AffineLayer`, `affineAct`, `induction`, `netAct`, `zero`
-- `netActN_zero` -> `AffineLayer`, `affineAct`, `induction`, `netAct`, `zero`
+- `netActN_eq_netAct` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `netActN_succ` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `netActN_zero` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
