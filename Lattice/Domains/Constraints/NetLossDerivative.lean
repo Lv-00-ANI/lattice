@@ -796,4 +796,47 @@ theorem netLossOn_differentiableAt_joint_nonKink {K k n : ℕ}
     (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp (q, p)
     (differentiableAt_pointwiseNetActN_joint q p)
 
+/-- ⭐⭐⭐ **`netLossOn` 的导数在方向 `d` 上的求值（非折点版）**——
+**第 144 轮定理的弱化前提版本。** -/
+theorem netLossOn_fderiv_apply_nonKink {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p d : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k Pf (p j))) :
+    fderiv ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p d
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k Pf (p j))
+          (activationFDeriv Pf p d) := by
+  have hcomp : (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) := by
+    funext r
+    exact netLossOn_eq_comp Pf cs r
+  rw [hcomp, fderiv_comp p
+    (lossOfActivations_differentiableAt_nonKink cs
+      (fun j : Fin K => netActN n k Pf (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN Pf p), ContinuousLinearMap.comp_apply,
+    activationFDeriv]
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数在参数方向 `e` 上的求值（非折点版）**——
+**第 145 轮定理的弱化前提版本。** -/
+theorem netLossOn_fderiv_apply_params_nonKink {K k n : ℕ} (q : Fin k → singleParams n)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) (e : Fin k → singleParams n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    fderiv ℝ (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q e
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k (packLayers q) (p j))
+          (activationFDerivParams q p e) := by
+  have hcomp : (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) := by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p
+  rw [hcomp, fderiv_comp q
+    (lossOfActivations_differentiableAt_nonKink cs
+      (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN_params q p), ContinuousLinearMap.comp_apply,
+    activationFDerivParams]
+
 end Lattice.Geo
