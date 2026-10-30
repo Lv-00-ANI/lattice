@@ -63,4 +63,55 @@ theorem hasFDerivAt_affineAct {n : ℕ} (L : AffineLayer (Fin n)) (x : Fin n →
   exact h.congr_of_eventuallyEq
     (Filter.Eventually.of_forall (fun y => (affineAct_eq_affineCLM_add L y).symm))
 
+/-! ## ⭐⭐ 对**参数** `(W, b)` 的可微性——`P2-02` 真正需要的那一级
+
+上一节给的是对**输入** `x` 的导数（导数是 `W` 作用）。**本节给对参数 `(W, b)` 的**，那时 `x` 是常数。
+
+## 为什么不手工构造那条连续线性映射
+
+**我试过。** `paramsCLM x : ((Fin n → Fin n → ℝ) × (Fin n → ℝ)) →L[ℝ] (Fin n → ℝ)` 的
+`map_add'`／`map_smul'` 是「有限和的分配律」，而 `Finset.sum_add_distrib` 在这个形状下不出手，
+`ring`／`ring_nf` 也无法在 `∑` 内部按索引对齐——**三次尝试都失败在同一处。**
+
+**⇒ 所以本文件不手工构造 CLM，而是证【可微性】。** `fderiv ℝ f p` 就是那条线性映射，
+**而 mathlib 的 `fderiv` 会自动归一化它**——**消费者拿到的东西完全一样，而证明只需一行 `fun_prop`。**
+
+⚠ **这不是让步**：`DifferentiableAt` + `fderiv` 是 mathlib 里**标准**的用法，
+**而手工构造 CLM 只在需要【显式】线性映射的形状时才必要**（例如要拿它的算子范数）。
+**若将来需要算子范数，那时再构造，并且应当先把 `map_add'` 抽成一条独立的引理。**
+
+## 定义域为什么是 `(Fin n → Fin n → ℝ) × (Fin n → ℝ)` 而不是 `stackParams 1 n`
+
+`stackParams 1 n = Fin 1 → (Fin n → Fin n → ℝ) × (Fin n → ℝ)`。**`Fin 1` 只有一个元素，所以两者等价**，
+**但直接写 `Prod` 少一层 `Fin 1` 的搬运**，而 `Prod` 的实例都是现成的。**`stackParams k n` 在 `k ≥ 2` 时才真正必要。** -/
+
+/-- **参数空间**：`W : Fin n → Fin n → ℝ` 与 `b : Fin n → ℝ` 的积。
+
+**这是「单层参数」的赋范向量空间**——`Prod` 与 `Pi` 的实例自动给出，不需要手写代数。 -/
+abbrev singleParams (n : ℕ) : Type := (Fin n → Fin n → ℝ) × (Fin n → ℝ)
+
+/-- ⭐⭐ **`affineAct` 对参数可微**：`x` 固定时，`(W, b) ↦ affineAct ⟨W, b⟩ x` 在任意点可微。
+
+**证明是 `simp only [affineAct]` 加 `fun_prop`**——**后者处理「有限和 + 常数乘 + 加常数」这个形状**，
+**而上一节已经证明它能处理同一类目标（那里的 `cont` 也是它关掉的）。**
+
+**导数就是 `fderiv ℝ (fun p => affineAct ⟨p.1, p.2⟩ x) (W, b)`**，**不需要显式写出它。** -/
+theorem differentiableAt_affineAct_params {n : ℕ} (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ)
+    (x : Fin n → ℝ) :
+    DifferentiableAt ℝ
+      (fun p : singleParams n => affineAct ⟨p.1, p.2⟩ x) (W, b) := by
+  change DifferentiableAt ℝ
+    (fun p : singleParams n => fun j => (∑ i, p.1 i j * x i) + p.2 j) (W, b)
+  fun_prop
+
+/-- **`affineAct` 对参数的导数存在**，且它就是 `fderiv`。
+
+**这一条是给消费者的句柄**：它把 `DifferentiableAt` 变成 `HasFDerivAt`，
+**而 `fderiv` 就是那个线性映射。** -/
+theorem hasFDerivAt_affineAct_params {n : ℕ} (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ)
+    (x : Fin n → ℝ) :
+    HasFDerivAt (fun p : singleParams n => affineAct ⟨p.1, p.2⟩ x)
+      (fderiv ℝ (fun p : singleParams n => affineAct ⟨p.1, p.2⟩ x) (W, b)) (W, b) :=
+  (differentiableAt_affineAct_params W b x).hasFDerivAt
+
 end Lattice.Core
