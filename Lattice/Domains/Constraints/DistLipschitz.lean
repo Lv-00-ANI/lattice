@@ -110,6 +110,37 @@ theorem coordDiff_add_le {n : ℕ} {pts pts' : ℕ → Pt n} {a b : ℕ} {B : �
 
 /-! ## 二、`sqDist` 的界 -/
 
+/-- ⭐ **`sqDist` 的绝对值界**：坐标被 `B` 界住时，`|sqDist (pts a) (pts b)| ≤ 4·n·B²`。
+
+**这是 `sqDist` 的【有界性】，与 `sqDist_lipschitz` 的【Lipschitz 性】是两件事。**
+`sqDistEq`／`equalLength` 两个分支的**外层平方**需要它（`sq_lipschitz_on_bounded` 要求两端有界）。
+
+**推导**：`sqDist p q = ∑ i, (p i − q i)²`（`Dist.sqDist_eq_sum`），
+而 `|p i − q i| ≤ |p i| + |q i| ≤ 2B`，所以每项 `≤ 4B²`，`n` 项求和。 -/
+theorem sqDist_abs_le {n : ℕ} {pts : ℕ → Pt n} {a b : ℕ} {B : ℝ}
+    (hB : 0 ≤ B) (hpts : ∀ p i, |pts p i| ≤ B) :
+    |sqDist (n := n) (pts a) (pts b)| ≤ 4 * (n : ℝ) * B * B := by
+  have hd : ∀ i : Fin n, |pts a i - pts b i| ≤ 2 * B := by
+    intro i
+    have h1 : |pts a i - pts b i| ≤ |pts a i| + |pts b i| := by
+      have := abs_add (pts a i) (-(pts b i))
+      simpa only [sub_eq_add_neg, abs_neg] using this
+    linarith [hpts a i, hpts b i]
+  have hterm : ∀ i : Fin n, (pts a i - pts b i) ^ 2 ≤ 4 * B * B := by
+    intro i
+    have h2 := hd i
+    have h3 : |pts a i - pts b i| ^ 2 ≤ (2 * B) ^ 2 := pow_le_pow_left (abs_nonneg _) h2 2
+    rw [sq_abs] at h3
+    nlinarith [h3]
+  have hnonneg : 0 ≤ ∑ i, (pts a i - pts b i) ^ 2 :=
+    Finset.sum_nonneg (fun i _ => sq_nonneg _)
+  rw [Lattice.Geo.sqDist_eq_sum, abs_of_nonneg hnonneg]
+  calc ∑ i, (pts a i - pts b i) ^ 2 ≤ ∑ _i : Fin n, 4 * B * B :=
+        Finset.sum_le_sum (fun i _ => hterm i)
+    _ = 4 * (n : ℝ) * B * B := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
+
 /-- **`sqDist` 在 `rho` 下是 Lipschitz 的，常数 `8·n·B`。**
 
 前提 `hpts`、`hpts'` 给出两组点各自的坐标界 `B ≥ 0`。**不可省**：
