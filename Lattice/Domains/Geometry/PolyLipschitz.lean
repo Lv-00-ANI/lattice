@@ -110,4 +110,40 @@ theorem bilinearSum_lipschitz {n k : ℕ} {pts pts' : ℕ → Pt n} {a b c e : �
     _ = n * ((8 * B) * rho n k pts pts') := by simp
     _ = (8 * n * B) * rho n k pts pts' := by ring
 
+/-- ⭐ **双线性求和的绝对值界**：`|∑ i, (pts b i − pts a i)·(pts e i − pts c i)| ≤ 4·n·B²`。
+
+**这是 `bilinearSum_lipschitz` 的【有界性】对应物**（那一条给的是【变化】）。
+`perpendicular`／`rightAngle` 两支的外层平方需要它。
+
+**推导**：每个因子 `≤ 2B`，所以每项 `≤ 4B²`，`n` 项。 -/
+theorem bilinearSum_abs_le {n : ℕ} {pts : ℕ → Pt n} {a b c e : ℕ} {B : ℝ}
+    (hB : 0 ≤ B) (hpts : ∀ p i, |pts p i| ≤ B) :
+    |∑ i : Fin n, (pts b i - pts a i) * (pts e i - pts c i)| ≤ 4 * (n : ℝ) * B * B := by
+  have hu : ∀ i : Fin n, |pts b i - pts a i| ≤ 2 * B := by
+    intro i
+    have h1 : |pts b i - pts a i| ≤ |pts b i| + |pts a i| := by
+      have := abs_add (pts b i) (-(pts a i))
+      simpa only [sub_eq_add_neg, abs_neg] using this
+    linarith [hpts b i, hpts a i]
+  have hw : ∀ i : Fin n, |pts e i - pts c i| ≤ 2 * B := by
+    intro i
+    have h1 : |pts e i - pts c i| ≤ |pts e i| + |pts c i| := by
+      have := abs_add (pts e i) (-(pts c i))
+      simpa only [sub_eq_add_neg, abs_neg] using this
+    linarith [hpts e i, hpts c i]
+  have hterm : ∀ i : Fin n,
+      |(pts b i - pts a i) * (pts e i - pts c i)| ≤ 4 * B * B := by
+    intro i
+    rw [abs_mul]
+    have h2 : |pts b i - pts a i| * |pts e i - pts c i| ≤ (2 * B) * (2 * B) :=
+      mul_le_mul (hu i) (hw i) (abs_nonneg _) (by linarith [hB])
+    nlinarith [h2]
+  calc |∑ i : Fin n, (pts b i - pts a i) * (pts e i - pts c i)|
+      ≤ ∑ i : Fin n, |(pts b i - pts a i) * (pts e i - pts c i)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _i : Fin n, 4 * B * B := Finset.sum_le_sum (fun i _ => hterm i)
+    _ = 4 * (n : ℝ) * B * B := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
+
 end Lattice.Geo

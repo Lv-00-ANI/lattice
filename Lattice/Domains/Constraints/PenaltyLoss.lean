@@ -76,6 +76,7 @@ import Lattice.Domains.Constraints.Constraint
 import Lattice.Domains.Constraints.Dist
 import Lattice.Domains.Constraints.Lipschitz
 import Lattice.Domains.Constraints.DistLipschitz
+import Lattice.Domains.Geometry.PolyLipschitz
 import Lattice.Lib.Penalty.BilinearLocallyLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 
@@ -618,6 +619,57 @@ theorem equalLength_lipschitz {n k : ℕ} {a b c e : ℕ} {B : ℝ}
     (t := sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e)) hR hp hq
   have hstep := mul_le_mul_of_nonneg_left hdiff (by positivity : (0 : ℝ) ≤ 2 * (8 * (n : ℝ) * B * B))
   simpa only [penaltyLoss] using le_trans hsq hstep
+
+/-- ⭐⭐ **`perpendicular` 分支**：`(∑ i, seg pts a b i · seg pts c e i)²`。
+
+**内层的差** `≤ 8nB·rho`（`bilinearSum_lipschitz`）、**内层的界** `≤ 4nB²`（`bilinearSum_abs_le`）。
+**所以外层是 `2·(4nB²)` 倍的平方型界。** -/
+theorem perpendicular_lipschitz {n k : ℕ} {a b c e : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (he : e < k) (hB : 0 ≤ B)
+    (pts pts' : ℕ → Pt n)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B) :
+    |penaltyLoss (.perpendicular a b c e) pts
+        - penaltyLoss (.perpendicular a b c e) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) * rho n k pts pts') := by
+  have h1 := Lattice.Geo.bilinearSum_lipschitz (n := n) (k := k) (pts := pts) (pts' := pts')
+    (a := a) (b := b) (c := c) (e := e) ha hb hc he hB hpts hpts'
+  have hp : |∑ i, seg pts a b i * seg pts c e i| ≤ 4 * (n : ℝ) * B * B := by
+    simpa only [seg] using Lattice.Geo.bilinearSum_abs_le (n := n) (pts := pts)
+      (a := a) (b := b) (c := c) (e := e) hB hpts
+  have hq : |∑ i, seg pts' a b i * seg pts' c e i| ≤ 4 * (n : ℝ) * B * B := by
+    simpa only [seg] using Lattice.Geo.bilinearSum_abs_le (n := n) (pts := pts')
+      (a := a) (b := b) (c := c) (e := e) hB hpts'
+  have hR : 0 ≤ 4 * (n : ℝ) * B * B := by positivity
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := ∑ i, seg pts a b i * seg pts c e i)
+    (t := ∑ i, seg pts' a b i * seg pts' c e i) hR hp hq
+  have hstep := mul_le_mul_of_nonneg_left h1 (by positivity : (0 : ℝ) ≤ 2 * (4 * (n : ℝ) * B * B))
+  simpa only [penaltyLoss, seg] using le_trans hsq hstep
+
+/-- ⭐⭐ **`rightAngle` 分支**：`(∑ i, seg pts a b i · seg pts b c i)²`。
+
+**与 `perpendicular` 同构**，只是第二个和项的线段是 `b → c` 而不是 `c → e`
+（所以 `bilinearSum_lipschitz` 的 `c` 取 `b`、`e` 取 `c`）。 -/
+theorem rightAngle_lipschitz {n k : ℕ} {a b c : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (hB : 0 ≤ B)
+    (pts pts' : ℕ → Pt n)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B) :
+    |penaltyLoss (.rightAngle a b c) pts - penaltyLoss (.rightAngle a b c) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) * rho n k pts pts') := by
+  have h1 := Lattice.Geo.bilinearSum_lipschitz (n := n) (k := k) (pts := pts) (pts' := pts')
+    (a := a) (b := b) (c := b) (e := c) ha hb hb hc hB hpts hpts'
+  have hp : |∑ i, seg pts a b i * seg pts b c i| ≤ 4 * (n : ℝ) * B * B := by
+    simpa only [seg] using Lattice.Geo.bilinearSum_abs_le (n := n) (pts := pts)
+      (a := a) (b := b) (c := b) (e := c) hB hpts
+  have hq : |∑ i, seg pts' a b i * seg pts' b c i| ≤ 4 * (n : ℝ) * B * B := by
+    simpa only [seg] using Lattice.Geo.bilinearSum_abs_le (n := n) (pts := pts')
+      (a := a) (b := b) (c := b) (e := c) hB hpts'
+  have hR : 0 ≤ 4 * (n : ℝ) * B * B := by positivity
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := ∑ i, seg pts a b i * seg pts b c i)
+    (t := ∑ i, seg pts' a b i * seg pts' b c i) hR hp hq
+  have hstep := mul_le_mul_of_nonneg_left h1 (by positivity : (0 : ℝ) ≤ 2 * (4 * (n : ℝ) * B * B))
+  simpa only [penaltyLoss, seg] using le_trans hsq hstep
 
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 

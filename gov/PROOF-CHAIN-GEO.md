@@ -75,14 +75,14 @@
 | `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
 | `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
 | `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `Lattice.Domains.PenaltyLoss` | 741 | 26 | Constraint, Dist, Lipschitz, DistLipschitz |
+| `Lattice.Domains.PenaltyLoss` | 793 | 28 | Constraint, Dist, Lipschitz, DistLipschitz, PolyLipschitz |
 | `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
 | `Lattice.Domains.Perturb` | 126 | 8 | Flatten |
 | `Lattice.Domains.Pipeline` | 169 | 7 | Constraint, Expr, Loss |
 | `Lattice.Domains.Plucker` | 105 | 2 | Exterior |
 | `Lattice.Domains.PolyAssemble` | 128 | 4 | Lipschitz, DistLipschitz, PolyLipschitz, Loss |
 | `Lattice.Domains.PolyConstants` | 159 | 5 | Lipschitz, DistLipschitz, PolyAssemble |
-| `Lattice.Domains.PolyLipschitz` | 114 | 1 | Lipschitz, DistLipschitz, Loss |
+| `Lattice.Domains.PolyLipschitz` | 150 | 2 | Lipschitz, DistLipschitz, Loss |
 | `Lattice.Domains.PolyNondegenerate` | 210 | 8 | Loss, ExprLocalMin, Dist, Derivative |
 | `Lattice.Domains.PolyRepair` | 174 | 5 | RepairCoverage, Constraint |
 | `Lattice.Domains.PolySpecificRepair` | 216 | 7 | Loss, Constraint |

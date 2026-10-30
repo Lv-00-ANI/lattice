@@ -250,6 +250,8 @@ Domains/Constraints/PenaltyLoss.lean	gtZero_lipschitz
 Domains/Constraints/PenaltyLoss.lean	samePoint_lipschitz
 Domains/Constraints/PenaltyLoss.lean	sqDistEq_lipschitz
 Domains/Constraints/PenaltyLoss.lean	equalLength_lipschitz
+Domains/Constraints/PenaltyLoss.lean	perpendicular_lipschitz
+Domains/Constraints/PenaltyLoss.lean	rightAngle_lipschitz
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_leZero
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_gtZero
@@ -511,6 +513,7 @@ Domains/Geometry/PolyAssemble.lean	poly_lipschitz_samePoint
 Domains/Geometry/PolyAssemble.lean	poly_lipschitz_distEq
 Domains/Geometry/PolyAssemble.lean	poly_lipschitz_perpendicular
 Domains/Geometry/PolyLipschitz.lean	bilinearSum_lipschitz
+Domains/Geometry/PolyLipschitz.lean	bilinearSum_abs_le
 Domains/Geometry/PolyNondegenerate.lean	poly_expr_localMin_implies_zero
 Domains/Geometry/PolyNondegenerate.lean	poly_samePoint_eq_sqDist
 Domains/Geometry/PolyNondegenerate.lean	poly_samePoint_nonneg
