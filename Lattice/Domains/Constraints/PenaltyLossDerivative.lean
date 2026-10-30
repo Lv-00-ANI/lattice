@@ -1166,4 +1166,122 @@ theorem hasFDerivAt_negMaxZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelo
   filter_upwards [hx] with r hr
   rw [hr]
 
+/-! ## ⭐⭐⭐ `max` 支的【负侧】分支定理，与「非折点」合并版
+
+**上一节给了 `max` 两个形状在 `evalPts e < 0` 处的导数（都是零映射）。**
+**本节把它们接进 `penaltyLoss` 的对应分支，并给出以 `evalPts e ≠ 0` 为唯一前提的合并定理。**
+
+**⚠ 关键在于 `penaltyLossFDeriv` 的系数不用改**：
+**`leZero`／`ltZero` 的系数是 `2 * max (evalPts e) 0`，负侧由 `max_eq_right` 化简为 `0`，
+而 `0 • x' = 0` 恰好是 `hasFDerivAt_maxZero_neg` 给出的导数。** -/
+
+/-- ⭐⭐ **`leZero` 的负侧**：`evalPts e < 0` 时导数是 `penaltyLossFDeriv`（此时等于零映射）。 -/
+theorem hasFDerivAt_leZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hneg : GeoExpr.evalPts e (trunc p) < 0) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss (.leZero e) (trunc r))
+      (penaltyLossFDeriv (.leZero e) hK p) p := by
+  have hfun : (fun r : Fin K → Pt n => penaltyLoss (.leZero e) (trunc r))
+      = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+    funext r
+    simp only [penaltyLoss]
+  rw [hfun]
+  have hmax : max (GeoExpr.evalPts e (trunc p)) 0 = 0 := max_eq_right (le_of_lt hneg)
+  have hzero : penaltyLossFDeriv (.leZero e) hK p
+      = (0 : (Fin K → Pt n) →L[ℝ] ℝ) := by
+    simp only [penaltyLossFDeriv, hmax, mul_zero, zero_smul]
+  rw [hzero]
+  exact hasFDerivAt_maxZero_neg e hK p hneg
+
+/-- ⭐⭐ **`ltZero` 的负侧**——与 `leZero` 同形。 -/
+theorem hasFDerivAt_ltZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hneg : GeoExpr.evalPts e (trunc p) < 0) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss (.ltZero e) (trunc r))
+      (penaltyLossFDeriv (.ltZero e) hK p) p := by
+  have hfun : (fun r : Fin K → Pt n => penaltyLoss (.ltZero e) (trunc r))
+      = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+    funext r
+    simp only [penaltyLoss]
+  rw [hfun]
+  have hmax : max (GeoExpr.evalPts e (trunc p)) 0 = 0 := max_eq_right (le_of_lt hneg)
+  have hzero : penaltyLossFDeriv (.ltZero e) hK p
+      = (0 : (Fin K → Pt n) →L[ℝ] ℝ) := by
+    simp only [penaltyLossFDeriv, hmax, mul_zero, zero_smul]
+  rw [hzero]
+  exact hasFDerivAt_maxZero_neg e hK p hneg
+
+/-- ⭐⭐ **`gtZero` 的负侧**：`evalPts e < 0` 时内层 `-x > 0`，导数是 `(2(-x)) • (-x')`。 -/
+theorem hasFDerivAt_gtZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hneg : GeoExpr.evalPts e (trunc p) < 0) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss (.gtZero e) (trunc r))
+      (penaltyLossFDeriv (.gtZero e) hK p) p := by
+  have hfun : (fun r : Fin K → Pt n => penaltyLoss (.gtZero e) (trunc r))
+      = fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2 := by
+    funext r
+    simp only [penaltyLoss]
+  rw [hfun]
+  exact hasFDerivAt_negMaxZero_neg e hK p hneg
+
+/-! ## ⭐⭐⭐⭐ 合并版：`penaltyLoss` 在【所有非折点】处的导数
+
+**第 128 轮的总定理要求 `KinkPositive c K p`（三支 `max` 的 `evalPts e > 0`）。**
+**加上第 146／147 轮的负侧之后，前提可以弱化成「`evalPts e ≠ 0`」——即【只要不在折点】。**
+
+**⚠ 这是真正的弱化**：`KinkPositive` 只覆盖正侧，而 `NonKink` 覆盖正负两侧。
+
+**实现策略**：**不重写十二支**，而是
+- **`KinkPositive c K p` 成立时用第 128 轮的 `hasFDerivAt_penaltyLoss`**；
+- **否则（三支 `max` 之一，且 `evalPts e < 0`）用第 147 轮的三条负侧定理**；
+- **其余九支 `KinkPositive` 恒真（定义上 `True`），所以第一种情形总适用。** -/
+
+/-- **非折点**：`max` 三支的表达式不取零。 -/
+def NonKink {n : ℕ} (c : GeoConstraint n) (K : ℕ) (p : Fin K → Pt n) : Prop :=
+  match c with
+  | .leZero e => GeoExpr.evalPts e (trunc p) ≠ 0
+  | .ltZero e => GeoExpr.evalPts e (trunc p) ≠ 0
+  | .gtZero e => GeoExpr.evalPts e (trunc p) ≠ 0
+  | _ => True
+
+/-- **`NonKink` 蕴含「`KinkPositive` 或「三支之一的负侧」**——
+**这正是分派所需的逻辑形态。** -/
+theorem nonKink_cases {n : ℕ} (c : GeoConstraint n) (K : ℕ) (p : Fin K → Pt n)
+    (hk : NonKink c K p) :
+    KinkPositive c K p ∨
+      (∃ (e : GeoExpr n), c = .leZero e ∧ GeoExpr.evalPts e (trunc p) < 0) ∨
+      (∃ (e : GeoExpr n), c = .ltZero e ∧ GeoExpr.evalPts e (trunc p) < 0) ∨
+      (∃ (e : GeoExpr n), c = .gtZero e ∧ GeoExpr.evalPts e (trunc p) < 0) := by
+  match c with
+  | .eqZero e => exact Or.inl trivial
+  | .leZero e =>
+      by_cases h : 0 < GeoExpr.evalPts e (trunc p)
+      · exact Or.inl h
+      · exact Or.inr (Or.inl ⟨e, rfl, lt_of_le_of_ne (le_of_not_gt h) hk⟩)
+  | .ltZero e =>
+      by_cases h : 0 < GeoExpr.evalPts e (trunc p)
+      · exact Or.inl h
+      · exact Or.inr (Or.inr (Or.inl ⟨e, rfl, lt_of_le_of_ne (le_of_not_gt h) hk⟩))
+  | .gtZero e =>
+      by_cases h : 0 < GeoExpr.evalPts e (trunc p)
+      · exact Or.inl h
+      · exact Or.inr (Or.inr (Or.inr ⟨e, rfl, lt_of_le_of_ne (le_of_not_gt h) hk⟩))
+  | .sqDistEq a b d => exact Or.inl trivial
+  | .equalLength a b c' e => exact Or.inl trivial
+  | .collinear a b c' => exact Or.inl trivial
+  | .perpendicular a b c' e => exact Or.inl trivial
+  | .parallel a b c' e => exact Or.inl trivial
+  | .rightAngle a b c' => exact Or.inl trivial
+  | .midpoint m a b => exact Or.inl trivial
+  | .samePoint a b => exact Or.inl trivial
+
+/-- ⭐⭐⭐⭐ **`penaltyLoss` 在非折点处的导数是 `penaltyLossFDeriv`**——
+**第 128 轮的弱化版：前提从 `KinkPositive` 变成 `NonKink`。** -/
+theorem hasFDerivAt_penaltyLoss_nonKink {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n) (hk : NonKink c K p) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss c (trunc r))
+      (penaltyLossFDeriv c hK p) p := by
+  rcases nonKink_cases c K p hk with hpos | ⟨e, rfl, hneg⟩ | ⟨e, rfl, hneg⟩ | ⟨e, rfl, hneg⟩
+  · exact hasFDerivAt_penaltyLoss c hK p hpos
+  · exact hasFDerivAt_leZero_neg e hK p hneg
+  · exact hasFDerivAt_ltZero_neg e hK p hneg
+  · exact hasFDerivAt_gtZero_neg e hK p hneg
+
 end Lattice.Geo
