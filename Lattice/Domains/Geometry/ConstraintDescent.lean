@@ -87,6 +87,7 @@ import Lattice.Core.Net
 import Lattice.Domains.Constraints.Constraint
 import Lattice.Domains.Constraints.PenaltyLoss
 import Lattice.Domains.Constraints.NetLoss
+import Lattice.Primitives.WeightDescent
 
 namespace Lattice.Geo.ConstraintDescent
 
@@ -376,6 +377,77 @@ theorem all_coord_constraints_after_one_step {n : ℕ} (c β : Fin n → ℝ) (p
   rw [hres]
   unfold stepVec
   ring
+
+/-! ## 五½、把**权重的一列**装回一层：`WeightDescent` 与 `netLoss` 之间的那一段
+
+§五 用 `shiftLayerVec` 走的是**偏置**（`W = 0`、`b = β`），§六 之后没有别的。
+而 `Primitives/WeightDescent.rowStep` 走的是**权重的一列**：`residual u x b c = ⟨u, x⟩ + b + c`。
+
+⚠ **`u` 是 `W` 的一列而不是一行**：`affineAct` 里 `W i j` 是「输入 `i`、输出 `j`」，
+所以 `⟨u, x⟩` 里 `u` 与 `x` 配对的是**输入下标**，即 `W` 的**第 0 列**。
+
+**本节把那一列装回一层，并算出 `netLoss`**——于是 `WeightDescent` 的 `residual`／`rowStep` 终于
+能被 `netLoss` 的结论消费。
+
+**§五 的 `coordConstraint ⟨0, hn⟩ c` 正是这里需要的约束**（第 0 个点的第 0 个坐标加 `c`），
+**所以本节不另立定义。** -/
+
+/-- **把一组系数 `u` 与偏置 `b` 装成一层**：`W i j = u i`（对输出下标 `j` 常值）、`b j = b`。 -/
+noncomputable def layerOfCol {n : ℕ} (u : Fin n → ℝ) (b : ℝ) : AffineLayer (Fin n) where
+  W := fun i _ => u i
+  b := fun _ => b
+
+/-- ⭐ **`layerOfCol` 的每个输出坐标都相同**：`⟨u, x⟩ + b`。 -/
+theorem layerOfCol_affineAct {n : ℕ} (u x : Fin n → ℝ) (b : ℝ) (j : Fin n) :
+    affineAct (layerOfCol u b) x j = (∑ i, u i * x i) + b := by
+  simp only [affineAct, layerOfCol]
+
+/-- **装回一层之后 `netAct` 的输出是常值 `⟨u, ·⟩ + b`。** -/
+theorem netAct_layerOfCol {n : ℕ} (u x : Fin n → ℝ) (b : ℝ) :
+    netAct [layerOfCol u b] x = fun _ => (∑ i, u i * x i) + b := by
+  funext j
+  simp only [netAct, List.foldl_cons, List.foldl_nil]
+  exact layerOfCol_affineAct u x b j
+
+/-- ⭐⭐ **`Fin n` 的损失是残差的平方**：
+`netLoss [layerOfCol u b] [coordConstraint ⟨0, hn⟩ c] pts = (residual u (pts 0) b c)²`。
+
+**这是 §四 `netLoss_shiftLayer` 的「列」版本**，也是把 `WeightDescent.residual` 接到 `netLoss` 上的那一步。 -/
+theorem netLoss_layerOfCol {n : ℕ} (hn : 0 < n) (b c : ℝ) (pts : ℕ → Pt n)
+    (uvec : Fin n → ℝ) :
+    netLoss [layerOfCol uvec b] [coordConstraint ⟨0, hn⟩ c] pts
+      = (Lattice.Geo.WeightDescent.residual uvec (pts 0) b c) ^ 2 := by
+  have hpay : penaltyLoss (.eqZero (.add (.coord 0 ⟨0, hn⟩) (.const c)))
+      (fun k => netAct [layerOfCol uvec b] (pts k))
+      = (GeoExpr.evalPts (.add (.coord 0 ⟨0, hn⟩) (.const c))
+          (fun k => netAct [layerOfCol uvec b] (pts k))) ^ 2 := rfl
+  have hres : GeoExpr.evalPts (.add (.coord 0 ⟨0, hn⟩) (.const c))
+      (fun k => netAct [layerOfCol uvec b] (pts k))
+      = (∑ i, uvec i * pts 0 i) + b + c := by
+    simp only [GeoExpr.evalPts, netAct_layerOfCol]
+  unfold netLoss coordConstraint
+  rw [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, add_zero]
+  rw [hpay, hres]
+  rfl
+
+/-- ⭐⭐ **`Fin n` 的 `netLoss` 几何衰减**：`k` 步权重列下降之后，损失是
+`((1 − 2η‖x‖²)²)^k` 倍。
+
+**这是 `ForwardChain` 的 `Fin 1` capstone 在 `n` 维上的正确强度**：
+那里乘子恰好为零所以一步归零；**这里一般不为零，所以结论是几何衰减。** -/
+theorem netLoss_layerOfCol_stepN {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : ℕ → Pt n)
+    (uvec : Fin n → ℝ) :
+    ∀ k : ℕ,
+      netLoss [layerOfCol (WeightDescent.rowStepN η (pts 0) b c k uvec) b]
+          [coordConstraint ⟨0, hn⟩ c] pts
+        = ((1 - 2 * η * WeightDescent.sqNormIn (pts 0)) ^ 2) ^ k
+            * netLoss [layerOfCol uvec b] [coordConstraint ⟨0, hn⟩ c] pts := by
+  intro k
+  rw [netLoss_layerOfCol hn b c pts, netLoss_layerOfCol hn b c pts,
+      WeightDescent.residual_rowStepN]
+  rw [mul_pow]
+  congr 1
+  rw [← pow_mul, ← pow_mul, Nat.mul_comm]
 
 /-! ## 六、损失的两条事实（capstone 已搬到 `Compose`）
 

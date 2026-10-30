@@ -308,6 +308,10 @@ Domains/Geometry/ConstraintDescent.lean	netLoss_shiftLayerVec
 Domains/Geometry/ConstraintDescent.lean	netLoss_stepVec
 Domains/Geometry/ConstraintDescent.lean	netLoss_stepVec_le
 Domains/Geometry/ConstraintDescent.lean	all_coord_constraints_after_one_step
+Domains/Geometry/ConstraintDescent.lean	layerOfCol_affineAct
+Domains/Geometry/ConstraintDescent.lean	netAct_layerOfCol
+Domains/Geometry/ConstraintDescent.lean	netLoss_layerOfCol
+Domains/Geometry/ConstraintDescent.lean	netLoss_layerOfCol_stepN
 Domains/Geometry/ConstraintDescent.lean	netLoss_pos_of_ne
 Domains/Geometry/ConstraintDescent.lean	netLoss_zero_iff_holds
 Domains/Geometry/Derivative.lean	localMin_implies_zero
