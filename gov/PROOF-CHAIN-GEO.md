@@ -46,7 +46,7 @@
 | `Lattice.Domains.ExecutableGeoCheck` | 237 | 7 | ExecutableCheck |
 | `Lattice.Domains.Expr` | 136 | 1 | — |
 | `Lattice.Domains.ExprDeriv` | 179 | 8 | Differentiable, Pipeline |
-| `Lattice.Domains.ExprDerivative` | 143 | 6 | Expr |
+| `Lattice.Domains.ExprDerivative` | 229 | 8 | Expr |
 | `Lattice.Domains.ExprLocalMin` | 74 | 3 | ExprDeriv, Derivative |
 | `Lattice.Domains.Exterior` | 110 | 5 | Constraint, Square |
 | `Lattice.Domains.ExteriorSmooth` | 150 | 9 | Differentiable, Exterior, ExprDeriv |

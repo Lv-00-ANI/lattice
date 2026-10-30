@@ -1573,7 +1573,7 @@
 | `Lattice.Domains.Constraints.Eval` | 3 | 1 |
 | `Lattice.Domains.Constraints.Expr` | 8 | 5 |
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
-| `Lattice.Domains.Constraints.ExprDerivative` | 6 | 3 |
+| `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
 | `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
@@ -4268,6 +4268,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalPts_coord` -> `add`, `mul`
 - `evalPts_coord_of_lt` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `evalPts_differentiableAt` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
+- `evalPts_differentiableAt_direct` -> `GeoExpr`, `Pt`, `evalPts`
 - `evalPts_hasNonzeroDeriv` -> `GeoExpr`, `HasNonzeroDeriv`, `derivExpr`, `evalPts`, `hasFDerivAt_eval`, `localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `evalPts_localMin_implies_zero` -> `GeoExpr`, `derivExpr`, `evalPts`, `localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `evalPts_mul` -> `mul`
@@ -5175,6 +5176,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_coordSq` -> `Pt`, `comp`, `convert`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`
+- `hasFDerivAt_evalPts` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
@@ -5375,7 +5377,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `independent_param_count_mono` -> `apply`
 - `indicator_permActEdge` -> `E`, `apply`, `msgPass`, `msgPass_bound`
 - `indicator_sum` -> `abs_mean_le_one`, `uniformExpectation`, `uniformProb`
-- `indicesBelow_const` -> `GeoExpr`
+- `indicesBelow_const` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
+- `indicesBelow_coord` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
 - `induction` -> `add`, `apply`, `depth`, `eval`, `mul`, `size`
 - `infConv_eq_of_le` -> `Subgradient`, `apply`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infConv_le` -> `Subgradient`, `apply`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`

@@ -139,4 +139,90 @@ theorem indicesBelow_const {n : ℕ} (c : ℝ) (K : ℕ) :
 theorem indicesBelow_coord {n : ℕ} (q : ℕ) (axis : Fin n) (K : ℕ) :
     IndicesBelow (.coord q axis) K ↔ q < K := Iff.rfl
 
+/-! ## ⭐⭐⭐ 显式导函数 `evalPtsFDeriv`
+
+**可微性（上一节）只说「导数存在」。本节给出它【是什么】**——按构造子递归：
+
+| `e` | `evalPtsFDeriv e` |
+|:--|:--|
+| `coord q axis` | `coordFDeriv q axis` |
+| `const c` | `0` |
+| `add e₁ e₂` | `f₁ + f₂` |
+| `sub e₁ e₂` | `f₁ - f₂` |
+| `mul e₁ e₂` | `(evalPts e₁ pts) • f₂ + (evalPts e₂ pts) • f₁` |（乘积法则）
+
+⚠ **`mul` 那一支的系数是 `evalPts e₁ pts`（一个实数），不是线性映射**——
+**这正是 `HasFDerivAt.mul` 的结论形式（`f x • g' + g x • f'`，已用探针确认）**，
+**所以定义与定理的形式必须逐字对齐，否则 `exact` 不接受。** -/
+
+/-- **`evalPts` 的显式导数**：一条 `(Fin K → Pt n) →L[ℝ] ℝ`。 -/
+noncomputable def evalPtsFDeriv {n : ℕ} (e : GeoExpr n) (K : ℕ) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
+  match e, hK with
+  | .coord q axis, hK =>
+      coordFDeriv (⟨q, hK⟩ : Fin K) axis
+  | .const _, _ => 0
+  | .add e₁ e₂, hK =>
+      evalPtsFDeriv e₁ K hK.1 p + evalPtsFDeriv e₂ K hK.2 p
+  | .sub e₁ e₂, hK =>
+      evalPtsFDeriv e₁ K hK.1 p - evalPtsFDeriv e₂ K hK.2 p
+  | .mul e₁ e₂, hK =>
+      (GeoExpr.evalPts e₁ (trunc p)) • evalPtsFDeriv e₂ K hK.2 p
+        + (GeoExpr.evalPts e₂ (trunc p)) • evalPtsFDeriv e₁ K hK.1 p
+
+/-- ⭐⭐⭐ **`evalPts` 在 `trunc p` 处的导数就是 `evalPtsFDeriv`**——**显式形式**。
+
+**按 5 个构造子归纳**，每一步用对应的 `HasFDerivAt` 组合子（`.add`／`.sub`／`.mul`），
+**`mul` 的系数 `evalPts e₁ (trunc p)` 与定义逐字一致**。 -/
+theorem hasFDerivAt_evalPts {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r))
+      (evalPtsFDeriv e K hK p) p := by
+  induction e with
+  | coord q axis =>
+      have hq : q < K := hK
+      have hfun : (fun r : Fin K → Pt n => GeoExpr.evalPts (.coord q axis) (trunc r))
+          = fun r : Fin K → Pt n => r ⟨q, hq⟩ axis := by
+        funext r
+        exact evalPts_trunc_coord r q axis hq
+      rw [hfun]
+      exact hasFDerivAt_coordProj ⟨q, hq⟩ axis p
+  | const c =>
+      have hfun : (fun r : Fin K → Pt n => GeoExpr.evalPts (.const c) (trunc r))
+          = fun _ => c := by
+        funext r
+        simp only [GeoExpr.evalPts]
+      rw [hfun]
+      exact hasFDerivAt_const (x := p) (c := c)
+  | add e₁ e₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂⟩ := hK
+      have hfun : (fun r : Fin K → Pt n => GeoExpr.evalPts (.add e₁ e₂) (trunc r))
+          = fun r => GeoExpr.evalPts e₁ (trunc r) + GeoExpr.evalPts e₂ (trunc r) := by
+        funext r
+        simp only [GeoExpr.evalPts]
+      rw [hfun]
+      exact (ih₁ h₁).add (ih₂ h₂)
+  | sub e₁ e₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂⟩ := hK
+      have hfun : (fun r : Fin K → Pt n => GeoExpr.evalPts (.sub e₁ e₂) (trunc r))
+          = fun r => GeoExpr.evalPts e₁ (trunc r) - GeoExpr.evalPts e₂ (trunc r) := by
+        funext r
+        simp only [GeoExpr.evalPts]
+      rw [hfun]
+      exact (ih₁ h₁).sub (ih₂ h₂)
+  | mul e₁ e₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂⟩ := hK
+      have hfun : (fun r : Fin K → Pt n => GeoExpr.evalPts (.mul e₁ e₂) (trunc r))
+          = fun r => GeoExpr.evalPts e₁ (trunc r) * GeoExpr.evalPts e₂ (trunc r) := by
+        funext r
+        simp only [GeoExpr.evalPts]
+      rw [hfun]
+      exact (ih₁ h₁).mul (ih₂ h₂)
+
+/-- **可微性是 `hasFDerivAt_evalPts` 的推论**——两者陈述一致，后者更强。 -/
+theorem evalPts_differentiableAt_direct {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r)) p :=
+  (hasFDerivAt_evalPts e hK p).differentiableAt
+
 end Lattice.Geo
