@@ -1581,7 +1581,7 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
-| `Lattice.Domains.Constraints.NetLossDerivative` | 17 | 3 |
+| `Lattice.Domains.Constraints.NetLossDerivative` | 20 | 3 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
 | `Lattice.Domains.Constraints.PenaltyLossDerivative` | 37 | 16 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
@@ -3758,11 +3758,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
+- `differentiableAt_netActN_jointAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
 - `differentiableAt_netActN_paramsAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_penaltyLoss_family` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `differentiableAt_pointwiseNetActN` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
-- `differentiableAt_pointwiseNetActN_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `netActN`, `packLayers`, `singleParams`
+- `differentiableAt_pointwiseNetActN_joint` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `netActN`, `packLayers`, `singleParams`
+- `differentiableAt_pointwiseNetActN_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
 - `differentiableAt_sqDist_left` -> `Pt`, `sqDist`
 - `differentiableAt_sqDist_pair` -> `GeoConstraint`, `Pt`, `comp`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
@@ -6687,7 +6689,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netLossOn_differentiableAt` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
-- `netLossOn_differentiableAt_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `netActN`, `packLayers`, `singleParams`
+- `netLossOn_differentiableAt_joint` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `netActN`, `packLayers`, `singleParams`
+- `netLossOn_differentiableAt_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
 - `netLossOn_eq_comp` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `singleParams`
 - `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
 - `netLoss_empty` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
