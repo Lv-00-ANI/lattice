@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 223 | aggregator at `Lattice/`, re-exports only |
+| root | 224 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -685,7 +685,7 @@
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
-- `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`
+- `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Constraint` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Constraints.ConstraintSet` <- `Lattice.Domains.Constraints.Constraint`
@@ -708,6 +708,7 @@
 - `Lattice.Domains.Constraints.Lipschitz` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Loss` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Domains.Constraints.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`
+- `Lattice.Domains.Constraints.NetLossDerivative` <- `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Core.StackDerivative`, `Lattice.Core.Net`
 - `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Domains.Constraints.PenaltyLossDerivative` <- `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`
 - `Lattice.Domains.Constraints.Perturb` <- `Lattice.Domains.Constraints.Flatten`
@@ -1580,6 +1581,7 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
+| `Lattice.Domains.Constraints.NetLossDerivative` | 1 | 0 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
 | `Lattice.Domains.Constraints.PenaltyLossDerivative` | 36 | 15 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
@@ -4271,6 +4273,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`, `scale`
 - `evalPts_add` -> `add`, `mul`
+- `evalPts_congr_of_indicesBelow` -> `GeoExpr`, `IndicesBelow`, `Pt`, `add`, `evalPts`, `induction`, `mul`
 - `evalPts_const` -> `add`, `mul`
 - `evalPts_coord` -> `add`, `mul`
 - `evalPts_coord_of_lt` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
