@@ -133,6 +133,7 @@ Core/RepairWF.lean	iterate_succ
 Core/RepairWF.lean	iterate_shift
 Core/RepairWF.lean	progress_on_wf
 Core/RepairWF.lean	preserves_of_sat
+Core/StackDerivative.lean	netActN_eq_netAct
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
