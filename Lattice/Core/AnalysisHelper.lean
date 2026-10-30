@@ -53,4 +53,24 @@ theorem hasFDerivAt_sq (y : ℝ) :
   rw [smulRight_one_eq_smul] at h
   exact h
 
+/-- ⭐⭐⭐ **平方的链式法则（任意赋范空间）**：若 `f` 在 `p` 处有导数 `f'`，
+则 `fun x => f x ^ 2` 在 `p` 处的导数是 `(2 * f p) • f'`。
+
+**这是 `Lattice.Geo` 侧所有「……的平方」分支的统一工具**：
+`penaltyLoss` 的 `eqZero`、三支 `max`、`sqDistEq`、`equalLength`、`perpendicular`、`rightAngle` 都是这个形状，
+**所以每条分支只需给出【内层】的导数，平方这一层由本条处理。**
+
+**⚠ 与 `hasFDerivAt_sq` 的区别**：那条是 `E = ℝ` 的特例（`fun t : ℝ => t ^ 2`），
+本条对任意 `NormedAddCommGroup`／`NormedSpace ℝ` 成立。**`hasFDerivAt_sq` 保留是因为它给出
+`(2y) • id` 这个具体形式，而本条给出 `(2 * f p) • f'`。** -/
+theorem hasFDerivAt_sq_comp {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {f : E → ℝ} {f' : E →L[ℝ] ℝ} {p : E} (hf : HasFDerivAt f f' p) :
+    HasFDerivAt (fun x => f x ^ 2) ((2 * f p) • f') p := by
+  have h1 : HasDerivAt (fun y : ℝ => y ^ 2) (2 * (f p)) (f p) := by
+    simpa using (hasDerivAt_pow 2 (f p))
+  have h3 := h1.hasFDerivAt.comp p hf
+  convert h3 using 1
+  ext d
+  simp [mul_comm]
+
 end Lattice.Core
