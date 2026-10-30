@@ -1072,4 +1072,52 @@ def SafeBranch {n : ℕ} (c : GeoConstraint n) : Prop :=
 
 **本层【不】声称列表层面的双条件。** -/
 
+/-- **`SafeBranch` 的单条双条件**——**按构造子分派到第十六层的八条**。
+
+**⚠ `match` 必须覆盖【全部十二支】**：即便四支的 `SafeBranch` 是 `False`，
+**Lean 仍要求它们出现——而那些分支上 `hs : False`，用 `exact hs.elim` 直接消掉即可。** -/
+theorem penaltyLoss_eq_zero_iff_holds_of_safe {n : ℕ} (c : GeoConstraint n)
+    (hs : SafeBranch c) (Φ : ℕ → Pt n) :
+    penaltyLoss c Φ = 0 ↔ Holds c Φ := by
+  match c, hs with
+  | .eqZero e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).1 e
+  | .leZero e, _ => exact penaltyLoss_eq_zero_iff_holds_leZero e Φ
+  | .ltZero e, hs => exact hs.elim
+  | .gtZero e, hs => exact hs.elim
+  | .sqDistEq a b d, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.1 a b d
+  | .equalLength a b c' e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.1 a b c' e
+  | .collinear a b c', hs => exact hs.elim
+  | .perpendicular a b c' e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.2.1 a b c' e
+  | .parallel a b c' e, hs => exact hs.elim
+  | .rightAngle a b c', _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.2.2 a b c'
+  | .midpoint m a b, _ => exact penaltyLoss_eq_zero_iff_holds_midpoint m a b Φ
+  | .samePoint a b, _ => exact penaltyLoss_eq_zero_iff_holds_samePoint a b Φ
+
+/-- ⭐⭐⭐ **整个损失为零 ⟺ 全部（安全）约束被满足**——**逆向侧的第二块。**
+
+**`lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts)`，前提是 `cs` 全在安全分支里。
+
+**⚠ 【不用归纳**——第 152／153 轮两次失败都出在 `cons` 支的 `rcases … with rfl`
+把参数 `c` 消掉了。**本节的路线是**：
+
+1. `lossOfActivations` 展开成 `(cs.map (penaltyLoss ·)).sum`；
+2. **`list_sum_eq_zero_of_nonneg`**（第十七层）给出「每项为零」（非负性来自第 101 轮）；
+3. **`List.forall_mem_map_iff`** 把「`map` 之后每项为零」换成「`cs` 中每项的原像为零」；
+4. **`penaltyLoss_eq_zero_iff_holds_of_safe`** 换成 `Holds`。
+
+**每一步都是单个定理的应用，没有归纳、没有替换。** -/
+theorem lossOfActivations_eq_zero_iff {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n) (hs : ∀ c ∈ cs, SafeBranch c) :
+    lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts) := by
+  have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (trunc acts)), 0 ≤ x := by
+    intro x hx
+    obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+    exact penaltyLoss_nonneg c' (trunc acts)
+  have hsum : lossOfActivations cs acts
+      = (cs.map (fun c => penaltyLoss c (trunc acts))).sum := by
+    simp only [lossOfActivations]
+  rw [hsum, list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff]
+  exact forall_congr' (fun c => forall_congr' (fun _ => by
+    rw [← penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) (trunc acts)]))
+
 end Lattice.Geo
