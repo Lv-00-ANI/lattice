@@ -396,4 +396,49 @@ theorem lossOfActivations_differentiableAt {K n : ℕ} (cs : List (GeoConstraint
 **本轮未做这一步**：它要改 `netPoints` 与 `netLossOn` 的定义（以及 `netPoints_eq_trunc`），
 **而那是第 134 轮记录过的「载体改名」决策——应当先声明再做，而不是在一轮末尾改。** -/
 
+/-! ### ⚠ 载体改名的精确步骤（第 137 轮六次尝试后的结论）
+
+**目标：把 `netPoints`／`netLossOn` 的载体从 `List (AffineLayer (Fin n))` 换成 `Fin k → AffineLayer (Fin n)`，
+使内层成为 `netActN`，从而 `netLossOn = lossOfActivations ∘ pointwiseNetActN` 是一次 `simp`。**
+
+**第 137 轮实测：改动本身是机械的，但【定义顺序】必须一次排对，否则每一步都失败在同一个地方。**
+
+## 必需的文件内顺序
+
+**Lean 是单遍处理，所以凡是【引用】某定义的地方必须在它之后。当前文件里的依赖是：**
+
+```
+lossOfActivations            (第 136 轮，定义在文件偏后处)
+  ← lossOfActivations_differentiableAt
+  ← differentiableAt_pointwiseNetActN   (第 135 轮，更后)
+  ← netPoints / netLossOn / netPoints_eq_trunc   (第 132 轮，更前)
+```
+
+**⇒ 新的 `netPoints`／`netLossOn`／`netLossOn_eq_comp`／`netLossOn_differentiableAt`
+必须放在 **`pointwiseNetActN` 之后**，而**不能**放在它们当前的（文件偏前）位置。**
+
+**第 137 轮我两次尝试移动那个块，两次都因为「按 `end Lattice.Geo` 锚点插入」而落回原位——
+`end Lattice.Geo` 是文件唯一的收尾，所以「插到它前面」等于「插到文件末尾」，
+而末尾【已经】在 `pointwiseNetActN` 之后——**但那不是失败的原因：真正的失败是那块代码里
+`lossOfActivations` 的引用位置没有随之移动。**
+
+## 正确的做法（下一轮直接照做）
+
+**不要移动块，而是【重排整节】**：把下列五者按此顺序放成连续的第四节（`## 第四层`），
+从 `netPoints` 一直到 `netLossOn_differentiableAt`：
+
+1. `netPoints`（`Fin k → AffineLayer`）
+2. `netPoints_eq_trunc`
+3. `netLossOn`
+4. `lossOfActivations` + `lossOfActivations_differentiableAt`
+5. `differentiableAt_pointwiseNetActN`（或从第 135 轮处前置）
+6. `netLossOn_eq_comp`
+7. `netLossOn_differentiableAt`
+
+**⇒ 判据：改完后 `lake build Lattice.Domains.Constraints.NetLossDerivative` 必须一次通过；
+若仍报 `function expected at lossOfActivations`，那就是步骤 4 没有排在步骤 6 之前。**
+
+**本轮【未】做这个重排**——六次尝试说明我对 Lean 单遍处理的直觉在这条链上不够可靠，
+**而重排整个文件的一节是一个应当单独、完整地做的改动，不是在一轮末尾继续试。** -/
+
 end Lattice.Geo
