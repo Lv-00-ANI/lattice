@@ -102,6 +102,7 @@ Core/Activation.lean	actStackSingle_affine
 Core/Activation.lean	actStackEval_of_no_activation
 Core/Activation.lean	relu_not_affine
 Core/Activation.lean	activation_strictly_stronger
+Core/AnalysisHelper.lean	hasFDerivAt_sq
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm
 Core/Check.lean	be_trans
@@ -178,8 +179,10 @@ Domains/Constraints/Dist.lean	dist_eq_of_sqDist_eq
 Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 Domains/Constraints/DistContinuous.lean	continuous_sqDist_right
 Domains/Constraints/DistDerivative.lean	sqDistFDeriv_apply
-Domains/Constraints/DistDerivative.lean	differentiableAt_sqDist_left
+Domains/Constraints/DistDerivative.lean	hasFDerivAt_coordSq
 Domains/Constraints/DistDerivative.lean	hasFDerivAt_sqDist_left
+Domains/Constraints/DistDerivative.lean	differentiableAt_sqDist_left
+Domains/Constraints/DistDerivative.lean	fderiv_sqDist_left
 Domains/Constraints/DistLipschitz.lean	coordDiff_sub_le
 Domains/Constraints/DistLipschitz.lean	coordDiff_add_le
 Domains/Constraints/DistLipschitz.lean	sqDist_abs_le
@@ -1639,6 +1642,9 @@ Lib/Optim/RealValueIteration.lean	value_iteration_converges
 Lib/Optim/RealVectorGD.lean	vec_gd_descent_of_smooth
 Lib/Optim/RealVectorGD.lean	vec_gd_telescope
 Lib/Optim/RealVectorGD.lean	vec_gd_exists_small_gradient
+Lib/Penalty/PolyExact.lean	hasFDerivAt_sq
+Lib/Penalty/PolyExact.lean	sq_localMin_dichotomy
+Lib/Penalty/PolyExact.lean	sq_eq_zero_of_localMin
 Lib/Quantization/RealSTEError.lean	not_continuousAt_stepQuant_half
 Lib/Quantization/RealSTEError.lean	not_differentiableAt_stepQuant_half
 Primitives/MultistepLoop.lean	step_pos
@@ -1675,6 +1681,7 @@ Runtime/ApproxExact.lean	abs_resid_le_of_loss_le_sq
 Runtime/ApproxExact.lean	epsSat_of_loss_le_sq
 Runtime/ApproxExact.lean	epsSat_zero_iff
 Runtime/ApproxExact.lean	penaltyExact_of_epsSat_zero
+Runtime/ApproxExact.lean	geo_eps_bridge
 Runtime/ApproxExtraction.lean	approx_extract_bound
 Runtime/ApproxExtraction.lean	error_zero_is_exact
 Runtime/ApproxExtraction.lean	roundingIsApprox_bound
@@ -1766,6 +1773,9 @@ Runtime/NondegenerateInstance.lean	act_zero_all_iff
 Runtime/NondegenerateInstance.lean	fullCompile_sound
 Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward
 Runtime/PartialRepresentation.lean	roundtrip_apply
+Runtime/PenaltyAnalysis.lean	hasFDerivAt_sq
+Runtime/PenaltyAnalysis.lean	sq_localMin_dichotomy
+Runtime/PenaltyAnalysis.lean	sq_eq_zero_of_localMin
 Runtime/PenaltyEmbedding.lean	exact_implies_sound
 Runtime/PenaltyEmbedding.lean	embedding_sound_at_minimiser
 Runtime/PenaltyEmbedding.lean	program_sound_at_minimiser
