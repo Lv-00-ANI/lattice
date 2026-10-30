@@ -429,4 +429,65 @@ theorem netLossOn_differentiableAt_params {K k n : ℕ}
     (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp q
     (differentiableAt_pointwiseNetActN_params q p)
 
+/-! ## 第十层：损失的【联合】可微性
+
+**前两层分别给了「固定参数时对点列」与「固定点列时对参数」的可微性。
+但梯度计算需要的是【配对】上的联合可微性——正像第 111 轮对 `netActN` 所做的那样。**
+
+**结构完全同构：**
+
+1. **单坐标**：`w ↦ netActN n k (packLayers w.1) (w.2 j)`——`w ↦ (w.1, w.2 j)` 是
+   `fst.prod (proj j ∘ snd)`，与第 111 轮的联合可微性复合；
+2. **逐点**：`differentiableAt_pi` 把它提到点列层面；
+3. **复合**：与 `lossOfActivations_differentiableAt` 复合。 -/
+
+/-- ⭐⭐ **单坐标的联合可微性**。 -/
+theorem differentiableAt_netActN_jointAt {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) (j : Fin K) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netActN n k (packLayers w.1) (w.2 j)) (q, r) := by
+  have hpair : DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) => (w.1, w.2 j)) (q, r) :=
+    differentiableAt_fst.prod
+      ((ContinuousLinearMap.hasFDerivAt
+        (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin K => Pt n) j)).differentiableAt.comp
+        (q, r) differentiableAt_snd)
+  exact (differentiableAt_netActN_joint k q (r j)).comp (q, r) hpair
+
+/-- ⭐⭐ **逐点 `netActN` 在配对上的可微性**——由 `differentiableAt_pi` 逐坐标装配。 -/
+theorem differentiableAt_pointwiseNetActN_joint {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) (q, r) := by
+  rw [show (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        fun j : Fin K => netActN n k (packLayers w.1) (w.2 j))
+      = fun w => (fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) from rfl]
+  exact differentiableAt_pi.2 (fun j => differentiableAt_netActN_jointAt q r j)
+
+/-- ⭐⭐⭐⭐ **`netLossOn` 对【参数与点列】联合可微**——**正向方向的最后一块。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN_joint`（激活关于配对）复合。**
+
+**这是梯度计算的正确陈述：`(参数, 点列)` 同时变化时损失可微。** -/
+theorem netLossOn_differentiableAt_joint {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2) (q, p) := by
+  rw [show (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+              fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) from by
+    funext w
+    exact netLossOn_eq_comp (packLayers w.1) cs w.2]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp (q, p)
+    (differentiableAt_pointwiseNetActN_joint q p)
+
 end Lattice.Geo
