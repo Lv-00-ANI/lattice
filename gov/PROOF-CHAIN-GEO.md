@@ -78,7 +78,7 @@
 | `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
 | `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
 | `Lattice.Domains.PenaltyLoss` | 912 | 36 | Constraint, Dist, Lipschitz, DistLipschitz, PolyLipschitz |
-| `Lattice.Domains.PenaltyLossDerivative` | 193 | 11 | PenaltyLoss, DistDerivative, ExprDerivative |
+| `Lattice.Domains.PenaltyLossDerivative` | 330 | 18 | PenaltyLoss, DistDerivative, ExprDerivative |
 | `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
 | `Lattice.Domains.Perturb` | 126 | 8 | Flatten |
 | `Lattice.Domains.Pipeline` | 169 | 7 | Constraint, Expr, Loss |
