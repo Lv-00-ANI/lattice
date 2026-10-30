@@ -1082,4 +1082,40 @@ theorem hasFDerivAt_penaltyLoss {K n : ℕ} (c : GeoConstraint n)
       rw [hfun]
       exact hasFDerivAt_sqDist_pair_explicit ⟨a, ha⟩ ⟨b, hb⟩ p
 
+/-! ## ⭐⭐ `KinkPositive` 的推广：任意点列版本
+
+**`KinkPositive c K p` 的载体是 `p : Fin K → Pt n`，而它实际读的是 `evalPts e (trunc p)`。
+所以「折点前提」本身不依赖 `p` 的形状，只依赖【那条点列 `trunc p`】。**
+
+**⇒ 本节把它推广成 `KinkPositiveAt c Φ`（`Φ : ℕ → Pt n`），
+并把 `KinkPositive c K p` 与 `KinkPositiveAt c (trunc p)` 的等价性证出来。**
+
+**这是 `netLossOn` 所需要的**：**它的内层点列是 `netPoints params p`（`ℕ → Pt n`），
+用 `KinkPositiveAt` 才能陈述那个前提。** -/
+
+/-- **任意点列上的折点前提**：三支 `max` 的表达式在 `Φ` 处取正值。 -/
+def KinkPositiveAt {n : ℕ} (c : GeoConstraint n) (Φ : ℕ → Pt n) : Prop :=
+  match c with
+  | .leZero e => 0 < GeoExpr.evalPts e Φ
+  | .ltZero e => 0 < GeoExpr.evalPts e Φ
+  | .gtZero e => 0 < GeoExpr.evalPts e Φ
+  | _ => True
+
+/-- ⭐ **两种陈述等价**——`KinkPositive c K p` 就是 `KinkPositiveAt c (trunc p)`。 -/
+theorem kinkPositive_iff {K n : ℕ} (c : GeoConstraint n) (p : Fin K → Pt n) :
+    KinkPositive c K p ↔ KinkPositiveAt c (trunc p) := by
+  match c with
+  | .eqZero e => simp only [KinkPositive, KinkPositiveAt]
+  | .leZero e => simp only [KinkPositive, KinkPositiveAt]
+  | .ltZero e => simp only [KinkPositive, KinkPositiveAt]
+  | .gtZero e => simp only [KinkPositive, KinkPositiveAt]
+  | .sqDistEq a b d => simp only [KinkPositive, KinkPositiveAt]
+  | .equalLength a b c' e => simp only [KinkPositive, KinkPositiveAt]
+  | .collinear a b c' => simp only [KinkPositive, KinkPositiveAt]
+  | .perpendicular a b c' e => simp only [KinkPositive, KinkPositiveAt]
+  | .parallel a b c' e => simp only [KinkPositive, KinkPositiveAt]
+  | .rightAngle a b c' => simp only [KinkPositive, KinkPositiveAt]
+  | .midpoint m a b => simp only [KinkPositive, KinkPositiveAt]
+  | .samePoint a b => simp only [KinkPositive, KinkPositiveAt]
+
 end Lattice.Geo
