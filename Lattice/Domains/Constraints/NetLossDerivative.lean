@@ -980,4 +980,81 @@ theorem penaltyLoss_eq_zero_iff_holds_midpoint {n : ℕ} (m a b : ℕ) (Φ : ℕ
     rw [hz]
     ring
 
+/-! ## 第十七层（逆向侧的第二块之一）：非负项之和为零
+
+**mathlib 里【没有】`List.sum_eq_zero_iff_of_nonneg`**——只有 `Finset` 版本
+（第 152 轮实测：`unknown constant 'List.sum_eq_zero_iff_of_nonneg'`）。
+
+**而列表层面「整个损失为零 ⟺ 全部约束成立」需要的正是它**：
+**`lossOfActivations cs acts = (cs.map (penaltyLoss ·)).sum`，每一项非负（第 101 轮的 `penaltyLoss_nonneg`），
+所以「和为零」必须等价于「每项为零」。**
+
+**本层补上这条 `List` 版本。** -/
+
+/-- ⭐ **非负项之和为零 ⟺ 每项为零**（`List` 版本，mathlib 缺）。
+
+**对 `l` 归纳**：`cons` 时 `a + t.sum = 0` 与两个非负性一起给出 `a = 0` 与 `t.sum = 0`（`linarith`）。 -/
+theorem list_sum_eq_zero_of_nonneg {l : List ℝ} (h : ∀ x ∈ l, 0 ≤ x) :
+    l.sum = 0 ↔ ∀ x ∈ l, x = 0 := by
+  induction l with
+  | nil => simp
+  | cons a t ih =>
+      have ha : 0 ≤ a := h a (List.mem_cons_self a t)
+      have ht : ∀ x ∈ t, 0 ≤ x := fun x hx => h x (List.mem_cons_of_mem a hx)
+      have htsum : 0 ≤ t.sum := List.sum_nonneg (fun x hx => ht x hx)
+      rw [List.sum_cons]
+      constructor
+      · intro hsum x hx
+        have ha0 : a = 0 := by linarith
+        have ht0 : t.sum = 0 := by linarith
+        rcases List.mem_cons.mp hx with rfl | hxt
+        · exact ha0
+        · exact (ih ht).mp ht0 x hxt
+      · intro hall
+        have ha0 : a = 0 := hall a (List.mem_cons_self a t)
+        have ht0 : t.sum = 0 := (ih ht).mpr (fun x hx => hall x (List.mem_cons_of_mem a hx))
+        rw [ha0, ht0]
+        ring
+
+/-- **「安全分支」谓词**：`cs` 里只出现那八支双条件成立的构造子。
+
+**⚠ 必须带这个前提**：`ltZero`／`gtZero` 的双条件【本身就是假的】
+（连续损失无法区分 `x = 0` 与 `x < 0`，见第十六层的分析），
+**而 `collinear`／`parallel` 需要 `n = 2` 与非退化前提。** -/
+def SafeBranch {n : ℕ} (c : GeoConstraint n) : Prop :=
+  match c with
+  | .eqZero _ => True
+  | .leZero _ => True
+  | .ltZero _ => False
+  | .gtZero _ => False
+  | .sqDistEq _ _ _ => True
+  | .equalLength _ _ _ _ => True
+  | .collinear _ _ _ => False
+  | .perpendicular _ _ _ _ => True
+  | .parallel _ _ _ _ => False
+  | .rightAngle _ _ _ => True
+  | .midpoint _ _ _ => True
+  | .samePoint _ _ => True
+
+/-! ### ⚠ 未闭合：列表层面的双条件
+
+**目标**：`lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts)`，前提是 `cs` 全在安全分支里。
+
+**配料三样全部就位**（本层上面两条 + 第 151 轮的八条单条双条件）。
+**第 152 轮在装配处失败，原因不是数学，而是两处机械细节：**
+
+1. **`match` 在 `SafeBranch c` 上要求【全部十二支】**——即便四支的 `SafeBranch` 是 `False`，
+   **Lean 仍要求它们出现，并且要用 `absurd hs` 把 `False` 消掉。而 `hs` 在那些分支上的类型是 `False`，
+   直接 `exact hs.elim` 就够——我写成了 `absurd hs (by simp only [SafeBranch]; exact not_false)`，
+   结果在 `simp` 之后剩下一个 `⊢ False` 的未解决目标。**
+2. **`nil` 支的 `⟨…, …⟩` 两个方向**：第一个方向的目标是 `(∀ c ∈ [], …) → False` 的形状，
+   **用 `fun h => absurd h (by simp)` 时 `simp` 把目标化成 `True` 而不是 `False`。**
+
+**⇒ 下一轮的正确写法**：
+- **`match` 的四支用 `exact hs.elim`**（`hs : False` 直接消掉，不需要 `absurd`）；
+- **`nil` 支写成 `⟨fun h => absurd h (List.not_mem_nil c), fun _ => rfl⟩` 是不对的**——
+  **正确的形状取决于 `simp` 之后的目标，应当先 `simp` 看目标再写，而不是先猜。**
+
+**本层【不】声称列表层面的双条件。** -/
+
 end Lattice.Geo
