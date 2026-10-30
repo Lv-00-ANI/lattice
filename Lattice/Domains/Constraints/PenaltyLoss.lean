@@ -74,6 +74,7 @@ EqConstraint.loss  : …                                    -- poly 的平方
 import Mathlib
 import Lattice.Domains.Constraints.Constraint
 import Lattice.Domains.Constraints.Dist
+import Lattice.Domains.Constraints.Lipschitz
 import Lattice.Lib.Penalty.BilinearLocallyLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 
@@ -416,6 +417,96 @@ theorem penaltyLoss_nonneg (c : GeoConstraint n) (pts : ℕ → Pt n) : 0 ≤ pe
   | midpoint m a b =>
       exact Finset.sum_nonneg fun i _ => sq_nonneg _
   | samePoint a b => exact sqDist_nonneg _ _
+
+/-! ## ⭐⭐ `penaltyLoss` 逐分支的 `rho`-Lipschitz：**纯平方与 `max` 型**
+
+`penaltyLoss` 是 `match`，所以 `penaltyLoss_lipschitz` 必须 12 个分支一起证。**本节做其中四支**：
+`eqZero`（纯平方）与 `leZero`/`ltZero`/`gtZero`（`max` 型）。
+
+**工具全部来自别处，本节只是把它们接起来：**
+- `Domains/Constraints/Lipschitz.lean` 的 `LipschitzK`／`BoundedV` 给出线性形式的**变化**与**界**；
+- `Lib/Penalty/QuadraticLocallyLipschitz.sq_lipschitz_on_bounded` 把变化抬到**平方**；
+- 第 96 轮的 `max_zero_sub_le` 处理 `max · 0`。
+
+⚠ **`rho` 是上确界，所以 `|pts p i − pts' p i| ≤ rho`**（`abs_coord_sub_le_rho`），
+**于是 `LipschitzK` 给出的就是「点列整体扰动 `rho` ⇒ 表达式扰动 `K·rho`」。** -/
+
+/-- ⭐ **`eqZero` 分支的 `rho`-Lipschitz 界**：`|(evalPts e ·)² − (evalPts e ·')²| ≤ 2B·(K·rho)`。 -/
+theorem eqZero_lipschitz {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B)
+    (pts pts' : ℕ → Pt n) :
+    |penaltyLoss (.eqZero e) pts - penaltyLoss (.eqZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := by
+  have hdiff : |GeoExpr.evalPts e pts - GeoExpr.evalPts e pts'|
+      ≤ K * rho n k pts pts' := hK pts pts'
+  have hp : |GeoExpr.evalPts e pts| ≤ B := hBd pts
+  have hq : |GeoExpr.evalPts e pts'| ≤ B := hBd pts'
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded (s := GeoExpr.evalPts e pts)
+    (t := GeoExpr.evalPts e pts') hB hp hq
+  have hstep := mul_le_mul_of_nonneg_left hdiff (by linarith : (0 : ℝ) ≤ 2 * B)
+  simpa only [penaltyLoss] using le_trans hsq hstep
+
+/-- ⭐ **`leZero` / `ltZero` 分支的 `rho`-Lipschitz 界**（两者定义相同，故一条定理服务两支）。
+
+`|max s 0| ≤ B` 从 `|s| ≤ B` 得到，**所以 `R = B` 而不是别的**。 -/
+theorem maxZero_lipschitz {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B)
+    (pts pts' : ℕ → Pt n) :
+    |penaltyLoss (.leZero e) pts - penaltyLoss (.leZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := by
+  have hdiff : |GeoExpr.evalPts e pts - GeoExpr.evalPts e pts'|
+      ≤ K * rho n k pts pts' := hK pts pts'
+  have hp : |GeoExpr.evalPts e pts| ≤ B := hBd pts
+  have hq : |GeoExpr.evalPts e pts'| ≤ B := hBd pts'
+  -- `|max s 0| ≤ |s| ≤ B`
+  have hp' : |max (GeoExpr.evalPts e pts) 0| ≤ B := by
+    calc |max (GeoExpr.evalPts e pts) 0| ≤ |GeoExpr.evalPts e pts| := by
+          simpa only [max_eq_left (le_refl (0 : ℝ)), abs_zero, sub_zero] using
+            (max_zero_sub_le (s := GeoExpr.evalPts e pts) (t := 0))
+      _ ≤ B := hp
+  have hq' : |max (GeoExpr.evalPts e pts') 0| ≤ B := by
+    calc |max (GeoExpr.evalPts e pts') 0| ≤ |GeoExpr.evalPts e pts'| := by
+          simpa only [max_eq_left (le_refl (0 : ℝ)), abs_zero, sub_zero] using
+            (max_zero_sub_le (s := GeoExpr.evalPts e pts') (t := 0))
+      _ ≤ B := hq
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := max (GeoExpr.evalPts e pts) 0) (t := max (GeoExpr.evalPts e pts') 0) hB hp' hq'
+  have hmax : |max (GeoExpr.evalPts e pts) 0 - max (GeoExpr.evalPts e pts') 0|
+      ≤ K * rho n k pts pts' := le_trans max_zero_sub_le hdiff
+  have hstep := mul_le_mul_of_nonneg_left hmax (by linarith : (0 : ℝ) ≤ 2 * B)
+  simpa only [penaltyLoss] using le_trans hsq hstep
+
+/-- ⭐ **`gtZero` 分支**：`(max (neg ·) 0)²`，**用 `LipschitzK` 的 `K` 因为取负不改变 Lipschitz 常数**。 -/
+theorem gtZero_lipschitz {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B)
+    (pts pts' : ℕ → Pt n) :
+    |penaltyLoss (.gtZero e) pts - penaltyLoss (.gtZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := by
+  have hdiff : |GeoExpr.evalPts e pts - GeoExpr.evalPts e pts'|
+      ≤ K * rho n k pts pts' := hK pts pts'
+  have hneg : |-(GeoExpr.evalPts e pts) - -(GeoExpr.evalPts e pts')|
+      ≤ K * rho n k pts pts' := by
+    simpa only [neg_sub_neg, abs_sub_comm] using hdiff
+  have hp : |GeoExpr.evalPts e pts| ≤ B := hBd pts
+  have hq : |GeoExpr.evalPts e pts'| ≤ B := hBd pts'
+  have hp' : |max (-(GeoExpr.evalPts e pts)) 0| ≤ B := by
+    calc |max (-(GeoExpr.evalPts e pts)) 0| ≤ |-(GeoExpr.evalPts e pts)| := by
+          simpa only [max_eq_left (le_refl (0 : ℝ)), abs_zero, sub_zero] using
+            (max_zero_sub_le (s := -(GeoExpr.evalPts e pts)) (t := 0))
+      _ = |GeoExpr.evalPts e pts| := abs_neg _
+      _ ≤ B := hp
+  have hq' : |max (-(GeoExpr.evalPts e pts')) 0| ≤ B := by
+    calc |max (-(GeoExpr.evalPts e pts')) 0| ≤ |-(GeoExpr.evalPts e pts')| := by
+          simpa only [max_eq_left (le_refl (0 : ℝ)), abs_zero, sub_zero] using
+            (max_zero_sub_le (s := -(GeoExpr.evalPts e pts')) (t := 0))
+      _ = |GeoExpr.evalPts e pts'| := abs_neg _
+      _ ≤ B := hq
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := max (-(GeoExpr.evalPts e pts)) 0) (t := max (-(GeoExpr.evalPts e pts')) 0) hB hp' hq'
+  have hmax : |max (-(GeoExpr.evalPts e pts)) 0 - max (-(GeoExpr.evalPts e pts')) 0|
+      ≤ K * rho n k pts pts' := le_trans max_zero_sub_le hneg
+  have hstep := mul_le_mul_of_nonneg_left hmax (by linarith : (0 : ℝ) ≤ 2 * B)
+  simpa only [penaltyLoss] using le_trans hsq hstep
 
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 
