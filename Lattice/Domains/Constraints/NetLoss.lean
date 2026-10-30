@@ -124,6 +124,76 @@ theorem netLoss_append (params : List (AffineLayer (Fin n)))
   unfold netLoss
   rw [List.map_append, List.sum_append]
 
+/-! ## ⭐⭐ `netLoss` 的 `rho`-Lipschitz：**求和规则**
+
+`netLoss` 是**约束表上的 `List.sum`**，所以它的 Lipschitz 性完全归结为**逐约束的界**。
+本节把「12 个分支各自的界」拼成「整个损失表的界」。
+
+⚠ **为什么常数以【函数】`Cost : GeoConstraint n → ℝ` 给出，而不写成一条闭式**：
+
+`penaltyLoss` 的 12 个分支常数**随构造子变形状**——`eqZero` 那支的常数是 `2B·K`
+（`K` 来自 `LipschitzK`、`B` 来自 `BoundedV`），`midpoint` 那支是 `2·(4B)·4`
+（与表达式无关），`perpendicular` 那支是 `2·(4nB²)·8nB`。**不存在一个统一的常数表达式。**
+
+**所以本节把「逐约束的常数」作为参数，把「求和」这件事证掉。** **那是 `netLoss` 这一层能说的最强的话**，
+而 12 条分支定理（第 95–100 轮）就是 `Cost` 的具体取值。 -/
+
+open Lattice.Geo.PenaltyLoss in
+/-- ⭐⭐ **`netLoss` 的求和规则**：若每个约束的损失变化 `≤ Cost c · D`，则整表的损失变化 `≤ (∑ Cost) · D`。
+
+**证明对约束表归纳**：`[]` 时两边为 0；`c :: rest` 时用 `netLoss_append` 拆成「首条 + 其余」，
+一次三角不等式、两次归纳假设、一次 `ring` 收常数。 -/
+theorem netLoss_lipschitz {n : ℕ} (cs : List (GeoConstraint n)) (pts : ℕ → Pt n)
+    (params params' : List (AffineLayer (Fin n))) {D : ℝ}
+    (Cost : GeoConstraint n → ℝ) (hD : 0 ≤ D)
+    (hCost : ∀ c ∈ cs, 0 ≤ Cost c)
+    (hstep : ∀ c ∈ cs,
+      |penaltyLoss c (fun k => netAct params (pts k))
+        - penaltyLoss c (fun k => netAct params' (pts k))| ≤ Cost c * D) :
+    |netLoss params cs pts - netLoss params' cs pts| ≤ (cs.map Cost).sum * D := by
+  induction cs with
+  | nil =>
+      simp only [netLoss_empty, List.map_nil, List.sum_nil, sub_self, abs_zero]
+      nlinarith [hD]
+  | cons c rest ih =>
+      have hstep_c : |penaltyLoss c (fun k => netAct params (pts k))
+          - penaltyLoss c (fun k => netAct params' (pts k))| ≤ Cost c * D :=
+        hstep c (List.mem_cons_self c rest)
+      have hCost_rest : ∀ d ∈ rest, 0 ≤ Cost d :=
+        fun d hd => hCost d (List.mem_cons_of_mem c hd)
+      have hstep_rest : ∀ d ∈ rest,
+          |penaltyLoss d (fun k => netAct params (pts k))
+            - penaltyLoss d (fun k => netAct params' (pts k))| ≤ Cost d * D :=
+        fun d hd => hstep d (List.mem_cons_of_mem c hd)
+      have hih := ih hCost_rest hstep_rest
+      have hCost_c : 0 ≤ Cost c := hCost c (List.mem_cons_self c rest)
+      -- split each side into "first constraint + remainder"
+      have hs1 : netLoss params (c :: rest) pts
+          = penaltyLoss c (fun k => netAct params (pts k)) + netLoss params rest pts := by
+        rw [show (c :: rest : List (GeoConstraint n)) = [c] ++ rest from rfl, netLoss_append]
+        simp only [netLoss, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, add_zero]
+      have hs2 : netLoss params' (c :: rest) pts
+          = penaltyLoss c (fun k => netAct params' (pts k)) + netLoss params' rest pts := by
+        rw [show (c :: rest : List (GeoConstraint n)) = [c] ++ rest from rfl, netLoss_append]
+        simp only [netLoss, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, add_zero]
+      rw [hs1, hs2]
+      have hfac : (penaltyLoss c (fun k => netAct params (pts k)) + netLoss params rest pts)
+          - (penaltyLoss c (fun k => netAct params' (pts k)) + netLoss params' rest pts)
+          = (penaltyLoss c (fun k => netAct params (pts k))
+              - penaltyLoss c (fun k => netAct params' (pts k)))
+            + (netLoss params rest pts - netLoss params' rest pts) := by ring
+      rw [hfac]
+      calc |(penaltyLoss c (fun k => netAct params (pts k))
+              - penaltyLoss c (fun k => netAct params' (pts k)))
+            + (netLoss params rest pts - netLoss params' rest pts)|
+          ≤ |penaltyLoss c (fun k => netAct params (pts k))
+              - penaltyLoss c (fun k => netAct params' (pts k))|
+            + |netLoss params rest pts - netLoss params' rest pts| := abs_add _ _
+        _ ≤ Cost c * D + (rest.map Cost).sum * D := add_le_add hstep_c hih
+        _ = ((c :: rest).map Cost).sum * D := by
+            rw [List.map_cons, List.sum_cons]
+            ring
+
 /-! ## 三、契约：损失为零 ⟸ 约束成立（P），以及**反向为假**（N）
 
 **初稿在这里写了双向 `netLoss = 0 ↔ ∀ c ∈ cs, Holds c`，那是错的。**
