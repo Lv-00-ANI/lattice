@@ -92,6 +92,71 @@ theorem descentStep_sound (c β : ℝ) (hβ : β + c ≠ 0) (pts : ℕ → Pt 1)
     ∃ β', (descentStep c pts).run β = some β' ∧ (descentStep c pts).post β β' :=
   (descentStep c pts).sound β hβ
 
+/-! ## ⭐ `n` 维：走**权重的一列**的 `Primitive`
+
+`descentStep` 在 `Fin 1` 上走偏置。**本节给出 `n` 维的对应物**：走 `W` 的第 0 列 `u`，
+**而 `netLoss` 侧的那个等式是 `ConstraintDescent.netLoss_layerOfCol`。**
+
+⚠ **强度只能是「残差绝对值不增」，不是「一步归零」**：
+
+`Fin 1` 的 `descentStep` 用 `η = 1/2`，那里乘子 `1 − 2η‖x‖²` 恰为 `0`，所以一步归零。
+**在 `Fin n` 上乘子是 `1 − 2η‖x‖²`，一般不为零**——所以正确的强度是**不增**，
+而**几何衰减**由 `netLoss_layerOfCol_stepN` 给出（见下面 capstone 的第三条）。 -/
+
+/-- ⭐ **`n` 维一步训练 `Primitive`**：走权重列 `u`，`post` 是「残差绝对值不增」。
+
+前提 `h0`/`hS`/`h2` 是 `residual_rowStep_abs_le` 需要的：`η > 0`、`‖x‖² > 0`、`2η‖x‖² ≤ 2`。
+**它们关于 `η` 与输入 `x`，不关于 `u`**，所以作为定义参数而不是 `pre`。 -/
+noncomputable def descentStepCol {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : ℕ → Pt n)
+    (h0 : 0 < η) (hS : 0 < WeightDescent.sqNormIn (pts 0))
+    (h2 : 2 * η * WeightDescent.sqNormIn (pts 0) ≤ 2) :
+    Primitive (Fin n → ℝ) (Fin n → ℝ) where
+  pre := fun u => WeightDescent.residual u (pts 0) b c ≠ 0
+  post := fun u u' => |WeightDescent.residual u' (pts 0) b c|
+    ≤ |WeightDescent.residual u (pts 0) b c|
+  run := fun u => some (WeightDescent.rowStep η u (pts 0) b c)
+  sound := by
+    intro u _
+    exact ⟨WeightDescent.rowStep η u (pts 0) b c, rfl,
+      WeightDescent.residual_rowStep_abs_le η u (pts 0) b c h0 hS h2⟩
+  strength := .exact
+  coverage := some ({"constraint.eqZero"} : Finset String)
+  frame := fun _ _ => True
+
+/-- **`descentStepCol` 的 `sound`**：可直接引用的一条。 -/
+theorem descentStepCol_sound {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : ℕ → Pt n)
+    (h0 : 0 < η) (hS : 0 < WeightDescent.sqNormIn (pts 0))
+    (h2 : 2 * η * WeightDescent.sqNormIn (pts 0) ≤ 2)
+    (uvec : Fin n → ℝ) (hne : WeightDescent.residual uvec (pts 0) b c ≠ 0) :
+    ∃ u', (descentStepCol hn η b c pts h0 hS h2).run uvec = some u' ∧
+      (descentStepCol hn η b c pts h0 hS h2).post uvec u' :=
+  (descentStepCol hn η b c pts h0 hS h2).sound uvec hne
+
+/-- ⭐⭐ **`n` 维前向链 capstone**：四环，一条陈述。
+
+1. `run` 给出 `rowStep η u (pts 0) b c`——**梯度的执行是显式的**；
+2. `post` 成立——**残差绝对值不增**；
+3. **并且损失按 `((1 − 2η‖x‖²)²)^k` 几何衰减**。
+
+**与 `Fin 1` 的 `forward_chain_capstone` 的区别**：那里是「严格下降到零」，**这里是「不增 + 几何衰减」**。
+**这不是变弱了，是维度变了**——`Fin 1` 的零来自 `‖x‖² = 1` 让乘子恰为 `0`。 -/
+theorem forward_chain_capstone_n {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : ℕ → Pt n)
+    (h0 : 0 < η) (hS : 0 < WeightDescent.sqNormIn (pts 0))
+    (h2 : 2 * η * WeightDescent.sqNormIn (pts 0) ≤ 2)
+    (uvec : Fin n → ℝ) (hne : WeightDescent.residual uvec (pts 0) b c ≠ 0) :
+    (descentStepCol hn η b c pts h0 hS h2).run uvec
+        = some (WeightDescent.rowStep η uvec (pts 0) b c) ∧
+      (descentStepCol hn η b c pts h0 hS h2).post uvec
+        (WeightDescent.rowStep η uvec (pts 0) b c) ∧
+      (∀ k : ℕ,
+        netLoss [layerOfCol (WeightDescent.rowStepN η (pts 0) b c k uvec) b]
+            [coordConstraint ⟨0, hn⟩ c] pts
+          = ((1 - 2 * η * WeightDescent.sqNormIn (pts 0)) ^ 2) ^ k
+              * netLoss [layerOfCol uvec b] [coordConstraint ⟨0, hn⟩ c] pts) := by
+  refine ⟨rfl, ?_, ?_⟩
+  · exact WeightDescent.residual_rowStep_abs_le η uvec (pts 0) b c h0 hS h2
+  · exact netLoss_layerOfCol_stepN hn η b c pts uvec
+
 /-- **前向链 capstone（组合层版本）**：四环，一条陈述。
 
 1. `run` 给出 `step (1/2) c β`——**梯度的执行是显式的**；

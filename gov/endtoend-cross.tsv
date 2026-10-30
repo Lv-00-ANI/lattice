@@ -59,6 +59,8 @@ Compose/ComposeObligation.lean	blocked_run_none
 Compose/ComposeObligation.lean	compose_h_of_pre_true
 Compose/ComposeObligation.lean	Composed.toPrimitive_run
 Compose/ForwardChain.lean	descentStep_sound
+Compose/ForwardChain.lean	descentStepCol_sound
+Compose/ForwardChain.lean	forward_chain_capstone_n
 Compose/ForwardChain.lean	forward_chain_capstone
 Compose/ForwardChain.lean	forward_chain_at_solution
 Compose/Iterate.lean	Reaches.meas_add_le

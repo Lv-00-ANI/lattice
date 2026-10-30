@@ -17,12 +17,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 |--:|--:|--:|
 | 0 | 5471 | 62.5% |
 | 1 | 1369 | 15.6% |
-| 2 | 635 | 7.3% |
+| 2 | 635 | 7.2% |
 | 3 | 600 | 6.9% |
 | 4 | 462 | 5.3% |
-| 5 | 193 | 2.2% |
+| 5 | 195 | 2.2% |
 | 6 | 27 | 0.3% |
-| **合计** | **8757** | |
+| **合计** | **8759** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -59,6 +59,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `valuePrimitives_length` (`Compose/AdapterMatrix.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `combinatorPrimitives_length` (`Compose/AdapterMatrix.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `descentStepCol_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
+| 5 | `forward_chain_capstone_n` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_capstone` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `forward_chain_at_solution` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `Reaches.meas_add_le` (`Compose/Iterate.lean`) | Core, Domains, Lib, Runtime, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `iterate_succ` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `progress` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 | 5 | `preserves` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `parity_terminates` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `down_stays_neg` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
