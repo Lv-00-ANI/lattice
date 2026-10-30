@@ -1581,9 +1581,9 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
-| `Lattice.Domains.Constraints.NetLossDerivative` | 7 | 2 |
+| `Lattice.Domains.Constraints.NetLossDerivative` | 9 | 2 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
-| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 36 | 15 |
+| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 37 | 16 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -3759,6 +3759,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
+- `differentiableAt_penaltyLoss_family` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `penaltyLoss`, `trunc`
 - `differentiableAt_sqDist_left` -> `Pt`, `sqDist`
 - `differentiableAt_sqDist_pair` -> `GeoConstraint`, `Pt`, `comp`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
@@ -4273,7 +4274,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`, `scale`
 - `evalPts_add` -> `add`, `mul`
-- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `add`, `collinear`, `evalPts`, `induction`, `minorDefect`, `mul`, `netAct`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
+- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `KinkPositive`, `Pt`, `add`, `collinear`, `evalPts`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `mul`, `netAct`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
 - `evalPts_const` -> `add`, `mul`
 - `evalPts_coord` -> `add`, `mul`
 - `evalPts_coord_of_lt` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
@@ -5198,6 +5199,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `hasFDerivAt_penaltyLoss` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
+- `hasFDerivAt_penaltyLoss_family` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `hasFDerivAt_penaltyLoss`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
 - `hasFDerivAt_perpResid` -> `mul`
 - `hasFDerivAt_segCLM` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`, `trunc_apply`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
@@ -5673,6 +5675,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindSup_le` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `kind_is_bounded_lattice` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
+- `kinkPositive_iff` -> `GeoConstraint`, `Pt`, `collinear`, `parallel`, `trunc`
 - `kkt_deriv_quadratic` -> `add`, `subst`
 - `kkt_one_dim_complete` -> `comp`
 - `kkt_one_dim_inactive_stationary` -> `comp`, `mono`
@@ -6368,7 +6371,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `minimality_unique_for_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `minimality_uniqueness_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `minimax_ge_bayes` -> `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `bayesRisk`, `le`, `risk`
-- `minorDefect_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `Pt`, `collinear`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `trunc`
+- `minorDefect_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `hasFDerivAt_penaltyLoss`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
 - `minorDefect_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `trunc`
 - `minorDefect_eq_zero_of_parallel` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDefect_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
@@ -6699,7 +6702,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netLoss_tendsto_zero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `residual`
 - `netLoss_zero_iff_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_zero_without_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `netAct`, `penaltyLoss`
-- `netPoints_eq_trunc` -> `AffineLayer`, `GeoConstraint`, `Pt`, `netAct`, `penaltyLoss`, `trunc`
+- `netPoints_eq_trunc` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `hasFDerivAt_penaltyLoss`, `netAct`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
 - `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`
 - `net_behaviourallyEquivalent_iff` -> `AffineLayer`, `BehaviourallyEquivalent`, `netAct`
@@ -7160,8 +7163,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLipschitz_samePoint` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `rho`, `seg`, `sqDist`
 - `penaltyLipschitz_sqDistEq` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `parallel`, `rho`, `seg`, `sqDist`
 - `penaltyLossFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `sqDist`, `trunc`
-- `penaltyLoss_comp_funext` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `Pt`, `netAct`, `penaltyLoss`, `trunc`
-- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `Pt`, `collinear`, `netAct`, `parallel`, `penaltyLoss`, `trunc`
+- `penaltyLoss_comp_funext` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `hasFDerivAt_penaltyLoss`, `netAct`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
+- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `hasFDerivAt_penaltyLoss`, `netAct`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
 - `penaltyLoss_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
 - `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
@@ -8382,7 +8385,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seg_bump_far` -> `seg`
 - `seg_bump_far_ne` -> `seg`
 - `seg_bump_other` -> `seg`
-- `seg_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `Pt`, `collinear`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `seg_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `hasFDerivAt_penaltyLoss`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `trunc`
 - `seg_eq_segComp` -> `HasNonzeroDeriv`, `add`, `bump`, `const_add`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `seg_scale` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `seg_smul_iff` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinearPenalty`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
@@ -8750,7 +8753,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_along_path_split` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `sqDist_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `Pt`, `collinear`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
+- `sqDist_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `hasFDerivAt_penaltyLoss`, `minorDefect`, `netAct`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
 - `sqDist_differentiableAt_pair` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `sqDist_eq_coord_add_rest` -> `Pt`, `diff`, `sqDist`, `sqDist_nonneg`, `sqNorm`
 - `sqDist_eq_of_dist_eq` -> `Pt`, `trans`

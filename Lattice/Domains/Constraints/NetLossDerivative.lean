@@ -229,4 +229,39 @@ noncomputable def netLossOn {K n : ℕ} (params : List (AffineLayer (Fin n)))
 **本文件保留了可以独立成立的两条（`netPoints`、`netPoints_eq_trunc`）与 `netLossOn` 的定义，
 而【不声称】它的可微性。** -/
 
+/-! ## 第五层：`penaltyLoss` 对【任意逐点界内等价族】的导数
+
+**第 128 轮的 `hasFDerivAt_penaltyLoss` 说 `fun r => penaltyLoss c (trunc r)`。
+但 `netLossOn` 的内层是 `netPoints params r`——随 `r` 变化、且只在 `[0,K)` 上与 `trunc r` 一致。**
+
+**⇒ 把导数定理推广到这种族；桥是上一层的局部性引理：两者给出【相同】的损失函数，导数直接继承。**
+
+**⚠ 这一层必须放在本文件而不是 `PenaltyLossDerivative.lean`**：
+**它需要 `penaltyLoss_congr_of_indicesBelow`，而那条在本文件——
+`NetLossDerivative` 依赖 `PenaltyLossDerivative`，反向 import 会成环。** -/
+
+/-- ⭐⭐⭐ **`penaltyLoss` 在任意「逐点界内等价」族上的导数**。 -/
+theorem hasFDerivAt_penaltyLoss_family {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n)
+    (P : (Fin K → Pt n) → ℕ → Pt n)
+    (hP : ∀ r j, j < K → P r j = trunc r j)
+    (hk : KinkPositive c K p) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss c (P r))
+      (penaltyLossFDeriv c hK p) p := by
+  have hloc : (fun r : Fin K → Pt n => penaltyLoss c (P r))
+      = fun r : Fin K → Pt n => penaltyLoss c (trunc r) := by
+    funext r
+    exact penaltyLoss_congr_of_indicesBelow c K hK (P r) (trunc r) (hP r)
+  rw [hloc]
+  exact hasFDerivAt_penaltyLoss c hK p hk
+
+/-- ⭐⭐⭐ **可微性版本**——`netLossOn` 直接消费这一条。 -/
+theorem differentiableAt_penaltyLoss_family {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n)
+    (P : (Fin K → Pt n) → ℕ → Pt n)
+    (hP : ∀ r j, j < K → P r j = trunc r j)
+    (hk : KinkPositive c K p) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => penaltyLoss c (P r)) p :=
+  (hasFDerivAt_penaltyLoss_family c hK p P hP hk).differentiableAt
+
 end Lattice.Geo
