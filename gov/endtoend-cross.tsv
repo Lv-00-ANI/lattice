@@ -293,6 +293,8 @@ Domains/Constraints/PenaltyLossDerivative.lean	samePoint_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	eqZero_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	sqDistEq_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	equalLength_differentiableAt
+Domains/Constraints/PenaltyLossDerivative.lean	segCLM_apply
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_segCLM
 Domains/Constraints/Perturb.lean	unflatten_add
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_same
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_ne

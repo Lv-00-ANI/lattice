@@ -115,4 +115,28 @@ theorem equalLength_differentiableAt {K n : ℕ} (a b c e : ℕ)
     (sqDist (trunc p a) (trunc p b) - sqDist (trunc p c) (trunc p e))).differentiableAt.comp p
     (h1.sub h2)
 
+/-! ## ⭐ `seg` 作为线性映射，以及 `midpoint` 的导数
+
+`seg (trunc r) a b i = trunc r b i − trunc r a i`——**对 `r` 是【线性】的**，
+**所以 `seg` 本身就是一条 `(Fin K → Pt n) →L[ℝ] Pt n`，而不是需要乘积法则的东西。**
+
+**这直接给出 `midpoint` 支**（`∑ i, (2·pts m i − pts a i − pts b i)²`，线性形式平方和）：
+**每项的导数由 `Core.hasFDerivAt_sq_comp` 给出，求和由 `HasFDerivAt.sum` 收。** -/
+
+/-- **`seg` 作为线性映射**：`r ↦ fun i => r b i − r a i`。 -/
+noncomputable def segCLM {K n : ℕ} (a b : Fin K) : (Fin K → Pt n) →L[ℝ] Pt n :=
+  (pointProj b) - (pointProj a)
+
+/-- **`segCLM` 的求值**：与 `seg (trunc r) a b` 逐点一致。 -/
+theorem segCLM_apply {K n : ℕ} (a b : Fin K) (r : Fin K → Pt n) (i : Fin n) :
+    segCLM a b r i = trunc r b i - trunc r a i := by
+  simp only [segCLM, ContinuousLinearMap.sub_apply, pointProj, Pi.sub_apply,
+    ContinuousLinearMap.proj_apply]
+  rw [trunc_apply, trunc_apply]
+
+/-- **`segCLM` 的导数**。 -/
+theorem hasFDerivAt_segCLM {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => segCLM a b r) (segCLM a b) p :=
+  ContinuousLinearMap.hasFDerivAt (segCLM a b)
+
 end Lattice.Geo
