@@ -74,6 +74,8 @@ EqConstraint.loss  : …                                    -- poly 的平方
 import Mathlib
 import Lattice.Domains.Constraints.Constraint
 import Lattice.Domains.Constraints.Dist
+import Lattice.Lib.Penalty.BilinearLocallyLipschitz
+import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 
 namespace Lattice.Geo.PenaltyLoss
 
@@ -115,6 +117,119 @@ theorem minorDefect_eq_zero_of_parallel (u v : Pt n) (t : ℝ) (h : u = fun i =>
   refine Finset.sum_eq_zero fun i _ => Finset.sum_eq_zero fun j _ => ?_
   rw [h]
   ring
+
+/-! ## ⭐⭐ `minorDefect` 的**局部** Lipschitz 界
+
+`minorDefect u v = ∑ i, ∑ j, (u i * v j - u j * v i)²`，**每一项是「两个双线性形式之差」的平方。**
+
+**所以正确的工具组合是：**
+1. **`Lib.Penalty.bilinear_sub_le`**（第 94 轮）给出**差**的界 `|… − …'| ≤ M·δ + M·δ`；
+2. **`Lib.Penalty.sq_lipschitz_on_bounded`**（第 79 轮）把差抬到**平方**上，代价是 `2R`。
+
+⚠ **不是 `bilinear_sq_sub_le` 那条**：那条处理的是「双线性形式的平方」（`(a·b)²`），
+**而这里 `(u i v j − u j v i)²` 里的东西已经是两个乘积之差**，所以 `sq_lipschitz_on_bounded` 才是直接匹配。
+**第 94 轮那两条因此留在原地——`bilinear_sub_le` 被本节消费，`bilinear_sq_sub_le` 暂时没有消费者。** -/
+
+/-- **整个子式之差的界**：`|(u i v j − u j v i) − (u' i v' j − u' j v' i)| ≤ 2·(M δ + M δ)`。
+
+**两项各用一次 `crossSub_le`**（第二项把 `u`/`v` 对调、下标对调）。 -/
+theorem minorDiff_le {u v u' v' : Pt n} {M δ : ℝ}
+    (hu : ∀ i, |u i| ≤ M) (hv : ∀ i, |v i| ≤ M)
+    (hu' : ∀ i, |u' i| ≤ M) (hv' : ∀ i, |v' i| ≤ M)
+    (hdu : ∀ i, |u i - u' i| ≤ δ) (hdv : ∀ i, |v i - v' i| ≤ δ) (i j : Fin n) :
+    |(u i * v j - u j * v i) - (u' i * v' j - u' j * v' i)| ≤ (M * δ + M * δ) + (M * δ + M * δ) := by
+  have hP : |u i * v j - u' i * v' j| ≤ M * δ + M * δ :=
+    Lattice.Lib.Penalty.bilinear_sub_le (hu i) (hv' j) (hdu i) (hdv j)
+  have hQ : |u j * v i - u' j * v' i| ≤ M * δ + M * δ := by
+    have hraw := Lattice.Lib.Penalty.bilinear_sub_le (hv i) (hu' j) (hdv i) (hdu j)
+    simpa only [mul_comm] using hraw
+  have hfac : (u i * v j - u j * v i) - (u' i * v' j - u' j * v' i)
+      = (u i * v j - u' i * v' j) - (u j * v i - u' j * v' i) := by ring
+  rw [hfac]
+  exact le_trans (abs_sub _ _) (add_le_add hP hQ)
+
+/-- **单个子式的平方之差的界**：`≤ 2·(2M²)·(2·(M δ + M δ))`。
+
+**由 `minorDiff_le` 给差、`sq_lipschitz_on_bounded` 抬平方**，而 `R = 2M²`
+因为 `|u i v j − u j v i| ≤ |u i||v j| + |u j||v i| ≤ 2M²`。 -/
+theorem minorTerm_lipschitz {u v u' v' : Pt n} {M δ : ℝ}
+    (hM : 0 ≤ M) (hδ : 0 ≤ δ)
+    (hu : ∀ i, |u i| ≤ M) (hv : ∀ i, |v i| ≤ M)
+    (hu' : ∀ i, |u' i| ≤ M) (hv' : ∀ i, |v' i| ≤ M)
+    (hdu : ∀ i, |u i - u' i| ≤ δ) (hdv : ∀ i, |v i - v' i| ≤ δ) (i j : Fin n) :
+    |(u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2|
+      ≤ 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) := by
+  have hdiff := minorDiff_le hu hv hu' hv' hdu hdv i j
+  -- each side of the cross product is bounded by `2M²`
+  have hP : |u i * v j - u j * v i| ≤ 2 * M * M := by
+    have h1 : |u i| * |v j| ≤ M * M :=
+      mul_le_mul (hu i) (hv j) (abs_nonneg _) (le_trans (abs_nonneg _) (hu i))
+    have h2 : |u j| * |v i| ≤ M * M :=
+      mul_le_mul (hu j) (hv i) (abs_nonneg _) (le_trans (abs_nonneg _) (hu j))
+    calc |u i * v j - u j * v i| ≤ |u i * v j| + |u j * v i| := abs_sub _ _
+      _ = |u i| * |v j| + |u j| * |v i| := by rw [abs_mul, abs_mul]
+      _ ≤ M * M + M * M := add_le_add h1 h2
+      _ = 2 * M * M := by ring
+  have hQ : |u' i * v' j - u' j * v' i| ≤ 2 * M * M := by
+    have h1 : |u' i| * |v' j| ≤ M * M :=
+      mul_le_mul (hu' i) (hv' j) (abs_nonneg _) (le_trans (abs_nonneg _) (hu' i))
+    have h2 : |u' j| * |v' i| ≤ M * M :=
+      mul_le_mul (hu' j) (hv' i) (abs_nonneg _) (le_trans (abs_nonneg _) (hu' j))
+    calc |u' i * v' j - u' j * v' i| ≤ |u' i * v' j| + |u' j * v' i| := abs_sub _ _
+      _ = |u' i| * |v' j| + |u' j| * |v' i| := by rw [abs_mul, abs_mul]
+      _ ≤ M * M + M * M := add_le_add h1 h2
+      _ = 2 * M * M := by ring
+  have hR : 0 ≤ 2 * M * M := by positivity
+  exact le_trans (Lattice.Lib.Penalty.sq_lipschitz_on_bounded (s := u i * v j - u j * v i)
+    (t := u' i * v' j - u' j * v' i) hR hP hQ) (by
+      exact mul_le_mul_of_nonneg_left hdiff (by positivity))
+
+/-- ⭐⭐⭐ **`minorDefect` 的局部 Lipschitz 界**：两边逐坐标被 `M` 界住、变化被 `δ` 界住时，
+
+`|minorDefect u v − minorDefect u' v'| ≤ 2·(2M²)·(2·(Mδ + Mδ))·n·n`。
+
+**这是 `collinear` / `parallel` 两个分支的 Lipschitz 前件**，也是 `penaltyLoss` 12 个分支里
+唯一不是「线性形式平方」的那两个。 -/
+theorem minorDefect_lipschitz {u v u' v' : Pt n} {M δ : ℝ}
+    (hM : 0 ≤ M) (hδ : 0 ≤ δ)
+    (hu : ∀ i, |u i| ≤ M) (hv : ∀ i, |v i| ≤ M)
+    (hu' : ∀ i, |u' i| ≤ M) (hv' : ∀ i, |v' i| ≤ M)
+    (hdu : ∀ i, |u i - u' i| ≤ δ) (hdv : ∀ i, |v i - v' i| ≤ δ) :
+    |minorDefect u v - minorDefect u' v'|
+      ≤ 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) * (n : ℝ) * (n : ℝ) := by
+  have hstep : ∀ i j : Fin n,
+      |(u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2|
+        ≤ 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) :=
+    fun i j => minorTerm_lipschitz hM hδ hu hv hu' hv' hdu hdv i j
+  have hnn : 0 ≤ 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) := by positivity
+  have hsplit : minorDefect u v - minorDefect u' v'
+      = ∑ i : Fin n, ∑ j : Fin n,
+          ((u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2) := by
+    unfold minorDefect
+    rw [← Finset.sum_sub_distrib]
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    rw [← Finset.sum_sub_distrib]
+  rw [hsplit]
+  have hinner : ∀ i : Fin n,
+      |∑ j, ((u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2)|
+        ≤ 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) * (n : ℝ) := by
+    intro i
+    calc |∑ j, ((u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2)|
+        ≤ ∑ j, |(u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2| :=
+          Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ _j : Fin n, 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) :=
+          Finset.sum_le_sum (fun j _ => hstep i j)
+      _ = 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) * (n : ℝ) := by
+          simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+          ring
+  calc |∑ i, ∑ j, ((u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2)|
+      ≤ ∑ i, |∑ j, ((u i * v j - u j * v i) ^ 2 - (u' i * v' j - u' j * v' i) ^ 2)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _i : Fin n, 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) * (n : ℝ) :=
+        Finset.sum_le_sum (fun i _ => hinner i)
+    _ = 2 * (2 * M * M) * ((M * δ + M * δ) + (M * δ + M * δ)) * (n : ℝ) * (n : ℝ) := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
 
 /-! ## ⚠ **`penaltyLoss` 没有全局 Lipschitz 常数**（第 78 轮补）
 

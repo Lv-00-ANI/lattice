@@ -75,7 +75,7 @@
 | `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
 | `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
 | `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `Lattice.Domains.PenaltyLoss` | 298 | 13 | Constraint, Dist |
+| `Lattice.Domains.PenaltyLoss` | 413 | 16 | Constraint, Dist |
 | `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
 | `Lattice.Domains.Perturb` | 126 | 8 | Flatten |
 | `Lattice.Domains.Pipeline` | 169 | 7 | Constraint, Expr, Loss |
