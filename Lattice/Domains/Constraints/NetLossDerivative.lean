@@ -539,4 +539,70 @@ theorem netLossFDeriv_nil {K n : ℕ} (hK : ∀ c ∈ ([] : List (GeoConstraint 
     netLossFDeriv ([] : List (GeoConstraint n)) hK p = 0 := by
   simp only [netLossFDeriv, listSumFDeriv, List.attach_nil, List.map_nil, List.sum_nil]
 
+/-! ## 第十二层：`netLossFDeriv` 确实是导数
+
+**第 141 轮给出了显式的 `netLossFDeriv` 与它的求值，但没有证明【它就是导数】。**
+**本节补上那一步。**
+
+**⚠ 定义改成【对 `cs` 递归】**（而不是经 `attach` 的 `List.sum`）：
+**第 142 轮探针确认递归式在 `cons` 上由 `rfl` 展开，而 `attach` 的展开要绕 `List.attach_cons`。
+递归式让归纳论证的形状与 `lossOfActivations` 完全一致。** -/
+
+/-- **`netLossFDeriv` 的递归定义**：`cs` 逐个累加 `penaltyLossFDeriv`。 -/
+noncomputable def netLossFDerivRec {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  match cs with
+  | [] => 0
+  | c :: rest =>
+      penaltyLossFDeriv c (hK c (List.mem_cons_self c rest)) p
+        + netLossFDerivRec rest (fun c' hc' => hK c' (List.mem_cons_of_mem c hc')) p
+
+/-- **递归式的 `cons` 展开**——定义级。 -/
+theorem netLossFDerivRec_cons {K n : ℕ} (c : GeoConstraint n) (rest : List (GeoConstraint n))
+    (hK : ∀ c' ∈ c :: rest, ConstraintIndicesBelow c' K) (p : Fin K → Pt n) :
+    netLossFDerivRec (c :: rest) hK p
+      = penaltyLossFDeriv c (hK c (List.mem_cons_self c rest)) p
+        + netLossFDerivRec rest (fun c' hc' => hK c' (List.mem_cons_of_mem c hc')) p :=
+  rfl
+
+/-- **递归式在空列表上是零**。 -/
+theorem netLossFDerivRec_nil {K n : ℕ} (hK : ∀ c ∈ ([] : List (GeoConstraint n)),
+    ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDerivRec ([] : List (GeoConstraint n)) hK p = 0 :=
+  rfl
+
+/-- ⭐⭐⭐ **`netLossFDerivRec` 就是 `lossOfActivations` 的导数**——**显式形式。**
+
+**对 `cs` 归纳**：`nil` 两侧都是零；`cons` 把损失拆成
+`penaltyLoss c (trunc a) + lossOfActivations rest a`，
+**前者用第 128 轮的 `hasFDerivAt_penaltyLoss`、后者用归纳假设，再 `.add`。** -/
+theorem hasFDerivAt_lossOfActivations {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K acts) :
+    HasFDerivAt (fun a : Fin K → Pt n => lossOfActivations cs a)
+      (netLossFDerivRec cs hK acts) acts := by
+  induction cs with
+  | nil =>
+      have hnil : (fun a : Fin K → Pt n => lossOfActivations [] a) = fun _ => (0 : ℝ) := by
+        funext a
+        simp only [lossOfActivations, List.map_nil, List.sum_nil]
+      rw [hnil, netLossFDerivRec_nil]
+      exact hasFDerivAt_const (x := acts) (c := (0 : ℝ))
+  | cons c rest ih =>
+      have hc : ConstraintIndicesBelow c K := hK c (List.mem_cons_self c rest)
+      have hkc : KinkPositive c K acts := hk c (List.mem_cons_self c rest)
+      have hrestK : ∀ c' ∈ rest, ConstraintIndicesBelow c' K :=
+        fun c' hc' => hK c' (List.mem_cons_of_mem c hc')
+      have hrestk : ∀ c' ∈ rest, KinkPositive c' K acts :=
+        fun c' hc' => hk c' (List.mem_cons_of_mem c hc')
+      have hsplit : (fun a : Fin K → Pt n => lossOfActivations (c :: rest) a)
+          = fun a : Fin K → Pt n =>
+              penaltyLoss c (trunc a) + lossOfActivations rest a := by
+        funext a
+        simp only [lossOfActivations, List.map_cons, List.sum_cons]
+      rw [hsplit, netLossFDerivRec_cons]
+      exact (hasFDerivAt_penaltyLoss c hc acts hkc).add (ih hrestK hrestk)
+
 end Lattice.Geo
