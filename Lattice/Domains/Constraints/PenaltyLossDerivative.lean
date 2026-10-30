@@ -780,4 +780,62 @@ theorem differentiableAt_sqDist_pair {K n : ℕ} (a b : Fin K) (p : Fin K → Pt
       (hasFDerivAt_truncPoint b.val b.isLt p)).differentiableAt
   exact hjoint.comp p hpair
 
+/-! ## ⭐⭐ `sqDist` 的联合导数，显式形式
+
+**`sqDist x y = ∑ i, (x i − y i)²`，所以联合导数是**
+
+```lean
+sqDistJointFDeriv x y = ∑ i, (2(x i − y i)) • (proj i ∘ fst − proj i ∘ snd)
+```
+
+**这条 CLM 直接作用在 `(d₁, d₂)` 上得到 `∑ i, 2(x i − y i)(d₁ i − d₂ i)`——
+与单槽版本 `sqDistFDeriv` 在「一个槽固定」时逐字一致。**
+
+## 为什么需要它
+
+**第 124 轮只证了 `differentiableAt_sqDist_pair`（`DifferentiableAt`）**，
+**而装配需要「导数就是 `sqDistPairFDeriv`」。**
+**有了联合 `HasFDerivAt`，`sqDist (trunc · a) (trunc · b)` 的导数就是它与 `pairProj` 的复合，
+而 `sqDistPairFDeriv` 正是那条复合的展开式**——**所以最后一步是一次 `Finset.sum_congr` 加 `ring`。** -/
+
+/-- **`sqDist` 在 `(x, y)` 上的联合导数**，显式 CLM。 -/
+noncomputable def sqDistJointFDeriv {n : ℕ} (x y : Pt n) : (Pt n × Pt n) →L[ℝ] ℝ :=
+  ∑ i, (2 * (x i - y i)) •
+    (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+      (ContinuousLinearMap.fst ℝ (Pt n) (Pt n))
+      - ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+        (ContinuousLinearMap.snd ℝ (Pt n) (Pt n)))
+
+/-- **`sqDist` 的联合 `HasFDerivAt`**。 -/
+theorem hasFDerivAt_sqDist_joint {n : ℕ} (x y : Pt n) :
+    HasFDerivAt (fun r : Pt n × Pt n => sqDist r.1 r.2) (sqDistJointFDeriv x y) (x, y) := by
+  have hfun : (fun r : Pt n × Pt n => sqDist r.1 r.2)
+      = fun r : Pt n × Pt n => ∑ i, (r.1 i - r.2 i) ^ 2 := by
+    funext r
+    exact sqDist_eq_sum r.1 r.2
+  rw [hfun]
+  have hterm : ∀ i : Fin n,
+      HasFDerivAt (fun r : Pt n × Pt n => (r.1 i - r.2 i) ^ 2)
+        ((2 * (x i - y i)) •
+          (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+            (ContinuousLinearMap.fst ℝ (Pt n) (Pt n))
+            - ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+              (ContinuousLinearMap.snd ℝ (Pt n) (Pt n)))) (x, y) := by
+    intro i
+    have hfst : HasFDerivAt (fun r : Pt n × Pt n => r.1 i)
+        (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+          (ContinuousLinearMap.fst ℝ (Pt n) (Pt n))) (x, y) :=
+      ContinuousLinearMap.hasFDerivAt
+        (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+          (ContinuousLinearMap.fst ℝ (Pt n) (Pt n)))
+    have hsnd : HasFDerivAt (fun r : Pt n × Pt n => r.2 i)
+        (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+          (ContinuousLinearMap.snd ℝ (Pt n) (Pt n))) (x, y) :=
+      ContinuousLinearMap.hasFDerivAt
+        (((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)).comp
+          (ContinuousLinearMap.snd ℝ (Pt n) (Pt n)))
+    exact Lattice.Core.hasFDerivAt_sq_comp (hfst.sub hsnd)
+  have h := HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun i _ => hterm i)
+  simpa only [sqDistJointFDeriv] using h
+
 end Lattice.Geo
