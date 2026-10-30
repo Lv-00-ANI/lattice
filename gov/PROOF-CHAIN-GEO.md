@@ -22,7 +22,7 @@
 | `Lattice.Domains.ComputableExpr` | 249 | 7 | Expr |
 | `Lattice.Domains.ConjRepair` | 157 | 3 | Loop, LoopPerp, RepairPerp |
 | `Lattice.Domains.Constraint` | 161 | 4 | Expr, Dist |
-| `Lattice.Domains.ConstraintDescent` | 452 | 17 | Constraint, PenaltyLoss, NetLoss |
+| `Lattice.Domains.ConstraintDescent` | 524 | 21 | Constraint, PenaltyLoss, NetLoss |
 | `Lattice.Domains.ConstraintSet` | 175 | 7 | Constraint |
 | `Lattice.Domains.ConstraintTokenizer` | 420 | 12 | Expr |
 | `Lattice.Domains.Constraints` | 40 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation |
