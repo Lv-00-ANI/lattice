@@ -952,6 +952,21 @@ theorem penaltyLoss_eq_zero_iff_holds_sq {n : ℕ} (Φ : ℕ → Pt n) :
     simp only [penaltyLoss, Holds]
     exact sq_eq_zero_iff_real _
 
+/-- ⭐ **`leZero`**：`(max x 0)² = 0 ⟺ x ≤ 0`。
+
+**⚠ 这一支在第 151 轮的合并中是【丢失**后补回来的：
+当时把五条「平方」分支合并成一条参数化定理 `penaltyLoss_eq_zero_iff_holds_sq`，
+**而 `leZero` 的损失是 `(max x 0)²` 而不是 `x²`，所以它【不在】那五支里，
+却在编辑时被一并删掉了。**
+
+**第 153 轮的 `unknown identifier 'penaltyLoss_eq_zero_iff_holds_leZero'` 报错正是这次丢失的后果**——
+**一条【被删掉的定理】只有在有人试图引用它时才暴露，而前面几轮的引用都在同一次编辑里被一并删掉了。**
+**这是第 84 轮「同名重复」教训的镜像：那一次是多了一份，这一次是少了一份。** -/
+theorem penaltyLoss_eq_zero_iff_holds_leZero {n : ℕ} (e : GeoExpr n) (Φ : ℕ → Pt n) :
+    penaltyLoss (.leZero e) Φ = 0 ↔ Holds (.leZero e) Φ := by
+  simp only [penaltyLoss, Holds]
+  rw [sq_eq_zero_iff_real, max_zero_eq_zero_iff]
+
 /-- ⭐ **`samePoint`**：`sqDist (Φ a) (Φ b) = 0 ⟺ Φ a = Φ b`。 -/
 theorem penaltyLoss_eq_zero_iff_holds_samePoint {n : ℕ} (a b : ℕ) (Φ : ℕ → Pt n) :
     penaltyLoss (.samePoint a b) Φ = 0 ↔ Holds (.samePoint a b) Φ := by
