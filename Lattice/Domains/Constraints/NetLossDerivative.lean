@@ -675,4 +675,37 @@ theorem netLossOn_fderiv_apply {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n)
     (differentiableAt_pointwiseNetActN Pf p), ContinuousLinearMap.comp_apply,
     activationFDeriv]
 
+/-- **激活映射关于【参数】的 `fderiv`**——由第 139 轮的 `HasFDerivAt` 句柄给出。
+
+**⚠ 参数的载体必须是 `Fin k → singleParams n` 而不是 `Fin k → AffineLayer (Fin n)`**：
+**后者是结构类型，没有 `NormedAddCommGroup` 实例，所以 `fderiv` 无法作用在它上面。
+这就是为什么参数侧一律以 `packLayers q` 的形式出现。** -/
+noncomputable def activationFDerivParams {K k n : ℕ} (q : Fin k → singleParams n)
+    (p : Fin K → Pt n) : (Fin k → singleParams n) →L[ℝ] (Fin K → Pt n) :=
+  fderiv ℝ (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (p j)) q
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数关于【参数】在方向 `e` 上的求值**——**第 144 轮定理的参数侧镜像。**
+
+**同样的链式法则：`netLossOn (packLayers ·) = lossOfActivations ∘ (参数 ↦ 激活点列)`，
+所以 `fderiv_comp` 给出右边的形状。** -/
+theorem netLossOn_fderiv_apply_params {K k n : ℕ} (q : Fin k → singleParams n)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) (e : Fin k → singleParams n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    fderiv ℝ (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q e
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k (packLayers q) (p j))
+          (activationFDerivParams q p e) := by
+  have hcomp : (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) := by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p
+  rw [hcomp, fderiv_comp q
+    (lossOfActivations_differentiableAt cs
+      (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN_params q p), ContinuousLinearMap.comp_apply,
+    activationFDerivParams]
+
 end Lattice.Geo
