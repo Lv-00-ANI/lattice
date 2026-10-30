@@ -114,4 +114,54 @@ theorem hasFDerivAt_affineAct_params {n : ℕ} (W : Fin n → Fin n → ℝ) (b 
       (fderiv ℝ (fun p : singleParams n => affineAct ⟨p.1, p.2⟩ x) (W, b)) (W, b) :=
   (differentiableAt_affineAct_params W b x).hasFDerivAt
 
+/-! ## ⭐⭐ `netActN`：`Fin k` 上的递归栈求值——`foldl` 的可微替代
+
+## 为什么需要它
+
+`netAct ls x = ls.foldl (fun acc L => affineAct L acc) x`。**`List.foldl` 在 mathlib 里没有可微性引理**，
+**所以「`k` 层栈对参数可微」不能靠一条 `foldl` 的定理，必须对 `k` 归纳。**
+
+**而对 `k` 归纳需要一条【在 `ℕ` 上递归】的求值函数**——**那就是 `netActN`。**
+
+## ⚠ 递归方向必须与 `List.ofFn_succ` 一致
+
+**第一次我写的是「末层作用于前 `k` 层的结果」**（从**尾**剥离），
+**而 `List.ofFn_succ` 拆的是【首元素】**（`List.ofFn f = f 0 :: List.ofFn (fun i => f i.succ)`）。
+**两者方向相反，所以那条等式证不出来。**
+
+**⇒ `netActN` 从【头】剥离**：先作用 `p 0`，再递归到 `p ∘ succ`。
+**那也正是 `foldl` 的自然顺序**，所以等式与 `List.foldl_cons` 直接对齐。 -/
+
+/-- **`k` 层仿射栈的递归求值（从头剥离）**：`k = 0` 是恒等；
+`k + 1` 是先作用首层，再递归到其余。 -/
+noncomputable def netActN (n : ℕ) : (k : ℕ) → (Fin k → AffineLayer (Fin n)) → (Fin n → ℝ) → (Fin n → ℝ)
+  | 0, _, x => x
+  | k + 1, p, x => netActN n k (fun i => p i.succ) (affineAct (p 0) x)
+
+/-- **`netActN` 在 `k = 0` 处是恒等。** -/
+theorem netActN_zero {n : ℕ} (p : Fin 0 → AffineLayer (Fin n)) (x : Fin n → ℝ) :
+    netActN n 0 p x = x :=
+  rfl
+
+/-- **`netActN` 的递归步**：先作用首层。 -/
+theorem netActN_succ {k n : ℕ} (p : Fin (k + 1) → AffineLayer (Fin n)) (x : Fin n → ℝ) :
+    netActN n (k + 1) p x
+      = netActN n k (fun i => p i.succ) (affineAct (p 0) x) :=
+  rfl
+
+/-- ⭐ **`netActN` 就是 `netAct`（经 `List.ofFn`）**——**这条等式让 `netActN` 上的结论能搬到 `netAct` 上。**
+
+**证明对 `k` 归纳**：`k = 0` 时 `netAct [] x = x`；`k + 1` 时用 `List.ofFn_succ` 拆出首元素，
+再用 `List.foldl_cons`（`foldl` 的首步）。
+
+⚠ **归纳假设 `ih` 的第一个参数是 `p`**（因为 `p` 是定理的显式参数），所以 `rw` 要写成 `ih (fun i => p i.succ)`。 -/
+theorem netActN_eq_netAct {k n : ℕ} (p : Fin k → AffineLayer (Fin n)) (x : Fin n → ℝ) :
+    netActN n k p x = netAct (List.ofFn p) x := by
+  induction k generalizing x with
+  | zero =>
+      simp only [netActN_zero, netAct, List.ofFn_zero, List.foldl_nil]
+  | succ k ih =>
+      rw [netActN_succ, ih (fun i : Fin k => p i.succ)]
+      simp only [netAct, List.ofFn_succ, List.foldl_cons]
+
 end Lattice.Core
