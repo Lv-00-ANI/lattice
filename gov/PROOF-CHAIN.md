@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 19 | no imports from lift/lib |
+| core | 20 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 622 | instantiated library, may import core only |
@@ -35,6 +35,7 @@
 - `Lattice.Core.RepairWF` <- `Lattice.Core.Repair`
 - `Lattice.Core.Semantics` <- `Lattice.Core.Syntax`
 - `Lattice.Core.Simulation` 
+- `Lattice.Core.StackDerivative` <- `Lattice.Core.Net`
 - `Lattice.Core.StackParams` <- `Lattice.Core.Net`
 - `Lattice.Core.Syntax` 
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
@@ -681,7 +682,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -902,6 +903,7 @@
 | `Lattice.Core.RepairWF` | 4 | 3 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
+| `Lattice.Core.StackDerivative` | 2 | 1 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
@@ -2133,6 +2135,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `admm_z_minimizer` -> `add`
 - `aestronglyMeasurable_of_measurable` -> `apply`, `mono`
 - `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `affineAct_eq_affineCLM_add` -> `AffineLayer`, `affineAct`
 - `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
@@ -5150,6 +5153,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasDerivAt_perpResid_affine` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_perpResid_along_bump` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_sqLoss` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
+- `hasFDerivAt_affineAct` -> `AffineLayer`, `affineAct`
 - `hasFDerivAt_coord` -> `mul`, `unflatten`
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`

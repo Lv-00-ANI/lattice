@@ -16,6 +16,7 @@ import Lattice.Core.RepairAtomicity
 import Lattice.Core.OneStepBridge
 import Lattice.Core.Activation
 import Lattice.Core.StackParams
+import Lattice.Core.StackDerivative
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
