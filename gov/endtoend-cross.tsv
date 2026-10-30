@@ -254,6 +254,10 @@ Domains/Constraints/NetLoss.lean	netLoss_lipschitz_of
 Domains/Constraints/NetLoss.lean	netLoss_eq_zero_of_holds
 Domains/Constraints/NetLoss.lean	netLoss_zero_without_holds
 Domains/Constraints/NetLossDerivative.lean	evalPts_congr_of_indicesBelow
+Domains/Constraints/NetLossDerivative.lean	sqDist_congr
+Domains/Constraints/NetLossDerivative.lean	seg_congr
+Domains/Constraints/NetLossDerivative.lean	minorDefect_congr
+Domains/Constraints/NetLossDerivative.lean	penaltyLoss_congr_of_indicesBelow
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg
 Domains/Constraints/PenaltyLoss.lean	minorDefect_eq_zero_of_parallel
 Domains/Constraints/PenaltyLoss.lean	minorDiff_le
