@@ -949,4 +949,137 @@ theorem hasFDerivAt_sqDist_pair_explicit {K n : ℕ} (a b : Fin K) (p : Fin K �
   rw [sqDistPairFDerivComp_eq] at h
   exact h
 
+/-! ## ⭐⭐⭐⭐ 装配：`hasFDerivAt_penaltyLoss`
+
+**十四条前件全部就位**，**本节把它们装成一个 12 路 `match` 的定理**：
+
+    HasFDerivAt (fun r => penaltyLoss c (trunc r)) (penaltyLossFDeriv c hK p) p
+
+**每支的写法都是同一个三行模式**：
+1. `funext` 把 `penaltyLoss` 展开成该支的表达式；
+2. 由该支的前件得到 `HasFDerivAt`；
+3. `convert`／`rw` 让导数与 `penaltyLossFDeriv` 的定义逐字对上。
+
+**⚠ `perpendicular`／`rightAngle` 需要一次 `sq_comp`**：前件给的是内层 `∑` 的导数，
+**而损失是 `(∑ …)²`——所以先 `hasFDerivAt_bilinearSum`，再 `Core.hasFDerivAt_sq_comp`。** -/
+
+/-- ⭐⭐⭐⭐ **`penaltyLoss` 的导数就是 `penaltyLossFDeriv`**——**P2-02 的收口定理。** -/
+theorem hasFDerivAt_penaltyLoss {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n) (hk : KinkPositive c K p) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss c (trunc r))
+      (penaltyLossFDeriv c hK p) p := by
+  match c, hK with
+  | .eqZero e, hK =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.eqZero e) (trunc r))
+          = fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      exact Lattice.Core.hasFDerivAt_sq_comp (hasFDerivAt_evalPts e hK p)
+  | .leZero e, hK =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.leZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      have hpos : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hmax : max (GeoExpr.evalPts e (trunc p)) 0 = GeoExpr.evalPts e (trunc p) :=
+        max_eq_left (le_of_lt hpos)
+      simp only [penaltyLossFDeriv, hmax]
+      exact hasFDerivAt_maxZero_pos e hK p hk
+  | .ltZero e, hK =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.ltZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      have hpos : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hmax : max (GeoExpr.evalPts e (trunc p)) 0 = GeoExpr.evalPts e (trunc p) :=
+        max_eq_left (le_of_lt hpos)
+      simp only [penaltyLossFDeriv, hmax]
+      exact hasFDerivAt_maxZero_pos e hK p hk
+  | .gtZero e, hK =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.gtZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      have hpos : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hmax : max (-(GeoExpr.evalPts e (trunc p))) 0 = 0 :=
+        max_eq_right (by linarith)
+      have hzero : penaltyLossFDeriv (GeoConstraint.gtZero e) hK p
+          = ((2 * max (-(GeoExpr.evalPts e (trunc p))) 0) •
+              (-(evalPtsFDeriv e K hK p))) := by
+        simp only [penaltyLossFDeriv]
+      rw [hzero]
+      exact hasFDerivAt_negMaxZero_pos e hK p hk
+  | .sqDistEq a b d, ⟨ha, hb, hd⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.sqDistEq a b d) (trunc r))
+          = fun r : Fin K → Pt n =>
+              (sqDist (trunc r a) (trunc r b) - GeoExpr.evalPts d (trunc r)) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      exact Lattice.Core.hasFDerivAt_sq_comp
+        ((hasFDerivAt_sqDist_pair_explicit ⟨a, ha⟩ ⟨b, hb⟩ p).sub
+          (hasFDerivAt_evalPts d hd p))
+  | .equalLength a b c' e, ⟨ha, hb, hc, he⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.equalLength a b c' e) (trunc r))
+          = fun r : Fin K → Pt n =>
+              (sqDist (trunc r a) (trunc r b) - sqDist (trunc r c') (trunc r e)) ^ 2 := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      exact Lattice.Core.hasFDerivAt_sq_comp
+        ((hasFDerivAt_sqDist_pair_explicit ⟨a, ha⟩ ⟨b, hb⟩ p).sub
+          (hasFDerivAt_sqDist_pair_explicit ⟨c', hc⟩ ⟨e, he⟩ p))
+  | .collinear a b c', ⟨ha, hb, hc⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.collinear a b c') (trunc r))
+          = fun r : Fin K → Pt n =>
+              minorDefect (segCLM ⟨a, ha⟩ ⟨b, hb⟩ r) (segCLM ⟨a, ha⟩ ⟨c', hc⟩ r) := by
+        funext r
+        simp only [penaltyLoss, Lattice.Geo.PenaltyLoss.minorDefect,
+          Lattice.Geo.GeoConstraint.seg, segCLM_apply]
+      rw [hfun]
+      exact hasFDerivAt_minorDefect_seg (segCLM ⟨a, ha⟩ ⟨b, hb⟩) (segCLM ⟨a, ha⟩ ⟨c', hc⟩) p
+  | .perpendicular a b c' e, ⟨ha, hb, hc, he⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.perpendicular a b c' e) (trunc r))
+          = fun r : Fin K → Pt n =>
+              (∑ i, segCLM ⟨a, ha⟩ ⟨b, hb⟩ r i * segCLM ⟨c', hc⟩ ⟨e, he⟩ r i) ^ 2 := by
+        funext r
+        simp only [penaltyLoss, Lattice.Geo.GeoConstraint.seg]
+        congr 1
+        refine Finset.sum_congr rfl (fun i _ => by rw [segCLM_apply, segCLM_apply])
+      rw [hfun]
+      exact Lattice.Core.hasFDerivAt_sq_comp
+        (hasFDerivAt_bilinearSum (segCLM ⟨a, ha⟩ ⟨b, hb⟩) (segCLM ⟨c', hc⟩ ⟨e, he⟩) p)
+  | .parallel a b c' e, ⟨ha, hb, hc, he⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.parallel a b c' e) (trunc r))
+          = fun r : Fin K → Pt n =>
+              minorDefect (segCLM ⟨a, ha⟩ ⟨b, hb⟩ r) (segCLM ⟨c', hc⟩ ⟨e, he⟩ r) := by
+        funext r
+        simp only [penaltyLoss, Lattice.Geo.PenaltyLoss.minorDefect,
+          Lattice.Geo.GeoConstraint.seg, segCLM_apply]
+      rw [hfun]
+      exact hasFDerivAt_minorDefect_seg (segCLM ⟨a, ha⟩ ⟨b, hb⟩) (segCLM ⟨c', hc⟩ ⟨e, he⟩) p
+  | .rightAngle a b c', ⟨ha, hb, hc⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.rightAngle a b c') (trunc r))
+          = fun r : Fin K → Pt n =>
+              (∑ i, segCLM ⟨a, ha⟩ ⟨b, hb⟩ r i * segCLM ⟨b, hb⟩ ⟨c', hc⟩ r i) ^ 2 := by
+        funext r
+        simp only [penaltyLoss, Lattice.Geo.GeoConstraint.seg]
+        congr 1
+        refine Finset.sum_congr rfl (fun i _ => by rw [segCLM_apply, segCLM_apply])
+      rw [hfun]
+      exact Lattice.Core.hasFDerivAt_sq_comp
+        (hasFDerivAt_bilinearSum (segCLM ⟨a, ha⟩ ⟨b, hb⟩) (segCLM ⟨b, hb⟩ ⟨c', hc⟩) p)
+  | .midpoint m a b, ⟨hm, ha, hb⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.midpoint m a b) (trunc r))
+          = fun r : Fin K → Pt n => ∑ i, (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩ r i) ^ 2 := by
+        funext r
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        simp only [penaltyLoss, midpointCLM_apply]
+      rw [hfun]
+      exact hasFDerivAt_midpointSum (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩) p
+  | .samePoint a b, ⟨ha, hb⟩ =>
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.samePoint a b) (trunc r))
+          = fun r : Fin K → Pt n => sqDist (trunc r a) (trunc r b) := by
+        funext r; simp only [penaltyLoss]
+      rw [hfun]
+      exact hasFDerivAt_sqDist_pair_explicit ⟨a, ha⟩ ⟨b, hb⟩ p
+
 end Lattice.Geo
