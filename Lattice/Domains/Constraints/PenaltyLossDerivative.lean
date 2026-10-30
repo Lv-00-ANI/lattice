@@ -1118,4 +1118,52 @@ theorem kinkPositive_iff {K n : ℕ} (c : GeoConstraint n) (p : Fin K → Pt n) 
   | .midpoint m a b => simp only [KinkPositive, KinkPositiveAt]
   | .samePoint a b => simp only [KinkPositive, KinkPositiveAt]
 
+/-! ## ⭐⭐ `max` 族的【负侧】：补齐 `evalPts e < 0` 的缺口
+
+**`hasFDerivAt_maxZero_pos`（第 123 轮）覆盖 `0 < evalPts e`，那里 `max x 0 = x`，导数是 `(2x) • x'`。
+`hasFDerivAt_negMaxZero_pos`（同轮）覆盖的是 `0 < evalPts e` 下 `max (-x) 0 = 0` 的情形。**
+
+**还缺一侧：`evalPts e < 0`，此时 `max x 0 = 0`，**损失恒为零，导数是零映射。**
+**本节补上它，于是 `max` 三支在【所有】非折点处都有导数。**
+
+**⚠ 折点 `evalPts e = 0` 处仍不可导**（左右导数不同），**所以「非折点」这个前提无法删除——
+但它的两种情形（正侧与负侧）现在【都有】定理。** -/
+
+/-- ⭐⭐ **`leZero`／`ltZero` 的负侧**：`evalPts e < 0` 时损失恒为零，导数是零映射。 -/
+theorem hasFDerivAt_maxZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hneg : GeoExpr.evalPts e (trunc p) < 0) :
+    HasFDerivAt (fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2)
+      (0 : (Fin K → Pt n) →L[ℝ] ℝ) p := by
+  have hd := hasFDerivAt_evalPts e hK p
+  have hev_neg : ∀ᶠ r in nhds p, GeoExpr.evalPts e (trunc r) < 0 :=
+    hd.differentiableAt.continuousAt.eventually (isOpen_Iio.mem_nhds hneg)
+  have hconst : (fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2)
+      =ᶠ[nhds p] fun _ => (0 : ℝ) := by
+    filter_upwards [hev_neg] with r hr
+    have hz : max (GeoExpr.evalPts e (trunc r)) 0 = 0 := max_eq_right (le_of_lt hr)
+    rw [hz]
+    ring
+  exact (hasFDerivAt_const (x := p) (c := (0 : ℝ))).congr_of_eventuallyEq hconst
+
+/-- ⭐⭐ **`gtZero` 的负侧**：`evalPts e < 0` 时 `max (-x) 0 = -x`，其平方的导数是 `(2(-x)) • (-x')`。 -/
+theorem hasFDerivAt_negMaxZero_neg {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hneg : GeoExpr.evalPts e (trunc p) < 0) :
+    HasFDerivAt (fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2)
+      ((2 * max (-(GeoExpr.evalPts e (trunc p))) 0) • (-(evalPtsFDeriv e K hK p))) p := by
+  have hd := hasFDerivAt_evalPts e hK p
+  have hev_neg : ∀ᶠ r in nhds p, GeoExpr.evalPts e (trunc r) < 0 :=
+    hd.differentiableAt.continuousAt.eventually (isOpen_Iio.mem_nhds hneg)
+  have hx : (fun r : Fin K → Pt n => max (-(GeoExpr.evalPts e (trunc r))) 0)
+      =ᶠ[nhds p] fun r => -(GeoExpr.evalPts e (trunc r)) := by
+    filter_upwards [hev_neg] with r hr
+    exact max_eq_left (by linarith)
+  have hnegAt : max (-(GeoExpr.evalPts e (trunc p))) 0 = -(GeoExpr.evalPts e (trunc p)) :=
+    max_eq_left (by linarith)
+  rw [hnegAt]
+  have hsq := Lattice.Core.hasFDerivAt_sq_comp
+    (hf := hd.neg) (p := p)
+  refine hsq.congr_of_eventuallyEq ?_
+  filter_upwards [hx] with r hr
+  rw [hr]
+
 end Lattice.Geo

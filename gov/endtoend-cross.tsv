@@ -352,6 +352,8 @@ Domains/Constraints/PenaltyLossDerivative.lean	sqDistPairFDerivComp_eq
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_sqDist_pair_explicit
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_penaltyLoss
 Domains/Constraints/PenaltyLossDerivative.lean	kinkPositive_iff
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_maxZero_neg
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_negMaxZero_neg
 Domains/Constraints/Perturb.lean	unflatten_add
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_same
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_ne

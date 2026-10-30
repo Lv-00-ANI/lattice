@@ -1583,7 +1583,7 @@
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.NetLossDerivative` | 29 | 8 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
-| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 37 | 16 |
+| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 39 | 16 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -5196,10 +5196,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_evalPts` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
 - `hasFDerivAt_lossOfActivations` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `hasFDerivAt_maxZero_neg` -> `GeoExpr`, `IndicesBelow`, `Pt`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `trunc`
 - `hasFDerivAt_maxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `mul`, `trunc`
 - `hasFDerivAt_midpointSum` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
 - `hasFDerivAt_minorDefect` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
 - `hasFDerivAt_minorDefect_seg` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `hasFDerivAt_negMaxZero_neg` -> `GeoExpr`, `IndicesBelow`, `Pt`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `trunc`
 - `hasFDerivAt_negMaxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `trunc`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
@@ -5682,7 +5684,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindSup_le` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
 - `kind_is_bounded_lattice` -> `Audit`, `CompositionKind`, `induction`, `length`, `length_cons`
-- `kinkPositive_iff` -> `GeoConstraint`, `Pt`, `collinear`, `parallel`, `trunc`
+- `kinkPositive_iff` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `trunc`
 - `kkt_deriv_quadratic` -> `add`, `subst`
 - `kkt_one_dim_complete` -> `comp`
 - `kkt_one_dim_inactive_stationary` -> `comp`, `mono`
