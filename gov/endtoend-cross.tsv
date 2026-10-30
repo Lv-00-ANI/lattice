@@ -273,6 +273,8 @@ Domains/Constraints/NetLossDerivative.lean	netLossOn_differentiableAt_params
 Domains/Constraints/NetLossDerivative.lean	differentiableAt_netActN_jointAt
 Domains/Constraints/NetLossDerivative.lean	differentiableAt_pointwiseNetActN_joint
 Domains/Constraints/NetLossDerivative.lean	netLossOn_differentiableAt_joint
+Domains/Constraints/NetLossDerivative.lean	netLossFDeriv_apply
+Domains/Constraints/NetLossDerivative.lean	netLossFDeriv_nil
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg
 Domains/Constraints/PenaltyLoss.lean	minorDefect_eq_zero_of_parallel
 Domains/Constraints/PenaltyLoss.lean	minorDiff_le
