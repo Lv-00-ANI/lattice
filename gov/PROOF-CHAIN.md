@@ -903,7 +903,7 @@
 | `Lattice.Core.RepairWF` | 4 | 3 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
-| `Lattice.Core.StackDerivative` | 2 | 1 |
+| `Lattice.Core.StackDerivative` | 4 | 2 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
@@ -2135,7 +2135,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `admm_z_minimizer` -> `add`
 - `aestronglyMeasurable_of_measurable` -> `apply`, `mono`
 - `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `affineAct_eq_affineCLM_add` -> `AffineLayer`, `affineAct`
+- `affineAct_eq_affineCLM_add` -> `AffineLayer`, `W`, `affineAct`
 - `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
@@ -3742,6 +3742,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dichotomy_fails_without_mono` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`
 - `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `differentiableAt_affineAct_params` -> `W`, `affineAct`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -5153,7 +5154,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasDerivAt_perpResid_affine` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_perpResid_along_bump` -> `HasNonzeroDeriv`, `add`, `bump`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `hasDerivAt_sqLoss` -> `apply`, `isLocalMin_of_forall_le`, `le_refl`
-- `hasFDerivAt_affineAct` -> `AffineLayer`, `affineAct`
+- `hasFDerivAt_affineAct` -> `AffineLayer`, `W`, `affineAct`
+- `hasFDerivAt_affineAct_params` -> `W`, `affineAct`
 - `hasFDerivAt_coord` -> `mul`, `unflatten`
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`
