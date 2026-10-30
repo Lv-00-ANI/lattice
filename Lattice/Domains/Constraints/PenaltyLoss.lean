@@ -525,6 +525,100 @@ theorem samePoint_lipschitz {n k : ℕ} {a b : ℕ} {B : ℝ}
       ≤ (8 * (n : ℝ) * B) * rho n k pts pts'
   exact sqDist_lipschitz ha hb hB hpts hpts'
 
+/-- ⭐⭐ **`sqDistEq` 分支**：`(sqDist (pts a) (pts b) − d.evalPts pts)²`。
+
+**内层的差** = `sqDist` 的差 + `d.evalPts` 的差 `≤ 8nB·rho + K·rho`（一次三角不等式）；
+**内层的界** = `|sqDist| + |d.evalPts| ≤ 4nB² + B`（`sqDist_abs_le` + `BoundedV`）。
+
+**两项共用同一个 `rho`，所以它们是可加的，不必分成两条路径。** -/
+theorem sqDistEq_lipschitz {n k : ℕ} {d : GeoExpr n} {a b : ℕ} {K B : ℝ}
+    (ha : a < k) (hb : b < k) (hB : 0 ≤ B)
+    (hK : LipschitzK n k d K) (hBd : BoundedV n d B)
+    (pts pts' : ℕ → Pt n)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B) :
+    |penaltyLoss (.sqDistEq a b d) pts - penaltyLoss (.sqDistEq a b d) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B + B)
+          * ((8 * (n : ℝ) * B) * rho n k pts pts' + K * rho n k pts pts') := by
+  -- the two halves of the inner quantity
+  have h1 := sqDist_lipschitz (n := n) (k := k) (pts := pts) (pts' := pts')
+    (a := a) (b := b) ha hb hB hpts hpts'
+  have h2 : |GeoExpr.evalPts d pts - GeoExpr.evalPts d pts'| ≤ K * rho n k pts pts' :=
+    hK pts pts'
+  -- the difference of the inner quantities
+  have hdiff : |(sqDist (n := n) (pts a) (pts b) - GeoExpr.evalPts d pts)
+      - (sqDist (n := n) (pts' a) (pts' b) - GeoExpr.evalPts d pts')|
+      ≤ (8 * (n : ℝ) * B) * rho n k pts pts' + K * rho n k pts pts' := by
+    have hfac : (sqDist (n := n) (pts a) (pts b) - GeoExpr.evalPts d pts)
+        - (sqDist (n := n) (pts' a) (pts' b) - GeoExpr.evalPts d pts')
+        = (sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts' a) (pts' b))
+          - (GeoExpr.evalPts d pts - GeoExpr.evalPts d pts') := by ring
+    rw [hfac]
+    exact le_trans (abs_sub _ _) (add_le_add h1 h2)
+  -- and the bounds on both inner quantities
+  have hp : |sqDist (n := n) (pts a) (pts b) - GeoExpr.evalPts d pts|
+      ≤ 4 * (n : ℝ) * B * B + B := by
+    calc |sqDist (n := n) (pts a) (pts b) - GeoExpr.evalPts d pts|
+        ≤ |sqDist (n := n) (pts a) (pts b)| + |GeoExpr.evalPts d pts| := abs_sub _ _
+      _ ≤ 4 * (n : ℝ) * B * B + B := add_le_add (sqDist_abs_le hB hpts) (hBd pts)
+  have hq : |sqDist (n := n) (pts' a) (pts' b) - GeoExpr.evalPts d pts'|
+      ≤ 4 * (n : ℝ) * B * B + B := by
+    calc |sqDist (n := n) (pts' a) (pts' b) - GeoExpr.evalPts d pts'|
+        ≤ |sqDist (n := n) (pts' a) (pts' b)| + |GeoExpr.evalPts d pts'| := abs_sub _ _
+      _ ≤ 4 * (n : ℝ) * B * B + B := add_le_add (sqDist_abs_le hB hpts') (hBd pts')
+  have hR : 0 ≤ 4 * (n : ℝ) * B * B + B := by positivity
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := sqDist (n := n) (pts a) (pts b) - GeoExpr.evalPts d pts)
+    (t := sqDist (n := n) (pts' a) (pts' b) - GeoExpr.evalPts d pts') hR hp hq
+  have hstep := mul_le_mul_of_nonneg_left hdiff (by positivity : (0 : ℝ) ≤ 2 * (4 * (n : ℝ) * B * B + B))
+  simpa only [penaltyLoss] using le_trans hsq hstep
+
+/-- ⭐⭐ **`equalLength` 分支**：`(sqDist (pts a) (pts b) − sqDist (pts c) (pts e))²`。
+
+**与 `sqDistEq` 同构**，只是第二个和项也是 `sqDist`，所以**差和界都各多一份**：
+差 `≤ 8nB·rho + 8nB·rho`、界 `≤ 4nB² + 4nB² = 8nB²`。 -/
+theorem equalLength_lipschitz {n k : ℕ} {a b c e : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (he : e < k) (hB : 0 ≤ B)
+    (pts pts' : ℕ → Pt n)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B) :
+    |penaltyLoss (.equalLength a b c e) pts - penaltyLoss (.equalLength a b c e) pts'|
+      ≤ 2 * (8 * (n : ℝ) * B * B)
+          * ((8 * (n : ℝ) * B) * rho n k pts pts' + (8 * (n : ℝ) * B) * rho n k pts pts') := by
+  have h1 := sqDist_lipschitz (n := n) (k := k) (pts := pts) (pts' := pts')
+    (a := a) (b := b) ha hb hB hpts hpts'
+  have h3 := sqDist_lipschitz (n := n) (k := k) (pts := pts) (pts' := pts')
+    (a := c) (b := e) hc he hB hpts hpts'
+  have hdiff : |(sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts c) (pts e))
+      - (sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e))|
+      ≤ (8 * (n : ℝ) * B) * rho n k pts pts' + (8 * (n : ℝ) * B) * rho n k pts pts' := by
+    have hfac : (sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts c) (pts e))
+        - (sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e))
+        = (sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts' a) (pts' b))
+          - (sqDist (n := n) (pts c) (pts e) - sqDist (n := n) (pts' c) (pts' e)) := by ring
+    rw [hfac]
+    exact le_trans (abs_sub _ _) (add_le_add h1 h3)
+  have hp : |sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts c) (pts e)|
+      ≤ 8 * (n : ℝ) * B * B := by
+    have hx : |sqDist (n := n) (pts a) (pts b)| ≤ 4 * (n : ℝ) * B * B := sqDist_abs_le hB hpts
+    have hy : |sqDist (n := n) (pts c) (pts e)| ≤ 4 * (n : ℝ) * B * B := sqDist_abs_le hB hpts
+    calc |sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts c) (pts e)|
+        ≤ |sqDist (n := n) (pts a) (pts b)| + |sqDist (n := n) (pts c) (pts e)| := abs_sub _ _
+      _ ≤ 4 * (n : ℝ) * B * B + 4 * (n : ℝ) * B * B := add_le_add hx hy
+      _ = 8 * (n : ℝ) * B * B := by ring
+  have hq : |sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e)|
+      ≤ 8 * (n : ℝ) * B * B := by
+    have hx : |sqDist (n := n) (pts' a) (pts' b)| ≤ 4 * (n : ℝ) * B * B := sqDist_abs_le hB hpts'
+    have hy : |sqDist (n := n) (pts' c) (pts' e)| ≤ 4 * (n : ℝ) * B * B := sqDist_abs_le hB hpts'
+    calc |sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e)|
+        ≤ |sqDist (n := n) (pts' a) (pts' b)| + |sqDist (n := n) (pts' c) (pts' e)| := abs_sub _ _
+      _ ≤ 4 * (n : ℝ) * B * B + 4 * (n : ℝ) * B * B := add_le_add hx hy
+      _ = 8 * (n : ℝ) * B * B := by ring
+  have hR : 0 ≤ 8 * (n : ℝ) * B * B := by positivity
+  have hsq := Lattice.Lib.Penalty.sq_lipschitz_on_bounded
+    (s := sqDist (n := n) (pts a) (pts b) - sqDist (n := n) (pts c) (pts e))
+    (t := sqDist (n := n) (pts' a) (pts' b) - sqDist (n := n) (pts' c) (pts' e)) hR hp hq
+  have hstep := mul_le_mul_of_nonneg_left hdiff (by positivity : (0 : ℝ) ≤ 2 * (8 * (n : ℝ) * B * B))
+  simpa only [penaltyLoss] using le_trans hsq hstep
+
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 
 /-- **`leZero` 的精确刻画**：损失为零 ⟺ `evalPts ≤ 0`。 -/
