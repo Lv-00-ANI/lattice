@@ -24,9 +24,9 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 862 | `audit_counts.py` |
-> | 定理 / 引理 | 8786 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 19 / 0 / 4 / 66 / 98 / 623 | `audit_counts.py` |
+> | Lean 模块 | 863 | `audit_counts.py` |
+> | 定理 / 引理 | 8788 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 20 / 0 / 4 / 66 / 98 / 624 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -115,7 +115,7 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/        19       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
+│   ├── Core/        20       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
