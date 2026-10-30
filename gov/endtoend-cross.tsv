@@ -281,6 +281,7 @@ Domains/Constraints/NetLossDerivative.lean	hasFDerivAt_lossOfActivations
 Domains/Constraints/NetLossDerivative.lean	netLossFDerivRec_eq
 Domains/Constraints/NetLossDerivative.lean	netLossFDerivRec_apply
 Domains/Constraints/NetLossDerivative.lean	netLossOn_fderiv_apply
+Domains/Constraints/NetLossDerivative.lean	netLossOn_fderiv_apply_params
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg
 Domains/Constraints/PenaltyLoss.lean	minorDefect_eq_zero_of_parallel
 Domains/Constraints/PenaltyLoss.lean	minorDiff_le
