@@ -892,4 +892,92 @@ theorem netLossOn_fderiv_apply_params_nonKink {K k n : ℕ} (q : Fin k → singl
 **⇒ 下一轮应当只做第 1、2 类的八支，并且把第 3 类作为【已知边界】登记，
 而不是把十二支硬凑成一个定理——那会写出一条假的陈述。** -/
 
+/-! ## 第十六层（逆向侧的第一块）：八条安全的双条件
+
+**上一轮把 `penaltyLoss` 与 `Holds` 的错配量清楚了：三处错配，其中两处（严格不等号）是被连续性逼出来的，
+不可修。本节只做【安全的八支】。**
+
+**⚠ 本节的注记全部放在这里，不在定理之间放孤立 docstring**——
+**第 150 轮的失败原因之一正是一个只有 docstring、没有定理的块。** -/
+
+/-- `max a 0 = 0 ↔ a ≤ 0`——**不依赖 `max_eq_zero_iff`（mathlib 里没有这个名字）。** -/
+theorem max_zero_eq_zero_iff (a : ℝ) : max a 0 = 0 ↔ a ≤ 0 := by
+  constructor
+  · intro h
+    have := le_max_left a 0
+    rw [h] at this
+    exact this
+  · intro h
+    exact max_eq_right h
+
+/-- **平方为零的通用引理**——`a ^ 2 = 0 ↔ a = 0`，用于把五个「损失是平方」的分支抽出来。
+
+**⚠ `pow_eq_zero_iff` 在 `ℝ` 上直接可用，但 `α` 是隐式参数；
+不显式给出时会卡在 `NoZeroDivisors ?m`，所以这里固定成 `ℝ`。** -/
+theorem sq_eq_zero_iff_real (a : ℝ) : a ^ 2 = 0 ↔ a = 0 :=
+  pow_eq_zero_iff (n := 2) (by norm_num)
+
+/-- ⭐⭐ **五支「损失是某个实数的平方」的统一双条件**。
+
+**`eqZero`、`sqDistEq`、`equalLength`、`perpendicular`、`rightAngle` 五支的损失都是
+`a ^ 2`（`a` 是某个 `ℝ`），而 `Holds` 都是 `a = 0`——所以它们【共用同一条证明**。
+
+**⚠ 一条参数化定理而不是五条**：第 151 轮先写了五条，
+**而别名普查把它们全标成 `copy`（证明体逐字相同）——那正是该合并的信号。**
+**`match` 让五个构造子各自给出自己的 `a`，而「平方为零 ⟺ 为零」只用一次。** -/
+theorem penaltyLoss_eq_zero_iff_holds_sq {n : ℕ} (Φ : ℕ → Pt n) :
+    (∀ (e : GeoExpr n), penaltyLoss (.eqZero e) Φ = 0 ↔ Holds (.eqZero e) Φ) ∧
+    (∀ (a b : ℕ) (d : GeoExpr n),
+      penaltyLoss (.sqDistEq a b d) Φ = 0 ↔ Holds (.sqDistEq a b d) Φ) ∧
+    (∀ (a b c e : ℕ),
+      penaltyLoss (.equalLength a b c e) Φ = 0 ↔ Holds (.equalLength a b c e) Φ) ∧
+    (∀ (a b c e : ℕ),
+      penaltyLoss (.perpendicular a b c e) Φ = 0 ↔ Holds (.perpendicular a b c e) Φ) ∧
+    (∀ (a b c : ℕ),
+      penaltyLoss (.rightAngle a b c) Φ = 0 ↔ Holds (.rightAngle a b c) Φ) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro e
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+  · intro a b d
+    simp only [penaltyLoss, Holds]
+    rw [sq_eq_zero_iff_real, sub_eq_zero]
+  · intro a b c e
+    simp only [penaltyLoss, Holds]
+    rw [sq_eq_zero_iff_real, sub_eq_zero]
+  · intro a b c e
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+  · intro a b c
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+
+/-- ⭐ **`samePoint`**：`sqDist (Φ a) (Φ b) = 0 ⟺ Φ a = Φ b`。 -/
+theorem penaltyLoss_eq_zero_iff_holds_samePoint {n : ℕ} (a b : ℕ) (Φ : ℕ → Pt n) :
+    penaltyLoss (.samePoint a b) Φ = 0 ↔ Holds (.samePoint a b) Φ := by
+  simp only [penaltyLoss, Holds]
+  exact sqDist_eq_zero_iff (n := n) (Φ a) (Φ b)
+
+/-- ⭐ **`midpoint`**：`∑ i, (2 pts m i − pts a i − pts b i)² = 0 ⟺ 每个坐标都满足中点条件`。
+
+**⚠ 用 `Finset.sum_eq_zero_iff_of_nonneg`（每项是平方，非负），
+不能直接用 `Finset.sum_eq_zero_iff`——后者在 `ℝ` 上不成立（正负可抵消）。** -/
+theorem penaltyLoss_eq_zero_iff_holds_midpoint {n : ℕ} (m a b : ℕ) (Φ : ℕ → Pt n) :
+    penaltyLoss (.midpoint m a b) Φ = 0 ↔ Holds (.midpoint m a b) Φ := by
+  simp only [penaltyLoss, Holds]
+  constructor
+  · intro hsum i
+    have hi : (2 * Φ m i - Φ a i - Φ b i) ^ 2 = 0 :=
+      (Finset.sum_eq_zero_iff_of_nonneg
+        (fun j _ => sq_nonneg (2 * Φ m j - Φ a j - Φ b j))).mp hsum i (Finset.mem_univ i)
+    have hz : 2 * Φ m i - Φ a i - Φ b i = 0 := (pow_eq_zero_iff (n := 2) (by norm_num)).mp hi
+    linarith
+  · intro hpoint
+    refine (Finset.sum_eq_zero_iff_of_nonneg
+      (fun j _ => sq_nonneg (2 * Φ m j - Φ a j - Φ b j))).mpr ?_
+    intro i _
+    have hz : 2 * Φ m i - Φ a i - Φ b i = 0 := by linarith [hpoint i]
+    rw [hz]
+    ring
+
 end Lattice.Geo
