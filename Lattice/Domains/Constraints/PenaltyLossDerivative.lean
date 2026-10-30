@@ -469,4 +469,154 @@ theorem penaltyLoss_differentiableAt {K n : ℕ} (c : GeoConstraint n)
   | .samePoint a b, ⟨ha, hb⟩ =>
       exact samePoint_differentiableAt a b ha hb p
 
+/-! ## ⭐⭐⭐ 显式导函数 `penaltyLossFDeriv`
+
+**十二支一条 `match` 定义的 `(Fin K → Pt n) →L[ℝ] ℝ`**，**每支复用前面各节的配料。**
+
+| 分支 | 导数 |
+|:--|:--|
+| `eqZero e` | `(2 * evalPts e) • evalPtsFDeriv e` |
+| `leZero e`／`ltZero e` | `(2 * max (evalPts e) 0) • evalPtsFDeriv e` |
+| `gtZero e` | `(2 * max (-(evalPts e)) 0) • (-(evalPtsFDeriv e))` |
+| `sqDistEq a b d` | `(2 * (sqDist − evalPts d)) • (sqDistFDerivX − evalPtsFDeriv d)` |
+| `equalLength a b c e` | `(2 * (sqDist − sqDist)) • (sqDistFDerivX − sqDistFDerivX)` |
+| `collinear a b c` | `minorDefectFDeriv (seg · a b) (seg · a c)` |
+| `perpendicular a b c e` | `(2 * bilinearSum) • bilinearSumFDeriv` |
+| `parallel a b c e` | `minorDefectFDeriv (seg · a b) (seg · c e)` |
+| `rightAngle a b c` | `(2 * bilinearSum') • bilinearSumFDeriv'` |
+| `midpoint m a b` | `∑ i, (2 * (midpointCLM r i)) • (proj i ∘ midpointCLM)` |
+| `samePoint a b` | `sqDistFDerivX` |
+
+**⚠ 三条辅助导数先定义**：`sqDistFDerivX`（`sqDist` 复合 `pointProj` 的链式）、
+`bilinearSumFDeriv`、`minorDefectFDeriv`。**它们的形状由 `Derivative.fderiv` 决定，
+所以定义写在它们之后。** -/
+
+/-- **`sqDist (trunc · a) (trunc · b)` 的导数**（联合可微性 + 两个 `pointProj` 的乘积）。
+
+**由 `sqDist` 在 `(x, y)` 上的联合导数经 `pairProj` 复合**——
+**这里直接把它写成两条单槽导数的组合，因为 `sqDist` 对两个槽的偏导都是 `(2(x−y)) • proj`。** -/
+noncomputable def sqDistPairFDeriv {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  (sqDistFDeriv (p a) (p b)).comp (pointProj a) + (sqDistFDeriv (p b) (p a)).comp (pointProj b)
+
+/-- **`bilinearSum` 的导数**：`∑ i, (v p i) • (proj i ∘ u) + (u p i) • (proj i ∘ v)`。 -/
+noncomputable def bilinearSumFDeriv {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
+  ∑ i, ((v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
+    + (u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v))
+
+/-- **`midpointCLM` 平方和的导数**：`∑ i, (2 * (L p i)) • (proj i ∘ L)`。 -/
+noncomputable def midpointSumFDeriv {K n : ℕ} (L : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
+  ∑ i, (2 * (L p i)) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp L)
+
+/-- **子式缺陷的导数**：对 `minorDefect u v = ∑ i ∑ j (u i v j − u j v i)²` 逐项求导。
+
+**每一项 `(u i v j − u j v i)²` 的导数是
+`2(u i v j − u j v i) • (v j • (proj i ∘ u) + u i • (proj j ∘ v) − v i • (proj j ∘ u) − u j • (proj i ∘ v))`。** -/
+noncomputable def minorDefectFDeriv {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
+  ∑ i : Fin n, ∑ j : Fin n,
+    (2 * (u p i * v p j - u p j * v p i)) •
+      ((v p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
+        + (u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
+        - (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)
+        - (u p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v))
+
+/-- ⭐⭐⭐ **`penaltyLoss` 的显式导数**——十二支一条 `match` 定义的连续线性泛函。
+
+**三支 `max` 用 `(2 * max x 0) • (·)′`**：**折点处系数是 `0`，所以定义处处是一条 CLM**
+（但只有 `KinkPositive` 成立处它才是真导数——见 `penaltyLoss_differentiableAt`）。 -/
+noncomputable def penaltyLossFDeriv {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
+  match c, hK with
+  | .eqZero e, hK =>
+      (2 * GeoExpr.evalPts e (trunc p)) • evalPtsFDeriv e K hK p
+  | .leZero e, hK =>
+      (2 * max (GeoExpr.evalPts e (trunc p)) 0) • evalPtsFDeriv e K hK p
+  | .ltZero e, hK =>
+      (2 * max (GeoExpr.evalPts e (trunc p)) 0) • evalPtsFDeriv e K hK p
+  | .gtZero e, hK =>
+      (2 * max (-(GeoExpr.evalPts e (trunc p))) 0) • (-(evalPtsFDeriv e K hK p))
+  | .sqDistEq a b d, hK =>
+      (2 * (sqDist (trunc p a) (trunc p b) - GeoExpr.evalPts d (trunc p))) •
+        (sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ p - evalPtsFDeriv d K hK.2.2 p)
+  | .equalLength a b c e, hK =>
+      (2 * (sqDist (trunc p a) (trunc p b) - sqDist (trunc p c) (trunc p e))) •
+        (sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ p - sqDistPairFDeriv ⟨c, hK.2.2.1⟩ ⟨e, hK.2.2.2⟩ p)
+  | .collinear a b c, hK =>
+      minorDefectFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨a, hK.1⟩ ⟨c, hK.2.2⟩) p
+  | .perpendicular a b c e, hK =>
+      (2 * bilinearSum ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ ⟨c, hK.2.2.1⟩ ⟨e, hK.2.2.2⟩ p) •
+        (bilinearSumFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨c, hK.2.2.1⟩ ⟨e, hK.2.2.2⟩) p)
+  | .parallel a b c e, hK =>
+      minorDefectFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨c, hK.2.2.1⟩ ⟨e, hK.2.2.2⟩) p
+  | .rightAngle a b c, hK =>
+      (2 * bilinearSum ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ ⟨b, hK.2.1⟩ ⟨c, hK.2.2⟩ p) •
+        (bilinearSumFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨b, hK.2.1⟩ ⟨c, hK.2.2⟩) p)
+  | .midpoint m a b, hK =>
+      midpointSumFDeriv (midpointCLM ⟨m, hK.1⟩ ⟨a, hK.2.1⟩ ⟨b, hK.2.2⟩) p
+  | .samePoint a b, hK =>
+      sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2⟩ p
+
+/-- ⭐⭐⭐ **`penaltyLossFDeriv` 的求值**：它在方向 `d` 上的值。
+
+**这是「梯度可计算」的准确形式**——**下游可以把 `d` 取成坐标方向 `e_k` 而得到梯度的每个分量，
+不需要知道 `fderiv` 是什么。** -/
+theorem penaltyLossFDeriv_apply {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p d : Fin K → Pt n) :
+    penaltyLossFDeriv c hK p d
+      = match c, hK with
+        | .eqZero e, hK =>
+            (2 * GeoExpr.evalPts e (trunc p)) * (evalPtsFDeriv e K hK p d)
+        | .leZero e, hK =>
+            (2 * max (GeoExpr.evalPts e (trunc p)) 0) * (evalPtsFDeriv e K hK p d)
+        | .ltZero e, hK =>
+            (2 * max (GeoExpr.evalPts e (trunc p)) 0) * (evalPtsFDeriv e K hK p d)
+        | .gtZero e, hK =>
+            (2 * max (-(GeoExpr.evalPts e (trunc p))) 0) * (-(evalPtsFDeriv e K hK p d))
+        | .sqDistEq a b e, hK =>
+            (2 * (sqDist (trunc p a) (trunc p b) - GeoExpr.evalPts e (trunc p))) *
+              (sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ p d - evalPtsFDeriv e K hK.2.2 p d)
+        | .equalLength a b c' e, hK =>
+            (2 * (sqDist (trunc p a) (trunc p b) - sqDist (trunc p c') (trunc p e))) *
+              (sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ p d
+                - sqDistPairFDeriv ⟨c', hK.2.2.1⟩ ⟨e, hK.2.2.2⟩ p d)
+        | .collinear a b c', hK =>
+            minorDefectFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨a, hK.1⟩ ⟨c', hK.2.2⟩) p d
+        | .perpendicular a b c' e, hK =>
+            (2 * bilinearSum ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ ⟨c', hK.2.2.1⟩ ⟨e, hK.2.2.2⟩ p) *
+              (bilinearSumFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩)
+                (segCLM ⟨c', hK.2.2.1⟩ ⟨e, hK.2.2.2⟩) p d)
+        | .parallel a b c' e, hK =>
+            minorDefectFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨c', hK.2.2.1⟩ ⟨e, hK.2.2.2⟩) p d
+        | .rightAngle a b c', hK =>
+            (2 * bilinearSum ⟨a, hK.1⟩ ⟨b, hK.2.1⟩ ⟨b, hK.2.1⟩ ⟨c', hK.2.2⟩ p) *
+              (bilinearSumFDeriv (segCLM ⟨a, hK.1⟩ ⟨b, hK.2.1⟩) (segCLM ⟨b, hK.2.1⟩ ⟨c', hK.2.2⟩) p d)
+        | .midpoint m a b, hK =>
+            midpointSumFDeriv (midpointCLM ⟨m, hK.1⟩ ⟨a, hK.2.1⟩ ⟨b, hK.2.2⟩) p d
+        | .samePoint a b, hK =>
+            sqDistPairFDeriv ⟨a, hK.1⟩ ⟨b, hK.2⟩ p d := by
+  match c, hK with
+  | .eqZero e, hK => simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
+  | .leZero e, hK => simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
+  | .ltZero e, hK => simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
+  | .gtZero e, hK =>
+      simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply,
+        ContinuousLinearMap.neg_apply, smul_eq_mul]
+  | .sqDistEq a b e, hK =>
+      simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+        smul_eq_mul]
+  | .equalLength a b c' e, hK =>
+      simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+        smul_eq_mul]
+  | .collinear a b c', hK => simp only [penaltyLossFDeriv]
+  | .perpendicular a b c' e, hK =>
+      simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
+  | .parallel a b c' e, hK => simp only [penaltyLossFDeriv]
+  | .rightAngle a b c', hK =>
+      simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
+  | .midpoint m a b, hK => simp only [penaltyLossFDeriv]
+  | .samePoint a b, hK => simp only [penaltyLossFDeriv]
+
 end Lattice.Geo
