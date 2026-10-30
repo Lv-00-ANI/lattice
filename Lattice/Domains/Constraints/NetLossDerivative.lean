@@ -605,4 +605,35 @@ theorem hasFDerivAt_lossOfActivations {K n : ℕ} (cs : List (GeoConstraint n))
       rw [hsplit, netLossFDerivRec_cons]
       exact (hasFDerivAt_penaltyLoss c hc acts hkc).add (ih hrestK hrestk)
 
+/-- ⭐⭐⭐ **递归版本与 `attach` 版本是同一个对象**——**两者求值相同。**
+
+**这形式地把第 141 轮（用于求值的 `netLossFDeriv`）与第 142 轮（用于导数证明的
+`netLossFDerivRec`）联系起来：**
+
+**`netLossFDeriv cs hK p = netLossFDerivRec cs hK p`，所以「第 141 轮的可计算」与
+「第 142 轮的确是导数」说的是同一条泛函。** -/
+theorem netLossFDerivRec_eq {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDerivRec cs hK p = netLossFDeriv cs hK p := by
+  induction cs with
+  | nil =>
+      simp only [netLossFDerivRec_nil, netLossFDeriv, listSumFDeriv,
+        List.attach_nil, List.map_nil, List.sum_nil]
+  | cons c rest ih =>
+      rw [netLossFDerivRec_cons]
+      simp only [netLossFDeriv, listSumFDeriv, List.attach_cons, List.map_cons, List.sum_cons]
+      rw [ih (fun c' hc' => hK c' (List.mem_cons_of_mem c hc'))]
+      simp only [netLossFDeriv, listSumFDeriv, List.map_map]
+      -- only the membership proofs differ, and they are irrelevant
+      congr 2
+
+/-- ⭐⭐⭐ **递归版本的求值**——**两侧都展开成同一个 `∑`。**
+
+**由 `netLossFDerivRec_eq` 与第 141 轮的 `netLossFDeriv_apply` 直接得到。** -/
+theorem netLossFDerivRec_apply {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p d : Fin K → Pt n) :
+    netLossFDerivRec cs hK p d
+      = (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p d)).sum := by
+  rw [netLossFDerivRec_eq, netLossFDeriv_apply]
+
 end Lattice.Geo
