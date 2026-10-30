@@ -490,4 +490,53 @@ theorem netLossOn_differentiableAt_joint {K k n : ℕ}
     (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp (q, p)
     (differentiableAt_pointwiseNetActN_joint q p)
 
+/-! ## 第十一层：显式的 `netLossFDeriv`（关于激活点列）
+
+## 为什么这一层可以完全显式
+
+`lossOfActivations cs a = ∑ c ∈ cs, penaltyLoss c (trunc a)`。**每一项的导数在第 122／128 轮
+已经是【显式】的 `penaltyLossFDeriv c hK p`，并且第 128 轮证明了它确实是导数。**
+
+**⇒ 沿 `cs` 求和就是显式导数本身——不需要任何新的分析。**
+
+## 分层的准确性
+
+**本层的导数【关于激活点列】**，不是关于输入或参数。
+**那是正确的分层**：`netActN` 的作用由链式法则处理（第 135／139 轮的 `HasFDerivAt` 句柄），
+**而「损失对激活的依赖」在这里被完全显式化。**
+
+**⚠ 用 `attach` 而不是 `List.map`**：`hK : ∀ c ∈ cs, …` 给的是关于【成员】的前提，
+**而 `cs.attach` 的每个元素自带成员证明，所以可以构造出每一项的 `penaltyLossFDeriv`。** -/
+
+/-- **列表元素的逐个构造**：把 `cs` 连同「每个元素界内」的前提变成一条函数的和。 -/
+noncomputable def listSumFDeriv {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p)).sum
+
+/-- **`netLossFDeriv` 就是上面那条和**——**名字层面的别名，便于阅读。** -/
+noncomputable def netLossFDeriv {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  listSumFDeriv cs hK p
+
+/-- ⭐⭐⭐ **`netLossFDeriv` 的求值**：在方向 `d` 上是逐约束导数之和。
+
+**这是「可计算」的准确形式**——**下游取 `d` 为坐标方向就得到梯度的每个分量。** -/
+theorem netLossFDeriv_apply {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p d : Fin K → Pt n) :
+    netLossFDeriv cs hK p d
+      = (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p d)).sum := by
+  simp only [netLossFDeriv, listSumFDeriv]
+  induction cs.attach with
+  | nil => simp only [List.map_nil, List.sum_nil, ContinuousLinearMap.zero_apply]
+  | cons x xs ih =>
+      simp only [List.map_cons, List.sum_cons, ContinuousLinearMap.add_apply, ih]
+
+/-- **`netLossFDeriv` 对空列表是零**。 -/
+theorem netLossFDeriv_nil {K n : ℕ} (hK : ∀ c ∈ ([] : List (GeoConstraint n)),
+    ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDeriv ([] : List (GeoConstraint n)) hK p = 0 := by
+  simp only [netLossFDeriv, listSumFDeriv, List.attach_nil, List.map_nil, List.sum_nil]
+
 end Lattice.Geo
