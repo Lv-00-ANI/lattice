@@ -36,6 +36,10 @@ set_option maxHeartbeats 800000
 
 namespace Lattice.Geo
 
+open Lattice.Geo.GeoConstraint
+open Lattice.Geo.PenaltyLoss
+open scoped BigOperators
+
 /-- ⭐ **`sqDist` 对【两个】变元联合可微**——`samePoint` 支的前提。 -/
 theorem sqDist_differentiableAt_pair {n : ℕ} (x y : Pt n) :
     DifferentiableAt ℝ (fun r : Pt n × Pt n => sqDist r.1 r.2) (x, y) := by
@@ -188,5 +192,138 @@ theorem midpoint_differentiableAt {K n : ℕ} (m a b : ℕ) (hm : m < K) (ha : a
       ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp
         (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩))
   exact (Lattice.Core.hasFDerivAt_sq_comp hcoord).differentiableAt
+
+/-! ## `perpendicular` 与 `rightAngle`：**双线性形式的平方**
+
+`perpendicular a b c e` 是 `(∑ i, seg a b i · seg c e i)²`，`rightAngle a b c` 是
+`(∑ i, seg a b i · seg b c i)²`。
+
+**内层那个和对 `r` 是【二次】的**（两个因子都随 `r` 动），**所以：**
+
+1. **逐项 `HasFDerivAt.mul`**（`f = fun r => segCLM a b r i`、`g = fun r => segCLM c e r i`，两者都是 `r ↦ ℝ`）——
+   **导数是 `(f p) • g' + (g p) • f'`，其中 `f p`、`g p` 是实数，`g'`、`f'` 是 `segCLM`**；
+2. **`DifferentiableAt.sum` 收起来**（第 119 轮的教训：不用 `HasFDerivAt.sum`）；
+3. **再 `Core.hasFDerivAt_sq_comp`。**
+
+⚠ **内层写成 `segCLM a b r i * segCLM c e r i`（不做换形）**——
+**`segCLM_apply` 已给出求值等式，所以「对 `r` 的依赖」是逐字的**（第 119 轮的成功配方）。 -/
+
+/-- **`perpendicular` 的内层**：`r ↦ ∑ i, segCLM a b r i * segCLM c e r i`。 -/
+noncomputable def bilinearSum {K n : ℕ} (a b c e : Fin K) (r : Fin K → Pt n) : ℝ :=
+  ∑ i, segCLM a b r i * segCLM c e r i
+
+/-- **内层对 `r` 可微**——逐项乘积法则后求和。 -/
+theorem bilinearSum_differentiableAt {K n : ℕ} (a b c e : Fin K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => bilinearSum a b c e r) p := by
+  refine DifferentiableAt.sum (u := Finset.univ) ?_
+  intro i _
+  have hf : HasFDerivAt (fun r : Fin K → Pt n => segCLM a b r i)
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp (segCLM a b)) p :=
+    ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp (segCLM a b))
+  have hg : HasFDerivAt (fun r : Fin K → Pt n => segCLM c e r i)
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp (segCLM c e)) p :=
+    ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp (segCLM c e))
+  exact (hf.mul hg).differentiableAt
+
+/-- ⭐⭐ **`perpendicular` 分支可微**：`(∑ i, seg a b i · seg c e i)²`。 -/
+theorem perpendicular_differentiableAt {K n : ℕ} (a b c e : ℕ)
+    (ha : a < K) (hb : b < K) (hc : c < K) (he : e < K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => (∑ i, seg (trunc r) a b i * seg (trunc r) c e i) ^ 2) p := by
+  have hfun : (fun r : Fin K → Pt n => (∑ i, seg (trunc r) a b i * seg (trunc r) c e i) ^ 2)
+      = fun r : Fin K → Pt n => bilinearSum ⟨a, ha⟩ ⟨b, hb⟩ ⟨c, hc⟩ ⟨e, he⟩ r ^ 2 := by
+    funext r
+    congr 1
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    simp only [bilinearSum, seg, segCLM_apply]
+  rw [hfun]
+  have hb_ := bilinearSum_differentiableAt ⟨a, ha⟩ ⟨b, hb⟩ ⟨c, hc⟩ ⟨e, he⟩ p
+  -- `y ↦ y²` composed with the bilinear sum
+  exact (differentiableAt_id.pow 2).comp p hb_
+
+/-- ⭐⭐ **`rightAngle` 分支可微**：`(∑ i, seg a b i · seg b c i)²`。
+
+**与 `perpendicular` 同形**，只是第二条 `seg` 是 `b → c` 而不是 `c → e`。 -/
+theorem rightAngle_differentiableAt {K n : ℕ} (a b c : ℕ)
+    (ha : a < K) (hb : b < K) (hc : c < K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => (∑ i, seg (trunc r) a b i * seg (trunc r) b c i) ^ 2) p := by
+  have hfun : (fun r : Fin K → Pt n => (∑ i, seg (trunc r) a b i * seg (trunc r) b c i) ^ 2)
+      = fun r : Fin K → Pt n => bilinearSum ⟨a, ha⟩ ⟨b, hb⟩ ⟨b, hb⟩ ⟨c, hc⟩ r ^ 2 := by
+    funext r
+    congr 1
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    simp only [bilinearSum, seg, segCLM_apply]
+  rw [hfun]
+  have hb_ := bilinearSum_differentiableAt ⟨a, ha⟩ ⟨b, hb⟩ ⟨b, hb⟩ ⟨c, hc⟩ p
+  exact (differentiableAt_id.pow 2).comp p hb_
+
+/-! ## `collinear` 与 `parallel`：**子式缺陷**
+
+`minorDefect u v = ∑ i ∑ j (u i * v j − u j * v i)²`，**每一项是一个【二次】多项式的平方**。
+
+**两次求和，每一项用 `Core.hasFDerivAt_sq_comp`**——
+**内层 `u i * v j − u j * v i` 对 `r` 是二次的**（`u`、`v` 都随 `r` 动），**所以用乘积法则两次再相减。** -/
+
+/-- **子式项**：`u i * v j − u j * v i`，其中 `u`、`v` 是由 `segCLM` 给出的线性映射。 -/
+noncomputable def minorTerm {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (i j : Fin n) (r : Fin K → Pt n) : ℝ :=
+  u r i * v r j - u r j * v r i
+
+/-- **子式项对 `r` 可微**——两次乘积法则再相减。 -/
+theorem minorTerm_differentiableAt {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (i j : Fin n) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => minorTerm u v i j r) p :=
+  ((ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)).mul
+    (ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v))).differentiableAt.sub
+    ((ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)).mul
+    (ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v))).differentiableAt
+
+/-- ⭐⭐ **`minorDefect` 复合 `trunc` 后可微**。 -/
+theorem minorDefect_differentiableAt {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => minorDefect (u r) (v r)) p := by
+  have hfun : (fun r : Fin K → Pt n => minorDefect (u r) (v r))
+      = fun r : Fin K → Pt n => ∑ i : Fin n, ∑ j : Fin n, minorTerm u v i j r ^ 2 := by
+    funext r
+    simp only [minorDefect, minorTerm]
+  rw [hfun]
+  refine DifferentiableAt.sum (u := Finset.univ) ?_
+  intro i _
+  refine DifferentiableAt.sum (u := Finset.univ) ?_
+  intro j _
+  exact ((minorTerm_differentiableAt u v i j p).pow 2)
+
+/-- ⭐⭐ **`collinear` 分支可微**：`minorDefect (seg · a b) (seg · a c)`。 -/
+theorem collinear_differentiableAt {K n : ℕ} (a b c : ℕ)
+    (ha : a < K) (hb : b < K) (hc : c < K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => minorDefect (seg (trunc r) a b) (seg (trunc r) a c)) p := by
+  have hfun : (fun r : Fin K → Pt n => minorDefect (seg (trunc r) a b) (seg (trunc r) a c))
+      = fun r : Fin K → Pt n => minorDefect (segCLM ⟨a, ha⟩ ⟨b, hb⟩ r) (segCLM ⟨a, ha⟩ ⟨c, hc⟩ r) := by
+    funext r
+    congr 1 <;> funext i <;> simp only [seg, segCLM_apply]
+  rw [hfun]
+  exact minorDefect_differentiableAt _ _ p
+
+/-- ⭐⭐ **`parallel` 分支可微**：`minorDefect (seg · a b) (seg · c e)`。 -/
+theorem parallel_differentiableAt {K n : ℕ} (a b c e : ℕ)
+    (ha : a < K) (hb : b < K) (hc : c < K) (he : e < K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => minorDefect (seg (trunc r) a b) (seg (trunc r) c e)) p := by
+  have hfun : (fun r : Fin K → Pt n => minorDefect (seg (trunc r) a b) (seg (trunc r) c e))
+      = fun r : Fin K → Pt n =>
+          minorDefect (segCLM ⟨a, ha⟩ ⟨b, hb⟩ r) (segCLM ⟨c, hc⟩ ⟨e, he⟩ r) := by
+    funext r
+    congr 1 <;> funext i <;> simp only [seg, segCLM_apply]
+  rw [hfun]
+  exact minorDefect_differentiableAt _ _ p
 
 end Lattice.Geo
