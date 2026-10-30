@@ -703,7 +703,7 @@
 - `Lattice.Domains.Constraints.Lipschitz` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Loss` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Domains.Constraints.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`
-- `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Domains.Constraints.Perturb` <- `Lattice.Domains.Constraints.Flatten`
 - `Lattice.Domains.Constraints.Pipeline` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Loss`, `Lattice.Runtime.L1L2`
 - `Lattice.Domains.Constraints.RealToken` <- `Lattice.Domains.Constraints.Expr`
@@ -1569,7 +1569,7 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 5 | 1 |
-| `Lattice.Domains.Constraints.PenaltyLoss` | 26 | 2 |
+| `Lattice.Domains.Constraints.PenaltyLoss` | 28 | 2 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -1621,7 +1621,7 @@
 | `Lattice.Domains.Geometry.Plucker` | 2 | 0 |
 | `Lattice.Domains.Geometry.PolyAssemble` | 4 | 1 |
 | `Lattice.Domains.Geometry.PolyConstants` | 5 | 2 |
-| `Lattice.Domains.Geometry.PolyLipschitz` | 1 | 0 |
+| `Lattice.Domains.Geometry.PolyLipschitz` | 2 | 0 |
 | `Lattice.Domains.Geometry.PolyNondegenerate` | 8 | 0 |
 | `Lattice.Domains.Geometry.PolyRepair` | 5 | 0 |
 | `Lattice.Domains.Geometry.PolySpecificRepair` | 7 | 5 |
@@ -2479,7 +2479,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bigstep_of_step` -> `Compiler`, `induction`, `subst`, `trans`
 - `bigstep_of_while_false` -> `Compiler`, `induction`, `subst`, `trans`
 - `bigstep_to_smallstep` -> `Compiler`, `induction`, `subst`, `trans`
-- `bilinearSum_lipschitz` -> `Pt`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
+- `bilinearSum_abs_le` -> `Pt`, `card_fin`
+- `bilinearSum_lipschitz` -> `Pt`, `card_fin`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
 - `bilinear_not_affine` -> `aff`, `subst`
 - `bilinear_sq_sub_le` -> `le_trans`
 - `bilinear_sub_le` -> `le_trans`
@@ -4199,7 +4200,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `equalLengthFix_reaches` -> `Pt`, `sqDist`, `sqDistFix_reaches`, `sqDist_nonneg`
 - `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `equalLengthPenalty_nonneg` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
-- `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `equalLength_lipschitz` -> `GeoExpr`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `evalPts`, `ex`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `equalLength_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `equalLength_sound` -> `Pt`, `sqDist`
 - `equalLength_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `seg`, `sqDist`, `sqNorm`
@@ -7130,6 +7131,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perp_neg_invariant` -> `apply`, `seg`, `unflatten`
 - `perp_penalty_ir_exact` -> `GeoConstraint`, `IRConstraintLite`, `IRHolds`, `Pt`, `compileIR_sound`, `seg`
 - `perpendicular_iff_dotDisp` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `sqNorm`, `sqNorm_eq_zero_iff`, `trans`
+- `perpendicular_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`, `sq_lipschitz_on_bounded`
 - `perpendicular_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
 - `perpendicular_poly_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`, `poly`
 - `perpendicular_rightAngle_agree` -> `Pt`
@@ -7870,6 +7872,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rightAnglePenalty_nonneg` -> `Pt`
 - `rightAngle_dot_zero_iff` -> `depth`, `induction`, `step`
 - `rightAngle_eq_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`
+- `rightAngle_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`, `sq_lipschitz_on_bounded`
 - `rightAngle_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `rip_constant_ge_one_of_nonzero_null` -> `apply`, `l0Norm`, `le_antisymm`, `sqNorm`, `subst`
 - `rip_controls_column_norm` -> `l0Norm`, `l1Norm`, `sqNorm`, `trans`
@@ -8646,7 +8649,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistConst_scale` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
-- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `sqDistEq_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
