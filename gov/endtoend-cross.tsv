@@ -212,6 +212,10 @@ Domains/Constraints/Expr.lean	evalPts_one
 Domains/Constraints/Expr.lean	evalPts_sub_eq_zero_iff
 Domains/Constraints/ExprDeriv.lean	evalPts_coord_of_lt
 Domains/Constraints/ExprDeriv.lean	hasFDerivAt_eval
+Domains/Constraints/ExprDerivative.lean	trunc_apply
+Domains/Constraints/ExprDerivative.lean	evalPts_trunc_coord
+Domains/Constraints/ExprDerivative.lean	hasFDerivAt_coordProj
+Domains/Constraints/ExprDerivative.lean	evalPts_differentiableAt
 Domains/Constraints/Flatten.lean	unflatten_flatten
 Domains/Constraints/Flatten.lean	flatten_unflatten
 Domains/Constraints/Flatten.lean	flatten_injective
