@@ -237,6 +237,9 @@ Domains/Constraints/NetLoss.lean	netLoss_eq_zero_of_holds
 Domains/Constraints/NetLoss.lean	netLoss_zero_without_holds
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg
 Domains/Constraints/PenaltyLoss.lean	minorDefect_eq_zero_of_parallel
+Domains/Constraints/PenaltyLoss.lean	minorDiff_le
+Domains/Constraints/PenaltyLoss.lean	minorTerm_lipschitz
+Domains/Constraints/PenaltyLoss.lean	minorDefect_lipschitz
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_nonneg
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_leZero
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
