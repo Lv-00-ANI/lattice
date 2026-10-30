@@ -321,4 +321,79 @@ theorem hasFDerivAt_pointwiseNetActN {K k n : ℕ} (Pf : Fin k → AffineLayer (
       (fderiv ℝ (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j)) r) r :=
   (differentiableAt_pointwiseNetActN Pf r).hasFDerivAt
 
+/-! ## 第七层：`lossOfActivations` —— 把网络与损失解耦
+
+## 为什么要这一层
+
+**`netLossOn` 的内层是 `fun j => netActN n k Pf (r j)`——`netActN` 把 `0` 映到偏置，
+所以它在界外【不为零】，与 `trunc r` 不一致。**
+
+**⇒ 用 `penaltyLoss` 的导数定理（内层必须是 `trunc r`）时，中间隔着 `netActN`，两边的形状对不上。**
+
+**本层的解法是【把两者拆开】**：
+
+```lean
+lossOfActivations cs (acts : Fin K → Pt n) := ∑ c ∈ cs, penaltyLoss c (trunc acts)
+```
+
+**于是：**
+
+- **`lossOfActivations` 对内层【已经是 `trunc` 形式】——第 128 轮的定理原样可用，
+  给出对 `acts` 的导数；**
+- **`acts = fun j => netActN n k Pf (r j)` 的导数由第 135 轮的
+  `differentiableAt_pointwiseNetActN` 给出；**
+- **两者复合就是 `netLossOn` 对 `r` 的导数。**
+
+**这是标准的链式分解：【先算损失关于激活的依赖，再算激活关于输入的依赖】，
+而两层各自都有现成的定理。** -/
+
+/-- **激活点列上的损失**：`∑ c ∈ cs, penaltyLoss c (trunc acts)`。
+
+**⚠ 内层直接是 `trunc acts`**——**这是本层设计的目的：让 `penaltyLoss` 的导数定理原样可用。** -/
+noncomputable def lossOfActivations {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (trunc acts))).sum
+
+/-- ⭐⭐ **`lossOfActivations` 对激活可微**——**逐约束 `HasFDerivAt.sum`，每支直接用第 128 轮的定理。** -/
+theorem lossOfActivations_differentiableAt {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K acts) :
+    DifferentiableAt ℝ (fun a : Fin K → Pt n => lossOfActivations cs a) acts := by
+  induction cs with
+  | nil =>
+      have hnil : (fun a : Fin K → Pt n => lossOfActivations [] a) = fun _ => (0 : ℝ) := by
+        funext a
+        simp only [lossOfActivations, List.map_nil, List.sum_nil]
+      rw [hnil]
+      exact differentiableAt_const 0
+  | cons c rest ih =>
+      have hc : ConstraintIndicesBelow c K := hK c (by simp)
+      have hkc : KinkPositive c K acts := hk c (by simp)
+      have hrest : DifferentiableAt ℝ
+          (fun a : Fin K → Pt n => lossOfActivations rest a) acts :=
+        ih (fun c' hc' => hK c' (List.mem_cons_of_mem c hc'))
+          (fun c' hc' => hk c' (List.mem_cons_of_mem c hc'))
+      have hsplit : (fun a : Fin K → Pt n => lossOfActivations (c :: rest) a)
+          = fun a : Fin K → Pt n => penaltyLoss c (trunc a) + lossOfActivations rest a := by
+        funext a
+        simp only [lossOfActivations, List.map_cons, List.sum_cons]
+      rw [hsplit]
+      exact (hasFDerivAt_penaltyLoss c hc acts hkc).differentiableAt.add hrest
+
+/-! ### ⚠ 未闭合：`netLossOn = lossOfActivations ∘ pointwiseNetActN`
+
+**要证的是 `netLossOn (List.ofFn Pf) cs r = lossOfActivations cs (fun j => netActN n k Pf (r j))`。**
+
+**它在【界内】是逐字的：两侧的 `j < K` 分支都给出 `netActN n k Pf (r j)`。**
+
+**但 `netPoints` 用的是 `if h : j < K then netAct params (p ⟨j, h⟩) else 0`（`netAct` + `List`），
+而 `lossOfActivations` 的内层是 `trunc`（`netActN` + `Fin k →`）——两处【同时】差一个 `List.ofFn` 桥与一个 `netAct`/`netActN` 桥。**
+
+**⇒ 正确做法是把 `netPoints` 的定义【改成】`netActN` 版本**（`Fin k →` 载体，与第 135 轮一致），
+**这样两侧就只差 `trunc` 的展开，一行 `simp` 可收。**
+
+**本轮未做这一步**：它要改 `netPoints` 与 `netLossOn` 的定义（以及 `netPoints_eq_trunc`），
+**而那是第 134 轮记录过的「载体改名」决策——应当先声明再做，而不是在一轮末尾改。** -/
+
 end Lattice.Geo
