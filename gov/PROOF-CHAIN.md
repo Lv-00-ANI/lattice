@@ -1581,7 +1581,7 @@
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
-| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 29 | 14 |
+| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 31 | 14 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -3758,7 +3758,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_sqDist_left` -> `Pt`, `sqDist`
-- `differentiableAt_sqDist_pair` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`, `trunc`
+- `differentiableAt_sqDist_pair` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -5189,7 +5189,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_maxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `mul`, `trunc`
 - `hasFDerivAt_midpointSum` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
 - `hasFDerivAt_minorDefect` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
-- `hasFDerivAt_minorDefect_seg` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `sqDist`, `sqDist_eq_sum`, `trunc`
+- `hasFDerivAt_minorDefect_seg` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`
 - `hasFDerivAt_negMaxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `trunc`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
@@ -5198,7 +5198,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_segCLM` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`, `trunc_apply`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
 - `hasFDerivAt_sq` -> `E`, `comp`, `convert`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
-- `hasFDerivAt_sqDist_joint` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`
+- `hasFDerivAt_sqDist_joint` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`
 - `hasFDerivAt_sqDist_left` -> `Pt`, `sqDist`, `sqDist_eq_sum`
 - `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`
 - `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `sqDist`, `trunc`, `trunc_apply`
@@ -8731,6 +8731,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFDeriv_apply` -> `Pt`, `comp`, `convert`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
 - `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
+- `sqDistJointFDeriv_apply` -> `Pt`, `sqDistFDeriv_apply`
+- `sqDistPairFDeriv_apply` -> `Pt`, `sqDistFDeriv_apply`
 - `sqDist_abs_le` -> `Pt`, `card_fin`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_eq_sum`, `sqNorm`
 - `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
