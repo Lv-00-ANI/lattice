@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 18 | no imports from lift/lib |
+| core | 19 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 622 | instantiated library, may import core only |
@@ -35,6 +35,7 @@
 - `Lattice.Core.RepairWF` <- `Lattice.Core.Repair`
 - `Lattice.Core.Semantics` <- `Lattice.Core.Syntax`
 - `Lattice.Core.Simulation` 
+- `Lattice.Core.StackParams` <- `Lattice.Core.Net`
 - `Lattice.Core.Syntax` 
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
@@ -680,7 +681,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -901,6 +902,7 @@
 | `Lattice.Core.RepairWF` | 4 | 3 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
+| `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
@@ -9186,6 +9188,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `toFloatFormatFixed_eps` -> `FloatFormat`, `RoundOp`
 - `toFloatFormatFixed_expBits` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`
 - `toFloatFormatFixed_tiny` -> `FloatFormat`, `RoundOp`, `W`
+- `toLayers_length` -> `card_fin`, `length`
 - `toMLayer_ofMLayer` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `toNatConfig_apply` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `differentiable_coord`, `differentiable_segComp`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `segComp`, `toNatConfig`, `unflatten`
 - `toNatConfig_eq_zero_of_ge` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `differentiable_coord`, `differentiable_segComp`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `segComp`, `toNatConfig`, `unflatten`
