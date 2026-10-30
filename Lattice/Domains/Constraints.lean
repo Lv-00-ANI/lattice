@@ -28,6 +28,7 @@ import Lattice.Primitives.TokenizeStrategy
 import Lattice.Primitives.TokenizerPattern
 import Lattice.Domains.Constraints.DistDerivative
 import Lattice.Domains.Constraints.ExprDerivative
+import Lattice.Domains.Constraints.PenaltyLossDerivative
 
 /-!
 # `Lattice.Domains.Constraints`
