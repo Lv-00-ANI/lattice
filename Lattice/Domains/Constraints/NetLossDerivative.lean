@@ -294,4 +294,31 @@ theorem differentiableAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin
 **⇒ 下一轮先量 `netLossOn` 改成 `Fin k → AffineLayer` 载体后，
 `hasFDerivAt_penaltyLoss_family` 的 `P` 能否直接取 `netPoints`（那时 `netAct` 的导数就有陈述了）。** -/
 
+/-! ## 第六层：逐点 `netActN` 作用于点列
+
+**`netLossOn` 的内层点列是 `fun j => netActN n k Pf (r j)`——`netActN` 逐点作用在 `r` 上。**
+
+**本节证这条映射对 `r` 可微，用第 109 轮的 `differentiableAt_netActN`（关于【输入】）与
+`differentiableAt_pi`（逐坐标）复合。**
+
+**⚠ `netActN` 而不是 `netAct`**：前者直接以 `Fin k →` 为载体，不需要 `List.ofFn` 桥（第 134 轮的障碍）。 -/
+
+/-- ⭐⭐ **逐点 `netActN` 作用于点列，对点列可微**。 -/
+theorem differentiableAt_pointwiseNetActN {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (r : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j)) r := by
+  rw [show (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j))
+      = fun s : Fin K → Pt n => (fun j => netActN n k Pf (s j)) from rfl]
+  refine differentiableAt_pi.2 (fun j => ?_)
+  exact (differentiableAt_netActN k Pf (r j)).comp r
+    (ContinuousLinearMap.hasFDerivAt
+      (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin K => Pt n) j)).differentiableAt
+
+/-- ⭐⭐ **逐点 `netActN` 的 `HasFDerivAt` 句柄**——下游要导数时从这里取。 -/
+theorem hasFDerivAt_pointwiseNetActN {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (r : Fin K → Pt n) :
+    HasFDerivAt (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j))
+      (fderiv ℝ (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j)) r) r :=
+  (differentiableAt_pointwiseNetActN Pf r).hasFDerivAt
+
 end Lattice.Geo

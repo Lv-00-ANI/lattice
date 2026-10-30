@@ -262,6 +262,8 @@ Domains/Constraints/NetLossDerivative.lean	penaltyLoss_comp_funext
 Domains/Constraints/NetLossDerivative.lean	netPoints_eq_trunc
 Domains/Constraints/NetLossDerivative.lean	hasFDerivAt_penaltyLoss_family
 Domains/Constraints/NetLossDerivative.lean	differentiableAt_penaltyLoss_family
+Domains/Constraints/NetLossDerivative.lean	differentiableAt_pointwiseNetActN
+Domains/Constraints/NetLossDerivative.lean	hasFDerivAt_pointwiseNetActN
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg
 Domains/Constraints/PenaltyLoss.lean	minorDefect_eq_zero_of_parallel
 Domains/Constraints/PenaltyLoss.lean	minorDiff_le
