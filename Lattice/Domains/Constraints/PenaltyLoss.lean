@@ -746,6 +746,50 @@ theorem penaltyLipschitz_sqDistEq {n k : ℕ} {d : GeoExpr n} {a b : ℕ} {K B :
           * ((8 * (n : ℝ) * B) * rho n k pts pts' + K * rho n k pts pts') := h
     _ = (2 * (4 * (n : ℝ) * B * B + B) * (8 * (n : ℝ) * B + K)) * rho n k pts pts' := by ring
 
+/-! ### 续：`equalLength` / `perpendicular` / `rightAngle` 的接口实例
+
+⚠ **`ltZero` 不单列**：`penaltyLoss` 对 `.ltZero e` 与 `.leZero e` 是**同一个定义**
+（都是 `(max (evalPts e ·) 0)²`，见 `penaltyLoss` 的 `match`），
+所以 `penaltyLipschitz_leZero` 已按定义覆盖它。**再写一条会是重复**——**而别名普查会抓出来。** -/
+
+/-- **`equalLength` 支**：常数 `2·(8nB²)·(8nB + 8nB)`。 -/
+theorem penaltyLipschitz_equalLength {n k : ℕ} {a b c e : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (he : e < k) (hB : 0 ≤ B) :
+    PenaltyLipschitz (n := n) k (.equalLength a b c e) B
+      (2 * (8 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) + (8 * (n : ℝ) * B))) := by
+  intro pts pts' hpts hpts'
+  have h := equalLength_lipschitz (n := n) (k := k) (a := a) (b := b) (c := c) (e := e)
+    ha hb hc he hB pts pts' hpts hpts'
+  calc |penaltyLoss (.equalLength a b c e) pts - penaltyLoss (.equalLength a b c e) pts'|
+      ≤ 2 * (8 * (n : ℝ) * B * B)
+          * ((8 * (n : ℝ) * B) * rho n k pts pts' + (8 * (n : ℝ) * B) * rho n k pts pts') := h
+    _ = (2 * (8 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) + (8 * (n : ℝ) * B)))
+          * rho n k pts pts' := by ring
+
+/-- **`perpendicular` 支**：常数 `2·(4nB²)·(8nB)`。 -/
+theorem penaltyLipschitz_perpendicular {n k : ℕ} {a b c e : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (he : e < k) (hB : 0 ≤ B) :
+    PenaltyLipschitz (n := n) k (.perpendicular a b c e) B
+      (2 * (4 * (n : ℝ) * B * B) * (8 * (n : ℝ) * B)) := by
+  intro pts pts' hpts hpts'
+  have h := perpendicular_lipschitz (n := n) (k := k) (a := a) (b := b) (c := c) (e := e)
+    ha hb hc he hB pts pts' hpts hpts'
+  calc |penaltyLoss (.perpendicular a b c e) pts - penaltyLoss (.perpendicular a b c e) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) * rho n k pts pts') := h
+    _ = (2 * (4 * (n : ℝ) * B * B) * (8 * (n : ℝ) * B)) * rho n k pts pts' := by ring
+
+/-- **`rightAngle` 支**：常数 `2·(4nB²)·(8nB)`。 -/
+theorem penaltyLipschitz_rightAngle {n k : ℕ} {a b c : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hc : c < k) (hB : 0 ≤ B) :
+    PenaltyLipschitz (n := n) k (.rightAngle a b c) B
+      (2 * (4 * (n : ℝ) * B * B) * (8 * (n : ℝ) * B)) := by
+  intro pts pts' hpts hpts'
+  have h := rightAngle_lipschitz (n := n) (k := k) (a := a) (b := b) (c := c)
+    ha hb hc hB pts pts' hpts hpts'
+  calc |penaltyLoss (.rightAngle a b c) pts - penaltyLoss (.rightAngle a b c) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B) * ((8 * (n : ℝ) * B) * rho n k pts pts') := h
+    _ = (2 * (4 * (n : ℝ) * B * B) * (8 * (n : ℝ) * B)) * rho n k pts pts' := by ring
+
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 
 /-- **`leZero` 的精确刻画**：损失为零 ⟺ `evalPts ≤ 0`。 -/

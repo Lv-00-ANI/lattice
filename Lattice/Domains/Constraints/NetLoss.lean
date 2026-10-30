@@ -194,6 +194,29 @@ theorem netLoss_lipschitz {n : ℕ} (cs : List (GeoConstraint n)) (pts : ℕ →
             rw [List.map_cons, List.sum_cons]
             ring
 
+/-- ⭐⭐ **`netLoss` 对参数扰动的界**：把 `PenaltyLipschitz` 接口接上求和规则。
+
+**三块拼起来：**
+- `hK : ∀ c ∈ cs, PenaltyLipschitz k c B (Cost c)` — **逐约束的界**（第 95–102 轮的 12 条分支定理给实例）；
+- `hpts`/`hpts'` — **网络输出被 `B` 界住**（`StackError.netAct_abs_le` 可给）；
+- `hrho` — **两条参数下 `netAct` 点列的 `rho` 偏差 `≤ D`**（`StackError.netAct_deviation_step` 可给）。
+
+**结论**：`|netLoss params cs pts − netLoss params' cs pts| ≤ (∑ Cost) · D`。 -/
+theorem netLoss_lipschitz_of {n : ℕ} (cs : List (GeoConstraint n)) (k : ℕ) (pts : ℕ → Pt n)
+    (params params' : List (AffineLayer (Fin n))) {D B : ℝ}
+    (Cost : GeoConstraint n → ℝ) (hD : 0 ≤ D)
+    (hCost : ∀ c ∈ cs, 0 ≤ Cost c)
+    (hK : ∀ c ∈ cs, Lattice.Geo.PenaltyLoss.PenaltyLipschitz k c B (Cost c))
+    (hpts : ∀ p i, |netAct params (pts p) i| ≤ B)
+    (hpts' : ∀ p i, |netAct params' (pts p) i| ≤ B)
+    (hrho : rho n k (fun p => netAct params (pts p))
+      (fun p => netAct params' (pts p)) ≤ D) :
+    |netLoss params cs pts - netLoss params' cs pts| ≤ (cs.map Cost).sum * D := by
+  refine netLoss_lipschitz cs pts params params' Cost hD hCost ?_
+  intro c hc
+  have h := hK c hc (fun p => netAct params (pts p)) (fun p => netAct params' (pts p)) hpts hpts'
+  exact le_trans h (mul_le_mul_of_nonneg_left hrho (hCost c hc))
+
 /-! ## 三、契约：损失为零 ⟸ 约束成立（P），以及**反向为假**（N）
 
 **初稿在这里写了双向 `netLoss = 0 ↔ ∀ c ∈ cs, Holds c`，那是错的。**
