@@ -839,4 +839,57 @@ theorem netLossOn_fderiv_apply_params_nonKink {K k n : ℕ} (q : Fin k → singl
     (differentiableAt_pointwiseNetActN_params q p), ContinuousLinearMap.comp_apply,
     activationFDerivParams]
 
+/-! ## 第十五层（逆向侧的宏观认知）：`penaltyLoss` 与 `Holds` 的对应关系
+
+## 本节是规划，不是证明
+
+**逆向方向（权重 → 符号）的第一块应当是「损失为零 ⟺ 约束被满足」。
+第 150 轮用探针把这件事的**真实形状**量清楚了，本节记录结论。**
+
+**⚠ 本节不声称任何双条件定理**——**因为探针发现 `penaltyLoss` 与 `Holds` 有【三处】错配，
+而其中两处的修正会改变项目对「约束」的定义。**
+
+## 错配一：`ltZero`（严格不等号 vs 闭区间）
+
+- **`Holds (.ltZero e) Φ` 要求 `evalPts e Φ < 0`**；
+- **`penaltyLoss (.ltZero e) Φ = (max (evalPts e Φ) 0)²`**，**它在 `evalPts e Φ = 0` 处也【为零】**。
+
+**⇒ 双条件的 `←` 方向在 `x = 0` 处失效。**
+
+## 错配二：`gtZero`（同源）
+
+- **`Holds (.gtZero e) Φ` 要求 `0 < evalPts e Φ`**；
+- **`penaltyLoss (.gtZero e) Φ = (max (-(evalPts e Φ)) 0)²`**，**在 `x = 0` 处为零。**
+
+**⇒ 同上。**
+
+**⚠ 错配一与二【不是 bug】，而是设计的必然后果**：
+**`penaltyLoss` 是连续函数（可微性的前提），而 `Holds` 在 `x = 0` 处不连续。
+所以「损失为零 ⟺ 严格不等式成立」【不可能】对连续损失成立。**
+**⇒ 正确的逆向陈述是「损失为零 ⟺ 非严格不等式成立」，即 `leZero` 与 `≥ 0` 的版本。**
+
+## 错配三：`collinear`／`parallel`（显式比例 vs 子式）
+
+- **`Holds (.collinear a b c) Φ := ∃ t : ℝ, seg Φ a b = fun i => t * seg Φ a c i`**（显式比例）；
+- **`penaltyLoss (.collinear a b c) Φ := minorDefect (seg Φ a b) (seg Φ a c)`**（子式平方和）。
+
+**两者只在 `n = 2` 时等价**：**`minorDefect = 0` 说的是「秩 ≤ 1」，
+而 `∃ t` 说的是「`seg a b` 在 `seg a c` 的张成里」——`n = 2` 且 `seg a c ≠ 0` 时相同，
+但 `seg a c = 0` 时前者允许 `seg a b` 任意、后者要求 `seg a b = 0`。**
+
+**⇒ 双条件需要 `n = 2` 的维度前提与 `seg a c ≠ 0` 的非退化前提，那是一条独立引理。**
+
+## 结论：逆向侧的正确第一块
+
+**不是十二支的统一双条件，而是【按 `Holds` 的形式分三类】**：
+
+1. **`eqZero`／`sqDistEq`／`equalLength`／`perpendicular`／`rightAngle`／`samePoint`／`midpoint`（七支）**：
+   **双条件应当直接成立**（损失是某个量的平方，`Holds` 是那个量为零）——
+   **这七支是安全的起点；**
+2. **`leZero`（一支）**：**双条件成立**，`Holds` 就是 `≤ 0`，与 `max x 0 = 0` 一致；
+3. **`ltZero`／`gtZero`／`collinear`／`parallel`（四支）**：**需要额外的形式前提，不能无条件陈述。**
+
+**⇒ 下一轮应当只做第 1、2 类的八支，并且把第 3 类作为【已知边界】登记，
+而不是把十二支硬凑成一个定理——那会写出一条假的陈述。** -/
+
 end Lattice.Geo
