@@ -22,6 +22,41 @@ sqDistFDeriv p q = ∑ i, (2 * (p i - q i)) • ContinuousLinearMap.proj i
 **`∑` 是 `ContinuousLinearMap` 的加法、`•` 是标量乘**——**所以这条泛函是【构造出来的**，
 不是「存在某个 `fderiv`」。**那正是 `P2-02` 需要的东西：梯度要能被算出来，而不只是存在。**
 
+## ⚠ 显式导函数的路：**`proj` 已定位，`y²` 的导数还没接上**
+
+第 112 轮我四次尝试构造
+
+```lean
+sqDistFDeriv p q = ∑ i, (2 * (p i - q i)) • ContinuousLinearMap.proj i
+```
+
+**全部停在 `typeclass instance problem is stuck: NormedSpace ?m ℝ`。**
+
+**第 113 轮用最小探针把原因定位清楚了：**
+
+**`ContinuousLinearMap.proj` 的标量域参数 `R` 与 `ContinuousLinearMap.hasFDerivAt` 的 `𝕜`
+是两个【独立】的隐含参数，只固定其中一个不够。** **可行写法是给两者收到【同一个完整表达式】：**
+
+```lean
+  have hproj : HasFDerivAt (fun x : Pt n => x i)
+      (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i) p :=
+    ContinuousLinearMap.hasFDerivAt
+      (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i)
+```
+
+**⇒ 坐标投影那一块已经通了。** **剩下的是 `y ↦ y²` 的导数**：
+
+- **`hasFDerivAt_pow` 不存在**（`unknown identifier`）；
+- **`hasDerivAt_pow` 存在**，但 `hd.hasFDerivAt` 给出的是 `ContinuousLinearMap.smulRight 1 (2 * y)`，
+  而目标里我写的是 `(2 * y) • ContinuousLinearMap.id ℝ ℝ`——**两者等价但不同形，
+  所以需要一次 `convert`，而 `convert` 之后还剩下把 `smulRight 1 k` 与 `k • id` 对齐的 `ext` 步骤。**
+
+**下一步就是把那一步写对**（用 `ContinuousLinearMap.ext` 加 `simp`／`ring`，
+**注意 `continuousLinearMap_one_apply` 这个名字不存在，别再用它**）。
+
+**在那之前，本文件只给可微性与 `fderiv` 句柄——**
+**那是「导数存在」，不是「梯度可计算」。** **而 `P2-02` 需要后者。**
+
 ## 为什么放在 `Domains` 而不是 `Core`
 
 `sqDist` 定义在 `Domains/Constraints/Dist.lean`（rank 3），而 `Core` 是 rank 0。
