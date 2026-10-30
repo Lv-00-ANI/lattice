@@ -264,4 +264,34 @@ theorem differentiableAt_penaltyLoss_family {K n : ℕ} (c : GeoConstraint n)
     DifferentiableAt ℝ (fun r : Fin K → Pt n => penaltyLoss c (P r)) p :=
   (hasFDerivAt_penaltyLoss_family c hK p P hP hk).differentiableAt
 
+/-! ### ⚠ 下一层障碍：`netAct` 的导数只对 `List.ofFn p` 有陈述
+
+**`netPoints params p j = netAct params (p ⟨j, _⟩)` 里 `params` 是任意 `List`，
+而 `netAct` 的可微性定理（`Core/StackDerivative.lean:213`、`:223`）的陈述是**
+
+```lean
+theorem differentiableAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin n)) :
+    DifferentiableAt ℝ (fun y => netAct (List.ofFn p) y) x
+```
+
+**——即它只覆盖 `params = List.ofFn p` 这一形式。**
+
+**⇒ 对任意 `List`，`netAct` 的可微性【没有陈述】，因此把 `netAct` 逐点应用到点列上
+（`r ↦ fun j => netAct params (r j)`）也无法用现有定理复合。**
+
+**第 134 轮实测：`fun_prop` 对 `netAct` 报 `No theorems found for Lattice.Core.netAct`；
+而 `differentiableAt_netAct_ofFn` 需要 `params` 已经是 `List.ofFn p` 形式。**
+
+## 正确形状（下一轮）
+
+**库里【没有】`List → Fin k →` 的桥**（第 134 轮实测：只有反方向的 `List.ofFn`）。
+**⇒ 有两条路：**
+
+1. **给 `netLossOn` 的 `params` 从 `List` 改成 `Fin k → AffineLayer (Fin n)`**——
+   **这与 `stackParams`（第 104 轮）一致，也避开所有 List 桥**；**推荐这条路**；
+2. 或者补一条 `List.equivFin` 形式的桥并证明 `netAct` 与它相容——**成本高于第 1 条。**
+
+**⇒ 下一轮先量 `netLossOn` 改成 `Fin k → AffineLayer` 载体后，
+`hasFDerivAt_penaltyLoss_family` 的 `P` 能否直接取 `netPoints`（那时 `netAct` 的导数就有陈述了）。** -/
+
 end Lattice.Geo
