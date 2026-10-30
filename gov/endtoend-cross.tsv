@@ -253,6 +253,11 @@ Domains/Constraints/PenaltyLoss.lean	sqDistEq_lipschitz
 Domains/Constraints/PenaltyLoss.lean	equalLength_lipschitz
 Domains/Constraints/PenaltyLoss.lean	perpendicular_lipschitz
 Domains/Constraints/PenaltyLoss.lean	rightAngle_lipschitz
+Domains/Constraints/PenaltyLoss.lean	penaltyLipschitz_eqZero
+Domains/Constraints/PenaltyLoss.lean	penaltyLipschitz_leZero
+Domains/Constraints/PenaltyLoss.lean	penaltyLipschitz_gtZero
+Domains/Constraints/PenaltyLoss.lean	penaltyLipschitz_samePoint
+Domains/Constraints/PenaltyLoss.lean	penaltyLipschitz_sqDistEq
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_leZero
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
 Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_gtZero

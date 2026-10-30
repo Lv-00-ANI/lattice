@@ -671,6 +671,81 @@ theorem rightAngle_lipschitz {n k : ℕ} {a b c : ℕ} {B : ℝ}
   have hstep := mul_le_mul_of_nonneg_left h1 (by positivity : (0 : ℝ) ≤ 2 * (4 * (n : ℝ) * B * B))
   simpa only [penaltyLoss, seg] using le_trans hsq hstep
 
+/-! ## ⭐⭐ `PenaltyLipschitz`：把 12 个异构分支收成**一个可命名的接口**
+
+第 100 轮的结论是：**`penaltyLoss_lipschitz` 作为单条定理不存在**，因为 12 个构造子的**前提**形状不同
+（`eqZero` 要表达式的 `K`/`B`，`midpoint` 只要有界，`perpendicular` 要四个下标界）。
+
+**但有一件事是统一的：12 支全都读点列，所以全都需要点界 `B`。** 加上 `B` 之后，
+**结论的形状也统一了**：都是「变化 `≤ 常数 · rho`」。
+
+⚠ **点界必须进定义，不能留在各自的定理里**：`PenaltyLipschitz` 量化【所有】`pts`，
+而 `samePoint` 那支（就是 `sqDist` 本身）**在无点界时是假命题**——
+`sqDist` 对点的绝对位置二次敏感（第 78 轮 `sq_not_lipschitz` 的同一原因）。
+**所以「接口不带 `B`」这个版本是错的，本节给的是带 `B` 的正确版本。** -/
+
+/-- ⭐⭐ **`PenaltyLipschitz k c B K`**：点列被 `B` 界住时，约束 `c` 的惩罚损失在偏差 `rho` 下
+以 `K` 为 Lipschitz 常数。
+
+**这是 12 个构造子共有的【结论形状】**，而它们对表达式的要求（`LipschitzK`／`BoundedV`）与下标要求
+留在了各自的分支定理里。 -/
+def PenaltyLipschitz {n : ℕ} (k : ℕ) (c : GeoConstraint n) (B K : ℝ) : Prop :=
+  ∀ pts pts' : ℕ → Pt n,
+    (∀ p i, |pts p i| ≤ B) → (∀ p i, |pts' p i| ≤ B) →
+    |penaltyLoss c pts - penaltyLoss c pts'| ≤ K * rho n k pts pts'
+
+/-- **`eqZero` 支**：常数 `2B·K`。 -/
+theorem penaltyLipschitz_eqZero {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B) :
+    PenaltyLipschitz k (.eqZero e) B (2 * B * K) := by
+  intro pts pts' hpts hpts'
+  have h := eqZero_lipschitz (n := n) (k := k) (e := e) hB hK hBd pts pts'
+  calc |penaltyLoss (.eqZero e) pts - penaltyLoss (.eqZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := h
+    _ = (2 * B * K) * rho n k pts pts' := by ring
+
+/-- **`leZero` 支**（`ltZero` 定义相同，可同用）：常数 `2B·K`。 -/
+theorem penaltyLipschitz_leZero {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B) :
+    PenaltyLipschitz k (.leZero e) B (2 * B * K) := by
+  intro pts pts' hpts hpts'
+  have h := maxZero_lipschitz (n := n) (k := k) (e := e) hB hK hBd pts pts'
+  calc |penaltyLoss (.leZero e) pts - penaltyLoss (.leZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := h
+    _ = (2 * B * K) * rho n k pts pts' := by ring
+
+/-- **`gtZero` 支**：常数 `2B·K`。 -/
+theorem penaltyLipschitz_gtZero {n k : ℕ} {e : GeoExpr n} {K B : ℝ}
+    (hB : 0 ≤ B) (hK : LipschitzK n k e K) (hBd : BoundedV n e B) :
+    PenaltyLipschitz k (.gtZero e) B (2 * B * K) := by
+  intro pts pts' hpts hpts'
+  have h := gtZero_lipschitz (n := n) (k := k) (e := e) hB hK hBd pts pts'
+  calc |penaltyLoss (.gtZero e) pts - penaltyLoss (.gtZero e) pts'|
+      ≤ 2 * B * (K * rho n k pts pts') := h
+    _ = (2 * B * K) * rho n k pts pts' := by ring
+
+/-- **`samePoint` 支**：常数 `8·n·B`——**一阶**，不是平方型。 -/
+theorem penaltyLipschitz_samePoint {n k : ℕ} {a b : ℕ} {B : ℝ}
+    (ha : a < k) (hb : b < k) (hB : 0 ≤ B) :
+    PenaltyLipschitz (n := n) k (.samePoint a b) B (8 * (n : ℝ) * B) := by
+  intro pts pts' hpts hpts'
+  exact samePoint_lipschitz (n := n) (k := k) (a := a) (b := b) ha hb hB pts pts' hpts hpts'
+
+/-- **`sqDistEq` 支**：常数 `2·(4nB² + B)·(8nB + K)`。
+
+**注意常数里 `8nB + K` 的合并**：`sqDist` 的差与 `d.evalPts` 的差共用同一个 `rho`，所以可加。 -/
+theorem penaltyLipschitz_sqDistEq {n k : ℕ} {d : GeoExpr n} {a b : ℕ} {K B : ℝ}
+    (ha : a < k) (hb : b < k) (hB : 0 ≤ B) (hK : LipschitzK n k d K) (hBd : BoundedV n d B) :
+    PenaltyLipschitz k (.sqDistEq a b d) B
+      (2 * (4 * (n : ℝ) * B * B + B) * (8 * (n : ℝ) * B + K)) := by
+  intro pts pts' hpts hpts'
+  have h := sqDistEq_lipschitz (n := n) (k := k) (d := d) (a := a) (b := b)
+    ha hb hB hK hBd pts pts' hpts hpts'
+  calc |penaltyLoss (.sqDistEq a b d) pts - penaltyLoss (.sqDistEq a b d) pts'|
+      ≤ 2 * (4 * (n : ℝ) * B * B + B)
+          * ((8 * (n : ℝ) * B) * rho n k pts pts' + K * rho n k pts pts') := h
+    _ = (2 * (4 * (n : ℝ) * B * B + B) * (8 * (n : ℝ) * B + K)) * rho n k pts pts' := by ring
+
 /-! ## 二、损失为零 ⟹ 约束成立（sound 方向，12/12） -/
 
 /-- **`leZero` 的精确刻画**：损失为零 ⟺ `evalPts ≤ 0`。 -/
