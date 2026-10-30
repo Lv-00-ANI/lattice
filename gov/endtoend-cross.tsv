@@ -216,6 +216,8 @@ Domains/Constraints/ExprDerivative.lean	trunc_apply
 Domains/Constraints/ExprDerivative.lean	evalPts_trunc_coord
 Domains/Constraints/ExprDerivative.lean	hasFDerivAt_coordProj
 Domains/Constraints/ExprDerivative.lean	evalPts_differentiableAt
+Domains/Constraints/ExprDerivative.lean	hasFDerivAt_evalPts
+Domains/Constraints/ExprDerivative.lean	evalPts_differentiableAt_direct
 Domains/Constraints/Flatten.lean	unflatten_flatten
 Domains/Constraints/Flatten.lean	flatten_unflatten
 Domains/Constraints/Flatten.lean	flatten_injective

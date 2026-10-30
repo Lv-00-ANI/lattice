@@ -25,7 +25,7 @@
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
 > | Lean 模块 | 866 | `audit_counts.py` |
-> | 定理 / 引理 | 8813 | `audit_counts.py` |
+> | 定理 / 引理 | 8815 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 21 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
