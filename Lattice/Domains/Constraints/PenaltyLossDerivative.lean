@@ -139,4 +139,54 @@ theorem hasFDerivAt_segCLM {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
     HasFDerivAt (fun r : Fin K → Pt n => segCLM a b r) (segCLM a b) p :=
   ContinuousLinearMap.hasFDerivAt (segCLM a b)
 
+/-! ## `midpoint` 与 `perpendicular`：两个「平方」分支
+
+`midpoint m a b` 是 `∑ i, (2·pts m i − pts a i − pts b i)²`——**一个线性形式的平方和**。
+`perpendicular a b c e` 是 `(∑ i, seg a b i · seg c e i)²`——**一个双线性形式的平方**。
+
+**两者的内层都写成 `segCLM` 的组合：**
+
+- `midpoint` 的内层：`L = 2 • segCLM b m − segCLM a b`（因为 `2·pts m − pts a − pts b = 2(ptm − pta) − (ptb − pta)` 的展开，
+  但直接写成 `2 • pointProj m − pointProj a − pointProj b` 更短且逐字正确）；
+- `perpendicular` 的内层：`∑ i, segCLM a b r i * segCLM c e r i`。
+
+⚠ **`midpoint` 的内层我用 `2 • pointProj m − pointProj a − pointProj b`**（**不是** `segCLM` 的组合）——
+**因为它就是 `2·pts m − pts a − pts b` 的字面翻译**，少一次换形就少一处出错（第 118 轮在这里失败过）。
+
+⚠ **`2` 必须写成 `(2 : ℝ)`**——第 118 轮它被推断成 `ℕ` 而失败。 -/
+
+/-- **`midpoint` 的内层线性形式**：`r ↦ 2·r m − r a − r b`。 -/
+noncomputable def midpointCLM {K n : ℕ} (m a b : Fin K) : (Fin K → Pt n) →L[ℝ] Pt n :=
+  (2 : ℝ) • pointProj m - pointProj a - pointProj b
+
+/-- **`midpointCLM` 的求值**。 -/
+theorem midpointCLM_apply {K n : ℕ} (m a b : Fin K) (r : Fin K → Pt n) (i : Fin n) :
+    midpointCLM m a b r i = 2 * trunc r m i - trunc r a i - trunc r b i := by
+  simp only [midpointCLM, ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+    pointProj, Pi.sub_apply, Pi.smul_apply, ContinuousLinearMap.proj_apply, smul_eq_mul]
+  rw [trunc_apply, trunc_apply, trunc_apply]
+
+/-- ⭐⭐ **`midpoint` 分支可微**：`∑ i, (2·trunc · m i − trunc · a i − trunc · b i)²`。 -/
+theorem midpoint_differentiableAt {K n : ℕ} (m a b : ℕ) (hm : m < K) (ha : a < K) (hb : b < K)
+    (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => ∑ i, (2 * trunc r m i - trunc r a i - trunc r b i) ^ 2) p := by
+  have hlin : HasFDerivAt (fun r : Fin K → Pt n => midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩ r)
+      (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩) p :=
+    ContinuousLinearMap.hasFDerivAt (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩)
+  have hfun : (fun r : Fin K → Pt n => ∑ i, (2 * trunc r m i - trunc r a i - trunc r b i) ^ 2)
+      = fun r : Fin K → Pt n => ∑ i, (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩ r i) ^ 2 := by
+    funext r
+    exact Finset.sum_congr rfl (fun i _ => by rw [midpointCLM_apply])
+  rw [hfun]
+  refine DifferentiableAt.sum (u := Finset.univ) ?_
+  intro i _
+  have hcoord : HasFDerivAt (fun r : Fin K → Pt n => midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩ r i)
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp
+        (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩)) p :=
+    ContinuousLinearMap.hasFDerivAt
+      ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp
+        (midpointCLM ⟨m, hm⟩ ⟨a, ha⟩ ⟨b, hb⟩))
+  exact (Lattice.Core.hasFDerivAt_sq_comp hcoord).differentiableAt
+
 end Lattice.Geo
