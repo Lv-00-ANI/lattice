@@ -1120,4 +1120,35 @@ theorem lossOfActivations_eq_zero_iff {K n : ℕ} (cs : List (GeoConstraint n))
   exact forall_congr' (fun c => forall_congr' (fun _ => by
     rw [← penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) (trunc acts)]))
 
+/-! ## 第十八层（逆向侧的核心命题）：网络损失为零 ⟺ 输出满足全部符号约束
+
+**这是整个逆向回路的核心**：**训练把 `netLossOn` 压到零，等价于网络在给定输入上的【输出点集】
+满足全部符号约束。**
+
+**正向方向（第 111–149 轮）说的是「约束被违反时损失变大」；
+本层的双条件让「损失为零」成为【可判定的语义条件】，而不只是一个数值观测。**
+
+**⚠ 本层只给 `SafeBranch` 下的【双条件**。
+没有「无条件的单向版本」：那需要「`Holds` 蕴含损失为零」，
+**而它对 `ltZero`／`gtZero` 不成立**（`x = 0` 处 `Holds` 为假、损失却为零）。** -/
+
+/-- ⭐⭐⭐⭐ **`netLossOn Pf cs p = 0 ⟺ 输出点集满足全部（安全）约束**——**逆向回路的核心命题。**
+
+**由第 154 轮的 `lossOfActivations_eq_zero_iff` 与 `netPoints_eq_trunc` 直接得到：
+`netLossOn` 内部的 `netPoints` 就是 `trunc` 作用在逐点激活上，两者是【定义级】相等的。** -/
+theorem netLossOn_eq_zero_iff {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hs : ∀ c ∈ cs, SafeBranch c) :
+    netLossOn Pf cs p = 0 ↔ ∀ c ∈ cs, Holds c (netPoints Pf p) := by
+  have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (netPoints Pf p)), 0 ≤ x := by
+    intro x hx
+    obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+    exact penaltyLoss_nonneg c' (netPoints Pf p)
+  have hsum : netLossOn Pf cs p
+      = (cs.map (fun c => penaltyLoss c (netPoints Pf p))).sum := by
+    simp only [netLossOn]
+  rw [hsum, list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff]
+  exact forall_congr' (fun c => forall_congr' (fun _ => by
+    rw [← penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) (netPoints Pf p)]))
+
 end Lattice.Geo
