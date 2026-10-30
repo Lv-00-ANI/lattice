@@ -226,4 +226,107 @@ theorem hasFDerivAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin n))
       (fderiv ℝ (fun y => netAct (List.ofFn p) y) x) x :=
   (differentiableAt_netAct_ofFn p x).hasFDerivAt
 
+/-! ## ⭐⭐⭐ 联合可微性：`(参数, 输入) ↦ netActN`
+
+## 为什么必须是联合的
+
+第 110 轮我试图由「对参数可微」（固定 `x`）与「对输入可微」（固定层表）复合成
+`q' ↦ netActN n k (pack q') x`，**失败了**：归纳步里 `netActN` 的第二个参数是
+`affineAct (q' 0) x`，**它随 `q'` 变**，而「固定 `x` 的可微性」在 `x` 变了之后不能直接用。
+
+**⇒ 需要的是一条【两个分量都动】的可微性**：
+
+```lean
+fun r : (Fin k → singleParams n) × (Fin n → ℝ) => netActN n k (packLayers r.1) r.2
+```
+
+**在 `(q, x)` 处可微**。**有了它，参数侧（固定 `x`）与输入侧（固定层表）都只是复合特例。**
+
+## 分层
+
+1. **`packLayers`**：把 `Fin k → singleParams n` 装成 `Fin k → AffineLayer (Fin n)`——**一处定义，处处引用**；
+2. **`differentiableAt_affineAct_joint`**：单层对 `(W, b, x)` 三者联合可微（`change` 展开 + `fun_prop`）；
+3. **`differentiableAt_netActN_joint`**：全栈的联合可微性（对 `k` 归纳）；
+4. **两条推论**：参数侧与输入侧的分别可微性。 -/
+
+/-- **把逐层参数 `(W, b)` 装成 `AffineLayer`**——`singleParams n` 的两个分量恰好就是 `AffineLayer` 的两个字段。 -/
+noncomputable def packLayers {k n : ℕ} (q : Fin k → singleParams n) :
+    Fin k → AffineLayer (Fin n) :=
+  fun i => ⟨(q i).1, (q i).2⟩
+
+/-- **`packLayers` 的逐点等式**——避免每次都要展开那个 `fun`。 -/
+theorem packLayers_apply {k n : ℕ} (q : Fin k → singleParams n) (i : Fin k) :
+    packLayers q i = ⟨(q i).1, (q i).2⟩ :=
+  rfl
+
+/-- ⭐⭐ **单层对 `(W, b, x)` 联合可微**。
+
+**`change` 把 `affineAct` 展开成「有限和 + 常数」之后，`fun_prop` 一步收掉**——
+**与第 105／107 轮同一形状，只是这次 `W`、`b`、`x` 三者同时是变量。** -/
+theorem differentiableAt_affineAct_joint {n : ℕ} (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ)
+    (x : Fin n → ℝ) :
+    DifferentiableAt ℝ
+      (fun r : singleParams n × (Fin n → ℝ) =>
+        affineAct (⟨r.1.1, r.1.2⟩ : AffineLayer (Fin n)) r.2)
+      ((W, b), x) := by
+  change DifferentiableAt ℝ
+    (fun r : singleParams n × (Fin n → ℝ) =>
+      fun j => (∑ i, r.1.1 i j * r.2 i) + r.1.2 j) ((W, b), x)
+  fun_prop
+
+/-- ⭐⭐⭐ **全栈对 `(参数, 输入)` 联合可微**——`P2-02` 的主引理。
+
+**证明对 `k` 归纳**（`q` 与 `x` 在陈述里量化，所以每一步都能重新引入）：
+
+- `k = 0`：`(q, x) ↦ x`，即第二投影，`fun_prop` 直接给；
+- `k + 1`：用 `netActN_succ` 把函数改写成
+  `r ↦ netActN n k (pack (r.1 ∘ succ)) (affineAct (⟨r.1 0⟩) r.2)`，
+  **即「`r ↦ (r.1 ∘ succ, affineAct (⟨r.1 0⟩) r.2)`」与「归纳假设」的复合。**
+  前者由 `DifferentiableAt.prod` 给出：第一分量 `fun_prop`，第二分量是
+  `differentiableAt_affineAct_joint` 复合 `r ↦ (r.1 0, r.2)`。 -/
+theorem differentiableAt_netActN_joint {n : ℕ} :
+    ∀ (k : ℕ) (q : Fin k → singleParams n) (x : Fin n → ℝ),
+      DifferentiableAt ℝ
+        (fun r : (Fin k → singleParams n) × (Fin n → ℝ) => netActN n k (packLayers r.1) r.2)
+        (q, x)
+  | 0, q, x => by
+      have hfun : (fun r : (Fin 0 → singleParams n) × (Fin n → ℝ) =>
+          netActN n 0 (packLayers r.1) r.2) = fun r => r.2 := by
+        funext r
+        exact netActN_zero _ r.2
+      rw [hfun]
+      fun_prop
+  | k + 1, q, x => by
+      have hfun : (fun r : (Fin (k + 1) → singleParams n) × (Fin n → ℝ) =>
+          netActN n (k + 1) (packLayers r.1) r.2)
+          = fun r => netActN n k (packLayers (r.1 ∘ Fin.succ))
+              (affineAct (⟨(r.1 0).1, (r.1 0).2⟩ : AffineLayer (Fin n)) r.2) := by
+        funext r
+        exact netActN_succ (packLayers r.1) r.2
+      rw [hfun]
+      -- the induction hypothesis, at the point the inner map sends `(q, x)` to
+      have hIH := differentiableAt_netActN_joint k (q ∘ Fin.succ)
+        (affineAct (⟨(q 0).1, (q 0).2⟩ : AffineLayer (Fin n)) x)
+      -- the inner map `r ↦ (r.1 ∘ succ, affineAct (⟨r.1 0⟩) r.2)` is differentiable
+      have hinner : DifferentiableAt ℝ
+          (fun r : (Fin (k + 1) → singleParams n) × (Fin n → ℝ) =>
+            (r.1 ∘ Fin.succ, affineAct (⟨(r.1 0).1, (r.1 0).2⟩ : AffineLayer (Fin n)) r.2))
+          (q, x) := by
+        refine DifferentiableAt.prod ?_ ?_
+        · fun_prop
+        · change DifferentiableAt ℝ
+            (fun r : (Fin (k + 1) → singleParams n) × (Fin n → ℝ) =>
+              fun j => (∑ i, (r.1 0).1 i j * r.2 i) + (r.1 0).2 j) (q, x)
+          fun_prop
+      exact hIH.comp (q, x) hinner
+
+/-- **参数侧的 `HasFDerivAt` 句柄**——下游要用导数时从这里取。 -/
+theorem hasFDerivAt_netActN_params {n : ℕ} (k : ℕ) (q : Fin k → singleParams n)
+    (x : Fin n → ℝ) :
+    HasFDerivAt (fun q' : Fin k → singleParams n => netActN n k (packLayers q') x)
+      (fderiv ℝ (fun q' : Fin k → singleParams n => netActN n k (packLayers q') x) q) q :=
+  (DifferentiableAt.comp q (differentiableAt_netActN_joint k q x)
+    ((differentiableAt_id : DifferentiableAt ℝ (fun q' : Fin k → singleParams n => q') q).prod
+      (differentiableAt_const x))).hasFDerivAt
+
 end Lattice.Core
