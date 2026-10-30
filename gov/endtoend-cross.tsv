@@ -234,6 +234,7 @@ Domains/Constraints/Loss.lean	loss_eq_zero_toGeo
 Domains/Constraints/NetLoss.lean	netLoss_nonneg
 Domains/Constraints/NetLoss.lean	netLoss_empty
 Domains/Constraints/NetLoss.lean	netLoss_append
+Domains/Constraints/NetLoss.lean	netLoss_lipschitz
 Domains/Constraints/NetLoss.lean	netLoss_eq_zero_of_holds
 Domains/Constraints/NetLoss.lean	netLoss_zero_without_holds
 Domains/Constraints/PenaltyLoss.lean	minorDefect_nonneg

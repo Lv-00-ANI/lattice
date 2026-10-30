@@ -69,7 +69,7 @@
 | `Lattice.Domains.Loss` | 199 | 10 | Expr, Dist, Constraint |
 | `Lattice.Domains.MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
 | `Lattice.Domains.MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
-| `Lattice.Domains.NetLoss` | 175 | 5 | ConstraintSet, PenaltyLoss |
+| `Lattice.Domains.NetLoss` | 245 | 6 | ConstraintSet, PenaltyLoss |
 | `Lattice.Domains.Nondegenerate` | 307 | 13 | Differentiable, Perturb, Derivative |
 | `Lattice.Domains.NondegenerateInstance` | 143 | 6 | Perturb, Nondegenerate |
 | `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
