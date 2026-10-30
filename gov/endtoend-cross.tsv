@@ -354,6 +354,11 @@ Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_penaltyLoss
 Domains/Constraints/PenaltyLossDerivative.lean	kinkPositive_iff
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_maxZero_neg
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_negMaxZero_neg
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_leZero_neg
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_ltZero_neg
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_gtZero_neg
+Domains/Constraints/PenaltyLossDerivative.lean	nonKink_cases
+Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_penaltyLoss_nonKink
 Domains/Constraints/Perturb.lean	unflatten_add
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_same
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_ne
