@@ -385,4 +385,48 @@ theorem netLossOn_differentiableAt {K k n : ℕ} (Pf : Fin k → AffineLayer (Fi
     (fun j : Fin K => netActN n k Pf (p j)) hK hk).comp p
     (differentiableAt_pointwiseNetActN Pf p)
 
+/-! ## 第九层：参数侧的逐点 `netActN`，以及 `netLossOn` 对网络可微
+
+**第 111 轮的 `differentiableAt_netActN_joint` 是对【配对】`(q, x)` 的可微性。
+把第二个分量固定住再复合，就得到「固定输入、只对参数」的版本。**
+
+**本节先做这个特化，再逐坐标提升到点列层面，最后与 `lossOfActivations` 复合。** -/
+
+/-- ⭐⭐ **固定输入时，`netActN` 对参数可微**——由联合版本与 `(q', x)` 的复合。 -/
+theorem differentiableAt_netActN_paramsAt {k n : ℕ} (q : Fin k → singleParams n)
+    (x : Fin n → ℝ) :
+    DifferentiableAt ℝ (fun q' : Fin k → singleParams n => netActN n k (packLayers q') x) q :=
+  (differentiableAt_netActN_joint k q x).comp q
+    ((differentiableAt_id : DifferentiableAt ℝ
+      (fun q' : Fin k → singleParams n => q') q).prod (differentiableAt_const x))
+
+/-- ⭐⭐ **逐点 `netActN` 作用于点列，对【参数】可微**——逐坐标用上一条。 -/
+theorem differentiableAt_pointwiseNetActN_params {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (r j)) q := by
+  rw [show (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (r j))
+      = fun g : Fin k → singleParams n => (fun j => netActN n k (packLayers g) (r j)) from rfl]
+  exact differentiableAt_pi.2 (fun j => differentiableAt_netActN_paramsAt q (r j))
+
+/-- ⭐⭐⭐ **`netLossOn` 对网络参数可微**——**正向方向的参数侧。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN_params`（激活关于参数）复合。** -/
+theorem netLossOn_differentiableAt_params {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q := by
+  rw [show (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) from by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp q
+    (differentiableAt_pointwiseNetActN_params q p)
+
 end Lattice.Geo
