@@ -31,7 +31,7 @@
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
 | `Lattice.Domains.Dist` | 135 | 9 | Expr |
 | `Lattice.Domains.DistContinuous` | 47 | 1 | Dist |
-| `Lattice.Domains.DistDerivative` | 68 | 3 | Dist |
+| `Lattice.Domains.DistDerivative` | 119 | 5 | Dist |
 | `Lattice.Domains.DistLipschitz` | 182 | 4 | Lipschitz, Dist |
 | `Lattice.Domains.Engine` | 290 | 14 | Constraint |
 | `Lattice.Domains.EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |

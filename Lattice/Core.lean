@@ -17,6 +17,7 @@ import Lattice.Core.OneStepBridge
 import Lattice.Core.Activation
 import Lattice.Core.StackParams
 import Lattice.Core.StackDerivative
+import Lattice.Core.AnalysisHelper
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
