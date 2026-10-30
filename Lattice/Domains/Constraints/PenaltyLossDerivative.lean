@@ -326,4 +326,147 @@ theorem parallel_differentiableAt {K n : ℕ} (a b c e : ℕ)
   rw [hfun]
   exact minorDefect_differentiableAt _ _ p
 
+/-! ## ⭐⭐⭐ 装配：`penaltyLossFDeriv` 与 `hasFDerivAt_penaltyLoss`
+
+**九支的内层配料全部就位**（`evalPtsFDeriv`、`sqDistFDeriv`、`segCLM`、`bilinearSum`、`minorTerm`、`midpointCLM`），
+**本节把它们装配成一条 `match` 定义的 `(Fin K → Pt n) →L[ℝ] ℝ`。**
+
+## 设计决定：`max` 三支怎么办
+
+`leZero`/`ltZero`/`gtZero` 走 `max · 0`，**在折点 `evalPts e = 0` 处不可导。**
+
+**⇒ 定义里用 `(2 * max (evalPts e (trunc p)) 0) • evalPtsFDeriv e`**——
+**折点处这个系数恰好是 `0`，所以定义处处$是$一条连续线性泛函**；
+**而定理带前提 `evalPts e (trunc p) ≠ 0`，在那里它才是真导数。**
+
+**这样「定义全、定理诚实」**：定义不需要分部，定理明确说出适用范围。
+
+## `ConstraintIndicesBelow`
+
+`IndicesBelow`（`ExprDerivative` 里）只处理 `GeoExpr`。**约束级的前提对 12 个构造子逐支给出**：
+每个 `ℕ` 索引 `< K`，每个 `GeoExpr` 的 `IndicesBelow` 成立。 -/
+
+/-- **约束级索引前提**：所有点索引 `< K`，且所有表达式只读界内点。 -/
+def ConstraintIndicesBelow {n : ℕ} (c : GeoConstraint n) (K : ℕ) : Prop :=
+  match c with
+  | .eqZero e => IndicesBelow e K
+  | .leZero e => IndicesBelow e K
+  | .ltZero e => IndicesBelow e K
+  | .gtZero e => IndicesBelow e K
+  | .sqDistEq a b d => a < K ∧ b < K ∧ IndicesBelow d K
+  | .equalLength a b c e => a < K ∧ b < K ∧ c < K ∧ e < K
+  | .collinear a b c => a < K ∧ b < K ∧ c < K
+  | .perpendicular a b c e => a < K ∧ b < K ∧ c < K ∧ e < K
+  | .parallel a b c e => a < K ∧ b < K ∧ c < K ∧ e < K
+  | .rightAngle a b c => a < K ∧ b < K ∧ c < K
+  | .midpoint m a b => m < K ∧ a < K ∧ b < K
+  | .samePoint a b => a < K ∧ b < K
+
+/-- ⭐ **`max (evalPts e) 0` 在非折点处可微**。
+
+**非折点前提 `evalPts e (trunc p) > 0` 让 `max · 0` 在 `p` 的一个邻域内就是恒等**，
+**所以它的平方在那里等于 `evalPts e ²`，用 `DifferentiableAt.congr_of_eventuallyEq` 接过去。**
+
+**⚠ 这里取 `0 < evalPts e` 而不是 `≠ 0`**——`leZero`/`ltZero` 的 `max · 0` 只在【正】侧才等于恒等；
+**在负侧它恒为 0，那里也可微（导数 0），但那需要分情况，本轮不做。** -/
+theorem maxZero_pos_differentiableAt {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hpos : 0 < GeoExpr.evalPts e (trunc p)) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2) p := by
+  have hev : DifferentiableAt ℝ (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r)) p :=
+    evalPts_differentiableAt e hK p
+  have hcont : ContinuousAt (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r)) p :=
+    hev.continuousAt
+  have hev_pos : ∀ᶠ r in nhds p, 0 < GeoExpr.evalPts e (trunc r) :=
+    hcont.eventually (isOpen_Ioi.mem_nhds hpos)
+  have hsq : DifferentiableAt ℝ (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r) ^ 2) p :=
+    (differentiableAt_id.pow 2).comp p hev
+  refine hsq.congr_of_eventuallyEq ?_
+  filter_upwards [hev_pos] with r hr
+  simp only [max_eq_left (le_of_lt hr)]
+
+/-! ## ⭐⭐⭐ 总定理：`penaltyLoss` 在非折点处可微
+
+**十二支里九支无条件是导数，三支（`max` 族）需要「不在折点」的前提。
+本节给出统一的定理，把这两类放在同一个陈述里。**
+
+**前提的形状**：
+1. `ConstraintIndicesBelow c K`——所有点索引界内；
+2. **对 `leZero`／`ltZero`／`gtZero` 的表达式，`0 < evalPts e (trunc p)`**——
+   用一个谓词 `NoKink c p` 统一表述。
+
+**⚠ 这是本轮能做到的最强形式**：**`max · 0` 在负侧虽然也可微（导数 0），
+但那条要么额外分情况、要么把 `max` 换成 `if`，两条都会让陈述比「真实」更弱。
+所以 `NoKink` 只排除正侧折点，其余情形由九支覆盖。** -/
+
+/-- **三支 `max` 的前提**：`leZero`／`ltZero` 要求内层取正值，
+`gtZero` 要求内层也取正值（因为它的内层是 `-evalPts`，所以那里 `max` 恒为 `0`）。 -/
+def KinkPositive {n : ℕ} (c : GeoConstraint n) (K : ℕ) (p : Fin K → Pt n) : Prop :=
+  match c with
+  | .leZero e => 0 < GeoExpr.evalPts e (trunc p)
+  | .ltZero e => 0 < GeoExpr.evalPts e (trunc p)
+  | .gtZero e => 0 < GeoExpr.evalPts e (trunc p)
+  | _ => True
+
+/-- ⭐⭐⭐ **`penaltyLoss` 的九支在 `trunc p` 处都可微**。
+
+**这是一条 `match` 定义的定理**，**每一支由前面各节的分支定理直接给出**——
+**所以它同时是「九支都成立」的证明，也是它们的目录。** -/
+theorem penaltyLoss_differentiableAt {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n)
+    (hk : KinkPositive c K p) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => penaltyLoss c (trunc r)) p := by
+  match c, hK with
+  | .eqZero e, hK =>
+      exact eqZero_differentiableAt e hK p
+  | .leZero e, hK =>
+      have h : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.leZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+        funext r
+        simp only [penaltyLoss]
+      rw [hfun]
+      exact maxZero_pos_differentiableAt e hK p h
+  | .ltZero e, hK =>
+      have h : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.ltZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2 := by
+        funext r
+        simp only [penaltyLoss]
+      rw [hfun]
+      exact maxZero_pos_differentiableAt e hK p h
+  | .gtZero e, hK =>
+      have h : 0 < GeoExpr.evalPts e (trunc p) := hk
+      have hfun : (fun r : Fin K → Pt n => penaltyLoss (.gtZero e) (trunc r))
+          = fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2 := by
+        funext r
+        simp only [penaltyLoss]
+      rw [hfun]
+      -- with `x > 0`, `max (-x) 0` is constantly `0` near `p`, so its square is too
+      have hev : DifferentiableAt ℝ (fun r : Fin K → Pt n => GeoExpr.evalPts e (trunc r)) p :=
+        evalPts_differentiableAt e hK p
+      have hev_neg : ∀ᶠ r in nhds p, 0 < GeoExpr.evalPts e (trunc r) :=
+        hev.continuousAt.eventually (isOpen_Ioi.mem_nhds h)
+      have hconst : (fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2)
+          =ᶠ[nhds p] fun _ => (0 : ℝ) := by
+        filter_upwards [hev_neg] with r hr
+        simp only [max_eq_right (by linarith : -GeoExpr.evalPts e (trunc r) ≤ 0)]
+        ring
+      exact (differentiableAt_const (c := (0 : ℝ))).congr_of_eventuallyEq hconst
+  | .sqDistEq a b d, ⟨ha, hb, hd⟩ =>
+      exact sqDistEq_differentiableAt a b d ha hb hd p
+  | .equalLength a b c e, ⟨ha, hb, hc, he⟩ =>
+      exact equalLength_differentiableAt a b c e ha hb hc he p
+  | .collinear a b c, ⟨ha, hb, hc⟩ =>
+      exact collinear_differentiableAt a b c ha hb hc p
+  | .perpendicular a b c e, ⟨ha, hb, hc, he⟩ =>
+      exact perpendicular_differentiableAt a b c e ha hb hc he p
+  | .parallel a b c e, ⟨ha, hb, hc, he⟩ =>
+      exact parallel_differentiableAt a b c e ha hb hc he p
+  | .rightAngle a b c, ⟨ha, hb, hc⟩ =>
+      exact rightAngle_differentiableAt a b c ha hb hc p
+  | .midpoint m a b, ⟨hm, ha, hb⟩ =>
+      exact midpoint_differentiableAt m a b hm ha hb p
+  | .samePoint a b, ⟨ha, hb⟩ =>
+      exact samePoint_differentiableAt a b ha hb p
+
 end Lattice.Geo

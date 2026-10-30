@@ -304,6 +304,8 @@ Domains/Constraints/PenaltyLossDerivative.lean	minorTerm_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	minorDefect_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	collinear_differentiableAt
 Domains/Constraints/PenaltyLossDerivative.lean	parallel_differentiableAt
+Domains/Constraints/PenaltyLossDerivative.lean	maxZero_pos_differentiableAt
+Domains/Constraints/PenaltyLossDerivative.lean	penaltyLoss_differentiableAt
 Domains/Constraints/Perturb.lean	unflatten_add
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_same
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_ne
