@@ -151,6 +151,38 @@
 > **六维度的判定本身不受影响**（它们不依赖入度），受影响的只有排序与层边界。
 > 下一轮按修正后的入度重跑第一层，并补齐剩余 7,587 条。
 
+## 零、**C 契约的四条边界**（第 103 轮登记）
+
+**这几条不是「没做完的证明」，是「在当前结构下不可陈述的对应」。**
+**决策与理由见 `CONTRACT-DECISION.md`；本节只登记。**
+
+| # | 边界 | 内容 | 状态 |
+|:--|:--|:--|:--|
+| **B-1** | **ABI 对应** | `CFunction` 表与 `Primitive` 之间的 arity／类型对应 | **未验证假设** |
+| **B-2** | **C 实现等价** | C 侧行为与 Lean 侧 `Primitive` 语义相等 | **未验证假设** |
+| **B-3** | **`WordEncoder`** | 定义在 `CInterface/LayoutBytes.lean`，**无实例** | **未实现** |
+| **B-4** | **条目数** | ABI **11** vs SEMANTICS **12** | **不一致，已证不可桥接** |
+
+**为什么 B-1 不可验证（四条已证的负结果，都在 `CInterface/ContractBoundary.lean`）：**
+
+1. **`Primitive` 没有 arity 字段**——`I` 是类型，不是参数表，**所以「C 侧 arity = `Primitive` arity」连陈述都写不出来。**
+   **这是根**。
+2. **对照向量不对应 `Primitive.I`**——`descentStep` 的 `I` 是 `ℝ`，而它的向量有 3 个 `Float`
+   （`descentStep_vector_width_ne_primitive_width`）；
+3. **ABI 参数里没有数据参数**——`compose` 的 `args = [cstr, size, size]`，两个 `Primitive` 不在任何参数位上
+   （`composeArgs_has_no_data_parameter`、`abiTable_compose_args`）；
+4. **类型级不兼容**——11 个里 10 个的 `f64` 槽位数不足，7 个连一个 `Float` 槽都没有
+   （`seven_primitives_float_inputs_have_no_f64_slot`、`three_primitives_have_too_few_f64_slots`）。
+
+⚠ **第 1 条不是「补一条证明」能解决的**：它要求给 `Primitive` 加参数表——
+**而那是架构级改动（7 个直接实例 + 6 个组合子 + 它们各自的所有 `where` 块），
+且【仍然】不解决第 2 条。所以本层选择「不透明 + 登记」，理由在 `CONTRACT-DECISION.md` 第四节。**
+
+**⇒ 这几条使 `e2e_sound` 的终点只能到 Lean 侧的 `Primitive`，到不了 C。**
+**这不是缺口，是边界；而边界的诚实性依赖于它被写下来。**
+
+---
+
 ## 一、`delete`：陈述无信息量
 
 | 位置 | 定理 | 入度 | 判定依据 |
