@@ -1581,7 +1581,7 @@
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
-| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 9 | 3 |
+| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 11 | 4 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -4209,7 +4209,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
-- `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `eqZero_representable` -> `aff`, `subst`
 - `eqZero_value_is_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
@@ -4220,7 +4220,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `equalLengthFix_reaches` -> `Pt`, `sqDist`, `sqDistFix_reaches`, `sqDist_nonneg`
 - `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `equalLengthPenalty_nonneg` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
-- `equalLength_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `equalLength_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `equalLength_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `equalLength_sound` -> `Pt`, `sqDist`
@@ -5184,14 +5184,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
-- `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `hasFDerivAt_perpResid` -> `mul`
-- `hasFDerivAt_segCLM` -> `Pt`
+- `hasFDerivAt_segCLM` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `trunc`, `trunc_apply`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
 - `hasFDerivAt_sq` -> `E`, `comp`, `convert`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
 - `hasFDerivAt_sqDist_left` -> `Pt`, `sqDist`, `sqDist_eq_sum`
 - `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`
-- `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `hasModel_iff` -> `bvar`, `induction`
 - `hasNonnegCombo_iff_sum` -> `dotV`, `le_refl`, `smul`
 - `hasPartIdentity_iff_exists_holder` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `up`, `withGaze`
@@ -6332,6 +6332,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mgf_sum_pair` -> `le`
 - `mi_as_sum_log_ratio` -> `apply`
 - `mi_eq_zero_of_independent` -> `apply`
+- `midpointCLM_apply` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `trunc`, `trunc_apply`
 - `midpointFix_preserves` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpointFix_reaches` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpointLadder_forward` -> `enc`, `ladder_forward`, `netAct`, `satSym`, `satW`
@@ -6340,6 +6341,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpointPenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `midpointPenalty_nonneg` -> `Pt`
 - `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `midpoint_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `trunc`
 - `midpoint_iff` -> `Pt`
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
@@ -8190,7 +8192,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samePointMeasureFin_le_one` -> `Pt`, `samePointMeasureFin`, `split`
 - `samePointMeasure_eq_zero_iff` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `entailsGeo_refl`, `iterate`, `progress`
 - `samePointRepair_unified` -> `Pt`, `Repair`, `Sat`, `linearRepair`, `perpRepair`, `preserves_of_sat`, `samePointRepair`
-- `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `samePoint_loop_reaches_penalty_zero` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `loss`, `repair_success_is_penalty_zero`, `samePointRepair`
 - `samePoint_loss_eq` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`
@@ -8347,7 +8349,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `second_substantive_instance` -> `E`, `PenaltyEmbedding`, `compile`, `encode`, `loss`, `satW`
 - `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `segCLM_apply` -> `Pt`, `trunc`, `trunc_apply`
+- `segCLM_apply` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `trunc`, `trunc_apply`
 - `segComp_fderiv_apply` -> `mul`, `unflatten`
 - `seg_bump_far` -> `seg`
 - `seg_bump_far_ne` -> `seg`
@@ -8705,7 +8707,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistConst_scale` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
-- `sqDistEq_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistEq_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `trunc`, `trunc_apply`
 - `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `sqDistEq_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
@@ -8715,7 +8717,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sqDist_along_path_split` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `sqDist_differentiableAt_pair` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `sqDist_differentiableAt_pair` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `sqDist_eq_coord_add_rest` -> `Pt`, `diff`, `sqDist`, `sqDist_nonneg`, `sqNorm`
 - `sqDist_eq_of_dist_eq` -> `Pt`, `trans`
 - `sqDist_eq_of_dist_eq_same` -> `Pt`, `trans`
