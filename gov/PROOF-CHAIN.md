@@ -11,7 +11,7 @@
 | core | 18 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 621 | instantiated library, may import core only |
+| lib | 622 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -630,7 +630,8 @@
 - `Lattice.Lib.Optim.RealValueIteration` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealVectorGD` 
 - `Lattice.Lib.Optim.RealVectorStationarity` <- `Lattice.Runtime.RealLinear`
-- `Lattice.Lib.Penalty` <- `Lattice.Lib.Penalty.Counterexample`, `Lattice.Lib.Penalty.PolyExact`
+- `Lattice.Lib.Penalty` <- `Lattice.Lib.Penalty.Counterexample`, `Lattice.Lib.Penalty.PolyExact`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`
+- `Lattice.Lib.Penalty.BilinearLocallyLipschitz` 
 - `Lattice.Lib.Penalty.Counterexample` <- `Lattice.Lib.Penalty.PolyExact`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Penalty.PolyExact` <- `Lattice.Lib.Linear.PenaltyMatrix`, `Lattice.Runtime.PenaltyAnalysis`
 - `Lattice.Lib.Penalty.QuadraticLocallyLipschitz` 
@@ -1496,6 +1497,7 @@
 | `Lattice.Lib.Optim.RealVectorGD` | 5 | 3 |
 | `Lattice.Lib.Optim.RealVectorStationarity` | 5 | 1 |
 | `Lattice.Lib.Penalty` | 0 | 0 |
+| `Lattice.Lib.Penalty.BilinearLocallyLipschitz` | 2 | 0 |
 | `Lattice.Lib.Penalty.Counterexample` | 6 | 1 |
 | `Lattice.Lib.Penalty.PolyExact` | 3 | 0 |
 | `Lattice.Lib.Penalty.QuadraticLocallyLipschitz` | 2 | 0 |
@@ -2479,6 +2481,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bigstep_to_smallstep` -> `Compiler`, `induction`, `subst`, `trans`
 - `bilinearSum_lipschitz` -> `Pt`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
 - `bilinear_not_affine` -> `aff`, `subst`
+- `bilinear_sq_sub_le` -> `le_trans`
+- `bilinear_sub_le` -> `le_trans`
 - `binCount_le` -> `apply`, `card_fin`, `le`
 - `binInd_bool_sum` -> `obs`
 - `binInd_eq_self` -> `obs`
