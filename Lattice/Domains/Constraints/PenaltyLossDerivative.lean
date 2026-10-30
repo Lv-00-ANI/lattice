@@ -882,4 +882,71 @@ theorem sqDistPairFDeriv_apply {K n : ℕ} (a b : Fin K) (p d : Fin K → Pt n) 
 **于是 `hasFDerivAt_sqDist_pair_explicit` 变成 `congr_fderiv` + `rfl`，
 而对齐的那条等式被隔离成一条独立的、只关于 CLM 的引理。** -/
 
+/-! ## ⭐⭐⭐ 第二条路线：用「联合导数 ∘ 配对投影」作定义
+
+**上一节发现：把 `sqDist (trunc · a) (trunc · b)` 的导数与 `sqDistPairFDeriv` 对齐，
+要穿过一串重写（`fst`／`snd` → `LinearMap` → `proj_apply` → `trunc` → `sum_add_distrib`），
+而每一步的形式差都可能在 `ring` 之前把目标弄坏。**
+
+**本节的绕法是换【哪个定义是「主要」的】**：
+
+```lean
+sqDistPairFDerivComp a b p  :=  sqDistJointFDeriv (p a) (p b) ∘ pairProj a b
+```
+
+**于是 `sqDist (trunc · a) (trunc · b)` 的导数是 `sqDistPairFDerivComp a b p`
+【按定义】就是它**（`congr_fderiv` + `rfl`），
+**而「`sqDistPairFDerivComp = sqDistPairFDeriv`」变成一条【独立】的等式定理**，
+**它只涉及两条 `ContinuousLinearMap`，可以在标量层面用两条求值引理加 `ring` 单独解决。**
+**这样两个困难被拆开，各自单独可攻。** -/
+
+/-- **第二条定义的 `sqDist` 双槽导数**：联合导数复合配对投影。 -/
+noncomputable def sqDistPairFDerivComp {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  (sqDistJointFDeriv (p a) (p b)).comp (pairProj a b)
+
+/-- **`sqDistPairFDerivComp` 的求值**——与 `sqDistJointFDeriv_apply` 逐字对得上。 -/
+theorem sqDistPairFDerivComp_apply {K n : ℕ} (a b : Fin K) (p d : Fin K → Pt n) :
+    sqDistPairFDerivComp a b p d
+      = ∑ i, 2 * (p a i - p b i) * (trunc d a i - trunc d b i) := by
+  rw [sqDistPairFDerivComp, ContinuousLinearMap.comp_apply, sqDistJointFDeriv_apply]
+  simp only [pairProj, pointProj, ContinuousLinearMap.prod_apply,
+    ContinuousLinearMap.fst, ContinuousLinearMap.snd, ContinuousLinearMap.coe_mk',
+    LinearMap.fst_apply, LinearMap.snd_apply, ContinuousLinearMap.proj_apply]
+  rw [trunc_apply, trunc_apply]
+
+/-- ⭐⭐⭐ **`sqDist (trunc · a) (trunc · b)` 的导数就是 `sqDistPairFDerivComp`**——
+**`congr_fderiv` 之后是 `rfl` 级别的相等，这正是换定义换来的东西。** -/
+theorem hasFDerivAt_sqDist_pair_comp {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => sqDist (trunc r a) (trunc r b))
+      (sqDistPairFDerivComp a b p) p := by
+  have hpair : HasFDerivAt (fun r : Fin K → Pt n => (trunc r a, trunc r b))
+      (pairProj a b) p :=
+    (hasFDerivAt_truncPoint a.val a.isLt p).prod (hasFDerivAt_truncPoint b.val b.isLt p)
+  have hcomp := (hasFDerivAt_sqDist_joint (trunc p a.val) (trunc p b.val)).comp p hpair
+  -- rewrite `trunc p a.val` to `p a` so that the derivative matches `sqDistPairFDerivComp`
+  rw [trunc_apply, trunc_apply] at hcomp
+  exact hcomp.congr_fderiv (by rw [sqDistPairFDerivComp])
+
+/-- ⭐⭐ **两条定义相等**——把「对齐」隔离成一条独立定理。
+
+**由 `sqDistPairFDeriv_apply` 与 `sqDistPairFDerivComp_apply` 两条求值引理，
+在标量层面用 `Finset.sum_congr` 加 `ring` 收掉。** -/
+theorem sqDistPairFDerivComp_eq {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    sqDistPairFDerivComp a b p = sqDistPairFDeriv a b p := by
+  ext d
+  rw [sqDistPairFDerivComp_apply, sqDistPairFDeriv_apply]
+  rw [trunc_apply, trunc_apply]
+  rw [← Finset.sum_add_distrib]
+  exact Finset.sum_congr rfl (fun i _ => by ring)
+
+/-- ⭐⭐⭐ **`sqDist` 双槽导数的最终形式**：导数是 `sqDistPairFDeriv`——
+**由上面两条直接组合。** -/
+theorem hasFDerivAt_sqDist_pair_explicit {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => sqDist (trunc r a) (trunc r b))
+      (sqDistPairFDeriv a b p) p := by
+  have h := hasFDerivAt_sqDist_pair_comp (K := K) (n := n) a b p
+  rw [sqDistPairFDerivComp_eq] at h
+  exact h
+
 end Lattice.Geo
