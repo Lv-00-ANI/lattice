@@ -36,6 +36,7 @@ namespace Lattice.Geo
 
 open Lattice.Geo.GeoConstraint
 open Lattice.Geo.PenaltyLoss
+open Lattice.Core
 open scoped BigOperators
 
 /-- ⭐ **`evalPts` 只依赖界内坐标**：若 `Φ` 与 `Ψ` 在 `[0,K)` 上一致，且 `e` 的索引都 `< K`，
@@ -164,5 +165,68 @@ let Ψ : ℕ → Pt n := fun j => netAct params (trunc r j)
 
 **这是第 111／124／130 轮同一族问题的第 N 次出现**：
 **隐式参数无唯一来源时，先给它一个有类型的名字，再使用。** -/
+
+/-! ## 第四层：`netLossOn` —— 有限前缀上的损失，整条链由此贯通
+
+## 为什么需要新定义
+
+**`netLoss` 的点列载体是 `ℕ → Pt n`，而 `NormedSpace ℝ (ℕ → Pt n)` 不存在**（第 115 轮实测）。
+**第 131 轮又发现：`netLoss` 的内层点列 `fun j => netAct params (pts j)` 在界外【不为零】，
+所以它不是任何 `trunc φ`——把 `trunc` 硬套上去得到的等式是【假的】。**
+
+**⇒ 正确的载体是 `Fin K → Pt n`，且内层【在构造时就用 `trunc`】**：
+
+```lean
+netLossOn params cs p := (cs.map (fun c =>
+  penaltyLoss c (trunc (n := n) (fun j => netAct params (p ⟨j, _⟩))))).sum
+```
+
+**⚠ `p ⟨j, _⟩` 需要 `j < K`。所以内层写成 `fun j => if h : j < K then netAct params (p ⟨j, h⟩) else 0`
+——【那正是 `trunc` 的定义】**，**所以 `penaltyLoss c (trunc Ψ)` 与 `penaltyLoss c Φ`
+（`Φ j = if j < K then netAct params (p ⟨j,_⟩) else 0`）逐字相同。**
+
+**于是第 128 轮的 `hasFDerivAt_penaltyLoss` 可以【直接】用在 `trunc Ψ` 上，
+而 `Ψ` 的界内值由 `p` 经 `netAct` 给出。** -/
+
+/-- **有限前缀上的内层点列**：`j < K` 处取 `netAct params (p ⟨j⟩)`，界外为 `0`。
+
+**它【就是】一个 `trunc` 形式**——这正是本层设计的目的。 -/
+noncomputable def netPoints {K n : ℕ} (params : List (AffineLayer (Fin n)))
+    (p : Fin K → Pt n) : ℕ → Pt n :=
+  fun j => if h : j < K then netAct params (p ⟨j, h⟩) else 0
+
+/-- **`netPoints` 就是 `trunc` 作用在「逐点 `netAct`」上**——**定义级等式。** -/
+theorem netPoints_eq_trunc {K n : ℕ} (params : List (AffineLayer (Fin n)))
+    (p : Fin K → Pt n) :
+    netPoints (n := n) params p
+      = trunc (n := n) (fun i : Fin K => netAct params (p i)) := by
+  funext j
+  simp only [netPoints, trunc]
+
+/-- **有限前缀上的 `netLoss`**——**内层点列用 `netPoints`，界外为零。** -/
+noncomputable def netLossOn {K n : ℕ} (params : List (AffineLayer (Fin n)))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (netPoints params p))).sum
+
+/-! ### ⚠ 未闭合：`netLossOn` 的可微性
+
+**`netPoints params p` 与 `trunc p` 的差别就是「界内经过 `netAct`」。**
+
+**而 `hasFDerivAt_penaltyLoss`（第 128 轮）的内层是 `trunc r`——`r` 是【点列本身】。**
+
+**⇒ 用它去证 `netLossOn` 的可微性，需要一条「内层点列经过 `netAct` 后」的 `penaltyLoss` 导数，
+而那正是 `penaltyLoss_nontrunc` 缺失的东西。**
+
+**本轮尝试的走法是：把 `netPoints` 写成 `trunc (fun i => netAct params (p i))`（这条【成立】，
+见 `netPoints_eq_trunc`），但接着 `hasFDerivAt_penaltyLoss` 要的是 `trunc r`，
+而 `trunc (netAct ∘ r)` 与 `trunc r` 的关系是【`netAct` 在界内逐点作用】——
+所以导数链是：`r ↦ netAct ∘ r`（逐点）↦ `trunc` ↦ `penaltyLoss`。**
+
+**⇒ 中间那一步 `r ↦ (fun i => netAct params (r i))` 是一个从 `Fin K → Pt n` 到 `Fin K → Pt n` 的映射，
+它的 `HasFDerivAt` 由 `hasFDerivAt_netAct_ofFn`（`Core/StackDerivative.lean:223`）给出——
+所以整条链是【可以接通】的，只差把它按顺序拼起来。**
+
+**本文件保留了可以独立成立的两条（`netPoints`、`netPoints_eq_trunc`）与 `netLossOn` 的定义，
+而【不声称】它的可微性。** -/
 
 end Lattice.Geo
