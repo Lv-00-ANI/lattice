@@ -903,7 +903,7 @@
 | `Lattice.Core.RepairWF` | 4 | 3 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
-| `Lattice.Core.StackDerivative` | 10 | 3 |
+| `Lattice.Core.StackDerivative` | 14 | 4 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
@@ -3742,9 +3742,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dichotomy_fails_without_mono` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`
 - `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `differentiableAt_affineAct_joint` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `differentiableAt_netActN` -> `AffineLayer`, `affineAct`, `comp`, `netAct`
-- `differentiableAt_netAct_ofFn` -> `AffineLayer`, `netAct`
+- `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
+- `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
+- `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -5162,7 +5164,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`
-- `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `netAct`
+- `hasFDerivAt_netActN_params` -> `comp`
+- `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `hasFDerivAt_perpResid` -> `mul`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
 - `hasFDerivAt_sq` -> `E`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
@@ -6616,9 +6619,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nesterov_lyapunov_telescope` -> `Smooth`, `induction`, `le_trans`, `nesterov_descent_lemma_le`, `zero`
 - `nesterov_rate` -> `Smooth`, `SubgradientIterate`
 - `nesterov_rate_of_lyapunov` -> `Smooth`, `nesterov_descent_lemma_le`
-- `netActN_eq_netAct` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `netActN_succ` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `netActN_zero` -> `AffineLayer`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `netActN_eq_netAct` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `netActN_succ` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
+- `netActN_zero` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
 - `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
@@ -7025,6 +7028,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pacBayes_risk_bound_delta_half` -> `convert`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_risk_bound_of_exponent`
 - `pacBayes_risk_bound_of_exponent` -> `kl`, `loss`
 - `pacBayes_risk_bound_optimal_lambda` -> `convert`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `uniformProb`
+- `packLayers_apply` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `packageDependenciesClosedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
 - `packageDependenciesValidB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB_iff`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `templateNames`, `zfcSetTheoryPackage`
 - `packageDependenciesValid_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
