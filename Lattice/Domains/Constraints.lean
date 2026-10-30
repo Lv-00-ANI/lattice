@@ -26,6 +26,7 @@ import Lattice.Domains.Constraints.RealTokenRoundtrip
 import Lattice.Domains.Constraints.SeqRepresentation
 import Lattice.Primitives.TokenizeStrategy
 import Lattice.Primitives.TokenizerPattern
+import Lattice.Domains.Constraints.DistDerivative
 
 /-!
 # `Lattice.Domains.Constraints`

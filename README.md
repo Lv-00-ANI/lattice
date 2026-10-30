@@ -24,9 +24,9 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 863 | `audit_counts.py` |
-> | 定理 / 引理 | 8800 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 20 / 0 / 4 / 66 / 98 / 624 | `audit_counts.py` |
+> | Lean 模块 | 864 | `audit_counts.py` |
+> | 定理 / 引理 | 8803 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 20 / 0 / 4 / 66 / 99 / 624 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -119,7 +119,7 @@ lattice-new/
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
-│   ├── Domains/     98       # 领域实例：Constraints 28 + Geometry 71（原 Geo/ 的 99 个迁入后子划分）
+│   ├── Domains/     99       # 领域实例：Constraints 28 + Geometry 71（原 Geo/ 的 99 个迁入后子划分）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
 │   ├── Lib/        622       # 应用库，按主题（建立在链路层之上）

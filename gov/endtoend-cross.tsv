@@ -177,6 +177,9 @@ Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq
 Domains/Constraints/Dist.lean	dist_eq_of_sqDist_eq
 Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 Domains/Constraints/DistContinuous.lean	continuous_sqDist_right
+Domains/Constraints/DistDerivative.lean	sqDistFDeriv_apply
+Domains/Constraints/DistDerivative.lean	differentiableAt_sqDist_left
+Domains/Constraints/DistDerivative.lean	hasFDerivAt_sqDist_left
 Domains/Constraints/DistLipschitz.lean	coordDiff_sub_le
 Domains/Constraints/DistLipschitz.lean	coordDiff_add_le
 Domains/Constraints/DistLipschitz.lean	sqDist_abs_le
