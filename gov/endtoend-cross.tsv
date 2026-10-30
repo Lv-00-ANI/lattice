@@ -315,6 +315,8 @@ Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_minorDefect
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_minorDefect_seg
 Domains/Constraints/PenaltyLossDerivative.lean	differentiableAt_sqDist_pair
 Domains/Constraints/PenaltyLossDerivative.lean	hasFDerivAt_sqDist_joint
+Domains/Constraints/PenaltyLossDerivative.lean	sqDistJointFDeriv_apply
+Domains/Constraints/PenaltyLossDerivative.lean	sqDistPairFDeriv_apply
 Domains/Constraints/Perturb.lean	unflatten_add
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_same
 Domains/Constraints/Perturb.lean	unflatten_smul_bump_ne

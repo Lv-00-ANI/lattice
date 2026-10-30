@@ -838,4 +838,48 @@ theorem hasFDerivAt_sqDist_joint {n : ℕ} (x y : Pt n) :
   have h := HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun i _ => hterm i)
   simpa only [sqDistJointFDeriv] using h
 
+/-! ## ⭐⭐ `sqDistPairFDeriv` 的求值与 `HasFDerivAt`
+
+**第 125 轮卡在「联合导数与 `pairProj` 复合后与 `sqDistPairFDeriv` 的对齐」上**，
+**原因是 `(fst ℝ _ _) (d1, d2)` 在 `simp only` 下不归约。**
+
+**本节的绕法是**：**先把两条 CLM 各自的【求值】等式陈述出来**（它们只涉及 `proj`／`comp`／`smul`／`sum`，
+这些的求值引理都存在），**再在【标量层面】做 `Finset.sum_congr` + `ring`**——
+**于是 `fst`／`snd` 那一层完全不出现在证明里。** -/
+
+/-- **`sqDistJointFDeriv` 的求值**：`∑ i, 2(x i − y i)(d₁ i − d₂ i)`。 -/
+theorem sqDistJointFDeriv_apply {n : ℕ} (x y d1 d2 : Pt n) :
+    sqDistJointFDeriv x y (d1, d2) = ∑ i, 2 * (x i - y i) * (d1 i - d2 i) := by
+  simp only [sqDistJointFDeriv, ContinuousLinearMap.sum_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.fst, ContinuousLinearMap.snd,
+    ContinuousLinearMap.coe_mk', LinearMap.fst_apply, LinearMap.snd_apply,
+    ContinuousLinearMap.proj_apply, smul_eq_mul]
+
+/-- **`sqDistPairFDeriv` 的求值**：
+`∑ i, 2(p a i − p b i) * d a i + ∑ i, 2(p b i − p a i) * d b i`。 -/
+theorem sqDistPairFDeriv_apply {K n : ℕ} (a b : Fin K) (p d : Fin K → Pt n) :
+    sqDistPairFDeriv a b p d
+      = ∑ i, 2 * (p a i - p b i) * d a i + ∑ i, 2 * (p b i - p a i) * d b i := by
+  simp only [sqDistPairFDeriv, ContinuousLinearMap.add_apply, ContinuousLinearMap.comp_apply,
+    sqDistFDeriv_apply, pointProj, ContinuousLinearMap.proj_apply]
+
+/-! ### ⚠ 未闭合：`hasFDerivAt_sqDist_pair_explicit`
+
+**要证的是 `sqDist (trunc · a) (trunc · b)` 的导数【就是】`sqDistPairFDeriv`**，
+**而这需要把「联合导数与 `pairProj` 复合后的求值」与 `sqDistPairFDeriv_apply` 的展开式对齐。**
+
+**两条求值引理（`sqDistJointFDeriv_apply`、`sqDistPairFDeriv_apply`）都已证明**，
+**所以两边都已经是具体的 `∑` 表达式**；**但把它们接起来需要穿过一串重写**：
+`fst`／`snd` → `LinearMap.fst_apply`／`snd_apply` → `proj_apply` → `trunc` 的 `dif_pos`
+→ `sqDistPairFDeriv_apply` → `Finset.sum_add_distrib`。
+
+**第 126 轮已经把这串重写定位到最后一环（`trunc d a` 与 `d a` 的形式差）**，
+**但没能一次走完，所以这里如实记录而未提交一个部分正确的定理。**
+
+**⇒ 下一步的思路**：**不在 `pairProj` 复合这一层做，而是把 `sqDistPairFDeriv` 的定义【改写成
+`sqDistJointFDeriv (p a) (p b) ∘ pairProj`】**——
+**于是 `hasFDerivAt_sqDist_pair_explicit` 变成 `congr_fderiv` + `rfl`，
+而对齐的那条等式被隔离成一条独立的、只关于 CLM 的引理。** -/
+
 end Lattice.Geo
