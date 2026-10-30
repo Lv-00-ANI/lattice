@@ -1581,7 +1581,7 @@
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
-| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 35 | 15 |
+| `Lattice.Domains.Constraints.PenaltyLossDerivative` | 36 | 15 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -3758,7 +3758,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_sqDist_left` -> `Pt`, `sqDist`
-- `differentiableAt_sqDist_pair` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `differentiableAt_sqDist_pair` -> `GeoConstraint`, `Pt`, `comp`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -5194,14 +5194,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_penaltyLoss` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
 - `hasFDerivAt_perpResid` -> `mul`
 - `hasFDerivAt_segCLM` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`, `trunc_apply`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
 - `hasFDerivAt_sq` -> `E`, `comp`, `convert`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
-- `hasFDerivAt_sqDist_joint` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `hasFDerivAt_sqDist_joint` -> `GeoConstraint`, `GeoExpr`, `Pt`, `comp`, `evalPts`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `hasFDerivAt_sqDist_left` -> `Pt`, `sqDist`, `sqDist_eq_sum`
-- `hasFDerivAt_sqDist_pair_comp` -> `Pt`, `comp`, `sqDist`, `trunc`, `trunc_apply`
-- `hasFDerivAt_sqDist_pair_explicit` -> `Pt`, `sqDist`, `trunc`
+- `hasFDerivAt_sqDist_pair_comp` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_sqDist_pair_explicit` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
 - `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`
 - `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `sqDist`, `trunc`, `trunc_apply`
 - `hasModel_iff` -> `bvar`, `induction`
@@ -8733,10 +8734,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFDeriv_apply` -> `Pt`, `comp`, `convert`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
 - `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
-- `sqDistJointFDeriv_apply` -> `Pt`, `comp`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
-- `sqDistPairFDerivComp_apply` -> `Pt`, `comp`, `sqDist`, `trunc`, `trunc_apply`
-- `sqDistPairFDerivComp_eq` -> `Pt`, `sqDist`, `trunc`, `trunc_apply`
-- `sqDistPairFDeriv_apply` -> `Pt`, `comp`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
+- `sqDistJointFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
+- `sqDistPairFDerivComp_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistPairFDerivComp_eq` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistPairFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
 - `sqDist_abs_le` -> `Pt`, `card_fin`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_eq_sum`, `sqNorm`
 - `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
 - `sqDist_along_path_lt` -> `Pt`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
