@@ -231,6 +231,132 @@ theorem minorDefect_lipschitz {u v u' v' : Pt n} {M δ : ℝ}
         simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
         ring
 
+/-! ## ⭐ `max` 分支与 `midpoint` 分支的局部 Lipschitz 件
+
+`penaltyLoss` 的 12 个分支里，**`leZero`/`ltZero`/`gtZero` 是 `(max · 0)²`**，
+而 **`midpoint` 是 `∑ i, (2·pts m i − pts a i − pts b i)²`**——**一组线性形式的平方和**。
+
+**本节给出这两类所需的引理。** 其余分支：
+- `eqZero` 是纯 `(线性形式)²`，直接 `sq_lipschitz_on_bounded`；
+- `sqDistEq`/`equalLength`/`samePoint` 含 `sqDist`，用 `DistLipschitz.sqDist_lipschitz`（`rho` 版）；
+- `perpendicular`/`rightAngle` 是 `(∑ seg·seg)²`，用 `PolyLipschitz.bilinearSum_lipschitz`（`rho` 版）；
+- `collinear`/`parallel` 已在上一节做完。
+
+⚠ **注意 `rho` 与 `M`/`δ` 是两套度量**：`rho n k pts pts'` 是前缀上的**上确界**，
+所以它给的是 `∀ p i, |pts p i − pts' p i| ≤ rho`——**本节的 `δ` 可以直接取 `rho`**，
+而 `M` 取点的坐标界 `B`。**所以两套是兼容的，本节用 `M`/`δ` 因为更直白。** -/
+
+/-- ⭐ **`max · 0` 是 `δ`-Lipschitz 的**：`|max s 0 − max t 0| ≤ |s − t|`。
+
+**这是 `leZero`/`ltZero`/`gtZero` 三个分支需要的唯一新事实。** -/
+theorem max_zero_sub_le {s t : ℝ} : |max s 0 - max t 0| ≤ |s - t| :=
+  abs_max_sub_max_le_abs s t 0
+
+/-- ⭐ **`(max · 0)²` 的局部 Lipschitz 界**：`≤ 2R·δ`。
+
+**由 `max_zero_sub_le` 给差、`sq_lipschitz_on_bounded` 抬平方。** -/
+theorem max_zero_sq_sub_le {s t R δ : ℝ} (hR : 0 ≤ R)
+    (h : |s - t| ≤ δ) (hs : |max s 0| ≤ R) (ht : |max t 0| ≤ R) :
+    |(max s 0) ^ 2 - (max t 0) ^ 2| ≤ 2 * R * δ := by
+  have hdiff : |max s 0 - max t 0| ≤ δ := le_trans max_zero_sub_le h
+  exact le_trans (Lattice.Lib.Penalty.sq_lipschitz_on_bounded hR hs ht)
+    (mul_le_mul_of_nonneg_left hdiff (by positivity))
+
+/-- **`midpoint` 的单坐标项之差**：`|(2m−a−b) − (2m'−a'−b')| ≤ 4δ`。
+
+`2m` 的系数是 `2`，所以三项各有界：`2δ + δ + δ = 4δ`。 -/
+theorem midpointTerm_diff_le {pts pts' : ℕ → Pt n} {m a b : ℕ} {δ : ℝ}
+    (hm : ∀ i, |pts m i - pts' m i| ≤ δ)
+    (ha : ∀ i, |pts a i - pts' a i| ≤ δ)
+    (hb : ∀ i, |pts b i - pts' b i| ≤ δ) (i : Fin n) :
+    |(2 * pts m i - pts a i - pts b i) - (2 * pts' m i - pts' a i - pts' b i)| ≤ 4 * δ := by
+  have hfac : (2 * pts m i - pts a i - pts b i) - (2 * pts' m i - pts' a i - pts' b i)
+      = 2 * (pts m i - pts' m i) - (pts a i - pts' a i) - (pts b i - pts' b i) := by ring
+  rw [hfac]
+  have h1 : |2 * (pts m i - pts' m i)| ≤ 2 * δ := by
+    rw [abs_mul]
+    have : |(2 : ℝ)| = 2 := by norm_num
+    rw [this]
+    exact mul_le_mul_of_nonneg_left (hm i) (by norm_num)
+  calc |2 * (pts m i - pts' m i) - (pts a i - pts' a i) - (pts b i - pts' b i)|
+      ≤ |2 * (pts m i - pts' m i)| + |pts a i - pts' a i| + |pts b i - pts' b i| := by
+        have h2 := abs_sub (2 * (pts m i - pts' m i) - (pts a i - pts' a i)) (pts b i - pts' b i)
+        have h3 := abs_sub (2 * (pts m i - pts' m i)) (pts a i - pts' a i)
+        linarith [abs_nonneg (2 * (pts m i - pts' m i) - (pts a i - pts' a i)),
+          abs_nonneg (pts b i - pts' b i)]
+    _ ≤ 2 * δ + δ + δ := by linarith [h1, ha i, hb i]
+    _ = 4 * δ := by ring
+
+/-- ⭐⭐ **`midpoint` 分支的局部 Lipschitz 界**：`midpoint` 那一支是 `∑ i, (2m−a−b)²`，
+
+`|∑ i, (…)² − ∑ i, (…')²| ≤ 2·(4B)·(4δ)·n`。
+
+**`R = 4B`** 因为 `|2·pts m i − pts a i − pts b i| ≤ 2B + B + B = 4B`。 -/
+theorem midpoint_sum_lipschitz {pts pts' : ℕ → Pt n} {m a b : ℕ} {B δ : ℝ}
+    (hB : 0 ≤ B) (hδ : 0 ≤ δ)
+    (hpts : ∀ p i, |pts p i| ≤ B) (hpts' : ∀ p i, |pts' p i| ≤ B)
+    (hm : ∀ i, |pts m i - pts' m i| ≤ δ)
+    (ha : ∀ i, |pts a i - pts' a i| ≤ δ)
+    (hb : ∀ i, |pts b i - pts' b i| ≤ δ) :
+    |(∑ i, (2 * pts m i - pts a i - pts b i) ^ 2)
+        - (∑ i, (2 * pts' m i - pts' a i - pts' b i) ^ 2)|
+      ≤ 2 * (4 * B) * (4 * δ) * (n : ℝ) := by
+  have hstep : ∀ i : Fin n,
+      |(2 * pts m i - pts a i - pts b i) ^ 2 - (2 * pts' m i - pts' a i - pts' b i) ^ 2|
+        ≤ 2 * (4 * B) * (4 * δ) := by
+    intro i
+    have hdiff := midpointTerm_diff_le hm ha hb i
+    have hP : |2 * pts m i - pts a i - pts b i| ≤ 4 * B := by
+      have h1 : |pts m i| ≤ B := hpts m i
+      have h2 : |pts a i| ≤ B := hpts a i
+      have h3 : |pts b i| ≤ B := hpts b i
+      calc |2 * pts m i - pts a i - pts b i|
+          ≤ |2 * pts m i| + |pts a i| + |pts b i| := by
+            have hx := abs_sub (2 * pts m i - pts a i) (pts b i)
+            have hy := abs_sub (2 * pts m i) (pts a i)
+            linarith [abs_nonneg (2 * pts m i - pts a i), abs_nonneg (pts b i)]
+        _ ≤ 2 * B + B + B := by
+            have h2' : |2 * pts m i| ≤ 2 * B := by
+              rw [abs_mul]
+              have : |(2 : ℝ)| = 2 := by norm_num
+              rw [this]
+              exact mul_le_mul_of_nonneg_left h1 (by norm_num)
+            linarith
+        _ = 4 * B := by ring
+    have hQ : |2 * pts' m i - pts' a i - pts' b i| ≤ 4 * B := by
+      have h1 : |pts' m i| ≤ B := hpts' m i
+      have h2 : |pts' a i| ≤ B := hpts' a i
+      have h3 : |pts' b i| ≤ B := hpts' b i
+      calc |2 * pts' m i - pts' a i - pts' b i|
+          ≤ |2 * pts' m i| + |pts' a i| + |pts' b i| := by
+            have hx := abs_sub (2 * pts' m i - pts' a i) (pts' b i)
+            have hy := abs_sub (2 * pts' m i) (pts' a i)
+            linarith [abs_nonneg (2 * pts' m i - pts' a i), abs_nonneg (pts' b i)]
+        _ ≤ 2 * B + B + B := by
+            have h2' : |2 * pts' m i| ≤ 2 * B := by
+              rw [abs_mul]
+              have : |(2 : ℝ)| = 2 := by norm_num
+              rw [this]
+              exact mul_le_mul_of_nonneg_left h1 (by norm_num)
+            linarith
+        _ = 4 * B := by ring
+    exact le_trans (Lattice.Lib.Penalty.sq_lipschitz_on_bounded (by positivity) hP hQ)
+      (mul_le_mul_of_nonneg_left hdiff (by positivity))
+  have hsplit : (∑ i, (2 * pts m i - pts a i - pts b i) ^ 2)
+      - (∑ i, (2 * pts' m i - pts' a i - pts' b i) ^ 2)
+      = ∑ i, ((2 * pts m i - pts a i - pts b i) ^ 2
+          - (2 * pts' m i - pts' a i - pts' b i) ^ 2) := by
+    rw [← Finset.sum_sub_distrib]
+  rw [hsplit]
+  calc |∑ i, ((2 * pts m i - pts a i - pts b i) ^ 2
+        - (2 * pts' m i - pts' a i - pts' b i) ^ 2)|
+      ≤ ∑ i, |(2 * pts m i - pts a i - pts b i) ^ 2
+          - (2 * pts' m i - pts' a i - pts' b i) ^ 2| := Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _i : Fin n, 2 * (4 * B) * (4 * δ) := Finset.sum_le_sum (fun i _ => hstep i)
+    _ = 2 * (4 * B) * (4 * δ) * (n : ℝ) := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
+
 /-! ## ⚠ **`penaltyLoss` 没有全局 Lipschitz 常数**（第 78 轮补）
 
 **12 个分支里没有一个是线性的**——它们是**平方**或**两个线性形式的乘积**：

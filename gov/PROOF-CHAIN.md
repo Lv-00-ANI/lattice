@@ -1569,7 +1569,7 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 5 | 1 |
-| `Lattice.Domains.Constraints.PenaltyLoss` | 16 | 2 |
+| `Lattice.Domains.Constraints.PenaltyLoss` | 20 | 2 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
@@ -6169,7 +6169,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maxPoint_lt_of_le` -> `GeoExpr`, `add`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `maxPoint_ofLinearFormAux` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `induction`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `ofLinearFormAux`, `toNatConfig`
 - `maxPoint_ofLinearForm_lt` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `toNatConfig`
-- `max_zero_eq_zero_iff` -> `GeoConstraint`, `Pt`, `bilinear_sub_le`, `card_fin`, `evalPts`, `le_trans`, `sqDist`, `sq_lipschitz_on_bounded`
+- `max_zero_eq_zero_iff` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
+- `max_zero_sq_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
+- `max_zero_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
 - `mcdiarmidBoundedDiff_implies_range` -> `Surjective`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `le`, `mono`, `trans`
 - `mcdiarmidSign_abs` -> `uniformProb`
 - `mcdiarmidSign_mean` -> `card_fin`, `uniformExpectation`, `uniformProb`
@@ -6293,19 +6295,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpointLayer_act` -> `AffineLayer`, `Ladder`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `midpointPenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `midpointPenalty_nonneg` -> `Pt`
+- `midpointTerm_diff_le` -> `GeoConstraint`, `GeoExpr`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_iff` -> `Pt`
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
+- `midpoint_sum_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_translate` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `min_eq_half_sub_abs` -> `geom_sum_eq`, `le_total`, `min`
 - `min_grad_rate` -> `E`, `sphere`
 - `minimality_unique_for_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `minimality_uniqueness_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `minimax_ge_bayes` -> `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `bayesRisk`, `le`, `risk`
-- `minorDefect_eq_zero_of_parallel` -> `GeoConstraint`, `Pt`, `bilinear_sub_le`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
-- `minorDefect_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `card_fin`, `collinear`, `evalPts`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`
-- `minorDefect_nonneg` -> `GeoConstraint`, `Pt`, `bilinear_sub_le`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
-- `minorDiff_le` -> `GeoConstraint`, `Pt`, `bilinear_sub_le`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
-- `minorTerm_lipschitz` -> `GeoConstraint`, `GeoExpr`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `minorDefect_eq_zero_of_parallel` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
+- `minorDefect_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
+- `minorDefect_nonneg` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
+- `minorDiff_le` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
+- `minorTerm_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minpoly_aeval_eq_zero` -> `eval`, `min`, `subst`
 - `minpoly_dvd_of_aeval_eq_zero` -> `eval`, `min`, `subst`
 - `minpoly_monic` -> `eval`, `min`, `subst`
