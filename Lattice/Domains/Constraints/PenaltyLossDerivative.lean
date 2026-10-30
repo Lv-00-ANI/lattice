@@ -502,8 +502,8 @@ noncomputable def sqDistPairFDeriv {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n
 /-- **`bilinearSum` 的导数**：`∑ i, (v p i) • (proj i ∘ u) + (u p i) • (proj i ∘ v)`。 -/
 noncomputable def bilinearSumFDeriv {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
     (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
-  ∑ i, ((v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
-    + (u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v))
+  ∑ i, ((u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+    + (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u))
 
 /-- **`midpointCLM` 平方和的导数**：`∑ i, (2 * (L p i)) • (proj i ∘ L)`。 -/
 noncomputable def midpointSumFDeriv {K n : ℕ} (L : (Fin K → Pt n) →L[ℝ] Pt n)
@@ -518,10 +518,10 @@ noncomputable def minorDefectFDeriv {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ
     (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] ℝ :=
   ∑ i : Fin n, ∑ j : Fin n,
     (2 * (u p i * v p j - u p j * v p i)) •
-      ((v p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
-        + (u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
-        - (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)
-        - (u p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v))
+      (((u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
+        + (v p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u))
+        - ((u p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+        + (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)))
 
 /-- ⭐⭐⭐ **`penaltyLoss` 的显式导数**——十二支一条 `match` 定义的连续线性泛函。
 
@@ -618,5 +618,166 @@ theorem penaltyLossFDeriv_apply {K n : ℕ} (c : GeoConstraint n)
       simp only [penaltyLossFDeriv, ContinuousLinearMap.smul_apply, smul_eq_mul]
   | .midpoint m a b, hK => simp only [penaltyLossFDeriv]
   | .samePoint a b, hK => simp only [penaltyLossFDeriv]
+
+/-! ## ⭐⭐⭐ `HasFDerivAt` 版本的三支 `max` 与总装配
+
+**第 121 轮给的三支 `max` 只有 `DifferentiableAt`**，**而装配需要 `HasFDerivAt` 且导数【恰好】是
+`penaltyLossFDeriv` 的形状。**
+
+**`HasFDerivAt.congr_of_eventuallyEq` 的方向（探针确认）：`h.congr_of_eventuallyEq (g =ᶠ f)`**——
+**即 `h` 是已知可微的那个 `f`，`g` 是目标。** -/
+
+/-- ⭐⭐ **`leZero`／`ltZero` 的 `HasFDerivAt`**：非折点处导数是 `(2x) • evalPtsFDeriv`。 -/
+theorem hasFDerivAt_maxZero_pos {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hpos : 0 < GeoExpr.evalPts e (trunc p)) :
+    HasFDerivAt (fun r : Fin K → Pt n => (max (GeoExpr.evalPts e (trunc r)) 0) ^ 2)
+      ((2 * GeoExpr.evalPts e (trunc p)) • evalPtsFDeriv e K hK p) p := by
+  have hd := hasFDerivAt_evalPts e hK p
+  have hsq := Lattice.Core.hasFDerivAt_sq_comp hd
+  have hev_pos : ∀ᶠ r in nhds p, 0 < GeoExpr.evalPts e (trunc r) :=
+    hd.differentiableAt.continuousAt.eventually (isOpen_Ioi.mem_nhds hpos)
+  refine hsq.congr_of_eventuallyEq ?_
+  filter_upwards [hev_pos] with r hr
+  simp only [max_eq_left (le_of_lt hr)]
+
+/-- ⭐⭐ **`gtZero` 的 `HasFDerivAt`**：非折点处（`evalPts e > 0`）导数是 `0`。
+
+**邻域内 `max (-x) 0 = 0`，所以平方恒为 `0`；而声明的导数 `(2 · max (-x) 0) • …` 的系数也正是 `0`，
+两者一致。** -/
+theorem hasFDerivAt_negMaxZero_pos {K n : ℕ} (e : GeoExpr n) (hK : IndicesBelow e K)
+    (p : Fin K → Pt n) (hpos : 0 < GeoExpr.evalPts e (trunc p)) :
+    HasFDerivAt (fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2)
+      ((2 * max (-(GeoExpr.evalPts e (trunc p))) 0) • (-(evalPtsFDeriv e K hK p))) p := by
+  have hd := hasFDerivAt_evalPts e hK p
+  have hev_pos : ∀ᶠ r in nhds p, 0 < GeoExpr.evalPts e (trunc r) :=
+    hd.differentiableAt.continuousAt.eventually (isOpen_Ioi.mem_nhds hpos)
+  have hconst : (fun r : Fin K → Pt n => (max (-(GeoExpr.evalPts e (trunc r))) 0) ^ 2)
+      =ᶠ[nhds p] fun _ => (0 : ℝ) := by
+    filter_upwards [hev_pos] with r hr
+    have hz : max (-(GeoExpr.evalPts e (trunc r))) 0 = 0 := max_eq_right (by linarith)
+    rw [hz]
+    ring
+  have hcoef : max (-(GeoExpr.evalPts e (trunc p))) 0 = 0 := max_eq_right (by linarith)
+  have hzero : ((2 * max (-(GeoExpr.evalPts e (trunc p))) 0) •
+      (-(evalPtsFDeriv e K hK p))) = (0 : (Fin K → Pt n) →L[ℝ] ℝ) := by
+    rw [hcoef]
+    simp only [mul_zero, zero_smul]
+  rw [hzero]
+  exact (hasFDerivAt_const (x := p) (c := (0 : ℝ))).congr_of_eventuallyEq hconst
+
+/-! ## ⭐⭐ 四条 `HasFDerivAt` 前件（装配所需）
+
+**第 112–120 轮的分支定理大多只给 `DifferentiableAt`**，**而装配需要 `HasFDerivAt`，
+并且导数必须【逐字】是前面定义的闭式。**
+
+**关键技巧**：`HasFDerivAt.sum` 的导数是 `∑ i, f' i`，**所以闭式的定义就写成同一个 `∑` 形式**——
+**求和的导数与定义逐字对上，装配时不需要 `convert`。** -/
+
+/-- **`midpointSum` 的导数**：`∑ i, (2 · L p i) • (proj i ∘ L)`。 -/
+theorem hasFDerivAt_midpointSum {K n : ℕ} (L : (Fin K → Pt n) →L[ℝ] Pt n) (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => ∑ i, (L r i) ^ 2) (midpointSumFDeriv L p) p := by
+  have hterm : ∀ i : Fin n, HasFDerivAt (fun r : Fin K → Pt n => (L r i) ^ 2)
+      ((2 * (L p i)) •
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp L)) p := by
+    intro i
+    exact Lattice.Core.hasFDerivAt_sq_comp
+      (ContinuousLinearMap.hasFDerivAt
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp L))
+  have h := HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun i _ => hterm i)
+  simpa only [midpointSumFDeriv] using h
+
+/-- **`bilinearSum` 的导数**：逐项乘积法则后求和。 -/
+theorem hasFDerivAt_bilinearSum {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => ∑ i, u r i * v r i) (bilinearSumFDeriv u v p) p := by
+  have hterm : ∀ i : Fin n, HasFDerivAt (fun r : Fin K → Pt n => u r i * v r i)
+      ((u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+        + (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)) p := by
+    intro i
+    have hu : HasFDerivAt (fun r : Fin K → Pt n => u r i)
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u) p :=
+      ContinuousLinearMap.hasFDerivAt
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
+    have hv : HasFDerivAt (fun r : Fin K → Pt n => v r i)
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v) p :=
+      ContinuousLinearMap.hasFDerivAt
+        ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+    exact hu.mul hv
+  have h := HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun i _ => hterm i)
+  simpa only [bilinearSumFDeriv] using h
+
+/-- **`minorDefect` 的导数**：两层求和，每项一次平方链式（内层四个乘积相加减）。 -/
+theorem hasFDerivAt_minorDefect {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n => ∑ i : Fin n, ∑ j : Fin n,
+        (u r i * v r j - u r j * v r i) ^ 2) (minorDefectFDeriv u v p) p := by
+  have hinner : ∀ i : Fin n, HasFDerivAt
+      (fun r : Fin K → Pt n => ∑ j : Fin n, (u r i * v r j - u r j * v r i) ^ 2)
+      (∑ j : Fin n,
+        (2 * (u p i * v p j - u p j * v p i)) •
+          (((u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
+            + (v p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u))
+            - ((u p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+            + (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)))) p := by
+    intro i
+    have hterm : ∀ j : Fin n, HasFDerivAt
+        (fun r : Fin K → Pt n => (u r i * v r j - u r j * v r i) ^ 2)
+        ((2 * (u p i * v p j - u p j * v p i)) •
+          (((u p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
+            + (v p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u))
+            - ((u p j) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+            + (v p i) • ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)))) p := by
+      intro j
+      have hpui : HasFDerivAt (fun r : Fin K → Pt n => u r i)
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u) p :=
+        ContinuousLinearMap.hasFDerivAt
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp u)
+      have hpvj : HasFDerivAt (fun r : Fin K → Pt n => v r j)
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v) p :=
+        ContinuousLinearMap.hasFDerivAt
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp v)
+      have hpuj : HasFDerivAt (fun r : Fin K → Pt n => u r j)
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u) p :=
+        ContinuousLinearMap.hasFDerivAt
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) j).comp u)
+      have hpvi : HasFDerivAt (fun r : Fin K → Pt n => v r i)
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v) p :=
+        ContinuousLinearMap.hasFDerivAt
+          ((ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin n => ℝ) i).comp v)
+      exact Lattice.Core.hasFDerivAt_sq_comp ((hpui.mul hpvj).sub (hpuj.mul hpvi))
+    exact HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun j _ => hterm j)
+  have h := HasFDerivAt.sum (u := (Finset.univ : Finset (Fin n))) (fun i _ => hinner i)
+  simpa only [minorDefectFDeriv] using h
+
+/-- **`minorDefect` 复合两个线性映射的导数**——装配里用的形式。 -/
+theorem hasFDerivAt_minorDefect_seg {K n : ℕ} (u v : (Fin K → Pt n) →L[ℝ] Pt n)
+    (p : Fin K → Pt n) :
+    HasFDerivAt (fun r : Fin K → Pt n =>
+        minorDefect (u r) (v r)) (minorDefectFDeriv u v p) p := by
+  have hfun : (fun r : Fin K → Pt n => minorDefect (u r) (v r))
+      = fun r : Fin K → Pt n => ∑ i : Fin n, ∑ j : Fin n, (u r i * v r j - u r j * v r i) ^ 2 := by
+    funext r
+    simp only [minorDefect]
+  rw [hfun]
+  exact hasFDerivAt_minorDefect u v p
+
+/-- **`sqDist (trunc · a) (trunc · b)` 可微**——由 `sqDist` 在 `(x, y)` 上的联合可微性经线性配对映射复合。
+
+**⚠ 这里只给【可微性】**：把 `fderiv` 的显式形式与 `sqDistPairFDeriv` 对齐需要拆开联合 `fderiv`，
+**那是一条独立的引理（`fderiv_sqDist_left` 已给出单槽版本，联合版本尚未做）。** -/
+theorem differentiableAt_sqDist_pair {K n : ℕ} (a b : Fin K) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => sqDist (trunc r a) (trunc r b)) p := by
+  have hjoint : DifferentiableAt ℝ (fun r : Pt n × Pt n => sqDist r.1 r.2)
+      (trunc p a.val, trunc p b.val) := by
+    have hfun : (fun r : Pt n × Pt n => sqDist r.1 r.2)
+        = fun r : Pt n × Pt n => ∑ i, (r.1 i - r.2 i) ^ 2 := by
+      funext r
+      exact sqDist_eq_sum r.1 r.2
+    rw [hfun]
+    fun_prop
+  have hpair : DifferentiableAt ℝ (fun r : Fin K → Pt n => (trunc r a, trunc r b)) p :=
+    ((hasFDerivAt_truncPoint a.val a.isLt p).prod
+      (hasFDerivAt_truncPoint b.val b.isLt p)).differentiableAt
+  exact hjoint.comp p hpair
 
 end Lattice.Geo
