@@ -1581,7 +1581,7 @@
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
-| `Lattice.Domains.Constraints.NetLossDerivative` | 41 | 9 |
+| `Lattice.Domains.Constraints.NetLossDerivative` | 42 | 9 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
 | `Lattice.Domains.Constraints.PenaltyLossDerivative` | 44 | 17 |
 | `Lattice.Domains.Constraints.Perturb` | 9 | 2 |
@@ -7203,6 +7203,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_gtZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_iff_holds_leZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `induction`, `parallel`, `penaltyLoss`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_iff_holds_midpoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `induction`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_iff_holds_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `induction`, `parallel`, `penaltyLoss`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_iff_holds_sq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `induction`, `parallel`, `penaltyLoss`, `sqDist_eq_zero_iff`
