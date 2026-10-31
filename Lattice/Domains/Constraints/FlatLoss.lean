@@ -83,4 +83,49 @@ theorem flatLoss_eq_zero_iff {N K n : ℕ} (ch : Chain n n) (off : ℕ)
   exact forall_congr' (fun c => forall_congr' (fun _ =>
     penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) _))
 
+/-! ## `flatLoss` 对参数可微
+
+## 结构
+
+**`flatLoss = lossOfActivations ∘ 逐点链作用`（`flatLoss_eq_comp`），而**
+**`lossOfActivations` 对激活点列可微是第 136 轮已有的（`_nonKink` 版本，第 148 轮）。**
+
+**⇒ 只需要「逐点链作用对参数 `g` 可微」，而那一步与第 139 轮的
+`differentiableAt_pointwiseNetActN_params` 逐字同构。** -/
+
+/-- ⭐⭐ **逐点链作用对参数可微**——**`differentiableAt_pi` 逐坐标，
+每个坐标用 `flatChainAct_differentiableAt_joint` 与 `h ↦ (h, p i)` 复合。** -/
+theorem flatPoints_differentiableAt_params {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (p : Fin K → Pt n) (g : Fin N → ℝ) :
+    DifferentiableAt ℝ
+      (fun h : Fin N → ℝ => fun i : Fin K => flatChainAct (N := N) ch off h (p i)) g := by
+  rw [show (fun h : Fin N → ℝ => fun i : Fin K => flatChainAct (N := N) ch off h (p i))
+      = fun h : Fin N → ℝ =>
+          fun i : Fin K => flatChainAct (N := N) ch off h (p i) from rfl]
+  exact differentiableAt_pi.2 (fun i => by
+    have hpair : DifferentiableAt ℝ
+        (fun h : Fin N → ℝ => (h, p i)) g :=
+      DifferentiableAt.prod differentiableAt_id (differentiableAt_const (p i))
+    exact (flatChainAct_differentiableAt_joint ch off g (p i)).comp g hpair)
+
+/-- ⭐⭐⭐ **`flatLoss` 对参数可微**——**把第 174 轮（链作用可微）与第 175 轮（损失＝复合）接起来。**
+
+**⚠ 前提是 `NonKink`（第 147 轮），而不是 `KinkPositive`**：
+**`lossOfActivations_differentiableAt_nonKink` 覆盖 `max` 族的正负两侧。** -/
+theorem flatLoss_differentiableAt_params {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) (g : Fin N → ℝ)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun i : Fin K => flatChainAct (N := N) ch off g (p i))) :
+    DifferentiableAt ℝ (fun h : Fin N → ℝ => flatLoss ch off cs h p) g := by
+  have hcomp : (fun h : Fin N → ℝ => flatLoss ch off cs h p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+        ∘ (fun h : Fin N → ℝ =>
+            fun i : Fin K => flatChainAct (N := N) ch off h (p i)) := by
+    funext h
+    exact flatLoss_eq_comp ch off cs h p
+  rw [hcomp]
+  exact (lossOfActivations_differentiableAt_nonKink cs
+    (fun i : Fin K => flatChainAct (N := N) ch off g (p i)) hK hk).comp g
+    (flatPoints_differentiableAt_params ch off p g)
+
 end Lattice.Geo

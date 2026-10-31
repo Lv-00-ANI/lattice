@@ -234,6 +234,8 @@ Domains/Constraints/ExprDerivative.lean	evalPts_differentiableAt_direct
 Domains/Constraints/FlatLoss.lean	flatPoints_eq_trunc
 Domains/Constraints/FlatLoss.lean	flatLoss_eq_comp
 Domains/Constraints/FlatLoss.lean	flatLoss_eq_zero_iff
+Domains/Constraints/FlatLoss.lean	flatPoints_differentiableAt_params
+Domains/Constraints/FlatLoss.lean	flatLoss_differentiableAt_params
 Domains/Constraints/Flatten.lean	unflatten_flatten
 Domains/Constraints/Flatten.lean	flatten_unflatten
 Domains/Constraints/Flatten.lean	flatten_injective
