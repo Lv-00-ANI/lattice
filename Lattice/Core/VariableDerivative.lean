@@ -1451,4 +1451,55 @@ theorem threeLayerChain_explicit (g : Fin 6 → ℝ) (x : Fin 1 → ℝ) :
 （`Matrix.cons_val_*` 与 `Fin.reduceOfNat*` 的名字在本版本里都不适用），
 **所以本节【不声称】它**——**它不是主结果，留着一条未证的说法比删掉它更糟。** -/
 
+/-! ## ⭐⭐⭐ 一般递推：宽 1 的一层就是 `g off · (尾链) + g (off+1)`
+
+## 为什么这条是正确终点
+
+**第 188／189 轮分别给出两层与三层的显式形式，而两者是同一嵌套的两次实例化**：
+
+    两层：g 2 · (g 0 · x + g 1) + g 3
+    三层：g 4 · (g 2 · (g 0 · x + g 1) + g 3) + g 5
+
+**共同的形状是**：**宽 1 的一层作用在标量 `y` 上，得到 `权重 · y + 偏置`，
+而权重在槽位 `off`、偏置在槽位 `off + 1`。**
+
+**⇒ 把它写成一条【对尾链 `ch` 无关的递推**，三个实例就是它的特化，
+**而「次数 = 深度」就是对 `ch` 的归纳。** -/
+
+/-- **宽 1 时权重槽位就是 `off`**（`a = b = 1`，所以 `slotOf off 1 0 0 = off + 0 + 0`）。 -/
+theorem slotOf_width_one_weight (off : ℕ) : slotOf off 1 0 0 = off := by
+  simp only [slotOf]
+  ring
+
+/-- **宽 1 时偏置槽位是 `off + 1`**（`off + a*1 + 0`，`a = 1`）。 -/
+theorem slotOf_width_one_bias (off : ℕ) : off + 1 * 1 + 0 = off + 1 := by
+  ring
+
+/-- **宽 1 的一层占 `layerParamCount 1 1 = 2` 个槽位。** -/
+theorem layerParamCount_width_one : layerParamCount 1 1 = 2 := rfl
+
+/-- ⭐⭐⭐ **宽 1 的层作用把输入塌缩成一个标量**——
+**`x ↦ readSlot g off · x 0 + readSlot g (off+1)`。**
+
+**⚠ 这是【代换形式**：一层的输出是标量，被尾链继续作用。
+**它不是线性的分配形式**——**因为尾链【不】保持线性**
+（`y ↦ w·y + c` 把 `a·x+b` 映成 `w·(a·x+b)+c`，而**不是** `a·(w·x+c)+b`）。** -/
+theorem flatParamActSafe_width_one {N : ℕ} (off : ℕ) (g : Fin N → ℝ) (x : Fin 1 → ℝ) :
+    flatParamActSafe (N := N) (a := 1) (b := 1) off g x
+      = fun _ => readSlot g off * x 0 + readSlot g (off + 1) := by
+  funext j
+  fin_cases j
+  simp only [flatParamActSafe, Fin.sum_univ_one, slotOf, layerParamCount]
+  norm_num
+
+/-- ⭐⭐⭐ **一般递推（代换形式）**——**宽 1 的一层作用 = 尾链作用在那个标量上。**
+
+**三个显式形式（第 188／189 轮）都是它迭代两次、三次的结果。** -/
+theorem flatChainAct_cons_width_one {N : ℕ} (ch : Chain 1 1) (off : ℕ)
+    (g : Fin N → ℝ) (x : Fin 1 → ℝ) :
+    flatChainAct (N := N) (Chain.cons twoLayerProbeRest ch) off g x
+      = flatChainAct (N := N) ch (off + 2) g
+          (fun _ => readSlot g off * x 0 + readSlot g (off + 1)) := by
+  simp only [flatChainAct, flatParamActSafe_width_one, layerParamCount_width_one]
+
 end Lattice.Core

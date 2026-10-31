@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 64 | 29 |
+| `Lattice.Core.VariableDerivative` | 69 | 29 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -4749,6 +4749,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`
 - `fixpoint_transfer_le` -> `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
+- `flatChainAct_cons_width_one` -> `Chain`
 - `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
@@ -4779,6 +4780,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`
+- `flatParamActSafe_width_one` -> `Chain`
 - `flatParamAct_apply` -> `comp`
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`
@@ -5890,6 +5892,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_scaleLinearLayer` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
 - `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
+- `layerParamCount_width_one` -> `Chain`
 - `layerQuantizationB_one_bits` -> `IntLayer`, `quant`
 - `layerQuantization_nontrivial` -> `compileZ`
 - `layerQuantization_refines_scalar` -> `compileZ`
@@ -8711,6 +8714,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOf_row_add` -> `comp`
 - `slotOf_succ_col` -> `comp`
 - `slotOf_succ_row` -> `comp`
+- `slotOf_width_one_bias` -> `Chain`
+- `slotOf_width_one_weight` -> `Chain`
 - `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
 - `sm_argmax_lower` -> `apply`, `card_fin`, `softmax`
 - `sm_denom_pos` -> `apply`, `card_fin`, `le_trans`, `softmax`
@@ -9360,6 +9365,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
+- `threeLayerChain_explicit` -> `Chain`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
