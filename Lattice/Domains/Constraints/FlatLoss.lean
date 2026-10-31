@@ -407,4 +407,79 @@ theorem two_points_reachable_width_one
     field_simp
     ring
 
+
+/-! ## ⭐⭐⭐ 可达集必须满足输入点之间的仿射关系
+
+## 这是可达性的普遍必要条件
+
+**第 195／196 轮在宽度 1 上给出了可达集的上下界，但那两条都是特例。
+正确的刻画应当从【仿射映射的结构】出发。**
+
+**⇒ 关键观察**：**宽 `n`、深 1 的一层实现的是 `Φ j = W · p j + b`。
+于是对任何系数 `c` 满足**
+
+    Σ c j = 0   且   Σ c j · p j = 0
+
+**必有**
+
+    Σ c j · Φ j = W (Σ c j · p j) + (Σ c j) · b = 0
+
+**⇒ 输入点之间的【仿射关系】被输出原样继承。这是可达性的必要条件，
+而且它【与宽度无关**——宽度不能突破它。**
+
+## 它如何推出第 195 轮的反例
+
+**取 `p = (0, 1, 2)`（宽 1，即 `Pt 1` 的标量部分）与 `c = (1, -2, 1)`：**
+
+- **`Σ c j = 1 - 2 + 1 = 0`** ✓
+- **`Σ c j · p j = 0 - 2·1 + 1·2 = 0`** ✓
+- **但 `Σ c j · Φ j = 0 - 2·1 + 1·4 = 2 ≠ 0`**
+
+**⇒ `Φ j = j²` 违反了这个必要条件，因此不可达——与第 195 轮的直接论证一致，
+但这里是它的【一般形式**。**
+
+## 为什么按坐标陈述
+
+**`Pt n` 是 `Fin n → ℝ`，其模结构需要实例解析；
+按坐标陈述可以完全避开它，而信息量相同。** -/
+
+/-- ⭐⭐⭐ **可达集的仿射关系障碍**——**单层、任意宽度、任意点数。**
+
+**若系数 `c` 同时消掉常数与全部输入点，则它也消掉【任何】可达的输出点列。** -/
+theorem oneLayer_respects_affine_relations {N K n : ℕ} (off : ℕ) (g : Fin N → ℝ)
+    (p : Fin K → Pt n) (c : Fin K → ℝ)
+    (hc : (∑ j, c j) = 0)
+    (hp : ∀ i : Fin n, (∑ j, c j * p j i) = 0) :
+    ∀ i : Fin n,
+      (∑ j, c j * flatParamActSafe (N := N) (a := n) (b := n) off g (p j) i) = 0 := by
+  intro i
+  simp only [flatParamActSafe]
+  have h1 : ∀ j : Fin K,
+      c j * ((∑ k : Fin n, readSlot g (slotOf off n k.val i.val) * p j k)
+        + readSlot g (off + n * n + i.val))
+      = (∑ k : Fin n, c j * readSlot g (slotOf off n k.val i.val) * p j k)
+        + c j * readSlot g (off + n * n + i.val) := by
+    intro j
+    rw [mul_add, Finset.mul_sum]
+    congr 1
+    apply Finset.sum_congr rfl
+    intro k _
+    ring
+  simp only [h1]
+  rw [Finset.sum_add_distrib]
+  have h2 : (∑ j : Fin K, ∑ k : Fin n,
+        c j * readSlot g (slotOf off n k.val i.val) * p j k)
+      = ∑ k : Fin n,
+          readSlot g (slotOf off n k.val i.val) * (∑ j : Fin K, c j * p j k) := by
+    rw [Finset.sum_comm]
+    apply Finset.sum_congr rfl
+    intro k _
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro j _
+    ring
+  rw [h2]
+  simp only [hp, mul_zero, Finset.sum_const_zero, zero_add]
+  rw [← Finset.sum_mul, hc, zero_mul]
+
 end Lattice.Geo
