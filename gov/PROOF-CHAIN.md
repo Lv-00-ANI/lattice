@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 72 | 31 |
+| `Lattice.Core.VariableDerivative` | 74 | 32 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -9824,6 +9824,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `whileStep_body` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `whileStep_exit` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `while_never_exits_wpT_false` -> `AExp`, `Denotes`, `State`, `StmtT`, `evalA`, `execF`, `induction`, `wp`, `wpT`, `zero`
+- `wideChain_explicit_one` -> `Chain`
+- `wideChain_explicit_zero` -> `Chain`
 - `wigner_first_moment_zero` -> `apply`, `card_fin`, `subst`
 - `wigner_fourth_moment_leading_lower` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `wigner_second_moment` -> `HasRealEigenvalue`, `apply`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
