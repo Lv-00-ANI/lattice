@@ -537,4 +537,48 @@ theorem flatLayerAct_differentiableAt {B a b : ℕ} (off : ℕ)
   rw [hfun]
   fun_prop
 
-end Lattice.Core
+/-! ## ⚠ 一个必须指出的结构缺陷：`flatLayerAct` 的 `B` 承担了两个角色
+
+## 缺陷
+
+**`flatLayerAct` 的签名是**
+
+    flatLayerAct {B a b : ℕ} (off : ℕ)
+        (hbound : ∀ i j, slotOf off b i.val j.val < B)
+        (w : Fin a → Fin b → ℝ) (c : Fin b → ℝ) (g : Fin B → ℝ) : Fin b → ℝ
+
+**其中 `B` 【同时】是：**
+
+1. **参数向量的长度**（`g : Fin B → ℝ`）；
+2. **层的输入维度**（`g` 的索引类型必须是 `Fin B`，而读出的值喂给 `∑ i, w i j * ·`，其中 `i : Fin a`）。
+
+**⚠ 第 1 条和 `a` 并不冲突——`a` 是权重的行数，`B` 是向量长度。
+真正的问题是【第二层】的情形：它的输入是 `Fin b → ℝ`（第一层的输出），
+但它的参数仍然从 `g : Fin B → ℝ` 里读。**
+
+**⇒ 两次调用 `flatLayerAct` 时，第二次的 `B` 必须是 `b`（因为输入是 `Fin b`），
+但它的 `hbound` 说的是「槽位 `< B`」——两者维度不同，无法传递。**
+
+**第 168 轮实测的报错正是这个**：
+
+    flatLayerAct off₁ h₁ w₁ c₁ g  has type  Fin b → ℝ
+    but is expected to have type  Fin B → ℝ
+
+## 正确的形式
+
+**需要把参数向量长度 `N` 与层输入维度 `a` 分成【两个】类型参数**：
+
+    flatLayerAct' {N a b : ℕ} (off : ℕ)
+        (hbound : ∀ i j, slotOf off b i.val j.val < N)
+        (w : Fin a → Fin b → ℝ) (c : Fin b → ℝ) (g : Fin N → ℝ) : Fin b → ℝ
+
+**⚠ 但 `flatLayerAct'` 的输出是 `Fin b → ℝ`，而它的输入是 `Fin N → ℝ`——
+所以复合时要求 `N = b`，仍然把两者绑在一起。**
+
+**⇒ 真正的解法是把「参数」与「激活」分开：
+`act' : (Fin N → ℝ) → (Fin a → ℝ) → (Fin b → ℝ)`，
+即先读参数、再把激活喂进去。**
+**那样两层复合时，第一层的输出 `Fin b → ℝ` 直接作为第二层的【激活】输入，
+而两层的【参数】都从同一个 `Fin N → ℝ` 读——维度不再冲突。**
+
+**⇒ 这是下一步的正确形式，第 169 轮做。** -/end Lattice.Core
