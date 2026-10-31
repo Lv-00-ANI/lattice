@@ -136,7 +136,7 @@ theorem mlayerOf_mlayerParamsOf {m n : ℕ} (l : MLayer m n) :
   rfl
 
 /-- **`Chain` 的参数空间**——逐层累积的 `mlayerParams`。 -/
-def ChainParams : {m n : ℕ} → Chain m n → Type :=
+abbrev ChainParams : {m n : ℕ} → Chain m n → Type :=
   fun {m n} ch =>
     match ch with
     | .idf _ => PUnit
@@ -145,6 +145,30 @@ def ChainParams : {m n : ℕ} → Chain m n → Type :=
 /-- **恒等链的参数空间是 `PUnit`**（定义级）。 -/
 theorem chainParams_idf (n : ℕ) : ChainParams (Chain.idf n) = PUnit :=
   rfl
+
+/-! ### ⚠ `abbrev` 而不是 `def`：一个被实测的决定
+
+**`ChainParams` 必须是 `abbrev`**，**否则 `PUnit`／`Prod` 的
+`NormedAddCommGroup`／`NormedSpace` 实例【不会】穿过它传播**（第 160 轮实测）：
+**`def` 版本下 `NormedAddCommGroup (ChainParams (Chain.idf n))` 报 `failed to synthesize`，
+`abbrev` 版本下同一目标由 `inferInstance` 直接给出。**
+
+**⚠ 但这【不够】**：**`ChainParams` 内部用的是 `match`，所以
+`ChainParams (Chain.cons l rest)` 归约成 `mlayerParams _ _ × ChainParams rest` 时，
+第二分量的实例仍需递归求解，而那条链在类型类搜索里会【超时**（`synthInstance.maxHeartbeats`）。
+
+**⇒ 第 160 轮【没有**完成 `ChainParams` 上的实例声明。
+**已尝试的两种写法都不成立**：
+
+1. **手写 `noncomputable def ... : {m n} → (ch) → NormedAddCommGroup (ChainParams ch)` 加
+   `attribute [instance]`**——`idf` 分支的 `inferInstanceAs` 能过，**但 `cons` 分支的
+   `inferInstanceAs (NormedAddCommGroup (mlayerParams _ _ × ChainParams rest))`
+   在递归分量上超时**；
+2. **依赖 `abbrev` 的可归约性**——`idf` 情形成立，**`cons` 情形超时**。
+
+**⇒ 正确的下一步需要换一种【不递归*的表示：把 `ChainParams` 定义成一个经过计算的
+**累加宽度列表**，或者把参数空间设计成**定长的 `Fin k →` 加一条宽度等式**，
+**从而让实例由 `Pi`／`Prod` 一次性给出，而不是逐层递归。** -/
 
 /-- **`Chain.act` 对【输入】可微**——**定宽版 `differentiableAt_netActN` 的变宽对应。**
 
