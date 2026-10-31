@@ -1709,42 +1709,102 @@ theorem affine_map_realisable (n : ℕ) (hn : 0 < n)
     readSlot_slotMap_bias]
 
 
-/-! ## ⭐⭐⭐ 深度 2 的障碍是【二阶】的：四阶差分为零
+/-! ## ⭐⭐⭐ 差分阶数随深度增长：深度 d 的输出，其 `d+1` 阶差分为零
 
 ## 与第 197 轮的对照
 
 **第 197 轮**：**深度 1 的输出是 `p` 的【仿射】函数**，**所以障碍是一阶的。**
 
-**本节**：**深度 2 的输出是 `p` 的【二次】函数**（第 188 轮的显式形式），
-**所以二阶差分是常数，而【四阶差分恒为零】。**
+## ⚠ 第 200 轮的命名缺陷，本轮修正
 
-**⇒ 一切「四阶差分不为零」的 `Phi` 都不可达——这是深度 2 的障碍，
-比深度 1 的障碍【高一阶】。**
+**第 200 轮把下面的定理命名为 `quadratic_fourth_difference` 并称它为「四阶差分」。
+那【是错的**：系数 `1, -3, 3, -1` 对应的是**
 
-## 为什么用四阶而不是三阶
+    f(0) - 3·f(1) + 3·f(2) - f(3) = −Δ³f(0)
 
-**三次差分对二次函数是常数 `6·g2·g0`（一般不为零），
-而【四阶】差分对任何二次函数恒为零。**
-**⇒ 四阶差分是「次数 ≤ 2」的判别式，正如二阶差分是「次数 ≤ 1」的判别式。** -/
+**即【三阶**差分（差一个符号）。**定理本身为真，而且恰好是最小判别式——
+错的是名字与文档。**
 
-/-- ⭐⭐ **二次函数的四阶差分为零**——**纯代数恒等式。** -/
-theorem quadratic_fourth_difference (A B C : ℝ) :
+**⇒ 本轮把名字改成 `quadratic_third_difference`，并把「四阶」全部改为「三阶」。
+一条陈述与它的名字不符，正是 I5（端到端诚实）要拦的东西。**
+
+## 差分的阶数阶梯
+
+**n 次多项式的 `n+1` 阶差分恒为零。而深度 d 的宽度 1 链输出是 d 次多项式。所以：**
+
+| 深度 | 输出的次数 | 零化的差分阶 | 定理 |
+|:--|:--|:--|:--|
+| 1 | 1（仿射） | **2** | `oneLayer_second_difference_zero` |
+| 2 | 2（二次） | **3** | `twoLayer_third_difference_zero` |
+| **3** | **3（三次）** | **4** | **`threeLayer_fourth_difference_zero`** |
+
+**⇒ 「深度 d ⟹ 第 d+1 阶差分为零」有三个实例，而三阶差分的常数项
+`6·g4·g2·g0` 正是深度 3 的「非零证据」的来源。** -/
+
+/-! **深度 1 的解析事实【不复述**：
+**`NonlinearLayer.affine_second_difference`（第 156 轮）已经是**
+`(a*0 + c) + (a*2 + c) - 2*(a*1 + c) = 0`，**与这里需要的完全同义。**
+
+**⇒ 本轮起初写了一个同义的 `affine_second_difference`，构建时撞上
+`environment already contains 'Lattice.Core.affine_second_difference'`——
+那是【同名**冲突，但即便改名也只是复制。**
+
+**⇒ 删除，改为引用既有那条。这就是「复用而非复制」的判定：
+名字不同、内容相同，仍然是重复。** -/
+
+/-- ⭐⭐ **二次函数的三阶差分为零**——**深度 2 的判别式（最小）。**
+
+**⚠ 这是第 200 轮 `quadratic_fourth_difference` 的【正名**版：
+系数 `1,-3,3,-1` 就是 `−Δ³`，不是四阶。** -/
+theorem quadratic_third_difference (A B C : ℝ) :
     (A * 0 ^ 2 + B * 0 + C) - 3 * (A * 1 ^ 2 + B * 1 + C)
       + 3 * (A * 2 ^ 2 + B * 2 + C) - (A * 3 ^ 2 + B * 3 + C) = 0 := by
   norm_num
   ring
 
-/-- ⭐⭐⭐ **深度 2 链的输出满足四阶差分为零**——**与第 197 轮的仿射障碍对照。**
+/-- ⭐⭐ **三次函数的四阶差分为零**——**深度 3 的判别式。** -/
+theorem cubic_fourth_difference (A B C D : ℝ) :
+    (A * 4 ^ 3 + B * 4 ^ 2 + C * 4 + D) - 4 * (A * 3 ^ 3 + B * 3 ^ 2 + C * 3 + D)
+      + 6 * (A * 2 ^ 3 + B * 2 ^ 2 + C * 2 + D) - 4 * (A * 1 ^ 3 + B * 1 ^ 2 + C * 1 + D)
+      + (A * 0 ^ 3 + B * 0 ^ 2 + C * 0 + D) = 0 := by
+  norm_num
+  ring
 
-**宽度 1、两层，四个输入点 `p j = j`（`j = 0,1,2,3`）：
-输出是 `g 2 · (g 0 · j + g 1) + g 3`，即 `j` 的二次函数，故四阶差分为零。** -/
-theorem twoLayer_fourth_difference_zero (g : Fin 4 → ℝ) :
+/-- ⭐⭐ **深度 1 的链满足二阶差分为零**——**仿射，故判别式是二阶。** -/
+theorem oneLayer_second_difference_zero (g : Fin 4 → ℝ) :
+    flatChainAct (N := 4) (Chain.cons twoLayerProbeRest (Chain.idf 1)) 0 g
+        (fun _ => (2 : ℝ)) 0
+        - 2 * flatChainAct (N := 4) (Chain.cons twoLayerProbeRest (Chain.idf 1)) 0 g
+            (fun _ => (1 : ℝ)) 0
+      + flatChainAct (N := 4) (Chain.cons twoLayerProbeRest (Chain.idf 1)) 0 g
+          (fun _ => (0 : ℝ)) 0 = 0 := by
+  simp only [flatChainAct, flatChainAct_idf, flatParamActSafe_width_one]
+  ring
+
+/-- ⭐⭐⭐ **深度 2 的链满足三阶差分为零**——**二次，故判别式是三阶。**
+
+**⚠ 第 200 轮把它叫「四阶」，本轮正名。** -/
+theorem twoLayer_third_difference_zero (g : Fin 4 → ℝ) :
     flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (0 : ℝ)) 0
         - 3 * flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (1 : ℝ)) 0
       + 3 * flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (2 : ℝ)) 0
         - flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (3 : ℝ)) 0 = 0 := by
   rw [twoLayerChain_explicit, twoLayerChain_explicit, twoLayerChain_explicit,
     twoLayerChain_explicit]
+  norm_num
+  ring
+
+/-- ⭐⭐⭐ **深度 3 的链满足四阶差分为零**——**三次，故判别式是四阶。**
+
+**⇒ 与上面两条合起来：「深度 d ⟹ 第 d+1 阶差分为零」有三个实例。** -/
+theorem threeLayer_fourth_difference_zero (g : Fin 6 → ℝ) :
+    flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (4 : ℝ)) 0
+        - 4 * flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (3 : ℝ)) 0
+      + 6 * flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (2 : ℝ)) 0
+        - 4 * flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (1 : ℝ)) 0
+      + flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (0 : ℝ)) 0 = 0 := by
+  rw [threeLayerChain_explicit, threeLayerChain_explicit, threeLayerChain_explicit,
+    threeLayerChain_explicit, threeLayerChain_explicit]
   norm_num
   ring
 

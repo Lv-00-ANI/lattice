@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 79 | 33 |
+| `Lattice.Core.VariableDerivative` | 82 | 33 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2189,7 +2189,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_unique` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
-- `affine_map_realisable` -> `W`
+- `affine_map_realisable` -> `Chain`, `W`
 - `affine_second_difference` -> `W`
 - `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -3514,6 +3514,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_norm_le` -> `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
+- `cubic_fourth_difference` -> `Chain`
 - `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `curvature_determined_by_one_query` -> `Subgradient`
@@ -7059,6 +7060,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
+- `oneLayer_second_difference_zero` -> `Chain`
 - `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
 - `oneStepRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `oneStepRepair_mu_le_one` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
@@ -7636,6 +7638,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quadratic_kkt` -> `subst`
 - `quadratic_remainder_bound` -> `add`, `comp`, `normSq`, `quadForm`, `smul`
 - `quadratic_remainder_bound_unit` -> `add`, `comp`, `normSq`, `quadForm`, `smul`
+- `quadratic_third_difference` -> `Chain`
 - `quadratic_unconstrained_stationary` -> `subst`
 - `quantErrBound_closed` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `zero`
 - `quantErrBound_nonneg` -> `E`, `W`, `induction`, `le_trans`, `zero`
@@ -7761,8 +7764,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `readSlot_linear` -> `Chain`, `MLayer`
 - `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`
 - `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`
-- `readSlot_slotMap_bias` -> `W`
-- `readSlot_slotMap_weight` -> `W`, `e2`
+- `readSlot_slotMap_bias` -> `Chain`, `W`
+- `readSlot_slotMap_weight` -> `Chain`, `W`, `e2`
 - `readout_invariant` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_mul` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_of_layerStack` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -9835,8 +9838,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `whileStep_body` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `whileStep_exit` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `while_never_exits_wpT_false` -> `AExp`, `Denotes`, `State`, `StmtT`, `evalA`, `execF`, `induction`, `wp`, `wpT`, `zero`
-- `wideChain2_explicit_one` -> `W`, `e2`
-- `wideChain2_explicit_zero` -> `W`, `e2`
+- `wideChain2_explicit_one` -> `Chain`, `W`, `e2`
+- `wideChain2_explicit_zero` -> `Chain`, `W`, `e2`
 - `wideChain_explicit_one` -> `Chain`, `W`, `e2`
 - `wideChain_explicit_zero` -> `Chain`, `W`, `e2`
 - `wigner_first_moment_zero` -> `apply`, `card_fin`, `subst`
