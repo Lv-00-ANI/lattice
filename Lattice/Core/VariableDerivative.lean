@@ -2133,4 +2133,98 @@ theorem threeLayer_param_quartic (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) :
 **⚠ 真正的解法是「次数」本身被参数化（`Polynomial` 的差分会话），
 登记为未做的缺口。** -/
 
+
+/-! ## ⭐⭐⭐ 下界：三次式不能被任何二次式拟合
+
+## 为什么需要这条
+
+**第 204／205 轮从【上方】钉住参数次数**：
+**`d = 2` 时三阶参数差分为零、`d = 3` 时四阶参数差分为零。**
+
+**⇒ 那只说明次数 ≤ d，不说明次数【不】更小。**
+
+**第 187 轮从下方钉住了 `d = 2`（`twoLayer_no_affine_fit`：没有仿射模型能拟合）。
+本节补上 `d = 3` 的下界——即「没有【二次】模型能拟合三层链」的解析核心。**
+
+**⚠ 而关键是【纯三次式】`t ↦ t³` 在四个点上已足以反驳任何一个二次式。**
+
+## 反例的取法
+
+**取 `t = 0, 1, 2, 3`：`t³` 给出 `0, 1, 8, 27`。**
+
+**若 `A + B·t + C·t² = t³` 对这四点都成立，则三点已唯一决定二次式
+（系数矩阵非零行列式），而它在 `t = 3` 处给 `21`，与 `27` 矛盾。**
+
+**⇒ 更直接：由 `t = 0` 得 `A = 0`，由 `t = 1` 得 `B + C = 1`，由 `t = 2` 得 `2B + 4C = 8`，
+解出 `C = 3`、`B = -2`，而 `t = 3` 要求 `3B + 9C = 27`，即 `-6 + 27 = 21 ≠ 27`。** -/
+
+/-- ⭐⭐ **三次式不能被二次式拟合**——**`d = 3` 下界的解析核心。**
+
+**`linarith` 只需四个求值点，不需要任何多项式理论。** -/
+theorem cubic_not_quadratic :
+    ¬ ∃ (A B C : ℝ), ∀ (t : ℝ), A + (B * t + C * t ^ 2) = t ^ 3 := by
+  rintro ⟨A, B, C, h⟩
+  have h0 := h 0
+  have h1 := h 1
+  have h2 := h 2
+  have h3 := h 3
+  norm_num at h0 h1 h2 h3
+  linarith
+
+
+/-- **`g = 0`、`h = e₀+e₂+e₄` 时四个系数分别是 `0, 0, 0, 1`。** -/
+theorem threeLayerCoeffs_at_axis (x : Fin 1 → ℝ) (hx : x 0 = 1) :
+    (threeLayerCoeff0 (0 : Fin 6 → ℝ) x = 0)
+      ∧ (threeLayerCoeff1 (0 : Fin 6 → ℝ) (fun i => if i = 0 ∨ i = 2 ∨ i = 4 then 1 else 0) x = 0)
+      ∧ (threeLayerCoeff2 (0 : Fin 6 → ℝ) (fun i => if i = 0 ∨ i = 2 ∨ i = 4 then 1 else 0) x = 0)
+      ∧ (threeLayerCoeff3 (0 : Fin 6 → ℝ) (fun i => if i = 0 ∨ i = 2 ∨ i = 4 then 1 else 0) x = 1) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · simp only [threeLayerCoeff0]
+    norm_num
+  · simp only [threeLayerCoeff1]
+    norm_num
+    simp [hx]
+  · simp only [threeLayerCoeff2]
+    norm_num
+    simp [hx]
+  · simp only [threeLayerCoeff3]
+    norm_num
+    simp [hx]
+
+
+/-- ⭐⭐⭐ **三层链不能被任何二次模型拟合**——**`d = 3` 的下界。**
+
+**⚠ 与第 204／205 轮合起来，参数次数在 `d = 3` 处从【两侧】钉住：**
+- **≤ 3**：`threeLayer_param_quartic`（四阶参数差分为零）；
+- **≥ 3**：本条（不存在二次模型）。
+
+## 构造
+
+**取 `g = 0`、`h = e₀ + e₂ + e₄`、`x = (fun _ => 1)`。
+由 `threeLayerCoeffs_at_axis`，四个系数是 `0, 0, 0, 1`，
+故由 `threeLayer_param_expand`，沿 `t ↦ g + t·h` 的输出【恒等于】 `t³`。**
+
+**⇒ 若某二次式 `A + (B·t + C·t²)` 拟合它，则与 `cubic_not_quadratic` 矛盾。** -/
+theorem threeLayer_no_quadfit :
+    ¬ ∃ (A B C : ℝ), ∀ (t : ℝ),
+        flatChainAct (N := 6) threeLayerChain 0
+          (fun i => (0 : Fin 6 → ℝ) i
+            + t * (if i = 0 ∨ i = 2 ∨ i = 4 then (1 : ℝ) else 0))
+          (fun _ => (1 : ℝ)) 0
+          = A + (B * t + C * t ^ 2) := by
+  rintro ⟨A, B, C, h⟩
+  have hc := threeLayerCoeffs_at_axis (fun _ => (1 : ℝ)) rfl
+  obtain ⟨h0, h1, h2, h3⟩ := hc
+  have hexp : ∀ t : ℝ,
+      flatChainAct (N := 6) threeLayerChain 0
+        (fun i => (0 : Fin 6 → ℝ) i
+          + t * (if i = 0 ∨ i = 2 ∨ i = 4 then (1 : ℝ) else 0))
+        (fun _ => (1 : ℝ)) 0 = t ^ 3 := by
+    intro t
+    rw [threeLayer_param_expand, h0, h1, h2, h3]
+    ring
+  refine cubic_not_quadratic ⟨A, B, C, fun t => ?_⟩
+  rw [← hexp t]
+  exact (h t).symm
+
 end Lattice.Core
