@@ -2043,13 +2043,6 @@ theorem rfdiffIter_one (f : ℝ → ℝ) : rfdiffIter 1 f = rfdiff f := rfl
 theorem rfdiffIter_succ (k : ℕ) (f : ℝ → ℝ) :
     rfdiffIter (k + 1) f = rfdiff (rfdiffIter k f) := rfl
 
-/-- ⭐⭐ **二次函数的三阶实数差分为零**——**「参数次数 = 2」的解析核心。** -/
-theorem rfdiffIter_cubic_zero (A B C : ℝ) :
-    rfdiffIter 3 (fun t : ℝ => A + (B * t + C * t ^ 2)) 0 = 0 := by
-  simp only [rfdiffIter, rfdiff]
-  norm_num
-  ring
-
 /-- ⭐⭐⭐ **沿任何参数方向，两层链是二次的**——**故三阶参数差分为零。**
 
 **⚠ 与第 187 轮的对照**：**第 187 轮 `twoLayer_no_affine_fit` 证【没有仿射模型能拟合】，
@@ -2067,6 +2060,77 @@ theorem twoLayer_param_cubic (g h : Fin 4 → ℝ) (x : Fin 1 → ℝ) :
     rw [twoLayerChain_explicit]
     ring
   simp only [hexp]
-  exact rfdiffIter_cubic_zero _ _ _
+  simp only [rfdiffIter, rfdiff]
+  norm_num
+  ring
+
+
+/-- **三层链沿参数方向的常数项**。 -/
+def threeLayerCoeff0 (g : Fin 6 → ℝ) (x : Fin 1 → ℝ) : ℝ :=
+  (g 4) * ((g 2) * ((g 0) * x 0 + g 1) + g 3) + g 5
+
+/-- **三层链沿参数方向的一次项系数**。 -/
+def threeLayerCoeff1 (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) : ℝ :=
+  (h 4) * ((g 2) * ((g 0) * x 0 + g 1) + g 3)
+    + (g 4) * ((h 2) * ((g 0) * x 0 + g 1) + (g 2) * ((h 0) * x 0 + h 1) + h 3)
+    + h 5
+
+/-- **三层链沿参数方向的二次项系数**。 -/
+def threeLayerCoeff2 (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) : ℝ :=
+  (h 4) * ((h 2) * ((g 0) * x 0 + g 1) + (g 2) * ((h 0) * x 0 + h 1) + h 3)
+    + (g 4) * ((h 2) * ((h 0) * x 0 + h 1))
+
+/-- **三层链沿参数方向的三次项系数**——**`h4 · h2 · h0 · x`，三个权重方向之积。** -/
+def threeLayerCoeff3 (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) : ℝ :=
+  (h 4) * ((h 2) * ((h 0) * x 0 + h 1))
+
+/-- ⭐⭐ **三层的参数展开**：**沿 `g + t·h`，输出是 `t` 的三次式。**
+
+**⚠ 系数单独定义为 `threeLayerCoeff0..3`，以便逐项核对**——
+**直接写成一个巨大的括号表达式在 Lean 里极易错配括号（第 205 轮试过两次失败）。** -/
+theorem threeLayer_param_expand (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) (t : ℝ) :
+    flatChainAct (N := 6) threeLayerChain 0 (fun i => g i + t * h i) x 0
+      = threeLayerCoeff0 g x
+        + (threeLayerCoeff1 g h x * t
+            + (threeLayerCoeff2 g h x * t ^ 2 + threeLayerCoeff3 g h x * t ^ 3)) := by
+  simp only [threeLayerCoeff0, threeLayerCoeff1, threeLayerCoeff2, threeLayerCoeff3]
+  rw [threeLayerChain_explicit]
+  ring
+
+/-- ⭐⭐⭐ **沿任何参数方向，【三】层链是三次的**——**故四阶参数差分为零。**
+
+**⇒ 与第 204 轮的两层情形合起来，「参数次数 = 深度」有了 `d = 2, 3` 两个实例。** -/
+theorem threeLayer_param_quartic (g h : Fin 6 → ℝ) (x : Fin 1 → ℝ) :
+    rfdiffIter 4 (fun t : ℝ =>
+      flatChainAct (N := 6) threeLayerChain 0 (fun i => g i + t * h i) x 0) 0 = 0 := by
+  have : (fun t : ℝ => flatChainAct (N := 6) threeLayerChain 0
+      (fun i => g i + t * h i) x 0)
+      = fun t : ℝ => threeLayerCoeff0 g x
+          + (threeLayerCoeff1 g h x * t
+              + (threeLayerCoeff2 g h x * t ^ 2 + threeLayerCoeff3 g h x * t ^ 3)) := by
+    funext t
+    exact threeLayer_param_expand g h x t
+  rw [this]
+  simp only [rfdiffIter, rfdiff]
+  norm_num
+  ring
+
+/-! ### ⚠ 第三处被普查拦下的复制，这次的处理是【内联】
+
+**我先后写了 `rfdiffIter_cubic_zero`（二次 → 三阶）与 `rfdiffIter_quartic_zero`（三次 → 四阶）。
+`audit_aliases.py` 把两条都标为 `copy`：它们是同一模式（"次数 n 的多项式被 n+1 阶差分零化"）的两次实例化。**
+
+**我一度想把它们改名成 `_poly2`／`_poly3` 了事——那【不解决问题**：
+**结构同形不会因为换个名字而消失，普查看的也不是名字。**
+
+**⇒ 正确处理是【不单独命名**：**两者各自内联进唯一的调用点**
+（`twoLayer_param_cubic` 与 `threeLayer_param_quartic`），**那里的目标是具体多项式，
+`simp only [rfdiffIter, rfdiff]` + `norm_num` + `ring` 已足够。**
+
+**⚠ 代价是两条证明里各出现一次相同的五行 tactic 串。那【可以接受**：
+**五行重复远好于两条只差指数的公开定理——后者会让读者以为它们承载不同的数学。**
+
+**⚠ 真正的解法是「次数」本身被参数化（`Polynomial` 的差分会话），
+登记为未做的缺口。** -/
 
 end Lattice.Core
