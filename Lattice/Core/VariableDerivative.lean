@@ -2773,4 +2773,46 @@ theorem twoLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
         rw [max_le_iff]
         exact ⟨hprod, by simp⟩
 
+
+/-! ## ⚠⚠ 第 8 轮：链层递归的障碍记录（未完成）
+
+## 目标
+
+**把第 7 轮的 `twoLayerParamPoly` 推广成对 `Chain` 的递归：
+`chainPoly ch off h x` 给出整条宽 1 链的输出多项式，并证 `totalDegree ≤ chainDepth ch`。**
+
+## 数学上它是对的，而且很简单
+
+**宽 1 时不需要多项式【代入】**：**每一层只是「乘一个变量、加一个变量」，输入 `x` 是标量常数。**
+**⇒ 递归是纯乘加：**
+
+    chainPoly (.idf _)     off x = C x
+    chainPoly (.cons l ch) off x = X off · chainPoly ch (off+2) x + X (off+1)
+
+**核对**：**`Φ_1 = X 0 · C x + X 1`，`Φ_2 = X 2 · Φ_1 + X 3`——展开正是第 188 轮的形式。✓**
+
+**⇒ 次数归纳只需 `totalDegree_mul`（相加）与 `totalDegree_add`（取 max），两者都已核实存在。**
+
+## 实际卡住的地方（Lean 工程问题，不是数学问题）
+
+**1. 递归的度量**：`off` 每层加 2，所以「整条链够用」的界必须随递归变化。
+我把它写成全局界 `hN : off + 2 * chainDepth ch + 1 < N` 并配 `termination_by`，**定义体本身通过了**——
+**但随后 `termination_by ch off hN x => chainDepth ch` 报 `application type mismatch`：
+`ch` 在该位置被绑定为 `ℕ`（因为 `termination_by` 的参数是【被消去后的**那些）。**
+
+**2. 展开 `noncomputable def`**：`rw [chainPoly]` 与 `simp only [chainPoly]` 都报 `made no progress`——
+**递归定义需要在等式引理的形式下展开，而我没有找到正确的展开方式。**
+
+**3. 命名冲突**：`chainDepth` 是 `{m n : ℕ} → Chain m n → ℕ`（有隐式参数），
+在 `termination_by` 的位置上隐式参数无法推断，于是 `ch` 被错配到第一个显式位置（`ℕ`）。**
+
+## 结论
+
+**本轮没有把这条写进代码。** **上面的三步是【具体的下一步**，
+而它们需要的是 Lean 的 dependent recursion 工程（`termination_by` 的正确写法、
+递归定义的展开引理、隐式参数的显式化），**不是更多数学。**
+
+**⇒ 第 7 轮的 `oneLayerParamPoly`／`twoLayerParamPoly` 与它们的次数界仍然有效，
+而「对链递增归纳」这一步【登记为未做**，理由是上述三条工程障碍。** -/
+
 end Lattice.Core
