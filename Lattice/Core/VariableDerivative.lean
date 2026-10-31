@@ -2371,4 +2371,42 @@ theorem lowDeg_zero_affine_mul {f : ℝ → ℝ} (hf : LowDeg 0 f) (a b : ℝ) :
   simp only [Pi.zero_apply]
   ring
 
+
+/-- ⭐⭐⭐ **`LowDeg 1 f` 的算术内容**：**`f (s+2) - 2·f (s+1) + f s = 0`。**
+
+**⇒ `f` 在等距点上是【仿射**的：`f (s+k) = f s + k·(f (s+1) - f s)` 对一切自然数 `k`。
+
+**⚠ 下面只证用得到的 `k ≤ 4`——一般 `k` 需要 `Nat` 归纳，而本节的目标只到三阶差分。** -/
+theorem lowDeg_one_step {f : ℝ → ℝ} (hf : LowDeg 1 f) (s : ℝ) :
+    f (s + 1 + 1) - f (s + 1) = f (s + 1) - f s := by
+  have h : rfdiff (rfdiff f) = 0 := hf
+  have := congrFun h s
+  simp only [rfdiff, Pi.zero_apply] at this
+  linarith
+
+/-- **`f (s+2) = 2·f (s+1) - f s`**——上一式的移项形式。 -/
+theorem lowDeg_one_rec {f : ℝ → ℝ} (hf : LowDeg 1 f) (s : ℝ) :
+    f (s + 1 + 1) = 2 * f (s + 1) - f s := by
+  have := lowDeg_one_step hf s
+  linarith
+
+/-- ⭐⭐⭐ **乘以一次式使次数 ≤ 1 升到次数 ≤ 2**——**归纳在 `k = 1` 处的一步。**
+
+**⚠ 证明方式**：**用 `lowDeg_one_rec` 把目标里所有 `f (t+k)`（`k ≥ 2`）降成
+`f t` 与 `f (t+1)` 的线性组合，然后 `ring`。**
+
+**⚠ 与 `lowDeg_zero_affine_mul` 合起来，`k = 0, 1` 两步都有。
+完整归纳需要一般 `k`（离散 Leibniz 的一般形式），本轮未做。** -/
+theorem lowDeg_one_affine_mul {f : ℝ → ℝ} (hf : LowDeg 1 f) (a b : ℝ) :
+    LowDeg 2 (fun t => (a + b * t) * f t) := by
+  simp only [LowDeg] at hf ⊢
+  simp only [rfdiffIter] at hf ⊢
+  funext t
+  simp only [rfdiff, Pi.zero_apply]
+  -- 把四个高点的值降到 f t 与 f (t+1)
+  have r1 : f (t + 1 + 1) = 2 * f (t + 1) - f t := lowDeg_one_rec hf t
+  have r2 : f (t + 1 + 1 + 1) = 2 * f (t + 1 + 1) - f (t + 1) := lowDeg_one_rec hf (t + 1)
+  rw [r2, r1]
+  ring
+
 end Lattice.Core
