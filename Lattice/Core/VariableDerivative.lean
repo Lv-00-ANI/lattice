@@ -933,4 +933,84 @@ theorem flatParamActSafe_differentiableAt_joint {N a b : ℕ} (off : ℕ)
   rw [hfun]
   fun_prop
 
+/-! ## 任意深度：沿 `Chain` 折叠
+
+## 为什么现在可以
+
+**`flatParamActSafe` 不带任何界假设（第 173 轮），
+所以沿 `Chain` 的递归不需要携带任何随层数增长的假设。**
+**这正是第 162–172 轮一直缺的那一块。**
+
+## 偏移的递推
+
+**每层的起点是「上一层起点 + 上一层占用量」，而占用量是 `layerParamCount`。**
+**所以偏移是随 `ch` 一起递归算出来的，不作为额外参数传入。** -/
+
+/-- **`Chain` 的逐层起始偏移**——**随 `ch` 递归，与第 172 轮的 `thirdOffset`／`fourthOffset` 一致。** -/
+noncomputable def chainOffsets : {m n : ℕ} → Chain m n → ℕ → List ℕ
+  | _, _, .idf _, _ => []
+  | _, _, .cons (m := m') (n := n') _ rest, off =>
+      off :: chainOffsets rest (off + layerParamCount m' n')
+
+/-- **单层链的偏移表只有一项**（`idf` 之后没有层）。 -/
+theorem chainOffsets_idf (n off : ℕ) : chainOffsets (Chain.idf n) off = [] :=
+  rfl
+
+/-- ⭐⭐ **两层链的偏移表与 `thirdOffset` 一致**——**与第 172 轮的递推对齐。** -/
+theorem chainOffsets_two (m n c off : ℕ) (l₁ : MLayer m n) (l₂ : MLayer n c) :
+    chainOffsets (Chain.cons l₁ (Chain.cons l₂ (Chain.idf c))) off
+      = [off, thirdOffset off m n] := by
+  simp only [chainOffsets, thirdOffset]
+
+/-- ⭐⭐⭐ **任意深度的链作用**——**每层从 `g` 读参数，激活逐层传下去。**
+
+**⚠ `N` 是参数向量长度，对所有层【相同】**；**层的输入／输出宽度由 `Chain` 的构造子强制。** -/
+noncomputable def flatChainAct {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (off : ℕ) →
+    (Fin N → ℝ) → (Fin m → ℝ) → Fin n → ℝ
+  | _, _, .idf _, _, _, x => x
+  | _, _, .cons (m := m') (n := n') _ rest, off, g, x =>
+      flatChainAct rest (off + layerParamCount m' n') g
+        (flatParamActSafe (N := N) (a := m') (b := n') off g x)
+
+/-- **空链的作用是恒等**。 -/
+theorem flatChainAct_idf {N n : ℕ} (off : ℕ) (g : Fin N → ℝ) (x : Fin n → ℝ) :
+    flatChainAct (N := N) (Chain.idf n) off g x = x :=
+  rfl
+
+/-- ⭐⭐⭐ **任意深度的链作用对【参数与激活】联合可微**——**第 162 轮以来的目标。**
+
+**对 `ch` 递归**：
+
+- **`idf`**：作用是第二投影，可微；
+- **`cons`**：`flatChainAct (cons l rest) off g x = flatChainAct rest off' g (flatParamActSafe off g x)`，
+  **与内层映射 `r ↦ (r.1, flatParamActSafe off r.1 r.2)` 复合，
+  而后者由第 173 轮的 `flatParamActSafe_differentiableAt_joint` 可微。** -/
+theorem flatChainAct_differentiableAt_joint {N : ℕ} :
+    {m n : ℕ} → (ch : Chain m n) → (off : ℕ) → (g : Fin N → ℝ) → (x : Fin m → ℝ) →
+    DifferentiableAt ℝ
+      (fun r : (Fin N → ℝ) × (Fin m → ℝ) =>
+        flatChainAct (N := N) ch off r.1 r.2) (g, x)
+  | _, _, .idf n, off, g, x => by
+      have hid : (fun r : (Fin N → ℝ) × (Fin n → ℝ) =>
+          flatChainAct (N := N) (Chain.idf n) off r.1 r.2) = fun r => r.2 := by
+        funext r
+        exact flatChainAct_idf off r.1 r.2
+      rw [hid]
+      exact differentiableAt_snd
+  | _, _, .cons (m := m') (n := n') l rest, off, g, x => by
+      have hstep : (fun r : (Fin N → ℝ) × (Fin m' → ℝ) =>
+            flatChainAct (N := N) (Chain.cons l rest) off r.1 r.2)
+          = (fun s : (Fin N → ℝ) × (Fin n' → ℝ) =>
+              flatChainAct (N := N) rest (off + layerParamCount m' n') s.1 s.2)
+            ∘ (fun r : (Fin N → ℝ) × (Fin m' → ℝ) =>
+                (r.1, flatParamActSafe (N := N) (a := m') (b := n') off r.1 r.2)) := by
+        funext r
+        rfl
+      rw [hstep]
+      refine (flatChainAct_differentiableAt_joint rest
+        (off + layerParamCount m' n') g
+        (flatParamActSafe (N := N) (a := m') (b := n') off g x)).comp (g, x) ?_
+      exact DifferentiableAt.prod differentiableAt_fst
+        (flatParamActSafe_differentiableAt_joint (N := N) (a := m') (b := n') off g x)
+
 end Lattice.Core
