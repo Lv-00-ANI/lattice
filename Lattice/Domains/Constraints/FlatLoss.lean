@@ -128,4 +128,34 @@ theorem flatLoss_differentiableAt_params {N K n : ℕ} (ch : Chain n n) (off : �
     (fun i : Fin K => flatChainAct (N := N) ch off g (p i)) hK hk).comp g
     (flatPoints_differentiableAt_params ch off p g)
 
+/-- ⭐⭐ **逐点链作用对【输入点列】可微**——**由第 159／177 轮的 `differentiableAt_chainAct`。**
+
+**⚠ 这条在第 176 轮曾因 `unknown identifier 'differentiableAt_chainAct'` 失败**——
+**排查发现该定理在第 161 轮丢失（第 177 轮恢复），但本节最终【不】依赖它：
+输入侧可微性由 `flatChainAct_differentiableAt_joint` 与 `x ↦ (g, x)` 复合得到，更短。** -/
+theorem flatPoints_differentiableAt_input {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (g : Fin N → ℝ) (p : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun r : Fin K → Pt n => fun i : Fin K => flatChainAct (N := N) ch off g (r i)) p := by
+  exact differentiableAt_pi.2 (fun i => by
+    have hproj : DifferentiableAt ℝ (fun r : Fin K → Pt n => r i) p := by fun_prop
+    exact (flatChainAct_differentiableAt_input ch off g (p i)).comp p hproj)
+
+/-- ⭐⭐⭐ **`flatLoss` 对【输入点列】可微**——**与 `_params` 版对称，两边都有了。** -/
+theorem flatLoss_differentiableAt_input {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (cs : List (GeoConstraint n)) (g : Fin N → ℝ) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun i : Fin K => flatChainAct (N := N) ch off g (p i))) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => flatLoss ch off cs g r) p := by
+  have hcomp : (fun r : Fin K → Pt n => flatLoss ch off cs g r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+        ∘ (fun r : Fin K → Pt n =>
+            fun i : Fin K => flatChainAct (N := N) ch off g (r i)) := by
+    funext r
+    exact flatLoss_eq_comp ch off cs g r
+  rw [hcomp]
+  exact (lossOfActivations_differentiableAt_nonKink cs
+    (fun i : Fin K => flatChainAct (N := N) ch off g (p i)) hK hk).comp p
+    (flatPoints_differentiableAt_input ch off g p)
+
 end Lattice.Geo

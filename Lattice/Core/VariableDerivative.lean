@@ -175,6 +175,30 @@ theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n �
     Chain.actWith (Chain.idf n) p x = x :=
   rfl
 
+/-- ⭐⭐⭐ **`Chain.act` 对【输入】可微**——**第 159 轮证明，第 161 轮区域重写时【丢失**，
+**第 177 轮恢复。**
+
+**⚠ 这是一处【回归**：第 159 轮提交（`1a98716`）里有这条定理，
+第 161 轮（`efb2d0f`）把整个「`abbrev` 说明 + `actWith`」区域重写时把它一并删掉了，
+而第 163 轮随后在文档串里声称它「完整证明」存在——
+**那是文档与代码脱节，第 177 轮同时修正了两者。** -/
+theorem differentiableAt_chainAct : {m n : ℕ} → (ch : Chain m n) → (x : Fin m → ℝ) →
+    DifferentiableAt ℝ (fun y : Fin m → ℝ => Chain.act ch y) x
+  | _, _, .idf n, x => by
+      have hid : (fun y : Fin n → ℝ => Chain.act (Chain.idf n) y) = id := by
+        funext y
+        exact Chain.act_idf y
+      rw [hid]
+      exact differentiableAt_id
+  | _, _, .cons (m := m') (n := n') l rest, x => by
+      have hstep : (fun y : Fin m' → ℝ => Chain.act (Chain.cons l rest) y)
+          = (fun z : Fin n' → ℝ => Chain.act rest z) ∘ (fun y => mlayerAct l y) := by
+        funext y
+        rfl
+      rw [hstep]
+      exact (differentiableAt_chainAct rest _).comp x
+        (differentiableAt_mlayerAct (mlayerParamsOf l) x)
+
 /-! ### ⚠ 未闭合：`Chain.actWith` 的联合可微性
 
 **目标**：`DifferentiableAt ℝ (fun r : ChainParams ch × (Fin m → ℝ) => Chain.actWith ch r.1 r.2) (p, x)`。
@@ -299,10 +323,11 @@ theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n �
 **四轮（160–164）共试了五种路线，全部受阻于同一个层次：
 Lean 的工具链与类型类系统，而不是数学。**
 
-**已确认可行的部分（都是真的、都在代码里）：**
+**已确认可行的部分：**
 
 1. **`Chain.act` 对 `Chain` 的递归可微性**（第 159 轮，
-   `differentiableAt_chainAct`，完整证明）；
+   `differentiableAt_chainAct`）——**⚠ 该定理在第 161 轮的区域重写中曾被【删除**，
+   **第 177 轮恢复；本节此前的措辞声称它「完整证明」，而那段时期内代码里并没有它。**
 2. **`Chain.actWith` 的参数化作用**（第 161 轮，含两条 `rfl` 引理）；
 3. **对【具体】链形状，`ChainParams` 的实例自动解出**（第 162 轮实测到四层）；
 4. **`affineAct` 的仿射性与共线性保持**（第 156 轮，这是表达能力的实质结论）。
@@ -1012,5 +1037,13 @@ theorem flatChainAct_differentiableAt_joint {N : ℕ} :
         (flatParamActSafe (N := N) (a := m') (b := n') off g x)).comp (g, x) ?_
       exact DifferentiableAt.prod differentiableAt_fst
         (flatParamActSafe_differentiableAt_joint (N := N) (a := m') (b := n') off g x)
+
+/-- ⭐⭐ **`flatChainAct` 对【输入】可微**——**由联合定理与 `x ↦ (g, x)` 复合。** -/
+theorem flatChainAct_differentiableAt_input {N : ℕ} :
+    {m n : ℕ} → (ch : Chain m n) → (off : ℕ) → (g : Fin N → ℝ) → (x : Fin m → ℝ) →
+    DifferentiableAt ℝ (fun y : Fin m → ℝ => flatChainAct (N := N) ch off g y) x
+  | _, _, ch, off, g, x =>
+    (flatChainAct_differentiableAt_joint ch off g x).comp x
+      (DifferentiableAt.prod (differentiableAt_const g) differentiableAt_id)
 
 end Lattice.Core

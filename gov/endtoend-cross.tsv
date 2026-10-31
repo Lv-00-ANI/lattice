@@ -146,10 +146,12 @@ Core/VariableActLayer.lean	nlayer_width_forced
 Core/VariableDerivative.lean	chainParams_idf
 Core/VariableDerivative.lean	Chain.actWith_cons
 Core/VariableDerivative.lean	Chain.actWith_idf
+Core/VariableDerivative.lean	differentiableAt_chainAct
 Core/VariableDerivative.lean	chainOffsets_idf
 Core/VariableDerivative.lean	chainOffsets_two
 Core/VariableDerivative.lean	flatChainAct_idf
 Core/VariableDerivative.lean	flatChainAct_differentiableAt_joint
+Core/VariableDerivative.lean	flatChainAct_differentiableAt_input
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
@@ -236,6 +238,8 @@ Domains/Constraints/FlatLoss.lean	flatLoss_eq_comp
 Domains/Constraints/FlatLoss.lean	flatLoss_eq_zero_iff
 Domains/Constraints/FlatLoss.lean	flatPoints_differentiableAt_params
 Domains/Constraints/FlatLoss.lean	flatLoss_differentiableAt_params
+Domains/Constraints/FlatLoss.lean	flatPoints_differentiableAt_input
+Domains/Constraints/FlatLoss.lean	flatLoss_differentiableAt_input
 Domains/Constraints/Flatten.lean	unflatten_flatten
 Domains/Constraints/Flatten.lean	flatten_unflatten
 Domains/Constraints/Flatten.lean	flatten_injective
