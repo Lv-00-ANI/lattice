@@ -1538,4 +1538,49 @@ theorem flatChainAct_cons_general {N m n c : ℕ} (l : MLayer m n) (rest : Chain
 **⇒ 加一条只做参数特化的 `rfl` 名字会制造「看起来更具体」的假象，
 那是别名普查要拦的东西，这里主动不加。** -/
 
+
+/-! ## 宽度 2 的具体实例：宽度保持线性
+
+## 为什么这个实例值得做
+
+**第 190／191 轮分别证了深度 1 的递推与任意宽度的递推，
+但所有的【显式形式】至今都是宽度 1。**
+
+**⇒ 宽度在表达力里扮演什么角色，此前只有「递推里那一项求和」的说法，
+没有可以核对的实例。本节给出宽度 2、单层的显式形式：
+它展示宽度带来的不是次数，而是每个坐标各自一条线性表达式。**
+
+## 槽位（宽度 2、单层，`layerParamCount 2 2 = 6`）
+
+**`slotOf off 2 i j = off + i*2 + j`，所以 `w i j` 在槽位 `i*2 + j`：
+
+| `w` | `j = 0` | `j = 1` |
+|:--|:--|:--|
+| `i = 0` | `g 0` | `g 1` |
+| `i = 1` | `g 2` | `g 3` |
+
+**偏置在 `off + 2*2 + j = 4 + j`：`g 4`、`g 5`。** -/
+
+/-- **宽度 2 的一层**（层内容无关，只决定宽度）。 -/
+noncomputable def wideLayerRest : MLayer 2 2 := ⟨fun _ _ => 0, fun _ => 0⟩
+
+/-- **宽度 2、单层的链**。 -/
+noncomputable def wideChain : Chain 2 2 := Chain.cons wideLayerRest (Chain.idf 2)
+
+/-- ⭐⭐⭐ **宽度 2、第 0 个坐标**：**`z 0 = g 0 · x 0 + g 2 · x 1 + g 4`。** -/
+theorem wideChain_explicit_zero (g : Fin 6 → ℝ) (x : Fin 2 → ℝ) :
+    flatChainAct (N := 6) wideChain 0 g x 0 = g 0 * x 0 + g 2 * x 1 + g 4 := by
+  simp only [wideChain, wideLayerRest, flatChainAct, flatParamActSafe, readSlot, slotOf,
+    layerParamCount]
+  norm_num
+  congr 3 <;> norm_num
+
+/-- ⭐⭐⭐ **宽度 2、第 1 个坐标**：**`z 1 = g 1 · x 0 + g 3 · x 1 + g 5`。** -/
+theorem wideChain_explicit_one (g : Fin 6 → ℝ) (x : Fin 2 → ℝ) :
+    flatChainAct (N := 6) wideChain 0 g x 1 = g 1 * x 0 + g 3 * x 1 + g 5 := by
+  simp only [wideChain, wideLayerRest, flatChainAct, flatParamActSafe, readSlot, slotOf,
+    layerParamCount]
+  norm_num
+  congr 3 <;> norm_num
+
 end Lattice.Core

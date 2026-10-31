@@ -166,6 +166,8 @@ Core/VariableDerivative.lean	twoLayerChain_linear_in_g2
 Core/VariableDerivative.lean	threeLayerChain_explicit
 Core/VariableDerivative.lean	flatChainAct_cons_width_one
 Core/VariableDerivative.lean	flatChainAct_cons_general
+Core/VariableDerivative.lean	wideChain_explicit_zero
+Core/VariableDerivative.lean	wideChain_explicit_one
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
