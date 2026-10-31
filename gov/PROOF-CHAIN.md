@@ -1584,7 +1584,7 @@
 | `Lattice.Domains.Constraints.Expr` | 8 | 5 |
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
 | `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
-| `Lattice.Domains.Constraints.FlatLoss` | 11 | 2 |
+| `Lattice.Domains.Constraints.FlatLoss` | 14 | 2 |
 | `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
@@ -4769,6 +4769,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatLayerAct_differentiableAt` -> `comp`
+- `flatLoss_achievable_iff` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`
+- `flatLoss_achievable_iff_mem` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`
 - `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
@@ -7051,6 +7053,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
+- `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`
 - `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
 - `oneStepRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `oneStepRepair_mu_le_one` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`

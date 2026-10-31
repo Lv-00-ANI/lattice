@@ -221,4 +221,77 @@ theorem flatLoss_idf_achievable {N K n : ℕ} (off : ℕ) (cs : List (GeoConstra
     intro c hc
     exact (penaltyLoss_eq_zero_iff_holds_of_safe c (hs c hc) (trunc p)).mpr (hall c hc)
 
+
+/-! ## 深度 1 的逆向刻画：存在参数 ⟺ 存在参数使约束成立
+
+## 为什么这一节
+
+**第 175 轮给了 `flatLoss = 0 ↔ 全部约束在输出点列上成立`，
+第 178 轮证明【约束本身】不可从损失恢复（`leZero` 与 `ltZero` 共享损失），
+第 185–187 轮证明【仿射像】路线在深度 ≥ 2 上不成立。**
+
+**⇒ 深度 1 是唯一还站得住的易情形（第 186 轮的 `flatChainAct_oneLayer_affine`）。
+本节把那个情形上的逆向刻画写全。**
+
+## 三条并立
+
+1. **损失为零**：`∃ g, flatLoss … g p = 0`；
+2. **约束成立**：`∃ g, ∀ c ∈ cs, Holds c (flatPoints … g p)`；
+3. **落在可行集里**：`∃ g, flatPoints … g p ∈ {Φ | ∀ c ∈ cs, Holds c Φ}`。
+
+**三条【等价】。而 1 ↔ 2 是第 175 轮的逐点双条件在存在量词下提升，
+2 ↔ 3 只是 `Set` 成员记法的展开。**
+
+**⚠ 这不是新数学，而是把已有的两块【并列】起来——
+但并列本身是必要的：它说明「训练把损失压到零」与「存在一个实现符号约束的配置」
+在深度 1 上是同一件事，而那正是逆向回路能运行的前提。** -/
+
+/-- ⭐⭐⭐ **深度 1 的可实现性**：**存在参数使损失为零 ⟺ 存在参数使全部（安全）约束在输出点列上成立。**
+
+**由第 175 轮的 `flatLoss_eq_zero_iff` 在存在量词下提升。** -/
+theorem flatLoss_achievable_iff {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hs : ∀ c ∈ cs, SafeBranch c) :
+    (∃ g : Fin N → ℝ, flatLoss ch off cs g p = 0)
+      ↔ ∃ g : Fin N → ℝ, ∀ c ∈ cs, Holds c (flatPoints (N := N) ch off g p) := by
+  constructor
+  · rintro ⟨g, hg⟩
+    exact ⟨g, (flatLoss_eq_zero_iff ch off cs g p hs).mp hg⟩
+  · rintro ⟨g, hg⟩
+    exact ⟨g, (flatLoss_eq_zero_iff ch off cs g p hs).mpr hg⟩
+
+/-- ⭐⭐⭐ **同一件事的【集合】形式**：**存在参数使损失为零 ⟺ 存在参数使输出点列落在可行集里。**
+
+**⚠ 这一条把「可实现」写成「输出落在 `{Φ | ∀ c ∈ cs, Holds c Φ}` 里」——
+而那正是第 178 轮指出的正确对象（约束列表不可恢复，可行集可以）。** -/
+theorem flatLoss_achievable_iff_mem {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hs : ∀ c ∈ cs, SafeBranch c) :
+    (∃ g : Fin N → ℝ, flatLoss ch off cs g p = 0)
+      ↔ ∃ g : Fin N → ℝ,
+          flatPoints (N := N) ch off g p ∈ {Φ : ℕ → Pt n | ∀ c ∈ cs, Holds c Φ} := by
+  rw [flatLoss_achievable_iff ch off cs p hs]
+  constructor
+  · rintro ⟨g, hg⟩
+    exact ⟨g, hg⟩
+  · rintro ⟨g, hg⟩
+    exact ⟨g, hg⟩
+
+/-- ⭐⭐⭐ **深度 1 的逆向刻画（合并陈述）**——**三条等价并列。**
+
+**「损失为零」「约束成立」「落在可行集里」在深度 1 上是同一件事。** -/
+theorem oneLayer_reverse_equivalence {N K n : ℕ} (ch : Chain n n) (off : ℕ)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hs : ∀ c ∈ cs, SafeBranch c) :
+    (∃ g : Fin N → ℝ, flatLoss ch off cs g p = 0)
+      ↔ (∃ g : Fin N → ℝ, ∀ c ∈ cs, Holds c (flatPoints (N := N) ch off g p))
+      ∧ (∃ g : Fin N → ℝ,
+          flatPoints (N := N) ch off g p ∈ {Φ : ℕ → Pt n | ∀ c ∈ cs, Holds c Φ}) := by
+  constructor
+  · intro h
+    exact ⟨(flatLoss_achievable_iff ch off cs p hs).mp h,
+      (flatLoss_achievable_iff_mem ch off cs p hs).mp h⟩
+  · rintro ⟨h, _⟩
+    exact (flatLoss_achievable_iff ch off cs p hs).mpr h
+
 end Lattice.Geo
