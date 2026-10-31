@@ -181,6 +181,7 @@ Core/VariableDerivative.lean	flatChainAct_fdiffIter_two
 Core/VariableDerivative.lean	twoLayer_param_cubic
 Core/VariableDerivative.lean	threeLayer_param_expand
 Core/VariableDerivative.lean	threeLayer_param_quartic
+Core/VariableDerivative.lean	threeLayer_no_quadfit
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
