@@ -1343,4 +1343,44 @@ theorem flatChainAct_zeroLayer_affine {N n : ℕ} (off : ℕ)
   simp only [flatChainAct_idf]
   ring
 
+/-- **`twoLayerG₁` 处的输出是 `1`**。 -/
+theorem twoLayer_gA_eval :
+    flatChainAct (N := 4) twoLayerChain 0 twoLayerG₁ twoLayerX 0 = 1 := by
+  simp only [twoLayerChain, twoLayerProbeRest, flatChainAct, flatParamActSafe, readSlot,
+    slotOf, layerParamCount, twoLayerG₁, twoLayerG₂, twoLayerX]
+  norm_num
+
+/-- **`twoLayerG₂` 处的输出是 `4`**。 -/
+theorem twoLayer_gB_eval :
+    flatChainAct (N := 4) twoLayerChain 0 twoLayerG₂ twoLayerX 0 = 4 := by
+  simp only [twoLayerChain, twoLayerProbeRest, flatChainAct, flatParamActSafe, readSlot,
+    slotOf, layerParamCount, twoLayerG₁, twoLayerG₂, twoLayerX]
+  norm_num
+
+/-- ⭐⭐⭐ **两层链【不能】被任何仿射函数拟合**——**第 185 轮反例的强烈形式。**
+
+**第 185 轮证的是「某条仿射等式失效」。本条证的是【更强】的东西：
+不存在任何仿射模型 `g ↦ Σ Aᵢ gᵢ + c` 能在所有参数点上复现两层链的输出。**
+
+**证明**：**若存在，则在 `gA`、`gB` 与它们的中点三处取值的仿射关系必须成立，
+即 `z(mid) = (z(gA) + z(gB))/2`。而实测 `z(mid) = 9/4`、`(1+4)/2 = 5/2`，两者不等。** -/
+theorem twoLayer_no_affine_fit :
+    ¬ ∃ (A : Fin 4 → ℝ) (c : ℝ), ∀ (g : Fin 4 → ℝ),
+        flatChainAct (N := 4) twoLayerChain 0 g twoLayerX 0 = (∑ i, A i * g i) + c := by
+  rintro ⟨A, c, h⟩
+  have hA := h twoLayerG₁
+  have hB := h twoLayerG₂
+  have hM := h (fun i => (1 - (1 / 2 : ℝ)) * twoLayerG₁ i + (1 / 2) * twoLayerG₂ i)
+  rw [twoLayer_gA_eval] at hA
+  rw [twoLayer_gB_eval] at hB
+  rw [twoLayer_convex_eval] at hM
+  -- 中点处的加权和等于两端加权和的平均
+  have hsum : (∑ i, A i * ((1 - (1 / 2 : ℝ)) * twoLayerG₁ i + (1 / 2) * twoLayerG₂ i))
+      = ((∑ i, A i * twoLayerG₁ i) + (∑ i, A i * twoLayerG₂ i)) / 2 := by
+    simp only [twoLayerG₁, twoLayerG₂, Fin.sum_univ_four]
+    norm_num
+    ring
+  rw [hsum] at hM
+  linarith
+
 end Lattice.Core
