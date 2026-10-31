@@ -52,7 +52,7 @@
 | `Lattice.Domains.ExteriorSmooth` | 150 | 9 | Differentiable, Exterior, ExprDeriv |
 | `Lattice.Domains.Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
 | `Lattice.Domains.Finite` | 106 | 1 | Expr, Flatten |
-| `Lattice.Domains.FlatLoss` | 486 | 18 | NetLossDerivative |
+| `Lattice.Domains.FlatLoss` | 527 | 19 | NetLossDerivative |
 | `Lattice.Domains.Flatten` | 130 | 4 | Expr |
 | `Lattice.Domains.FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
 | `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |

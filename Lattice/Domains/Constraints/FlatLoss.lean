@@ -482,4 +482,45 @@ theorem oneLayer_respects_affine_relations {N K n : ℕ} (off : ℕ) (g : Fin N 
   simp only [hp, mul_zero, Finset.sum_const_zero, zero_add]
   rw [← Finset.sum_mul, hc, zero_mul]
 
+
+/-! ## ⭐⭐⭐ 深度 1 的可达集【精确】刻画：可达 ⟺ 仿射
+
+## 收束第 197／198 轮
+
+**第 197 轮**：**可达的输出继承输入点之间的全部仿射关系**（必要条件）。
+**第 198 轮**：**每个 `W, b` 都被某组参数实现**（充分性的根源）。
+
+**⇒ 本节把两者收成一个 `↔`：**
+
+    （存在参数实现 Φ）⟺ （存在仿射映射 W, b 使 Φ j = W · p j + b）
+
+**⚠ 量词的处理**：**结论里出现 `∃ g : Fin (n*n+n) → ℝ` 而非任意 `Fin N → ℝ`。
+这不是弱化——`affine_map_realisable` 恰好给出那个宽度，
+而「更宽的 `N` 也是可达的」由 `readSlot` 越界读零的性质单独成立（不在此节）。** -/
+
+/-- ⭐⭐⭐ **深度 1 的可达集恰好是仿射映射的限制。**
+
+**这是本路线在深度 1 上的最终形态**：**左边是「参数存在」，右边是「仿射」，
+两者等价——所以「符号可满足但不可达」的现象【完全】由仿射性解释。** -/
+theorem oneLayer_reachable_exact {K n : ℕ} (hn : 0 < n)
+    (p : Fin K → Pt n) (Φ : Fin K → Pt n) :
+    (∃ (g : Fin (n * n + n) → ℝ), ∀ j : Fin K,
+        flatParamActSafe (N := n * n + n) (a := n) (b := n) 0 g (p j) = Φ j)
+      ↔ ∃ (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ), ∀ (j : Fin K) (i : Fin n),
+          Φ j i = (∑ k : Fin n, W k i * p j k) + b i := by
+  constructor
+  · rintro ⟨g, hg⟩
+    refine ⟨fun k i => readSlot g (k.val * n + i.val),
+      fun i => readSlot g (n * n + i.val), ?_⟩
+    intro j i
+    have := congrFun (hg j) i
+    simp only [flatParamActSafe, slotOf, Nat.zero_add] at this
+    exact this.symm
+  · rintro ⟨W, b, hW⟩
+    obtain ⟨g, hg⟩ := affine_map_realisable n hn W b
+    refine ⟨g, ?_⟩
+    intro j
+    funext i
+    rw [hg (p j) i, ← hW j i]
+
 end Lattice.Geo
