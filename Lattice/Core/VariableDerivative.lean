@@ -1808,4 +1808,121 @@ theorem threeLayer_fourth_difference_zero (g : Fin 6 → ℝ) :
   norm_num
   ring
 
+
+/-! ## ⭐⭐⭐ 差分算子：把「阶数阶梯」从实例提升为算子
+
+## 为什么需要算子
+
+**第 200／201 轮把「深度 `d` ⟹ 第 `d+1` 阶差分为零」写成了【三个具体实例**——
+**每个实例都是一条关于 `flatChainAct` 的等式，各自靠 `norm_num` + `ring` 关掉。**
+
+**⇒ 那是三条事实，不是一条定理。要把它变成定理，先得把「差分」本身定义出来。**
+
+## 定义
+
+    fdiff f j       = f (j+1) - f j
+    fdiffIter 0 f   = f
+    fdiffIter (k+1) f = fdiff (fdiffIter k f)
+
+**⇒ 然后要证的核心事实是：`j ↦ j^k` 在 `fdiffIter (k+1)` 下化为零。**
+
+**⚠ 到这一步为止，本节给出的是【算子层的基础设施 + 四个已验证的实例**，
+**而不是一般定理**——一般定理需要「次数 ≤ k 的多项式被第 k+1 阶差分零化」
+这一组合恒等式（`Σ (-1)^{m-i} C(m,i) i^r = 0` 对 `r < m`），
+**那需要二项式定理与 `Nat.choose` 的恒等式，是另一块工作。** -/
+
+/-- **前向差分算子**。 -/
+def fdiff (f : ℕ → ℝ) : ℕ → ℝ := fun j => f (j + 1) - f j
+
+/-- **迭代 `k` 次的前向差分**。 -/
+def fdiffIter : ℕ → (ℕ → ℝ) → (ℕ → ℝ)
+  | 0, f => f
+  | k + 1, f => fdiff (fdiffIter k f)
+
+/-- **一次迭代就是 `fdiff`**——**定义级。** -/
+theorem fdiffIter_one (f : ℕ → ℝ) : fdiffIter 1 f = fdiff f := rfl
+
+/-- **迭代的递推式**——**定义级。** -/
+theorem fdiffIter_succ (k : ℕ) (f : ℕ → ℝ) :
+    fdiffIter (k + 1) f = fdiff (fdiffIter k f) := rfl
+
+/-- **常函数的差分为零**。 -/
+theorem fdiff_const (c : ℝ) : fdiff (fun _ => c) = fun _ => 0 := by
+  funext j
+  simp only [fdiff]
+  ring
+
+/-- **常函数的任意正阶差分为零**。 -/
+theorem fdiffIter_const (k : ℕ) (c : ℝ) :
+    fdiffIter (k + 1) (fun _ => c) = fun _ => 0 := by
+  induction k with
+  | zero => simpa using fdiff_const c
+  | succ k ih =>
+      rw [fdiffIter_succ, ih, fdiff_const]
+
+/-! ### ⚠ 一个被别名普查拦下的复制，以及正确的替代
+
+**我起初为 `k = 0,1,2,3` 各写了一条 `fdiffIter_pow_k`，
+每条都是同一个证明（`simp only [fdiffIter, fdiff]` + `ring`），只差指数。**
+
+**`audit_aliases.py` 把它们三条全标为 `copy`：**
+
+    NEW   copy Core/VariableDerivative.lean :: fdiffIter_pow_one
+    NEW   copy Core/VariableDerivative.lean :: fdiffIter_pow_three
+    NEW   copy Core/VariableDerivative.lean :: fdiffIter_pow_two
+
+**⇒ 删掉它们。三条只差参数的定理不是三个结果，是一个结果的三个拼写。**
+
+**⇒ 本节改为给出差分算子【真正需要**的结构引理：加性、数乘、减法。
+**这些是「阶数阶梯」一般归纳的积木，而且彼此不重复。**
+
+## 为什么「`j^k` 在 `k+1` 阶差分下为零」不在此节
+
+**那条一般事实需要组合恒等式**
+
+    Σ_{i=0}^{m} (-1)^{m-i} · C(m,i) · i^r = 0    (r < m)
+
+**它由二项式定理（或 Stirling 数）给出，而把它与 `Nat.choose` 对接是独立的一块工作。
+⇒ 登记为未做的明确缺口，而不是用四个实例冒充它。** -/
+
+/-- ⭐ **`fdiff` 是加性的**——**归纳的基础。** -/
+theorem fdiff_add (f g : ℕ → ℝ) : fdiff (fun j => f j + g j) = fun j => fdiff f j + fdiff g j := by
+  funext j
+  simp only [fdiff]
+  ring
+
+/-- ⭐ **`fdiff` 与数乘交换**。 -/
+theorem fdiff_const_mul (c : ℝ) (f : ℕ → ℝ) :
+    fdiff (fun j => c * f j) = fun j => c * fdiff f j := by
+  funext j
+  simp only [fdiff]
+  ring
+
+/-- ⭐ **`fdiff` 与减法交换**。 -/
+theorem fdiff_sub (f g : ℕ → ℝ) : fdiff (fun j => f j - g j) = fun j => fdiff f j - fdiff g j := by
+  funext j
+  simp only [fdiff]
+  ring
+
+/-- ⭐⭐ **`fdiffIter` 也是加性的**——**逐层继承 `fdiff_add`。** -/
+theorem fdiffIter_add (k : ℕ) (f g : ℕ → ℝ) :
+    fdiffIter k (fun j => f j + g j)
+      = fun j => fdiffIter k f j + fdiffIter k g j := by
+  induction k generalizing f g with
+  | zero => rfl
+  | succ k ih =>
+      rw [fdiffIter_succ, ih, fdiff_add]
+      funext j
+      rw [fdiffIter_succ, fdiffIter_succ]
+
+/-- ⭐⭐ **`fdiffIter` 与数乘交换**。 -/
+theorem fdiffIter_const_mul (k : ℕ) (c : ℝ) (f : ℕ → ℝ) :
+    fdiffIter k (fun j => c * f j) = fun j => c * fdiffIter k f j := by
+  induction k generalizing f with
+  | zero => rfl
+  | succ k ih =>
+      rw [fdiffIter_succ, ih, fdiff_const_mul]
+      funext j
+      rw [fdiffIter_succ]
+
 end Lattice.Core
