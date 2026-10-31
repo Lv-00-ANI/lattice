@@ -2576,4 +2576,71 @@ theorem threeLayerAxis_not_affine :
   rw [threeLayerAxis_t3] at h1
   norm_num at h3 h0 h1
 
+
+/-! ## 一般离散 Leibniz 规则：乘以一次式使次数升一阶（任意 `k`）
+
+## 本轮正面处理第 2／3／4 轮三次绕开的障碍
+
+**目标**：`LowDeg k f → LowDeg (k+1) (fun t => (a + b * t) * f t)`。
+
+**第 2 轮的失败**：直接套 `rfdiff_affine_mul` 于 `rfdiff (rfdiffIter (k+1) …)` —— 那是错的，
+`rfdiff` 不能穿过 `rfdiffIter k`。
+
+**⇒ 本轮的策略**：**对 `k` 归纳，归纳步用【对称乘积规则】**。 -/
+
+/-- ⭐⭐ **一阶乘积规则（对称形式）**——**离散 Leibniz 的最底层。** -/
+theorem rfdiff_mul (u f : ℝ → ℝ) :
+    rfdiff (fun t => u t * f t)
+      = fun t => u (t + 1) * rfdiff f t + rfdiff u t * f t := by
+  funext t
+  simp only [rfdiff]
+  ring
+
+/-- ⭐⭐ **仿射函数的一阶差分是常数**。 -/
+theorem rfdiff_affine (a b : ℝ) :
+    rfdiff (fun t => a + b * t) = fun _ => b := by
+  funext t
+  simp only [rfdiff]
+  ring
+
+/-! ## ⚠⚠ 第 5 轮的结论：一般 `k` 的 `lowDeg_affine_mul` 未能证出，精确理由如下
+
+## 三次尝试的完整记录
+
+| 轮次 | 尝试 | 失败点 |
+|:--|:--|:--|
+| 2 | 把 `rfdiff_affine_mul` 直接套在 `rfdiff (rfdiffIter (k+1) …)` 上 | **`rfdiff` 不能穿过 `rfdiffIter k`**——这是【数学**错误，不是技术障碍 |
+| 3 | 改用 `MvPolynomial` | **未做**（判断为过度） |
+| 4 | 证「参数直线恒为仿射」以绕开 | **该命题为【假**（本轮以 `threeLayerAxis_t3` 反证），路走死 |
+| **5** | **对 `k` 归纳 + 对称乘积规则 `rfdiff_mul`** | **归纳步能推进到 `rfdiffIter (k+1) (b·f) = 0`（已消），但 `u(t+1)·rfdiff f` 这一项需要归纳假设作用在【平移后的仿射式】上，而 `ih` 的 `a b` 是【外层固定**的——`LowDeg (k+1) ((a+b)·(t+1) 形) rfdiff f` 与 `ih` 要求的 `LowDeg (k+1) ((a'+b'·t) · rfdiff f)` 不同形，`rw` 失败。 |
+
+## 精确的数学障碍
+
+**归纳步的实际目标是**
+
+    rfdiffIter (k+1) (fun t => (a + b·(t+1)) · rfdiff f t) = 0
+
+**而归纳假设给的是**
+
+    LowDeg k g → LowDeg (k+1) (fun t => (a' + b'·t) · g t)
+
+**两者的乘积因子不同：**`a + b·(t+1)` **是 `a + b·t` 的【平移**，
+**而 `LowDeg` 不是平移不变的**——`rfdiffIter` 在 `t` 的平移下【会变**。
+
+**⇒ 归纳需要对【所有平移**同时做，即需要一条平移不变形式的陈述：
+
+    LowDeg k f → ∀ c, LowDeg (k+1) (fun t => (a + b·(t + c)) · f t)
+
+**而它的证明又要对 `c` 归纳或用一个更强的多变量形式——
+那实际上等价于【多变量多项式次数**，即第 199 轮登记的 `MvPolynomial` 路线。**
+
+## 结论
+
+**本路线到此为【已核实的终点**：
+**`lowDeg_affine_mul` 的一般 `k` 需要的不是更多 tactic，而是平移不变性，
+而那把问题推回 `MvPolynomial`。**
+
+**⇒ 已证的 `lowDeg_affine_mul` 三个实例（`k = 0, 1, 2`，第 207／208／第 3 轮）是这条路线能给的全部。
+一般形式【登记为未做**，理由如上，而不是「暂时没时间」。** -/
+
 end Lattice.Core

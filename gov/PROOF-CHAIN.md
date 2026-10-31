@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 122 | 43 |
+| `Lattice.Core.VariableDerivative` | 124 | 43 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -8084,6 +8084,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rfdiffIter_one` -> `induction`, `zero`
 - `rfdiffIter_succ` -> `induction`, `zero`
 - `rfdiff_add` -> `Chain`, `MLayer`, `induction`, `zero`
+- `rfdiff_affine` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_affine_mul` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_const_mul` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_eq_zero_step` -> `Chain`, `MLayer`
