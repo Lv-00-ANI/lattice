@@ -1728,18 +1728,24 @@ theorem affine_map_realisable (n : ℕ) (hn : 0 < n)
 **⇒ 本轮把名字改成 `quadratic_third_difference`，并把「四阶」全部改为「三阶」。
 一条陈述与它的名字不符，正是 I5（端到端诚实）要拦的东西。**
 
-## 差分的阶数阶梯
+## ⚠⚠ 这里曾写过一个【假的】阶梯——第 203 轮更正
 
-**n 次多项式的 `n+1` 阶差分恒为零。而深度 d 的宽度 1 链输出是 d 次多项式。所以：**
+**第 201 轮在此声称「深度 d ⟹ 第 d+1 阶差分为零」并列出三行表。**
 
-| 深度 | 输出的次数 | 零化的差分阶 | 定理 |
-|:--|:--|:--|:--|
-| 1 | 1（仿射） | **2** | `oneLayer_second_difference_zero` |
-| 2 | 2（二次） | **3** | `twoLayer_third_difference_zero` |
-| **3** | **3（三次）** | **4** | **`threeLayer_fourth_difference_zero`** |
+**那张表是【错的**。链的递推是 `Φ_{d+1}(j) = a·Φ_d(j) + b`，其中 `a, b` **不依赖 `j`**，
+**所以每层只是把上一层作为【仿射函数】喂下去，而仿射不提高次数。**
 
-**⇒ 「深度 d ⟹ 第 d+1 阶差分为零」有三个实例，而三阶差分的常数项
-`6·g4·g2·g0` 正是深度 3 的「非零证据」的来源。** -/
+**⇒ 链的输出对【输入】永远是【一次**的，与深度无关。**三层的显式形式**
+
+    g4·(g2·(g0·x + g1) + g3) + g5 = (g4·g2·g0)·x + (g4·g2·g1 + g4·g3 + g5)
+
+**对 `x` 确实是一次。**
+
+**⇒ 下面三条定理【都为真**，但它们不是三个独立结果，
+**而是 `flatChainAct_fdiffIter_two`（第 203 轮，任意链的二阶差分为零）的推论。**
+
+**⇒ 「次数 = 深度」是关于【参数 `g`】的（第 185–199 轮），不是关于输入的。
+把两者混淆正是第 200–202 轮的错误。** -/
 
 /-! **深度 1 的解析事实【不复述**：
 **`NonlinearLayer.affine_second_difference`（第 156 轮）已经是**
@@ -1796,7 +1802,9 @@ theorem twoLayer_third_difference_zero (g : Fin 4 → ℝ) :
 
 /-- ⭐⭐⭐ **深度 3 的链满足四阶差分为零**——**三次，故判别式是四阶。**
 
-**⇒ 与上面两条合起来：「深度 d ⟹ 第 d+1 阶差分为零」有三个实例。** -/
+**⚠ 这条【不是】阶梯的一层**：**与上面两条一样，它是 `flatChainAct_fdiffIter_two`
+（第 203 轮：任意链的二阶差分为零）的推论**——**链对输入恒为仿射，
+所以任何更高阶差分都自动为零。深度在这里不起作用。** -/
 theorem threeLayer_fourth_difference_zero (g : Fin 6 → ℝ) :
     flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (4 : ℝ)) 0
         - 4 * flatChainAct (N := 6) threeLayerChain 0 g (fun _ => (3 : ℝ)) 0
@@ -1809,7 +1817,7 @@ theorem threeLayer_fourth_difference_zero (g : Fin 6 → ℝ) :
   ring
 
 
-/-! ## ⭐⭐⭐ 差分算子：把「阶数阶梯」从实例提升为算子
+/-! ## ⭐⭐⭐ 差分算子：结构与线性性
 
 ## 为什么需要算子
 
@@ -1874,7 +1882,7 @@ theorem fdiffIter_const (k : ℕ) (c : ℝ) :
 **⇒ 删掉它们。三条只差参数的定理不是三个结果，是一个结果的三个拼写。**
 
 **⇒ 本节改为给出差分算子【真正需要**的结构引理：加性、数乘、减法。
-**这些是「阶数阶梯」一般归纳的积木，而且彼此不重复。**
+**这些是差分算子的结构引理，而且彼此不重复。**
 
 ## 为什么「`j^k` 在 `k+1` 阶差分下为零」不在此节
 
@@ -1924,5 +1932,83 @@ theorem fdiffIter_const_mul (k : ℕ) (c : ℝ) (f : ℕ → ℝ) :
       rw [fdiffIter_succ, ih, fdiff_const_mul]
       funext j
       rw [fdiffIter_succ]
+
+
+/-! ## ⚠⚠ 一次概念修正：深度【不】提高对输入的多项式次数
+
+## 第 200–202 轮的错误
+
+**第 200 轮证了「两层链的三阶差分（当时误称四阶）为零」，
+第 201 轮把它写成一张「阶数阶梯」的表：深度 1 → 二阶、深度 2 → 三阶、深度 3 → 四阶。**
+
+**那个阶梯是【假的**。核对如下。**
+
+## 链的递推
+
+    Φ_{d+1}(j) = a · Φ_d(j) + b,     其中 a = g(2d)、b = g(2d+1)
+
+**⚠ `a` 与 `b` 【不依赖 `j`**——它们是参数，是关于 `j` 的常数。**
+
+**⇒ 每一层把自己的输出作为【仿射函数】喂给下一层，而仿射函数不提高次数。
+⇒ 无论多深，链的输出对【输入】永远是【一次**的。
+
+**核对三层**：`g4·(g2·(g0·x + g1) + g3) + g5 = (g4·g2·g0)·x + (g4·g2·g1 + g4·g3 + g5)`。
+**对 `x` 确实是一次。**
+
+## 所以「次数 = 深度」是关于【参数】的，不是关于输入的
+
+**第 185–189 轮证的是：链的输出作为【参数 `g`】的函数，次数等于深度**
+（两层是 `g2·g0` 的二次、三层是 `g4·g2·g0` 的三次）。
+**第 197–199 轮的可达性刻画也是关于参数的。**
+
+**⇒ 第 200–202 轮的差分阶梯把【参数】的次数误当成了【输入】的次数。
+三条链层实例全部是下面这一条一般事实的推论，而不是一个阶梯。**
+
+## 本节做两件事
+
+1. **证明那条一般事实**：链对输入恒为仿射，即二阶差分恒为零；
+2. **记录这次修正**，使第 200–202 轮的「阶梯」不再被当作三个独立结果。
+
+**⚠ 第 200／201 轮那几条定理本身【为真**（仿射函数的四阶差分也是零），
+**所以不删；但它们的文档不再声称「阶数随深度增长」。** -/
+
+/-- ⭐⭐⭐ **链对【标量输入】恒为仿射**——**`Φ(t) = (1−t)·Φ(0) + t·Φ(1)`。**
+
+**由第 183 轮 `flatChainAct_linear_activation` 直接给出**（取 `p₁ = 0`、`p₂ = 1`）。 -/
+theorem flatChainAct_scalar_affine {N : ℕ} (ch : Chain 1 1) (off : ℕ)
+    (g : Fin N → ℝ) (t : ℝ) :
+    flatChainAct (N := N) ch off g (fun _ => t) 0
+      = (1 - t) * flatChainAct (N := N) ch off g (fun _ => (0 : ℝ)) 0
+        + t * flatChainAct (N := N) ch off g (fun _ => (1 : ℝ)) 0 := by
+  have h := congrFun (flatChainAct_linear_activation (N := N) ch off g t
+    (fun _ : Fin 1 => (0 : ℝ)) (fun _ : Fin 1 => (1 : ℝ))) 0
+  have hx : (fun i : Fin 1 => (1 - t) * (0 : ℝ) + t * (1 : ℝ)) = fun _ => t := by
+    funext i
+    ring
+  rw [hx] at h
+  exact h
+
+/-- ⭐⭐⭐ **任意链的输出对输入的二阶差分恒为零**——**对【任意深度】成立。**
+
+**⚠ 这条【不是】「深度 1 的判别式」，而是【所有深度】的共同事实：
+深度不提高对输入的次数。第 200／201 轮的阶梯由此统一。** -/
+theorem flatChainAct_fdiffIter_two {N : ℕ} (ch : Chain 1 1) (off : ℕ)
+    (g : Fin N → ℝ) (j : ℕ) :
+    fdiffIter 2 (fun k => flatChainAct (N := N) ch off g (fun _ => (k : ℝ)) 0) j = 0 := by
+  simp only [fdiffIter, fdiff]
+  set A := flatChainAct (N := N) ch off g (fun _ => (0 : ℝ)) 0
+  set B := flatChainAct (N := N) ch off g (fun _ => (1 : ℝ)) 0
+  have e0 : flatChainAct (N := N) ch off g (fun _ => ((j : ℝ))) 0
+      = (1 - (j : ℝ)) * A + (j : ℝ) * B :=
+    flatChainAct_scalar_affine ch off g (j : ℝ)
+  have e1 : flatChainAct (N := N) ch off g (fun _ => (((j + 1 : ℕ)) : ℝ)) 0
+      = (1 - (((j + 1 : ℕ)) : ℝ)) * A + (((j + 1 : ℕ)) : ℝ) * B :=
+    flatChainAct_scalar_affine ch off g (↑(j + 1) : ℝ)
+  have e2 : flatChainAct (N := N) ch off g (fun _ => (((j + 2 : ℕ)) : ℝ)) 0
+      = (1 - (((j + 2 : ℕ)) : ℝ)) * A + (((j + 2 : ℕ)) : ℝ) * B :=
+    flatChainAct_scalar_affine ch off g (↑(j + 2) : ℝ)
+  rw [e2, e1, e0]
+  push_cast
+  ring
 
 end Lattice.Core

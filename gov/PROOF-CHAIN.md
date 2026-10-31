@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 91 | 35 |
+| `Lattice.Core.VariableDerivative` | 93 | 35 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2189,7 +2189,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_unique` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
-- `affine_map_realisable` -> `Chain`, `W`, `induction`, `zero`
+- `affine_map_realisable` -> `Chain`, `W`, `e2`, `induction`, `zero`
 - `affine_second_difference` -> `W`
 - `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -3514,7 +3514,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_norm_le` -> `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
-- `cubic_fourth_difference` -> `Chain`, `induction`, `zero`
+- `cubic_fourth_difference` -> `Chain`, `e2`, `induction`, `zero`
 - `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `curvature_determined_by_one_query` -> `Subgradient`
@@ -4587,15 +4587,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fderiv_loss_zero_iff_orthogonal` -> `E`, `NormSqLoss`, `P0_normal_equation`, `fderiv_eq_zero_iff_all`, `fderiv_loss_apply`, `loss_differentiable`
 - `fderiv_sqDist_left` -> `Pt`, `sqDist`
 - `fderiv_vecLoss` -> `RealDot`, `mul`, `trans`
-- `fdiffIter_add` -> `induction`, `zero`
-- `fdiffIter_const` -> `induction`, `zero`
-- `fdiffIter_const_mul` -> `induction`, `zero`
-- `fdiffIter_one` -> `induction`, `zero`
-- `fdiffIter_succ` -> `induction`, `zero`
-- `fdiff_add` -> `induction`, `zero`
-- `fdiff_const` -> `induction`, `zero`
-- `fdiff_const_mul` -> `induction`, `zero`
-- `fdiff_sub` -> `induction`, `zero`
+- `fdiffIter_add` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiffIter_const` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiffIter_const_mul` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiffIter_one` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiffIter_succ` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiff_add` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiff_const` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiff_const_mul` -> `Chain`, `e2`, `induction`, `zero`
+- `fdiff_sub` -> `Chain`, `e2`, `induction`, `zero`
 - `fdiv_nonneg_of_convex` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `feasibility_is_caller_obligation` -> `FeasibleMask`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`
 - `feasibility_nontrivial` -> `NlConstraint`, `NlSat`, `le_refl`, `relu`, `reluCompile`
@@ -4764,11 +4764,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_cons_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
+- `flatChainAct_fdiffIter_two` -> `Chain`, `e2`
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `slotOf`, `trunc`, `twoLayerProbeRest`
 - `flatChainAct_linear_activation` -> `Chain`, `MLayer`
 - `flatChainAct_not_affine` -> `Chain`, `MLayer`
 - `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`
+- `flatChainAct_scalar_affine` -> `Chain`, `e2`
 - `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`, `W`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
@@ -7069,7 +7071,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
-- `oneLayer_second_difference_zero` -> `Chain`, `induction`, `zero`
+- `oneLayer_second_difference_zero` -> `Chain`, `e2`, `induction`, `zero`
 - `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
 - `oneStepRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `oneStepRepair_mu_le_one` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
@@ -7647,7 +7649,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quadratic_kkt` -> `subst`
 - `quadratic_remainder_bound` -> `add`, `comp`, `normSq`, `quadForm`, `smul`
 - `quadratic_remainder_bound_unit` -> `add`, `comp`, `normSq`, `quadForm`, `smul`
-- `quadratic_third_difference` -> `Chain`, `induction`, `zero`
+- `quadratic_third_difference` -> `Chain`, `e2`, `induction`, `zero`
 - `quadratic_unconstrained_stationary` -> `subst`
 - `quantErrBound_closed` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `zero`
 - `quantErrBound_nonneg` -> `E`, `W`, `induction`, `le_trans`, `zero`
@@ -9389,7 +9391,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
 - `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
-- `threeLayer_fourth_difference_zero` -> `induction`, `zero`
+- `threeLayer_fourth_difference_zero` -> `Chain`, `e2`, `induction`, `zero`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
@@ -9584,7 +9586,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_gA_eval` -> `Chain`, `MLayer`, `W`
 - `twoLayer_gB_eval` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoLayer_no_affine_fit` -> `Chain`, `MLayer`, `W`, `e2`
-- `twoLayer_third_difference_zero` -> `induction`, `zero`
+- `twoLayer_third_difference_zero` -> `Chain`, `e2`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
