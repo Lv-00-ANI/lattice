@@ -114,4 +114,57 @@ theorem differentiableAt_mlayerAct_joint {m n : ℕ}
   rw [hfun]
   fun_prop
 
+/-! ## `Chain` 的参数空间与 `act` 的可微性
+
+**`Chain : ℕ → ℕ → Type` 的每一层宽度不同，所以它的参数空间是一个【依赖类型**。
+
+**⚠ 两个技术要点（第 159 轮探针证实）：**
+
+1. **必须用 `match` 形式而不是 equation compiler 的模式**——
+   **`| _, _, .cons _ rest =>` 会报 `invalid pattern, variable 'n' occurred more than once`，
+   而 `match c with | .cons (m := m') (n := n') _ rest =>` 能正确绑定这一层的宽度；**
+2. **`Chain.cons` 的两个参数没有名字**，所以位置模式 `_ rest` 是唯一写法。 -/
+
+/-- **把 `MLayer` 送回参数形式**——`mlayerOf` 的逆。 -/
+def mlayerParamsOf {m n : ℕ} (l : MLayer m n) : mlayerParams m n :=
+  (fun i j => l.W i j, l.b)
+
+/-- **往返一致**：`mlayerOf` 与 `mlayerParamsOf` 互逆。 -/
+theorem mlayerOf_mlayerParamsOf {m n : ℕ} (l : MLayer m n) :
+    mlayerOf (mlayerParamsOf l) = l := by
+  cases l
+  rfl
+
+/-- **`Chain` 的参数空间**——逐层累积的 `mlayerParams`。 -/
+def ChainParams : {m n : ℕ} → Chain m n → Type :=
+  fun {m n} ch =>
+    match ch with
+    | .idf _ => PUnit
+    | .cons (m := m') (n := n') _ rest => mlayerParams m' n' × ChainParams rest
+
+/-- **恒等链的参数空间是 `PUnit`**（定义级）。 -/
+theorem chainParams_idf (n : ℕ) : ChainParams (Chain.idf n) = PUnit :=
+  rfl
+
+/-- **`Chain.act` 对【输入】可微**——**定宽版 `differentiableAt_netActN` 的变宽对应。**
+
+**对 `ch` 归纳**：`idf` 是恒等（`differentiableAt_id`），
+**`cons` 是「先 `mlayerAct` 再 `act rest`」的复合，用 `differentiableAt_mlayerAct` 与归纳假设 `comp`。** -/
+theorem differentiableAt_chainAct : {m n : ℕ} → (ch : Chain m n) → (x : Fin m → ℝ) →
+    DifferentiableAt ℝ (fun y : Fin m → ℝ => Chain.act ch y) x
+  | _, _, .idf n, x => by
+      have hid : (fun y : Fin n → ℝ => Chain.act (Chain.idf n) y) = id := by
+        funext y
+        exact Chain.act_idf y
+      rw [hid]
+      exact differentiableAt_id
+  | _, _, .cons (m := m') (n := n') l rest, x => by
+      have hstep : (fun y : Fin m' → ℝ => Chain.act (Chain.cons l rest) y)
+          = (fun z : Fin n' → ℝ => Chain.act rest z) ∘ (fun y => mlayerAct l y) := by
+        funext y
+        rfl
+      rw [hstep]
+      exact (differentiableAt_chainAct rest _).comp x
+        (differentiableAt_mlayerAct (mlayerParamsOf l) x)
+
 end Lattice.Core

@@ -917,7 +917,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 4 | 2 |
+| `Lattice.Core.VariableDerivative` | 7 | 4 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2825,6 +2825,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_dom_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `zero`
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
+- `chainParams_idf` -> `Chain`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `chainQuad_m_zero` -> `apply`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `le_refl`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`
@@ -3768,9 +3769,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `differentiableAt_affineAct_joint` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `differentiableAt_mlayerAct` -> `mlayerAct`
-- `differentiableAt_mlayerAct_joint` -> `mlayerAct`
-- `differentiableAt_mlayerAct_params` -> `mlayerAct`
+- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netActN_jointAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
@@ -6461,7 +6463,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mla_score_eq_absorbedMap` -> `E`, `gqaLogits`, `mlaScoreAbsorbed`, `mla_absorb_query`, `sqrt_one`
 - `mla_score_eq_gqa_logits_id` -> `E`, `gqaLogits`, `sqrt_one`
 - `mla_score_eq_plain_inner` -> `E`, `gqaLogits`, `mlaScoreAbsorbed`, `sqrt_one`
-- `mlayerAct_apply` -> `mlayerAct`
+- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `modEq_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `modEq_to_congruentInt` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `modReLU_bounded` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
