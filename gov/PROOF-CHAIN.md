@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 56 | 28 |
+| `Lattice.Core.VariableDerivative` | 58 | 28 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -4754,7 +4754,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatChainAct_linear_activation` -> `Chain`, `MLayer`
-- `flatChainAct_not_affine` -> `Chain`
+- `flatChainAct_not_affine` -> `Chain`, `MLayer`
+- `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`
+- `flatChainAct_zeroLayer_affine` -> `Chain`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_injective` -> `Flat`, `flatEquiv`
@@ -9545,8 +9547,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tv_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `twoHopMsg_bound` -> `apply`, `le_trans`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
-- `twoLayer_affine_eval` -> `Chain`
-- `twoLayer_convex_eval` -> `Chain`
+- `twoLayer_affine_eval` -> `Chain`, `MLayer`
+- `twoLayer_convex_eval` -> `Chain`, `MLayer`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
