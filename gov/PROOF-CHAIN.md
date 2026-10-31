@@ -900,7 +900,7 @@
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
 | `Lattice.Core.Logic` | 4 | 6 |
-| `Lattice.Core.Net` | 5 | 5 |
+| `Lattice.Core.Net` | 8 | 5 |
 | `Lattice.Core.OneStepBridge` | 7 | 2 |
 | `Lattice.Core.Repair` | 9 | 5 |
 | `Lattice.Core.RepairAtomicity` | 4 | 1 |
@@ -2149,6 +2149,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
+- `affineAct_segment` -> `W`
 - `affineExpr_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `le_refl`
 - `affineGeometry_closed` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `affineGeometry_closedB_eq_true` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
@@ -6690,13 +6691,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netActN_succ` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netActN_zero` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
+- `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
 - `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
 - `netAct_deviation_step` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`
 - `netAct_layerOfCol` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`, `penaltyLoss`, `residual`, `residual_rowStepN`, `rowStepN`, `sqNormIn`
 - `netAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_lipschitz_replicate` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
-- `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
+- `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
 - `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `netLossFDerivRec_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
 - `netLossFDerivRec_cons` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
@@ -6738,7 +6739,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netLoss_zero_iff_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_zero_without_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `netAct`, `penaltyLoss`
 - `netPoints_eq_trunc` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
+- `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
 - `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`
 - `net_behaviourallyEquivalent_iff` -> `AffineLayer`, `BehaviourallyEquivalent`, `netAct`
 - `neumann_stable_under_perturbation` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
@@ -7850,7 +7851,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_nonneg` -> `induction`, `relu`, `sign`
 - `relu_not_affine` -> `AffineLayer`, `le_refl`, `netAct`, `relu`
 - `relu_not_injOn_nonpos` -> `apply`, `le_trans`, `subst`
-- `relu_not_injective` -> `BehaviourallyEquivalent`, `LayerOut`, `LayerParams`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `layer_act_injective`, `relu`, `relu_neg_eq_relu_zero`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
+- `relu_not_injective` -> `BehaviourallyEquivalent`, `LayerOut`, `LayerParams`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `layer_act_injective`, `relu`, `relu_neg_eq_relu_zero`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `relu_of_nonneg` -> `modReLU`, `modReLU_magnitude`, `modReLU_phase_preserved`, `modReLU_zero`, `relu`, `subst`
 - `relu_preserves` -> `induction`, `relu`, `sign`
 - `relu_propagation` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `RealVectorConstraint`, `RealVectorSat`, `compileRealVecSeq`, `convertReal`, `realLayer_allSatisfied_iff_zero_output`, `relu`, `relu_eq_zero_iff`
@@ -7966,7 +7967,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reversibility_boundary` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `reversibility_depends_on_representation` -> `BehaviourallyEquivalent`
 - `reversibility_is_layered` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
-- `reversibility_spectrum` -> `BehaviourallyEquivalent`, `LayerParams`, `layer_act_injective`
+- `reversibility_spectrum` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
 - `reward_diff_equiv_iff_sub_const` -> `induction`, `zero`
 - `reward_diff_equiv_of_add_const` -> `induction`, `zero`
 - `rfl_restricts_to_any_subset` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
