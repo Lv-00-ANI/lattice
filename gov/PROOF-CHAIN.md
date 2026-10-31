@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 74 | 32 |
+| `Lattice.Core.VariableDerivative` | 77 | 33 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2189,6 +2189,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_unique` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
+- `affine_map_realisable` -> `W`
 - `affine_second_difference` -> `W`
 - `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -4749,8 +4750,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`
 - `fixpoint_transfer_le` -> `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
-- `flatChainAct_cons_general` -> `Chain`, `MLayer`
-- `flatChainAct_cons_width_one` -> `Chain`, `MLayer`
+- `flatChainAct_cons_general` -> `Chain`, `MLayer`, `W`, `e2`
+- `flatChainAct_cons_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
@@ -4758,7 +4759,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_linear_activation` -> `Chain`, `MLayer`
 - `flatChainAct_not_affine` -> `Chain`, `MLayer`
 - `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`
-- `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`
+- `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`, `W`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_injective` -> `Flat`, `flatEquiv`
@@ -4783,7 +4784,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`
-- `flatParamActSafe_width_one` -> `Chain`, `MLayer`
+- `flatParamActSafe_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `flatParamAct_apply` -> `comp`
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`
@@ -5895,7 +5896,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_scaleLinearLayer` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `dot`, `length`
 - `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerParamCount_width_one` -> `Chain`, `MLayer`
+- `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `layerQuantizationB_one_bits` -> `IntLayer`, `quant`
 - `layerQuantization_nontrivial` -> `compileZ`
 - `layerQuantization_refines_scalar` -> `compileZ`
@@ -7759,6 +7760,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `readSlot_linear` -> `Chain`, `MLayer`
 - `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`
 - `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`
+- `readSlot_slotMap_bias` -> `W`
+- `readSlot_slotMap_weight` -> `W`, `e2`
 - `readout_invariant` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_mul` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_of_layerStack` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -8721,8 +8724,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOf_row_add` -> `comp`
 - `slotOf_succ_col` -> `comp`
 - `slotOf_succ_row` -> `comp`
-- `slotOf_width_one_bias` -> `Chain`, `MLayer`
-- `slotOf_width_one_weight` -> `Chain`, `MLayer`
+- `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`
+- `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
 - `sm_argmax_lower` -> `apply`, `card_fin`, `softmax`
 - `sm_denom_pos` -> `apply`, `card_fin`, `le_trans`, `softmax`
@@ -9372,7 +9375,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
-- `threeLayerChain_explicit` -> `Chain`, `MLayer`
+- `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
@@ -9559,14 +9562,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tv_eq_sum_abs` -> `apply`, `fDivergence`, `tv`
 - `tv_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `twoHopMsg_bound` -> `apply`, `le_trans`
-- `twoLayerChain_explicit` -> `Chain`, `MLayer`
-- `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`
+- `twoLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
+- `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
 - `twoLayer_affine_eval` -> `Chain`, `MLayer`
 - `twoLayer_convex_eval` -> `Chain`, `MLayer`
-- `twoLayer_gA_eval` -> `Chain`, `MLayer`
-- `twoLayer_gB_eval` -> `Chain`, `MLayer`
-- `twoLayer_no_affine_fit` -> `Chain`, `MLayer`
+- `twoLayer_gA_eval` -> `Chain`, `MLayer`, `W`
+- `twoLayer_gB_eval` -> `Chain`, `MLayer`, `W`, `e2`
+- `twoLayer_no_affine_fit` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
@@ -9831,8 +9834,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `whileStep_body` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `whileStep_exit` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `while_never_exits_wpT_false` -> `AExp`, `Denotes`, `State`, `StmtT`, `evalA`, `execF`, `induction`, `wp`, `wpT`, `zero`
-- `wideChain_explicit_one` -> `Chain`
-- `wideChain_explicit_zero` -> `Chain`
+- `wideChain2_explicit_one` -> `W`, `e2`
+- `wideChain2_explicit_zero` -> `W`, `e2`
+- `wideChain_explicit_one` -> `Chain`, `W`, `e2`
+- `wideChain_explicit_zero` -> `Chain`, `W`, `e2`
 - `wigner_first_moment_zero` -> `apply`, `card_fin`, `subst`
 - `wigner_fourth_moment_leading_lower` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `wigner_second_moment` -> `HasRealEigenvalue`, `apply`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`

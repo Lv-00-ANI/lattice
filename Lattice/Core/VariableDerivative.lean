@@ -1632,4 +1632,80 @@ theorem wideChain2_explicit_one (g : Fin 12 → ℝ) (x : Fin 2 → ℝ) :
   congr 3 <;> norm_num
 
 
+
+/-! ## ⭐⭐⭐ 宽 n 的一层【恰好】实现全部仿射映射：满射性
+
+## 为什么这条是逆向刻画的最后一块
+
+**第 197 轮证了【必要**条件：可达的输出继承输入点之间的仿射关系。
+**本节证【充分**性的根源：**
+
+**任意权重 `W` 与偏置 `b` 都能被某个参数向量 `g` 实现。**
+**⇒ 可达集【恰好**是全部仿射映射的限制，第 197 轮的障碍就是【唯一**的障碍。**
+
+## 下标约定（与 `slotOf` 一致，不要弄反）
+
+**`flatParamActSafe` 的输出坐标是 `j`、输入坐标是 `i`，而权重在槽位
+`slotOf off n i j = off + i*n + j`——即【先输入、后输出**。
+
+**⇒ 本节一律用 `W i j` 表示「从输入 `i` 到输出 `j`」的权重，
+所以定理右边写成 `∑ j, W j i * x j`（求和变量是【输入**）。** -/
+
+/-- **把 `W` 与 `b` 铺进 `Fin (n*n+n) → ℝ`**——**前 `n*n` 个槽位是权重（`W 输入 输出` 在 `输入*n + 输出`），
+后 `n` 个是偏置。** -/
+def slotMap (n : ℕ) (hn : 0 < n) (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ) :
+    Fin (n * n + n) → ℝ :=
+  fun k => if h : (k : ℕ) < n * n
+    then W ⟨(k : ℕ) / n, Nat.div_lt_of_lt_mul h⟩
+        ⟨(k : ℕ) % n, Nat.mod_lt _ hn⟩
+    else b ⟨(k : ℕ) - n * n, by
+      have h1 : (k : ℕ) < n * n + n := k.isLt
+      omega⟩
+
+/-- **读出权重槽位得到 `W i j`**（`i` 是输入、`j` 是输出）。 -/
+theorem readSlot_slotMap_weight (n : ℕ) (hn : 0 < n) (W : Fin n → Fin n → ℝ)
+    (b : Fin n → ℝ) (i j : Fin n) :
+    readSlot (slotMap n hn W b) (i.val * n + j.val) = W i j := by
+  have h2 : j.val < n := j.isLt
+  have h1 : i.val < n := i.isLt
+  have hlt2 : i.val * n + j.val < n * n := by nlinarith
+  have hlt : i.val * n + j.val < n * n + n := by nlinarith
+  rw [readSlot_of_lt _ hlt]
+  simp only [slotMap, dif_pos hlt2]
+  have e1 : (i.val * n + j.val) / n = i.val := by
+    rw [Nat.mul_comm i.val n, Nat.mul_add_div hn, Nat.div_eq_of_lt h2, Nat.add_zero]
+  have e2 : (i.val * n + j.val) % n = j.val := by
+    rw [Nat.mul_comm i.val n, Nat.mul_add_mod, Nat.mod_eq_of_lt h2]
+  have p1 : (⟨(i.val * n + j.val) / n, Nat.div_lt_of_lt_mul hlt2⟩ : Fin n) = i :=
+    Fin.ext e1
+  have p2 : (⟨(i.val * n + j.val) % n, Nat.mod_lt _ hn⟩ : Fin n) = j :=
+    Fin.ext e2
+  rw [p1, p2]
+
+/-- **读出偏置槽位得到 `b j`**。 -/
+theorem readSlot_slotMap_bias (n : ℕ) (hn : 0 < n) (W : Fin n → Fin n → ℝ)
+    (b : Fin n → ℝ) (j : Fin n) :
+    readSlot (slotMap n hn W b) (n * n + j.val) = b j := by
+  have h2 : j.val < n := j.isLt
+  have hlt : n * n + j.val < n * n + n := by omega
+  have hge : ¬ (n * n + j.val < n * n) := by omega
+  rw [readSlot_of_lt _ hlt]
+  simp only [slotMap, dif_neg hge]
+  have e : n * n + j.val - n * n = j.val := by omega
+  have p : (⟨n * n + j.val - n * n, by omega⟩ : Fin n) = j := Fin.ext e
+  rw [p]
+
+/-- ⭐⭐⭐ **满射性**：**任意仿射映射都被某组参数实现。**
+
+**与第 197 轮的障碍合起来：可达集【恰好】是全部仿射映射的限制。** -/
+theorem affine_map_realisable (n : ℕ) (hn : 0 < n)
+    (W : Fin n → Fin n → ℝ) (b : Fin n → ℝ) :
+    ∃ (g : Fin (n * n + n) → ℝ), ∀ (x : Fin n → ℝ) (i : Fin n),
+      flatParamActSafe (N := n * n + n) (a := n) (b := n) 0 g x i
+        = (∑ j : Fin n, W j i * x j) + b i := by
+  refine ⟨slotMap n hn W b, ?_⟩
+  intro x i
+  simp only [flatParamActSafe, slotOf, Nat.zero_add, readSlot_slotMap_weight,
+    readSlot_slotMap_bias]
+
 end Lattice.Core
