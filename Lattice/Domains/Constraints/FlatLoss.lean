@@ -362,4 +362,49 @@ theorem not_reachable_width_one :
     simpa using hpt
   exact no_affine_fit_squares ⟨readSlot g 0, readSlot g 1, key⟩
 
+
+/-! ## ⭐⭐⭐ 可达集的【正向】下界：任意两个点的配置都可达
+
+## 为什么这一节与第 195 轮互补
+
+**第 195 轮给出否定结果**：**`Φ j = j²` 在三个点上不可达（宽度 1、深度 1）。**
+
+**⇒ 可达集严格小于配置空间。但那不告诉你可达集【有多大】。**
+
+**本节给出第一个下界**：**若输入只有【两个】点，则【任意】目标配置都可达。**
+
+## 宽度 1 的构造
+
+**宽度 1、深度 1 时一层的作用是 `Φ j = w · (p j) + b`。两个点给出两个方程：
+`Φ 0 = w p 0 + b`、`Φ 1 = w p 1 + b`。**
+
+**⇒ 只要 `p 0 ≠ p 1`，解是唯一的：`w = (Φ 1 - Φ 0) / (p 1 - p 0)`、`b = Φ 0 - w · p 0`。**
+
+**⇒ 任意两个点的配置都可达——【只要两点不同**。
+
+**⚠ 而 `p 0 = p 1` 时不可达（除 `Φ 0 = Φ 1` 外）：
+同一输入不能有两个输出。那是可达性的【第二个**约束，与第 195 轮的仿射性约束不同。** -/
+
+/-- **两个不同输入点、宽度 1** 的显式参数构造。
+
+**`w = (Φ₁ - Φ₀)/(p₁ - p₀)`、`b = Φ₀ - w·p₀`，放进 `g 0`、`g 1`。**
+
+**⚠ 显式给出 `g` 的类型为 `Fin 2 → ℝ`**：`![…]` 的 `Fin` 下标必须能推断，
+否则 `readSlot_of_lt` 的 `N` 与 `k` 都无法归一。** -/
+theorem two_points_reachable_width_one
+    (p₀ p₁ Φ₀ Φ₁ : ℝ) (hp : p₀ ≠ p₁) :
+    ∃ (g : Fin 2 → ℝ),
+      readSlot g 0 * p₀ + readSlot g 1 = Φ₀
+        ∧ readSlot g 0 * p₁ + readSlot g 1 = Φ₁ := by
+  have hd : p₁ - p₀ ≠ 0 := sub_ne_zero.mpr (Ne.symm hp)
+  refine ⟨(![(Φ₁ - Φ₀) / (p₁ - p₀), Φ₀ - (Φ₁ - Φ₀) / (p₁ - p₀) * p₀] : Fin 2 → ℝ), ?_, ?_⟩
+  · rw [readSlot_of_lt (N := 2) (k := 0) _ (by norm_num),
+      readSlot_of_lt (N := 2) (k := 1) _ (by norm_num)]
+    norm_num
+  · rw [readSlot_of_lt (N := 2) (k := 0) _ (by norm_num),
+      readSlot_of_lt (N := 2) (k := 1) _ (by norm_num)]
+    norm_num
+    field_simp
+    ring
+
 end Lattice.Geo

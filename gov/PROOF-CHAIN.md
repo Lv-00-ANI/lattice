@@ -1584,7 +1584,7 @@
 | `Lattice.Domains.Constraints.Expr` | 8 | 5 |
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
 | `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
-| `Lattice.Domains.Constraints.FlatLoss` | 16 | 4 |
+| `Lattice.Domains.Constraints.FlatLoss` | 17 | 4 |
 | `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
@@ -4754,7 +4754,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
-- `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
+- `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
 - `flatChainAct_linear_activation` -> `Chain`, `MLayer`
 - `flatChainAct_not_affine` -> `Chain`, `MLayer`
 - `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`
@@ -4769,14 +4769,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatLayerAct_differentiableAt` -> `comp`
-- `flatLoss_achievable_iff` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `twoLayerProbeRest`
-- `flatLoss_achievable_iff_mem` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `twoLayerProbeRest`
-- `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
+- `flatLoss_achievable_iff` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `twoLayerProbeRest`
+- `flatLoss_achievable_iff_mem` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `twoLayerProbeRest`
+- `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
 - `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatLoss_eq_zero_iff` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
-- `flatLoss_idf_achievable` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
-- `flatLoss_idf_eq` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
+- `flatLoss_idf_achievable` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
+- `flatLoss_idf_eq` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatParamActSafe_affine` -> `Chain`, `MLayer`
@@ -4791,7 +4791,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatPoints_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
 - `flatPoints_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatPoints_eq_trunc` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
-- `flatPoints_idf` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `trunc`, `twoLayerProbeRest`
+- `flatPoints_idf` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
@@ -6822,7 +6822,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nlayerAct_cubic` -> `MLayer`, `W`, `compose`
 - `nlayerAct_id_eq_mlayerAct` -> `MLayer`, `W`, `compose`, `mlayerAct`
 - `nlayer_width_forced` -> `MLayer`, `compose`
-- `no_affine_fit_squares` -> `Chain`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `twoLayerProbeRest`
+- `no_affine_fit_squares` -> `Chain`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `twoLayerProbeRest`
 - `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `dot`, `recover`
@@ -6982,7 +6982,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_probabilityTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_projectiveGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
 - `not_pulled_under_good_event` -> `apply`, `card_fin`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
-- `not_reachable_width_one` -> `Chain`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `twoLayerProbeRest`
+- `not_reachable_width_one` -> `Chain`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `twoLayerProbeRest`
 - `not_sim_of_obs_mismatch` -> `Compiler`, `ForwardSim`
 - `not_stepSound_of_unsat` -> `apply`, `step`
 - `not_step_lam_var` -> `Compiler`, `Term`, `app_r`
@@ -7055,7 +7055,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
-- `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `twoLayerProbeRest`
+- `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `twoLayerProbeRest`
 - `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
 - `oneStepRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `oneStepRepair_mu_le_one` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
@@ -9581,6 +9581,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_mul_geluInner_abs` -> `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `two_mul_ne_zero` -> `apply`
+- `two_points_reachable_width_one` -> `readSlot`, `readSlot_of_lt`
 - `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
 - `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `subst`
