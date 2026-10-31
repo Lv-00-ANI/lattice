@@ -126,4 +126,51 @@ theorem reversibility_spectrum :
     ∧ ¬ Function.Injective relu :=
   ⟨fun {_ _ _ _ _ _} => layer_act_injective, netRelu_not_injective, relu_not_injective⟩
 
+/-- ⭐⭐ **`affineAct` 是仿射的**：它把线段映成线段。
+
+**这是 `AffineLayer` 表达能力的【结构性刻画**：
+**单层是仿射映射，而仿射映射的复合仍是仿射映射**（堆叠后 \(x \mapsto Wx + b\)，
+其中 \(W\) 是各层权重的乘积、\(b\) 由各层偏置累积而来）。
+
+**⚠ 因此整个 `netAct`／`netActN` 的值域是【仿射子空间**，不是任意函数类。
+**这直接决定了逆向回路的最后一条能陈述成什么**——
+**「任意有限点集都可被实现」是【假】的：仿射映射把共线点映成共线点。** -/
+theorem affineAct_segment {n : Type} [Fintype n] (p : AffineLayer n)
+    (x y : n → ℝ) (t : ℝ) :
+    affineAct p (fun i => (1 - t) * x i + t * y i)
+      = fun j => (1 - t) * affineAct p x j + t * affineAct p y j := by
+  funext j
+  simp only [affineAct]
+  have h1 : ∀ i : n, p.W i j * ((1 - t) * x i + t * y i)
+      = (1 - t) * (p.W i j * x i) + t * (p.W i j * y i) := by
+    intro i; ring
+  simp only [h1]
+  rw [Finset.sum_add_distrib]
+  rw [← Finset.mul_sum, ← Finset.mul_sum]
+  ring
+
+/-- **零点处的像就是偏置**——仿射映射的「常数项」。 -/
+theorem affineAct_zero {n : Type} [Fintype n] (p : AffineLayer n) :
+    affineAct p (fun _ => (0 : ℝ)) = p.b := by
+  funext j
+  simp only [affineAct]
+  simp
+
+/-- ⭐⭐⭐ **仿射映射把共线点映成共线点**——**表达能力的核心限制。**
+
+**`AffineLayer` 是仿射的（`affineAct_segment`），所以【不能】把三个共线的点映成不共线的三点。
+这使「任意有限点集都可被网络实现」成为【假**，
+**也正是逆向回路必须带前提的原因**：
+**能实现的配置，其像必须与输入点在同一仿射包内。** -/
+theorem affineAct_collinear {n : Type} [Fintype n] (p : AffineLayer n)
+    (x y : n → ℝ) (t : ℝ) :
+    affineAct p (fun i => x i + t * (y i - x i))
+      = fun j => affineAct p x j + t * (affineAct p y j - affineAct p x j) := by
+  have h : (fun i => x i + t * (y i - x i)) = fun i => (1 - t) * x i + t * y i := by
+    funext i
+    ring
+  rw [h, affineAct_segment]
+  funext j
+  ring
+
 end Lattice.Core
