@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 21 | no imports from lift/lib |
+| core | 23 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 622 | instantiated library, may import core only |
@@ -28,6 +28,7 @@
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
 - `Lattice.Core.Logic` <- `Lattice.Core.Semantics`
 - `Lattice.Core.Net` <- `Lattice.Core.Semantics`, `Lattice.Core.Weight`
+- `Lattice.Core.NonlinearLayer` <- `Lattice.Core.Net`
 - `Lattice.Core.OneStepBridge` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Core.Repair` 
 - `Lattice.Core.RepairAtomicity` <- `Lattice.Core.Repair`, `Lattice.Core.RepairMultistep`
@@ -39,6 +40,7 @@
 - `Lattice.Core.StackDerivative` <- `Lattice.Core.Net`
 - `Lattice.Core.StackParams` <- `Lattice.Core.Net`
 - `Lattice.Core.Syntax` 
+- `Lattice.Core.VariableActLayer` <- `Lattice.Core.VariableNet`
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
@@ -683,7 +685,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -901,6 +903,7 @@
 | `Lattice.Core.Invariant` | 4 | 2 |
 | `Lattice.Core.Logic` | 4 | 6 |
 | `Lattice.Core.Net` | 8 | 5 |
+| `Lattice.Core.NonlinearLayer` | 5 | 3 |
 | `Lattice.Core.OneStepBridge` | 7 | 2 |
 | `Lattice.Core.Repair` | 9 | 5 |
 | `Lattice.Core.RepairAtomicity` | 4 | 1 |
@@ -912,6 +915,7 @@
 | `Lattice.Core.StackDerivative` | 14 | 4 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
+| `Lattice.Core.VariableActLayer` | 3 | 2 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2072,6 +2076,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `acceptance_rate_le_one` -> `min`
 - `accumulation_error_bound` -> `FloatFormat`, `RoundOp`, `W`, `apply`, `card_fin`, `eps`, `frobeniusNorm`, `frobeniusNorm_sq`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `accumulation_error_nonneg` -> `FloatFormat`, `RoundOp`, `W`, `apply`, `card_fin`, `eps`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `matCLME`, `matCLME_sub`, `opNorm_le_frobenius`, `quantFwd`, `roundToFormat`, `tiny`
+- `actLayerAct_cubic` -> `W`
+- `actLayerAct_cubic_zero` -> `W`
+- `actLayerAct_zero_cubic` -> `W`
 - `actStackEval_append` -> `AffineLayer`, `Ladder`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `roundtrip`, `satSym`, `satW`
 - `actStackEval_nil` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `netAct`, `relu`
 - `actStackEval_of_no_activation` -> `AffineLayer`, `affineAct`, `induction`, `le_refl`, `netAct`, `relu`
@@ -2174,6 +2181,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_unique` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
+- `affine_second_difference` -> `W`
 - `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -3491,6 +3499,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_norm_le` -> `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
+- `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `curvature_determined_by_one_query` -> `Subgradient`
 - `curvature_invariant_under_isometry_degenerate` -> `Geometry`, `S2`
@@ -6756,6 +6765,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `newton_exact_step_on_quadratic` -> `NewtonStep`, `Quadratic`, `newton_step_quadratic`
 - `nil_append` -> `Audit`, `induction`, `mul`, `one`
 - `nlCompile_batch` -> `ApproxOn`, `le_antisymm`
+- `nlayerAct_cubic` -> `MLayer`, `W`, `compose`
+- `nlayerAct_id_eq_mlayerAct` -> `MLayer`, `W`, `compose`, `mlayerAct`
+- `nlayer_width_forced` -> `MLayer`, `compose`
 - `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `dot`, `recover`
