@@ -1079,30 +1079,40 @@ theorem readSlot_linear {N : ℕ} (g₁ g₂ : Fin N → ℝ) (a b : ℝ) (k : �
 **它只是 `readSlot_linear g₁ g₂ (1 - t) t k` 的转写调用，不提供新内容。
 ⇒ 删掉它，调用方直接写 `readSlot_linear g₁ g₂ (1 - t) t k`。** -/
 
-/-! ### ⚠ 未闭合：`flatParamActSafe` 与 `flatChainAct` 对参数的线性
+/-! ### `flatParamActSafe` 对参数的线性
 
-**目标**：`flatParamActSafe off ((1-t) g₁ + t g₂) x = (1-t) 作用 + t 作用`，再逐层归纳到 `flatChainAct`。
-
-**第 180 轮实测的障碍**：**`flatParamActSafe_affine` 的证明需要在【求和内部】做
-`ring` 式的重排**——目标是
+**第 180 轮记下的障碍**：`rw [Finset.mul_sum]` 在
 
     ∑ i, ((1-t) * A i + t * B i) * x i + ((1-t) * C + t * D)
-      = (1-t) * (∑ i, A i * x i + C) + t * (∑ i, B i * x i + D)
+      = (1-t) * ((∑ i, A i * x i) + C) + t * ((∑ i, B i * x i) + D)
 
-**而 `rw [Finset.mul_sum]` 在这条目标上【找不到模式**：
-**`(1-t) * (∑ i, … + C)` 的整体形状不是 `?a * ∑ i, ?f i`，因为求和内部还带 `+ C`。**
+**上找不到模式。**
 
-**⇒ 正确做法是【先`Finset.sum_add_distrib` 把常数项拆出来】，再对两个纯求和分别
-`Finset.mul_sum`，最后 `ring`。** **第 180 轮没有走完这条链。**
+**⇒ 第 181 轮先在【抽象形状】上把路径试通了**：**关键是 `Finset.mul_sum` 要用【反向**
+（`← Finset.mul_sum`）——因为 `(1-t)` 已经在求和【内部】，需要把它【提出来**，
+而不是推进去。** -/
 
-**已证的部分（本节上面两条）**：
-**`readSlot_linear` 与 `readSlot_affine`——即【读槽位】对参数线性，那是最原子的一步。**
+/-- ⭐⭐⭐ **`flatParamActSafe` 对参数线性**——**求和与常数项各自线性。**
 
-**⚠ 而 `flatChainAct_affine` 的 `cons` 支还有一个额外问题**：
-**归纳假设给出的是 `flatChainAct rest … g' x'` 的线性，
-但 `cons` 支的内层是 `flatParamActSafe off g x`，
-所以需要【先】把 `flatParamActSafe` 的线性证出来，才能用归纳假设重写。**
-
-**⇒ 本节只声称 `readSlot` 的线性，不声称更高层。** -/
+**证明顺序**：`ring` 展开乘积 → `sum_add_distrib` 拆求和 → `← mul_sum` 提出公因子 → `ring` 收尾。** -/
+theorem flatParamActSafe_affine {N a b : ℕ} (off : ℕ) (g₁ g₂ : Fin N → ℝ)
+    (t : ℝ) (x : Fin a → ℝ) :
+    flatParamActSafe (N := N) (a := a) (b := b) off
+        (fun i => (1 - t) * g₁ i + t * g₂ i) x
+      = fun j => (1 - t) * flatParamActSafe (N := N) (a := a) (b := b) off g₁ x j
+          + t * flatParamActSafe (N := N) (a := a) (b := b) off g₂ x j := by
+  funext j
+  simp only [flatParamActSafe, readSlot_linear]
+  have hsplit : ∀ i : Fin a,
+      ((1 - t) * readSlot g₁ (slotOf off b i.val j.val)
+        + t * readSlot g₂ (slotOf off b i.val j.val)) * x i
+      = (1 - t) * (readSlot g₁ (slotOf off b i.val j.val) * x i)
+        + t * (readSlot g₂ (slotOf off b i.val j.val) * x i) := by
+    intro i
+    ring
+  simp only [hsplit]
+  rw [Finset.sum_add_distrib]
+  simp only [← Finset.mul_sum]
+  ring
 
 end Lattice.Core
