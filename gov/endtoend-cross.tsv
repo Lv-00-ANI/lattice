@@ -268,6 +268,10 @@ Domains/Constraints/Loss.lean	loss_eq_zero_toGeo_distEq
 Domains/Constraints/Loss.lean	loss_eq_zero_toGeo_samePoint
 Domains/Constraints/Loss.lean	loss_eq_zero_toGeo_perpendicular
 Domains/Constraints/Loss.lean	loss_eq_zero_toGeo
+Domains/Constraints/LossExtraction.lean	penaltyLoss_leZero_eq_ltZero
+Domains/Constraints/LossExtraction.lean	leZero_ne_ltZero
+Domains/Constraints/LossExtraction.lean	penaltyLoss_not_injective
+Domains/Constraints/LossExtraction.lean	no_loss_to_constraint_section
 Domains/Constraints/NetLoss.lean	netLoss_nonneg
 Domains/Constraints/NetLoss.lean	netLoss_empty
 Domains/Constraints/NetLoss.lean	netLoss_append

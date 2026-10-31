@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 225 | aggregator at `Lattice/`, re-exports only |
+| root | 226 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -688,7 +688,7 @@
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
 - `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`
-- `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`
+- `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Constraint` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Constraints.ConstraintSet` <- `Lattice.Domains.Constraints.Constraint`
@@ -711,6 +711,7 @@
 - `Lattice.Domains.Constraints.FlattenAgreement` <- `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`
 - `Lattice.Domains.Constraints.Lipschitz` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Loss` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
+- `Lattice.Domains.Constraints.LossExtraction` <- `Lattice.Domains.Constraints.PenaltyLoss`
 - `Lattice.Domains.Constraints.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`
 - `Lattice.Domains.Constraints.NetLossDerivative` <- `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Core.StackDerivative`, `Lattice.Core.Net`
 - `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
@@ -1588,6 +1589,7 @@
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
+| `Lattice.Domains.Constraints.LossExtraction` | 4 | 0 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.NetLossDerivative` | 45 | 9 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
@@ -5921,6 +5923,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lcm_assoc` -> `apply`, `le_trans`, `length`, `satisfiable`, `trans`
 - `lcm_gcd_distrib_dvd` -> `apply`, `children`, `le_trans`, `length`, `satisfiable`, `trans`
 - `leZero_halfspace` -> `aff`
+- `leZero_ne_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `leZero_not_affine` -> `aff`, `le_refl`, `subst`
 - `le_and_ge_iff_eq` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `le_antisymm` -> `empty`, `find`, `subst`
@@ -6822,6 +6825,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_left_inverse_at_all` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `leftInverse_iff_injective`, `symbolToWeight_correct`
 - `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `no_lift_betaSubst_law` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
+- `no_loss_to_constraint_section` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `no_nontrivial_roundtrip_subset` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `no_object_level_gap` -> `LinearLayer`, `extractVec`
 - `no_order_counterexample` -> `uniformExpectation`, `uniformProb`, `union_bound_finite`
@@ -7264,7 +7268,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_eq_zero_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `perceptron_bound` -> `E`, `le`, `le_trans`, `subst`
 - `perceptron_converges` -> `E`, `le`, `subst`
 - `perceptron_growth` -> `E`, `induction`, `le`, `le_trans`, `subst`, `zero`
