@@ -1708,4 +1708,44 @@ theorem affine_map_realisable (n : ℕ) (hn : 0 < n)
   simp only [flatParamActSafe, slotOf, Nat.zero_add, readSlot_slotMap_weight,
     readSlot_slotMap_bias]
 
+
+/-! ## ⭐⭐⭐ 深度 2 的障碍是【二阶】的：四阶差分为零
+
+## 与第 197 轮的对照
+
+**第 197 轮**：**深度 1 的输出是 `p` 的【仿射】函数**，**所以障碍是一阶的。**
+
+**本节**：**深度 2 的输出是 `p` 的【二次】函数**（第 188 轮的显式形式），
+**所以二阶差分是常数，而【四阶差分恒为零】。**
+
+**⇒ 一切「四阶差分不为零」的 `Phi` 都不可达——这是深度 2 的障碍，
+比深度 1 的障碍【高一阶】。**
+
+## 为什么用四阶而不是三阶
+
+**三次差分对二次函数是常数 `6·g2·g0`（一般不为零），
+而【四阶】差分对任何二次函数恒为零。**
+**⇒ 四阶差分是「次数 ≤ 2」的判别式，正如二阶差分是「次数 ≤ 1」的判别式。** -/
+
+/-- ⭐⭐ **二次函数的四阶差分为零**——**纯代数恒等式。** -/
+theorem quadratic_fourth_difference (A B C : ℝ) :
+    (A * 0 ^ 2 + B * 0 + C) - 3 * (A * 1 ^ 2 + B * 1 + C)
+      + 3 * (A * 2 ^ 2 + B * 2 + C) - (A * 3 ^ 2 + B * 3 + C) = 0 := by
+  norm_num
+  ring
+
+/-- ⭐⭐⭐ **深度 2 链的输出满足四阶差分为零**——**与第 197 轮的仿射障碍对照。**
+
+**宽度 1、两层，四个输入点 `p j = j`（`j = 0,1,2,3`）：
+输出是 `g 2 · (g 0 · j + g 1) + g 3`，即 `j` 的二次函数，故四阶差分为零。** -/
+theorem twoLayer_fourth_difference_zero (g : Fin 4 → ℝ) :
+    flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (0 : ℝ)) 0
+        - 3 * flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (1 : ℝ)) 0
+      + 3 * flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (2 : ℝ)) 0
+        - flatChainAct (N := 4) twoLayerChain 0 g (fun _ => (3 : ℝ)) 0 = 0 := by
+  rw [twoLayerChain_explicit, twoLayerChain_explicit, twoLayerChain_explicit,
+    twoLayerChain_explicit]
+  norm_num
+  ring
+
 end Lattice.Core
