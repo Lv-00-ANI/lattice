@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 124 | 43 |
+| `Lattice.Core.VariableDerivative` | 126 | 44 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2812,8 +2812,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cgd_zero_grad` -> `le_trans`, `normSq`
 - `chain3_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
 - `chainAudit_length` -> `Audit`, `length`
-- `chainDepth_cons` -> `Chain`, `MLayer`
-- `chainDepth_idf` -> `Chain`, `MLayer`
+- `chainDepth_cons` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `chainDepth_idf` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainErrReal_le` -> `E`, `induction`, `zero`
 - `chainErrReal_nonneg` -> `E`, `induction`, `zero`
 - `chainFwd_replacement_bound_last_layer` -> `ChainFwd`, `ChainTail`
@@ -6191,17 +6191,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loss_zero_is_localMin` -> `E`, `Sat`, `apply`, `loss`
 - `losses_are_not_mutually_reducible` -> `AllSatisfied`, `ConstraintSet`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `semantic_not_injective`, `tokenize`
 - `lossy_weaker` -> `LinearForm`, `SemEq`, `ZB`, `semantic_not_injective`
-- `lowDeg_add` -> `Chain`, `MLayer`
-- `lowDeg_affine` -> `Chain`, `MLayer`
-- `lowDeg_const_mul` -> `Chain`, `MLayer`
-- `lowDeg_one_affine_mul` -> `Chain`, `MLayer`
-- `lowDeg_one_rec` -> `Chain`, `MLayer`
-- `lowDeg_one_step` -> `Chain`, `MLayer`
-- `lowDeg_succ` -> `Chain`, `MLayer`
-- `lowDeg_two_affine_mul` -> `Chain`, `MLayer`
-- `lowDeg_two_step` -> `Chain`, `MLayer`
-- `lowDeg_zero_affine_mul` -> `Chain`, `MLayer`
-- `lowDeg_zero_of_const` -> `Chain`, `MLayer`
+- `lowDeg_add` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_affine` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_const_mul` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_one_affine_mul` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_one_rec` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_one_step` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_succ` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_two_affine_mul` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_two_step` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_zero_affine_mul` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `lowDeg_zero_of_const` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `low_rank_error_budget` -> `frob`, `le_trans`
 - `low_rank_reparam` -> `apply`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `lower_bound_distinguishes` -> `roundDownN`
@@ -7082,6 +7082,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
+- `oneLayerParamPoly_eval` -> `eval`, `eval_add`, `eval_mul`
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
@@ -8080,14 +8081,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reward_diff_equiv_iff_sub_const` -> `induction`, `zero`
 - `reward_diff_equiv_of_add_const` -> `induction`, `zero`
 - `rfdiffIter_add` -> `Chain`, `MLayer`, `induction`, `zero`
-- `rfdiffIter_const_mul` -> `Chain`, `MLayer`, `induction`, `zero`
+- `rfdiffIter_const_mul` -> `Chain`, `MLayer`, `eval`, `induction`, `zero`
 - `rfdiffIter_one` -> `induction`, `zero`
 - `rfdiffIter_succ` -> `induction`, `zero`
 - `rfdiff_add` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_affine` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_affine_mul` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_const_mul` -> `Chain`, `MLayer`, `induction`, `zero`
-- `rfdiff_eq_zero_step` -> `Chain`, `MLayer`
+- `rfdiff_eq_zero_step` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
+- `rfdiff_mul` -> `eval`, `eval_add`, `eval_mul`
 - `rfl_restricts_to_any_subset` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `rfl_roundtrip_forces_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
 - `rg_exists_nnnorm_eq_spectralRadius` -> `E`
@@ -9413,6 +9415,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
+- `threeLayerAxis_not_affine` -> `eval`, `eval_add`, `eval_mul`
+- `threeLayerAxis_t3` -> `eval`, `eval_add`, `eval_mul`
 - `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
 - `threeLayerCoeffs_at_axis` -> `induction`, `zero`
 - `threeLayer_fourth_difference_zero` -> `Chain`, `e2`, `induction`, `zero`

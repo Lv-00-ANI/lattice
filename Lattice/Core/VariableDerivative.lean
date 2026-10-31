@@ -2643,4 +2643,64 @@ theorem rfdiff_affine (a b : ℝ) :
 **⇒ 已证的 `lowDeg_affine_mul` 三个实例（`k = 0, 1, 2`，第 207／208／第 3 轮）是这条路线能给的全部。
 一般形式【登记为未做**，理由如上，而不是「暂时没时间」。** -/
 
+
+/-! ## ⭐⭐⭐ 参数次数的正确载体：`MvPolynomial`
+
+## 为什么第 5 轮把问题推到这里
+
+**`LowDeg` 阶梯在第 5 轮可证明地终止了：归纳步需要 `t` 的【平移不变性】，
+而 `LowDeg` 不是平移不变的。**
+
+**⇒ 正确的载体是把输出看成参数向量 `g : Fin N → ℝ` 的【多变量多项式】，
+次数取 `totalDegree`。**
+
+**⚠ `totalDegree` 对参数平移【显然**不变（多项式本身不变），
+**所以第 5 轮的障碍在这个载体上根本不会出现。`totalDegree_mul` 已核实存在。**
+
+## 本节给出形状
+
+**对宽 1 的单层，显式写出那个多项式并证其次数 ≤ 1。**
+
+**⚠ 一般深度的归纳仍未做——但载体现在是对的。** -/
+
+/-- **宽 1、单层的输出作为参数 `g : Fin N → ℝ` 的多项式**：
+**`X 0 · x₀ + X 1`**（`X 0` 是权重槽位，`X 1` 是偏置槽位）。 -/
+noncomputable def oneLayerParamPoly (N : ℕ) (h0 : 0 < N) (h1 : 1 < N) (x0 : ℝ) :
+    MvPolynomial (Fin N) ℝ :=
+  MvPolynomial.X ⟨0, h0⟩ * MvPolynomial.C x0 + MvPolynomial.X ⟨1, h1⟩
+
+/-- ⭐⭐ **单层多项式求值等于该层的计算**——**载体与网络一致。** -/
+theorem oneLayerParamPoly_eval (N : ℕ) (h0 : 0 < N) (h1 : 1 < N) (x0 : ℝ)
+    (g : Fin N → ℝ) :
+    (oneLayerParamPoly N h0 h1 x0).eval g = g ⟨0, h0⟩ * x0 + g ⟨1, h1⟩ := by
+  simp only [oneLayerParamPoly, MvPolynomial.eval_add, MvPolynomial.eval_mul,
+    MvPolynomial.eval_X, MvPolynomial.eval_C]
+
+/-- ⭐⭐ **单层多项式的次数 ≤ 1**——**「深度 1 ⟹ 参数次数 ≤ 1」的载体形式。** -/
+theorem oneLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N) (x0 : ℝ) :
+    (oneLayerParamPoly N h0 h1 x0).totalDegree ≤ 1 := by
+  have hm : (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+      : MvPolynomial (Fin N) ℝ).totalDegree
+      ≤ (MvPolynomial.X (⟨0, h0⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree
+        + (MvPolynomial.C x0 : MvPolynomial (Fin N) ℝ).totalDegree :=
+    MvPolynomial.totalDegree_mul _ _
+  have hx : (MvPolynomial.X (⟨0, h0⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree = 1 :=
+    MvPolynomial.totalDegree_X _
+  have hc : (MvPolynomial.C x0 : MvPolynomial (Fin N) ℝ).totalDegree = 0 :=
+    MvPolynomial.totalDegree_C x0
+  have hy : (MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree = 1 :=
+    MvPolynomial.totalDegree_X _
+  rw [oneLayerParamPoly]
+  calc (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+        + MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree
+      ≤ max (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+            : MvPolynomial (Fin N) ℝ).totalDegree
+          (MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree :=
+        MvPolynomial.totalDegree_add _ _
+    _ ≤ 1 := by
+        rw [max_le_iff]
+        constructor
+        · omega
+        · omega
+
 end Lattice.Core
