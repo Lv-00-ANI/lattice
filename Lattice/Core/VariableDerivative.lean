@@ -1298,4 +1298,49 @@ theorem flatChainAct_not_affine :
   rw [twoLayer_convex_eval, twoLayer_affine_eval] at heq
   norm_num at heq
 
+/-! ## ⭐ 精确的边界：仿射性在【深度 1】成立，在【深度 ≥ 2】失败
+
+## 为什么这条边界值得单独陈述
+
+**第 185 轮证明了 `flatChainAct_not_affine`：两层链对参数是二次的，所以凸组合不保凸组合。**
+
+**但那不能读成「仿射性完全没用**——**单层时它【确实】成立，
+因为单层就是 `flatParamActSafe`，而第 181 轮证了它对参数仿射。**
+
+**⇒ 正确的陈述是**：
+
+| 深度 | 对参数仿射？ | 依据 |
+|:--|:--|:--|
+| 0（恒等链） | 是（平凡） | 作用是恒等，与 `g` 无关 |
+| **1** | **是** | **`flatParamActSafe_affine`（第 181 轮）** |
+| **≥ 2** | **否** | **`flatChainAct_not_affine`（第 185 轮，数值反例）** |
+
+**⚠ 这是「仿射像」这条路线能走多远的【完整答案**：
+**它恰好在深度 1 上有效，而深度 1 正是一般多层网络【不】满足的情形。** -/
+
+/-- ⭐⭐⭐ **单层链对参数仿射**——**第 185 轮反例的【正向对照**。
+
+**单层链 `Chain.cons l (Chain.idf n)` 的作用就是 `flatParamActSafe`，
+所以它对参数仿射（第 181 轮），对激活线性（第 183 轮）。** -/
+theorem flatChainAct_oneLayer_affine {N m n : ℕ} (l : MLayer m n) (off : ℕ)
+    (g₁ g₂ : Fin N → ℝ) (t : ℝ) (x : Fin m → ℝ) :
+    flatChainAct (N := N) (Chain.cons l (Chain.idf n)) off
+        (fun i => (1 - t) * g₁ i + t * g₂ i) x
+      = fun j => (1 - t) * flatChainAct (N := N) (Chain.cons l (Chain.idf n)) off g₁ x j
+          + t * flatChainAct (N := N) (Chain.cons l (Chain.idf n)) off g₂ x j := by
+  funext j
+  simp only [flatChainAct]
+  exact congrFun (flatParamActSafe_affine (N := N) (a := m) (b := n) off g₁ g₂ t x) j
+
+/-- ⭐⭐ **零层链对参数仿射（平凡）**——**作用是恒等，与 `g` 完全无关。** -/
+theorem flatChainAct_zeroLayer_affine {N n : ℕ} (off : ℕ)
+    (g₁ g₂ : Fin N → ℝ) (t : ℝ) (x : Fin n → ℝ) :
+    flatChainAct (N := N) (Chain.idf n) off
+        (fun i => (1 - t) * g₁ i + t * g₂ i) x
+      = fun j => (1 - t) * flatChainAct (N := N) (Chain.idf n) off g₁ x j
+          + t * flatChainAct (N := N) (Chain.idf n) off g₂ x j := by
+  funext j
+  simp only [flatChainAct_idf]
+  ring
+
 end Lattice.Core

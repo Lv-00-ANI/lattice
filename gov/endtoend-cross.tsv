@@ -156,6 +156,8 @@ Core/VariableDerivative.lean	flatChainAct_linear_activation
 Core/VariableDerivative.lean	twoLayer_convex_eval
 Core/VariableDerivative.lean	twoLayer_affine_eval
 Core/VariableDerivative.lean	flatChainAct_not_affine
+Core/VariableDerivative.lean	flatChainAct_oneLayer_affine
+Core/VariableDerivative.lean	flatChainAct_zeroLayer_affine
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
