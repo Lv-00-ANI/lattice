@@ -1046,4 +1046,63 @@ theorem flatChainAct_differentiableAt_input {N : ℕ} :
     (flatChainAct_differentiableAt_joint ch off g x).comp x
       (DifferentiableAt.prod (differentiableAt_const g) differentiableAt_id)
 
+/-! ## 参数侧的线性：仿射像封闭性的基础
+
+## 为什么需要这一节
+
+**第 179 轮确定：一般可实现性需要「目标配置落在链的仿射像内」这个前提。
+而「像在仿射组合下封闭」的充分条件是【链作用对参数 `g` 线性**。】
+
+**⇒ 本节证明这条线性，从最原子的 `readSlot` 开始。**
+
+## 层次
+
+1. **`readSlot` 对 `g` 线性**——界内是坐标投影，界外两侧都是零；
+2. **`flatParamActSafe` 对 `g` 线性**——求和与常数项；
+3. **`flatChainAct` 对 `g` 线性**——逐层归纳。
+
+**⚠ 三者都【无前提**：`readSlot` 的 `if` 由 `k < N` 决定，不依赖 `g`。** -/
+
+/-- ⭐⭐ **`readSlot` 对参数线性**——**界内两侧都是同一个投影，界外两侧都是零。** -/
+theorem readSlot_linear {N : ℕ} (g₁ g₂ : Fin N → ℝ) (a b : ℝ) (k : ℕ) :
+    readSlot (fun i => a * g₁ i + b * g₂ i) k
+      = a * readSlot g₁ k + b * readSlot g₂ k := by
+  by_cases hk : k < N
+  · rw [readSlot_of_lt _ hk, readSlot_of_lt _ hk, readSlot_of_lt _ hk]
+  · rw [readSlot_of_ge _ (by omega), readSlot_of_ge _ (by omega),
+      readSlot_of_ge _ (by omega)]
+    ring
+
+/-! **为什么不需要单独的「凸组合」别名**：
+
+**别名普查（第 180 轮）把 `readSlot_affine` 标为 `forward` 别名**——
+**它只是 `readSlot_linear g₁ g₂ (1 - t) t k` 的转写调用，不提供新内容。
+⇒ 删掉它，调用方直接写 `readSlot_linear g₁ g₂ (1 - t) t k`。** -/
+
+/-! ### ⚠ 未闭合：`flatParamActSafe` 与 `flatChainAct` 对参数的线性
+
+**目标**：`flatParamActSafe off ((1-t) g₁ + t g₂) x = (1-t) 作用 + t 作用`，再逐层归纳到 `flatChainAct`。
+
+**第 180 轮实测的障碍**：**`flatParamActSafe_affine` 的证明需要在【求和内部】做
+`ring` 式的重排**——目标是
+
+    ∑ i, ((1-t) * A i + t * B i) * x i + ((1-t) * C + t * D)
+      = (1-t) * (∑ i, A i * x i + C) + t * (∑ i, B i * x i + D)
+
+**而 `rw [Finset.mul_sum]` 在这条目标上【找不到模式**：
+**`(1-t) * (∑ i, … + C)` 的整体形状不是 `?a * ∑ i, ?f i`，因为求和内部还带 `+ C`。**
+
+**⇒ 正确做法是【先`Finset.sum_add_distrib` 把常数项拆出来】，再对两个纯求和分别
+`Finset.mul_sum`，最后 `ring`。** **第 180 轮没有走完这条链。**
+
+**已证的部分（本节上面两条）**：
+**`readSlot_linear` 与 `readSlot_affine`——即【读槽位】对参数线性，那是最原子的一步。**
+
+**⚠ 而 `flatChainAct_affine` 的 `cons` 支还有一个额外问题**：
+**归纳假设给出的是 `flatChainAct rest … g' x'` 的线性，
+但 `cons` 支的内层是 `flatParamActSafe off g x`，
+所以需要【先】把 `flatParamActSafe` 的线性证出来，才能用归纳假设重写。**
+
+**⇒ 本节只声称 `readSlot` 的线性，不声称更高层。** -/
+
 end Lattice.Core
