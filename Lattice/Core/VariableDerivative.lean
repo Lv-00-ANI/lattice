@@ -462,4 +462,79 @@ theorem layerOffsets_two (a b : ℕ) :
     layerOffsets [a, b] = [0, layerParamCount a b] := by
   simp only [layerOffsets, List.map, Nat.zero_add]
 
+/-! ## 扁平层作用：把偏移算术与线性可微性接起来
+
+## 设计：所有量都作为【参数】传入
+
+**第 162–166 轮的教训是同一个**：
+**凡是可以「算出来」的东西，如果它出现在 `Type` 位置或依赖位置，
+就在 Lean 里制造障碍；而把它作为【参数】传入就一切顺利。**
+
+**⇒ 本节的 `slotOf` 只需要 `off`、`b`、`i`、`j`——`ws` 根本不出现。**
+**而槽位在 `Fin B` 里的良定性由【假设】`h : slotOf off b i j < B` 给出，不由证明给出。** -/
+
+/-- **槽位**：第 `off` 段起、第 `i` 行（长度 `b`）、第 `j` 列。
+
+**`slotOf off b i j = off + i * b + j`**——**纯算术，没有 `List`，没有 `Fin` 的构造。** -/
+def slotOf (off b i j : ℕ) : ℕ := off + i * b + j
+
+/-- **第一行的槽位从 `off` 开始**。 -/
+theorem slotOf_zero_row (off b j : ℕ) : slotOf off b 0 j = off + j := by
+  simp only [slotOf, Nat.zero_mul, Nat.zero_add, Nat.add_zero]
+
+/-- **相邻两行相差 `b`**。 -/
+theorem slotOf_succ_row (off b i j : ℕ) :
+    slotOf off b (i + 1) j = slotOf off b i j + b := by
+  simp only [slotOf]
+  ring
+
+/-- **同一行相邻两列相差一**。 -/
+theorem slotOf_succ_col (off b i j : ℕ) :
+    slotOf off b i (j + 1) = slotOf off b i j + 1 := by
+  simp only [slotOf]
+  ring
+
+/-- ⭐⭐ **同一行内不同列给出不同槽位**——**单射性在这一维上是【直接的**。** -/
+theorem slotOf_inj_col (off b i : ℕ) {j j' : ℕ} (h : slotOf off b i j = slotOf off b i j') :
+    j = j' := by
+  simp only [slotOf] at h
+  omega
+
+/-- ⭐⭐ **相邻行在同一列上相差 `b`**，**所以 `b > 0` 时不同行不同槽位。** -/
+theorem slotOf_row_add (off b i : ℕ) (hb : 0 < b) {i' : ℕ} (hi : i < i') :
+    slotOf off b i 0 < slotOf off b i' 0 := by
+  simp only [slotOf]
+  have : i * b < i' * b := by
+    exact Nat.mul_lt_mul_of_pos_right hi hb
+  omega
+
+/-- ⭐⭐⭐ **扁平层作用**：从扁平参数向量读出这一层的权重与偏置。
+
+**`g ⟨slotOf off b i j, _⟩` 就是「第 `off` 段里第 `(i,j)` 个参数」，
+而 `(∑ i, w i j * g (…) ) + c j` 正是 `mlayerAct` 的形状。**
+
+**⚠ 良定性由假设 `hbound` 给出，不由证明给出**——**这是第 165 轮的同一个模式。** -/
+noncomputable def flatLayerAct {B a b : ℕ} (off : ℕ)
+    (hbound : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < B)
+    (w : Fin a → Fin b → ℝ) (c : Fin b → ℝ) (g : Fin B → ℝ) : Fin b → ℝ :=
+  fun j => (∑ i, w i j * g ⟨slotOf off b i.val j.val, hbound i j⟩) + c j
+
+/-- ⭐⭐⭐ **扁平层作用对参数可微**——**这是整个扁平参数链的核心。**
+
+**由第 165 轮的 `flatParams_differentiableAt_linear_vec` 直接得到**：
+**一旦把 `σ i = ⟨slotOf off b i.val j.val, hbound i j⟩` 固定下来，
+`g ↦ ∑ i, w i j * g (σ i) + c j` 就是那条定理的形状。** -/
+theorem flatLayerAct_differentiableAt {B a b : ℕ} (off : ℕ)
+    (hbound : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < B)
+    (w : Fin a → Fin b → ℝ) (c : Fin b → ℝ) (g : Fin B → ℝ) :
+    DifferentiableAt ℝ (fun h : Fin B → ℝ => flatLayerAct off hbound w c h) g := by
+  have hfun : (fun h : Fin B → ℝ => flatLayerAct off hbound w c h)
+      = fun h : Fin B → ℝ => fun j : Fin b =>
+          (∑ i : Fin a, w i j * h ⟨slotOf off b i.val j.val, hbound i j⟩) + c j := by
+    funext h
+    funext j
+    simp only [flatLayerAct]
+  rw [hfun]
+  fun_prop
+
 end Lattice.Core
