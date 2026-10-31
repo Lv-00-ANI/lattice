@@ -2011,4 +2011,62 @@ theorem flatChainAct_fdiffIter_two {N : ℕ} (ch : Chain 1 1) (off : ℕ)
   push_cast
   ring
 
+
+/-! ## ⭐⭐⭐ 实数版差分：参数方向的次数
+
+## 为什么需要第二个差分算子
+
+**第 202 轮的 `fdiffIter` 定义在 `ℕ → ℝ` 上**——**它的用途是「沿输入序号取差分」，
+而输入序号是自然数。**
+
+**⚠ 但参数次数需要【沿实数方向】取差分**：**`t ↦ Φ(g + t·h)` 的自变量 `t : ℝ`。
+`fdiffIter` 的签名是 `ℕ → (ℕ → ℝ) → (ℕ → ℝ)`，对 `t : ℝ` 根本不能应用。**
+
+**⇒ 本节给出实数版算子 `rfdiff`／`rfdiffIter`（步长固定为 1，自变量是 `ℝ`），
+并用它陈述「两层链沿任何参数方向是二次的」。**
+
+**⚠ 两个算子并存不是冗余**：**`fdiffIter` 服务「输入次数」（第 202–203 轮），
+`rfdiffIter` 服务「参数次数」（本节）——自变量类型不同，用途不同。** -/
+
+/-- **实自变量的前向差分算子**。 -/
+def rfdiff (f : ℝ → ℝ) : ℝ → ℝ := fun t => f (t + 1) - f t
+
+/-- **实数版迭代差分**。 -/
+def rfdiffIter : ℕ → (ℝ → ℝ) → (ℝ → ℝ)
+  | 0, f => f
+  | k + 1, f => rfdiff (rfdiffIter k f)
+
+/-- **一次迭代就是 `rfdiff`**——**定义级。** -/
+theorem rfdiffIter_one (f : ℝ → ℝ) : rfdiffIter 1 f = rfdiff f := rfl
+
+/-- **实数版迭代的递推式**——**定义级。** -/
+theorem rfdiffIter_succ (k : ℕ) (f : ℝ → ℝ) :
+    rfdiffIter (k + 1) f = rfdiff (rfdiffIter k f) := rfl
+
+/-- ⭐⭐ **二次函数的三阶实数差分为零**——**「参数次数 = 2」的解析核心。** -/
+theorem rfdiffIter_cubic_zero (A B C : ℝ) :
+    rfdiffIter 3 (fun t : ℝ => A + (B * t + C * t ^ 2)) 0 = 0 := by
+  simp only [rfdiffIter, rfdiff]
+  norm_num
+  ring
+
+/-- ⭐⭐⭐ **沿任何参数方向，两层链是二次的**——**故三阶参数差分为零。**
+
+**⚠ 与第 187 轮的对照**：**第 187 轮 `twoLayer_no_affine_fit` 证【没有仿射模型能拟合】，
+即二阶参数差分【不】恒为零。本节证三阶恒为零。
+⇒ 两者合起来把参数次数【定死在 2】。** -/
+theorem twoLayer_param_cubic (g h : Fin 4 → ℝ) (x : Fin 1 → ℝ) :
+    rfdiffIter 3 (fun t : ℝ =>
+      flatChainAct (N := 4) twoLayerChain 0 (fun i => g i + t * h i) x 0) 0 = 0 := by
+  have hexp : ∀ t : ℝ,
+      flatChainAct (N := 4) twoLayerChain 0 (fun i => g i + t * h i) x 0
+        = ((g 2) * ((g 0) * x 0 + g 1) + g 3)
+          + (((h 2) * ((g 0) * x 0 + g 1) + (g 2) * ((h 0) * x 0 + h 1) + h 3) * t
+            + ((h 2) * ((h 0) * x 0 + h 1)) * t ^ 2) := by
+    intro t
+    rw [twoLayerChain_explicit]
+    ring
+  simp only [hexp]
+  exact rfdiffIter_cubic_zero _ _ _
+
 end Lattice.Core
