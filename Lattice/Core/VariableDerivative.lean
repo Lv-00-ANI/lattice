@@ -1171,4 +1171,131 @@ theorem flatParamActSafe_affine {N a b : ℕ} (off : ℕ) (g₁ g₂ : Fin N →
 
 **⇒ 所以 (a) 应当可以走通；第 182 轮失败的是【双线性】那个更强的形式，不是 (a)。** -/
 
+/-- ⭐⭐⭐ **`flatParamActSafe` 对【激活】线性**——**参数固定时它是 `∑ w i j * x i + c j`，对 `x` 线性。** -/
+theorem flatParamActSafe_linear_activation {N a b : ℕ} (off : ℕ) (g : Fin N → ℝ)
+    (p₁ p₂ : Fin a → ℝ) (t : ℝ) :
+    flatParamActSafe (N := N) (a := a) (b := b) off g
+        (fun i => (1 - t) * p₁ i + t * p₂ i)
+      = fun j => (1 - t) * flatParamActSafe (N := N) (a := a) (b := b) off g p₁ j
+          + t * flatParamActSafe (N := N) (a := a) (b := b) off g p₂ j := by
+  funext j
+  simp only [flatParamActSafe]
+  have hsplit : ∀ i : Fin a,
+      readSlot g (slotOf off b i.val j.val) * ((1 - t) * p₁ i + t * p₂ i)
+      = (1 - t) * (readSlot g (slotOf off b i.val j.val) * p₁ i)
+        + t * (readSlot g (slotOf off b i.val j.val) * p₂ i) := by
+    intro i
+    ring
+  simp only [hsplit]
+  rw [Finset.sum_add_distrib]
+  simp only [← Finset.mul_sum]
+  ring
+
+/-- ⭐⭐⭐ **`flatChainAct` 对【激活】线性**——**参数固定，只有激活取凸组合。**
+
+**⚠ 这是 (a) 的【前提**：`cons` 支的归纳假设接收的是「凸组合激活」，
+而目标需要的是「旧激活」，两者之间正是这条定理。**
+
+**与第 182 轮的双线性失败对照**：**双线性把参数与激活【同时】动，产生双重凸组合；
+而 (b) 只动激活，(a) 只动参数，各自归纳是齐的。** -/
+theorem flatChainAct_linear_activation {N : ℕ} :
+    {m n : ℕ} → (ch : Chain m n) → (off : ℕ) → (g : Fin N → ℝ) → (t : ℝ) →
+    (p₁ p₂ : Fin m → ℝ) →
+    flatChainAct (N := N) ch off g (fun i => (1 - t) * p₁ i + t * p₂ i)
+      = fun j => (1 - t) * flatChainAct (N := N) ch off g p₁ j
+          + t * flatChainAct (N := N) ch off g p₂ j
+  | _, _, .idf n, off, g, t, p₁, p₂ => by
+      funext j
+      simp only [flatChainAct_idf]
+  | _, _, .cons (m := m') (n := n') l rest, off, g, t, p₁, p₂ => by
+      funext j
+      simp only [flatChainAct]
+      rw [flatParamActSafe_linear_activation (N := N) (a := m') (b := n') off g p₁ p₂ t]
+      exact congrFun (flatChainAct_linear_activation rest (off + layerParamCount m' n') g t
+        (flatParamActSafe (N := N) (a := m') (b := n') off g p₁)
+        (flatParamActSafe (N := N) (a := m') (b := n') off g p₂)) j
+
+/-! ## ⚠ 一个必须记录的反例：两层链对参数【不是】仿射的
+
+## 为什么这条重要
+
+**第 179–183 轮一直在追「仿射像在仿射组合下封闭」，以便给一般可实现性一个前提。
+第 181 轮证了单层对参数仿射（`flatParamActSafe_affine`），本轮先证了单层对激活线性
+（`flatParamActSafe_linear_activation`），然后试图沿链归纳。**
+
+**⚠ 结论是：归纳【失败**，而失败不是技术问题——**命题本身是假的**。
+
+## 为什么必然为假
+
+**两层的链是**：
+
+    z = w₂ · (w₁ · x + b₁) + b₂
+
+**对参数它是【二次**的（`w₁·w₂` 与 `w₂·b₁` 两项）。
+**⇒ 凸组合参数给出的不是凸组合输出，而是多出交叉项。**
+
+## 具体反例（宽度 1、两层、x = 1）
+
+**槽位约定**：第 1 层用 `g 0`（权）与 `g 1`（偏）；第 2 层从 `off = 2` 起，用 `g 2` 与 `g 3`。
+
+| 参数 | `w₁` | `b₁` | `w₂` | `b₂` | 输出 `z` |
+|:--|--:|--:|--:|--:|--:|
+| `gA = [1,0,1,0]` | 1 | 0 | 1 | 0 | **1** |
+| `gB = [2,0,2,0]` | 2 | 0 | 2 | 0 | **4** |
+| `½ gA + ½ gB = [1.5,0,1.5,0]` | 1.5 | 0 | 1.5 | 0 | **2.25** |
+
+**而 `½·1 + ½·4 = 2.5`。** **`2.25 ≠ 2.5`。**
+
+**⇒ 「两点的凸组合由参数的凸组合实现」在两层时【不成立】。** -/
+
+/-- **两层的具体链**（层内容无关——`flatChainAct` 从 `g` 读参数，层只决定宽度与深度）。 -/
+noncomputable def twoLayerProbeRest : MLayer 1 1 := ⟨fun _ _ => 0, fun _ => 0⟩
+
+/-- **两层的具体链**。 -/
+noncomputable def twoLayerChain : Chain 1 1 :=
+  Chain.cons twoLayerProbeRest (Chain.cons twoLayerProbeRest (Chain.idf 1))
+
+/-- **参数 `[1,0,1,0]`**——输出 `z = 1`。 -/
+def twoLayerG₁ : Fin 4 → ℝ := ![1, 0, 1, 0]
+
+/-- **参数 `[2,0,2,0]`**——输出 `z = 4`。 -/
+def twoLayerG₂ : Fin 4 → ℝ := ![2, 0, 2, 0]
+
+/-- **输入 `x = 1`**。 -/
+def twoLayerX : Fin 1 → ℝ := ![1]
+
+/-- **凸组合参数下的输出是 `9/4`**。 -/
+theorem twoLayer_convex_eval :
+    flatChainAct (N := 4) twoLayerChain 0
+        (fun i => (1 - (1 / 2 : ℝ)) * twoLayerG₁ i + (1 / 2) * twoLayerG₂ i) twoLayerX 0
+      = 9 / 4 := by
+  simp only [twoLayerChain, twoLayerProbeRest, flatChainAct, flatParamActSafe, readSlot,
+    slotOf, layerParamCount, twoLayerG₁, twoLayerG₂, twoLayerX]
+  norm_num
+
+/-- **两个输出点的凸组合是 `5/2`**。 -/
+theorem twoLayer_affine_eval :
+    (1 - (1 / 2 : ℝ)) * flatChainAct (N := 4) twoLayerChain 0 twoLayerG₁ twoLayerX 0
+      + (1 / 2) * flatChainAct (N := 4) twoLayerChain 0 twoLayerG₂ twoLayerX 0
+      = 5 / 2 := by
+  simp only [twoLayerChain, twoLayerProbeRest, flatChainAct, flatParamActSafe, readSlot,
+    slotOf, layerParamCount, twoLayerG₁, twoLayerG₂, twoLayerX]
+  norm_num
+
+/-- ⭐⭐⭐ **`flatChainAct` 对参数【不是】仿射的**——**两层的数值反例。**
+
+**这条否定了「仿射像在仿射组合下封闭」这条路线（对深度 ≥ 2）。**
+
+**⚠ 它不是缺陷**：**多层网络的输出对参数是【多项式】而【不是】仿射的，
+这是网络表达力的来源，也正是「符号 ⇄ 权重」不能靠线性代数一步跨过的原因。** -/
+theorem flatChainAct_not_affine :
+    ¬ ∀ (ch : Chain 1 1) (off : ℕ) (g₁ g₂ : Fin 4 → ℝ) (t : ℝ) (x : Fin 1 → ℝ),
+        flatChainAct (N := 4) ch off (fun i => (1 - t) * g₁ i + t * g₂ i) x
+          = fun j => (1 - t) * flatChainAct (N := 4) ch off g₁ x j
+              + t * flatChainAct (N := 4) ch off g₂ x j := by
+  intro h
+  have heq := congrFun (h twoLayerChain 0 twoLayerG₁ twoLayerG₂ (1 / 2) twoLayerX) 0
+  rw [twoLayer_convex_eval, twoLayer_affine_eval] at heq
+  norm_num at heq
+
 end Lattice.Core
