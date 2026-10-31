@@ -158,4 +158,67 @@ theorem flatLoss_differentiableAt_input {N K n : ℕ} (ch : Chain n n) (off : �
     (fun i : Fin K => flatChainAct (N := N) ch off g (p i)) hK hk).comp p
     (flatPoints_differentiableAt_input ch off g p)
 
+/-! ## 可实现性（基线情形）：零层链
+
+## 为什么先做零层
+
+**第 178 轮确定了逆向方向不能从损失反推约束，存活的两个候选之一是
+「可实现性」：`∃ g, flatLoss ch off cs g p = 0`。**
+
+**⚠ 一般情形【不成立**：`flatChainAct` 是仿射的（每层都是 `flatParamActSafe` 的复合，
+而后者对激活是仿射的），所以输出点列落在输入点列的仿射像里；
+而符号侧可满足的配置未必在那个像里。**
+
+**⇒ 先从【零层链】做起**：`ch = Chain.idf n` 时作用是恒等，
+**所以损失与 `g` 完全无关，可实现性退化为「约束在输入点上成立」。** -/
+
+/-- ⭐⭐ **零层链的作用是恒等**——**定义级。** -/
+theorem flatChainAct_idf_simp {N n : ℕ} (off : ℕ) (g : Fin N → ℝ) (x : Fin n → ℝ) :
+    flatChainAct (N := N) (Chain.idf n) off g x = x :=
+  rfl
+
+/-- ⭐⭐ **零层链的输出点列就是 `trunc` 作用在输入上**——**与 `g` 无关。** -/
+theorem flatPoints_idf {N K n : ℕ} (off : ℕ) (g : Fin N → ℝ) (p : Fin K → Pt n) :
+    flatPoints (N := N) (Chain.idf n) off g p = trunc (n := n) p := by
+  funext j
+  simp only [flatPoints, trunc, flatChainAct_idf_simp]
+
+/-- ⭐⭐⭐ **零层链上的损失与参数无关**——**所以「可实现」等价于「输入点列本身满足约束」。** -/
+theorem flatLoss_idf_eq {N K n : ℕ} (off : ℕ) (cs : List (GeoConstraint n))
+    (g : Fin N → ℝ) (p : Fin K → Pt n) :
+    flatLoss (Chain.idf n) off cs g p
+      = (cs.map (fun c => penaltyLoss c (trunc p))).sum := by
+  simp only [flatLoss, flatPoints_idf]
+
+/-- ⭐⭐⭐ **零层链上的可实现性**——**存在参数使损失为零 ⟺ 输入点列满足全部（安全）约束。**
+
+**这是候选 1 的基线情形，而且它不带任何仿射像的假设**：
+**零层链的作用是恒等，所以每一层都没「挡路」。** -/
+theorem flatLoss_idf_achievable {N K n : ℕ} (off : ℕ) (cs : List (GeoConstraint n))
+    (p : Fin K → Pt n) (hs : ∀ c ∈ cs, SafeBranch c) :
+    (∃ g : Fin N → ℝ, flatLoss (Chain.idf n) off cs g p = 0)
+      ↔ ∀ c ∈ cs, Holds c (trunc p) := by
+  constructor
+  · rintro ⟨g, hg⟩
+    have h : (cs.map (fun c => penaltyLoss c (trunc p))).sum = 0 := by
+      rw [← flatLoss_idf_eq off cs g p]
+      exact hg
+    have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (trunc p)), 0 ≤ x := by
+      intro x hx
+      obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+      exact penaltyLoss_nonneg c' _
+    rw [list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff] at h
+    intro c hc
+    exact (penaltyLoss_eq_zero_iff_holds_of_safe c (hs c hc) (trunc p)).mp (h c hc)
+  · intro hall
+    refine ⟨0, ?_⟩
+    rw [flatLoss_idf_eq]
+    have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (trunc p)), 0 ≤ x := by
+      intro x hx
+      obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+      exact penaltyLoss_nonneg c' _
+    rw [list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff]
+    intro c hc
+    exact (penaltyLoss_eq_zero_iff_holds_of_safe c (hs c hc) (trunc p)).mpr (hall c hc)
+
 end Lattice.Geo
