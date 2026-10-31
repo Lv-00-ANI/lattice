@@ -2815,4 +2815,51 @@ theorem twoLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
 **⇒ 第 7 轮的 `oneLayerParamPoly`／`twoLayerParamPoly` 与它们的次数界仍然有效，
 而「对链递增归纳」这一步【登记为未做**，理由是上述三条工程障碍。** -/
 
+
+/-! ## ⚠⚠ 第 9 轮：第 8 轮三条障碍的进展（一条解决、两条仍未）
+
+## 障碍 1（`termination_by`）——**已解决**
+
+**第 8 轮写成 `termination_by ch off hN x => chainDepth ch` 时报
+`application type mismatch`：`termination_by` 的参数是【消去之后】的那些，`ch` 在那里被绑定为 `ℕ`。**
+
+**⇒ 第 9 轮实测：`noncomputable def chainPoly {N : ℕ} : {m n : ℕ} → (ch : Chain m n) →
+(off : ℕ) → (hN : off + 2 * chainDepth ch + 1 < N) → (x : ℝ) → MvPolynomial (Fin N) ℝ`
+配【结构模式匹配**（`| _, _, Chain.idf _ ...` 与 `| _, _, Chain.cons ... l rest ...`），
+**完全不需要 `termination_by`**——**Lean 自己认出 `rest` 是 `Chain.cons` 的结构子项。**
+
+**⇒ 这个定义【编译通过**（第 9 轮实测），所以障碍 1 【不再是障碍**。** -/
+
+/-! ## 障碍 2（展开 `noncomputable def`）——**已解决**
+
+**第 8 轮 `rw [chainPoly]` 报 `made no progress`。
+第 9 轮实测：对【模式匹配**的递归定义，`rw [chainPoly]` **是**有效的
+（探针 `testRec` 与 `testChainPoly` 都验证过）。
+
+**⇒ 障碍 2 也不再是障碍。** -/
+
+/-! ## 障碍 3（`omega` 与非线性的 `2 * chainDepth`）——**本轮未解决**
+
+**定义体通过之后，`chainPoly_degree_le` 的归纳步需要在
+`hN : off + 2 * chainDepth (Chain.cons l rest) + 1 < N` 与
+`hN' : off + 2 * chainDepth rest + 3 < N` 之间做**线性提取**：
+
+    要证：  off < N          （给 `Fin N` 的证明项）
+    已知：  off + 2·d + 3 < N   （d 即 chainDepth rest）
+
+**⚠ `omega` 做不到**：**它的约束求解把 `2 * d` 当作【非线性项**，
+虽然它自己能证明 `d ≥ 0`，却拼不出 `off ≤ off + 2·d + 3`。
+
+**⚠ 而 `Nat.le_add_right` 之类的引理给的是 `a ≤ a + b` 的形状，
+需要把 `2 * d + 3` 显式写成 `b`——我试了 `Nat.le_add_right (off) (2 * d + 3)` 但类型对不上
+（`Nat.le_add_right a b : a ≤ b + a`，参数顺序与我想的反了）。**
+
+**⇒ 正确的引理应当是 `Nat.le_add_left`／`Nat.le.intro`，或者最直接：
+
+    have : off ≤ off + (2 * d + 3) := Nat.le_add_right off (2 * d + 3)   -- 若 `Nat.le_add_right a b : a ≤ a + b`
+
+**⚠ 我核对的 `Nat.le_add_right` 签名是 `a ≤ b + a`，所以应用 `Nat.le_add_left` 或 `le_add_of_nonneg_right`。**
+
+**⇒ 这是一条【一行引理选择**的问题，而本轮在同一处消耗了过多尝试。** -/
+
 end Lattice.Core
