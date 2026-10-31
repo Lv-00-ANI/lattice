@@ -1115,4 +1115,60 @@ theorem flatParamActSafe_affine {N a b : ℕ} (off : ℕ) (g₁ g₂ : Fin N →
   simp only [← Finset.mul_sum]
   ring
 
+/-! ### ⚠ 未闭合：`flatChainAct` 的双重线性，以及它需要的三条依赖
+
+## 目标
+
+    flatChainAct ch off ((1-t)·g₁ + t·g₂) ((1-t)·p₁ + t·p₂)
+      = (1-t) · flatChainAct ch off g₁ p₁ + t · flatChainAct ch off g₂ p₂
+
+**这是仿射像封闭性需要的最终形状：像中两点的凸组合，由两个参数的凸组合实现。**
+
+## 第 182 轮的尝试与确切障碍
+
+**我先证了一条辅助引理（`flatParamActSafe` 对【激活】线性），它通过了。
+但把两条线性合成双线性时，`cons` 支的依赖次序暴露了一个结构问题：**
+
+**`cons` 支的目标是**
+
+    flatChainAct rest off' 新参数 (flatParamActSafe off 新参数 新输入)
+
+**而它需要【三次】重写：**
+
+1. **`flatParamActSafe_affine`**：把「新参数作用在 X 上」变成「旧中间激活的凸组合」——
+   **但它只对【参数】做，激活仍是 X 原样；**
+2. **`flatParamActSafe_linear_activation`**：把 X（本身已是 `(1-t)p₁ + t p₂`）展开成凸组合——
+   **⚠ 这一步之后激活变成【双重】凸组合 `(1-t)·A + t·B`，其中 `A`、`B` 又各含一层凸组合；**
+3. **`rest` 的归纳假设**：**它期望激活是【一次】凸组合，而现在是两次，对不上。**
+
+**⇒ 根本原因**：**双线性定理的右侧把 `p₁`、`p₂` 当作【已经确定的】两个点，
+而 `cons` 支的中间激活是【由新参数算出来的】，两者不是同一个东西。**
+
+**⇒ 正确做法不是把双线性当作一条定理，而是【两条分别的线性**：
+
+    (a) `flatChainAct_affine`：`flatChainAct ch off ((1-t)g₁ + t g₂) x
+          = (1-t)·flatChainAct ch off g₁ x + t·flatChainAct ch off g₂ x`
+    (b) `flatChainAct_linear_activation`：`flatChainAct ch off g ((1-t)p₁ + t p₂)
+          = (1-t)·flatChainAct ch off g p₁ + t·flatChainAct ch off g p₂`
+
+**而 (a) 就是仿射像封闭性真正需要的——它说「两个参数给出的两点，其凸组合由参数的凸组合实现」，
+`x` 固定。** **⇒ 所以先做 (a)，不做双线性。**
+
+## (a) 的证明计划（下一轮）
+
+**`cons` 支**：
+
+    flatChainAct (cons l rest) off ((1-t)g₁ + t g₂) x
+      = flatChainAct rest off' ((1-t)g₁ + t g₂) (flatParamActSafe off ((1-t)g₁ + t g₂) x)
+
+**⇒ 两步**：
+
+1. **`flatParamActSafe_affine`** 给出内层 = `(1-t)·flatParamActSafe off g₁ x + t·flatParamActSafe off g₂ x`；
+2. **`rest` 的归纳假设 (a)**，**以 `p₁ = flatParamActSafe off g₁ x`、`p₂ = flatParamActSafe off g₂ x` 代入**。
+
+**⚠ 而第 2 步要求归纳假设接受任意 `x`——所以 (a) 必须对 `x` 全称，而不只是固定的 `x`。
+这一点在第 181／182 轮的递归签名里已经是这样（`(x : Fin m → ℝ)` 是递归参数）。**
+
+**⇒ 所以 (a) 应当可以走通；第 182 轮失败的是【双线性】那个更强的形式，不是 (a)。** -/
+
 end Lattice.Core
