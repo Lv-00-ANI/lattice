@@ -1383,4 +1383,48 @@ theorem twoLayer_no_affine_fit :
   rw [hsum] at hM
   linarith
 
+/-! ## 两层链的显式二次形式：次数 = 2 的直接证据
+
+## 为什么需要这一节
+
+**第 185／187 轮用【否定】的方式说明了两层链不是仿射的。
+但「不是仿射」只说明次数 ≠ 1，并不能说明次数 = 2。**
+
+**⇒ 本节给出【显式的二次表达式，把那两轮的否定补成正面的结构刻画。**
+
+## 槽位约定（宽度 1、两层）
+
+| 层 | 权重槽位 | 偏置槽位 | `off` |
+|:--|:--|:--|:--|
+| 第 1 层 | `g 0` | `g 1` | 0 |
+| 第 2 层 | `g 2` | `g 3` | `layerParamCount 1 1 = 2` |
+
+**⇒ 输出是**
+
+    z = g 2 · (g 0 · x + g 1) + g 3
+
+**对参数它是二次的：`g 2 · g 0` 与 `g 2 · g 1` 两个交叉项。** -/
+
+/-- ⭐⭐⭐ **两层链的显式形式**——**`z = g 2 · (g 0 · x + g 1) + g 3`。**
+
+**这是「次数 = 2」的【正面**证据，与第 185／187 轮的否定结果互补：
+那两轮说「不是仿射」，这一条说「恰好是这个二次表达式」。** -/
+theorem twoLayerChain_explicit (g : Fin 4 → ℝ) (x : Fin 1 → ℝ) :
+    flatChainAct (N := 4) twoLayerChain 0 g x 0
+      = g 2 * (g 0 * x 0 + g 1) + g 3 := by
+  simp only [twoLayerChain, twoLayerProbeRest, flatChainAct, flatParamActSafe, readSlot,
+    slotOf, layerParamCount]
+  norm_num
+  congr 2 <;> norm_num
+
+/-- ⭐⭐ **显式形式的直接推论：输出对第 2 层权重 `g 2` 是【线性】的**——
+**因为 `g 2` 只以一次出现。**
+
+**⚠ 而对 `g 0` 也是线性的（在 `g 2` 固定时）；**两者的乘积项 `g 2 · g 0` 才是非仿射的来源。** -/
+theorem twoLayerChain_linear_in_g2 (g₀ g₁ g₃ : ℝ) (x : Fin 1 → ℝ) :
+    flatChainAct (N := 4) twoLayerChain 0 (![g₀, g₁, 0, g₃] : Fin 4 → ℝ) x 0
+      = g₃ := by
+  rw [twoLayerChain_explicit]
+  norm_num
+
 end Lattice.Core
