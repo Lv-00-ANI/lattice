@@ -223,4 +223,48 @@ theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n �
 2. **对具体链形状，`ChainParams` 的实例由搜索自动给出，`differentiableAt_snd` 直接可用**
    （本轮实测到四层）；
 3. **签名里的变量 `ch` 才是障碍，而那是 Lean 类型类系统与依赖类型的交界问题，
-   不是数学问题。** -/end Lattice.Core
+   不是数学问题。** -//-! ### 宽度序列方案：已验证可行的部分，与仍然受阻的部分
+
+**第 163 轮试了「把参数空间从 `ChainParams ch`（依赖 `Chain`）换成
+`ParamsOf ws`（只依赖 `List ℕ`）」，以绕开第 162 轮定位的障碍。**
+
+## 已验证可行（`lake build` 下）
+
+**1. `Chain.toWidths`**：**`(m, _, .idf _) ↦ [m]`，`(m, _, .cons _ rest) ↦ m :: toWidths rest`**，
+**首元素必须由外层 `m` 给出**（用 `_` 会报 `don't know how to synthesize placeholder for argument 'head'`）。
+
+**2. `abbrev ParamsOf : List ℕ → Type`**：
+**`[] ↦ PUnit`，`[_] ↦ PUnit`，`a :: b :: rest ↦ mlayerParams a b × ParamsOf (b :: rest)`**，
+**在 `lake build` 下编译通过。**
+
+**3. ⚠ 一个探针工具的假象**：
+**同一个定义在 `lake env lean` 单独检查时报
+`code generator does not support recursor 'List.rec'`，
+而在 `lake build` 下【正常**。**⇒ 本项目的正式构建用 `lake build`，所以这不是问题；
+但用 `lake env lean` 做探针时会在 `Type` 值定义上误报。**
+
+## 仍然受阻
+
+**`NormedAddCommGroup`／`NormedSpace` 在 `ParamsOf ws` 上的实例**：
+
+**`| [] => inferInstanceAs (NormedAddCommGroup PUnit)` 无法通过**——
+**报错是 `synthesized type class instance is not definitionally equal to …`。
+`NormedSpace` 的签名更要求先有 `SeminormedAddCommGroup (ParamsOf ws)`，
+而那正是要解的东西，于是【同一个障碍以另一种形式重现】。**
+
+**⇒ 换载体【没有**绕开第 162 轮的障碍：**它把「依赖 `Chain` 的变量无法展开」
+换成了「对 `ws` 量化的实例无法在定义体内取得」。**
+
+## 结论
+
+**第 160–163 轮四次尝试的净结果是：**
+
+- **具体形状可行**：**对任意【写出来的】`Chain`（任意深度），`ChainParams` 的实例自动解出，
+  `actWith` 与 `differentiableAt_snd` 直接可用（第 162 轮实测到四层）。**
+- **变量量化受阻**：**对 `ch`／`ws` 作全称量化的单一陈述，在 Lean 的类型类系统里无法表达，
+  除非把实例作为【参数】传入——而那样递归时取不出子结构。**
+
+**⇒ 这是一个【Lean 表达能力】的限制，不是数学缺口。**
+**已登记的替代路线**：**把参数空间写成【扁平】的形式**
+（例如 `Fin (totalParams) → ℝ` 加一组索引引理），
+**那样实例由 `Pi` 一次给出，不需要任何递归。** -/end Lattice.Core
