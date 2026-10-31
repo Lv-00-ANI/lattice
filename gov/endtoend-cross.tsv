@@ -143,6 +143,8 @@ Core/StackDerivative.lean	hasFDerivAt_netAct_ofFn
 Core/VariableActLayer.lean	nlayerAct_id_eq_mlayerAct
 Core/VariableActLayer.lean	nlayerAct_cubic
 Core/VariableActLayer.lean	nlayer_width_forced
+Core/VariableDerivative.lean	chainParams_idf
+Core/VariableDerivative.lean	differentiableAt_chainAct
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
