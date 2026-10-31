@@ -182,6 +182,10 @@ Core/VariableDerivative.lean	twoLayer_param_cubic
 Core/VariableDerivative.lean	threeLayer_param_expand
 Core/VariableDerivative.lean	threeLayer_param_quartic
 Core/VariableDerivative.lean	threeLayer_no_quadfit
+Core/VariableDerivative.lean	rfdiffIter_add
+Core/VariableDerivative.lean	rfdiffIter_const_mul
+Core/VariableDerivative.lean	lowDeg_add
+Core/VariableDerivative.lean	lowDeg_const_mul
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
