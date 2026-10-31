@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 101 | 41 |
+| `Lattice.Core.VariableDerivative` | 112 | 42 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -3515,6 +3515,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
 - `cubic_fourth_difference` -> `Chain`, `e2`, `induction`, `zero`
+- `cubic_not_quadratic` -> `induction`, `zero`
 - `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `sum_range_sub_telescoping`
 - `curvature_determined_by_one_query` -> `Subgradient`
@@ -4764,7 +4765,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_cons_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
-- `flatChainAct_fdiffIter_two` -> `Chain`, `e2`
+- `flatChainAct_fdiffIter_two` -> `Chain`, `e2`, `induction`, `zero`
 - `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`
 - `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `slotOf`, `trunc`, `twoLayerProbeRest`
 - `flatChainAct_linear_activation` -> `Chain`, `MLayer`
@@ -8065,6 +8066,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reversibility_spectrum` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
 - `reward_diff_equiv_iff_sub_const` -> `induction`, `zero`
 - `reward_diff_equiv_of_add_const` -> `induction`, `zero`
+- `rfdiffIter_add` -> `induction`, `zero`
+- `rfdiffIter_const_mul` -> `induction`, `zero`
+- `rfdiffIter_one` -> `induction`, `zero`
+- `rfdiffIter_succ` -> `induction`, `zero`
+- `rfdiff_add` -> `induction`, `zero`
+- `rfdiff_affine_mul` -> `induction`, `zero`
+- `rfdiff_const_mul` -> `induction`, `zero`
 - `rfl_restricts_to_any_subset` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `rfl_roundtrip_forces_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
 - `rg_exists_nnnorm_eq_spectralRadius` -> `E`
@@ -9391,7 +9399,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
 - `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
 - `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
+- `threeLayerCoeffs_at_axis` -> `induction`, `zero`
 - `threeLayer_fourth_difference_zero` -> `Chain`, `e2`, `induction`, `zero`
+- `threeLayer_no_quadfit` -> `induction`, `zero`
+- `threeLayer_param_expand` -> `induction`, `zero`
+- `threeLayer_param_quartic` -> `induction`, `zero`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
@@ -9586,6 +9598,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_gA_eval` -> `Chain`, `MLayer`, `W`
 - `twoLayer_gB_eval` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoLayer_no_affine_fit` -> `Chain`, `MLayer`, `W`, `e2`
+- `twoLayer_param_cubic` -> `induction`, `zero`
 - `twoLayer_third_difference_zero` -> `Chain`, `e2`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`

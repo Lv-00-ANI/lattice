@@ -2227,4 +2227,148 @@ theorem threeLayer_no_quadfit :
   rw [← hexp t]
   exact (h t).symm
 
+
+/-! ## ⭐⭐⭐ 离散 Leibniz 规则：乘以一次式使次数加一
+
+## 为什么这条是「次数 = 深度」的一般归纳的核心
+
+**链的递推沿参数方向是**
+
+    Φ_{d+1}(t) = (g_{2d} + t·h_{2d}) · Φ_d(t) + (g_{2d+1} + t·h_{2d+1})
+
+**⚠ 即「乘一个【一次式】再加一个一次式」。**
+
+**⇒ 若 `Φ_d` 的次数被第 `k+1` 阶差分零化，那么 `Φ_{d+1}` 的次数被第 `k+2` 阶差分零化——
+而这需要的正是「一次式的乘积如何影响差分阶数」的规则，即【离散 Leibniz 规则**。
+
+## 形式
+
+**对任意 `a b : ℝ` 与 `f : ℝ → ℝ`：**
+
+    rfdiff (fun t => (a + b·t) · f t)
+      = fun t => (a + b·t) · rfdiff f t + b · f (t + 1)
+
+**⚠ 第二项的 `f (t+1)` 偏移是【离散** Leibniz 的特征——
+连续情形是 `(x·f)' = x·f' + f`，这里因差分步长为 1 而出现 `f (t+1)`。** -/
+
+/-- ⭐⭐ **离散 Leibniz 规则（一次式情形）**——**乘以一次式使差分阶数加一的基础。** -/
+theorem rfdiff_affine_mul (a b : ℝ) (f : ℝ → ℝ) :
+    rfdiff (fun t => (a + b * t) * f t)
+      = fun t => (a + b * t) * rfdiff f t + b * f (t + 1) := by
+  funext t
+  simp only [rfdiff]
+  ring
+
+/-- ⭐⭐ **离散 Leibniz 规则（常数情形）**——**乘以常数不改变差分阶数。** -/
+theorem rfdiff_const_mul (c : ℝ) (f : ℝ → ℝ) :
+    rfdiff (fun t => c * f t) = fun t => c * rfdiff f t := by
+  funext t
+  simp only [rfdiff]
+  ring
+
+/-- ⭐⭐ **`rfdiff` 是加性的**。 -/
+theorem rfdiff_add (f g : ℝ → ℝ) :
+    rfdiff (fun t => f t + g t) = fun t => rfdiff f t + rfdiff g t := by
+  funext t
+  simp only [rfdiff]
+  ring
+
+/-- ⭐⭐ **`rfdiffIter` 是加性的**。 -/
+theorem rfdiffIter_add (k : ℕ) (f g : ℝ → ℝ) :
+    rfdiffIter k (fun t => f t + g t)
+      = fun t => rfdiffIter k f t + rfdiffIter k g t := by
+  induction k generalizing f g with
+  | zero => rfl
+  | succ k ih =>
+      rw [rfdiffIter_succ, ih, rfdiff_add]
+      funext t
+      rw [rfdiffIter_succ, rfdiffIter_succ]
+
+/-- ⭐⭐ **`rfdiffIter` 与常数相乘交换**。 -/
+theorem rfdiffIter_const_mul (k : ℕ) (c : ℝ) (f : ℝ → ℝ) :
+    rfdiffIter k (fun t => c * f t) = fun t => c * rfdiffIter k f t := by
+  induction k generalizing f with
+  | zero => rfl
+  | succ k ih =>
+      rw [rfdiffIter_succ, ih, rfdiff_const_mul]
+      funext t
+      rw [rfdiffIter_succ]
+
+
+/-! ## ⭐⭐⭐ 次数概念化：`LowDeg k f :=` 第 `k+1` 阶差分为零
+
+## 为什么这样定义而不是用 `Polynomial`
+
+**「次数 ≤ k」需要一个定义。用 `Polynomial` 意味着把链的递推与 `MvPolynomial` 的复合对接——
+那是大工程，而且对本项目的用途（障碍）而言是过度的。**
+
+**⇒ 本项目真正需要的只是【判别式】：「次数 ≤ k」⟺「第 `k+1` 阶差分恒为零」。
+这在差分层面上是【定义**，无需多项式理论。**
+
+**⚠ 这不是弱化**：**第 197 轮的可达性障碍、第 204–206 轮的两侧钉住，
+用的全部是这个判别式；把它命名出来就能陈述一般归纳。** -/
+
+/-- **「次数 ≤ k」的差分定义**——**第 `k+1` 阶迭代差分为零。** -/
+def LowDeg (k : ℕ) (f : ℝ → ℝ) : Prop := rfdiffIter (k + 1) f = 0
+
+/-- ⭐ **常数是次数 ≤ 0 的**。 -/
+theorem lowDeg_zero_of_const (c : ℝ) : LowDeg 0 (fun _ => c) := by
+  simp only [LowDeg, rfdiffIter]
+  funext t
+  simp only [rfdiff, Pi.zero_apply]
+  ring
+
+/-- ⭐⭐ **加性：两个次数 ≤ k 的函数之和仍是次数 ≤ k**。 -/
+theorem lowDeg_add {k : ℕ} {f g : ℝ → ℝ} (hf : LowDeg k f) (hg : LowDeg k g) :
+    LowDeg k (fun t => f t + g t) := by
+  simp only [LowDeg] at *
+  rw [rfdiffIter_add, hf, hg]
+  funext t
+  simp
+
+/-- ⭐⭐ **数乘：次数 ≤ k 的函数乘常数仍是次数 ≤ k**。 -/
+theorem lowDeg_const_mul {k : ℕ} (c : ℝ) {f : ℝ → ℝ} (hf : LowDeg k f) :
+    LowDeg k (fun t => c * f t) := by
+  simp only [LowDeg] at *
+  rw [rfdiffIter_const_mul, hf]
+  funext t
+  simp
+
+
+/-- ⭐⭐ **`LowDeg` 是单调的：次数 ≤ k 蕴含次数 ≤ k+1。** -/
+theorem lowDeg_succ {k : ℕ} {f : ℝ → ℝ} (h : LowDeg k f) : LowDeg (k + 1) f := by
+  simp only [LowDeg] at *
+  rw [rfdiffIter_succ, h]
+  funext t
+  simp only [rfdiff, Pi.zero_apply]
+  ring
+
+/-- ⭐⭐ **`rfdiff f = 0` 当且仅当 `f` 是常函数**（差分步长为 1，所以只需 `f(t+1) = f t`）。
+
+**⚠ 这里只证【需要的方向**：`rfdiff f = 0 → ∀ t, f (t+1) = f t`。** -/
+theorem rfdiff_eq_zero_step {f : ℝ → ℝ} (h : rfdiff f = 0) (t : ℝ) : f (t + 1) = f t := by
+  have := congrFun h t
+  simp only [rfdiff, Pi.zero_apply] at this
+  linarith
+
+theorem lowDeg_zero_affine_mul {f : ℝ → ℝ} (hf : LowDeg 0 f) (a b : ℝ) :
+    LowDeg 1 (fun t => (a + b * t) * f t) := by
+  have hconst : ∀ s : ℝ, f (s + 1) = f s := fun s => rfdiff_eq_zero_step hf s
+  simp only [LowDeg, rfdiffIter] at *
+  funext t
+  -- 目标是 rfdiff (rfdiff (fun t => (a+b*t)*f t)) t = 0
+  set g : ℝ → ℝ := fun s => (a + b * s) * f s with hg
+  -- 先把两个 rfdiff 都展开成显式的四点值
+  have hval : ∀ s : ℝ, rfdiff g s = (a + b * (s + 1)) * f s - (a + b * s) * f s := by
+    intro s
+    simp only [rfdiff, hg]
+    have : f (s + 1) = f s := hconst s
+    rw [this]
+  have : rfdiff (rfdiff g) t = (rfdiff g (t + 1)) - (rfdiff g t) := rfl
+  rw [this, hval (t + 1), hval t]
+  have h1 : f (t + 1) = f t := hconst t
+  rw [h1]
+  simp only [Pi.zero_apply]
+  ring
+
 end Lattice.Core
