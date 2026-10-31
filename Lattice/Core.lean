@@ -18,6 +18,8 @@ import Lattice.Core.Activation
 import Lattice.Core.StackParams
 import Lattice.Core.StackDerivative
 import Lattice.Core.AnalysisHelper
+import Lattice.Core.NonlinearLayer
+import Lattice.Core.VariableActLayer
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE

@@ -113,6 +113,9 @@ Core/Invariant.lean	preserves_of_sat
 Core/Net.lean	relu_not_injective
 Core/Net.lean	netRelu_not_injective
 Core/Net.lean	reversibility_spectrum
+Core/NonlinearLayer.lean	actLayerAct_cubic
+Core/NonlinearLayer.lean	actLayerAct_zero_cubic
+Core/NonlinearLayer.lean	actLayerAct_cubic_zero
 Core/OneStepBridge.lean	oneStepRepair_converges
 Core/OneStepBridge.lean	oneStepRepair_one_step
 Core/OneStepBridge.lean	natCountdownAsRepair_converges
@@ -137,6 +140,9 @@ Core/RepairWF.lean	preserves_of_sat
 Core/StackDerivative.lean	netActN_eq_netAct
 Core/StackDerivative.lean	differentiableAt_netAct_ofFn
 Core/StackDerivative.lean	hasFDerivAt_netAct_ofFn
+Core/VariableActLayer.lean	nlayerAct_id_eq_mlayerAct
+Core/VariableActLayer.lean	nlayerAct_cubic
+Core/VariableActLayer.lean	nlayer_width_forced
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
