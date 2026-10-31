@@ -755,4 +755,88 @@ theorem compose2_differentiableAt_params {N a b d : ℕ} (off₁ off₂ : ℕ)
   exact DifferentiableAt.prod differentiableAt_id
     (flatParamAct_differentiableAt_params off₁ hw₁ hc₁ x g)
 
+/-! ## 三层复合：把「不重叠」写成递推等式
+
+## 为什么三层值得单独做
+
+**`compose2` 允许 `off₁` 与 `off₂` 任意；若两者重叠，两层读同一段参数。**
+**数学上仍可微，但**语义上不是两层网络**。**
+
+**⇒ 本节的 `compose3` 把偏移写成【递推等式】**：
+
+    off₂ = off₁ + a * b + b
+    off₃ = off₂ + b * d + d
+
+**这样「相邻层不重叠」由【构造】保证，不需要任何证明——
+而 `layerParamCount a b = a * b + b`（第 166 轮）正是这个步长。** -/
+
+/-- **一层的总占用量**——**与第 166 轮的 `layerParamCount` 一致。** -/
+theorem slotStep_eq_layerParamCount (a b : ℕ) :
+    a * b + b = layerParamCount a b :=
+  rfl
+
+/-- ⭐⭐ **第三层起点由前两层算出**——**递推的第一步。** -/
+def thirdOffset (off₁ a b : ℕ) : ℕ := off₁ + layerParamCount a b
+
+/-- ⭐⭐ **第四层起点由前三层算出**——**递推的第二步。** -/
+def fourthOffset (off₁ a b d : ℕ) : ℕ := thirdOffset off₁ a b + layerParamCount b d
+
+/-- **第三层起点确实比第一层大**（当 `b > 0`）。 -/
+theorem thirdOffset_gt (off₁ a b : ℕ) (hb : 0 < b) :
+    off₁ < thirdOffset off₁ a b := by
+  simp only [thirdOffset, layerParamCount]
+  have : 0 < a * b + b := by
+    have : 0 < b := hb
+    nlinarith
+  omega
+
+/-- ⭐⭐⭐ **三层复合**——**偏移由递推给出，所以三层读的区间互不相交。**
+
+**⚠ 三个 `hbound` 各自以 `N` 为上界**：**它们读的是同一个 `g : Fin N → ℝ`。** -/
+noncomputable def compose3 {N a b d e : ℕ} (off₁ : ℕ)
+    (hw₁ : ∀ (i : Fin a) (j : Fin b), slotOf off₁ b i.val j.val < N)
+    (hc₁ : ∀ (j : Fin b), off₁ + a * b + j.val < N)
+    (hw₂ : ∀ (i : Fin b) (j : Fin d),
+      slotOf (thirdOffset off₁ a b) d i.val j.val < N)
+    (hc₂ : ∀ (j : Fin d),
+      thirdOffset off₁ a b + b * d + j.val < N)
+    (hw₃ : ∀ (i : Fin d) (j : Fin e),
+      slotOf (fourthOffset off₁ a b d) e i.val j.val < N)
+    (hc₃ : ∀ (j : Fin e),
+      fourthOffset off₁ a b d + d * e + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) : Fin e → ℝ :=
+  flatParamAct (off := fourthOffset off₁ a b d) hw₃ hc₃ g
+    (flatParamAct (off := thirdOffset off₁ a b) hw₂ hc₂ g
+      (flatParamAct (off := off₁) hw₁ hc₁ g x))
+
+/-- ⭐⭐⭐ **三层复合对【参数与激活】联合可微**——**归纳步的第二次验证。** -/
+theorem compose3_differentiableAt_joint {N a b d e : ℕ} (off₁ : ℕ)
+    (hw₁ : ∀ (i : Fin a) (j : Fin b), slotOf off₁ b i.val j.val < N)
+    (hc₁ : ∀ (j : Fin b), off₁ + a * b + j.val < N)
+    (hw₂ : ∀ (i : Fin b) (j : Fin d),
+      slotOf (thirdOffset off₁ a b) d i.val j.val < N)
+    (hc₂ : ∀ (j : Fin d),
+      thirdOffset off₁ a b + b * d + j.val < N)
+    (hw₃ : ∀ (i : Fin d) (j : Fin e),
+      slotOf (fourthOffset off₁ a b d) e i.val j.val < N)
+    (hc₃ : ∀ (j : Fin e),
+      fourthOffset off₁ a b d + d * e + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ
+      (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+        compose3 off₁ hw₁ hc₁ hw₂ hc₂ hw₃ hc₃ r.1 r.2) (g, x) := by
+  have hstep : (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+        compose3 off₁ hw₁ hc₁ hw₂ hc₂ hw₃ hc₃ r.1 r.2)
+      = (fun s : (Fin N → ℝ) × (Fin d → ℝ) =>
+            flatParamAct (off := fourthOffset off₁ a b d) hw₃ hc₃ s.1 s.2)
+        ∘ (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+            (r.1, compose2 off₁ (thirdOffset off₁ a b) hw₁ hc₁ hw₂ hc₂ r.1 r.2)) := by
+    funext r
+    rfl
+  rw [hstep]
+  refine (flatParamAct_differentiableAt_joint (off := fourthOffset off₁ a b d) hw₃ hc₃ g
+    (compose2 off₁ (thirdOffset off₁ a b) hw₁ hc₁ hw₂ hc₂ g x)).comp (g, x) ?_
+  exact DifferentiableAt.prod differentiableAt_fst
+    (compose2_differentiableAt_joint off₁ (thirdOffset off₁ a b) hw₁ hc₁ hw₂ hc₂ g x)
+
 end Lattice.Core
