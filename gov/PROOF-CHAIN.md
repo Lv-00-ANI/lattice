@@ -917,7 +917,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 29 | 12 |
+| `Lattice.Core.VariableDerivative` | 35 | 16 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -3157,6 +3157,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
+- `compose2_differentiableAt_joint` -> `comp`
+- `compose2_differentiableAt_params` -> `comp`
 - `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
@@ -4748,8 +4750,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_symm_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
+- `flatLayerAct_differentiableAt` -> `comp`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
+- `flatParamAct_apply` -> `comp`
+- `flatParamAct_differentiableAt_activation` -> `comp`
+- `flatParamAct_differentiableAt_joint` -> `comp`
+- `flatParamAct_differentiableAt_params` -> `comp`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
@@ -8662,6 +8669,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotCount_eq` -> `trans`
 - `slotCount_eq_card` -> `trans`
 - `slotCount_eq_of_ne` -> `trans`
+- `slotOf_inj_col` -> `comp`
+- `slotOf_row_add` -> `comp`
+- `slotOf_succ_col` -> `comp`
+- `slotOf_succ_row` -> `comp`
 - `sm_argmax_lower` -> `apply`, `card_fin`, `softmax`
 - `sm_denom_pos` -> `apply`, `card_fin`, `le_trans`, `softmax`
 - `sm_denom_pos_one` -> `apply`, `card_fin`, `le_trans`, `softmax`

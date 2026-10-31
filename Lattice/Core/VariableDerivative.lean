@@ -576,9 +576,183 @@ theorem flatLayerAct_differentiableAt {B a b : ℕ} (off : ℕ)
 所以复合时要求 `N = b`，仍然把两者绑在一起。**
 
 **⇒ 真正的解法是把「参数」与「激活」分开：
-`act' : (Fin N → ℝ) → (Fin a → ℝ) → (Fin b → ℝ)`，
+`flatParamAct : (Fin N → ℝ) → (Fin a → ℝ) → (Fin b → ℝ)`，
 即先读参数、再把激活喂进去。**
 **那样两层复合时，第一层的输出 `Fin b → ℝ` 直接作为第二层的【激活】输入，
 而两层的【参数】都从同一个 `Fin N → ℝ` 读——维度不再冲突。**
 
-**⇒ 这是下一步的正确形式，第 169 轮做。** -/end Lattice.Core
+**⇒ 这是下一步的正确形式，第 169 轮做。** -//-! ## `flatParamAct`：参数与激活分开的层作用
+
+## 为什么这样分开就解决了第 168 轮的缺陷
+
+**`flatLayerAct` 的问题是一个 `B` 同时当「参数向量长度」与「层输入维度」，
+所以第二层的输入（`Fin b`）与它读参数的地方（`Fin B`）冲突。**
+
+**⇒ `flatParamAct` 把两者【分开**：
+
+- **参数向量 `g : Fin N → ℝ` 只用于【读出】权重与偏置**；
+- **激活向量 `x : Fin a → ℝ` 是【作用的对象**，它的维度与 `N` 无关。
+
+**于是两层复合是**：`flatParamAct g₂ (flatParamAct g₁ x)`——**两层的参数都从同一个 `Fin N` 读，
+而激活的维度 `b` 只在复合处出现一次。**
+
+## 结构
+
+    flatParamAct {N a b} (off) (hbound : ∀ i j, slotOf off b i.val j.val < N)
+        (g : Fin N → ℝ) (x : Fin a → ℝ) : Fin b → ℝ
+      := fun j => (∑ i, w(g, off, i, j) * x i) + c(g, off, j)
+
+**其中 `w`、`c` 从 `g` 的槽位读出。** -/
+
+/-- **从扁平向量读出权重的第 `(i, j)` 项**。 -/
+noncomputable def readW {N a b : ℕ} (off : ℕ)
+    (hbound : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (g : Fin N → ℝ) (i : Fin a) (j : Fin b) : ℝ :=
+  g ⟨slotOf off b i.val j.val, hbound i j⟩
+
+/-- **从扁平向量读出偏置的第 `j` 项**——**偏置紧接在权重之后，所以槽位偏移 `a × b`。** -/
+noncomputable def readC {N a b : ℕ} (off : ℕ)
+    (hboundC : ∀ (j : Fin b), off + a * b + j.val < N)
+    (g : Fin N → ℝ) (j : Fin b) : ℝ :=
+  g ⟨off + a * b + j.val, hboundC j⟩
+
+/-- ⭐⭐⭐ **`flatParamAct`：参数与激活分开的层作用**。
+
+**`g` 提供权重与偏置，`x` 是作用对象——两者的维度 `N` 与 `a` 互不相干。** -/
+noncomputable def flatParamAct {N a b : ℕ} (off : ℕ)
+    (hw : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (hc : ∀ (j : Fin b), off + a * b + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) : Fin b → ℝ :=
+  fun j => (∑ i, readW off hw g i j * x i) + readC off hc g j
+
+/-- **`flatParamAct` 的展开式**——**显式写出 `readW`／`readC`，供后续证明使用。**
+
+**⚠ `fun_prop` 不认识 `flatParamAct`（第 169 轮实测：`No theorems found for Lattice.Core.flatParamAct`），
+所以必须先展开成坐标投影的形式。** -/
+theorem flatParamAct_apply {N a b : ℕ} (off : ℕ)
+    (hw : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (hc : ∀ (j : Fin b), off + a * b + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) (j : Fin b) :
+    flatParamAct off hw hc g x j
+      = (∑ i : Fin a, g ⟨slotOf off b i.val j.val, hw i j⟩ * x i)
+        + g ⟨off + a * b + j.val, hc j⟩ := by
+  simp only [flatParamAct, readW, readC]
+
+/-- ⭐⭐⭐ **`flatParamAct` 对【激活】可微**——**这是复合所需要的。** -/
+theorem flatParamAct_differentiableAt_activation {N a b : ℕ} (off : ℕ)
+    (hw : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (hc : ∀ (j : Fin b), off + a * b + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ (fun y : Fin a → ℝ => flatParamAct off hw hc g y) x := by
+  have hfun : (fun y : Fin a → ℝ => flatParamAct off hw hc g y)
+      = fun y : Fin a → ℝ => fun j : Fin b =>
+          (∑ i : Fin a, g ⟨slotOf off b i.val j.val, hw i j⟩ * y i)
+            + g ⟨off + a * b + j.val, hc j⟩ := by
+    funext y
+    funext j
+    exact flatParamAct_apply off hw hc g y j
+  rw [hfun]
+  fun_prop
+
+/-- ⭐⭐⭐ **`flatParamAct` 对【参数】可微**——**这是训练所需要的。** -/
+theorem flatParamAct_differentiableAt_params {N a b : ℕ} (off : ℕ)
+    (hw : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (hc : ∀ (j : Fin b), off + a * b + j.val < N)
+    (x : Fin a → ℝ) (g : Fin N → ℝ) :
+    DifferentiableAt ℝ (fun h : Fin N → ℝ => flatParamAct off hw hc h x) g := by
+  have hfun : (fun h : Fin N → ℝ => flatParamAct off hw hc h x)
+      = fun h : Fin N → ℝ => fun j : Fin b =>
+          (∑ i : Fin a, h ⟨slotOf off b i.val j.val, hw i j⟩ * x i)
+            + h ⟨off + a * b + j.val, hc j⟩ := by
+    funext h
+    funext j
+    exact flatParamAct_apply off hw hc h x j
+  rw [hfun]
+  fun_prop
+
+/-- ⭐⭐⭐ **`flatParamAct` 对【参数与激活】联合可微**——**两层复合所需的完整陈述。** -/
+theorem flatParamAct_differentiableAt_joint {N a b : ℕ} (off : ℕ)
+    (hw : ∀ (i : Fin a) (j : Fin b), slotOf off b i.val j.val < N)
+    (hc : ∀ (j : Fin b), off + a * b + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ
+      (fun r : (Fin N → ℝ) × (Fin a → ℝ) => flatParamAct off hw hc r.1 r.2) (g, x) := by
+  have hfun : (fun r : (Fin N → ℝ) × (Fin a → ℝ) => flatParamAct off hw hc r.1 r.2)
+      = fun r : (Fin N → ℝ) × (Fin a → ℝ) => fun j : Fin b =>
+          (∑ i : Fin a, r.1 ⟨slotOf off b i.val j.val, hw i j⟩ * r.2 i)
+            + r.1 ⟨off + a * b + j.val, hc j⟩ := by
+    funext r
+    funext j
+    exact flatParamAct_apply off hw hc r.1 r.2 j
+  rw [hfun]
+  fun_prop
+
+/-! ## 两层复合：第 168 轮缺陷的直接修法
+
+## 为什么 `flatParamAct` 使复合成为可能
+
+**`flatLayerAct` 的 `B` 同时是参数向量长度与层输入维度，所以第二层冲突。
+`flatParamAct` 把它们分开：**
+
+- **参数向量 `g : Fin N → ℝ`——两层【共用】，所以两次的 `N` 都是 `N`；**
+- **激活向量 `x : Fin a → ℝ`——第二层的 `a` 是第一层的输出维度 `b`。**
+
+**⇒ 复合是 `flatParamAct off₂ hw₂ hc₂ g (flatParamAct off₁ hw₁ hc₁ g x)`，
+**两次调用的 `N` 都是 `N`，没有任何维度被迫扮演两个角色。** -/
+
+/-- ⭐⭐⭐ **两层复合**——**`flatParamAct` 的直接应用。** -/
+noncomputable def compose2 {N a b d : ℕ} (off₁ off₂ : ℕ)
+    (hw₁ : ∀ (i : Fin a) (j : Fin b), slotOf off₁ b i.val j.val < N)
+    (hc₁ : ∀ (j : Fin b), off₁ + a * b + j.val < N)
+    (hw₂ : ∀ (i : Fin b) (j : Fin d), slotOf off₂ d i.val j.val < N)
+    (hc₂ : ∀ (j : Fin d), off₂ + b * d + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) : Fin d → ℝ :=
+  flatParamAct off₂ hw₂ hc₂ g (flatParamAct off₁ hw₁ hc₁ g x)
+
+/-- ⭐⭐⭐ **两层复合对【参数与激活】联合可微**——**第 168 轮未能证出的那条。**
+
+**由两次 `flatParamAct_differentiableAt_joint` 与一次 `comp`：
+第一层的输出 `Fin b → ℝ` 正是第二层的激活输入。** -/
+theorem compose2_differentiableAt_joint {N a b d : ℕ} (off₁ off₂ : ℕ)
+    (hw₁ : ∀ (i : Fin a) (j : Fin b), slotOf off₁ b i.val j.val < N)
+    (hc₁ : ∀ (j : Fin b), off₁ + a * b + j.val < N)
+    (hw₂ : ∀ (i : Fin b) (j : Fin d), slotOf off₂ d i.val j.val < N)
+    (hc₂ : ∀ (j : Fin d), off₂ + b * d + j.val < N)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ
+      (fun r : (Fin N → ℝ) × (Fin a → ℝ) => compose2 off₁ off₂ hw₁ hc₁ hw₂ hc₂ r.1 r.2) (g, x) := by
+  have hstep : (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+        compose2 off₁ off₂ hw₁ hc₁ hw₂ hc₂ r.1 r.2)
+      = (fun s : (Fin N → ℝ) × (Fin b → ℝ) =>
+            flatParamAct off₂ hw₂ hc₂ s.1 s.2)
+        ∘ (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+            (r.1, flatParamAct off₁ hw₁ hc₁ r.1 r.2)) := by
+    funext r
+    rfl
+  rw [hstep]
+  refine (flatParamAct_differentiableAt_joint off₂ hw₂ hc₂ g
+      (flatParamAct off₁ hw₁ hc₁ g x)).comp (g, x) ?_
+  exact DifferentiableAt.prod differentiableAt_fst
+    (flatParamAct_differentiableAt_joint off₁ hw₁ hc₁ g x)
+
+/-- ⭐⭐⭐ **两层复合对【参数】可微**——**训练所需的陈述。** -/
+theorem compose2_differentiableAt_params {N a b d : ℕ} (off₁ off₂ : ℕ)
+    (hw₁ : ∀ (i : Fin a) (j : Fin b), slotOf off₁ b i.val j.val < N)
+    (hc₁ : ∀ (j : Fin b), off₁ + a * b + j.val < N)
+    (hw₂ : ∀ (i : Fin b) (j : Fin d), slotOf off₂ d i.val j.val < N)
+    (hc₂ : ∀ (j : Fin d), off₂ + b * d + j.val < N)
+    (x : Fin a → ℝ) (g : Fin N → ℝ) :
+    DifferentiableAt ℝ
+      (fun h : Fin N → ℝ => compose2 off₁ off₂ hw₁ hc₁ hw₂ hc₂ h x) g := by
+  have hstep : (fun h : Fin N → ℝ => compose2 off₁ off₂ hw₁ hc₁ hw₂ hc₂ h x)
+      = (fun s : (Fin N → ℝ) × (Fin b → ℝ) => flatParamAct off₂ hw₂ hc₂ s.1 s.2)
+        ∘ (fun h : Fin N → ℝ => (h, flatParamAct off₁ hw₁ hc₁ h x)) := by
+    funext h
+    rfl
+  rw [hstep]
+  refine (flatParamAct_differentiableAt_joint off₂ hw₂ hc₂ g
+      (flatParamAct off₁ hw₁ hc₁ g x)).comp g ?_
+  exact DifferentiableAt.prod differentiableAt_id
+    (flatParamAct_differentiableAt_params off₁ hw₁ hc₁ x g)
+
+end Lattice.Core
