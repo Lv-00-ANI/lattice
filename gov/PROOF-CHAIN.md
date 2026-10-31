@@ -917,7 +917,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 43 | 21 |
+| `Lattice.Core.VariableDerivative` | 47 | 23 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2827,6 +2827,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_dom_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `zero`
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
+- `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
+- `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
 - `chainParams_idf` -> `Chain`, `MLayer`, `mlayerAct`
 - `chainQuad_m_zero` -> `apply`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `le_refl`
@@ -3158,8 +3160,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
 - `compose2_differentiableAt_joint` -> `comp`
-- `compose2_differentiableAt_params` -> `comp`
-- `compose3_differentiableAt_joint` -> `comp`
+- `compose2_differentiableAt_params` -> `Chain`, `comp`
+- `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
@@ -4742,6 +4744,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`
 - `fixpoint_transfer_le` -> `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
+- `flatChainAct_differentiableAt_joint` -> `Chain`, `comp`
+- `flatChainAct_idf` -> `Chain`, `comp`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_injective` -> `Flat`, `flatEquiv`
@@ -4754,6 +4758,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatLayerAct_differentiableAt` -> `comp`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
+- `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`
+- `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatParamAct_apply` -> `comp`
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`
@@ -7712,6 +7718,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reachL_nested` -> `dist`, `induction`, `le_trans`, `zero`
 - `reachL_singleton_eq_chainFwd` -> `dist`, `induction`, `le_trans`, `zero`
 - `readLength_determinate_of_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`
+- `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`
+- `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`
 - `readout_invariant` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_mul` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_of_layerStack` -> `E`, `W`, `apply`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -8674,7 +8683,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOf_row_add` -> `comp`
 - `slotOf_succ_col` -> `comp`
 - `slotOf_succ_row` -> `comp`
-- `slotStep_eq_layerParamCount` -> `comp`
+- `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
 - `sm_argmax_lower` -> `apply`, `card_fin`, `softmax`
 - `sm_denom_pos` -> `apply`, `card_fin`, `le_trans`, `softmax`
 - `sm_denom_pos_one` -> `apply`, `card_fin`, `le_trans`, `softmax`
@@ -9322,7 +9331,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
-- `thirdOffset_gt` -> `comp`
+- `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
