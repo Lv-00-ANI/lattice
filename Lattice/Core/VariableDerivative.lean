@@ -1583,4 +1583,52 @@ theorem wideChain_explicit_one (g : Fin 6 → ℝ) (x : Fin 2 → ℝ) :
   norm_num
   congr 3 <;> norm_num
 
+
+/-! ## 宽度 2、两层：两条轴合并的第一次
+
+## 槽位账
+
+**宽度 2 每层占 `layerParamCount 2 2 = 6` 个槽位，所以两层需要 `Fin 12 → ℝ`。**
+
+- **第 1 层（`off = 0`）**：权重 `g 0 … g 3`（`w i j` 在 `i*2 + j`），偏置 `g 4, g 5`；
+- **第 2 层（`off = 6`）**：权重 `g 6 … g 9`，偏置 `g 10, g 11`。
+
+**⇒ 中间激活是**
+
+    y 0 = g 0 · x 0 + g 2 · x 1 + g 4
+    y 1 = g 1 · x 0 + g 3 · x 1 + g 5
+
+**而输出是**
+
+    z 0 = g 6 · y 0 + g 8 · y 1 + g 10
+    z 1 = g 7 · y 0 + g 9 · y 1 + g 11
+
+**⚠ 把 `y` 代入就得到【两个变量 `x 0`、`x 1` 上的二次式】——
+所以这一条同时展示「宽度」与「深度」的作用，是本路线最完整的单点实例。** -/
+
+/-- **宽度 2、两层的链**。 -/
+noncomputable def wideChain2 : Chain 2 2 :=
+  Chain.cons wideLayerRest (Chain.cons wideLayerRest (Chain.idf 2))
+
+/-- ⭐⭐⭐ **宽度 2、两层、第 0 个坐标**——**`z 0 = g 6 · y 0 + g 8 · y 1 + g 10`，
+其中 `y` 由第 1 层给出。**
+
+**这是「两次代换」的直接形式：外层保持线性，内层是上一次的线性组合。** -/
+theorem wideChain2_explicit_zero (g : Fin 12 → ℝ) (x : Fin 2 → ℝ) :
+    flatChainAct (N := 12) wideChain2 0 g x 0
+      = g 6 * (g 0 * x 0 + g 2 * x 1 + g 4) + g 8 * (g 1 * x 0 + g 3 * x 1 + g 5) + g 10 := by
+  simp only [wideChain2, wideLayerRest, flatChainAct, flatParamActSafe, readSlot, slotOf,
+    layerParamCount]
+  norm_num
+  congr 3 <;> norm_num
+
+/-- ⭐⭐⭐ **宽度 2、两层、第 1 个坐标**。 -/
+theorem wideChain2_explicit_one (g : Fin 12 → ℝ) (x : Fin 2 → ℝ) :
+    flatChainAct (N := 12) wideChain2 0 g x 1
+      = g 7 * (g 0 * x 0 + g 2 * x 1 + g 4) + g 9 * (g 1 * x 0 + g 3 * x 1 + g 5) + g 11 := by
+  simp only [wideChain2, wideLayerRest, flatChainAct, flatParamActSafe, readSlot, slotOf,
+    layerParamCount]
+  norm_num
+  congr 3 <;> norm_num
+
 end Lattice.Core
