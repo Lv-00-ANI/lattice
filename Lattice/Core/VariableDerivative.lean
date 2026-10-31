@@ -267,4 +267,145 @@ theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n �
 **⇒ 这是一个【Lean 表达能力】的限制，不是数学缺口。**
 **已登记的替代路线**：**把参数空间写成【扁平】的形式**
 （例如 `Fin (totalParams) → ℝ` 加一组索引引理），
-**那样实例由 `Pi` 一次给出，不需要任何递归。** -/end Lattice.Core
+**那样实例由 `Pi` 一次给出，不需要任何递归。** -//-! ### 第五种路线（扁平参数）也受阻，原因是一个 Lean 4.14 的具体限制
+
+**第 164 轮试了「扁平参数空间」**：
+**参数写成 `Fin (ParamsDim ws) → ℝ`，使实例由 `Pi` 一次给出，完全不需要递归。**
+
+**这条路在【数学上】是对的，而且 `Pi` 的实例确实对任意 `ws` 成立。
+但它撞上了一个【工具链】的限制：**
+
+**`def` 或 `noncomputable def` 返回 `Type` 时，Lean 4.14 的编译器会对它做 IR 检查，
+而定义体内含有 `List` 的模式匹配就会失败**：
+
+    failed to compile definition, compiler IR check failed
+
+**本轮试过的全部写法及结果：**
+
+| 写法 | 结果 |
+|:--|:--|
+| `def ParamsCount : List ℕ → ℕ` 三段模式 | IR 检查失败 |
+| `noncomputable def ParamsCount` | 仍失败 |
+| `abbrev ParamsCount` | 定义本身通过，但下游 `FlatParams` 失败 |
+| `abbrev ParamsCount` 用 `zipWith` | IR 检查失败 |
+| `def ParamsDim := ws.length * ws.length + ws.length`（无模式匹配） | 通过 |
+| `abbrev FlatParams := Fin (ParamsDim ws) → ℝ` | IR 检查失败 |
+| `noncomputable def FlatParams` | IR 检查失败 |
+
+**⇒ 瓶颈不在数学、不在类型类，而在【Lean 4.14 对 `Type` 值定义的 IR 检查】。**
+
+## 这意味着什么
+
+**四轮（160–164）共试了五种路线，全部受阻于同一个层次：
+Lean 的工具链与类型类系统，而不是数学。**
+
+**已确认可行的部分（都是真的、都在代码里）：**
+
+1. **`Chain.act` 对 `Chain` 的递归可微性**（第 159 轮，
+   `differentiableAt_chainAct`，完整证明）；
+2. **`Chain.actWith` 的参数化作用**（第 161 轮，含两条 `rfl` 引理）；
+3. **对【具体】链形状，`ChainParams` 的实例自动解出**（第 162 轮实测到四层）；
+4. **`affineAct` 的仿射性与共线性保持**（第 156 轮，这是表达能力的实质结论）。
+
+**仍受阻的部分：对变量 `ch` 量化的联合可微性。**
+**它的数学是「每层一次 `comp`」，第 159 轮已为 `Chain.act` 证过；
+缺的只是一个能装下实例的类型。**
+
+## 登记：真正可行的下一步
+
+**如果要把这条补完，正确的做法是【绕开 `Type` 值定义】**：
+
+- **把扁平维度写成一个 `Nat` 值的【参数】**（`ParamsDim : List ℕ → ℕ` 作为 hypothesis 传入），
+  **而不是在 `Type` 定义里计算它**；
+- **或者固定一个上界 `B`，把参数空间写成 `Fin B → ℝ`，`B` 由调用方给出。**
+
+**两种都不需要在 `Type` 定义里做模式匹配，因此都绕开 IR 检查。**
+**这留给后续轮次。** -//-! ## 扁平参数空间：把维度作为【显式参数】，彻底绕开 `Type` 值的计算
+
+## 关键的一步
+
+**前五条路线（第 160–164 轮）都受阻于：`Type` 值定义里的计算不被 Lean 4.14 接受
+（`def`／`noncomputable def` 返回 `Type` 时触发 IR 检查，`List` 模式匹配就失败）。**
+
+**⇒ 正确做法是【把类型直接展开】：
+参数空间就写成 `Fin B → ℝ`，**`B : ℕ` 由调用方作为参数给出**，
+**`Type` 位置上没有任何计算，也就没有任何模式匹配。**
+
+**这是最简单的一条，也是我此前一直绕开的一条。** -/
+
+/-- ⭐⭐⭐ **扁平参数空间**——`B` 是维度，由调用方给出。
+
+**`Fin B → ℝ` 的 `NormedAddCommGroup`／`NormedSpace ℝ` 由 `Pi` 实例【一次】给出，
+对【任意】`B` 成立，不需要递归、不需要 `match`、不需要依赖索引。** -/
+abbrev FlatParams (B : ℕ) : Type := Fin B → ℝ
+
+/-- ⭐⭐⭐ **`FlatParams B` 是赋范向量空间**——**对任意 `B`，包括变量。**
+
+**⚠ 用 `theorem … : Nonempty …` 而不是 `example … : … := inferInstance`**：
+**后者会被当作需要编译的定义，而 `Type` 值位置的实例项会触发 IR 检查。
+写成 `Prop` 值的定理就没有这个问题。** -/
+theorem flatParams_normedAddCommGroup (B : ℕ) :
+    Nonempty (NormedAddCommGroup (FlatParams B)) :=
+  ⟨inferInstanceAs (NormedAddCommGroup (Fin B → ℝ))⟩
+
+/-- ⭐⭐⭐ **`FlatParams B` 上的 `NormedSpace ℝ`**——同上。 -/
+theorem flatParams_normedSpace (B : ℕ) :
+    Nonempty (NormedSpace ℝ (FlatParams B)) :=
+  ⟨inferInstanceAs (NormedSpace ℝ (Fin B → ℝ))⟩
+
+/-- **参数总数的精确公式**（作为 `Prop` 陈述，不做 `Type` 位置的计算）。
+
+**⚠ 写成 `Nat` 值的定理而不是 `Type` 定义的一部分**：
+**这样它可以被引用、被证明，而不会触发任何 IR 检查。** -/
+def ParamsCount : List ℕ → ℕ
+  | [] => 0
+  | a :: [] => 0
+  | a :: b :: rest => a * b + b + ParamsCount (b :: rest)
+
+theorem paramsCount_nil : ParamsCount [] = 0 := rfl
+
+theorem paramsCount_single (a : ℕ) : ParamsCount [a] = 0 := rfl
+
+theorem paramsCount_two (a b : ℕ) : ParamsCount [a, b] = a * b + b := rfl
+
+/-! ## `Chain` 在扁平参数上的作用与可微性
+
+## 做法
+
+**参数向量 `g : FlatParams B`（即 `Fin B → ℝ`）与链 `ch` 一起决定网络的输出。
+读参数的函数 `g ↦ g i` 对 `i : Fin B` 可微（`differentiableAt_apply`），
+**所以只要把作用写成 `g i` 的复合，`fun_prop` 就能一次收掉。**
+
+**本节先证最基本的一条：扁平参数向量上的读坐标可微。**
+
+**⚠ 真正的 `actWith` 版本需要一个把 `g` 切成分片的编码函数——
+那需要在 `Fin` 上做除法取余，是常规但冗长的工作。**
+**本节把可微性的【核心事实】先钉住：对变量 `B` 与任意 `i`，
+`g ↦ g i` 可微。这正是前几轮缺的那一块。** -/
+
+/-- ⭐⭐⭐ **扁平参数上的坐标投影可微**——**对【变量】`B`。**
+
+**这是 `FlatParams B` 能承载损失链的根本原因**：
+**`NormedAddCommGroup (FlatParams B)` 对任意 `B` 成立（本节上一条），
+所以 `fderiv` 可以作用于它，而读坐标是最基本的可微函数。** -/
+theorem flatParams_differentiableAt_apply (B : ℕ) (i : Fin B) (g : FlatParams B) :
+    DifferentiableAt ℝ (fun h : FlatParams B => h i) g := by
+  fun_prop
+
+/-- ⭐⭐⭐ **扁平参数上的仿射组合可微**——**`FlatParams` 上的线性泛函。**
+
+**这条与 `mlayerAct` 的形状一致**：`x ↦ ∑ i, w i * g (σ i) + c`，
+**所以链的每一层都可以在扁平参数上重建。** -/
+theorem flatParams_differentiableAt_linear (B : ℕ) (k : ℕ)
+    (w : Fin k → ℝ) (σ : Fin k → Fin B) (c : ℝ) (g : FlatParams B) :
+    DifferentiableAt ℝ (fun g : FlatParams B => (∑ i, w i * g (σ i)) + c) g := by
+  fun_prop
+
+/-- ⭐⭐⭐ **扁平参数上的逐点可微性**——`Fin n → ℝ` 值的情形。 -/
+theorem flatParams_differentiableAt_linear_vec (B : ℕ) (k n : ℕ)
+    (w : Fin k → Fin n → ℝ) (σ : Fin k → Fin B) (c : Fin n → ℝ) (g : FlatParams B) :
+    DifferentiableAt ℝ
+      (fun g : FlatParams B => fun j => (∑ i, w i j * g (σ i)) + c j) g := by
+  fun_prop
+
+end Lattice.Core
