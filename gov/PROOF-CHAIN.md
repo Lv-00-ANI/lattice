@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 63 | 28 |
+| `Lattice.Core.VariableDerivative` | 64 | 29 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -9546,9 +9546,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tv_eq_sum_abs` -> `apply`, `fDivergence`, `tv`
 - `tv_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `twoHopMsg_bound` -> `apply`, `le_trans`
+- `twoLayerChain_explicit` -> `Chain`
+- `twoLayerChain_linear_in_g2` -> `Chain`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
 - `twoLayer_affine_eval` -> `Chain`, `MLayer`
 - `twoLayer_convex_eval` -> `Chain`, `MLayer`
+- `twoLayer_gA_eval` -> `Chain`
+- `twoLayer_gB_eval` -> `Chain`
+- `twoLayer_no_affine_fit` -> `Chain`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
