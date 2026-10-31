@@ -294,4 +294,72 @@ theorem oneLayer_reverse_equivalence {N K n : ℕ} (ch : Chain n n) (off : ℕ)
   · rintro ⟨h, _⟩
     exact (flatLoss_achievable_iff ch off cs p hs).mpr h
 
+
+/-! ## ⭐⭐⭐ 可达集【严格小于】配置空间：宽度 1 的三点反例
+
+## 问题
+
+**第 194 轮证了「损失为零 ⟺ 全部约束成立」对任意深度成立。
+但那是【容易的一半**。难的一半是：**
+
+**一个符号上可满足的配置 `Φ`，是否总能被某个参数向量【实现**（`∃ g, flatPoints … g p = Φ`）？
+
+**⇒ 本节的答案：在最简情形下【不能】。**
+
+## 最简情形：宽度 1、深度 1
+
+**宽度 1、深度 1 时，一层的作用是 `Φ j = w · (p j) + b`——
+即 `Φ` 必须是 `p` 的【仿射函数**。】
+
+**⇒ 取三个输入点 `p j = j`（`j = 0,1,2`）与目标 `Φ j = j²`：
+由 `j=0` 得 `b = 0`、由 `j=1` 得 `w = 1`、而 `j=2` 要求 `4 = 2`——矛盾。**
+
+**⇒ `Φ j = j²` 是【符号上完全合法**的配置，**但没有任何宽度 1、深度 1 的网络能实现它。**
+
+**⚠ 这正是「符号 ⇄ 权重」困难的【最简精确形式**：
+**配置空间比可达集【大**，缺口由网络结构（此处是仿射性）决定。
+
+**⚠ 与第 194 轮的对照**：
+**第 194 轮说「损失为零 ⟺ 约束成立」；本节说「约束成立【不】保证可达」。
+两者【不矛盾**：前者关于「给定 `g` 时损失与约束的关系」，
+后者关于「哪些 `Φ` 有 `g` 与之对应」。
+
+**⚠ 位置说明**：**本节在 `Domains` 而非 `Core`**，
+**因为 `Pt` 是 `Domains` 的定义（`Expr.lean` 的 `abbrev Pt n := Lattice.Core.Point ℝ n`），
+而 `Core` 不能引用它——这是分层约束，不是选择。** -/
+
+/-- **三个输入点 `p j = j`**（宽度 1）。 -/
+def reachThreePoints : Fin 3 → Pt 1 := fun j => fun _ => (j : ℝ)
+
+/-- **目标配置 `Φ j = j²`**——**符号上完全合法，但不是 `p` 的仿射函数。** -/
+def reachSquares : ℕ → Pt 1 := fun j => fun _ => (j : ℝ) ^ 2
+
+/-- ⭐⭐ **数学核心：三个点上没有仿射函数匹配平方。** -/
+theorem no_affine_fit_squares :
+    ¬ ∃ (w b : ℝ), ∀ j : Fin 3, w * (j : ℝ) + b = (j : ℝ) ^ 2 := by
+  rintro ⟨w, b, h⟩
+  have h0 := h 0
+  have h1 := h 1
+  have h2 := h 2
+  norm_num at h0 h1 h2
+  linarith
+
+/-- ⭐⭐⭐ **宽度 1、深度 1 的可达集【严格小于】配置空间。**
+
+**`Φ j = j²` 是符号上合法的配置，但没有宽度 1、深度 1 的网络实现它。** -/
+theorem not_reachable_width_one :
+    ¬ ∃ (N : ℕ) (g : Fin N → ℝ),
+        ∀ j : Fin 3,
+          flatPoints (N := N) (Chain.cons twoLayerProbeRest (Chain.idf 1)) 0 g
+            reachThreePoints j
+            = reachSquares (j : ℕ) := by
+  rintro ⟨N, g, h⟩
+  have key : ∀ j : Fin 3, readSlot g 0 * (j : ℝ) + readSlot g 1 = (j : ℝ) ^ 2 := by
+    intro j
+    have hpt := congrFun (h j) 0
+    simp only [flatPoints, flatChainAct, flatChainAct_idf, flatParamActSafe_width_one,
+      reachThreePoints, reachSquares, Fin.is_lt, dif_pos] at hpt
+    simpa using hpt
+  exact no_affine_fit_squares ⟨readSlot g 0, readSlot g 1, key⟩
+
 end Lattice.Geo

@@ -265,6 +265,7 @@ Domains/Constraints/FlatLoss.lean	flatLoss_idf_achievable
 Domains/Constraints/FlatLoss.lean	flatLoss_achievable_iff
 Domains/Constraints/FlatLoss.lean	flatLoss_achievable_iff_mem
 Domains/Constraints/FlatLoss.lean	oneLayer_reverse_equivalence
+Domains/Constraints/FlatLoss.lean	not_reachable_width_one
 Domains/Constraints/Flatten.lean	unflatten_flatten
 Domains/Constraints/Flatten.lean	flatten_unflatten
 Domains/Constraints/Flatten.lean	flatten_injective

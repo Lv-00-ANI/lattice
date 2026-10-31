@@ -1631,4 +1631,5 @@ theorem wideChain2_explicit_one (g : Fin 12 → ℝ) (x : Fin 2 → ℝ) :
   norm_num
   congr 3 <;> norm_num
 
+
 end Lattice.Core
