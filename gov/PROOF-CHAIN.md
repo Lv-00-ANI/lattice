@@ -1584,7 +1584,7 @@
 | `Lattice.Domains.Constraints.Expr` | 8 | 5 |
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
 | `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
-| `Lattice.Domains.Constraints.FlatLoss` | 7 | 2 |
+| `Lattice.Domains.Constraints.FlatLoss` | 11 | 2 |
 | `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
@@ -4752,6 +4752,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_differentiableAt_input` -> `Chain`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `comp`
 - `flatChainAct_idf` -> `Chain`, `comp`
+- `flatChainAct_idf_simp` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `flatChainAct`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_injective` -> `Flat`, `flatEquiv`
@@ -4762,10 +4763,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatLayerAct_differentiableAt` -> `comp`
-- `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
-- `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
-- `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
-- `flatLoss_eq_zero_iff` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
+- `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatLoss_eq_zero_iff` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatLoss_idf_achievable` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatLoss_idf_eq` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`
@@ -4774,9 +4777,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`
 - `flatParamAct_differentiableAt_params` -> `comp`
-- `flatPoints_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
-- `flatPoints_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
+- `flatPoints_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatPoints_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatPoints_eq_trunc` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatPoints_idf` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
