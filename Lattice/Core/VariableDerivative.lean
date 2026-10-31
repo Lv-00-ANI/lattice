@@ -1502,4 +1502,40 @@ theorem flatChainAct_cons_width_one {N : ℕ} (ch : Chain 1 1) (off : ℕ)
           (fun _ => readSlot g off * x 0 + readSlot g (off + 1)) := by
   simp only [flatChainAct, flatParamActSafe_width_one, layerParamCount_width_one]
 
+/-! ## 任意宽度的一般递推
+
+## 为什么这条几乎免费
+
+**`flatChainAct` 的 `cons` 支【就是】**
+
+    flatChainAct rest (off + layerParamCount m n) g (flatParamActSafe off g x)
+
+**所以「一层之后是尾链作用在新激活上」这条递推是【定义级】的事实，
+`rfl` 就够。宽度 1 的版本（第 190 轮）是它的特化，
+而一般宽度下内层不再是标量而是向量——那是唯一实质差别。**
+
+**⚠ 但宽度 1 时的额外内容（把内层求和塌缩成标量）【不】自动成立，
+那一部分由第 190 轮的 `flatParamActSafe_width_one` 单独承担。** -/
+
+/-- ⭐⭐⭐ **任意宽度的一般递推**——**一层作用后，尾链作用在新的激活向量上。**
+
+**这是「深度」与「宽度」在递归里的分工**：
+**深度由 `rest` 的递归体现，宽度由 `flatParamActSafe` 的内层求和体现。** -/
+theorem flatChainAct_cons_general {N m n c : ℕ} (l : MLayer m n) (rest : Chain n c)
+    (off : ℕ) (g : Fin N → ℝ) (x : Fin m → ℝ) :
+    flatChainAct (N := N) (Chain.cons l rest) off g x
+      = flatChainAct (N := N) rest (off + layerParamCount m n) g
+          (flatParamActSafe (N := N) (a := m) (b := n) off g x) :=
+  rfl
+
+/-! **没有「宽度 1 的 `rfl` 特化」这一条**：
+**它只是 `flatChainAct_cons_general` 在 `m = n = 1` 时的重述，不提供新内容。**
+
+**宽度 1 真正【有内容】的特化是第 190 轮的 `flatChainAct_cons_width_one`**——
+**它把内层求和塌缩成标量 `readSlot g off · x 0 + readSlot g (off+1)`，
+而那一步【不是】`rfl`。**
+
+**⇒ 加一条只做参数特化的 `rfl` 名字会制造「看起来更具体」的假象，
+那是别名普查要拦的东西，这里主动不加。** -/
+
 end Lattice.Core
