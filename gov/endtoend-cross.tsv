@@ -163,6 +163,7 @@ Core/VariableDerivative.lean	twoLayer_gB_eval
 Core/VariableDerivative.lean	twoLayer_no_affine_fit
 Core/VariableDerivative.lean	twoLayerChain_explicit
 Core/VariableDerivative.lean	twoLayerChain_linear_in_g2
+Core/VariableDerivative.lean	threeLayerChain_explicit
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append

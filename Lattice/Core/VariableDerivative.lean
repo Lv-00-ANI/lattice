@@ -1427,4 +1427,28 @@ theorem twoLayerChain_linear_in_g2 (g₀ g₁ g₃ : ℝ) (x : Fin 1 → ℝ) :
   rw [twoLayerChain_explicit]
   norm_num
 
+/-- **三层的具体链**（宽度 1；层内容无关，只决定宽度与深度）。 -/
+noncomputable def threeLayerChain : Chain 1 1 :=
+  Chain.cons twoLayerProbeRest
+    (Chain.cons twoLayerProbeRest (Chain.cons twoLayerProbeRest (Chain.idf 1)))
+
+/-- ⭐⭐⭐ **三层链的显式形式**——**`z = g 4 · (g 2 · (g 0 · x + g 1) + g 3) + g 5`。**
+
+**⇒ 次数 = 3。** **与第 188 轮的两层形式同一结构，多嵌套一层。**
+
+**槽位**：每层占 `layerParamCount 1 1 = 2` 个槽位，
+**所以第 1 层用 `g 0`/`g 1`、第 2 层用 `g 2`/`g 3`、第 3 层用 `g 4`/`g 5`。** -/
+theorem threeLayerChain_explicit (g : Fin 6 → ℝ) (x : Fin 1 → ℝ) :
+    flatChainAct (N := 6) threeLayerChain 0 g x 0
+      = g 4 * (g 2 * (g 0 * x 0 + g 1) + g 3) + g 5 := by
+  simp only [threeLayerChain, twoLayerChain, twoLayerProbeRest, flatChainAct,
+    flatParamActSafe, readSlot, slotOf, layerParamCount]
+  norm_num
+  congr 2 <;> norm_num
+
+/-! **关于退化情形**：**「前两层权重为零时输出等于第三层偏置」是对的，
+但第 189 轮在 Lean 里展开 `![g₀,g₁,0,g₃,0,g₅] 5` 时反复卡在 `Fin` 的 numeral 归约上**
+（`Matrix.cons_val_*` 与 `Fin.reduceOfNat*` 的名字在本版本里都不适用），
+**所以本节【不声称】它**——**它不是主结果，留着一条未证的说法比删掉它更糟。** -/
+
 end Lattice.Core
