@@ -198,4 +198,29 @@ theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n �
 
 **⇒ 下一步应当先把 `ChainParams` 改写成【不用 `match`】的形式**，
 例如用一个显式的「宽度序列」`List ℕ` 加 `Sigma`，**使每一层的参数类型可直接计算。**
-**那是一个定义层面的改动，第 162 轮做。** -/end Lattice.Core
+**那是一个定义层面的改动，第 162 轮做。** -//-! ### `actWith` 的联合可微性：为什么签名写法行不通，以及正确的写法
+
+**第 161 轮实测：定理的签名 `{m n} → (ch : Chain m n) → [...] → ...` 在归纳【之前】
+就要解 `NormedAddCommGroup (ChainParams ch)`，而那时 `ch` 是变量，搜索无法展开，超时。**
+
+**本轮又实测：把实例写成显式参数也不行**——
+**`cons` 支的递归调用需要 `rest` 的实例，而调用方只有 `cons l rest`（一个 `Prod`）的实例，
+取不出第二分量。手写 `ParamsNAGC` 反而触发
+`synthesized type class instance is not definitionally equal`。**
+
+**⇒ 事实上，对【具体】形状类型类搜索完全胜任**：
+**一层、两层、三层、四层的 `cons` 伸进 `differentiableAt_snd` 都直接通过。**
+
+**⇒ 所以正确的写法不是让定理对变量 `ch` 成立、再靠递归补实例，
+而是把可微性【作为 `Chain` 递归的一部分】陈述，让每次递归都在更浅的具体形状上工作。**
+
+**⚠ 但定理的【类型】仍要提到 `ChainParams ch`，所以这条路在 Lean 里仍受限。**
+
+**⇒ 第 162 轮【不声称】`differentiableAt_chainActWith_joint`。**
+**已确认的是：**
+
+1. **`Chain.actWith` 的定义与两条 `rfl` 引理（第 161 轮）；**
+2. **对具体链形状，`ChainParams` 的实例由搜索自动给出，`differentiableAt_snd` 直接可用**
+   （本轮实测到四层）；
+3. **签名里的变量 `ch` 才是障碍，而那是 Lean 类型类系统与依赖类型的交界问题，
+   不是数学问题。** -/end Lattice.Core
