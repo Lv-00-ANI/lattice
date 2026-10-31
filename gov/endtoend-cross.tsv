@@ -173,6 +173,9 @@ Core/VariableDerivative.lean	wideChain2_explicit_one
 Core/VariableDerivative.lean	oneLayer_second_difference_zero
 Core/VariableDerivative.lean	twoLayer_third_difference_zero
 Core/VariableDerivative.lean	threeLayer_fourth_difference_zero
+Core/VariableDerivative.lean	fdiffIter_const
+Core/VariableDerivative.lean	fdiffIter_add
+Core/VariableDerivative.lean	fdiffIter_const_mul
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
