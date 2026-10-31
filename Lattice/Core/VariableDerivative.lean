@@ -839,4 +839,98 @@ theorem compose3_differentiableAt_joint {N a b d e : ℕ} (off₁ : ℕ)
   exact DifferentiableAt.prod differentiableAt_fst
     (compose2_differentiableAt_joint off₁ (thirdOffset off₁ a b) hw₁ hc₁ hw₂ hc₂ g x)
 
+/-! ## 去掉 `hbound`：越界读零，从而消掉依赖假设
+
+## 为什么这是关键一步
+
+**第 165–172 轮的 `flatParamAct` 需要三组 `hbound`：**
+
+    hw : ∀ i j, slotOf off b i.val j.val < N
+    hc : ∀ j, off + a * b + j.val < N
+
+**这三组假设【随层数增长】，而它们的类型取决于每层的宽度——
+这正是任意深度无法归纳的原因。**
+
+**⇒ 本节的路线与第 138 轮的 `netPoints` 相同：越界时【返回零】**：
+
+    readSlot g k := if h : k < N then g ⟨k, h⟩ else 0
+
+**于是 `flatParamAct` 不需要任何 `hbound`**，**而越界位置读出零——
+对「层数超参数上限」的情形，那是一个明确且无害的语义。** -/
+
+/-- **越界读零的槽位读取**。
+
+**⚠ 与 `trunc` 同一模式**（第 138 轮 `netPoints` 的 `if h : j < K then … else 0`）：
+**用 `ℕ` 索引而不是 `Fin N`，从而不需要预先证明索引在界内。** -/
+noncomputable def readSlot {N : ℕ} (g : Fin N → ℝ) (k : ℕ) : ℝ :=
+  if h : k < N then g ⟨k, h⟩ else 0
+
+/-- ⭐ **界内时 `readSlot` 就是坐标投影。** -/
+theorem readSlot_of_lt {N : ℕ} (g : Fin N → ℝ) {k : ℕ} (h : k < N) :
+    readSlot g k = g ⟨k, h⟩ := by
+  simp only [readSlot, dif_pos h]
+
+/-- ⭐ **界外时 `readSlot` 为零。** -/
+theorem readSlot_of_ge {N : ℕ} (g : Fin N → ℝ) {k : ℕ} (h : N ≤ k) :
+    readSlot g k = 0 := by
+  simp only [readSlot]
+  exact dif_neg (by omega)
+
+/-- ⭐⭐⭐ **`readSlot` 对参数【可微】**——**固定的 `k` 下它是投影或常值。**
+
+**⚠ 关键**：**`k < N` 不依赖 `g`，所以 `by_cases` 分出的两支分别是
+「坐标投影」（可微）与「常值零」（可微）。** -/
+@[fun_prop]
+theorem readSlot_differentiableAt {N : ℕ} (k : ℕ) (g : Fin N → ℝ) :
+    DifferentiableAt ℝ (fun h : Fin N → ℝ => readSlot h k) g := by
+  by_cases hk : k < N
+  · have hfun : (fun h : Fin N → ℝ => readSlot h k) = fun h : Fin N → ℝ => h ⟨k, hk⟩ := by
+      funext h
+      exact readSlot_of_lt h hk
+    rw [hfun]
+    fun_prop
+  · have hfun : (fun h : Fin N → ℝ => readSlot h k) = fun _ : Fin N → ℝ => (0 : ℝ) := by
+      funext h
+      exact readSlot_of_ge h (by omega)
+    rw [hfun]
+    fun_prop
+
+/-- ⭐⭐⭐ **无 `hbound` 的层作用**——**参数与激活分离，且不需要任何界假设。** -/
+noncomputable def flatParamActSafe {N a b : ℕ} (off : ℕ)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) : Fin b → ℝ :=
+  fun j => (∑ i : Fin a, readSlot g (slotOf off b i.val j.val) * x i)
+    + readSlot g (off + a * b + j.val)
+
+/-- ⭐⭐⭐ **`flatParamActSafe` 对【激活】可微**——**无 `hbound`，所以这一条对【任意】宽度成立。** -/
+theorem flatParamActSafe_differentiableAt_activation {N a b : ℕ} (off : ℕ)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ (fun y : Fin a → ℝ =>
+      flatParamActSafe (b := b) off g y) x := by
+  have hfun : (fun y : Fin a → ℝ => flatParamActSafe (b := b) off g y)
+      = fun y : Fin a → ℝ => fun j : Fin b =>
+          (∑ i : Fin a, readSlot g (slotOf off b i.val j.val) * y i)
+            + readSlot g (off + a * b + j.val) := by
+    funext y
+    funext j
+    rfl
+  rw [hfun]
+  fun_prop
+
+/-- ⭐⭐⭐ **`flatParamActSafe` 对【参数与激活】联合可微**——**由 `readSlot_differentiableAt` 支撑。** -/
+theorem flatParamActSafe_differentiableAt_joint {N a b : ℕ} (off : ℕ)
+    (g : Fin N → ℝ) (x : Fin a → ℝ) :
+    DifferentiableAt ℝ
+      (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+        flatParamActSafe (b := b) off r.1 r.2) (g, x) := by
+  have hfun : (fun r : (Fin N → ℝ) × (Fin a → ℝ) =>
+      flatParamActSafe (b := b) off r.1 r.2)
+      = fun r : (Fin N → ℝ) × (Fin a → ℝ) => fun j : Fin b =>
+          (∑ i : Fin a, readSlot r.1 (slotOf off b i.val j.val) * r.2 i)
+            + readSlot r.1 (off + a * b + j.val) := by
+    funext r
+    funext j
+    rfl
+  rw [hfun]
+  fun_prop
+
 end Lattice.Core
