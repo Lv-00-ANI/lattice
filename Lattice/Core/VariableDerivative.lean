@@ -146,49 +146,56 @@ abbrev ChainParams : {m n : ℕ} → Chain m n → Type :=
 theorem chainParams_idf (n : ℕ) : ChainParams (Chain.idf n) = PUnit :=
   rfl
 
-/-! ### ⚠ `abbrev` 而不是 `def`：一个被实测的决定
+/-! ### `abbrev` 而不是 `def`：一个被实测的决定
 
-**`ChainParams` 必须是 `abbrev`**，**否则 `PUnit`／`Prod` 的
-`NormedAddCommGroup`／`NormedSpace` 实例【不会】穿过它传播**（第 160 轮实测）：
-**`def` 版本下 `NormedAddCommGroup (ChainParams (Chain.idf n))` 报 `failed to synthesize`，
-`abbrev` 版本下同一目标由 `inferInstance` 直接给出。**
+**`ChainParams` 必须是 `abbrev`**，**否则 `PUnit`／`Prod` 的实例【不会】穿过它传播**（第 160 轮实测）。
 
-**⚠ 但这【不够】**：**`ChainParams` 内部用的是 `match`，所以
-`ChainParams (Chain.cons l rest)` 归约成 `mlayerParams _ _ × ChainParams rest` 时，
-第二分量的实例仍需递归求解，而那条链在类型类搜索里会【超时**（`synthInstance.maxHeartbeats`）。
+**⚠ 第 161 轮的探针修正了第 160 轮的一个判断**：
+**`abbrev` 的归约足以让 `idf`、一层、两层、三层的 `cons` 都自动解出实例**
+（`exact differentiableAt_snd` 直接通过）。
+**第 160 轮的超时来自【手写的实例定义加 `attribute [instance]`】**，而那是错误的修法。** -/
 
-**⇒ 第 160 轮【没有**完成 `ChainParams` 上的实例声明。
-**已尝试的两种写法都不成立**：
+/-- ⭐⭐ **`Chain` 的参数化作用**：从 `ChainParams ch` 取每一层的参数。
 
-1. **手写 `noncomputable def ... : {m n} → (ch) → NormedAddCommGroup (ChainParams ch)` 加
-   `attribute [instance]`**——`idf` 分支的 `inferInstanceAs` 能过，**但 `cons` 分支的
-   `inferInstanceAs (NormedAddCommGroup (mlayerParams _ _ × ChainParams rest))`
-   在递归分量上超时**；
-2. **依赖 `abbrev` 的可归约性**——`idf` 情形成立，**`cons` 情形超时**。
+**⚠ 第二参数的类型是 `ChainParams ch`，随 `ch` 变——递归时 `p.2` 的类型正好是 `ChainParams rest`。** -/
+noncomputable def Chain.actWith : {m n : ℕ} → (ch : Chain m n) → ChainParams ch →
+    (Fin m → ℝ) → Fin n → ℝ
+  | _, _, .idf _, _, x => x
+  | _, _, .cons (n := n') _ rest, p, x => actWith rest p.2 (mlayerAct (mlayerOf p.1) x)
 
-**⇒ 正确的下一步需要换一种【不递归*的表示：把 `ChainParams` 定义成一个经过计算的
-**累加宽度列表**，或者把参数空间设计成**定长的 `Fin k →` 加一条宽度等式**，
-**从而让实例由 `Pi`／`Prod` 一次性给出，而不是逐层递归。** -/
+/-- **递归展开**（定义级）。 -/
+theorem Chain.actWith_cons {m n n' : ℕ} (l : MLayer m n) (rest : Chain n n')
+    (p : ChainParams (Chain.cons l rest)) (x : Fin m → ℝ) :
+    Chain.actWith (Chain.cons l rest) p x
+      = Chain.actWith rest p.2 (mlayerAct (mlayerOf p.1) x) :=
+  rfl
 
-/-- **`Chain.act` 对【输入】可微**——**定宽版 `differentiableAt_netActN` 的变宽对应。**
+/-- **恒等链的参数化作用是恒等**。 -/
+theorem Chain.actWith_idf (n : ℕ) (p : ChainParams (Chain.idf n)) (x : Fin n → ℝ) :
+    Chain.actWith (Chain.idf n) p x = x :=
+  rfl
 
-**对 `ch` 归纳**：`idf` 是恒等（`differentiableAt_id`），
-**`cons` 是「先 `mlayerAct` 再 `act rest`」的复合，用 `differentiableAt_mlayerAct` 与归纳假设 `comp`。** -/
-theorem differentiableAt_chainAct : {m n : ℕ} → (ch : Chain m n) → (x : Fin m → ℝ) →
-    DifferentiableAt ℝ (fun y : Fin m → ℝ => Chain.act ch y) x
-  | _, _, .idf n, x => by
-      have hid : (fun y : Fin n → ℝ => Chain.act (Chain.idf n) y) = id := by
-        funext y
-        exact Chain.act_idf y
-      rw [hid]
-      exact differentiableAt_id
-  | _, _, .cons (m := m') (n := n') l rest, x => by
-      have hstep : (fun y : Fin m' → ℝ => Chain.act (Chain.cons l rest) y)
-          = (fun z : Fin n' → ℝ => Chain.act rest z) ∘ (fun y => mlayerAct l y) := by
-        funext y
-        rfl
-      rw [hstep]
-      exact (differentiableAt_chainAct rest _).comp x
-        (differentiableAt_mlayerAct (mlayerParamsOf l) x)
+/-! ### ⚠ 未闭合：`Chain.actWith` 的联合可微性
 
-end Lattice.Core
+**目标**：`DifferentiableAt ℝ (fun r : ChainParams ch × (Fin m → ℝ) => Chain.actWith ch r.1 r.2) (p, x)`。
+
+**第 161 轮实测到的确切障碍**：**定理的签名在归纳之前就要 `[NormedAddCommGroup (ChainParams ch)]`，
+而 `ch` 那时是【变量】，类型类搜索无法归约（第 160 轮已测：超时）。**
+
+**把实例作为显式参数（第 160 轮诊断的第二个候选）也不行**：
+**`cons` 支的递归调用需要的是 `NormedAddCommGroup (ChainParams rest)`，
+而调用方手里只有 `NormedAddCommGroup (ChainParams (Chain.cons l rest))`，
+即一个 `Prod` 的实例——从它【取不出】第二分量的实例**（Lean 报类型不匹配）。
+
+**⇒ 真正可行的修法是让 `ChainParams` 的实例由【构造】给出而不是由【搜索】给出**：
+既然 `ChainParams (cons l rest) = mlayerParams _ _ × ChainParams rest`，
+**就该在 `cons` 支用 `haveI` 把 `rest` 的实例【递归构造】出来**，
+**而不是指望 `iA` 里含有它。**
+
+**⚠ 但递归构造需要一个【返回实例值】的函数**，而第 160 轮试过——
+**`inferInstanceAs` 在递归分量上超时。** **原因可能是 `ChainParams` 的 `match` 让
+`inferInstanceAs` 的目标类型无法归约。**
+
+**⇒ 下一步应当先把 `ChainParams` 改写成【不用 `match`】的形式**，
+例如用一个显式的「宽度序列」`List ℕ` 加 `Sigma`，**使每一层的参数类型可直接计算。**
+**那是一个定义层面的改动，第 162 轮做。** -/end Lattice.Core
