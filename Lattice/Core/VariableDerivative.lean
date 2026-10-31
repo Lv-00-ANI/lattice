@@ -2409,4 +2409,108 @@ theorem lowDeg_one_affine_mul {f : ℝ → ℝ} (hf : LowDeg 1 f) (a b : ℝ) :
   rw [r2, r1]
   ring
 
+
+/-- ⭐⭐ **一次式是 `LowDeg 1`**——**二阶差分为零。**
+
+**这是链归纳的基座：每层的权重 `(g_{2d} + t·h_{2d})` 就是这样的一次式。**
+
+**⚠ 别名普查把本条与第 207 轮的 `lowDeg_zero_of_const` 标为 `copy`——
+两条的【证明形状**相同（展开两层 `rfdiff` 再 `ring`），但【陈述不同**：
+**一条说常数，一条说一次式，而两者都是归纳需要的（一次式给出 `k = 1`，常数给出 `k = 0` 的基座）。**
+
+**⇒ 保留两条，并把这条注记作为「同一模式的两个必要实例」的记录。
+同时删掉了第三条纯包装 `lowDeg_const_one`——它从未被使用，
+而「常数是 `LowDeg 1`」由 `lowDeg_succ ∘ lowDeg_zero_of_const` 直接得到。** -/
+theorem lowDeg_affine (a b : ℝ) : LowDeg 1 (fun t => a + b * t) := by
+  simp only [LowDeg, rfdiffIter]
+  funext t
+  simp only [rfdiff, Pi.zero_apply]
+  ring
+
+/-- ⭐⭐ **`LowDeg 2` 的算术内容**：**三阶差分为零，即二阶差分是常数。**
+
+**⇒ `f` 在等距点上与一个二次式相符；`f(s+3) = 3f(s+2) - 3f(s+1) + f(s)`。** -/
+theorem lowDeg_two_step {f : ℝ → ℝ} (hf : LowDeg 2 f) (s : ℝ) :
+    f (s + 1 + 1 + 1) - 3 * f (s + 1 + 1) + 3 * f (s + 1) - f s = 0 := by
+  simp only [LowDeg, rfdiffIter, rfdiff, Pi.zero_apply] at hf
+  have := congrFun hf s
+  simp only [rfdiff, Pi.zero_apply] at this
+  linarith
+
+/-- ⭐⭐⭐ **乘以一次式使次数 ≤ 2 升到次数 ≤ 3**——**归纳在 `k = 2` 处的一步。**
+
+**⚠ 与 `lowDeg_zero_affine_mul`、`lowDeg_one_affine_mul` 合起来，`k = 0, 1, 2` 三步都有。** -/
+theorem lowDeg_two_affine_mul {f : ℝ → ℝ} (hf : LowDeg 2 f) (a b : ℝ) :
+    LowDeg 3 (fun t => (a + b * t) * f t) := by
+  simp only [LowDeg] at hf ⊢
+  simp only [rfdiffIter] at hf ⊢
+  funext t
+  simp only [rfdiff, Pi.zero_apply]
+  -- 把 f 的高点值降到 f t, f(t+1), f(t+2)
+  have r1 : f (t + 1 + 1 + 1)
+      = 3 * f (t + 1 + 1) - 3 * f (t + 1) + f t := by
+    have := lowDeg_two_step hf t
+    linarith
+  have r2 : f (t + 1 + 1 + 1 + 1)
+      = 3 * f (t + 1 + 1 + 1) - 3 * f (t + 1 + 1) + f (t + 1) := by
+    have := lowDeg_two_step hf (t + 1)
+    linarith
+  rw [r2, r1]
+  ring
+
+
+/-! ## ⭐⭐⭐ 链的参数次数：对深度归纳
+
+## 归纳的不变量
+
+**沿参数方向 `t ↦ g + t·h`，宽 1 的链的作用是**
+
+    Φ_ch(t) = flatChainAct ch 0 (g + t·h) (fun _ => x)
+
+**而递推（第 191 轮的 `flatChainAct_cons_general` 在宽 1 的特化）是**
+
+    Φ_{cons l ch}(t) = Φ_ch(t) 作用在 `(g_off + t·h_off)·x + (g_{off+1} + t·h_{off+1})` 上
+
+**⚠ 那不是「一次式乘 Φ_ch」的形状**——**因为 `flatChainAct` 把【新激活】喂给尾链，
+而新激活本身依赖 `t`。**
+
+**⇒ 直接对 `Chain` 归纳是【错**的路子：`Φ_{cons l ch}(t)` 不是 `(a+b·t)·Φ_ch(t) + (c+d·t)`，
+而是 `Φ_ch` 作用在一个 `t`-依赖的输入上。**
+
+**⚠ 正确的路子在【输入】侧：第 203 轮已证「链对输入恒为仿射」
+（`flatChainAct_scalar_affine`），所以**
+
+    Φ_ch(t) = (1 − σ(t))·Φ_ch(0) + σ(t)·Φ_ch(1)
+
+**其中 `σ(t)` 是那个 `t`-依赖的标量输入。而 `σ` 本身沿 `t` 是【一次**的
+（每层 `(g_off + t·h_off)·x + (g_off+1 + t·h_{off+1})`）。
+**⇒ `Φ_ch(t)` 是 `t` 的一次式的仿射像——仍然是一次式！**
+
+**⇒ 这与第 203 轮的结论一致：深度【不】提高对输入的次数。**
+**而「参数次数 = 深度」是关于【参数 `g`】的，不是关于单条参数直线的 `t`。**
+
+## 本轮的处理
+
+**⇒ 我不再试图用 `Chain` 归纳去证「`t ↦ Φ(g + t·h)` 的次数 = 深度」——
+因为沿着一条直线看，每层的 `(g + t·h)` 只是把系数变成 `t` 的一次式，
+而【所有层的参数同时变】才产生高次项。**
+
+**⚠ 而第 204／205 轮的 `twoLayer_param_cubic` 与 `threeLayer_param_quartic`
+证的正是「所有层同时变」的情形，用的是【显式展开**（`threeLayer_param_expand`）。**
+
+**⇒ 所以本轮回退到【记录】：`Chain` 归纳需要的不变量不是 `LowDeg`，
+而是「`Φ` 是 `g` 的多项式」，而那需要 `MvPolynomial`（第 199 轮起已登记）。** -/
+
+/-- **链的层数**——**用于陈述「次数 = 层数」的上界。** -/
+def chainDepth : {m n : ℕ} → Chain m n → ℕ
+  | _, _, .idf _ => 0
+  | _, _, .cons _ rest => chainDepth rest + 1
+
+/-- **空链的层数为零**。 -/
+theorem chainDepth_idf {n : ℕ} : chainDepth (Chain.idf n) = 0 := rfl
+
+/-- **加一层层数加一**。 -/
+theorem chainDepth_cons {m n c : ℕ} (l : MLayer m n) (rest : Chain n c) :
+    chainDepth (Chain.cons l rest) = chainDepth rest + 1 := rfl
+
 end Lattice.Core
