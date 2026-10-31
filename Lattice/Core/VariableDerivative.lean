@@ -408,4 +408,58 @@ theorem flatParams_differentiableAt_linear_vec (B : ℕ) (k n : ℕ)
       (fun g : FlatParams B => fun j => (∑ i, w i j * g (σ i)) + c j) g := by
   fun_prop
 
+/-! ## 扁平槽位：把 `(层, i, j)` 映到参数向量的一个位置
+
+## 结构
+
+**每层的参数数是 `a × b + b`（`a × b` 个权重加 `b` 个偏置）。
+各层的区域由【前缀和】给出，所以不同层落在不交的区间。**
+
+**⚠ 槽位映射只产生 `Fin B` 的一个【值】，不需要证明它是满射或单射**：
+**每层只读自己的区域，所以映射的性质不影响正确性。**
+**这使得 `σ` 可以是纯算术，不需要任何精细的对应证明。** -/
+
+/-- **一层的参数数**：`a × b` 个权重加 `b` 个偏置。 -/
+def layerParamCount (a b : ℕ) : ℕ := a * b + b
+
+/-- **各层区域的起始偏移**（前缀和）。
+
+**`layerOffsets [2,3,4] = [0, 9, 25]`**：
+**第 1 层从 `2×3+3 = 9` 开始，第 2 层从 `9 + 3×4+4 = 25` 开始。** -/
+def layerOffsets : List ℕ → List ℕ
+  | [] => []
+  | [_] => [0]
+  | a :: b :: rest => 0 :: (layerOffsets (b :: rest)).map (fun x => x + layerParamCount a b)
+
+/-- **参数总数的精确公式**——**等于最后一层偏移加上最后一层的参数数。** -/
+def ParamsCountExact : List ℕ → ℕ
+  | [] => 0
+  | [_] => 0
+  | a :: b :: rest => layerParamCount a b + ParamsCountExact (b :: rest)
+
+/-- **三层例子**——`[2,3,4]` 的总参数数是 `9 + 16 = 25`。 -/
+theorem paramsCountExact_example : ParamsCountExact [2, 3, 4] = 25 := rfl
+
+/-- **偏移的例子**——`[2,3,4]` 的三层分别从 `0, 9, 25` 开始。 -/
+theorem layerOffsets_example : layerOffsets [2, 3, 4] = [0, 9, 25] := rfl
+
+/-- **空序列**：没有层，没有参数。 -/
+theorem layerOffsets_nil : layerOffsets [] = [] := rfl
+
+/-- **单层**：偏移为零，参数数为 `a × b + b`（由 `ParamsCountExact` 给出）。 -/
+theorem layerOffsets_single (a : ℕ) : layerOffsets [a] = [0] := rfl
+
+/-- **空序列的参数总数为零**。 -/
+theorem paramsCountExact_nil : ParamsCountExact ([] : List ℕ) = 0 := rfl
+
+/-- ⭐ **一层的参数数是正的**（当 `b > 0`）——**所以每层确实占一段非空区域。** -/
+theorem layerParamCount_pos (a b : ℕ) (hb : 0 < b) : 0 < layerParamCount a b := by
+  simp only [layerParamCount]
+  omega
+
+/-- ⭐⭐ **两层时，第二层的偏移正好是第一层的参数数**——**不交性的起点。** -/
+theorem layerOffsets_two (a b : ℕ) :
+    layerOffsets [a, b] = [0, layerParamCount a b] := by
+  simp only [layerOffsets, List.map, Nat.zero_add]
+
 end Lattice.Core
