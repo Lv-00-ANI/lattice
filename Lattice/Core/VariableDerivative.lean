@@ -2513,4 +2513,67 @@ theorem chainDepth_idf {n : ℕ} : chainDepth (Chain.idf n) = 0 := rfl
 theorem chainDepth_cons {m n c : ℕ} (l : MLayer m n) (rest : Chain n c) :
     chainDepth (Chain.cons l rest) = chainDepth rest + 1 := rfl
 
+
+/-! ## ⚠⚠ 第 3 轮的推测被推翻：参数方向确实到三次
+
+## 第 3 轮写了什么
+
+**第 3 轮在 `chainDepth` 一节的文档里断言：**
+
+> **沿一条参数直线 `t ↦ g + t·h`，新激活是 `t` 的仿射式，而把仿射函数喂进一个对输入仿射的链，
+> 得到的仍然是 `t` 的仿射函数。⇒ `t ↦ Φ_ch(g + t·h)` 对【每一条】链都是 `t` 的仿射函数。**
+
+**那个推理【是错的**，而错在一个具体的地方：
+**「对输入仿射」是关于【第一个变量】的性质，而新激活同时是 `t` 的函数；
+把 `t`-依赖的输入喂进仿射映射，得到的是 `t` 的多项式，次数随层数【增加**——
+**因为每层的权重【也】随 `t` 变，两者相乘就产生高次项。**
+
+## 本轮用数值把这件事钉死
+
+**取 `g = 0`、`h = e₀ + e₂ + e₄`、`x = 1`：三层链的输出【恰好等于】 `t³`。**
+
+**⇒ 参数方向上的次数确实是 3，不是 1。第 204／205 轮的 `threeLayerCoeff3 = h4·h2·h0·x` 是对的，
+而第 3 轮的「恒为仿射」的推广是错的。**
+
+**⚠ 结论**：**`LowDeg` 确实是正确的阶梯**——**第 3 轮放弃 `Chain` 归纳的理由（「不变量选错了」）不成立；
+真正的障碍只是 `lowDeg_affine_mul` 的一般 `k`（离散 Leibniz）还没证。** -/
+
+/-- **三层链沿参数方向 `e₀+e₂+e₄` 的输出恰是 `t³`**——**第 3 轮推测被推翻的直接见证。** -/
+theorem threeLayerAxis_t3 (t : ℝ) :
+    flatChainAct (N := 6) threeLayerChain 0
+      (fun i => (0 : Fin 6 → ℝ) i
+        + t * (if i = 0 ∨ i = 2 ∨ i = 4 then (1 : ℝ) else 0))
+      (fun _ => (1 : ℝ)) 0 = t ^ 3 := by
+  rw [threeLayer_param_expand]
+  simp only [threeLayerCoeff0, threeLayerCoeff1, threeLayerCoeff2, threeLayerCoeff3,
+    show (1 : Fin 6) ≠ 2 from by decide,
+    show (1 : Fin 6) ≠ 4 from by decide,
+    show (3 : Fin 6) ≠ 0 from by decide,
+    show (3 : Fin 6) ≠ 2 from by decide,
+    show (3 : Fin 6) ≠ 4 from by decide,
+    show (5 : Fin 6) ≠ 0 from by decide,
+    show (5 : Fin 6) ≠ 2 from by decide,
+    show (5 : Fin 6) ≠ 4 from by decide]
+  norm_num
+
+/-- ⭐⭐ **沿参数方向，三层链【不是】仿射的**——**`t³` 不满足二阶差分为零。**
+
+**⇒ 与两层的情形（第 204 轮的三阶参数差分零、第 187 轮的非仿射）并列，
+给出「参数次数随深度增长」的又一直接见证。** -/
+theorem threeLayerAxis_not_affine :
+    ¬ (∀ t : ℝ,
+        flatChainAct (N := 6) threeLayerChain 0
+          (fun i => (0 : Fin 6 → ℝ) i
+            + t * (if i = 0 ∨ i = 2 ∨ i = 4 then (1 : ℝ) else 0))
+          (fun _ => (1 : ℝ)) 0
+          = (1 - t) * (0 : ℝ) + t * 1) := by
+  intro h
+  have h3 := h 3
+  have h0 := h 0
+  have h1 := h 1
+  rw [threeLayerAxis_t3] at h3
+  rw [threeLayerAxis_t3] at h0
+  rw [threeLayerAxis_t3] at h1
+  norm_num at h3 h0 h1
+
 end Lattice.Core

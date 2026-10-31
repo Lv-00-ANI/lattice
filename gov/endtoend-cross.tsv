@@ -188,6 +188,8 @@ Core/VariableDerivative.lean	lowDeg_add
 Core/VariableDerivative.lean	lowDeg_const_mul
 Core/VariableDerivative.lean	chainDepth_idf
 Core/VariableDerivative.lean	chainDepth_cons
+Core/VariableDerivative.lean	threeLayerAxis_t3
+Core/VariableDerivative.lean	threeLayerAxis_not_affine
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
