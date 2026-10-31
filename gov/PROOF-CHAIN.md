@@ -918,7 +918,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 47 | 23 |
+| `Lattice.Core.VariableDerivative` | 49 | 23 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -1583,7 +1583,7 @@
 | `Lattice.Domains.Constraints.Expr` | 8 | 5 |
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
 | `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
-| `Lattice.Domains.Constraints.FlatLoss` | 5 | 2 |
+| `Lattice.Domains.Constraints.FlatLoss` | 7 | 2 |
 | `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
@@ -1791,8 +1791,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `C6_twoK3_partition_eq` -> `nbhdSum`
 - `C6_twoK3_same_card` -> `E`, `nbhdSet`, `nbhdSum`
 - `CExpr.depth_eq_one` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`
-- `Chain.actWith_cons` -> `Chain`, `MLayer`, `mlayerAct`
-- `Chain.actWith_idf` -> `Chain`
+- `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`, `induction`, `zero`
 - `ChainFwd_const_add` -> `ChainFwd`, `ChainTail`, `W`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
@@ -2831,7 +2831,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
-- `chainParams_idf` -> `Chain`, `MLayer`, `mlayerAct`
+- `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `chainQuad_m_zero` -> `apply`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `le_refl`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`
@@ -3778,9 +3778,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `differentiableAt_affineAct_joint` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `mlayerAct`
-- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `mlayerAct`
-- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `mlayerAct`
+- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netActN_jointAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
@@ -4746,6 +4747,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`
 - `fixpoint_transfer_le` -> `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
+- `flatChainAct_differentiableAt_input` -> `Chain`, `comp`
 - `flatChainAct_differentiableAt_joint` -> `Chain`, `comp`
 - `flatChainAct_idf` -> `Chain`, `comp`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
@@ -4758,9 +4760,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatLayerAct_differentiableAt` -> `comp`
-- `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
-- `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
-- `flatLoss_eq_zero_iff` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
+- `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
+- `flatLoss_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
+- `flatLoss_eq_comp` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
+- `flatLoss_eq_zero_iff` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`
@@ -4769,8 +4772,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`
 - `flatParamAct_differentiableAt_params` -> `comp`
-- `flatPoints_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_joint`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
-- `flatPoints_eq_trunc` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
+- `flatPoints_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
+- `flatPoints_differentiableAt_params` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`
+- `flatPoints_eq_trunc` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `comp`, `flatChainAct`, `flatChainAct_differentiableAt_input`, `flatChainAct_differentiableAt_joint`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `trunc`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
@@ -6485,8 +6489,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mla_score_eq_absorbedMap` -> `E`, `gqaLogits`, `mlaScoreAbsorbed`, `mla_absorb_query`, `sqrt_one`
 - `mla_score_eq_gqa_logits_id` -> `E`, `gqaLogits`, `sqrt_one`
 - `mla_score_eq_plain_inner` -> `E`, `gqaLogits`, `mlaScoreAbsorbed`, `sqrt_one`
-- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `mlayerAct`
-- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `mlayerAct`
+- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `modEq_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `modEq_to_congruentInt` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`
 - `modReLU_bounded` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
