@@ -20,6 +20,7 @@ import Lattice.Core.StackDerivative
 import Lattice.Core.AnalysisHelper
 import Lattice.Core.NonlinearLayer
 import Lattice.Core.VariableActLayer
+import Lattice.Core.VariableDerivative
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
