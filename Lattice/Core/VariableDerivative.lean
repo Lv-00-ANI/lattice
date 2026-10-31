@@ -2703,4 +2703,74 @@ theorem oneLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N) (x0 : �
         · omega
         · omega
 
+
+/-- **宽 1、两层的输出作为参数的多项式**：
+**`X 2 · (X 0 · x₀ + X 1) + X 3`**
+（第 1 层用槽位 `0`/`1`，第 2 层用 `2`/`3`）。 -/
+noncomputable def twoLayerParamPoly (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
+    (h2 : 2 < N) (h3 : 3 < N) (x0 : ℝ) : MvPolynomial (Fin N) ℝ :=
+  MvPolynomial.X ⟨2, h2⟩
+    * (MvPolynomial.X ⟨0, h0⟩ * MvPolynomial.C x0 + MvPolynomial.X ⟨1, h1⟩)
+    + MvPolynomial.X ⟨3, h3⟩
+
+/-- ⭐⭐ **两层多项式求值等于该链的计算**——**与第 188 轮的显式形式一致。** -/
+theorem twoLayerParamPoly_eval (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
+    (h2 : 2 < N) (h3 : 3 < N) (x0 : ℝ) (g : Fin N → ℝ) :
+    (twoLayerParamPoly N h0 h1 h2 h3 x0).eval g
+      = g ⟨2, h2⟩ * (g ⟨0, h0⟩ * x0 + g ⟨1, h1⟩) + g ⟨3, h3⟩ := by
+  simp only [twoLayerParamPoly, MvPolynomial.eval_add, MvPolynomial.eval_mul,
+    MvPolynomial.eval_X, MvPolynomial.eval_C]
+
+/-- ⭐⭐ **一次式乘常数仍是一次**——**归纳步的基础。** -/
+theorem totalDegree_X_mul_C_le (N : ℕ) (s : Fin N) (c : ℝ) :
+    (MvPolynomial.X s * MvPolynomial.C c : MvPolynomial (Fin N) ℝ).totalDegree ≤ 1 := by
+  have hm := MvPolynomial.totalDegree_mul (MvPolynomial.X s : MvPolynomial (Fin N) ℝ)
+    (MvPolynomial.C c : MvPolynomial (Fin N) ℝ)
+  have hx : (MvPolynomial.X s : MvPolynomial (Fin N) ℝ).totalDegree = 1 :=
+    MvPolynomial.totalDegree_X _
+  have hc : (MvPolynomial.C c : MvPolynomial (Fin N) ℝ).totalDegree = 0 :=
+    MvPolynomial.totalDegree_C c
+  omega
+
+/-- ⭐⭐⭐ **两层多项式的次数 ≤ 2**——**「深度 2 ⟹ 参数次数 ≤ 2」的载体形式。** -/
+theorem twoLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
+    (h2 : 2 < N) (h3 : 3 < N) (x0 : ℝ) :
+    (twoLayerParamPoly N h0 h1 h2 h3 x0).totalDegree ≤ 2 := by
+  -- 内层：X 0 · x₀ + X 1 的次数 ≤ 1
+  have hinner : (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+        + MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree ≤ 1 := by
+    calc (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+          + MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree
+        ≤ max (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+              : MvPolynomial (Fin N) ℝ).totalDegree
+            (MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree :=
+          MvPolynomial.totalDegree_add _ _
+      _ ≤ 1 := by
+          rw [max_le_iff]
+          exact ⟨totalDegree_X_mul_C_le N _ x0, by simp⟩
+  -- 外层：X 2 · 内层 的次数 ≤ 2
+  have hprod : (MvPolynomial.X (⟨2, h2⟩ : Fin N)
+        * (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+          + MvPolynomial.X (⟨1, h1⟩ : Fin N)) : MvPolynomial (Fin N) ℝ).totalDegree ≤ 2 := by
+    have hm := MvPolynomial.totalDegree_mul (MvPolynomial.X (⟨2, h2⟩ : Fin N)
+      : MvPolynomial (Fin N) ℝ)
+      (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+        + MvPolynomial.X (⟨1, h1⟩ : Fin N) : MvPolynomial (Fin N) ℝ)
+    have hx : (MvPolynomial.X (⟨2, h2⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree = 1 :=
+      MvPolynomial.totalDegree_X _
+    omega
+  rw [twoLayerParamPoly]
+  calc (MvPolynomial.X (⟨2, h2⟩ : Fin N)
+        * (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+          + MvPolynomial.X (⟨1, h1⟩ : Fin N))
+        + MvPolynomial.X (⟨3, h3⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree
+      ≤ max (MvPolynomial.X (⟨2, h2⟩ : Fin N)
+            * (MvPolynomial.X (⟨0, h0⟩ : Fin N) * MvPolynomial.C x0
+              + MvPolynomial.X (⟨1, h1⟩ : Fin N)) : MvPolynomial (Fin N) ℝ).totalDegree
+          (MvPolynomial.X (⟨3, h3⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree :=
+        MvPolynomial.totalDegree_add _ _
+    _ ≤ 2 := by
+        rw [max_le_iff]
+        exact ⟨hprod, by simp⟩
+
 end Lattice.Core

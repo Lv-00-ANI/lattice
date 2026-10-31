@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 126 | 44 |
+| `Lattice.Core.VariableDerivative` | 129 | 45 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -7082,6 +7082,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
+- `oneLayerParamPoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
 - `oneLayerParamPoly_eval` -> `eval`, `eval_add`, `eval_mul`
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
@@ -9611,6 +9612,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoHopMsg_bound` -> `apply`, `le_trans`
 - `twoLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`, `W`, `e2`
+- `twoLayerParamPoly_eval` -> `eval`, `eval_add`, `eval_mul`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
 - `twoLayer_affine_eval` -> `Chain`, `MLayer`
 - `twoLayer_convex_eval` -> `Chain`, `MLayer`
