@@ -30,6 +30,7 @@ import Lattice.Domains.Constraints.DistDerivative
 import Lattice.Domains.Constraints.ExprDerivative
 import Lattice.Domains.Constraints.PenaltyLossDerivative
 import Lattice.Domains.Constraints.NetLossDerivative
+import Lattice.Domains.Constraints.FlatLoss
 
 /-!
 # `Lattice.Domains.Constraints`

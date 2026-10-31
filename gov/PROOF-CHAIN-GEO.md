@@ -25,7 +25,7 @@
 | `Lattice.Domains.ConstraintDescent` | 524 | 21 | Constraint, PenaltyLoss, NetLoss |
 | `Lattice.Domains.ConstraintSet` | 175 | 7 | Constraint |
 | `Lattice.Domains.ConstraintTokenizer` | 420 | 12 | Expr |
-| `Lattice.Domains.Constraints` | 44 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, DistDerivative, ExprDerivative, PenaltyLossDerivative, NetLossDerivative |
+| `Lattice.Domains.Constraints` | 45 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, DistDerivative, ExprDerivative, PenaltyLossDerivative, NetLossDerivative, FlatLoss |
 | `Lattice.Domains.Derivative` | 94 | 3 | Pipeline |
 | `Lattice.Domains.Derive` | 71 | 2 | Engine |
 | `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
@@ -52,6 +52,7 @@
 | `Lattice.Domains.ExteriorSmooth` | 150 | 9 | Differentiable, Exterior, ExprDeriv |
 | `Lattice.Domains.Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
 | `Lattice.Domains.Finite` | 106 | 1 | Expr, Flatten |
+| `Lattice.Domains.FlatLoss` | 87 | 3 | NetLossDerivative |
 | `Lattice.Domains.Flatten` | 130 | 4 | Expr |
 | `Lattice.Domains.FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
 | `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
