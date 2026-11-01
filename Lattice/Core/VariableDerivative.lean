@@ -3020,4 +3020,56 @@ theorem chainPoly_degree_le {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (of
             rw [hc]
             omega
 
+
+/-! ## ⚠⚠ 第 12 轮：载体忠实性的障碍记录（未完成）
+
+## 目标
+
+    theorem chainPoly_eval {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (off : ℕ) →
+        (hN) → (x : ℝ) → (g : Fin N → ℝ) → (j : Fin n) →
+        (chainPoly ch off hN x).eval g = flatChainAct ch off g (fun _ => x) j
+
+**这是把第 11 轮的「某个多项式次数 ≤ 深度」变成「【网络输出】次数 ≤ 深度」的最后一步。**
+
+## 归纳步的形态（数学上是直接的）
+
+**`chainPoly` 的 `cons` 支求值后是**
+
+    g_off · (chainPoly rest ... x).eval g + g_{off+1}
+
+**而 `flatChainAct (cons l rest) off g (fun _ => x) j` 展开成**
+
+    flatChainAct rest (off + 2) g (flatParamActSafe off g (fun _ => x)) j
+
+**⇒ 两者对接需要两件事：**
+
+1. **把 `(chainPoly rest ... x).eval g` 用归纳假设换成
+   `flatChainAct rest ... g (fun _ => x) j′`——但注意 `j′` 的【类型不同**：
+   **`chainPoly` 的 `cons` 支输出在 `Fin n`（单坐标），
+   而 `rest` 输出在 `Fin c`（尾链的输出宽度）。**
+2. **把 `flatParamActSafe off g (fun _ => x)` 换成常函数
+   `fun _ => readSlot g off * x + readSlot g (off+1)`。**
+
+## 实际卡住的地方
+
+**⚠ 第 1 点【不成立**：**`chainPoly` 是【宽 1 专用**的（它的 `cons` 支返回 `MvPolynomial (Fin N) ℝ`
+而【没有输出坐标**），**而 `flatChainAct` 在 `Cons` 之后输出宽度变成 `c`。**
+
+**⇒ `chainPoly` 与 `flatChainAct` 的对应【只在链的【最终**输出宽度为 1 时才有意义，
+**而中间层的宽度可能不是 1。** **⇒ 正确的陈述必须限制在「每一层宽度都是 1」的链上，
+即 `Chain 1 1`——而 `chainPoly` 目前对【任意 `m n`** 都有定义，那是个过强的签名。**
+
+**⚠ 第 2 点在 `flatChainAct_cons_general` 重写【之后**才能用，
+因为那个重写会消掉 `flatParamActSafe` 出现的位置——本轮把它放在了重写之前，顺序错了。**
+
+## 结论
+
+**本轮没有产出代码。** **两条精确的下一步：**
+
+1. **把 `chainPoly` 的签名限制到 `Chain 1 1`**（或在 `cons` 支增加「`rest` 也是 1 宽」的约束），
+   **因为只有那时「输出坐标」才与「标量激活」同型。**
+2. **`hfun` 的 `rw` 必须放在 `flatChainAct_cons_general` 【之前**。
+
+**⇒ 这是签名设计与重写顺序两件事，不是数学。** -/
+
 end Lattice.Core
