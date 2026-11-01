@@ -3177,4 +3177,117 @@ theorem chainPoly_degree_le {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (of
 **⇒ 下一轮的第一件事是【用上面的签名重写 `chainOnePoly`**——
 `x` 换成 `p : MvPolynomial`，`idf` 返回 `p`。**那是一个参数的改动，不是重新设计。** -/
 
+
+/-! ## ⭐⭐⭐ `ChainOne`：参数多项式次数 = deg p + 层数
+
+## 第 14 轮导出的正确形状
+
+**`chainOnePoly` 原先把每层输入当成同一个标量 `x`，而网络上每层的输出才是下层的输入。
+⇒ 正确的签名把输入作为【多项式 `p`】**，`idf` 原样返回它：
+
+    chainOnePoly .idf        off p = p
+    chainOnePoly (.cons l ch) off p = chainOnePoly ch (off+2) (X off · p + X (off+1))
+
+**⇒ 次数界是 `deg p + depth`**，而标量输入 `x` 是 `C x`（`deg = 0`）。 -/
+
+/-- **每层宽度都是 1 的链**——**`Chain 1 1` 不约束中间宽度，所以需要独立类型。** -/
+inductive ChainOne : Type
+  | idf : ChainOne
+  | cons : MLayer 1 1 → ChainOne → ChainOne
+
+/-- **`ChainOne` 的层数**。 -/
+def chainOneDepth : ChainOne → ℕ
+  | .idf => 0
+  | .cons _ rest => chainOneDepth rest + 1
+
+/-- **`ChainOne` 解释成 `Chain 1 1`**。 -/
+def chainOneToChain : ChainOne → Chain 1 1
+  | .idf => Chain.idf 1
+  | .cons l rest => Chain.cons l (chainOneToChain rest)
+
+/-- ⭐ **翻译保持层数**。 -/
+theorem chainDepth_chainOneToChain : ∀ (ch : ChainOne),
+    chainDepth (chainOneToChain ch) = chainOneDepth ch
+  | .idf => rfl
+  | .cons _ rest => by
+      simp only [chainOneToChain, chainOneDepth, chainDepth_cons]
+      rw [chainDepth_chainOneToChain rest]
+
+/-- **`ChainOne` 的参数多项式**——**输入是一个多项式 `p`。** -/
+noncomputable def chainOnePoly {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
+    (hN : off + 2 * chainOneDepth ch + 1 < N) → (p : MvPolynomial (Fin N) ℝ) →
+    MvPolynomial (Fin N) ℝ
+  | .idf, _, _, p => p
+  | .cons _ rest, off, hN, p =>
+      chainOnePoly rest (off + 2) (by
+        simp only [chainOneDepth] at hN
+        omega)
+        (MvPolynomial.X ⟨off, by
+          have hd : off + 2 * chainOneDepth rest + 3 < N := by
+            simp only [chainOneDepth] at hN
+            omega
+          have h2 : off ≤ off + (2 * chainOneDepth rest + 3) :=
+            le_add_of_nonneg_right (Nat.zero_le _)
+          omega⟩
+          * p
+          + MvPolynomial.X ⟨off + 1, by
+            have hd : off + 2 * chainOneDepth rest + 3 < N := by
+              simp only [chainOneDepth] at hN
+              omega
+            have h2 : off + 1 ≤ off + 1 + (2 * chainOneDepth rest + 2) :=
+              le_add_of_nonneg_right (Nat.zero_le _)
+            omega⟩)
+
+/-- ⭐⭐ **空链原样返回输入**。 -/
+theorem chainOnePoly_idf {N : ℕ} (off : ℕ)
+    (hN : off + 2 * chainOneDepth ChainOne.idf + 1 < N) (p : MvPolynomial (Fin N) ℝ) :
+    chainOnePoly ChainOne.idf off hN p = p := by
+  rw [chainOnePoly]
+
+/-- ⭐⭐⭐ **参数多项式次数 ≤ deg p + 层数**——**「参数次数」的一般形式。** -/
+theorem chainOnePoly_degree_le {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
+    (hN : off + 2 * chainOneDepth ch + 1 < N) → (p : MvPolynomial (Fin N) ℝ) →
+    (chainOnePoly ch off hN p).totalDegree ≤ p.totalDegree + chainOneDepth ch
+  | .idf, _, _, p => by
+      rw [chainOnePoly_idf]
+      simp
+  | .cons _ rest, off, hN, p => by
+      rw [chainOnePoly]
+      have hNc : off + 2 * chainOneDepth rest + 3 < N := by
+        simp only [chainOneDepth] at hN; omega
+      have hrec : (off + 2) + 2 * chainOneDepth rest + 1 < N := by omega
+      have hlt : off < N := by
+        have h2 : off ≤ off + (2 * chainOneDepth rest + 3) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      have hlt1 : off + 1 < N := by
+        have h2 : off + 1 ≤ off + 1 + (2 * chainOneDepth rest + 2) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      have ih := chainOnePoly_degree_le rest (off + 2) hrec
+        (MvPolynomial.X (⟨off, hlt⟩ : Fin N) * p
+          + MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N))
+      have hnew : (MvPolynomial.X (⟨off, hlt⟩ : Fin N) * p
+            + MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+            : MvPolynomial (Fin N) ℝ).totalDegree ≤ p.totalDegree + 1 := by
+        have hm := MvPolynomial.totalDegree_mul
+          (MvPolynomial.X (⟨off, hlt⟩ : Fin N) : MvPolynomial (Fin N) ℝ) p
+        have hx : (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+            : MvPolynomial (Fin N) ℝ).totalDegree = 1 := MvPolynomial.totalDegree_X _
+        have hy : (MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+            : MvPolynomial (Fin N) ℝ).totalDegree = 1 := MvPolynomial.totalDegree_X _
+        calc (MvPolynomial.X (⟨off, hlt⟩ : Fin N) * p
+              + MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+              : MvPolynomial (Fin N) ℝ).totalDegree
+            ≤ max (MvPolynomial.X (⟨off, hlt⟩ : Fin N) * p
+                  : MvPolynomial (Fin N) ℝ).totalDegree
+                (MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+                  : MvPolynomial (Fin N) ℝ).totalDegree :=
+              MvPolynomial.totalDegree_add _ _
+          _ ≤ p.totalDegree + 1 := by
+              rw [max_le_iff]
+              exact ⟨by omega, by omega⟩
+      simp only [chainOneDepth]
+      omega
+
 end Lattice.Core

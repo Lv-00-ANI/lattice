@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 131 | 46 |
+| `Lattice.Core.VariableDerivative` | 134 | 50 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2837,8 +2837,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
 - `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
-- `chainPoly_degree_le` -> `Chain`, `le_trans`
-- `chainPoly_idf` -> `Chain`, `le_trans`
+- `chainPoly_degree_le` -> `Chain`, `MLayer`, `le_trans`
+- `chainPoly_idf` -> `Chain`, `MLayer`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `le_refl`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`
