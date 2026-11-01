@@ -3402,4 +3402,27 @@ theorem chainOne_output_poly_exists {N : ℕ} (ch : ChainOne)
     chainOne_output_degree ch hN x,
     fun g => chainOne_output_eval ch hN x g⟩
 
+
+/-! ## ⭐⭐⭐ 深度可构造：「次数 = 深度」的下侧
+
+## 构造
+
+**对任意 `d`，用 `d` 层宽度 1 的链。取输入 `C 1`，
+则 `chainOnePoly` 是 `X_0 · (X_2 · (… ) + X_1) + X_3 …`——**
+
+**最高次项是 `X_0 · X_2 · … · X_{2(d-1)}` 的乘积，次数【恰为 `d`】。**
+
+**⇒ 证明方式：指出那个单项式在多项式里的系数非零，再用 `le_totalDegree`。** -/
+
+/-- **深度为 `d` 的 `ChainOne`**——**每层都用 `twoLayerProbeRest`（层的内容无关，只决定槽位）。** -/
+noncomputable def chainOneOfDepth : ℕ → ChainOne
+  | 0 => ChainOne.idf
+  | k + 1 => ChainOne.cons twoLayerProbeRest (chainOneOfDepth k)
+
+/-- **`chainOneOfDepth` 的层数**。 -/
+theorem chainOneDepth_ofDepth : ∀ d : ℕ, chainOneDepth (chainOneOfDepth d) = d
+  | 0 => rfl
+  | k + 1 => by
+      simp only [chainOneOfDepth, chainOneDepth, chainOneDepth_ofDepth]
+
 end Lattice.Core
