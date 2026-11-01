@@ -3740,4 +3740,23 @@ theorem totalDegree_X_mul_eq {N : ℕ} (a : Fin N) (q : MvPolynomial (Fin N) ℝ
       simp
     omega
 
+
+/-- ⭐⭐⭐ **`deg(X a · p + X b) = 1 + deg p`**（当 `p ≠ 0` 且 `1 ≤ deg p` 且 `a ≠ b`）。
+
+**⚠ 论证：`deg(X a · p) = 1 + deg p ≥ 2 > 1 = deg(X b)`，
+所以由 `totalDegree_add_eq_left_of_totalDegree_lt`，和的次数等于左项的次数。**
+
+**⇒ 这条是「每层加一次」的完整形式，也是第 27 轮归纳步的原子步骤。** -/
+theorem totalDegree_X_mul_add_X {N : ℕ} (a b : Fin N) (hab : a ≠ b)
+    (p : MvPolynomial (Fin N) ℝ) (hp : p ≠ 0) (hdeg : 1 ≤ p.totalDegree) :
+    (MvPolynomial.X a * p + MvPolynomial.X b).totalDegree = 1 + p.totalDegree := by
+  have h1 : (MvPolynomial.X a * p : MvPolynomial (Fin N) ℝ).totalDegree
+      = 1 + p.totalDegree := totalDegree_X_mul_eq a p hp
+  have h2 : (MvPolynomial.X b : MvPolynomial (Fin N) ℝ).totalDegree = 1 :=
+    MvPolynomial.totalDegree_X _
+  rw [MvPolynomial.totalDegree_add_eq_left_of_totalDegree_lt]
+  · exact h1
+  · rw [h2, h1]
+    omega
+
 end Lattice.Core
