@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 148 | 53 |
+| `Lattice.Core.VariableDerivative` | 150 | 54 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2840,8 +2840,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOneAct_allOnesWeights` -> `apply`, `eval`, `le_antisymm`
 - `chainOneAct_cons` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
+- `chainOneDepth_cons_succ` -> `MLayer`
+- `chainOneDepth_idf` -> `MLayer`
 - `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `eval`, `le_antisymm`
-- `chainOneOfDepth_ne_zero` -> `apply`, `eval`, `le_antisymm`
+- `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_eval_act` -> `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_idf` -> `eval`, `eval_add`, `eval_mul`
@@ -4434,7 +4436,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_risk_ge_bayesRisk` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `bayesRisk`, `le`, `risk`
 - `exists_roundTrip_eq_iff_BehaviourallyValid` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `exists_small_descent` -> `Pt`, `min`, `sqDist`, `sqDist_nonneg`
-- `exists_support_max_degree` -> `apply`, `le_antisymm`
+- `exists_support_max_degree` -> `MLayer`, `apply`, `le_antisymm`
 - `exists_symbol_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_symbol_same_function` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_symbol_semantically_equivalent` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -9546,9 +9548,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `topk_route_stable` -> `IsArgMax`, `apply`, `argmax_unique`
 - `topk_route_stable_unique` -> `IsArgMax`, `apply`, `argmax_unique`
 - `topk_weights_prob` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
-- `totalDegree_X_mul_C_add_X_ge` -> `apply`, `le_antisymm`
+- `totalDegree_X_mul_C_add_X_ge` -> `MLayer`, `apply`, `le_antisymm`
 - `totalDegree_X_mul_C_le` -> `Chain`
-- `totalDegree_X_mul_eq` -> `apply`, `le_antisymm`
+- `totalDegree_X_mul_add_X` -> `MLayer`
+- `totalDegree_X_mul_eq` -> `MLayer`, `apply`, `le_antisymm`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`

@@ -3846,4 +3846,35 @@ master 仍在 729，构建通过。**
 **本轮没有代码入库。** **但「`chainOneDepth` 的等式引理 + 显式 `rw`」是一条可复用的具体修法，
 而它已经把归纳的一半（`idf` 支）从超时变成了通过。** -/
 
+
+/-! ## ⭐⭐⭐ `chainOnePolyD`：深度作为参数（第 30 轮）
+
+**第 28／29 轮发现两个超时源：**
+1. **`hN` 类型里的 `chainOneDepth ch`**——由把深度作为裸参数 `d` 解决；
+2. **`chainOneDepth` 经定义展开**——由等式引理 `chainOneDepth_idf`／`chainOneDepth_cons` 加显式 `rw` 解决。
+
+**⇒ 本节新增 `chainOnePolyD`，旧定义与旧定理全部保留。** -/
+
+/-- ⭐ **`chainOneDepth` 的等式引理**——**避免 `omega` 触发定义展开。** -/
+@[simp] theorem chainOneDepth_idf : chainOneDepth ChainOne.idf = 0 := rfl
+
+/-- ⭐ **`chainOneDepth` 在 `cons` 上的等式引理。** -/
+@[simp] theorem chainOneDepth_cons_succ (l : MLayer 1 1) (rest : ChainOne) :
+    chainOneDepth (ChainOne.cons l rest) = chainOneDepth rest + 1 := rfl
+
+/-- **`chainOnePolyD`：深度作为参数的版本。** -/
+noncomputable def chainOnePolyD {N : ℕ} : (ch : ChainOne) → (dd : ℕ) →
+    (hd : dd = chainOneDepth ch) → (off : ℕ) → (hN : off + 2 * dd + 1 < N) →
+    (p : MvPolynomial (Fin N) ℝ) → MvPolynomial (Fin N) ℝ
+  | .idf, _, _, _, _, p => p
+  | .cons _ rest, _, hd, off, hN, p =>
+      chainOnePolyD rest (chainOneDepth rest) rfl (off + 2) (by
+        rw [chainOneDepth_cons_succ] at hd
+        omega)
+        (MvPolynomial.X ⟨off, by
+          rw [chainOneDepth_cons_succ] at hd
+          omega⟩ * p + MvPolynomial.X ⟨off + 1, by
+            rw [chainOneDepth_cons_succ] at hd
+            omega⟩)
+
 end Lattice.Core
