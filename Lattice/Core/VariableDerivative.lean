@@ -4099,4 +4099,41 @@ theorem chainNatPoly_totalDegree (ls : ChainList) (p : MvPolynomial ℕ ℝ)
   have := foldl_step_totalDegree ls (0, p) hp hdeg
   simpa using this
 
+
+/-- **`ℕ` 下标的数值累积步**——**与 `stepNat` 逐字对应**（把多项式乘加换成实数乘加）。 -/
+noncomputable def stepAct (g : ℕ → ℝ) (acc : ℕ × ℝ) : ℕ × ℝ :=
+  (acc.1 + 2, g acc.1 * acc.2 + g (acc.1 + 1))
+
+/-- **链的数值作用（`ℕ` 下标版）**。 -/
+noncomputable def chainNatAct (ls : ChainList) (g : ℕ → ℝ) (x : ℝ) : ℝ :=
+  (ls.foldl (fun acc _ => stepAct g acc) (0, x)).2
+
+/-- ⭐⭐ **`stepAct` 与 `stepNat` 在求值下一致**——**对接的原子步骤。** -/
+theorem stepNat_eval (g : ℕ → ℝ) (off : ℕ) (p : MvPolynomial ℕ ℝ) :
+    (stepNat (off, p)).2.eval g = (stepAct g (off, p.eval g)).2 := by
+  simp only [stepNat, stepAct, MvPolynomial.eval_add, MvPolynomial.eval_mul,
+    MvPolynomial.eval_X]
+
+/-- ⭐⭐⭐ **载体与数值作用一致**：**`chainNatPoly` 的求值 = `chainNatAct`。**
+
+**⚠ 对 `List.foldl` 归纳，每步用 `stepNat_eval`——【不展开任何递归定义**。** -/
+theorem foldl_eval_act :
+    ∀ (ls : ChainList) (g : ℕ → ℝ) (acc : ℕ × MvPolynomial ℕ ℝ),
+      (ls.foldl (fun a _ => stepNat a) acc).2.eval g
+        = (ls.foldl (fun a _ => stepAct g a) (acc.1, acc.2.eval g)).2
+  | [], g, acc => rfl
+  | l :: ls, g, acc => by
+      obtain ⟨off, p⟩ := acc
+      show (List.foldl (fun a _ => stepNat a) (stepNat (off, p)) ls).2.eval g
+        = (List.foldl (fun a _ => stepAct g a) (stepAct g (off, p.eval g)) ls).2
+      have := foldl_eval_act ls g (stepNat (off, p))
+      simp only [stepNat, stepAct] at this ⊢
+      simpa using this
+
+/-- ⭐⭐⭐ **最终对接**：**`chainNatPoly ls p` 在 `g` 处的值 = `chainNatAct ls g (p.eval g)`。** -/
+theorem chainNatPoly_eval_act (ls : ChainList) (p : MvPolynomial ℕ ℝ) (g : ℕ → ℝ) :
+    (chainNatPoly ls p).eval g = chainNatAct ls g (p.eval g) := by
+  simp only [chainNatPoly, chainNatAct]
+  exact foldl_eval_act ls g (0, p)
+
 end Lattice.Core
