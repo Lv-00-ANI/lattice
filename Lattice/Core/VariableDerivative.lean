@@ -3877,4 +3877,47 @@ noncomputable def chainOnePolyD {N : ℕ} : (ch : ChainOne) → (dd : ℕ) →
             rw [chainOneDepth_cons_succ] at hd
             omega⟩)
 
+
+/-! ## ⚠⚠ 第 31 轮：`chainOnePolyD` 在归纳步里【无法】展开（三条路全试过）
+
+## 试过的三条路，全部失败
+
+| 手法 | 结果 |
+|:--|:--|
+| **`rw [chainOnePolyD]`** | **`whnf` 超时** |
+| **`simp only [chainOnePolyD]`** | **`whnf` 超时** |
+| **`change p.totalDegree + (chainOneDepth rest + 1) ≤ (chainOnePolyD rest …).totalDegree`** | **`change` 本身通过，但它【只是声称**两个类型相同；原目标左侧的 `chainOnePolyD (cons l rest) …` 并未真正展开，于是随后的 `linarith [ih]` 报 `type mismatch` |
+
+**⇒ 关键：`change` 不证明展开，它只是改类型标注。要真正展开，仍然必须依赖定义或等式引理，
+而两者都超时。**
+
+## 为什么会超时（本轮的判断）
+
+**`chainOnePolyD` 的 `cons` 支在【递归调用自身】，而递归调用的 `hN` 参数是一个 `by omega` 证明项。
+展开时 Lean 必须对那个证明项做 `whnf`，而它会再次触发 `chainOneDepth` 的展开——
+于是展开的成本随深度【指数增长**（每一层都要重新规约上一层的证明项）。**
+
+**⚠ 这解释了为什么第 28 轮把深度改成裸参数后仍然超时：
+裸参数 `dd` 只解决【外层**的 `hN`，而递归调用传入的是 `chainOneDepth rest`——
+那仍然是一个需要规约的项。**
+
+## 结论：需要一次结构性改动
+
+**`chainOnePolyD` 的递归调用【不能】在定义体里直接递归；需要一个辅助函数，
+把「递归调用 + 它的证明项」封成一个不会在展开时被规约的常量。**
+
+**⇒ 具体方案：把递归的【结果】**记成一个 `opaque`（或在独立的 `def` 里算好），
+**而 `chainOnePolyD` 只在 `idf`／`cons` 上调用它。**
+
+**⚠ 但 `opaque` 会违反 I1（no axiom/opaque）。**
+
+**⇒ 另一个方案：干脆【不递归】**，而把 `chainOnePolyD` 定义成对**显式列表**（`List (MLayer 1 1)`）的
+`foldl`。`List` 的 `foldl` 展开是【逐元素**的，不会出现「每层重新规约上一层证明项」的问题。
+
+**⇒ 这是本轮确定的下一步，也是第 26 轮以来第一次真正改变载体结构。**
+
+## 流程记录
+
+**本轮没有代码入库；工作树回退到 731（构建通过）。** -/
+
 end Lattice.Core
