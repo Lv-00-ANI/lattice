@@ -3542,4 +3542,36 @@ theorem chainOneOfDepth_ne_zero {N : ℕ} (d : ℕ)
 ⇒ 下一轮的第一件事是【探明 `coeff` 的确切名字**——
 在 mathlib 里它极可能叫 `MvPolynomial.coeff_X'` 或通过 `coeff_monomial`／`single_mul` 组合得到。** -/
 
+
+/-- ⭐⭐ **单步下界：`X a · C c + X b` 的次数 ≥ 1**（`c ≠ 0`，`a ≠ b`）。
+
+**⚠ 论证：取单项式 `m = single a 1`。它在 `X a · C c` 中的系数是 `c`，
+在 `X b` 中的系数是 `0`（因为 `a ≠ b`），所以总和非零，再用 `le_totalDegree`。** -/
+theorem totalDegree_X_mul_C_add_X_ge {N : ℕ} (a b : Fin N) (hab : a ≠ b)
+    {c : ℝ} (hc : c ≠ 0) :
+    1 ≤ (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+        : MvPolynomial (Fin N) ℝ).totalDegree := by
+  -- 系数：m = single a 1
+  have h1 : MvPolynomial.coeff (Finsupp.single a 1)
+      (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial (Fin N) ℝ) = c := by
+    have : (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial (Fin N) ℝ)
+        = MvPolynomial.C c * MvPolynomial.X a := by ring
+    rw [this, MvPolynomial.coeff_C_mul, MvPolynomial.coeff_X]
+    ring
+  have h2 : MvPolynomial.coeff (Finsupp.single a 1)
+      (MvPolynomial.X b : MvPolynomial (Fin N) ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X']
+    have hba : (Finsupp.single b 1 : Fin N →₀ ℕ) ≠ Finsupp.single a 1 := by
+      rw [Ne, Finsupp.single_eq_single_iff]
+      omega
+    simp [hba]
+  have hne : MvPolynomial.coeff (Finsupp.single a 1)
+      (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+        : MvPolynomial (Fin N) ℝ) ≠ 0 := by
+    rw [MvPolynomial.coeff_add, h1, h2, add_zero]
+    exact hc
+  have hmem := MvPolynomial.mem_support_iff.mpr hne
+  have hdeg := MvPolynomial.le_totalDegree hmem
+  simpa using hdeg
+
 end Lattice.Core
