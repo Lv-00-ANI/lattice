@@ -2862,4 +2862,57 @@ theorem twoLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
 
 **⇒ 这是一条【一行引理选择**的问题，而本轮在同一处消耗了过多尝试。** -/
 
+
+/-! ## ⭐⭐⭐ 第 10 轮：`chainPoly` 定义与展开引理【已通过】，次数归纳差最后一步
+
+## 本轮确认的三件事
+
+**1. `chainPoly` 的定义【编译通过**：**
+
+    noncomputable def chainPoly {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (off : ℕ) →
+        (hN : off + 2 * chainDepth ch + 1 < N) → (x : ℝ) → MvPolynomial (Fin N) ℝ
+      | _, _, Chain.idf _, _, _, x => MvPolynomial.C x
+      | _, _, Chain.cons (m := m') (n := n') l rest, off, hN, x =>
+          X ⟨off, ...⟩ * chainPoly rest (off + 2) (...) x + X ⟨off + 1, ...⟩
+
+**⚠ 关键在于：`termination_by` 【不需要**（结构模式匹配足够），
+而 `Fin N` 的证明项需要**先用 `le_add_of_nonneg_right (Nat.zero_le _)` 给出
+`off ≤ off + (2·chainDepth rest + 3)`**，**再由 `omega` 线性地得出 `off < N`。**
+
+**⚠ 第 10 轮探针确认：`Nat.le_add_right a b : a ≤ a + b`，而
+`Nat.le_add_left a b : a ≤ b + a`——两者顺序相反**（第 9 轮我搞反了四次）。**
+
+**2. `chainPoly_idf` 的展开【编译通过】——且必须是【泛化**形式：**
+
+    theorem chainPoly_idf {N n : ℕ} (off : ℕ)
+        (hN : off + 2 * chainDepth (Chain.idf n) + 1 < N) (x : ℝ) :
+        chainPoly (Chain.idf n) off hN x = MvPolynomial.C x := by rw [chainPoly]
+
+**⚠ 特化到 `Chain.idf 1` 会失败**，因为归纳里 `n` 是泛化的。
+
+**3. `chainPoly_degree_le` 的归纳步差最后一步。**
+
+## 最后一步的精确形状
+
+**归纳步的 calc 是**
+
+    deg(X·Φ_rest + Y) ≤ max (deg(X·Φ_rest)) (deg Y)      -- totalDegree_add
+                     ≤ max (1 + deg Φ_rest) 1             -- totalDegree_mul 与 totalDegree_X
+                     ≤ chainDepth (cons l rest)           -- hc
+
+**⚠ 中间那一步的目标是 `deg(X·Φ_rest) ≤ 1 + chainDepth rest`，
+而 `deg Φ_rest ≤ chainDepth rest` 正是归纳假设 `ih`。**
+
+**⚠ 把 `ih` 交给 `omega`／`linarith` 都失败了**——**因为目标里 `deg(X·Φ_rest)`
+已经被 `totalDegree_mul` 换成 `deg X + deg Φ_rest = 1 + deg Φ_rest`，
+而 `linarith` 看到的 `ih : deg Φ_rest ≤ chainDepth rest` 与该表达式之间的
+【项**不是同一个（`deg Φ_rest` 在其中出现的位置不同）。
+
+**⇒ 正确做法：先用 `omega`／`linarith` 把 `1 + deg Φ_rest ≤ 1 + chainDepth rest`
+从 `ih` 推出来（这一步是纯线性、项相同），再交给 `totalDegree_mul` 的 calc 链。
+即【先证 `1 + deg Φ_rest ≤ 1 + chainDepth rest`，再 `exact` 合并**，
+而不是把 `ih` 直接丢给末端的 `linarith`。**
+
+**⇒ 这是本轮最后一次尝试的失败点，也是下一轮的第一件事。** -/
+
 end Lattice.Core
