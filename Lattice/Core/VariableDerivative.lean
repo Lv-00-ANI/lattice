@@ -3693,4 +3693,51 @@ theorem totalDegree_X_mul_C_add_X_ge {N : ℕ} (a b : Fin N) (hab : a ≠ b)
 **⚠ 而 `totalDegree_monomial` 【存在**：`c ≠ 0 → (monomial s c).totalDegree = s.sum (fun x e => e)`
 ——**这与上面缺的存在性刚好互补**。** -/
 
+
+/-- ⭐⭐⭐ **`totalDegree` 由某个支撑元素达到**——
+**这是第 24／25 轮缺失的那一环，本轮找到：`totalDegree` 定义上就是支持集上的 `sup`，
+所以 `Finset.exists_mem_eq_sup` 直接给出它。** -/
+theorem exists_support_max_degree {N : ℕ} (q : MvPolynomial (Fin N) ℝ) (hq : q ≠ 0) :
+    ∃ s ∈ q.support, s.sum (fun x e => e) = q.totalDegree := by
+  have hne : q.support.Nonempty := by
+    by_contra hemp'
+    rw [Finset.not_nonempty_iff_eq_empty] at hemp'
+    exact hq (by
+      have : q = 0 := by
+        ext m
+        rw [MvPolynomial.coeff_zero]
+        by_contra hc
+        have hmem : m ∈ q.support := MvPolynomial.mem_support_iff.mpr hc
+        rw [hemp'] at hmem
+        simpa using hmem
+      exact this)
+  have hdef : q.totalDegree = q.support.sup (fun s => s.sum (fun x e => e)) := rfl
+  obtain ⟨m, hm, hmax⟩ := Finset.exists_mem_eq_sup q.support hne
+    (fun s => s.sum (fun x e => e))
+  exact ⟨m, hm, by rw [hdef, hmax]⟩
+
+/-- ⭐⭐ **乘一个变量：`deg(X a · q) = 1 + deg q`**（当 `q ≠ 0`）。 -/
+theorem totalDegree_X_mul_eq {N : ℕ} (a : Fin N) (q : MvPolynomial (Fin N) ℝ) (hq : q ≠ 0) :
+    (MvPolynomial.X a * q).totalDegree = 1 + q.totalDegree := by
+  apply le_antisymm
+  · calc (MvPolynomial.X a * q : MvPolynomial (Fin N) ℝ).totalDegree
+        ≤ (MvPolynomial.X a : MvPolynomial (Fin N) ℝ).totalDegree
+          + (q : MvPolynomial (Fin N) ℝ).totalDegree := MvPolynomial.totalDegree_mul _ _
+      _ = 1 + q.totalDegree := by rw [MvPolynomial.totalDegree_X]
+  · obtain ⟨s, hs, hsum⟩ := exists_support_max_degree q hq
+    have hcoeff : MvPolynomial.coeff s q ≠ 0 := MvPolynomial.mem_support_iff.mp hs
+    have hkey : MvPolynomial.coeff (s + Finsupp.single a 1)
+        (MvPolynomial.X a * q : MvPolynomial (Fin N) ℝ) = MvPolynomial.coeff s q := by
+      rw [mul_comm]
+      exact MvPolynomial.coeff_mul_X s a q
+    have hmem : (s + Finsupp.single a 1)
+        ∈ (MvPolynomial.X a * q : MvPolynomial (Fin N) ℝ).support :=
+      MvPolynomial.mem_support_iff.mpr (by rw [hkey]; exact hcoeff)
+    have hdeg := MvPolynomial.le_totalDegree hmem
+    have hdegsum : (s + Finsupp.single a 1).sum (fun x e => e)
+        = s.sum (fun x e => e) + 1 := by
+      rw [Finsupp.sum_add_index' (fun _ => rfl) (fun _ _ _ => rfl)]
+      simp
+    omega
+
 end Lattice.Core
