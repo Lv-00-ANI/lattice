@@ -3072,4 +3072,52 @@ theorem chainPoly_degree_le {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (of
 
 **⇒ 这是签名设计与重写顺序两件事，不是数学。** -/
 
+
+/-! ## ⚠⚠ 第 13 轮：`Chain 1 1` 【不足以】表达「每层宽度都是 1」
+
+## 第 12 轮的诊断不完整
+
+**第 12 轮说「必须把链限制到 `Chain 1 1`」。第 13 轮实测发现：那【不够**。
+
+**`Chain.cons l rest` 里 `l : MLayer m n` 而 `rest : Chain n c`。
+即使 `ch : Chain 1 1`，中间宽度 `n` 仍是【自由**的——
+例如 `chain2 : Chain 2 1` 是合法的，它的一层从宽度 2 降到 1。**
+
+**⇒ 归纳步的目标右侧是**
+
+    flatChainAct rest (off+2) g (flatParamActSafe off g (fun _ => x)) 0
+
+**而 `flatParamActSafe off g (fun _ => x) : Fin n → ℝ` 是一个【向量**，
+**只有当 `n = 1` 时它才与 `chainPoly` 的标量输入同型。**
+
+**⇒ 「`Chain 1 1` 只约束两端，不约束中间」——这是 `Chain` 这个索引族的表达限度，
+不是证明技巧的问题。**
+
+## 正确的载体：一个每层宽度都是 1 的链类型
+
+**要表达的链类是**
+
+    ChainOne : Type
+      | idf  : ChainOne
+      | cons : MLayer 1 1 → ChainOne → ChainOne
+
+**⚠ 它【不是** `Chain` 的特化，而是一个新的归纳类型。**
+
+**⇒ 那会复制 `Chain` 的结构，而别名普查会把它标为 copy。
+⇒ 但那是【必要的复制**：`Chain` 是「任意宽度序列」的族，
+而 `ChainOne` 是「宽度恒为 1」的族，后者不是前者的特化——**它们之间的关系
+是「`ChainOne` 解释成 `Chain 1 1`」，即一个转换函数。**
+
+## 结论
+
+**本轮没有产出代码。** **精确的下一步**：
+
+1. **定义 `ChainOne`（三层结构：`idf`、`cons`）与它的 `chainOneToChain : ChainOne → Chain 1 1`；**
+2. **把 `chainPoly`／`chainPoly_degree_le` 的陈述移到 `ChainOne` 上**
+   （现有的 `Chain` 版本保留——它作为纯代数事实仍然为真）；
+3. **再证忠实性 `chainPoly_eval`。**
+
+**⚠ 第 2 步会产生「同一数学的两个版本」，别名普查可能报 copy。
+⇒ 正确的处理是在 `chainOneToChain` 的层面上连接，而不是重述定理。** -/
+
 end Lattice.Core
