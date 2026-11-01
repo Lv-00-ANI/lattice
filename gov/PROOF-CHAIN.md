@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 141 | 52 |
+| `Lattice.Core.VariableDerivative` | 143 | 53 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2837,13 +2837,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
-- `chainOneAct_eq_flatChainAct` -> `eval`
+- `chainOneAct_cons` -> `MLayer`
+- `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
+- `chainOneDepth_ofDepth` -> `MLayer`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
-- `chainOnePoly_eval_act` -> `eval`, `eval_add`, `eval_mul`
+- `chainOnePoly_eval_act` -> `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_idf` -> `eval`, `eval_add`, `eval_mul`
-- `chainOne_output_degree` -> `eval`
-- `chainOne_output_eval` -> `eval`
-- `chainOne_output_poly_exists` -> `eval`
+- `chainOne_output_degree` -> `MLayer`, `eval`
+- `chainOne_output_eval` -> `MLayer`, `eval`
+- `chainOne_output_poly_exists` -> `MLayer`, `eval`
 - `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `chainPoly_degree_le` -> `Chain`, `MLayer`, `le_trans`
 - `chainPoly_idf` -> `Chain`, `MLayer`, `le_trans`
@@ -4810,7 +4812,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`
 - `flatParamActSafe_width_one` -> `Chain`, `MLayer`, `W`, `e2`
-- `flatParamActSafe_width_one_fun` -> `eval`
+- `flatParamActSafe_width_one_fun` -> `MLayer`, `eval`
 - `flatParamAct_apply` -> `comp`
 - `flatParamAct_differentiableAt_activation` -> `comp`
 - `flatParamAct_differentiableAt_joint` -> `comp`

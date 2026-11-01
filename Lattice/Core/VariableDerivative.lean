@@ -3425,4 +3425,46 @@ theorem chainOneDepth_ofDepth : ∀ d : ℕ, chainOneDepth (chainOneOfDepth d) =
   | k + 1 => by
       simp only [chainOneOfDepth, chainOneDepth, chainOneDepth_ofDepth]
 
+
+/-- **chainOneAct 的 cons 支**——**定义级。** -/
+theorem chainOneAct_cons {N : ℕ} (l : MLayer 1 1) (rest : ChainOne) (off : ℕ)
+    (g : Fin N → ℝ) (x : ℝ) :
+    chainOneAct (N := N) (ChainOne.cons l rest) off g x
+      = chainOneAct (N := N) rest (off + 2) g (readSlot g off * x + readSlot g (off + 1)) := rfl
+
+/-- **权重槽位置 1、偏置槽位置 0 的参数向量**——**偶数槽位是权重，奇数槽位是偏置。** -/
+def allOnesWeights (N : ℕ) : Fin N → ℝ := fun k => if k.val % 2 = 0 then 1 else 0
+
+/-- ⭐⭐ **在这组参数上，`ChainOne` 的作用是恒等**——**每层算 `1 · x + 0 = x`。**
+
+**⚠ 前提 `hoff + 2·depth < N` 保证每个 `readSlot` 都在界内。** -/
+theorem chainOneAct_allOnesWeights {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
+    (h : off + 2 * chainOneDepth ch < N) → (hoff : off % 2 = 0) →
+    chainOneAct ch off (allOnesWeights N) 1 = 1
+  | .idf, _, _, _ => rfl
+  | .cons _ rest, off, h, hoff => by
+      rw [chainOneAct_cons]
+      have hoff2 : (off + 2) % 2 = 0 := by omega
+      have hlt : off < N := by
+        simp only [chainOneDepth] at h
+        omega
+      have hlt1 : off + 1 < N := by
+        simp only [chainOneDepth] at h
+        omega
+      -- readSlot g off = 1, readSlot g (off+1) = 0
+      have e0 : readSlot (allOnesWeights N) off = 1 := by
+        rw [readSlot_of_lt _ hlt]
+        simp only [allOnesWeights, hoff, if_true]
+      have e1 : readSlot (allOnesWeights N) (off + 1) = 0 := by
+        rw [readSlot_of_lt _ hlt1]
+        have hodd : (off + 1) % 2 = 1 := by omega
+        simp only [allOnesWeights, hodd]
+        norm_num
+      rw [e0, e1]
+      simp only [one_mul, add_zero]
+      have hrec : (off + 2) + 2 * chainOneDepth rest < N := by
+        simp only [chainOneDepth] at h
+        omega
+      exact chainOneAct_allOnesWeights rest (off + 2) hrec hoff2
+
 end Lattice.Core
