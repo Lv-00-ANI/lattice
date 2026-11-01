@@ -3759,4 +3759,51 @@ theorem totalDegree_X_mul_add_X {N : ℕ} (a b : Fin N) (hab : a ≠ b)
   · rw [h2, h1]
     omega
 
+
+/-! ## ⭐ 第 28 轮：找到 `chainOnePoly` 的等式引理
+
+## 这是第 27 轮要的东西
+
+    @chainOnePoly.eq_1 : chainOnePoly ChainOne.idf x x_2 x_1 = x_1
+    @chainOnePoly.eq_2 (x : ℕ) (x_1 : 多项式) (a : MLayer 1 1) (rest : ChainOne)
+        (x_2 : x + 2 * chainOneDepth (ChainOne.cons a rest) + 1 < N) :
+        chainOnePoly (ChainOne.cons a rest) x x_2 x_1
+          = chainOnePoly rest (x + 2) ⋯ (X ⟨x, ⋯⟩ * x_1 + X ⟨x + 1, ⋯⟩)
+
+**⇒ 用 `rw [chainOnePoly.eq_2 (N := N) off p l rest hN]` 就能展开，不必 `rw [chainOnePoly]`。** -/
+
+/-! ## 但归纳步仍然超时
+
+**第 28 轮实测：换成 `eq_2` 之后，超时【没有消失**，只是从 `rw [chainOnePoly]` 那一行
+移到了分支头部（`| .cons l rest, off, hN, p, hp, hdeg => by` 这一行本身报 `whnf` 超时）。
+
+**⚠ 这说明超时不是「展开 `chainOnePoly`」造成的，
+而是 `hN : off + 2 * chainOneDepth (ChainOne.cons l rest) + 1 < N` 这个【类型**
+在每次 `omega`／`simp` 接触它时都要把 `chainOneDepth` 在 `ChainOne.cons` 上展开，
+而那在 `ChainOne` 的 `brecOn` 表示下很贵。**
+
+**⚠ 我试过的三种都失败**：
+1. `simp only [chainOneDepth] at hN; omega`——超时；
+2. `have hd : chainOneDepth (ChainOne.cons l rest) = chainOneDepth rest + 1 := rfl; rw [hd] at hN`——超时；
+3. `set_option maxHeartbeats 1000000 in`——`set_option` 与文档注释的先后导致语法错误，
+   移到文档注释上方后编译通过但【超时依旧**。
+
+## ⇒ 正确的修法：改 `chainOnePoly` 的签名，让深度【作为参数】
+
+**把**
+
+    chainOnePoly : (ch : ChainOne) → (off : ℕ) → (hN : off + 2 * chainOneDepth ch + 1 < N) → …
+
+**改成**
+
+    chainOnePoly : (ch : ChainOne) → (d : ℕ) → (hd : d = chainOneDepth ch) →
+        (off : ℕ) → (hN : off + 2 * d + 1 < N) → …
+
+**⇒ 那样 `hN` 里的深度就是一个【裸变量 `d`**，`omega`／`simp` 不再需要展开 `chainOneDepth`。
+
+**⚠ 代价**：`chainOnePoly` 的每个调用点要多传 `d` 与 `hd`，而 `eq_2`／`eq_1` 会随之变形。
+
+**⇒ 这是本轮确定的【唯一可行修法**，也是下一轮的第一件事。
+**⇒ 在改签名之前，先备份当前位置（提交号 728）作为回退点。** -/
+
 end Lattice.Core
