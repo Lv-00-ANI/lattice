@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 150 | 54 |
+| `Lattice.Core.VariableDerivative` | 158 | 57 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2835,13 +2835,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_dom_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `zero`
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
+- `chainNatPoly_totalDegree` -> `length`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
 - `chainOneAct_allOnesWeights` -> `apply`, `eval`, `le_antisymm`
 - `chainOneAct_cons` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
-- `chainOneDepth_cons_succ` -> `MLayer`
-- `chainOneDepth_idf` -> `MLayer`
+- `chainOneDepth_cons_succ` -> `MLayer`, `apply`, `le_antisymm`, `length`, `length_cons`
+- `chainOneDepth_idf` -> `MLayer`, `apply`, `le_antisymm`, `length`, `length_cons`
 - `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
@@ -4437,6 +4438,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_roundTrip_eq_iff_BehaviourallyValid` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `exists_small_descent` -> `Pt`, `min`, `sqDist`, `sqDist_nonneg`
 - `exists_support_max_degree` -> `MLayer`, `apply`, `le_antisymm`
+- `exists_support_max_degree_nat` -> `MLayer`, `apply`, `le_antisymm`, `length`, `length_cons`
 - `exists_symbol_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_symbol_same_function` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `exists_symbol_semantically_equivalent` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -4890,6 +4892,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_eval_lipschitz` -> `apply`, `induction`
 - `foldl_init_add` -> `dot`, `induction`, `length`, `subst`
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
+- `foldl_step_totalDegree` -> `length`, `length_cons`
 - `foldl_zip_add` -> `apply`, `dot`, `induction`, `length`, `length_cons`
 - `forall` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `induction`, `netAct`, `netAct_deviation_le_devB`, `tiny`
 - `forall_constraint_verify` -> `out`
@@ -9069,6 +9072,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepIter_apply_ne` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_le` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
+- `stepNat_snd_degree_pos` -> `length`, `length_cons`
+- `stepNat_snd_ne_zero` -> `length`, `length_cons`
+- `stepNat_snd_totalDegree` -> `length`, `length_cons`
 - `stepSound_hypothesis_false` -> `apply`, `step`
 - `step_Iz` -> `Compiler`, `Term`, `app_r`
 - `step_Omega_inv` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `induction`, `lift`, `not_step_redB`, `redI`, `star_refl`, `step_app_inv`, `step_lam_inv`
@@ -9550,8 +9556,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `topk_weights_prob` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `totalDegree_X_mul_C_add_X_ge` -> `MLayer`, `apply`, `le_antisymm`
 - `totalDegree_X_mul_C_le` -> `Chain`
-- `totalDegree_X_mul_add_X` -> `MLayer`
+- `totalDegree_X_mul_add_X` -> `MLayer`, `apply`, `le_antisymm`, `length`, `length_cons`
+- `totalDegree_X_mul_add_X_nat` -> `MLayer`, `length`, `length_cons`
 - `totalDegree_X_mul_eq` -> `MLayer`, `apply`, `le_antisymm`
+- `totalDegree_X_mul_eq_nat` -> `MLayer`, `apply`, `le_antisymm`, `length`, `length_cons`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`

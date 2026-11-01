@@ -3967,4 +3967,136 @@ noncomputable def chainOnePolyD {N : ℕ} : (ch : ChainOne) → (dd : ℕ) →
 
 **⚠ 第 4 步是必须的：项目规则要求别名普查为 0 new／0 stale。** -/
 
+
+/-! ## ⭐⭐⭐ `ℕ` 下标版本：无界下标，递归里不带界证明项
+
+## 第 31／32 轮的诊断与修法
+
+**`chainOnePolyD` 的展开成本随深度【指数增长】，因为每层递归都要重新规约上一层的 `by omega` 证明项。**
+
+**⇒ 根本修法：把多项式建在 `MvPolynomial ℕ ℝ` 上。`X off` 对任意 `off` 都有意义，
+于是【递归里不再有任何界证明】。** -/
+
+/-- ⭐⭐ **`ℕ` 下标版：`totalDegree` 由某个支撑元素达到。** -/
+theorem exists_support_max_degree_nat (q : MvPolynomial ℕ ℝ) (hq : q ≠ 0) :
+    ∃ s ∈ q.support, s.sum (fun x e => e) = q.totalDegree := by
+  have hne : q.support.Nonempty := by
+    by_contra hemp
+    rw [Finset.not_nonempty_iff_eq_empty] at hemp
+    refine hq ?_
+    ext m
+    rw [MvPolynomial.coeff_zero]
+    by_contra hc
+    have hmem : m ∈ q.support := MvPolynomial.mem_support_iff.mpr hc
+    rw [hemp] at hmem
+    simpa using hmem
+  have hdef : q.totalDegree = q.support.sup (fun s => s.sum (fun x e => e)) := rfl
+  obtain ⟨m, hm, hmax⟩ := Finset.exists_mem_eq_sup q.support hne
+    (fun s => s.sum (fun x e => e))
+  exact ⟨m, hm, by rw [hdef, hmax]⟩
+
+/-- ⭐⭐ **`ℕ` 下标版：`deg(X a · q) = 1 + deg q`**（当 `q ≠ 0`）。 -/
+theorem totalDegree_X_mul_eq_nat (a : ℕ) (q : MvPolynomial ℕ ℝ) (hq : q ≠ 0) :
+    (MvPolynomial.X a * q).totalDegree = 1 + q.totalDegree := by
+  apply le_antisymm
+  · calc (MvPolynomial.X a * q : MvPolynomial ℕ ℝ).totalDegree
+        ≤ (MvPolynomial.X a : MvPolynomial ℕ ℝ).totalDegree
+          + (q : MvPolynomial ℕ ℝ).totalDegree := MvPolynomial.totalDegree_mul _ _
+      _ = 1 + q.totalDegree := by rw [MvPolynomial.totalDegree_X]
+  · obtain ⟨s, hs, hsum⟩ := exists_support_max_degree_nat q hq
+    have hcoeff : MvPolynomial.coeff s q ≠ 0 := MvPolynomial.mem_support_iff.mp hs
+    have hkey : MvPolynomial.coeff (s + Finsupp.single a 1)
+        (MvPolynomial.X a * q : MvPolynomial ℕ ℝ) = MvPolynomial.coeff s q := by
+      rw [mul_comm]
+      exact MvPolynomial.coeff_mul_X s a q
+    have hmem : (s + Finsupp.single a 1)
+        ∈ (MvPolynomial.X a * q : MvPolynomial ℕ ℝ).support :=
+      MvPolynomial.mem_support_iff.mpr (by rw [hkey]; exact hcoeff)
+    have hdeg := MvPolynomial.le_totalDegree hmem
+    have hdegsum : (s + Finsupp.single a 1).sum (fun x e => e)
+        = s.sum (fun x e => e) + 1 := by
+      rw [Finsupp.sum_add_index' (fun _ => rfl) (fun _ _ _ => rfl)]
+      simp
+    omega
+
+/-- ⭐⭐ **`ℕ` 下标版：`deg(X a · p + X b) = 1 + deg p`**。 -/
+theorem totalDegree_X_mul_add_X_nat (a b : ℕ) (hab : a ≠ b)
+    (p : MvPolynomial ℕ ℝ) (hp : p ≠ 0) (hdeg : 1 ≤ p.totalDegree) :
+    (MvPolynomial.X a * p + MvPolynomial.X b).totalDegree = 1 + p.totalDegree := by
+  have h1 : (MvPolynomial.X a * p : MvPolynomial ℕ ℝ).totalDegree = 1 + p.totalDegree :=
+    totalDegree_X_mul_eq_nat a p hp
+  have h2 : (MvPolynomial.X b : MvPolynomial ℕ ℝ).totalDegree = 1 :=
+    MvPolynomial.totalDegree_X _
+  rw [MvPolynomial.totalDegree_add_eq_left_of_totalDegree_lt]
+  · exact h1
+  · rw [h2, h1]; omega
+
+
+/-- **链的列表表示**——**每层都是 \MLayer 1 1\u3002** -/
+abbrev ChainList := List (MLayer 1 1)
+
+/-- **一层的累积步**：**`p ↦ X off · p + X (off+1)`，`off ↦ off + 2`**（`ℕ` 下标，无界）。 -/
+noncomputable def stepNat (acc : ℕ × MvPolynomial ℕ ℝ) : ℕ × MvPolynomial ℕ ℝ :=
+  (acc.1 + 2, MvPolynomial.X acc.1 * acc.2 + MvPolynomial.X (acc.1 + 1))
+
+/-- ⭐⭐ **`stepNat` 的次数步**：**`deg` 恰好加 1**（当输入非零且 `deg ≥ 1`）。 -/
+theorem stepNat_snd_totalDegree (off : ℕ) (p : MvPolynomial ℕ ℝ) (hp : p ≠ 0)
+    (hdeg : 1 ≤ p.totalDegree) :
+    (stepNat (off, p)).2.totalDegree = 1 + p.totalDegree := by
+  simp only [stepNat]
+  exact totalDegree_X_mul_add_X_nat off (off + 1) (by omega) p hp hdeg
+
+/-- ⭐⭐ **`stepNat` 保持非零**。 -/
+theorem stepNat_snd_ne_zero (off : ℕ) (p : MvPolynomial ℕ ℝ) (hp : p ≠ 0)
+    (hdeg : 1 ≤ p.totalDegree) :
+    (stepNat (off, p)).2 ≠ 0 := by
+  intro h
+  have h1 := stepNat_snd_totalDegree off p hp hdeg
+  rw [h, MvPolynomial.totalDegree_zero] at h1
+  omega
+
+/-- ⭐⭐ **`stepNat` 保持 `deg ≥ 1`**。 -/
+theorem stepNat_snd_degree_pos (off : ℕ) (p : MvPolynomial ℕ ℝ) (hp : p ≠ 0)
+    (hdeg : 1 ≤ p.totalDegree) :
+    1 ≤ (stepNat (off, p)).2.totalDegree := by
+  rw [stepNat_snd_totalDegree off p hp hdeg]
+  omega
+
+/-- **链的输出多项式（`ℕ` 下标版）**——**`foldl` 逐层累积。** -/
+noncomputable def chainNatPoly (ls : ChainList) (p : MvPolynomial ℕ ℝ) : MvPolynomial ℕ ℝ :=
+  (ls.foldl (fun acc _ => stepNat acc) (0, p)).2
+
+
+/-- ⭐⭐⭐ **`foldl` 的次数：每层恰好加一**--
+
+**⚠ 这是 `List.foldl` 的【通用**归纳：不需要展开 `chainNatPoly` 的递归定义，
+只需对列表结构递归，每步用 `stepNat_snd_totalDegree`。**
+
+**⚠ 前提 `1 ≤ acc.2.totalDegree` 由 `stepNat_snd_degree_pos` 传递。** -/
+theorem foldl_step_totalDegree :
+    ∀ (ls : ChainList) (acc : ℕ × MvPolynomial ℕ ℝ),
+      acc.2 ≠ 0 → 1 ≤ acc.2.totalDegree →
+      (ls.foldl (fun a _ => stepNat a) acc).2.totalDegree = acc.2.totalDegree + ls.length
+  | [], acc, _, _ => by
+      simp
+  | l :: ls, acc, hne, hdeg => by
+      rw [List.foldl_cons]
+      have hne' : (stepNat acc).2 ≠ 0 := stepNat_snd_ne_zero acc.1 acc.2 hne hdeg
+      have hdeg' : 1 ≤ (stepNat acc).2.totalDegree :=
+        stepNat_snd_degree_pos acc.1 acc.2 hne hdeg
+      rw [foldl_step_totalDegree ls (stepNat acc) hne' hdeg']
+      rw [stepNat_snd_totalDegree acc.1 acc.2 hne hdeg]
+      simp only [List.length_cons]
+      omega
+
+/-- ⭐⭐⭐ **链多项式的次数 = deg p + 层数**（当 `p ≠ 0` 且 `1 ≤ deg p`）。
+
+**⚠ 这是第 14–32 轮一直没能拿到的那条。** -/
+theorem chainNatPoly_totalDegree (ls : ChainList) (p : MvPolynomial ℕ ℝ)
+    (hp : p ≠ 0) (hdeg : 1 ≤ p.totalDegree) :
+    (chainNatPoly ls p).totalDegree = p.totalDegree + ls.length := by
+  simp only [chainNatPoly]
+  have := foldl_step_totalDegree ls (0, p) hp hdeg
+  simpa using this
+
 end Lattice.Core
