@@ -3655,4 +3655,42 @@ theorem totalDegree_X_mul_C_add_X_ge {N : ℕ} (a b : Fin N) (hab : a ≠ b)
 **⇒ 下一轮用 `#check` 枚举 `totalDegree` 的【全部**相关引理（`totalDegree_le_*`／`*_totalDegree_*`），
 而不是继续猜名字。这是本轮最后一条教训，也是第 21／23 轮同一个教训的第三次复发。** -/
 
+
+/-! ## ⭐⭐ 第 25 轮：找到 `totalDegree_add_eq_left_of_totalDegree_lt`
+
+## 本轮枚举的最大收获
+
+    @totalDegree_add_eq_left_of_totalDegree_lt :
+        q.totalDegree < p.totalDegree → (p + q).totalDegree = p.totalDegree
+    @totalDegree_add_eq_right_of_totalDegree_lt :
+        q.totalDegree < p.totalDegree → (q + p).totalDegree = p.totalDegree
+
+**⇒ 当两项次数【不等**时，和的次数就是【大者**的次数——这正是 `X a · p + X (off+1)` 需要的形状
+（当 `deg p ≥ 1` 时，`deg(X a · p) = 1 + deg p ≥ 2 > 1 = deg(X off+1)`）。**
+
+**⚠ 这一条第 24 轮没有猜到，而它在第 25 轮的一次扫描里就出现了。** -/
+
+/-! ## 但还有一环没通
+
+**要用上面那条，需要先知道 `deg(X a · p) = 1 + deg p` 的【下界**。
+**上界是 `totalDegree_mul`（`≤`），下界需要「`totalDegree` 由某个支撑元素达到」——
+即 `∃ s ∈ q.support, s.sum (fun x e => e) = q.totalDegree`。**
+
+**⚠ 我尝试用 `q.support.max'` 加 `le_antisymm` 证它，反向不等式卡住：
+`q.totalDegree ≤ max'.sum` 无法从 `le_totalDegree`（它只有 `≤` 反方向）得到。**
+
+**⇒ 这个存在性一定在 mathlib 里（`totalDegree` 的定义就是那个 sup），
+但第 24／25 轮的 `#check` 都没扫到正确名字。**
+
+**⇒ 下一轮应当用【搜索**而不是抽查：`exact?`、`apply?`、或 `#check @MvPolynomial.totalDegree_le_iff` 之类。
+一次搜索比十次猜测便宜。** -/
+
+/-! ## 本轮另一条确认为【不存在】的
+
+**`MvPolynomial.totalDegree_mul_le` 不存在**——乘法的次数界就是 `totalDegree_mul`（`≤` 形式）。
+**`MvPolynomial.totalDegree_le_iff_coeff_zero` 也不存在。**
+
+**⚠ 而 `totalDegree_monomial` 【存在**：`c ≠ 0 → (monomial s c).totalDegree = s.sum (fun x e => e)`
+——**这与上面缺的存在性刚好互补**。** -/
+
 end Lattice.Core
