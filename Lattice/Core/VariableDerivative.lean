@@ -3492,4 +3492,54 @@ theorem chainOneOfDepth_ne_zero {N : ℕ} (d : ℕ)
   rw [← h3, h2] at h1
   simp at h1
 
+
+/-! ## ⚠⚠ 第 21 轮：次数下界的接口障碍（四处，已逐一查明）
+
+## 目标
+
+    theorem totalDegree_X_mul_C_add_X {N : ℕ} (a b : Fin N) (hab : a ≠ b) {c : ℝ} (hc : c ≠ 0) :
+        (X a · C c + X b : MvPolynomial (Fin N) ℝ).totalDegree = 1
+
+**这条是「每层加一次」的基础情形，也是第 20 轮登记的下界所缺的那一块。**
+
+## 数学上它是显然的
+
+**`X a · C c` 在变量 `a` 上的次数是 1，`X b` 在 `a` 上的次数是 0（因为 `a ≠ b`），
+所以两者【不能抵消】，总和在 `a` 上的次数是 1，于是 `totalDegree ≥ 1`；
+上界由 `totalDegree_add ≤ max 1 1 = 1`。** -/
+
+/-! ## 实际卡在哪：四处接口名与我预期的不同
+
+**第 21 轮实测（逐一编译确认）：**
+
+| 我写的 | 实际结果 |
+|:--|:--|
+| `MvPolynomial.coeff_X` | **不存在**（报 `did not find instance of coeff (fun₀ \| ?i => 1) (X ?i)`） |
+| `MvPolynomial.X_mul` | **不存在** |
+| `Finsupp.degree_single` | **不存在** |
+| `MvPolynomial.totalDegree_mul` | **存在，但是【不等式** `≤ a.totalDegree + b.totalDegree`，不是等式
+（第 6 轮已记录，本轮再次撞上） |
+
+**⇒ 存在且可用的：`coeff_add`、`coeff_C`、`coeff_C_mul`、`coeffX`（需核实拼写）、
+`mem_support_iff`、`le_totalDegree`、`support_nonempty_iff`、`degreeOf_X`、`degreeOf_C`、`degreeOf_add_le`。**
+
+**⚠ 其中 `degreeOf_X` 与 `degreeOf_add_le` 都存在，而它们正是
+「在某个变量上的次数」所需要的——第 21 轮没有把它们组合起来。**
+
+## 结论
+
+**本轮没有产出代码（工作树回退到 721）。**
+
+**⇒ 精确的下一步**：**用 `degreeOf` 而不是 `coeff`：**
+
+    have h1 : degreeOf a (X a * C c) = 1        -- 由 degreeOf_mul_le 与 degreeOf_X
+    have h2 : degreeOf a (X b) = 0               -- hab
+    -- 但 degreeOf_add_le 只给 ≤，不给 ≥
+
+**⚠ `degreeOf_add_le` 也是【不等式**，所以 `degreeOf` 路线同样拿不到下界。
+
+**⇒ 下界【必须】来自「存在一个非零的 `d` 次单项式」，即 `coeff` + `le_totalDegree`。
+⇒ 下一轮的第一件事是【探明 `coeff` 的确切名字**——
+在 mathlib 里它极可能叫 `MvPolynomial.coeff_X'` 或通过 `coeff_monomial`／`single_mul` 组合得到。** -/
+
 end Lattice.Core
