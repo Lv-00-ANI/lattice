@@ -2915,4 +2915,109 @@ theorem twoLayerParamPoly_degree_le (N : ℕ) (h0 : 0 < N) (h1 : 1 < N)
 
 **⇒ 这是本轮最后一次尝试的失败点，也是下一轮的第一件事。** -/
 
+
+/-! ## ⭐⭐⭐ 宽 1 链的参数多项式：递归与次数上界
+
+## 三条工程障碍的解法（第 8–10 轮磨合的结果）
+
+1. **`termination_by` 不需要**——结构模式匹配让 Lean 认出 `rest` 是子项。
+2. **`rw [chainPoly]` 对模式匹配递归定义有效**。
+3. **`omega` 面对 `2 * chainDepth` 的非线性**：**先用
+   `le_add_of_nonneg_right (Nat.zero_le _)` 给出 `off ≤ off + (2·d + 3)`，
+   再由 `omega` 线性使用。** **注意 `Nat.le_add_right a b : a ≤ a + b`
+   而 `Nat.le_add_left a b : a ≤ b + a`（顺序相反）。** -/
+
+/-- **宽 1 链的输出多项式**。 -/
+noncomputable def chainPoly {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (off : ℕ) →
+    (hN : off + 2 * chainDepth ch + 1 < N) → (x : ℝ) → MvPolynomial (Fin N) ℝ
+  | _, _, Chain.idf _, _, _, x => MvPolynomial.C x
+  | _, _, Chain.cons (m := m') (n := n') l rest, off, hN, x =>
+      MvPolynomial.X ⟨off, by
+        have hNc : off + 2 * chainDepth (m := n') (n := _) rest + 3 < N := by
+          have h := chainDepth_cons l rest
+          omega
+        have h2 : off ≤ off + (2 * chainDepth (m := n') (n := _) rest + 3) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega⟩
+        * chainPoly (m := n') (n := _) rest (off + 2) (by
+            have h := chainDepth_cons l rest
+            omega) x
+        + MvPolynomial.X ⟨off + 1, by
+            have hNc : off + 2 * chainDepth (m := n') (n := _) rest + 3 < N := by
+              have h := chainDepth_cons l rest
+              omega
+            have h2 : off + 1 ≤ off + 1 + (2 * chainDepth (m := n') (n := _) rest + 2) :=
+              le_add_of_nonneg_right (Nat.zero_le _)
+            omega⟩
+
+/-- ⭐⭐ **空链的多项式是常数**——**对任意宽度 `n` 通用（特化到 `idf 1` 会失败）。** -/
+theorem chainPoly_idf {N n : ℕ} (off : ℕ)
+    (hN : off + 2 * chainDepth (m := n) (n := n) (Chain.idf n) + 1 < N) (x : ℝ) :
+    chainPoly (Chain.idf n) off hN x = MvPolynomial.C x := by
+  rw [chainPoly]
+
+/-- ⭐⭐⭐ **宽 1 链的输出多项式次数 ≤ 层数**——**「参数次数 = 深度」的载体形式。**
+
+**⚠ 第 10 轮确定的最后一步：先由 `ih` 得出 `1 + deg Φ_rest ≤ 1 + chainDepth rest`
+（纯线性的 `Nat.add_le_add_left`），再放进 calc。** -/
+theorem chainPoly_degree_le {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (off : ℕ) →
+    (hN : off + 2 * chainDepth ch + 1 < N) → (x : ℝ) →
+    (chainPoly ch off hN x).totalDegree ≤ chainDepth ch
+  | _, _, Chain.idf _, off, hN, x => by
+      rw [chainPoly_idf]
+      simp
+  | _, _, Chain.cons (m := m') (n := n') l rest, off, hN, x => by
+      rw [chainPoly]
+      have hc := chainDepth_cons l rest
+      have hNc : off + 2 * chainDepth (m := n') (n := _) rest + 3 < N := by omega
+      have hlt : off < N := by
+        have h2 : off ≤ off + (2 * chainDepth (m := n') (n := _) rest + 3) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      have hlt1 : off + 1 < N := by
+        have h2 : off + 1 ≤ off + 1 + (2 * chainDepth (m := n') (n := _) rest + 2) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      have hrec : (off + 2) + 2 * chainDepth (m := n') (n := _) rest + 1 < N := by
+        have h2 : (off + 2) + 2 * chainDepth (m := n') (n := _) rest + 1
+            = off + 2 * chainDepth (m := n') (n := _) rest + 3 := by ring
+        rw [h2]
+        exact hNc
+      have ih : (chainPoly rest (off + 2) hrec x).totalDegree
+          ≤ chainDepth (m := n') (n := _) rest :=
+        chainPoly_degree_le (m := n') (n := _) rest (off + 2) hrec x
+      -- 关键：先得到 1 + deg ≤ 1 + chainDepth（纯线性、项相同）
+      have hstep : 1 + (chainPoly rest (off + 2) hrec x).totalDegree
+          ≤ 1 + chainDepth (m := n') (n := _) rest :=
+        Nat.add_le_add_left ih 1
+      have hmul : (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+          * chainPoly rest (off + 2) hrec x : MvPolynomial (Fin N) ℝ).totalDegree
+          ≤ (1 + chainDepth (m := n') (n := _) rest) := by
+        calc (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+              * chainPoly rest (off + 2) hrec x : MvPolynomial (Fin N) ℝ).totalDegree
+            ≤ (MvPolynomial.X (⟨off, hlt⟩ : Fin N) : MvPolynomial (Fin N) ℝ).totalDegree
+              + (chainPoly rest (off + 2) hrec x).totalDegree :=
+              MvPolynomial.totalDegree_mul _ _
+          _ ≤ 1 + chainDepth (m := n') (n := _) rest := by
+              have hx : (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+                  : MvPolynomial (Fin N) ℝ).totalDegree = 1 := MvPolynomial.totalDegree_X _
+              omega
+      calc (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+            * chainPoly rest (off + 2) hrec x
+            + MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+            : MvPolynomial (Fin N) ℝ).totalDegree
+          ≤ max (MvPolynomial.X (⟨off, hlt⟩ : Fin N)
+                * chainPoly rest (off + 2) hrec x : MvPolynomial (Fin N) ℝ).totalDegree
+              (MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+                : MvPolynomial (Fin N) ℝ).totalDegree :=
+            MvPolynomial.totalDegree_add _ _
+        _ ≤ max (1 + chainDepth (m := n') (n := _) rest) 1 := by
+            rw [max_le_iff]
+            have hy : (MvPolynomial.X (⟨off + 1, hlt1⟩ : Fin N)
+                : MvPolynomial (Fin N) ℝ).totalDegree = 1 := MvPolynomial.totalDegree_X _
+            exact ⟨le_trans hmul (le_max_left _ _), by rw [hy]; exact le_max_right _ _⟩
+        _ ≤ chainDepth (Chain.cons l rest) := by
+            rw [hc]
+            omega
+
 end Lattice.Core

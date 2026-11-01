@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 129 | 45 |
+| `Lattice.Core.VariableDerivative` | 131 | 46 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2837,6 +2837,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
 - `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
+- `chainPoly_degree_le` -> `Chain`, `le_trans`
+- `chainPoly_idf` -> `Chain`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `le_refl`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `chain_split_at`
@@ -7082,8 +7084,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_eq_one_iff` -> `E`
 - `oneHot_lookup` -> `E`
 - `oneHot_represents_token` -> `E`
-- `oneLayerParamPoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
-- `oneLayerParamPoly_eval` -> `eval`, `eval_add`, `eval_mul`
+- `oneLayerParamPoly_degree_le` -> `Chain`, `eval`, `eval_add`, `eval_mul`
+- `oneLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
@@ -8090,7 +8092,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rfdiff_affine_mul` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_const_mul` -> `Chain`, `MLayer`, `induction`, `zero`
 - `rfdiff_eq_zero_step` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
-- `rfdiff_mul` -> `eval`, `eval_add`, `eval_mul`
+- `rfdiff_mul` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `rfl_restricts_to_any_subset` -> `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `rfl_roundtrip_forces_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
 - `rg_exists_nnnorm_eq_spectralRadius` -> `E`
@@ -9530,6 +9532,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `topk_route_stable` -> `IsArgMax`, `apply`, `argmax_unique`
 - `topk_route_stable_unique` -> `IsArgMax`, `apply`, `argmax_unique`
 - `topk_weights_prob` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
+- `totalDegree_X_mul_C_le` -> `Chain`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
@@ -9612,7 +9615,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoHopMsg_bound` -> `apply`, `le_trans`
 - `twoLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
 - `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`, `W`, `e2`
-- `twoLayerParamPoly_eval` -> `eval`, `eval_add`, `eval_mul`
+- `twoLayerParamPoly_degree_le` -> `Chain`
+- `twoLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
 - `twoLayer_affine_eval` -> `Chain`, `MLayer`
 - `twoLayer_convex_eval` -> `Chain`, `MLayer`
