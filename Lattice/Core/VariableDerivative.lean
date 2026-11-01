@@ -3574,4 +3574,44 @@ theorem totalDegree_X_mul_C_add_X_ge {N : ℕ} (a b : Fin N) (hab : a ≠ b)
   have hdeg := MvPolynomial.le_totalDegree hmem
   simpa using hdeg
 
+
+/-! ## ⚠⚠ 第 23 轮：`totalDegree_X_mul_eq` 差「取最高项」这一步
+
+## 目标
+
+    theorem totalDegree_X_mul_eq {N : ℕ} (a : Fin N) (q : MvPolynomial (Fin N) ℝ) (hq : q ≠ 0) :
+        (MvPolynomial.X a * q).totalDegree = 1 + q.totalDegree
+
+**上界在 `calc` 里已经走通（本轮实测到 `_ = 1 + q.totalDegree` 那一行）。
+下界卡在【选哪个单项式】上。** -/
+
+/-! ## 卡点：必须取【最高次】的支撑元素
+
+**我写的是 `obtain ⟨m, hm⟩ := hsup`，即取【任意一个】**支撑元素。
+**⇒ 那只能得到 `m.degree + 1 ≤ q.totalDegree + 1`，而下界需要 `1 + q.totalDegree ≤ …`。
+**⇒ `omega` 报的反例约束正是这个缺口：`c - d ≤ 1`（`c = m+ε 的次数`、`d = deg(X·q)`）。**
+
+**⚠ 正确做法：取 `q.support` 中【次数最大】的元素，即
+`q.support.max' hsup` 配 `Finset.le_max'`——那样 `m.degree = q.totalDegree`，
+于是 `m.degree + 1 = 1 + q.totalDegree` 恰好是要的下界。**
+
+## 另一处命名修正
+
+**`MvPolynomial.support_nonempty_iff` 不存在；实际是 `Function.support_nonempty_iff`
+（在 `MvPolynomial` 上实例化），签名 `(Function.support ?f).Nonempty ↔ ?f ≠ 0`。**
+
+**⚠ 而 `MvPolynomial.support` 就是 `Function.support` 的实例化，所以 `rw` 时需要
+`show q.support.Nonempty` 或直接 `MvPolynomial.support_nonempty_iff` 的反向用法。**
+
+## 结论
+
+**本轮没有产出代码（回退到 723）。**
+**⇒ 下一轮的第一件事**：
+
+    obtain ⟨m, hm, hmax⟩ := Finset.exists_mem_eq_max' hsup   -- 或 max' 的等价形式
+    -- hmax : ∀ s ∈ q.support, s.sum (·) ≤ m.sum (·)
+    -- 于是 m.degree = q.totalDegree 由 le_antisymm 得到
+
+**⇒ 之后 `totalDegree_X_mul_eq` 与它的加法版本、以及第 23 轮计划的归纳步都会顺次通过。** -/
+
 end Lattice.Core
