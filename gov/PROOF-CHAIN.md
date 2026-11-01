@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 134 | 50 |
+| `Lattice.Core.VariableDerivative` | 135 | 51 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2812,6 +2812,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cgd_zero_grad` -> `le_trans`, `normSq`
 - `chain3_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `verifier_reliable_clean`
 - `chainAudit_length` -> `Audit`, `length`
+- `chainDepth_chainOneToChain` -> `eval`, `eval_add`, `eval_mul`
 - `chainDepth_cons` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainDepth_idf` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainErrReal_le` -> `E`, `induction`, `zero`
@@ -2836,6 +2837,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
+- `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
+- `chainOnePoly_eval_act` -> `eval`, `eval_add`, `eval_mul`
+- `chainOnePoly_idf` -> `eval`, `eval_add`, `eval_mul`
 - `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `comp`, `mlayerAct`
 - `chainPoly_degree_le` -> `Chain`, `MLayer`, `le_trans`
 - `chainPoly_idf` -> `Chain`, `MLayer`, `le_trans`

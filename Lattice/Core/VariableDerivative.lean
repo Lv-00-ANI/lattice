@@ -3290,4 +3290,43 @@ theorem chainOnePoly_degree_le {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
       simp only [chainOneDepth]
       omega
 
+
+/-- **`ChainOne` 的数值作用**——**与 `chainOnePoly` 的递归【逐字对应】，
+把「多项式乘加」换成「实数乘加」。** -/
+noncomputable def chainOneAct {N : ℕ} (ch : ChainOne) (off : ℕ) (g : Fin N → ℝ) (x : ℝ) : ℝ :=
+  match ch with
+  | .idf => x
+  | .cons _ rest => chainOneAct rest (off + 2) g (readSlot g off * x + readSlot g (off + 1))
+
+/-- ⭐⭐⭐ **载体与数值作用一致（对任意多项式输入）**：
+**`eval (chainOnePoly ch off h p) g = chainOneAct ch off g (eval p g)`。**
+
+**⚠ 这条对【任意 `p`** 成立，所以归纳假设能用于 `X off · C x + X (off+1)` 这种输入。
+**⚠ 两者的递归逐字对应：`chainOnePoly` 把 `p ↦ X off · p + X (off+1)`，
+而 `chainOneAct` 把 `x ↦ readSlot g off · x + readSlot g (off+1)`，
+而 `eval (X off · p + X(off+1)) g = readSlot g off · eval p g + readSlot g (off+1)`。** -/
+theorem chainOnePoly_eval_act {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
+    (hN : off + 2 * chainOneDepth ch + 1 < N) → (p : MvPolynomial (Fin N) ℝ) →
+    (g : Fin N → ℝ) →
+    (chainOnePoly ch off hN p).eval g = chainOneAct ch off g (p.eval g)
+  | .idf, off, hN, p, g => by
+      simp only [chainOnePoly_idf, chainOneAct]
+  | .cons _ rest, off, hN, p, g => by
+      rw [chainOnePoly]
+      have hNc : off + 2 * chainOneDepth rest + 3 < N := by
+        simp only [chainOneDepth] at hN; omega
+      have hrec : (off + 2) + 2 * chainOneDepth rest + 1 < N := by omega
+      have hlt : off < N := by
+        have h2 : off ≤ off + (2 * chainOneDepth rest + 3) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      have hlt1 : off + 1 < N := by
+        have h2 : off + 1 ≤ off + 1 + (2 * chainOneDepth rest + 2) :=
+          le_add_of_nonneg_right (Nat.zero_le _)
+        omega
+      rw [chainOnePoly_eval_act rest (off + 2) hrec _ g]
+      simp only [chainOneAct, MvPolynomial.eval_add, MvPolynomial.eval_mul,
+        MvPolynomial.eval_X, MvPolynomial.eval_C, readSlot_of_lt _ hlt,
+        readSlot_of_lt _ hlt1]
+
 end Lattice.Core
