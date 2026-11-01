@@ -3120,4 +3120,61 @@ theorem chainPoly_degree_le {N : ℕ} : {m n : ℕ} → (ch : Chain m n) → (of
 **⚠ 第 2 步会产生「同一数学的两个版本」，别名普查可能报 copy。
 ⇒ 正确的处理是在 `chainOneToChain` 的层面上连接，而不是重述定理。** -/
 
+
+/-! ## ⚠⚠ 第 14 轮：`chainOnePoly` 的【定义方向】是错的
+
+## 本轮做到了什么
+
+**1. `ChainOne` 已定义并编译通过**（`idf`／`cons (l : MLayer 1 1)`），
+**连同 `chainOneDepth`、`chainOneToChain`、`chainDepth_chainOneToChain`。**
+**⚠ 但这些在回退时被丢弃了——它们是【正确的第一步**，下轮可原样重放。**
+
+**2. 次数界在 `ChainOne` 上也走到了最后一步。**
+
+## 根本缺陷：`chainOnePoly` 把输入当成【常数】
+
+**本轮的定义是**
+
+    chainOnePoly (.cons l rest) off x = X off · chainOnePoly rest (off+2) x + X (off+1)
+
+**⇒ 每一层都用【同一个 `x`】。**
+
+**⚠ 但网络上，一层的输出 `readSlot g off · x + readSlot g (off+1)`
+才是【下一层的输入**。所以尾链的多项式里应当是那个【新标量】**，不是原来的 `x`。**
+
+**⇒ 忠实性 `eval = flatChainAct` 必然对不上——本轮最后正是在这里失败的：
+左边是 `g_off · eval(chainOnePoly rest … x) + g_{off+1}`，
+右边是 `flatChainAct rest … (fun _ => readSlot g off · x + …)`，
+【尾链的输入不同**。**
+
+## 正确的定义方向
+
+**多项式不能依赖 `g`（它就是要对 `g` 求值的对象），
+所以「把新标量喂给尾链」不能在多项式【内部**完成。**
+
+**⇒ 唯一正确的形状是：`chainOnePoly` 应当是一个【从输入标量到多项式的函数族**，
+即**它的类型里 `x` 是参数，而 `cons` 分支里【尾链的输入是 `X off · x + X (off+1)` 这个【多项式】**，不是标量。**
+
+**⇒ 那就是【多项式代入**——正是第 8 轮判断「宽 1 时不需要」而回避掉的东西。
+第 8 轮的判断是错的：**不需要代入的是【参数】，但【输入】确实需要代入。**
+
+**⇒ 正确形式：**
+
+    chainOnePoly : ChainOne → (off : ℕ) → MvPolynomial (Fin N) ℝ → MvPolynomial (Fin N) ℝ
+    chainOnePoly .idf       off p = p
+    chainOnePoly (.cons l ch) off p = chainOnePoly ch (off+2) (X off · p + X (off+1))
+
+**即【输入本身是一个多项式**，而 `idf` 把它原样返回。
+**⇒ 那么「标量输入 `x`」就是 `C x`，而整个链的输出是 `chainOnePoly ch off (C x)`。**
+
+**⚠ 这个版本【不需要多项式代入的通用理论**——因为每层只是 `X off · p + X (off+1)`，
+**即乘一个变量加一个变量，而 `p` 是任意多项式。次数归纳变成：
+`deg(X off · p + X(off+1)) ≤ 1 + deg p`，仍是 `totalDegree_mul`。**
+
+## 结论
+
+**本轮没有代码入库（`ChainOne` 等被回退）。**
+**⇒ 下一轮的第一件事是【用上面的签名重写 `chainOnePoly`**——
+`x` 换成 `p : MvPolynomial`，`idf` 返回 `p`。**那是一个参数的改动，不是重新设计。** -/
+
 end Lattice.Core
