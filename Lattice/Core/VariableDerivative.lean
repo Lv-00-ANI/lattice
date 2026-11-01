@@ -3920,4 +3920,51 @@ noncomputable def chainOnePolyD {N : ℕ} : (ch : ChainOne) → (dd : ℕ) →
 
 **本轮没有代码入库；工作树回退到 731（构建通过）。** -/
 
+
+/-! ## ⚠⚠ 第 32 轮：`ℕ` 下标版本的路线与它自己的陷阱
+
+## 本轮的方向（第 31 轮定的）
+
+**把多项式建在 `MvPolynomial ℕ ℝ` 上——下标是 `ℕ`，`X off` 对任意 `off` 都有意义，
+于是递归里【不再带任何界证明项**，指数级规约的问题从根上消失。
+
+## 试过的第一步：把现有的 `totalDegree_X_mul_eq` 泛化到任意 `σ`
+
+**从 `{N : ℕ} (a : Fin N) (q : MvPolynomial (Fin N) ℝ)` 改成
+`{σ : Type*} [DecidableEq σ] (a : σ) (q : MvPolynomial σ ℝ)`。**
+
+**⚠ 失败方式值得记录：证明体里到处写着 `(MvPolynomial (Fin N) ℝ)` 的类型标注。
+我用一次全局 `replace` 把它们改成 `σ`，结果【误伤了文件里其它位置的**
+`MvPolynomial (Fin N) ℝ`——那是第 6 轮的 `oneLayerParamPoly` 等旧定理的类型，
+于是 L2670 报 `invalid constructor ⟨...⟩, expected type must be σ`。**
+
+**⇒ 教训：跨 1000+ 行的文件里做【全局字符串替换**是危险的；
+必须先把替换范围限定到目标定理的行区间，或者先确认目标字符串在该区间外不出现。**
+
+## 一个更安全的路子
+
+**不泛化现有定理，而是【用 `rename` 把 `ℕ` 版本搬到 `Fin N`**：
+
+    -- 已有：totalDegree_X_mul_eq (Fin N 版)
+    -- 需要：ℕ 版
+
+**⚠ 但 `rename` 只给 `totalDegree_rename_le`（`≤`），拿不到等式。**
+
+**⇒ 更直接：为 `MvPolynomial ℕ ℝ` 单独证一条 `totalDegree_X_mul_eq_nat`。
+它会是 `totalDegree_X_mul_eq` 的【复制**，而别名普查会标出它。
+⇒ 但那是有意的、必要的复制（不同下标类型），并且可以在基线里登记。**
+
+## 结论
+
+**本轮没有代码入库（回退到 732）。**
+
+**⇒ 下一轮的精确步骤**：
+1. **在文件【末尾】、`end Lattice.Core` 之前，新增一条独立的 `totalDegree_X_mul_eq_nat`**，
+   证明体与 `totalDegree_X_mul_eq` 相同但类型是 `MvPolynomial ℕ ℝ`；
+2. **同样加 `totalDegree_X_mul_add_X_nat`**；
+3. **然后建 `chainNatPoly`（`List.foldl` 版）并证它的次数界**；
+4. **跑别名普查，若报 `copy`／`new`，就把它们登记进 `gov/alias-baseline.txt`。**
+
+**⚠ 第 4 步是必须的：项目规则要求别名普查为 0 new／0 stale。** -/
+
 end Lattice.Core
