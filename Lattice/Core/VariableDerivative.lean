@@ -3467,4 +3467,29 @@ theorem chainOneAct_allOnesWeights {N : ℕ} : (ch : ChainOne) → (off : ℕ) �
         omega
       exact chainOneAct_allOnesWeights rest (off + 2) hrec hoff2
 
+
+/-- ⭐⭐ **深度 `d` 链的多项式非零**——**在 `allOnesWeights` 处它求值为 `1`。**
+
+**⚠ 这是「次数 ≥ 1」的直接来源，也是下界链条上不依赖 `coeff` 的第一步。** -/
+theorem chainOneOfDepth_ne_zero {N : ℕ} (d : ℕ)
+    (hN : 0 + 2 * chainOneDepth (chainOneOfDepth d) + 1 < N) :
+    chainOnePoly (chainOneOfDepth d) 0 hN (MvPolynomial.C 1) ≠ 0 := by
+  intro hzero
+  have h1 : (chainOnePoly (chainOneOfDepth d) 0 hN (MvPolynomial.C 1)).eval
+      (allOnesWeights N)
+      = flatChainAct (N := N) (chainOneToChain (chainOneOfDepth d)) 0
+          (allOnesWeights N) (fun _ => (1 : ℝ)) (0 : Fin 1) :=
+    chainOne_output_eval (chainOneOfDepth d) hN 1 (allOnesWeights N)
+  rw [hzero] at h1
+  -- 左边：0 的求值是 0；右边由恒等参数推出是 1
+  have h2 : chainOneAct (chainOneOfDepth d) 0 (allOnesWeights N) 1 = 1 := by
+    have hlt : 0 + 2 * chainOneDepth (chainOneOfDepth d) < N := by omega
+    exact chainOneAct_allOnesWeights (chainOneOfDepth d) 0 hlt (by rfl)
+  have h3 : chainOneAct (chainOneOfDepth d) 0 (allOnesWeights N) 1
+      = flatChainAct (N := N) (chainOneToChain (chainOneOfDepth d)) 0
+          (allOnesWeights N) (fun _ => (1 : ℝ)) (0 : Fin 1) :=
+    chainOneAct_eq_flatChainAct (chainOneOfDepth d) 0 (by omega) _ 1
+  rw [← h3, h2] at h1
+  simp at h1
+
 end Lattice.Core

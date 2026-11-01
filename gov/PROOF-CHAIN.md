@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 143 | 53 |
+| `Lattice.Core.VariableDerivative` | 144 | 53 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2837,9 +2837,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
-- `chainOneAct_cons` -> `MLayer`
+- `chainOneAct_allOnesWeights` -> `eval`
+- `chainOneAct_cons` -> `MLayer`, `eval`
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
-- `chainOneDepth_ofDepth` -> `MLayer`
+- `chainOneDepth_ofDepth` -> `MLayer`, `eval`
+- `chainOneOfDepth_ne_zero` -> `eval`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_eval_act` -> `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_idf` -> `eval`, `eval_add`, `eval_mul`
