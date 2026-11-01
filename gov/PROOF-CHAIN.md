@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 163 | 60 |
+| `Lattice.Core.VariableDerivative` | 167 | 60 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2830,11 +2830,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainLift_le_u_l` -> `compose`
 - `chainLift_premise_instantiable` -> `compose`
 - `chainLift_two` -> `compose`
+- `chainList_output_eval` -> `eval`, `length`
+- `chainList_output_is_polynomial` -> `eval`, `length`
 - `chainMin_last` -> `apply`, `le_refl`
 - `chainMin_zero` -> `apply`, `le_refl`
 - `chainN_dom_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `zero`
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
+- `chainNatAct_eq_chainOneAct` -> `eval`, `length`
+- `chainNatPoly_X0_totalDegree` -> `eval`, `length`
 - `chainNatPoly_eval_act` -> `eval`, `length`, `length_cons`
 - `chainNatPoly_totalDegree` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
@@ -2844,7 +2848,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
 - `chainOneDepth_cons_succ` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `chainOneDepth_idf` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
-- `chainOneDepth_listToChainOne` -> `length`, `length_cons`
+- `chainOneDepth_listToChainOne` -> `eval`, `length`, `length_cons`
 - `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
@@ -9564,6 +9568,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalDegree_X_mul_add_X_nat` -> `MLayer`, `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `totalDegree_X_mul_eq` -> `MLayer`, `apply`, `le_antisymm`
 - `totalDegree_X_mul_eq_nat` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
+- `totalDegree_X_zero_nat` -> `eval`, `length`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`

@@ -4221,4 +4221,58 @@ mathlib 里应当有 `MvPolynomial.totalDegree_eq_zero` 或 `eq_C_of_totalDegree
 **⇒ 而那是【诚实**的：**输入变量本身也是一个变量，所以「输出的总次数 = 层数 + 1」是更准确的说法。**
 **⇒ 若 `eq_C_of_totalDegree_zero` 不存在，下一轮就走这条，并在陈述里写明那多出来的一次来自输入。** -/
 
+
+/-! ## ⭐⭐⭐ 压顶定理：链的输出是参数的一个显式多项式
+
+**第 36 轮发现 `deg p = 0` 是一个真正的数学边界：`C x` 的次数是 0，
+而 `chainNatPoly_totalDegree` 要求 `1 ≤ deg p`。**
+
+**⇒ 本节把结论分成两条，各自在【能成立的前提】**下陈述：
+
+1. **次数**：以 `X 0` 为输入（次数 1），得 `deg = 1 + 长度`；
+2. **求值**：以 `C x` 为输入（真实标量输入），得 `eval = flatChainAct`。
+
+**⚠ 后者不需要次数信息——它只依赖 `chainNatPoly_eval_act`、`chainNatAct_eq_chainOneAct`
+与 `chainOneAct_eq_flatChainAct` 三条，全部已证。** -/
+
+/-- ⭐ **`X 0` 的次数是 1**。 -/
+theorem totalDegree_X_zero_nat : (MvPolynomial.X 0 : MvPolynomial ℕ ℝ).totalDegree = 1 :=
+  MvPolynomial.totalDegree_X _
+
+/-- ⭐⭐ **以 `X 0` 为输入时，输出次数 = `1 + 层数`**——**（输入那一次是变量本身）。** -/
+theorem chainNatPoly_X0_totalDegree (ls : ChainList) :
+    (chainNatPoly ls (MvPolynomial.X 0)).totalDegree = 1 + ls.length := by
+  have hne : (MvPolynomial.X 0 : MvPolynomial ℕ ℝ) ≠ 0 := MvPolynomial.X_ne_zero 0
+  have hdeg : 1 ≤ (MvPolynomial.X 0 : MvPolynomial ℕ ℝ).totalDegree := by
+    rw [totalDegree_X_zero_nat]
+  rw [chainNatPoly_totalDegree ls (MvPolynomial.X 0) hne hdeg, totalDegree_X_zero_nat]
+
+/-- ⭐⭐⭐ **压顶（求值形式）**：**链的多项式在 `readSlot gN` 处的值，就是网络的输出。**
+
+**⚠ 这是整条链的终点陈述：`ℕ` 下标载体（`foldl`，无递归展开）
+→ `ChainOne`（第 35 轮）→ `flatChainAct`（第 17 轮）。** -/
+theorem chainList_output_eval {N : ℕ} (ls : ChainList)
+    (hN : 0 + 2 * ls.length + 1 < N) (x : ℝ) (gN : Fin N → ℝ) :
+    (chainNatPoly ls (MvPolynomial.C x)).eval (fun k => readSlot gN k)
+      = flatChainAct (N := N) (chainOneToChain (listToChainOne ls)) 0 gN
+          (fun _ => x) (0 : Fin 1) := by
+  have hN' : 0 + 2 * chainOneDepth (listToChainOne ls) + 1 < N := by
+    rw [chainOneDepth_listToChainOne]
+    exact hN
+  rw [chainNatPoly_eval_act]
+  simp only [chainNatAct]
+  rw [chainNatAct_eq_chainOneAct ls (0, (MvPolynomial.C x).eval (fun k => readSlot gN k)) gN]
+  simp only [MvPolynomial.eval_C]
+  exact chainOneAct_eq_flatChainAct (listToChainOne ls) 0 hN' gN x
+
+/-- ⭐⭐⭐ **压顶（合取形式）**：**次数在 `X 0` 输入下、求值在 `C x` 输入下，一并陈述。** -/
+theorem chainList_output_is_polynomial {N : ℕ} (ls : ChainList)
+    (hN : 0 + 2 * ls.length + 1 < N) (x : ℝ) :
+    (chainNatPoly ls (MvPolynomial.X 0)).totalDegree = 1 + ls.length
+      ∧ ∀ (gN : Fin N → ℝ),
+          (chainNatPoly ls (MvPolynomial.C x)).eval (fun k => readSlot gN k)
+            = flatChainAct (N := N) (chainOneToChain (listToChainOne ls)) 0 gN
+                (fun _ => x) (0 : Fin 1) :=
+  ⟨chainNatPoly_X0_totalDegree ls, fun gN => chainList_output_eval ls hN x gN⟩
+
 end Lattice.Core
