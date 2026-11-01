@@ -3614,4 +3614,45 @@ theorem totalDegree_X_mul_C_add_X_ge {N : ℕ} (a b : Fin N) (hab : a ≠ b)
 
 **⇒ 之后 `totalDegree_X_mul_eq` 与它的加法版本、以及第 23 轮计划的归纳步都会顺次通过。** -/
 
+
+/-! ## ⚠⚠ 第 24 轮：`totalDegree` 的【上界】刻画——找到了一条、还差另一条
+
+## 本轮查明的接口（全部实测）
+
+| 引理 | 结果 |
+|:--|:--|
+| **`coeff_eq_zero_of_totalDegree_lt`** | **存在，且是本轮的关键发现**：`f.totalDegree < d.sum → coeff d f = 0` |
+| `le_totalDegree` | 存在：`s ∈ p.support → s.sum ≤ p.totalDegree`（**下界方向**） |
+| `Finset.max'` / `le_max'` / `max'_mem` | 全部存在 |
+| `Finsupp.degree` | 存在；**`degree_single` 与 `degree_add` 【不存在】** |
+| `MvPolynomial.totalDegree_def` / `totalDegree_eq_sup` / `totalDegree_le_iff` | **全部不存在** |
+
+## 这给出了什么
+
+**`coeff_eq_zero_of_totalDegree_lt` 是 `le_totalDegree` 的【逆否**——
+它说「若 `d` 的次数超过 `totalDegree`，则 `d` 的系数为 0」，
+**等价地：「若 `coeff d f ≠ 0`，则 `d.sum ≤ f.totalDegree`」。**
+
+**⇒ 那正是 `le_totalDegree` 由 `mem_support_iff` 转述后的同一件事。所以它【不提供新的上界信息**。** -/
+
+/-! ## 仍然缺的那一条
+
+**要证 `totalDegree_X_mul_eq : deg(X a · q) = 1 + deg q` 的【下界**，
+需要 `1 + q.totalDegree ≤ deg(X a · q)`。
+
+**已经知道**（对 `m ∈ q.support`）：`coeff (m + single a 1) (X a · q) = coeff m q ≠ 0`，
+**于是 `(m + single a 1).sum ≤ deg(X a · q)`，即 `m.sum + 1 ≤ deg(X a · q)`。**
+
+**⇒ 只需 `m.sum = q.totalDegree`，即【存在一个支撑元素，其次数恰为 totalDegree**。**
+
+**⚠ 这一条无法由 `le_totalDegree` 得到（它只有 `≤`），
+也无法由 `coeff_eq_zero_of_totalDegree_lt` 得到（它只有「超过则系数为 0」）。
+
+**⇒ 它必须来自 `totalDegree` 的【定义**，而 `totalDegree_def`／`totalDegree_eq_sup` 都不存在。
+⇒ 正确的做法是【绕开**：**在 `MvPolynomial` 上，`totalDegree` 的定义可以通过 `le_antisymm` 刻画为
+「`≤` 所有系数为零的界」——而那需要 `totalDegree_le_iff_coeff_zero`，它也【不存在**。
+
+**⇒ 下一轮用 `#check` 枚举 `totalDegree` 的【全部**相关引理（`totalDegree_le_*`／`*_totalDegree_*`），
+而不是继续猜名字。这是本轮最后一条教训，也是第 21／23 轮同一个教训的第三次复发。** -/
+
 end Lattice.Core
