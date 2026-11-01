@@ -3329,4 +3329,77 @@ theorem chainOnePoly_eval_act {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
         MvPolynomial.eval_X, MvPolynomial.eval_C, readSlot_of_lt _ hlt,
         readSlot_of_lt _ hlt1]
 
+
+/-- **一层的激活（宽 1、标量输入）是常函数**。 -/
+theorem flatParamActSafe_width_one_fun {N : ℕ} (off : ℕ) (g : Fin N → ℝ) (x : ℝ) :
+    flatParamActSafe (N := N) (a := 1) (b := 1) off g (fun _ => x)
+      = fun _ : Fin 1 => readSlot g off * x + readSlot g (off + 1) := by
+  funext k
+  fin_cases k
+  rw [flatParamActSafe_width_one]
+
+/-- ⭐⭐⭐ **数值作用就是网络的输出**：**`chainOneAct` = `flatChainAct`。**
+
+**⚠ 这是第 16 轮指出的最后一环：`chainOneAct` 的 `cons` 支是把
+`readSlot g off · x + readSlot g (off+1)` 代入尾链，而 `flatChainAct` 的 `cons` 支是
+`flatParamActSafe off g (fun _ => x)`——`flatParamActSafe_width_one_fun` 说后者【就是】前者。** -/
+theorem chainOneAct_eq_flatChainAct {N : ℕ} : (ch : ChainOne) → (off : ℕ) →
+    (hN : off + 2 * chainOneDepth ch + 1 < N) → (g : Fin N → ℝ) → (x : ℝ) →
+    chainOneAct ch off g x
+      = flatChainAct (N := N) (chainOneToChain ch) off g (fun _ => x) (0 : Fin 1)
+  | .idf, off, hN, g, x => by
+      simp only [chainOneAct, chainOneToChain, flatChainAct_idf]
+  | .cons l rest, off, hN, g, x => by
+      have hNc : off + 2 * chainOneDepth rest + 3 < N := by
+        simp only [chainOneDepth] at hN; omega
+      have hrec : (off + 2) + 2 * chainOneDepth rest + 1 < N := by omega
+      rw [chainOneAct, chainOneToChain,
+        flatChainAct_cons_general (N := N) (m := 1) (n := 1) (c := 1) l
+          (chainOneToChain rest) off g (fun _ => x),
+        show layerParamCount 1 1 = 2 from rfl,
+        flatParamActSafe_width_one_fun (N := N) (off := off) (g := g) (x := x)]
+      exact chainOneAct_eq_flatChainAct rest (off + 2) hrec g _
+
+
+/-- ⭐⭐⭐ **最终结论：宽 1 链的输出【就是】一个参数次数 ≤ 层数的多项式。**
+
+**这是第 6–17 轮那条线的终点：**
+- `chainOnePoly` 给出那个多项式（第 15 轮）；
+- `chainOnePoly_degree_le` 给出它的次数界（第 15 轮）；
+- `chainOnePoly_eval_act` 与 `chainOneAct_eq_flatChainAct` 说明它的求值就是网络输出（第 16／17 轮）。
+
+**⇒ 「符号 ⇄ 权重」不能线性化的一般形式，在此有了正面陈述：
+网络输出是参数的多项式，其次数就是层数。** -/
+theorem chainOne_output_degree {N : ℕ} (ch : ChainOne)
+    (hN : 0 + 2 * chainOneDepth ch + 1 < N) (x : ℝ) :
+    (chainOnePoly ch 0 hN (MvPolynomial.C x)).totalDegree ≤ chainOneDepth ch := by
+  have h := chainOnePoly_degree_le ch 0 hN (MvPolynomial.C x)
+  have hc : (MvPolynomial.C x : MvPolynomial (Fin N) ℝ).totalDegree = 0 :=
+    MvPolynomial.totalDegree_C x
+  omega
+
+/-- ⭐⭐⭐ **最终结论（求值形式）**：**那个多项式的求值就是网络的输出。**
+
+**⚠ 与上一条合起来：网络输出对参数的次数 ≤ 层数，且实现的载体是显式给出的。** -/
+theorem chainOne_output_eval {N : ℕ} (ch : ChainOne)
+    (hN : 0 + 2 * chainOneDepth ch + 1 < N) (x : ℝ) (g : Fin N → ℝ) :
+    (chainOnePoly ch 0 hN (MvPolynomial.C x)).eval g
+      = flatChainAct (N := N) (chainOneToChain ch) 0 g (fun _ => x) (0 : Fin 1) := by
+  rw [chainOnePoly_eval_act]
+  simp only [MvPolynomial.eval_C]
+  exact chainOneAct_eq_flatChainAct ch 0 hN g x
+
+/-- ⭐⭐⭐ **合成陈述：存在一个次数 ≤ 层数的多项式，其在每一点 `g` 的求值都等于网络输出。**
+
+****这是「次数 = 深度」的完整形式化形式。** -/
+theorem chainOne_output_poly_exists {N : ℕ} (ch : ChainOne)
+    (hN : 0 + 2 * chainOneDepth ch + 1 < N) (x : ℝ) :
+    ∃ (P : MvPolynomial (Fin N) ℝ),
+      P.totalDegree ≤ chainOneDepth ch
+        ∧ ∀ g : Fin N → ℝ,
+            P.eval g = flatChainAct (N := N) (chainOneToChain ch) 0 g (fun _ => x) (0 : Fin 1) :=
+  ⟨chainOnePoly ch 0 hN (MvPolynomial.C x),
+    chainOne_output_degree ch hN x,
+    fun g => chainOne_output_eval ch hN x g⟩
+
 end Lattice.Core

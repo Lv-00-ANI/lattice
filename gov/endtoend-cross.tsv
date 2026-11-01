@@ -193,6 +193,9 @@ Core/VariableDerivative.lean	threeLayerAxis_not_affine
 Core/VariableDerivative.lean	chainPoly_idf
 Core/VariableDerivative.lean	chainPoly_degree_le
 Core/VariableDerivative.lean	chainDepth_chainOneToChain
+Core/VariableDerivative.lean	chainOneAct_eq_flatChainAct
+Core/VariableDerivative.lean	chainOne_output_eval
+Core/VariableDerivative.lean	chainOne_output_poly_exists
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append
