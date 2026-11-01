@@ -4177,4 +4177,48 @@ theorem chainNatAct_eq_chainOneAct {N : ℕ} : ∀ (ls : ChainList),
       exact chainNatAct_eq_chainOneAct ls (acc.1 + 2, readSlot gN acc.1 * acc.2
         + readSlot gN (acc.1 + 1)) gN
 
+
+/-! ## ⚠⚠ 第 36 轮：`deg p = 0` 是一个【真正的**数学边界，不是战术问题
+
+## 压顶定理需要的
+
+**`chainNatPoly_totalDegree`（第 33 轮）的前提是 `1 ≤ p.totalDegree`。
+而网络输入是标量 `x`，载体写作 `MvPolynomial.C x`——**它的次数是 0**。
+⇒ 直接套用被前提挡住。** -/
+
+/-! ## 我试的补救：`deg p = 0` 的情形单独证
+
+**目标：`deg(stepNat (off, p)) = 1`（当 `deg p = 0`）。
+
+**我用的仍是 `totalDegree_add_eq_left_of_totalDegree_lt`，而它要求
+`deg(X (off+1)) < deg(X off · p)`，即 `1 < 1 + 0`。**
+
+**⚠ 那是【假**的。`deg p = 0` 时 `deg(X off · p) = 1`，与 `deg(X (off+1)) = 1` 【相等**，
+于是那条引理的前提不成立，`rw` 把目标变成了 `False`。**
+
+**⇒ 这不是名字或顺序的问题：`deg p = 0` 时两层次数【并列**，
+`totalDegree_add_le` 只给 `≤ 1`，而下界 `≥ 1` 需要另找依据。** -/
+
+/-! ## 正确的补救（下一轮）
+
+**`deg p = 0` 时 `p = C c`（某个常数 `c`），于是 `X off · C c + X (off+1)`
+【正是第 22 轮证过的形状**——`totalDegree_X_mul_C_add_X_ge`（`c ≠ 0`、`a ≠ b`）。**
+
+**⇒ 那条给出 `1 ≤ deg`，配 `totalDegree_add_le` 的上界即得 `= 1`。**
+
+**⚠ 但需要一个「`deg p = 0` ⇒ `p = C c` 且 `c ≠ 0`」的分解引理。
+mathlib 里应当有 `MvPolynomial.totalDegree_eq_zero` 或 `eq_C_of_totalDegree_zero`——
+第 24 轮查过 `totalDegree_eq_zero` 【不存在**，但 `eq_C_of_totalDegree_zero` 还没查过。**
+
+**⇒ 下一轮第一件事：`#check @MvPolynomial.eq_C_of_totalDegree_zero` 等候选。**
+
+## 另一条更简单的路
+
+**放弃 `C x` 作为输入，改用 `X 0`——它的次数是 1，`1 ≤ deg` 直接满足。**
+
+**代价**：**输出多项式的次数变成 `1 + 长度`，而不是 `长度`。**
+
+**⇒ 而那是【诚实**的：**输入变量本身也是一个变量，所以「输出的总次数 = 层数 + 1」是更准确的说法。**
+**⇒ 若 `eq_C_of_totalDegree_zero` 不存在，下一轮就走这条，并在陈述里写明那多出来的一次来自输入。** -/
+
 end Lattice.Core
