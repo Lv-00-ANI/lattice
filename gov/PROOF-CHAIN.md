@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 161 | 59 |
+| `Lattice.Core.VariableDerivative` | 163 | 60 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2835,8 +2835,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_dom_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `induction`, `le_trans`, `zero`
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
-- `chainNatPoly_eval_act` -> `eval`
-- `chainNatPoly_totalDegree` -> `eval`, `eval_add`, `eval_mul`, `length`
+- `chainNatPoly_eval_act` -> `eval`, `length`, `length_cons`
+- `chainNatPoly_totalDegree` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
 - `chainOneAct_allOnesWeights` -> `apply`, `eval`, `le_antisymm`
@@ -2844,6 +2844,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `eval`
 - `chainOneDepth_cons_succ` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `chainOneDepth_idf` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
+- `chainOneDepth_listToChainOne` -> `length`, `length_cons`
 - `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `eval`, `le_antisymm`
 - `chainOnePoly_degree_le` -> `eval`, `eval_add`, `eval_mul`
@@ -4890,7 +4891,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `convertVec`, `dot`, `induction`, `length`, `subst`
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
-- `foldl_eval_act` -> `eval`
+- `foldl_eval_act` -> `eval`, `length`, `length_cons`
 - `foldl_eval_lipschitz` -> `apply`, `induction`
 - `foldl_init_add` -> `dot`, `induction`, `length`, `subst`
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
@@ -9074,7 +9075,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepIter_apply_ne` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_le` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
-- `stepNat_eval` -> `eval`, `eval_add`, `eval_mul`
+- `stepNat_eval` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `stepNat_snd_degree_pos` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `stepNat_snd_totalDegree` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`

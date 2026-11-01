@@ -4136,4 +4136,45 @@ theorem chainNatPoly_eval_act (ls : ChainList) (p : MvPolynomial ℕ ℝ) (g : �
   simp only [chainNatPoly, chainNatAct]
   exact foldl_eval_act ls g (0, p)
 
+
+/-- **列表到 `ChainOne` 的翻译**——**两者的唯一关系，是一个函数。** -/
+def listToChainOne : ChainList → ChainOne
+  | [] => ChainOne.idf
+  | l :: ls => ChainOne.cons l (listToChainOne ls)
+
+/-- ⭐ **翻译保持层数**：**`chainOneDepth` = 列表长度**。 -/
+theorem chainOneDepth_listToChainOne : ∀ (ls : ChainList),
+    chainOneDepth (listToChainOne ls) = ls.length
+  | [] => rfl
+  | l :: ls => by
+      simp only [listToChainOne, chainOneDepth, List.length_cons,
+        chainOneDepth_listToChainOne ls]
+
+/-- ⭐⭐⭐ **数值作用一致**：**`ℕ` 下标的作用就是 `ChainOne` 的作用**，
+**前提是 `g` 取 `readSlot gN`（界外为 0）。**
+
+**⚠ 这把两个载体连了起来：`ℕ` 下标版（无界、`foldl`、次数界已知）与
+`ChainOne` 版（已与 `flatChainAct` 连接，第 17 轮）。** -/
+theorem chainNatAct_eq_chainOneAct {N : ℕ} : ∀ (ls : ChainList),
+    ∀ (acc : ℕ × ℝ) (gN : Fin N → ℝ),
+      (ls.foldl (fun a _ => stepAct (fun k => readSlot gN k) a) acc).2
+        = chainOneAct (listToChainOne ls) acc.1 gN acc.2
+  | [] => by
+      intro acc gN
+      simp only [List.foldl_nil, listToChainOne, chainOneAct]
+  | l :: ls => by
+      intro acc gN
+      rw [List.foldl_cons]
+      have hstep : stepAct (fun k => readSlot gN k) acc
+          = (acc.1 + 2, readSlot gN acc.1 * acc.2 + readSlot gN (acc.1 + 1)) := rfl
+      rw [hstep]
+      have hcons : chainOneAct (listToChainOne (l :: ls)) acc.1 gN acc.2
+          = chainOneAct (listToChainOne ls) (acc.1 + 2) gN
+              (readSlot gN acc.1 * acc.2 + readSlot gN (acc.1 + 1)) := by
+        simp only [listToChainOne]
+        exact chainOneAct_cons l (listToChainOne ls) acc.1 gN acc.2
+      rw [hcons]
+      exact chainNatAct_eq_chainOneAct ls (acc.1 + 2, readSlot gN acc.1 * acc.2
+        + readSlot gN (acc.1 + 1)) gN
+
 end Lattice.Core
