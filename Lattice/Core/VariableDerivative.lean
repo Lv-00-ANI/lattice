@@ -3806,4 +3806,44 @@ theorem totalDegree_X_mul_add_X {N : ℕ} (a b : Fin N) (hab : a ≠ b)
 **⇒ 这是本轮确定的【唯一可行修法**，也是下一轮的第一件事。
 **⇒ 在改签名之前，先备份当前位置（提交号 728）作为回退点。** -/
 
+
+/-! ## ⭐⭐ 第 29 轮：`chainOneDepth` 的等式引理是超时的一个真实来源
+
+## 本轮证实的
+
+**`chainOneDepth` 的 `match` 定义展开成本很低，但 `omega` 通过**定义**去展开它时会走
+`ChainOne` 的 `brecOn` 表示，那才是超时的根源。**
+
+**⇒ 一旦给出等式引理并**显式 `rw`**，超时消失：**
+
+    @[simp] theorem chainOneDepth_idf : chainOneDepth ChainOne.idf = 0 := rfl
+    @[simp] theorem chainOneDepth_cons (l : MLayer 1 1) (rest : ChainOne) :
+        chainOneDepth (ChainOne.cons l rest) = chainOneDepth rest + 1 := rfl
+
+**⚠ 关键：`omega` 【不会自动用 `@[simp]` 引理**——必须显式 `rw [chainOneDepth_idf] at hd`，
+或先 `rw` 再 `omega`。「加了 `@[simp]` 就够了」是错的。
+
+**⇒ 加上这两条并显式 `rw` 之后，`chainOnePolyD_degree_ge` 的 `idf` 支【通过】了。** -/
+
+/-! ## 仍未解决的：`cons` 支的展开
+
+**`cons` 支需要把 `chainOnePolyD (cons l rest) d hd off hN p` 展开成
+`chainOnePolyD rest (chainOneDepth rest) rfl (off+2) … (X off · p + X (off+1))`。**
+
+**⚠ `rw [chainOnePolyD]` 超时**（第 28 轮已知）。
+**⚠ `chainOnePolyD.eq_2` 的名字【无法探测**——
+`agent-tmp` 不在 `lakefile` 的模块列表里，所以从那里写的 `#check` 看不到 `Lattice.Core` 的新定义。
+**⇒ 下一轮探测 `eq_2` 的签名必须把探针写进 `Lattice/Core/` 下的临时模块，或者直接在
+`VariableDerivative.lean` 里用 `#check`（它会被 `lake build` 编译）。**
+
+## 第 29 轮的流程记录
+
+**按项目规则在分支 `p2-04-depthparam29` 上做，失败后 `git checkout master` 并删除分支。
+master 仍在 729，构建通过。**
+
+## 结论
+
+**本轮没有代码入库。** **但「`chainOneDepth` 的等式引理 + 显式 `rw`」是一条可复用的具体修法，
+而它已经把归纳的一半（`idf` 支）从超时变成了通过。** -/
+
 end Lattice.Core
