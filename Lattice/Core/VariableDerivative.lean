@@ -5269,4 +5269,70 @@ hypotheses.**
 -/
 
 
+
+/-! ## Round 61: `coeff_X_mul'` gives ZERO, not `coeff s p` -- a misreading
+
+## What round 60 proposed
+
+**Round 60 concluded that the fold needs a PRESERVATION lemma**
+
+    coeff s ((stepNat (off, p)).2) = coeff s p       (for off, off+1 notin s.support)
+
+**and argued that `X off * p`'s coefficient at `s` "reduces by `coeff_X_mul'` to
+`coeff s p`".**
+
+**That is a misreading of `coeff_X_mul'`, and this round hit it head on.**
+
+## What `coeff_X_mul'` actually says
+
+    coeff_X_mul' (m : sigma ->0 Nat) (s : sigma) (p : MvPolynomial sigma R) :
+        coeff m (X s * p) = if s in m.support then coeff (m - single s 1) p else 0
+
+**In the notation of our goal: with `m := s` (the target monomial) and `s := off`
+(the variable), and `off notin s.support`, the result is ZERO -- not `coeff s p`.**
+
+**The `else 0` branch is exactly the case `off notin s.support`.**
+
+**=> so `X off * p` contributes 0 at any `s` whose support omits `off`.**
+**That is the SAME content as round 59's lemma, and it means the product term does NOT
+carry `p`'s coefficient at `s` through.**
+
+## What this implies
+
+**The true behaviour of a step at offset `off` at a slot `s` avoiding `off` and `off+1`:**
+
+    coeff s (stepNat (off, p)).2 = 0
+
+**-- a VANISHING, not a preservation.** **Round 59's lemma was right after all; round 60's
+"correction" was itself the error, and it was caused by reading `coeff_X_mul'`'s `else`
+branch as if it were the `then` branch.**
+
+**=> the fold statement must therefore be about SLOTS THAT ARE LATER THAN THE OFFSET, and
+the extraction argument cannot be "the k-th weight survives"; it must be "the k-th weight
+is CREATED at the k-th step and then DESTROYED by the next one" -- which means the final
+polynomial carries, at slot 2k, the value produced by step k+1, not step k.**
+
+## Where that leaves the extractor
+
+**`chainNatPoly` cannot be inverted by reading individual coefficients of the final
+polynomial directly: each slot holds the residue of the step AFTER the one that wrote the
+weight.**
+
+**=> the reverse direction needs either (a) intermediate polynomials, not just the final
+one, or (b) a different encoding in which each weight occupies a slot that no later step
+touches (e.g. reserving slot `2k` and shifting later steps past it).**
+
+**Option (b) is a change to `stepNat`'s slot assignment, i.e. an architecture-level change;
+per the project rule it would go on a branch.**
+
+## Honest accounting
+
+**No code in the tree this round (reverted to 762).**
+
+**The value of this round is entirely negative and entirely definite: it fixes which of
+rounds 59/60 is correct (59) and identifies that the obstacle is the SLOT ASSIGNMENT, not
+the proof strategy.**
+-/
+
+
 end Lattice.Core
