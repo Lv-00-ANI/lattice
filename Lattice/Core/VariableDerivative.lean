@@ -4800,4 +4800,32 @@ layerParamCount, rather than coefficient recovery.
 No code in the tree this round.
 -/
 
+
+/-- A one-layer polynomial: `X off * C c + X (off+1)`. -/
+noncomputable def oneLayerPolyNat (off : ℕ) (c : ℝ) : MvPolynomial ℕ ℝ :=
+  MvPolynomial.X off * MvPolynomial.C c + MvPolynomial.X (off + 1)
+
+/-- The weight coefficient of a one-layer polynomial: `c` at `X off`.
+
+This is the atomic step of the reverse direction: the forward direction writes the
+weight into the polynomial, this reads it back. -/
+theorem oneLayerPolyNat_coeff_weight (off : ℕ) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single off 1) (oneLayerPolyNat off c) = c := by
+  simp only [oneLayerPolyNat]
+  rw [MvPolynomial.coeff_add]
+  have h1 : MvPolynomial.coeff (Finsupp.single off 1)
+      (MvPolynomial.X off * MvPolynomial.C c : MvPolynomial ℕ ℝ) = c := by
+    have heq : (MvPolynomial.X off * MvPolynomial.C c : MvPolynomial ℕ ℝ)
+        = MvPolynomial.C c * MvPolynomial.X off := by ring
+    rw [heq, MvPolynomial.coeff_C_mul, MvPolynomial.coeff_X]
+    ring
+  have h2 : MvPolynomial.coeff (Finsupp.single off 1)
+      (MvPolynomial.X (off + 1) : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X']
+    have hne : (Finsupp.single (off + 1) 1 : ℕ →₀ ℕ) ≠ Finsupp.single off 1 := by
+      rw [Ne, Finsupp.single_eq_single_iff]
+      omega
+    simp [hne]
+  rw [h1, h2, add_zero]
+
 end Lattice.Core
