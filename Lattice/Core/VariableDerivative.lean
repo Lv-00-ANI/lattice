@@ -4601,4 +4601,49 @@ theorem polyChainAct_totalDegree_le {m n : ℕ} : (ch : PolyChain m n) → (off 
         (polyLayerStep a b off v) (d + 1) hstep j
       omega
 
+
+/-! ## ⚠⚠ 第 44 轮：宽 > 1 对接的两步，第二步需要【非线性】算术
+
+## 拆成两步
+
+「polyLayerStep」的变量下标是 ℕ，而「flatParamActSafe」的「g」是 Fin N → ℝ。
+∴ 分两步：
+
+1. 「polyLayerStep_eval」：求值等于 「natParamAct」（ℕ 下标的数值作用）；
+2. 「natParamAct_eq_flatParamActSafe」：两者在 g := readSlot gN 下一致。
+
+## 第一步本轮已经通过
+
+所用的关键引理是 「MvPolynomial.eval_sum」（不是我以为的 eval_finset_sum）。
+配 eval_add、eval_mul、eval_X 与 Finset.sum_congr rfl，证明是三行。
+
+## 第二步卡在：「slotOf」的界需要非线性推理
+
+要证 slotOf off a i j < N，已知：
+
+- i < a、j < b（Fin 的内建约束）；
+- off + a * b + b ≤ N（即 hN）。
+
+而 slotOf off a i j = off + i * a + j。∴ 需要 i * a + j < a * b + b，
+那是一个【乘法】不等式。
+
+⚠ omega 做不到——它是线性算术。
+它报出的反例约束正是缺了 i*a 与 a*b 的关系。
+
+⇒ 修法：先证一条纯算术引理
+
+    theorem slotOf_lt {a b i j : ℕ} (hi : i < a) (hj : j < b) (off : ℕ) :
+        slotOf off a i j < off + a * b + b
+
+⚠ 而那条引理本身也需要非线性推理：i * a + j < a * b + b
+由 i * a ≤ (a-1) * a 与 j ≤ b-1 得到——两步都需要乘法单调性。
+
+⇒ 下一轮的第一件事：写那条 slotOf_lt 的纯算术引理，
+用 nlinarith 或 Nat.mul_lt_mul_of_lt_of_le 一类的引理。
+
+## 结论
+
+本轮没有代码入库（回退到 744）。
+第一步已验证可通过，第二步的障碍是一条纯算术引理。 -/
+
 end Lattice.Core
