@@ -7,22 +7,27 @@
 
 ## 1. 数量与分布
 
-**292 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**294 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 257 | 89.9% |
+| `Lib` | 257 | 87.4% |
 | `Lift` | 0 | 0.0% |
 | `Runtime` | 9 | 3.1% |
 | `Domains` | 7 | 2.4% |
-| `Evidence` | 8 | 2.8% |
-| `Core` | 10 | 1.7% |
+| `Evidence` | 8 | 2.7% |
+| `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
+| `Plugins` | 2 | 0.7% |
 
-**分布值得注意**：90% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
+**分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
 而是钉住少数几条**关键**不可能性——而它们恰恰都在那里（见 §3）。
+
+`Plugins` 的两条是插件框架的两条**边界**结论：
+`refinement_not_mandatory`（C 后端不在强制义务内）与
+`allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
 
 ## 2. 按否证的对象分类
 

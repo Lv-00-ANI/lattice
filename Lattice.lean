@@ -9,6 +9,7 @@ import Lattice.Lib
 import Lattice.Evidence
 import Lattice.Usage
 import Lattice.Semantics
+import Lattice.Plugins
 
 /-!
 # LATTICE

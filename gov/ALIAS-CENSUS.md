@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 706 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 710 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 156 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -35,9 +35,11 @@
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Core/Repair.lean` | `parity_terminates` |
+| `Domains/Constraints/ConstraintSet.lean` | `holdsSet_nil` |
 | `Domains/Constraints/Dist.lean` | `sqDist_eq_of_dist_eq_same` |
 | `Domains/Constraints/Dist.lean` | `sqDist_nonneg` |
 | `Domains/Constraints/ExprDeriv.lean` | `maxPoint_lt_of_coord` |
+| `Domains/Constraints/ExprDerivative.lean` | `indicesBelow_const` |
 | `Domains/Constraints/Flatten.lean` | `flattenRepresentation_compile_extract` |
 | `Domains/Constraints/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_toGeo_expr` |
@@ -354,6 +356,7 @@
 | `Lib/Compiler/RealRefinementCalculus.lean` | `simulation_comp_reflTransGen` |
 | `Lib/Compiler/RealRefinementCalculus.lean` | `simulation_comp_three` |
 | `Lib/Compiler/RealRegisterAllocation.lean` | `loop_lower_bound` |
+| `Lib/Compiler/RealTreeDecidable.lean` | `isoList_nil` |
 | `Lib/Compiler/RealTreeDecidable.lean` | `iso_self_iff` |
 | `Lib/Compiler/RealTreeRecursion.lean` | `eval_size_pos` |
 | `Lib/Compiler/RealTreeRecursion.lean` | `size_pos` |
@@ -361,6 +364,7 @@
 | `Lib/Compiler/RealWPWhile.lean` | `triple_while_iff_wpT_while` |
 | `Lib/Compiler/RealWPWhile.lean` | `wpT_while_isFixpoint` |
 | `Lib/Compiler/RealWPWhile.lean` | `wpT_while_least_agrees` |
+| `Lib/Compiler/RealWPWhile.lean` | `wp_skip_true` |
 | `Lib/Concentration/RealBernsteinCondition.lean` | `bernstein_moment_recurrence` |
 | `Lib/Concentration/RealEYM.lean` | `eym_dimension_crossing` |
 | `Lib/Concentration/RealEYM.lean` | `eym_general_via_gram` |

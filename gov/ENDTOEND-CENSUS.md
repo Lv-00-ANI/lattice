@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5572 | 60.9% |
-| 1 | 1433 | 15.7% |
-| 2 | 761 | 8.3% |
+| 0 | 5572 | 60.8% |
+| 1 | 1433 | 15.6% |
+| 2 | 762 | 8.3% |
 | 3 | 624 | 6.8% |
 | 4 | 525 | 5.7% |
 | 5 | 204 | 2.2% |
-| 6 | 27 | 0.3% |
-| **合计** | **9146** | |
+| 6 | 38 | 0.4% |
+| **合计** | **9158** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -49,6 +49,17 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `ObligationKind.all_length` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `PluginLayer.card_eq_eight` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `PluginManifest.empty_claims_false` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `refinement_not_mandatory` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `PluginManifest.empty_never_covers` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `PluginProof.trivial_holds` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `PluginProof.trivial_fields` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `proofRegistry_eq_nil` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `registryConsistent_nil` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `allMandatoryKindsCovered_nil_fails` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `proofComplete_iff_registry` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bidir_steps` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `multistep_geometric_exists` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -77,17 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 5 | `optional_sound` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `optional_strength` (`Compose/More.lean`) | Core, Domains, Lib, Runtime, root |
 | 5 | `primitiveNames_length` (`Compose/PrimitiveShape.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `primitiveNames_nodup` (`Compose/PrimitiveShape.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `IdempotentOn.iterate` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `iterate_comp_of_leftInverse` (`Core/Idempotent.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `preserves_of_sat` (`Core/Invariant.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `oneStepRepair_converges` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `oneStepRepair_one_step` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `natCountdownAsRepair_converges` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `iterate_succ` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `progress` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
-| 5 | `preserves` (`Core/Repair.lean`) | Compose, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

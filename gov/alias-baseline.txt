@@ -863,3 +863,7 @@ copy	Lib/InfoTheory/RealMaxEntropy.lean	gibbsPartition_pos
 
 copy	Core/VariableDerivative.lean	lowDeg_affine
 copy	Core/VariableDerivative.lean	lowDeg_zero_of_const
+forward	Domains/Constraints/ConstraintSet.lean	holdsSet_nil
+forward	Domains/Constraints/ExprDerivative.lean	indicesBelow_const
+forward	Lib/Compiler/RealTreeDecidable.lean	isoList_nil
+forward	Lib/Compiler/RealWPWhile.lean	wp_skip_true
