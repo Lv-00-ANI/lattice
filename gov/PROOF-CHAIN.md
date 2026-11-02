@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 185 | 67 |
+| `Lattice.Core.VariableDerivative` | 186 | 67 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2816,7 +2816,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainDepth_chainOneToChain` -> `eval`, `eval_add`, `eval_mul`
 - `chainDepth_cons` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
 - `chainDepth_idf` -> `Chain`, `MLayer`, `eval`, `eval_add`, `eval_mul`
-- `chainDepth_polyChainToChain` -> `induction`
+- `chainDepth_polyChainToChain` -> `eval`, `induction`, `trans`
 - `chainErrReal_le` -> `E`, `induction`, `zero`
 - `chainErrReal_nonneg` -> `E`, `induction`, `zero`
 - `chainFwd_replacement_bound_last_layer` -> `ChainFwd`, `ChainTail`
@@ -6708,7 +6708,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `natAbs_step_lt` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
 - `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_pos` -> `eval`, `min`, `subst`
-- `natParamAct_eq_flatParamActSafe` -> `Chain`, `induction`
+- `natParamAct_eq_flatParamActSafe` -> `Chain`, `eval`, `induction`, `trans`
 - `natToInt_add` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToInt_injective` -> `Surjective`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToInt_lt_iff` -> `le_antisymm`
@@ -7458,13 +7458,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `policy_gradient_vector_directional` -> `E`, `apply`
 - `policy_value_differentiable` -> `E`, `apply`, `const_add`
 - `polyApprox_eps_to` -> `PolyApproxOn`
-- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`
-- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`
-- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`
+- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
+- `polyChainAct_eval` -> `eval`, `trans`
+- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
+- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
 - `polyKernel_one_eq_featScore` -> `apply`, `featScore`, `softmax`
 - `polyKernel_one_gram_psd` -> `apply`, `softmax`
-- `polyLayerStep_eval` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`
-- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`
+- `polyLayerStep_eval` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
+- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`, `trans`
 - `poly_const_distEq` -> `sqDistConst`
 - `poly_const_perpendicular` -> `sqDistConst`
 - `poly_const_samePoint` -> `sqDistConst`
@@ -8803,7 +8804,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotCount_eq_card` -> `trans`
 - `slotCount_eq_of_ne` -> `trans`
 - `slotOf_inj_col` -> `comp`
-- `slotOf_lt_bound` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`
+- `slotOf_lt_bound` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
 - `slotOf_row_add` -> `comp`
 - `slotOf_succ_col` -> `comp`
 - `slotOf_succ_row` -> `comp`

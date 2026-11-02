@@ -4702,4 +4702,36 @@ theorem chainDepth_polyChainToChain {m n : ℕ} (ch : PolyChain m n) :
   | cons l rest ih =>
       simp only [polyChainToChain, polyChainDepth, chainDepth_cons, ih]
 
+
+/-- ⭐⭐⭐ **整体桥接**：**`polyChainAct` 逐点求值 = `flatChainAct`。**
+
+**⚠ 第 45 轮逐层桥接沿链的提升。`g` 取 `readSlot gN`，
+`hN : off + polyChainParamCount ch + 1 ≤ N` 保证所有槽位在 `N` 内。** -/
+theorem polyChainAct_eval {N : ℕ} : {m n : ℕ} → (ch : PolyChain m n) → (off : ℕ) →
+    (v : Fin m → MvPolynomial ℕ ℝ) → (gN : Fin N → ℝ) →
+    (hN : off + polyChainParamCount ch + 1 ≤ N) →
+    ∀ j, (polyChainAct ch off v j).eval (fun k => readSlot gN k)
+      = flatChainAct (N := N) (polyChainToChain ch) off gN
+          (fun i => (v i).eval (fun k => readSlot gN k)) j
+  | _, _, .idf _, off, v, gN, hN, j => by
+      simp only [polyChainAct, polyChainToChain, flatChainAct]
+  | _, _, .cons (a := a) (b := b) l rest, off, v, gN, hN, j => by
+      -- 展开 hN 与两边
+      have hN' : off + layerParamCount a b + polyChainParamCount rest + 1 ≤ N := by
+        simp only [polyChainParamCount] at hN
+        omega
+      have hcur : off + a * b + b ≤ N := by
+        have hpc : layerParamCount a b = a * b + b := rfl
+        omega
+      simp only [polyChainAct, polyChainToChain, flatChainAct, polyChainParamCount]
+      -- 用归纳假设
+      rw [polyChainAct_eval rest (off + layerParamCount a b)
+        (polyLayerStep a b off v) gN (by simpa using hN')]
+      -- 现在需要把左边的求值换成 flatParamActSafe
+      congr 1
+      funext i
+      exact (polyLayerStep_eval a b off v (fun k => readSlot gN k) i).trans
+        (congrFun (natParamAct_eq_flatParamActSafe a b off gN
+          (fun i => (v i).eval (fun k => readSlot gN k)) hcur) i)
+
 end Lattice.Core
