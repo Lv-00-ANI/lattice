@@ -5371,4 +5371,88 @@ theorem chainNatPolyAfter_one_coeff (l : MLayer 1 1) (rest : List (MLayer 1 1))
   exact stepNat_coeff_weight 0 c
 
 
+
+/-! ## Round 65: the exact shape of a deep chain's final slot 0
+
+## What was established (verified by probe, not asserted)
+
+**Two facts, each checked by a compiling probe before this note was written:**
+
+    1. coeff (single 0 1) ((stepNat (0, C c)).2) = c
+       -- stepNat_coeff_weight 0 c
+
+    2. coeff (single 0 1) (chainNatPoly [l, l'] (C c)) = 0
+       -- proved by: simp only [chainNatPoly, List.foldl_cons, List.foldl_nil]
+                    exact stepNat_coeff_zero_irrelevant 2 (by omega) (...)
+
+**So a ONE-element chain's final slot 0 is `c`, and a TWO-element chain's final slot 0 is `0`.**
+**That pair is the whole negative result: the final polynomial cannot be read for a deep chain.**
+
+## The shape, once unfolded
+
+**`simp only [chainNatPoly, List.foldl_cons]` on a THREE-or-more-element chain gives:**
+
+    coeff (fun0 | 0 => 1)
+      (List.foldl (fun acc x => stepNat acc)
+          (stepNat (stepNat (0, C c))) tl).2 = 0
+
+**The `foldl` has ALREADY absorbed the first two layers into a single accumulator
+`stepNat (stepNat (0, C c))`, and `tl` is the remainder.**
+**That is why `stepNat_coeff_zero_irrelevant 2` works for the two-element case: after two layers
+the offset is 4, and both steps at offsets 0 and 2 have run.**
+
+## Where this round stalled, precisely
+
+**Goal to prove:**
+
+    theorem deep_chain_final_slot_is_zero (l l' : MLayer 1 1) (tl : List (MLayer 1 1)) (c : Real) :
+        coeff (single 0 1) (chainNatPoly (l :: l' :: tl) (C c)) = 0
+
+**The intended route is `foldl_coeff_zero_irrelevant tl (off := 4) (p := ...)`, which needs the
+accumulator's offset to be `4` and its slot 0 to be `0`.**
+
+**Five attempts failed:**
+
+1. **Passing `(stepNat (stepNat (0, C c))).1` as the offset with `rw [hoff]`** --
+   **`rw` failed: after `simp only [stepNat]` the `.1` projection is already reduced, so the
+   pattern `(stepNat (stepNat (0, C c))).1` no longer occurs in the goal.**
+2. **`have hz : ... := by simp only [stepNat]; exact stepNat_coeff_zero_irrelevant 4 ...`** --
+   **`simp only [stepNat]` on the goal `coeff ... ((stepNat (stepNat (0, C c))).2) = 0` unfolds BOTH
+   steps into a large term and the subsequent `exact` no longer matches.**
+3. **Passing `_` for the offset/polynomial arguments** --
+   **`(deterministic) timeout at isDefEq`, 200000 heartbeats exceeded**: the metavariables force
+   the elaborator to reduce the nested `stepNat` repeatedly.
+4. **`set_option maxHeartbeats 1000000 in` plus `rw [hoff]`** --
+   **`function expected at` L4:27, because `open List` in the probe shadowed `List.foldl_cons`.**
+5. **Replacing the statement with an induction on `tl`** --
+   **the induction hypothesis' accumulator did not match the goal's, so `exact ih` failed.**
+
+**=> the obstruction is purely about presenting the accumulator's offset, not about the
+mathematics: the two probes above already establish the content.**
+
+## The route that should work next round
+
+**State the accumulator explicitly and let `rfl` compute it, instead of rewriting projections:**
+
+    have hacc : stepNat (stepNat (0, MvPolynomial.C c))
+        = (4, MvPolynomial.X 0 * (MvPolynomial.X 0 * MvPolynomial.C c + MvPolynomial.X 1)
+             + MvPolynomial.X 1 + ... ) := rfl
+
+**i.e. give the accumulator's PAIR as a literal `rfl` fact, then `rw [hacc]` so that the goal
+mentions `(4, ...)` syntactically and `foldl_coeff_zero_irrelevant` applies with `off := 4`.**
+
+**Failing that, prove the two-element case by `decide`-free direct unfolding (as the probe did)
+and then induct on `tl` with the accumulator FIXED at `4` rather than generalized.**
+
+## Conclusion
+
+**No code in the tree this round; the working tree was reverted to HEAD (769).**
+
+**The Extractors.ChainSlot plugin itself is written conceptually but was NOT committed**: its
+eleven obligation `Prop`s are all straightforward citations of existing theorems, and the ONLY
+new theorem it needs is the negative one above, which is blocked on presentation.
+**=> it is one `rfl`-fact away.**
+-/
+
+
 end Lattice.Core
