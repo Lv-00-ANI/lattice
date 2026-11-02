@@ -5060,4 +5060,41 @@ STRING replace inside a patch script.** **The fix is to scope each replacement t
 away.**
 -/
 
+
+/-- At offset >= 2, a step writes NOTHING to slot 0.
+
+The positional fact behind multi-layer extraction: a later layer writes to slots >= 2,
+so the first layer's weight at slot 0 is never overwritten by the rest of the foldl.
+
+Round 54 proposed the false statement `= coeff (single 0 1) p`; both terms of `stepNat`
+in fact contribute 0 there, so the coefficient is 0 outright.
+
+The key lemma is `MvPolynomial.coeff_X_mul'`:
+    coeff m (X s * p) = if s in m.support then coeff (m - single s 1) p else 0
+-/
+theorem stepNat_coeff_zero_irrelevant (off : ℕ) (hoff : 2 ≤ off)
+    (p : MvPolynomial ℕ ℝ) :
+    MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (off, p)).2) = 0 := by
+  simp only [stepNat]
+  rw [MvPolynomial.coeff_add]
+  have hnotmem : off ∉ (Finsupp.single 0 1 : ℕ →₀ ℕ).support := by
+    have h : (Finsupp.single 0 1 : ℕ →₀ ℕ).support = {0} := by
+      rw [Finsupp.support_single_ne_zero]
+      simp
+    rw [h]
+    simp only [Finset.mem_singleton]
+    omega
+  have h1 : MvPolynomial.coeff (Finsupp.single 0 1)
+      (MvPolynomial.X off * p : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X_mul', if_neg hnotmem]
+  have h2 : MvPolynomial.coeff (Finsupp.single 0 1)
+      (MvPolynomial.X (off + 1) : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X']
+    have hne : (Finsupp.single (off + 1) 1 : ℕ →₀ ℕ)
+        ≠ Finsupp.single 0 1 := by
+      rw [Ne, Finsupp.single_eq_single_iff]
+      omega
+    simp [hne]
+  rw [h1, h2, add_zero]
+
 end Lattice.Core
