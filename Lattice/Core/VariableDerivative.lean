@@ -4396,4 +4396,52 @@ theorem stepNat_totalDegree_zero (off : ℕ) (p : MvPolynomial ℕ ℝ) (hp : p 
   rw [hC]
   exact totalDegree_X_mul_C_add_X_zero_nat off (off + 1) (by omega) hc
 
+
+/-- ⭐⭐⭐ **`foldl` 的次数：对所有非零 `acc.2` 成立**——**不再需要 `1 ≤ deg`。**
+
+**⚠ 归纳里按 `deg acc.2` 分两支：**
+- **`deg = 0`**：用 `stepNat_totalDegree_zero`（第 39 轮），结果次数是 1；
+- **`deg ≥ 1`**：用 `stepNat_snd_totalDegree`（第 33 轮），结果次数是 `1 + deg`。
+
+**⚠ 关键：两支的结果都满足 `1 ≤` 与新次数，所以归纳假设可以在【同一形式**下递归。** -/
+theorem foldl_step_totalDegree_any :
+    ∀ (ls : ChainList) (acc : ℕ × MvPolynomial ℕ ℝ),
+      acc.2 ≠ 0 →
+      (ls.foldl (fun a _ => stepNat a) acc).2.totalDegree = acc.2.totalDegree + ls.length
+  | [], acc, _ => by
+      simp
+  | l :: ls, acc, hne => by
+      obtain ⟨off, p⟩ := acc
+      simp only at hne
+      rw [List.foldl_cons]
+      by_cases h0 : p.totalDegree = 0
+      · -- deg p = 0 支
+        have hstep : (stepNat (off, p)).2.totalDegree = 1 :=
+          stepNat_totalDegree_zero off p hne h0
+        have hne' : (stepNat (off, p)).2 ≠ 0 := by
+          intro h
+          rw [h, MvPolynomial.totalDegree_zero] at hstep
+          omega
+        rw [foldl_step_totalDegree_any ls (stepNat (off, p)) hne']
+        rw [hstep]
+        simp only [List.length_cons]
+        omega
+      · -- deg p ≥ 1 支
+        have h1 : 1 ≤ p.totalDegree := by omega
+        have hstep : (stepNat (off, p)).2.totalDegree = 1 + p.totalDegree :=
+          stepNat_snd_totalDegree off p hne h1
+        have hne' : (stepNat (off, p)).2 ≠ 0 :=
+          stepNat_snd_ne_zero off p hne h1
+        rw [foldl_step_totalDegree_any ls (stepNat (off, p)) hne']
+        rw [hstep]
+        simp only [List.length_cons]
+        omega
+
+/-- ⭐⭐⭐ **链多项式的次数 = `deg p + 层数`，对【任意非零 `p`】**——**包括常数 `C x`。** -/
+theorem chainNatPoly_totalDegree_any (ls : ChainList) (p : MvPolynomial ℕ ℝ)
+    (hp : p ≠ 0) :
+    (chainNatPoly ls p).totalDegree = p.totalDegree + ls.length := by
+  simp only [chainNatPoly]
+  exact foldl_step_totalDegree_any ls (0, p) hp
+
 end Lattice.Core
