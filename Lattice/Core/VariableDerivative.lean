@@ -5097,4 +5097,29 @@ theorem stepNat_coeff_zero_irrelevant (off : ℕ) (hoff : 2 ≤ off)
     simp [hne]
   rw [h1, h2, add_zero]
 
+
+/-- Slot 0 is dead once the offset is >= 2: the foldl preserves a zero there.
+
+The statement carries BOTH hypotheses -- offset >= 2 AND slot 0 already zero -- because
+the empty list returns its accumulator unchanged, so neither hypothesis alone suffices.
+
+The cons case uses `stepNat_coeff_zero_irrelevant` to re-establish the zero for the tail,
+while `stepNat` keeps the offset at >= 2. -/
+theorem foldl_coeff_zero_irrelevant :
+    ∀ (ls : List (MLayer 1 1)) (off : ℕ) (p : MvPolynomial ℕ ℝ),
+      2 ≤ off → MvPolynomial.coeff (Finsupp.single 0 1) p = 0 →
+      MvPolynomial.coeff (Finsupp.single 0 1)
+        ((ls.foldl (fun acc _ => stepNat acc) (off, p)).2) = 0
+  | [], off, p, hoff, hp => by
+      simp only [List.foldl_nil]
+      exact hp
+  | l :: ls, off, p, hoff, hp => by
+      rw [List.foldl_cons]
+      have h2 : 2 ≤ (stepNat (off, p)).1 := by
+        simp only [stepNat]
+        omega
+      have hz : MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (off, p)).2) = 0 :=
+        stepNat_coeff_zero_irrelevant off hoff p
+      exact foldl_coeff_zero_irrelevant ls (stepNat (off, p)).1 (stepNat (off, p)).2 h2 hz
+
 end Lattice.Core

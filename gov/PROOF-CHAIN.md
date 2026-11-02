@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 199 | 68 |
+| `Lattice.Core.VariableDerivative` | 200 | 68 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -4906,6 +4906,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `convertVec`, `dot`, `induction`, `length`, `subst`
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `foldl_coeff_zero_irrelevant` -> `MLayer`
 - `foldl_eval_act` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`
 - `foldl_eval_lipschitz` -> `apply`, `induction`
 - `foldl_init_add` -> `dot`, `induction`, `length`, `subst`
@@ -9105,6 +9106,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepNat_coeff_bias` -> `MLayer`
 - `stepNat_coeff_weight` -> `MLayer`
+- `stepNat_coeff_zero_irrelevant` -> `MLayer`
+- `stepNat_coeff_zero_of_no_const` -> `MLayer`
 - `stepNat_eval` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_degree_pos` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
