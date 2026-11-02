@@ -4518,7 +4518,7 @@ theorem totalDegree_finset_sum_le {ι : Type*} (s : Finset ι)
 /-- **一层作用在多项式向量上**——**与 `flatParamActSafe` 逐字对应。** -/
 noncomputable def polyLayerStep (a b : ℕ) (off : ℕ) :
     (Fin a → MvPolynomial ℕ ℝ) → (Fin b → MvPolynomial ℕ ℝ) :=
-  fun v j => (∑ i : Fin a, MvPolynomial.X (slotOf off a i.val j.val) * v i)
+  fun v j => (∑ i : Fin a, MvPolynomial.X (slotOf off b i.val j.val) * v i)
     + MvPolynomial.X (off + a * b + j.val)
 
 /-- ⭐⭐ **一层的次数界**：**输入次数 ≤ `d` ⇒ 输出次数 ≤ `d + 1`。** -/
@@ -4645,5 +4645,47 @@ theorem polyChainAct_totalDegree_le {m n : ℕ} : (ch : PolyChain m n) → (off 
 
 本轮没有代码入库（回退到 744）。
 第一步已验证可通过，第二步的障碍是一条纯算术引理。 -/
+
+
+/-- ⭐⭐ **槽位算术界**：**`slotOf off b i j < off + a*b + b`**（当 `i < a`、`j < b`）。
+
+**⚠ 关键：`slotOf` 的行步长是 `b`（输出宽度），这是 `flatParamActSafe` 的约定。
+第 45 轮发现 `polyLayerStep` 原先写的 `slotOf off a …` 是【错的**，已修正。** -/
+theorem slotOf_lt_bound {a b i j : ℕ} (hi : i < a) (hj : j < b) (off : ℕ) :
+    slotOf off b i j < off + a * b + b := by
+  simp only [slotOf]
+  have h1 : i * b ≤ (a - 1) * b := Nat.mul_le_mul_right b (by omega)
+  have h2 : j ≤ b - 1 := by omega
+  have h3 : (a - 1) * b + (b - 1) < a * b + b := by
+    have ha : 1 ≤ a := by omega
+    have key : a * b = (a - 1) * b + b := by
+      conv_lhs => rw [← Nat.sub_add_cancel ha]
+      ring
+    omega
+  omega
+
+/-- **`ℕ` 下标的数值层作用**——**与 `polyLayerStep` 逐字对应。** -/
+noncomputable def natParamAct (a b off : ℕ) (g : ℕ → ℝ) (x : Fin a → ℝ) : Fin b → ℝ :=
+  fun j => (∑ i : Fin a, g (slotOf off b i.val j.val) * x i) + g (off + a * b + j.val)
+
+/-- ⭐⭐⭐ **一层的求值一致**：**`polyLayerStep` 的求值 = `natParamAct`。** -/
+theorem polyLayerStep_eval (a b off : ℕ) (v : Fin a → MvPolynomial ℕ ℝ)
+    (g : ℕ → ℝ) (j : Fin b) :
+    (polyLayerStep a b off v j).eval g
+      = natParamAct a b off g (fun i => (v i).eval g) j := by
+  simp only [polyLayerStep, natParamAct]
+  rw [MvPolynomial.eval_add, MvPolynomial.eval_sum, MvPolynomial.eval_X]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro i _
+  rw [MvPolynomial.eval_mul, MvPolynomial.eval_X]
+
+/-- ⭐⭐⭐ **`ℕ` 数值作用与 `flatParamActSafe` 一致**——**`g` 取 `readSlot gN`。** -/
+theorem natParamAct_eq_flatParamActSafe {N : ℕ} (a b off : ℕ) (gN : Fin N → ℝ)
+    (x : Fin a → ℝ) (hN : off + a * b + b ≤ N) :
+    natParamAct a b off (fun k => readSlot gN k) x
+      = flatParamActSafe (N := N) (a := a) (b := b) off gN x := by
+  funext j
+  simp only [natParamAct, flatParamActSafe]
 
 end Lattice.Core
