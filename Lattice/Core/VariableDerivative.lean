@@ -4688,4 +4688,18 @@ theorem natParamAct_eq_flatParamActSafe {N : ℕ} (a b off : ℕ) (gN : Fin N �
   funext j
   simp only [natParamAct, flatParamActSafe]
 
+
+/-- **`PolyChain` → `Chain` 的翻译**——**两者的唯一关系，是一个函数。** -/
+def polyChainToChain : {m n : ℕ} → PolyChain m n → Chain m n
+  | _, _, .idf _ => Chain.idf _
+  | _, _, .cons l rest => Chain.cons l (polyChainToChain rest)
+
+/-- ⭐ **翻译保持层数**——**`chainDepth` 与 `polyChainDepth` 一致。** -/
+theorem chainDepth_polyChainToChain {m n : ℕ} (ch : PolyChain m n) :
+    chainDepth (polyChainToChain ch) = polyChainDepth ch := by
+  induction ch with
+  | idf k => rfl
+  | cons l rest ih =>
+      simp only [polyChainToChain, polyChainDepth, chainDepth_cons, ih]
+
 end Lattice.Core
