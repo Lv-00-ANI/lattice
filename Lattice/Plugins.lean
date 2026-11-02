@@ -41,6 +41,7 @@ def proofRegistry : List VerifiedPlugin :=
    Lattice.Plugins.Domains.Constraints.Penalty.verified,
    Lattice.Plugins.Domains.Constraints.Tokens.verified,
    Lattice.Plugins.Extractors.ChainSlot.verified,
+   Lattice.Plugins.Architectures.GNN.verified,
    Lattice.Plugins.Architectures.Norm.verified]
 
 /-- The registry contains the penalty plugin. -/
@@ -73,8 +74,13 @@ theorem proofRegistry_norm_mem :
     Lattice.Plugins.Architectures.Norm.verified ∈ proofRegistry := by
   simp [proofRegistry]
 
-/-- The registry currently holds exactly six plugins. -/
-theorem proofRegistry_length : proofRegistry.length = 6 := rfl
+/-- The registry contains the graph-network carrier. -/
+theorem proofRegistry_gnn_mem :
+    Lattice.Plugins.Architectures.GNN.verified ∈ proofRegistry := by
+  simp [proofRegistry]
+
+/-- The registry currently holds exactly seven plugins. -/
+theorem proofRegistry_length : proofRegistry.length = 7 := rfl
 
 /-- **Every registered plugin is consistent.** -/
 def RegistryConsistent : Prop := RegistryConsistentFor proofRegistry
@@ -87,37 +93,37 @@ theorem registryConsistent_holds : RegistryConsistent := by
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · exact fun _ => Lattice.Plugins.Core.Constraint.proof_holds
   · exact fun _ => Lattice.Plugins.Core.Repair.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Penalty.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Tokens.proof_holds
   · exact fun _ => Lattice.Plugins.Extractors.ChainSlot.proof_holds
+  · exact fun _ => Lattice.Plugins.Architectures.GNN.proof_holds
   · exact fun _ => Lattice.Plugins.Architectures.Norm.proof_holds
 
 /-- **The mandatory kinds the tree already covers.**
 
-`soundness`, `laws`, `exactness`, `approximation`, `completeness` **and `idempotence`** are claimed
-across the six migrated plugins. **`laws` joined when `Core.Repair` was migrated** (its
-`iterate_succ` is a monoid-action law), **`exactness` gained a second witness when `Tokens` was
-migrated** (the flattening bijection), **`soundness` gained its deepest witness when
-`Core.Constraint` was migrated** (the two `Models` lemmas), **and `idempotence` joined when
-`Architectures.Norm` was migrated** -- **the first architecture carrier, and the first plugin able
-to claim that kind at all.**
+**Eight of the eleven**: `soundness`, `laws`, `exactness`, `approximation`, `completeness`,
+`idempotence`, `equivariance`, `invariants`.
 
-**`Extractors.ChainSlot` is the first plugin whose EXACTNESS obligation concerns the REVERSE
-direction**: `intermediate_poly_readable` says where a weight is, and the bundle's `soundness`
-carries the matching impossibility (`deep_chain_final_slot_dead`).
+**`laws` joined when `Core.Repair` was migrated** (its `iterate_succ` is a monoid-action law);
+**`exactness` gained a second witness when `Tokens` was migrated**; **`soundness` gained its deepest
+witness when `Core.Constraint` was migrated** (the two `Models` lemmas); **`idempotence` joined when
+`Architectures.Norm` was migrated**; **`equivariance` and `invariants` joined together when
+`Architectures.GNN` was migrated** -- **the same plugin closes both, because a GNN's defining
+property is an equivariance law whose payoff is an invariant readout.**
 
-The five still missing (`recovery`, `spatial`, `confluence`, `equivariance`, `invariants`) belong to
-plugins that have not been migrated. -/
+The three still missing (`recovery`, `spatial`, `confluence`) **all belong to the `Compose` layer**,
+which has not been migrated: they are properties of how plugins COMBINE, and no single-carrier
+plugin can have them. -/
 theorem coverage_partial :
     (∀ k ∈ [ObligationKind.soundness, .laws, .exactness, .approximation, .completeness,
-            .idempotence],
+            .idempotence, .equivariance, .invariants],
         ∃ p ∈ proofRegistry, p.manifest.claims k = true) := by
   intro k hk
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hk
-  rcases hk with rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · -- soundness: the constraint-logic plugin
     exact ⟨_, proofRegistry_constraint_mem, rfl⟩
   · -- laws: the repair plugin
@@ -130,6 +136,10 @@ theorem coverage_partial :
     exact ⟨_, proofRegistry_tokens_mem, rfl⟩
   · -- idempotence: the normalisation carrier
     exact ⟨_, proofRegistry_norm_mem, rfl⟩
+  · -- equivariance: the graph-network carrier
+    exact ⟨_, proofRegistry_gnn_mem, rfl⟩
+  · -- invariants: the graph-network carrier (its invariant readout)
+    exact ⟨_, proofRegistry_gnn_mem, rfl⟩
 
 /-- **Registry completeness, as the plan defines it.** -/
 def PluginRegistryComplete : Prop :=
@@ -169,7 +179,7 @@ theorem registryComplete_fails :
   obtain ⟨p, hp, hclaim⟩ := h .recovery (by simp [mandatoryKinds])
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · -- the constraint-logic plugin does not claim recovery
     rw [Lattice.Plugins.Core.Constraint.verified_manifest,
         Lattice.Plugins.Core.Constraint.manifest_no_recovery] at hclaim
@@ -189,6 +199,10 @@ theorem registryComplete_fails :
   · -- the chain-slot extractor does not claim recovery
     rw [Lattice.Plugins.Extractors.ChainSlot.verified_manifest,
         Lattice.Plugins.Extractors.ChainSlot.manifest_no_recovery] at hclaim
+    exact Bool.false_ne_true hclaim
+  · -- the graph-network carrier does not claim recovery
+    rw [Lattice.Plugins.Architectures.GNN.verified_manifest,
+        Lattice.Plugins.Architectures.GNN.manifest_no_recovery] at hclaim
     exact Bool.false_ne_true hclaim
   · -- the normalisation carrier does not claim recovery
     rw [Lattice.Plugins.Architectures.Norm.verified_manifest,
