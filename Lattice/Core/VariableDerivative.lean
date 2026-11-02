@@ -5182,4 +5182,30 @@ zeros. What was wrong was the APPLICATION I was about to build on top of them.**
 -/
 
 
+
+/-- A step at offset `m` writes nothing to slot `2k` when `m != 2k` and `m + 1 != 2k`.
+
+Generalises round 56 from slot 0 to an arbitrary slot: the two monomials `X m` and
+`X (m+1)` are the only places a step touches, so any OTHER slot is untouched.
+
+This is the per-slot argument round 58 identified as the right one. -/
+theorem stepNat_coeff_other_slot (m : ℕ) (p : MvPolynomial ℕ ℝ)
+    (s : ℕ →₀ ℕ) (hs : s ≠ 0)
+    (h1 : m ∉ s.support) (h2 : m + 1 ∉ s.support) :
+    MvPolynomial.coeff s ((stepNat (m, p)).2) = 0 := by
+  simp only [stepNat]
+  rw [MvPolynomial.coeff_add]
+  have hx1 : MvPolynomial.coeff s (MvPolynomial.X m * p : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X_mul', if_neg h1]
+  have hx2 : MvPolynomial.coeff s (MvPolynomial.X (m + 1) : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X']
+    have hne : (Finsupp.single (m + 1) 1 : ℕ →₀ ℕ) ≠ s := by
+      intro h
+      apply h2
+      rw [← h]
+      exact Finsupp.mem_support_iff.mpr (by simp)
+    simp [hne]
+  rw [hx1, hx2, add_zero]
+
+
 end Lattice.Core
