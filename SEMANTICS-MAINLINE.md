@@ -237,25 +237,25 @@ fr := frameCheck (m1, delta)?;
 |:--|:--|:--|:--|
 | S0 | `SemanticDomain` / `Meaning` | 已闭合 | `Semantics/Stage1.lean` |
 | S1 | `vocab_denote_sound`（阶段 1 形式） | 已闭合 | `Stage1.lean` `constraintVocab_denote_sound` |
-| S2 | `complete_on D` | 已闭合（相对 `D`） | `Stage1.lean` `complete_on` |
-| S3 | `geometry_inherits` / `inherits_sound` | 已闭合 | `Stage1.lean` |
-| S4 | `annotation_realizes` | 已闭合 | `Annotations.lean` |
-| S5 | `edit_frame` | 已闭合 | `Annotations.lean` |
-| S6 | `edit_reversible` | 已闭合 | `Annotations.lean` |
-| S7 | `edit_idempotent` / `conflict_free` | 部分：idempotence 有；冲突自由在 S8 | `Annotations.lean`、`Merge.lean` |
-| S8 | `merge_sound` / 冲突可检测 | 已闭合（多专家可组合） | `Merge.lean` |
-| S9 | `compile_sound` | **已闭合**（第 227 轮，限于能到仿射权重的两个构造子） | `Semantics/CompileSound.lean` |
-| S10 | `post_train_preserves` | **已闭合**（第 4 轮）：在解处一步是恒等，故**任意谓词**都被保持；并附反面定理证明该前提必要 | `Semantics/PostTrain.lean` |
-| S11 | `program_representation_roundtrip` | 已闭合 | `Lift/ProgramAST.lean` |
-| S12 | `transformer_eval` | 已闭合 | `Lib/Architectures/RealTransformerEval.lean` |
-| S13 | `float_refinement` | 已闭合（Lean 侧） | `Lib/FloatStackRefinement.lean` |
-| S14 | `vocab_edit_permutation_exact` | 已闭合 | `VocabEdit.lean` |
-| S15 | `vocab_edit_add_unused_exact` | 已闭合 | `VocabEdit.lean` |
-| S16 | `merge_error_bound` + `merge_not_exact` | 已闭合 | `VocabEdit.lean` |
-| S17 | `split_error_bound` | 已闭合 | `VocabEdit.lean` |
-| S18 | `vocab_compat_permutation` | 已闭合 | `VocabEdit.lean` |
-| S19 | `vocab_edit_reversible` | 已闭合 | `VocabEdit.lean` |
-| S20 | `vocab_align_merge_sound` | **被阻塞** | 见 §5.1 |
+| S2 | `complete_on D` | **结构存在，0 实例**：`complete_on` 是投影，不是完整语义 | `Stage1.lean` |
+| S3 | `geometry_inherits` / `inherits_sound` | **形式化但 0 实例**；`inherits_sound` 的 LHS 不含 `toks` | `Stage1.lean` |
+| S4 | `annotation_realizes` | **未形式化**：库中无 `Annotation` / `Region` | — |
+| S5 | `edit_frame` | **未形式化**：无 `Annotation` / `Region` | — |
+| S6 | `edit_reversible` | **缺失** | — |
+| S7 | `edit_idempotent` / `conflict_free` | **部分/假**：幂等 iff 为假；无 `edit_no_new_without_add` | `Annotations.lean`、`Merge.lean` |
+| S8 | `merge_sound` / 冲突可检测 | **近重言**；`MergeSound` 不含冲突检测 | `Merge.lean` |
+| S9 | `compile_sound` | **2/12，单条，点特定**；`l2l3` 忽略 `R.merged` | `Semantics/CompileSound.lean` |
+| S10 | `post_train_preserves` | **只在解处**：一步恒等，不是非解处保持 | `Semantics/PostTrain.lean` |
+| S11 | `program_representation_roundtrip` | **0 named theorem**；字段/定义存在，无命名往返定理 | `Runtime/ProgramRepresentation.lean` |
+| S12 | `transformer_eval` | **部分**：只到 6 条，未接 netLoss | `Lib/Architectures/RealTransformerEval.lean` |
+| S13 | `float_refinement` | **sound-only**：误差界未接 C/ABI，不是 exact | `Lib/FloatStackRefinement.lean` |
+| S14 | `vocab_edit_permutation_exact` | 非平凡，保留 | `VocabEdit.lean` |
+| S15 | `vocab_edit_add_unused_exact` | 定义性，信息少 | `VocabEdit.lean` |
+| S16 | `merge_error_bound` + `merge_not_exact` | **缺 merge 操作**；只有界，没有 merge 结构 | `VocabEdit.lean` |
+| S17 | `split_error_bound` | **定义性**：`split_error_bound` = `merge_error_bound M a b b` | `VocabEdit.lean` |
+| S18 | `vocab_compat_permutation` | 与 S14 逐字重复 | `VocabEdit.lean` |
+| S19 | `vocab_edit_reversible` | 非平凡，保留 | `VocabEdit.lean` |
+| S20 | `vocab_align_merge_sound` | **被阻塞**：`MergeSound` 不含词表类型 `V` | 见 §5.1 |
 
 ### 5.1 S20 为什么被阻塞
 

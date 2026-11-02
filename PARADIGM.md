@@ -183,3 +183,24 @@
   目的是让外部用一把尺子而不是五把。
 - 本文与 README 的定位段**必须一致**；若将来改变定位，两处同时改，
   并更新「两把尺子」的对照。
+
+---
+
+## 更新（2026-11-02）：新类型预训练/后训练
+
+LATTICE 的定位不只是一条“转换演算”，而是**新类型的预训练/后训练框架**：
+
+- **构造性预训练**：`Spec → Constraints → Solve → Params → ModelArtifact`；
+  只对 `ExpressibleSpec` 成立，不是 SGD；规格唯一确定权重时 exact，欠定时 canonical，不可精确时 ε。
+- **新类型后训练**：`ModelArtifact → 符号/行为 → verify → repair → re-inject`；
+  不做 SFT/DPO/RLHF；外部训练器只能作为 `Delegate`，证书为 `Imported`/`Empirical`。
+- **可扩展**：编译器/提取器/验证器/修复器/架构载体都是插件；
+  Lean 证明按插件管理，每个插件在层级目录下有语义命名的证明子文件夹。
+- **时空可组合**：动态加载/卸载/替换后，最终模型等价于从最终 `Spec` 重建（T7）。
+
+证明与工程分离：
+
+- Lean 只证明抽象 `ModelArtifact`（`Arch` + `Weights`）；
+- 格式解析、权重 I/O、导出、C、conformance 属于 `ENGINEERING.md`，不进入 `ProofComplete`。
+
+详见 `DESIGN.md`、`CONSTRUCTIVE-TRAINING.md`、`PLUGIN-PROOFS.md`、`SPATIOTEMPORAL.md`。

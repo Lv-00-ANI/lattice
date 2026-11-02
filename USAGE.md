@@ -286,3 +286,62 @@ lake build Lattice.Usage.Examples
 本节第 9 节的否证总数**曾写错一个数**（写大了约三分之一），而当时没有任何守卫覆盖 `USAGE.md`——**那一处就是新守卫 `check_usage_claims.py` 的由来**。
 
 **注意**：守卫的正则会抓取本文里所有"全部 N 条"形式的出现，所以**不要在正文里引用旧数字**，只描述它错了。
+
+---
+
+## 6. 新类型用法（2026-11-02）
+
+### 6.1 构造
+
+```text
+Spec → Constraints → Solve → Params → ModelArtifact
+```
+
+只对 `ExpressibleSpec`；不是梯度训练。
+
+### 6.2 导入
+
+```text
+RawModel → FormatAdapter.parse → ModelArtifact
+```
+
+格式解析属于工程；失败返回 `none`，不静默降级。
+
+### 6.3 变换
+
+```text
+ModelArtifact → edit / merge / quantize / repair → ModelArtifact
+```
+
+- exact / approx ε / irreversible；
+- irreversible 必须显式 commit；
+- 证书绑定 provider 与 artifact。
+
+### 6.4 导出
+
+```text
+ModelArtifact → FormatAdapter.export → RawModel
+```
+
+导出是 emission：不可逆，只能版本化/补偿。
+
+### 6.5 新增插件
+
+```text
+Lattice/Plugins/<Layer>/<Name>/
+  Manifest.lean
+  Semantics.lean
+  Soundness/
+  Completeness/
+  Laws/
+  Exactness/
+  Approximation/
+  Recovery/
+  Spatial/
+  Confluence/
+  Equivariance/
+  Idempotence/
+  Plugin.lean
+```
+
+详见 `PLUGIN-PROTOCOL.md` 与 `PLUGIN-PROOFS.md`。

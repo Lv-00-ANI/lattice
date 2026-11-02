@@ -1,8 +1,23 @@
 # LATTICE
 
 **Representation Lattice for Symbolic↔Weight Training**（表示谱系格）
-符号 ⇄ 权重的**带证明转换层**：正向编译符号知识到权重，逆向把权重行为提取回符号。
-**它不是训练框架**——不实现引擎、模型或优化器；它给现有训练/后训练栈提供可验证的转换与修复。
+符号 ⇄ 权重的**带证明转换层**：正向编译符号知识到权重，逆向把权重行为提取回符号，并对违反做验证与修复。
+
+**它不是常规训练框架**——不实现 optimizer、data loader、分布式训练、SFT、DPO、RLHF。
+它给现有预训练/后训练栈提供可验证的转换与修复。
+
+**但它是新类型的预训练/后训练框架**：
+
+- **构造性预训练**：符号规格 → 约束 → 解权重 → 模型；只对 `ExpressibleSpec` 成立，不是 SGD；
+- **新类型后训练**：模型/权重 → 符号/行为 → 验证 → 修复 → 再注入；
+- **产物范围**：只针对**模型与权重**；不处理日志、优化器状态、数据集、配置；
+- **结果完备**：任意现有模型/权重产物都能被导入、表示、转换、导出；
+- **可扩展**：编译器、提取器、验证器、修复器、架构载体都是插件；
+  Lean 证明也按插件管理，每个插件在其层级目录下有语义命名的证明子文件夹。
+
+**证明与工程分离**：Lean 只证明抽象 `ModelArtifact`（`Arch` + `Weights`）；
+格式解析、权重 I/O、导出、C、conformance 属于工程，不进入 `ProofComplete`。
+详见 [`DESIGN.md`](DESIGN.md)、[`ENGINEERING.md`](ENGINEERING.md)、[`PROOF-OBLIGATIONS.md`](PROOF-OBLIGATIONS.md)。
 
 > **定位**：**符号 ⇄ 权重表示的认证转换层**（representation lattice）——
 > 给定符号约束，给出**带 Lean 4 证明**的权重构造、提取与修复方案。
@@ -49,6 +64,21 @@
 > 目录与 Primitive 设计 → [`DIRECTORY-DESIGN.md`](DIRECTORY-DESIGN.md)；
 > 证明债务 → [`PROOF-DEBT.md`](PROOF-DEBT.md)；
 > 独立结构测量 → [`MACRO-STATUS.md`](MACRO-STATUS.md)。
+
+> **设计与证明阅读顺序**：
+> 总设计 → [`DESIGN.md`](DESIGN.md)；
+> 模型/权重语义 → [`MODEL-WEIGHT.md`](MODEL-WEIGHT.md)；
+> 从零构造 → [`CONSTRUCTIVE-TRAINING.md`](CONSTRUCTIVE-TRAINING.md)；
+> 运行时插件 → [`PLUGIN-PROTOCOL.md`](PLUGIN-PROTOCOL.md)；
+> Lean 证明插件 → [`PLUGIN-PROOFS.md`](PLUGIN-PROOFS.md)；
+> 现有证明迁移 → [`MIGRATION-PLUGINS.md`](MIGRATION-PLUGINS.md)；
+> 时空可组合 → [`SPATIOTEMPORAL.md`](SPATIOTEMPORAL.md) / [`CONFLUENCE.md`](CONFLUENCE.md)；
+> 证明义务 → [`PROOF-OBLIGATIONS.md`](PROOF-OBLIGATIONS.md)；
+> 架构载体 → [`ARCHITECTURE-CARRIERS.md`](ARCHITECTURE-CARRIERS.md)；
+> 工程/格式/C → [`ENGINEERING.md`](ENGINEERING.md)；
+> 路线图 → [`ROADMAP.md`](ROADMAP.md)；
+> 术语 → [`GLOSSARY.md`](GLOSSARY.md)；
+> 文档权威顺序 → [`DOCS-MAP.md`](DOCS-MAP.md)。
 
 ---
 
@@ -330,6 +360,55 @@ C 不是不做，是**最后做**。
 - S13 的 Lean 侧 Float 模型/误差界。
 
 最后写：`C/` 实现（ABI、序列化、conformance、runtime、trainer、性能/部署）。在 `Primitive` / `Sound` / `Compose` / `CInterface` 稳定前，C 是信任边界。
+
+C 在新架构中是**后续系统插件**，位于 `systemRegistry`，不进入 `ProofComplete`；若将来要进入证明，必须先补 C 形式语义。
+
+### 3.8 证明与工程的边界
+
+Lean 只处理抽象对象：
+
+```lean
+structure ModelArtifact where
+  arch : Arch
+  weights : Weights
+```
+
+不处理 `Format`、`ByteArray`、文件系统、C、conformance。
+这些属于 [`ENGINEERING.md`](ENGINEERING.md)，不进入 `ProofComplete`。
+
+### 3.9 插件证明与 ProofComplete
+
+每个能力是一个插件；每个插件在其层级目录下有**语义命名**的证明子文件夹：
+
+```text
+Lattice/Plugins/<Layer>/<Name>/
+  Manifest.lean
+  Semantics.lean
+  Soundness/
+  Completeness/
+  Laws/
+  Exactness/
+  Approximation/
+  Recovery/
+  Spatial/
+  Confluence/
+  Equivariance/
+  Idempotence/
+  Invariants/
+  Plugin.lean
+```
+
+`ProofComplete`：
+
+```lean
+def ProofComplete : Prop :=
+  T0_construct ∧ T1_compile ∧ T2_penalty ∧ T3_extract ∧ T4_repair ∧
+  T5_recovery ∧ T6_spatial ∧ T7_confluence ∧ T8_failure ∧
+  PluginRegistryComplete
+```
+
+不含格式解析、权重 I/O、C、conformance、外部训练器。
+详见 [`PLUGIN-PROOFS.md`](PLUGIN-PROOFS.md) 与 [`PROOF-OBLIGATIONS.md`](PROOF-OBLIGATIONS.md)。
 
 ---
 
