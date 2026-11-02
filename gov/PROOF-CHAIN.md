@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 201 | 68 |
+| `Lattice.Core.VariableDerivative` | 204 | 69 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2843,11 +2843,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainN_error_bound` -> `induction`, `zero`
 - `chainN_identical_blocks_bound` -> `ChainFwd`, `chainN_error_bound`
 - `chainNatAct_eq_chainOneAct` -> `apply`, `eval`, `le_antisymm`, `length`, `subst`
+- `chainNatPolyAfter_one_coeff` -> `MLayer`
+- `chainNatPolyAfter_succ` -> `MLayer`, `subst`
+- `chainNatPolyAfter_zero` -> `MLayer`, `subst`
 - `chainNatPoly_X0_totalDegree` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`, `subst`
 - `chainNatPoly_eval_act` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`, `subst`
-- `chainNatPoly_nil` -> `MLayer`, `apply`
-- `chainNatPoly_single_coeff_bias` -> `MLayer`, `apply`
-- `chainNatPoly_single_coeff_weight` -> `MLayer`, `apply`
+- `chainNatPoly_nil` -> `MLayer`, `apply`, `subst`
+- `chainNatPoly_single_coeff_bias` -> `MLayer`, `apply`, `subst`
+- `chainNatPoly_single_coeff_weight` -> `MLayer`, `apply`, `subst`
 - `chainNatPoly_totalDegree` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `chainNatPoly_totalDegree_any` -> `MLayer`, `eval`, `le_trans`, `length`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
@@ -2990,7 +2993,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `codegenLadder_forward` -> `Ladder`, `StackOp`, `compileProg`, `ladder_forward`, `runProg`, `satSym`, `satW`, `toStack`
 - `codegenLadder_l2l3_changes_representation` -> `compileProg`, `toStack`
 - `codegenLadder_satW_iff` -> `StackOp`, `compileProg`, `runProg`, `satW`, `toStack`
-- `coeff_C_of_ne_zero` -> `MLayer`, `apply`
+- `coeff_C_of_ne_zero` -> `MLayer`, `apply`, `subst`
 - `cofactor_diag` -> `GeoConstraint`, `Pt`, `seg`
 - `cofactor_eq_zero_of_plucker_zero` -> `Pt`, `apply`, `cofactor`, `pluckerNorm`, `subst`
 - `cofactor_swap` -> `GeoConstraint`, `Pt`, `seg`
@@ -4906,7 +4909,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `convertVec`, `dot`, `induction`, `length`, `subst`
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
-- `foldl_coeff_zero_irrelevant` -> `MLayer`, `apply`
+- `foldl_coeff_zero_irrelevant` -> `MLayer`, `apply`, `subst`
 - `foldl_eval_act` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`
 - `foldl_eval_lipschitz` -> `apply`, `induction`
 - `foldl_init_add` -> `dot`, `induction`, `length`, `subst`
@@ -9104,11 +9107,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepIter_apply_ne` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_le` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
-- `stepNat_coeff_bias` -> `MLayer`, `apply`
-- `stepNat_coeff_other_slot` -> `apply`
+- `stepNat_coeff_bias` -> `MLayer`, `apply`, `subst`
+- `stepNat_coeff_other_slot` -> `MLayer`, `apply`, `subst`
 - `stepNat_coeff_weight` -> `MLayer`, `apply`
-- `stepNat_coeff_zero_irrelevant` -> `MLayer`, `apply`
-- `stepNat_coeff_zero_of_no_const` -> `MLayer`, `apply`
+- `stepNat_coeff_zero_irrelevant` -> `MLayer`, `apply`, `subst`
+- `stepNat_coeff_zero_of_no_const` -> `MLayer`, `apply`, `subst`
 - `stepNat_eval` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_degree_pos` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`

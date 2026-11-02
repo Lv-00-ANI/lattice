@@ -5335,4 +5335,40 @@ the proof strategy.**
 -/
 
 
+
+/-- The intermediate polynomials of a foldl: the accumulator's polynomial after each
+prefix of the layer list.
+
+This is the object round 61 identified as the right one for the reverse direction:
+because each step's contribution to slot `2k` is destroyed by the NEXT step, only the
+INTERMEDIATE polynomial carries the k-th layer's weight. -/
+noncomputable def chainNatPolyAfter (ls : List (MLayer 1 1)) (p : MvPolynomial ℕ ℝ)
+    (k : ℕ) : MvPolynomial ℕ ℝ :=
+  (((ls.take k).foldl (fun acc _ => stepNat acc) (0, p))).2
+
+/-- After zero layers, the polynomial is the input. -/
+theorem chainNatPolyAfter_zero (ls : List (MLayer 1 1)) (p : MvPolynomial ℕ ℝ) :
+    chainNatPolyAfter ls p 0 = p := by
+  simp [chainNatPolyAfter]
+
+/-- After `k+1` layers, the polynomial is the `(k+1)`-th step applied to the `k`-th one:
+the accumulator's offset is `2k`, so slot `2k` is exactly what that step writes. -/
+theorem chainNatPolyAfter_succ (ls : List (MLayer 1 1)) (p : MvPolynomial ℕ ℝ)
+    (l : MLayer 1 1) (rest : List (MLayer 1 1)) (k : ℕ)
+    (h : ls = l :: rest) :
+    chainNatPolyAfter ls p (k + 1)
+      = ((rest.take k).foldl (fun acc _ => stepNat acc) (stepNat (0, p))).2 := by
+  subst h
+  simp only [chainNatPolyAfter, List.take_succ_cons, List.foldl_cons]
+
+/-- The first layer's weight is readable from the polynomial AFTER the first step. -/
+theorem chainNatPolyAfter_one_coeff (l : MLayer 1 1) (rest : List (MLayer 1 1))
+    (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single 0 1) (chainNatPolyAfter (l :: rest) (MvPolynomial.C c) 1)
+      = c := by
+  simp only [chainNatPolyAfter, List.take_succ_cons, List.take_zero, List.foldl_cons,
+    List.foldl_nil]
+  exact stepNat_coeff_weight 0 c
+
+
 end Lattice.Core
