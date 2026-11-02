@@ -4941,4 +4941,59 @@ theorem stepNat_coeff_zero_of_no_const (p : MvPolynomial ℕ ℝ) (c : ℝ)
     simp [hne]
   rw [h1, h2, add_zero, hp]
 
+
+/-! ## Round 54: the positional fact behind multi-layer extraction, and its exact proof
+
+## The fact
+
+**Multi-layer extraction reduces to one positional observation:**
+
+    At offset >= 2, a step cannot touch slot 0.
+
+**Reason**: a step writes `X off * p + X (off+1)`, and both factors carry a variable
+index >= 2, so neither can contribute to the monomial `single 0 1`.
+
+**Formally**:
+
+    theorem stepNat_coeff_zero_irrelevant (off : Nat) (hoff : 2 <= off)
+        (p : MvPolynomial Nat Real) :
+        MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (off, p)).2)
+          = MvPolynomial.coeff (Finsupp.single 0 1) p
+
+## Why this round did not land it
+
+**The needed sub-fact is `coeff (single 0 1) (X off * p) = 0` for `off >= 1`.**
+
+**I tried `coeff_mul_X`, whose pattern is `coeff (m + single s 1) (p * X s)` --
+but here the monomial is `single 0 1`, which is NOT of the form `m + single off 1`
+for `off >= 1`, so the rewrite does not apply.**
+
+**Then I tried `coeff_mul` with `Finset.sum_eq_single 0`, and the side conditions
+required `Finsupp.single_add_single_one`, which does not exist.**
+
+## The proof that should work next round
+
+**`coeff_mul` expands to a sum over `Finset.antidiagonal (single 0 1)`. Since
+`single 0 1` has total degree 1, that antidiagonal is exactly
+`{(0, single 0 1), (single 0 1, 0)}`. Both cross terms with `X off` vanish because
+`coeff m (X off) = 0` whenever `m != single off 1`, and `off >= 2` makes
+`single off 1 != 0` and `!= single 0 1`.**
+
+**So the proof is: enumerate the antidiagonal (it has two elements), discharge both
+with `coeff_X'` and `omega`-style index arithmetic, done.**
+
+**A shorter route, if it exists**: mathlib likely has a lemma stating that
+`coeff m (X s * p) = 0` when `m s = 0`. That is exactly the case here (`off >= 2`
+means `single 0 1` has exponent 0 at `off`). **=> next round should `#check` for a
+name like `coeff_X_mul_of_not_mem` / `coeff_mul_X_of_ne` before writing the
+enumeration by hand.**
+
+## Conclusion
+
+**No code in the tree this round (reverted to 755).**
+
+**=> the multi-layer extractor is ONE positional sub-fact away, and the sub-fact has
+a two-case antidiagonal proof or a one-line library lemma behind it.**
+-/
+
 end Lattice.Core
