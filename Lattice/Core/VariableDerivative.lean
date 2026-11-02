@@ -4311,4 +4311,89 @@ theorem chainList_output_is_polynomial {N : ℕ} (ls : ChainList)
 
 **⇒ 下一轮按上面两条具体修法重做，两条都只需改一行。** -/
 
+
+/-- ⭐⭐ **`ℕ` 下标版：`deg(X a · C c + X b) = 1`**（`c ≠ 0`、`a ≠ b`）。
+
+**⚠ 第 22 轮 `Fin N` 版本的对应物——`deg p = 0` 情形所需的原子步骤。** -/
+theorem totalDegree_X_mul_C_add_X_zero_nat (a b : ℕ) (hab : a ≠ b)
+    {c : ℝ} (hc : c ≠ 0) :
+    (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+      : MvPolynomial ℕ ℝ).totalDegree = 1 := by
+  apply le_antisymm
+  · calc (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+          : MvPolynomial ℕ ℝ).totalDegree
+        ≤ max (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial ℕ ℝ).totalDegree
+            (MvPolynomial.X b : MvPolynomial ℕ ℝ).totalDegree :=
+          MvPolynomial.totalDegree_add _ _
+      _ ≤ 1 := by
+          rw [max_le_iff]
+          constructor
+          · calc (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial ℕ ℝ).totalDegree
+                ≤ (MvPolynomial.X a : MvPolynomial ℕ ℝ).totalDegree
+                  + (MvPolynomial.C c : MvPolynomial ℕ ℝ).totalDegree :=
+                  MvPolynomial.totalDegree_mul _ _
+              _ = 1 := by rw [MvPolynomial.totalDegree_X, MvPolynomial.totalDegree_C]
+          · rw [MvPolynomial.totalDegree_X]
+  · have hkey : MvPolynomial.coeff (Finsupp.single a 1)
+        (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+          : MvPolynomial ℕ ℝ) = c := by
+      rw [MvPolynomial.coeff_add]
+      have h1 : MvPolynomial.coeff (Finsupp.single a 1)
+          (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial ℕ ℝ) = c := by
+        have heq : (MvPolynomial.X a * MvPolynomial.C c : MvPolynomial ℕ ℝ)
+            = MvPolynomial.C c * MvPolynomial.X a := by ring
+        rw [heq, MvPolynomial.coeff_C_mul, MvPolynomial.coeff_X]
+        ring
+      have h2 : MvPolynomial.coeff (Finsupp.single a 1)
+          (MvPolynomial.X b : MvPolynomial ℕ ℝ) = 0 := by
+        rw [MvPolynomial.coeff_X']
+        have hba : (Finsupp.single b 1 : ℕ →₀ ℕ) ≠ Finsupp.single a 1 := by
+          rw [Ne, Finsupp.single_eq_single_iff]
+          omega
+        simp [hba]
+      rw [h1, h2, add_zero]
+    have hne : MvPolynomial.coeff (Finsupp.single a 1)
+        (MvPolynomial.X a * MvPolynomial.C c + MvPolynomial.X b
+          : MvPolynomial ℕ ℝ) ≠ 0 := by
+      rw [hkey]; exact hc
+    have hmem := MvPolynomial.mem_support_iff.mpr hne
+    have hdeg := MvPolynomial.le_totalDegree hmem
+    simpa using hdeg
+
+/-- ⭐⭐ **`deg p = 0` ⇒ `p` 是常数**（形如 `C c`）。
+
+**⚠ 第 38 轮定位的第一处：`if 0 = m` 的判据是【字面量在左**，
+与假设 `m ≠ 0` 方向相反，所以 `simp` 关不掉它——必须显式 `rw [if_neg]`。** -/
+theorem eq_C_of_totalDegree_zero_nat (p : MvPolynomial ℕ ℝ) (h : p.totalDegree = 0) :
+    p = MvPolynomial.C (MvPolynomial.coeff 0 p) := by
+  ext m
+  by_cases hm : m = 0
+  · subst hm; simp
+  · have hsupp : m ∉ p.support := by
+      intro hmem
+      have hall := (MvPolynomial.totalDegree_eq_zero_iff ℕ p).mp h m hmem
+      apply hm
+      ext x
+      exact hall x
+    rw [MvPolynomial.mem_support_iff] at hsupp
+    push_neg at hsupp
+    have h0m : (0 : ℕ →₀ ℕ) ≠ m := fun hh => hm hh.symm
+    rw [hsupp]
+    simp only [MvPolynomial.coeff_C]
+    rw [if_neg h0m]
+
+/-- ⭐⭐ **`deg p = 0` 时的 `stepNat` 次数是 1**——**第 36 轮标出的边界的解法。** -/
+theorem stepNat_totalDegree_zero (off : ℕ) (p : MvPolynomial ℕ ℝ) (hp : p ≠ 0)
+    (hdeg : p.totalDegree = 0) :
+    (stepNat (off, p)).2.totalDegree = 1 := by
+  have hC : p = MvPolynomial.C (MvPolynomial.coeff 0 p) :=
+    eq_C_of_totalDegree_zero_nat p hdeg
+  have hc : MvPolynomial.coeff 0 p ≠ 0 := by
+    intro h
+    rw [hC, h, MvPolynomial.C_0] at hp
+    exact hp rfl
+  simp only [stepNat]
+  rw [hC]
+  exact totalDegree_X_mul_C_add_X_zero_nat off (off + 1) (by omega) hc
+
 end Lattice.Core
