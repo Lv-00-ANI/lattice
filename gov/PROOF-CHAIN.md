@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 236 | aggregator at `Lattice/`, re-exports only |
+| root | 238 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -811,9 +811,11 @@
 - `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Core.Repair.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairWF`
 - `Lattice.Plugins.Domains` <- `Lattice.Plugins.Domains.Constraints`
-- `Lattice.Plugins.Domains.Constraints` <- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.Plugin`
+- `Lattice.Plugins.Domains.Constraints` <- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.Plugin`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Plugin`
 - `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.PenaltyLoss`
+- `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
@@ -1694,7 +1696,7 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 8 | 4 |
+| `Lattice.Plugins` | 9 | 4 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 11 | 1 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
@@ -1702,6 +1704,8 @@
 | `Lattice.Plugins.Domains.Constraints` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 11 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 11 | 1 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
 | `Lattice.Plugins.Manifest` | 6 | 14 |
 | `Lattice.Plugins.Registry` | 4 | 8 |
 | `Lattice.Primitives` | 0 | 0 |
@@ -3544,7 +3548,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coverageValue_mono` -> `alpha`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
 - `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `inter`
-- `coverage_partial` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `soundness`, `verified`, `verified_manifest`
+- `coverage_partial` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `soundness`, `verified_manifest`
 - `covers_mono` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `cps_call_by_value_shape` -> `Compiler`, `lit`
 - `cps_correct` -> `Compiler`, `add`, `induction`, `lit`
@@ -4917,8 +4921,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flat_size_inl` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
 - `flat_size_inr` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
 - `flat_size_lit` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `flattenInjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `compile`, `completeness`, `extract`, `flatten`, `flattenRepresentation`, `flattenRepresentation_roundtrip`, `flatten_injective`, `flatten_surjective`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `flattenRepresentation_compile_extract` -> `compile`, `extract`
 - `flattenRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
+- `flattenRoundtripProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `flattenRepresentation_roundtrip`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `flattenSurjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `compile`, `completeness`, `extract`, `flattenRepresentation`, `flattenRepresentation_roundtrip`, `flatten_surjective`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `flatten_apply` -> `Pt`, `flatEquiv`, `flatten`
 - `flatten_injective` -> `Pt`, `Representation`, `Surjective`, `compile`, `extract`, `ofEquiv`
 - `flatten_surjective` -> `Pt`, `Representation`, `Surjective`, `compile`, `extract`, `ofEquiv`
@@ -6239,6 +6246,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lossN_eq` -> `apply`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `lossN_perturb` -> `apply`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `lossN_perturb_lt` -> `apply`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `lossNotInjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `lossOfActivations_differentiableAt` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `lossOfActivations_differentiableAt_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `lossOfActivations_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `forall_mem_map_iff`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
@@ -6339,16 +6347,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maml_second_order_expansion` -> `add`, `comp`, `fomamlGrad`
 - `manifest_claims_approximation` -> `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_claims_completeness` -> `Repair`, `claims`, `completeness`
-- `manifest_claims_exactness` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
-- `manifest_layer` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`
-- `manifest_no_confluence` -> `claims`, `manifest`, `manifest_no_idempotence`
+- `manifest_claims_exactness` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_laws` -> `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_soundness` -> `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_layer` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`, `soundness`
+- `manifest_no_confluence` -> `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
 - `manifest_no_equivariance` -> `Repair`, `claims`
 - `manifest_no_idempotence` -> `Repair`, `claims`, `manifest`
-- `manifest_no_recovery` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_spatial`
+- `manifest_no_recovery` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
-- `manifest_no_spatial` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`
-- `manifest_obligation_count` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`
-- `manifest_provides` -> `Repair`, `claims`, `completeness`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `repair`
+- `manifest_no_spatial` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
+- `manifest_obligation_count` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`, `soundness`
+- `manifest_provides` -> `Repair`, `claims`, `completeness`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `repair`, `soundness`
+- `manifest_requires` -> `claims`, `flatten`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `soundness`
 - `manifest_requires_nothing` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
 - `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
@@ -6944,6 +6955,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nlayerAct_cubic` -> `MLayer`, `W`, `compose`
 - `nlayerAct_id_eq_mlayerAct` -> `MLayer`, `W`, `compose`, `mlayerAct`
 - `nlayer_width_forced` -> `MLayer`, `compose`
+- `noSectionProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `no_loss_to_constraint_section`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `no_affine_fit_squares` -> `Chain`, `Pt`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
 - `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
@@ -7674,10 +7686,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promote_ge_right` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promotion_table_correct` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `proofComplete_iff_registry` -> `AllMandatoryKindsCoveredFor`, `Repair`, `mandatoryKinds`, `manifest_no_recovery`, `verified_manifest`
-- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
+- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified_manifest`
 - `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
 - `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proof_holds` -> `Holds`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `proofRegistry_tokens_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
+- `proof_completeness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
+- `proof_exactness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
+- `proof_holds` -> `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `proof_soundness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `proxGrad_contraction` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
 - `proxGrad_converges` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
 - `proxGrad_descent_lemma` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `contraction_converges`, `e2`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
@@ -8025,7 +8041,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reg_support_coverage` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`
 - `registryComplete_fails` -> `AllMandatoryKindsCoveredFor`, `Repair`, `mandatoryKinds`, `manifest_no_recovery`, `verified_manifest`
 - `registryConsistentFor_nil` -> `mandatoryKinds`, `soundness`
-- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
+- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified_manifest`
 - `reglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `reglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `reglu_lipschitz` -> `SoftMasked`, `act`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `reglu`, `reluSoftMask`, `reluSoftMask_abs_le_one`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_abs_le_one`, `siluGLU`, `silu_is_soft_masked`, `zero`
@@ -8743,7 +8759,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `separates_point_point` -> `E`, `dist`, `le`
 - `separation_from_threshold` -> `apply`
 - `separator_count_distinguishes` -> `LinearForm`, `length`, `seg`
+- `seqDecodeEncodeProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `seqDecode_encode` -> `Pt`, `Representation`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
+- `seqEncodeDecodeProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `seqEncode_decode` -> `Pt`, `Representation`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `seqRepresentation_compile_extract` -> `compile`, `extract`
 - `seqRepresentation_roundtrip` -> `Pt`, `compile`, `extract`

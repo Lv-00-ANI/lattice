@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5572 | 60.5% |
-| 1 | 1433 | 15.6% |
+| 0 | 5572 | 60.4% |
+| 1 | 1433 | 15.5% |
 | 2 | 763 | 8.3% |
 | 3 | 626 | 6.8% |
-| 4 | 525 | 5.7% |
-| 5 | 212 | 2.3% |
-| 6 | 74 | 0.8% |
-| **合计** | **9205** | |
+| 4 | 529 | 5.7% |
+| 5 | 214 | 2.3% |
+| 6 | 93 | 1.0% |
+| **合计** | **9230** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -87,7 +87,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proof_holds` (`Plugins/Domains/Constraints/Penalty/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Domains/Constraints/Penalty/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Domains/Constraints/Penalty/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `ObligationKind.all_length` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_obligation_count` (`Plugins/Domains/Constraints/Tokens/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
