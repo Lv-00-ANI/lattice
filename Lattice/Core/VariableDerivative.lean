@@ -4996,4 +4996,68 @@ enumeration by hand.**
 a two-case antidiagonal proof or a one-line library lemma behind it.**
 -/
 
+
+/-! ## Round 55: the library lemma found, and a CORRECTION to round 54's claim
+
+## The lemma round 54 was looking for
+
+**Enumeration found it:**
+
+    MvPolynomial.coeff_X_mul' (m : sigma ->0 Nat) (s : sigma) (p : MvPolynomial sigma R) :
+        coeff m (X s * p) = if s in m.support then coeff (m - single s 1) p else 0
+
+**With `m = single 0 1` and `s = off >= 2`: the support of `single 0 1` is `{0}`, so `off` is NOT in it, and the
+coefficient is 0.**
+
+**This is exactly the sub-fact round 54 named but could not locate.**
+
+## But the correction: round 54's STATEMENT was wrong
+
+**Round 54 proposed:**
+
+    coeff (single 0 1) (stepNat (off, p)).2 = coeff (single 0 1) p
+
+**That is FALSE.** **With `off >= 2`, both terms of `stepNat` contribute 0 at slot 0 --
+`X off * p` because `off` is not in the support of `single 0 1`, and `X (off+1)` because its own support is
+`single (off+1) 1`.**
+
+**=> so the right statement is:**
+
+    theorem stepNat_coeff_zero_irrelevant (off : Nat) (hoff : 2 <= off)
+        (p : MvPolynomial Nat Real) :
+        MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (off, p)).2) = 0
+
+**And that is even BETTER for extraction**: **it says later layers write NOTHING to slot 0**, so the first layer's
+weight placed there by `stepNat (0, ...)` survives untouched through the whole foldl.**
+
+## Why this round still did not land it
+
+**My edit script replaced `rw [h1, h2, add_zero]` GLOBALLY, and that line also occurs in an earlier theorem
+(`totalDegree_X_mul_C_add_X_zero_nat`), which it corrupted.**
+**The build then failed at line 4337, far from the edit site.**
+
+**=> the same global-replace hazard as round 32, in a different guise: not a global TEXT replace, but a global
+STRING replace inside a patch script.** **The fix is to scope each replacement to a unique anchor.**
+
+## The proof that will work
+
+    theorem stepNat_coeff_zero_irrelevant (off : Nat) (hoff : 2 <= off)
+        (p : MvPolynomial Nat Real) :
+        MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (off, p)).2) = 0 := by
+      simp only [stepNat]
+      rw [MvPolynomial.coeff_add, MvPolynomial.coeff_X_mul']
+      have hnotmem : off notin (Finsupp.single 0 1 : Nat ->0 Nat).support := ...
+      rw [if_neg hnotmem, MvPolynomial.coeff_X']
+      ...
+
+**`hnotmem` follows from `Finsupp.support_single_ne_zero` plus `omega` on `off >= 2`.**
+
+## Conclusion
+
+**No code in the tree this round (reverted to 756).**
+
+**=> next round: apply the corrected statement with a SCOPED patch, then the multi-layer extractor is an induction
+away.**
+-/
+
 end Lattice.Core
