@@ -4914,4 +4914,31 @@ theorem chainNatPoly_single_coeff_bias (l : MLayer 1 1) (c : ℝ) :
   simp only [chainNatPoly, List.foldl_cons, List.foldl_nil]
   exact stepNat_coeff_bias 0 c
 
+
+/-- After `stepNat` from offset 0, slot 0's coefficient is inherited from the input's
+constant coefficient.
+
+This generalises `stepNat_coeff_weight` away from the constant-input case. -/
+theorem stepNat_coeff_zero_of_no_const (p : MvPolynomial ℕ ℝ) (c : ℝ)
+    (hp : MvPolynomial.coeff 0 p = c) :
+    MvPolynomial.coeff (Finsupp.single 0 1) ((stepNat (0, p)).2) = c := by
+  simp only [stepNat]
+  rw [MvPolynomial.coeff_add]
+  have h1 : MvPolynomial.coeff (Finsupp.single 0 1)
+      (MvPolynomial.X 0 * p : MvPolynomial ℕ ℝ) = MvPolynomial.coeff 0 p := by
+    have heq : (MvPolynomial.X 0 * p : MvPolynomial ℕ ℝ)
+        = p * MvPolynomial.X 0 := by ring
+    rw [heq]
+    have := MvPolynomial.coeff_mul_X (0 : ℕ →₀ ℕ) 0 p
+    simpa using this
+  have h2 : MvPolynomial.coeff (Finsupp.single 0 1)
+      (MvPolynomial.X (0 + 1) : MvPolynomial ℕ ℝ) = 0 := by
+    rw [MvPolynomial.coeff_X']
+    have hne : (Finsupp.single 1 1 : ℕ →₀ ℕ)
+        ≠ Finsupp.single 0 1 := by
+      rw [Ne, Finsupp.single_eq_single_iff]
+      omega
+    simp [hne]
+  rw [h1, h2, add_zero, hp]
+
 end Lattice.Core

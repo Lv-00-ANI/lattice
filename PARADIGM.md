@@ -188,7 +188,7 @@
 
 ## 更新（2026-11-02）：新类型预训练/后训练
 
-LATTICE 的定位不只是一条“转换演算”，而是**新类型的预训练/后训练框架**：
+LATTICE 的定位不只是一条“转换演算”，而是**新类型的预训练/后训练【基础设施层】**：
 
 - **构造性预训练**：`Spec → Constraints → Solve → Params → ModelArtifact`；
   只对 `ExpressibleSpec` 成立，不是 SGD；规格唯一确定权重时 exact，欠定时 canonical，不可精确时 ε。
