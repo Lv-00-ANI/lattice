@@ -4782,4 +4782,22 @@ theorem polyChain_output_width_one {N n : ℕ} (ch : PolyChain 1 n) (off : ℕ)
     rw [h3] at h2
     exact h2
 
+/-! Round 49: reverse direction attempted.
+
+Attempted: coeff (Finsupp.single off 1) (X off * C c + X (off+1)) = c,
+the atomic step of reading a weight back out of its polynomial.
+
+Obstacles: the definition needs noncomputable, and the docstring needed its
+closing marker. Both are one-line fixes; this round's fix scripts failed to
+match their search strings.
+
+Design finding: the bias is NOT among the coefficients. A layer polynomial is
+X off * C c + X (off+1), so the bias slot carries coefficient 1 and its VALUE
+is read from g at evaluation time. Hence the correct reverse statement concerns
+STRUCTURAL POSITIONS, already given by polyChainParamCount, slotOf and
+layerParamCount, rather than coefficient recovery.
+
+No code in the tree this round.
+-/
+
 end Lattice.Core
