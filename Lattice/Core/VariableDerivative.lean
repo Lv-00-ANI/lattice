@@ -4495,4 +4495,49 @@ theorem chainList_degree_attained {N : ℕ} (d : ℕ) (hN : 0 + 2 * d + 1 < N) :
     (by rw [List.length_replicate]; exact hN) one_ne_zero).1
   rw [this, List.length_replicate]
 
+
+/-! ## ⭐⭐⭐ 宽度 > 1：多项式向量载体
+
+**宽 1 时载体是【一个**多项式；宽 `b` 时一层的输出是 `b` 个多项式，
+**⇒ 载体是 `Fin b → MvPolynomial ℕ ℝ`。**
+
+**槽位约定与 `flatParamActSafe` 完全一致：`slotOf off a i j = off + i*a + j`。** -/
+
+/-- ⭐ **有限和的次数界**——**每一项次数 ≤ `d` 则和 ≤ `d`。** -/
+theorem totalDegree_finset_sum_le {ι : Type*} (s : Finset ι)
+    (f : ι → MvPolynomial ℕ ℝ) (d : ℕ) (hf : ∀ i ∈ s, (f i).totalDegree ≤ d) :
+    (∑ i ∈ s, f i).totalDegree ≤ d := by
+  classical
+  refine Finset.sum_induction f (fun p => p.totalDegree ≤ d) ?_ ?_ hf
+  · intro x y hx hy
+    refine le_trans (MvPolynomial.totalDegree_add x y) ?_
+    rw [max_le_iff]
+    exact ⟨hx, hy⟩
+  · simp
+
+/-- **一层作用在多项式向量上**——**与 `flatParamActSafe` 逐字对应。** -/
+noncomputable def polyLayerStep (a b : ℕ) (off : ℕ) :
+    (Fin a → MvPolynomial ℕ ℝ) → (Fin b → MvPolynomial ℕ ℝ) :=
+  fun v j => (∑ i : Fin a, MvPolynomial.X (slotOf off a i.val j.val) * v i)
+    + MvPolynomial.X (off + a * b + j.val)
+
+/-- ⭐⭐ **一层的次数界**：**输入次数 ≤ `d` ⇒ 输出次数 ≤ `d + 1`。** -/
+theorem polyLayerStep_totalDegree_le (a b : ℕ) (off : ℕ)
+    (v : Fin a → MvPolynomial ℕ ℝ) (d : ℕ)
+    (hv : ∀ i, (v i).totalDegree ≤ d) :
+    ∀ j, (polyLayerStep a b off v j).totalDegree ≤ d + 1 := by
+  intro j
+  simp only [polyLayerStep]
+  refine le_trans (MvPolynomial.totalDegree_add _ _) ?_
+  rw [max_le_iff]
+  constructor
+  · refine totalDegree_finset_sum_le Finset.univ _ (d + 1) ?_
+    intro i _
+    refine le_trans (MvPolynomial.totalDegree_mul _ _) ?_
+    rw [MvPolynomial.totalDegree_X]
+    have := hv i
+    omega
+  · rw [MvPolynomial.totalDegree_X]
+    omega
+
 end Lattice.Core
