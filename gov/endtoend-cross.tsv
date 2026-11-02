@@ -199,6 +199,8 @@ Core/VariableDerivative.lean	chainOne_output_poly_exists
 Core/VariableDerivative.lean	chainOneOfDepth_ne_zero
 Core/VariableDerivative.lean	chainList_output_eval
 Core/VariableDerivative.lean	chainList_output_is_polynomial
+Core/VariableDerivative.lean	chainList_output_full
+Core/VariableDerivative.lean	chainList_degree_attained
 Core/VariableNet.lean	compose_act
 Core/VariableNet.lean	act_idf
 Core/VariableNet.lean	act_append

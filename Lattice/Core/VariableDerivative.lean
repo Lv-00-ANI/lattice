@@ -4444,4 +4444,55 @@ theorem chainNatPoly_totalDegree_any (ls : ChainList) (p : MvPolynomial ℕ ℝ)
   simp only [chainNatPoly]
   exact foldl_step_totalDegree_any ls (0, p) hp
 
+
+/-- ⭐ **`C x ≠ 0`**（当 `x ≠ 0`）。 -/
+theorem C_ne_zero_of_ne_zero {x : ℝ} (hx : x ≠ 0) :
+    (MvPolynomial.C x : MvPolynomial ℕ ℝ) ≠ 0 := by
+  intro h
+  have h0 : x = 0 := (MvPolynomial.C_inj ℝ x 0).mp (by rw [h, MvPolynomial.C_0])
+  exact hx h0
+
+/-- ⭐⭐ **标量输入的次数是 0**。 -/
+theorem totalDegree_C_zero (x : ℝ) :
+    (MvPolynomial.C x : MvPolynomial ℕ ℝ).totalDegree = 0 :=
+  MvPolynomial.totalDegree_C x
+
+/-- ⭐⭐⭐ **统一压顶定理**：**链的输出就是参数的一个显式多项式，
+其次数【恰为层数**（当输入 `x ≠ 0`），**而它的求值就是网络的输出。**
+
+**⚠ 第 37 轮那两条的分支合并版：第 40 轮的 `chainNatPoly_totalDegree_any`
+取消了 `1 ≤ deg p` 的前提，于是 `C x` 也能带次数结论。** -/
+theorem chainList_output_full {N : ℕ} (ls : ChainList)
+    (hN : 0 + 2 * ls.length + 1 < N) {x : ℝ} (hx : x ≠ 0) :
+    (chainNatPoly ls (MvPolynomial.C x)).totalDegree = ls.length
+      ∧ ∀ (gN : Fin N → ℝ),
+          (chainNatPoly ls (MvPolynomial.C x)).eval (fun k => readSlot gN k)
+            = flatChainAct (N := N) (chainOneToChain (listToChainOne ls)) 0 gN
+                (fun _ => x) (0 : Fin 1) := by
+  constructor
+  · rw [chainNatPoly_totalDegree_any ls (MvPolynomial.C x) (C_ne_zero_of_ne_zero hx),
+      totalDegree_C_zero]
+    omega
+  · intro gN
+    have hN' : 0 + 2 * chainOneDepth (listToChainOne ls) + 1 < N := by
+      rw [chainOneDepth_listToChainOne]
+      exact hN
+    rw [chainNatPoly_eval_act]
+    simp only [chainNatAct]
+    rw [chainNatAct_eq_chainOneAct ls
+      (0, (MvPolynomial.C x).eval (fun k => readSlot gN k)) gN]
+    simp only [MvPolynomial.eval_C]
+    exact chainOneAct_eq_flatChainAct (listToChainOne ls) 0 hN' gN x
+
+/-- ⭐⭐⭐ **次数界是【紧】的**：**对每个 `d`，存在长度为 `d` 的层列表，
+其输出多项式的次数恰为 `d`。** -/
+theorem chainList_degree_attained {N : ℕ} (d : ℕ) (hN : 0 + 2 * d + 1 < N) :
+    ∃ (ls : ChainList),
+      ls.length = d
+        ∧ (chainNatPoly ls (MvPolynomial.C 1)).totalDegree = d := by
+  refine ⟨List.replicate d twoLayerProbeRest, List.length_replicate d twoLayerProbeRest, ?_⟩
+  have := (chainList_output_full (List.replicate d twoLayerProbeRest)
+    (by rw [List.length_replicate]; exact hN) one_ne_zero).1
+  rw [this, List.length_replicate]
+
 end Lattice.Core
