@@ -227,6 +227,8 @@ core	Core	Core/VariableDerivative.lean	chainNatPolyAfter_one_coeff	no
 core	Core	Core/VariableDerivative.lean	chainNatPolyAfter_succ	no
 core	Core	Core/VariableDerivative.lean	chainNatPolyAfter_zero	no
 core	Core	Core/VariableDerivative.lean	chainNatPoly_X0_totalDegree	no
+core	Core	Core/VariableDerivative.lean	chainNatPoly_deep_coeff_ne	no
+core	Core	Core/VariableDerivative.lean	chainNatPoly_deep_coeff_zero	no
 core	Core	Core/VariableDerivative.lean	chainNatPoly_eval_act	no
 core	Core	Core/VariableDerivative.lean	chainNatPoly_nil	no
 core	Core	Core/VariableDerivative.lean	chainNatPoly_single_coeff_bias	no

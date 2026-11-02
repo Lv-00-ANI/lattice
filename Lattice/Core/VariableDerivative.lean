@@ -5455,4 +5455,52 @@ new theorem it needs is the negative one above, which is blocked on presentation
 -/
 
 
+
+set_option maxHeartbeats 2000000 in
+/-- **A chain of length >= 2 has FINAL slot 0 equal to zero.**
+
+The first step writes the input's weight at slot 0; the SECOND step runs at offset `0 + 2` and
+`stepNat_coeff_zero_irrelevant` zeroes slot 0 outright (its conclusion does not mention the
+input polynomial); `foldl_coeff_zero_irrelevant` then carries that zero through every remaining
+layer, because each further step runs at an offset >= 2.
+
+**This is the precise reason a deep chain's weights cannot be read from its FINAL polynomial** --
+and the reason the extractor in this file reads the INTERMEDIATE polynomials
+(`chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`) instead.
+
+**Presentation note, for whoever writes the next such proof**: the accumulator's offset is
+`0 + 2` *definitionally*, so the lemma has to be instantiated at `2` and the `Nat.zero_add`
+normalisation supplied to `simpa`. Instantiating at `4` (the "real" offset after two layers)
+does not unify, and `rw` on the `.1` projection fails because `simp only [stepNat]` has already
+reduced it. -/
+theorem chainNatPoly_deep_coeff_zero (l l' : MLayer 1 1)
+    (tl : List (MLayer 1 1)) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single 0 1)
+      (chainNatPoly (l :: l' :: tl) (MvPolynomial.C c)) = 0 := by
+  induction tl generalizing l l' with
+  | nil =>
+      simp only [chainNatPoly, List.foldl_cons, List.foldl_nil]
+      exact stepNat_coeff_zero_irrelevant 2 (by omega) _
+  | cons hd t ih =>
+      simp only [chainNatPoly, List.foldl_cons]
+      have hz : MvPolynomial.coeff (Finsupp.single 0 1)
+          ((stepNat (stepNat (0, MvPolynomial.C c))).2) = 0 := by
+        have h := stepNat_coeff_zero_irrelevant 2
+          (p := (stepNat (0, MvPolynomial.C c)).2) (by omega)
+        simpa only [stepNat, Nat.zero_add] using h
+      exact foldl_coeff_zero_irrelevant (hd :: t) _ _
+        (by simp only [stepNat]; omega) hz
+
+/-- **No weight can be read from a deep chain's final polynomial.**
+
+For a chain of length >= 2 and a NONZERO weight `c`, the final coefficient at slot 0 is `0`, so
+it cannot equal `c`. **This is the impossibility statement the extractor's manifest needs.** -/
+theorem chainNatPoly_deep_coeff_ne (l l' : MLayer 1 1)
+    (tl : List (MLayer 1 1)) (c : ℝ) (hc : c ≠ 0) :
+    MvPolynomial.coeff (Finsupp.single 0 1)
+      (chainNatPoly (l :: l' :: tl) (MvPolynomial.C c)) ≠ c := by
+  rw [chainNatPoly_deep_coeff_zero l l' tl c]
+  intro h
+  exact hc h.symm
+
 end Lattice.Core
