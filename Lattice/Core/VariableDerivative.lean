@@ -5208,4 +5208,65 @@ theorem stepNat_coeff_other_slot (m : ℕ) (p : MvPolynomial ℕ ℝ)
   rw [hx1, hx2, add_zero]
 
 
+
+/-! ## Round 60: the fold needs to carry `coeff s p`, not just the zero
+
+## What was attempted
+
+**Round 59 proved `stepNat_coeff_other_slot`: a step at offset `m` gives coefficient 0 at
+any `s` whose support avoids both `m` and `m+1`.**
+
+**This round tried to fold it: "if every step's offset avoids `s`, then the whole foldl
+preserves `coeff s p`."**
+
+## Why that is FALSE as an induction
+
+**The step gives `coeff s (stepNat (off, p)).2 = 0`, NOT `= coeff s p`.**
+
+**The induction's cons case then needs `coeff s p = 0`, which does not follow from
+`off notin s.support` -- `p` is an arbitrary polynomial, and `s` avoiding `off` says
+nothing about whether `p` has a term at `s`.**
+
+**Concretely: the theorem I wrote ended with `exact hz` where the goal was
+`coeff s (stepNat (off, p)).2 = coeff s p`, i.e. `0 = coeff s p`. No hypothesis supplies
+that.**
+
+## The corrected statement
+
+**The fold invariant must carry the target value, not just aim at zero:**
+
+    forall (ls) (off) (p) (s),
+      (forall k < ls.length,
+         off + 2*k notin s.support and off + 2*k + 1 notin s.support) ->
+      coeff s ((ls.foldl step (off, p)).2) = coeff s p
+
+**The cons case then goes through a DIFFERENT lemma:**
+
+    stepNat_coeff_other_slot_preserves :
+        off notin s.support -> off + 1 notin s.support ->
+        coeff s ((stepNat (off, p)).2) = coeff s p
+
+**which is NOT round 59's lemma -- round 59's lemma additionally assumed `s != 0` to kill
+the `X (off+1)` term, whereas preservation must handle the case `s = single (off+1) 1`
+SEPARATELY (in which case the `X (off+1)` term contributes 1, so preservation fails and
+the precondition correctly excludes it).**
+
+**So the preservation lemma needs: `off notin s.support` AND `off + 1 notin s.support`,
+plus the observation that `X (off+1)`'s support is `single (off+1) 1`, whose only element
+`off+1` is excluded by hypothesis -- hence that term is 0 and the product term reduces to
+`coeff s p` by `coeff_X_mul'`.**
+
+## Conclusion
+
+**No code in the tree this round (reverted to 761).**
+
+**Round 59 remains correct. What this round establishes is that the FOLD needs a
+preservation lemma rather than a vanishing lemma, and the preservation form is
+`coeff s ((stepNat (off, p)).2) = coeff s p`, provable from the same two support
+hypotheses.**
+
+**=> next round: state and prove `stepNat_coeff_preserved`, then the fold by induction.**
+-/
+
+
 end Lattice.Core
