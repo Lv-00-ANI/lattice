@@ -121,66 +121,40 @@ def VerifiedPlugin.empty (name : PluginName) (layer : PluginLayer) : VerifiedPlu
 
 /-- **The registry of verified plugins.**
 
-Currently empty: the migration has not begun. Every addition must come with a manifest
-whose obligations name real theorems, and a `consistent` field proved from them.
--/
-def proofRegistry : List VerifiedPlugin := []
+Defined in `Lattice.Plugins` (the aggregator), NOT here, because populating it requires
+importing every plugin, and every plugin imports this file to obtain `VerifiedPlugin`.
+Writing the list here would invert the dependency.
 
-/-- The registry is empty at the time of writing. -/
-theorem proofRegistry_eq_nil : proofRegistry = [] := rfl
+This is the *abstract* registry: the predicates below are stated over an arbitrary list, so
+they can be proved about the real one without this file knowing what is in it. -/
+def RegistryConsistentFor (reg : List VerifiedPlugin) : Prop :=
+  ∀ p ∈ reg, p.manifest.obligations ≠ [] → p.proof.Holds
 
-/-- **Every registered plugin is consistent.** -/
-def RegistryConsistent : Prop :=
-  ∀ p ∈ proofRegistry, p.manifest.obligations ≠ [] → p.proof.Holds
+/-- **Every mandatory kind is claimed by some plugin in `reg`.** -/
+def AllMandatoryKindsCoveredFor (reg : List VerifiedPlugin) : Prop :=
+  ∀ k ∈ mandatoryKinds, ∃ p ∈ reg, p.manifest.claims k = true
 
-/-- The empty registry is consistent, vacuously. -/
-theorem registryConsistent_nil : RegistryConsistent := by
+/-- **Completeness of an arbitrary registry.** -/
+def RegistryCompleteFor (reg : List VerifiedPlugin) : Prop :=
+  RegistryConsistentFor reg ∧ AllMandatoryKindsCoveredFor reg
+
+/-- **The nil registry is consistent, vacuously.** -/
+theorem registryConsistentFor_nil : RegistryConsistentFor [] := by
   intro p hp
-  simp [proofRegistry] at hp
+  simp at hp
 
-/-! ## Completeness -/
-
-/-- **Every mandatory kind is claimed by some registered plugin.**
-
-`mandatoryKinds` lives in `Manifest.lean`, next to the obligation taxonomy. -/
-def AllMandatoryKindsCovered : Prop :=
-  ∀ k ∈ mandatoryKinds, ∃ p ∈ proofRegistry, p.manifest.claims k = true
-
-/-- **The empty registry does not cover the mandatory kinds.**
+/-- **The nil registry does not cover the mandatory kinds.**
 
 The only way to witness coverage of `.soundness` would be a plugin in the registry whose
-`claims .soundness` is `true`; `[]` contains none. (An `empty` plugin would not help
-either: `PluginManifest.empty_claims_false` says its `claims` is `false` for every kind.)
+`claims .soundness` is `true`; `[]` contains none. (An `empty` plugin would not help either:
+`PluginManifest.empty_claims_false` says its `claims` is `false` for every kind.)
 
-Consequently `PluginRegistryComplete` is NOT provable at this stage, which is the correct
-state of affairs before any migration. -/
+Consequently `RegistryCompleteFor []` is NOT provable, which is the correct state of affairs
+before any migration. -/
 theorem allMandatoryKindsCovered_nil_fails :
-    ¬ (∀ k ∈ mandatoryKinds, ∃ p ∈ ([] : List VerifiedPlugin),
-        p.manifest.claims k = true) := by
+    ¬ AllMandatoryKindsCoveredFor [] := by
   intro h
   obtain ⟨p, hp, _⟩ := h .soundness (by simp [mandatoryKinds])
   simp at hp
-
-/-- **The registry is complete**: consistent, and covering every mandatory kind. -/
-def PluginRegistryComplete : Prop :=
-  RegistryConsistent ∧ AllMandatoryKindsCovered
-
-/-- **The project's completion predicate.**
-
-The nine targets of the execution plan, conjoined with registry completeness. The targets
-`T0 … T8` are not yet named in Lean; this predicate is their landing point, and it is
-stated here so that the shape of completion is fixed before the work of filling it in.
-
-It deliberately says nothing about C, weight I/O, formats, conformance, or training:
-those are out of `ProofComplete` by construction.
--/
-def ProofComplete : Prop :=
-  PluginRegistryComplete
-
-/-- **`ProofComplete` reduces to `PluginRegistryComplete`** at the current stage, where the
-nine targets have no separate statement yet. This is an equality of propositions, not a
-claim that completion holds. -/
-theorem proofComplete_iff_registry : ProofComplete ↔ PluginRegistryComplete :=
-  Iff.rfl
 
 end Lattice.Plugins

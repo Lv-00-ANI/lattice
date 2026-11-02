@@ -7,19 +7,20 @@
 
 ## 1. 数量与分布
 
-**294 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**296 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 257 | 87.4% |
+| `Lib` | 257 | 86.8% |
 | `Lift` | 0 | 0.0% |
-| `Runtime` | 9 | 3.1% |
+| `Runtime` | 9 | 3.0% |
 | `Domains` | 7 | 2.4% |
 | `Evidence` | 8 | 2.7% |
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
 | `Plugins` | 2 | 0.7% |
+| `(root)` | 2 | 0.7% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
@@ -28,6 +29,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+`(root)` 的两条是**聚合器**层面的两条：`registryComplete_fails`（当前注册表不覆盖
+强制义务，因为罚插件不声明 recovery）与 `pluginRegistryComplete_not_yet`
+（`PluginRegistryComplete` 因此尚未成立）。它们放在 `Lattice/Plugins.lean` 而非
+`Lattice/Plugins/` 之下，因为聚合器是唯一能同时看到框架与全部插件的位置。
 
 ## 2. 按否证的对象分类
 

@@ -96,8 +96,11 @@ def repair_expected(path):
 # Round 550: `Plugins` likewise -- the plugin framework carries two boundary refutations
 # (`refinement_not_mandatory`, `allMandatoryKindsCovered_nil_fails`), and without a row
 # for them the per-layer sum would fall short of the total by exactly those two.
+# Round 550: `(root)` too -- the aggregator `Lattice/Plugins.lean` is the only file that can
+# see both the framework and every migrated plugin, so the two registry-state refutations
+# (`registryComplete_fails`, `pluginRegistryComplete_not_yet`) necessarily live there.
 REFUTATION_LAYERS = ("Lib", "Lift", "Runtime", "Domains", "Evidence", "Core", "Geo", "Compose",
-                     "Plugins")
+                     "Plugins", "(root)")
 
 #: `**284 条**否定结论` -- the total in the prose above the layer table.
 TOTAL = re.compile(r"\*\*(\d+)\s*条\*\*\s*否定结论")
