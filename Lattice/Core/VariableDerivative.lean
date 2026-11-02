@@ -4828,4 +4828,59 @@ theorem oneLayerPolyNat_coeff_weight (off : ℕ) (c : ℝ) :
     simp [hne]
   rw [h1, h2, add_zero]
 
+
+/-- Weight slots live strictly below the bias block: slotOf off b i j < off + a*b.
+
+This is the position-structure fact behind the reverse direction: which slots are
+weights and which are biases is decided by ARITHMETIC on the shape, never by
+inspecting coefficients. -/
+theorem slotOf_weight_lt {a b i j off : Nat} (hi : i < a) (hj : j < b) :
+    slotOf off b i j < off + a * b := by
+  simp only [slotOf]
+  have h2 : i * b + b <= a * b := by
+    have h := Nat.mul_le_mul_right b (Nat.succ_le_of_lt hi)
+    simpa [Nat.succ_mul] using h
+  omega
+
+/-- The bias slot is exactly where the weight block ends. -/
+theorem bias_slot_eq_slotOf (off a b j : Nat) :
+    off + a * b + j = slotOf off b a j := by
+  simp only [slotOf]
+
+
+/-- stepNat on a constant input reads its weight coefficient back.
+
+The forward step takes `C c` to `X off * C c + X (off+1)`; this recovers `c` from
+the result. This is the reverse direction at the level of one step. -/
+theorem stepNat_coeff_weight (off : ℕ) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single off 1)
+      ((stepNat (off, MvPolynomial.C c)).2) = c := by
+  simp only [stepNat, oneLayerPolyNat]
+  exact oneLayerPolyNat_coeff_weight off c
+
+/-- The bias slot carries coefficient 1, not the bias value.
+
+Round 49's design finding as a theorem: the bias is recorded POSITIONALLY, and its
+value is read from g only at evaluation time. -/
+theorem stepNat_coeff_bias (off : ℕ) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single (off + 1) 1)
+      ((stepNat (off, MvPolynomial.C c)).2) = 1 := by
+  simp only [stepNat, oneLayerPolyNat]
+  rw [MvPolynomial.coeff_add]
+  have h1 : MvPolynomial.coeff (Finsupp.single (off + 1) 1)
+      (MvPolynomial.X off * MvPolynomial.C c : MvPolynomial ℕ ℝ) = 0 := by
+    have heq : (MvPolynomial.X off * MvPolynomial.C c : MvPolynomial ℕ ℝ)
+        = MvPolynomial.C c * MvPolynomial.X off := by ring
+    rw [heq, MvPolynomial.coeff_C_mul, MvPolynomial.coeff_X']
+    have hne : (Finsupp.single off 1 : ℕ →₀ ℕ)
+        ≠ Finsupp.single (off + 1) 1 := by
+      rw [Ne, Finsupp.single_eq_single_iff]
+      omega
+    simp [hne]
+  have h2 : MvPolynomial.coeff (Finsupp.single (off + 1) 1)
+      (MvPolynomial.X (off + 1) : MvPolynomial ℕ ℝ) = 1 := by
+    rw [MvPolynomial.coeff_X']
+    simp
+  rw [h1, h2, zero_add]
+
 end Lattice.Core
