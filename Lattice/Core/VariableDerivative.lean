@@ -5122,4 +5122,64 @@ theorem foldl_coeff_zero_irrelevant :
         stepNat_coeff_zero_irrelevant off hoff p
       exact foldl_coeff_zero_irrelevant ls (stepNat (off, p)).1 (stepNat (off, p)).2 h2 hz
 
+
+/-! ## Round 58: a CORRECTION -- slot 0 is ZEROED, not preserved
+
+## What rounds 56 and 57 assumed
+
+**Round 56 proved `stepNat (off, p)` has coefficient 0 at slot 0 whenever `off >= 2`.**
+**Round 57 lifted that to the whole foldl: `foldl_coeff_zero_irrelevant` says that once the
+offset is >= 2 AND slot 0 is already zero, the rest of the list keeps it zero.**
+
+**Both are correct. But this round tried to conclude something they do not give.**
+
+## The false step
+
+**I wanted: "the first layer writes `c` at slot 0, and later layers preserve it".**
+
+**That requires preserving a NONZERO slot 0. But `stepNat (off, p)` at `off >= 2` sets slot 0
+to ZERO -- it does not preserve whatever was there. So:**
+
+    coeff (single 0 1) (stepNat (off, p)).2 = 0        (off >= 2)
+    coeff (single 0 1) p = c                            (hypothesis)
+
+**These are compatible ONLY when `c = 0`.** **A general "preservation" lemma with arbitrary
+`c` is therefore FALSE, and my draft's induction step was looking for a contradiction
+where none exists.**
+
+## What this means for the extractor
+
+**`chainNatPoly (l :: ls) (C c)` places `c` at slot 0 in the FIRST step; the SECOND step,
+running at offset 2, zeroes it. So the final slot 0 carries no trace of the first layer
+whenever the list has length >= 2.**
+
+**=> slot 0 is NOT the right slot to read a deep chain's weights from.**
+
+**=> the multi-layer extractor needs a different positional argument: the coefficient at
+`single (2k) 1` (the k-th weight slot) is only touched by steps whose offset is exactly
+`2k`, which happens exactly once along the foldl.**
+
+## The corrected next step
+
+**State the invariant per slot, not for slot 0 alone:**
+
+    for the k-th layer's weight slot (2k), every step other than the k-th has offset != 2k,
+    so by the same `coeff_X_mul'` argument it contributes 0 there.
+
+**=> the general statement is "coefficient at slot 2k of the final polynomial equals the
+k-th layer's weight", proved by an induction that tracks BOTH the accumulated offset and
+the target slot.**
+
+**That is a bigger induction than the one rounds 56-57 set up, and it replaces them rather
+than extending them.**
+
+## Conclusion
+
+**No code in the tree this round (reverted to 759).**
+
+**Rounds 56 and 57 remain correct as stated -- round 57's lemma is a genuine theorem about
+zeros. What was wrong was the APPLICATION I was about to build on top of them.**
+-/
+
+
 end Lattice.Core
