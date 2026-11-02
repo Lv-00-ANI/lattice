@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 193 | 68 |
+| `Lattice.Core.VariableDerivative` | 197 | 68 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -2502,6 +2502,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bfgs_secant` -> `mulVec`
 - `biasOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bias_compose` -> `W`, `apply`, `compose`, `induction`
+- `bias_slot_eq_slotOf` -> `MLayer`
 - `bias_variance_decomposition` -> `E`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `bidir_not_one_step` -> `Sat`, `iterate`, `step`
@@ -2844,6 +2845,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainNatAct_eq_chainOneAct` -> `apply`, `eval`, `le_antisymm`, `length`, `subst`
 - `chainNatPoly_X0_totalDegree` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`, `subst`
 - `chainNatPoly_eval_act` -> `apply`, `eval`, `le_antisymm`, `length`, `length_cons`, `subst`
+- `chainNatPoly_nil` -> `MLayer`
+- `chainNatPoly_single_coeff_bias` -> `MLayer`
+- `chainNatPoly_single_coeff_weight` -> `MLayer`
 - `chainNatPoly_totalDegree` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `chainNatPoly_totalDegree_any` -> `MLayer`, `eval`, `le_trans`, `length`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
@@ -2986,6 +2990,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `codegenLadder_forward` -> `Ladder`, `StackOp`, `compileProg`, `ladder_forward`, `runProg`, `satSym`, `satW`, `toStack`
 - `codegenLadder_l2l3_changes_representation` -> `compileProg`, `toStack`
 - `codegenLadder_satW_iff` -> `StackOp`, `compileProg`, `runProg`, `satW`, `toStack`
+- `coeff_C_of_ne_zero` -> `MLayer`
 - `cofactor_diag` -> `GeoConstraint`, `Pt`, `seg`
 - `cofactor_eq_zero_of_plucker_zero` -> `Pt`, `apply`, `cofactor`, `pluckerNorm`, `subst`
 - `cofactor_swap` -> `GeoConstraint`, `Pt`, `seg`
@@ -7120,6 +7125,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_represents_token` -> `E`
 - `oneLayerParamPoly_degree_le` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `oneLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`
+- `oneLayerPolyNat_coeff_weight` -> `MLayer`
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
@@ -7459,11 +7465,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `policy_value_differentiable` -> `E`, `apply`, `const_add`
 - `polyApprox_eps_to` -> `PolyApproxOn`
 - `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
-- `polyChainAct_eval` -> `eval`, `trans`
+- `polyChainAct_eval` -> `MLayer`, `eval`, `trans`
 - `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
 - `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
-- `polyChain_output_full` -> `eval`
-- `polyChain_output_width_one` -> `eval`
+- `polyChain_output_full` -> `MLayer`, `eval`
+- `polyChain_output_width_one` -> `MLayer`, `eval`
 - `polyKernel_one_eq_featScore` -> `apply`, `featScore`, `softmax`
 - `polyKernel_one_gram_psd` -> `apply`, `softmax`
 - `polyLayerStep_eval` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
@@ -8810,6 +8816,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOf_row_add` -> `comp`
 - `slotOf_succ_col` -> `comp`
 - `slotOf_succ_row` -> `comp`
+- `slotOf_weight_lt` -> `MLayer`
 - `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
@@ -9096,6 +9103,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepIter_apply_ne` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_le` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
+- `stepNat_coeff_bias` -> `MLayer`
+- `stepNat_coeff_weight` -> `MLayer`
 - `stepNat_eval` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_degree_pos` -> `apply`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`

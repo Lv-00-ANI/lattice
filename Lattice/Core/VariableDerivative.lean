@@ -4883,4 +4883,35 @@ theorem stepNat_coeff_bias (off : ℕ) (c : ℝ) :
     simp
   rw [h1, h2, zero_add]
 
+
+/-- A constant polynomial has zero coefficient at every nonzero monomial. -/
+theorem coeff_C_of_ne_zero (c : ℝ) {m : ℕ →₀ ℕ} (hm : m ≠ 0) :
+    MvPolynomial.coeff m (MvPolynomial.C c : MvPolynomial ℕ ℝ) = 0 := by
+  rw [MvPolynomial.coeff_C]
+  rw [if_neg (Ne.symm hm)]
+
+/-- The empty chain returns its input unchanged, so its coefficients are the input's. -/
+theorem chainNatPoly_nil (p : MvPolynomial ℕ ℝ) :
+    chainNatPoly [] p = p := by
+  simp [chainNatPoly]
+
+/-- A single step already recovers the weight from the output polynomial.
+
+This is the reverse direction at chain level for a one-element chain: forward writes
+the weight into slot 0, and this reads it back from the SAME slot of the output. -/
+theorem chainNatPoly_single_coeff_weight (l : MLayer 1 1) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single 0 1)
+      (chainNatPoly [l] (MvPolynomial.C c))
+      = c := by
+  simp only [chainNatPoly, List.foldl_cons, List.foldl_nil]
+  exact stepNat_coeff_weight 0 c
+
+/-- The same step records the bias positionally: its slot carries coefficient 1. -/
+theorem chainNatPoly_single_coeff_bias (l : MLayer 1 1) (c : ℝ) :
+    MvPolynomial.coeff (Finsupp.single 1 1)
+      (chainNatPoly [l] (MvPolynomial.C c))
+      = 1 := by
+  simp only [chainNatPoly, List.foldl_cons, List.foldl_nil]
+  exact stepNat_coeff_bias 0 c
+
 end Lattice.Core
