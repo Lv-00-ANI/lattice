@@ -18,6 +18,7 @@ Two edits: import its `Plugin.lean` here, and add the `VerifiedPlugin` it export
 
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
+import Lattice.Plugins.Core
 import Lattice.Plugins.Domains
 
 namespace Lattice.Plugins
@@ -27,48 +28,63 @@ open Lattice.Plugins.Domains.Constraints.Penalty
 /-- **The registry of verified plugins.**
 
 Every entry must carry a manifest whose obligations name real theorems, and a `consistent`
-field proved from them. **The Penalty plugin is the pilot and the only entry so far**; the
-remaining 33 plugins become rows here as migration (P3) proceeds.
+field proved from them. **Two plugins are migrated so far** -- `Core.Repair` and
+`Domains.Constraints.Penalty`; the remaining 33 become rows here as P3 proceeds.
 -/
 def proofRegistry : List VerifiedPlugin :=
-  [verified]
+  [Lattice.Plugins.Core.Repair.verified, verified]
 
 /-- The registry contains the penalty plugin. -/
 theorem proofRegistry_penalty_mem : verified ∈ proofRegistry := by
   simp [proofRegistry]
 
-/-- The registry currently holds exactly one plugin. -/
-theorem proofRegistry_length : proofRegistry.length = 1 := rfl
+/-- The registry contains the repair plugin. -/
+theorem proofRegistry_repair_mem :
+    Lattice.Plugins.Core.Repair.verified ∈ proofRegistry := by
+  simp [proofRegistry]
+
+/-- The registry currently holds exactly two plugins. -/
+theorem proofRegistry_length : proofRegistry.length = 2 := rfl
 
 /-- **Every registered plugin is consistent.** -/
 def RegistryConsistent : Prop := RegistryConsistentFor proofRegistry
 
-/-- **The registry is consistent**: the penalty plugin's bundle holds, and it is the only
-entry. -/
+/-- **The registry is consistent**: both entries discharge their bundles.
+
+Each case is closed by the plugin's own `proof_holds`, so a plugin that stopped proving
+something would break this theorem rather than being silently admitted. -/
 theorem registryConsistent_holds : RegistryConsistent := by
   intro p hp
   rw [proofRegistry] at hp
-  simp only [List.mem_singleton] at hp
-  subst hp
-  exact fun _ => proof_holds
+  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl
+  · exact fun _ => Lattice.Plugins.Core.Repair.proof_holds
+  · exact fun _ => proof_holds
 
 /-- **The mandatory kinds the tree already covers.**
 
-`soundness`, `exactness`, `approximation` and `completeness` are claimed by the penalty
-plugin. The rest (`laws`, `recovery`, `spatial`, `confluence`, `equivariance`,
-`idempotence`, `invariants`) are not, because the plugins that would claim them have not
-been migrated. -/
+`soundness`, `laws`, `exactness`, `approximation` and `completeness` are claimed across the
+two migrated plugins. **`laws` joined this set when `Core.Repair` was migrated**: its
+`iterate_succ` is a genuine monoid-action law, which the penalty plugin had no instance of.
+
+The six still missing (`recovery`, `spatial`, `confluence`, `equivariance`, `idempotence`,
+`invariants`) belong to plugins that have not been migrated. -/
 theorem coverage_partial :
-    (∀ k ∈ [ObligationKind.soundness, .exactness, .approximation, .completeness],
+    (∀ k ∈ [ObligationKind.soundness, .laws, .exactness, .approximation, .completeness],
         ∃ p ∈ proofRegistry, p.manifest.claims k = true) := by
   intro k hk
-  refine ⟨verified, proofRegistry_penalty_mem, ?_⟩
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hk
-  rcases hk with rfl | rfl | rfl | rfl
-  · rfl
-  · rfl
-  · rfl
-  · rfl
+  rcases hk with rfl | rfl | rfl | rfl | rfl
+  · -- soundness: either plugin
+    exact ⟨verified, proofRegistry_penalty_mem, rfl⟩
+  · -- laws: the repair plugin
+    exact ⟨Lattice.Plugins.Core.Repair.verified, proofRegistry_repair_mem, rfl⟩
+  · -- exactness: either plugin
+    exact ⟨verified, proofRegistry_penalty_mem, rfl⟩
+  · -- approximation: either plugin
+    exact ⟨verified, proofRegistry_penalty_mem, rfl⟩
+  · -- completeness: either plugin
+    exact ⟨verified, proofRegistry_penalty_mem, rfl⟩
 
 /-- **Registry completeness, as the plan defines it.** -/
 def PluginRegistryComplete : Prop :=
@@ -107,11 +123,15 @@ theorem registryComplete_fails :
   intro h
   obtain ⟨p, hp, hclaim⟩ := h .recovery (by simp [mandatoryKinds])
   rw [proofRegistry] at hp
-  simp only [List.mem_singleton] at hp
-  subst hp
-  -- `verified.manifest` IS `manifest`, so the claim can be reduced to the manifest lemma.
-  rw [verified_manifest, manifest_no_recovery] at hclaim
-  exact Bool.false_ne_true hclaim
+  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl
+  · -- the repair plugin does not claim recovery either
+    rw [Lattice.Plugins.Core.Repair.verified_manifest,
+        Lattice.Plugins.Core.Repair.manifest_no_recovery] at hclaim
+    exact Bool.false_ne_true hclaim
+  · -- `verified.manifest` IS `manifest`, so the claim reduces to the manifest lemma.
+    rw [verified_manifest, manifest_no_recovery] at hclaim
+    exact Bool.false_ne_true hclaim
 
 /-- **`PluginRegistryComplete` is open**, stated as the negation of its coverage half. -/
 theorem pluginRegistryComplete_not_yet : ¬ PluginRegistryComplete := by

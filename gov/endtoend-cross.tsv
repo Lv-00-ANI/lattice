@@ -1,5 +1,6 @@
 # theorems touching >= 2 layers BY CONTENT -- written by check_endtoend_content.py
 Plugins.lean	proofRegistry_penalty_mem
+Plugins.lean	proofRegistry_repair_mem
 Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
 Plugins.lean	coverage_partial
@@ -1845,6 +1846,28 @@ Plugins/Registry.lean	PluginProof.trivial_holds
 Plugins/Registry.lean	PluginProof.trivial_fields
 Plugins/Registry.lean	registryConsistentFor_nil
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
+Plugins/Core/Repair/Manifest.lean	manifest_obligation_count
+Plugins/Core/Repair/Manifest.lean	manifest_layer
+Plugins/Core/Repair/Manifest.lean	manifest_provides
+Plugins/Core/Repair/Manifest.lean	manifest_requires_nothing
+Plugins/Core/Repair/Manifest.lean	manifest_claims_completeness
+Plugins/Core/Repair/Manifest.lean	manifest_claims_exactness
+Plugins/Core/Repair/Manifest.lean	manifest_no_spatial
+Plugins/Core/Repair/Manifest.lean	manifest_no_equivariance
+Plugins/Core/Repair/Manifest.lean	manifest_no_idempotence
+Plugins/Core/Repair/Manifest.lean	manifest_no_refinement
+Plugins/Core/Repair/Manifest.lean	manifest_no_recovery
+Plugins/Core/Repair/Plugin.lean	progressProp_holds
+Plugins/Core/Repair/Plugin.lean	progressOnWFProp_holds
+Plugins/Core/Repair/Plugin.lean	convergesWithinProp_holds
+Plugins/Core/Repair/Plugin.lean	convergesWithinTightProp_holds
+Plugins/Core/Repair/Plugin.lean	atomicOfZeroIffProp_holds
+Plugins/Core/Repair/Plugin.lean	stableProp_holds
+Plugins/Core/Repair/Plugin.lean	preservesProp_holds
+Plugins/Core/Repair/Plugin.lean	iterateSuccProp_holds
+Plugins/Core/Repair/Plugin.lean	proof_holds
+Plugins/Core/Repair/Plugin.lean	verified_manifest
+Plugins/Core/Repair/Plugin.lean	verified_obligations
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_obligation_count
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_layer
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_provides

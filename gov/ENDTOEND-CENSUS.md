@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5572 | 60.7% |
+| 0 | 5572 | 60.5% |
 | 1 | 1433 | 15.6% |
 | 2 | 763 | 8.3% |
-| 3 | 624 | 6.8% |
+| 3 | 626 | 6.8% |
 | 4 | 525 | 5.7% |
-| 5 | 211 | 2.3% |
-| 6 | 54 | 0.6% |
-| **合计** | **9182** | |
+| 5 | 212 | 2.3% |
+| 6 | 74 | 0.8% |
+| **合计** | **9205** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -49,6 +49,26 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_obligation_count` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_layer` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_provides` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_requires_nothing` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_claims_completeness` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_claims_exactness` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_no_spatial` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_no_equivariance` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_no_idempotence` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_no_refinement` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_no_recovery` (`Plugins/Core/Repair/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `progressProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `progressOnWFProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `convergesWithinProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `convergesWithinTightProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `preservesProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `iterateSuccProp_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `proof_holds` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `verified_manifest` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `verified_obligations` (`Plugins/Core/Repair/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Domains/Constraints/Penalty/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Domains/Constraints/Penalty/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_provides` (`Plugins/Domains/Constraints/Penalty/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -68,26 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_manifest` (`Plugins/Domains/Constraints/Penalty/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Domains/Constraints/Penalty/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `ObligationKind.all_length` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `PluginLayer.card_eq_eight` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `PluginManifest.empty_claims_false` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `refinement_not_mandatory` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `PluginManifest.empty_never_covers` (`Plugins/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `PluginProof.trivial_holds` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `PluginProof.trivial_fields` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `registryConsistentFor_nil` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `allMandatoryKindsCovered_nil_fails` (`Plugins/Registry.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `bidir_steps` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `multistep_geometric_exists` (`Primitives/MultistepLoop.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `edit_apply_idempotent_of_no_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `edit_apply_not_idempotent_of_add` (`Semantics/Annotations.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `post_train_preserves_holds` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `post_train_preserves_set` (`Semantics/PostTrain.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 5 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `valuePrimitives_length` (`Compose/AdapterMatrix.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `combinatorPrimitives_length` (`Compose/AdapterMatrix.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `descentStep_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `descentStepCol_sound` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
-| 5 | `forward_chain_capstone_n` (`Compose/ForwardChain.lean`) | Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
