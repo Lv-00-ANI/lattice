@@ -4540,4 +4540,65 @@ theorem polyLayerStep_totalDegree_le (a b : ℕ) (off : ℕ)
   · rw [MvPolynomial.totalDegree_X]
     omega
 
+
+/-! ## ⭐⭐⭐ 宽度 > 1：链的多项式载体
+
+**第 42 轮给出了【一层】**（`polyLayerStep`）**及其次数界。
+本节把它沿链迭代。**
+
+**⚠ 链的宽度是【依赖**的（每层的输入宽度 = 上一层的输出宽度），
+所以载体用一个索引归纳类型 `PolyChain m n`，而【不是 `List`**。** -/
+
+/-- **宽度依赖的链（多项式侧）**——**每层携带自己的输入／输出宽度。** -/
+inductive PolyChain : ℕ → ℕ → Type
+  | idf (n : ℕ) : PolyChain n n
+  | cons {a b c : ℕ} : MLayer a b → PolyChain b c → PolyChain a c
+
+/-- **层数**。 -/
+def polyChainDepth : {m n : ℕ} → PolyChain m n → ℕ
+  | _, _, .idf _ => 0
+  | _, _, .cons _ rest => polyChainDepth rest + 1
+
+/-- **参数槽位总数**（沿链累加）。 -/
+def polyChainParamCount : {m n : ℕ} → PolyChain m n → ℕ
+  | _, _, .idf _ => 0
+  | _, _, .cons (a := a) (b := b) _ rest => layerParamCount a b + polyChainParamCount rest
+
+/-- **链的多项式作用**——**`off` 是当前层的起始槽位。** -/
+noncomputable def polyChainAct : {m n : ℕ} → (ch : PolyChain m n) → (off : ℕ) →
+    (Fin m → MvPolynomial ℕ ℝ) → (Fin n → MvPolynomial ℕ ℝ)
+  | _, _, .idf _, _, v => v
+  | _, _, .cons (a := a) (b := b) l rest, off, v =>
+      polyChainAct rest (off + layerParamCount a b)
+        (polyLayerStep a b off v)
+
+/-- ⭐⭐ **`idf` 支**——**定义级。** -/
+theorem polyChainAct_idf (n off : ℕ) (v : Fin n → MvPolynomial ℕ ℝ) :
+    polyChainAct (PolyChain.idf n) off v = v := rfl
+
+/-- ⭐⭐ **`cons` 支**——**定义级。** -/
+theorem polyChainAct_cons {a b c : ℕ} (l : MLayer a b) (rest : PolyChain b c)
+    (off : ℕ) (v : Fin a → MvPolynomial ℕ ℝ) :
+    polyChainAct (PolyChain.cons l rest) off v
+      = polyChainAct rest (off + layerParamCount a b) (polyLayerStep a b off v) := rfl
+
+
+/-- ⭐⭐⭐ **链的次数界**：**若每个输入坐标的次数 ≤ `d`，则每个输出坐标的次数 ≤ `d + 层数`。**
+
+**⚠ 这是第 42 轮单层界沿链的迭代——无关于宽度。** -/
+theorem polyChainAct_totalDegree_le {m n : ℕ} : (ch : PolyChain m n) → (off : ℕ) →
+    (v : Fin m → MvPolynomial ℕ ℝ) → (d : ℕ) →
+    (∀ i, (v i).totalDegree ≤ d) →
+    ∀ j, (polyChainAct ch off v j).totalDegree ≤ d + polyChainDepth ch
+  | .idf _, off, v, d, hv, j => by
+      simp only [polyChainAct, polyChainDepth]
+      exact hv j
+  | .cons (a := a) (b := b) l rest, off, v, d, hv, j => by
+      simp only [polyChainAct, polyChainDepth]
+      have hstep : ∀ i, (polyLayerStep a b off v i).totalDegree ≤ d + 1 :=
+        fun i => polyLayerStep_totalDegree_le a b off v d hv i
+      have ih := polyChainAct_totalDegree_le rest (off + layerParamCount a b)
+        (polyLayerStep a b off v) (d + 1) hstep j
+      omega
+
 end Lattice.Core
