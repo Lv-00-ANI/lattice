@@ -919,7 +919,7 @@
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 186 | 67 |
+| `Lattice.Core.VariableDerivative` | 188 | 67 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -7462,6 +7462,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `polyChainAct_eval` -> `eval`, `trans`
 - `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
 - `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
+- `polyChain_output_full` -> `eval`
+- `polyChain_output_width_one` -> `eval`
 - `polyKernel_one_eq_featScore` -> `apply`, `featScore`, `softmax`
 - `polyKernel_one_gram_psd` -> `apply`, `softmax`
 - `polyLayerStep_eval` -> `Chain`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`

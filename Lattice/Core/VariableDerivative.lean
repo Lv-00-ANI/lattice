@@ -4734,4 +4734,52 @@ theorem polyChainAct_eval {N : ℕ} : {m n : ℕ} → (ch : PolyChain m n) → (
         (congrFun (natParamAct_eq_flatParamActSafe a b off gN
           (fun i => (v i).eval (fun k => readSlot gN k)) hcur) i)
 
+
+/-- ⭐⭐⭐ **宽度 > 1 的压顶定理**：**任意宽度 `m → n` 的链，其输出就是参数的显式多项式向量，
+每个坐标的次数 ≤ 输入次数 + 层数，且该向量的求值就是网络的输出。**
+
+**⚠ 这是第 41 轮宽度 1 压顶定理的任意宽度推广——
+把第 43 轮的次数界（`polyChainAct_totalDegree_le`）与
+第 47 轮的求值一致（`polyChainAct_eval`）合成【一条**。** -/
+theorem polyChain_output_full {N m n : ℕ} (ch : PolyChain m n) (off : ℕ)
+    (v : Fin m → MvPolynomial ℕ ℝ) (d : ℕ) (hv : ∀ i, (v i).totalDegree ≤ d)
+    (gN : Fin N → ℝ) (hN : off + polyChainParamCount ch + 1 ≤ N) :
+    (∀ j, (polyChainAct ch off v j).totalDegree ≤ d + polyChainDepth ch)
+      ∧ ∀ j, (polyChainAct ch off v j).eval (fun k => readSlot gN k)
+          = flatChainAct (N := N) (polyChainToChain ch) off gN
+              (fun i => (v i).eval (fun k => readSlot gN k)) j :=
+  ⟨polyChainAct_totalDegree_le ch off v d hv,
+    polyChainAct_eval ch off v gN hN⟩
+
+/-- ⭐⭐ **压顶（以常数输入）**：**宽度 1 的输入 `C x` 时，次数恰为层数。**
+
+**⚠ 这是宽度 > 1 框架对第 41 轮结果的【复核**：
+取 `m = 1`、`v = fun _ => C x`，则 `d = 0`，次数 ≤ 层数。** -/
+theorem polyChain_output_width_one {N n : ℕ} (ch : PolyChain 1 n) (off : ℕ)
+    (x : ℝ) (gN : Fin N → ℝ) (hN : off + polyChainParamCount ch + 1 ≤ N) :
+    (∀ j, (polyChainAct ch off (fun _ => MvPolynomial.C x) j).totalDegree
+        ≤ polyChainDepth ch)
+      ∧ ∀ j, (polyChainAct ch off (fun _ => MvPolynomial.C x) j).eval
+          (fun k => readSlot gN k)
+          = flatChainAct (N := N) (polyChainToChain ch) off gN
+              (fun _ => x) j := by
+  have hv : ∀ i : Fin 1,
+      ((fun _ : Fin 1 => (MvPolynomial.C x : MvPolynomial ℕ ℝ)) i).totalDegree ≤ 0 := by
+    intro i
+    simp [totalDegree_C_zero]
+  have := polyChain_output_full ch off
+    (fun _ : Fin 1 => (MvPolynomial.C x : MvPolynomial ℕ ℝ)) 0 hv gN hN
+  refine ⟨fun j => ?_, ?_⟩
+  · have h1 := this.1 j
+    omega
+  · intro j
+    have h2 := this.2 j
+    have h3 : (fun i : Fin 1 =>
+        ((fun _ : Fin 1 => (MvPolynomial.C x : MvPolynomial ℕ ℝ)) i).eval
+          (fun k => readSlot gN k)) = (fun _ => x) := by
+      funext i
+      simp
+    rw [h3] at h2
+    exact h2
+
 end Lattice.Core
