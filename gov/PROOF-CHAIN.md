@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 238 | aggregator at `Lattice/`, re-exports only |
+| root | 241 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -806,7 +806,7 @@
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
-- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`
+- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Extractors`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
 - `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Core.Repair.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairWF`
@@ -816,6 +816,9 @@
 - `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.PenaltyLoss`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Constraints.LossExtraction`
+- `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
+- `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
@@ -1696,7 +1699,7 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 9 | 4 |
+| `Lattice.Plugins` | 10 | 4 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 11 | 1 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
@@ -1706,6 +1709,9 @@
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 11 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
+| `Lattice.Plugins.Extractors` | 0 | 0 |
+| `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 13 | 1 |
+| `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 6 | 14 |
 | `Lattice.Plugins.Registry` | 4 | 8 |
 | `Lattice.Primitives` | 0 | 0 |
@@ -2535,6 +2541,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bfgs_paraboloid` -> `mulVec`
 - `bfgs_secant` -> `mulVec`
 - `biasOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `biasSlotIsRowAProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `bias_compose` -> `W`, `apply`, `compose`, `induction`
 - `bias_slot_eq_slotOf` -> `MLayer`, `apply`
 - `bias_variance_decomposition` -> `E`, `eps`, `geom_sum_mul`, `induction`, `zero`
@@ -3756,6 +3763,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decreases_of_one_step` -> `Audit`, `Sat`
 - `decreases_role` -> `Audit`, `Sat`
 - `dedupAxioms_length_le` -> `Rule`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
+- `deepChainFinalSlotDeadProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `degNorm_msgPass_bound` -> `le_trans`
 - `degNorm_msgPass_lipschitz` -> `le_trans`
 - `degNorm_sum_abs_le_one` -> `apply`, `le_trans`
@@ -4951,6 +4959,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldStrength_le_of_mem` -> `Strength`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `fold_weights_sum` -> `card_fin`
 - `foldlQ_init_add` -> `induction`
+- `foldlSlotZeroPreservedProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
 - `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `convertVec`, `dot`, `induction`, `length`, `subst`
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
@@ -5683,6 +5692,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interior_multImprovingSet_nonempty` -> `dist`, `eps`, `subst`, `supporting_functional_of_not_mem_interior`
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `interleaving_length` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`
+- `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `interp_extrapolation_bound` -> `absPosEnc`, `le_trans`
 - `interval_expansive` -> `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `inv_sub_inv_eq` -> `E`, `le`
@@ -6349,19 +6359,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maml_second_order_expansion` -> `add`, `comp`, `fomamlGrad`
 - `manifest_claims_approximation` -> `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_claims_completeness` -> `Repair`, `claims`, `completeness`
-- `manifest_claims_exactness` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
-- `manifest_claims_laws` -> `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
-- `manifest_claims_soundness` -> `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
-- `manifest_layer` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`, `soundness`
-- `manifest_no_confluence` -> `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_no_equivariance` -> `Repair`, `claims`
+- `manifest_claims_exactness` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_laws` -> `claims`, `completeness`, `manifest`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_soundness` -> `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_layer` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `poly`, `repair`, `soundness`
+- `manifest_no_approximation` -> `claims`, `completeness`, `manifest`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_spatial`
+- `manifest_no_completeness` -> `claims`, `completeness`, `manifest`
+- `manifest_no_confluence` -> `claims`, `completeness`, `manifest`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
+- `manifest_no_equivariance` -> `Repair`, `claims`, `completeness`, `manifest`
 - `manifest_no_idempotence` -> `Repair`, `claims`, `manifest`
-- `manifest_no_recovery` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
+- `manifest_no_recovery` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
-- `manifest_no_spatial` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_obligation_count` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires_nothing`, `repair`, `soundness`
-- `manifest_provides` -> `Repair`, `claims`, `completeness`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `repair`, `soundness`
-- `manifest_requires` -> `claims`, `flatten`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `soundness`
+- `manifest_no_spatial` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
+- `manifest_obligation_count` -> `PluginLayer`, `Repair`, `claims`, `completeness`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `poly`, `repair`, `soundness`
+- `manifest_provides` -> `Repair`, `claims`, `completeness`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `repair`, `soundness`
+- `manifest_requires` -> `claims`, `completeness`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `poly`, `soundness`
 - `manifest_requires_nothing` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
 - `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
@@ -7195,6 +7207,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneLayerParamPoly_degree_le` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `oneLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`
 - `oneLayerPolyNat_coeff_weight` -> `MLayer`
+- `oneLayerWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `oneLayer_reachable_exact` -> `Pt`, `W`, `affine_map_realisable`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_respects_affine_relations` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `flatParamActSafe`, `readSlot`, `slotOf`
 - `oneLayer_reverse_equivalence` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
@@ -7433,6 +7446,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
+- `perSlotExtractionSoundProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
 - `perceptron_bound` -> `E`, `le`, `le_trans`, `subst`
 - `perceptron_converges` -> `E`, `le`, `subst`
 - `perceptron_growth` -> `E`, `induction`, `le`, `le_trans`, `subst`, `zero`
@@ -7688,6 +7702,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promote_ge_right` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promotion_table_correct` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `proofComplete_iff_registry` -> `AllMandatoryKindsCoveredFor`, `Repair`, `mandatoryKinds`, `manifest_no_recovery`, `verified_manifest`
+- `proofRegistry_extractor_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
 - `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified_manifest`
 - `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
 - `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
@@ -8853,6 +8868,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `simulation_step` -> `compile`, `induction`, `step`, `trivial`
 - `sin_eq_zero_iff_int` -> `mul`
 - `sin_int_mul_pi_zero` -> `mul`
+- `singleChainWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `single_dev_tail` -> `card_fin`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `single_solution_constraint_concept` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
 - `single_var_is_multivar` -> `dot`
@@ -8907,6 +8923,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
+- `slotWeightLtBiasProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `slotOf`, `slotOf_lt_bound`, `slotOf_weight_lt`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
+- `slotWithinBlockProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `slotOf`, `slotOf_lt_bound`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
+- `slotZeroDeadPastTwoProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `sm_argmax_lower` -> `apply`, `card_fin`, `softmax`
 - `sm_denom_pos` -> `apply`, `card_fin`, `le_trans`, `softmax`
 - `sm_denom_pos_one` -> `apply`, `card_fin`, `le_trans`, `softmax`
@@ -9189,6 +9208,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ste_gradient_identity` -> `E`, `GDUpdate`, `GD_contraction_step`, `comp`, `induction`, `le_trans`, `zero`
 - `ste_hasDerivAt` -> `E`, `GDUpdate`, `GD_contraction_step`, `comp`, `induction`, `le_trans`, `zero`
 - `ste_surrogate_deriv` -> `E`, `GDUpdate`, `GD_contraction_step`, `comp`, `induction`, `le_trans`, `zero`
+- `stepBiasPositionalProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `stepIter_apply_ne` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_le` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepIter_of_lt` -> `apply`, `induction`, `le`, `subst`, `trans`, `zero`
@@ -9203,6 +9223,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepNat_snd_totalDegree` -> `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `stepNat_totalDegree_zero` -> `MLayer`, `eval`, `le_trans`, `length`, `length_cons`
 - `stepSound_hypothesis_false` -> `apply`, `step`
+- `stepWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `step_Iz` -> `Compiler`, `Term`, `app_r`
 - `step_Omega_inv` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `induction`, `lift`, `not_step_redB`, `redI`, `star_refl`, `step_app_inv`, `step_lam_inv`
 - `step_T_U` -> `Compiler`, `Term`, `app_r`

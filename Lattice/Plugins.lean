@@ -20,6 +20,7 @@ import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Core
 import Lattice.Plugins.Domains
+import Lattice.Plugins.Extractors
 
 namespace Lattice.Plugins
 
@@ -29,14 +30,15 @@ open Lattice.Plugins.Domains.Constraints.Tokens
 /-- **The registry of verified plugins.**
 
 Every entry must carry a manifest whose obligations name real theorems, and a `consistent`
-field proved from them. **Three plugins are migrated so far** -- `Core.Repair`,
-`Domains.Constraints.Penalty` and `Domains.Constraints.Tokens`; the remaining 33 become rows
-here as P3 proceeds.
+field proved from them. **Four plugins are migrated so far** -- `Core.Repair`,
+`Domains.Constraints.Penalty`, `Domains.Constraints.Tokens` and `Extractors.ChainSlot`; the
+remaining 32 become rows here as P3 proceeds.
 -/
 def proofRegistry : List VerifiedPlugin :=
   [Lattice.Plugins.Core.Repair.verified,
    Lattice.Plugins.Domains.Constraints.Penalty.verified,
-   Lattice.Plugins.Domains.Constraints.Tokens.verified]
+   Lattice.Plugins.Domains.Constraints.Tokens.verified,
+   Lattice.Plugins.Extractors.ChainSlot.verified]
 
 /-- The registry contains the penalty plugin. -/
 theorem proofRegistry_penalty_mem :
@@ -53,8 +55,13 @@ theorem proofRegistry_tokens_mem :
     Lattice.Plugins.Domains.Constraints.Tokens.verified ∈ proofRegistry := by
   simp [proofRegistry]
 
-/-- The registry currently holds exactly three plugins. -/
-theorem proofRegistry_length : proofRegistry.length = 3 := rfl
+/-- The registry contains the chain-slot extractor. -/
+theorem proofRegistry_extractor_mem :
+    Lattice.Plugins.Extractors.ChainSlot.verified ∈ proofRegistry := by
+  simp [proofRegistry]
+
+/-- The registry currently holds exactly four plugins. -/
+theorem proofRegistry_length : proofRegistry.length = 4 := rfl
 
 /-- **Every registered plugin is consistent.** -/
 def RegistryConsistent : Prop := RegistryConsistentFor proofRegistry
@@ -67,17 +74,22 @@ theorem registryConsistent_holds : RegistryConsistent := by
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl
   · exact fun _ => Lattice.Plugins.Core.Repair.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Penalty.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Tokens.proof_holds
+  · exact fun _ => Lattice.Plugins.Extractors.ChainSlot.proof_holds
 
 /-- **The mandatory kinds the tree already covers.**
 
 `soundness`, `laws`, `exactness`, `approximation` and `completeness` are claimed across the
-three migrated plugins. **`laws` joined this set when `Core.Repair` was migrated** (its
-`iterate_succ` is a monoid-action law), **and `exactness` gained a second independent
-witness when `Tokens` was migrated** (the flattening bijection).
+four migrated plugins. **`laws` joined this set when `Core.Repair` was migrated** (its
+`iterate_succ` is a monoid-action law), **and `exactness` gained a second independent witness
+when `Tokens` was migrated** (the flattening bijection).
+
+**`Extractors.ChainSlot` is the first plugin whose EXACTNESS obligation concerns the REVERSE
+direction**: `intermediate_poly_readable` says where a weight is, and the bundle's `soundness`
+carries the matching impossibility (`deep_chain_final_slot_dead`).
 
 The six still missing (`recovery`, `spatial`, `confluence`, `equivariance`, `idempotence`,
 `invariants`) belong to plugins that have not been migrated. -/
@@ -87,12 +99,12 @@ theorem coverage_partial :
   intro k hk
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hk
   rcases hk with rfl | rfl | rfl | rfl | rfl
-  · -- soundness: the penalty plugin
-    exact ⟨_, proofRegistry_penalty_mem, rfl⟩
+  · -- soundness: the chain-slot extractor
+    exact ⟨_, proofRegistry_extractor_mem, rfl⟩
   · -- laws: the repair plugin
     exact ⟨_, proofRegistry_repair_mem, rfl⟩
-  · -- exactness: the tokenisation plugin
-    exact ⟨_, proofRegistry_tokens_mem, rfl⟩
+  · -- exactness: the chain-slot extractor
+    exact ⟨_, proofRegistry_extractor_mem, rfl⟩
   · -- approximation: the penalty plugin
     exact ⟨_, proofRegistry_penalty_mem, rfl⟩
   · -- completeness: the tokenisation plugin
@@ -136,7 +148,7 @@ theorem registryComplete_fails :
   obtain ⟨p, hp, hclaim⟩ := h .recovery (by simp [mandatoryKinds])
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl
   · -- the repair plugin does not claim recovery
     rw [Lattice.Plugins.Core.Repair.verified_manifest,
         Lattice.Plugins.Core.Repair.manifest_no_recovery] at hclaim
@@ -148,6 +160,10 @@ theorem registryComplete_fails :
   · -- the tokenisation plugin does not claim recovery
     rw [Lattice.Plugins.Domains.Constraints.Tokens.verified_manifest,
         Lattice.Plugins.Domains.Constraints.Tokens.manifest_no_recovery] at hclaim
+    exact Bool.false_ne_true hclaim
+  · -- the chain-slot extractor does not claim recovery
+    rw [Lattice.Plugins.Extractors.ChainSlot.verified_manifest,
+        Lattice.Plugins.Extractors.ChainSlot.manifest_no_recovery] at hclaim
     exact Bool.false_ne_true hclaim
 
 /-- **`PluginRegistryComplete` is open**, stated as the negation of its coverage half. -/
