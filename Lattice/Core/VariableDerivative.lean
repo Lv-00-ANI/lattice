@@ -4275,4 +4275,40 @@ theorem chainList_output_is_polynomial {N : ℕ} (ls : ChainList)
                 (fun _ => x) (0 : Fin 1) :=
   ⟨chainNatPoly_X0_totalDegree ls, fun gN => chainList_output_eval ls hN x gN⟩
 
+
+/-! ## ⚠⚠ 第 38 轮：`deg p = 0` 的两处具体修法（已定位，未完成）
+
+## 要补的两条
+
+1. **`totalDegree_X_mul_C_add_X_zero_nat`**（`ℕ` 下标的 `X a · C c + X b` 次数 = 1）——
+   **第 22 轮 `Fin N` 版本的对应物**；
+2. **`eq_C_of_totalDegree_zero_nat`**（`deg p = 0 ⇒ p = C (coeff 0 p)`）。
+
+## 第一处的现状
+
+**它有 `le_antisymm` 两支：上界用 `totalDegree_add` + `totalDegree_mul` + `totalDegree_X` + `totalDegree_C`；
+下界用 `coeff (single a 1)` + `le_totalDegree`。**
+
+**本轮把它写进了文件，编译【通过**——**所以第一条本身没有障碍。**
+
+## 第二处失败的两个具体点
+
+**⚠ 1. 分支目标 `⊢ 0 = if 0 = m then coeff 0 p else 0`（其中 `m ≠ 0`）。**
+**`simp` 需要知道 `0 ≠ m`，而 `m ≠ 0` 已有——但 `simp` 没有用它，
+因为 `if 0 = m` 里 `0` 是【字面量**而 `m` 是变量，判据方向相反。**
+
+**⇒ 修法：在 `simp` 前先 `have : (0 : ℕ →₀ ℕ) ≠ m := fun h => hm h.symm`，
+然后 `simp [this]`，或直接 `rw [if_neg this]`。**
+
+**⚠ 2. `simp only [stepNat, hC]` 报 `maximum recursion depth has been reached`。**
+**展开 `MvPolynomial.C` 再展开 `stepNat` 的组合让 `simp` 递归过深。**
+
+**⇒ 修法：不用 `simp`，改用 `rw [hC]` 单独替换，再 `rw [totalDegree_X_mul_C_add_X_zero_nat …]`。**
+
+## 结论
+
+**本轮没有代码入库（回退到 738）。**
+
+**⇒ 下一轮按上面两条具体修法重做，两条都只需改一行。** -/
+
 end Lattice.Core
