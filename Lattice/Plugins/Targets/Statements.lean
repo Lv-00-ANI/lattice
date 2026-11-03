@@ -206,8 +206,17 @@ every `penaltyLoss` branch is, being a squared or nonneg expression) cannot sepa
 **=> `t2_relaxed_constructors` has exactly two entries.** -/
 theorem t2_relaxed_count : t2_relaxed_constructors.length = 2 := rfl
 
-/-- **T2's modulus half -- OPEN.** -/
-def t2_modulus_open : String := "T2: `penalty_min_to_violation`"
+/-- **T2's modulus half -- NOW PROVED.**
+
+**This marker said "OPEN" and named `penalty_min_to_violation` as the missing statement.**
+**Round 82 found it: `Domains/Geometry/ExprLocalMin.lean` proves that a local minimum of `(evalPts)^2`
+forces `evalPts = 0`, conditional on `derivExpr k e w ≠ 0`.**
+**=> `T2Min.lean` supplies the `violation` vocabulary and states the modulus in the plan's `ε` form.**
+
+**The marker is kept (rather than deleted) so the ledger shows the transition:**
+**it now records WHERE the proof lives, not that it is absent.** -/
+def t2_modulus_pointer : String :=
+  "T2 modulus: PROVED in Plugins/Targets/T2Min.lean (penalty_min_to_violation)"
 
 /-! ## T3: extraction
 
@@ -320,11 +329,17 @@ must move.** **The two that left did so because a carrier was built, not because
 weakened.** -/
 def open_targets : List String :=
   ["T0 constructor (ExpressibleSpec exists; the solver does not)",
-   "T1 general form", "T2 modulus"]
+   "T1 general form"]
 
-/-- **The three open targets.** **The register shrank from five to three when T5 and T6 gained
-witnesses.** -/
-theorem open_targets_register : open_targets.length = 3 := rfl
+/-- **The register is down to TWO entries.**
+
+**`T2 modulus` left it in round 82**, when `T2Min.penalty_min_to_violation` was found and wrapped.
+**Both remaining entries are GAPS WITHIN targets whose cores are proved, not unproved targets:**
+**`T0`'s core (`construct_from_scratch`) is proved and only the constructor is missing;**
+**`T1`'s instance is proved and only the general form is missing.**
+**That is why `open_target_count` is 1 while this register has two entries -- the register counts GAPS,
+the ledger counts TARGETS.** -/
+theorem open_targets_register : open_targets.length = 2 := rfl
 
 /-- **`T0` is no longer unstatable**: `ExpressibleSpec` exists, and its `construct_from_scratch`
 obligation is PROVED.

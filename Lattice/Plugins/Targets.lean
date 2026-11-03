@@ -30,6 +30,10 @@ is restated as a predicate (`ConstConfigOK`) rather than a closed list of constr
 
 **`SolverBoundary.lean`** -- **the PROOF that `SpecSolver` is uninhabited**, **because one expressible
 spec (`eqZero (const 1)`) has no model at all.** **This turns round 74's prose claim into a theorem.**
+
+**`T2Min.lean`** -- **T2's MODULUS half**, **which the audit found absent from `ProofComplete`**:
+**a local minimum of the expression penalty forces the violation to be exactly zero**, **conditional on
+a non-vanishing derivative, with the counterexample that shows the condition is needed.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
@@ -39,4 +43,5 @@ import Lattice.Plugins.Targets.ConstFamily
 import Lattice.Plugins.Targets.DegenerateSolver
 import Lattice.Plugins.Targets.Nondegenerate
 import Lattice.Plugins.Targets.SolverBoundary
+import Lattice.Plugins.Targets.T2Min
 import Lattice.Plugins.Targets.Statements

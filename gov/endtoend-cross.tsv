@@ -2124,6 +2124,11 @@ Plugins/Targets/Statements.lean	t4_repair_progress_holds
 Plugins/Targets/Statements.lean	t4_loop_converges_holds
 Plugins/Targets/Statements.lean	open_targets_register
 Plugins/Targets/Statements.lean	t0_is_statable
+Plugins/Targets/T2Min.lean	violation_nonneg
+Plugins/Targets/T2Min.lean	penalty_min_to_violation
+Plugins/Targets/T2Min.lean	penalty_min_violation_eq_zero
+Plugins/Targets/T2Min.lean	modulus_requires_nonvanishing_deriv
+Plugins/Targets/T2Min.lean	t2_penalty_modulus_holds
 Primitives/MultistepLoop.lean	step_pos
 Primitives/MultistepLoop.lean	step_neg
 Primitives/MultistepLoop.lean	step_zero
