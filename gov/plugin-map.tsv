@@ -8624,6 +8624,7 @@ lib	Lib/Quantization/RealIEEE754	Lib/Quantization/RealIEEE754/TinyGrid.lean	tiny
 lib	Lib/Quantization/RealIEEE754	Lib/Quantization/RealIEEE754/TinyGrid.lean	tinyGrid_sign_neg	no
 lib	Lib/Quantization/RealIEEE754	Lib/Quantization/RealIEEE754/TinyGrid.lean	tinyGrid_sign_pos	no
 lib	Lib/Quantization/RealIEEE754	Lib/Quantization/RealIEEE754/TinyGrid.lean	tinyGrid_subnormal	no
+plugins	Plugins	Plugins.lean	coreConstraint_is_citation	yes
 plugins	Plugins	Plugins.lean	coverageComplete_holds	no
 plugins	Plugins	Plugins.lean	coverage_all_mandatory	no
 plugins	Plugins	Plugins.lean	current_state	no
@@ -8639,6 +8640,7 @@ plugins	Plugins	Plugins.lean	proofRegistry_gnn_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_length	no
 plugins	Plugins	Plugins.lean	proofRegistry_nonvacuous	no
 plugins	Plugins	Plugins.lean	proofRegistry_norm_mem	no
+plugins	Plugins	Plugins.lean	proofRegistry_not_migrated	yes
 plugins	Plugins	Plugins.lean	proofRegistry_penalty_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_repair_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_tokens_mem	no
@@ -8655,6 +8657,8 @@ plugins	Plugins	Plugins/Migration.lean	lib_not_prefix_plugins	yes
 plugins	Plugins	Plugins/Migration.lean	norm_obligation_is_a_citation	yes
 plugins	Plugins	Plugins/Migration.lean	not_migrated_of_foreign	no
 plugins	Plugins	Plugins/Migration.lean	plugins_not_prefix_lib	yes
+plugins	Plugins	Plugins/Migration.lean	registryMigratedFor_fails_of_foreign	no
+plugins	Plugins	Plugins/Migration.lean	registryMigratedFor_nil	no
 plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne	no
 plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne_gen	no
 plugins	Plugins	Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails	yes

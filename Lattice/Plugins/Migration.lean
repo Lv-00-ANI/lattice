@@ -147,4 +147,41 @@ theorem norm_obligation_is_a_citation : ¬ ObligationOwnedBy normDir normObligat
   simp only [String.toList] at h
   exact strPrefix_cons_ne_gen (pre := "Lattice/".toList) P_ne_L h
 
+/-! ## The registry-level predicate -/
+
+/-- **A REGISTRY is migrated when every one of its plugins owns its obligations.**
+
+**`dirOf` supplies each plugin's own directory.**
+**This is the predicate the completion condition needs, and it lives HERE rather than in `Registry.lean`
+because `Registry` cannot depend on `Migration`** -- **the dependency points the other way, and putting
+the predicate in the lower file would invert it.**
+
+**Why not simply "count the migrated plugins":**
+**a registry of forty-three plugins with one migrated and forty-two empty ones would satisfy any count
+that only looked at `Migrated`.** **=> `RegistryMigratedFor` requires EVERY plugin, and
+`NonVacuousFor` (in `Registry`) covers the emptiness half.** -/
+def RegistryMigratedFor (dirOf : VerifiedPlugin → String) (reg : List VerifiedPlugin) : Prop :=
+  ∀ p ∈ reg, Migrated (dirOf p) p.manifest
+
+/-- **The empty registry is migrated, vacuously.**
+
+**Recorded because it is the base case, and because it shows the predicate is not a disguised `False`:**
+**what makes the CURRENT registry fail is not the predicate's shape but the paths it meets.** -/
+theorem registryMigratedFor_nil (dirOf : VerifiedPlugin → String) :
+    RegistryMigratedFor dirOf [] := by
+  intro p hp
+  simp at hp
+
+/-- **A registry containing a plugin with a foreign obligation is NOT migrated.**
+
+**The bridge the completion predicate consumes: it turns `norm_obligation_is_a_citation` into a
+statement about a WHOLE registry.** -/
+theorem registryMigratedFor_fails_of_foreign {dirOf : VerifiedPlugin → String}
+    {reg : List VerifiedPlugin} {p : VerifiedPlugin} {o : Obligation}
+    (hp : p ∈ reg) (hmem : o ∈ p.manifest.obligations)
+    (hforeign : ¬ ObligationOwnedBy (dirOf p) o) :
+    ¬ RegistryMigratedFor dirOf reg := by
+  intro h
+  exact not_migrated_of_foreign hmem hforeign (h p hp)
+
 end Lattice.Plugins

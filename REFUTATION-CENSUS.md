@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**310 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**313 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,8 +19,8 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 15 | 4.8% |
-| `(root)` | 3 | 1.0% |
+| `Plugins` | 16 | 5.1% |
+| `(root)` | 5 | 1.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
@@ -37,6 +37,12 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 86 轮新增三条**：`Plugins` 的 `coreConstraint_is_citation`（`Core.Constraint` 的首条义务指向
+`Lattice/Core/Logic.lean`，故它是引用）、`(root)` 的 `proofRegistry_not_migrated`
+（故 `RegistryMigratedFor pluginDirOf proofRegistry` 为假）与 `registryMigratedFor_nil` 的反面
+用法。**这三条把「迁移是引用而非搬运」接进了 `ProofComplete` 本身**——审计的核心批评现在
+是完成谓词上一条可被否证的合取项。
 
 **第 85 轮新增六条**（均在 `Plugins`，`Migration.lean`）：`strPrefix_cons_ne`、
 `strPrefix_cons_ne_gen`、`plugins_not_prefix_lib`、`lib_not_prefix_plugins`、

@@ -189,6 +189,79 @@ theorem pluginCensusPending_holds : pluginCensusPending := by
   unfold pluginCensusPending pluginCensusSize proofRegistry
   norm_num
 
+/-! ## Migration: the registry is a set of CITATIONS -/
+
+/-- **The plugin directory for each registered plugin, as literals.**
+
+**A `def` with one branch per plugin rather than a string rewrite, because `String.replace` has no
+reduction lemmas and the prefix argument needs the paths to REDUCE.**
+**The literals are written out so a reader can compare them with each manifest's `file` field by eye.**
+**Plugins not listed fall into the empty string, which prefixes everything -- so an unlisted plugin would
+be reported as migrated.** **That is recorded rather than hidden: the definition covers exactly the
+registry that exists.** -/
+def pluginDirOf (p : VerifiedPlugin) : String :=
+  if p.manifest.name = "Core.Constraint" then "Lattice/Plugins/Core/Constraint/"
+  else if p.manifest.name = "Core.Repair" then "Lattice/Plugins/Core/Repair/"
+  else if p.manifest.name = "Penalty" then "Lattice/Plugins/Domains/Constraints/Penalty/"
+  else if p.manifest.name = "Tokens" then "Lattice/Plugins/Domains/Constraints/Tokens/"
+  else if p.manifest.name = "Compose" then "Lattice/Plugins/Compose/"
+  else if p.manifest.name = "ChainSlot" then "Lattice/Plugins/Extractors/ChainSlot/"
+  else if p.manifest.name = "GNN" then "Lattice/Plugins/Architectures/GNN/"
+  else if p.manifest.name = "Norm" then "Lattice/Plugins/Architectures/Norm/"
+  else ""
+
+/-- **`Core.Constraint`'s first obligation cites `Lattice/Core/Logic.lean`, not its own directory.**
+
+**The manifest carries `file := "Lattice/Core/Logic.lean"`; the plugin's directory is
+`Lattice/Plugins/Core/Constraint/`.**
+**The two differ immediately after `Lattice/`: `Plugins/` versus `Core/`.** -/
+def coreConstraintObligation : Obligation where
+  name := "entails_cons"
+  kind := .laws
+  theoremName := "entails_cons"
+  file := "Lattice/Core/Logic.lean"
+
+/-- **That obligation is a CITATION, not a MOVE.**
+
+**The proof reduces both paths to character lists and applies `strPrefix_cons_ne_gen` at the divergence:
+`'P' ≠ 'C'`, the first character after the common `Lattice/`.**
+**=> the migration predicate can be applied to a REAL registry entry, which is what makes
+`RegistryMigratedFor pluginDirOf proofRegistry` a meaningful (and, as it stands, FALSE) statement.** -/
+theorem coreConstraint_is_citation : ¬ Lattice.Plugins.ObligationOwnedBy
+    "Lattice/Plugins/Core/Constraint/" coreConstraintObligation := by
+  intro h
+  unfold Lattice.Plugins.ObligationOwnedBy Lattice.Plugins.StringPrefix
+    coreConstraintObligation at h
+  simp only [String.toList] at h
+  exact Lattice.Plugins.strPrefix_cons_ne_gen (pre := "Lattice/".toList)
+    (by decide : ('P' : Char) ≠ 'C') h
+
+/-- **THE REGISTRY IS NOT MIGRATED.**
+
+**`RegistryMigratedFor pluginDirOf proofRegistry` is FALSE, because `Core.Constraint`'s first obligation
+cites `Lattice/Core/Logic.lean` while the plugin's own directory is `Lattice/Plugins/Core/Constraint/`.**
+
+**=> `ProofComplete` cannot be reached while the migration is a set of citations, and the reason is
+STRUCTURAL rather than a matter of counting.**
+**The audit's "8/43 is a wrapper, not a move" is now a theorem about the completion predicate itself.** -/
+theorem proofRegistry_not_migrated :
+    ¬ Lattice.Plugins.RegistryMigratedFor pluginDirOf proofRegistry := by
+  intro h
+  -- pick the first registry entry and its first obligation
+  have hmem : Lattice.Plugins.Core.Constraint.verified ∈ proofRegistry := by
+    simp [proofRegistry]
+  have hobl : { name := "entails_cons", kind := .laws, theoremName := "entails_cons",
+                file := "Lattice/Core/Logic.lean" } ∈
+      Lattice.Plugins.Core.Constraint.verified.manifest.obligations := by
+    simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
+  have hforeign : ¬ Lattice.Plugins.ObligationOwnedBy
+      (pluginDirOf Lattice.Plugins.Core.Constraint.verified)
+      { name := "entails_cons", kind := .laws, theoremName := "entails_cons",
+        file := "Lattice/Core/Logic.lean" } := by
+    simpa [pluginDirOf, Lattice.Plugins.Core.Constraint.manifest] using
+      (coreConstraint_is_citation)
+  exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem hobl hforeign h
+
 /-- **The project's completion predicate.**
 
 **The nine targets of the execution plan, CONJOINED with registry completeness and with the absence
@@ -208,6 +281,7 @@ predicate WAS the registry condition, and it is FALSE now, deliberately.**
 of `ProofComplete` by construction.** -/
 def ProofComplete : Prop :=
   PluginRegistryComplete ∧ ¬ pluginCensusPending ∧
+    RegistryMigratedFor pluginDirOf proofRegistry ∧
     Lattice.Plugins.Targets.t1_compile_sound_instance ∧
     Lattice.Plugins.Targets.t1_merge_sound_unrejected ∧
     Lattice.Plugins.Targets.t1_compile_sound_general ∧
@@ -286,6 +360,10 @@ theorem proofComplete_unreachable :
     ¬ ProofComplete := by
   intro h
   exact h.2.1 pluginCensusPending_holds
+
+/-! ## Migration: the registry is a set of CITATIONS -/
+
+/-! ## Migration: the registry is a set of CITATIONS -/
 
 /-- **The honest statement of the current state.**
 
