@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 254 | aggregator at `Lattice/`, re-exports only |
+| root | 255 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -831,8 +831,9 @@
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
@@ -1739,6 +1740,7 @@
 | `Lattice.Plugins.Registry` | 4 | 8 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
 | `Lattice.Plugins.Targets.Expressible` | 8 | 5 |
+| `Lattice.Plugins.Targets.Solver` | 2 | 1 |
 | `Lattice.Plugins.Targets.Statements` | 11 | 13 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
@@ -5509,6 +5511,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
 - `holds_iff` -> `Holds`, `all`, `bvar`, `induction`
 - `holds_ofLinearForm_iff` -> `EqConstraint`, `GeoConstraint`, `Holds`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `loss`, `loss_eq_zero_expr`, `loss_nonneg`
+- `holds_samePoint_const` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `holds_translate_iff_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
 - `holds_translate_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `translate`
 - `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `reluZ`, `toVec`
@@ -7514,6 +7517,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
+- `penalty_samePoint_const` -> `GeoConstraint`, `Holds`, `Pt`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `perSlotExtractionSoundProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
 - `perceptron_bound` -> `E`, `le`, `le_trans`, `subst`
 - `perceptron_converges` -> `E`, `le`, `subst`

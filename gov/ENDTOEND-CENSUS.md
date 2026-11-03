@@ -21,14 +21,15 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 3 | 637 | 6.8% |
 | 4 | 529 | 5.6% |
 | 5 | 221 | 2.4% |
-| 6 | 199 | 2.1% |
-| 7 | 1 | 0.0% |
-| **合计** | **9381** | |
+| 6 | 200 | 2.1% |
+| 7 | 2 | 0.0% |
+| **合计** | **9383** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 7 | `holds_samePoint_const` (`Plugins/Targets/Solver.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `t1_compile_sound_instance_holds` (`Plugins/Targets/Statements.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 6 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -88,7 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_manifest` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_layer` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

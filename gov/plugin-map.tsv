@@ -8846,6 +8846,8 @@ plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	parallel_not_expressibl
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	rightAngle_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	samePoint_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	sqDistEq_expressible	no
+plugins	Plugins/Targets	Plugins/Targets/Solver.lean	holds_samePoint_const	no
+plugins	Plugins/Targets	Plugins/Targets/Solver.lean	penalty_samePoint_const	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	open_targets_register	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_empty_spec_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_is_statable	no
