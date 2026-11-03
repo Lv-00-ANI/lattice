@@ -8914,6 +8914,7 @@ plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_empty_spec_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_is_statable	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t1_compile_sound_instance_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t2_penalty_exact_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t2_relaxed_count	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t3_compile_injective_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t3_no_faithful_extractor_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t3_parameter_roundtrip_holds	no

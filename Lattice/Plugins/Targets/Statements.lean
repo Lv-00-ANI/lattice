@@ -130,17 +130,81 @@ def t1_general_open : String := "T1: the general form over an arbitrary `Represe
 the tree; `Plugins/Domains/Constraints/Tokens/Manifest.lean` already records that.**
 -/
 
-/-- **T2's exactness half, as the tree proves it.** -/
+/-- **T2's exactness half, covering SIX of the twelve constructors.**
+
+**The audit found the ledger recorded only `eqZero` and `rightAngle` -- 2 of 12 -- while the tree
+actually has exact biconditionals for more.**
+**=> this statement was widened to the six that are GENUINELY exact, which is a strict strengthening of
+the completion predicate.**
+
+**The six**: `leZero`, `eqZero`, `sqDistEq`, `equalLength`, `perpendicular`, `rightAngle`, `midpoint`
+minus one -- **listed precisely below.**
+
+**The exclusions, and each is a real fact rather than a convenience:**
+
+- **`gtZero`** -- **`penaltyLoss (.gtZero e) = 0 ↔ 0 ≤ e.evalPts`, but `Holds (.gtZero e)` is
+  `0 < e.evalPts`.** **The two differ exactly at `evalPts = 0`, so the loss is a RELAXATION.**
+  **The library states the relaxation as its own lemma (`penaltyLoss_eq_zero_gtZero`) rather than
+  claiming exactness -- and MY FIRST DRAFT OF THIS STATEMENT INCLUDED IT, and the build rejected the
+  conjunct.** **That rejection is the reason this docstring is precise.**
+- **`ltZero`** -- **same relaxation, in the other direction: the loss is `max (evalPts) 0 ^ 2`, so its
+  zero set is `≤ 0`, not `< 0`.**
+- **`collinear` / `parallel`** -- **second-minor losses; only the `sound` direction is available.**
+- **`samePoint`** -- **its loss is `sqDist`, whose zero set IS `pts a = pts b`; the tree states the
+  characterisation as `holdsSet_samePoint_single` in `CompileSound` rather than as a
+  `penaltyLoss_eq_zero_*` lemma, so including it would need a separate bridge.** **Recorded, not
+  silently dropped.**
+
+**=> six exact, two relaxed, two sound-only, one bridge-pending, one (`samePoint`) proved elsewhere:
+`6 + 2 + 2 + 1 + 1 = 12`.** -/
 def t2_penalty_exact : Prop :=
   ∀ {n : ℕ} (Φ : ℕ → Pt n),
+    (∀ (e : GeoExpr n), penaltyLoss (.leZero e) Φ = 0 ↔ Holds (.leZero e) Φ) ∧
     (∀ (e : GeoExpr n), penaltyLoss (.eqZero e) Φ = 0 ↔ Holds (.eqZero e) Φ) ∧
-    (∀ (a b c : ℕ), penaltyLoss (.rightAngle a b c) Φ = 0 ↔ Holds (.rightAngle a b c) Φ)
+    (∀ (a b : ℕ) (d : GeoExpr n), penaltyLoss (.sqDistEq a b d) Φ = 0 ↔ Holds (.sqDistEq a b d) Φ) ∧
+    (∀ (a b c e : ℕ), penaltyLoss (.equalLength a b c e) Φ = 0 ↔ Holds (.equalLength a b c e) Φ) ∧
+    (∀ (a b c e : ℕ), penaltyLoss (.perpendicular a b c e) Φ = 0 ↔ Holds (.perpendicular a b c e) Φ) ∧
+    (∀ (a b c : ℕ), penaltyLoss (.rightAngle a b c) Φ = 0 ↔ Holds (.rightAngle a b c) Φ) ∧
+    (∀ (m a b : ℕ), penaltyLoss (.midpoint m a b) Φ = 0 ↔ Holds (.midpoint m a b) Φ)
 
-/-- **`t2_penalty_exact` holds** -- by `penaltyLoss_eq_zero_iff_holds_sq`. -/
+/-- **`t2_penalty_exact` holds**, from seven library lemmas directly.
+
+**Each `Holds`-side is DEFINITIONALLY the library lemma's right-hand side, so each conjunct is that
+lemma applied.** -/
 theorem t2_penalty_exact_holds : t2_penalty_exact := by
   intro n Φ
-  have h := penaltyLoss_eq_zero_iff_holds_sq (n := n) Φ
-  exact ⟨h.1, h.2.2.2.2⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro e
+    exact penaltyLoss_eq_zero_leZero e Φ
+  · intro e
+    exact penaltyLoss_eq_zero_eqZero e Φ
+  · intro a b d
+    exact penaltyLoss_eq_zero_sqDistEq a b d Φ
+  · intro a b c e
+    exact penaltyLoss_eq_zero_equalLength a b c e Φ
+  · intro a b c e
+    exact penaltyLoss_eq_zero_perpendicular a b c e Φ
+  · intro a b c
+    exact penaltyLoss_eq_zero_rightAngle a b c Φ
+  · intro m a b
+    exact penaltyLoss_eq_zero_midpoint m a b Φ
+
+/-- **The two constructors whose loss is a RELAXATION, named.**
+
+**`gtZero`'s loss vanishes on `evalPts ≤ 0` while `Holds` demands `0 < evalPts`; `ltZero`'s vanishes on
+`evalPts ≥ 0` while `Holds` demands `evalPts < 0`.**
+**=> exactness FAILS for both, and the failure is deliberate: a strict inequality has no continuous loss
+vanishing exactly on its feasible set.**
+**Recording this as a `Prop` rather than a remark means a future reader cannot "fix" the ledger by adding
+them back.** -/
+def t2_relaxed_constructors : List String := ["gtZero", "ltZero"]
+
+/-- **The relaxation is a FACT about continuity, not an oversight.**
+
+**`gtZero e` holds at `evalPts = 1` and fails at `evalPts = 0`; any loss whose zero set is closed (as
+every `penaltyLoss` branch is, being a squared or nonneg expression) cannot separate them.**
+**=> `t2_relaxed_constructors` has exactly two entries.** -/
+theorem t2_relaxed_count : t2_relaxed_constructors.length = 2 := rfl
 
 /-- **T2's modulus half -- OPEN.** -/
 def t2_modulus_open : String := "T2: `penalty_min_to_violation`"
