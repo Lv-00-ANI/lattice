@@ -19,6 +19,7 @@ Two edits: import its `Plugin.lean` here, and add the `VerifiedPlugin` it export
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Targets
+import Lattice.Plugins.Runtime.RTargets
 import Lattice.Plugins.Core
 import Lattice.Plugins.Domains
 import Lattice.Plugins.Compose
@@ -213,7 +214,11 @@ def ProofComplete : Prop :=
     Lattice.Plugins.Targets.t3_semantic_not_injective ∧
     Lattice.Plugins.Targets.t3_no_faithful_extractor ∧
     Lattice.Plugins.Targets.t4_repair_progress ∧
-    Lattice.Plugins.Targets.t4_loop_converges
+    Lattice.Plugins.Targets.t4_loop_converges ∧
+    Lattice.Plugins.Runtime.t5_recovery ∧
+    Lattice.Plugins.Runtime.t6_spatial ∧
+    Lattice.Plugins.Runtime.t7_confluence ∧
+    Lattice.Plugins.Runtime.t8_failure_isolation
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -286,7 +291,7 @@ theorem proofComplete_unreachable :
 they are recorded as facts rather than remarks.** -/
 theorem current_state :
     PluginRegistryComplete ∧ pluginCensusPending ∧
-      Lattice.Plugins.Targets.proved_target_count = 4 ∧
+      Lattice.Plugins.Targets.proved_target_count = 8 ∧
       ¬ ProofComplete :=
   ⟨pluginRegistryComplete_holds, pluginCensusPending_holds, rfl, proofComplete_unreachable⟩
 

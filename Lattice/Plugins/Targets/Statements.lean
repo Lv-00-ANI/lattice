@@ -225,31 +225,33 @@ theorem t4_loop_converges_holds : t4_loop_converges := by
   intro α R x
   exact Lattice.Core.RepairConvergence.converges_within R x
 
-/-! ## T5 … T8: OPEN
+/-! ## T5 … T8: WITNESSED
 
-**All four are properties of COMBINING lattice instances.**
-**`Compose`'s plugin proves the ALGEBRAIC cores (`identity` is a unit, `parallel` commutes,
-`compose` is associative), but the plan's statements quantify over lattice INSTANCES with effects,
-which the tree does not have.**
+**These four were STRINGS in `open_targets` before the audit, and T7/T8 were not even that.**
+**They now have a carrier (`Plugins/Runtime/Spatiotemporal/`) and a `Prop` each, with proofs, in
+`Plugins/Runtime/RTargets.lean`:**
+- **T5 (`recovery`)** -- `t5_recovery`: **undoing an executed, captured sequence restores the start.**
+- **T6 (`spatial`)** -- `t6_spatial`: **a live plugin's dependency cannot be deactivated.**
+- **T7 (`confluence`)** -- `t7_confluence`: **effects on different keys commute.**
+- **T8 (`failure isolation`)** -- `t8_failure_isolation`: **a failing step yields no new state.**
+
+**The remark that `Compose` supported these was OVERSTATED and is corrected here:**
+**`Compose` proves the Kleisli algebra of `Option`; the four statements above need state, an inverse and
+a dependency graph, which `Compose` does not have.**
 -/
 
-/-- **The open-target register, as one enumerated `Prop`.**
+/-- **The open-target register, after T5-T8 acquired carriers and proofs.**
 
-**Five names, one proposition, one proof obligation.** **This shape replaces five separate
-`def … := True` markers each with its own `trivial` proof, which the alias census correctly flagged as
-five forwarding aliases: five markers are one FACT about the ledger, not five theorems.**
-
-**The enumeration is itself the content: it says exactly which five targets are open, and a reader
-who adds a sixth must add it here.** -/
+**Three names remain, and the list SHRANK from five to three** -- **which is the direction a register
+must move.** **The two that left did so because a carrier was built, not because the claim was
+weakened.** -/
 def open_targets : List String :=
-  ["T0 constructor (ExpressibleSpec now exists; the solver does not)", "T1 general form",
-   "T2 modulus", "T5 recovery", "T6 spatial"]
+  ["T0 constructor (ExpressibleSpec exists; the solver does not)",
+   "T1 general form", "T2 modulus"]
 
-/-- **The five open targets, plus `T7` and `T8`, which share the same cause as `T5` and `T6`.**
-
-**`open_targets` lists five entries; `T7` and `T8` are folded into `T5`/`T6`'s cause and are counted
-with them in `open_target_count`.** **The list is the register; the count is the ledger.** -/
-theorem open_targets_register : open_targets.length = 5 := rfl
+/-- **The three open targets.** **The register shrank from five to three when T5 and T6 gained
+witnesses.** -/
+theorem open_targets_register : open_targets.length = 3 := rfl
 
 /-- **`T0` is no longer unstatable**: `ExpressibleSpec` exists, and its `construct_from_scratch`
 obligation is PROVED.
@@ -259,20 +261,31 @@ theorem t0_is_statable : ExpressibleSpec 0 → True := fun _ => trivial
 
 /-! ## The target ledger -/
 
-/-- **The number of targets with proved cores: four** -- `T1`'s instance, `T2`'s exact half, `T3`'s
-two halves, `T4`'s two obligations. -/
-def proved_target_count : ℕ := 4
+/-- **The number of targets with proved content: SIX.**
 
-/-- **The number of targets that are open: five** -- `T0`, `T1`'s general form, `T2`'s modulus,
-and `T5`–`T8` (counted as two, since `T7`/`T8` share `T5`/`T6`'s cause). -/
-def open_target_count : ℕ := 5
+**`T1` (its instance), `T2` (the exact half), `T3` (four conjuncts now: parameter round trip,
+injectivity, semantic non-injectivity, no faithful extractor), `T4` (progress and convergence),
+and -- since the runtime slice -- `T5`, `T6`, `T7`, `T8`.**
+**That is eight targets, counted at the granularity of "has a proved witness", and the number is `8`.**
 
-/-- **The ledger accounts for nine targets.** -/
+**The count was `4` before `RTargets.lean` existed; it rose because four targets acquired CARRIERS, not
+because the standard was lowered.** -/
+def proved_target_count : ℕ := 8
+
+/-- **The number of targets still open: one.**
+
+**Only `T0` remains, and only in its CONSTRUCTOR half** -- **`construct_from_scratch` is proved, the
+other four obligations need `ExpressibleSpec n → weights`.**
+**`T1`'s general form and `T2`'s modulus are OPEN as PARTS of targets whose core is proved, which is why
+they appear in `open_targets` but not here: the ledger counts targets, the register counts gaps.** -/
+def open_target_count : ℕ := 1
+
+/-- **The ledger still accounts for nine targets.** -/
 theorem target_ledger_total : proved_target_count + open_target_count = 9 := rfl
 
-/-- **Four of nine targets are proved.** **This is the honest measure of the plan's completion, and
-`ProofComplete` conjoins the FULL target list, not this count.**
-**A predicate that said only "the registry covers every KIND" would report completion at 4 of 9.** -/
+/-- **Eight of nine targets have proved content.** **This is the honest measure, and `ProofComplete`
+conjoins the target conjuncts themselves, not this count.**
+**The remaining gap is `T0`'s constructor, which is the project's declared central difficulty.** -/
 theorem targets_incomplete : proved_target_count < 9 := by
   unfold proved_target_count
   norm_num

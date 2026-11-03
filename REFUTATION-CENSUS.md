@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**300 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**301 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,7 +19,7 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 5 | 1.7% |
+| `Plugins` | 6 | 2.0% |
 | `(root)` | 3 | 1.0% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 79 轮新增一条**：`deactivate_before_unload` —— 若 `y` 存活且可达 `x`，则 `x` 【不】可被失活。
+**这是 T6（`spatial`）的依赖侧见证：插件的「空间」即为它存活期间不可移除的插件集合。**
+**它取可达性的【传递闭包】，而非直接边——只查一步会放过经两跳的依赖，这正是经典的卸载 bug。**
 
 **第 78 轮新增两条**（均在 `(root)`）：`empty_plugin_excluded` 与
 `registry_with_empty_plugin_not_complete` —— **前者说空插件不满足 `NonVacuousFor`，后者说
