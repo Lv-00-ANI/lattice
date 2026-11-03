@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**301 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**304 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,7 +19,7 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 6 | 2.0% |
+| `Plugins` | 9 | 3.0% |
 | `(root)` | 3 | 1.0% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,12 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 80 轮新增三条**（均在 `Plugins`）：`unsatisfiableSpec_no_model`（`[eqZero (const 1)]`
+这个可表达规格【没有任何模型】）、`no_specSolver`（故 `SpecSolver n` 对非空点类型是 `IsEmpty`）、
+`familyTotalGives_no_solver`（故任何族都无法补出一个 `SpecSolver`）。
+**这三条把第 74 轮只能【断言】的接口边界变成了定理；审计指出的幽灵引用
+`specSolver_is_family_limited` 也由此有了真身。**
 
 **第 79 轮新增一条**：`deactivate_before_unload` —— 若 `y` 存活且可达 `x`，则 `x` 【不】可被失活。
 **这是 T6（`spatial`）的依赖侧见证：插件的「空间」即为它存活期间不可移除的插件集合。**

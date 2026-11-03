@@ -75,14 +75,23 @@ theorem t0_empty_spec_holds : t0_empty_spec := by
   intro n
   exact ⟨ExpressibleSpec.empty n, rfl⟩
 
-/-- **T0's remaining four obligations -- OPEN.**
+/-- **T0's remaining four obligations -- OPEN, and now PRECISELY bounded.**
 
 **`construct_sound` / `construct_complete` / `construct_canonical` / `construct_approx` all need a
-CONSTRUCTOR `ExpressibleSpec n → (weights)`, which is the "solve the constraints for weights" step.**
-**`ExpressibleSpec`'s exclusion lemmas (`not_mem_of_layer`) say what such a constructor may accept;
-they do not produce it.**
-**=> open, and named.** -/
-def t0_constructor_open : String := "T0: construct_{sound,complete,canonical,approx} need a spec-to-weights constructor"
+CONSTRUCTOR `ExpressibleSpec n → weights`, which is the "solve the constraints for weights" step.**
+
+**What round 80 added is a THEOREM about what such a constructor can look like:**
+- **`SolverBoundary.unsatisfiableSpec_no_model`** -- **`[eqZero (const 1)]` is an EXPRESSIBLE spec with
+  no model at all.**
+- **`SolverBoundary.no_specSolver`** -- **`SpecSolver n` is `IsEmpty` whenever `Pt n` is nonempty.**
+
+**=> a solver MUST be family-restricted; the universal interface is provably uninhabited.**
+**That is why `FamilySolver` exists, and it is no longer a design preference but a consequence.**
+
+**The obligation itself remains open**: **`FamilySolver`-shaped constructors exist for the degenerate
+family; a constructor for an ARBITRARY expressible spec cannot exist, because some expressible specs
+have no solution.** -/
+def t0_constructor_open : String := "T0: construct_{sound,complete,canonical,approx} need a spec-to-weights constructor; SolverBoundary proves the universal interface is uninhabited"
 
 /-! ## T1: compilation soundness
 

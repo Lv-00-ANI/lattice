@@ -27,6 +27,9 @@ vanishing radius, and `eqZero` with a vanishing expression DO belong to the fami
 is restated as a predicate (`ConstConfigOK`) rather than a closed list of constructors.**
 
 **`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
+
+**`SolverBoundary.lean`** -- **the PROOF that `SpecSolver` is uninhabited**, **because one expressible
+spec (`eqZero (const 1)`) has no model at all.** **This turns round 74's prose claim into a theorem.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
@@ -35,4 +38,5 @@ import Lattice.Plugins.Targets.MultiSolver
 import Lattice.Plugins.Targets.ConstFamily
 import Lattice.Plugins.Targets.DegenerateSolver
 import Lattice.Plugins.Targets.Nondegenerate
+import Lattice.Plugins.Targets.SolverBoundary
 import Lattice.Plugins.Targets.Statements

@@ -91,8 +91,10 @@ about.**
 **This is not a weakening introduced to make the proof go through: it is the discovery that
 `SpecSolver`'s `∀ S` is the right strength for a UNIVERSAL constructor and the WRONG strength for a
 family-specific one.**
-**Recording the distinction here is what keeps the interface honest -- see
-`specSolver_is_family_limited` below.** -/
+**Round 74 could only ASSERT this and cited a theorem that did not exist.**
+**=> `SolverBoundary.no_specSolver` now PROVES it: `SpecSolver n` is `IsEmpty` whenever `Pt n` is
+nonempty, because the expressible spec `[eqZero (const 1)]` has no model at all.**
+**The reference is corrected rather than left pointing at nothing.** -/
 structure FamilySolver (n : ℕ) where
   /-- **The constraint family this solver handles**, as a predicate on specs. -/
   Family : ExpressibleSpec n → Prop

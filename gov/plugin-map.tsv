@@ -8904,6 +8904,11 @@ plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	not_holds_gtZero_cons
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	sqDist_self	no
 plugins	Plugins/Targets	Plugins/Targets/Solver.lean	holds_samePoint_const	no
 plugins	Plugins/Targets	Plugins/Targets/Solver.lean	penalty_samePoint_const	no
+plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	eqZero_const_one_expressible	no
+plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	familyTotalGives_no_solver	no
+plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	no_specSolver	no
+plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	not_holds_eqZero_const_one	no
+plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	unsatisfiableSpec_no_model	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	open_targets_register	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_empty_spec_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_is_statable	no

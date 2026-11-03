@@ -2108,6 +2108,11 @@ Plugins/Targets/Nondegenerate.lean	degenerateOK_imp_constConfigOK
 Plugins/Targets/Nondegenerate.lean	equalLength_constConfigOK
 Plugins/Targets/Solver.lean	holds_samePoint_const
 Plugins/Targets/Solver.lean	penalty_samePoint_const
+Plugins/Targets/SolverBoundary.lean	eqZero_const_one_expressible
+Plugins/Targets/SolverBoundary.lean	not_holds_eqZero_const_one
+Plugins/Targets/SolverBoundary.lean	unsatisfiableSpec_no_model
+Plugins/Targets/SolverBoundary.lean	no_specSolver
+Plugins/Targets/SolverBoundary.lean	familyTotalGives_no_solver
 Plugins/Targets/Statements.lean	t0_empty_spec_holds
 Plugins/Targets/Statements.lean	t1_compile_sound_instance_holds
 Plugins/Targets/Statements.lean	t2_penalty_exact_holds

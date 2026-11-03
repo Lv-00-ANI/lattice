@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 266 | aggregator at `Lattice/`, re-exports only |
+| root | 267 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -838,13 +838,14 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
+- `Lattice.Plugins.Targets.SolverBoundary` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
@@ -1763,6 +1764,7 @@
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
+| `Lattice.Plugins.Targets.SolverBoundary` | 5 | 2 |
 | `Lattice.Plugins.Targets.Statements` | 13 | 15 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
@@ -4461,6 +4463,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
+- `eqZero_const_one_expressible` -> `ConstraintSet`, `ExpressibleLayer`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `IsExpressible`, `Pt`, `SpecSolver`, `evalPts`, `evalPts_const`, `single`, `sol`, `sound`
 - `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `eqZero_representable` -> `aff`, `subst`
@@ -4775,6 +4778,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
+- `familyTotalGives_no_solver` -> `Pt`, `SpecSolver`
 - `farkas_alternative` -> `at`, `dotV`, `le_refl`
 - `farkas_alternative_dotV` -> `MFCQ`, `at`, `dotV`, `le_refl`
 - `farkas_bipolar` -> `MFCQ`, `at`, `dotV`, `le_refl`
@@ -7228,6 +7232,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_rules_no_steps` -> `GeoConstraint`, `induction`, `subst`, `zero`
 - `no_saddle_in_convex` -> `at`, `comp`, `const_add`
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
+- `no_specSolver` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `no_stuck_well_typed_literals` -> `Compiler`, `Step`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
@@ -7347,6 +7352,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_forall_packageDependenciesValid` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `affineGeometryPackage`, `all_twelve_discharged`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `induction`, `informationTheoryPackage`, `layer`, `length`, `length_cons`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `subst`, `trans`, `zfcSetTheoryPackage`
 - `not_functionalAnalysis_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `functionalAnalysis_validB_eq_false`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_graphTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
+- `not_holds_eqZero_const_one` -> `ConstraintSet`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `Pt`, `SpecSolver`, `evalPts`, `evalPts_const`, `sol`, `sound`
 - `not_holds_gtZero_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `not_informationTheory_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `not_injective_of_ignored_argument` -> `LinearLayer`, `extractVec`
@@ -10283,6 +10289,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unsat_of_contradiction_pair` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
 - `unsat_pair_concrete` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
 - `unsat_witness` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
+- `unsatisfiableSpec_no_model` -> `ConstraintSet`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `unused_zero_does_not_imply_loadBearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
 - `upGaze_does_not_open_object` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `extent_intent_extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
 - `upGaze_no_new_parts` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
