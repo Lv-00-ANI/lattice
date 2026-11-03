@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 258 | aggregator at `Lattice/`, re-exports only |
+| root | 259 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -831,11 +831,12 @@
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
+- `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
@@ -1746,6 +1747,7 @@
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
 | `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
+| `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
 | `Lattice.Plugins.Targets.Statements` | 11 | 13 |
 | `Lattice.Primitives` | 0 | 0 |
@@ -3811,6 +3813,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `degNorm_msgPass_lipschitz` -> `le_trans`
 - `degNorm_sum_abs_le_one` -> `apply`, `le_trans`
 - `degenerateFamily_nonempty` -> `samePointSpec`, `subst`
+- `degenerateOK_imp_constConfigOK` -> `DegenerateOK`, `GeoConstraint`, `holds_of_degenerateOK`
 - `degenerate_collinear` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_distance_zero` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_eq_expr_zero` -> `IRConstraint`, `angle`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
@@ -4395,6 +4398,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `equalLengthFix_reaches` -> `Pt`, `sqDist`, `sqDistFix_reaches`, `sqDist_nonneg`
 - `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
 - `equalLengthPenalty_nonneg` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
+- `equalLength_constConfigOK` -> `GeoConstraint`
 - `equalLength_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `equalLength_expressible` -> `GeoConstraint`
 - `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
@@ -5519,14 +5523,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holdsSet_samePoint_single` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `trivial`
 - `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
+- `holds_eqZero_const_iff` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
+- `holds_equalLength_const` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
 - `holds_iff` -> `Holds`, `all`, `bvar`, `induction`
+- `holds_leZero_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `holds_midpoint_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_ofLinearForm_iff` -> `EqConstraint`, `GeoConstraint`, `Holds`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `loss`, `loss_eq_zero_expr`, `loss_nonneg`
 - `holds_of_degenerateOK` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `holds_perpendicular_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_rightAngle_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_samePoint_const` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
+- `holds_sqDistEq_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
 - `holds_translate_iff_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
 - `holds_translate_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `translate`
 - `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `reluZ`, `toVec`
@@ -7189,6 +7197,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_forall_packageDependenciesValid` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `affineGeometryPackage`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `induction`, `informationTheoryPackage`, `layer`, `length`, `length_cons`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `subst`, `trans`, `zfcSetTheoryPackage`
 - `not_functionalAnalysis_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `functionalAnalysis_validB_eq_false`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_graphTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
+- `not_holds_gtZero_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `not_informationTheory_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `not_injective_of_ignored_argument` -> `LinearLayer`, `extractVec`
 - `not_injective_of_lt` -> `all`, `bvar`, `induction`, `subst`
@@ -9202,6 +9211,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
 - `sqDist_nonneg` -> `Pt`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `sqDist`, `sqDist_nonneg`
+- `sqDist_self` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`, `sqDist_eq_zero_iff`
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
 - `sqDist_translateBy` -> `Pt`, `apply`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
 - `sqDist_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`

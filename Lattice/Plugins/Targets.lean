@@ -22,6 +22,10 @@ lists of arbitrary length.**
 **`DegenerateSolver.lean`** -- **that family as an actual `FamilySolver` instance over lists**,
 **plus a non-emptiness witness so the instance cannot be vacuous.**
 
+**`Nondegenerate.lean`** -- **the CORRECTION of the exclusion list**: **`equalLength`, `sqDistEq` with a
+vanishing radius, and `eqZero` with a vanishing expression DO belong to the family**, **and the family
+is restated as a predicate (`ConstConfigOK`) rather than a closed list of constructors.**
+
 **`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
 -/
 
@@ -30,4 +34,5 @@ import Lattice.Plugins.Targets.Solver
 import Lattice.Plugins.Targets.MultiSolver
 import Lattice.Plugins.Targets.ConstFamily
 import Lattice.Plugins.Targets.DegenerateSolver
+import Lattice.Plugins.Targets.Nondegenerate
 import Lattice.Plugins.Targets.Statements
