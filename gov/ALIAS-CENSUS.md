@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 713 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 714 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -119,11 +119,6 @@
 | `Evidence/MultiComposition.lean` | `chain_two` |
 | `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
 | `Lib/Architectures/RealBatchNorm.lean` | `infer_bn_slope_intercept` |
-| `Lib/Architectures/RealBatchNormConsistency.lean` | `bn_train_eq_infer_of_const` |
-| `Lib/Architectures/RealBatchNormConsistency.lean` | `gnorm_scale_invariant_reuse` |
-| `Lib/Architectures/RealBatchNormConsistency.lean` | `normalize_scale_invariant_reuse` |
-| `Lib/Architectures/RealBatchNormConsistency.lean` | `varNormalize_unit_lipschitz` |
-| `Lib/Architectures/RealBatchNormConsistency.lean` | `varNormalize_unit_lipschitz_sharp` |
 | `Lib/Architectures/RealComplexNorm.lean` | `complexNormSq_nonneg` |
 | `Lib/Architectures/RealEmbedding.lean` | `oneHot_represents_token` |
 | `Lib/Architectures/RealGLUVariants.lean` | `geglu_bound` |
@@ -702,6 +697,12 @@
 | `Lib/Quantization/RealStructuredPruning.lean` | `head_op_bound` |
 | `Lib/Quantization/RealStructuredPruning.lean` | `head_pruning_bound` |
 | `Lib/Quantization/RealStructuredPruning.lean` | `structured_op_bound` |
+| `Plugins/Architectures/Norm/Proofs.lean` | `bn_train_eq_infer_of_const` |
+| `Plugins/Architectures/Norm/Proofs.lean` | `gnorm_scale_invariant_reuse` |
+| `Plugins/Architectures/Norm/Proofs.lean` | `normalize_scale_invariant_reuse` |
+| `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz` |
+| `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz_sharp` |
+| `Plugins/Migration.lean` | `stringPrefix_self` |
 | `Primitives/MultistepLoop.lean` | `bidir_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |
 | `Runtime/ApproxExtraction.lean` | `compose_via_calculus` |

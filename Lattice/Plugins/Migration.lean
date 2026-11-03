@@ -168,6 +168,29 @@ emptiness half.** -/
 def RegistryMigratedFor (dirOf : VerifiedPlugin → Option String) (reg : List VerifiedPlugin) : Prop :=
   ∀ p ∈ reg, ∃ dir, dirOf p = some dir ∧ Migrated dir p.manifest
 
+/-- **Every string prefixes itself.**
+
+**The reflexivity of `StringPrefix`, needed by every `Migrated` instance: when an obligation's `file` IS
+the plugin's own path, the prefix test succeeds by construction.** -/
+theorem strPrefix_self (l : List Char) : StrPrefix l l := by
+  induction l with
+  | nil => exact StrPrefix.nil []
+  | cons c rest ih => exact StrPrefix.cons ih
+
+/-- **`StringPrefix` is reflexive.** -/
+theorem stringPrefix_self (s : String) : StringPrefix s s :=
+  strPrefix_self s.toList
+
+/-- **An obligation whose file IS the plugin's directory prefix is owned.**
+
+**This is the direction a `Migrated` instance needs: it reduces the prefix test to REFLEXIVITY when the
+paths agree.** -/
+theorem obligationOwnedBy_self (dir : String) (o : Obligation) (h : o.file = dir) :
+    ObligationOwnedBy dir o := by
+  unfold ObligationOwnedBy
+  rw [h]
+  exact stringPrefix_self _
+
 /-- **The empty registry is migrated, vacuously.** -/
 theorem registryMigratedFor_nil (dirOf : VerifiedPlugin → Option String) :
     RegistryMigratedFor dirOf [] := by

@@ -11,7 +11,7 @@
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 257 | 87.4% |
+| `Lib` | 256 | 87.1% |
 | `Lift` | 0 | 0.0% |
 | `Runtime` | 9 | 3.1% |
 | `Domains` | 7 | 2.4% |
@@ -19,7 +19,7 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 17 | 5.4% |
+| `Plugins` | 18 | 5.7% |
 | `(root)` | 6 | 1.9% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 88 轮不计新增，计【搬迁】**：`Norm` 的 21 条定理从
+`Lib/Architectures/RealBatchNormConsistency.lean` 移到
+`Plugins/Architectures/Norm/Proofs.lean`，故 `Lib` 由 257 降为 256、`Plugins` 由 17 升为 18，
+**总数不变（315）**。**这是一次真正的 `move + facade`：旧路径现在只 import 新模块，不含任何证明。**
 
 **第 87 轮新增两条**：`Plugins` 的 `registryMigratedFor_fails_of_unlisted`（未列出的插件
 使迁移失败）与 `(root)` 的 `unlisted_plugin_fails_migration`（同上，在注册表层）。

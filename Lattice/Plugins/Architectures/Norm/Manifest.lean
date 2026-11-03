@@ -57,32 +57,32 @@ def manifest : PluginManifest where
     { name := "norm_iterate_variance_le_one"
       kind := .idempotence
       theoremName := "varOf_iterate_varNormalize_le_one"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" },
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
     -- EXACTNESS: on a non-degenerate input the normalised variance is exactly 1.
     { name := "norm_variance_eq_one"
       kind := .exactness
       theoremName := "varOf_varNormalize_eq_one"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" },
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
     -- SOUNDNESS: train-mode and inference-mode agree on the batch they were computed from.
     { name := "norm_train_infer_agree"
       kind := .soundness
       theoremName := "bn_train_eq_infer"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" },
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
     -- APPROXIMATION: the unit-scale normaliser is Lipschitz with the SHARP constant.
     { name := "norm_lipschitz_sharp"
       kind := .approximation
       theoremName := "varNormalize_unit_lipschitz_sharp"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" },
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
     -- APPROXIMATION: the same bound in its non-sharp (unconditional) form.
     { name := "norm_lipschitz"
       kind := .approximation
       theoremName := "varNormalize_unit_lipschitz"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" },
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
     -- SOUNDNESS: the variance is non-negative -- the normaliser is well defined.
     { name := "norm_variance_nonneg"
       kind := .soundness
       theoremName := "varOf_nonneg"
-      file := "Lattice/Lib/Architectures/RealBatchNormConsistency.lean" }
+      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

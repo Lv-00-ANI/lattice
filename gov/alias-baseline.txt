@@ -237,11 +237,6 @@ forward	Evidence/MultiComposition.lean	chain_single
 forward	Evidence/MultiComposition.lean	chain_two
 forward	Evidence/PredicateWitnesses.lean	isometryScalar_id
 forward	Lib/Architectures/RealBatchNorm.lean	infer_bn_slope_intercept
-forward	Lib/Architectures/RealBatchNormConsistency.lean	bn_train_eq_infer_of_const
-forward	Lib/Architectures/RealBatchNormConsistency.lean	gnorm_scale_invariant_reuse
-forward	Lib/Architectures/RealBatchNormConsistency.lean	normalize_scale_invariant_reuse
-forward	Lib/Architectures/RealBatchNormConsistency.lean	varNormalize_unit_lipschitz
-forward	Lib/Architectures/RealBatchNormConsistency.lean	varNormalize_unit_lipschitz_sharp
 forward	Lib/Architectures/RealComplexNorm.lean	complexNormSq_nonneg
 forward	Lib/Architectures/RealEmbedding.lean	oneHot_represents_token
 forward	Lib/Architectures/RealGLUVariants.lean	geglu_bound
@@ -874,3 +869,9 @@ copy	Plugins/Targets/Statements.lean	t4_repair_progress_holds
 forward	Lib/Compiler/RealBetaConfluence.lean	parStar_single
 forward	Lib/Compiler/RealBetaReduction.lean	star_single
 forward	Lib/Compiler/RealGlobalConfluence.lean	star_single
+forward	Plugins/Architectures/Norm/Proofs.lean	bn_train_eq_infer_of_const
+forward	Plugins/Architectures/Norm/Proofs.lean	gnorm_scale_invariant_reuse
+forward	Plugins/Architectures/Norm/Proofs.lean	normalize_scale_invariant_reuse
+forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz
+forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz_sharp
+forward	Plugins/Migration.lean	stringPrefix_self

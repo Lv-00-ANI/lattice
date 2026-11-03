@@ -208,12 +208,14 @@ sustaining it.**
 def pluginDirOf (p : VerifiedPlugin) : Option String :=
   if p.manifest.name = "Core.Constraint" then some "Lattice/Plugins/Core/Constraint/"
   else if p.manifest.name = "Core.Repair" then some "Lattice/Plugins/Core/Repair/"
-  else if p.manifest.name = "Penalty" then some "Lattice/Plugins/Domains/Constraints/Penalty/"
-  else if p.manifest.name = "Tokens" then some "Lattice/Plugins/Domains/Constraints/Tokens/"
+  else if p.manifest.name = "Domains.Constraints.Penalty" then
+    some "Lattice/Plugins/Domains/Constraints/Penalty/"
+  else if p.manifest.name = "Domains.Constraints.Tokens" then
+    some "Lattice/Plugins/Domains/Constraints/Tokens/"
   else if p.manifest.name = "Compose" then some "Lattice/Plugins/Compose/"
-  else if p.manifest.name = "ChainSlot" then some "Lattice/Plugins/Extractors/ChainSlot/"
-  else if p.manifest.name = "GNN" then some "Lattice/Plugins/Architectures/GNN/"
-  else if p.manifest.name = "Norm" then some "Lattice/Plugins/Architectures/Norm/"
+  else if p.manifest.name = "Extractors.ChainSlot" then some "Lattice/Plugins/Extractors/ChainSlot/"
+  else if p.manifest.name = "Architectures.GNN" then some "Lattice/Plugins/Architectures/GNN/"
+  else if p.manifest.name = "Architectures.Norm" then some "Lattice/Plugins/Architectures/Norm/"
   else none
 
 /-- **Every plugin in the current registry IS listed.**
@@ -293,6 +295,64 @@ theorem unlisted_plugin_fails_migration {p : VerifiedPlugin} {reg : List Verifie
   obtain ⟨dir, hsome, -⟩ := hmig p hp
   rw [h] at hsome
   exact Option.noConfusion hsome
+
+/-! ## The FIRST actual migration -/
+
+/-- **`Lattice/Plugins/Architectures/Norm/Proofs.lean` IS under the plugin's directory.**
+
+**The obligation's `file` is the file, not the directory, so the prefix test is a real prefix rather
+than an equality.**
+**`Proofs.lean` follows the trailing slash, which is exactly what `StrPrefix.cons` composes: the
+directory's characters, then the file's.** -/
+theorem normProofs_under_dir :
+    Lattice.Plugins.StringPrefix "Lattice/Plugins/Architectures/Norm/"
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean" := by
+  unfold Lattice.Plugins.StringPrefix
+  simp only [String.toList]
+  repeat' apply Lattice.Plugins.StrPrefix.cons
+  exact Lattice.Plugins.StrPrefix.nil _
+
+/-- **`Norm`'s obligations are its own, because the proofs MOVED.**
+
+**The manifest now names `Lattice/Plugins/Architectures/Norm/Proofs.lean` for every obligation, and
+`normProofs_under_dir` says that path lies under the plugin's directory.**
+**=> this is the project's first `Migrated` instance, and it is a `Prop` the kernel checks rather than a
+claim in a document.**
+
+**The old path `Lib/Architectures/RealBatchNormConsistency.lean` is now a FACADE that imports the new
+one and contains no proof.**
+**Four files still import it by the old path, so deleting it would have forced edits for no benefit; the
+facade keeps them working while making the new location authoritative.** -/
+theorem norm_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Architectures/Norm/"
+      Lattice.Plugins.Architectures.Norm.manifest := by
+  intro o ho
+  -- every obligation names the same file, so every prefix test is the same one
+  simp only [Lattice.Plugins.Architectures.Norm.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  obtain rfl | rfl | rfl | rfl | rfl | rfl := ho
+  all_goals
+    unfold Lattice.Plugins.ObligationOwnedBy
+    exact normProofs_under_dir
+
+/-- **`Norm` is migrated, stated through the registry-level predicate.**
+
+**`Migration.RegistryMigratedFor` needs a `dirOf` that supplies `Norm`'s directory; this theorem performs
+that application for the singleton registry.**
+**It is the WITNESS that `RegistryMigratedFor` is not vacuously false: a predicate nothing can satisfy is
+indistinguishable from one that means nothing.** -/
+theorem norm_migrated_registry :
+    Lattice.Plugins.RegistryMigratedFor
+      (fun p => if p.manifest.name = "Architectures.Norm"
+                then some "Lattice/Plugins/Architectures/Norm/" else none)
+      [Lattice.Plugins.Architectures.Norm.verified] := by
+  intro p hp
+  simp only [List.mem_singleton] at hp
+  subst hp
+  refine ⟨"Lattice/Plugins/Architectures/Norm/", ?_, norm_migrated⟩
+  -- the `dirOf` conditional reduces because the manifest's name is the literal `"Norm"`
+  simp [Lattice.Plugins.Architectures.Norm.verified,
+        Lattice.Plugins.Architectures.Norm.manifest]
 
 /-- **The project's completion predicate.**
 
