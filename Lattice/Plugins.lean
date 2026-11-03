@@ -18,6 +18,7 @@ Two edits: import its `Plugin.lean` here, and add the `VerifiedPlugin` it export
 
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
+import Lattice.Plugins.Migration
 import Lattice.Plugins.Targets
 import Lattice.Plugins.Runtime.RTargets
 import Lattice.Plugins.Core

@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 270 | aggregator at `Lattice/`, re-exports only |
+| root | 271 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -806,7 +806,7 @@
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
-- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`
+- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Lib.Architectures.RealGNNEquivariance`
@@ -830,6 +830,7 @@
 - `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
+- `Lattice.Plugins.Migration` <- `Lattice.Plugins.Registry`
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.RTargets` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Runtime.Spatiotemporal`
 - `Lattice.Plugins.Runtime.Spatiotemporal` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`, `Lattice.Plugins.Runtime.Spatiotemporal.Seq`, `Lattice.Plugins.Runtime.Spatiotemporal.Dep`, `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`, `Lattice.Plugins.Runtime.Spatiotemporal.Fail`
@@ -1752,6 +1753,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 6 | 14 |
+| `Lattice.Plugins.Migration` | 7 | 6 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
 | `Lattice.Plugins.Runtime.Spatiotemporal` | 0 | 0 |
@@ -2042,6 +2044,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PMix_multiplier_makes_stationary` -> `at`
 - `PMix_stationarity_characterization` -> `at`
 - `PMix_stationarity_implies_satisfied` -> `add`, `at`
+- `P_ne_L` -> `Obligation`, `PluginManifest`, `at`, `induction`, `nil_append`, `varOf_iterate_varNormalize_le_one`
 - `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `soundness`, `zero`
 - `PluginManifest.empty_claims_false` -> `completeness`, `empty`, `layer`, `soundness`
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
@@ -6293,6 +6296,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_nil_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lfp_eq_inf_all_fixpoints` -> `apply`, `at`, `card_fin`
 - `lfp_on_kleene_orbit` -> `apply`, `at`, `card_fin`
+- `lib_not_prefix_plugins` -> `Obligation`, `PluginManifest`, `at`, `varOf_iterate_varNormalize_le_one`
 - `licq_implies_mfcq_single` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
 - `licq_multiplier_exist_unique` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
 - `licq_multiplier_unique` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
@@ -7294,6 +7298,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `norm_adversarialVec` -> `at`
 - `norm_difference_eq_kernel_distance` -> `IsPSDKernel`, `kernel_metric_zero_iff`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_grad_split` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `norm_obligation_is_a_citation` -> `at`
 - `norm_reproducing_bound` -> `IsPSDKernel`, `at`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_rmsNormE` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `norm_rmsNormGeneral` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
@@ -7382,6 +7387,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_mem_interior_multImprovingSet` -> `at`, `dist`, `eps`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `not_mem_merged_of_rejected` -> `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `at`, `holdsSet_mem`, `merge_sound`, `merged`
 - `not_mem_of_layer` -> `GeoConstraint`, `GeoExpr`, `Layer`, `at`, `collinear`, `layer`, `parallel`, `poly`
+- `not_migrated_of_foreign` -> `Obligation`, `PluginManifest`, `at`, `varOf_iterate_varNormalize_le_one`
 - `not_minimal_of_scaleVec` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
 - `not_modalLogic_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `not_optConstant_lt` -> `at`
@@ -7830,6 +7836,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pluckerNorm_nonneg` -> `GeoConstraint`, `Pt`, `seg`
 - `pluginCensusPending_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `pluginRegistryComplete_holds` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `proved_target_count`
+- `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `at`, `varOf_iterate_varNormalize_le_one`
 - `point_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_hi` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_le_iff_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -9609,6 +9616,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stoppedValue_neg` -> `at`, `le_antisymm`, `le_refl`, `min`
 - `stopping_property` -> `at`, `contraction_converges`
 - `stopsBy_mono` -> `at`, `contraction_converges`, `induction`, `le_refl`, `le_trans`, `step`, `zero`
+- `strPrefix_cons_ne` -> `Obligation`, `PluginManifest`, `at`, `induction`, `nil_append`, `varOf_iterate_varNormalize_le_one`
+- `strPrefix_cons_ne_gen` -> `Obligation`, `PluginManifest`, `at`, `induction`, `nil_append`, `varOf_iterate_varNormalize_le_one`
 - `strength_min_assoc` -> `Coverage`, `Primitive`, `Strength`, `compose`, `inter`, `min`
 - `strictConcave_interior_gt_endpoint` -> `le`
 - `strictConvexLoss_unique_min` -> `Loss`, `ProbVec`, `at`

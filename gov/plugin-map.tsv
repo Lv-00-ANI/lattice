@@ -8650,6 +8650,13 @@ plugins	Plugins	Plugins/Manifest.lean	empty_claims_false	no
 plugins	Plugins	Plugins/Manifest.lean	empty_never_covers	no
 plugins	Plugins	Plugins/Manifest.lean	not_lt_self	no
 plugins	Plugins	Plugins/Manifest.lean	refinement_not_mandatory	no
+plugins	Plugins	Plugins/Migration.lean	P_ne_L	no
+plugins	Plugins	Plugins/Migration.lean	lib_not_prefix_plugins	yes
+plugins	Plugins	Plugins/Migration.lean	norm_obligation_is_a_citation	yes
+plugins	Plugins	Plugins/Migration.lean	not_migrated_of_foreign	no
+plugins	Plugins	Plugins/Migration.lean	plugins_not_prefix_lib	yes
+plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne	no
+plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne_gen	no
 plugins	Plugins	Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails	yes
 plugins	Plugins	Plugins/Registry.lean	empty_plugin_is_vacuous	no
 plugins	Plugins	Plugins/Registry.lean	nonVacuousFor_nil	no

@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**304 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**310 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,7 +19,7 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 9 | 3.0% |
+| `Plugins` | 15 | 4.8% |
 | `(root)` | 3 | 1.0% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,12 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 85 轮新增六条**（均在 `Plugins`，`Migration.lean`）：`strPrefix_cons_ne`、
+`strPrefix_cons_ne_gen`、`plugins_not_prefix_lib`、`lib_not_prefix_plugins`、
+`norm_obligation_is_a_citation`、`not_migrated_of_foreign` ——
+**这六条把「迁移是引用而非搬运」从散文断言变成可检查的事实。**
+**其中前两条是一般引理（不同字符不构成前缀），后四条是它们在具体路径上的应用。**
 
 **第 80 轮新增三条**（均在 `Plugins`）：`unsatisfiableSpec_no_model`（`[eqZero (const 1)]`
 这个可表达规格【没有任何模型】）、`no_specSolver`（故 `SpecSolver n` 对非空点类型是 `IsEmpty`）、

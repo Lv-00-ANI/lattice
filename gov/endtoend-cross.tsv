@@ -1854,6 +1854,9 @@ Plugins/Manifest.lean	Version.not_lt_self
 Plugins/Manifest.lean	PluginManifest.empty_claims_false
 Plugins/Manifest.lean	refinement_not_mandatory
 Plugins/Manifest.lean	PluginManifest.empty_never_covers
+Plugins/Migration.lean	strPrefix_cons_ne_gen
+Plugins/Migration.lean	not_migrated_of_foreign
+Plugins/Migration.lean	norm_obligation_is_a_citation
 Plugins/Registry.lean	PluginProof.trivial_holds
 Plugins/Registry.lean	PluginProof.trivial_fields
 Plugins/Registry.lean	registryConsistentFor_nil
