@@ -11,8 +11,10 @@ Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
 Plugins.lean	coverage_all_mandatory
 Plugins.lean	pluginCensusPending_holds
+Plugins.lean	pluginDirOf_coreConstraint
 Plugins.lean	coreConstraint_is_citation
 Plugins.lean	proofRegistry_not_migrated
+Plugins.lean	unlisted_plugin_fails_migration
 Plugins.lean	proofComplete_imp_registry
 Plugins.lean	coverageComplete_holds
 Plugins.lean	proofRegistry_nonvacuous
@@ -1860,6 +1862,7 @@ Plugins/Migration.lean	strPrefix_cons_ne_gen
 Plugins/Migration.lean	not_migrated_of_foreign
 Plugins/Migration.lean	norm_obligation_is_a_citation
 Plugins/Migration.lean	registryMigratedFor_nil
+Plugins/Migration.lean	registryMigratedFor_fails_of_unlisted
 Plugins/Migration.lean	registryMigratedFor_fails_of_foreign
 Plugins/Registry.lean	PluginProof.trivial_holds
 Plugins/Registry.lean	PluginProof.trivial_fields

@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**313 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**315 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,8 +19,8 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 16 | 5.1% |
-| `(root)` | 5 | 1.6% |
+| `Plugins` | 17 | 5.4% |
+| `(root)` | 6 | 1.9% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
@@ -37,6 +37,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 87 轮新增两条**：`Plugins` 的 `registryMigratedFor_fails_of_unlisted`（未列出的插件
+使迁移失败）与 `(root)` 的 `unlisted_plugin_fails_migration`（同上，在注册表层）。
+**这两条关闭了第 86 轮标注的 fail-open 缺陷：`pluginDirOf` 的兜底曾是 `""`，
+而空串是【一切】的前缀，故未分类的插件会被判为已迁移；现在兜底是 `none`，未列出即失败。**
 
 **第 86 轮新增三条**：`Plugins` 的 `coreConstraint_is_citation`（`Core.Constraint` 的首条义务指向
 `Lattice/Core/Logic.lean`，故它是引用）、`(root)` 的 `proofRegistry_not_migrated`

@@ -191,24 +191,42 @@ theorem pluginCensusPending_holds : pluginCensusPending := by
 
 /-! ## Migration: the registry is a set of CITATIONS -/
 
-/-- **The plugin directory for each registered plugin, as literals.**
+/-- **The plugin directory for each registered plugin, as literals, or `none` when unlisted.**
 
 **A `def` with one branch per plugin rather than a string rewrite, because `String.replace` has no
 reduction lemmas and the prefix argument needs the paths to REDUCE.**
 **The literals are written out so a reader can compare them with each manifest's `file` field by eye.**
-**Plugins not listed fall into the empty string, which prefixes everything -- so an unlisted plugin would
-be reported as migrated.** **That is recorded rather than hidden: the definition covers exactly the
-registry that exists.** -/
-def pluginDirOf (p : VerifiedPlugin) : String :=
-  if p.manifest.name = "Core.Constraint" then "Lattice/Plugins/Core/Constraint/"
-  else if p.manifest.name = "Core.Repair" then "Lattice/Plugins/Core/Repair/"
-  else if p.manifest.name = "Penalty" then "Lattice/Plugins/Domains/Constraints/Penalty/"
-  else if p.manifest.name = "Tokens" then "Lattice/Plugins/Domains/Constraints/Tokens/"
-  else if p.manifest.name = "Compose" then "Lattice/Plugins/Compose/"
-  else if p.manifest.name = "ChainSlot" then "Lattice/Plugins/Extractors/ChainSlot/"
-  else if p.manifest.name = "GNN" then "Lattice/Plugins/Architectures/GNN/"
-  else if p.manifest.name = "Norm" then "Lattice/Plugins/Architectures/Norm/"
-  else ""
+
+**THE FALLBACK IS `none`, NOT THE EMPTY STRING, and the difference is the whole point:**
+**`""` is a prefix of EVERYTHING, so the previous version would have reported every unclassified plugin
+as migrated.**
+**`none` fails closed, and `Migration.registryMigratedFor_fails_of_unlisted` is the theorem that
+consumes it.**
+**=> adding a plugin without adding its directory now BREAKS the migration claim instead of silently
+sustaining it.**
+**That is the property a check must have: it must be possible for it to fail.** -/
+def pluginDirOf (p : VerifiedPlugin) : Option String :=
+  if p.manifest.name = "Core.Constraint" then some "Lattice/Plugins/Core/Constraint/"
+  else if p.manifest.name = "Core.Repair" then some "Lattice/Plugins/Core/Repair/"
+  else if p.manifest.name = "Penalty" then some "Lattice/Plugins/Domains/Constraints/Penalty/"
+  else if p.manifest.name = "Tokens" then some "Lattice/Plugins/Domains/Constraints/Tokens/"
+  else if p.manifest.name = "Compose" then some "Lattice/Plugins/Compose/"
+  else if p.manifest.name = "ChainSlot" then some "Lattice/Plugins/Extractors/ChainSlot/"
+  else if p.manifest.name = "GNN" then some "Lattice/Plugins/Architectures/GNN/"
+  else if p.manifest.name = "Norm" then some "Lattice/Plugins/Architectures/Norm/"
+  else none
+
+/-- **Every plugin in the current registry IS listed.**
+
+**Recorded separately from the migration claim, because the two can fail for DIFFERENT reasons:**
+**an unlisted plugin fails through `none`, a listed plugin with a foreign obligation fails through the
+prefix test.**
+**`pluginDirOf_coreConstraint` is the branch the migration proof consumes.** -/
+theorem pluginDirOf_coreConstraint :
+    pluginDirOf Lattice.Plugins.Core.Constraint.verified
+      = some "Lattice/Plugins/Core/Constraint/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
 
 /-- **`Core.Constraint`'s first obligation cites `Lattice/Core/Logic.lean`, not its own directory.**
 
@@ -254,13 +272,27 @@ theorem proofRegistry_not_migrated :
                 file := "Lattice/Core/Logic.lean" } ∈
       Lattice.Plugins.Core.Constraint.verified.manifest.obligations := by
     simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
-  have hforeign : ¬ Lattice.Plugins.ObligationOwnedBy
-      (pluginDirOf Lattice.Plugins.Core.Constraint.verified)
-      { name := "entails_cons", kind := .laws, theoremName := "entails_cons",
-        file := "Lattice/Core/Logic.lean" } := by
-    simpa [pluginDirOf, Lattice.Plugins.Core.Constraint.manifest] using
-      (coreConstraint_is_citation)
-  exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem hobl hforeign h
+  exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem
+    pluginDirOf_coreConstraint hobl coreConstraint_is_citation h
+
+/-- **AN UNLISTED PLUGIN CANNOT SLIP THROUGH.**
+
+**If any plugin in the registry is unclassified by `pluginDirOf`, the registry is NOT migrated.**
+**=> adding a plugin without adding its directory BREAKS the migration claim rather than silently
+sustaining it.**
+
+**This is the property my previous `String`-valued version LACKED: its `""` fallback was a prefix of
+everything, so an unclassified plugin would have been counted as migrated.**
+**Stated as a theorem about the predicate, so a future edit to `pluginDirOf` that reintroduces a
+permissive fallback breaks THIS rather than passing quietly.** -/
+theorem unlisted_plugin_fails_migration {p : VerifiedPlugin} {reg : List VerifiedPlugin}
+    (hp : p ∈ reg) (h : pluginDirOf p = none) :
+    ¬ Lattice.Plugins.RegistryMigratedFor pluginDirOf reg := by
+  intro hmig
+  -- `hmig` must produce a directory for `p`; `h` says there is none
+  obtain ⟨dir, hsome, -⟩ := hmig p hp
+  rw [h] at hsome
+  exact Option.noConfusion hsome
 
 /-- **The project's completion predicate.**
 

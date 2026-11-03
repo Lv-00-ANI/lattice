@@ -8630,6 +8630,7 @@ plugins	Plugins	Plugins.lean	coverage_all_mandatory	no
 plugins	Plugins	Plugins.lean	current_state	no
 plugins	Plugins	Plugins.lean	empty_plugin_excluded	no
 plugins	Plugins	Plugins.lean	pluginCensusPending_holds	no
+plugins	Plugins	Plugins.lean	pluginDirOf_coreConstraint	no
 plugins	Plugins	Plugins.lean	pluginRegistryComplete_holds	no
 plugins	Plugins	Plugins.lean	proofComplete_imp_registry	no
 plugins	Plugins	Plugins.lean	proofComplete_unreachable	yes
@@ -8646,6 +8647,7 @@ plugins	Plugins	Plugins.lean	proofRegistry_repair_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_tokens_mem	no
 plugins	Plugins	Plugins.lean	registryConsistent_holds	no
 plugins	Plugins	Plugins.lean	registry_with_empty_plugin_not_complete	no
+plugins	Plugins	Plugins.lean	unlisted_plugin_fails_migration	no
 plugins	Plugins	Plugins/Manifest.lean	all_length	no
 plugins	Plugins	Plugins/Manifest.lean	card_eq_eight	no
 plugins	Plugins	Plugins/Manifest.lean	empty_claims_false	no
@@ -8658,6 +8660,7 @@ plugins	Plugins	Plugins/Migration.lean	norm_obligation_is_a_citation	yes
 plugins	Plugins	Plugins/Migration.lean	not_migrated_of_foreign	no
 plugins	Plugins	Plugins/Migration.lean	plugins_not_prefix_lib	yes
 plugins	Plugins	Plugins/Migration.lean	registryMigratedFor_fails_of_foreign	no
+plugins	Plugins	Plugins/Migration.lean	registryMigratedFor_fails_of_unlisted	no
 plugins	Plugins	Plugins/Migration.lean	registryMigratedFor_nil	no
 plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne	no
 plugins	Plugins	Plugins/Migration.lean	strPrefix_cons_ne_gen	no
