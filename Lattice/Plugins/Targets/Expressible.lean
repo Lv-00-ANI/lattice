@@ -157,4 +157,16 @@ theorem equalLength_expressible {n : ℕ} (a b c e : ℕ) :
   unfold IsExpressible ExpressibleLayer
   exact Or.inr rfl
 
+/-- **`midpoint` IS expressible** -- its layer is `poly`. -/
+theorem midpoint_expressible {n : ℕ} (m a b : ℕ) :
+    IsExpressible (n := n) (GeoConstraint.midpoint m a b) := by
+  unfold IsExpressible ExpressibleLayer
+  exact Or.inl rfl
+
+/-- **`perpendicular` IS expressible** -- its layer is `poly`. -/
+theorem perpendicular_expressible {n : ℕ} (a b c e : ℕ) :
+    IsExpressible (n := n) (GeoConstraint.perpendicular a b c e) := by
+  unfold IsExpressible ExpressibleLayer
+  exact Or.inl rfl
+
 end Lattice.Plugins.Targets

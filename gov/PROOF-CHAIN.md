@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 256 | aggregator at `Lattice/`, re-exports only |
+| root | 257 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -831,7 +831,8 @@
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
@@ -1740,7 +1741,8 @@
 | `Lattice.Plugins.Manifest` | 6 | 14 |
 | `Lattice.Plugins.Registry` | 4 | 8 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
-| `Lattice.Plugins.Targets.Expressible` | 8 | 5 |
+| `Lattice.Plugins.Targets.ConstFamily` | 7 | 1 |
+| `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
 | `Lattice.Plugins.Targets.Statements` | 11 | 13 |
@@ -2585,6 +2587,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bigstep_of_step` -> `Compiler`, `induction`, `subst`, `trans`
 - `bigstep_of_while_false` -> `Compiler`, `induction`, `subst`, `trans`
 - `bigstep_to_smallstep` -> `Compiler`, `induction`, `single`, `subst`, `trans`
+- `bilinearSeg_const_zero` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `bilinearSum_abs_le` -> `Pt`, `card_fin`
 - `bilinearSum_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `seg`, `trunc`
 - `bilinearSum_lipschitz` -> `Pt`, `card_fin`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
@@ -4587,6 +4590,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `expo_neg` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le_trans`, `lit`, `mul`, `tiny`
 - `expo_var` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le_trans`, `lit`, `mul`, `tiny`
 - `exponential_chebyshev_identity` -> `card_fin`, `uniformExpectation`
+- `expressible_of_degenerateOK` -> `GeoConstraint`, `IsExpressible`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `extendAt_comm` -> `add`, `induction`, `lit`, `subst`, `trans`
 - `extendAt_extendAt_same` -> `add`, `induction`, `subst`
 - `extent2_iUnion` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
@@ -5513,7 +5517,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
 - `holds_iff` -> `Holds`, `all`, `bvar`, `induction`
+- `holds_midpoint_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_ofLinearForm_iff` -> `EqConstraint`, `GeoConstraint`, `Holds`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `loss`, `loss_eq_zero_expr`, `loss_nonneg`
+- `holds_of_degenerateOK` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
+- `holds_perpendicular_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
+- `holds_rightAngle_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_samePoint_const` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `holds_translate_iff_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
 - `holds_translate_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinear_translate`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `translate`
@@ -6645,6 +6653,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpointPenalty_nonneg` -> `Pt`
 - `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`
+- `midpoint_expressible` -> `GeoConstraint`
 - `midpoint_iff` -> `Pt`
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
@@ -7566,6 +7575,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perp_neg_invariant` -> `apply`, `seg`, `unflatten`
 - `perp_penalty_ir_exact` -> `GeoConstraint`, `IRConstraintLite`, `IRHolds`, `Pt`, `compileIR_sound`, `seg`
 - `perpendicular_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `perpendicular_expressible` -> `GeoConstraint`
 - `perpendicular_iff_dotDisp` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `sqNorm`, `sqNorm_eq_zero_iff`, `trans`
 - `perpendicular_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
 - `perpendicular_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
@@ -8789,6 +8799,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seg_bump_far_ne` -> `seg`
 - `seg_bump_other` -> `seg`
 - `seg_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `trunc`
+- `seg_const_zero` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `seg_eq_segComp` -> `HasNonzeroDeriv`, `add`, `bump`, `const_add`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `seg_scale` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `seg_smul_iff` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinearPenalty`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`

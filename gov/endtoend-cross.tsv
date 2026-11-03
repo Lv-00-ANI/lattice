@@ -2042,6 +2042,13 @@ Plugins/Extractors/ChainSlot/Plugin.lean	deepChainFinalSlotDeadProp_holds
 Plugins/Extractors/ChainSlot/Plugin.lean	proof_holds
 Plugins/Extractors/ChainSlot/Plugin.lean	verified_manifest
 Plugins/Extractors/ChainSlot/Plugin.lean	verified_obligations
+Plugins/Targets/ConstFamily.lean	seg_const_zero
+Plugins/Targets/ConstFamily.lean	holds_midpoint_const
+Plugins/Targets/ConstFamily.lean	bilinearSeg_const_zero
+Plugins/Targets/ConstFamily.lean	holds_rightAngle_const
+Plugins/Targets/ConstFamily.lean	holds_perpendicular_const
+Plugins/Targets/ConstFamily.lean	holds_of_degenerateOK
+Plugins/Targets/ConstFamily.lean	expressible_of_degenerateOK
 Plugins/Targets/Expressible.lean	mem_expressible
 Plugins/Targets/Expressible.lean	not_mem_of_layer
 Plugins/Targets/Expressible.lean	collinear_not_expressible
@@ -2050,6 +2057,8 @@ Plugins/Targets/Expressible.lean	samePoint_expressible
 Plugins/Targets/Expressible.lean	rightAngle_expressible
 Plugins/Targets/Expressible.lean	sqDistEq_expressible
 Plugins/Targets/Expressible.lean	equalLength_expressible
+Plugins/Targets/Expressible.lean	midpoint_expressible
+Plugins/Targets/Expressible.lean	perpendicular_expressible
 Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all
 Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero
 Plugins/Targets/Solver.lean	holds_samePoint_const

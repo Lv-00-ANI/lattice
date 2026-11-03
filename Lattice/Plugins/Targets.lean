@@ -15,10 +15,15 @@ FIELDS**, **plus the one family where the construction has a closed form (`sameP
 construction**, **so `FamilySolver` is defined beside it and the `samePoint` family is solved over
 lists of arbitrary length.**
 
+**`ConstFamily.lean`** -- **the DEGENERATE-CONFIGURATION family: four constraint kinds
+(`samePoint`, `midpoint`, `rightAngle`, `perpendicular`) solved by one constant configuration**,
+**which is what a spec MIXING kinds needs.**
+
 **`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
 import Lattice.Plugins.Targets.Solver
 import Lattice.Plugins.Targets.MultiSolver
+import Lattice.Plugins.Targets.ConstFamily
 import Lattice.Plugins.Targets.Statements
