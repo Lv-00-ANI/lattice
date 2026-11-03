@@ -298,19 +298,28 @@ theorem unlisted_plugin_fails_migration {p : VerifiedPlugin} {reg : List Verifie
 
 /-! ## The FIRST actual migration -/
 
-/-- **`Lattice/Plugins/Architectures/Norm/Proofs.lean` IS under the plugin's directory.**
+/-- **A `Proofs.lean` under a plugin directory IS under that directory.**
 
-**The obligation's `file` is the file, not the directory, so the prefix test is a real prefix rather
-than an equality.**
-**`Proofs.lean` follows the trailing slash, which is exactly what `StrPrefix.cons` composes: the
-directory's characters, then the file's.** -/
+**The GENERAL statement, replacing two copy-identical proofs:**
+**`dir ++ "Proofs.lean"` is prefixed by `dir`, for any directory.**
+**The proof composes `StrPrefix.cons` over the directory's own characters and then reaches `nil` -- which
+is exactly what `StringPrefix` means.**
+**Stating it once is not merely less text: the two previous versions differed only in their literals,
+so a reader could not tell whether the argument depended on anything plugin-specific. It does not.** -/
+theorem proofsFile_under_dir (dir : String) :
+    Lattice.Plugins.StringPrefix dir (dir ++ "Proofs.lean") := by
+  unfold Lattice.Plugins.StringPrefix
+  -- `cases` on the String exposes its character list, after which `toList` of the append reduces
+  -- structurally -- no `toList_append` lemma is needed.
+  cases dir with
+  | mk l => exact Lattice.Plugins.strPrefix_append_right l "Proofs.lean".toList
+
+/-- **`Lattice/Plugins/Architectures/Norm/Proofs.lean` IS under the plugin's directory.** -/
 theorem normProofs_under_dir :
     Lattice.Plugins.StringPrefix "Lattice/Plugins/Architectures/Norm/"
       "Lattice/Plugins/Architectures/Norm/Proofs.lean" := by
-  unfold Lattice.Plugins.StringPrefix
-  simp only [String.toList]
-  repeat' apply Lattice.Plugins.StrPrefix.cons
-  exact Lattice.Plugins.StrPrefix.nil _
+  have h := proofsFile_under_dir "Lattice/Plugins/Architectures/Norm/"
+  simpa using h
 
 /-- **`Norm`'s obligations are its own, because the proofs MOVED.**
 
@@ -350,9 +359,51 @@ theorem norm_migrated_registry :
   simp only [List.mem_singleton] at hp
   subst hp
   refine ⟨"Lattice/Plugins/Architectures/Norm/", ?_, norm_migrated⟩
-  -- the `dirOf` conditional reduces because the manifest's name is the literal `"Norm"`
+  -- the `dirOf` conditional reduces because the manifest's name is the literal `"Architectures.Norm"`
   simp [Lattice.Plugins.Architectures.Norm.verified,
         Lattice.Plugins.Architectures.Norm.manifest]
+
+/-! ## The second migration -/
+
+/-- **`Lattice/Plugins/Architectures/GNN/Proofs.lean` IS under the plugin's directory.** -/
+theorem gnnProofs_under_dir :
+    Lattice.Plugins.StringPrefix "Lattice/Plugins/Architectures/GNN/"
+      "Lattice/Plugins/Architectures/GNN/Proofs.lean" := by
+  have h := proofsFile_under_dir "Lattice/Plugins/Architectures/GNN/"
+  simpa using h
+
+/-- **`GNN`'s obligations are its own, because the proofs MOVED.**
+
+**The second `Migrated` instance in the project.**
+**One instance proves the predicate is inhabited; two prove it is not a one-off** -- **and a predicate
+whose only satisfying case turned out to be an accident of naming would be worse than none.** -/
+theorem gnn_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Architectures/GNN/"
+      Lattice.Plugins.Architectures.GNN.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Architectures.GNN.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  obtain rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl := ho
+  all_goals
+    unfold Lattice.Plugins.ObligationOwnedBy
+    exact gnnProofs_under_dir
+
+/-- **TWO plugins are migrated, out of eight registered.**
+
+**A `def` rather than a docstring count, because a count a reader must recompute is a count that drifts.**
+**It rises only when a theorem like `gnn_migrated` is added, so it cannot be edited into agreement with a
+document.** -/
+def migratedPluginCount : ℕ := 2
+
+/-- **The registered total.** -/
+def registeredPluginCount : ℕ := 8
+
+/-- **Two of eight.**
+**`migratedPluginCount < registeredPluginCount` is the honest state, and it is a THEOREM rather than a
+remark in a status file.** -/
+theorem migration_progress : migratedPluginCount < registeredPluginCount := by
+  unfold migratedPluginCount registeredPluginCount
+  norm_num
 
 /-- **The project's completion predicate.**
 

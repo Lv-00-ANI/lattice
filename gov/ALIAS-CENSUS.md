@@ -128,7 +128,6 @@
 | `Lib/Architectures/RealGLUVariants.lean` | `reglu_is_gated` |
 | `Lib/Architectures/RealGLUVariants.lean` | `siluGLU_bound` |
 | `Lib/Architectures/RealGLUVariants.lean` | `siluGLU_is_gated` |
-| `Lib/Architectures/RealGNNEquivariance.lean` | `msgPass_equivariant_one` |
 | `Lib/Architectures/RealGatingGeneral.lean` | `gelu_is_gated` |
 | `Lib/Architectures/RealGatingGeneral.lean` | `hardSwish_is_gated` |
 | `Lib/Architectures/RealGatingGeneral.lean` | `relu_is_gated` |
@@ -697,6 +696,7 @@
 | `Lib/Quantization/RealStructuredPruning.lean` | `head_op_bound` |
 | `Lib/Quantization/RealStructuredPruning.lean` | `head_pruning_bound` |
 | `Lib/Quantization/RealStructuredPruning.lean` | `structured_op_bound` |
+| `Plugins/Architectures/GNN/Proofs.lean` | `msgPass_equivariant_one` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `bn_train_eq_infer_of_const` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `gnorm_scale_invariant_reuse` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `normalize_scale_invariant_reuse` |

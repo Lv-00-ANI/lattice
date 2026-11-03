@@ -246,7 +246,6 @@ forward	Lib/Architectures/RealGLUVariants.lean	reglu_bound
 forward	Lib/Architectures/RealGLUVariants.lean	reglu_is_gated
 forward	Lib/Architectures/RealGLUVariants.lean	siluGLU_bound
 forward	Lib/Architectures/RealGLUVariants.lean	siluGLU_is_gated
-forward	Lib/Architectures/RealGNNEquivariance.lean	msgPass_equivariant_one
 forward	Lib/Architectures/RealGatingGeneral.lean	gelu_is_gated
 forward	Lib/Architectures/RealGatingGeneral.lean	hardSwish_is_gated
 forward	Lib/Architectures/RealGatingGeneral.lean	relu_is_gated
@@ -875,3 +874,4 @@ forward	Plugins/Architectures/Norm/Proofs.lean	normalize_scale_invariant_reuse
 forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz
 forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz_sharp
 forward	Plugins/Migration.lean	stringPrefix_self
+forward	Plugins/Architectures/GNN/Proofs.lean	msgPass_equivariant_one

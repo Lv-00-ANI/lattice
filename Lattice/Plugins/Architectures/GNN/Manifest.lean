@@ -53,57 +53,57 @@ def manifest : PluginManifest where
     { name := "msgpass_equivariant"
       kind := .equivariance
       theoremName := "msgPass_equivariant"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- EQUIVARIANCE: a full layer (message pass + weights + nonlinearity) does too.
     { name := "gnn_layer_equivariant"
       kind := .equivariance
       theoremName := "gnnLayer_equivariant"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- EQUIVARIANCE: and so does any finite stack of layers -- equivariance composes in depth.
     { name := "layer_stack_equivariant"
       kind := .equivariance
       theoremName := "layerStack_equivariant"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- LAWS: the feature action is a group action (multiplicativity).
     { name := "perm_act_feat_mul"
       kind := .laws
       theoremName := "permActFeat_mul"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- LAWS: and unitality.
     { name := "perm_act_feat_one"
       kind := .laws
       theoremName := "permActFeat_one"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- LAWS: the adjacency action is a group action (multiplicativity).
     { name := "perm_act_adj_mul"
       kind := .laws
       theoremName := "permActAdj_mul"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- LAWS: and unitality.
     { name := "perm_act_adj_one"
       kind := .laws
       theoremName := "permActAdj_one"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- INVARIANTS: the sum readout does not depend on the labelling.
     { name := "readout_invariant"
       kind := .invariants
       theoremName := "readout_invariant"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- INVARIANTS: an invariant readout survives any depth of equivariant layers.
     { name := "readout_invariant_of_layer_stack"
       kind := .invariants
       theoremName := "readout_invariant_of_layerStack"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- SOUNDNESS: sparse message passing agrees with the dense one.
     { name := "sparse_agrees_dense"
       kind := .soundness
       theoremName := "sparseMsgPass_eq_msgPass"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" },
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" },
     -- APPROXIMATION: a bound on one message-passing step under a feature bound.
     { name := "msgpass_bound"
       kind := .approximation
       theoremName := "msgPass_bound_perm"
-      file := "Lattice/Lib/Architectures/RealGNNEquivariance.lean" }
+      file := "Lattice/Plugins/Architectures/GNN/Proofs.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

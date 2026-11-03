@@ -177,6 +177,17 @@ theorem strPrefix_self (l : List Char) : StrPrefix l l := by
   | nil => exact StrPrefix.nil []
   | cons c rest ih => exact StrPrefix.cons ih
 
+/-- **A list prefixes itself with any suffix appended.**
+
+**The general form behind every `Migrated` instance: a plugin directory prefixes every file path built by
+appending a name to it.**
+**Stated on character lists so the proof is the `StrPrefix` induction itself, with no dependence on how
+`String.toList` reduces over `++`.** -/
+theorem strPrefix_append_right (l suffix : List Char) : StrPrefix l (l ++ suffix) := by
+  induction l with
+  | nil => exact StrPrefix.nil suffix
+  | cons c rest ih => exact StrPrefix.cons ih
+
 /-- **`StringPrefix` is reflexive.** -/
 theorem stringPrefix_self (s : String) : StringPrefix s s :=
   strPrefix_self s.toList
