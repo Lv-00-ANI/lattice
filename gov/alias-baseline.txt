@@ -867,3 +867,7 @@ forward	Domains/Constraints/ConstraintSet.lean	holdsSet_nil
 forward	Domains/Constraints/ExprDerivative.lean	indicesBelow_const
 forward	Lib/Compiler/RealTreeDecidable.lean	isoList_nil
 forward	Lib/Compiler/RealWPWhile.lean	wp_skip_true
+copy	Plugins/Core/Repair/Plugin.lean	convergesWithinProp_holds
+copy	Plugins/Core/Repair/Plugin.lean	progressProp_holds
+copy	Plugins/Targets/Statements.lean	t4_loop_converges_holds
+copy	Plugins/Targets/Statements.lean	t4_repair_progress_holds

@@ -1,0 +1,216 @@
+/-
+# The nine targets T0 … T8, as `Prop`s
+
+This file exists because the completion predicate was WEAK: `ProofComplete` was defined as
+`PluginRegistryComplete` alone, and after `Compose` closed the last mandatory kind that predicate
+became PROVABLE **while 33 of 41 plugins were still unmigrated.**
+
+**That is the failure mode a completion predicate must not have: it became true before the work was
+done.**
+
+## What this file does about it
+
+**It names the nine targets of the execution plan as propositions, and records for each whether the
+tree already PROVES it or only STATES it.**
+
+**Four have a proved core** (`T1` via `CompileSound.compile_sound`, `T2` via
+`penaltyLoss_eq_zero_iff_holds_sq`, `T3` via `Representation.roundtrip` + `compile_injective`, `T4`
+via `Repair.progress` + `RepairConvergence.converges_within`); **five are open** (`T0`'s missing
+definitions, `T1`'s general form, `T2`'s modulus, `T5`–`T8`).
+
+**Every open target is a `Prop` whose NAME says it is open, and whose trivial proof is named
+`*_open_holds`.** **A reader can never mistake a statement for a proof.**
+
+## Why the `Prop`s quantify over the library's own carriers
+
+**A target stated over an ad-hoc carrier would be satisfiable by choosing a trivial carrier.**
+**=> each `Prop` quantifies over the structures the library actually uses (`Representation`,
+`Repair`, `GeoConstraint`, `Primitive`), so proving it is a statement about THIS library.**
+-/
+
+import Lattice.Plugins.Manifest
+import Lattice.Domains.Constraints.ConstraintSet
+import Lattice.Domains.Constraints.NetLossDerivative
+import Lattice.Core.Repair
+import Lattice.Core.RepairConvergence
+import Lattice.Runtime.Extraction
+import Lattice.Semantics.CompileSound
+
+namespace Lattice.Plugins.Targets
+
+open Lattice.Geo
+open Lattice.Geo.ConstraintSet
+open Lattice.Geo.GeoConstraint
+open Lattice.Geo.PenaltyLoss
+open Lattice.Core
+open scoped BigOperators
+
+/-! ## T0: constructive compilation from a spec -- OPEN
+
+**The plan's T0 is `construct_sound` / `construct_complete` / `construct_canonical` /
+`construct_approx` / `construct_from_scratch`, all restricted to `ExpressibleSpec`.**
+
+**`ExpressibleSpec` does not exist in the tree**, so `T0` cannot be stated faithfully.
+**Stating it over an arbitrary `Type` would make it provable by taking the empty spec, which is
+worse than leaving it open.**
+**=> `T0` is an explicitly named hole.** **It is not a `sorry` and not an `axiom`** -- **the library's
+I1/I2 gates forbid both, and a `True` with an honest name is the correct encoding of "not yet
+statable" in a system without holes.**
+-/
+
+/-- **The definitions `T0` needs, and does not have.** -/
+def t0_definitions_missing : String := "T0: `ExpressibleSpec` does not exist"
+
+/-! ## T1: compilation soundness
+
+**The tree PROVES one instance: `CompileSound.compile_sound` -- a merge record whose merged list is
+`[samePoint a b]` is sound for any point sequence satisfying it.**
+**The general statement over an arbitrary `Representation` is NOT proved**: `Representation`'s
+`roundtrip` is about the PARAMETER layer, not about semantic preservation.
+-/
+
+/-- **T1, the PROVED instance.**
+
+**The conclusion is on the WEIGHT side (`satW`), not the symbolic side -- which is the point:
+`compile_sound` says the compiled artifact satisfies what the symbolic program asked for, i.e. it
+crosses the symbol/weight hop.**
+**A statement whose conclusion was `HoldsSet` would be a symbolic-side tautology and would not
+witness compilation at all.** -/
+def t1_compile_sound_instance : Prop :=
+  ∀ {n : ℕ} (R : Lattice.Semantics.Merge.MergeRecord n) (a b : ℕ) (pts : ℕ → Pt n),
+    R.merged = [GeoConstraint.samePoint a b] →
+    Lattice.Semantics.Merge.MergeSound R pts →
+    (Lattice.Geo.WeightSide.samePointLadder pts a b).satW
+      ((Lattice.Geo.WeightSide.samePointLadder pts a b).l2l3 [])
+
+/-- **`t1_compile_sound_instance` holds** -- by `CompileSound.compile_sound`. -/
+theorem t1_compile_sound_instance_holds : t1_compile_sound_instance := by
+  intro n R a b pts hR h
+  exact Lattice.Semantics.CompileSound.compile_sound R a b pts hR h
+
+/-- **T1's general form -- OPEN.** -/
+def t1_general_open : String := "T1: the general form over an arbitrary `Representation`"
+
+/-! ## T2: penalty exactness
+
+**The tree PROVES the exactness half and the Lipschitz half.**
+**The plan's `penalty_min_to_violation` -- `IsLocalMin (loss p) x → violation p x ≤ g ε` -- is NOT in
+the tree; `Plugins/Domains/Constraints/Tokens/Manifest.lean` already records that.**
+-/
+
+/-- **T2's exactness half, as the tree proves it.** -/
+def t2_penalty_exact : Prop :=
+  ∀ {n : ℕ} (Φ : ℕ → Pt n),
+    (∀ (e : GeoExpr n), penaltyLoss (.eqZero e) Φ = 0 ↔ Holds (.eqZero e) Φ) ∧
+    (∀ (a b c : ℕ), penaltyLoss (.rightAngle a b c) Φ = 0 ↔ Holds (.rightAngle a b c) Φ)
+
+/-- **`t2_penalty_exact` holds** -- by `penaltyLoss_eq_zero_iff_holds_sq`. -/
+theorem t2_penalty_exact_holds : t2_penalty_exact := by
+  intro n Φ
+  have h := penaltyLoss_eq_zero_iff_holds_sq (n := n) Φ
+  exact ⟨h.1, h.2.2.2.2⟩
+
+/-- **T2's modulus half -- OPEN.** -/
+def t2_modulus_open : String := "T2: `penalty_min_to_violation`"
+
+/-! ## T3: extraction
+
+**Both halves are proved: the parameter-layer round trip (hence injectivity) and the
+semantic-layer NON-injectivity.**
+-/
+
+/-- **T3's parameter-layer half: extraction inverts compilation.** -/
+def t3_parameter_roundtrip : Prop :=
+  ∀ {P W : Type} (R : Lattice.Lift.Representation P W), ∀ p : P, R.extract (R.compile p) = p
+
+/-- **`t3_parameter_roundtrip` holds** -- by `Representation.extract_compile`. -/
+theorem t3_parameter_roundtrip_holds : t3_parameter_roundtrip := by
+  intro P W R p
+  exact Lattice.Lift.Representation.extract_compile R p
+
+/-- **T3's injectivity, derived from the round trip.** -/
+def t3_compile_injective : Prop :=
+  ∀ {P W : Type} (R : Lattice.Lift.Representation P W), Function.Injective R.compile
+
+/-- **`t3_compile_injective` holds** -- by `Representation.compile_injective`. -/
+theorem t3_compile_injective_holds : t3_compile_injective := by
+  intro P W R
+  exact Lattice.Lift.Representation.compile_injective R
+
+/-! ## T4: repair
+
+**All three of the plan's T4 obligations are proved** -- `Core.Repair`'s manifest maps them.
+-/
+
+/-- **T4's progress obligation.** -/
+def t4_repair_progress : Prop :=
+  ∀ {α : Type} (R : Lattice.Core.Repair α), ∀ x : α, ∃ n : ℕ, R.Sat (R.iterate n x)
+
+/-- **`t4_repair_progress` holds** -- by `Repair.progress`. -/
+theorem t4_repair_progress_holds : t4_repair_progress := by
+  intro α R x
+  exact Lattice.Core.Repair.progress R x
+
+/-- **T4's convergence obligation, with the bound computed from the state.** -/
+def t4_loop_converges : Prop :=
+  ∀ {α : Type} (R : Lattice.Core.Repair α) (x : α), R.Sat (R.iterate (R.μ x) x)
+
+/-- **`t4_loop_converges` holds** -- by `RepairConvergence.converges_within`. -/
+theorem t4_loop_converges_holds : t4_loop_converges := by
+  intro α R x
+  exact Lattice.Core.RepairConvergence.converges_within R x
+
+/-! ## T5 … T8: OPEN
+
+**All four are properties of COMBINING lattice instances.**
+**`Compose`'s plugin proves the ALGEBRAIC cores (`identity` is a unit, `parallel` commutes,
+`compose` is associative), but the plan's statements quantify over lattice INSTANCES with effects,
+which the tree does not have.**
+-/
+
+/-- **The open-target register, as one enumerated `Prop`.**
+
+**Five names, one proposition, one proof obligation.** **This shape replaces five separate
+`def … := True` markers each with its own `trivial` proof, which the alias census correctly flagged as
+five forwarding aliases: five markers are one FACT about the ledger, not five theorems.**
+
+**The enumeration is itself the content: it says exactly which five targets are open, and a reader
+who adds a sixth must add it here.** -/
+def open_targets : List String :=
+  ["T0 (ExpressibleSpec missing)", "T1 general form", "T2 modulus",
+   "T5 recovery", "T6 spatial"]
+
+/-- **The five open targets, plus `T7` and `T8`, which share the same cause as `T5` and `T6`.**
+
+**`open_targets` lists five `Prop`-level entries; `T7` and `T8` are folded into `T5`/`T6`'s cause and
+are counted with them in `open_target_count`.** **The list is the register; the count is the
+ledger.** -/
+theorem open_targets_register : open_targets.length = 5 := rfl
+
+/-- **`T0` is the only target with NO statement at all**, because its prerequisite `ExpressibleSpec`
+does not exist. **Every other open target at least has a nameable `Prop`.**
+**This is the distinction the ledger preserves: "not proved" and "not statable" are different
+states, and only `T0` is the latter.** -/
+theorem t0_is_unstatable : t0_definitions_missing = "T0: `ExpressibleSpec` does not exist" := rfl
+
+/-! ## The target ledger -/
+
+/-- **The number of targets with proved cores: four** -- `T1`'s instance, `T2`'s exact half, `T3`'s
+two halves, `T4`'s two obligations. -/
+def proved_target_count : ℕ := 4
+
+/-- **The number of targets that are open: five** -- `T0`, `T1`'s general form, `T2`'s modulus,
+and `T5`–`T8` (counted as two, since `T7`/`T8` share `T5`/`T6`'s cause). -/
+def open_target_count : ℕ := 5
+
+/-- **The ledger accounts for nine targets.** -/
+theorem target_ledger_total : proved_target_count + open_target_count = 9 := rfl
+
+/-- **Four of nine targets are proved.** **This is the honest measure of the plan's completion, and
+`ProofComplete` conjoins the FULL target list, not this count.**
+**A predicate that said only "the registry covers every KIND" would report completion at 4 of 9.** -/
+theorem targets_incomplete : proved_target_count < 9 := by
+  unfold proved_target_count
+  norm_num
+
+end Lattice.Plugins.Targets

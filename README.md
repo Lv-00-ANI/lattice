@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 898 | `audit_counts.py` |
-> | 定理 / 引理 | 9358 | `audit_counts.py` |
+> | Lean 模块 | 900 | `audit_counts.py` |
+> | 定理 / 引理 | 9369 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -51,7 +51,7 @@
 > **数字是当前快照；迁移进行中，模块数会短暂波动，以 `audit_counts.py` 为准。**
 >
 > **定理计数的口径（必须连同数字一起引用）**：排除 `Reference/`；**剥除注释**（docstring 里提到的 `theorem` 不计）；允许 `@[...]` 属性与 `private`/`protected`/`noncomputable` 修饰符出现在关键字之前。
-> 同一测量在不同口径下曾给出 **8,114 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
+> 同一测量在不同口径下曾给出 **8,124 / 8,011 / 8,068** 三个数，**三者都不是错的，错的是没有说明口径**。
 > 详见 `audit_counts.total_theorems` 的 docstring。
 >
 > **否证计数的口径**：`theorem`/`lemma` 的结论以 `¬`、`not `、`→ False` 开头，或形如 `¬ ∃ …`。

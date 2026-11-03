@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 710 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 156 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -894,6 +894,10 @@
 | `Lib/Optim/RealSeamBridges2.lean` | `castConstraint_b_eq_convertVec_b` |
 | `Lib/Optim/RealStrongConvex.lean` | `strong_convex_gap_nonneg` |
 | `Lib/Optim/RealStrongConvex.lean` | `strong_convex_minimizer` |
+| `Plugins/Core/Repair/Plugin.lean` | `convergesWithinProp_holds` |
+| `Plugins/Core/Repair/Plugin.lean` | `progressProp_holds` |
+| `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
+| `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
 | `Primitives/WeightDescent.lean` | `sqNormIn_nonneg` |
 | `Runtime/ConvertVectorLinear.lean` | `foldl_init_add` |
 | `Runtime/GeoSampledBound.lean` | `residual_le_of_zero_on_dense_of_d` |

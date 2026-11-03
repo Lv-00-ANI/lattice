@@ -16,18 +16,20 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 5572 | 59.5% |
-| 1 | 1435 | 15.3% |
+| 1 | 1439 | 15.4% |
 | 2 | 785 | 8.4% |
 | 3 | 637 | 6.8% |
-| 4 | 529 | 5.7% |
+| 4 | 529 | 5.6% |
 | 5 | 221 | 2.4% |
-| 6 | 182 | 1.9% |
-| **合计** | **9361** | |
+| 6 | 188 | 2.0% |
+| 7 | 1 | 0.0% |
+| **合计** | **9372** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 7 | `t1_compile_sound_instance_holds` (`Plugins/Targets/Statements.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 6 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -49,6 +51,9 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `proofComplete_imp_registry` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
+| 6 | `proofComplete_unreachable` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
+| 6 | `current_state` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -84,10 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_obligations` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_requires` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_provides` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_spatial` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_confluence` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

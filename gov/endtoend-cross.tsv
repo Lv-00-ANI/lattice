@@ -10,10 +10,11 @@ Plugins.lean	proofRegistry_compose_mem
 Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
 Plugins.lean	coverage_all_mandatory
-Plugins.lean	proofComplete_iff_registry
+Plugins.lean	pluginCensusPending_holds
+Plugins.lean	proofComplete_imp_registry
 Plugins.lean	coverageComplete_holds
 Plugins.lean	pluginRegistryComplete_holds
-Plugins.lean	pluginCensusPending_holds
+Plugins.lean	proofComplete_unreachable
 Plugins.lean	current_state
 Slots.lean	fullRegistry_wellFormed
 CInterface/ABI.lean	abiTable_length
@@ -2041,6 +2042,12 @@ Plugins/Extractors/ChainSlot/Plugin.lean	deepChainFinalSlotDeadProp_holds
 Plugins/Extractors/ChainSlot/Plugin.lean	proof_holds
 Plugins/Extractors/ChainSlot/Plugin.lean	verified_manifest
 Plugins/Extractors/ChainSlot/Plugin.lean	verified_obligations
+Plugins/Targets/Statements.lean	t1_compile_sound_instance_holds
+Plugins/Targets/Statements.lean	t2_penalty_exact_holds
+Plugins/Targets/Statements.lean	t3_parameter_roundtrip_holds
+Plugins/Targets/Statements.lean	t3_compile_injective_holds
+Plugins/Targets/Statements.lean	t4_repair_progress_holds
+Plugins/Targets/Statements.lean	t4_loop_converges_holds
 Primitives/MultistepLoop.lean	step_pos
 Primitives/MultistepLoop.lean	step_neg
 Primitives/MultistepLoop.lean	step_zero

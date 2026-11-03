@@ -18,6 +18,7 @@ Two edits: import its `Plugin.lean` here, and add the `VerifiedPlugin` it export
 
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
+import Lattice.Plugins.Targets
 import Lattice.Plugins.Core
 import Lattice.Plugins.Domains
 import Lattice.Plugins.Compose
@@ -158,30 +159,59 @@ theorem coverage_all_mandatory :
 def PluginRegistryComplete : Prop :=
   RegistryCompleteFor proofRegistry
 
+/-- **The gap this registry still cannot see: unmigrated plugins.**
+
+**`plugin-map.tsv` records 42 plugins in the tree; the registry lists 8.**
+**=> 34 remain unmigrated, and no predicate over `proofRegistry` ALONE can detect them.**
+
+**The bound is written as `proofRegistry.length < 42` rather than the literal count, so the
+statement means "the registry is smaller than the tree" -- the gap itself.**
+**It is defined BEFORE `ProofComplete` because the completion predicate negates it.** -/
+def pluginCensusPending : Prop :=
+  proofRegistry.length < 42
+
+/-- **`pluginCensusPending` holds**: the registry is shorter than the plugin census. -/
+theorem pluginCensusPending_holds : pluginCensusPending := by
+  unfold pluginCensusPending proofRegistry
+  norm_num
+
 /-- **The project's completion predicate.**
 
-**The nine targets of the execution plan, conjoined with registry completeness.** The targets
-`T0 … T8` have no Lean statement yet, so the predicate is currently *equal* to
-`PluginRegistryComplete` -- recorded by `proofComplete_iff_registry` below rather than hidden.
-Filling them in (P4/P5) will REPLACE that iff with a strict conjunction, i.e. make the
-predicate harder, never easier.
+**The nine targets of the execution plan, CONJOINED with registry completeness and with the absence
+of the census gap.**
 
-It deliberately says nothing about C, weight I/O, formats, conformance, or training: those
-are out of `ProofComplete` by construction.
+**This is a strict conjunction, not an equality** -- **`proofComplete_iff_registry` was true last
+round and is now FALSE, deliberately**: **the predicate was `:= PluginRegistryComplete`, which became
+provable while 34 of 42 plugins were unmigrated.**
+**=> `ProofComplete` now requires:**
+- **`PluginRegistryComplete`** (kind coverage + consistency);
+- **`¬ pluginCensusPending`** (every plugin in the census is registered);
+- **the nine targets' proved cores** -- **four are inhabited today, five are open markers, so the
+  full list is stated but NOT satisfied; see `Targets.Statements` for the ledger.**
+
+**It deliberately says nothing about C, weight I/O, formats, conformance, or training: those are out
+of `ProofComplete` by construction.**
 -/
 def ProofComplete : Prop :=
-  PluginRegistryComplete
+  PluginRegistryComplete ∧ ¬ pluginCensusPending ∧
+    Lattice.Plugins.Targets.t1_compile_sound_instance ∧
+    Lattice.Plugins.Targets.t2_penalty_exact ∧
+    Lattice.Plugins.Targets.t3_parameter_roundtrip ∧
+    Lattice.Plugins.Targets.t3_compile_injective ∧
+    Lattice.Plugins.Targets.t4_repair_progress ∧
+    Lattice.Plugins.Targets.t4_loop_converges
 
-/-- **`ProofComplete` currently reduces to `PluginRegistryComplete`.**
+/-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
-This is a statement about the SHAPE of the definition, not a claim that completion holds:
-`PluginRegistryComplete` itself is open, because `AllMandatoryKindsCoveredFor` fails for the
-seven kinds no migrated plugin claims. -/
-theorem proofComplete_iff_registry : ProofComplete ↔ PluginRegistryComplete :=
-  Iff.rfl
+**The old `proofComplete_iff_registry` was `Iff.rfl` because the predicate WAS the registry
+condition.**
+**Now the implication one way is strict: `ProofComplete` implies the registry condition, but NOT
+conversely, because the census half can fail while the kind half holds.**
+**This theorem states the one direction that remains true and is the one a reader needs.** -/
+theorem proofComplete_imp_registry : ProofComplete → PluginRegistryComplete :=
+  fun h => h.1
 
-/-- **The registry's kind-coverage is complete**, so the completion predicate now turns on the
-PLUGIN CENSUS rather than on any missing kind. **See `pluginCensusPending` below.** -/
+/-- **The registry's kind-coverage is complete.** -/
 theorem coverageComplete_holds : AllMandatoryKindsCoveredFor proofRegistry := by
   intro k hk
   exact coverage_all_mandatory k (by simpa [mandatoryKinds] using hk)
@@ -191,29 +221,31 @@ witness. -/
 theorem pluginRegistryComplete_holds : PluginRegistryComplete :=
   ⟨registryConsistent_holds, coverageComplete_holds⟩
 
-/-- **The gap this registry still cannot see: unmigrated plugins.**
+/-- **`ProofComplete` is NOT reachable.**
 
-**`plugin-map.tsv` records 41 plugins in the tree; the registry lists 8.** **33 remain unmigrated,
-and no predicate over `proofRegistry` alone can detect them.**
-**=> the honest completion predicate needs a further conjunct relating the registry to the census.**
+**Witness: `ProofComplete`'s second conjunct is `¬ pluginCensusPending`, while
+`pluginCensusPending_holds` proves `pluginCensusPending`.**
+**=> completion cannot be reached by finishing the kind list, which is exactly the failure mode the
+previous round had.**
 
-**The bound is written as `proofRegistry.length < 41` rather than as `8 < 41`, so the statement
-means "the registry is smaller than the tree" -- the gap itself -- and stays meaningful as the
-registry grows.** -/
-def pluginCensusPending : Prop :=
-  proofRegistry.length < 41
-
-/-- **`pluginCensusPending` holds**: the registry is shorter than the plugin census. -/
-theorem pluginCensusPending_holds : pluginCensusPending := by
-  unfold pluginCensusPending proofRegistry
-  norm_num
+**The contradiction is closed by the hypothesis applied to the proof of the negated proposition --
+`h.2.1` has type `¬ pluginCensusPending` and `pluginCensusPending_holds` has type
+`pluginCensusPending`, so `h.2.1 pluginCensusPending_holds` IS the false proposition.** -/
+theorem proofComplete_unreachable :
+    ¬ ProofComplete := by
+  intro h
+  exact h.2.1 pluginCensusPending_holds
 
 /-- **The honest statement of the current state.**
 
-**Kind-coverage is complete AND the plugin census is not**, **together.**
-**Any claim of project completion that omits the second conjunct would be false, and this theorem
-is where that is recorded as a fact rather than as a remark.** -/
-theorem current_state : PluginRegistryComplete ∧ pluginCensusPending :=
-  ⟨pluginRegistryComplete_holds, pluginCensusPending_holds⟩
+**Kind-coverage is complete, the plugin census is NOT, four of nine targets have proved cores, and
+`ProofComplete` is therefore unreachable.**
+**Any claim of project completion that omits any of these would be false, and this theorem is where
+they are recorded as facts rather than remarks.** -/
+theorem current_state :
+    PluginRegistryComplete ∧ pluginCensusPending ∧
+      Lattice.Plugins.Targets.proved_target_count = 4 ∧
+      ¬ ProofComplete :=
+  ⟨pluginRegistryComplete_holds, pluginCensusPending_holds, rfl, proofComplete_unreachable⟩
 
 end Lattice.Plugins

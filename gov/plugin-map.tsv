@@ -8629,7 +8629,8 @@ plugins	Plugins	Plugins.lean	coverage_all_mandatory	no
 plugins	Plugins	Plugins.lean	current_state	no
 plugins	Plugins	Plugins.lean	pluginCensusPending_holds	no
 plugins	Plugins	Plugins.lean	pluginRegistryComplete_holds	no
-plugins	Plugins	Plugins.lean	proofComplete_iff_registry	no
+plugins	Plugins	Plugins.lean	proofComplete_imp_registry	no
+plugins	Plugins	Plugins.lean	proofComplete_unreachable	yes
 plugins	Plugins	Plugins.lean	proofRegistry_compose_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_constraint_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_extractor_mem	no
@@ -8837,6 +8838,16 @@ plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Plugin.lean	st
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Plugin.lean	stepWeightReadableProp_holds	no
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Plugin.lean	verified_manifest	no
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Plugin.lean	verified_obligations	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	open_targets_register	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t0_is_unstatable	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t1_compile_sound_instance_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t2_penalty_exact_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t3_compile_injective_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t3_parameter_roundtrip_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_loop_converges_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_repair_progress_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	target_ledger_total	no
+plugins	Plugins/Targets	Plugins/Targets/Statements.lean	targets_incomplete	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_not_one_step	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_steps	no
 primitives	Primitives	Primitives/MultistepLoop.lean	multistep_geometric_exists	no
