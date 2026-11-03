@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5572 | 59.7% |
-| 1 | 1435 | 15.4% |
+| 0 | 5572 | 59.5% |
+| 1 | 1435 | 15.3% |
 | 2 | 785 | 8.4% |
 | 3 | 637 | 6.8% |
 | 4 | 529 | 5.7% |
-| 5 | 218 | 2.3% |
-| 6 | 156 | 1.7% |
-| **合计** | **9332** | |
+| 5 | 221 | 2.4% |
+| 6 | 182 | 1.9% |
+| **合计** | **9361** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -82,12 +82,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proof_holds` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_obligation_count` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_layer` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_requires_nothing` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_provides` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_laws` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_soundness` (`Plugins/Core/Constraint/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_obligation_count` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_layer` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_requires` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_provides` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_claims_spatial` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_claims_confluence` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

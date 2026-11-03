@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 248 | aggregator at `Lattice/`, re-exports only |
+| root | 251 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -806,12 +806,15 @@
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
-- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`
+- `Lattice.Plugins` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Plugins.Architectures.Norm.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Architectures.Norm.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Lib.Architectures.RealBatchNormConsistency`
+- `Lattice.Plugins.Compose` <- `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Plugin`
+- `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Compose.Laws`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Plugin`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
 - `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Core.Logic`
@@ -1706,12 +1709,15 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 13 | 4 |
+| `Lattice.Plugins` | 16 | 5 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
 | `Lattice.Plugins.Architectures.Norm.Manifest` | 13 | 1 |
 | `Lattice.Plugins.Architectures.Norm.Plugin` | 9 | 8 |
+| `Lattice.Plugins.Compose` | 0 | 0 |
+| `Lattice.Plugins.Compose.Manifest` | 13 | 1 |
+| `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Constraint.Manifest` | 11 | 1 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 7 | 6 |
@@ -3264,6 +3270,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose2_differentiableAt_params` -> `Chain`, `comp`
 - `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
+- `composeAssocProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeCoverageProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose_coverage`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeHOfPreTrueProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeSoundProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_sound`, `compose_strength`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeStrengthProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `identity`, `inter`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeWith_run` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `inter`, `min`, `run`, `sound`
 - `compose_act` -> `W`, `compose`, `induction`
@@ -3568,10 +3579,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coupledLoss_zero_coupling` -> `rho`
 - `coupling_accept_bound` -> `geom_sum_eq`, `min`
 - `covariant_pair_separated` -> `extent`, `galois_connection`, `intent`
+- `coverageComplete_holds` -> `AllMandatoryKindsCoveredFor`, `length`, `mandatoryKinds`
 - `coverageValue_mono` -> `alpha`
+- `coverage_all_mandatory` -> `AllMandatoryKindsCoveredFor`, `RegistryCompleteFor`, `claims`, `length`, `mandatoryKinds`, `manifest`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
 - `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `inter`
-- `coverage_partial` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `soundness`, `verified_manifest`
 - `covers_mono` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `cps_call_by_value_shape` -> `Compiler`, `lit`
 - `cps_correct` -> `Compiler`, `add`, `induction`, `lit`
@@ -5519,6 +5531,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `id_is_not_a_repair_when_unsat_exists` -> `ConstraintSat`, `LinearConstraint`, `iterate_succ`, `preserves`
 - `id_strictMono` -> `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
+- `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `l0Norm`, `sqNorm`
 - `identity_post` -> `Primitive`, `compose`, `identity`, `run`
@@ -6377,27 +6391,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maml_second_order_expansion` -> `add`, `comp`, `fomamlGrad`
 - `manifest_claims_approximation` -> `claims`, `completeness`, `manifest`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_completeness` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_exactness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
+- `manifest_claims_confluence` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
 - `manifest_claims_equivariance` -> `claims`, `completeness`, `soundness`
 - `manifest_claims_exactness` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_idempotence` -> `claims`, `manifest`, `manifest_claims_approximation`, `manifest_claims_soundness`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_invariants` -> `claims`, `completeness`, `soundness`
-- `manifest_claims_laws` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
-- `manifest_claims_soundness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
-- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `poly`, `repair`, `satisfies`, `soundness`
-- `manifest_no_approximation` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_spatial`
+- `manifest_claims_laws` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_recovery` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
+- `manifest_claims_soundness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
+- `manifest_claims_spatial` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
+- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
+- `manifest_no_approximation` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_completeness` -> `Constraint`, `claims`, `completeness`, `manifest`
 - `manifest_no_confluence` -> `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_equivariance` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
-- `manifest_no_exactness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_recovery`, `manifest_no_spatial`
+- `manifest_no_exactness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_idempotence` -> `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_recovery`
 - `manifest_no_laws` -> `claims`, `manifest`
 - `manifest_no_recovery` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_spatial` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `poly`, `repair`, `satisfies`, `soundness`
-- `manifest_provides` -> `Constraint`, `Repair`, `claims`, `completeness`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `repair`, `satisfies`, `soundness`
-- `manifest_requires` -> `claims`, `completeness`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `poly`, `soundness`
-- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `satisfies`, `soundness`
+- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
+- `manifest_provides` -> `Constraint`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `satisfies`, `soundness`
+- `manifest_requires` -> `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `soundness`
+- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `satisfies`, `soundness`
 - `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `map_extractVec_compileToLayer_rfl` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
@@ -7404,10 +7421,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `par_diamond_critical_pair` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
 - `par_diamond_true_but_step_diamond_false` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
 - `par_stronger_than_step_on_T` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `betaSubst`, `betaSubst_self`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
+- `parallelCommProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_comm_run`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallelFix_idempotent` -> `Pt`, `apply`, `seg`
 - `parallelFix_reaches` -> `Pt`, `apply`, `seg`
+- `parallelIdentityProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `parallel_identity_run`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallelPenalty_eq_zero_iff_of_ne` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
 - `parallelPenalty_nonneg` -> `Pt`
+- `parallelRunProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallel_comm_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
 - `parallel_coverage` -> `Primitive`, `dec`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDistFDeriv`, `trunc`
@@ -7574,6 +7594,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `plane_unit_normal` -> `E`, `Geometry`, `S2`
 - `pluckerNorm_eq_zero_iff` -> `Pt`, `apply`, `cofactor`, `pluckerNorm`, `subst`
 - `pluckerNorm_nonneg` -> `GeoConstraint`, `Pt`, `seg`
+- `pluginRegistryComplete_holds` -> `length`
 - `point_contains` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_hi` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_le_iff_contains` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -7738,15 +7759,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promote_ge_left` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promote_ge_right` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promotion_table_correct` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
-- `proofComplete_iff_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Repair`, `mandatoryKinds`, `manifest_no_recovery`, `verified_manifest`
-- `proofRegistry_constraint_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_extractor_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_gnn_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified_manifest`
-- `proofRegistry_norm_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
-- `proofRegistry_tokens_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified`, `verified_manifest`
+- `proofComplete_iff_registry` -> `AllMandatoryKindsCoveredFor`, `length`, `mandatoryKinds`
+- `proofRegistry_compose_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_constraint_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_extractor_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_gnn_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`
+- `proofRegistry_norm_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
+- `proofRegistry_tokens_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `verified`
 - `proof_completeness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_exactness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_holds` -> `Constraint`, `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
@@ -8098,9 +8120,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reg_softMasked_coverage` -> `E`, `FloatFormat`, `Gated`, `IsCompressor`, `IsTranslationEquivariant`, `IsTransportPlan`, `Point2R`, `RoundOp`, `SoftMasked`, `act`, `alibiBias`, `alibi_bias_translation_equivariant`, `comp`, `distBias`, `distBias_equivariant`, `efErrorSeq`, `eps`, `errorFeedback_bounded`, `exists_optimal_plan`, `format_error_bound`, `format_round_idempotent`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `hardSwish`, `le_refl`, `mul`, `rdot`, `relPhaseAbs`, `relPhaseAbs_translation_equivariant`, `relu`, `reluSoftMask`, `rope_score_translation_equivariant`, `rotateR`, `roundToFormat`, `sigmoid`, `silu`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`, `swiglu`, `tiny`, `transportCost`
 - `reg_sphere_coverage_retr` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`
 - `reg_support_coverage` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`
-- `registryComplete_fails` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Repair`, `mandatoryKinds`, `manifest_no_recovery`, `verified_manifest`
 - `registryConsistentFor_nil` -> `mandatoryKinds`, `soundness`
-- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `ObligationKind`, `RegistryCompleteFor`, `Repair`, `claims`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_no_recovery`, `proof_holds`, `soundness`, `verified_manifest`
+- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`
 - `reglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `reglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `reglu_lipschitz` -> `SoftMasked`, `act`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `reglu`, `reluSoftMask`, `reluSoftMask_abs_le_one`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_abs_le_one`, `siluGLU`, `silu_is_soft_masked`, `zero`

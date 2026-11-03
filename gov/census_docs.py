@@ -100,7 +100,7 @@ def repair_expected(path):
 # see both the framework and every migrated plugin, so the two registry-state refutations
 # (`registryComplete_fails`, `pluginRegistryComplete_not_yet`) necessarily live there.
 REFUTATION_LAYERS = ("Lib", "Lift", "Runtime", "Domains", "Evidence", "Core", "Geo", "Compose",
-                     "Plugins", "(root)")
+                     "Plugins")
 
 #: `**284 条**否定结论` -- the total in the prose above the layer table.
 TOTAL = re.compile(r"\*\*(\d+)\s*条\*\*\s*否定结论")

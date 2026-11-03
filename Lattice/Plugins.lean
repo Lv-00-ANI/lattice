@@ -20,6 +20,7 @@ import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Core
 import Lattice.Plugins.Domains
+import Lattice.Plugins.Compose
 import Lattice.Plugins.Extractors
 import Lattice.Plugins.Architectures
 
@@ -40,6 +41,7 @@ def proofRegistry : List VerifiedPlugin :=
    Lattice.Plugins.Core.Repair.verified,
    Lattice.Plugins.Domains.Constraints.Penalty.verified,
    Lattice.Plugins.Domains.Constraints.Tokens.verified,
+   Lattice.Plugins.Compose.verified,
    Lattice.Plugins.Extractors.ChainSlot.verified,
    Lattice.Plugins.Architectures.GNN.verified,
    Lattice.Plugins.Architectures.Norm.verified]
@@ -79,13 +81,18 @@ theorem proofRegistry_gnn_mem :
     Lattice.Plugins.Architectures.GNN.verified ∈ proofRegistry := by
   simp [proofRegistry]
 
-/-- The registry currently holds exactly seven plugins. -/
-theorem proofRegistry_length : proofRegistry.length = 7 := rfl
+/-- The registry contains the composition-algebra plugin. -/
+theorem proofRegistry_compose_mem :
+    Lattice.Plugins.Compose.verified ∈ proofRegistry := by
+  simp [proofRegistry]
+
+/-- The registry currently holds exactly eight plugins. -/
+theorem proofRegistry_length : proofRegistry.length = 8 := rfl
 
 /-- **Every registered plugin is consistent.** -/
 def RegistryConsistent : Prop := RegistryConsistentFor proofRegistry
 
-/-- **The registry is consistent**: all five entries discharge their bundles.
+/-- **The registry is consistent**: all eight entries discharge their bundles.
 
 Each case is closed by the plugin's own `proof_holds`, so a plugin that stopped proving
 something would break this theorem rather than being silently admitted. -/
@@ -93,52 +100,58 @@ theorem registryConsistent_holds : RegistryConsistent := by
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · exact fun _ => Lattice.Plugins.Core.Constraint.proof_holds
   · exact fun _ => Lattice.Plugins.Core.Repair.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Penalty.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Tokens.proof_holds
+  · exact fun _ => Lattice.Plugins.Compose.proof_holds
   · exact fun _ => Lattice.Plugins.Extractors.ChainSlot.proof_holds
   · exact fun _ => Lattice.Plugins.Architectures.GNN.proof_holds
   · exact fun _ => Lattice.Plugins.Architectures.Norm.proof_holds
 
-/-- **The mandatory kinds the tree already covers.**
+/-- **Every mandatory kind is now covered.**
 
-**Eight of the eleven**: `soundness`, `laws`, `exactness`, `approximation`, `completeness`,
-`idempotence`, `equivariance`, `invariants`.
+**All eleven of `mandatoryKinds`**: **with `Compose`, `recovery`, `spatial` and `confluence` joined
+the eight that were already witnessed.**
 
-**`laws` joined when `Core.Repair` was migrated** (its `iterate_succ` is a monoid-action law);
-**`exactness` gained a second witness when `Tokens` was migrated**; **`soundness` gained its deepest
-witness when `Core.Constraint` was migrated** (the two `Models` lemmas); **`idempotence` joined when
-`Architectures.Norm` was migrated**; **`equivariance` and `invariants` joined together when
-`Architectures.GNN` was migrated** -- **the same plugin closes both, because a GNN's defining
-property is an equivariance law whose payoff is an invariant readout.**
+**The last three arrived together and the reason is structural**: they are properties of how
+components COMBINE, so no single-carrier plugin could have them.
+**`Compose.parallel_comm_run` supplies `spatial`, `Compose.compose_run_assoc` supplies
+`confluence`, and the two unit laws supply `recovery`** -- **a unit is what makes "omit a step and
+the composite is unchanged" true.**
+**`recovery` is NOT claimed as invertibility; the project has refuted that
+(`no_extractor_preserves_both`).**
 
-The three still missing (`recovery`, `spatial`, `confluence`) **all belong to the `Compose` layer**,
-which has not been migrated: they are properties of how plugins COMBINE, and no single-carrier
-plugin can have them. -/
-theorem coverage_partial :
-    (∀ k ∈ [ObligationKind.soundness, .laws, .exactness, .approximation, .completeness,
-            .idempotence, .equivariance, .invariants],
-        ∃ p ∈ proofRegistry, p.manifest.claims k = true) := by
+**Note this is `coverage`, i.e. "at least one witness per kind".** **It says nothing about how MANY
+theorems remain unmigrated, and `pluginCensusPending` below records that separately.** -/
+theorem coverage_all_mandatory :
+    ∀ k ∈ mandatoryKinds, ∃ p ∈ proofRegistry, p.manifest.claims k = true := by
   intro k hk
-  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hk
-  rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-  · -- soundness: the constraint-logic plugin
+  simp only [mandatoryKinds, List.mem_cons, List.mem_singleton, List.not_mem_nil,
+    or_false] at hk
+  rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · -- .soundness: the constraint-logic plugin
     exact ⟨_, proofRegistry_constraint_mem, rfl⟩
-  · -- laws: the repair plugin
-    exact ⟨_, proofRegistry_repair_mem, rfl⟩
-  · -- exactness: the chain-slot extractor
-    exact ⟨_, proofRegistry_extractor_mem, rfl⟩
-  · -- approximation: the penalty plugin
-    exact ⟨_, proofRegistry_penalty_mem, rfl⟩
-  · -- completeness: the tokenisation plugin
+  · -- .completeness: the tokenisation plugin
     exact ⟨_, proofRegistry_tokens_mem, rfl⟩
-  · -- idempotence: the normalisation carrier
-    exact ⟨_, proofRegistry_norm_mem, rfl⟩
-  · -- equivariance: the graph-network carrier
+  · -- .laws: the repair plugin
+    exact ⟨_, proofRegistry_repair_mem, rfl⟩
+  · -- .exactness: the chain-slot extractor
+    exact ⟨_, proofRegistry_extractor_mem, rfl⟩
+  · -- .approximation: the penalty plugin
+    exact ⟨_, proofRegistry_penalty_mem, rfl⟩
+  · -- .recovery: the composition algebra (identity is a two-sided unit)
+    exact ⟨_, proofRegistry_compose_mem, rfl⟩
+  · -- .spatial: the composition algebra (parallel composition commutes)
+    exact ⟨_, proofRegistry_compose_mem, rfl⟩
+  · -- .confluence: the composition algebra (composition is associative)
+    exact ⟨_, proofRegistry_compose_mem, rfl⟩
+  · -- .equivariance: the graph-network carrier
     exact ⟨_, proofRegistry_gnn_mem, rfl⟩
-  · -- invariants: the graph-network carrier (its invariant readout)
+  · -- .idempotence: the normalisation carrier
+    exact ⟨_, proofRegistry_norm_mem, rfl⟩
+  · -- .invariants: the graph-network carrier (its invariant readout)
     exact ⟨_, proofRegistry_gnn_mem, rfl⟩
 
 /-- **Registry completeness, as the plan defines it.** -/
@@ -167,51 +180,40 @@ seven kinds no migrated plugin claims. -/
 theorem proofComplete_iff_registry : ProofComplete ↔ PluginRegistryComplete :=
   Iff.rfl
 
-/-- **The registry is NOT yet complete.**
+/-- **The registry's kind-coverage is complete**, so the completion predicate now turns on the
+PLUGIN CENSUS rather than on any missing kind. **See `pluginCensusPending` below.** -/
+theorem coverageComplete_holds : AllMandatoryKindsCoveredFor proofRegistry := by
+  intro k hk
+  exact coverage_all_mandatory k (by simpa [mandatoryKinds] using hk)
 
-Witnessed concretely: no registered plugin claims `.recovery`, so the coverage half of
-`RegistryCompleteFor` fails. This theorem is what keeps the completion predicate honest --
-without it, `ProofComplete` could be read as "done" by someone who only sees the definition.
--/
-theorem registryComplete_fails :
-    ¬ AllMandatoryKindsCoveredFor proofRegistry := by
-  intro h
-  obtain ⟨p, hp, hclaim⟩ := h .recovery (by simp [mandatoryKinds])
-  rw [proofRegistry] at hp
-  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-  · -- the constraint-logic plugin does not claim recovery
-    rw [Lattice.Plugins.Core.Constraint.verified_manifest,
-        Lattice.Plugins.Core.Constraint.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the repair plugin does not claim recovery
-    rw [Lattice.Plugins.Core.Repair.verified_manifest,
-        Lattice.Plugins.Core.Repair.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the penalty plugin does not claim recovery
-    rw [Lattice.Plugins.Domains.Constraints.Penalty.verified_manifest,
-        Lattice.Plugins.Domains.Constraints.Penalty.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the tokenisation plugin does not claim recovery
-    rw [Lattice.Plugins.Domains.Constraints.Tokens.verified_manifest,
-        Lattice.Plugins.Domains.Constraints.Tokens.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the chain-slot extractor does not claim recovery
-    rw [Lattice.Plugins.Extractors.ChainSlot.verified_manifest,
-        Lattice.Plugins.Extractors.ChainSlot.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the graph-network carrier does not claim recovery
-    rw [Lattice.Plugins.Architectures.GNN.verified_manifest,
-        Lattice.Plugins.Architectures.GNN.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
-  · -- the normalisation carrier does not claim recovery
-    rw [Lattice.Plugins.Architectures.Norm.verified_manifest,
-        Lattice.Plugins.Architectures.Norm.manifest_no_recovery] at hclaim
-    exact Bool.false_ne_true hclaim
+/-- **`PluginRegistryComplete` holds**: the registry is consistent and every mandatory kind has a
+witness. -/
+theorem pluginRegistryComplete_holds : PluginRegistryComplete :=
+  ⟨registryConsistent_holds, coverageComplete_holds⟩
 
-/-- **`PluginRegistryComplete` is open**, stated as the negation of its coverage half. -/
-theorem pluginRegistryComplete_not_yet : ¬ PluginRegistryComplete := by
-  intro h
-  exact registryComplete_fails h.2
+/-- **The gap this registry still cannot see: unmigrated plugins.**
+
+**`plugin-map.tsv` records 41 plugins in the tree; the registry lists 8.** **33 remain unmigrated,
+and no predicate over `proofRegistry` alone can detect them.**
+**=> the honest completion predicate needs a further conjunct relating the registry to the census.**
+
+**The bound is written as `proofRegistry.length < 41` rather than as `8 < 41`, so the statement
+means "the registry is smaller than the tree" -- the gap itself -- and stays meaningful as the
+registry grows.** -/
+def pluginCensusPending : Prop :=
+  proofRegistry.length < 41
+
+/-- **`pluginCensusPending` holds**: the registry is shorter than the plugin census. -/
+theorem pluginCensusPending_holds : pluginCensusPending := by
+  unfold pluginCensusPending proofRegistry
+  norm_num
+
+/-- **The honest statement of the current state.**
+
+**Kind-coverage is complete AND the plugin census is not**, **together.**
+**Any claim of project completion that omits the second conjunct would be false, and this theorem
+is where that is recorded as a fact rather than as a remark.** -/
+theorem current_state : PluginRegistryComplete ∧ pluginCensusPending :=
+  ⟨pluginRegistryComplete_holds, pluginCensusPending_holds⟩
 
 end Lattice.Plugins
