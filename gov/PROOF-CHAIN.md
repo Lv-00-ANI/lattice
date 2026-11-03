@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 255 | aggregator at `Lattice/`, re-exports only |
+| root | 256 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -831,8 +831,9 @@
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.Statements`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
@@ -1740,6 +1741,7 @@
 | `Lattice.Plugins.Registry` | 4 | 8 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
 | `Lattice.Plugins.Targets.Expressible` | 8 | 5 |
+| `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
 | `Lattice.Plugins.Targets.Statements` | 11 | 13 |
 | `Lattice.Primitives` | 0 | 0 |
@@ -5505,6 +5507,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holdsSet_mono` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `holdsSet_nil` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
 - `holdsSet_of_sublist` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_append`, `induction`, `trivial`
+- `holdsSet_samePoint_all` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `holdsSet_nil`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `holdsSet_samePoint_single` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `trivial`
 - `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
@@ -7517,6 +7520,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `extract`, `penaltyLoss`
+- `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `penalty_samePoint_const` -> `GeoConstraint`, `Holds`, `Pt`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `perSlotExtractionSoundProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
 - `perceptron_bound` -> `E`, `le`, `le_trans`, `subst`

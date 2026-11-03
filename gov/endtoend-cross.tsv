@@ -2050,6 +2050,8 @@ Plugins/Targets/Expressible.lean	samePoint_expressible
 Plugins/Targets/Expressible.lean	rightAngle_expressible
 Plugins/Targets/Expressible.lean	sqDistEq_expressible
 Plugins/Targets/Expressible.lean	equalLength_expressible
+Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all
+Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero
 Plugins/Targets/Solver.lean	holds_samePoint_const
 Plugins/Targets/Solver.lean	penalty_samePoint_const
 Plugins/Targets/Statements.lean	t0_empty_spec_holds

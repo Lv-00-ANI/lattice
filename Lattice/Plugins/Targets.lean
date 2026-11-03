@@ -11,9 +11,14 @@ that every member is expressible, so a function taking it cannot be handed an in
 **`Solver.lean`** -- **`SpecSolver`, the spec-to-parameters interface**, **with T0's four obligations as
 FIELDS**, **plus the one family where the construction has a closed form (`samePoint`).**
 
+**`MultiSolver.lean`** -- **the discovery that `SpecSolver`'s `∀ S` is TOO STRONG for a family-specific
+construction**, **so `FamilySolver` is defined beside it and the `samePoint` family is solved over
+lists of arbitrary length.**
+
 **`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
 import Lattice.Plugins.Targets.Solver
+import Lattice.Plugins.Targets.MultiSolver
 import Lattice.Plugins.Targets.Statements
