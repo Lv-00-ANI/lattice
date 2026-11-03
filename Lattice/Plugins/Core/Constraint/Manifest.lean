@@ -48,22 +48,22 @@ def manifest : PluginManifest where
     { name := "entails_cons"
       kind := .laws
       theoremName := "entails_cons"
-      file := "Lattice/Core/Logic.lean" },
+      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
     -- LAW: entailment is monotone in the constraint set -- a larger program is stronger.
     { name := "entails_mono"
       kind := .laws
       theoremName := "entails_mono"
-      file := "Lattice/Core/Logic.lean" },
+      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
     -- SOUNDNESS: a set models any constraint it contains.
     { name := "models_of_mem"
       kind := .soundness
       theoremName := "models_of_mem"
-      file := "Lattice/Core/Logic.lean" },
+      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
     -- SOUNDNESS: models is contravariantly monotone in the hypothesis set.
     { name := "models_of_subset"
       kind := .soundness
       theoremName := "models_of_subset"
-      file := "Lattice/Core/Logic.lean" }
+      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

@@ -18,8 +18,8 @@
 | `Evidence` | 8 | 2.7% |
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
-| `Compose` | 1 | 0.3% |
-| `Plugins` | 18 | 5.7% |
+| `Compose` | 0 | 0.0% |
+| `Plugins` | 19 | 6.0% |
 | `(root)` | 6 | 1.9% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 90 轮同样计【搬迁】而非新增**：`Compose` 的 `Compose/Combinators.lean`、
+`Compose/ComposeObligation.lean`、`Compose/Laws.lean` 与 `Core/Logic.lean` 全部移入各自插件目录，
+故 `Compose` 由 1 降为 0、`Plugins` 由 18 升为 19，**总数不变（315）**。
+**`Compose` 层归零是预期的：它此前的唯一一条否证现在住在 `Plugins/Compose/` 之下。**
 
 **第 88 轮不计新增，计【搬迁】**：`Norm` 的 21 条定理从
 `Lib/Architectures/RealBatchNormConsistency.lean` 移到

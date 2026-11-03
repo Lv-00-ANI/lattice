@@ -20,17 +20,17 @@
 
 | # | 名称 | 位置 | `Input` | `Output` | 强度 | 覆盖 |
 |--:|:--|:--|:--|:--|:--|:--|
-| 1 | `compose` | `Lattice/Compose/Combinators.lean:91` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 2 | `composeWith` | `Lattice/Compose/Combinators.lean:111` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 3 | `identity` | `Lattice/Compose/Combinators.lean:182` | `α` | `α` | `.exact` | `none` |
-| 4 | `descentStep` | `Lattice/Compose/ForwardChain.lean:70` | `ℝ` | `ℝ` | `.exact` | `some ({"constraint.eqZero"} : Finset String)` |
-| 5 | `iterate` | `Lattice/Compose/Iterate.lean:304` | `I` | `I` | `p.strength` | `p.coverage` |
-| 6 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 7 | `choice` | `Lattice/Compose/More.lean:96` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
-| 8 | `optional` | `Lattice/Compose/More.lean:147` | `I` | `I` | `p.strength` | `p.coverage` |
-| 9 | `applySgd` | `Lattice/Compose/Steps.lean:65` | `ℝ` | `ℝ` | `.exact` | `none` |
-| 10 | `applyMomentum` | `Lattice/Compose/Steps.lean:121` | `(ℝ × ℝ)` | `(ℝ × ℝ)` | `.exact` | `none` |
-| 11 | `applyAdam` | `Lattice/Compose/Steps.lean:150` | `(ℝ × ℝ × ℝ)` | `(ℝ × ℝ × ℝ)` | `.exact` | `none` |
+| 1 | `descentStep` | `Lattice/Compose/ForwardChain.lean:70` | `ℝ` | `ℝ` | `.exact` | `some ({"constraint.eqZero"} : Finset String)` |
+| 2 | `iterate` | `Lattice/Compose/Iterate.lean:304` | `I` | `I` | `p.strength` | `p.coverage` |
+| 3 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 4 | `choice` | `Lattice/Compose/More.lean:96` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
+| 5 | `optional` | `Lattice/Compose/More.lean:147` | `I` | `I` | `p.strength` | `p.coverage` |
+| 6 | `applySgd` | `Lattice/Compose/Steps.lean:65` | `ℝ` | `ℝ` | `.exact` | `none` |
+| 7 | `applyMomentum` | `Lattice/Compose/Steps.lean:121` | `(ℝ × ℝ)` | `(ℝ × ℝ)` | `.exact` | `none` |
+| 8 | `applyAdam` | `Lattice/Compose/Steps.lean:150` | `(ℝ × ℝ × ℝ)` | `(ℝ × ℝ × ℝ)` | `.exact` | `none` |
+| 9 | `compose` | `Lattice/Plugins/Compose/Combinators.lean:101` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 10 | `composeWith` | `Lattice/Plugins/Compose/Combinators.lean:121` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 11 | `identity` | `Lattice/Plugins/Compose/Combinators.lean:192` | `α` | `α` | `.exact` | `none` |
 
 ## 二、适配器矩阵
 
@@ -40,19 +40,19 @@
 - **`POLY`**：至少一侧是**裸类型变量**（如 `α`），调用方可**实例化**它，所以原则上不需要适配器；
 - **`ADAPT`**：文本不同且没有可实例化的变量，**必须**提供适配器。
 
-| 先 \\ 后 | `compose` | `composeWith` | `identity` | `descentStep` | `iterate` | `parallel` | `choice` | `optional` | `applySgd` | `applyMomentum` | `applyAdam` |
+| 先 \\ 后 | `descentStep` | `iterate` | `parallel` | `choice` | `optional` | `applySgd` | `applyMomentum` | `applyAdam` | `compose` | `composeWith` | `identity` |
 |:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| `compose` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
-| `composeWith` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
-| `identity` | POLY | POLY | — | POLY | POLY | POLY | POLY | POLY | POLY | POLY | POLY |
-| `descentStep` | ADAPT | ADAPT | POLY | — | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT |
-| `iterate` | — | — | POLY | ADAPT | — | ADAPT | — | — | ADAPT | ADAPT | ADAPT |
-| `parallel` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
-| `choice` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT |
-| `optional` | — | — | POLY | ADAPT | — | ADAPT | — | — | ADAPT | ADAPT | ADAPT |
-| `applySgd` | ADAPT | ADAPT | POLY | — | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT |
-| `applyMomentum` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT |
-| `applyAdam` | ADAPT | ADAPT | POLY | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | — |
+| `descentStep` | — | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `iterate` | ADAPT | — | ADAPT | — | — | ADAPT | ADAPT | ADAPT | — | — | POLY |
+| `parallel` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `choice` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `optional` | ADAPT | — | ADAPT | — | — | ADAPT | ADAPT | ADAPT | — | — | POLY |
+| `applySgd` | — | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `applyMomentum` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT | ADAPT | POLY |
+| `applyAdam` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | — | ADAPT | ADAPT | POLY |
+| `compose` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `composeWith` | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | ADAPT | POLY |
+| `identity` | POLY | POLY | POLY | POLY | POLY | POLY | POLY | POLY | POLY | POLY | — |
 
 ## 三、读数
 

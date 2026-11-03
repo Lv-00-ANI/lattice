@@ -80,44 +80,53 @@ def is_poly(s):
 
 def primitives():
     found = []
-    for fn in sorted(os.listdir(COMPOSE)):
-        if not fn.endswith(".lean"):
-            continue
-        src = io.open(os.path.join(COMPOSE, fn), encoding="utf-8").read()
-        for m in DEF.finditer(src):
-            name, params, body = m.group(1), m.group(2), m.group(3)
-            # Round 232 second bug. `[^\n]*:\s*Primitive` is GREEDY, so for
-            #   `def MatrixRow.ofPrim ... (p : Primitive I O) : MatrixRow where`
-            # it matched the PARAMETER's `: Primitive` and then swallowed ` O) : MatrixRow` as the
-            # "output". Fix: the RETURN type is the LAST `: Primitive` in the header, and a header
-            # whose return type is not `Primitive` must be rejected outright.
-            # Normalize whitespace FIRST: signatures span multiple lines
-            # (def parallel ... : <newline> Primitive (I1 x I2) (O1 x O2) where), and a raw
-            # rsplit on the un-normalized text matches the PARAMETER's : Primitive instead.
-            head = " ".join(m.group(0).split())
-            head = head.split(" where ")[0].split(" := ")[0]
-            tail = head.rsplit(": Primitive", 1)
-            if len(tail) != 2:
+    # Round 90: the `Compose` primitives MOVED into the plugin's own directory
+    # (`Lattice/Plugins/Compose/`), so the extractor must scan BOTH places.
+    # A facade left a one-line `import` at the old path, which contains no `def`, so scanning the old
+    # directory alone finds nothing -- which is exactly the mismatch the ABI gate reported.
+    dirs = [COMPOSE]
+    plugin_compose = os.path.join(ROOT, "Lattice", "Plugins", "Compose")
+    if os.path.isdir(plugin_compose):
+        dirs.append(plugin_compose)
+    for d in dirs:
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith(".lean"):
                 continue
-            params = tail[1]
-            if "." in name:
-                continue
-            types = split_params(params)
-            if len(types) != 2:
-                continue
-            fields = {}
-            for fm in FIELD.finditer(body):
-                fields[fm.group(1)] = fm.group(2).strip()
-            if True:
-                found.append({
-                    "name": name,
-                    "file": "Lattice/Compose/" + fn,
-                    "line": src[:m.start()].count("\n") + 1,
-                    "Input": types[0],
-                    "Output": types[1],
-                    "strength": fields.get("strength", "—"),
-                    "coverage": fields.get("coverage", "—"),
-                })
+            src = io.open(os.path.join(d, fn), encoding="utf-8").read()
+            for m in DEF.finditer(src):
+                name, params, body = m.group(1), m.group(2), m.group(3)
+                # Round 232 second bug. `[^\n]*:\s*Primitive` is GREEDY, so for
+                #   `def MatrixRow.ofPrim ... (p : Primitive I O) : MatrixRow where`
+                # it matched the PARAMETER's `: Primitive` and then swallowed ` O) : MatrixRow` as the
+                # "output". Fix: the RETURN type is the LAST `: Primitive` in the header, and a header
+                # whose return type is not `Primitive` must be rejected outright.
+                # Normalize whitespace FIRST: signatures span multiple lines
+                # (def parallel ... : <newline> Primitive (I1 x I2) (O1 x O2) where), and a raw
+                # rsplit on the un-normalized text matches the PARAMETER's : Primitive instead.
+                head = " ".join(m.group(0).split())
+                head = head.split(" where ")[0].split(" := ")[0]
+                tail = head.rsplit(": Primitive", 1)
+                if len(tail) != 2:
+                    continue
+                params = tail[1]
+                if "." in name:
+                    continue
+                types = split_params(params)
+                if len(types) != 2:
+                    continue
+                fields = {}
+                for fm in FIELD.finditer(body):
+                    fields[fm.group(1)] = fm.group(2).strip()
+                if True:
+                    found.append({
+                        "name": name,
+                        "file": os.path.relpath(os.path.join(d, fn), ROOT).replace(os.sep, "/"),
+                        "line": src[:m.start()].count("\n") + 1,
+                        "Input": types[0],
+                        "Output": types[1],
+                        "strength": fields.get("strength", "—"),
+                        "coverage": fields.get("coverage", "—"),
+                    })
     return found
 
 

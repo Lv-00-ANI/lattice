@@ -57,54 +57,54 @@ def manifest : PluginManifest where
     { name := "parallel_comm"
       kind := .spatial
       theoremName := "parallel_comm_run"
-      file := "Lattice/Compose/Laws.lean" },
+      file := "Lattice/Plugins/Compose/Proofs.lean" },
     -- CONFLUENCE: composition is associative at the level of `run`.
     { name := "compose_assoc"
       kind := .confluence
       theoremName := "compose_run_assoc"
-      file := "Lattice/Compose/Combinators.lean" },
+      file := "Lattice/Plugins/Compose/Combinators.lean" },
     -- RECOVERY: `identity` is a left unit, so a step can be cancelled by not composing it.
     { name := "identity_left_unit"
       kind := .recovery
       theoremName := "identity_compose_run"
-      file := "Lattice/Compose/Combinators.lean" },
+      file := "Lattice/Plugins/Compose/Combinators.lean" },
     -- RECOVERY: and a right unit.
     { name := "identity_right_unit"
       kind := .recovery
       theoremName := "compose_identity_right"
-      file := "Lattice/Compose/Laws.lean" },
+      file := "Lattice/Plugins/Compose/Proofs.lean" },
     -- LAWS: sequential composition is sound -- the composite preserves the postcondition.
     { name := "compose_sound"
       kind := .soundness
       theoremName := "compose_sound"
-      file := "Lattice/Compose/Combinators.lean" },
+      file := "Lattice/Plugins/Compose/Combinators.lean" },
     -- LAWS: the composite's strength is the minimum of the parts.
     { name := "compose_strength"
       kind := .laws
       theoremName := "compose_strength"
-      file := "Lattice/Compose/Combinators.lean" },
+      file := "Lattice/Plugins/Compose/Combinators.lean" },
     -- LAWS: the composite's coverage is the intersection of the parts.
     { name := "compose_coverage"
       kind := .laws
       theoremName := "compose_coverage"
-      file := "Lattice/Compose/Combinators.lean" },
+      file := "Lattice/Plugins/Compose/Combinators.lean" },
     -- LAW: parallel composition is well defined on pairs.
     { name := "parallel_run"
       kind := .laws
       theoremName := "parallel_run"
-      file := "Lattice/Compose/Laws.lean" },
+      file := "Lattice/Plugins/Compose/Proofs.lean" },
     -- LAW: parallel composition has a unit.
     { name := "parallel_identity"
       kind := .laws
       theoremName := "parallel_identity_run"
-      file := "Lattice/Compose/Laws.lean" },
+      file := "Lattice/Plugins/Compose/Proofs.lean" },
     -- SOUNDNESS: the composition hypothesis collapses when the second component's precondition is
     -- trivially true. (The library's counterexample for the general case is `private`, so it is
     -- not citable from a plugin; the positive statement is what can be cited.)
     { name := "compose_h_of_pre_true"
       kind := .soundness
       theoremName := "compose_h_of_pre_true"
-      file := "Lattice/Compose/ComposeObligation.lean" }
+      file := "Lattice/Plugins/Compose/ComposeObligation.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

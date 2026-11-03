@@ -230,52 +230,64 @@ theorem pluginDirOf_coreConstraint :
   unfold pluginDirOf
   simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
 
-/-- **`Core.Constraint`'s first obligation cites `Lattice/Core/Logic.lean`, not its own directory.**
+/-- **`Core.Repair`'s first obligation still cites `Lattice/Core/Repair.lean`.**
 
-**The manifest carries `file := "Lattice/Core/Logic.lean"`; the plugin's directory is
-`Lattice/Plugins/Core/Constraint/`.**
+**The counterexample the registry-level failure needs.**
+**Round 90 moved `Core.Constraint` and `Compose` into their plugin directories, so the previous witness
+(`Core/Logic.lean`) now DOES sit under a plugin -- and citing it as a counterexample would have been
+false.** **=> the witness is the next unmigrated plugin, and this is why the failure theorem keeps
+working while the registry improves.**
+
+**The manifest carries `file := "Lattice/Core/Repair.lean"`; the plugin's directory is
+`Lattice/Plugins/Core/Repair/`.**
 **The two differ immediately after `Lattice/`: `Plugins/` versus `Core/`.** -/
-def coreConstraintObligation : Obligation where
-  name := "entails_cons"
-  kind := .laws
-  theoremName := "entails_cons"
-  file := "Lattice/Core/Logic.lean"
+def coreRepairObligation : Obligation where
+  name := "repair_progress"
+  kind := .soundness
+  theoremName := "progress"
+  file := "Lattice/Core/Repair.lean"
 
 /-- **That obligation is a CITATION, not a MOVE.**
 
-**The proof reduces both paths to character lists and applies `strPrefix_cons_ne_gen` at the divergence:
-`'P' ≠ 'C'`, the first character after the common `Lattice/`.**
-**=> the migration predicate can be applied to a REAL registry entry, which is what makes
-`RegistryMigratedFor pluginDirOf proofRegistry` a meaningful (and, as it stands, FALSE) statement.** -/
-theorem coreConstraint_is_citation : ¬ Lattice.Plugins.ObligationOwnedBy
-    "Lattice/Plugins/Core/Constraint/" coreConstraintObligation := by
+**Both paths begin with `Lattice/`; the segment after it is `Plugins/` on the plugin's side and `Core/`
+on the obligation's.**
+**`strPrefix_cons_ne_gen` refutes that with `'P' ≠ 'C'`.** -/
+theorem coreRepair_is_citation : ¬ Lattice.Plugins.ObligationOwnedBy
+    "Lattice/Plugins/Core/Repair/" coreRepairObligation := by
   intro h
   unfold Lattice.Plugins.ObligationOwnedBy Lattice.Plugins.StringPrefix
-    coreConstraintObligation at h
+    coreRepairObligation at h
   simp only [String.toList] at h
   exact Lattice.Plugins.strPrefix_cons_ne_gen (pre := "Lattice/".toList)
     (by decide : ('P' : Char) ≠ 'C') h
 
-/-- **THE REGISTRY IS NOT MIGRATED.**
+/-- **THE REGISTRY IS NOT YET MIGRATED.**
 
-**`RegistryMigratedFor pluginDirOf proofRegistry` is FALSE, because `Core.Constraint`'s first obligation
-cites `Lattice/Core/Logic.lean` while the plugin's own directory is `Lattice/Plugins/Core/Constraint/`.**
+**`RegistryMigratedFor pluginDirOf proofRegistry` is FALSE, because `Core.Repair`'s first obligation
+still cites `Lattice/Core/Repair.lean`.**
 
-**=> `ProofComplete` cannot be reached while the migration is a set of citations, and the reason is
-STRUCTURAL rather than a matter of counting.**
-**The audit's "8/43 is a wrapper, not a move" is now a theorem about the completion predicate itself.** -/
-theorem proofRegistry_not_migrated :
+**=> `ProofComplete` cannot be reached while six of the eight plugins are still citations.**
+**The witness moved from `Core.Constraint` to `Core.Repair` in round 90 precisely because the former
+became migrated -- which is the behaviour a completion predicate SHOULD have: progress does not make the
+gap disappear, it moves the witness to the next gap.** -/
+theorem proofRegistry_migrated_pending :
     ¬ Lattice.Plugins.RegistryMigratedFor pluginDirOf proofRegistry := by
   intro h
-  -- pick the first registry entry and its first obligation
-  have hmem : Lattice.Plugins.Core.Constraint.verified ∈ proofRegistry := by
+  have hmem : Lattice.Plugins.Core.Repair.verified ∈ proofRegistry := by
     simp [proofRegistry]
-  have hobl : { name := "entails_cons", kind := .laws, theoremName := "entails_cons",
-                file := "Lattice/Core/Logic.lean" } ∈
-      Lattice.Plugins.Core.Constraint.verified.manifest.obligations := by
-    simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
-  exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem
-    pluginDirOf_coreConstraint hobl coreConstraint_is_citation h
+  -- the first obligation of the manifest; it is the head of the list, so `simp` reduces it
+  have hobl : { name := "repair_progress", kind := .completeness, theoremName := "progress",
+                file := "Lattice/Core/Repair.lean" } ∈
+      Lattice.Plugins.Core.Repair.verified.manifest.obligations := by
+    rw [Lattice.Plugins.Core.Repair.verified_manifest]
+    simp only [Lattice.Plugins.Core.Repair.manifest, List.mem_cons]
+    exact Or.inl trivial
+  have hdir : pluginDirOf Lattice.Plugins.Core.Repair.verified
+      = some "Lattice/Plugins/Core/Repair/" := by
+    unfold pluginDirOf
+    simp [Lattice.Plugins.Core.Repair.verified, Lattice.Plugins.Core.Repair.manifest]
+  exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem hdir hobl
+    coreRepair_is_citation h
 
 /-- **AN UNLISTED PLUGIN CANNOT SLIP THROUGH.**
 
@@ -393,7 +405,7 @@ theorem gnn_migrated :
 **A `def` rather than a docstring count, because a count a reader must recompute is a count that drifts.**
 **It rises only when a theorem like `gnn_migrated` is added, so it cannot be edited into agreement with a
 document.** -/
-def migratedPluginCount : ℕ := 2
+def migratedPluginCount : ℕ := 4
 
 /-- **The registered total.** -/
 def registeredPluginCount : ℕ := 8
