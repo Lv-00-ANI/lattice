@@ -111,6 +111,19 @@ def manifest : PluginManifest where
 /-- The manifest claims ten obligations. -/
 theorem manifest_obligation_count : manifest.obligations.length = 10 := rfl
 
+/-- **The manifest carries at least one obligation.**
+
+Derived from `manifest_obligation_count`: if the list were `[]` its length would be `0`, contradicting
+the stated count.
+**This is what `NonVacuousFor` consumes. Having it as a NAMED lemma per manifest means a future edit
+that empties the obligation list breaks HERE, rather than silently reopening the fake-completion
+path.** -/
+theorem manifest_nonempty : manifest.obligations ≠ [] := by
+  intro hnil
+  have hlen := manifest_obligation_count
+  rw [hnil] at hlen
+  exact absurd hlen (by decide)
+
 /-- The plugin lives in the `compose` layer. -/
 theorem manifest_layer : manifest.layer = PluginLayer.compose := rfl
 

@@ -13,9 +13,12 @@ Plugins.lean	coverage_all_mandatory
 Plugins.lean	pluginCensusPending_holds
 Plugins.lean	proofComplete_imp_registry
 Plugins.lean	coverageComplete_holds
+Plugins.lean	proofRegistry_nonvacuous
 Plugins.lean	pluginRegistryComplete_holds
 Plugins.lean	proofComplete_unreachable
 Plugins.lean	current_state
+Plugins.lean	empty_plugin_excluded
+Plugins.lean	registry_with_empty_plugin_not_complete
 Slots.lean	fullRegistry_wellFormed
 CInterface/ABI.lean	abiTable_length
 CInterface/ABI.lean	abiTable_names_nodup
@@ -1854,8 +1857,11 @@ Plugins/Manifest.lean	PluginManifest.empty_never_covers
 Plugins/Registry.lean	PluginProof.trivial_holds
 Plugins/Registry.lean	PluginProof.trivial_fields
 Plugins/Registry.lean	registryConsistentFor_nil
+Plugins/Registry.lean	nonVacuousFor_nil
+Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
 Plugins/Architectures/GNN/Manifest.lean	manifest_obligation_count
+Plugins/Architectures/GNN/Manifest.lean	manifest_nonempty
 Plugins/Architectures/GNN/Manifest.lean	manifest_layer
 Plugins/Architectures/GNN/Manifest.lean	manifest_requires
 Plugins/Architectures/GNN/Manifest.lean	manifest_provides
@@ -1884,6 +1890,7 @@ Plugins/Architectures/GNN/Plugin.lean	proof_holds
 Plugins/Architectures/GNN/Plugin.lean	verified_manifest
 Plugins/Architectures/GNN/Plugin.lean	verified_obligations
 Plugins/Architectures/Norm/Manifest.lean	manifest_obligation_count
+Plugins/Architectures/Norm/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Norm/Manifest.lean	manifest_layer
 Plugins/Architectures/Norm/Manifest.lean	manifest_requires
 Plugins/Architectures/Norm/Manifest.lean	manifest_provides
@@ -1906,6 +1913,7 @@ Plugins/Architectures/Norm/Plugin.lean	proof_holds
 Plugins/Architectures/Norm/Plugin.lean	verified_manifest
 Plugins/Architectures/Norm/Plugin.lean	verified_obligations
 Plugins/Compose/Manifest.lean	manifest_obligation_count
+Plugins/Compose/Manifest.lean	manifest_nonempty
 Plugins/Compose/Manifest.lean	manifest_layer
 Plugins/Compose/Manifest.lean	manifest_requires
 Plugins/Compose/Manifest.lean	manifest_provides
@@ -1932,6 +1940,7 @@ Plugins/Compose/Plugin.lean	proof_holds
 Plugins/Compose/Plugin.lean	verified_manifest
 Plugins/Compose/Plugin.lean	verified_obligations
 Plugins/Core/Constraint/Manifest.lean	manifest_obligation_count
+Plugins/Core/Constraint/Manifest.lean	manifest_nonempty
 Plugins/Core/Constraint/Manifest.lean	manifest_layer
 Plugins/Core/Constraint/Manifest.lean	manifest_requires_nothing
 Plugins/Core/Constraint/Manifest.lean	manifest_provides
@@ -1950,6 +1959,7 @@ Plugins/Core/Constraint/Plugin.lean	proof_holds
 Plugins/Core/Constraint/Plugin.lean	verified_manifest
 Plugins/Core/Constraint/Plugin.lean	verified_obligations
 Plugins/Core/Repair/Manifest.lean	manifest_obligation_count
+Plugins/Core/Repair/Manifest.lean	manifest_nonempty
 Plugins/Core/Repair/Manifest.lean	manifest_layer
 Plugins/Core/Repair/Manifest.lean	manifest_provides
 Plugins/Core/Repair/Manifest.lean	manifest_requires_nothing
@@ -1972,6 +1982,7 @@ Plugins/Core/Repair/Plugin.lean	proof_holds
 Plugins/Core/Repair/Plugin.lean	verified_manifest
 Plugins/Core/Repair/Plugin.lean	verified_obligations
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_obligation_count
+Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_nonempty
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_layer
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_provides
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_requires_nothing
@@ -1991,6 +2002,7 @@ Plugins/Domains/Constraints/Penalty/Plugin.lean	proof_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	verified_manifest
 Plugins/Domains/Constraints/Penalty/Plugin.lean	verified_obligations
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_obligation_count
+Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_nonempty
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_layer
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_requires
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_provides
@@ -2015,6 +2027,7 @@ Plugins/Domains/Constraints/Tokens/Plugin.lean	proof_holds
 Plugins/Domains/Constraints/Tokens/Plugin.lean	verified_manifest
 Plugins/Domains/Constraints/Tokens/Plugin.lean	verified_obligations
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_obligation_count
+Plugins/Extractors/ChainSlot/Manifest.lean	manifest_nonempty
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_layer
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_requires
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_provides
@@ -2079,6 +2092,8 @@ Plugins/Targets/Statements.lean	t1_compile_sound_instance_holds
 Plugins/Targets/Statements.lean	t2_penalty_exact_holds
 Plugins/Targets/Statements.lean	t3_parameter_roundtrip_holds
 Plugins/Targets/Statements.lean	t3_compile_injective_holds
+Plugins/Targets/Statements.lean	t3_semantic_not_injective_holds
+Plugins/Targets/Statements.lean	t3_no_faithful_extractor_holds
 Plugins/Targets/Statements.lean	t4_repair_progress_holds
 Plugins/Targets/Statements.lean	t4_loop_converges_holds
 Plugins/Targets/Statements.lean	open_targets_register

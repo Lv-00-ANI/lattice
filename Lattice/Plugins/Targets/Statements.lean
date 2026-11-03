@@ -160,6 +160,48 @@ theorem t3_compile_injective_holds : t3_compile_injective := by
   intro P W R
   exact Lattice.Lift.Representation.compile_injective R
 
+/-- **T3's SEMANTIC-layer content: compilation cannot be injective at the semantic layer.**
+
+**The audit found that T3's real content -- the non-injectivity of the semantic layer and the
+impossibility of an extractor that is both round-tripping and semantically faithful -- was in the tree
+but NOT in the completion predicate.**
+**=> both are added here.**
+
+**`semantic_not_injective` exhibits two DISTINCT linear forms that no point separates.**
+**This is the honest limitation of the reverse direction, and it is a THEOREM rather than a
+disclaimer.** -/
+def t3_semantic_not_injective : Prop :=
+  ∃ c c' : Lattice.Core.LinearForm Lattice.Lift.ZB 1, c ≠ c' ∧
+    Lattice.Lift.SemEq c c'
+
+/-- **`t3_semantic_not_injective` holds** -- by `Extraction.semantic_not_injective`.
+
+**The witness is EXHIBITED rather than forwarded**: `unitForm` and `scaledForm` are two different
+`LinearForm`s that no point separates, and both facts are named here so a reader sees what makes the
+semantic layer non-injective without opening another file. -/
+theorem t3_semantic_not_injective_holds : t3_semantic_not_injective := by
+  refine ⟨Lattice.Lift.unitForm, Lattice.Lift.scaledForm, ?_, ?_⟩
+  · exact Lattice.Lift.unit_ne_scaled
+  · intro x
+    exact (Lattice.Lift.scaled_semEq_unit x).symm
+
+/-- **T3's sharpest negative result: no extractor is both round-tripping and semantically faithful.**
+
+**A `compile`/`extract` pair that inverts on the nose CANNOT also respect semantic equivalence unless
+the semantics is trivial.**
+**This is the theorem that makes the reverse direction's difficulty precise, and it belongs in the
+completion predicate because T3 is not done without it.** -/
+def t3_no_faithful_extractor : Prop :=
+  ∀ {P W : Type} (compile : P → W) (sem : P → P → Prop) {c c' : P},
+    c ≠ c' → sem c c' → ∀ (extract : W → P),
+    (∀ p, extract (compile p) = p) →
+    ¬ (∀ a b : P, sem a b → extract (compile a) = extract (compile b))
+
+/-- **`t3_no_faithful_extractor` holds** -- by `Extraction.no_extractor_both_layers`. -/
+theorem t3_no_faithful_extractor_holds : t3_no_faithful_extractor := by
+  intro P W compile sem c c' hne hsem extract hround hfaithful
+  exact Lattice.Lift.no_extractor_both_layers compile sem hne hsem hround hfaithful
+
 /-! ## T4: repair
 
 **All three of the plan's T4 obligations are proved** -- `Core.Repair`'s manifest maps them.

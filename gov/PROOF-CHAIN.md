@@ -1717,31 +1717,31 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 17 | 5 |
+| `Lattice.Plugins` | 20 | 6 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
-| `Lattice.Plugins.Architectures.GNN.Manifest` | 14 | 1 |
+| `Lattice.Plugins.Architectures.GNN.Manifest` | 15 | 1 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
-| `Lattice.Plugins.Architectures.Norm.Manifest` | 13 | 1 |
+| `Lattice.Plugins.Architectures.Norm.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Architectures.Norm.Plugin` | 9 | 8 |
 | `Lattice.Plugins.Compose` | 0 | 0 |
-| `Lattice.Plugins.Compose.Manifest` | 13 | 1 |
+| `Lattice.Plugins.Compose.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Core` | 0 | 0 |
-| `Lattice.Plugins.Core.Constraint.Manifest` | 11 | 1 |
+| `Lattice.Plugins.Core.Constraint.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 7 | 6 |
-| `Lattice.Plugins.Core.Repair.Manifest` | 11 | 1 |
+| `Lattice.Plugins.Core.Repair.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
 | `Lattice.Plugins.Domains` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints` | 0 | 0 |
-| `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 11 | 1 |
+| `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
-| `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 11 | 1 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
 | `Lattice.Plugins.Extractors` | 0 | 0 |
-| `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 13 | 1 |
+| `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 6 | 14 |
-| `Lattice.Plugins.Registry` | 4 | 8 |
+| `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
 | `Lattice.Plugins.Targets.ConstFamily` | 7 | 1 |
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
@@ -1749,7 +1749,7 @@
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
-| `Lattice.Plugins.Targets.Statements` | 11 | 13 |
+| `Lattice.Plugins.Targets.Statements` | 13 | 15 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
 | `Lattice.Primitives.TokenizeStrategy` | 0 | 0 |
@@ -3597,9 +3597,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coupledLoss_zero_coupling` -> `rho`
 - `coupling_accept_bound` -> `geom_sum_eq`, `min`
 - `covariant_pair_separated` -> `extent`, `galois_connection`, `intent`
-- `coverageComplete_holds` -> `AllMandatoryKindsCoveredFor`, `mandatoryKinds`, `proved_target_count`
+- `coverageComplete_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest_nonempty`, `proved_target_count`, `verified_manifest`
 - `coverageValue_mono` -> `alpha`
-- `coverage_all_mandatory` -> `AllMandatoryKindsCoveredFor`, `RegistryCompleteFor`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`
+- `coverage_all_mandatory` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified_manifest`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
 - `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `inter`
 - `covers_mono` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
@@ -3647,7 +3647,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cubic_not_quadratic` -> `induction`, `zero`
 - `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `sum_range_sub_telescoping`
-- `current_state` -> `proved_target_count`
+- `current_state` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `proved_target_count`
 - `curvature_determined_by_one_query` -> `Subgradient`
 - `curvature_invariant_under_isometry_degenerate` -> `Geometry`, `S2`
 - `curvature_recovered_in_one_query` -> `Subgradient`
@@ -4323,6 +4323,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `embedding_soundness` -> `ConstraintSat`, `LinearConstraint`, `convert_preserves_semantics`, `loss`
 - `empty_allowed_row_sum_ne_one` -> `card_fin`, `maskedSoftmax`
 - `empty_graph_satisfiable` -> `Compiler`
+- `empty_plugin_excluded` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`
+- `empty_plugin_is_vacuous` -> `PluginLayer`, `PluginName`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `empty_program_no_constraints` -> `Theory`, `length`
 - `empty_program_no_prove` -> `Theory`, `length`
 - `empty_table_unique` -> `apply`, `empty`, `find`
@@ -6448,7 +6450,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_no_recovery` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_spatial` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
+- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
+- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
 - `manifest_provides` -> `Constraint`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `satisfies`, `soundness`
 - `manifest_requires` -> `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `soundness`
 - `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `satisfies`, `soundness`
@@ -7099,6 +7102,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `noiseMatrix_psd` -> `mulVec`
 - `noiseVariance_eq` -> `Subgradient`, `SubgradientGap`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `nonKink_cases` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `nonVacuousFor_nil` -> `PluginLayer`, `PluginName`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `nondegenerate_exists` -> `Nondegenerate`, `PerpNondegenerate`, `bump`, `seg`, `unflatten`
 - `nondegenerate_has_content` -> `Nondegenerate`, `bump`
 - `nondegenerate_not_vacuous` -> `Nondegenerate`, `bump`, `seg`, `unflatten`
@@ -7641,8 +7645,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `plane_unit_normal` -> `E`, `Geometry`, `S2`
 - `pluckerNorm_eq_zero_iff` -> `Pt`, `apply`, `cofactor`, `pluckerNorm`, `subst`
 - `pluckerNorm_nonneg` -> `GeoConstraint`, `Pt`, `seg`
-- `pluginCensusPending_holds` -> `AllMandatoryKindsCoveredFor`, `mandatoryKinds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`
-- `pluginRegistryComplete_holds` -> `proved_target_count`
+- `pluginCensusPending_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified_manifest`
+- `pluginRegistryComplete_holds` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `proved_target_count`
 - `point_contains` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_hi` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_le_iff_contains` -> `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -7807,17 +7811,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promote_ge_left` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promote_ge_right` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promotion_table_correct` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
-- `proofComplete_imp_registry` -> `AllMandatoryKindsCoveredFor`, `mandatoryKinds`, `proved_target_count`
-- `proofComplete_unreachable` -> `proved_target_count`
-- `proofRegistry_compose_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_constraint_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_extractor_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_gnn_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`
-- `proofRegistry_norm_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
-- `proofRegistry_tokens_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`, `verified`
+- `proofComplete_imp_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest_nonempty`, `proved_target_count`, `verified_manifest`
+- `proofComplete_unreachable` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `proved_target_count`
+- `proofRegistry_compose_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_constraint_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_extractor_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_gnn_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_length` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified_manifest`
+- `proofRegistry_nonvacuous` -> `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest_nonempty`, `proved_target_count`, `verified_manifest`
+- `proofRegistry_norm_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_penalty_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_repair_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
+- `proofRegistry_tokens_mem` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryConsistentFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified`, `verified_manifest`
 - `proof_completeness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_exactness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_holds` -> `Constraint`, `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
@@ -8169,8 +8174,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reg_softMasked_coverage` -> `E`, `FloatFormat`, `Gated`, `IsCompressor`, `IsTranslationEquivariant`, `IsTransportPlan`, `Point2R`, `RoundOp`, `SoftMasked`, `act`, `alibiBias`, `alibi_bias_translation_equivariant`, `comp`, `distBias`, `distBias_equivariant`, `efErrorSeq`, `eps`, `errorFeedback_bounded`, `exists_optimal_plan`, `format_error_bound`, `format_round_idempotent`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `hardSwish`, `le_refl`, `mul`, `rdot`, `relPhaseAbs`, `relPhaseAbs_translation_equivariant`, `relu`, `reluSoftMask`, `rope_score_translation_equivariant`, `rotateR`, `roundToFormat`, `sigmoid`, `silu`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`, `swiglu`, `tiny`, `transportCost`
 - `reg_sphere_coverage_retr` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`
 - `reg_support_coverage` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`
-- `registryConsistentFor_nil` -> `mandatoryKinds`, `soundness`
-- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `RegistryCompleteFor`, `Repair`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t4_loop_converges`, `t4_repair_progress`
+- `registryConsistentFor_nil` -> `PluginLayer`, `PluginName`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
+- `registryConsistent_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `claims`, `empty`, `empty_plugin_is_vacuous`, `layer`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proof_holds`, `proved_target_count`, `t1_compile_sound_instance`, `t2_penalty_exact`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `verified_manifest`
+- `registry_with_empty_plugin_not_complete` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `empty`, `empty_plugin_is_vacuous`, `layer`
 - `reglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `reglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `reglu_lipschitz` -> `SoftMasked`, `act`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `reglu`, `reluSoftMask`, `reluSoftMask_abs_le_one`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_abs_le_one`, `siluGLU`, `silu_is_soft_masked`, `zero`
@@ -9628,15 +9634,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `synthesize_singleton` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`
 - `system_covers_all_kinds` -> `Rule`, `length`
 - `system_rules_length` -> `Rule`, `length`
-- `t0_empty_spec_holds` -> `ExpressibleSpec`, `GeoConstraint`, `GeoExpr`, `Holds`, `MergeRecord`, `MergeSound`, `Pt`, `Repair`, `Representation`, `Sat`, `W`, `canonical`, `compile`, `compile_injective`, `compile_sound`, `complete`, `converges_within`, `empty`, `extract`, `extract_compile`, `iterate`, `length`, `merged`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `samePointLadder`, `satW`, `sound`, `trivial`
+- `t0_empty_spec_holds` -> `ExpressibleSpec`, `GeoConstraint`, `GeoExpr`, `Holds`, `LinearForm`, `MergeRecord`, `MergeSound`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `canonical`, `compile`, `compile_injective`, `compile_sound`, `complete`, `converges_within`, `empty`, `extract`, `extract_compile`, `iterate`, `length`, `merged`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `samePointLadder`, `satW`, `scaledForm`, `scaled_semEq_unit`, `sound`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t0_is_statable` -> `ExpressibleSpec`, `trivial`
-- `t1_compile_sound_instance_holds` -> `ExpressibleSpec`, `GeoExpr`, `Holds`, `Pt`, `Repair`, `Representation`, `Sat`, `W`, `compile`, `compile_injective`, `compile_sound`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `trivial`
+- `t1_compile_sound_instance_holds` -> `ExpressibleSpec`, `GeoExpr`, `Holds`, `LinearForm`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `compile_sound`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t1_t2_bridge` -> `dist`, `eps`, `le_trans`
-- `t2_penalty_exact_holds` -> `ExpressibleSpec`, `Repair`, `Representation`, `Sat`, `W`, `compile`, `compile_injective`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `trivial`
-- `t3_compile_injective_holds` -> `ExpressibleSpec`, `Repair`, `Representation`, `Sat`, `W`, `compile_injective`, `converges_within`, `iterate`, `length`, `progress`, `trivial`
+- `t2_penalty_exact_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss_eq_zero_iff_holds_sq`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
+- `t3_compile_injective_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
+- `t3_no_faithful_extractor_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `W`, `compile`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `trivial`
 - `t3_package_ext` -> `UnknownOp`, `residualOp`, `t1_decompose`
-- `t3_parameter_roundtrip_holds` -> `ExpressibleSpec`, `Repair`, `Representation`, `Sat`, `W`, `compile`, `compile_injective`, `converges_within`, `extract_compile`, `iterate`, `length`, `progress`, `trivial`
+- `t3_parameter_roundtrip_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t3_rename_keeps_t1` -> `UnknownOp`, `residualOp`, `t1_decompose`
+- `t3_semantic_not_injective_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `W`, `compile`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t4_loop_converges_holds` -> `ExpressibleSpec`, `converges_within`, `length`, `trivial`
 - `t4_repair_progress_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `converges_within`, `iterate`, `length`, `progress`, `trivial`
 - `tAdd_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`

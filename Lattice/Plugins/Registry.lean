@@ -130,18 +130,54 @@ they can be proved about the real one without this file knowing what is in it. -
 def RegistryConsistentFor (reg : List VerifiedPlugin) : Prop :=
   ∀ p ∈ reg, p.manifest.obligations ≠ [] → p.proof.Holds
 
+/-- **No plugin in `reg` is vacuous: every one carries at least one obligation.**
+
+**This is the fix for a FAKE-COMPLETION PATH that the audit found and that was REAL.**
+
+**Before this predicate, `RegistryConsistentFor` was `obligations ≠ [] → Holds`, so a plugin with
+`obligations = []` discharged the condition WITHOUT discharging anything** -- **`VerifiedPlugin.empty`
+does exactly that, with `consistent := fun h => absurd rfl h` taking the vacuously-true hypothesis.**
+**=> 42 empty plugins could have made `pluginCensusPending` false while T0 and T5-T8 were untouched,
+i.e. `ProofComplete` was reachable without any proof work.**
+
+**`NonVacuous` closes the path at the TYPE level: a registry containing an empty plugin cannot satisfy
+`RegistryCompleteFor` at all.** -/
+def NonVacuousFor (reg : List VerifiedPlugin) : Prop :=
+  ∀ p ∈ reg, p.manifest.obligations ≠ []
+
 /-- **Every mandatory kind is claimed by some plugin in `reg`.** -/
 def AllMandatoryKindsCoveredFor (reg : List VerifiedPlugin) : Prop :=
   ∀ k ∈ mandatoryKinds, ∃ p ∈ reg, p.manifest.claims k = true
 
-/-- **Completeness of an arbitrary registry.** -/
+/-- **Completeness of an arbitrary registry.**
+
+**Three conjuncts, and the third was ADDED because its absence made the predicate forgeable.**
+**`NonVacuousFor` is not decoration: without it the first conjunct is dischargeable by plugins that
+prove nothing.** -/
 def RegistryCompleteFor (reg : List VerifiedPlugin) : Prop :=
-  RegistryConsistentFor reg ∧ AllMandatoryKindsCoveredFor reg
+  RegistryConsistentFor reg ∧ NonVacuousFor reg ∧ AllMandatoryKindsCoveredFor reg
 
 /-- **The nil registry is consistent, vacuously.** -/
 theorem registryConsistentFor_nil : RegistryConsistentFor [] := by
   intro p hp
   simp at hp
+
+/-- **The nil registry is non-vacuous, vacuously.**
+
+**`NonVacuousFor []` holds because there is no plugin to check** -- **the predicate is a `∀` over the
+list, and the empty list makes it true.**
+**This is NOT the same kind of vacuity as the one being closed**: **the fake-completion path needed a
+plugin that was itself vacuous, and `[]` contains no plugin.** -/
+theorem nonVacuousFor_nil : NonVacuousFor [] := by
+  intro p hp
+  simp at hp
+
+/-- **`VerifiedPlugin.empty` is EXACTLY the plugin `NonVacuousFor` rejects.**
+
+**This theorem is the reason the third conjunct exists, stated in the form a reader can check:
+the empty plugin's obligation list is empty.** -/
+theorem empty_plugin_is_vacuous (name : PluginName) (layer : PluginLayer) :
+    (VerifiedPlugin.empty name layer).manifest.obligations = [] := rfl
 
 /-- **The nil registry does not cover the mandatory kinds.**
 

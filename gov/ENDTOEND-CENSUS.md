@@ -19,11 +19,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 1 | 1437 | 15.3% |
 | 2 | 785 | 8.3% |
 | 3 | 637 | 6.8% |
-| 4 | 532 | 5.7% |
-| 5 | 221 | 2.3% |
-| 6 | 219 | 2.3% |
+| 4 | 533 | 5.7% |
+| 5 | 225 | 2.4% |
+| 6 | 229 | 2.4% |
 | 7 | 2 | 0.0% |
-| **合计** | **9405** | |
+| **合计** | **9420** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -56,6 +56,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proofComplete_unreachable` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `current_state` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_provides` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -73,6 +74,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_manifest` (`Plugins/Architectures/GNN/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/GNN/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_provides` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -87,8 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_no_laws` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `proof_holds` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_obligations` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_obligation_count` (`Plugins/Compose/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**298 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**300 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
 | `Plugins` | 5 | 1.7% |
-| `(root)` | 1 | 0.3% |
+| `(root)` | 3 | 1.0% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
@@ -37,6 +37,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 78 轮新增两条**（均在 `(root)`）：`empty_plugin_excluded` 与
+`registry_with_empty_plugin_not_complete` —— **前者说空插件不满足 `NonVacuousFor`，后者说
+含空插件的注册表【不】完备。这两条是本轮堵住「假完成路径」的形式见证。**
 
 > **第 70 轮的更正**：`(root)` 层原有的两条否证（`registryComplete_fails`、
 > `pluginRegistryComplete_not_yet`）**已被删除**——它们以「没有插件声明 `recovery`」为见证，

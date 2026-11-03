@@ -152,7 +152,7 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 **前面各节用的都是 `ℝ`——那是本库的证明轨道。**
 `ℝ` 上的定义是 `noncomputable`，`#eval` 直接失败，所以外部训练流程无法直接调用它们。
 
-第 87–88 轮为此建了一条**并行的可执行轨道**。**ℝ 轨道完全不动。**
+第 87–89 轮为此建了一条**并行的可执行轨道**。**ℝ 轨道完全不动。**
 
 | 轨道 | 常量类型 | 求值 | 用途 |
 |:--|:--|:--|:--|
@@ -228,7 +228,7 @@ approxHoldsEqZero_sound : approxHoldsEqZero T e pts = true -> |evalC e pts| <= T
 
 ---
 
-## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 298 条）
+## 9. 什么**做不到**（去 `REFUTATION-CENSUS.md` 查全部 300 条）
 
 | 做不到的事 | 定理 |
 |:--|:--|

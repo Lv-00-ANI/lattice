@@ -190,6 +190,11 @@ CHECKS = [
     # checked that a NEW placeholder is labelled, so an unlabelled one would make the theorems about
     # it true-but-empty with no invariant noticing.
     ("stubs: every placeholder definition is labelled", "check_stub_registry.py"),
+    # The audit found that `plugin_inventory.py --check` had a HARD-CODED empty `duplicates` dict,
+    # so it could never fail, and that it was not wired into any gate at all -- meaning the plugin
+    # map could silently acquire an ambiguous attribution. The duplicate detection is now computed
+    # and the check runs here.
+    ("plugin map: every theorem has exactly one plugin", "plugin_inventory.py --check"),
     # Round 152: rounds 108-150 found that an identity `l1l2` can be CORRECT (Sym is List Tok, so
     # there is nothing to encode) or a DEFECT (Sym carries structure Tok cannot hold). This classifies
     # every Ladder instance's rung.

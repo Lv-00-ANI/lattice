@@ -169,13 +169,23 @@ def summarise(rows):
     """
     by_plugin = {}
     owners = {}
+    # The audit found that `duplicates` was HARD-CODED to `{}`, so `--check` could never
+    # fail on a duplicate. It is now computed: a genuine duplicate is the same
+    # `(file, name)` pair appearing twice in the map, which means the same declaration was
+    # attributed to two plugins.
+    seen_pairs = {}
+    duplicates = {}
     for layer, plugin, rp, name, _ref in rows:
         by_plugin[(layer, plugin)] = by_plugin.get((layer, plugin), 0) + 1
         owners.setdefault(name, set()).add((layer, plugin))
-    # Same short name in different plugins is fine (distinct namespaces); the census
-    # reports it separately as `shared_names` so the number is visible without being
-    # treated as a failure.
-    duplicates = {}
+        key = (rp, name)
+        if key in seen_pairs:
+            prev = seen_pairs[key]
+            if prev != (layer, plugin):
+                duplicates.setdefault(name, []).append(
+                    {"file": rp, "first": prev, "second": (layer, plugin)})
+        else:
+            seen_pairs[key] = (layer, plugin)
     return by_plugin, duplicates, owners
 
 
@@ -184,11 +194,51 @@ def shared_names(owners):
     return {n: sorted(k) for n, k in owners.items() if len(k) > 1}
 
 
+def self_test():
+    """Demonstrate that this checker can go RED.
+
+    A check that cannot show its own failure is indistinguishable from a check that always
+    passes -- which is exactly the defect the audit found here (the duplicate detection was
+    hard-coded to `{}`, so `--check` could never fail). This synthesises a map row twice with
+    DIFFERENT plugin attributions, and requires `summarise` to report it.
+    """
+    import tempfile
+
+    # One theorem, attributed to two different plugins: the ambiguous case.
+    rows = [
+        ("core", "alpha", "Core/A.lean", "dup_theorem", ""),
+        ("core", "beta", "Core/A.lean", "dup_theorem", ""),
+    ]
+    _by_plugin, duplicates, _owners = summarise(rows)
+    if not duplicates:
+        print("SELFTEST FAIL: a theorem attributed to two plugins was not reported")
+        return 1
+
+    # The healthy case: the same (file, name) twice from the SAME plugin is not ambiguous.
+    rows_ok = [
+        ("core", "alpha", "Core/A.lean", "fine_theorem", ""),
+        ("core", "alpha", "Core/A.lean", "fine_theorem", ""),
+    ]
+    _b, dup_ok, _o = summarise(rows_ok)
+    if dup_ok:
+        print("SELFTEST FAIL: the same plugin attributed twice was reported as ambiguous")
+        return 1
+
+    print("SELFTEST OK: duplicate attribution is detected, single attribution is not")
+    return 0
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
                     help="exit 1 if any orphan or duplicate exists")
+    ap.add_argument("--self-test", action="store_true",
+                    help="demonstrate that the duplicate detection can go red")
     args = ap.parse_args(argv)
+
+    if args.self_test:
+        return self_test()
+
 
     if not os.path.isdir(SRC):
         print("PLUGIN MAP: no Lattice/ directory at %s" % SRC)
