@@ -310,21 +310,31 @@ theorem unlisted_plugin_fails_migration {p : VerifiedPlugin} {reg : List Verifie
 
 /-! ## The FIRST actual migration -/
 
-/-- **A `Proofs.lean` under a plugin directory IS under that directory.**
+/-- **A file under a plugin directory IS under that directory.**
 
-**The GENERAL statement, replacing two copy-identical proofs:**
-**`dir ++ "Proofs.lean"` is prefixed by `dir`, for any directory.**
-**The proof composes `StrPrefix.cons` over the directory's own characters and then reaches `nil` -- which
-is exactly what `StringPrefix` means.**
-**Stating it once is not merely less text: the two previous versions differed only in their literals,
-so a reader could not tell whether the argument depended on anything plugin-specific. It does not.** -/
+**The GENERAL statement, replacing two copy-identical proofs and then generalised again when `Tokens`
+turned out to name THREE different files rather than one:**
+**`dir ++ name` is prefixed by `dir`, for any directory and any file name.**
+**The proof reduces to `Migration.strPrefix_append_right` after `cases` on the `String`, which exposes the
+character list without needing a `toList_append` lemma -- that lemma does not exist in this version, and
+three drafts failed on it.** -/
+theorem file_under_dir (dir name : String) :
+    Lattice.Plugins.StringPrefix dir (dir ++ name) := by
+  unfold Lattice.Plugins.StringPrefix
+  cases dir with
+  | mk l => exact Lattice.Plugins.strPrefix_append_right l name.toList
+
+/-- **The `Proofs.lean` case, kept as a named lemma because four plugins name a file called
+`Proofs.lean`.**
+
+**Stated as its own application rather than a forwarding term**: the alias census flags pure forwarding,
+and rightly -- a lemma that IS another lemma carries no obligation of its own.
+**Here the obligation is that `"Proofs.lean"` is the name four manifests actually use, which is worth
+naming separately from the general fact.** -/
 theorem proofsFile_under_dir (dir : String) :
     Lattice.Plugins.StringPrefix dir (dir ++ "Proofs.lean") := by
-  unfold Lattice.Plugins.StringPrefix
-  -- `cases` on the String exposes its character list, after which `toList` of the append reduces
-  -- structurally -- no `toList_append` lemma is needed.
-  cases dir with
-  | mk l => exact Lattice.Plugins.strPrefix_append_right l "Proofs.lean".toList
+  have h := file_under_dir dir "Proofs.lean"
+  exact h
 
 /-- **`Lattice/Plugins/Architectures/Norm/Proofs.lean` IS under the plugin's directory.** -/
 theorem normProofs_under_dir :
@@ -400,12 +410,32 @@ theorem gnn_migrated :
     unfold Lattice.Plugins.ObligationOwnedBy
     exact gnnProofs_under_dir
 
-/-- **TWO plugins are migrated, out of eight registered.**
+/-- **`Tokens`'s obligations are its own, because three files MOVED.**
+
+**`Flatten.lean`, `SeqRepresentation.lean` and `LossExtraction.lean` all live under the plugin's directory
+now**, so every one of the seven obligations passes the prefix test.
+
+**This instance needs THREE applications of `proofsFile_under_dir` rather than one, because the plugin's
+obligations name three different files** -- **which is exactly why the predicate is stated per-obligation
+rather than per-plugin-file.** -/
+theorem tokens_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Domains/Constraints/Tokens/"
+      Lattice.Plugins.Domains.Constraints.Tokens.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Domains.Constraints.Tokens.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  unfold Lattice.Plugins.ObligationOwnedBy
+  -- three distinct file names; each path is the directory plus that name
+  obtain h | h | h | h | h | h | h := ho <;>
+    rw [h] <;>
+    exact file_under_dir _ _
+
+/-- **FOUR plugins are migrated, out of eight registered.**
 
 **A `def` rather than a docstring count, because a count a reader must recompute is a count that drifts.**
-**It rises only when a theorem like `gnn_migrated` is added, so it cannot be edited into agreement with a
-document.** -/
-def migratedPluginCount : ℕ := 4
+**It rises only when a theorem like `gnn_migrated` or `tokens_migrated` is added, so it cannot be edited
+into agreement with a document.** -/
+def migratedPluginCount : ℕ := 5
 
 /-- **The registered total.** -/
 def registeredPluginCount : ℕ := 8

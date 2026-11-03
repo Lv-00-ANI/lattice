@@ -14,12 +14,12 @@
 | `Lib` | 256 | 87.1% |
 | `Lift` | 0 | 0.0% |
 | `Runtime` | 9 | 3.1% |
-| `Domains` | 7 | 2.4% |
+| `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
-| `Plugins` | 19 | 6.0% |
+| `Plugins` | 20 | 6.3% |
 | `(root)` | 6 | 1.9% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 91 轮同计搬迁**：`Domains/Constraints/Flatten.lean`、`SeqRepresentation.lean`、
+`LossExtraction.lean` 移入 `Plugins/Domains/Constraints/Tokens/`，故 `Domains` 由 7 降为 6、
+`Plugins` 由 19 升为 20，**总数不变**。**五个插件已完全自有其义务。**
 
 **第 90 轮同样计【搬迁】而非新增**：`Compose` 的 `Compose/Combinators.lean`、
 `Compose/ComposeObligation.lean`、`Compose/Laws.lean` 与 `Core/Logic.lean` 全部移入各自插件目录，

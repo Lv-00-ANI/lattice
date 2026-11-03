@@ -55,36 +55,36 @@ def manifest : PluginManifest where
     { name := "flatten_injective"
       kind := .exactness
       theoremName := "flatten_injective"
-      file := "Lattice/Domains/Constraints/Flatten.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
     -- T3 / the other half: every flat vector is realised by some point cloud.
     { name := "flatten_surjective"
       kind := .completeness
       theoremName := "flatten_surjective"
-      file := "Lattice/Domains/Constraints/Flatten.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
     -- The round trip stated as an equality rather than through the bijection lemmas.
     { name := "flatten_roundtrip"
       kind := .laws
       theoremName := "flattenRepresentation_roundtrip"
-      file := "Lattice/Domains/Constraints/Flatten.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
     -- T1 / the sequence representation round-trips on both sides.
     { name := "seq_decode_encode"
       kind := .laws
       theoremName := "seqDecode_encode"
-      file := "Lattice/Domains/Constraints/SeqRepresentation.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean" },
     { name := "seq_encode_decode"
       kind := .laws
       theoremName := "seqEncode_decode"
-      file := "Lattice/Domains/Constraints/SeqRepresentation.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean" },
     -- T3 / the NEGATIVE half of the reversibility boundary.
     { name := "penalty_loss_not_injective"
       kind := .soundness
       theoremName := "penaltyLoss_not_injective"
-      file := "Lattice/Domains/Constraints/LossExtraction.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean" },
     -- The sharper statement: no section of the loss map exists.
     { name := "no_loss_to_constraint_section"
       kind := .soundness
       theoremName := "no_loss_to_constraint_section"
-      file := "Lattice/Domains/Constraints/LossExtraction.lean" }
+      file := "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

@@ -52,8 +52,13 @@ BASE = os.path.join(HERE, "verdict-stale-baseline.txt")
 sys.path.insert(0, HERE)
 from _debt_path_map import PATH_MAP  # noqa: E402
 
-#: a qualified declaration reads `theorem Gated.comp`; the prefix is optional and repeated
-DECL_PAT = ("^\\s*(?:@\\[[^\\]]*\\]\\s*)?(?:private\\s+|protected\\s+|noncomputable\\s+)*"
+#: a qualified declaration reads `theorem Gated.comp`; the prefix is optional and repeated.
+#: Round 91: the attribute group must handle `@[simp]` AND `@[simp, norm_cast]` -- and the
+#: previous `[^\\]]*` only admitted ONE bracket pair with no comma-safe escape, so a `@[simp]
+#: theorem` was invisible to the checker and its verdict was reported as pointing at a
+#: declaration that "is gone". The attribute text is now matched non-greedily up to the
+#: closing bracket, which handles both forms.
+DECL_PAT = ("^\\s*(?:@\\[[^\\n]*?\\]\\s*)?(?:private\\s+|protected\\s+|noncomputable\\s+)*"
             "(?:theorem|lemma|def|abbrev|structure|inductive|class|instance)\\s+"
             "(?:[A-Za-z0-9_']+\\.)*")
 

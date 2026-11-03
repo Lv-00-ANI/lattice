@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 277 | aggregator at `Lattice/`, re-exports only |
+| root | 280 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -707,11 +707,11 @@
 - `Lattice.Domains.Constraints.ExprDeriv` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Pipeline`
 - `Lattice.Domains.Constraints.ExprDerivative` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Domains.Constraints.FlatLoss` <- `Lattice.Core.VariableDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`
-- `Lattice.Domains.Constraints.Flatten` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
+- `Lattice.Domains.Constraints.Flatten` <- `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`
 - `Lattice.Domains.Constraints.FlattenAgreement` <- `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`
 - `Lattice.Domains.Constraints.Lipschitz` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Loss` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
-- `Lattice.Domains.Constraints.LossExtraction` <- `Lattice.Domains.Constraints.PenaltyLoss`
+- `Lattice.Domains.Constraints.LossExtraction` <- `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`
 - `Lattice.Domains.Constraints.NetLoss` <- `Lattice.Core.Net`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`
 - `Lattice.Domains.Constraints.NetLossDerivative` <- `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Core.StackDerivative`, `Lattice.Core.Net`
 - `Lattice.Domains.Constraints.PenaltyLoss` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
@@ -720,7 +720,7 @@
 - `Lattice.Domains.Constraints.Pipeline` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Loss`, `Lattice.Runtime.L1L2`
 - `Lattice.Domains.Constraints.RealToken` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.RealTokenRoundtrip` <- `Lattice.Domains.Constraints.RealToken`
-- `Lattice.Domains.Constraints.SeqRepresentation` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
+- `Lattice.Domains.Constraints.SeqRepresentation` <- `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`
 - `Lattice.Domains.Geometry` <- `Lattice.Domains.Geometry.ApproxEmbedding`, `Lattice.Domains.Geometry.CExprCodegen`, `Lattice.Domains.Geometry.ClauseComposition`, `Lattice.Domains.Geometry.ClosedLoop`, `Lattice.Domains.Geometry.CodegenLadder`, `Lattice.Domains.Geometry.Compile`, `Lattice.Domains.Geometry.ConjRepair`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Geometry.Derivative`, `Lattice.Domains.Geometry.Derive`, `Lattice.Domains.Geometry.Engine`, `Lattice.Domains.Geometry.EqualLengthRepair`, `Lattice.Domains.Geometry.Exact`, `Lattice.Domains.Geometry.Exec`, `Lattice.Domains.Geometry.ExecutableCheck`, `Lattice.Domains.Geometry.ExecutableGeoCheck`, `Lattice.Domains.Geometry.ExprLocalMin`, `Lattice.Domains.Geometry.Exterior`, `Lattice.Domains.Geometry.ExteriorSmooth`, `Lattice.Domains.Geometry.Extract`, `Lattice.Domains.Geometry.Finite`, `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.GeoLadder`, `Lattice.Domains.Geometry.GeoSampledBound`, `Lattice.Domains.Geometry.IRBridge`, `Lattice.Domains.Geometry.IRRepair`, `Lattice.Domains.Geometry.Initialise`, `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.LadderInstance`, `Lattice.Domains.Geometry.LayerExact`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Geometry.LoopRate`, `Lattice.Domains.Geometry.MissingRepairs`, `Lattice.Domains.Geometry.MultiSeedCoverage`, `Lattice.Primitives.MultistepLoop`, `Lattice.Domains.Geometry.Nondegenerate`, `Lattice.Domains.Geometry.NondegenerateInstance`, `Lattice.Domains.Geometry.ParallelRepair`, `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.PathContinuity`, `Lattice.Domains.Geometry.PenaltySmooth`, `Lattice.Domains.Geometry.Plucker`, `Lattice.Domains.Geometry.PolyAssemble`, `Lattice.Domains.Geometry.PolyConstants`, `Lattice.Domains.Geometry.PolyLipschitz`, `Lattice.Domains.Geometry.PolyNondegenerate`, `Lattice.Domains.Geometry.PolyRepair`, `Lattice.Domains.Geometry.PolySpecificRepair`, `Lattice.Domains.Geometry.QualityBridge`, `Lattice.Domains.Geometry.Reinjection`, `Lattice.Domains.Geometry.ReinjectionGeneral`, `Lattice.Domains.Geometry.Repair`, `Lattice.Domains.Geometry.RepairBridge`, `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Geometry.RepairPenalty`, `Lattice.Domains.Geometry.RepairPerp`, `Lattice.Domains.Geometry.RepairQuality`, `Lattice.Domains.Geometry.RhoMetric`, `Lattice.Domains.Geometry.Rules`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Domains.Geometry.Shape`, `Lattice.Domains.Geometry.Square`, `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisConnection`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.Unconditional`, `Lattice.Domains.Geometry.Unified`, `Lattice.Primitives.WeightDescent`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Domains.Geometry.AffineClass`
 - `Lattice.Domains.Geometry.AffineClass` <- `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Domains.Geometry.ApproxEmbedding` <- `Lattice.Runtime.EndToEndApproximation`, `Lattice.Domains.Constraints.Loss`
@@ -830,8 +830,11 @@
 - `Lattice.Plugins.Domains.Constraints` <- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.Plugin`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Plugin`
 - `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.PenaltyLoss`
+- `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
+- `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` <- `Lattice.Domains.Constraints.PenaltyLoss`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Domains.Constraints.LossExtraction`
+- `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
 - `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
@@ -1636,11 +1639,11 @@
 | `Lattice.Domains.Constraints.ExprDeriv` | 8 | 3 |
 | `Lattice.Domains.Constraints.ExprDerivative` | 8 | 4 |
 | `Lattice.Domains.Constraints.FlatLoss` | 19 | 4 |
-| `Lattice.Domains.Constraints.Flatten` | 6 | 5 |
+| `Lattice.Domains.Constraints.Flatten` | 0 | 0 |
 | `Lattice.Domains.Constraints.FlattenAgreement` | 3 | 0 |
 | `Lattice.Domains.Constraints.Lipschitz` | 11 | 4 |
 | `Lattice.Domains.Constraints.Loss` | 10 | 4 |
-| `Lattice.Domains.Constraints.LossExtraction` | 4 | 0 |
+| `Lattice.Domains.Constraints.LossExtraction` | 0 | 0 |
 | `Lattice.Domains.Constraints.NetLoss` | 7 | 1 |
 | `Lattice.Domains.Constraints.NetLossDerivative` | 45 | 9 |
 | `Lattice.Domains.Constraints.PenaltyLoss` | 36 | 3 |
@@ -1649,7 +1652,7 @@
 | `Lattice.Domains.Constraints.Pipeline` | 7 | 5 |
 | `Lattice.Domains.Constraints.RealToken` | 10 | 9 |
 | `Lattice.Domains.Constraints.RealTokenRoundtrip` | 7 | 0 |
-| `Lattice.Domains.Constraints.SeqRepresentation` | 4 | 3 |
+| `Lattice.Domains.Constraints.SeqRepresentation` | 0 | 0 |
 | `Lattice.Domains.Geometry` | 0 | 0 |
 | `Lattice.Domains.Geometry.AffineClass` | 9 | 0 |
 | `Lattice.Domains.Geometry.ApproxEmbedding` | 1 | 1 |
@@ -1735,7 +1738,7 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 31 | 10 |
+| `Lattice.Plugins` | 33 | 10 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 15 | 1 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
@@ -1759,8 +1762,11 @@
 | `Lattice.Plugins.Domains.Constraints` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` | 6 | 5 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` | 4 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 12 | 1 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` | 4 | 3 |
 | `Lattice.Plugins.Extractors` | 0 | 0 |
 | `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
@@ -2010,9 +2016,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `L1Bridge_length` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `induction`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
 - `LoRAEdit_add_apply` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`
 - `LvMagicTable.findByName_name` -> `apply`, `at`, `find`
-- `MExpr.decEq_eq_iff_decide` -> `Flat`, `MExpr`, `flatEquiv`
-- `MExpr.decEq_eq_true_iff` -> `Flat`, `MExpr`, `MStmt`, `flatEquiv`, `flatMeasure`, `induction`
-- `MExpr.decide_eq_true_iff_alt` -> `Flat`, `MExpr`, `MStmt`, `flatEquiv`
+- `MExpr.decEq_eq_iff_decide` -> `Flat`, `MExpr`
+- `MExpr.decEq_eq_true_iff` -> `Flat`, `MExpr`, `MStmt`, `flatMeasure`, `induction`
+- `MExpr.decide_eq_true_iff_alt` -> `Flat`, `MExpr`, `MStmt`
 - `MExpr.eval_iff` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
 - `MExpr.eval_lit` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
 - `MExpr.eval_neg` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
@@ -2023,7 +2029,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MExpr.size_neg` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MExpr.size_neg_lt` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MExpr.size_pos` -> `size`
-- `MStmt.decide_eq_true_iff_alt` -> `Flat`, `MExpr`, `MStmt`, `flatEquiv`
+- `MStmt.decide_eq_true_iff_alt` -> `Flat`, `MExpr`, `MStmt`
 - `MStmt.run_guard` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
 - `MStmt.run_seq` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
 - `MStmt.run_skip` -> `Flat`, `MExpr`, `MStmt`, `eval`, `lit`, `run`
@@ -3649,7 +3655,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coreConstraintToReal_a_eq` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `ProbVec`, `VectorConstraint`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `coreConstraintToReal_b_eq` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `VectorConstraint`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `coreConstraintToReal_eq_castConstraint` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
-- `coreRepair_is_citation` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `progress`, `registryMigratedFor_fails_of_foreign`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `trivial`, `verified`, `verified_manifest`
+- `coreRepair_is_citation` -> `AllMandatoryKindsCoveredFor`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `mandatoryKinds`, `manifest`, `progress`, `registryMigratedFor_fails_of_foreign`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `trivial`, `verified`, `verified_manifest`
 - `coreVecToReal_eq_toRealVec` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `coreVecToReal`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `toRealVec`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `core_convertVec_bias_eq_real` -> `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `convertVec_preserves_semantics`, `dot`
 - `core_convertVec_weight_eq_real` -> `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `convertVec_preserves_semantics`, `dot`
@@ -4579,7 +4585,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eval_expr_depends_on_vars` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
 - `eval_falsity` -> `Compiler`, `at`, `induction`
 - `eval_lit` -> `Compiler`, `at`, `induction`
-- `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`
 - `eval_nil` -> `Instr`, `W`, `apply`, `at`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
@@ -4947,6 +4953,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `field_self_not_isTorsion` -> `at`
 - `field_smul_injective` -> `at`
 - `field_strictly_beats_ring_on_scaling` -> `QConstraint`, `QSat`, `at`
+- `file_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
 - `fillConsts_toSExpr` -> `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `dec`, `enc`, `encLen`, `induction`, `mul`, `nil_append`, `structure_survives_tokens_full`
 - `filterMap_comp_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
 - `filterMap_sym_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
@@ -5036,13 +5043,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`, `at`
 - `flatChainAct_scalar_affine` -> `Chain`, `at`, `e2`
 - `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`, `W`, `at`
-- `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatEquiv_injective` -> `Flat`, `flatEquiv`
-- `flatEquiv_preserves_eval` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatVal`, `induction`, `run`
-- `flatEquiv_preserves_size` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatEquiv_symm_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatEquiv_symm_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatEquiv_injective` -> `Flat`
+- `flatEquiv_preserves_eval` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatVal`, `induction`, `run`
+- `flatEquiv_preserves_size` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatEquiv_symm_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatEquiv_symm_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatLayerAct_differentiableAt` -> `comp`
@@ -5085,29 +5092,29 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatSize_inr_guard` -> `MExpr`, `MStmt`, `lit`
 - `flatSize_inr_seq` -> `MExpr`, `MStmt`, `lit`
 - `flatSize_inr_skip` -> `MExpr`, `MStmt`, `lit`
-- `flatToSum_left_inv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatToSum_right_inv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatToSum_left_inv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flatToSum_right_inv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatVal_inl_iff` -> `MExpr`, `MStmt`
 - `flatVal_inl_lit` -> `MExpr`, `MStmt`, `lit`
 - `flatVal_inl_neg` -> `MExpr`, `MStmt`
 - `flatVal_inr` -> `MExpr`, `MStmt`
-- `flat_decide_eq_true_iff_alt` -> `Flat`, `flatEquiv`
-- `flat_eq_iff_equiv_eq` -> `Flat`, `flatEquiv`
-- `flat_equiv_iff` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
-- `flat_eval_equiv` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
-- `flat_eval_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
-- `flat_eval_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
-- `flat_eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
-- `flat_guard_agrees` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flat_roundtrip_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flat_roundtrip_identity` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flat_roundtrip_via_equiv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flat_run_skip` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `flat_decide_eq_true_iff_alt` -> `Flat`
+- `flat_eq_iff_equiv_eq` -> `Flat`
+- `flat_equiv_iff` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
+- `flat_eval_equiv` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
+- `flat_eval_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
+- `flat_eval_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
+- `flat_eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `flat_guard_agrees` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flat_roundtrip_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flat_roundtrip_identity` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flat_roundtrip_via_equiv` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
+- `flat_run_skip` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `flat_size_equiv` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `subst`
-- `flat_size_guard` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
-- `flat_size_inl` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
-- `flat_size_inr` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
-- `flat_size_lit` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `flat_size_guard` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `flat_size_inl` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
+- `flat_size_inr` -> `Flat`, `MExpr`, `MStmt`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`, `subst`
+- `flat_size_lit` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `flattenInjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `compile`, `completeness`, `extract`, `flatten`, `flattenRepresentation`, `flattenRepresentation_roundtrip`, `flatten_injective`, `flatten_surjective`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `flattenRepresentation_compile_extract` -> `compile`, `extract`
 - `flattenRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
@@ -7028,7 +7035,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mutualCoherence_nonneg` -> `at`, `l0Norm`, `le_trans`, `sqrt_one`
 - `mutualInformation_eq_entropy_decomposition` -> `marginalCol`, `marginalRow`, `mutualInformation`, `prodDist`
 - `mutualInformation_eq_klJoint_prodDist` -> `apply`, `marginalCol`, `marginalRow`, `mutualInformation`, `prodDist`, `prodDist_pos`
-- `mutual_induction_available` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `mutual_induction_available` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `mutual_information_comm` -> `apply`
 - `mutual_information_nonneg` -> `apply`
 - `mutual_recursion_terminates` -> `size`, `size_pos`
@@ -7854,8 +7861,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `plane_unit_normal` -> `E`, `Geometry`, `S2`
 - `pluckerNorm_eq_zero_iff` -> `Pt`, `apply`, `at`, `cofactor`, `pluckerNorm`, `subst`
 - `pluckerNorm_nonneg` -> `GeoConstraint`, `Pt`, `seg`
-- `pluginCensusPending_holds` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `manifest`, `progress`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `trivial`, `verified`, `verified_manifest`
-- `pluginDirOf_coreConstraint` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `Obligation`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `progress`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `trivial`, `verified`, `verified_manifest`
+- `pluginCensusPending_holds` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `manifest`, `progress`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `trivial`, `verified`, `verified_manifest`
+- `pluginDirOf_coreConstraint` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `manifest`, `progress`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `trivial`, `verified`, `verified_manifest`
 - `pluginRegistryComplete_holds` -> `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `proved_target_count`
 - `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
 - `point_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -8037,7 +8044,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `proofRegistry_compose_mem` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
 - `proofRegistry_constraint_mem` -> `Constraint`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
 - `proofRegistry_extractor_mem` -> `Constraint`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
-- `proofRegistry_gnn_mem` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
+- `proofRegistry_gnn_mem` -> `Constraint`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
 - `proofRegistry_length` -> `Constraint`, `Migrated`, `Obligation`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `completeness`, `length`, `mandatoryKinds`, `manifest`, `progress`, `proof_holds`, `registryMigratedFor_fails_of_foreign`, `soundness`, `strPrefix_append_right`, `strPrefix_cons_ne_gen`, `trivial`, `verified`, `verified_manifest`
 - `proofRegistry_migrated_pending` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `completeness`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `progress`, `registryMigratedFor_fails_of_foreign`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `trivial`, `verified`, `verified_manifest`
 - `proofRegistry_nonvacuous` -> `Constraint`, `NonVacuousFor`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest_nonempty`, `proved_target_count`, `verified_manifest`
@@ -8049,7 +8056,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `proof_exactness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_holds` -> `Constraint`, `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_soundness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `proofsFile_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `proofsFile_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
 - `proxGrad_contraction` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
 - `proxGrad_converges` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
 - `proxGrad_descent_lemma` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
@@ -9256,7 +9263,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sizeList_nil` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
 - `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
 - `size_child_lt` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_guard_two` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `size_guard_two` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `size_le_one` -> `alpha`, `at`, `le_refl`, `le_trans`
 - `size_le_sizeList` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
 - `size_lt_of_mem` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
@@ -9265,7 +9272,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `size_nonneg` -> `alpha`, `at`, `le_refl`, `le_trans`
 - `size_pos` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
 - `size_pos_aux` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatEquiv`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
+- `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `skip_no_step` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
 - `slaterCounterF_neg_one` -> `Lagrangian`, `at`, `dualValue`, `le_antisymm`
@@ -10108,6 +10115,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokenize_never_none_fails_for_Vzz` -> `CharToken`, `at`
 - `tokenize_never_none_fails_for_tokenizeV` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
 - `tokenize_not_injective` -> `apply`, `at`, `induction`, `length`, `length_cons`, `trans`, `zero`
+- `tokens_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `top1_output_bound` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `top1_output_is_hard` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `topKIn_dominated` -> `IsTopK`, `at`, `dec`, `induction`, `insert`, `zero`
@@ -10286,7 +10294,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `undo_apply_at` -> `Effect`
 - `unflatten_add` -> `flatEquiv`, `seg`, `unflatten`
 - `unflatten_add_smul_bump` -> `seg`, `unflatten`
-- `unflatten_flatten` -> `Pt`, `Representation`, `Surjective`, `compile`, `extract`, `ofEquiv`
+- `unflatten_flatten` -> `Pt`, `Representation`, `Surjective`, `compile`, `extract`, `flatEquiv`, `ofEquiv`
 - `unflatten_smul_bump_ne` -> `flatEquiv`, `seg`, `unflatten`
 - `unflatten_smul_bump_same` -> `flatEquiv`, `seg`, `unflatten`
 - `unifDist_pos` -> `apply`, `at`, `card_fin`, `ce_ge_entropy`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `kl_zero_iff_eq`
@@ -10340,7 +10348,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unit_normalize_lipschitz_sharp` -> `E`, `at`, `e2`, `le`
 - `unit_normalize_sharp` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `unit_normalize_two_div_not_attained` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
-- `unlisted_plugin_fails_migration` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `unlisted_plugin_fails_migration` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
 - `unsat_monotone` -> `Program`
 - `unsat_of_contradiction_pair` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
 - `unsat_pair_concrete` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`

@@ -158,8 +158,8 @@ forward	Core/Repair.lean	parity_terminates
 forward	Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 forward	Domains/Constraints/Dist.lean	sqDist_nonneg
 forward	Domains/Constraints/ExprDeriv.lean	maxPoint_lt_of_coord
-forward	Domains/Constraints/Flatten.lean	flattenRepresentation_compile_extract
-forward	Domains/Constraints/Flatten.lean	flattenRepresentation_roundtrip
+forward	Plugins/Domains/Constraints/Tokens/Flatten.lean	flattenRepresentation_compile_extract
+forward	Plugins/Domains/Constraints/Tokens/Flatten.lean	flattenRepresentation_roundtrip
 forward	Domains/Constraints/Loss.lean	loss_eq_zero_toGeo_expr
 forward	Domains/Constraints/Loss.lean	loss_eq_zero_toGeo_samePoint
 forward	Domains/Geometry/ApproxEmbedding.lean	eqConstraint_loss_le_sq_of_resid_le

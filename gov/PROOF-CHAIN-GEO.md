@@ -53,7 +53,7 @@
 | `Lattice.Domains.Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
 | `Lattice.Domains.Finite` | 106 | 1 | Expr, Flatten |
 | `Lattice.Domains.FlatLoss` | 527 | 19 | NetLossDerivative |
-| `Lattice.Domains.Flatten` | 130 | 4 | Expr |
+| `Lattice.Domains.Flatten` | 11 | 0 | — |
 | `Lattice.Domains.FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
 | `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
 | `Lattice.Domains.GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
@@ -70,7 +70,7 @@
 | `Lattice.Domains.LoopPerp` | 170 | 7 | RepairPerp |
 | `Lattice.Domains.LoopRate` | 89 | 3 | Loop |
 | `Lattice.Domains.Loss` | 199 | 10 | Expr, Dist, Constraint |
-| `Lattice.Domains.LossExtraction` | 80 | 4 | PenaltyLoss |
+| `Lattice.Domains.LossExtraction` | 11 | 0 | — |
 | `Lattice.Domains.MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
 | `Lattice.Domains.MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
 | `Lattice.Domains.NetLoss` | 268 | 7 | ConstraintSet, PenaltyLoss |
@@ -106,7 +106,7 @@
 | `Lattice.Domains.RhoMetric` | 120 | 5 | Lipschitz |
 | `Lattice.Domains.Rules` | 135 | 1 | Engine |
 | `Lattice.Domains.Semantic` | 179 | 7 | Invariant, Extract |
-| `Lattice.Domains.SeqRepresentation` | 102 | 4 | Expr |
+| `Lattice.Domains.SeqRepresentation` | 11 | 0 | — |
 | `Lattice.Domains.Shape` | 204 | 3 | Derive |
 | `Lattice.Domains.Square` | 161 | 10 | Loss, Dist |
 | `Lattice.Domains.Synthesis` | 215 | 8 | Invariant, Initialise |

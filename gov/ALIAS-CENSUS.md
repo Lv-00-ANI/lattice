@@ -40,8 +40,6 @@
 | `Domains/Constraints/Dist.lean` | `sqDist_nonneg` |
 | `Domains/Constraints/ExprDeriv.lean` | `maxPoint_lt_of_coord` |
 | `Domains/Constraints/ExprDerivative.lean` | `indicesBelow_const` |
-| `Domains/Constraints/Flatten.lean` | `flattenRepresentation_compile_extract` |
-| `Domains/Constraints/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_toGeo_expr` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_toGeo_samePoint` |
 | `Domains/Geometry/ApproxEmbedding.lean` | `eqConstraint_loss_le_sq_of_resid_le` |
@@ -702,6 +700,8 @@
 | `Plugins/Architectures/Norm/Proofs.lean` | `normalize_scale_invariant_reuse` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz_sharp` |
+| `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_compile_extract` |
+| `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Plugins/Migration.lean` | `stringPrefix_self` |
 | `Primitives/MultistepLoop.lean` | `bidir_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |

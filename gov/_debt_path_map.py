@@ -128,11 +128,14 @@ PATH_MAP = {
     "Geo/DistContinuous.lean": "Domains/Constraints/DistContinuous.lean",
     "Geo/DistLipschitz.lean": "Domains/Constraints/DistLipschitz.lean",
     "Geo/Finite.lean": "Domains/Geometry/Finite.lean",
-    "Geo/Flatten.lean": "Domains/Constraints/Flatten.lean",
+    # Round 91: three of these files MOVED into the Tokens plugin directory, so the historical `Geo`
+    # names must resolve to their CURRENT home. A two-step map (`Geo` -> `Domains` -> `Plugins`) is not
+    # expressible in a single dict, so each entry names the final location directly.
+    "Geo/Flatten.lean": "Plugins/Domains/Constraints/Tokens/Flatten.lean",
     "Geo/FlattenAgreement.lean": "Domains/Constraints/FlattenAgreement.lean",
     "Geo/LadderInstance.lean": "Domains/Geometry/LadderInstance.lean",
     "Geo/Perturb.lean": "Domains/Constraints/Perturb.lean",
-    "Geo/SeqRepresentation.lean": "Domains/Constraints/SeqRepresentation.lean",
+    "Geo/SeqRepresentation.lean": "Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean",
     # batch: Geo -- closed prefix of 43
     "Geo/ApproxEmbedding.lean": "Domains/Geometry/ApproxEmbedding.lean",
     "Geo/Compile.lean": "Domains/Geometry/Compile.lean",
