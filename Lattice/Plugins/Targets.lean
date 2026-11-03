@@ -38,6 +38,10 @@ a non-vanishing derivative, with the counterexample that shows the condition is 
 **`T1Dependence.lean`** -- **T1's missing half**: **the audit found `compile_sound`'s conclusion does
 not mention `R`, because `hR` pins `merged` completely.** **This file states the version where
 `R.rejected`, `R.global` and `R.experts` actually participate: every UNREJECTED constraint holds.**
+
+**`SemanticRep.lean`** -- **T1's GENERAL FORM.** **Round 83 said the gap was "a missing field"; working
+it out showed the gap is the TYPE DESIGN (four independent type fields with no map between them).**
+**`SemanticRepresentation` supplies the connection and `compile_sound_general` follows.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
@@ -49,4 +53,5 @@ import Lattice.Plugins.Targets.Nondegenerate
 import Lattice.Plugins.Targets.SolverBoundary
 import Lattice.Plugins.Targets.T2Min
 import Lattice.Plugins.Targets.T1Dependence
+import Lattice.Plugins.Targets.SemanticRep
 import Lattice.Plugins.Targets.Statements

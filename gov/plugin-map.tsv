@@ -8902,6 +8902,9 @@ plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	holds_leZero_const_of
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	holds_sqDistEq_const_of_eval_zero	no
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	not_holds_gtZero_const_of_eval_zero	no
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	sqDist_self	no
+plugins	Plugins/Targets	Plugins/Targets/SemanticRep.lean	compile_sound_general	no
+plugins	Plugins/Targets	Plugins/Targets/SemanticRep.lean	identitySemantic_sound	no
+plugins	Plugins/Targets	Plugins/Targets/SemanticRep.lean	t1_compile_sound_general_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Solver.lean	holds_samePoint_const	no
 plugins	Plugins/Targets	Plugins/Targets/Solver.lean	penalty_samePoint_const	no
 plugins	Plugins/Targets	Plugins/Targets/SolverBoundary.lean	eqZero_const_one_expressible	no

@@ -120,23 +120,21 @@ theorem t1_compile_sound_instance_holds : t1_compile_sound_instance := by
   intro n R a b pts hR h
   exact Lattice.Semantics.CompileSound.compile_sound R a b pts hR h
 
-/-- **T1's general form -- OPEN, and now precisely located.**
+/-- **T1's general form -- NOW PROVED.**
 
-**`compile_sound`'s conclusion is `(samePointLadder pts a b).satW (…l2l3 [])`, which does not mention
-`R`; the audit found this and was right.**
-**The reason is narrow: `hR : R.merged = [samePoint a b]` PINS `merged` completely, and `merged` is the
-only field `merge_sound` consumes.**
+**Round 83 said the gap was "a missing FIELD". Round 84 finished the diagnosis: it is the TYPE DESIGN.**
+**`Representation` has four independent type fields (`P`, `W`, `inputP`, `inputW`) with
+`encode : inputP → inputW` and `compile : P → W`; nothing relates `P` to `inputP`, so "the artifact means
+the same as the symbol" does not TYPECHECK.**
 
-**=> `Targets/T1Dependence.lean` supplies the statement where the fields DO participate:**
-- **`merge_sound_unrejected`** -- **every constraint of `allConstraints` that was NOT rejected holds** --
-  **so `rejected`, `global` and `experts` all appear in the conclusion.**
-- **`mem_merged_iff`** -- **`merged` is exactly the unrejected part**, **so `rejected` is a COMPLETE
-  description of what survives.**
+**=> `Targets/SemanticRep.lean` supplies the two maps that close it (`toInput`, `ofInput`), and
+`compile_sound_general` is the general form.**
+**`identitySemantic` inhabits the structure, so the theorem is not vacuous.**
 
-**What remains open is the form over an arbitrary `Representation`**, **which needs a semantic-preservation
-obligation that `Representation` does not carry** (its `roundtrip` is about the PARAMETER layer). -/
-def t1_general_open : String :=
-  "T1: the general form over an arbitrary `Representation`; the MergeRecord form is PROVED in Targets/T1Dependence.lean"
+**What remains is not a gap in T1 but the observation that a plain `Representation` carries no semantic
+obligation -- which is now a fact about a TYPE, not a missing proof.** -/
+def t1_general_pointer : String :=
+  "T1 general form: PROVED in Targets/SemanticRep.lean (compile_sound_general over SemanticRepresentation)"
 
 /-! ## T2: penalty exactness
 
@@ -343,18 +341,18 @@ a dependency graph, which `Compose` does not have.**
 must move.** **The two that left did so because a carrier was built, not because the claim was
 weakened.** -/
 def open_targets : List String :=
-  ["T0 constructor (ExpressibleSpec exists; the solver does not)",
-   "T1 general form"]
+  ["T0 constructor (ExpressibleSpec exists; the solver does not)"]
 
-/-- **The register is down to TWO entries.**
+/-- **The register is down to ONE entry.**
 
-**`T2 modulus` left it in round 82**, when `T2Min.penalty_min_to_violation` was found and wrapped.
-**Both remaining entries are GAPS WITHIN targets whose cores are proved, not unproved targets:**
-**`T0`'s core (`construct_from_scratch`) is proved and only the constructor is missing;**
-**`T1`'s instance is proved and only the general form is missing.**
-**That is why `open_target_count` is 1 while this register has two entries -- the register counts GAPS,
-the ledger counts TARGETS.** -/
-theorem open_targets_register : open_targets.length = 2 := rfl
+**`T1 general form` left it in round 84**, when `SemanticRep.compile_sound_general` proved it over
+`SemanticRepresentation`.
+**The remaining entry is a gap WITHIN a target whose core is proved**: **`T0`'s
+`construct_from_scratch` is proved and only the constructor is missing -- and round 80 proved that the
+UNIVERSAL constructor cannot exist.**
+**=> what "remaining" means here is `FamilySolver`-shaped constructions, of which the degenerate family
+has one.** -/
+theorem open_targets_register : open_targets.length = 1 := rfl
 
 /-- **`T0` is no longer unstatable**: `ExpressibleSpec` exists, and its `construct_from_scratch`
 obligation is PROVED.
