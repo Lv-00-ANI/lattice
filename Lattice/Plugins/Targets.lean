@@ -19,6 +19,9 @@ lists of arbitrary length.**
 (`samePoint`, `midpoint`, `rightAngle`, `perpendicular`) solved by one constant configuration**,
 **which is what a spec MIXING kinds needs.**
 
+**`DegenerateSolver.lean`** -- **that family as an actual `FamilySolver` instance over lists**,
+**plus a non-emptiness witness so the instance cannot be vacuous.**
+
 **`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
 -/
 
@@ -26,4 +29,5 @@ import Lattice.Plugins.Targets.Expressible
 import Lattice.Plugins.Targets.Solver
 import Lattice.Plugins.Targets.MultiSolver
 import Lattice.Plugins.Targets.ConstFamily
+import Lattice.Plugins.Targets.DegenerateSolver
 import Lattice.Plugins.Targets.Statements

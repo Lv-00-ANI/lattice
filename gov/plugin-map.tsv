@@ -8845,6 +8845,9 @@ plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_of_degenerateOK	n
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_perpendicular_const	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_rightAngle_const	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	seg_const_zero	no
+plugins	Plugins/Targets	Plugins/Targets/DegenerateSolver.lean	degenerateFamily_nonempty	no
+plugins	Plugins/Targets	Plugins/Targets/DegenerateSolver.lean	holdsSet_of_degenerate	no
+plugins	Plugins/Targets	Plugins/Targets/DegenerateSolver.lean	penaltySum_of_degenerate	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	collinear_not_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	equalLength_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	mem_expressible	no
