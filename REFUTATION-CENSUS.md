@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**295 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**297 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,12 +19,16 @@
 | `Core` | 10 | 3.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 1 | 0.3% |
-| `Plugins` | 2 | 0.7% |
+| `Plugins` | 4 | 1.4% |
 | `(root)` | 1 | 0.3% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
 而是钉住少数几条**关键**不可能性——而它们恰恰都在那里（见 §3）。
+
+**第 72 轮新增两条**：`collinear_not_expressible` 与 `parallel_not_expressible` ——
+`collinear` 与 `parallel` 的代数层是 `existential`（需先消去见证），故它们【不能】进入
+`ExpressibleSpec`。**这两条是 `T0` 的排除性见证：可表达性的边界由它们钉住。**
 
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与

@@ -3,20 +3,13 @@
 
 This is the layer that makes `ProofComplete` mean what the plan intends.
 
-## The problem it solves
+## What it contains
 
-`ProofComplete` was `:= PluginRegistryComplete`, and after `Compose` closed the last mandatory kind
-that became PROVABLE while 33 of 41 plugins were unmigrated.
+**`Expressible.lean`** -- **`ExpressibleSpec`, the subtype T0 was missing.** **A spec CARRIES the proof
+that every member is expressible, so a function taking it cannot be handed an inexpressible one.**
 
-**A completion predicate that becomes true before the work is done is worse than no predicate: it
-lets a reader stop.**
-
-## What this layer adds
-
-**`Statements.lean` names the nine targets and records which are proved (four) and which are open
-(five).**
-**The registry's `ProofComplete` now conjoins that ledger with the plugin census, so it cannot be
-reached while either is incomplete.**
+**`Statements.lean`** -- **the nine targets as `Prop`s, with a proved/open ledger.**
 -/
 
+import Lattice.Plugins.Targets.Expressible
 import Lattice.Plugins.Targets.Statements

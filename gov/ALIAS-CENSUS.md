@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 710 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 713 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -341,6 +341,8 @@
 | `Lib/Compiler/RealAbstractInterpretation.lean` | `roundDownN_lower_safe` |
 | `Lib/Compiler/RealAbstractInterpretation.lean` | `transfer_of_sound_abstraction` |
 | `Lib/Compiler/RealBetaConfluence.lean` | `omegaStar_self` |
+| `Lib/Compiler/RealBetaConfluence.lean` | `parStar_single` |
+| `Lib/Compiler/RealBetaReduction.lean` | `star_single` |
 | `Lib/Compiler/RealBigStepSmallStep.lean` | `bigstep_implies_final` |
 | `Lib/Compiler/RealBigStepSmallStep.lean` | `smallstep_final_unique` |
 | `Lib/Compiler/RealCompileFloatCorrectness.lean` | `mag_nonneg` |
@@ -349,6 +351,7 @@
 | `Lib/Compiler/RealFirstOrderLogic.lean` | `ofDB_toDB_witness` |
 | `Lib/Compiler/RealGlobalConfluence.lean` | `newman` |
 | `Lib/Compiler/RealGlobalConfluence.lean` | `prec_confluent` |
+| `Lib/Compiler/RealGlobalConfluence.lean` | `star_single` |
 | `Lib/Compiler/RealLv00CompilerReal.lean` | `compile_program_contains_compiled_constraints` |
 | `Lib/Compiler/RealMutualRecursion_parts/C.lean` | `decEq_eq_iff_decide` |
 | `Lib/Compiler/RealMutualRecursion_parts/C.lean` | `flat_guard_agrees` |

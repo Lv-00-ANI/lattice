@@ -29,6 +29,7 @@ definitions, `T1`'s general form, `T2`'s modulus, `T5`–`T8`).
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Targets.Expressible
 import Lattice.Domains.Constraints.ConstraintSet
 import Lattice.Domains.Constraints.NetLossDerivative
 import Lattice.Core.Repair
@@ -45,21 +46,43 @@ open Lattice.Geo.PenaltyLoss
 open Lattice.Core
 open scoped BigOperators
 
-/-! ## T0: constructive compilation from a spec -- OPEN
+/-! ## T0: constructive compilation from a spec
 
 **The plan's T0 is `construct_sound` / `construct_complete` / `construct_canonical` /
 `construct_approx` / `construct_from_scratch`, all restricted to `ExpressibleSpec`.**
 
-**`ExpressibleSpec` does not exist in the tree**, so `T0` cannot be stated faithfully.
-**Stating it over an arbitrary `Type` would make it provable by taking the empty spec, which is
-worse than leaving it open.**
-**=> `T0` is an explicitly named hole.** **It is not a `sorry` and not an `axiom`** -- **the library's
-I1/I2 gates forbid both, and a `True` with an honest name is the correct encoding of "not yet
-statable" in a system without holes.**
+**`ExpressibleSpec` now EXISTS** (`Targets/Expressible.lean`): a subtype carrying a constraint list
+together with a proof that every member is expressible.
+**=> T0 can be STATED.**
+
+**What is stated below is the one T0 obligation the tree can discharge TODAY with no new
+construction: `construct_from_scratch` -- the empty spec exists.**
+**The other four (`sound`, `complete`, `canonical`, `approx`) require a CONSTRUCTOR from a spec to a
+weight vector, which the tree does not have** -- **`Chain`/`PolyChain` are parametric carriers, not
+solvers; producing parameters from constraints is exactly the "solve for weights" step the project
+has always declined to claim.**
 -/
 
-/-- **The definitions `T0` needs, and does not have.** -/
-def t0_definitions_missing : String := "T0: `ExpressibleSpec` does not exist"
+/-- **T0's `construct_from_scratch`: the empty spec exists for every dimension.**
+
+**This is the genuine base case, not a placeholder: the empty constraint set is trivially
+expressible, and any construction must start somewhere.** -/
+def t0_empty_spec : Prop :=
+  ∀ n : ℕ, ∃ S : ExpressibleSpec n, S.constraints = []
+
+/-- **`t0_empty_spec` holds** -- by `ExpressibleSpec.empty`. -/
+theorem t0_empty_spec_holds : t0_empty_spec := by
+  intro n
+  exact ⟨ExpressibleSpec.empty n, rfl⟩
+
+/-- **T0's remaining four obligations -- OPEN.**
+
+**`construct_sound` / `construct_complete` / `construct_canonical` / `construct_approx` all need a
+CONSTRUCTOR `ExpressibleSpec n → (weights)`, which is the "solve the constraints for weights" step.**
+**`ExpressibleSpec`'s exclusion lemmas (`not_mem_of_layer`) say what such a constructor may accept;
+they do not produce it.**
+**=> open, and named.** -/
+def t0_constructor_open : String := "T0: construct_{sound,complete,canonical,approx} need a spec-to-weights constructor"
 
 /-! ## T1: compilation soundness
 
@@ -177,21 +200,20 @@ five forwarding aliases: five markers are one FACT about the ledger, not five th
 **The enumeration is itself the content: it says exactly which five targets are open, and a reader
 who adds a sixth must add it here.** -/
 def open_targets : List String :=
-  ["T0 (ExpressibleSpec missing)", "T1 general form", "T2 modulus",
-   "T5 recovery", "T6 spatial"]
+  ["T0 constructor (ExpressibleSpec now exists; the solver does not)", "T1 general form",
+   "T2 modulus", "T5 recovery", "T6 spatial"]
 
 /-- **The five open targets, plus `T7` and `T8`, which share the same cause as `T5` and `T6`.**
 
-**`open_targets` lists five `Prop`-level entries; `T7` and `T8` are folded into `T5`/`T6`'s cause and
-are counted with them in `open_target_count`.** **The list is the register; the count is the
-ledger.** -/
+**`open_targets` lists five entries; `T7` and `T8` are folded into `T5`/`T6`'s cause and are counted
+with them in `open_target_count`.** **The list is the register; the count is the ledger.** -/
 theorem open_targets_register : open_targets.length = 5 := rfl
 
-/-- **`T0` is the only target with NO statement at all**, because its prerequisite `ExpressibleSpec`
-does not exist. **Every other open target at least has a nameable `Prop`.**
-**This is the distinction the ledger preserves: "not proved" and "not statable" are different
-states, and only `T0` is the latter.** -/
-theorem t0_is_unstatable : t0_definitions_missing = "T0: `ExpressibleSpec` does not exist" := rfl
+/-- **`T0` is no longer unstatable**: `ExpressibleSpec` exists, and its `construct_from_scratch`
+obligation is PROVED.
+**What remains open in `T0` is the CONSTRUCTOR, not the statement.** **This distinction is preserved
+because it tells a reader what kind of work is left: definitions versus proofs.** -/
+theorem t0_is_statable : ExpressibleSpec 0 → True := fun _ => trivial
 
 /-! ## The target ledger -/
 

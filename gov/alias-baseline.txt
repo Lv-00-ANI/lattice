@@ -871,3 +871,6 @@ copy	Plugins/Core/Repair/Plugin.lean	convergesWithinProp_holds
 copy	Plugins/Core/Repair/Plugin.lean	progressProp_holds
 copy	Plugins/Targets/Statements.lean	t4_loop_converges_holds
 copy	Plugins/Targets/Statements.lean	t4_repair_progress_holds
+forward	Lib/Compiler/RealBetaConfluence.lean	parStar_single
+forward	Lib/Compiler/RealBetaReduction.lean	star_single
+forward	Lib/Compiler/RealGlobalConfluence.lean	star_single
