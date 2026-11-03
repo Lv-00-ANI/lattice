@@ -2124,6 +2124,11 @@ Plugins/Targets/Statements.lean	t4_repair_progress_holds
 Plugins/Targets/Statements.lean	t4_loop_converges_holds
 Plugins/Targets/Statements.lean	open_targets_register
 Plugins/Targets/Statements.lean	t0_is_statable
+Plugins/Targets/T1Dependence.lean	mem_merged_of_not_rejected
+Plugins/Targets/T1Dependence.lean	not_mem_merged_of_rejected
+Plugins/Targets/T1Dependence.lean	merge_sound_unrejected
+Plugins/Targets/T1Dependence.lean	mem_merged_iff
+Plugins/Targets/T1Dependence.lean	t1_merge_sound_unrejected_holds
 Plugins/Targets/T2Min.lean	violation_nonneg
 Plugins/Targets/T2Min.lean	penalty_min_to_violation
 Plugins/Targets/T2Min.lean	penalty_min_violation_eq_zero

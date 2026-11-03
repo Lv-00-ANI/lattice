@@ -15,15 +15,15 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5572 | 59.0% |
+| 0 | 5572 | 58.9% |
 | 1 | 1438 | 15.2% |
 | 2 | 785 | 8.3% |
 | 3 | 637 | 6.7% |
 | 4 | 518 | 5.5% |
 | 5 | 245 | 2.6% |
 | 6 | 255 | 2.7% |
-| 7 | 2 | 0.0% |
-| **合计** | **9452** | |
+| 7 | 7 | 0.1% |
+| **合计** | **9457** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -31,6 +31,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 |--:|:--|:--|
 | 7 | `holds_samePoint_const` (`Plugins/Targets/Solver.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `t1_compile_sound_instance_holds` (`Plugins/Targets/Statements.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `mem_merged_of_not_rejected` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `not_mem_merged_of_rejected` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `merge_sound_unrejected` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `mem_merged_iff` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `t1_merge_sound_unrejected_holds` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 6 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -84,11 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_claims_soundness` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_no_equivariance` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_no_confluence` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_no_recovery` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_no_spatial` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_no_laws` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `proof_holds` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_manifest` (`Plugins/Architectures/Norm/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

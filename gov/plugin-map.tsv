@@ -8923,6 +8923,11 @@ plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_loop_converges_holds	
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_repair_progress_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	target_ledger_total	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	targets_incomplete	no
+plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	mem_merged_iff	no
+plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	mem_merged_of_not_rejected	no
+plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	merge_sound_unrejected	no
+plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	not_mem_merged_of_rejected	no
+plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	t1_merge_sound_unrejected_holds	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	modulus_requires_nonvanishing_deriv	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	penalty_min_to_violation	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	penalty_min_violation_eq_zero	no

@@ -208,6 +208,7 @@ of `ProofComplete` by construction.** -/
 def ProofComplete : Prop :=
   PluginRegistryComplete ∧ ¬ pluginCensusPending ∧
     Lattice.Plugins.Targets.t1_compile_sound_instance ∧
+    Lattice.Plugins.Targets.t1_merge_sound_unrejected ∧
     Lattice.Plugins.Targets.t2_penalty_exact ∧
     Lattice.Plugins.Targets.t2_penalty_modulus ∧
     Lattice.Plugins.Targets.t3_parameter_roundtrip ∧

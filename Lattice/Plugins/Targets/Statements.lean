@@ -120,8 +120,23 @@ theorem t1_compile_sound_instance_holds : t1_compile_sound_instance := by
   intro n R a b pts hR h
   exact Lattice.Semantics.CompileSound.compile_sound R a b pts hR h
 
-/-- **T1's general form -- OPEN.** -/
-def t1_general_open : String := "T1: the general form over an arbitrary `Representation`"
+/-- **T1's general form -- OPEN, and now precisely located.**
+
+**`compile_sound`'s conclusion is `(samePointLadder pts a b).satW (…l2l3 [])`, which does not mention
+`R`; the audit found this and was right.**
+**The reason is narrow: `hR : R.merged = [samePoint a b]` PINS `merged` completely, and `merged` is the
+only field `merge_sound` consumes.**
+
+**=> `Targets/T1Dependence.lean` supplies the statement where the fields DO participate:**
+- **`merge_sound_unrejected`** -- **every constraint of `allConstraints` that was NOT rejected holds** --
+  **so `rejected`, `global` and `experts` all appear in the conclusion.**
+- **`mem_merged_iff`** -- **`merged` is exactly the unrejected part**, **so `rejected` is a COMPLETE
+  description of what survives.**
+
+**What remains open is the form over an arbitrary `Representation`**, **which needs a semantic-preservation
+obligation that `Representation` does not carry** (its `roundtrip` is about the PARAMETER layer). -/
+def t1_general_open : String :=
+  "T1: the general form over an arbitrary `Representation`; the MergeRecord form is PROVED in Targets/T1Dependence.lean"
 
 /-! ## T2: penalty exactness
 

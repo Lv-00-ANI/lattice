@@ -34,6 +34,10 @@ spec (`eqZero (const 1)`) has no model at all.** **This turns round 74's prose c
 **`T2Min.lean`** -- **T2's MODULUS half**, **which the audit found absent from `ProofComplete`**:
 **a local minimum of the expression penalty forces the violation to be exactly zero**, **conditional on
 a non-vanishing derivative, with the counterexample that shows the condition is needed.**
+
+**`T1Dependence.lean`** -- **T1's missing half**: **the audit found `compile_sound`'s conclusion does
+not mention `R`, because `hR` pins `merged` completely.** **This file states the version where
+`R.rejected`, `R.global` and `R.experts` actually participate: every UNREJECTED constraint holds.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
@@ -44,4 +48,5 @@ import Lattice.Plugins.Targets.DegenerateSolver
 import Lattice.Plugins.Targets.Nondegenerate
 import Lattice.Plugins.Targets.SolverBoundary
 import Lattice.Plugins.Targets.T2Min
+import Lattice.Plugins.Targets.T1Dependence
 import Lattice.Plugins.Targets.Statements
