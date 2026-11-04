@@ -9049,6 +9049,13 @@ plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	penalty_min_to_violation	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	penalty_min_violation_eq_zero	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	t2_penalty_modulus_holds	no
 plugins	Plugins/Targets	Plugins/Targets/T2Min.lean	violation_nonneg	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	approx_min_violation_bound	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	eqZero_penalty_eq_violation_sq	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	g_is_inverse	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	g_nonneg	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	g_sq	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	modulus_at_zero	no
+plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	modulus_attained	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_not_one_step	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_steps	no
 primitives	Primitives	Primitives/MultistepLoop.lean	multistep_geometric_exists	no
