@@ -9059,6 +9059,10 @@ plugins	Plugins/Targets	Plugins/Targets/T2Modulus.lean	modulus_attained	no
 plugins	Plugins/Targets	Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3	no
 plugins	Plugins/Targets	Plugins/Targets/T3Instances.lean	instances_at_different_carriers	no
 plugins	Plugins/Targets	Plugins/Targets/T3Instances.lean	seqRepresentation_meets_t3	no
+plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	no_faithful_extractor_nontrivial	no
+plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	sem_quantifier_not_degenerate	no
+plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	translationSem_inhabited	no
+plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	translationSem_nontrivial	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_not_one_step	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_steps	no
 primitives	Primitives	Primitives/MultistepLoop.lean	multistep_geometric_exists	no

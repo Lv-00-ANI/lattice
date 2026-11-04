@@ -2560,6 +2560,10 @@ Plugins/Targets/T2Modulus.lean	modulus_attained
 Plugins/Targets/T3Instances.lean	seqRepresentation_meets_t3
 Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3
 Plugins/Targets/T3Instances.lean	instances_at_different_carriers
+Plugins/Targets/T3NonVacuous.lean	translationSem_inhabited
+Plugins/Targets/T3NonVacuous.lean	translationSem_nontrivial
+Plugins/Targets/T3NonVacuous.lean	no_faithful_extractor_nontrivial
+Plugins/Targets/T3NonVacuous.lean	sem_quantifier_not_degenerate
 Primitives/MultistepLoop.lean	step_pos
 Primitives/MultistepLoop.lean	step_neg
 Primitives/MultistepLoop.lean	step_zero
