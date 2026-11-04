@@ -1746,7 +1746,7 @@
 | `Lattice.Evidence.StructureCensus` | 5 | 4 |
 | `Lattice.Evidence.VerdictLattice` | 18 | 6 |
 | `Lattice.Lib` | 0 | 0 |
-| `Lattice.Plugins` | 45 | 9 |
+| `Lattice.Plugins` | 30 | 9 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 15 | 1 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
@@ -3029,7 +3029,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainPoly_idf` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `at`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `at`, `le_refl`
-- `chainSlot_migrated` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`
 - `chain_discrete_then_dense` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`
 - `chain_distill_affine` -> `AffineLayer`, `ChainFwd`, `affineAct`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
@@ -3392,7 +3391,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_h_not_derivable` -> `Primitive`, `compose`, `identity`, `run`
 - `compose_h_of_pre_true` -> `Primitive`, `compose`, `run`
 - `compose_identity_right` -> `Primitive`, `choice`, `compose`, `identity`, `run`
-- `compose_migrated` -> `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`
 - `compose_post_assoc_iff` -> `Primitive`, `compose`
 - `compose_pre_assoc` -> `Primitive`, `compose`
 - `compose_run` -> `Primitive`, `compose`, `inter`, `min`, `run`, `sound`
@@ -3561,7 +3559,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraint_element_or_concept` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `constraint_entailment_closure` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
 - `constraint_implication_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
-- `constraint_migrated` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`
 - `constraint_on_subspace_preserved` -> `E`, `W`, `card_fin`, `rankOneFun`
 - `constraint_satisfaction_propagates` -> `AllSatisfied`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
 - `constraint_satisfied_after_one_step` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `at`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `residual`
@@ -3692,7 +3689,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coupledLoss_zero_coupling` -> `rho`
 - `coupling_accept_bound` -> `at`, `geom_sum_eq`, `min`
 - `covariant_pair_separated` -> `extent`, `galois_connection`, `intent`
-- `coverageComplete_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `verified`, `verified_manifest`
+- `coverageComplete_holds` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `Repair`, `at`, `mandatoryKinds`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `verified_manifest`
 - `coverageValue_mono` -> `alpha`, `at`
 - `coverage_all_mandatory` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `strPrefix_append_right`, `subst`, `verified`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
@@ -3750,7 +3747,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cumLoss_eq_sum_posWeight` -> `at`
 - `cumLoss_sub_eq` -> `at`
 - `cumLoss_sum_eq_of_dom` -> `at`
-- `current_state` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `proved_target_count`, `verified`
+- `current_state` -> `open_target_count`, `proved_target_count`
 - `curriculum_dominance_le` -> `at`
 - `curriculum_gamma_one_all_orders_equal` -> `at`
 - `curriculum_gamma_one_degenerate` -> `at`
@@ -4444,7 +4441,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `embedding_soundness` -> `ConstraintSat`, `LinearConstraint`, `convert_preserves_semantics`, `loss`
 - `empty_allowed_row_sum_ne_one` -> `at`, `card_fin`, `maskedSoftmax`
 - `empty_graph_satisfiable` -> `Compiler`, `at`
-- `empty_plugin_excluded` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `verified`
 - `empty_plugin_is_vacuous` -> `PluginLayer`, `PluginName`, `at`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `empty_program_no_constraints` -> `Theory`, `length`
 - `empty_program_no_prove` -> `Theory`, `length`
@@ -5474,8 +5470,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gnnLayerEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer_equivariant`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`
 - `gnnLayer_equivariant` -> `E`, `W`, `apply`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `gnnLayer_lipschitz` -> `W`, `apply`, `le_trans`
-- `gnnProofs_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
-- `gnn_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `gnnProofs_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
+- `gnn_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `gnorm_scale_invariant` -> `rms`, `rmsNorm`
 - `gnorm_scale_invariant_reuse` -> `gnorm`, `gnorm_scale_invariant`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`
 - `gnorm_univ_eq_rmsNorm` -> `rmsNorm`
@@ -6865,8 +6861,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
 - `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_translate` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
-- `migration_complete_count` -> `RegistryMigratedFor`, `at`
-- `migration_progress_complete` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `migration_progress_complete` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `RegistryMigratedFor`, `Repair`, `at`, `mandatoryKinds`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `min_eq_half_sub_abs` -> `at`, `geom_sum_eq`, `le_total`, `min`
 - `min_grad_rate` -> `E`, `sphere`
 - `minimality_unique_for_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
@@ -7341,8 +7336,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `norm_adversarialVec` -> `at`
 - `norm_difference_eq_kernel_distance` -> `IsPSDKernel`, `kernel_metric_zero_iff`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_grad_split` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
-- `norm_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
-- `norm_migrated_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `norm_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `norm_migrated_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
 - `norm_obligation_is_a_citation` -> `Obligation`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`
 - `norm_reproducing_bound` -> `IsPSDKernel`, `at`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_rmsNormE` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
@@ -7780,7 +7775,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `GeoConstraint`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `penalty_min_to_violation` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `evalPts_localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `penalty_min_violation_eq_zero` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `evalPts_localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `canonical`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
@@ -7881,16 +7876,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `plane_unit_normal` -> `E`, `Geometry`, `S2`
 - `pluckerNorm_eq_zero_iff` -> `Pt`, `apply`, `at`, `cofactor`, `pluckerNorm`, `subst`
 - `pluckerNorm_nonneg` -> `GeoConstraint`, `Pt`, `seg`
-- `pluginCensusPending_holds` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `manifest`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_repair_progress`, `verified`
-- `pluginDirOf_chainSlot` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
-- `pluginDirOf_compose` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
+- `pluginCensusPending_false` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `manifest`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_repair_progress`, `verified`
 - `pluginDirOf_coreConstraint` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
-- `pluginDirOf_coreRepair` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `manifest`, `verified`
-- `pluginDirOf_gnn` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
-- `pluginDirOf_norm` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
-- `pluginDirOf_penalty` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
-- `pluginDirOf_tokens` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `at`, `manifest`, `verified`
-- `pluginRegistryComplete_holds` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `proved_target_count`, `verified`
+- `pluginRegistryComplete_holds` -> `open_target_count`, `proved_target_count`
 - `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
 - `point_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_hi` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -8066,15 +8054,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `promote_ge_left` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promote_ge_right` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
 - `promotion_table_correct` -> `Geometry`, `all`, `length`, `lift`, `subst`, `toNat`
-- `proofComplete_imp_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `verified`, `verified_manifest`
-- `proofComplete_unreachable` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `proved_target_count`, `verified`
+- `proofComplete_imp_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `NonVacuousFor`, `Repair`, `at`, `mandatoryKinds`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `verified_manifest`
 - `proofRegistry_compose_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
 - `proofRegistry_constraint_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
 - `proofRegistry_extractor_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
 - `proofRegistry_gnn_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
 - `proofRegistry_length` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
-- `proofRegistry_migrated` -> `RegistryMigratedFor`, `at`
-- `proofRegistry_nonvacuous` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `manifest_nonempty`, `proved_target_count`, `verified`, `verified_manifest`
+- `proofRegistry_nonvacuous` -> `Constraint`, `NonVacuousFor`, `Repair`, `at`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `verified_manifest`
 - `proofRegistry_norm_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
 - `proofRegistry_penalty_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `verified`
 - `proofRegistry_repair_mem` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryConsistentFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
@@ -8448,7 +8434,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `registryMigratedFor_fails_of_foreign` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
 - `registryMigratedFor_fails_of_unlisted` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
 - `registryMigratedFor_nil` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
-- `registry_with_empty_plugin_not_complete` -> `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `manifest`, `verified`
 - `reglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `reglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `reglu_lipschitz` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `reglu`, `reluSoftMask`, `reluSoftMask_abs_le_one`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_abs_le_one`, `siluGLU`, `silu_is_soft_masked`, `zero`
@@ -8547,7 +8532,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
 - `repair_iff_satisfiable` -> `Repair`, `Sat`, `at`
 - `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
-- `repair_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `repair_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `repair_of_satisfiable` -> `Repair`, `Sat`, `at`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
@@ -10143,7 +10128,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokenize_never_none_fails_for_Vzz` -> `CharToken`, `at`
 - `tokenize_never_none_fails_for_tokenizeV` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
 - `tokenize_not_injective` -> `apply`, `at`, `induction`, `length`, `length_cons`, `trans`, `zero`
-- `tokens_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `PluginLayer`, `PluginName`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `VerifiedPlugin`, `at`, `empty`, `empty_plugin_is_vacuous`, `layer`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified`, `verified_manifest`
+- `tokens_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verified_manifest`
 - `top1_output_bound` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `top1_output_is_hard` -> `softmax`, `softmax_denom_pos`, `softmax_nonneg`
 - `topKIn_dominated` -> `IsTopK`, `at`, `dec`, `induction`, `insert`, `zero`

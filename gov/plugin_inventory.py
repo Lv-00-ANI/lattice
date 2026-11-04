@@ -53,6 +53,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "Lattice")
 OUT = os.path.join(ROOT, "gov", "plugin-map.tsv")
+#: The Lean file that records the census literal the completion predicate compares against.
+LEAN_PLUGINS = os.path.join(ROOT, "Lattice", "Plugins.lean")
 
 #: Directory name -> plugin layer. `Reference` is excluded: it is an external snapshot,
 #: not part of the library's own proof surface (the same exclusion the theorem counter uses).
@@ -228,6 +230,40 @@ def self_test():
     return 0
 
 
+def real_plugins():
+    """The plugins that actually EXIST, i.e. directories carrying a `Manifest.lean`.
+
+    **This is a DIFFERENT number from `len(by_plugin)` above, and round 95 is where that became
+    visible.**
+
+    `plugin_of` names a plugin after a DIRECTORY PREFIX, so `Lib/Chain` (837 theorems) and
+    `Plugins/Targets` (64) are both "plugins" under that mapping. That is the right grouping for
+    "which part of the tree owns this theorem", but it is NOT the plugin abstraction: a plugin is
+    something with a manifest, an obligation list and a verified witness.
+
+    **The distinction matters because `pluginCensusSize` in `Lattice/Plugins.lean` was 43 -- a
+    count of DIRECTORY GROUPS -- while the registry lists 8 real plugins and the tree contains 8
+    manifests.** Comparing those two numbers made `pluginCensusPending` true for the wrong reason:
+    the registry was "short of the census" because the census was counting something else entirely.
+
+    => this function returns what the completion predicate actually needs to be compared against.
+    """
+    found = []
+    for dirpath, _dirnames, filenames in os.walk(SRC):
+        if "Manifest.lean" not in filenames:
+            continue
+        rel_dir = os.path.relpath(dirpath, SRC).replace(os.sep, "/")
+        if rel_dir == ".":
+            # The template `Lattice/Plugins/Manifest.lean` describes the SHAPE, not a plugin.
+            continue
+        if rel_dir == "Plugins":
+            # Same: `Lattice/Plugins/Manifest.lean` is the template file for writing a plugin,
+            # not a plugin's own manifest.
+            continue
+        found.append(rel_dir)
+    return sorted(found)
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
@@ -256,6 +292,8 @@ def main(argv):
     print("plugin inventory\n")
     print("theorems              : %d" % len(rows))
     print("plugins               : %d" % len(by_plugin))
+    print("real plugins          : %d (directories carrying a `Manifest.lean`)"
+          % len(real_plugins()))
     print("duplicate decls       : %d (same name twice in one file -- a real defect if nonzero)"
           % len(duplicates))
     print("shared short names    : %d (same basename in different plugins -- legal)"
@@ -286,8 +324,36 @@ def main(argv):
         if bad:
             print("\nPLUGIN MAP: %d duplicate declaration(s) -- migration is ambiguous" % bad)
             return 1
-        print("\nPLUGIN MAP: every theorem has exactly one plugin (%d plugins, %d theorems)"
+
+        # Round 95: `pluginCensusSize` must equal the number of REAL plugins, not the number of
+        # directory groups. Before this check existed, the literal was 43 (directory groups) while
+        # the tree held 8 manifests, and the completion predicate compared the registry against a
+        # count of something else -- so it was true for the wrong reason.
+        n_real = len(real_plugins())
+        # Scan line by line: the header contains the Unicode `ℕ`, which is not worth encoding in a
+        # regex. A line-based scan also makes the failure mode obvious if the definition is renamed.
+        literal = None
+        for line in io.open(LEAN_PLUGINS, encoding="utf-8"):
+            if line.lstrip().startswith("def pluginCensusSize") and ":=" in line:
+                tail = line.split(":=", 1)[1].strip()
+                digits = "".join(ch for ch in tail if ch.isdigit())
+                if digits:
+                    literal = int(digits)
+                break
+        if literal is None:
+            print("\nPLUGIN MAP: `pluginCensusSize` not found in Lattice/Plugins.lean")
+            return 1
+        if literal != n_real:
+            print("\nPLUGIN MAP: `pluginCensusSize` is %d, but %d manifest(s) exist"
+                  % (literal, n_real))
+            print("  the completion predicate compares the registry against this number, so they"
+                  " must agree")
+            return 1
+
+        print("\nPLUGIN MAP: every theorem has exactly one plugin (%d groups, %d theorems)"
               % (len(by_plugin), len(rows)))
+        print("PLUGIN MAP: `pluginCensusSize` = %d, matching %d manifest(s)"
+              % (literal, n_real))
     return 0
 
 
