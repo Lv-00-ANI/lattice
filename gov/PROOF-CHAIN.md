@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 296 | aggregator at `Lattice/`, re-exports only |
+| root | 297 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -859,7 +859,7 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`
 - `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
@@ -868,6 +868,7 @@
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Plugins.Targets.ExtractArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Runtime.Extraction`
+- `Lattice.Plugins.Targets.KindReadingSolver` <- `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
 - `Lattice.Plugins.Targets.SemanticRep` <- `Lattice.Plugins.Manifest`, `Lattice.Runtime.Extraction`
@@ -1819,6 +1820,7 @@
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
 | `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
 | `Lattice.Plugins.Targets.ExtractArtifact` | 8 | 2 |
+| `Lattice.Plugins.Targets.KindReadingSolver` | 7 | 5 |
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
 | `Lattice.Plugins.Targets.SemanticRep` | 3 | 4 |
@@ -5313,6 +5315,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ft2L2L3_norm_idempotent` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `fullAnchor_separates` -> `GeoConstraint`, `at`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `fullCompile_sound` -> `AffineLayer`, `Ladder`, `affineAct`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `fullRegistry_wellFormed` -> `length`
 - `full_budget_error_zero` -> `at`
@@ -6143,6 +6146,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `keyOrthogonal_zero` -> `Audit`, `E`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
 - `key_norm_sq_ne_zero` -> `E`, `W`
 - `key_zero_edit_is_identity` -> `ApplyEdit`, `E`, `d`
+- `kindAnchoredSolve_anchor` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
+- `kindAnchoredSolve_canonical` -> `ExpressibleSpec`, `GeoConstraint`, `at`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
+- `kindAnchoredSolve_sound` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
 - `kindInf_le_left` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindInf_le_right` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_antisymm` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
@@ -6154,7 +6160,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindLe_sup_right` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_top` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_trans` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
+- `kindSum_differs_at_equal_indices` -> `GeoConstraint`, `at`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `kindSup_le` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
+- `kindTag_distinct` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
 - `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kind_is_bounded_lattice` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kinkPositive_iff` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
@@ -9522,6 +9530,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sol_apply` -> `Chain`, `apply`, `at`, `blocks`, `le`
 - `sol_eq_mech` -> `Chain`, `at`, `blocks`
 - `solution_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
+- `solve_depends_on_kind` -> `GeoConstraint`, `at`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `solve_depends_on_spec` -> `GeoConstraint`, `at`, `samePoint_expressible`
 - `solve_reads_indices_only` -> `GeoConstraint`
 - `soundAbstract_alpha_le` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `zero`

@@ -2403,6 +2403,13 @@ Plugins/Targets/ExtractArtifact.lean	ofArtifact_injective_on_arch
 Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths_nonempty
 Plugins/Targets/ExtractArtifact.lean	no_artifact_extractor_recovers_both
 Plugins/Targets/ExtractArtifact.lean	ofArtifact_idempotent_shape
+Plugins/Targets/KindReadingSolver.lean	kindTag_distinct
+Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_anchor
+Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_sound
+Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_canonical
+Plugins/Targets/KindReadingSolver.lean	solve_depends_on_kind
+Plugins/Targets/KindReadingSolver.lean	kindSum_differs_at_equal_indices
+Plugins/Targets/KindReadingSolver.lean	fullAnchor_separates
 Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all
 Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero
 Plugins/Targets/Nondegenerate.lean	sqDist_self

@@ -8974,6 +8974,13 @@ plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_injectiv
 plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_params	no
 plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths	no
 plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths_nonempty	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	fullAnchor_separates	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_anchor	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_canonical	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_sound	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindSum_differs_at_equal_indices	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindTag_distinct	no
+plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	solve_depends_on_kind	no
 plugins	Plugins/Targets	Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all	no
 plugins	Plugins/Targets	Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero	no
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	degenerateOK_imp_constConfigOK	no
