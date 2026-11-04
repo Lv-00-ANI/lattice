@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 306 | aggregator at `Lattice/`, re-exports only |
+| root | 307 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,11 +964,12 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
+- `Lattice.Semantics.MeaningTypesFinite` <- `Lattice.Semantics.MeaningTypes`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.ProgramDomain` <- `Lattice.Semantics.Stage1`
@@ -1930,6 +1931,7 @@
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
+| `Lattice.Semantics.MeaningTypesFinite` | 2 | 2 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.ProgramDomain` | 6 | 3 |
@@ -5088,8 +5090,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fin_two_mul_add_one_not_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `fin_two_mul_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `fin_zero_ne_one` -> `Compiler`, `at`
+- `finite_card_identities` -> `constraintDomain`, `d`, `programDomain`
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
+- `finite_separation` -> `at`, `constraintDomain`, `d`, `programDomain`
 - `finite_subset_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_sum_le_tsum_general` -> `apply`, `g`, `infinite_sum_bound`
 - `finite_support_le_all` -> `apply`, `fenchelConjugate`, `fenchelConjugate_le`

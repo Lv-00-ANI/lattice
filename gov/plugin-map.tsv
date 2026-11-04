@@ -9577,6 +9577,8 @@ semantics	Semantics	Semantics/MeaningTypes.lean	codomains_differ_at_d	no
 semantics	Semantics	Semantics/MeaningTypes.lean	option_fin_has_d_plus_one	no
 semantics	Semantics	Semantics/MeaningTypes.lean	prop_has_two_values	no
 semantics	Semantics	Semantics/MeaningTypes.lean	value_spaces_differ	no
+semantics	Semantics	Semantics/MeaningTypesFinite.lean	finite_card_identities	no
+semantics	Semantics	Semantics/MeaningTypesFinite.lean	finite_separation	no
 semantics	Semantics	Semantics/Merge.lean	conflict_loser_absent	no
 semantics	Semantics	Semantics/Merge.lean	conflicts_not_automatic	no
 semantics	Semantics	Semantics/Merge.lean	holdsSet_flatMap_experts	no
