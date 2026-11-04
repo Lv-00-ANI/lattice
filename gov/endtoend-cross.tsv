@@ -2557,6 +2557,9 @@ Plugins/Targets/T2Min.lean	t2_penalty_modulus_holds
 Plugins/Targets/T2Modulus.lean	eqZero_penalty_eq_violation_sq
 Plugins/Targets/T2Modulus.lean	approx_min_violation_bound
 Plugins/Targets/T2Modulus.lean	modulus_attained
+Plugins/Targets/T3Instances.lean	seqRepresentation_meets_t3
+Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3
+Plugins/Targets/T3Instances.lean	instances_at_different_carriers
 Primitives/MultistepLoop.lean	step_pos
 Primitives/MultistepLoop.lean	step_neg
 Primitives/MultistepLoop.lean	step_zero

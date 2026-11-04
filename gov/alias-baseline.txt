@@ -884,3 +884,4 @@ forward	Plugins/Targets/SpecReadingSolver.lean	specAnchoredSolve_cost_zero
 forward	Semantics/CompileSoundGeneral.lean	bridged_samePoint_iff
 forward	Semantics/CompileSoundGeneral.lean	bridged_midpoint_iff
 forward	Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R
+forward	Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3

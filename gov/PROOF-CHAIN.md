@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 300 | aggregator at `Lattice/`, re-exports only |
+| root | 301 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -859,7 +859,7 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T2Modulus`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T2Modulus`, `Lattice.Plugins.Targets.T3Instances`
 - `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
@@ -880,6 +880,7 @@
 - `Lattice.Plugins.Targets.T1Dependence` <- `Lattice.Plugins.Manifest`, `Lattice.Semantics.Merge`
 - `Lattice.Plugins.Targets.T2Min` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Geometry.ExprLocalMin`
 - `Lattice.Plugins.Targets.T2Modulus` <- `Lattice.Plugins.Targets.T2Min`
+- `Lattice.Plugins.Targets.T3Instances` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Runtime.Extraction`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Primitives.TokenizeStrategy` 
@@ -1835,6 +1836,7 @@
 | `Lattice.Plugins.Targets.T1Dependence` | 5 | 1 |
 | `Lattice.Plugins.Targets.T2Min` | 5 | 2 |
 | `Lattice.Plugins.Targets.T2Modulus` | 7 | 1 |
+| `Lattice.Plugins.Targets.T3Instances` | 3 | 1 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
 | `Lattice.Primitives.TokenizeStrategy` | 0 | 0 |
@@ -5217,6 +5219,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flat_size_lit` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `flattenInjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `compile`, `completeness`, `extract`, `flatten`, `flattenRepresentation`, `flattenRepresentation_roundtrip`, `flatten_injective`, `flatten_surjective`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `flattenRepresentation_compile_extract` -> `compile`, `extract`
+- `flattenRepresentation_meets_t3` -> `Pt`, `Representation`, `compile`, `extract`, `flattenRepresentation`, `seqRepresentation`, `t3_parameter_roundtrip_holds`
 - `flattenRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
 - `flattenRoundtripProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `flattenRepresentation_roundtrip`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `flattenSurjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `compile`, `completeness`, `extract`, `flattenRepresentation`, `flattenRepresentation_roundtrip`, `flatten_surjective`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
@@ -5965,6 +5968,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `instanceC_content_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`
 - `instanceC_is_content` -> `LayerOut`, `LinearLayer`
+- `instances_at_different_carriers` -> `Pt`, `Representation`, `compile`, `extract`, `flattenRepresentation`, `seqRepresentation`, `t3_parameter_roundtrip_holds`
 - `intScaleWitness_common_root` -> `QConstraint`, `QSat`, `at`
 - `intScaleWitness_no_int_factor_and_rat_factor` -> `QConstraint`, `QSat`, `at`
 - `intSemanticEquality_not_implying_intScale` -> `QConstraint`, `QSat`, `at`
@@ -9351,6 +9355,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seqEncodeDecodeProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `seqEncode_decode` -> `Pt`, `Representation`, `at`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `seqRepresentation_compile_extract` -> `compile`, `extract`
+- `seqRepresentation_meets_t3` -> `Pt`, `Representation`, `compile`, `extract`, `flattenRepresentation`, `seqRepresentation`, `t3_parameter_roundtrip_holds`
 - `seqRepresentation_roundtrip` -> `Pt`, `compile`, `extract`
 - `seq_skip_step` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
 - `seq_step_ctx` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
