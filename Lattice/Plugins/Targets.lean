@@ -62,3 +62,4 @@ import Lattice.Plugins.Targets.ExtractArtifact
 import Lattice.Plugins.Targets.ArtifactLadder
 import Lattice.Plugins.Targets.SpecReadingSolver
 import Lattice.Plugins.Targets.KindReadingSolver
+import Lattice.Plugins.Targets.FullAnchorSolver

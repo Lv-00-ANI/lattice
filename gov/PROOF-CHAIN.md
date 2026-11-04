@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 297 | aggregator at `Lattice/`, re-exports only |
+| root | 298 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -859,7 +859,7 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`, `Lattice.Plugins.Targets.FullAnchorSolver`
 - `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
@@ -868,6 +868,7 @@
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Plugins.Targets.ExtractArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Runtime.Extraction`
+- `Lattice.Plugins.Targets.FullAnchorSolver` <- `Lattice.Plugins.Targets.KindReadingSolver`
 - `Lattice.Plugins.Targets.KindReadingSolver` <- `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
@@ -1820,6 +1821,7 @@
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
 | `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
 | `Lattice.Plugins.Targets.ExtractArtifact` | 8 | 2 |
+| `Lattice.Plugins.Targets.FullAnchorSolver` | 8 | 4 |
 | `Lattice.Plugins.Targets.KindReadingSolver` | 7 | 5 |
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
@@ -3230,6 +3232,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `combine_isConvex` -> `at`, `children`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
 - `combine_symbols_subset_left` -> `at`, `children`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
 - `combine_symbols_subset_right` -> `at`, `children`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
+- `combinedAnchor_midpoint_0_0_0` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
+- `combinedAnchor_samePoint_0_0` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `indicesOf_nil`, `indicesOf_samePoint`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
+- `combinedAnchor_samePoint_3_7` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `kindSum`, `kindTag`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
+- `combinedAnchor_separates` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `comm_error_is_exactly_sign` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `scaleVec`, `sign`
 - `comm_fails_at_neg_two` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`
 - `comm_holds_at_neg_one` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`
@@ -5317,7 +5323,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fullAnchor_separates` -> `GeoConstraint`, `at`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `fullCompile_sound` -> `AffineLayer`, `Ladder`, `affineAct`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `fullFamilySolver_anchor` -> `ExpressibleSpec`
 - `fullRegistry_wellFormed` -> `length`
+- `fullSolver_splits_kinds` -> `ExpressibleSpec`
 - `full_budget_error_zero` -> `at`
 - `full_budget_exact` -> `at`
 - `full_mask_eq_softmax` -> `causalDenom`, `causalSoftmax`, `convComb`, `softmax`
@@ -5883,6 +5891,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `indicator_sum` -> `abs_mean_le_one`, `uniformExpectation`, `uniformProb`
 - `indicesBelow_const` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`, `trivial`
 - `indicesBelow_coord` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
+- `indicesOf_midpoint` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `indicesOf_nil` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `indicesOf_samePoint` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
@@ -6161,6 +6170,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindLe_top` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_trans` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindSum_differs_at_equal_indices` -> `GeoConstraint`, `at`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
+- `kindSum_midpoint_0_0_0` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `kindSup_le` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindTag_distinct` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
 - `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
