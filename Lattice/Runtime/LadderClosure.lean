@@ -109,26 +109,43 @@ end LadderClosure
 
 /-- **The project's end-to-end claim, as one proposition.**
 
-**A `Ladder` whose symbolic layer is sound composes: a `Data` value walks through both tokenisers to an
-artifact that accepts the symbolic form the walk produced.**
+**A `Ladder` whose symbolic layer is sound composes: a `Data` value walks through both tokenisers, and the
+artifact the walk REACHES accepts the symbolic form that walk produced.**
 
-**This is stated over the LADDER rather than over any particular carrier, which is what makes it a claim
-about the project's architecture instead of about one compiler.** -/
+## What round 99 corrected
+
+**The previous version of this proposition concluded `L.satW (L.l2l3 s)` from `L.satSym s` and a soundness
+hypothesis -- and never mentioned `d` or the walk.**
+**Its proof was `exact hsound s hsat`, so `d` and `hwalk` were binders the conclusion did not use.**
+**=> it asserted "end to end" while being a restatement of the L2 -> L3 rung. The audit was right to flag
+it.**
+
+**The fix is to make the conclusion about the value the WALK reaches: `run L d = some w`, and `w` is what
+must satisfy `satW`.**
+**Now `hwalk` is load-bearing -- drop it and the statement is unprovable, because `run`'s value depends on
+it.** -/
 def ladder_end_to_end : Prop :=
   ∀ {Data Tok Sym W : Type} (L : Lattice.Lift.Ladder Data Tok Sym W),
     (∀ s : Sym, L.satSym s → L.satW (L.l2l3 s)) →
     ∀ (d : Data) (s : Sym), L.l1l2.decode (L.l0l1.encode d) = some s →
-      L.satSym s → L.satW (L.l2l3 s)
+      L.satSym s → ∀ w : W, LadderClosure.run L d = some w → L.satW w
 
-/-- **`ladder_end_to_end` holds.**
+/-- **`ladder_end_to_end` holds -- and the proof USES the walk.**
 
-**The proof is short because `Ladder.l2l3_sound` is a FIELD -- and that is the point: the ladder's type
-already forbids a soundness-free rung, so the composition adds no obligation that the type did not
-already carry.**
-**What this theorem contributes is the COMPOSITION ITSELF: it starts at `Data`, and every previous statement
-in the project started at `Sym` or at `W`.** -/
+**The previous version's proof was one line and discarded `d` and `hwalk`; this one cannot.**
+**`run L d = some w` forces `w = L.l2l3 s` by `run_reaches_symbol`, so the conclusion is about the value
+the WALK produced rather than about a value the caller supplied.**
+
+**`hsat` is what lets `hsound` fire: the symbolic layer accepts `s`, so its artifact accepts `l2l3 s`,
+which is `w`.** -/
 theorem ladder_end_to_end_holds : ladder_end_to_end := by
-  intro Data Tok Sym W L hsound d s hwalk hsat
+  intro Data Tok Sym W L hsound d s hwalk hsat w hrun
+  have hreach := LadderClosure.run_reaches_symbol L d s hwalk
+  -- both sides are `some _`, so `Option.some.inj` pins `w`
+  have hw : w = L.l2l3 s := by
+    rw [hreach] at hrun
+    exact (Option.some.inj hrun).symm
+  rw [hw]
   exact hsound s hsat
 
 end Lattice.Runtime

@@ -1,0 +1,57 @@
+# Registered prop-def findings.
+#
+# A `def X : Prop` whose proof's `intro` line binds a variable that then appears nowhere else.
+#
+# **These are REPORT-ONLY, not failures, and the reason is a real limit of static scanning.**
+# In Lean, `intro` introduces a binder and a CITED THEOREM may consume it inside its own statement:
+#   `intro n Φ; exact penaltyLoss_eq_zero_iff_holds_sq Φ`
+# has `n` unused HERE because the cited lemma quantifies over `n` itself. A regex cannot tell that
+# apart from a genuinely discarded binder like the ladder's `hwalk`.
+# => the register records what the checker sees, so a NEW entry shows up as a diff rather than as a
+#    silent pass, and a human decides which are real.
+#
+# Format: reason<TAB>name
+scan	ApproximationEqZeroProp	approximationEqZeroProp_holds	e
+scan	AtomicOfZeroIffProp	atomicOfZeroIffProp_holds	α
+scan	ComposeHOfPreTrueProp	composeHOfPreTrueProp_holds	f, g
+scan	ConvergesWithinProp	convergesWithinProp_holds	α
+scan	EntailsConsProp	entailsConsProp_holds	R, n
+scan	EntailsMonoProp	entailsMonoProp_holds	R, n
+scan	ExactnessInequalityProp	exactnessInequalityProp_holds	n
+scan	ExactnessProp	exactnessProp_holds	d, e, n
+scan	GnnLayerEquivariantProp	gnnLayerEquivariantProp_holds	ι
+scan	IterateSuccProp	iterateSuccProp_holds	α
+scan	LayerStackEquivariantProp	layerStackEquivariantProp_holds	ι
+scan	LossNotInjectiveProp	lossNotInjectiveProp_holds	n
+scan	ModelsOfMemProp	modelsOfMemProp_holds	R, n
+scan	ModelsOfSubsetProp	modelsOfSubsetProp_holds	R, n
+scan	MsgPassBoundProp	msgPassBoundProp_holds	ι
+scan	MsgPassEquivariantProp	msgPassEquivariantProp_holds	ι
+scan	NoSectionProp	noSectionProp_holds	n
+scan	NormIterateVarianceLeOneProp	normIterateVarianceLeOneProp_holds	ι
+scan	NormLipschitzProp	normLipschitzProp_holds	n
+scan	NormLipschitzSharpProp	normLipschitzSharpProp_holds	n
+scan	NormTrainInferAgreeProp	normTrainInferAgreeProp_holds	ι
+scan	NormVarianceEqOneProp	normVarianceEqOneProp_holds	ι
+scan	NormVarianceNonnegProp	normVarianceNonnegProp_holds	ι
+scan	PermActAdjMulProp	permActAdjMulProp_holds	ι
+scan	PermActAdjOneProp	permActAdjOneProp_holds	ι
+scan	PermActFeatMulProp	permActFeatMulProp_holds	ι
+scan	PermActFeatOneProp	permActFeatOneProp_holds	ι
+scan	PreservesProp	preservesProp_holds	α
+scan	ProgressProp	progressProp_holds	α
+scan	ReadoutInvariantOfLayerStackProp	readoutInvariantOfLayerStackProp_holds	ι
+scan	ReadoutInvariantProp	readoutInvariantProp_holds	ι
+scan	SeqDecodeEncodeProp	seqDecodeEncodeProp_holds	n
+scan	SeqEncodeDecodeProp	seqEncodeDecodeProp_holds	n
+scan	SoundnessProp	soundnessProp_holds	n
+scan	SparseAgreesDenseProp	sparseAgreesDenseProp_holds	ι
+scan	StableProp	stableProp_holds	α
+scan	t1_compile_sound_general	t1_compile_sound_general_holds	sem
+scan	t1_merge_sound_unrejected	t1_merge_sound_unrejected_holds	n
+scan	t2_penalty_modulus	t2_penalty_modulus_holds	n
+scan	t4_loop_converges	t4_loop_converges_holds	α
+scan	t5_recovery_single	t5_recovery_single_holds	K
+scan	t6_spatial_nonvacuous	t6_spatial_nonvacuous_holds	Name
+scan	t7_confluence_seq	t7_confluence_seq_holds	K
+scan	t8_head_fails	t8_head_fails_holds	K

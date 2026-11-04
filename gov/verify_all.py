@@ -52,6 +52,12 @@ REPORT_ONLY = {
     # and saying so is not a failure). Registered as gating it would be a check that cannot fail.
     "report: comment shadow declarations",
       "usage: skeleton main theorems",
+    # Round 99. A `def X : Prop` whose proof's `intro` binds a variable that then appears nowhere else.
+    # REPORT-ONLY because a cited theorem may consume that binder inside its own statement -- `intro n Φ;
+    # exact penaltyLoss_eq_zero_iff_holds_sq Φ` has `n` unused HERE and is not vacuous. A regex cannot
+    # tell that apart from the ladder's genuinely discarded `hwalk`, so the check reports and a human
+    # decides; `gov/prop-def-baseline.txt` records the current 44 so a NEW one shows up as a diff.
+    "report: prop-def binder strength",
 }
 
 # (label, script, expects a specific exit code or None for "any")
@@ -132,6 +138,7 @@ CHECKS = [
     # udit_duplicates.py groups by NAME and is report-only, so it sees neither of these.
     ("audit: alias census", "audit_aliases.py"),
     ("audit: alias self-test", "audit_aliases.py --self-test"),
+    ("report: prop-def binder strength", "check_prop_def_strength.py --check"),
     # Round 14. A splice ate a file's final end Lattice and lake build still passed.
     ("audit: namespace closure", "check_namespace_balance.py"),
     ("audit: namespace self-test", "check_namespace_balance.py --self-test"),

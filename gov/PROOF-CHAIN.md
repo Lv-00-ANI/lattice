@@ -6215,7 +6215,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ladder_compose_roundtrip` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_compose_soundness` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_crosses_geo_layer` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `ladder_forward`, `satSym`, `satW`
-- `ladder_end_to_end_holds` -> `W`
+- `ladder_end_to_end_holds` -> `W`, `at`
 - `ladder_forward` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_obligations_are_the_fields` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_reverse_consistent` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
@@ -8912,12 +8912,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `edit_seq_comm`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `subst`
 - `run_cons` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
-- `run_eq` -> `Ladder`, `W`, `apply`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_eq` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_nil` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
-- `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `decode`, `encode`, `satSym`, `satW`
+- `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_preserved` -> `induction`
-- `run_reaches_symbol` -> `Ladder`, `W`, `apply`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_sound` -> `Ladder`, `W`, `apply`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_reaches_symbol` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_sound` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `runs_preserved` -> `induction`
 - `s02_convertVec_extractVec_eta` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_dot_cons_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
