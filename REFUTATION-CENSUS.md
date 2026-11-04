@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**315 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**313 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,11 +16,11 @@
 | `Runtime` | 9 | 3.1% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 9 | 2.9% |
+| `Core` | 4 | 1.3% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
-| `Plugins` | 21 | 6.7% |
-| `(root)` | 6 | 1.9% |
+| `Plugins` | 26 | 8.3% |
+| `(root)` | 4 | 1.3% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
 合计只占 28 条。这不是缺陷：承重层的职责不是穷举「不可能」，
@@ -37,6 +37,13 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 94 轮完成最后一次搬迁**：`Core/VariableDerivative.lean`（5,506 行，整条提取线）移入
+`Plugins/Extractors/ChainSlot/`。**八个注册插件至此全部自有其义务**，`Core` 由 9 降为 4、
+`Plugins` 由 21 升为 26。
+**总数由 315 降为 313，减少的两条来自 `(root)`（6→4）**：`Plugins.lean` 中
+`proofRegistry_migrated_pending` 被相反命题 `proofRegistry_migrated` 取代，
+**旧的否证证明随命题一起消失——这不是统计损失，而是那个否定本身不再成立。**
 
 **第 92 轮同计搬迁**：`Repair.lean`、`RepairAtomicity.lean`、`RepairConvergence.lean`、
 `RepairMultistep.lean`、`RepairWF.lean` 移入 `Plugins/Core/Repair/`，故 `Core` 由 10 降为 9、

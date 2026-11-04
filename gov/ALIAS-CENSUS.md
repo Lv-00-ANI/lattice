@@ -753,8 +753,6 @@
 |:--|:--|
 | `CInterface/ABI.lean` | `abiTable_errors_wellFormed` |
 | `CInterface/ABI.lean` | `abiTable_returns_a_value` |
-| `Core/VariableDerivative.lean` | `lowDeg_affine` |
-| `Core/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_expr` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_perpendicular` |
 | `Domains/Geometry/ClauseComposition.lean` | `repair_then_reinject` |
@@ -900,6 +898,8 @@
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_perpendicular` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_rightAngle` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_sqDistEq` |
+| `Plugins/Extractors/ChainSlot/VariableDerivative.lean` | `lowDeg_affine` |
+| `Plugins/Extractors/ChainSlot/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
 | `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
 | `Primitives/WeightDescent.lean` | `sqNormIn_nonneg` |

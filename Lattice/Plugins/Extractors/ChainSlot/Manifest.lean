@@ -55,62 +55,62 @@ def manifest : PluginManifest where
     { name := "slot_weight_lt_bias"
       kind := .exactness
       theoremName := "slotOf_weight_lt"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- POSITIONAL: every weight slot and the bias slot fit inside one layer's block.
     { name := "slot_within_block"
       kind := .exactness
       theoremName := "slotOf_lt_bound"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- POSITIONAL law: the bias slot is the slot a weight slot would occupy at row `a`.
     { name := "bias_slot_is_row_a"
       kind := .laws
       theoremName := "bias_slot_eq_slotOf"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- VALUE: the weight is readable from a one-layer polynomial.
     { name := "one_layer_weight_readable"
       kind := .exactness
       theoremName := "oneLayerPolyNat_coeff_weight"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- VALUE: the same for the chain-level step, from a constant input.
     { name := "step_weight_readable"
       kind := .exactness
       theoremName := "stepNat_coeff_weight"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- VALUE: the bias is recorded POSITIONALLY (coefficient 1), not by value.
     { name := "step_bias_positional"
       kind := .soundness
       theoremName := "stepNat_coeff_bias"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- VALUE at chain level, ONE element: the output polynomial carries its weight.
     { name := "single_chain_weight_readable"
       kind := .exactness
       theoremName := "chainNatPoly_single_coeff_weight"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- The NEGATIVE positional fact at step level: a step past offset 2 zeroes slot 0.
     { name := "slot_zero_dead_past_two"
       kind := .soundness
       theoremName := "stepNat_coeff_zero_irrelevant"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- Its lift to the foldl: slot 0 stays zero for the whole remaining list.
     { name := "foldl_slot_zero_preserved"
       kind := .soundness
       theoremName := "foldl_coeff_zero_irrelevant"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- The general positional locality: a step touches ONLY slots `m` and `m+1`.
     { name := "per_slot_extraction_sound"
       kind := .soundness
       theoremName := "stepNat_coeff_other_slot"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- The INTERMEDIATE-polynomial route: after `k` layers, slot `2k` holds layer `k`'s weight.
     { name := "intermediate_poly_readable"
       kind := .exactness
       theoremName := "chainNatPolyAfter_one_coeff"
-      file := "Lattice/Core/VariableDerivative.lean" },
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
     -- The IMPOSSIBILITY: a deep chain's final slot 0 is zero, so no weight is readable there.
     { name := "deep_chain_final_slot_dead"
       kind := .soundness
       theoremName := "chainNatPoly_deep_coeff_zero"
-      file := "Lattice/Core/VariableDerivative.lean" }
+      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

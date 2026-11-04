@@ -855,8 +855,8 @@ forward	Semantics/VocabEdit.lean	vocab_compat_permutation
 copy	Lib/Attention/SoftmaxLipschitzBound.lean	sum_exp_pos
 copy	Lib/InfoTheory/RealMaxEntropy.lean	gibbsPartition_pos
 
-copy	Core/VariableDerivative.lean	lowDeg_affine
-copy	Core/VariableDerivative.lean	lowDeg_zero_of_const
+copy	Plugins/Extractors/ChainSlot/VariableDerivative.lean	lowDeg_affine
+copy	Plugins/Extractors/ChainSlot/VariableDerivative.lean	lowDeg_zero_of_const
 forward	Domains/Constraints/ConstraintSet.lean	holdsSet_nil
 forward	Domains/Constraints/ExprDerivative.lean	indicesBelow_const
 forward	Lib/Compiler/RealTreeDecidable.lean	isoList_nil
