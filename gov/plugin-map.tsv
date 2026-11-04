@@ -9153,6 +9153,11 @@ runtime	Runtime	Runtime/L1L2Roundtrip.lean	filterMap_sym_append	no
 runtime	Runtime	Runtime/L1L2Roundtrip.lean	finRange_getElem	no
 runtime	Runtime	Runtime/L1L2Roundtrip.lean	payload_getElem	no
 runtime	Runtime	Runtime/L1L2Roundtrip.lean	payload_getElem	no
+runtime	Runtime	Runtime/LadderClosure.lean	ladder_end_to_end_holds	no
+runtime	Runtime	Runtime/LadderClosure.lean	run_eq	no
+runtime	Runtime	Runtime/LadderClosure.lean	run_not_reversible_of_collision	no
+runtime	Runtime	Runtime/LadderClosure.lean	run_reaches_symbol	no
+runtime	Runtime	Runtime/LadderClosure.lean	run_sound	no
 runtime	Runtime	Runtime/LayerComposition.lean	constraint_satisfaction_propagates	no
 runtime	Runtime	Runtime/LayerComposition.lean	dot_replicate_zero	no
 runtime	Runtime	Runtime/LayerComposition.lean	dot_replicate_zero_any	no

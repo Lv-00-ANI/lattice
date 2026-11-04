@@ -16,6 +16,7 @@ Two edits: import its `Plugin.lean` here, and add the `VerifiedPlugin` it export
 `proofRegistry`. Nothing else changes, which is what makes migration a mechanical process.
 -/
 
+import Lattice.Runtime
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Migration
@@ -493,7 +494,8 @@ def ProofComplete : Prop :=
     Lattice.Plugins.Runtime.t5_recovery ∧
     Lattice.Plugins.Runtime.t6_spatial ∧
     Lattice.Plugins.Runtime.t7_confluence ∧
-    Lattice.Plugins.Runtime.t8_failure_isolation
+    Lattice.Plugins.Runtime.t8_failure_isolation ∧
+    Lattice.Runtime.ladder_end_to_end
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -683,7 +685,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -702,5 +704,6 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Plugins.Runtime.t6_spatial_holds
   · exact Lattice.Plugins.Runtime.t7_confluence_holds
   · exact Lattice.Plugins.Runtime.t8_failure_isolation_holds
+  · exact Lattice.Runtime.ladder_end_to_end_holds
 
 end Lattice.Plugins

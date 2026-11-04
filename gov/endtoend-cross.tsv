@@ -2370,6 +2370,10 @@ Runtime/L1L2Roundtrip.lean	payload_getElem
 Runtime/L1L2Roundtrip.lean	decodeConst_encodeForm
 Runtime/L1L2Roundtrip.lean	decodeCoeffs_encodeForm
 Runtime/L1L2Roundtrip.lean	decodePayload_encodeForm
+Runtime/LadderClosure.lean	run_eq
+Runtime/LadderClosure.lean	run_sound
+Runtime/LadderClosure.lean	run_reaches_symbol
+Runtime/LadderClosure.lean	ladder_end_to_end_holds
 Runtime/LayerComposition.lean	dot_replicate_zero_any
 Runtime/LayerComposition.lean	layerFwd_allzero
 Runtime/LayerComposition.lean	constraint_satisfaction_propagates
