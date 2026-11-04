@@ -2508,6 +2508,14 @@ Runtime/SymbolToWeightCorrectness.lean	symbolToWeight_verify
 Runtime/SymbolToWeightCorrectness.lean	symbolToWeight_empty
 Runtime/TotalLoss.lean	totalLoss_eq_zero_iff_allSatisfied
 Runtime/TotalLoss.lean	totalLoss_verify
+Runtime/VerificationLoop.lean	loop_terminates_sat
+Runtime/VerificationLoop.lean	loop_absorbs
+Runtime/VerificationLoop.lean	loop_decreases
+Runtime/VerificationLoop.lean	loop_end_sat
+Runtime/VerificationLoop.lean	no_loop_fixes_unsatisfiable
+Runtime/VerificationLoop.lean	loop_end_atomic
+Runtime/VerificationLoop.lean	verification_loop_closes_holds
+Runtime/VerificationLoop.lean	verification_loop_is_stable
 Runtime/VerificationSoundness.lean	residual_le_of_zero_on_dense
 Runtime/VerificationSoundness.lean	eq_zero_of_zero_dense
 Runtime/VerifyLoopProgress.lean	iterateRepair_eq_self

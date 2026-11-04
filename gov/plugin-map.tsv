@@ -9412,6 +9412,14 @@ runtime	Runtime	Runtime/TotalLoss.lean	sqSum_eq_zero_iff	no
 runtime	Runtime	Runtime/TotalLoss.lean	sqSum_nonneg	no
 runtime	Runtime	Runtime/TotalLoss.lean	totalLoss_eq_zero_iff_allSatisfied	no
 runtime	Runtime	Runtime/TotalLoss.lean	totalLoss_verify	no
+runtime	Runtime	Runtime/VerificationLoop.lean	loop_absorbs	no
+runtime	Runtime	Runtime/VerificationLoop.lean	loop_decreases	no
+runtime	Runtime	Runtime/VerificationLoop.lean	loop_end_atomic	no
+runtime	Runtime	Runtime/VerificationLoop.lean	loop_end_sat	no
+runtime	Runtime	Runtime/VerificationLoop.lean	loop_terminates_sat	no
+runtime	Runtime	Runtime/VerificationLoop.lean	no_loop_fixes_unsatisfiable	no
+runtime	Runtime	Runtime/VerificationLoop.lean	verification_loop_closes_holds	no
+runtime	Runtime	Runtime/VerificationLoop.lean	verification_loop_is_stable	no
 runtime	Runtime	Runtime/VerificationSoundness.lean	eq_zero_of_zero_dense	no
 runtime	Runtime	Runtime/VerificationSoundness.lean	residual_bound_of_sampled_tolerance	no
 runtime	Runtime	Runtime/VerificationSoundness.lean	residual_eq_zero_of_zero_dense	no

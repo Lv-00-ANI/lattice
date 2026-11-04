@@ -7,13 +7,13 @@
 
 ## 1. 数量与分布
 
-**311 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**312 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
 | `Lib` | 256 | 87.1% |
 | `Lift` | 0 | 0.0% |
-| `Runtime` | 9 | 3.1% |
+| `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
 | `Core` | 4 | 1.3% |
@@ -37,6 +37,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 98 轮新增一条**：`no_loop_fixes_unsatisfiable` —— **没有闭环能修好不可满足的目标**。
+**它不是新事实，而是把「`Repair` 收敛」与「`Sat` 可能为空」放在一起后必然的否定**，
+**故 `Runtime` 由 9 升为 10、总数由 311 升为 312。**
 
 **第 95 轮：`(root)` 由 4 降为 2，总数由 313 降为 311。**
 **这两个否证消失的原因是它们【变成了真命题】**：`pluginCensusPending_holds` 断言

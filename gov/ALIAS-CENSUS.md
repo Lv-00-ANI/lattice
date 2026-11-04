@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 714 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 161 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -908,6 +908,7 @@
 | `Runtime/L1L2Roundtrip.lean` | `filterMap_comp_append` |
 | `Runtime/L1L2Roundtrip.lean` | `filterMap_sym_append` |
 | `Runtime/RealTokenization.lean` | `tokenize_collision` |
+| `Runtime/VerificationLoop.lean` | `verification_loop_closes_holds` |
 | `Runtime/VerificationSoundness.lean` | `residual_le_of_zero_on_dense` |
 | `Semantics/CompileSound.lean` | `holdsSet_midpoint_single` |
 | `Semantics/CompileSound.lean` | `holdsSet_samePoint_single` |
