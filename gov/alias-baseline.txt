@@ -878,3 +878,4 @@ forward	Plugins/Architectures/GNN/Proofs.lean	msgPass_equivariant_one
 copy	Runtime/VerificationLoop.lean	verification_loop_closes_holds
 forward	Plugins/Targets/ConstructArtifact.lean	samePointArch_wf
 forward	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_satW_iff
+forward	Plugins/Targets/ExtractArtifact.lean	no_artifact_extractor_recovers_both

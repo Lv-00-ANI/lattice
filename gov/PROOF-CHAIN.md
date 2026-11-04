@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 293 | aggregator at `Lattice/`, re-exports only |
+| root | 294 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -858,13 +858,14 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
 - `Lattice.Plugins.Targets.ConstructArtifactBridge` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Plugins.Targets.Construction` <- `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Plugins.Targets.ExtractArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
 - `Lattice.Plugins.Targets.SemanticRep` <- `Lattice.Plugins.Manifest`, `Lattice.Runtime.Extraction`
@@ -1812,6 +1813,7 @@
 | `Lattice.Plugins.Targets.Construction` | 10 | 5 |
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
 | `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
+| `Lattice.Plugins.Targets.ExtractArtifact` | 8 | 2 |
 | `Lattice.Plugins.Targets.MultiSolver` | 2 | 4 |
 | `Lattice.Plugins.Targets.Nondegenerate` | 8 | 1 |
 | `Lattice.Plugins.Targets.SemanticRep` | 3 | 4 |
@@ -7299,6 +7301,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_affine_fit_squares` -> `Chain`, `Pt`, `W`, `affine_map_realisable`, `apply`, `at`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
 - `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `no_artifact_extractor_recovers_both` -> `ModelArtifact`, `W`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `recover`
 - `no_better_than_geometric` -> `Subgradient`, `at`
 - `no_constraint_has_extent_pair` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`
@@ -7531,6 +7534,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ofApprox_compile` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
 - `ofApprox_extract` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
 - `ofApprox_semEq` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
+- `ofArtifact_acts` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_depth` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_idempotent_shape` -> `ModelArtifact`, `depth`, `length`
+- `ofArtifact_injective_on_arch` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
+- `ofArtifact_params` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_widths` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_widths_nonempty` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
 - `ofClause_onlyAndOrNot` -> `Compiler`, `induction`
 - `ofDB_toDB` -> `Compiler`, `all`, `at`, `induction`, `subst`
 - `ofDB_toDB_witness` -> `Compiler`

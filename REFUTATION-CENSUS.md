@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**312 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**313 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,7 +19,7 @@
 | `Core` | 4 | 1.3% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
-| `Plugins` | 26 | 8.3% |
+| `Plugins` | 27 | 8.6% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 102 轮新增一条**：`no_artifact_extractor_recovers_both` —— **没有任何提取器能同时是编译的左逆
+与语义忠实的**。**它不是新事实，而是把 `Extraction.no_extractor_both_layers` 搬到工件层的词汇里**，
+**因为 `SymbolicSummary` 之所以是「摘要」而非「规格重建」，正是由它决定的**。
+故 `Plugins` 由 26 升为 27、总数由 312 升为 313。
 
 **第 98 轮新增一条**：`no_loop_fixes_unsatisfiable` —— **没有闭环能修好不可满足的目标**。
 **它不是新事实，而是把「`Repair` 收敛」与「`Sat` 可能为空」放在一起后必然的否定**，

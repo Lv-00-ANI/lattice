@@ -8955,6 +8955,14 @@ plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	perpendicular_expressib
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	rightAngle_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	samePoint_expressible	no
 plugins	Plugins/Targets	Plugins/Targets/Expressible.lean	sqDistEq_expressible	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	no_artifact_extractor_recovers_both	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_acts	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_depth	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_idempotent_shape	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_injective_on_arch	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_params	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths	no
+plugins	Plugins/Targets	Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths_nonempty	no
 plugins	Plugins/Targets	Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all	no
 plugins	Plugins/Targets	Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero	no
 plugins	Plugins/Targets	Plugins/Targets/Nondegenerate.lean	degenerateOK_imp_constConfigOK	no

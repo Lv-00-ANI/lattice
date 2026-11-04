@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 716 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 717 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 161 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -705,6 +705,7 @@
 | `Plugins/Migration.lean` | `stringPrefix_self` |
 | `Plugins/Targets/ConstructArtifact.lean` | `samePointArch_wf` |
 | `Plugins/Targets/ConstructArtifactBridge.lean` | `samePointArtifact_satW_iff` |
+| `Plugins/Targets/ExtractArtifact.lean` | `no_artifact_extractor_recovers_both` |
 | `Primitives/MultistepLoop.lean` | `bidir_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |
 | `Runtime/ApproxExtraction.lean` | `compose_via_calculus` |

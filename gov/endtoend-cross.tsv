@@ -2376,6 +2376,14 @@ Plugins/Targets/Expressible.lean	sqDistEq_expressible
 Plugins/Targets/Expressible.lean	equalLength_expressible
 Plugins/Targets/Expressible.lean	midpoint_expressible
 Plugins/Targets/Expressible.lean	perpendicular_expressible
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_depth
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_acts
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_params
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_injective_on_arch
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_widths_nonempty
+Plugins/Targets/ExtractArtifact.lean	no_artifact_extractor_recovers_both
+Plugins/Targets/ExtractArtifact.lean	ofArtifact_idempotent_shape
 Plugins/Targets/MultiSolver.lean	holdsSet_samePoint_all
 Plugins/Targets/MultiSolver.lean	penalty_samePoint_all_zero
 Plugins/Targets/Nondegenerate.lean	sqDist_self
