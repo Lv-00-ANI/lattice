@@ -496,7 +496,8 @@ def ProofComplete : Prop :=
     Lattice.Plugins.Runtime.t7_confluence ∧
     Lattice.Plugins.Runtime.t8_failure_isolation ∧
     Lattice.Runtime.ladder_end_to_end ∧
-    Lattice.Runtime.verification_loop_closes
+    Lattice.Runtime.verification_loop_closes ∧
+    Lattice.Plugins.Targets.CPhaseAdditions
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -686,7 +687,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -707,5 +708,6 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Plugins.Runtime.t8_failure_isolation_holds
   · exact Lattice.Runtime.ladder_end_to_end_holds
   · exact Lattice.Runtime.verification_loop_closes_holds
+  · exact Lattice.Plugins.Targets.cPhaseAdditions_holds
 
 end Lattice.Plugins

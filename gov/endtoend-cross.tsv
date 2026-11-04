@@ -2544,6 +2544,9 @@ Plugins/Targets/Statements.lean	t3_no_faithful_extractor_holds
 Plugins/Targets/Statements.lean	t4_repair_progress_holds
 Plugins/Targets/Statements.lean	t4_loop_converges_holds
 Plugins/Targets/Statements.lean	t0_is_statable
+Plugins/Targets/Strengthened.lean	c1_solve_reads_spec_holds
+Plugins/Targets/Strengthened.lean	c4_roundtrip_instances_holds
+Plugins/Targets/Strengthened.lean	cPhaseAdditions_holds
 Plugins/Targets/T1Dependence.lean	mem_merged_of_not_rejected
 Plugins/Targets/T1Dependence.lean	not_mem_merged_of_rejected
 Plugins/Targets/T1Dependence.lean	merge_sound_unrejected

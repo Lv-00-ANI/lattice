@@ -67,3 +67,4 @@ import Lattice.Plugins.Targets.T2Modulus
 import Lattice.Plugins.Targets.T3Instances
 import Lattice.Plugins.Targets.T3NonVacuous
 import Lattice.Plugins.Targets.T4FixedPoint
+import Lattice.Plugins.Targets.Strengthened

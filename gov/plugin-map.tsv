@@ -9039,6 +9039,9 @@ plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_loop_converges_holds	
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	t4_repair_progress_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	target_ledger_total	no
 plugins	Plugins/Targets	Plugins/Targets/Statements.lean	targets_complete	no
+plugins	Plugins/Targets	Plugins/Targets/Strengthened.lean	c1_solve_reads_spec_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Strengthened.lean	c4_roundtrip_instances_holds	no
+plugins	Plugins/Targets	Plugins/Targets/Strengthened.lean	cPhaseAdditions_holds	no
 plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	mem_merged_iff	no
 plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	mem_merged_of_not_rejected	no
 plugins	Plugins/Targets	Plugins/Targets/T1Dependence.lean	merge_sound_unrejected	no
