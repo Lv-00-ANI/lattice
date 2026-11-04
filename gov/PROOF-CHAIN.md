@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 308 | aggregator at `Lattice/`, re-exports only |
+| root | 309 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,10 +964,11 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
+- `Lattice.Semantics.InheritsInstance` <- `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.MeaningTypesFinite` <- `Lattice.Semantics.MeaningTypes`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
@@ -1931,6 +1932,7 @@
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
+| `Lattice.Semantics.InheritsInstance` | 4 | 2 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
 | `Lattice.Semantics.MeaningTypesFinite` | 4 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
@@ -3622,6 +3624,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `const_zero_conj_unbounded` -> `at`, `fenchelConjAll`, `mono`
 - `constant_carried` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `constant_changes_semantics` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
+- `constant_label_blocks_complete` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`
 - `constant_lr_converges` -> `apply`, `at`, `contraction_converges`, `le_trans`, `subst`
 - `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
@@ -5851,6 +5854,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `id_strictMono` -> `at`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
 - `idempotent_alone_does_not_suffice` -> `g`
+- `identityInherits_complete` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
+- `identityInherits_sound` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `trivial`
 - `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identitySemantic_sound` -> `W`, `decode`, `encode`
@@ -5974,6 +5979,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `informationTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `cross_ratio`, `informationTheoryTemplateNames`, `length`, `linearAlgebraPackage`, `linearAlgebraTemplateNames`, `linearAlgebraTemplates`, `linearAlgebraUnconstructibles`, `linearAlgebra_templateNames_length`, `mkTemplates`, `projectiveGeometryTemplateNames`, `projectiveGeometryTemplates`, `projectiveGeometryUnconstructibles`
 - `informationTheory_validB_eq_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `forall`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `length`, `linearAlgebraPackage`, `not_forall_packageDependenciesValid`, `not_informationTheory_orig`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `inherits_behavior_ext` -> `Weights`, `behavior`, `embed`, `sound`
+- `inherits_is_inhabited` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
 - `inherits_sound` -> `Domain`, `Weights`, `behavior`, `embed`, `sound`
 - `initVerifier_satisfiable` -> `apply`, `at`, `g`, `step`
 - `init_then_weight` -> `SymOne`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`

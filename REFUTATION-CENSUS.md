@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**315 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**316 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 28 | 8.9% |
-| `Semantics` | 1 | 0.3% |
+| `Semantics` | 2 | 0.6% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 120 轮新增一条**：`constant_label_blocks_complete` —— **常值标注的几何不满足 `completeOn`**，
+**故 `identityInherits` 所要求的满射假设是真实成本而非形式条件。**
+故 `Semantics` 由 1 升为 2、总数由 315 升为 316。
 
 **第 119 轮新增一条**：`refines_not_trivial` —— **存在不精化任何约束的程序/约束对**，
 **故 `refines` 关系既非空也非全，是真正的二元关系而非永真式的包装。**

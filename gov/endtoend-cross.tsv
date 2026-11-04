@@ -2881,6 +2881,10 @@ Semantics/CompileSoundGeneral.lean	bridged_midpoint_iff
 Semantics/CompileSoundGeneral.lean	compile_sound_general
 Semantics/CompileSoundGeneral.lean	compile_sound_as_special
 Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R
+Semantics/InheritsInstance.lean	identityInherits_sound
+Semantics/InheritsInstance.lean	identityInherits_complete
+Semantics/InheritsInstance.lean	inherits_is_inhabited
+Semantics/InheritsInstance.lean	constant_label_blocks_complete
 Semantics/Merge.lean	holdsSet_of_sublist
 Semantics/Merge.lean	merged_sublist
 Semantics/Merge.lean	holdsSet_flatMap_experts

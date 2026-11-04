@@ -9573,6 +9573,10 @@ semantics	Semantics	Semantics/CompileSoundGeneral.lean	bridged_samePoint_iff	no
 semantics	Semantics	Semantics/CompileSoundGeneral.lean	compile_sound_as_special	no
 semantics	Semantics	Semantics/CompileSoundGeneral.lean	compile_sound_general	no
 semantics	Semantics	Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R	no
+semantics	Semantics	Semantics/InheritsInstance.lean	constant_label_blocks_complete	no
+semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_complete	no
+semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_sound	no
+semantics	Semantics	Semantics/InheritsInstance.lean	inherits_is_inhabited	no
 semantics	Semantics	Semantics/MeaningTypes.lean	codomains_differ_at_d	no
 semantics	Semantics	Semantics/MeaningTypes.lean	option_fin_has_d_plus_one	no
 semantics	Semantics	Semantics/MeaningTypes.lean	prop_has_two_values	no
