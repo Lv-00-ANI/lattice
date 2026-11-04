@@ -66,3 +66,4 @@ import Lattice.Plugins.Targets.FullAnchorSolver
 import Lattice.Plugins.Targets.T2Modulus
 import Lattice.Plugins.Targets.T3Instances
 import Lattice.Plugins.Targets.T3NonVacuous
+import Lattice.Plugins.Targets.T4FixedPoint

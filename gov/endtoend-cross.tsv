@@ -2564,6 +2564,11 @@ Plugins/Targets/T3NonVacuous.lean	translationSem_inhabited
 Plugins/Targets/T3NonVacuous.lean	translationSem_nontrivial
 Plugins/Targets/T3NonVacuous.lean	no_faithful_extractor_nontrivial
 Plugins/Targets/T3NonVacuous.lean	sem_quantifier_not_degenerate
+Plugins/Targets/T4FixedPoint.lean	t4_loop_fixed_point_holds
+Plugins/Targets/T4FixedPoint.lean	fixed_point_gives_sat
+Plugins/Targets/T4FixedPoint.lean	sat_alone_not_fixed
+Plugins/Targets/T4FixedPoint.lean	fixed_point_form_matches
+Plugins/Targets/T4FixedPoint.lean	conj_loop_is_fixed_point_shape
 Primitives/MultistepLoop.lean	step_pos
 Primitives/MultistepLoop.lean	step_neg
 Primitives/MultistepLoop.lean	step_zero

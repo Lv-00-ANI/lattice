@@ -9063,6 +9063,11 @@ plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	no_faithful_extractor_
 plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	sem_quantifier_not_degenerate	no
 plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	translationSem_inhabited	no
 plugins	Plugins/Targets	Plugins/Targets/T3NonVacuous.lean	translationSem_nontrivial	no
+plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	conj_loop_is_fixed_point_shape	no
+plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	fixed_point_form_matches	no
+plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	fixed_point_gives_sat	no
+plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	sat_alone_not_fixed	yes
+plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	t4_loop_fixed_point_holds	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_not_one_step	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_steps	no
 primitives	Primitives	Primitives/MultistepLoop.lean	multistep_geometric_exists	no

@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 302 | aggregator at `Lattice/`, re-exports only |
+| root | 303 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -859,7 +859,7 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T2Modulus`, `Lattice.Plugins.Targets.T3Instances`, `Lattice.Plugins.Targets.T3NonVacuous`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`, `Lattice.Plugins.Targets.KindReadingSolver`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T2Modulus`, `Lattice.Plugins.Targets.T3Instances`, `Lattice.Plugins.Targets.T3NonVacuous`, `Lattice.Plugins.Targets.T4FixedPoint`
 - `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
@@ -882,6 +882,7 @@
 - `Lattice.Plugins.Targets.T2Modulus` <- `Lattice.Plugins.Targets.T2Min`
 - `Lattice.Plugins.Targets.T3Instances` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Targets.T3NonVacuous` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Runtime.Extraction`
+- `Lattice.Plugins.Targets.T4FixedPoint` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Domains.Geometry.ClosedLoop`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
 - `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
 - `Lattice.Primitives.TokenizeStrategy` 
@@ -1839,6 +1840,7 @@
 | `Lattice.Plugins.Targets.T2Modulus` | 7 | 1 |
 | `Lattice.Plugins.Targets.T3Instances` | 3 | 1 |
 | `Lattice.Plugins.Targets.T3NonVacuous` | 4 | 1 |
+| `Lattice.Plugins.Targets.T4FixedPoint` | 5 | 1 |
 | `Lattice.Primitives` | 0 | 0 |
 | `Lattice.Primitives.MultistepLoop` | 8 | 3 |
 | `Lattice.Primitives.TokenizeStrategy` | 0 | 0 |
@@ -3585,6 +3587,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conjRepair_reaches_ir` -> `GeoConstraint`, `IRConstraintLite`, `IRHolds`, `Pt`, `compileIR_sound`, `conjRepair`, `progress`, `seg`
 - `conjRepair_sat_iff_ir` -> `GeoConstraint`, `Holds`, `IRConstraintLite`, `IRHolds`, `Pt`, `Sat`, `compileIR_sound`, `conjRepair`, `progress`, `seg`
 - `conj_loop_fixed_point` -> `GeoConstraint`, `Holds`, `Pt`, `Sat`, `compile`, `conjRepair`, `extract`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
+- `conj_loop_is_fixed_point_shape` -> `Pt`, `conjRepair`, `conj_loop_fixed_point`
 - `conj_loop_is_stable` -> `GeoConstraint`, `Holds`, `Pt`, `conjRepair`, `loop_fixed_point_stable`, `seqRepresentation`
 - `conj_loop_reaches` -> `GeoConstraint`, `Holds`, `Pt`, `Sat`, `conjRepair`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
 - `conj_real_smul_c` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
@@ -5133,6 +5136,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fixSamePoint_preserves_perp` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `apply`, `fixPerp`, `fixPerp_absorbs`, `fixPerp_holds`, `fixPerp_preserves_samePoint`, `fixSamePoint`, `fixSamePoint_absorbs`, `fixSamePoint_holds`, `perpMeasure`, `perpMeasure_eq_zero_iff`, `samePointMeasure`, `samePointMeasure_eq_zero_iff`, `seg`
 - `fixSamePoint_self` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`, `iterate`, `progress`
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`, `at`
+- `fixed_point_form_matches` -> `Pt`, `Repair`, `Sat`, `conjRepair`, `conj_loop_fixed_point`
+- `fixed_point_gives_sat` -> `Pt`, `Repair`, `Sat`, `conjRepair`, `conj_loop_fixed_point`, `converges_within`, `iterate`, `trivial`
 - `fixpoint_transfer_le` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `at`, `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
 - `flatChainAct_cons_general` -> `Chain`, `MLayer`, `W`, `e2`, `g`
@@ -9146,6 +9151,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `satSet_roundTrip_invariant` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `satSet_wellDefined` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `sat_all` -> `Holds`, `all`, `at`, `bvar`, `induction`
+- `sat_alone_not_fixed` -> `Pt`, `Repair`, `Sat`, `conjRepair`, `conj_loop_fixed_point`, `trivial`
 - `sat_append_tail` -> `length`
 - `sat_bot` -> `Holds`, `all`, `at`, `bvar`
 - `sat_complete_decidable` -> `QProgram`, `ZProgram`
@@ -10156,6 +10162,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `t3_rename_keeps_t1` -> `UnknownOp`, `residualOp`, `t1_decompose`
 - `t3_semantic_not_injective_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `W`, `compile`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t4_loop_converges_holds` -> `ExpressibleSpec`, `converges_within`, `length`, `trivial`
+- `t4_loop_fixed_point_holds` -> `Pt`, `Repair`, `Sat`, `conjRepair`, `conj_loop_fixed_point`, `converges_within`, `iterate`, `trivial`
 - `t4_repair_progress_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `converges_within`, `iterate`, `length`, `progress`, `trivial`
 - `t5_recovery_holds` -> `Effect`, `RState`, `Reaches`, `Step`, `apply`, `applySeq`, `applySeq_swap`, `apply_comm`, `canDeactivate`, `canDeactivate_of_nil_live`, `deactivate_before_unload`, `fail_leaves_state`, `run`, `runSeq`, `runSeq_head_fails`, `undo`, `undoSeq_apply`, `undo_apply`
 - `t5_recovery_single_holds` -> `Effect`, `RState`, `Reaches`, `Step`, `apply`, `applySeq`, `applySeq_swap`, `apply_comm`, `canDeactivate`, `canDeactivate_of_nil_live`, `deactivate_before_unload`, `fail_leaves_state`, `run`, `runSeq`, `runSeq_head_fails`, `undo_apply`

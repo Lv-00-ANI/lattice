@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**313 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**314 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -19,7 +19,7 @@
 | `Core` | 4 | 1.3% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
-| `Plugins` | 27 | 8.6% |
+| `Plugins` | 28 | 8.9% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,11 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 112 轮新增一条**：`sat_alone_not_fixed` —— **仅有 `Sat` 不足以给出不动点**，
+**因为 `fix` 可以在满足点上移动它，除非 `Repair.absorbs` 被施加。**
+**这条使 T4 的第三条义务（`t4_loop_fixed_point`）非平凡，而非 `Sat` 的推论。**
+故 `Plugins` 由 27 升为 28、总数由 313 升为 314。
 
 **第 102 轮新增一条**：`no_artifact_extractor_recovers_both` —— **没有任何提取器能同时是编译的左逆
 与语义忠实的**。**它不是新事实，而是把 `Extraction.no_extractor_both_layers` 搬到工件层的词汇里**，

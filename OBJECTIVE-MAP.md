@@ -32,7 +32,7 @@
 | 3.3 inverse: repair | `midpointFix` | `Domains/Geometry/MissingRepairs.lean` | 0 *(仅本文件)* | 13 | — |
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
 | 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
-| 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 11 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
+| 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 12 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
 | 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 26 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
 | 5 symbolic engine | `derivation_sound` | `Domains/Geometry/Engine.lean` | 1 | 0 | `Domains/Geometry/Rules.lean` |
