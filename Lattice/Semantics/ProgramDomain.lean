@@ -136,13 +136,31 @@ def ProgramRefinesConstraint (n d : ℕ) : Prop :=
   ∃ V : (programDomain d).Meaning → (constraintDomain n).Meaning → Prop,
     ∀ p c, V p c → ∀ pts, c pts
 
-/-- **The two meaning TYPES are unequal, stated as the open claim it is.**
+/-- **The two meaning TYPES are unequal -- and this is an OPEN PROBLEM, not an unproved lemma.**
 
-**This is TRUE -- one is `Prop`-valued, the other `Option`-valued -- and it is NOT proved here.**
-**An earlier draft's attempt needed universe reasoning the projections do not expose.**
-**=> the claim is recorded as a `Prop` with no proof, so a future round can either prove it or discover why it
-does not typecheck, rather than the file silently omitting it.** -/
-def meaningTypesDiffer (n d : ℕ) : Prop :=
+**The claim `(constraintDomain n).Meaning ≠ (programDomain d).Meaning` is the natural strengthening one wants,
+and FOUR routes were tried, each failing for a reason that is now known:**
+
+| route | outcome |
+|:--|:--|
+| **cardinality of the function types** | **both are infinite; counting separates nothing** |
+| **`congrArg` to extract the codomain** | **an equality of function types does not decompose** |
+| **`Equiv` extraction via `Classical.arbitrary`** | **the round trip needs `f x = f arb`, which is FALSE** |
+| **`Cardinal.mk`** | **both are the continuum; `mk` cannot separate them** |
+
+**The structural fact behind the second and third: `forall` is NOT injective on types under PROPOSITIONAL
+equality.**
+**The Lean4Lean paper's Conjecture 2.9 states injectivity only for DEFINITIONAL equality, and notes explicitly
+that "if we use propositional equality instead of def.eq then the theorem fails".**
+**=> `(alpha -> beta) = (alpha -> gamma)` does NOT give `beta = gamma` in Lean, so the naive argument for this
+claim has no step to stand on.**
+
+**Whether the claim is TRUE is a separate question this file does not settle: it may be provable by an argument
+that avoids codomain extraction, or it may be independent of the axioms here.**
+**=> recorded as a `Prop` with NO proof and NO pretence, together with the four refuted routes -- so the next
+round starts from where this one stopped rather than repeating it.**
+**`MeaningTypes` supplies what IS provable: the CODOMAIN cardinalities differ for `d >= 2`.** -/
+def meaningTypesDiffer (n d : Nat) : Prop :=
   (constraintDomain n).Meaning ≠ (programDomain d).Meaning
 
 end Lattice.Semantics.Stage1
