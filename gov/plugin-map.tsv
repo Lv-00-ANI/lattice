@@ -8925,6 +8925,13 @@ plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_of_degenerateOK	n
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_perpendicular_const	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_rightAngle_const	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	seg_const_zero	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifact.lean	construct_artifact_depth	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifact.lean	construct_artifact_layers_nonempty	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifact.lean	samePointArch_wf	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_arch	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_depth	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_layers	no
+plugins	Plugins/Targets	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_satW_iff	no
 plugins	Plugins/Targets	Plugins/Targets/Construction.lean	construct_approx_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Construction.lean	construct_canonical_holds	no
 plugins	Plugins/Targets	Plugins/Targets/Construction.lean	construct_complete_holds	no

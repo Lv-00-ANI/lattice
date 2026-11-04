@@ -876,3 +876,5 @@ forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz_sharp
 forward	Plugins/Migration.lean	stringPrefix_self
 forward	Plugins/Architectures/GNN/Proofs.lean	msgPass_equivariant_one
 copy	Runtime/VerificationLoop.lean	verification_loop_closes_holds
+forward	Plugins/Targets/ConstructArtifact.lean	samePointArch_wf
+forward	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_satW_iff

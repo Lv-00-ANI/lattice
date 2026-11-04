@@ -56,3 +56,5 @@ import Lattice.Plugins.Targets.T1Dependence
 import Lattice.Plugins.Targets.SemanticRep
 import Lattice.Plugins.Targets.Statements
 import Lattice.Plugins.Targets.Construction
+import Lattice.Plugins.Targets.ConstructArtifact
+import Lattice.Plugins.Targets.ConstructArtifactBridge

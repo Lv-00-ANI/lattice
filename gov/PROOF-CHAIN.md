@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 291 | aggregator at `Lattice/`, re-exports only |
+| root | 293 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -858,8 +858,10 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
+- `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
+- `Lattice.Plugins.Targets.ConstructArtifactBridge` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Plugins.Targets.Construction` <- `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.Statements`
 - `Lattice.Plugins.Targets.DegenerateSolver` <- `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Expressible` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Constraints.Constraint`
@@ -1805,6 +1807,8 @@
 | `Lattice.Plugins.Runtime.Spatiotemporal.Seq` | 1 | 3 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
 | `Lattice.Plugins.Targets.ConstFamily` | 7 | 1 |
+| `Lattice.Plugins.Targets.ConstructArtifact` | 3 | 4 |
+| `Lattice.Plugins.Targets.ConstructArtifactBridge` | 4 | 2 |
 | `Lattice.Plugins.Targets.Construction` | 10 | 5 |
 | `Lattice.Plugins.Targets.DegenerateSolver` | 3 | 2 |
 | `Lattice.Plugins.Targets.Expressible` | 10 | 5 |
@@ -3589,6 +3593,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraints_of_program_cons_point` -> `Compiler`, `at`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `induction`, `lvConstraint`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `point`, `subst`
 - `constraints_of_program_cons_prove` -> `Compiler`, `at`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `induction`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `point`, `subst`
 - `construct_approx_holds` -> `FamilySolver`, `HoldsSet`, `Pt`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `construct_artifact_depth` -> `AffineLayer`, `depth`, `length`
+- `construct_artifact_layers_nonempty` -> `AffineLayer`, `length`
 - `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
@@ -8968,6 +8974,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sameFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `sameLayer_imp_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `sameLayer_strictly_finer_than_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_respects_semEq`, `induction`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
+- `samePointArch_wf` -> `AffineLayer`, `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `count`, `depth`, `identity`, `length`, `one_wellFormed`
+- `samePointArtifact_arch` -> `Arch`, `enc`, `identity`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
+- `samePointArtifact_depth` -> `Arch`, `depth`, `enc`, `identity`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
+- `samePointArtifact_layers` -> `Arch`, `enc`, `identity`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
+- `samePointArtifact_satW_iff` -> `enc`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
 - `samePointLadder_forward` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `samePointLadder_satW_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `samePointLayer_act` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`

@@ -2346,6 +2346,13 @@ Plugins/Targets/ConstFamily.lean	holds_rightAngle_const
 Plugins/Targets/ConstFamily.lean	holds_perpendicular_const
 Plugins/Targets/ConstFamily.lean	holds_of_degenerateOK
 Plugins/Targets/ConstFamily.lean	expressible_of_degenerateOK
+Plugins/Targets/ConstructArtifact.lean	samePointArch_wf
+Plugins/Targets/ConstructArtifact.lean	construct_artifact_depth
+Plugins/Targets/ConstructArtifact.lean	construct_artifact_layers_nonempty
+Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_depth
+Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_layers
+Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_arch
+Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_satW_iff
 Plugins/Targets/Construction.lean	holdsSet_of_forall
 Plugins/Targets/Construction.lean	FamilySolver.holdsSet_all
 Plugins/Targets/Construction.lean	construct_sound_holds
