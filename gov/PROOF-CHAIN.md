@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 305 | aggregator at `Lattice/`, re-exports only |
+| root | 306 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,10 +964,11 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
+- `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.ProgramDomain` <- `Lattice.Semantics.Stage1`
@@ -1928,6 +1929,7 @@
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
+| `Lattice.Semantics.MeaningTypes` | 4 | 0 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.ProgramDomain` | 6 | 3 |
@@ -3227,6 +3229,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `codegenLadder_forward` -> `Ladder`, `StackOp`, `compileProg`, `g`, `ladder_forward`, `runProg`, `satSym`, `satW`, `toStack`
 - `codegenLadder_l2l3_changes_representation` -> `compileProg`, `g`, `toStack`
 - `codegenLadder_satW_iff` -> `StackOp`, `compileProg`, `g`, `runProg`, `satW`, `toStack`
+- `codomains_differ_at_d` -> `d`
 - `coeff_C_of_ne_zero` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `cofactor_diag` -> `GeoConstraint`, `Pt`, `seg`
 - `cofactor_eq_zero_of_plucker_zero` -> `Pt`, `apply`, `at`, `cofactor`, `pluckerNorm`, `subst`
@@ -7769,6 +7772,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `optimal_lambda_algebra_wrong_shape` -> `at`, `convert`, `crossEntropy`, `kl`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
 - `optimality_principle` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
 - `optimality_principle_greedy` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
+- `option_fin_has_d_plus_one` -> `d`
 - `optional_false_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `run`
 - `optional_sound` -> `Primitive`, `dec`, `run`, `sound`
 - `optional_stopping_bounded_martingale` -> `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
@@ -8260,6 +8264,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `proof_holds` -> `Constraint`, `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_soundness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `proofsFile_under_dir` -> `AllMandatoryKindsCoveredFor`, `CPhaseAdditions`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
+- `prop_has_two_values` -> `d`
 - `proxGrad_contraction` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `g`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
 - `proxGrad_converges` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `g`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
 - `proxGrad_descent_lemma` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `g`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
@@ -10647,6 +10652,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `value_no_step` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `value_not_app` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `subst`, `zero`
 - `value_not_var` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `subst`, `zero`
+- `value_spaces_differ` -> `d`
 - `value_weakening` -> `add`, `at`, `induction`, `step`, `subst`
 - `varLengthChain_succ` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `varLengthChain_zero` -> `E`, `apply`, `induction`, `le_trans`, `zero`
