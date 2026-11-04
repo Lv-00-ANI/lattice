@@ -69,19 +69,39 @@ theorem finite_card_identities (k d : ℕ) :
   · simp
   · simp
 
-/-- **The general family is NOT proved here, and the reason is recorded rather than the lemma carried.**
+/-- **The general family: for `k ≥ 1` and `d ≥ 2`, `2 ^ k ≠ (d + 1) ^ k`.**
 
-**The natural strengthening `2 ^ k ≠ (d + 1) ^ k` for `k ≥ 1`, `d ≥ 1` needs
-`2 ^ k < (d + 1) ^ k`, and six attempts to derive it (via `Nat.pow_lt_pow_left`, `omega`, `Nat.lt_of_lt_of_le`,
-and `by_cases`) did not close.**
-**`omega` reported a constraint mentioning only `k` in every attempt, which suggests the exponent is being
-rewritten before the base comparison reaches it.**
+**Six drafts of this failed, and the reason was NOT the `omega` behaviour I first blamed -- it was the
+HYPOTHESIS.**
+**Every draft assumed `1 ≤ d`, and `1 ≤ d` does NOT give `2 < d + 1`: at `d = 1` the inequality reads
+`2 < 2`, which is false.**
 
-**=> `finite_separation` (`k = 1`, `d = 0`) carries the content, and this `def` records the general case as
-unfinished instead of a lemma that will not compile.**
-**The claim itself is TRUE; it is the derivation that is missing.** -/
-def finiteSeparationGeneral (k d : ℕ) : Prop :=
-  1 ≤ k → 1 ≤ d → 2 ^ k ≠ (d + 1) ^ k
+**`2 < d + 1` is equivalent to `2 ≤ d` (by `Nat.lt_succ_iff`, since `d + 1` is `d.succ`), so the correct
+hypothesis is `2 ≤ d`.**
+
+**=> `omega`'s "No usable constraints found" was telling me the truth: the goal was NOT derivable from those
+hypotheses.**
+**A tool's refusal is evidence about the STATEMENT, not only about the tool -- and six rounds of blaming
+`omega` delayed noticing that the statement was false.** -/
+theorem finite_separation_general (k d : ℕ) (hk : 1 ≤ k) (hd : 2 ≤ d) :
+    Fintype.card (Fin k → Prop) ≠ Fintype.card (Fin k → Option (Fin d)) := by
+  obtain ⟨h1, h2⟩ := finite_card_identities k d
+  rw [h1, h2]
+  -- `d + 1` is `d.succ`, so `2 < d + 1` follows from `2 ≤ d`
+  have hbase : 2 < d + 1 := by rw [Nat.lt_succ_iff]; exact hd
+  have hk0 : k ≠ 0 := by omega
+  exact Nat.ne_of_lt (Nat.pow_lt_pow_left hbase hk0)
+
+/-- **The `d = 1` case is EXCLUDED by the hypothesis, and this theorem records why that is not a gap.**
+
+**At `d = 1` the two cardinalities are `2 ^ k` and `2 ^ k` -- EQUAL for every `k` -- so the claim is simply
+FALSE there, not merely unproved.**
+**=> `finite_separation_general`'s hypothesis `2 ≤ d` is the sharp one, and the file states the excluded case
+rather than leaving a reader to wonder whether the exclusion was an oversight.** -/
+theorem finite_separation_d_one_collides (k : ℕ) :
+    Fintype.card (Fin k → Prop) = Fintype.card (Fin k → Option (Fin 1)) := by
+  obtain ⟨h1, h2⟩ := finite_card_identities k 1
+  rw [h1, h2]
 
 /-! ## Where the counting stops -/
 

@@ -1931,7 +1931,7 @@
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
-| `Lattice.Semantics.MeaningTypesFinite` | 2 | 2 |
+| `Lattice.Semantics.MeaningTypesFinite` | 4 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.ProgramDomain` | 6 | 3 |
@@ -5094,6 +5094,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_separation` -> `at`, `constraintDomain`, `d`, `programDomain`
+- `finite_separation_d_one_collides` -> `constraintDomain`, `programDomain`
+- `finite_separation_general` -> `constraintDomain`, `d`, `programDomain`
 - `finite_subset_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_sum_le_tsum_general` -> `apply`, `g`, `infinite_sum_bound`
 - `finite_support_le_all` -> `apply`, `fenchelConjugate`, `fenchelConjugate_le`
