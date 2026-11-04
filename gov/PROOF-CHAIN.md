@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 295 | aggregator at `Lattice/`, re-exports only |
+| root | 296 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -859,7 +859,7 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`, `Lattice.Plugins.Targets.SpecReadingSolver`
 - `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
@@ -873,6 +873,7 @@
 - `Lattice.Plugins.Targets.SemanticRep` <- `Lattice.Plugins.Manifest`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.SolverBoundary` <- `Lattice.Plugins.Targets.MultiSolver`
+- `Lattice.Plugins.Targets.SpecReadingSolver` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.ConstFamily`
 - `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.T1Dependence` <- `Lattice.Plugins.Manifest`, `Lattice.Semantics.Merge`
 - `Lattice.Plugins.Targets.T2Min` <- `Lattice.Plugins.Manifest`, `Lattice.Domains.Geometry.ExprLocalMin`
@@ -1823,6 +1824,7 @@
 | `Lattice.Plugins.Targets.SemanticRep` | 3 | 4 |
 | `Lattice.Plugins.Targets.Solver` | 2 | 1 |
 | `Lattice.Plugins.Targets.SolverBoundary` | 5 | 2 |
+| `Lattice.Plugins.Targets.SpecReadingSolver` | 15 | 5 |
 | `Lattice.Plugins.Targets.Statements` | 15 | 16 |
 | `Lattice.Plugins.Targets.T1Dependence` | 5 | 1 |
 | `Lattice.Plugins.Targets.T2Min` | 5 | 2 |
@@ -2393,6 +2395,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `amgm_mean_nat_false` -> `at`, `card_fin`
 - `amgm_mean_real` -> `at`, `card_fin`
 - `amgm_two` -> `at`, `card_fin`
+- `anchorWitnessSpec_constraints` -> `GeoConstraint`, `IsExpressible`, `at`, `samePoint_expressible`
+- `anchorWitnessSpec_family` -> `GeoConstraint`, `IsExpressible`, `at`, `samePoint_expressible`
 - `andC_eq_zero_iff` -> `apply`, `int_sq_eq_zero_iff`, `int_sq_nonneg`, `le_antisymm`
 - `andC_pos_of_ne` -> `at`, `subst`
 - `and_or_not_complete` -> `Compiler`
@@ -2859,6 +2863,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `canonical_forms_int` -> `Compiler`, `Step`, `add`, `e2`, `induction`, `step`
 - `canonical_forms_real` -> `Compiler`, `Step`, `add`, `e2`, `induction`, `step`
 - `canonical_isSome_of_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `canonical_not_refl_for_arbitrary` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
 - `canonical_representative_gives_quotient_inverse` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `canonical_representative_needed` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `canonicalization_not_free` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -5875,6 +5880,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `indicator_sum` -> `abs_mean_le_one`, `uniformExpectation`, `uniformProb`
 - `indicesBelow_const` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`, `trivial`
 - `indicesBelow_coord` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
+- `indicesOf_nil` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `indicesOf_samePoint` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `infConv_eq_of_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infConv_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
@@ -6777,6 +6784,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matvec_add_matrix` -> `W`, `apply`
 - `matvec_smul` -> `W`, `apply`
 - `maxEntropy_with_moment_constraint` -> `at`, `ce_ge_entropy`, `entropy`
+- `maxIndex_differs` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `maxIndex_samePoint_0_0` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `maxIndex_samePoint_3_7` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `maxPoint_le_add_left` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `maxPoint_le_mul_left` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `maxPoint_le_sub_left` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
@@ -9512,6 +9522,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sol_apply` -> `Chain`, `apply`, `at`, `blocks`, `le`
 - `sol_eq_mech` -> `Chain`, `at`, `blocks`
 - `solution_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
+- `solve_depends_on_spec` -> `GeoConstraint`, `at`, `samePoint_expressible`
+- `solve_reads_indices_only` -> `GeoConstraint`
 - `soundAbstract_alpha_le` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `zero`
 - `soundAbstract_iff_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
 - `soundAbstract_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
@@ -9539,6 +9551,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sparse_edit_zero_outside` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `prune_magnitude_bound`
 - `sparse_uniqueness_of_nullspace` -> `at`, `l0Norm`
 - `sparse_uniqueness_trivial` -> `at`
+- `specAnchoredSolve_anchor` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `specAnchoredSolve_canonical` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_complete` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_cost_zero` -> `ExpressibleSpec`, `GeoConstraint`, `IsExpressible`, `at`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_sound` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `spec_pmf` -> `min`
 - `spec_retract_minimal` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `spec_retract_of_failure_identifiable` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`

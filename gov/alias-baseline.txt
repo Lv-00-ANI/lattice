@@ -879,3 +879,5 @@ copy	Runtime/VerificationLoop.lean	verification_loop_closes_holds
 forward	Plugins/Targets/ConstructArtifact.lean	samePointArch_wf
 forward	Plugins/Targets/ConstructArtifactBridge.lean	samePointArtifact_satW_iff
 forward	Plugins/Targets/ExtractArtifact.lean	no_artifact_extractor_recovers_both
+forward	Plugins/Targets/SpecReadingSolver.lean	specAnchoredSolve_complete
+forward	Plugins/Targets/SpecReadingSolver.lean	specAnchoredSolve_cost_zero
