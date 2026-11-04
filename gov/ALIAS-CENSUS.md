@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 719 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 722 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 161 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -745,6 +745,9 @@
 | `Runtime/WeightLadder.lean` | `weightLadder_forward` |
 | `Semantics/Annotations.lean` | `edit_frame_holds` |
 | `Semantics/Annotations.lean` | `holdsSet_member` |
+| `Semantics/CompileSoundGeneral.lean` | `bridged_midpoint_iff` |
+| `Semantics/CompileSoundGeneral.lean` | `bridged_samePoint_iff` |
+| `Semantics/CompileSoundGeneral.lean` | `compile_sound_mentions_R` |
 | `Semantics/Merge.lean` | `merge_sound` |
 | `Semantics/PostTrain.lean` | `post_train_preserves_holds` |
 | `Semantics/PostTrain.lean` | `post_train_preserves_set` |

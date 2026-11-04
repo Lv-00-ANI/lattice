@@ -2774,6 +2774,11 @@ Semantics/CompileSound.lean	holdsSet_samePoint_single
 Semantics/CompileSound.lean	holdsSet_midpoint_single
 Semantics/CompileSound.lean	compile_sound
 Semantics/CompileSound.lean	compile_sound_midpoint
+Semantics/CompileSoundGeneral.lean	bridged_samePoint_iff
+Semantics/CompileSoundGeneral.lean	bridged_midpoint_iff
+Semantics/CompileSoundGeneral.lean	compile_sound_general
+Semantics/CompileSoundGeneral.lean	compile_sound_as_special
+Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R
 Semantics/Merge.lean	holdsSet_of_sublist
 Semantics/Merge.lean	merged_sublist
 Semantics/Merge.lean	holdsSet_flatMap_experts

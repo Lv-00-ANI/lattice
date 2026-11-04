@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 298 | aggregator at `Lattice/`, re-exports only |
+| root | 299 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -959,9 +959,10 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
+- `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
@@ -1915,6 +1916,7 @@
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
+| `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
@@ -2808,6 +2810,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bridgedCount_empty` -> `Audit`, `mul`, `one`
 - `bridgedCount_hom` -> `Audit`
 - `bridgedCount_sequential` -> `Audit`, `induction`, `mul`, `one`
+- `bridged_midpoint_iff` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `collinear`, `compile_sound_general`, `holdsSet_mem`, `merge_sound`, `merged`, `midpointLadder_satW_iff`, `parallel`, `samePointLadder`, `satW`, `trivial`
+- `bridged_samePoint_iff` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `collinear`, `compile_sound_general`, `holdsSet_mem`, `merge_sound`, `merged`, `midpointLadder_satW_iff`, `parallel`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `trivial`
 - `brier_nonneg` -> `apply`, `at`, `le`
 - `budgetError_bound` -> `at`
 - `budget_error_sharp_zero` -> `at`
@@ -3342,7 +3346,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_program_go_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
 - `compile_program_vars_subset` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_sound` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`
-- `compile_sound_general` -> `W`, `compile`, `decode`, `encode`, `extract`, `preserves`, `roundtrip`, `subst`, `trans`
+- `compile_sound_as_special` -> `GeoConstraint`, `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`, `samePointLadder`, `satW`
+- `compile_sound_general` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `W`, `collinear`, `compile`, `decode`, `encode`, `extract`, `holdsSet_mem`, `merge_sound`, `merged`, `parallel`, `preserves`, `roundtrip`, `samePointLadder`, `satW`, `subst`, `trans`, `trivial`
+- `compile_sound_mentions_R` -> `GeoConstraint`, `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`
 - `compile_sound_midpoint` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `satW`
 - `compile_sound_n` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
 - `compile_stmt_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`

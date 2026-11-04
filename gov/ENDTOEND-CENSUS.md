@@ -21,15 +21,18 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 3 | 632 | 6.6% |
 | 4 | 282 | 2.9% |
 | 5 | 752 | 7.8% |
-| 6 | 449 | 4.7% |
-| 7 | 8 | 0.1% |
-| **合计** | **9586** | |
+| 6 | 451 | 4.7% |
+| 7 | 11 | 0.1% |
+| **合计** | **9591** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
 | 7 | `t0_constructor_samePoint` (`Plugins/Targets/Construction.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `compile_sound_general` (`Plugins/Targets/SemanticRep.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `identitySemantic_sound` (`Plugins/Targets/SemanticRep.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 7 | `t1_compile_sound_general_holds` (`Plugins/Targets/SemanticRep.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `holds_samePoint_const` (`Plugins/Targets/Solver.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `t1_compile_sound_instance_holds` (`Plugins/Targets/Statements.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `mem_merged_of_not_rejected` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
@@ -86,9 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_layer` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_provides` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_idempotence` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_exactness` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_claims_approximation` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 
