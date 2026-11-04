@@ -112,6 +112,16 @@ core	Core	Core/Invariant.lean	compatible_iff_witness	no
 core	Core	Core/Invariant.lean	fix_eq_self_of_sat	no
 core	Core	Core/Invariant.lean	preserves_free	no
 core	Core	Core/Invariant.lean	preserves_of_sat	no
+core	Core	Core/ModelArtifact.lean	empty_wellFormed	no
+core	Core	Core/ModelArtifact.lean	grow_wellFormed	no
+core	Core	Core/ModelArtifact.lean	one_wellFormed	no
+core	Core	Core/ModelArtifactInstances.lean	affineTwoLayerArch_wf	no
+core	Core	Core/ModelArtifactInstances.lean	affineTwoLayer_depth	no
+core	Core	Core/ModelArtifactInstances.lean	affineTwoLayer_params	no
+core	Core	Core/ModelArtifactInstances.lean	affineUnitArch_wf	no
+core	Core	Core/ModelArtifactInstances.lean	affineUnit_depth	no
+core	Core	Core/ModelArtifactInstances.lean	reluArch_wf	no
+core	Core	Core/ModelArtifactInstances.lean	three_architectures	no
 core	Core	Core/Net.lean	affineAct_collinear	no
 core	Core	Core/Net.lean	affineAct_segment	no
 core	Core	Core/Net.lean	affineAct_zero	no

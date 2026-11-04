@@ -22,6 +22,8 @@ import Lattice.Core.AnalysisHelper
 import Lattice.Core.NonlinearLayer
 import Lattice.Core.VariableActLayer
 import Lattice.Core.VariableDerivative
+import Lattice.Core.ModelArtifact
+import Lattice.Core.ModelArtifactInstances
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE
