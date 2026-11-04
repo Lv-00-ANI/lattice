@@ -74,13 +74,13 @@
 | `Lattice.Domains.MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
 | `Lattice.Domains.MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
 | `Lattice.Domains.NetLoss` | 268 | 7 | ConstraintSet, PenaltyLoss |
-| `Lattice.Domains.NetLossDerivative` | 1155 | 46 | PenaltyLossDerivative, NetLoss |
+| `Lattice.Domains.NetLossDerivative` | 11 | 0 | — |
 | `Lattice.Domains.Nondegenerate` | 307 | 13 | Differentiable, Perturb, Derivative |
 | `Lattice.Domains.NondegenerateInstance` | 143 | 6 | Perturb, Nondegenerate |
 | `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
 | `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
 | `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `Lattice.Domains.PenaltyLoss` | 912 | 36 | Constraint, Dist, Lipschitz, DistLipschitz, PolyLipschitz |
+| `Lattice.Domains.PenaltyLoss` | 11 | 0 | — |
 | `Lattice.Domains.PenaltyLossDerivative` | 1288 | 44 | PenaltyLoss, DistDerivative, ExprDerivative |
 | `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
 | `Lattice.Domains.Perturb` | 126 | 8 | Flatten |

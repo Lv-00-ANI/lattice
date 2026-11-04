@@ -1,0 +1,1164 @@
+/-
+# The `Domains.Constraints.Penalty` plugin's proofs -- MOVED from `Lattice/Domains/Constraints/NetLossDerivative.lean`
+
+**The DECLARATIONS do not change -- same names, same statements, same proofs, same
+namespace.**
+This is the largest file moved so far by line count, and it moved by the same procedure as the
+small ones: nothing in the content is edited.
+The old path is now a facade that imports this file and contains no proof.
+-/
+
+import Mathlib
+import Lattice.Domains.Constraints.PenaltyLossDerivative
+import Lattice.Domains.Constraints.NetLoss
+import Lattice.Core.StackDerivative
+import Lattice.Core.Net
+
+/-!
+# `Lattice.Geo.NetLossDerivative` — **`netLoss` 对点列的导数：桥接引理**
+
+## 接口障碍，及其解法
+
+`netLoss params cs pts = (cs.map (fun c => penaltyLoss c (fun k => netAct params (pts k)))).sum`
+（第 101 轮）。
+
+第 128 轮的 `hasFDerivAt_penaltyLoss` 载体是 `fun r : Fin K → Pt n => penaltyLoss c (trunc r)`，
+**而 `trunc` 在 `k ≥ K` 处【补零】。**
+
+**`netLoss` 的点列是 `fun k => netAct params (pts k)`，而 `netAct params 0 ≠ 0`**（仿射层带偏置），
+**所以「`netLoss` 的点列等于某个 `trunc φ`」【不成立】。**
+
+## 解法：把「只读界内」这条事实显式化
+
+**`ConstraintIndicesBelow c K` 说的是「`c` 用到的点索引都 `< K`」。**
+**所以 `penaltyLoss c Φ` 只依赖 `Φ` 在 `[0,K)` 上的值——与 `Φ` 在界外是什么【无关】。**
+
+**本文件把这条事实逐层证出来：**
+
+1. `evalPts_congr_of_indicesBelow`：`GeoExpr` 的求值只依赖界内坐标；
+2. 由此逐步到 `penaltyLoss` 的同一性质。
+
+**有了它，`netLoss` 的导数只需把 `fun k => netAct params (trunc r k)` 与 `trunc φ` 在界内对齐，
+完全不必碰界外。**
+-/
+
+namespace Lattice.Geo
+
+open Lattice.Geo.GeoConstraint
+open Lattice.Geo.PenaltyLoss
+open Lattice.Core
+open scoped BigOperators
+
+/-- ⭐ **`evalPts` 只依赖界内坐标**：若 `Φ` 与 `Ψ` 在 `[0,K)` 上一致，且 `e` 的索引都 `< K`，
+则求值相同。
+
+**对 `GeoExpr` 的五个构造子归纳**：`coord` 用一致性假设，其余三项逐层应用归纳假设。 -/
+theorem evalPts_congr_of_indicesBelow {n : ℕ} (e : GeoExpr n) (K : ℕ)
+    (hK : IndicesBelow e K) (Φ Ψ : ℕ → Pt n) (h : ∀ k, k < K → Φ k = Ψ k) :
+    GeoExpr.evalPts e Φ = GeoExpr.evalPts e Ψ := by
+  induction e with
+  | coord q axis =>
+      have hq : q < K := hK
+      simp only [GeoExpr.evalPts]
+      rw [h q hq]
+  | const c => simp only [GeoExpr.evalPts]
+  | add e₁ e₂ ih₁ ih₂ => simp only [GeoExpr.evalPts, ih₁ hK.1, ih₂ hK.2]
+  | sub e₁ e₂ ih₁ ih₂ => simp only [GeoExpr.evalPts, ih₁ hK.1, ih₂ hK.2]
+  | mul e₁ e₂ ih₁ ih₂ => simp only [GeoExpr.evalPts, ih₁ hK.1, ih₂ hK.2]
+
+/-! ## 第二层：`penaltyLoss` 只依赖界内坐标
+
+**`Pt n` 层的三条**：`sqDist`、`seg`、`midpointCLM` 都只读两个点，
+**所以「点的坐标一致」直接给出「由它们构成的量一致」。**
+
+**然后是 `penaltyLoss` 的十二支**——**每支只用前两条加 `evalPts_congr_of_indicesBelow`。** -/
+
+/-- **`sqDist` 对点的坐标一致性**。 -/
+theorem sqDist_congr {n : ℕ} {x y x' y' : Pt n} (hx : x = x') (hy : y = y') :
+    sqDist x y = sqDist x' y' := by
+  rw [hx, hy]
+
+/-- **`seg` 对点的坐标一致性**。 -/
+theorem seg_congr {n : ℕ} (Φ Ψ : ℕ → Pt n) (a b : ℕ) (ha : Φ a = Ψ a) (hb : Φ b = Ψ b) :
+    seg Φ a b = seg Ψ a b := by
+  funext i
+  simp only [seg]
+  rw [ha, hb]
+
+/-- **`minorDefect` 对两个向量的相等性**。 -/
+theorem minorDefect_congr {n : ℕ} {u v u' v' : Pt n} (hu : u = u') (hv : v = v') :
+    minorDefect u v = minorDefect u' v' := by
+  rw [hu, hv]
+
+/-- ⭐⭐ **`penaltyLoss` 只依赖界内坐标**——**十二支逐一处理**。
+
+**这是 `netLoss` 导数的关键：它把「`trunc` 的补零假设」换成「在 `[0,K)` 上一致」，
+而后者对 `fun k => netAct params (trunc r k)` 是【构造上成立】的。** -/
+theorem penaltyLoss_congr_of_indicesBelow {n : ℕ} (c : GeoConstraint n) (K : ℕ)
+    (hK : ConstraintIndicesBelow c K) (Φ Ψ : ℕ → Pt n)
+    (h : ∀ k, k < K → Φ k = Ψ k) :
+    penaltyLoss c Φ = penaltyLoss c Ψ := by
+  match c, hK with
+  | .eqZero e, hK =>
+      simp only [penaltyLoss, evalPts_congr_of_indicesBelow e K hK Φ Ψ h]
+  | .leZero e, hK =>
+      simp only [penaltyLoss, evalPts_congr_of_indicesBelow e K hK Φ Ψ h]
+  | .ltZero e, hK =>
+      simp only [penaltyLoss, evalPts_congr_of_indicesBelow e K hK Φ Ψ h]
+  | .gtZero e, hK =>
+      simp only [penaltyLoss, evalPts_congr_of_indicesBelow e K hK Φ Ψ h]
+  | .sqDistEq a b d, ⟨ha, hb, hd⟩ =>
+      simp only [penaltyLoss, sqDist_congr (h a ha) (h b hb),
+        evalPts_congr_of_indicesBelow d K hd Φ Ψ h]
+  | .equalLength a b c' e, ⟨ha, hb, hc, he⟩ =>
+      simp only [penaltyLoss, sqDist_congr (h a ha) (h b hb),
+        sqDist_congr (h c' hc) (h e he)]
+  | .collinear a b c', ⟨ha, hb, hc⟩ =>
+      simp only [penaltyLoss]
+      rw [minorDefect_congr (seg_congr Φ Ψ a b (h a ha) (h b hb))
+        (seg_congr Φ Ψ a c' (h a ha) (h c' hc))]
+  | .perpendicular a b c' e, ⟨ha, hb, hc, he⟩ =>
+      simp only [penaltyLoss]
+      rw [seg_congr Φ Ψ a b (h a ha) (h b hb), seg_congr Φ Ψ c' e (h c' hc) (h e he)]
+  | .parallel a b c' e, ⟨ha, hb, hc, he⟩ =>
+      simp only [penaltyLoss]
+      rw [minorDefect_congr (seg_congr Φ Ψ a b (h a ha) (h b hb))
+        (seg_congr Φ Ψ c' e (h c' hc) (h e he))]
+  | .rightAngle a b c', ⟨ha, hb, hc⟩ =>
+      simp only [penaltyLoss]
+      rw [seg_congr Φ Ψ a b (h a ha) (h b hb), seg_congr Φ Ψ b c' (h b hb) (h c' hc)]
+  | .midpoint m a b, ⟨hm, ha, hb⟩ =>
+      simp only [penaltyLoss]
+      rw [h m hm, h a ha, h b hb]
+  | .samePoint a b, ⟨ha, hb⟩ =>
+      simp only [penaltyLoss, sqDist_congr (h a ha) (h b hb)]
+
+/-! ## 第三层：把「点列一致」提升到「损失函数一致」
+
+**`netLoss` 的内层点列 `fun j => netAct params (pts j)` 不是任何 `trunc φ`**
+（`netAct params 0 ≠ 0`，见上一节）。
+
+**但上一节说的是：`penaltyLoss c` 只读 `[0,K)`。**
+**于是若有两条点列在 `[0,K)` 上逐点一致，则复合出的损失值【相等】。**
+**这条等式是纯函数的（不涉及导数）。** -/
+
+/-- ⭐⭐ **函数层面的版本**：若两【族】点列在界内逐点一致，则复合出的函数相等。 -/
+theorem penaltyLoss_comp_funext {E : Type*} {n : ℕ} (c : GeoConstraint n) (K : ℕ)
+    (hK : ConstraintIndicesBelow c K) (F G : E → ℕ → Pt n)
+    (h : ∀ e j, j < K → F e j = G e j) :
+    (fun e => penaltyLoss c (F e)) = fun e => penaltyLoss c (G e) := by
+  funext e
+  exact penaltyLoss_congr_of_indicesBelow c K hK (F e) (G e) (fun j hj => h e j hj)
+
+/-! ### ⚠ 未闭合：把 `netAct` 路径接上 `trunc`
+
+**要证的是**
+
+```lean
+(fun r : Fin K → Pt n => penaltyLoss c (fun j => netAct params (trunc r j)))
+  = fun r : Fin K → Pt n => penaltyLoss c (trunc (fun j => netAct params (trunc r j)))
+```
+
+**它由 `penaltyLoss_comp_funext` 加 `trunc_apply` 应当直接得到**——
+**逐点：`trunc (fun i => netAct params (trunc r i)) j = netAct params (trunc r j)`（`j < K`）。**
+
+**⚠ 但 `trunc {K n : ℕ}` 的 `n` 无法从 `fun i => netAct params (trunc r i)` 的返回类型推断，
+而显式写 `(n := n)` 时 `n` 又与定理自己的 `n` 同名，Lean 报
+`don't know how to synthesize implicit argument @trunc (?m …) n …`。**
+
+**⇒ 下一步的解法是先把这个复合点列绑定到一个**有类型的局部 `let`**：**
+
+```lean
+let Ψ : ℕ → Pt n := fun j => netAct params (trunc r j)
+-- 然后在 Ψ 上做 trunc Ψ，`n` 就从 Ψ 的类型里读出来了
+```
+
+**这是第 111／124／130 轮同一族问题的第 N 次出现**：
+**隐式参数无唯一来源时，先给它一个有类型的名字，再使用。** -/
+
+/-! ## 第五层：`penaltyLoss` 对【任意逐点界内等价族】的导数
+
+**第 128 轮的 `hasFDerivAt_penaltyLoss` 说 `fun r => penaltyLoss c (trunc r)`。
+但 `netLossOn` 的内层是 `netPoints params r`——随 `r` 变化、且只在 `[0,K)` 上与 `trunc r` 一致。**
+
+**⇒ 把导数定理推广到这种族；桥是上一层的局部性引理：两者给出【相同】的损失函数，导数直接继承。**
+
+**⚠ 这一层必须放在本文件而不是 `PenaltyLossDerivative.lean`**：
+**它需要 `penaltyLoss_congr_of_indicesBelow`，而那条在本文件——
+`NetLossDerivative` 依赖 `PenaltyLossDerivative`，反向 import 会成环。** -/
+
+/-- ⭐⭐⭐ **`penaltyLoss` 在任意「逐点界内等价」族上的导数**。 -/
+theorem hasFDerivAt_penaltyLoss_family {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n)
+    (P : (Fin K → Pt n) → ℕ → Pt n)
+    (hP : ∀ r j, j < K → P r j = trunc r j)
+    (hk : KinkPositive c K p) :
+    HasFDerivAt (fun r : Fin K → Pt n => penaltyLoss c (P r))
+      (penaltyLossFDeriv c hK p) p := by
+  have hloc : (fun r : Fin K → Pt n => penaltyLoss c (P r))
+      = fun r : Fin K → Pt n => penaltyLoss c (trunc r) := by
+    funext r
+    exact penaltyLoss_congr_of_indicesBelow c K hK (P r) (trunc r) (hP r)
+  rw [hloc]
+  exact hasFDerivAt_penaltyLoss c hK p hk
+
+/-- ⭐⭐⭐ **可微性版本**——`netLossOn` 直接消费这一条。 -/
+theorem differentiableAt_penaltyLoss_family {K n : ℕ} (c : GeoConstraint n)
+    (hK : ConstraintIndicesBelow c K) (p : Fin K → Pt n)
+    (P : (Fin K → Pt n) → ℕ → Pt n)
+    (hP : ∀ r j, j < K → P r j = trunc r j)
+    (hk : KinkPositive c K p) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => penaltyLoss c (P r)) p :=
+  (hasFDerivAt_penaltyLoss_family c hK p P hP hk).differentiableAt
+
+/-! ### ⚠ 下一层障碍：`netAct` 的导数只对 `List.ofFn p` 有陈述
+
+**`netPoints params p j = netAct params (p ⟨j, _⟩)` 里 `params` 是任意 `List`，
+而 `netAct` 的可微性定理（`Core/StackDerivative.lean:213`、`:223`）的陈述是**
+
+```lean
+theorem differentiableAt_netAct_ofFn {k n : ℕ} (p : Fin k → AffineLayer (Fin n)) :
+    DifferentiableAt ℝ (fun y => netAct (List.ofFn p) y) x
+```
+
+**——即它只覆盖 `params = List.ofFn p` 这一形式。**
+
+**⇒ 对任意 `List`，`netAct` 的可微性【没有陈述】，因此把 `netAct` 逐点应用到点列上
+（`r ↦ fun j => netAct params (r j)`）也无法用现有定理复合。**
+
+**第 134 轮实测：`fun_prop` 对 `netAct` 报 `No theorems found for Lattice.Core.netAct`；
+而 `differentiableAt_netAct_ofFn` 需要 `params` 已经是 `List.ofFn p` 形式。**
+
+## 正确形状（下一轮）
+
+**库里【没有】`List → Fin k →` 的桥**（第 134 轮实测：只有反方向的 `List.ofFn`）。
+**⇒ 有两条路：**
+
+1. **给 `netLossOn` 的 `params` 从 `List` 改成 `Fin k → AffineLayer (Fin n)`**——
+   **这与 `stackParams`（第 104 轮）一致，也避开所有 List 桥**；**推荐这条路**；
+2. 或者补一条 `List.equivFin` 形式的桥并证明 `netAct` 与它相容——**成本高于第 1 条。**
+
+**⇒ 下一轮先量 `netLossOn` 改成 `Fin k → AffineLayer` 载体后，
+`hasFDerivAt_penaltyLoss_family` 的 `P` 能否直接取 `netPoints`（那时 `netAct` 的导数就有陈述了）。** -/
+
+/-! ## 第六层：逐点 `netActN` 作用于点列
+
+**`netLossOn` 的内层点列是 `fun j => netActN n k Pf (r j)`——`netActN` 逐点作用在 `r` 上。**
+
+**本节证这条映射对 `r` 可微，用第 109 轮的 `differentiableAt_netActN`（关于【输入】）与
+`differentiableAt_pi`（逐坐标）复合。**
+
+**⚠ `netActN` 而不是 `netAct`**：前者直接以 `Fin k →` 为载体，不需要 `List.ofFn` 桥（第 134 轮的障碍）。 -/
+
+/-- ⭐⭐ **逐点 `netActN` 作用于点列，对点列可微**。 -/
+theorem differentiableAt_pointwiseNetActN {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (r : Fin K → Pt n) :
+    DifferentiableAt ℝ (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j)) r := by
+  rw [show (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j))
+      = fun s : Fin K → Pt n => (fun j => netActN n k Pf (s j)) from rfl]
+  refine differentiableAt_pi.2 (fun j => ?_)
+  exact (differentiableAt_netActN k Pf (r j)).comp r
+    (ContinuousLinearMap.hasFDerivAt
+      (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin K => Pt n) j)).differentiableAt
+
+/-- ⭐⭐ **逐点 `netActN` 的 `HasFDerivAt` 句柄**——下游要导数时从这里取。 -/
+theorem hasFDerivAt_pointwiseNetActN {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (r : Fin K → Pt n) :
+    HasFDerivAt (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j))
+      (fderiv ℝ (fun s : Fin K → Pt n => fun j : Fin K => netActN n k Pf (s j)) r) r :=
+  (differentiableAt_pointwiseNetActN Pf r).hasFDerivAt
+
+/-! ## 第七层：`lossOfActivations` —— 把网络与损失解耦
+
+## 为什么要这一层
+
+**`netLossOn` 的内层是 `fun j => netActN n k Pf (r j)`——`netActN` 把 `0` 映到偏置，
+所以它在界外【不为零】，与 `trunc r` 不一致。**
+
+**⇒ 用 `penaltyLoss` 的导数定理（内层必须是 `trunc r`）时，中间隔着 `netActN`，两边的形状对不上。**
+
+**本层的解法是【把两者拆开】**：
+
+```lean
+lossOfActivations cs (acts : Fin K → Pt n) := ∑ c ∈ cs, penaltyLoss c (trunc acts)
+```
+
+**于是：**
+
+- **`lossOfActivations` 对内层【已经是 `trunc` 形式】——第 128 轮的定理原样可用，
+  给出对 `acts` 的导数；**
+- **`acts = fun j => netActN n k Pf (r j)` 的导数由第 135 轮的
+  `differentiableAt_pointwiseNetActN` 给出；**
+- **两者复合就是 `netLossOn` 对 `r` 的导数。**
+
+**这是标准的链式分解：【先算损失关于激活的依赖，再算激活关于输入的依赖】，
+而两层各自都有现成的定理。** -/
+
+/-- **激活点列上的损失**：`∑ c ∈ cs, penaltyLoss c (trunc acts)`。
+
+**⚠ 内层直接是 `trunc acts`**——**这是本层设计的目的：让 `penaltyLoss` 的导数定理原样可用。** -/
+noncomputable def lossOfActivations {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (trunc acts))).sum
+
+/-- ⭐⭐ **`lossOfActivations` 对激活可微**——**逐约束 `HasFDerivAt.sum`，每支直接用第 128 轮的定理。** -/
+theorem lossOfActivations_differentiableAt {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K acts) :
+    DifferentiableAt ℝ (fun a : Fin K → Pt n => lossOfActivations cs a) acts := by
+  induction cs with
+  | nil =>
+      have hnil : (fun a : Fin K → Pt n => lossOfActivations [] a) = fun _ => (0 : ℝ) := by
+        funext a
+        simp only [lossOfActivations, List.map_nil, List.sum_nil]
+      rw [hnil]
+      exact differentiableAt_const 0
+  | cons c rest ih =>
+      have hc : ConstraintIndicesBelow c K := hK c (by simp)
+      have hkc : KinkPositive c K acts := hk c (by simp)
+      have hrest : DifferentiableAt ℝ
+          (fun a : Fin K → Pt n => lossOfActivations rest a) acts :=
+        ih (fun c' hc' => hK c' (List.mem_cons_of_mem c hc'))
+          (fun c' hc' => hk c' (List.mem_cons_of_mem c hc'))
+      have hsplit : (fun a : Fin K → Pt n => lossOfActivations (c :: rest) a)
+          = fun a : Fin K → Pt n => penaltyLoss c (trunc a) + lossOfActivations rest a := by
+        funext a
+        simp only [lossOfActivations, List.map_cons, List.sum_cons]
+      rw [hsplit]
+      exact (hasFDerivAt_penaltyLoss c hc acts hkc).differentiableAt.add hrest
+
+/-! ## 第八层：`netLossOn` —— 有限前缀上的损失（`netActN` 载体）
+
+## 为什么载体是 `Fin k → AffineLayer (Fin n)`
+
+**第 134 轮实测：`netAct` 的可微性只对 `params = List.ofFn p` 有陈述，
+而库里没有 `List → Fin k →` 的桥。**
+
+**⇒ 载体取 `Fin k →`，内层用 `netActN`（第 108–109 轮）——它直接以 `Fin k →` 为载体，不需要任何桥。**
+
+## 本节七个部件的顺序（受 Lean 单遍处理约束）
+
+1. `netPoints`
+2. `netPoints_eq_trunc`
+3. `netLossOn`
+4. `lossOfActivations`（在第七层，已定义于前）
+5. `differentiableAt_pointwiseNetActN`（第六层，已定义于前）
+6. `netLossOn_eq_comp`
+7. `netLossOn_differentiableAt`
+
+**⚠ 第 137 轮六次失败的原因就是没有按这个顺序：**
+**`netLossOn_eq_comp` 引用 `lossOfActivations`，而它定义在文件【后】面。**
+**本节把 1–3 放在 `end Lattice.Geo` 【之前】而 6–7 放在【最后】，
+所以两者都在 `lossOfActivations` 与 `pointwiseNetActN` 之后。** -/
+
+/-- **有限前缀上的内层点列**：`j < K` 处取 `netActN n k Pf (p ⟨j⟩)`，界外为 `0`。 -/
+noncomputable def netPoints {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) : ℕ → Pt n :=
+  fun j => if h : j < K then netActN n k Pf (p ⟨j, h⟩) else 0
+
+/-- **`netPoints` 就是 `trunc` 作用在「逐点 `netActN`」上**——**定义级等式。** -/
+theorem netPoints_eq_trunc {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) :
+    netPoints (n := n) Pf p = trunc (n := n) (fun i : Fin K => netActN n k Pf (p i)) := by
+  funext j
+  simp only [netPoints, trunc]
+
+/-- **有限前缀上的 `netLoss`**——**内层点列用 `netPoints`，界外为零。** -/
+noncomputable def netLossOn {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) : ℝ :=
+  (cs.map (fun c => penaltyLoss c (netPoints Pf p))).sum
+
+/-- ⭐⭐⭐ **`netLossOn` 就是 `lossOfActivations` 与「逐点 `netActN`」的复合**。
+
+**由 `netPoints_eq_trunc`：两侧的内层点列都是 `trunc (逐点 netActN)`，逐字相同。** -/
+theorem netLossOn_eq_comp {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (r : Fin K → Pt n) :
+    netLossOn Pf cs r = lossOfActivations cs (fun j : Fin K => netActN n k Pf (r j)) := by
+  simp only [netLossOn, lossOfActivations, netPoints_eq_trunc]
+
+/-- ⭐⭐⭐ **`netLossOn` 对输入点列可微**——**正向方向的这一块完成。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN`（激活关于输入）复合。** -/
+theorem netLossOn_differentiableAt {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k Pf (p j))) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p := by
+  rw [show (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) from by
+    funext r
+    exact netLossOn_eq_comp Pf cs r]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k Pf (p j)) hK hk).comp p
+    (differentiableAt_pointwiseNetActN Pf p)
+
+/-! ## 第九层：参数侧的逐点 `netActN`，以及 `netLossOn` 对网络可微
+
+**第 111 轮的 `differentiableAt_netActN_joint` 是对【配对】`(q, x)` 的可微性。
+把第二个分量固定住再复合，就得到「固定输入、只对参数」的版本。**
+
+**本节先做这个特化，再逐坐标提升到点列层面，最后与 `lossOfActivations` 复合。** -/
+
+/-- ⭐⭐ **固定输入时，`netActN` 对参数可微**——由联合版本与 `(q', x)` 的复合。 -/
+theorem differentiableAt_netActN_paramsAt {k n : ℕ} (q : Fin k → singleParams n)
+    (x : Fin n → ℝ) :
+    DifferentiableAt ℝ (fun q' : Fin k → singleParams n => netActN n k (packLayers q') x) q :=
+  (differentiableAt_netActN_joint k q x).comp q
+    ((differentiableAt_id : DifferentiableAt ℝ
+      (fun q' : Fin k → singleParams n => q') q).prod (differentiableAt_const x))
+
+/-- ⭐⭐ **逐点 `netActN` 作用于点列，对【参数】可微**——逐坐标用上一条。 -/
+theorem differentiableAt_pointwiseNetActN_params {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (r j)) q := by
+  rw [show (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (r j))
+      = fun g : Fin k → singleParams n => (fun j => netActN n k (packLayers g) (r j)) from rfl]
+  exact differentiableAt_pi.2 (fun j => differentiableAt_netActN_paramsAt q (r j))
+
+/-- ⭐⭐⭐ **`netLossOn` 对网络参数可微**——**正向方向的参数侧。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN_params`（激活关于参数）复合。** -/
+theorem netLossOn_differentiableAt_params {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q := by
+  rw [show (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) from by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp q
+    (differentiableAt_pointwiseNetActN_params q p)
+
+/-! ## 第十层：损失的【联合】可微性
+
+**前两层分别给了「固定参数时对点列」与「固定点列时对参数」的可微性。
+但梯度计算需要的是【配对】上的联合可微性——正像第 111 轮对 `netActN` 所做的那样。**
+
+**结构完全同构：**
+
+1. **单坐标**：`w ↦ netActN n k (packLayers w.1) (w.2 j)`——`w ↦ (w.1, w.2 j)` 是
+   `fst.prod (proj j ∘ snd)`，与第 111 轮的联合可微性复合；
+2. **逐点**：`differentiableAt_pi` 把它提到点列层面；
+3. **复合**：与 `lossOfActivations_differentiableAt` 复合。 -/
+
+/-- ⭐⭐ **单坐标的联合可微性**。 -/
+theorem differentiableAt_netActN_jointAt {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) (j : Fin K) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netActN n k (packLayers w.1) (w.2 j)) (q, r) := by
+  have hpair : DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) => (w.1, w.2 j)) (q, r) :=
+    differentiableAt_fst.prod
+      ((ContinuousLinearMap.hasFDerivAt
+        (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin K => Pt n) j)).differentiableAt.comp
+        (q, r) differentiableAt_snd)
+  exact (differentiableAt_netActN_joint k q (r j)).comp (q, r) hpair
+
+/-- ⭐⭐ **逐点 `netActN` 在配对上的可微性**——由 `differentiableAt_pi` 逐坐标装配。 -/
+theorem differentiableAt_pointwiseNetActN_joint {K k n : ℕ}
+    (q : Fin k → singleParams n) (r : Fin K → Pt n) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) (q, r) := by
+  rw [show (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        fun j : Fin K => netActN n k (packLayers w.1) (w.2 j))
+      = fun w => (fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) from rfl]
+  exact differentiableAt_pi.2 (fun j => differentiableAt_netActN_jointAt q r j)
+
+/-- ⭐⭐⭐⭐ **`netLossOn` 对【参数与点列】联合可微**——**正向方向的最后一块。**
+
+**由 `lossOfActivations_differentiableAt`（对激活）与
+`differentiableAt_pointwiseNetActN_joint`（激活关于配对）复合。**
+
+**这是梯度计算的正确陈述：`(参数, 点列)` 同时变化时损失可微。** -/
+theorem netLossOn_differentiableAt_joint {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2) (q, p) := by
+  rw [show (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+              fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) from by
+    funext w
+    exact netLossOn_eq_comp (packLayers w.1) cs w.2]
+  exact (lossOfActivations_differentiableAt cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp (q, p)
+    (differentiableAt_pointwiseNetActN_joint q p)
+
+/-! ## 第十一层：显式的 `netLossFDeriv`（关于激活点列）
+
+## 为什么这一层可以完全显式
+
+`lossOfActivations cs a = ∑ c ∈ cs, penaltyLoss c (trunc a)`。**每一项的导数在第 122／128 轮
+已经是【显式】的 `penaltyLossFDeriv c hK p`，并且第 128 轮证明了它确实是导数。**
+
+**⇒ 沿 `cs` 求和就是显式导数本身——不需要任何新的分析。**
+
+## 分层的准确性
+
+**本层的导数【关于激活点列】**，不是关于输入或参数。
+**那是正确的分层**：`netActN` 的作用由链式法则处理（第 135／139 轮的 `HasFDerivAt` 句柄），
+**而「损失对激活的依赖」在这里被完全显式化。**
+
+**⚠ 用 `attach` 而不是 `List.map`**：`hK : ∀ c ∈ cs, …` 给的是关于【成员】的前提，
+**而 `cs.attach` 的每个元素自带成员证明，所以可以构造出每一项的 `penaltyLossFDeriv`。** -/
+
+/-- **列表元素的逐个构造**：把 `cs` 连同「每个元素界内」的前提变成一条函数的和。 -/
+noncomputable def listSumFDeriv {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p)).sum
+
+/-- **`netLossFDeriv` 就是上面那条和**——**名字层面的别名，便于阅读。** -/
+noncomputable def netLossFDeriv {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  listSumFDeriv cs hK p
+
+/-- ⭐⭐⭐ **`netLossFDeriv` 的求值**：在方向 `d` 上是逐约束导数之和。
+
+**这是「可计算」的准确形式**——**下游取 `d` 为坐标方向就得到梯度的每个分量。** -/
+theorem netLossFDeriv_apply {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p d : Fin K → Pt n) :
+    netLossFDeriv cs hK p d
+      = (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p d)).sum := by
+  simp only [netLossFDeriv, listSumFDeriv]
+  induction cs.attach with
+  | nil => simp only [List.map_nil, List.sum_nil, ContinuousLinearMap.zero_apply]
+  | cons x xs ih =>
+      simp only [List.map_cons, List.sum_cons, ContinuousLinearMap.add_apply, ih]
+
+/-- **`netLossFDeriv` 对空列表是零**。 -/
+theorem netLossFDeriv_nil {K n : ℕ} (hK : ∀ c ∈ ([] : List (GeoConstraint n)),
+    ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDeriv ([] : List (GeoConstraint n)) hK p = 0 := by
+  simp only [netLossFDeriv, listSumFDeriv, List.attach_nil, List.map_nil, List.sum_nil]
+
+/-! ## 第十二层：`netLossFDeriv` 确实是导数
+
+**第 141 轮给出了显式的 `netLossFDeriv` 与它的求值，但没有证明【它就是导数】。**
+**本节补上那一步。**
+
+**⚠ 定义改成【对 `cs` 递归】**（而不是经 `attach` 的 `List.sum`）：
+**第 142 轮探针确认递归式在 `cons` 上由 `rfl` 展开，而 `attach` 的展开要绕 `List.attach_cons`。
+递归式让归纳论证的形状与 `lossOfActivations` 完全一致。** -/
+
+/-- **`netLossFDeriv` 的递归定义**：`cs` 逐个累加 `penaltyLossFDeriv`。 -/
+noncomputable def netLossFDerivRec {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    (Fin K → Pt n) →L[ℝ] ℝ :=
+  match cs with
+  | [] => 0
+  | c :: rest =>
+      penaltyLossFDeriv c (hK c (List.mem_cons_self c rest)) p
+        + netLossFDerivRec rest (fun c' hc' => hK c' (List.mem_cons_of_mem c hc')) p
+
+/-- **递归式的 `cons` 展开**——定义级。 -/
+theorem netLossFDerivRec_cons {K n : ℕ} (c : GeoConstraint n) (rest : List (GeoConstraint n))
+    (hK : ∀ c' ∈ c :: rest, ConstraintIndicesBelow c' K) (p : Fin K → Pt n) :
+    netLossFDerivRec (c :: rest) hK p
+      = penaltyLossFDeriv c (hK c (List.mem_cons_self c rest)) p
+        + netLossFDerivRec rest (fun c' hc' => hK c' (List.mem_cons_of_mem c hc')) p :=
+  rfl
+
+/-- **递归式在空列表上是零**。 -/
+theorem netLossFDerivRec_nil {K n : ℕ} (hK : ∀ c ∈ ([] : List (GeoConstraint n)),
+    ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDerivRec ([] : List (GeoConstraint n)) hK p = 0 :=
+  rfl
+
+/-- ⭐⭐⭐ **`netLossFDerivRec` 就是 `lossOfActivations` 的导数**——**显式形式。**
+
+**对 `cs` 归纳**：`nil` 两侧都是零；`cons` 把损失拆成
+`penaltyLoss c (trunc a) + lossOfActivations rest a`，
+**前者用第 128 轮的 `hasFDerivAt_penaltyLoss`、后者用归纳假设，再 `.add`。** -/
+theorem hasFDerivAt_lossOfActivations {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K acts) :
+    HasFDerivAt (fun a : Fin K → Pt n => lossOfActivations cs a)
+      (netLossFDerivRec cs hK acts) acts := by
+  induction cs with
+  | nil =>
+      have hnil : (fun a : Fin K → Pt n => lossOfActivations [] a) = fun _ => (0 : ℝ) := by
+        funext a
+        simp only [lossOfActivations, List.map_nil, List.sum_nil]
+      rw [hnil, netLossFDerivRec_nil]
+      exact hasFDerivAt_const (x := acts) (c := (0 : ℝ))
+  | cons c rest ih =>
+      have hc : ConstraintIndicesBelow c K := hK c (List.mem_cons_self c rest)
+      have hkc : KinkPositive c K acts := hk c (List.mem_cons_self c rest)
+      have hrestK : ∀ c' ∈ rest, ConstraintIndicesBelow c' K :=
+        fun c' hc' => hK c' (List.mem_cons_of_mem c hc')
+      have hrestk : ∀ c' ∈ rest, KinkPositive c' K acts :=
+        fun c' hc' => hk c' (List.mem_cons_of_mem c hc')
+      have hsplit : (fun a : Fin K → Pt n => lossOfActivations (c :: rest) a)
+          = fun a : Fin K → Pt n =>
+              penaltyLoss c (trunc a) + lossOfActivations rest a := by
+        funext a
+        simp only [lossOfActivations, List.map_cons, List.sum_cons]
+      rw [hsplit, netLossFDerivRec_cons]
+      exact (hasFDerivAt_penaltyLoss c hc acts hkc).add (ih hrestK hrestk)
+
+/-- ⭐⭐⭐ **递归版本与 `attach` 版本是同一个对象**——**两者求值相同。**
+
+**这形式地把第 141 轮（用于求值的 `netLossFDeriv`）与第 142 轮（用于导数证明的
+`netLossFDerivRec`）联系起来：**
+
+**`netLossFDeriv cs hK p = netLossFDerivRec cs hK p`，所以「第 141 轮的可计算」与
+「第 142 轮的确是导数」说的是同一条泛函。** -/
+theorem netLossFDerivRec_eq {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p : Fin K → Pt n) :
+    netLossFDerivRec cs hK p = netLossFDeriv cs hK p := by
+  induction cs with
+  | nil =>
+      simp only [netLossFDerivRec_nil, netLossFDeriv, listSumFDeriv,
+        List.attach_nil, List.map_nil, List.sum_nil]
+  | cons c rest ih =>
+      rw [netLossFDerivRec_cons]
+      simp only [netLossFDeriv, listSumFDeriv, List.attach_cons, List.map_cons, List.sum_cons]
+      rw [ih (fun c' hc' => hK c' (List.mem_cons_of_mem c hc'))]
+      simp only [netLossFDeriv, listSumFDeriv, List.map_map]
+      -- only the membership proofs differ, and they are irrelevant
+      congr 2
+
+/-- ⭐⭐⭐ **递归版本的求值**——**两侧都展开成同一个 `∑`。**
+
+**由 `netLossFDerivRec_eq` 与第 141 轮的 `netLossFDeriv_apply` 直接得到。** -/
+theorem netLossFDerivRec_apply {K n : ℕ} (cs : List (GeoConstraint n))
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K) (p d : Fin K → Pt n) :
+    netLossFDerivRec cs hK p d
+      = (cs.attach.map (fun x => penaltyLossFDeriv x.1 (hK x.1 x.2) p d)).sum := by
+  rw [netLossFDerivRec_eq, netLossFDeriv_apply]
+
+/-! ## 第十三层：`netLossOn` 的导数关于输入的【求值】形式
+
+**显式 CLM 在这里断在 `netActN` 处**（它只有 `fderiv` 形式的导数）。
+**但可以给出一条【求值等式】：损失在方向 `d` 上的导数，等于「损失对激活的显式导数」作用于
+「激活关于 `d` 的线性化」。**
+
+**这就是链式法则的方向形式，而 `fderiv_comp` 提供它。** -/
+
+/-- **激活映射关于输入的 `fderiv`**——由第 135 轮的 `HasFDerivAt` 句柄给出。 -/
+noncomputable def activationFDeriv {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (p : Fin K → Pt n) : (Fin K → Pt n) →L[ℝ] (Fin K → Pt n) :=
+  fderiv ℝ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) p
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数在方向 `d` 上的【求值】**。
+
+**`netLossOn = lossOfActivations ∘ activation`，所以由 `fderiv_comp`：**
+
+`fderiv netLossOn p d = fderiv lossOfActivations (activation p) (fderiv activation p d)`。
+
+**而左内层的 `fderiv` 就是 `netLossFDerivRec`（第 142 轮），所以右边可以完全显式。** -/
+theorem netLossOn_fderiv_apply {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p d : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k Pf (p j))) :
+    fderiv ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p d
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k Pf (p j))
+          (activationFDeriv Pf p d) := by
+  have hcomp : (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) := by
+    funext r
+    exact netLossOn_eq_comp Pf cs r
+  rw [hcomp, fderiv_comp p
+    (lossOfActivations_differentiableAt cs
+      (fun j : Fin K => netActN n k Pf (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN Pf p), ContinuousLinearMap.comp_apply,
+    activationFDeriv]
+
+/-- **激活映射关于【参数】的 `fderiv`**——由第 139 轮的 `HasFDerivAt` 句柄给出。
+
+**⚠ 参数的载体必须是 `Fin k → singleParams n` 而不是 `Fin k → AffineLayer (Fin n)`**：
+**后者是结构类型，没有 `NormedAddCommGroup` 实例，所以 `fderiv` 无法作用在它上面。
+这就是为什么参数侧一律以 `packLayers q` 的形式出现。** -/
+noncomputable def activationFDerivParams {K k n : ℕ} (q : Fin k → singleParams n)
+    (p : Fin K → Pt n) : (Fin k → singleParams n) →L[ℝ] (Fin K → Pt n) :=
+  fderiv ℝ (fun g : Fin k → singleParams n => fun j : Fin K => netActN n k (packLayers g) (p j)) q
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数关于【参数】在方向 `e` 上的求值**——**第 144 轮定理的参数侧镜像。**
+
+**同样的链式法则：`netLossOn (packLayers ·) = lossOfActivations ∘ (参数 ↦ 激活点列)`，
+所以 `fderiv_comp` 给出右边的形状。** -/
+theorem netLossOn_fderiv_apply_params {K k n : ℕ} (q : Fin k → singleParams n)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) (e : Fin k → singleParams n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, KinkPositive c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    fderiv ℝ (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q e
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k (packLayers q) (p j))
+          (activationFDerivParams q p e) := by
+  have hcomp : (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) := by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p
+  rw [hcomp, fderiv_comp q
+    (lossOfActivations_differentiableAt cs
+      (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN_params q p), ContinuousLinearMap.comp_apply,
+    activationFDerivParams]
+
+/-! ## 第十四层：`NonKink` 版本 —— 把非折点前提推广到整条损失链
+
+**第 147 轮把 `penaltyLoss` 的前提从 `KinkPositive` 弱化成 `NonKink`（覆盖正负两侧）。**
+
+**本层把同样的弱化沿 `lossOfActivations` → `netLossOn` 推下去。**
+
+**⚠ 采用【新增】`_nonKink` 变体而不是改动现有定理**：**现有定理有 11 处消费者
+（`netLossOn` 的可微性、`fderiv` 求值、`hasFDerivAt_lossOfActivations` 等），
+改动会连锁。新增变体让旧结论保持，新结论更强，而消费者可以按需迁移。** -/
+
+/-- ⭐⭐ **`lossOfActivations` 在非折点处可微**——`KinkPositive` 版本的弱化。 -/
+theorem lossOfActivations_differentiableAt_nonKink {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K acts) :
+    DifferentiableAt ℝ (fun a : Fin K → Pt n => lossOfActivations cs a) acts := by
+  induction cs with
+  | nil =>
+      have hnil : (fun a : Fin K → Pt n => lossOfActivations [] a) = fun _ => (0 : ℝ) := by
+        funext a
+        simp only [lossOfActivations, List.map_nil, List.sum_nil]
+      rw [hnil]
+      exact differentiableAt_const 0
+  | cons c rest ih =>
+      have hc : ConstraintIndicesBelow c K := hK c (List.mem_cons_self c rest)
+      have hkc : NonKink c K acts := hk c (List.mem_cons_self c rest)
+      have hrest : DifferentiableAt ℝ
+          (fun a : Fin K → Pt n => lossOfActivations rest a) acts :=
+        ih (fun c' hc' => hK c' (List.mem_cons_of_mem c hc'))
+          (fun c' hc' => hk c' (List.mem_cons_of_mem c hc'))
+      have hsplit : (fun a : Fin K → Pt n => lossOfActivations (c :: rest) a)
+          = fun a : Fin K → Pt n => penaltyLoss c (trunc a) + lossOfActivations rest a := by
+        funext a
+        simp only [lossOfActivations, List.map_cons, List.sum_cons]
+      rw [hsplit]
+      exact (hasFDerivAt_penaltyLoss_nonKink c hc acts hkc).differentiableAt.add hrest
+
+/-- ⭐⭐ **`netLossOn` 对输入点列可微（非折点版）**。 -/
+theorem netLossOn_differentiableAt_nonKink {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k Pf (p j))) :
+    DifferentiableAt ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p := by
+  rw [show (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) from by
+    funext r
+    exact netLossOn_eq_comp Pf cs r]
+  exact (lossOfActivations_differentiableAt_nonKink cs
+    (fun j : Fin K => netActN n k Pf (p j)) hK hk).comp p
+    (differentiableAt_pointwiseNetActN Pf p)
+
+/-- ⭐⭐ **`netLossOn` 对网络参数可微（非折点版）**。 -/
+theorem netLossOn_differentiableAt_params_nonKink {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q := by
+  rw [show (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) from by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p]
+  exact (lossOfActivations_differentiableAt_nonKink cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp q
+    (differentiableAt_pointwiseNetActN_params q p)
+
+/-- ⭐⭐⭐ **`netLossOn` 对参数与点列【联合】可微（非折点版）**。 -/
+theorem netLossOn_differentiableAt_joint_nonKink {K k n : ℕ}
+    (q : Fin k → singleParams n) (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    DifferentiableAt ℝ
+      (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2) (q, p) := by
+  rw [show (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+        netLossOn (packLayers w.1) cs w.2)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun w : (Fin k → singleParams n) × (Fin K → Pt n) =>
+              fun j : Fin K => netActN n k (packLayers w.1) (w.2 j)) from by
+    funext w
+    exact netLossOn_eq_comp (packLayers w.1) cs w.2]
+  exact (lossOfActivations_differentiableAt_nonKink cs
+    (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk).comp (q, p)
+    (differentiableAt_pointwiseNetActN_joint q p)
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数在方向 `d` 上的求值（非折点版）**——
+**第 144 轮定理的弱化前提版本。** -/
+theorem netLossOn_fderiv_apply_nonKink {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p d : Fin K → Pt n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k Pf (p j))) :
+    fderiv ℝ (fun r : Fin K → Pt n => netLossOn Pf cs r) p d
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k Pf (p j))
+          (activationFDeriv Pf p d) := by
+  have hcomp : (fun r : Fin K → Pt n => netLossOn Pf cs r)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun r : Fin K → Pt n => fun j : Fin K => netActN n k Pf (r j)) := by
+    funext r
+    exact netLossOn_eq_comp Pf cs r
+  rw [hcomp, fderiv_comp p
+    (lossOfActivations_differentiableAt_nonKink cs
+      (fun j : Fin K => netActN n k Pf (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN Pf p), ContinuousLinearMap.comp_apply,
+    activationFDeriv]
+
+/-- ⭐⭐⭐ **`netLossOn` 的导数在参数方向 `e` 上的求值（非折点版）**——
+**第 145 轮定理的弱化前提版本。** -/
+theorem netLossOn_fderiv_apply_params_nonKink {K k n : ℕ} (q : Fin k → singleParams n)
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n) (e : Fin k → singleParams n)
+    (hK : ∀ c ∈ cs, ConstraintIndicesBelow c K)
+    (hk : ∀ c ∈ cs, NonKink c K (fun j : Fin K => netActN n k (packLayers q) (p j))) :
+    fderiv ℝ (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p) q e
+      = fderiv ℝ (fun a : Fin K → Pt n => lossOfActivations cs a)
+          (fun j : Fin K => netActN n k (packLayers q) (p j))
+          (activationFDerivParams q p e) := by
+  have hcomp : (fun g : Fin k → singleParams n => netLossOn (packLayers g) cs p)
+      = (fun a : Fin K → Pt n => lossOfActivations cs a)
+          ∘ (fun g : Fin k → singleParams n =>
+              fun j : Fin K => netActN n k (packLayers g) (p j)) := by
+    funext g
+    exact netLossOn_eq_comp (packLayers g) cs p
+  rw [hcomp, fderiv_comp q
+    (lossOfActivations_differentiableAt_nonKink cs
+      (fun j : Fin K => netActN n k (packLayers q) (p j)) hK hk)
+    (differentiableAt_pointwiseNetActN_params q p), ContinuousLinearMap.comp_apply,
+    activationFDerivParams]
+
+/-! ## 第十五层（逆向侧的宏观认知）：`penaltyLoss` 与 `Holds` 的对应关系
+
+## 本节是规划，不是证明
+
+**逆向方向（权重 → 符号）的第一块应当是「损失为零 ⟺ 约束被满足」。
+第 150 轮用探针把这件事的**真实形状**量清楚了，本节记录结论。**
+
+**⚠ 本节不声称任何双条件定理**——**因为探针发现 `penaltyLoss` 与 `Holds` 有【三处】错配，
+而其中两处的修正会改变项目对「约束」的定义。**
+
+## 错配一：`ltZero`（严格不等号 vs 闭区间）
+
+- **`Holds (.ltZero e) Φ` 要求 `evalPts e Φ < 0`**；
+- **`penaltyLoss (.ltZero e) Φ = (max (evalPts e Φ) 0)²`**，**它在 `evalPts e Φ = 0` 处也【为零】**。
+
+**⇒ 双条件的 `←` 方向在 `x = 0` 处失效。**
+
+## 错配二：`gtZero`（同源）
+
+- **`Holds (.gtZero e) Φ` 要求 `0 < evalPts e Φ`**；
+- **`penaltyLoss (.gtZero e) Φ = (max (-(evalPts e Φ)) 0)²`**，**在 `x = 0` 处为零。**
+
+**⇒ 同上。**
+
+**⚠ 错配一与二【不是 bug】，而是设计的必然后果**：
+**`penaltyLoss` 是连续函数（可微性的前提），而 `Holds` 在 `x = 0` 处不连续。
+所以「损失为零 ⟺ 严格不等式成立」【不可能】对连续损失成立。**
+**⇒ 正确的逆向陈述是「损失为零 ⟺ 非严格不等式成立」，即 `leZero` 与 `≥ 0` 的版本。**
+
+## 错配三：`collinear`／`parallel`（显式比例 vs 子式）
+
+- **`Holds (.collinear a b c) Φ := ∃ t : ℝ, seg Φ a b = fun i => t * seg Φ a c i`**（显式比例）；
+- **`penaltyLoss (.collinear a b c) Φ := minorDefect (seg Φ a b) (seg Φ a c)`**（子式平方和）。
+
+**两者只在 `n = 2` 时等价**：**`minorDefect = 0` 说的是「秩 ≤ 1」，
+而 `∃ t` 说的是「`seg a b` 在 `seg a c` 的张成里」——`n = 2` 且 `seg a c ≠ 0` 时相同，
+但 `seg a c = 0` 时前者允许 `seg a b` 任意、后者要求 `seg a b = 0`。**
+
+**⇒ 双条件需要 `n = 2` 的维度前提与 `seg a c ≠ 0` 的非退化前提，那是一条独立引理。**
+
+## 结论：逆向侧的正确第一块
+
+**不是十二支的统一双条件，而是【按 `Holds` 的形式分三类】**：
+
+1. **`eqZero`／`sqDistEq`／`equalLength`／`perpendicular`／`rightAngle`／`samePoint`／`midpoint`（七支）**：
+   **双条件应当直接成立**（损失是某个量的平方，`Holds` 是那个量为零）——
+   **这七支是安全的起点；**
+2. **`leZero`（一支）**：**双条件成立**，`Holds` 就是 `≤ 0`，与 `max x 0 = 0` 一致；
+3. **`ltZero`／`gtZero`／`collinear`／`parallel`（四支）**：**需要额外的形式前提，不能无条件陈述。**
+
+**⇒ 下一轮应当只做第 1、2 类的八支，并且把第 3 类作为【已知边界】登记，
+而不是把十二支硬凑成一个定理——那会写出一条假的陈述。** -/
+
+/-! ## 第十六层（逆向侧的第一块）：八条安全的双条件
+
+**上一轮把 `penaltyLoss` 与 `Holds` 的错配量清楚了：三处错配，其中两处（严格不等号）是被连续性逼出来的，
+不可修。本节只做【安全的八支】。**
+
+**⚠ 本节的注记全部放在这里，不在定理之间放孤立 docstring**——
+**第 150 轮的失败原因之一正是一个只有 docstring、没有定理的块。** -/
+
+/-- `max a 0 = 0 ↔ a ≤ 0`——**不依赖 `max_eq_zero_iff`（mathlib 里没有这个名字）。** -/
+theorem max_zero_eq_zero_iff (a : ℝ) : max a 0 = 0 ↔ a ≤ 0 := by
+  constructor
+  · intro h
+    have := le_max_left a 0
+    rw [h] at this
+    exact this
+  · intro h
+    exact max_eq_right h
+
+/-- **平方为零的通用引理**——`a ^ 2 = 0 ↔ a = 0`，用于把五个「损失是平方」的分支抽出来。
+
+**⚠ `pow_eq_zero_iff` 在 `ℝ` 上直接可用，但 `α` 是隐式参数；
+不显式给出时会卡在 `NoZeroDivisors ?m`，所以这里固定成 `ℝ`。** -/
+theorem sq_eq_zero_iff_real (a : ℝ) : a ^ 2 = 0 ↔ a = 0 :=
+  pow_eq_zero_iff (n := 2) (by norm_num)
+
+/-- ⭐⭐ **五支「损失是某个实数的平方」的统一双条件**。
+
+**`eqZero`、`sqDistEq`、`equalLength`、`perpendicular`、`rightAngle` 五支的损失都是
+`a ^ 2`（`a` 是某个 `ℝ`），而 `Holds` 都是 `a = 0`——所以它们【共用同一条证明**。
+
+**⚠ 一条参数化定理而不是五条**：第 151 轮先写了五条，
+**而别名普查把它们全标成 `copy`（证明体逐字相同）——那正是该合并的信号。**
+**`match` 让五个构造子各自给出自己的 `a`，而「平方为零 ⟺ 为零」只用一次。** -/
+theorem penaltyLoss_eq_zero_iff_holds_sq {n : ℕ} (Φ : ℕ → Pt n) :
+    (∀ (e : GeoExpr n), penaltyLoss (.eqZero e) Φ = 0 ↔ Holds (.eqZero e) Φ) ∧
+    (∀ (a b : ℕ) (d : GeoExpr n),
+      penaltyLoss (.sqDistEq a b d) Φ = 0 ↔ Holds (.sqDistEq a b d) Φ) ∧
+    (∀ (a b c e : ℕ),
+      penaltyLoss (.equalLength a b c e) Φ = 0 ↔ Holds (.equalLength a b c e) Φ) ∧
+    (∀ (a b c e : ℕ),
+      penaltyLoss (.perpendicular a b c e) Φ = 0 ↔ Holds (.perpendicular a b c e) Φ) ∧
+    (∀ (a b c : ℕ),
+      penaltyLoss (.rightAngle a b c) Φ = 0 ↔ Holds (.rightAngle a b c) Φ) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro e
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+  · intro a b d
+    simp only [penaltyLoss, Holds]
+    rw [sq_eq_zero_iff_real, sub_eq_zero]
+  · intro a b c e
+    simp only [penaltyLoss, Holds]
+    rw [sq_eq_zero_iff_real, sub_eq_zero]
+  · intro a b c e
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+  · intro a b c
+    simp only [penaltyLoss, Holds]
+    exact sq_eq_zero_iff_real _
+
+/-- ⭐ **`leZero`**：`(max x 0)² = 0 ⟺ x ≤ 0`。
+
+**⚠ 这一支在第 151 轮的合并中是【丢失**后补回来的：
+当时把五条「平方」分支合并成一条参数化定理 `penaltyLoss_eq_zero_iff_holds_sq`，
+**而 `leZero` 的损失是 `(max x 0)²` 而不是 `x²`，所以它【不在】那五支里，
+却在编辑时被一并删掉了。**
+
+**第 153 轮的 `unknown identifier 'penaltyLoss_eq_zero_iff_holds_leZero'` 报错正是这次丢失的后果**——
+**一条【被删掉的定理】只有在有人试图引用它时才暴露，而前面几轮的引用都在同一次编辑里被一并删掉了。**
+**这是第 84 轮「同名重复」教训的镜像：那一次是多了一份，这一次是少了一份。** -/
+theorem penaltyLoss_eq_zero_iff_holds_leZero {n : ℕ} (e : GeoExpr n) (Φ : ℕ → Pt n) :
+    penaltyLoss (.leZero e) Φ = 0 ↔ Holds (.leZero e) Φ := by
+  simp only [penaltyLoss, Holds]
+  rw [sq_eq_zero_iff_real, max_zero_eq_zero_iff]
+
+/-- ⭐ **`samePoint`**：`sqDist (Φ a) (Φ b) = 0 ⟺ Φ a = Φ b`。 -/
+theorem penaltyLoss_eq_zero_iff_holds_samePoint {n : ℕ} (a b : ℕ) (Φ : ℕ → Pt n) :
+    penaltyLoss (.samePoint a b) Φ = 0 ↔ Holds (.samePoint a b) Φ := by
+  simp only [penaltyLoss, Holds]
+  exact sqDist_eq_zero_iff (n := n) (Φ a) (Φ b)
+
+/-- ⭐ **`midpoint`**：`∑ i, (2 pts m i − pts a i − pts b i)² = 0 ⟺ 每个坐标都满足中点条件`。
+
+**⚠ 用 `Finset.sum_eq_zero_iff_of_nonneg`（每项是平方，非负），
+不能直接用 `Finset.sum_eq_zero_iff`——后者在 `ℝ` 上不成立（正负可抵消）。** -/
+theorem penaltyLoss_eq_zero_iff_holds_midpoint {n : ℕ} (m a b : ℕ) (Φ : ℕ → Pt n) :
+    penaltyLoss (.midpoint m a b) Φ = 0 ↔ Holds (.midpoint m a b) Φ := by
+  simp only [penaltyLoss, Holds]
+  constructor
+  · intro hsum i
+    have hi : (2 * Φ m i - Φ a i - Φ b i) ^ 2 = 0 :=
+      (Finset.sum_eq_zero_iff_of_nonneg
+        (fun j _ => sq_nonneg (2 * Φ m j - Φ a j - Φ b j))).mp hsum i (Finset.mem_univ i)
+    have hz : 2 * Φ m i - Φ a i - Φ b i = 0 := (pow_eq_zero_iff (n := 2) (by norm_num)).mp hi
+    linarith
+  · intro hpoint
+    refine (Finset.sum_eq_zero_iff_of_nonneg
+      (fun j _ => sq_nonneg (2 * Φ m j - Φ a j - Φ b j))).mpr ?_
+    intro i _
+    have hz : 2 * Φ m i - Φ a i - Φ b i = 0 := by linarith [hpoint i]
+    rw [hz]
+    ring
+
+/-! ## 第十七层（逆向侧的第二块之一）：非负项之和为零
+
+**mathlib 里【没有】`List.sum_eq_zero_iff_of_nonneg`**——只有 `Finset` 版本
+（第 152 轮实测：`unknown constant 'List.sum_eq_zero_iff_of_nonneg'`）。
+
+**而列表层面「整个损失为零 ⟺ 全部约束成立」需要的正是它**：
+**`lossOfActivations cs acts = (cs.map (penaltyLoss ·)).sum`，每一项非负（第 101 轮的 `penaltyLoss_nonneg`），
+所以「和为零」必须等价于「每项为零」。**
+
+**本层补上这条 `List` 版本。** -/
+
+/-- ⭐ **非负项之和为零 ⟺ 每项为零**（`List` 版本，mathlib 缺）。
+
+**对 `l` 归纳**：`cons` 时 `a + t.sum = 0` 与两个非负性一起给出 `a = 0` 与 `t.sum = 0`（`linarith`）。 -/
+theorem list_sum_eq_zero_of_nonneg {l : List ℝ} (h : ∀ x ∈ l, 0 ≤ x) :
+    l.sum = 0 ↔ ∀ x ∈ l, x = 0 := by
+  induction l with
+  | nil => simp
+  | cons a t ih =>
+      have ha : 0 ≤ a := h a (List.mem_cons_self a t)
+      have ht : ∀ x ∈ t, 0 ≤ x := fun x hx => h x (List.mem_cons_of_mem a hx)
+      have htsum : 0 ≤ t.sum := List.sum_nonneg (fun x hx => ht x hx)
+      rw [List.sum_cons]
+      constructor
+      · intro hsum x hx
+        have ha0 : a = 0 := by linarith
+        have ht0 : t.sum = 0 := by linarith
+        rcases List.mem_cons.mp hx with rfl | hxt
+        · exact ha0
+        · exact (ih ht).mp ht0 x hxt
+      · intro hall
+        have ha0 : a = 0 := hall a (List.mem_cons_self a t)
+        have ht0 : t.sum = 0 := (ih ht).mpr (fun x hx => hall x (List.mem_cons_of_mem a hx))
+        rw [ha0, ht0]
+        ring
+
+/-- **「安全分支」谓词**：`cs` 里只出现那八支双条件成立的构造子。
+
+**⚠ 必须带这个前提**：`ltZero`／`gtZero` 的双条件【本身就是假的】
+（连续损失无法区分 `x = 0` 与 `x < 0`，见第十六层的分析），
+**而 `collinear`／`parallel` 需要 `n = 2` 与非退化前提。** -/
+def SafeBranch {n : ℕ} (c : GeoConstraint n) : Prop :=
+  match c with
+  | .eqZero _ => True
+  | .leZero _ => True
+  | .ltZero _ => False
+  | .gtZero _ => False
+  | .sqDistEq _ _ _ => True
+  | .equalLength _ _ _ _ => True
+  | .collinear _ _ _ => False
+  | .perpendicular _ _ _ _ => True
+  | .parallel _ _ _ _ => False
+  | .rightAngle _ _ _ => True
+  | .midpoint _ _ _ => True
+  | .samePoint _ _ => True
+
+/-! ### ⚠ 未闭合：列表层面的双条件
+
+**目标**：`lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts)`，前提是 `cs` 全在安全分支里。
+
+**配料三样全部就位**（本层上面两条 + 第 151 轮的八条单条双条件）。
+**第 152 轮在装配处失败，原因不是数学，而是两处机械细节：**
+
+1. **`match` 在 `SafeBranch c` 上要求【全部十二支】**——即便四支的 `SafeBranch` 是 `False`，
+   **Lean 仍要求它们出现，并且要用 `absurd hs` 把 `False` 消掉。而 `hs` 在那些分支上的类型是 `False`，
+   直接 `exact hs.elim` 就够——我写成了 `absurd hs (by simp only [SafeBranch]; exact not_false)`，
+   结果在 `simp` 之后剩下一个 `⊢ False` 的未解决目标。**
+2. **`nil` 支的 `⟨…, …⟩` 两个方向**：第一个方向的目标是 `(∀ c ∈ [], …) → False` 的形状，
+   **用 `fun h => absurd h (by simp)` 时 `simp` 把目标化成 `True` 而不是 `False`。**
+
+**⇒ 下一轮的正确写法**：
+- **`match` 的四支用 `exact hs.elim`**（`hs : False` 直接消掉，不需要 `absurd`）；
+- **`nil` 支写成 `⟨fun h => absurd h (List.not_mem_nil c), fun _ => rfl⟩` 是不对的**——
+  **正确的形状取决于 `simp` 之后的目标，应当先 `simp` 看目标再写，而不是先猜。**
+
+**本层【不】声称列表层面的双条件。** -/
+
+/-- **`SafeBranch` 的单条双条件**——**按构造子分派到第十六层的八条**。
+
+**⚠ `match` 必须覆盖【全部十二支】**：即便四支的 `SafeBranch` 是 `False`，
+**Lean 仍要求它们出现——而那些分支上 `hs : False`，用 `exact hs.elim` 直接消掉即可。** -/
+theorem penaltyLoss_eq_zero_iff_holds_of_safe {n : ℕ} (c : GeoConstraint n)
+    (hs : SafeBranch c) (Φ : ℕ → Pt n) :
+    penaltyLoss c Φ = 0 ↔ Holds c Φ := by
+  match c, hs with
+  | .eqZero e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).1 e
+  | .leZero e, _ => exact penaltyLoss_eq_zero_iff_holds_leZero e Φ
+  | .ltZero e, hs => exact hs.elim
+  | .gtZero e, hs => exact hs.elim
+  | .sqDistEq a b d, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.1 a b d
+  | .equalLength a b c' e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.1 a b c' e
+  | .collinear a b c', hs => exact hs.elim
+  | .perpendicular a b c' e, _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.2.1 a b c' e
+  | .parallel a b c' e, hs => exact hs.elim
+  | .rightAngle a b c', _ => exact (penaltyLoss_eq_zero_iff_holds_sq Φ).2.2.2.2 a b c'
+  | .midpoint m a b, _ => exact penaltyLoss_eq_zero_iff_holds_midpoint m a b Φ
+  | .samePoint a b, _ => exact penaltyLoss_eq_zero_iff_holds_samePoint a b Φ
+
+/-- ⭐⭐⭐ **整个损失为零 ⟺ 全部（安全）约束被满足**——**逆向侧的第二块。**
+
+**`lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts)`，前提是 `cs` 全在安全分支里。
+
+**⚠ 【不用归纳**——第 152／153 轮两次失败都出在 `cons` 支的 `rcases … with rfl`
+把参数 `c` 消掉了。**本节的路线是**：
+
+1. `lossOfActivations` 展开成 `(cs.map (penaltyLoss ·)).sum`；
+2. **`list_sum_eq_zero_of_nonneg`**（第十七层）给出「每项为零」（非负性来自第 101 轮）；
+3. **`List.forall_mem_map_iff`** 把「`map` 之后每项为零」换成「`cs` 中每项的原像为零」；
+4. **`penaltyLoss_eq_zero_iff_holds_of_safe`** 换成 `Holds`。
+
+**每一步都是单个定理的应用，没有归纳、没有替换。** -/
+theorem lossOfActivations_eq_zero_iff {K n : ℕ} (cs : List (GeoConstraint n))
+    (acts : Fin K → Pt n) (hs : ∀ c ∈ cs, SafeBranch c) :
+    lossOfActivations cs acts = 0 ↔ ∀ c ∈ cs, Holds c (trunc acts) := by
+  have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (trunc acts)), 0 ≤ x := by
+    intro x hx
+    obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+    exact penaltyLoss_nonneg c' (trunc acts)
+  have hsum : lossOfActivations cs acts
+      = (cs.map (fun c => penaltyLoss c (trunc acts))).sum := by
+    simp only [lossOfActivations]
+  rw [hsum, list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff]
+  exact forall_congr' (fun c => forall_congr' (fun _ => by
+    rw [← penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) (trunc acts)]))
+
+/-! ## 第十八层（逆向侧的核心命题）：网络损失为零 ⟺ 输出满足全部符号约束
+
+**这是整个逆向回路的核心**：**训练把 `netLossOn` 压到零，等价于网络在给定输入上的【输出点集】
+满足全部符号约束。**
+
+**正向方向（第 111–149 轮）说的是「约束被违反时损失变大」；
+本层的双条件让「损失为零」成为【可判定的语义条件】，而不只是一个数值观测。**
+
+**⚠ 本层只给 `SafeBranch` 下的【双条件**。
+没有「无条件的单向版本」：那需要「`Holds` 蕴含损失为零」，
+**而它对 `ltZero`／`gtZero` 不成立**（`x = 0` 处 `Holds` 为假、损失却为零）。** -/
+
+/-- ⭐⭐⭐⭐ **`netLossOn Pf cs p = 0 ⟺ 输出点集满足全部（安全）约束**——**逆向回路的核心命题。**
+
+**由第 154 轮的 `lossOfActivations_eq_zero_iff` 与 `netPoints_eq_trunc` 直接得到：
+`netLossOn` 内部的 `netPoints` 就是 `trunc` 作用在逐点激活上，两者是【定义级】相等的。** -/
+theorem netLossOn_eq_zero_iff {K k n : ℕ} (Pf : Fin k → AffineLayer (Fin n))
+    (cs : List (GeoConstraint n)) (p : Fin K → Pt n)
+    (hs : ∀ c ∈ cs, SafeBranch c) :
+    netLossOn Pf cs p = 0 ↔ ∀ c ∈ cs, Holds c (netPoints Pf p) := by
+  have hnonneg : ∀ x ∈ cs.map (fun c => penaltyLoss c (netPoints Pf p)), 0 ≤ x := by
+    intro x hx
+    obtain ⟨c', _, rfl⟩ := List.mem_map.mp hx
+    exact penaltyLoss_nonneg c' (netPoints Pf p)
+  have hsum : netLossOn Pf cs p
+      = (cs.map (fun c => penaltyLoss c (netPoints Pf p))).sum := by
+    simp only [netLossOn]
+  rw [hsum, list_sum_eq_zero_of_nonneg hnonneg, List.forall_mem_map_iff]
+  exact forall_congr' (fun c => forall_congr' (fun _ => by
+    rw [← penaltyLoss_eq_zero_iff_holds_of_safe c (hs c ‹c ∈ cs›) (netPoints Pf p)]))
+
+end Lattice.Geo

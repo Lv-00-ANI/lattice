@@ -230,65 +230,64 @@ theorem pluginDirOf_coreConstraint :
   unfold pluginDirOf
   simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
 
-/-- **`Penalty`'s first obligation still cites `Lattice/Domains/Constraints/NetLossDerivative.lean`.**
+/-- **`ChainSlot`'s first obligation still cites `Lattice/Core/VariableDerivative.lean`.**
 
-**The counterexample the registry-level failure needs.**
-**Rounds 88-92 migrated `Norm`, `GNN`, `Core.Constraint`, `Compose`, `Tokens` and `Core.Repair`, so each
-earlier witness has become migrated in turn.**
-**=> the witness is the next unmigrated plugin, and that succession is the behaviour a completion
-predicate SHOULD have: progress does not erase the gap, it moves the witness to the next gap.**
+**The LAST counterexample: rounds 88-93 migrated seven of the eight plugins, and `ChainSlot` is what
+remains.**
+**Its obligation names `VariableDerivative.lean` -- the 4,867-line file carrying the whole extraction
+line -- which is why this migration has not happened yet and is a round of its own.**
 
-**The manifest carries `file := "Lattice/Domains/Constraints/NetLossDerivative.lean"`; the plugin's
-directory is `Lattice/Plugins/Domains/Constraints/Penalty/`.**
-**The two differ immediately after `Lattice/`: `Plugins/` versus `Domains/`.** -/
-def penaltyObligation : Obligation where
-  name := "penalty_loss_zero_iff_holds_sq"
+**The witness has now moved FOUR times (`Core.Constraint` -> `Core.Repair` -> `Penalty` -> `ChainSlot`),
+and each move happened because the previous plugin BECAME migrated.**
+**=> the sequence is the record of the migration itself, and it cannot be maintained by editing a list: it
+breaks unless the tree actually changes.** -/
+def chainSlotObligation : Obligation where
+  name := "slot_weight_lt_bias"
   kind := .exactness
-  theoremName := "penaltyLoss_eq_zero_iff_holds_sq"
-  file := "Lattice/Domains/Constraints/NetLossDerivative.lean"
+  theoremName := "slotOf_weight_lt"
+  file := "Lattice/Core/VariableDerivative.lean"
 
 /-- **That obligation is a CITATION, not a MOVE.**
 
-**Both paths begin with `Lattice/`; the segment after it is `Plugins/` on the plugin's side and `Domains/`
+**Both paths begin with `Lattice/`; the segment after it is `Plugins/` on the plugin's side and `Core/`
 on the obligation's.**
-**`strPrefix_cons_ne_gen` refutes that with `'P' != 'D'`.** -/
-theorem penalty_is_citation : ¬ Lattice.Plugins.ObligationOwnedBy
-    "Lattice/Plugins/Domains/Constraints/Penalty/" penaltyObligation := by
+**`strPrefix_cons_ne_gen` refutes that with `'P' != 'C'`.** -/
+theorem chainSlot_is_citation : ¬ Lattice.Plugins.ObligationOwnedBy
+    "Lattice/Plugins/Extractors/ChainSlot/" chainSlotObligation := by
   intro h
   unfold Lattice.Plugins.ObligationOwnedBy Lattice.Plugins.StringPrefix
-    penaltyObligation at h
+    chainSlotObligation at h
   simp only [String.toList] at h
   exact Lattice.Plugins.strPrefix_cons_ne_gen (pre := "Lattice/".toList)
-    (by decide : ('P' : Char) ≠ 'D') h
+    (by decide : ('P' : Char) ≠ 'C') h
 
-/-- **THE REGISTRY IS NOT YET MIGRATED.**
+/-- **THE REGISTRY IS NOT YET MIGRATED -- ONE plugin remains.**
 
-**`RegistryMigratedFor pluginDirOf proofRegistry` is FALSE, because `Penalty`'s first obligation still
-cites `Lattice/Domains/Constraints/NetLossDerivative.lean`.**
+**`RegistryMigratedFor pluginDirOf proofRegistry` is FALSE, because `ChainSlot`'s first obligation still
+cites `Lattice/Core/VariableDerivative.lean`.**
 
-**=> `ProofComplete` cannot be reached while two of the eight plugins are still citations.**
-**The witness has moved through `Core.Constraint`, then `Core.Repair`, and now `Penalty` -- each time
-because the previous one BECAME migrated, which is proof the predicate tracks reality rather than a
-fixed list.** -/
+**=> `ProofComplete` cannot be reached while ONE of the eight plugins is still a citation.**
+**Seven migrations do not complete the registry, and this theorem is why the claim "6 of 8 migrated" can
+never be mistaken for "done".** -/
 theorem proofRegistry_migrated_pending :
     ¬ Lattice.Plugins.RegistryMigratedFor pluginDirOf proofRegistry := by
   intro h
-  have hmem : Lattice.Plugins.Domains.Constraints.Penalty.verified ∈ proofRegistry := by
+  have hmem : Lattice.Plugins.Extractors.ChainSlot.verified ∈ proofRegistry := by
     simp [proofRegistry]
-  have hobl : { name := "penalty_loss_zero_iff_holds_sq", kind := .exactness,
-                theoremName := "penaltyLoss_eq_zero_iff_holds_sq",
-                file := "Lattice/Domains/Constraints/NetLossDerivative.lean" } ∈
-      Lattice.Plugins.Domains.Constraints.Penalty.verified.manifest.obligations := by
-    rw [Lattice.Plugins.Domains.Constraints.Penalty.verified_manifest]
-    simp only [Lattice.Plugins.Domains.Constraints.Penalty.manifest, List.mem_cons]
+  have hobl : { name := "slot_weight_lt_bias", kind := .exactness,
+                theoremName := "slotOf_weight_lt",
+                file := "Lattice/Core/VariableDerivative.lean" } ∈
+      Lattice.Plugins.Extractors.ChainSlot.verified.manifest.obligations := by
+    rw [Lattice.Plugins.Extractors.ChainSlot.verified_manifest]
+    simp only [Lattice.Plugins.Extractors.ChainSlot.manifest, List.mem_cons]
     exact Or.inl trivial
-  have hdir : pluginDirOf Lattice.Plugins.Domains.Constraints.Penalty.verified
-      = some "Lattice/Plugins/Domains/Constraints/Penalty/" := by
+  have hdir : pluginDirOf Lattice.Plugins.Extractors.ChainSlot.verified
+      = some "Lattice/Plugins/Extractors/ChainSlot/" := by
     unfold pluginDirOf
-    simp [Lattice.Plugins.Domains.Constraints.Penalty.verified,
-          Lattice.Plugins.Domains.Constraints.Penalty.manifest]
+    simp [Lattice.Plugins.Extractors.ChainSlot.verified,
+          Lattice.Plugins.Extractors.ChainSlot.manifest]
   exact Lattice.Plugins.registryMigratedFor_fails_of_foreign hmem hdir hobl
-    penalty_is_citation h
+    chainSlot_is_citation h
 
 /-- **AN UNLISTED PLUGIN CANNOT SLIP THROUGH.**
 
@@ -450,12 +449,31 @@ theorem repair_migrated :
     rw [h] <;>
     exact file_under_dir _ _
 
-/-- **SIX plugins are migrated, out of eight registered.**
+/-- **`Penalty`'s obligations are its own, because TWO large files MOVED.**
+
+**`NetLossDerivative.lean` (1,018 source lines) and `PenaltyLoss.lean` (824) now live under the plugin's
+directory.**
+**These are the largest files moved so far, and they moved by the SAME procedure as the small ones --
+nothing in their content was edited.**
+**A reader who assumed a large file needed a different treatment can see from `repair_migrated` and this
+theorem that it does not: the predicate is about the PATH, and the path is all that changed.** -/
+theorem penalty_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Domains/Constraints/Penalty/"
+      Lattice.Plugins.Domains.Constraints.Penalty.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Domains.Constraints.Penalty.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  unfold Lattice.Plugins.ObligationOwnedBy
+  obtain h | h | h | h | h | h | h := ho <;>
+    rw [h] <;>
+    exact file_under_dir _ _
+
+/-- **SEVEN plugins are migrated, out of eight registered.**
 
 **A `def` rather than a docstring count, because a count a reader must recompute is a count that drifts.**
-**It rises only when a theorem like `gnn_migrated`, `tokens_migrated` or `repair_migrated` is added, so it
-cannot be edited into agreement with a document.** -/
-def migratedPluginCount : ℕ := 6
+**It rises only when a theorem like `gnn_migrated`, `tokens_migrated`, `repair_migrated` or
+`penalty_migrated` is added, so it cannot be edited into agreement with a document.** -/
+def migratedPluginCount : ℕ := 7
 
 /-- **The registered total.** -/
 def registeredPluginCount : ℕ := 8

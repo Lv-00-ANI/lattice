@@ -52,37 +52,37 @@ def manifest : PluginManifest where
     { name := "penalty_loss_zero_iff_holds_sq"
       kind := .exactness
       theoremName := "penaltyLoss_eq_zero_iff_holds_sq"
-      file := "Lattice/Domains/Constraints/NetLossDerivative.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
     { name := "penalty_loss_zero_iff_holds_leZero"
       kind := .exactness
       theoremName := "penaltyLoss_eq_zero_iff_holds_leZero"
-      file := "Lattice/Domains/Constraints/NetLossDerivative.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
     -- Soundness: the loss is well defined and invariant under the substitutions the repair
     -- loop performs, so that a repaired state is judged by the same loss.
     { name := "penalty_loss_congr_of_indicesBelow"
       kind := .soundness
       theoremName := "penaltyLoss_congr_of_indicesBelow"
-      file := "Lattice/Domains/Constraints/NetLossDerivative.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
     -- Approximation: each constraint family's loss is Lipschitz in the point cloud, which is
     -- the quantitative half: exactness says WHEN the loss vanishes, this says how fast.
     { name := "penalty_loss_lipschitz_eqZero"
       kind := .approximation
       theoremName := "eqZero_lipschitz"
-      file := "Lattice/Domains/Constraints/PenaltyLoss.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
     { name := "penalty_loss_lipschitz_gtZero"
       kind := .approximation
       theoremName := "gtZero_lipschitz"
-      file := "Lattice/Domains/Constraints/PenaltyLoss.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
     { name := "penalty_loss_lipschitz_equalLength"
       kind := .approximation
       theoremName := "equalLength_lipschitz"
-      file := "Lattice/Domains/Constraints/PenaltyLoss.lean" },
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
     -- Completeness: the `max_zero` family is how an INEQUALITY constraint is encoded, and
     -- `max_zero_eq_zero_iff` is the totality statement that every inequality is representable.
     { name := "penalty_max_zero_eq_zero_iff"
       kind := .completeness
       theoremName := "max_zero_eq_zero_iff"
-      file := "Lattice/Domains/Constraints/PenaltyLoss.lean" }
+      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" }
   ]
   version := ⟨1, 0, 0⟩
 

@@ -6,11 +6,11 @@ copy	Plugins/Core/Repair/Repair.lean	preserves
 copy	Plugins/Core/Repair/RepairWF.lean	preserves_of_sat
 copy	Domains/Constraints/Loss.lean	loss_eq_zero_expr
 copy	Domains/Constraints/Loss.lean	loss_eq_zero_perpendicular
-copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
-copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_equalLength
-copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_perpendicular
-copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_rightAngle
-copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_sqDistEq
+copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
+copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_equalLength
+copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_perpendicular
+copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_rightAngle
+copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_sqDistEq
 copy	Domains/Geometry/ClauseComposition.lean	repair_then_reinject
 copy	Domains/Geometry/Invariant.lean	collinear_translate
 copy	Domains/Geometry/Invariant.lean	parallel_translate

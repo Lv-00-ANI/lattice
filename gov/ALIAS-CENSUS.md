@@ -757,11 +757,6 @@
 | `Core/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_expr` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_perpendicular` |
-| `Domains/Constraints/PenaltyLoss.lean` | `penaltyLoss_eq_zero_eqZero` |
-| `Domains/Constraints/PenaltyLoss.lean` | `penaltyLoss_eq_zero_equalLength` |
-| `Domains/Constraints/PenaltyLoss.lean` | `penaltyLoss_eq_zero_perpendicular` |
-| `Domains/Constraints/PenaltyLoss.lean` | `penaltyLoss_eq_zero_rightAngle` |
-| `Domains/Constraints/PenaltyLoss.lean` | `penaltyLoss_eq_zero_sqDistEq` |
 | `Domains/Geometry/ClauseComposition.lean` | `repair_then_reinject` |
 | `Domains/Geometry/Invariant.lean` | `collinear_translate` |
 | `Domains/Geometry/Invariant.lean` | `parallel_translate` |
@@ -900,6 +895,11 @@
 | `Plugins/Core/Repair/Plugin.lean` | `progressProp_holds` |
 | `Plugins/Core/Repair/Repair.lean` | `preserves` |
 | `Plugins/Core/Repair/RepairWF.lean` | `preserves_of_sat` |
+| `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_eqZero` |
+| `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_equalLength` |
+| `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_perpendicular` |
+| `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_rightAngle` |
+| `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_sqDistEq` |
 | `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
 | `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
 | `Primitives/WeightDescent.lean` | `sqNormIn_nonneg` |
