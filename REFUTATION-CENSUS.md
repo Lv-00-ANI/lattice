@@ -16,10 +16,10 @@
 | `Runtime` | 9 | 3.1% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 10 | 3.4% |
+| `Core` | 9 | 2.9% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
-| `Plugins` | 20 | 6.3% |
+| `Plugins` | 21 | 6.7% |
 | `(root)` | 6 | 1.9% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +37,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 92 轮同计搬迁**：`Repair.lean`、`RepairAtomicity.lean`、`RepairConvergence.lean`、
+`RepairMultistep.lean`、`RepairWF.lean` 移入 `Plugins/Core/Repair/`，故 `Core` 由 10 降为 9、
+`Plugins` 由 20 升为 21，**总数不变**。**六个插件已完全自有其义务。**
 
 **第 91 轮同计搬迁**：`Domains/Constraints/Flatten.lean`、`SeqRepresentation.lean`、
 `LossExtraction.lean` 移入 `Plugins/Domains/Constraints/Tokens/`，故 `Domains` 由 7 降为 6、

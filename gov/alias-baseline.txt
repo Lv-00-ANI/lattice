@@ -2,8 +2,8 @@
 # Adding a line means: this duplicate was decided and is intentional (usually a vocabulary instance).
 copy	CInterface/ABI.lean	abiTable_errors_wellFormed
 copy	CInterface/ABI.lean	abiTable_returns_a_value
-copy	Core/Repair.lean	preserves
-copy	Core/RepairWF.lean	preserves_of_sat
+copy	Plugins/Core/Repair/Repair.lean	preserves
+copy	Plugins/Core/Repair/RepairWF.lean	preserves_of_sat
 copy	Domains/Constraints/Loss.lean	loss_eq_zero_expr
 copy	Domains/Constraints/Loss.lean	loss_eq_zero_perpendicular
 copy	Domains/Constraints/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
@@ -154,7 +154,7 @@ copy	Semantics/CompileSound.lean	holdsSet_midpoint_single
 copy	Semantics/CompileSound.lean	holdsSet_samePoint_single
 forward	Core/OneStepBridge.lean	natCountdownAsRepair_converges
 forward	Core/OneStepBridge.lean	oneStepRepair_converges
-forward	Core/Repair.lean	parity_terminates
+forward	Plugins/Core/Repair/Repair.lean	parity_terminates
 forward	Domains/Constraints/Dist.lean	sqDist_eq_of_dist_eq_same
 forward	Domains/Constraints/Dist.lean	sqDist_nonneg
 forward	Domains/Constraints/ExprDeriv.lean	maxPoint_lt_of_coord

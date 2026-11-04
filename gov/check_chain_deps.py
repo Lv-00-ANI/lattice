@@ -38,7 +38,9 @@ _RAW_EXPECTED = {
     "decodePayload_encodeForm": ("Lift/L1L2Roundtrip.lean", 5),
     "compileProgram_sound": ("Lift/SymbolToWeight.lean", 0),
     "extract_compile": ("Lift/Extraction.lean", 0),
-    "converges_within": ("Core/RepairConvergence.lean", 1),
+    # Round 92: `RepairConvergence.lean` MOVED into the `Core.Repair` plugin's directory, so the
+    # chain table must name its current home. The theorem is the same theorem; only the path moved.
+    "converges_within": ("Plugins/Core/Repair/RepairConvergence.lean", 1),
     "loss_eq_zero_of_poly_eq_zero": ("Geo/Reinjection.lean", 2),
     "residual_le_of_zero_on_dense": ("Lift/VerificationSoundness.lean", 1),
     "ladder_forward": ("Lift/EndToEnd.lean", 0),

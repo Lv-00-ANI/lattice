@@ -34,7 +34,6 @@
 |:--|:--|
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
-| `Core/Repair.lean` | `parity_terminates` |
 | `Domains/Constraints/ConstraintSet.lean` | `holdsSet_nil` |
 | `Domains/Constraints/Dist.lean` | `sqDist_eq_of_dist_eq_same` |
 | `Domains/Constraints/Dist.lean` | `sqDist_nonneg` |
@@ -700,6 +699,7 @@
 | `Plugins/Architectures/Norm/Proofs.lean` | `normalize_scale_invariant_reuse` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz_sharp` |
+| `Plugins/Core/Repair/Repair.lean` | `parity_terminates` |
 | `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_compile_extract` |
 | `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Plugins/Migration.lean` | `stringPrefix_self` |
@@ -753,8 +753,6 @@
 |:--|:--|
 | `CInterface/ABI.lean` | `abiTable_errors_wellFormed` |
 | `CInterface/ABI.lean` | `abiTable_returns_a_value` |
-| `Core/Repair.lean` | `preserves` |
-| `Core/RepairWF.lean` | `preserves_of_sat` |
 | `Core/VariableDerivative.lean` | `lowDeg_affine` |
 | `Core/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_expr` |
@@ -900,6 +898,8 @@
 | `Lib/Optim/RealStrongConvex.lean` | `strong_convex_minimizer` |
 | `Plugins/Core/Repair/Plugin.lean` | `convergesWithinProp_holds` |
 | `Plugins/Core/Repair/Plugin.lean` | `progressProp_holds` |
+| `Plugins/Core/Repair/Repair.lean` | `preserves` |
+| `Plugins/Core/Repair/RepairWF.lean` | `preserves_of_sat` |
 | `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
 | `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
 | `Primitives/WeightDescent.lean` | `sqNormIn_nonneg` |
