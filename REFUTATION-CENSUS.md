@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**316 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**317 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 28 | 8.9% |
-| `Semantics` | 2 | 0.6% |
+| `Semantics` | 3 | 0.9% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 121 轮新增一条**：`no_token_dependent_inherits` —— **`Inherits` 中不存在依赖 token 的行为**，
+**因为 `sound` 的左边不含 `toks`，故右边不能含。第 120 轮的缺口是结构设计限制，不是缺实例。**
+故 `Semantics` 由 2 升为 3、总数由 316 升为 317。
 
 **第 120 轮新增一条**：`constant_label_blocks_complete` —— **常值标注的几何不满足 `completeOn`**，
 **故 `identityInherits` 所要求的满射假设是真实成本而非形式条件。**

@@ -10,6 +10,8 @@ import Lattice.Semantics.MeaningTypes
 import Lattice.Semantics.MeaningTypesFinite
 import Lattice.Semantics.ProgramRefinement
 import Lattice.Semantics.InheritsInstance
+import Lattice.Semantics.InheritsStructural
+import Lattice.Semantics.ContextualInheritsInstance
 
 /-!
 # 语义信息主线：阶段划分与聚合

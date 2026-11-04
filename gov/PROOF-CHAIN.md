@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 309 | aggregator at `Lattice/`, re-exports only |
+| root | 311 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,11 +964,13 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
+- `Lattice.Semantics.ContextualInheritsInstance` <- `Lattice.Semantics.InheritsStructural`
 - `Lattice.Semantics.InheritsInstance` <- `Lattice.Semantics.Stage1`
+- `Lattice.Semantics.InheritsStructural` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.InheritsInstance`
 - `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.MeaningTypesFinite` <- `Lattice.Semantics.MeaningTypes`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
@@ -1932,7 +1934,9 @@
 | `Lattice.Semantics.Annotations` | 9 | 3 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
+| `Lattice.Semantics.ContextualInheritsInstance` | 5 | 3 |
 | `Lattice.Semantics.InheritsInstance` | 4 | 2 |
+| `Lattice.Semantics.InheritsStructural` | 3 | 2 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
 | `Lattice.Semantics.MeaningTypesFinite` | 4 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
@@ -2632,6 +2636,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `be_trans` -> `BehaviourallyEquivalent`, `trans`
 - `beh_coarser_than_recover` -> `Layer`, `SymToken`, `g`
 - `beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
+- `behavior_token_independent` -> `Geometry`, `Inherits`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `behaviouralFibre_card_ge_two` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralIndistinct_equivalence` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
@@ -3688,6 +3693,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `content_one_does_not_force_head_nonzero` -> `VectorConstraint`, `constraintContent`, `listGcdNat`
 - `content_scaleVec` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
 - `content_scaleVec_neg_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `contextual_behavior_depends` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
+- `contextual_inherits_is_nondegenerate` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
+- `contextual_sound_no_longer_forces_independence` -> `SemanticDomain`, `Weights`, `behavior`, `embed`, `sound`
 - `continuousLinearMap_eq_dotV_finStdBasis` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `continuous_apply` -> `comp`, `e2`, `g`, `inter`, `mul`
 - `continuous_exp_neg_sq` -> `at`, `comp`, `le`
@@ -3777,6 +3785,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `core_dot_concrete_witness` -> `dot`
 - `core_semantics_lifts_to_real_bias` -> `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `dot`
 - `core_semantics_reaches_real` -> `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `convertVec_preserves_semantics`, `dot`
+- `correction_is_witnessed` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `countList_cons` -> `Compiler`, `Tree`
 - `countList_nil` -> `Compiler`, `Tree`
 - `count_eq_of_eq` -> `Compiler`, `Tree`
@@ -6560,6 +6569,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listDecEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `listDecEq_nil` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listDecEq_nil_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `listDomain_symmetric` -> `ContextualGeometry`, `ContextualInherits`, `Symmetric`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
+- `listDomain_transitive` -> `ContextualGeometry`, `ContextualInherits`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
 - `listGcdNat_cons` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
 - `listGcdNat_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
 - `listGcdNat_eq_zero_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
@@ -7464,6 +7475,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `no_specSolver` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `no_stuck_well_typed_literals` -> `Compiler`, `Step`
+- `no_token_dependent_inherits` -> `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
 - `no_uniform_step_size` -> `apply`, `at`, `le_refl`
