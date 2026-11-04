@@ -2339,6 +2339,9 @@ Plugins/Runtime/Spatiotemporal/Fail.lean	runSeq_all_succeed
 Plugins/Runtime/Spatiotemporal/Model.lean	undo_apply
 Plugins/Runtime/Spatiotemporal/Model.lean	undo_apply_at
 Plugins/Runtime/Spatiotemporal/Seq.lean	undoSeq_apply
+Plugins/Targets/ArtifactLadder.lean	samePointWeightsLadder_l2l3
+Plugins/Targets/ArtifactLadder.lean	artifactOfLadder_layers
+Plugins/Targets/ArtifactLadder.lean	artifactOfLadder_summary
 Plugins/Targets/ConstFamily.lean	seg_const_zero
 Plugins/Targets/ConstFamily.lean	holds_midpoint_const
 Plugins/Targets/ConstFamily.lean	bilinearSeg_const_zero

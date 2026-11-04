@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 294 | aggregator at `Lattice/`, re-exports only |
+| root | 295 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -858,7 +858,8 @@
 - `Lattice.Plugins.Runtime.Spatiotemporal.Fail` <- `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Model` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.Spatiotemporal.Seq` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`
-- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`
+- `Lattice.Plugins.Targets` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Plugins.Targets.Solver`, `Lattice.Plugins.Targets.MultiSolver`, `Lattice.Plugins.Targets.ConstFamily`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.Nondegenerate`, `Lattice.Plugins.Targets.SolverBoundary`, `Lattice.Plugins.Targets.T2Min`, `Lattice.Plugins.Targets.T1Dependence`, `Lattice.Plugins.Targets.SemanticRep`, `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.Construction`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ConstructArtifactBridge`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Plugins.Targets.ArtifactLadder`
+- `Lattice.Plugins.Targets.ArtifactLadder` <- `Lattice.Core.ModelArtifact`, `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.ExtractArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Plugins.Targets.ConstFamily` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.ConstructArtifact` <- `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Core.Net`
 - `Lattice.Plugins.Targets.ConstructArtifactBridge` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Domains.Geometry.WeightSideLadder`
@@ -1807,6 +1808,7 @@
 | `Lattice.Plugins.Runtime.Spatiotemporal.Model` | 2 | 5 |
 | `Lattice.Plugins.Runtime.Spatiotemporal.Seq` | 1 | 3 |
 | `Lattice.Plugins.Targets` | 0 | 0 |
+| `Lattice.Plugins.Targets.ArtifactLadder` | 3 | 2 |
 | `Lattice.Plugins.Targets.ConstFamily` | 7 | 1 |
 | `Lattice.Plugins.Targets.ConstructArtifact` | 3 | 4 |
 | `Lattice.Plugins.Targets.ConstructArtifactBridge` | 4 | 2 |
@@ -2465,6 +2467,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `argmax_stable` -> `IsArgMax`, `apply`, `argmax_unique`, `at`, `subst`
 - `argmax_unique` -> `softmax`, `softmax_denom_pos`
 - `arity_is_load_bearing` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
+- `artifactOfLadder_layers` -> `Activation`, `SymbolicSummary`, `affineLayerToMLayer`, `depth`, `enc`, `identity`, `ofArtifact`, `samePointLayer`
+- `artifactOfLadder_summary` -> `Activation`, `SymbolicSummary`, `depth`, `enc`, `identity`, `ofArtifact`
 - `ascendingFix_absorbs` -> `Audit`, `at`, `subst`
 - `ascendingFix_atomic` -> `Audit`, `at`
 - `ascendingFix_not_decreases` -> `Audit`, `at`
@@ -8995,6 +8999,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samePointMeasureFin_le_one` -> `Pt`, `samePointMeasureFin`, `split`
 - `samePointMeasure_eq_zero_iff` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`, `iterate`, `progress`
 - `samePointRepair_unified` -> `Pt`, `Repair`, `Sat`, `linearRepair`, `perpRepair`, `preserves_of_sat`, `samePointRepair`
+- `samePointWeightsLadder_l2l3` -> `Activation`, `ModelArtifact`, `SymbolicSummary`, `affineLayerToMLayer`, `construct_artifact`, `depth`, `enc`, `identity`, `ofArtifact`, `samePointLayer`
 - `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `samePoint_expressible` -> `GeoConstraint`, `GeoExpr`
 - `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`

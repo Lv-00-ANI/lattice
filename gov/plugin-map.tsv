@@ -8918,6 +8918,9 @@ plugins	Plugins/Runtime/Spatiotemporal	Plugins/Runtime/Spatiotemporal/Fail.lean	
 plugins	Plugins/Runtime/Spatiotemporal	Plugins/Runtime/Spatiotemporal/Model.lean	undo_apply	no
 plugins	Plugins/Runtime/Spatiotemporal	Plugins/Runtime/Spatiotemporal/Model.lean	undo_apply_at	no
 plugins	Plugins/Runtime/Spatiotemporal	Plugins/Runtime/Spatiotemporal/Seq.lean	undoSeq_apply	no
+plugins	Plugins/Targets	Plugins/Targets/ArtifactLadder.lean	artifactOfLadder_layers	no
+plugins	Plugins/Targets	Plugins/Targets/ArtifactLadder.lean	artifactOfLadder_summary	no
+plugins	Plugins/Targets	Plugins/Targets/ArtifactLadder.lean	samePointWeightsLadder_l2l3	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	bilinearSeg_const_zero	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	expressible_of_degenerateOK	no
 plugins	Plugins/Targets	Plugins/Targets/ConstFamily.lean	holds_midpoint_const	no

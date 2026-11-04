@@ -59,3 +59,4 @@ import Lattice.Plugins.Targets.Construction
 import Lattice.Plugins.Targets.ConstructArtifact
 import Lattice.Plugins.Targets.ConstructArtifactBridge
 import Lattice.Plugins.Targets.ExtractArtifact
+import Lattice.Plugins.Targets.ArtifactLadder
