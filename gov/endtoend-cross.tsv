@@ -2900,6 +2900,7 @@ Semantics/PostTrain.lean	post_train_preserves
 Semantics/PostTrain.lean	post_train_preserves_holds
 Semantics/PostTrain.lean	post_train_preserves_set
 Semantics/PostTrain.lean	step_changes_off_solution
+Semantics/ProgramDomain.lean	two_domains_exist
 Semantics/Stage1.lean	constraintDomain_symmetric
 Semantics/Stage1.lean	constraintDomain_transitive
 Semantics/Stage1.lean	holdsSet_meaning_equiv

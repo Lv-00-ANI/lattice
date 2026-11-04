@@ -5,6 +5,7 @@ import Lattice.Semantics.Merge
 import Lattice.Semantics.CompileSound
 import Lattice.Semantics.PostTrain
 import Lattice.Semantics.CompileSoundGeneral
+import Lattice.Semantics.ProgramDomain
 
 /-!
 # 语义信息主线：阶段划分与聚合

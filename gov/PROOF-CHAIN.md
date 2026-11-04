@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 304 | aggregator at `Lattice/`, re-exports only |
+| root | 305 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,12 +964,13 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
+- `Lattice.Semantics.ProgramDomain` <- `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
@@ -1929,6 +1930,7 @@
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
+| `Lattice.Semantics.ProgramDomain` | 6 | 3 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
@@ -8176,6 +8178,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prod_sum_factor` -> `at`, `card_fin`, `convert`, `le`
 - `productPlan_isPlan` -> `e2`, `g`, `mul`, `sInf`
 - `product_exp_bound` -> `apply`, `at`, `le_trans`, `subst`
+- `programDomain_is_refl` -> `SemanticDomain`, `constraintDomain`, `d`, `trivial`
+- `programDomain_meaning_inhabited` -> `SemanticDomain`, `constraintDomain`, `d`, `trivial`
+- `programDomain_meaning_is_optional` -> `SemanticDomain`, `constraintDomain`, `d`, `trivial`
+- `programDomain_symmetric` -> `SemanticDomain`, `Symmetric`, `Transitive`, `constraintDomain`, `d`, `trans`, `trivial`
+- `programDomain_transitive` -> `SemanticDomain`, `Transitive`, `constraintDomain`, `d`, `trans`, `trivial`
 - `programLoss_lipschitz` -> `IsLipschitzInstr`, `LayerProgram`, `card_fin`, `evalProgram`, `evalProgram_lipschitz`, `g`, `length`, `sum_sq_lipschitz_on_bounded`
 - `program_sound_at_minimiser` -> `E`, `Sat`, `at`, `loss`, `trivial`
 - `progress` -> `Compiler`, `HasType`, `Sat`, `Step`, `Ty`, `Value`, `add`, `at`, `e2`, `induction`, `iterate`, `preservation`, `step`, `zero`
@@ -10494,6 +10501,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_dim_posdef_iff` -> `add`, `at`, `d`
 - `two_distinct_constraints` -> `IsFormalConcept`, `RealConstraint`, `at`
 - `two_div_sqrt_pi_mul_sqrt_pi_div_two` -> `at`
+- `two_domains_exist` -> `SemanticDomain`, `constraintDomain`, `d`, `trivial`
 - `two_families_connected` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `two_hop_msg` -> `apply`, `le_trans`
 - `two_layer_block_edit_bound` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`

@@ -9592,6 +9592,12 @@ semantics	Semantics	Semantics/PostTrain.lean	post_train_preserves_set	no
 semantics	Semantics	Semantics/PostTrain.lean	shiftLayer_step_at_solution	no
 semantics	Semantics	Semantics/PostTrain.lean	step_at_solution	no
 semantics	Semantics	Semantics/PostTrain.lean	step_changes_off_solution	no
+semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_is_refl	no
+semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_meaning_inhabited	no
+semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_meaning_is_optional	no
+semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_symmetric	no
+semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_transitive	no
+semantics	Semantics	Semantics/ProgramDomain.lean	two_domains_exist	no
 semantics	Semantics	Semantics/Stage1.lean	complete_on	no
 semantics	Semantics	Semantics/Stage1.lean	constraintDomain_symmetric	no
 semantics	Semantics	Semantics/Stage1.lean	constraintDomain_transitive	no
