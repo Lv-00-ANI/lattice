@@ -11,7 +11,7 @@
 | core | 26 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 622 | instantiated library, may import core only |
+| lib | 623 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -47,7 +47,7 @@
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`, `Lattice.Lib.Architectures.SoftmaxSubLayer`
+- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`, `Lattice.Lib.Architectures.SoftmaxSubLayer`, `Lattice.Lib.Architectures.TinyTransformer`
 - `Lattice.Lib.Architectures.RealActClass` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealActComplete` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealActDerivatives` <- `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`
@@ -116,6 +116,7 @@
 - `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
 - `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Lib.Architectures.SoftmaxSubLayer` <- `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Attention.RealAttention`
+- `Lattice.Lib.Architectures.TinyTransformer` <- `Lattice.Core.ModelArtifact`, `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`, `Lattice.Lib.Attention.SoftmaxLipschitz`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`, `Lattice.Lib.Attention.AttentionLipschitz`, `Lattice.Lib.Attention.ProgramSoftmaxBridge`, `Lattice.Lib.Attention.ConvexCombination`, `Lattice.Lib.Attention.ProgramAttentionLipschitz`
 - `Lattice.Lib.Attention.AttentionLipschitz` <- `Lattice.Lib.Architectures.SoftmaxSubLayer`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`
 - `Lattice.Lib.Attention.ConvexCombination` 
@@ -1065,6 +1066,7 @@
 | `Lattice.Lib.Architectures.RealTransformerEval` | 6 | 5 |
 | `Lattice.Lib.Architectures.RealWLRefinement` | 23 | 5 |
 | `Lattice.Lib.Architectures.SoftmaxSubLayer` | 4 | 2 |
+| `Lattice.Lib.Architectures.TinyTransformer` | 8 | 10 |
 | `Lattice.Lib.Attention` | 0 | 0 |
 | `Lattice.Lib.Attention.AttentionLipschitz` | 3 | 0 |
 | `Lattice.Lib.Attention.ConvexCombination` | 3 | 0 |
@@ -1921,32 +1923,32 @@ An edge `A -> B` means the body of `A` mentions declaration `B` from another
 module. These are the edges that make the chain a chain rather than a list.
 
 - `B275_2_and_LoadBearing_independent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
-- `BDD.eval_ff` -> `all`, `apply`, `at`, `children`, `eval`, `induction`, `length`, `min`, `trans`
+- `BDD.eval_ff` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `length`, `min`, `trans`
 - `BDD.eval_ite` -> `apply`, `at`, `children`, `eval`, `induction`, `min`, `trans`
-- `BDD.eval_tt` -> `all`, `apply`, `at`, `children`, `eval`, `induction`, `min`, `trans`
+- `BDD.eval_tt` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `min`, `trans`
 - `BDD.isOrdered_mono` -> `at`, `children`, `e2`, `eval`, `induction`, `min`
-- `BetaRedStar.app_l` -> `depth`, `induction`, `step`
-- `BetaRedStar.app_r` -> `depth`, `induction`, `step`
-- `BetaRedStar.lam_body` -> `depth`, `induction`, `step`
-- `BetaRedStar.trans` -> `depth`, `induction`, `step`
-- `Block.eval_lipschitz` -> `apply`, `induction`
+- `BetaRedStar.app_l` -> `d`, `depth`, `induction`, `step`
+- `BetaRedStar.app_r` -> `d`, `depth`, `induction`, `step`
+- `BetaRedStar.lam_body` -> `d`, `depth`, `induction`, `step`
+- `BetaRedStar.trans` -> `d`, `depth`, `induction`, `step`
+- `Block.eval_lipschitz` -> `apply`, `blocks`, `induction`
 - `C6Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
 - `C6_twoK3_1WL_blind` -> `nbhdSum`
 - `C6_twoK3_partition_eq` -> `nbhdSum`
 - `C6_twoK3_same_card` -> `E`, `nbhdSet`, `nbhdSum`
 - `CExpr.depth_eq_one` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `depth`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`
-- `C_ne_zero_of_ne_zero` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
+- `C_ne_zero_of_ne_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
 - `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `mlayerAct`
 - `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `mlayerAct`
-- `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `induction`, `zero`
+- `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`, `induction`, `zero`
 - `ChainFwd_const_add` -> `ChainFwd`, `ChainTail`, `W`, `at`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `Composed.toPrimitive_run` -> `run`
 - `Coverage.inter_none_left` -> `run`, `sound`
 - `Coverage.inter_none_right` -> `run`, `sound`
 - `Coverage.union_none_left` -> `run`, `sound`
-- `D1_compile_ignores_constraint_name` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
-- `D1_compile_loses_distance_value` -> `Compiler`, `VarName`, `angle`, `at`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`, `sqrt_one`
+- `D1_compile_ignores_constraint_name` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
+- `D1_compile_loses_distance_value` -> `Compiler`, `VarName`, `angle`, `at`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`, `sqrt_one`
 - `D22_canonical_content_one` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `canonical`, `canonical_eq_none_of_not_contentOk`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `listGcdNat`, `roundtrip_extractVec`, `scaleClassPlus_equivalence`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `D22_canonical_layerAB_ne` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_canonical_layer_wellDefined_false` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize_respects_scaleClassPlus`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
@@ -1965,9 +1967,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `D22_scaleClass_strictly_finer` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `cNegVec`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_semEqC_witness` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_semEq_imp_scaleClass_false` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `cNegVec`, `scaleClass_cNegVec_neg`, `scaleVec`
-- `D2_bridge_independent_of_source` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
-- `D2_bridge_midpoint_trivial` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
-- `D3_angle_compiles_to_tautology` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
+- `D2_bridge_independent_of_source` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
+- `D2_bridge_midpoint_trivial` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
+- `D3_angle_compiles_to_tautology` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D3_angle_placeholder_always_true` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D4_eval_expr_eq_fst` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D4_eval_expr_ignores_y` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
@@ -2026,8 +2028,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Gated.comp` -> `E`, `SoftMasked`, `W`, `apply`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid`, `hardSigmoid_bounds`, `hardSwish`, `hardSwish_is_soft_masked`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `silu_is_soft_masked`, `swiglu`, `swiglu_is_soft_masked`
 - `Gated.mul` -> `E`, `SoftMasked`, `W`, `apply`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid`, `hardSigmoid_bounds`, `hardSwish`, `hardSwish_is_soft_masked`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `silu_is_soft_masked`, `swiglu`, `swiglu_is_soft_masked`
 - `GeneralizationBound.sound'` -> `apply`, `at`, `hoeffding_two_sided`, `kl`, `le_trans`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `sound`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
-- `GeoConstraint.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `at`, `collinear`, `parallel`
-- `GeoExpr.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `add`, `at`, `collinear`, `induction`, `mul`, `parallel`
+- `GeoConstraint.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `at`, `collinear`, `d`, `parallel`
+- `GeoExpr.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `add`, `at`, `collinear`, `d`, `induction`, `mul`, `parallel`
 - `GeoExpr.beqShape_refl_coord` -> `GeoExpr`
 - `GeomConstraintTPTP.encode_connection` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`, `splitOn`
 - `GeomConstraintTPTP.encode_incidence` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`, `splitOn`
@@ -2080,8 +2082,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MStmt.size_skip` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MatLayerOut_eq_matvecE` -> `W`, `apply`, `at`, `matvecE`, `matvecE_sub`, `single`, `trivial`
 - `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `at`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
-- `Model.eval_lipschitz` -> `apply`
-- `Model.eval_nil` -> `apply`, `induction`
+- `Model.eval_lipschitz` -> `apply`, `blocks`
+- `Model.eval_nil` -> `apply`, `blocks`, `induction`
 - `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `soundness`, `zero`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `at`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `at`, `trans`
@@ -2097,16 +2099,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PMix_multiplier_makes_stationary` -> `at`
 - `PMix_stationarity_characterization` -> `at`
 - `PMix_stationarity_implies_satisfied` -> `add`, `at`
-- `P_ne_L` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `P_ne_L` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
 - `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `soundness`, `zero`
 - `PluginManifest.empty_claims_false` -> `completeness`, `empty`, `layer`, `soundness`
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
 - `PluginProof.trivial_fields` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
 - `PluginProof.trivial_holds` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
-- `PositionEncoding.error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `dist`, `eps`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.error_bound_of_close` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.output_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.stack_error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.error_bound_of_close` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.output_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.stack_error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `Primitive.withCoverage_sound` -> `sound`
 - `QuadGrad_eq` -> `Subgradient`, `at`
 - `QuadIter_exact` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `strong_convex_gap_bound`, `zero`
@@ -2174,53 +2176,53 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abiTable_names_nodup` -> `at`, `primitiveNames`
 - `abiTable_returns_a_value` -> `at`, `primitiveNames`
 - `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
-- `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `absPosDenom_pair` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `absPosDenom_pos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `absPos_B_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
-- `absPos_L_improved` -> `absPosDenom`
-- `absPos_L_sharp_at_D_one` -> `absPosDenom`
-- `absPos_interp_error` -> `absPosEnc`, `abs_pos_smooth`, `le_trans`
-- `absPos_smooth_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `le_trans`
+- `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `absPosDenom_pair` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `absPosDenom_pos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `absPos_B_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `absPos_L_improved` -> `absPosDenom`, `d`
+- `absPos_L_sharp_at_D_one` -> `absPosDenom`, `d`
+- `absPos_interp_error` -> `absPosEnc`, `abs_pos_smooth`, `d`, `le_trans`
+- `absPos_smooth_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `le_trans`
 - `abs_coord_sub_le_rho` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `mul`, `trans`
 - `abs_coord_sub_le_rho_singlePoint` -> `Pt`, `e2`, `le_antisymm`, `le_refl`, `ptIndex`, `rho`, `rho_nonneg`
-- `abs_cos_sub_cos_le` -> `Point2R`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_crosstalk_term_le` -> `ApplyEdits2`, `E`
+- `abs_cos_sub_cos_le` -> `Point2R`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_crosstalk_term_le` -> `ApplyEdits2`, `E`, `d`
 - `abs_cube_expectation_le_secondMoment` -> `apply`, `at`, `le_trans`, `uniformExpectation`, `uniformSecondMoment`
 - `abs_deviation_le_two` -> `apply`, `convert`, `uniformProb`
 - `abs_diff_eq_of_le_left` -> `apply`, `at`, `le`, `le_refl`, `le_trans`
 - `abs_diff_ge_neg` -> `apply`, `at`, `le`, `le_refl`, `le_trans`
-- `abs_div_sub` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `softmax`, `softmax_denom_pos`
+- `abs_div_sub` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `d`, `softmax`, `softmax_denom_pos`
 - `abs_exp_sub_le` -> `ProbDist`, `at`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `abs_exp_sub_taylor_two_le_real` -> `at`, `le_trans`, `uniformExpectation`, `uniformSecondMoment`, `uniformSecondMoment_nonneg`
 - `abs_floor_le_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `abs_floor_sub_lt_one` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `abs_hypRisk_le_one` -> `abs_mean_le_one`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `abs_le_abs_sq_is_false` -> `at`, `le_trans`, `uniformExpectation`, `uniformSecondMoment`, `uniformSecondMoment_nonneg`
-- `abs_le_diagRadius` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
+- `abs_le_diagRadius` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
 - `abs_le_of_sq_le` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
-- `abs_le_one_of_sq_add_sq` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `abs_le_one_of_sq_add_sq` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `abs_mean_le_one` -> `convert`
 - `abs_mul_div_sq` -> `BatchEdit2`, `BatchEditClosed`, `E`, `RankOnePatch`, `W`, `apply`, `at`, `card_fin`, `key_norm_sq_ne_zero`, `le_antisymm`, `le_trans`
 - `abs_mul_sub_mul_le` -> `LimitDiscrete`, `add`, `at`, `le_trans`, `mul`
-- `abs_pos_bounded` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_pythagorean` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_relative_shift` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_relative_shift_no_denom` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_shift_compose` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_smooth` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_symmetry_cos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `abs_pos_symmetry_sin` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_bounded` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_pythagorean` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_relative_shift` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_relative_shift_no_denom` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_shift_compose` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_smooth` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_symmetry_cos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_pos_symmetry_sin` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_resid_le_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
 - `abs_residual_rowStepN` -> `W`, `residual`
 - `abs_residual_rowStepN_le` -> `W`, `residual`
 - `abs_round_le` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `abs_round_le_growth` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
-- `abs_sin_sub_sin_le` -> `Point2R`, `abs_cos_sub_cos_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_sin_sub_sin_le` -> `Point2R`, `abs_cos_sub_cos_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_sub_le_abs_add` -> `at`, `le_total`, `le_trans`
 - `abs_tanh_lt_one` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `apply`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `tanh_pos_of_pos`, `zeroFixingHoldsBounded`
-- `abs_vs_rope_vs_alibi` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `abs_vs_rope_vs_alibi` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absorb_requires_image` -> `E`, `at`
 - `absorbs_not_derivable` -> `Audit`, `Sat`, `at`, `subst`
 - `absorbs_scale_at_three` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`
@@ -2267,8 +2269,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `activationLadder_l2l3_is_a_split` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `length`, `netAct`
 - `activationLadder_requires_activation` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `netAct`
 - `activation_strictly_stronger` -> `Activation`, `AffineLayer`, `netAct`, `relu`
-- `activeSet_card_le` -> `LICQOneDim`, `at`, `le_refl`, `subst`
-- `activeSet_subset` -> `LICQOneDim`, `at`, `le_refl`, `subst`
+- `activeSet_card_le` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
+- `activeSet_subset` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `active_choice_passive_content` -> `Gaze`, `up`
 - `adam_denominator_ge_eps` -> `induction`, `le_trans`, `zero`
 - `adam_denominator_pos` -> `induction`, `le_trans`, `zero`
@@ -2290,10 +2292,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `adjoint_holds` -> `extent`, `galois_connection`, `intent`
 - `adjunction_triangle_idem` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
 - `adjunction_triangle_object` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
-- `admissible_iff_no_strict_improvement` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
-- `admissible_iff_not_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
+- `admissible_iff_no_strict_improvement` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
+- `admissible_iff_not_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `admissible_iff_not_dominated_qualified` -> `Admissible`, `DecisionRule`, `Dominated`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compiledToCLM`, `layerToCLM`, `unique_bayes_admissible`
-- `admissible_of_not_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
+- `admissible_of_not_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `admissible_of_unique_bayes_qualified` -> `Admissible`, `DecisionRule`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compiledToCLM`, `layerToCLM`, `unique_bayes_admissible`
 - `admmScalarXStep_is_minimizer` -> `at`, `contraction_converges`
 - `admmScalarYError_recurrence` -> `at`, `contraction_converges`
@@ -2326,7 +2328,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineGeometry_closedB_eq_true` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `affineGeometry_extra_length` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `affineGeometry_false_but_repairable` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_extra_length`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `affineGeometry_templateNames_length` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `affineGeometryTemplateNames`, `all`, `closed_nil_iff`, `computabilityTheoryPackage`, `contains`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `dependenciesSatisfiedB_iff`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`, `zfcSetTheoryPackage`
+- `affineGeometry_templateNames_length` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `affineGeometryTemplateNames`, `all`, `closed_nil_iff`, `computabilityTheoryPackage`, `contains`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `dependenciesSatisfiedB_iff`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`, `zfcSetTheoryPackage`
 - `affineGeometry_validB_eq_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `affineGtFix_reaches` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
 - `affineLeFix_reaches` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `le_refl`
@@ -2335,11 +2337,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineMap_id` -> `at`, `le_refl`, `relu`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `affineStep_contracting` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affineStep_lipschitz` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
-- `affineTwoLayerArch_wf` -> `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `one`, `paramCount`, `relu`
+- `affineTwoLayerArch_wf` -> `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `arch`, `at`, `count`, `depth`, `layers`, `one`, `paramCount`, `relu`, `weights`
 - `affineTwoLayer_depth` -> `Arch`, `WellFormed`, `at`, `depth`, `one`, `paramCount`, `relu`
 - `affineTwoLayer_params` -> `Arch`, `WellFormed`, `at`, `depth`, `one`, `paramCount`, `relu`
-- `affineUnitArch_wf` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `identity`, `one`, `one_wellFormed`, `paramCount`, `relu`
-- `affineUnit_depth` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `identity`, `one`, `paramCount`, `relu`
+- `affineUnitArch_wf` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `arch`, `at`, `count`, `depth`, `identity`, `layers`, `one`, `one_wellFormed`, `paramCount`, `relu`, `weights`
+- `affineUnit_depth` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `arch`, `at`, `count`, `depth`, `identity`, `layers`, `one`, `paramCount`, `relu`, `weights`
 - `affineZeroFix_reaches` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `le_refl`
 - `affine_edit_output_bound` -> `E`, `W`, `le_trans`
 - `affine_edit_output_bound_scalar` -> `E`, `W`, `edit_output_bound_scalar`, `le_trans`
@@ -2352,7 +2354,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_iterate_eq_geometric` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `induction`, `zero`
 - `affine_second_difference` -> `W`
-- `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
+- `affine_zeroSet_subsingleton` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `d`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_gap_shape` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -2402,15 +2404,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `any_geluTanhDerivBound_ge_half` -> `at`, `geluTanhDeriv`
 - `any_shape_is_exactly_representable` -> `LayerParams`, `Representation`, `compile`, `extract`, `layerOfListRect`, `length`
 - `append_assoc` -> `Audit`, `induction`, `mul`, `one`
-- `append_eq_zipWith_add_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_eq_zipWith_add_iff_length_necessary` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_is_not_truncating` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
-- `append_ne_zipWith_add_witness` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
+- `append_eq_zipWith_add_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
+- `append_eq_zipWith_add_iff_length_necessary` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
+- `append_is_not_truncating` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `append_ne_zipWith_add_witness` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
+- `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
 - `append_nil` -> `Audit`, `induction`, `mul`, `one`
 - `application_outputs_absorbable` -> `Rule`, `at`, `layer`, `length`
-- `applyCorrect_tt_const` -> `all`, `apply`, `at`, `children`, `eval`, `induction`, `length`, `min`, `trans`
-- `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
+- `applyCorrect_tt_const` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `length`, `min`, `trans`
+- `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_attention_between` -> `Instr`, `W`, `applyInstr`, `convex_combination_between`, `le`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`, `weighted_average_weights_lipschitz`
@@ -2436,18 +2438,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `apply_comm` -> `Effect`, `RState`, `apply`, `applySeq`, `subst`, `undoSeq`, `undo_apply`
 - `approxHoldsEqZero_sound` -> `CExpr`, `at`, `evalC`
 - `approxHoldsEqualLength_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
-- `approxHoldsGtZero_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
+- `approxHoldsGtZero_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `d`, `evalC`, `mul`
 - `approxHoldsLeZero_sound` -> `CExpr`, `at`, `evalC`
-- `approxHoldsLtZero_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
+- `approxHoldsLtZero_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `d`, `evalC`, `mul`
 - `approxHoldsMidpoint_sound` -> `CExpr`, `Tolerance`, `add`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
 - `approxHoldsRightAngle_sound` -> `CExpr`, `Tolerance`, `add`, `approxZero_iff`, `evalC`, `mul`
 - `approxHoldsSamePoint_sound` -> `CExpr`, `Tolerance`, `add`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
-- `approxHoldsSqDistEq_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `evalC`, `mul`
+- `approxHoldsSqDistEq_sound` -> `CExpr`, `Tolerance`, `add`, `all`, `approxZero`, `approxZero_iff`, `at`, `d`, `evalC`, `mul`
 - `approxOn_mono_domain` -> `le_trans`
 - `approxOn_trans` -> `le_trans`, `min`
 - `approxOn_trans_same` -> `le_trans`
 - `approxZero_iff` -> `CExpr`, `at`, `evalC`
-- `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `at`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
+- `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
 - `approx_ladder_bound_mono` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
 - `approx_ladder_eps_nonneg` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
 - `approx_ladder_forward` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
@@ -2461,22 +2463,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `arc_finsupp_card` -> `ofEquiv`, `out`
 - `arc_natDegree_pos` -> `out`
 - `arc_powerBasis_dim` -> `ofEquiv`, `out`
+- `arch_depth` -> `MLayer`, `ModelArtifact`, `W`, `Weights`, `count`, `depth`, `length`, `paramCount`
+- `arch_wf` -> `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `length`, `paramCount`
 - `argmax_is_max` -> `softmax`, `softmax_denom_pos`
 - `argmax_of_monotone` -> `IsArgMax`, `sigmoid`, `softmax`, `softmax_monotone`
 - `argmax_softmax_weight_max` -> `softmax`
 - `argmax_stable` -> `IsArgMax`, `apply`, `argmax_unique`, `at`, `subst`
 - `argmax_unique` -> `softmax`, `softmax_denom_pos`
 - `arity_is_load_bearing` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
-- `artifactOfLadder_layers` -> `Activation`, `SymbolicSummary`, `affineLayerToMLayer`, `depth`, `enc`, `identity`, `ofArtifact`, `samePointLayer`
+- `artifactOfLadder_layers` -> `Activation`, `SymbolicSummary`, `affineLayerToMLayer`, `depth`, `enc`, `identity`, `layers`, `ofArtifact`, `samePointLayer`, `weights`
 - `artifactOfLadder_summary` -> `Activation`, `SymbolicSummary`, `depth`, `enc`, `identity`, `ofArtifact`
+- `artifact_depth` -> `depth`, `length`, `paramCount`
+- `artifact_layer_count` -> `length`, `paramCount`
+- `artifact_params` -> `paramCount`
 - `ascendingFix_absorbs` -> `Audit`, `at`, `subst`
 - `ascendingFix_atomic` -> `Audit`, `at`
 - `ascendingFix_not_decreases` -> `Audit`, `at`
 - `async_bounded_delay_converges` -> `induction`, `le`, `zero`
-- `async_delay_drift` -> `at`, `induction`, `le`, `zero`
+- `async_delay_drift` -> `at`, `d`, `induction`, `le`, `zero`
 - `async_delay_step` -> `induction`, `le`, `zero`
-- `async_random_delay_converges` -> `at`, `induction`, `le_trans`, `zero`
-- `async_random_delay_step` -> `at`, `induction`, `le_trans`, `zero`
+- `async_random_delay_converges` -> `at`, `d`, `induction`, `le_trans`, `zero`
+- `async_random_delay_step` -> `at`, `d`, `induction`, `le_trans`, `zero`
 - `atomicOfZeroIffProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `atomic_of_binary` -> `Repair`, `Sat`
 - `atomic_of_zero_iff` -> `Repair`, `Sat`
@@ -2487,10 +2494,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `atp_to_lv_step_mapping_exhaustive` -> `addConstraint`
 - `atp_to_lv_step_mapping_resolution` -> `addConstraint`
 - `atp_to_lv_step_mapping_superposition` -> `addConstraint`
-- `attentionPartition_eq_sum_expKernel` -> `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `attentionPartition_eq_sum_expKernel` -> `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_lipschitz_numeric` -> `E`, `LinfNorm`, `RMSNormOp`, `RMSNormOp_eq_rmsNormE`, `W`, `bddAbove_abs`, `le_trans`, `linear_map_lipschitz`, `linfNorm_eq_norm`, `rmsNormE_sqrt_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_lipschitz_weighted` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `convComb_lipschitz_prob`, `le_trans`, `linfNorm_eq_norm`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `attnState_projFeature_last` -> `apply`
+- `attnState_projFeature_last` -> `apply`, `d`
 - `audit_bridge_needs_bddAbove` -> `fenchelConjAll`
 - `audit_ereal_convexity_unconditional` -> `fenchelConjAll`
 - `audit_is_contentful` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `at`, `compileToLayer`, `lt`, `rank`, `trivial`
@@ -2518,15 +2525,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `avgSmooth_sharp_witness_fin` -> `card_fin`
 - `avgSmooth_sharp_witness_two` -> `card_fin`
 - `avgSmooth_sub_mean` -> `at`, `card_fin`, `induction`, `le_trans`, `mean`, `zero`
-- `azumaRademacher_abs_le_one` -> `le_trans`, `uniformProb`
-- `azumaRademacher_sum_zero` -> `le_trans`, `uniformProb`
-- `azuma_diff_bound` -> `S2`, `apply`, `at`, `card_fin`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
-- `azuma_examples` -> `le_trans`, `uniformProb`
+- `azumaRademacher_abs_le_one` -> `d`, `le_trans`, `uniformProb`
+- `azumaRademacher_sum_zero` -> `d`, `le_trans`, `uniformProb`
+- `azuma_diff_bound` -> `S2`, `apply`, `at`, `card_fin`, `d`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
+- `azuma_examples` -> `d`, `le_trans`, `uniformProb`
 - `azuma_max_tail_of_cond_mgf` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
-- `azuma_tail` -> `S2`, `at`, `card_fin`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
-- `azuma_tail_martingale` -> `CondZeroMean`, `fiber`, `uniformProb`
-- `azuma_tail_of_mgf` -> `CondZeroMean`, `fiber`, `le`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
-- `azuma_tail_uniform` -> `at`, `card_fin`, `le_trans`, `uniformProb`
+- `azuma_tail` -> `S2`, `at`, `card_fin`, `d`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
+- `azuma_tail_martingale` -> `CondZeroMean`, `d`, `fiber`, `uniformProb`
+- `azuma_tail_of_mgf` -> `CondZeroMean`, `d`, `fiber`, `le`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
+- `azuma_tail_uniform` -> `at`, `card_fin`, `d`, `le_trans`, `uniformProb`
 - `b194_anchor_consumer` -> `b194_counterexamples_intact`, `b194_counterexamples_intact_holds`
 - `b194_counterexamples_intact_holds` -> `LayerOut`, `LinearLayer`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `b194_counterexamples_referenced` -> `LayerOut`, `LinearLayer`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
@@ -2540,7 +2547,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bad_lam_exponent_counterexample` -> `apply`, `at`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`
 - `balanced_no_drop` -> `apply`
 - `balanced_route_no_drop` -> `apply`, `balanced_no_drop`, `drop_of_total_exceeds_capacity`
-- `basicRules_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `at`, `derivation_sound`
+- `basicRules_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `at`, `d`, `derivation_sound`
 - `basis_coord` -> `apply`, `single`
 - `batch2_cauchy_crosstalk_bound_first` -> `BatchEdit2`, `E`, `W`
 - `batch2_crosstalk_bound_first` -> `BatchEdit2`, `E`, `W`
@@ -2589,7 +2596,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `beh_coarser_than_recover` -> `Layer`, `SymToken`
 - `beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
 - `behaviouralFibre_card_ge_two` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
-- `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralIndistinct_equivalence` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `behaviouralQuotient_nontrivial` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`
 - `behaviouralQuotient_two_classes` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`
@@ -2662,8 +2669,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `betaSubst_var0` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `betaSubst_varSucc` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `beta_le_parStar` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
-- `beta_preserves_depth` -> `depth`, `induction`, `step`
-- `beta_strictly_decreases_size` -> `depth`, `induction`, `step`
+- `beta_preserves_depth` -> `d`, `depth`, `induction`, `step`
+- `beta_strictly_decreases_size` -> `d`, `depth`, `induction`, `step`
 - `bf16_round_nonempty` -> `IEEERound`, `RoundMode`, `bf16`, `fp32`, `tiny`
 - `bfgs_form_pd` -> `at`, `mulVec`
 - `bfgs_form_psd` -> `at`, `mulVec`
@@ -2686,7 +2693,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bigstep_to_smallstep` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
 - `bilinearSeg_const_zero` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `bilinearSum_abs_le` -> `Pt`, `card_fin`
-- `bilinearSum_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `seg`, `trunc`
+- `bilinearSum_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `seg`, `trunc`
 - `bilinearSum_lipschitz` -> `Pt`, `card_fin`, `coordDiff_sub_le`, `rho`, `rho_nonneg`
 - `bilinear_not_affine` -> `aff`, `subst`
 - `bilinear_sq_sub_le` -> `le_trans`
@@ -2721,23 +2728,23 @@ module. These are the edges that make the chain a chain rather than a list.
 - `binaryFormat_toFloatFormat_tiny` -> `eps`, `tiny`
 - `bind_ite` -> `Primitive`, `choice`, `compose`, `run`
 - `bl_getD` -> `AffineLayer`, `W`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
-- `blockDot_period_invariance` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `blockDot_period_invariance` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `blockSparseSoftmax_eq_masked` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedDenom_pos`, `maskedSoftmax`, `maskedSoftmax_nonneg`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
 - `block_causal_lipschitz` -> `E`
 - `block_causal_output_bound` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `softmax`, `split`
 - `block_causal_row_nonempty` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `softmax`, `split`
 - `block_causal_row_random` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `softmax`, `split`
-- `block_extrapolation_drift` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`
+- `block_extrapolation_drift` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`
 - `block_lipschitz_bound` -> `ChainFwd`, `chainN_error_bound`, `lipschitz_add`
 - `block_mask_contains_causal` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedSoftmax_sum_one`, `softmax`, `split`
 - `block_residual_lipschitz` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
-- `block_rope_isometry` -> `Point2R`
-- `block_rope_relative_preserves_dot` -> `Point2R`, `rope_relative_preserves_dot`
-- `block_rotate_apply` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
-- `block_rotate_compose` -> `Point2R`, `rope_relative_preserves_dot`, `rotate_compose`
-- `block_rotate_preserves_dot` -> `Point2R`, `rope_relative_preserves_dot`, `rotate_compose`, `rotate_preserves_dot`
-- `block_rotate_preserves_norm` -> `Point2R`
-- `block_rotate_preserves_normSq` -> `Point2R`
+- `block_rope_isometry` -> `Point2R`, `d`
+- `block_rope_relative_preserves_dot` -> `Point2R`, `d`, `rope_relative_preserves_dot`
+- `block_rotate_apply` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
+- `block_rotate_compose` -> `Point2R`, `d`, `rope_relative_preserves_dot`, `rotate_compose`
+- `block_rotate_preserves_dot` -> `Point2R`, `d`, `rope_relative_preserves_dot`, `rotate_compose`, `rotate_preserves_dot`
+- `block_rotate_preserves_norm` -> `Point2R`, `d`
+- `block_rotate_preserves_normSq` -> `Point2R`, `d`
 - `block_sampled_verifier` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
 - `block_sampled_verifier_hypotheses_inhabited` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`
 - `block_sparse_all_blocks_count` -> `E`, `card_fin`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedSoftmax_sum_one`, `softmax`
@@ -2812,10 +2819,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bytesPerWord_bf16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bytesPerWord_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bytesPerWord_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
-- `cDistEq_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
+- `cDistEq_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `d`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
 - `cEx_actAllZero_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
 - `cEx_not_allSatisfied_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
-- `cExpr_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
+- `cExpr_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `d`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
 - `cInner_add_left` -> `at`, `le_trans`, `normSq`
 - `cInner_comm` -> `at`, `le_trans`, `normSq`, `normSq_nonneg`
 - `cInner_eq_re_mul_conj` -> `at`, `le_trans`, `normSq`, `normSq_nonneg`
@@ -2825,8 +2832,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cInner_smul_real_left` -> `at`, `le_trans`, `normSq`
 - `cInner_sq_le` -> `at`, `le_trans`, `normSq`
 - `cNegVec_content_ne_one` -> `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`
-- `cPerp_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
-- `cSamePoint_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
+- `cPerp_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `d`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
+- `cSamePoint_eq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `at`, `d`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `length`, `length_cons`, `trivial`
 - `cache_append_eq_full` -> `apply`, `at`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `cache_append_preserves_earlier_outputs` -> `apply`, `at`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`
 - `cache_append_preserves_earlier_rows` -> `apply`, `at`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
@@ -2882,10 +2889,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `capacity_term_antitone` -> `S2`, `apply`, `le_trans`, `popRisk`
 - `capacity_term_gap` -> `S2`, `apply`, `le_trans`, `popRisk`
 - `capacity_term_two_sided` -> `S2`, `apply`, `hoeffding_two_sided`, `le`, `le_trans`, `popRisk`, `uniformExpectation`, `uniformProb`
-- `cardLE_refl` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `cardLE_refl` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `card_fin` -> `all`, `at`, `bvar`, `induction`
-- `card_mul_condExpFiber` -> `apply`, `at`
-- `carrier_length_laws` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `card_mul_condExpFiber` -> `apply`, `at`, `d`
+- `carrier_length_laws` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
 - `castConstraint_b_eq_convertVec_b` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `ProbVec`, `VectorConstraint`, `at`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `cauchy_schwarz_eq_imp_proportional` -> `at`
 - `cauchy_schwarz_finset` -> `at`, `card_fin`
@@ -2921,16 +2928,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `causal_softmax_lipschitz_coord` -> `LinfNorm`, `abs_div_sub`, `at`, `bddAbove_abs`, `causalDenom`, `causalDenom_pos`, `causalSoftmax`, `exp_lipschitz_on`, `linfNorm_nonneg`
 - `causal_weight_l1_diff_bound` -> `E`, `LinfNorm`, `ModelBlock`, `RMSNormOp`, `W`, `apply`, `attention_lipschitz_weighted`, `bddAbove_abs`, `causalSoftmax`, `causalSoftmax_nonneg`, `causalSoftmax_sum_one`, `le_trans`, `linfNorm_eq_norm`, `score_lin_lipschitz`
 - `causal_weights_dominate_prefix` -> `apply`, `softmax`, `softmax_denom_pos`
-- `cavi_step_monotone` -> `at`
-- `ccx_add` -> `add`, `apply`, `at`, `insert`, `le_refl`, `smul`
-- `ccx_add_const` -> `add`, `apply`, `at`, `insert`, `le_refl`
-- `ccx_affine_comp` -> `apply`, `at`, `le_refl`
-- `ccx_affine_comp_of_nonneg` -> `apply`, `at`, `le_refl`
-- `ccx_epigraph_iff` -> `at`, `le_refl`
-- `ccx_finset_sup` -> `apply`, `at`, `le_refl`
-- `ccx_nonneg_combo` -> `add`, `apply`, `at`, `insert`, `le_refl`
-- `ccx_smul` -> `add`, `apply`, `at`, `insert`, `le_refl`, `smul`
-- `ccx_sup` -> `apply`, `at`, `le_refl`
+- `cavi_global_monotone` -> `d`
+- `cavi_step_monotone` -> `at`, `d`
+- `ccx_add` -> `add`, `apply`, `at`, `d`, `insert`, `le_refl`, `smul`
+- `ccx_add_const` -> `add`, `apply`, `at`, `d`, `insert`, `le_refl`
+- `ccx_affine_comp` -> `apply`, `at`, `d`, `le_refl`
+- `ccx_affine_comp_of_nonneg` -> `apply`, `at`, `d`, `le_refl`
+- `ccx_epigraph_iff` -> `at`, `d`, `le_refl`
+- `ccx_finset_sup` -> `apply`, `at`, `d`, `le_refl`
+- `ccx_nonneg_combo` -> `add`, `apply`, `at`, `d`, `insert`, `le_refl`
+- `ccx_smul` -> `add`, `apply`, `at`, `d`, `insert`, `le_refl`, `smul`
+- `ccx_sup` -> `apply`, `at`, `d`, `le_refl`
 - `ceMag_nonneg` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `ce_compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `induction`, `le_refl`, `le_trans`, `lit`, `tiny`
 - `ce_convex_in_q` -> `apply`, `at`, `ce_sum_neg`, `crossEntropy`, `kl`, `kl_as_sum_log_sub_log`, `mixDist`, `mul_log_convex_pair`
@@ -2996,7 +3004,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainDepth_chainOneToChain` -> `at`, `eval`, `eval_add`, `eval_mul`
 - `chainDepth_cons` -> `Chain`, `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`
 - `chainDepth_idf` -> `Chain`, `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`
-- `chainDepth_polyChainToChain` -> `at`, `eval`, `induction`, `single`, `trans`
+- `chainDepth_polyChainToChain` -> `at`, `d`, `eval`, `induction`, `single`, `trans`
 - `chainErrReal_le` -> `E`, `induction`, `zero`
 - `chainErrReal_nonneg` -> `E`, `induction`, `zero`
 - `chainFwd_replacement_bound_last_layer` -> `ChainFwd`, `ChainTail`
@@ -3012,9 +3020,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainLift_le_u_l` -> `compose`
 - `chainLift_premise_instantiable` -> `compose`
 - `chainLift_two` -> `compose`
-- `chainList_degree_attained` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`, `length`
+- `chainList_degree_attained` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`, `length`
 - `chainList_output_eval` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
-- `chainList_output_full` -> `Chain`, `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
+- `chainList_output_full` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
 - `chainList_output_is_polynomial` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
 - `chainMin_last` -> `apply`, `at`, `le_refl`
 - `chainMin_zero` -> `apply`, `at`, `le_refl`
@@ -3033,37 +3041,37 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainNatPoly_single_coeff_bias` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `chainNatPoly_single_coeff_weight` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `chainNatPoly_totalDegree` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`, `single`
-- `chainNatPoly_totalDegree_any` -> `MLayer`, `eval`, `le_trans`, `length`
+- `chainNatPoly_totalDegree_any` -> `MLayer`, `d`, `eval`, `le_trans`, `length`
 - `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`
 - `chainOffsets_two` -> `Chain`, `MLayer`, `comp`
-- `chainOneAct_allOnesWeights` -> `apply`, `at`, `eval`, `le_antisymm`, `single`
-- `chainOneAct_cons` -> `MLayer`, `apply`, `at`, `eval`, `le_antisymm`, `single`
-- `chainOneAct_eq_flatChainAct` -> `MLayer`, `at`, `eval`, `single`
+- `chainOneAct_allOnesWeights` -> `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
+- `chainOneAct_cons` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
+- `chainOneAct_eq_flatChainAct` -> `MLayer`, `at`, `d`, `eval`, `single`
 - `chainOneDepth_cons_succ` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`, `single`
 - `chainOneDepth_idf` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`, `single`
 - `chainOneDepth_listToChainOne` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
-- `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `at`, `eval`, `le_antisymm`, `single`
-- `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `at`, `eval`, `le_antisymm`, `single`
+- `chainOneDepth_ofDepth` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
+- `chainOneOfDepth_ne_zero` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
 - `chainOnePoly_degree_le` -> `at`, `eval`, `eval_add`, `eval_mul`
-- `chainOnePoly_eval_act` -> `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`
+- `chainOnePoly_eval_act` -> `MLayer`, `at`, `d`, `eval`, `eval_add`, `eval_mul`
 - `chainOnePoly_idf` -> `at`, `eval`, `eval_add`, `eval_mul`
-- `chainOne_output_degree` -> `MLayer`, `at`, `eval`, `single`
-- `chainOne_output_eval` -> `MLayer`, `apply`, `at`, `eval`, `le_antisymm`, `single`
-- `chainOne_output_poly_exists` -> `MLayer`, `apply`, `at`, `eval`, `le_antisymm`, `single`
+- `chainOne_output_degree` -> `MLayer`, `at`, `d`, `eval`, `single`
+- `chainOne_output_eval` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
+- `chainOne_output_poly_exists` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
 - `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `mlayerAct`
 - `chainPoly_degree_le` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainPoly_idf` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `at`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `at`, `le_refl`
 - `chainSlot_migrated` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
-- `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`
+- `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`
 - `chain_discrete_then_dense` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`
 - `chain_distill_affine` -> `AffineLayer`, `ChainFwd`, `affineAct`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
-- `chain_distill_bound` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantFwd`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
-- `chain_distill_bound_lipschitz` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantFwd`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
-- `chain_error_three` -> `at`
-- `chain_error_two` -> `at`
-- `chain_fwd_step` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `subst`
+- `chain_distill_bound` -> `ChainFwd`, `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantFwd`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
+- `chain_distill_bound_lipschitz` -> `ChainFwd`, `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantFwd`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
+- `chain_error_three` -> `at`, `d`
+- `chain_error_two` -> `at`, `d`
+- `chain_fwd_step` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`, `subst`
 - `chain_mgf_bound` -> `at`, `card_fin`, `convert`, `le`
 - `chain_mgf_bound_uniform` -> `at`, `card_fin`, `convert`
 - `chain_mgf_prod` -> `at`, `card_fin`, `convert`, `le`
@@ -3074,13 +3082,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chanMap_permActChan_comm` -> `apply`
 - `channelComp_pos` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`
 - `channelComp_row_sum` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`
-- `channelError_eq_structured` -> `at`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `channelError_eq_structured` -> `at`, `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
 - `channelPush_comp` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`
 - `channelPush_pos` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`
 - `channelPush_sum` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`
 - `channelPush_zero_col` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
-- `channel_op_bound` -> `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
-- `channel_pruning_bound` -> `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `channel_op_bound` -> `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `channel_pruning_bound` -> `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
 - `charCode_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `induction`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
 - `charCode_separates_constructors` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `length`, `mkConstraint`, `ofNat`, `recover`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
 - `charCode_single_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `induction`, `length`, `mkConstraint`, `ofNat`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
@@ -3104,8 +3112,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chiSqSym_perturbation_le` -> `eps`, `fisherInfo`, `fisherMatrix_eq_fisherInfo_one_dim`, `kl`
 - `chiSq_eq_sum_sq_div` -> `apply`, `at`, `chiSq`, `fDivergence`
 - `chiSq_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
-- `child_sizeOf_lt` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `children_node` -> `apply`, `at`, `depth`, `size`
+- `child_sizeOf_lt` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `children_node` -> `apply`, `at`, `d`, `depth`, `size`
 - `choice_coverage` -> `Primitive`, `at`, `dec`, `run`, `sound`, `union`
 - `choice_self_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `run`
 - `choice_sound` -> `Primitive`, `at`, `dec`, `min`, `run`, `sound`, `union`
@@ -3117,7 +3125,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chord_hull_measure` -> `at`, `condexp_add`, `condexp_const`, `condexp_mono`, `le`, `mono`, `trans`
 - `christoffel_depends_only_on_first_fundamental` -> `E`, `S2`, `split`
 - `chromatic_ge_clique` -> `Adj`, `at`
-- `church_rosser_confluence` -> `step`
+- `church_rosser_confluence` -> `d`, `step`
 - `circle_defined_by_collinear` -> `E`, `Geometry`, `at`, `dist`
 - `circle_defined_by_noncollinear` -> `E`, `Geometry`, `at`, `dist`
 - `circle_inj_implies_noncollinear` -> `E`, `Geometry`
@@ -3147,17 +3155,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `classic_delta_exponent` -> `le`
 - `classify_point_trichotomy` -> `Geometry`, `at`, `cylinder`, `le_trans`, `plane`, `sphere`, `split`
 - `classify_total` -> `CharToken`, `at`, `dec`, `enc`, `pieceOf`, `split`
-- `clipGradient_of_le` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
-- `clip_bias_bound` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
-- `clip_bias_expectation_bound` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
-- `clip_norm_le` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `min`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `clipGradient_of_le` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `clip_bias_bound` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `clip_bias_expectation_bound` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `clip_norm_le` -> `Expect`, `Expect_sub`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `min`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `clique_lower_bound` -> `Adj`, `at`
 - `clm_apply_sum_smul_single` -> `add`, `at`, `comp`, `path`, `quadForm`, `second_order_taylor`, `single`
 - `closed_lift` -> `Closed`, `induction`, `zero`
 - `closed_loop_adds_nothing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `closed_loop_dot_representation_unambiguous` -> `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `toVec`
 - `closed_loop_idempotent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
-- `closed_nil_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
+- `closed_nil_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
 - `closed_ren` -> `Closed`, `induction`, `zero`
 - `closed_subst_eq` -> `induction`
 - `closureOp_fixedPoints_many` -> `at`
@@ -3173,11 +3181,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closure_fixpoint_subset_image` -> `PiecewiseConstraint`, `at`, `closureOperator`, `extent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closure_idempotent` -> `apply`, `at`
 - `closure_idempotent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `at`, `bestPrefix`, `bestPrefix_spec`, `closure_idempotent`, `extent`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
-- `closure_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `induction`, `mul`, `zero`
+- `closure_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `d`, `induction`, `mul`, `zero`
 - `cmat_vec_normSq_le` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
 - `coarsen_apply` -> `FibreBound`, `at`, `card_fin`, `convert`, `fiber`, `induction`, `le`, `tower_hoeffding_transfer`, `zero`
-- `cocoercive_lower_half` -> `at`, `subst`
-- `cocoercive_upper_half` -> `at`, `subst`
+- `cocoercive_lower_half` -> `at`, `d`, `subst`
+- `cocoercive_upper_half` -> `at`, `d`, `subst`
 - `codegenLadder_forward` -> `Ladder`, `StackOp`, `compileProg`, `ladder_forward`, `runProg`, `satSym`, `satW`, `toStack`
 - `codegenLadder_l2l3_changes_representation` -> `compileProg`, `toStack`
 - `codegenLadder_satW_iff` -> `StackOp`, `compileProg`, `runProg`, `satW`, `toStack`
@@ -3194,20 +3202,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `col_norm_sq` -> `apply`, `at`, `card_fin`, `single`
 - `collapseTo_apply` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
 - `collapseTo_pairwise` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
-- `collinearFix_on_line` -> `Pt`, `sqDist`
+- `collinearFix_on_line` -> `Pt`, `d`, `sqDist`
 - `collinearPenalty_eq_zero_iff_of_ne` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinearPenalty`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
 - `collinearPenalty_nonneg` -> `Pt`
-- `collinearR_cyclic` -> `at`
-- `collinearR_preserves` -> `at`
-- `collinearR_scale` -> `at`
-- `collinearR_translate` -> `at`
-- `collinear_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDistFDeriv`, `trunc`
-- `collinear_not_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `collinear`, `layer`, `parallel`
+- `collinearR_cyclic` -> `at`, `d`
+- `collinearR_preserves` -> `at`, `d`
+- `collinearR_scale` -> `at`, `d`
+- `collinearR_translate` -> `at`, `d`
+- `collinear_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDistFDeriv`, `trunc`
+- `collinear_not_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `collinear`, `d`, `layer`, `parallel`
 - `collinear_of_between` -> `E`, `Geometry`, `at`, `dist`
-- `collinear_preserves` -> `collinear_translate`
+- `collinear_preserves` -> `collinear_translate`, `d`
 - `collinear_refl` -> `E`, `Geometry`, `at`, `dist`
 - `collinear_symm` -> `E`, `Geometry`, `at`, `dist`
-- `collinear_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `collinear`, `diff`, `parallel`, `seg`, `sqDist`, `sqNorm`
+- `collinear_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `collinear`, `d`, `diff`, `parallel`, `seg`, `sqDist`, `sqNorm`
 - `collision_implies_not_injective` -> `LinearLayer`, `extractVec`
 - `colorable_iff_coloring` -> `Adj`, `at`
 - `combinatorPrimitives_length` -> `length`
@@ -3247,18 +3255,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
 - `compileFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `compileIR_collinear_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
-- `compileIR_distance_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
-- `compileIR_distance_penalty_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
+- `compileIR_distance_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
+- `compileIR_distance_penalty_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_eqExpr_exact` -> `EqConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_equalLength_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_midpoint_exact` -> `Pt`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`
 - `compileIR_parallel_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
-- `compileIR_penalty_exact_of` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
+- `compileIR_penalty_exact_of` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_perpendicular_exact` -> `EqConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_radius_exact` -> `GeoExpr`, `Pt`, `center`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_remaining_obstruction` -> `EqConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `eqToGeo`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_rightAngle_exact` -> `Pt`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`
-- `compileIR_sound` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `evalPts`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
+- `compileIR_sound` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `evalPts`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileImage_syntacticFunctor_eq_weightFunctor` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compileObs_closure_trivial` -> `VectorConstraint`, `at`, `obs`
 - `compileObs_injective` -> `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `obs`
@@ -3266,7 +3274,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileProgram_append` -> `at`
 - `compileProgram_models` -> `at`, `compile`, `encode`, `satW`
 - `compileProgram_sound` -> `at`, `compile`, `encode`, `satW`, `sound`
-- `compileReachable_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `compileReachable_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `compileThenCanonicalize_apply` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
 - `compileThenCanonicalize_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
 - `compileToLayer_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
@@ -3287,10 +3295,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_commutes_symEdit_iff_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`
 - `compile_compatible_with_itself` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `compile_constraint_degenerately_satisfied` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ir_sem`, `lvConstraint`, `parallel`, `subst`
-- `compile_constraint_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
+- `compile_constraint_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
 - `compile_correct` -> `Compiler`, `add`, `append_assoc`, `at`, `induction`, `length`, `lit`, `mul`
 - `compile_correct_empty` -> `Compiler`, `add`, `at`, `induction`, `length`, `lit`, `mul`
-- `compile_empty` -> `CompilerConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
+- `compile_empty` -> `CompilerConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
 - `compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le_trans`, `lit`, `tiny`
 - `compile_error_bound_pure` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `lit`, `mul`, `tiny`
 - `compile_exact_of_zero_ops` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `lit`, `mul`
@@ -3314,17 +3322,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_output_varies` -> `E`, `PenaltyEmbedding`, `apply`, `compile`, `encode`, `loss`, `satW`
 - `compile_preserves_satisfiability` -> `Compiler`, `compile_program`, `compile_program_contains_compiled_constraints`, `eval_program`, `graph_satisfiable`, `initialState`, `lvProgram`, `satisfiable`
 - `compile_preserves_satisfiability_hypothesis_unused` -> `Compiler`, `compile_program`, `compile_program_contains_compiled_constraints`, `graph_satisfiable`, `lvProgram`
-- `compile_program_append` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `collinear`, `compile_program`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvProgram`, `mul`, `parallel`
+- `compile_program_append` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `collinear`, `compile_program`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvProgram`, `mul`, `parallel`
 - `compile_program_contains_compiled_constraints` -> `Compiler`, `compile_constraint`, `compile_program`, `lvProgram`
-- `compile_program_go_append` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
+- `compile_program_go_append` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
 - `compile_program_go_contains` -> `Compiler`, `at`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `induction`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `point`, `subst`
-- `compile_program_go_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
+- `compile_program_go_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
 - `compile_program_vars_subset` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_sound` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`
 - `compile_sound_general` -> `W`, `compile`, `decode`, `encode`, `extract`, `preserves`, `roundtrip`, `subst`, `trans`
 - `compile_sound_midpoint` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `satW`
 - `compile_sound_n` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
-- `compile_stmt_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
+- `compile_stmt_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
 - `compile_strength_iff` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compiledIndistinct_equivalence` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
 - `compiledIndistinct_iff_eq` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
@@ -3336,60 +3344,60 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compiled_roundTrip_fixed` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `compiled_roundTrip_fixed_iff` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `complete_on` -> `Domain`, `Weights`, `behavior`, `embed`, `sound`
-- `completeness` -> `Compiler`, `induction`
+- `completeness` -> `Compiler`, `d`, `induction`
 - `completenessProp_holds` -> `BoundedV`, `GeoExpr`, `Holds`, `LipschitzK`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `proof`, `proof_holds`, `rho`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `completion_endo_unique` -> `comp`, `min`
 - `completion_map_unique` -> `comp`, `min`
 - `complexNormSq_mul` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `complexNormSq_nonneg` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `complexNormSq_zero_iff` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
-- `complex_GD_contraction_step` -> `E`, `GDError`, `GDUpdate`, `GD_contraction_step`, `GD_converges`, `GD_iterate_contraction`, `GD_sq_contraction_step`
-- `complex_GD_converges` -> `E`, `GDError`, `GDUpdate`, `GD_converges`, `GD_iterate_contraction`
-- `complex_GD_error_identity` -> `E`, `GDError`, `GDUpdate`, `GD_contraction_step`, `GD_converges`, `GD_error_identity`, `GD_iterate_contraction`, `GD_sq_contraction_step`
-- `complex_GD_iterate_contraction` -> `E`, `GDError`, `GDUpdate`, `GD_iterate_contraction`
+- `complex_GD_contraction_step` -> `E`, `GDError`, `GDUpdate`, `GD_contraction_step`, `GD_converges`, `GD_iterate_contraction`, `GD_sq_contraction_step`, `d`
+- `complex_GD_converges` -> `E`, `GDError`, `GDUpdate`, `GD_converges`, `GD_iterate_contraction`, `d`
+- `complex_GD_error_identity` -> `E`, `GDError`, `GDUpdate`, `GD_contraction_step`, `GD_converges`, `GD_error_identity`, `GD_iterate_contraction`, `GD_sq_contraction_step`, `d`
+- `complex_GD_iterate_contraction` -> `E`, `GDError`, `GDUpdate`, `GD_iterate_contraction`, `d`
 - `complex_GD_matches_real` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
 - `complex_GD_matches_real_fst` -> `cgd`, `cgd_im`, `cgd_re`
 - `complex_GD_matches_real_snd` -> `cgd`, `cgd_im`
-- `complex_GD_sq_contraction_step` -> `E`, `GDError`, `GDUpdate`, `GD_converges`, `GD_iterate_contraction`, `GD_sq_contraction_step`
-- `complex_P0_normal_equation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`
+- `complex_GD_sq_contraction_step` -> `E`, `GDError`, `GDUpdate`, `GD_converges`, `GD_iterate_contraction`, `GD_sq_contraction_step`, `d`
+- `complex_P0_normal_equation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `d`
 - `complex_abs_attention_bound` -> `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_abs_score_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
-- `complex_affine_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_verify_tolerance_scalar_affine`
+- `complex_affine_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`
 - `complex_attention_bound` -> `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_attention_bound_expanded` -> `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_attention_eq_real` -> `softmax`
 - `complex_attention_eq_real_family` -> `softmax`
 - `complex_attention_eq_real_weights` -> `softmax`
-- `complex_conj_inner_self` -> `E`, `NormSqLossScalar`, `W`, `apply`
+- `complex_conj_inner_self` -> `E`, `NormSqLossScalar`, `W`, `apply`, `d`
 - `complex_cr_iff_wirtinger_zbar_eq_zero` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
 - `complex_differentiable_fderiv_apply` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
 - `complex_differentiable_of_wirtinger_zbar_eq_zero` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
-- `complex_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_preserves_constraint` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_verify_tolerance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_verify_tolerance_affine` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `edit_verify_tolerance_scalar_affine`
+- `complex_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_preserves_constraint` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_verify_tolerance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_verify_tolerance_affine` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`
 - `complex_eq_smul_one_add_smul_I` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`
-- `complex_euclid_GD_converges` -> `GDError`, `GDUpdate`
-- `complex_euclid_GD_error_identity` -> `GDUpdate`
-- `complex_euclid_edit_output_bound` -> `NormSqLossScalar`, `W`
-- `complex_euclid_inner_conj_symm` -> `NormSqLossScalar`
-- `complex_euclid_inner_self_norm_sq` -> `NormSqLossScalar`
-- `complex_euclid_isometry_preserves_norm` -> `NormSqLossScalar`
-- `complex_euclid_normal_equation` -> `NormSqLossScalar`
-- `complex_im_eq_RCLike_im` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_conj_symm` -> `E`, `NormSqLossScalar`, `W`, `apply`
-- `complex_inner_self_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_self_norm_sq_instance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_self_re_nonneg` -> `E`, `NormSqLossScalar`, `W`
-- `complex_isometry_preserves_norm` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_isometry_scalar_compose` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_mul_conj_eq_normSq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_normSq_eq_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_normSq_nonneg` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_norm_sq_eq_mul_conj` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_re_eq_RCLike_re` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_residual_edit_local` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`
-- `complex_residual_error_isolation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_euclid_GD_converges` -> `GDError`, `GDUpdate`, `d`
+- `complex_euclid_GD_error_identity` -> `GDUpdate`, `d`
+- `complex_euclid_edit_output_bound` -> `NormSqLossScalar`, `W`, `d`
+- `complex_euclid_inner_conj_symm` -> `NormSqLossScalar`, `d`
+- `complex_euclid_inner_self_norm_sq` -> `NormSqLossScalar`, `d`
+- `complex_euclid_isometry_preserves_norm` -> `NormSqLossScalar`, `d`
+- `complex_euclid_normal_equation` -> `NormSqLossScalar`, `d`
+- `complex_im_eq_RCLike_im` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_conj_symm` -> `E`, `NormSqLossScalar`, `W`, `apply`, `d`
+- `complex_inner_self_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_self_norm_sq_instance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_self_re_nonneg` -> `E`, `NormSqLossScalar`, `W`, `d`
+- `complex_isometry_preserves_norm` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_isometry_scalar_compose` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_mul_conj_eq_normSq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_normSq_eq_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_normSq_nonneg` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_norm_sq_eq_mul_conj` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_re_eq_RCLike_re` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_residual_edit_local` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`
+- `complex_residual_error_isolation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
 - `complex_rope_abs_score_family_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_rope_attention_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `convComb`, `softmax`
 - `complex_rope_attention_output_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `convComb`, `softmax`
@@ -3398,9 +3406,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
-- `compose2_differentiableAt_joint` -> `comp`
-- `compose2_differentiableAt_params` -> `Chain`, `comp`
-- `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
+- `compose2_differentiableAt_joint` -> `comp`, `d`
+- `compose2_differentiableAt_params` -> `Chain`, `comp`, `d`
+- `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `d`
 - `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `at`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `composeAssocProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeCoverageProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose_coverage`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
@@ -3428,18 +3436,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_strength` -> `Primitive`, `compose`, `inter`, `min`, `run`, `sound`
 - `compose_strength_coverage_assoc` -> `Primitive`, `compose`
 - `compose_three_with_bridges` -> `Audit`, `at`
-- `compose_via_calculus` -> `ErrorBound`, `at`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `roundtrip_error_le_one`, `triangle_combine`
+- `compose_via_calculus` -> `ErrorBound`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `roundtrip_error_le_one`, `triangle_combine`
 - `compose_with_bridge` -> `Audit`, `at`
-- `composition_contraction` -> `at`, `contraction_pow_bound`, `le_total`, `le_trans`
+- `composition_contraction` -> `at`, `contraction_pow_bound`, `d`, `le_total`, `le_trans`
 - `compressed_direction_bounded` -> `ExpDist`, `ExpGap`, `le`, `le_trans`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
 - `compressionError_bounded_sq` -> `ExpDist`, `ExpGap`, `le`, `le_trans`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
 - `compressionError_sq_closed` -> `ExpDist`, `ExpGap`, `le`, `le_trans`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
 - `compressionMoment_one` -> `ExpDist`, `ExpGap`, `le`, `le_trans`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
 - `compression_avg_rate` -> `ExpDist`, `ExpGap`, `at`, `exists_le_sum_mul`, `le`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
 - `compression_counterexample` -> `NlConstraint`, `NlSat`, `at`, `le_refl`, `relu`, `reluCompile`
-- `compression_dominance` -> `E`, `W`, `quantFwd`
-- `compression_dominance_chain` -> `E`, `W`, `quantFwd`
-- `compression_error_budget` -> `E`, `W`, `quantFwd`, `quantized_chain_error_closed`, `quantized_uniform_error`
+- `compression_dominance` -> `E`, `W`, `d`, `quantFwd`
+- `compression_dominance_chain` -> `E`, `W`, `d`, `quantFwd`
+- `compression_error_budget` -> `E`, `W`, `d`, `quantFwd`, `quantized_chain_error_closed`, `quantized_uniform_error`
 - `compression_gap_vanishes` -> `ExpDist`, `ExpGap`, `at`, `exists_le_sum_mul`, `le`
 - `compression_min_gap` -> `ExpDist`, `ExpGap`, `at`, `exists_le_sum_mul`
 - `compression_ok_iff_pointwise` -> `NlConstraint`, `NlSat`
@@ -3464,27 +3472,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `concept_intent_unique` -> `IsFormalConcept`, `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
 - `concept_meet_is_concept` -> `apply`
 - `concrete_lift_witness` -> `dot`
-- `condExpFiber_add` -> `apply`, `at`
-- `condExpFiber_const` -> `apply`, `at`
-- `condExpFiber_eq_uniformExpectation` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
-- `condExpFiber_hoeffding` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
+- `condExpFiber_add` -> `apply`, `at`, `d`
+- `condExpFiber_const` -> `apply`, `at`, `d`
+- `condExpFiber_eq_uniformExpectation` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
+- `condExpFiber_hoeffding` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `condExpFiber_le_of_fibreBound` -> `at`, `condExpFiber`
 - `condExpFiber_mul_of_adapted` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_mul_of_adapted_at` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_mul_of_adapted_mem` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_mul_of_adapted_of_ne` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_nonneg_p` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `le_refl`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
-- `condExpFiber_self_of_adapted` -> `apply`, `at`
-- `condExpFiber_smul` -> `apply`, `at`
+- `condExpFiber_self_of_adapted` -> `apply`, `at`, `d`
+- `condExpFiber_smul` -> `apply`, `at`, `d`
 - `condExp_linear_eq` -> `at`, `le`
 - `condExp_sq_eq` -> `at`, `le`
 - `condExp_step_from_unbiased` -> `at`, `le`
 - `condExp_step_from_unbiased_PL` -> `at`, `le`
 - `condExp_step_le` -> `add`, `at`, `integral_condexp`, `le`
 - `condNumber_comp_le` -> `E`, `comp`, `trans`
-- `condNumber_nonneg` -> `E`, `apply`, `comp`, `trans`
+- `condNumber_nonneg` -> `E`, `apply`, `comp`, `d`, `trans`
 - `condYZ_eq_div` -> `obs`
-- `condZeroMean_iff_condExpFiber_eq_zero` -> `at`
+- `condZeroMean_iff_condExpFiber_eq_zero` -> `at`, `d`
 - `condexp_add` -> `apply`, `mono`
 - `condexp_bot` -> `apply`, `mono`
 - `condexp_condexp_filtration` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `mono`, `trans`
@@ -3498,18 +3506,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `condexp_nonneg` -> `apply`, `mono`
 - `condexp_of_stronglyMeasurable` -> `apply`, `mono`
 - `condexp_tower` -> `apply`, `mono`
-- `condition_number_ge_one` -> `E`, `apply`, `comp`, `trans`
+- `condition_number_ge_one` -> `E`, `apply`, `comp`, `d`, `trans`
 - `cone_unique_of_same_squares` -> `at`, `eval`, `le`
 - `configOf_inv` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `configOf_roundtrip` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `flatten`, `flatten_unflatten`, `seg`, `unflatten`, `unflatten_flatten`
 - `config_step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `shiftLayer`, `step`
-- `conflict_empty_trail` -> `all`, `apply`, `at`, `children`, `induction`, `length`, `min`, `trans`
+- `conflict_empty_trail` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`
 - `conflict_loser_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
-- `conflict_resolve_fixed_point` -> `all`, `apply`, `at`, `children`, `induction`, `length`, `min`, `trans`
+- `conflict_resolve_fixed_point` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`
 - `conflicts_not_automatic` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `confluence_of_commuting` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
-- `confluent_normalForm_unique` -> `at`, `induction`, `subst`, `trans`
-- `confluent_of_wf` -> `at`, `induction`, `subst`, `trans`
+- `confluent_normalForm_unique` -> `at`, `d`, `induction`, `subst`, `trans`
+- `confluent_of_wf` -> `at`, `d`, `induction`, `subst`, `trans`
 - `conformal_conditional_false` -> `alpha`, `at`
 - `conformal_conditional_false_general` -> `alpha`, `at`
 - `conformal_coverage_ge` -> `alpha`, `at`
@@ -3550,9 +3558,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constOn_zero_of_comp` -> `E`, `at`
 - `const_family_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `const_family_never_content` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
-- `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
 - `const_is_executable` -> `GeoExpr`
 - `const_levelA` -> `Sat`, `at`, `loss`, `trivial`
 - `const_mul_not_recognised` -> `GeoConstraintSet`, `GeoExpr`, `beqShape`, `mul`
@@ -3599,8 +3607,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraints_of_program_cons_point` -> `Compiler`, `at`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `induction`, `lvConstraint`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `point`, `subst`
 - `constraints_of_program_cons_prove` -> `Compiler`, `at`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `induction`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `point`, `subst`
 - `construct_approx_holds` -> `FamilySolver`, `HoldsSet`, `Pt`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `construct_artifact_depth` -> `AffineLayer`, `depth`, `length`
-- `construct_artifact_layers_nonempty` -> `AffineLayer`, `length`
+- `construct_artifact_depth` -> `AffineLayer`, `depth`, `layers`, `length`, `weights`
+- `construct_artifact_layers_nonempty` -> `AffineLayer`, `layers`, `length`, `weights`
 - `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
@@ -3624,23 +3632,23 @@ module. These are the edges that make the chain a chain rather than a list.
 - `content_one_does_not_force_head_nonzero` -> `VectorConstraint`, `constraintContent`, `listGcdNat`
 - `content_scaleVec` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `scaleVec`, `scaleVec_preserves`, `sign`
 - `content_scaleVec_neg_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `continuousLinearMap_eq_dotV_finStdBasis` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `continuousLinearMap_eq_dotV_finStdBasis` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `continuous_apply` -> `comp`, `e2`, `inter`, `mul`
 - `continuous_exp_neg_sq` -> `at`, `comp`, `le`
 - `continuous_fenchelConjAllEReal_term` -> `fenchelConjAll`, `mul`
 - `continuous_pathMap` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
-- `continuous_quadForm` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
-- `continuous_samePoint_path` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `continuous_quadForm` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `continuous_samePoint_path` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `continuous_sqDist_right` -> `Pt`, `diff`, `sqDist`, `sqNorm`
-- `continuous_update_coord` -> `Pt`, `add`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `continuous_update_slot` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `continuous_update_coord` -> `Pt`, `add`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `continuous_update_slot` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `contracting_of_lipschitz` -> `W`, `induction`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `zero`
 - `contraction_decay` -> `E`, `apply`, `eps`, `induction`, `le_trans`, `op_apply_le`, `op_norm_pow_le`, `prod_one_add_le_exp`, `zero`
 - `contraction_derivative_fixed_point_existsUnique` -> `at`, `complete`
-- `contraction_eps_terminates` -> `at`, `contraction_converges`, `contraction_pow_bound`, `le_total`, `le_trans`
+- `contraction_eps_terminates` -> `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `le_total`, `le_trans`
 - `contraction_fixed_point_exists` -> `W`, `induction`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `zero`
 - `contraction_fixed_point_existsUnique` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `op_norm_pow_apply_le`, `zero`
-- `contraction_fixpoint_unique` -> `at`, `contraction_converges`, `contraction_pow_bound`, `le_antisymm`, `le_total`, `le_trans`
+- `contraction_fixpoint_unique` -> `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `le_antisymm`, `le_total`, `le_trans`
 - `contraction_of_deriv_bound` -> `at`, `complete`
 - `contraction_pow_bound` -> `induction`, `le_refl`, `zero`
 - `contraction_pow_le_one` -> `E`, `apply`, `eps`, `induction`, `le_trans`, `op_apply_le`, `op_norm_pow_le`, `prod_one_add_le_exp`, `zero`
@@ -3649,7 +3657,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convComb_coreValue_norm_bound` -> `VectorConstraint`, `convComb`, `convComb_norm_bound`
 - `convComb_lipschitz` -> `E`, `apply`
 - `convComb_lipschitz_prob` -> `E`, `apply`
-- `convComb_norm_bound` -> `E`, `apply`
+- `convComb_norm_bound` -> `E`, `apply`, `d`
 - `converges` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `convergesWithinProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `convergesWithinTightProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
@@ -3683,7 +3691,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convert_injective` -> `LayerOut`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `RealConstraint`, `RealNeuron`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convert`, `convertReal`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
 - `convert_preserves_semantics` -> `EvenOut`, `EvenSat`, `at`, `out`, `preserves`
 - `convert_preserves_solution_set` -> `EvenOut`, `EvenSat`, `at`, `out`, `preserves`
-- `convexLoss_minimizer_set_convex` -> `Loss`, `ProbVec`, `at`
+- `convexLoss_minimizer_set_convex` -> `Loss`, `ProbVec`, `at`, `d`
 - `convexOn_exp_mul` -> `Surjective`, `add`, `at`, `comp`, `div_const`, `le`, `mono`, `trans`
 - `convexOn_exp_mul_measure` -> `Surjective`, `at`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `le`, `mono`, `trans`
 - `convexOn_iff_subgradient_support` -> `Subgradient`
@@ -3735,23 +3743,23 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cps_correct` -> `Compiler`, `add`, `at`, `induction`, `lit`
 - `cps_id_is_eval` -> `Compiler`, `at`, `lit`
 - `cps_tail_compose` -> `Compiler`, `at`, `lit`
-- `crossAttn_weights_nonneg` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
-- `crossAttn_weights_pmf` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
-- `crossAttn_weights_sum_one` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `crossAttn_weights_nonneg` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `crossAttn_weights_pmf` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `d`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `crossAttn_weights_sum_one` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossEntropy_gibbs` -> `at`, `ce_ge_entropy`, `crossEntropy`, `entropy`
 - `crossEntropy_unif` -> `apply`, `at`, `ce_ge_entropy`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `kl_zero_iff_eq`
 - `crossUniverse_loss_chain` -> `LayerOut`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerToCLM`, `length`, `symVec`
-- `cross_attention_batch_output_bound` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `dec`, `enc`, `le_trans`, `lipschitz_add`, `lipschitz_comp`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
-- `cross_attention_is_row_stochastic_operator` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `cross_attention_batch_output_bound` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `d`, `dec`, `enc`, `le_trans`, `lipschitz_add`, `lipschitz_comp`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `cross_attention_is_row_stochastic_operator` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `d`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `cross_attention_lipschitz_in_query` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `dec`, `enc`, `le_trans`, `lipschitz_add`, `lipschitz_comp`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `cross_attention_lipschitz_numeric_in_query` -> `E`, `LinfNorm`, `block_lipschitz_bound`, `dec`, `enc`, `le_trans`, `lipschitz_add`, `lipschitz_comp`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
-- `cross_attention_output_bound` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
-- `cross_eq_zero_iff_det` -> `depth`, `induction`, `step`
-- `cross_logit_scale_bound` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `sqrt_d_scale_bound`, `weight_l1_diff_bound`
-- `cross_translate` -> `collinear_translate`
+- `cross_attention_output_bound` -> `E`, `LinfNorm`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `d`, `enc`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
+- `cross_eq_zero_iff_det` -> `d`, `depth`, `induction`, `step`
+- `cross_logit_scale_bound` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `enc`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `sqrt_d_scale_bound`, `weight_l1_diff_bound`
+- `cross_translate` -> `collinear_translate`, `d`
 - `csSup_sub_le_of_bddAbove` -> `at`, `fenchelConjAll`, `mono`
-- `cse_duplicate_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `cse_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `cse_duplicate_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `cse_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
 - `cseq_cauchy_schwarz` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
 - `cspec_charpoly_map_eq` -> `at`, `eval`, `induction`, `subst`
 - `cspec_conj_isRoot_of_isRoot` -> `at`
@@ -3780,14 +3788,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cubic_not_quadratic` -> `at`, `induction`, `zero`
 - `cubic_second_difference` -> `W`
 - `cubic_strongly_convex` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
-- `cumLoss_eq_sum_posWeight` -> `at`
-- `cumLoss_sub_eq` -> `at`
-- `cumLoss_sum_eq_of_dom` -> `at`
+- `cumLoss_eq_sum_posWeight` -> `at`, `d`
+- `cumLoss_sub_eq` -> `at`, `d`
+- `cumLoss_sum_eq_of_dom` -> `at`, `d`
 - `current_state` -> `RegistryMigratedFor`, `ladder_end_to_end_holds`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`
-- `curriculum_dominance_le` -> `at`
-- `curriculum_gamma_one_all_orders_equal` -> `at`
-- `curriculum_gamma_one_degenerate` -> `at`
-- `curriculum_posWeight_strict` -> `at`
+- `curriculum_dominance_le` -> `at`, `d`
+- `curriculum_gamma_one_all_orders_equal` -> `at`, `d`
+- `curriculum_gamma_one_degenerate` -> `at`, `d`
+- `curriculum_posWeight_strict` -> `at`, `d`
 - `curvature_determined_by_one_query` -> `Subgradient`, `at`
 - `curvature_invariant_under_isometry_degenerate` -> `Geometry`, `S2`
 - `curvature_recovered_in_one_query` -> `Subgradient`, `at`
@@ -3880,41 +3888,44 @@ module. These are the edges that make the chain a chain rather than a list.
 - `d41_tokenLoss_witness` -> `CharToken`, `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_two_scale_loss_coexist` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_two_scale_loss_not_absorbable` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `symbolToWeight_correct`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `dSeparated_blocked` -> `blocks`
+- `dSeparated_mono` -> `blocks`
+- `d_pos` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `length`, `paramCount`, `relu`
 - `dbSat_allDB` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `dbSat_bvar_zero` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `dbSat_liftBvar` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `deactivate_before_unload` -> `Reaches`, `at`
-- `dead_constraint_elim_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `decCon_distEq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
-- `decCon_enc` -> `EqConstraint`, `EqTok`, `append_nil`, `at`, `le_refl`
+- `dead_constraint_elim_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `decCon_distEq` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
+- `decCon_enc` -> `EqConstraint`, `EqTok`, `append_nil`, `at`, `d`, `le_refl`
 - `decCon_enc_nil` -> `EqConstraint`, `append_nil`, `at`, `le_refl`
-- `decCon_expr` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
-- `decCon_perp` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
-- `decCon_samePoint` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
+- `decCon_expr` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
+- `decCon_perp` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
+- `decCon_samePoint` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr_enc`, `encExpr`, `encLenE`, `le_refl`, `length`, `trivial`
 - `decEqVecB_iff` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `decEq_dite` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decEq_eq` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decEq_eq_true_iff` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decEq_ne` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decEq_node` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`
-- `decEq_of_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decEq_self` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decExpr_add_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
-- `decExpr_enc` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `decEq_dite` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decEq_eq` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decEq_ne` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decEq_node` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`
+- `decEq_of_eq` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decEq_self` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decExpr_add_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `decExpr_enc` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
 - `decExpr_enc_nil` -> `GeoExpr`, `append_nil`, `at`, `decExpr`, `encExpr`, `encLenE`, `le_refl`
-- `decExpr_mul_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
-- `decExpr_sub_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
-- `decList_enc` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `length`, `length_cons`, `roundtrip`
-- `decList_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`, `zero`
-- `dec_add_step` -> `add`, `append_assoc`, `append_nil`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `dec_c0_step` -> `dec`
-- `dec_c1_step` -> `dec`
-- `dec_c2_step` -> `dec`
-- `dec_enc_append` -> `add`, `append_assoc`, `append_nil`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `dec_enc_const` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `dec_enc_coord` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `dec_mul_step` -> `add`, `append_assoc`, `append_nil`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `dec_sub_step` -> `add`, `append_assoc`, `append_nil`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
+- `decExpr_mul_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `decExpr_sub_step` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `decList_enc` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `length`, `length_cons`, `roundtrip`
+- `decList_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`, `zero`
+- `dec_add_step` -> `add`, `append_assoc`, `append_nil`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `dec_c0_step` -> `d`, `dec`
+- `dec_c1_step` -> `d`, `dec`
+- `dec_c2_step` -> `d`, `dec`
+- `dec_enc_append` -> `add`, `append_assoc`, `append_nil`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `dec_enc_const` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `dec_enc_coord` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `dec_mul_step` -> `add`, `append_assoc`, `append_nil`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `dec_sub_step` -> `add`, `append_assoc`, `append_nil`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
 - `dec_toSExpr` -> `GeoExpr`, `append_nil`, `at`, `dec`, `enc`, `encLen`, `structure_survives_tokens_full`
 - `decay_factor_le` -> `at`, `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `decay_product_bound` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `le_trans`, `subst`, `zero`
@@ -3923,8 +3934,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decidable_zeroFixing_leakyReluZ` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSwish`, `relu`, `reluZ`, `reluZ_not_zeroFixing`, `sigmoid`, `silu`, `softplus`, `subst`, `tanh_pos_of_pos`, `trans`, `zeroFixingZ_of_strictMono`, `zeroFixing_false_of_witness`
 - `decidable_zeroFixing_siluZ` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSwish`, `relu`, `reluZ`, `reluZ_not_zeroFixing`, `sigmoid`, `silu`, `softplus`, `subst`, `tanh_pos_of_pos`, `trans`, `zeroFixingZ_of_strictMono`, `zeroFixing_false_of_witness`, `zeroFixing_of_bounded_no_witness`
 - `decidable_zeroFixing_siluZ_via_kernel` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSwish`, `relu`, `reluZ`, `reluZ_not_zeroFixing`, `sigmoid`, `silu`, `softplus`, `subst`, `tanh_pos_of_pos`, `trans`, `zeroFixingZ_of_strictMono`, `zeroFixing_false_of_witness`, `zeroFixing_of_bounded_no_witness`
-- `decide_aux` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
-- `decide_eq_iff_decEq` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `decide_aux` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `decide_eq_iff_decEq` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
@@ -3940,7 +3951,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decodeProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `decodeTotal_satisfies_discriminant` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decodeWith_encode` -> `GeoExpr`, `append_nil`, `at`, `enc`, `encLen`
-- `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `roundtrip`, `satSym`, `satW`
+- `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `roundtrip`, `satSym`, `satW`
 - `decode_encode_sat_iff` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode_encode`, `dot`, `encode`, `flatten`, `length`
 - `decode_eq_some_decodeTotal` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decode_is_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
@@ -3956,46 +3967,46 @@ module. These are the edges that make the chain a chain rather than a list.
 - `degNorm_sum_abs_le_one` -> `apply`, `le_trans`
 - `degenerateFamily_nonempty` -> `at`, `samePointSpec`, `subst`
 - `degenerateOK_imp_constConfigOK` -> `DegenerateOK`, `GeoConstraint`, `holds_of_degenerateOK`
-- `degenerate_collinear` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_distance_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_eq_expr_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_equalAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_equalLength` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_midpoint` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_parallel` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_perpendicular` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_collinear` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_distance_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_eq_expr_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_equalAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_equalLength` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_midpoint` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_parallel` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_perpendicular` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_radius_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_ratioDivision_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degenerate_rightAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
+- `degenerate_rightAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_tangent` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degree_minpoly_le_of_monic_aeval` -> `at`, `eval`, `min`, `subst`
-- `degree_mod_lt` -> `depth`, `eval`, `induction`, `step`
+- `degree_mod_lt` -> `d`, `depth`, `eval`, `induction`, `step`
 - `degree_two_nbhd` -> `E`, `nbhdSet`, `nbhdSum`
-- `delay_zero_recovers_sync` -> `at`, `induction`, `le`, `zero`
+- `delay_zero_recovers_sync` -> `at`, `d`, `induction`, `le`, `zero`
 - `deltaFromPruning_nonneg` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `deltaOf_ne_zero_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
 - `deltaOf_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`
 - `delta_is_input` -> `Audit`, `at`
 - `delta_not_determined_by_base_only` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
 - `den_positive` -> `compile`, `compile_injective`, `extract`, `roundtrip`
-- `denote_neg_core` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
+- `denote_neg_core` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `d`, `denote`, `trans`
 - `denote_scale` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
-- `denote_zero` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `denote`, `trans`
-- `dependenciesClosed_mono` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `computabilityTheoryPackage`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `induction`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `paramCount`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
-- `dependenciesClosed_of_no_deps` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `paramCount`, `subst`, `templateNames`, `trans`
-- `dependenciesClosed_of_subset` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `computabilityTheoryPackage`, `graphTheoryPackage`, `induction`, `layer`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `paramCount`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
-- `dependenciesSatisfiedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`, `zfcSetTheoryPackage`
-- `depthList_cons` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
-- `depthList_nil` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
+- `denote_zero` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `d`, `denote`, `trans`
+- `dependenciesClosed_mono` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `induction`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `paramCount`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
+- `dependenciesClosed_of_no_deps` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `paramCount`, `subst`, `templateNames`, `trans`
+- `dependenciesClosed_of_subset` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `computabilityTheoryPackage`, `d`, `graphTheoryPackage`, `induction`, `layer`, `length`, `length_cons`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `paramCount`, `subst`, `templateNames`, `trans`, `zfcSetTheoryPackage`
+- `dependenciesSatisfiedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`, `zfcSetTheoryPackage`
+- `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `d`, `depth`, `eval`, `mul`, `size`
+- `depthList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
 - `depth_growth` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `depth_growth_at_least_two_pow` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `depth_le_depthList` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
+- `depth_le_depthList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
-- `depth_lt_of_mem` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `depth_node` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `depth_non_increasing` -> `depth`, `induction`, `step`
+- `depth_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `depth_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `depth_non_increasing` -> `d`, `depth`, `induction`, `step`
 - `dequantB_quantB_error` -> `IntLayer`, `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`, `quant`
 - `dequant_quant_error` -> `LossyRep`, `at`, `compile`, `compileZ`, `decode`, `encode`, `extract`, `obs`, `roundtrip_error_le_one`
 - `derivExpr_linTerm` -> `LinearForm`, `at`, `bump`, `coordProj`, `derivExpr`, `induction`, `linTerm`, `ofLinearForm`, `ofLinearFormAux`, `subst`
@@ -4005,8 +4016,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `derivExpr_ofLinearFormAux_nil` -> `LinearForm`, `at`, `bump`, `coordProj`, `derivExpr`, `induction`, `ofLinearForm`, `ofLinearFormAux`, `subst`
 - `derivExpr_ofLinearForm_ne_zero` -> `LinearForm`, `at`, `bump`, `derivExpr`, `ofLinearForm`, `ofLinearFormAux`
 - `deriv_SmoothQuad` -> `apply`, `at`, `induction`, `le_refl`, `zero`
-- `deriv_add_mul_const` -> `add`, `at`, `second_order_necessary`
-- `deriv_affine` -> `at`
+- `deriv_add_mul_const` -> `add`, `at`, `d`, `second_order_necessary`
+- `deriv_affine` -> `at`, `d`
 - `deriv_aug_lam` -> `add`, `at`
 - `deriv_aug_x` -> `add`, `at`
 - `deriv_four_pow3` -> `IsStrictLocalMin`, `at`, `comp`, `const_add`
@@ -4017,15 +4028,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `deriv_quadratic` -> `at`
 - `deriv_relu_sq_gt` -> `apply`, `relu`
 - `deriv_sq_linear` -> `apply`
-- `derivableIn_mono` -> `GeoConstraint`, `induction`, `subst`, `zero`
-- `derivableIn_of_entails` -> `GeoConstraint`, `subst`, `zero`
-- `derivableIn_sound` -> `GeoConstraint`, `subst`
-- `derivable_of_entails` -> `GeoConstraint`, `subst`
-- `derivable_of_flat` -> `GeoConstraint`, `subst`
-- `derivable_of_mem` -> `GeoConstraint`, `subst`
-- `derivable_sound` -> `GeoConstraint`, `subst`
-- `derivable_two_step` -> `GeoConstraint`, `subst`
-- `derivation_sound` -> `GeoConstraint`, `induction`, `subst`, `zero`
+- `derivableIn_mono` -> `GeoConstraint`, `d`, `induction`, `subst`, `zero`
+- `derivableIn_of_entails` -> `GeoConstraint`, `d`, `subst`, `zero`
+- `derivableIn_sound` -> `GeoConstraint`, `d`, `subst`
+- `derivable_of_entails` -> `GeoConstraint`, `d`, `subst`
+- `derivable_of_flat` -> `GeoConstraint`, `d`, `subst`
+- `derivable_of_mem` -> `GeoConstraint`, `d`, `subst`
+- `derivable_sound` -> `GeoConstraint`, `d`, `subst`
+- `derivable_two_step` -> `GeoConstraint`, `d`, `subst`
+- `derivation_sound` -> `GeoConstraint`, `d`, `induction`, `subst`, `zero`
 - `descentStepCol_sound` -> `GeoConstraint`, `Holds`, `Pt`, `constraint_satisfied_after_one_step`, `coordConstraint`, `layerOfCol`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_layerOfCol_stepN`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `residual`, `residual_rowStep_abs_le`, `rowStep`, `rowStepN`, `run`, `shiftLayer`, `sound`, `sqNormIn`, `step`
 - `descentStep_sound` -> `GeoConstraint`, `Holds`, `Primitive`, `Pt`, `constraint_satisfied_after_one_step`, `coordConstraint`, `layerOfCol`, `linearConstraint`, `netAct`, `netLoss`, `netLoss_layerOfCol_stepN`, `netLoss_pos_of_ne`, `netLoss_shiftLayer`, `netLoss_step_half`, `netLoss_zero_iff_holds`, `residual`, `residual_rowStep_abs_le`, `rowStep`, `rowStepN`, `run`, `shiftLayer`, `sound`, `sqNormIn`, `step`
 - `descentStep_vector_width_ne_primitive_width` -> `CFunction`, `CType`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
@@ -4043,19 +4054,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `detokenize_left_inverse_on_quotient` -> `at`
 - `detokenize_singleton` -> `append_assoc`, `apply`, `at`, `induction`, `length`, `length_cons`, `split`, `subst`, `zero`
 - `devB_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
-- `diagRadius_nonneg` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
-- `diagRadius_one` -> `apply`, `le_antisymm`, `matCLME`
-- `diagRadius_pow` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
+- `diagRadius_nonneg` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
+- `diagRadius_one` -> `apply`, `d`, `le_antisymm`, `matCLME`
+- `diagRadius_pow` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
 - `diag_dominant_iter_matrix_row_sum_lt_one` -> `apply`, `at`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
-- `diag_eigenvalue_abs_le` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
+- `diag_eigenvalue_abs_le` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
 - `diagonalPlan_cost` -> `IsTransportPlan`, `le_antisymm`, `sInf`, `transportCost`
 - `diagonalPlan_isPlan` -> `IsTransportPlan`, `le_antisymm`, `sInf`, `transportCost`
-- `diagonal_eigenpair` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
-- `diagonal_hasRealEigenvalue` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
-- `diagonal_spectral_neumann_bound` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
+- `diagonal_eigenpair` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_single`, `single`, `spectral_radius_le_opNorm`, `subst`
+- `diagonal_hasRealEigenvalue` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `gershgorin_bound`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
+- `diagonal_spectral_neumann_bound` -> `E`, `RealNeuron`, `d`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
 - `diamond_fails` -> `Compiler`, `Term`, `at`
 - `diamond_lam` -> `Compiler`, `Term`, `app_r`, `at`
-- `diamond_property` -> `step`
+- `diamond_property` -> `d`, `step`
 - `dichotomy_fails_without_mono` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`, `trivial`
 - `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -4067,15 +4078,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `mlayerAct`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
-- `differentiableAt_netActN_jointAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `differentiableAt_netActN_paramsAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
+- `differentiableAt_netActN_jointAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `d`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `differentiableAt_netActN_paramsAt` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_penaltyLoss_family` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `differentiableAt_pointwiseNetActN` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
-- `differentiableAt_pointwiseNetActN_joint` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `differentiableAt_pointwiseNetActN_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
+- `differentiableAt_pointwiseNetActN_joint` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `differentiableAt_pointwiseNetActN_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
 - `differentiableAt_sqDist_left` -> `Pt`, `sqDist`
-- `differentiableAt_sqDist_pair` -> `GeoConstraint`, `Pt`, `at`, `comp`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `differentiableAt_sqDist_pair` -> `GeoConstraint`, `Pt`, `at`, `comp`, `d`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `differentiable_collinearPenalty` -> `cofactor`, `collinearPenalty`, `parallelPenalty`, `pluckerNorm`, `toNatConfig`
 - `differentiable_constResid` -> `mul`, `unflatten`
 - `differentiable_coord` -> `mul`, `unflatten`
@@ -4087,32 +4098,33 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiable_segComp` -> `mul`, `unflatten`
 - `differentiable_segCompFin` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `differentiable_coord`, `differentiable_segComp`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `segComp`, `toNatConfig`, `unflatten`
 - `differentiable_segCompNat` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `toNatConfig`
-- `differentiable_sqDist` -> `GeoExpr`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `sqDist`, `sqDistEqPenalty`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
-- `differentiable_sqDistEqPenalty` -> `GeoExpr`, `equalLengthPenalty`, `evalPts`, `sqDist`, `sqDistEqPenalty`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
+- `differentiable_sqDist` -> `GeoExpr`, `d`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `sqDist`, `sqDistEqPenalty`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
+- `differentiable_sqDistEqPenalty` -> `GeoExpr`, `d`, `equalLengthPenalty`, `evalPts`, `sqDist`, `sqDistEqPenalty`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
 - `differentiable_sqDistResid` -> `mul`, `unflatten`
 - `differentiable_toNatConfig_coord` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `differentiable_coord`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `toNatConfig`, `unflatten`
 - `differentialEntropy_le_crossEntropyMeasure` -> `subst`
 - `diracVec_apply` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `diracVec_probVec` -> `ProbVec`, `le_antisymm`, `le_trans`
-- `direction_bound` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `direction_bound` -> `Subgradient`, `apply`, `at`, `d`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `discrete_vs_dense_dichotomy` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `disjN_preserves` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `out`
 - `disj_embedding` -> `ConstraintSat`, `LinearConstraint`, `LinearNeuron`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `out`
 - `distBias_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `distEq_penalty_pos_of_neg_const` -> `Pt`, `sqDist`, `sqDist_nonneg`
 - `distEq_sq_penalty_ge_sq` -> `Pt`, `sqDist`, `sqDist_nonneg`
-- `distSqR_eq_zero_iff` -> `at`
-- `dist_eq_of_sqDist_eq` -> `Pt`, `trans`
-- `dist_nonneg` -> `Pt`, `trans`
+- `distSqR_eq_zero_iff` -> `at`, `d`
+- `distSqR_translate` -> `d`
+- `dist_eq_of_sqDist_eq` -> `Pt`, `d`, `trans`
+- `dist_nonneg` -> `Pt`, `d`, `trans`
 - `dist_self_const_one_unsatisfiable` -> `apply`, `at`, `eval`, `induction`, `step`
-- `dist_sq` -> `Pt`, `trans`
+- `dist_sq` -> `Pt`, `d`, `trans`
 - `dist_symm` -> `Geometry`, `Point`, `dist`
 - `dist_translation_invariant` -> `Point2R`, `alibiBias`, `dist`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `dist_zero_iff_eq` -> `Geometry`, `Point`, `dist`
 - `distill_beneficial_concrete` -> `S2`, `apply`, `le_trans`, `popRisk`
 - `distill_beneficial_large_n` -> `S2`, `apply`, `le_trans`, `popRisk`
-- `distill_chain_error` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
-- `distill_delta_nonneg` -> `ChainFwd`, `E`, `apply`, `at`, `induction`, `le_antisymm`, `le_trans`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `distill_chain_error` -> `ChainFwd`, `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
+- `distill_delta_nonneg` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `le_trans`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `distill_excess_from_chain_lipschitz` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_excess_from_layer` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_excess_fully_derived` -> `popRisk`
@@ -4120,33 +4132,33 @@ module. These are the edges that make the chain a chain rather than a list.
 - `distill_excess_of_uniform_distance` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_generalization_bound` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
 - `distill_generalization_bound_sharp` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
-- `distill_uniform` -> `E`, `apply`, `induction`, `le_antisymm`, `quantFwd`, `quantized_uniform_error`, `zero`
+- `distill_uniform` -> `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantFwd`, `quantized_uniform_error`, `zero`
 - `distill_zero_from_delta` -> `E`, `apply`, `le_antisymm`, `quantFwd`
 - `distill_zero_output` -> `E`, `apply`, `le_antisymm`, `quantFwd`
 - `distill_zero_teacher_match` -> `E`, `apply`, `induction`, `le_antisymm`, `quantFwd`, `zero`
 - `distract_excess_of_uniform_distance` -> `ChainFwd`, `E`, `S2`, `apply`, `chain_distill_bound_lipschitz`, `hoeffding_two_sided`, `le`, `le_trans`, `uniformExpectation`, `uniformProb`
-- `div_abs_self_eq_pm_one` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
-- `div_mod_unique` -> `depth`, `eval`, `induction`, `step`
-- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `at`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `div_abs_self_eq_pm_one` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `div_mod_unique` -> `d`, `depth`, `eval`, `induction`, `step`
+- `div_mul_add_mod` -> `Instr`, `W`, `apply`, `at`, `d`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `div_scaleVec_pos` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `div_scaleVec_sign` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
 - `divisible_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `doC_normalized` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
 - `doD_normalized` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
 - `doInd_eq_binInd` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `batchMean`, `binInd`, `bmean`, `convertReal`, `doInd`, `lv_compile`, `lv_loss`, `lv_neuron_out`, `mean`, `realLoss`
-- `doInd_false` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
+- `doInd_false` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
 - `doInd_fn_eq_binInd_fn` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `batchMean`, `binInd`, `bmean`, `convertReal`, `doInd`, `lv_compile`, `lv_loss`, `lv_neuron_out`, `mean`, `realLoss`
-- `doInd_nonneg` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `doInd_true` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `doMech_empty` -> `Chain`, `at`
-- `doSol_empty` -> `Chain`
+- `doInd_nonneg` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `doInd_true` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `doMech_empty` -> `Chain`, `at`, `blocks`
+- `doSol_empty` -> `Chain`, `blocks`
 - `doYZ_sum` -> `apply`, `at`, `obs`
 - `doY_eq_id_adjust` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
 - `doY_eq_sum_pZobs_ycond` -> `apply`, `at`, `obs`
 - `doY_sum` -> `apply`, `at`, `obs`
 - `do_C_ne_do_D` -> `BinSCM`, `apply`, `at`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`, `trans`
-- `do_outside` -> `Chain`, `at`
-- `do_truncated` -> `Chain`, `at`
+- `do_outside` -> `Chain`, `at`, `blocks`
+- `do_truncated` -> `Chain`, `at`, `blocks`
 - `domain_determined_by_activated_network` -> `Gaze`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
 - `domain_reselection_idempotent` -> `Gaze`, `at`, `extent`, `hasUpper`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
 - `domain_selection_determines_identity` -> `Gaze`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
@@ -4159,25 +4171,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dotProduct_sum_range` -> `induction`, `insert`, `selProd`, `selProd_concat`, `selProd_eq_from`, `selProd_succ`, `selState`, `selState_explicit`, `zero`
 - `dotQ_eq_dot_cast` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dotQ_map_mul` -> `at`, `induction`
-- `dotV_add_left` -> `at`, `dotV`, `le`, `smul`
-- `dotV_add_right` -> `at`, `dotV`, `le`, `smul`
-- `dotV_add_smul_strict` -> `MFCQ`, `at`, `dotV`
-- `dotV_comm` -> `at`, `dotV`, `le`, `smul`
-- `dotV_neg_left` -> `at`, `dotV`, `le`, `smul`
-- `dotV_neg_right` -> `at`, `dotV`, `le`, `smul`
-- `dotV_neg_self` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
-- `dotV_self_nonneg` -> `LICQOneDim`, `apply`, `at`, `e2`, `subst`
-- `dotV_self_pos` -> `LICQOneDim`, `apply`, `at`, `e2`, `le_refl`, `subst`
-- `dotV_smul_left` -> `at`, `dotV`, `le`, `smul`
-- `dotV_smul_right` -> `at`, `dotV`, `le`, `smul`
-- `dotV_sum_smul_left` -> `at`, `dotV`, `le`, `smul`
+- `dotV_add_left` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_add_right` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_add_smul_strict` -> `MFCQ`, `at`, `d`, `dotV`
+- `dotV_comm` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_neg_left` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_neg_right` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_neg_self` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `dotV_self_nonneg` -> `LICQOneDim`, `apply`, `at`, `d`, `e2`, `subst`
+- `dotV_self_pos` -> `LICQOneDim`, `apply`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `dotV_smul_left` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_smul_right` -> `at`, `d`, `dotV`, `le`, `smul`
+- `dotV_sum_smul_left` -> `at`, `d`, `dotV`, `le`, `smul`
 - `dot_append_additive_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `dot_append_degenerate` -> `dot`, `nil_append`
 - `dot_append_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`
-- `dot_append_of_length_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_map_mul`, `dot_zipWith_add_of_length`, `foldl_init_add`, `getD_eq_getElem`, `length`, `nil_append`, `residual`, `scaleVec`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `dot_append_of_length_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_map_mul`, `dot_zipWith_add_of_length`, `foldl_init_add`, `getD_eq_getElem`, `length`, `nil_append`, `residual`, `scaleVec`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `dot_append_replicate_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `append_assoc`, `at`, `dot`, `induction`, `zero`
-- `dot_append_right_of_le` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `dot_append_sub` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_zipWith_add_of_length`, `extractVec`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `sqSum`, `sqSum_eq_zero_iff`, `subst`, `symbolToWeight_correct`, `totalLoss`
+- `dot_append_right_of_le` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `dot_append_sub` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_zipWith_add_of_length`, `extractVec`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `sqSum`, `sqSum_eq_zero_iff`, `subst`, `symbolToWeight_correct`, `totalLoss`
 - `dot_append_tail_eq` -> `length`
 - `dot_append_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `dot_append_zero_left_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `append_assoc`, `at`, `dot`, `induction`, `zero`
@@ -4195,7 +4207,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`
 - `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `subst`
 - `dot_nil_left_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `dot_nil_right` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
+- `dot_nil_right` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
 - `dot_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`
 - `dot_nil_right_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `dot_not_injective_concrete` -> `length`
@@ -4218,7 +4230,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_zipWith_add_of_length` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `subst`
 - `dot_zip_length` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `double_vacuity` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `downGaze_opens_new_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `downGaze_opens_new_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
 - `down_absorbs` -> `induction`, `iterate`, `zero`
 - `down_decreases` -> `induction`, `iterate`, `zero`
 - `down_gaze_content_is_constrained` -> `Gaze`, `extent`, `split_iff_all`, `split_immediately_confers_concept`, `up`
@@ -4246,21 +4258,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dpo_partition_cancels` -> `le`
 - `dpo_prefProb_Z_invariant` -> `induction`, `zero`
 - `dpo_reward_equiv_in_Z` -> `induction`, `zero`
-- `dpsgd_direction_bound` -> `Subgradient`, `SubgradientGap`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `dpsgd_direction_bound` -> `Subgradient`, `SubgradientGap`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `dpsgd_gaussian_delta` -> `le_trans`
 - `dpsgd_noise_scale_of_rdp` -> `at`, `le_trans`
-- `dpsgd_rate_optimal` -> `Subgradient`, `SubgradientGap`, `subgradient_descent_rate_bound`
-- `dpsgd_utility_bound` -> `Subgradient`, `SubgradientGap`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
-- `driftConst_nonneg` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `dpsgd_rate_optimal` -> `Subgradient`, `SubgradientGap`, `d`, `subgradient_descent_rate_bound`
+- `dpsgd_utility_bound` -> `Subgradient`, `SubgradientGap`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `driftConst_nonneg` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `drift_bound_of_step` -> `at`, `induction`, `zero`
 - `drift_contributes_second_order` -> `apply`, `quadForm`
 - `dropDB_liftDB` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
 - `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
 - `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `flatten`, `length`
-- `drop_encCon` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
-- `drop_encExpr` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
-- `drop_enc_append` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `length`, `mul`, `nil_append`
+- `drop_encCon` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
+- `drop_encExpr` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `drop_enc_append` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `length`, `mul`, `nil_append`
 - `drop_lower_bound` -> `apply`
 - `drop_of_total_exceeds_capacity` -> `apply`
 - `drop_one_cons` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
@@ -4329,7 +4341,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ece_zero_iff_perfect` -> `apply`, `at`, `le`
 - `edit2_cauchy_crosstalk_bound` -> `E`, `W`
 - `edit2_first_fact_offset` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
-- `edit2_orthogonal_commutes` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `key_norm_sq_ne_zero`
+- `edit2_orthogonal_commutes` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `key_norm_sq_ne_zero`
 - `edit2_orthogonal_preserves_first` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `edit2_same_key_overwrites` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `edit2_writes_first` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
@@ -4355,7 +4367,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `editSemantics_layer_bridge` -> `LayerOut`, `LinearLayer`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `editSemantics_layer_zero_iff` -> `LayerOut`, `LinearLayer`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `editSeq_append` -> `E`, `induction`
-- `editSeq_closed_form` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
+- `editSeq_closed_form` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
 - `editSeq_commuting_instance` -> `E`, `edit_seq_comm`, `rankOneEdit`
 - `editSeq_nil` -> `E`, `induction`
 - `editSeq_singleton` -> `E`, `induction`
@@ -4363,7 +4375,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `edit_apply_not_idempotent_of_add` -> `GeoConstraint`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
 - `edit_blind_to_semantics_witness` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
 - `edit_breaks_zeroing_generically` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `nil_append`, `sqSum`, `totalLoss`
-- `edit_carriers_diverge_on_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
+- `edit_carriers_diverge_on_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
 - `edit_commutes_with_convert` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
 - `edit_compiles_to_weight_side` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `edit_constraint_semantics_bridge` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
@@ -4394,20 +4406,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `edit_preserves_witness_if_untouched` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`
 - `edit_preserves_zeroing_iff_at_solution` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `edit_realizes` -> `GeoConstraint`, `Holds`, `Pt`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
-- `edit_regime_agree_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_agree_of_dot_zero` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_disagree_witness` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_gap_exact` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_short_input_report_false` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_agree_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_agree_of_dot_zero` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_disagree_witness` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_gap_exact` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_short_input_report_false` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `edit_rollback_with_lora` -> `E`, `LoRAEdit`, `W`
 - `edit_roundtrip_through_weights` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `extractVec`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `edit_scaling_witness_family` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
 - `edit_seq_bound` -> `E`, `W`, `induction`, `le_trans`, `zero`
-- `edit_seq_comm` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
+- `edit_seq_comm` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
 - `edit_seq_nonuniform` -> `E`, `W`, `edit_two_step`, `induction`, `zero`
 - `edit_seq_nonuniform_constraint` -> `E`, `W`
-- `edit_seq_nonuniform_degenerates_to_uniform` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
-- `edit_seq_nonuniform_strictly_tighter` -> `ChainFwd`, `ChainTail`, `W`, `apply`, `at`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
+- `edit_seq_nonuniform_degenerates_to_uniform` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
+- `edit_seq_nonuniform_strictly_tighter` -> `ChainFwd`, `ChainTail`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `edit_seq_preserves_constraint` -> `E`, `W`, `le_trans`
 - `edit_seq_uniform_as_special` -> `E`, `W`
 - `edit_seq_verify_no_false_accept` -> `E`, `W`
@@ -4433,7 +4445,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `efron_stein_tail_of_bounded_diff` -> `apply`, `at`, `card_fin`, `mcdiarmidBoundedDiff`, `mcdiarmid_range_le`, `uniformExpectation`, `uniformProb`
 - `eigenvalue_abs_le_frobenius` -> `frobeniusNorm`, `induction`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `zero`
 - `eigenvalue_abs_le_row_sum` -> `induction`, `matCLME`, `zero`
-- `eigenvalues_antitone_imp_ge` -> `E`, `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `eigenvalues_antitone_imp_ge` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `eigenvalues_nonneg_of_gram_psd` -> `at`, `symmetric_spectral_theorem`
 - `ekOp_comp_eq_id` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
 - `ek_isClosureOperator` -> `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`
@@ -4481,19 +4493,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `empty_program_no_constraints` -> `Theory`, `length`
 - `empty_program_no_prove` -> `Theory`, `length`
 - `empty_table_unique` -> `apply`, `at`, `empty`, `find`
-- `empty_wellFormed` -> `MLayer`, `WellFormed`, `act`, `at`, `count`, `empty`, `length`, `subst`
-- `encCon_head_inl` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
-- `encCon_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `length_cons`, `trivial`
-- `encCon_ne_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
-- `encExpr_ge_two` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `mul`
-- `encExpr_head_inl` -> `GeoExpr`, `add`, `mul`
-- `encExpr_length` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `encLenE_ge_two` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
-- `encLenE_le_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `trivial`
-- `encLen_ge_two` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
-- `encList_length_ge` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
-- `enc_length` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `enc_ne_nil` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
+- `empty_wellFormed` -> `MLayer`, `WellFormed`, `act`, `arch`, `at`, `count`, `empty`, `layers`, `length`, `subst`, `weights`
+- `encCon_head_inl` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encLenC`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
+- `encCon_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `length_cons`, `trivial`
+- `encCon_ne_nil` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
+- `encExpr_ge_two` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `mul`
+- `encExpr_head_inl` -> `GeoExpr`, `add`, `d`, `mul`
+- `encExpr_length` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `encLenE_ge_two` -> `EqTok`, `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `d`, `decExpr`, `encExpr`, `encExpr_head_inl`, `encExpr_length`, `encLenE`, `induction`, `le_refl`, `mul`, `nil_append`, `tAdd`, `tAdd_eq`, `tConst`, `tConst_eq`, `tCoord`, `tCoord_eq`, `tMul`, `tMul_eq`, `tSub`, `tSub_eq`
+- `encLenE_le_length` -> `EqConstraint`, `EqTok`, `GeoExpr`, `append_nil`, `at`, `d`, `decExpr_enc`, `encExpr`, `encExpr_length`, `encLenE`, `le_refl`, `length`, `trivial`
+- `encLen_ge_two` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
+- `encList_length_ge` -> `EqConstraint`, `EqTok`, `Tokenizer`, `cSamePoint`, `d`, `decCon`, `decCon_enc`, `decode`, `encCon`, `encCon_length`, `encode`, `induction`, `le_refl`, `length`, `length_cons`, `roundtrip`
+- `enc_length` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `enc_ne_nil` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
 - `encodeForm_arity` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_length` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
@@ -4504,7 +4516,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encodeProgram_singleton_softmax_length` -> `Instr`, `length`, `softmax`
 - `encode_cons_eq` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
 - `encode_drop_b_roundtrip_fails` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `flatten`, `length`
-- `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
+- `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
 - `encode_is_section_of_decodeTotal` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode_encode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `encode_necessary` -> `at`
 - `encode_no_sep_roundtrip_fails` -> `ConstraintSet`, `at`, `flatten`, `length`
@@ -4515,12 +4527,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entailmentSet_eq_closure` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailmentSet_scaled_eq` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailment_closure_idempotent` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
-- `entailsConsProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `VerifiedPlugin`, `completeness`, `entails_cons`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsGeo_mono` -> `GeoConstraint`, `Holds`, `Pt`, `induction`, `sound`, `subst`, `zero`
-- `entailsGeo_refl` -> `GeoConstraint`, `Holds`, `Pt`, `induction`, `sound`, `subst`, `zero`
-- `entailsMonoProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `entails_cons` -> `Constraint`, `Point`
-- `entails_mono` -> `Constraint`, `Point`
+- `entailsConsProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `VerifiedPlugin`, `completeness`, `d`, `entails_cons`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsGeo_mono` -> `GeoConstraint`, `Holds`, `Pt`, `d`, `induction`, `sound`, `subst`, `zero`
+- `entailsGeo_refl` -> `GeoConstraint`, `Holds`, `Pt`, `d`, `induction`, `sound`, `subst`, `zero`
+- `entailsMonoProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `entails_cons` -> `Constraint`, `Point`, `d`
+- `entails_mono` -> `Constraint`, `Point`, `d`
 - `entails_nil` -> `all`, `at`, `bvar`, `induction`
 - `entropy_concave` -> `apply`, `at`, `entropy`, `kl`, `kl_nonneg`, `kl_zero_iff_eq`, `le_antisymm`
 - `entropy_concavity_eq_iff` -> `at`, `entropy`, `kl`, `kl_nonneg`, `kl_zero_iff_eq`, `le_antisymm`, `subst`, `trans`
@@ -4531,26 +4543,26 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entropy_mix_identity` -> `apply`, `at`, `ce_sum_neg`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `kl_zero_iff_eq`
 - `entropy_nonneg` -> `apply`, `at`, `const_add`, `softmax`
 - `entropy_unif` -> `apply`, `at`, `ce_ge_entropy`, `crossEntropy`, `entropy`, `kl`, `kl_zero_iff_eq`
-- `env_dirderiv_key` -> `apply`, `at`, `min`
+- `env_dirderiv_key` -> `apply`, `at`, `d`, `min`
 - `eps0_zero_gives_arbitrary_precision` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`
 - `epsSat_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
 - `epsSat_zero_iff` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `eps_needs_nonneg` -> `Audit`, `at`
 - `eps_pow_fact_to_zero` -> `PolyApproxOn`
 - `eps_tendsto_zero_iff_tendsto` -> `LimitDiscrete`, `add`, `at`, `le_trans`, `mul`
-- `eqConstraintListTokenizer_two` -> `cSamePoint`, `encode`
+- `eqConstraintListTokenizer_two` -> `cSamePoint`, `d`, `encode`
 - `eqConstraintTokenizer_nontrivial` -> `add`, `cSamePoint`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraintTokenizer_roundtrip_expr` -> `add`, `decode`, `encode`, `roundtrip`
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
 - `eqZero_const_one_expressible` -> `ConstraintSet`, `ExpressibleLayer`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `IsExpressible`, `Pt`, `SpecSolver`, `evalPts`, `evalPts_const`, `single`, `sol`, `sound`
-- `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `eqZero_representable` -> `aff`, `subst`
 - `eqZero_value_is_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
-- `eq_C_of_totalDegree_zero_nat` -> `MLayer`, `apply`, `at`, `eval`, `le_trans`, `length`, `length_cons`, `subst`
-- `eq_iff_children_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `eq_of_compileToLayer_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `eq_C_of_totalDegree_zero_nat` -> `MLayer`, `apply`, `at`, `d`, `eval`, `le_trans`, `length`, `length_cons`, `subst`
+- `eq_iff_children_eq` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `eq_of_compileToLayer_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `eq_of_strictConcaveOn_combo_eq` -> `at`
 - `eq_of_strictConvexOn_combo_eq` -> `at`
 - `eq_of_strictConvexOn_sum_eq` -> `at`
@@ -4558,13 +4570,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eq_zero_of_smul_eq_zero_of_ne_zero` -> `at`
 - `eq_zero_of_zero_dense` -> `DeltaDense`, `LipschitzOn`, `at`, `dist`, `trans`
 - `equalLengthFix_reaches` -> `Pt`, `sqDist`, `sqDistFix_reaches`, `sqDist_nonneg`
-- `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
+- `equalLengthPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `seg`
 - `equalLengthPenalty_nonneg` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `equalLength_constConfigOK` -> `GeoConstraint`
 - `equalLength_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `equalLength_expressible` -> `GeoConstraint`
 - `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
-- `equalLength_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
+- `equalLength_not_affine` -> `aff`, `d`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `equalLength_sound` -> `Pt`, `sqDist`
 - `equalLength_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `erf_abs_le_one` -> `at`
@@ -4580,8 +4592,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `errorFeedback_bounded` -> `ExpDist`, `ExpGap`, `at`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_bounded_aux` -> `ExpDist`, `ExpGap`, `at`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_convergence` -> `ExpDist`, `ExpGap`, `sgd_rate_bound`
-- `error_to_penalty` -> `EqConstraint`, `ErrorBound`, `Pt`, `le_trans`, `loss`, `poly`
-- `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `at`, `compile`, `compileZ`, `dist`, `extract`, `extractZ`, `le_antisymm`, `roundtrip_error_le_one`, `triangle_combine`
+- `error_to_penalty` -> `EqConstraint`, `ErrorBound`, `Pt`, `d`, `le_trans`, `loss`, `poly`
+- `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `roundtrip_error_le_one`, `triangle_combine`
 - `euclid_norm_sq_eq` -> `apply`, `at`, `mulVec`, `single`
 - `euclidean_affine_fixed_point_existsUnique` -> `at`, `complete`
 - `euclidean_derivative_fixed_point_existsUnique` -> `at`, `complete`
@@ -4598,10 +4610,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalC_mul` -> `GeoExpr`, `add`, `mul`
 - `evalC_structurally_recursive` -> `GeoExpr`, `add`
 - `evalC_sub` -> `GeoExpr`, `add`, `mul`
-- `evalClause_finMinterm` -> `Compiler`, `at`, `induction`
-- `evalClause_minterm` -> `at`, `induction`, `trans`
-- `evalDNF_iff` -> `at`, `induction`, `trans`
-- `evalDNF_truthTable` -> `Compiler`, `at`, `induction`
+- `evalClause_finMinterm` -> `Compiler`, `at`, `d`, `induction`
+- `evalClause_minterm` -> `at`, `d`, `induction`, `trans`
+- `evalDNF_iff` -> `at`, `d`, `induction`, `trans`
+- `evalDNF_truthTable` -> `Compiler`, `at`, `d`, `induction`
 - `evalFin_eq_evalPts` -> `GeoExpr`, `Pt`, `add`, `at`, `evalPts`, `induction`, `mul`
 - `evalFloat_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `evalLinearMap_apply` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
@@ -4613,7 +4625,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`, `scale`
 - `evalPts_add` -> `add`, `mul`, `one`
-- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `differentiableAt_netActN`, `evalPts`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
+- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `evalPts`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
 - `evalPts_const` -> `add`, `mul`, `one`
 - `evalPts_coord` -> `add`, `mul`, `one`
 - `evalPts_coord_of_lt` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
@@ -4630,25 +4642,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalStack_toStack` -> `CExpr`, `add`, `compileProg`, `compileProg_correct`, `evalC`, `evalStack`, `induction`, `mul`, `runProg`
 - `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_append` -> `Instr`, `W`, `apply`, `at`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
-- `eval_congr` -> `all`, `at`, `induction`, `trans`
+- `eval_append` -> `Instr`, `W`, `apply`, `at`, `d`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `eval_congr` -> `all`, `at`, `d`, `induction`, `trans`
 - `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_eq_true_iff` -> `at`, `induction`, `trans`
-- `eval_expr_depends_on_vars` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `ctr`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
-- `eval_falsity` -> `Compiler`, `at`, `induction`
-- `eval_lit` -> `Compiler`, `at`, `induction`
+- `eval_eq_true_iff` -> `at`, `d`, `induction`, `trans`
+- `eval_expr_depends_on_vars` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
+- `eval_falsity` -> `Compiler`, `at`, `d`, `induction`
+- `eval_lit` -> `Compiler`, `at`, `d`, `induction`
 - `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`
-- `eval_nil` -> `Instr`, `W`, `apply`, `at`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `eval_nil` -> `Instr`, `W`, `apply`, `at`, `d`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_ofClause` -> `Compiler`, `at`, `induction`
-- `eval_ofDNF` -> `Compiler`, `at`, `induction`
+- `eval_ofClause` -> `Compiler`, `at`, `d`, `induction`
+- `eval_ofDNF` -> `Compiler`, `at`, `d`, `induction`
 - `eval_recursion_decreasing` -> `Compiler`, `size`
 - `eval_recursion_decreasing_size` -> `Compiler`, `size`
 - `eval_size_pos` -> `Compiler`, `size`
-- `eval_truth` -> `Compiler`, `at`, `induction`
+- `eval_truth` -> `Compiler`, `at`, `d`, `induction`
 - `eval_var` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `eval_var_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
 - `even_combo_preserves` -> `EvenOut`, `EvenSat`, `at`
@@ -4668,17 +4680,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evidenceCheck_unsound_exists` -> `apply`, `at`, `induction`, `step`
 - `evidenceCheck_unsound_unless_hypothesis_free` -> `step`
 - `ewcPenalty_nonneg` -> `at`, `induction`, `zero`
-- `ewcQuadratic_nonneg` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
+- `ewcQuadratic_nonneg` -> `apply`, `d`, `ewcPenalty`, `fisherInfo`, `score`
 - `ewcQuadratic_nonneg_diagonal` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
 - `ewcQuadratic_nonneg_one_dim` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
 - `ewcQuadratic_one_dim` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`
 - `ewc_drift_bound` -> `at`, `induction`, `zero`
 - `ewc_forgetting_bound` -> `at`, `induction`, `zero`
-- `ewc_psd_counterexample` -> `apply`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
+- `ewc_psd_counterexample` -> `apply`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
 - `exact_implies_sound` -> `E`, `Sat`, `at`, `loss`, `trivial`
-- `exact_is_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
+- `exact_is_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
 - `exact_of_foldStrength_exact` -> `Strength`, `at`, `le_antisymm`, `rank`
-- `exact_reinject_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
+- `exact_reinject_zero` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
 - `exactnessInequalityProp_holds` -> `BoundedV`, `GeoExpr`, `Holds`, `LipschitzK`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `proof`, `proof_holds`, `rho`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `exactnessProp_holds` -> `BoundedV`, `GeoExpr`, `Holds`, `LipschitzK`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `rho`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `exampleFloat_compiles` -> `length`
@@ -4696,35 +4708,35 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_abi_entry_without_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `exists_argmax` -> `IsArgMax`, `apply`, `argmax_unique`, `at`, `subst`, `top1_output_is_hard`, `topk_output_bound`
 - `exists_box_collision` -> `apply`, `at`, `card_fin`, `le`
-- `exists_box_of_continuousAt_neg` -> `add`, `at`, `le_trans`, `min`, `mono`, `subst`
+- `exists_box_of_continuousAt_neg` -> `add`, `at`, `d`, `le_trans`, `min`, `mono`, `subst`
 - `exists_box_of_continuousAt_pos` -> `IsStrictLocalMin`, `at`, `exists_box_of_continuousAt_neg`, `mono`, `second_order_sufficient`, `toIsLocalMin`
 - `exists_box_of_continuousAt_pos_kkt` -> `at`, `comp`, `mono`
 - `exists_constraintFiber_nonempty` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `exists_coord_ne_zero` -> `apply`, `at`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
-- `exists_decrease` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `exists_decrease` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `exists_decrease_one` -> `apply`, `at`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `not_localMin_of_resid_ne_zero`, `residN`
 - `exists_decrease_zero` -> `apply`, `at`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `not_localMin_of_resid_ne_zero`, `residN`
 - `exists_delta_dense_set` -> `DeltaDense`
 - `exists_delta_of_eps` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `exists_delta_of_eps_flat` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
 - `exists_delta_of_eps_ge` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le`, `le_trans`, `verifier_reliable_clean`
-- `exists_extractionValid_iff_exists_roundTrip_eq` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `exists_extractionValid_iff_exists_roundTrip_eq` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `exists_layer_not_numeric` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `layer`
 - `exists_le_of_sum_range_le` -> `E`, `at`, `sphere`
 - `exists_le_sum_mul` -> `Subgradient`, `at`, `relu`, `relu_subgradient_positive`
 - `exists_leftinv_not_complete_behavioral_invariant` -> `Layer`, `SymToken`, `at`
 - `exists_max_coord` -> `apply`, `at`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
-- `exists_modulus_of_posDef` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
-- `exists_ne_same_rotateR` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `exists_modulus_of_posDef` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `exists_ne_same_rotateR` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `exists_ne_zero_of_listGcdNat_ne_zero` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
 - `exists_norm_eq` -> `at`, `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
 - `exists_norm_eq_general` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
 - `exists_optimal_plan` -> `le_antisymm`, `mul`, `sInf`
 - `exists_plan_attaining_otValue` -> `le_antisymm`, `mul`, `sInf`
 - `exists_pow_eq_of_finite` -> `Surjective`, `at`, `subst`
-- `exists_risk_ge_bayesRisk` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
-- `exists_roundTrip_eq_iff_BehaviourallyValid` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
-- `exists_small_descent` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_nonneg`
+- `exists_risk_ge_bayesRisk` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
+- `exists_roundTrip_eq_iff_BehaviourallyValid` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `exists_small_descent` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_nonneg`
 - `exists_support_max_degree` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
 - `exists_support_max_degree_nat` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`, `single`
 - `exists_symbol_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trivial`
@@ -4741,7 +4753,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `expNegDiv_le_expNegSqDiv_iff` -> `apply`, `at`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `exp_budget_eq` -> `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `exp_invertible` -> `apply`, `le_trans`, `subst`
-- `exp_lipschitz_on` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `softmax`, `softmax_denom_pos`
+- `exp_lipschitz_on` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `d`, `softmax`, `softmax_denom_pos`
 - `exp_mul_le_one_add_add_sq` -> `apply`, `card_fin`, `le_trans`, `sum_eq_zero_of_uniformExpectation_eq_zero`, `uniformExpectation`, `uniformProb`
 - `exp_neg_div_le_exp_neg_sq` -> `apply`, `at`, `le_trans`, `uniformProb`
 - `exp_neg_div_le_exp_neg_sq_iff` -> `at`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
@@ -4836,20 +4848,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extraction_completeness_counterexample` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `extraction_completeness_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `extraction_not_unique` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
-- `extrapolation_angle_shift` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
-- `extrapolation_angle_unbounded` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
-- `extrapolation_blind_forall` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
-- `extrapolation_degrades` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
-- `extrapolation_failure_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
-- `extrapolation_score_drift` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `extrapolation_angle_shift` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
+- `extrapolation_angle_unbounded` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
+- `extrapolation_blind_forall` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
+- `extrapolation_degrades` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
+- `extrapolation_failure_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
+- `extrapolation_score_drift` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `eym_dimension_crossing` -> `E`
-- `eym_general_via_gram` -> `E`, `at`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
-- `eym_k_full` -> `E`, `rank`, `real_conjTranspose_eq_transpose`
-- `eym_k_zero` -> `E`, `at`, `rank`, `real_conjTranspose_eq_transpose`
+- `eym_general_via_gram` -> `E`, `at`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `eym_k_full` -> `E`, `d`, `rank`, `real_conjTranspose_eq_transpose`
+- `eym_k_zero` -> `E`, `at`, `d`, `rank`, `real_conjTranspose_eq_transpose`
 - `eym_lower_bound_triangle` -> `at`, `frob_add_le`, `frobeniusNorm`
-- `eym_optimal_low_rank` -> `E`, `rank`, `real_conjTranspose_eq_transpose`
-- `eym_symmetric` -> `E`, `at`, `card_fin`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
-- `eym_truncation_valid` -> `E`, `rank`, `real_conjTranspose_eq_transpose`
+- `eym_optimal_low_rank` -> `E`, `d`, `rank`, `real_conjTranspose_eq_transpose`
+- `eym_symmetric` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `eym_truncation_valid` -> `E`, `d`, `rank`, `real_conjTranspose_eq_transpose`
 - `factorized_bound` -> `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `factorsThrough_alone_does_not_suffice` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `factorsThrough_and_leftInverse_gives_factorsThrough` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
@@ -4861,14 +4873,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `familyTotalGives_no_solver` -> `Pt`, `SpecSolver`
-- `farkas_alternative` -> `at`, `dotV`, `le_refl`
-- `farkas_alternative_dotV` -> `MFCQ`, `at`, `dotV`, `le_refl`
-- `farkas_bipolar` -> `MFCQ`, `at`, `dotV`, `le_refl`
-- `farkas_continuousLinearMap_eq_dotV` -> `at`, `dotV`, `le`, `smul`
-- `farkas_fin_conic` -> `MFCQ`, `at`, `dotV`, `le_refl`
-- `farkas_literal_vacuous` -> `at`, `dotV`, `le`, `smul`
-- `farkas_multiplier_criterion` -> `MFCQ`, `at`, `dotV`, `le_refl`
-- `farkas_sum_stdBasisVec_smul` -> `at`, `dotV`, `le`, `smul`
+- `farkas_alternative` -> `at`, `d`, `dotV`, `le_refl`
+- `farkas_alternative_dotV` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
+- `farkas_bipolar` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
+- `farkas_continuousLinearMap_eq_dotV` -> `at`, `d`, `dotV`, `le`, `smul`
+- `farkas_fin_conic` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
+- `farkas_literal_vacuous` -> `at`, `d`, `dotV`, `le`, `smul`
+- `farkas_multiplier_criterion` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
+- `farkas_sum_stdBasisVec_smul` -> `at`, `d`, `dotV`, `le`, `smul`
 - `fcaAbstract_covers` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
 - `fcaAbstraction_hypothesis_needed` -> `LoadBearing`, `RealConstraint`, `at`, `intent`
 - `fcaAbstraction_sound` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
@@ -4914,21 +4926,22 @@ module. These are the edges that make the chain a chain rather than a list.
 - `feasibility_is_caller_obligation` -> `FeasibleMask`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`
 - `feasibility_nontrivial` -> `NlConstraint`, `NlSat`, `at`, `le_refl`, `relu`, `reluCompile`
 - `feasible_of_localMin` -> `apply`, `at`, `isLocalMin_of_forall_le`, `le_refl`
-- `featScore_eq_inner` -> `apply`, `featScore`
-- `featScore_nonneg` -> `convComb_norm_bound`, `softmax`
+- `featScore_eq_inner` -> `apply`, `d`, `featScore`
+- `featScore_nonneg` -> `convComb_norm_bound`, `d`, `softmax`
 - `featureMap_reproducing_compat` -> `IsSymmKernel`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
-- `fedAvgIterate_eq_gd` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
-- `fedAvg_as_sgd` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
-- `fedAvg_contraction` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`
-- `fedAvg_converges` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `gd_converges`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvgIterate_eq_gd` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvg_as_sgd` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvg_contraction` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`
+- `fedAvg_converges` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `d`, `gd_converges`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `fedAvg_drift_linear` -> `induction`, `zero`
-- `fedAvg_drift_step` -> `induction`, `zero`
-- `fedAvg_linear_rate` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
-- `fedAvg_rate` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
-- `fedAvg_single_client` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvg_drift_step` -> `d`, `induction`, `zero`
+- `fedAvg_linear_rate` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvg_rate` -> `Subgradient`, `apply`, `at`, `d`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `fedAvg_single_client` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `fedsgd_contraction` -> `at`, `induction`, `le`, `zero`
-- `fedsgd_contraction_fedAvg_rate_counterexample` -> `at`, `le_trans`
-- `fedsgd_contraction_fedAvg_rate_sharp` -> `at`, `le_trans`
+- `fedsgd_contraction_effective` -> `d`
+- `fedsgd_contraction_fedAvg_rate_counterexample` -> `at`, `d`, `le_trans`
+- `fedsgd_contraction_fedAvg_rate_sharp` -> `at`, `d`, `le_trans`
 - `fedsgd_epsilon_certificate` -> `induction`, `le`, `zero`
 - `fedsgd_epsilon_condition` -> `induction`, `le`, `zero`
 - `fedsgd_epsilon_exists` -> `induction`, `le`, `zero`
@@ -4970,7 +4983,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fenchel_ineq_all` -> `Subgradient`, `apply`, `at`, `fenchelConjugate`, `fenchelConjugate_le`, `le_antisymm`, `subgradient_exists_of_convex`
 - `fenchel_ineq_all_ereal` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `le_antisymm`
 - `fenchel_inequality` -> `E`, `apply`, `at`, `fDivergence`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`, `tv`, `tv_eq_sum_abs`
-- `fiberCard_sum_eq` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
+- `fiberCard_sum_eq` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `fiberPred_factorsThrough` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `fiberStable_iff_neutral_on_fiberPreds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `fiberStable_iterate` -> `induction`, `zero`
@@ -4979,9 +4992,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fiber_extractVec_exists_unique` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `fiber_extractVec_is_singleton` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `fiber_extractVec_subsingleton` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
-- `fiber_sum_eq` -> `apply`, `at`
-- `fiber_sum_eq_filtered_fiber_sum` -> `at`
-- `fiber_zero_of_row_zero` -> `apply`
+- `fiber_sum_eq` -> `apply`, `at`, `d`
+- `fiber_sum_eq_filtered_fiber_sum` -> `at`, `d`
+- `fiber_zero_of_row_zero` -> `apply`, `d`
 - `fibreBound_iterate` -> `FibreBound`, `at`, `card_fin`, `convert`, `fiber`, `induction`, `le`, `tower_hoeffding_transfer`, `zero`
 - `fibreBound_mgf_iterate` -> `AdaptedTo`, `CondZeroMean`, `FibreBound`, `at`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_hoeffding`, `fiber`, `induction`, `le`, `uniformExpectation`, `zero`
 - `fibreBound_mgf_iterate_filtration` -> `AdaptedTo`, `CondZeroMean`, `FibreBound`, `at`, `condExpFiber_hoeffding`, `fiber`, `induction`, `uniformExpectation`, `zero`
@@ -4994,9 +5007,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fibre_card_le_domain_card` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `le_trans`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `fibre_card_le_image_card` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `le_trans`, `scaleVec`, `scaleVec_preserves`
 - `fibre_card_le_one_iff_injective` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `le_trans`, `scaleVec`, `scaleVec_preserves`
-- `fibre_singleton_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `fibre_singleton_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `fibre_singleton_of_injective` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `le_trans`, `scaleVec`, `scaleVec_preserves`, `trans`
-- `fibre_singleton_scaleVec` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `fibre_singleton_scaleVec` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `fidelity_fails_example` -> `at`
 - `fidelity_satisfied_example` -> `at`, `step`
 - `fidelity_spec_multistep` -> `at`, `compile`, `step`
@@ -5010,19 +5023,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fillConsts_toSExpr` -> `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `dec`, `enc`, `encLen`, `induction`, `mul`, `nil_append`, `structure_survives_tokens_full`
 - `filterMap_comp_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
 - `filterMap_sym_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
-- `filter_filter_fiber` -> `apply`, `at`
-- `filter_length_eq_zero_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `filter_filter_fiber` -> `apply`, `at`, `d`
+- `filter_length_eq_zero_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `finExpect_add` -> `apply`, `quadForm`
 - `finExpect_const` -> `apply`, `quadForm`
 - `finExpect_smul` -> `apply`, `quadForm`
 - `finRange_getElem` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `finSuccProdEquiv_symm_apply` -> `apply`
 - `fin_card_pos` -> `apply`, `at`, `card_fin`, `le_trans`, `softmax`
-- `fin_one_two_univ` -> `at`
+- `fin_one_two_univ` -> `at`, `d`
 - `fin_sum_cons` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
-- `fin_two_mul_add_one_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `fin_two_mul_add_one_not_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `fin_two_mul_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `fin_two_mul_add_one_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `fin_two_mul_add_one_not_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `fin_two_mul_mod` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `fin_zero_ne_one` -> `Compiler`, `at`
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -5034,18 +5047,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `finrank_adjoin_eq_one_of_mem` -> `at`, `eval`, `subst`
 - `finrank_eq_natDegree_minpoly_of_adjoin_eq_top` -> `at`, `eval`, `min`, `subst`
 - `finset_bound_to_tsum` -> `apply`, `infinite_sum_bound`
-- `fireOnce_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `induction`, `mul`, `rule_entails`, `zero`
-- `firesBool_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `induction`, `mul`, `rule_entails`, `zero`
+- `fireOnce_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `d`, `induction`, `mul`, `rule_entails`, `zero`
+- `firesBool_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `d`, `induction`, `mul`, `rule_entails`, `zero`
 - `firstOrderMAML_exact` -> `at`
 - `first_order_maml` -> `at`
 - `first_order_single_step_no_confusion` -> `Subgradient`
 - `first_order_taylor` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
 - `first_order_taylor_mvt` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
 - `fisherMatrix_eq_fisherInfo_one_dim` -> `apply`, `fisherInfo`, `score`
-- `fisherMatrix_psd` -> `apply`, `at`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
-- `fisherMatrix_symm` -> `apply`, `at`, `subst`
-- `fisherMatrix_zero_direction` -> `apply`, `at`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
-- `fisherMatrix_zero_direction_score` -> `apply`, `at`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
+- `fisherMatrix_psd` -> `apply`, `at`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
+- `fisherMatrix_symm` -> `apply`, `at`, `d`, `subst`
+- `fisherMatrix_zero_direction` -> `apply`, `at`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
+- `fisherMatrix_zero_direction_score` -> `apply`, `at`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
 - `fisherMetric_add_left` -> `apply`, `at`, `fisherMatrix`, `fisherMatrix_psd`, `fisherMatrix_zero_direction_score`, `fisherQuadForm`, `fisherQuadForm_eq_fisherMatrix`, `logScoreAt`, `min`
 - `fisherMetric_cauchy_schwarz` -> `add`, `apply`, `at`, `div_const`, `fisherMatrix`, `fisherMatrix_zero_direction_score`, `fisherQuadForm`, `fisherQuadForm_eq_fisherMatrix`, `logScoreAt`, `min`, `subst`
 - `fisherMetric_degenerate_iff` -> `add`, `apply`, `at`, `div_const`, `fisherMatrix`, `fisherMatrix_zero_direction_score`, `logScoreAt`, `min`, `mul`, `subst`
@@ -5059,8 +5072,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fisherMetric_sqrt_scale` -> `fisherInfo`, `fisherMatrix_eq_fisherInfo_one_dim`
 - `fisherMetric_sqrt_scale_tensor` -> `fisherInfo`, `fisherMatrix_eq_fisherInfo_one_dim`
 - `fisherMetric_symm` -> `apply`, `at`, `fisherMatrix`, `fisherMatrix_psd`, `fisherMatrix_symm`, `fisherMatrix_zero_direction_score`, `fisherQuadForm`, `fisherQuadForm_eq_fisherMatrix`, `logScoreAt`, `min`
-- `fisherQuadForm_eq_fisherMatrix` -> `apply`, `at`, `subst`
-- `fisherQuadForm_nonneg` -> `apply`, `at`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
+- `fisherQuadForm_eq_fisherMatrix` -> `apply`, `at`, `d`, `subst`
+- `fisherQuadForm_nonneg` -> `apply`, `at`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
 - `fisher_cramer_rao` -> `apply`, `at`
 - `fisher_equals_second_derivative` -> `apply`, `at`
 - `fisher_nonneg` -> `apply`, `at`, `log_derivative_identity`
@@ -5105,7 +5118,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_symm_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_val` -> `Pt`, `flatEquiv`, `flatten`, `trans`
 - `flatEquiv_val_eq_seqSlot` -> `Pt`, `flatEquiv`, `flatten`, `trans`
-- `flatLayerAct_differentiableAt` -> `comp`
+- `flatLayerAct_differentiableAt` -> `comp`, `d`
 - `flatLoss_achievable_iff` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `at`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
 - `flatLoss_achievable_iff_mem` -> `Chain`, `GeoConstraint`, `Holds`, `Pt`, `SafeBranch`, `W`, `affine_map_realisable`, `apply`, `at`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
 - `flatLoss_differentiableAt_input` -> `Chain`, `ConstraintIndicesBelow`, `GeoConstraint`, `Holds`, `NonKink`, `Pt`, `SafeBranch`, `at`, `comp`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe_width_one`, `forall_mem_map_iff`, `list_sum_eq_zero_of_nonneg`, `lossOfActivations`, `lossOfActivations_differentiableAt_nonKink`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_of_safe`, `penaltyLoss_nonneg`, `readSlot`, `readSlot_of_lt`, `trunc`, `twoLayerProbeRest`
@@ -5121,11 +5134,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`
 - `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`, `at`
 - `flatParamActSafe_width_one` -> `Chain`, `MLayer`, `W`, `e2`
-- `flatParamActSafe_width_one_fun` -> `MLayer`, `at`, `eval`, `single`
-- `flatParamAct_apply` -> `comp`
-- `flatParamAct_differentiableAt_activation` -> `comp`
-- `flatParamAct_differentiableAt_joint` -> `comp`
-- `flatParamAct_differentiableAt_params` -> `comp`
+- `flatParamActSafe_width_one_fun` -> `MLayer`, `at`, `d`, `eval`, `single`
+- `flatParamAct_apply` -> `comp`, `d`
+- `flatParamAct_differentiableAt_activation` -> `comp`, `d`
+- `flatParamAct_differentiableAt_joint` -> `comp`, `d`
+- `flatParamAct_differentiableAt_params` -> `comp`, `d`
 - `flatParams_differentiableAt_apply` -> `at`
 - `flatParams_differentiableAt_linear` -> `at`
 - `flatParams_differentiableAt_linear_vec` -> `at`
@@ -5202,11 +5215,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `foldl_coeff_zero_irrelevant` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `foldl_eval_act` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`
-- `foldl_eval_lipschitz` -> `apply`, `induction`
+- `foldl_eval_lipschitz` -> `apply`, `blocks`, `induction`
 - `foldl_init_add` -> `at`, `dot`, `induction`, `length`, `subst`
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `foldl_step_totalDegree` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
-- `foldl_step_totalDegree_any` -> `MLayer`, `at`, `eval`, `le_trans`, `length`, `length_cons`
+- `foldl_step_totalDegree_any` -> `MLayer`, `at`, `d`, `eval`, `le_trans`, `length`, `length_cons`
 - `foldl_zip_add` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `fomaml_grad_eq_maml_zero_hessian` -> `at`
 - `forall` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `induction`, `netAct`, `netAct_deviation_le_devB`, `tiny`
@@ -5215,9 +5228,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `forall_mem_map_iff_ablation` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `forall_mem_map_iff_ablation_lhs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `forall_proper_subset_roundtrip_is_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
-- `forgetting_bound` -> `at`, `induction`, `zero`
-- `forgetting_bound_of_drift` -> `at`, `induction`, `zero`
-- `forgetting_self` -> `at`, `induction`, `zero`
+- `forgetting_bound` -> `at`, `d`, `induction`, `zero`
+- `forgetting_bound_of_drift` -> `at`, `d`, `induction`, `zero`
+- `forgetting_self` -> `at`, `d`, `induction`, `zero`
 - `formal_concept_extent_is_norm_fixed` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `formal_concept_iff_closure` -> `apply`, `at`
 - `format_add_error` -> `at`, `eps`, `induction`, `le_trans`, `tiny`, `zero`
@@ -5254,19 +5267,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `frac_le_one` -> `apply`, `at`, `card_fin`, `le`
 - `frac_lt_one` -> `apply`, `at`, `card_fin`, `le`
 - `frac_nonneg` -> `apply`, `at`, `card_fin`, `le`
-- `freeSum_append` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
-- `freeSum_cons` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
-- `freeSum_nil` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
+- `freeSum_append` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
+- `freeSum_cons` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
+- `freeSum_nil` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
 - `free_noZeroSMulDivisors` -> `at`
 - `free_not_isTorsion_of_ne_bot` -> `at`
-- `frobSq_eq_trace_sq` -> `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `frobSq_eq_trace_sq` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `frobSq_inner_sq_le` -> `at`
 - `frobSq_le_card_mul_sq` -> `at`
 - `frobSq_mono` -> `at`
 - `frobSq_nonneg` -> `apply`, `at`
 - `frobSq_outer` -> `apply`, `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `frobSq_smul` -> `apply`, `at`
-- `frobSq_sub_eq` -> `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`
+- `frobSq_sub_eq` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`
 - `frobSq_zero_iff` -> `apply`, `at`
 - `frob_add_le` -> `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
 - `frob_nonneg` -> `apply`, `at`
@@ -5304,7 +5317,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `functionalAnalysis_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `functionalAnalysis_validB_eq_false`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `functionalAnalysis_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_false_but_repairable`, `functionalAnalysis_validB_eq_false`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `functionalAnalysis_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_extra_length`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
-- `functionalAnalysis_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `functionalAnalysisTemplateNames`, `informationTheoryTemplateNames`, `length`, `mkTemplates`, `probabilityTheoryPackage`, `probabilityTheoryTemplateNames`, `probabilityTheoryTemplates`, `probabilityTheoryUnconstructibles`, `probabilityTheory_templateNames_length`
+- `functionalAnalysis_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `d`, `functionalAnalysisTemplateNames`, `informationTheoryTemplateNames`, `length`, `mkTemplates`, `probabilityTheoryPackage`, `probabilityTheoryTemplateNames`, `probabilityTheoryTemplates`, `probabilityTheoryUnconstructibles`, `probabilityTheory_templateNames_length`
 - `functionalAnalysis_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `g02_criteria` -> `lt`
 - `gain_nonneg` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
@@ -5328,42 +5341,42 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gated_soft_mask_bound` -> `E`, `SoftMasked`, `W`, `apply`, `hardSigmoid_bounds`, `hardSwish`, `relu`, `reluSoftMask`, `sigmoid`, `sigmoid_bounds`, `silu`, `swiglu`
 - `gauss_bonnet_local_flat_degenerate` -> `Geometry`
 - `gaussian_curvature_eq_zero` -> `E`, `split`
-- `gazeAsObject_dir` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gazeAsObject_dir` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `gazeDown_eq_extent` -> `at`, `extent`, `galois_connection`, `subset_extent_intent`, `subset_intent_extent`
-- `gazeObj_has_no_ground_field` -> `Gaze`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
+- `gazeObj_has_no_ground_field` -> `Gaze`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
 - `gazeUp_eq_intent` -> `at`, `extent`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
-- `gaze_down_self_extent` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `gaze_down_self_is_concept` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `gaze_down_self_parts` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `gaze_no_exemption` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `gaze_self_reflection_consistent` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gaze_down_self_extent` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gaze_down_self_is_concept` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gaze_down_self_parts` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gaze_no_exemption` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gaze_self_reflection_consistent` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `gaze_switch_preserves_base` -> `at`, `extent`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`, `up`
 - `gaze_switch_sets_gaze` -> `at`, `extent`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`, `up`
-- `gaze_up_self_is_element` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `gcd_assoc` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
+- `gaze_up_self_is_element` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `gcd_assoc` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
 - `gcd_comm` -> `apply`, `at`, `children`, `le_trans`, `satisfiable`
-- `gcd_lcm_distrib_le` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
-- `gcd_lcm_distrib_self` -> `all`, `apply`, `at`, `children`, `le_trans`, `length`, `satisfiable`, `trans`
-- `gcd_lcm_distrib_zero_zero` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
-- `gcd_lcm_identity` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
-- `gdOneStepPredict_eq` -> `apply`, `at`
+- `gcd_lcm_distrib_le` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
+- `gcd_lcm_distrib_self` -> `all`, `apply`, `at`, `children`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
+- `gcd_lcm_distrib_zero_zero` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
+- `gcd_lcm_identity` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
+- `gdOneStepPredict_eq` -> `apply`, `at`, `d`
 - `gdSeq_succ` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `glu`, `induction`, `loss`, `zero`
 - `gdSeq_zero` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `glu`, `induction`, `loss`, `zero`
-- `gdStep_fixpoint_iff` -> `at`, `contraction_converges`, `contraction_pow_bound`, `le_antisymm`, `le_total`, `le_trans`
+- `gdStep_fixpoint_iff` -> `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `le_antisymm`, `le_total`, `le_trans`
 - `gd_contraction_needs_monotone` -> `PiecewiseConstraint`, `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
-- `gd_contraction_of_modulus` -> `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extract_idempotent`, `le_total`, `le_trans`, `mono`
+- `gd_contraction_of_modulus` -> `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `d`, `extract_idempotent`, `le_total`, `le_trans`, `mono`
 - `gd_contraction_of_modulus_false` -> `PiecewiseConstraint`, `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `le_total`, `mono`, `piecewiseCompile`, `trans`
 - `gd_convergence_rate` -> `PiecewiseConstraint`, `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
-- `gd_converges` -> `SubgradientIterate`, `at`, `contraction_converges`, `le_trans`, `subst`
+- `gd_converges` -> `SubgradientIterate`, `at`, `contraction_converges`, `d`, `le_trans`, `subst`
 - `gd_descent_of_smooth` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `glu`, `induction`, `loss`, `zero`
 - `gd_divergence_counterexample` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `strong_convex_gap_bound`
 - `gd_epsilon_termination` -> `SoftMasked`, `act`, `eps`, `gdStep`, `glu`, `loss`
-- `gd_error_le_geometric` -> `at`, `contraction_pow_bound`, `le_total`, `le_trans`
+- `gd_error_le_geometric` -> `at`, `contraction_pow_bound`, `d`, `le_total`, `le_trans`
 - `gd_exists_small_gradient` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `glu`, `loss`
 - `gd_fixpoint_unique_of_modulus` -> `PiecewiseConstraint`, `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
-- `gd_linear_rate` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `le_trans`, `zero`
-- `gd_not_exact_least_squares_counterexample` -> `apply`
-- `gd_one_step_eq_eta_smul_normal_rhs` -> `apply`
+- `gd_linear_rate` -> `SubgradientIterate`, `at`, `contraction_converges`, `d`, `induction`, `le_trans`, `zero`
+- `gd_not_exact_least_squares_counterexample` -> `apply`, `d`
+- `gd_one_step_eq_eta_smul_normal_rhs` -> `apply`, `d`
 - `gd_one_step_sharp` -> `Subgradient`, `at`
 - `gd_oscillation_counterexample` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `strong_convex_gap_bound`
 - `gd_quadratic_exact` -> `Subgradient`, `at`
@@ -5372,13 +5385,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gd_sharpness_sq` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `strong_convex_gap_bound`
 - `gd_telescope` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `glu`, `induction`, `loss`, `zero`
 - `gd_upper_bound_tight` -> `Subgradient`, `at`, `strong_convex_gap_bound`
-- `gd_zero_direction_eq_normal_equation_rhs` -> `apply`
+- `gd_zero_direction_eq_normal_equation_rhs` -> `apply`, `d`
 - `geglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `silu_is_soft_masked`
 - `geglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `geglu_lipschitz` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `zero`
 - `gelfandRadius_set_bddBelow` -> `HasRealEigenvalue`, `apply`, `at`, `eps`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matrix_mul_norm_bound`, `matvecE`, `sInf`, `spectral_radius_le_opNorm`, `zero`
 - `gelfandRadius_set_nonempty` -> `HasRealEigenvalue`, `apply`, `at`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matrix_mul_norm_bound`, `matvecE`, `sInf`, `spectral_radius_le_opNorm`, `zero`
-- `gelfand_diagonal` -> `apply`, `le_antisymm`, `matCLME`
+- `gelfand_diagonal` -> `apply`, `d`, `le_antisymm`, `matCLME`
 - `gelfand_eigenvalue_abs_le_opNorm` -> `HasRealEigenvalue`, `at`, `eps`, `le_antisymm`, `le_trans`, `matCLME`, `sInf`, `spectral_radius_le_opNorm`
 - `gelfand_exists_pow_root_lt` -> `at`, `eps`, `matCLME`, `sInf`
 - `gelfand_opNorm_one_le` -> `HasRealEigenvalue`, `apply`, `at`, `eps`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matrix_mul_norm_bound`, `matvecE`, `sInf`, `spectral_radius_le_opNorm`, `zero`
@@ -5450,7 +5463,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geo_eps_bridge` -> `E`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `geo_penalty_exact` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`, `sq_eq_zero_of_localMin`
 - `geo_repair_progress` -> `Pt`, `Repair`, `Sat`, `iterate`, `progress`
-- `geo_sampled_bound` -> `EqConstraint`, `Pt`, `poly`, `residual_le_of_zero_on_dense_of_d`, `rho`, `rho_nonneg`
+- `geo_sampled_bound` -> `EqConstraint`, `Pt`, `d`, `poly`, `residual_le_of_zero_on_dense_of_d`, `rho`, `rho_nonneg`
 - `geom_contraction_eventually` -> `le_refl`
 - `geom_sum_eq` -> `at`, `div_const`, `mul`
 - `geom_sum_eq_one_sub` -> `E`, `apply`, `geom_sum_mul`, `iterateStep`, `iterateStep_norm_le`, `le_trans`, `op_norm_pow_le`
@@ -5467,8 +5480,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geometric_tail_scope` -> `at`, `induction`, `le`, `zero`
 - `gershgorin_bound` -> `apply`, `at`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
 - `getConstraints_length_nonneg` -> `Theory`, `length`
-- `getD_append_left` -> `Instr`, `W`, `apply`, `at`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
-- `getD_append_right` -> `Instr`, `W`, `apply`, `at`, `enc`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `getD_append_left` -> `Instr`, `W`, `apply`, `at`, `d`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
+- `getD_append_right` -> `Instr`, `W`, `apply`, `at`, `d`, `enc`, `getD_eq_getElem`, `length`, `relu`, `scale`, `softmax`
 - `getD_eq_getElem` -> `apply`, `at`, `dot`, `length`
 - `getD_ofFn_block` -> `Instr`, `W`, `apply`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
 - `getD_ofFn_block_append` -> `Instr`, `W`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `scale`, `softmax`
@@ -5532,15 +5545,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gpCovariance_isGaussianVector` -> `IsPosDefKernel`, `IsSymmKernel`, `isPosDefKernel_gram_psd`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernelGramMatrix_transpose`, `mulVec`
 - `gpCovariance_psd_iff_featureMap` -> `IsSymmKernel`, `dot`, `kernelGramMatrix_psd_iff_exists_featureMap`, `mulVec`
 - `gpRidgeSystem_holds` -> `at`, `mulVec`
-- `gqa_all_heads_output_bound` -> `E`, `softmax`
-- `gqa_is_mha_special` -> `E`
-- `gqa_logit_scale_bound` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `sqrt_d_scale_bound`
-- `gqa_preserves_pmf` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`
-- `gqa_weights_eq_mha_weights` -> `E`, `softmax`
-- `gqa_weights_nonneg` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `gqa_weights_sum_one` -> `E`, `ProbDist`, `convComb_norm_bound`, `softmax`, `softmax_sum_one`
+- `gqa_all_heads_output_bound` -> `E`, `d`, `softmax`
+- `gqa_is_mha_special` -> `E`, `d`
+- `gqa_logit_scale_bound` -> `E`, `ProbDist`, `convComb_norm_bound`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `sqrt_d_scale_bound`
+- `gqa_preserves_pmf` -> `E`, `ProbDist`, `convComb_norm_bound`, `d`, `softmax`
+- `gqa_weights_eq_mha_weights` -> `E`, `d`, `softmax`
+- `gqa_weights_nonneg` -> `E`, `ProbDist`, `convComb_norm_bound`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `gqa_weights_sum_one` -> `E`, `ProbDist`, `convComb_norm_bound`, `d`, `softmax`, `softmax_sum_one`
 - `gradStep_descent_lemma` -> `E`, `at`, `le_trans`, `single`
-- `grad_mem_nonnegComboCone` -> `at`, `dot`, `dotV`, `le_refl`, `smul`
+- `grad_mem_nonnegComboCone` -> `at`, `d`, `dot`, `dotV`, `le_refl`, `smul`
 - `grad_partial_sum_le` -> `E`, `at`, `induction`, `sphere`, `zero`
 - `grad_tendsto_zero` -> `E`, `at`, `sphere`
 - `grade_lt_asymm` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`, `trivial`
@@ -5578,9 +5591,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `group_axioms_implies_cancel_left` -> `apply`, `at`, `children`, `le_trans`, `point`, `satisfiable`
 - `group_axioms_implies_mul_one` -> `apply`, `at`, `children`, `le_trans`, `satisfiable`
 - `group_axioms_of_group` -> `apply`, `at`, `children`, `le_trans`, `satisfiable`
-- `grouped_output_bound` -> `E`, `convComb_norm_bound`, `softmax`
-- `grow_wellFormed` -> `MLayer`, `WellFormed`, `act`, `at`, `count`, `length`
-- `gtZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `grouped_output_bound` -> `E`, `convComb_norm_bound`, `d`, `softmax`
+- `grow_wellFormed` -> `MLayer`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `weights`
+- `gtZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `gtZero_not_affine` -> `aff`, `subst`
 - `hDone_apply` -> `at`, `compile`, `step`, `trivial`
 - `hG_is_substantive` -> `at`, `dist`, `induction`, `zero`
@@ -5622,53 +5635,53 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_eval` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`
 - `hasFDerivAt_evalPts` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `at`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
-- `hasFDerivAt_gtZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
-- `hasFDerivAt_leZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
-- `hasFDerivAt_lossOfActivations` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `hasFDerivAt_ltZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
-- `hasFDerivAt_maxZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `hasFDerivAt_gtZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `hasFDerivAt_leZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `hasFDerivAt_lossOfActivations` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `hasFDerivAt_ltZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `hasFDerivAt_maxZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
 - `hasFDerivAt_maxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `mul`, `trunc`
 - `hasFDerivAt_midpointSum` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
 - `hasFDerivAt_minorDefect` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `sqDist`, `sqDist_eq_sum`, `trunc`
-- `hasFDerivAt_minorDefect_seg` -> `Pt`, `at`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
-- `hasFDerivAt_negMaxZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `hasFDerivAt_minorDefect_seg` -> `Pt`, `at`, `comp`, `d`, `hasFDerivAt_sq_comp`, `minorDefect`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `hasFDerivAt_negMaxZero_neg` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
 - `hasFDerivAt_negMaxZero_pos` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `trunc`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
-- `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `hasFDerivAt_penaltyLoss` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
+- `hasFDerivAt_pairProj` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_penaltyLoss` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
 - `hasFDerivAt_penaltyLoss_family` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
 - `hasFDerivAt_penaltyLoss_nonKink` -> `GeoConstraint`, `Pt`, `penaltyLoss`, `trunc`
 - `hasFDerivAt_perpResid` -> `mul`
 - `hasFDerivAt_pointwiseNetActN` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `hasFDerivAt_segCLM` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`, `trunc_apply`
 - `hasFDerivAt_segComp` -> `mul`, `unflatten`
-- `hasFDerivAt_sq` -> `E`, `at`, `comp`, `convert`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
-- `hasFDerivAt_sqDist_joint` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `comp`, `evalPts`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `hasFDerivAt_sq` -> `E`, `at`, `comp`, `convert`, `d`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
+- `hasFDerivAt_sqDist_joint` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `comp`, `d`, `evalPts`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `hasFDerivAt_sqDist_left` -> `Pt`, `sqDist`, `sqDist_eq_sum`
-- `hasFDerivAt_sqDist_pair_comp` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `hasFDerivAt_sqDist_pair_explicit` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
-- `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`
-- `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_sqDist_pair_comp` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `hasFDerivAt_sqDist_pair_explicit` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`
+- `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`, `d`
+- `hasFDerivAt_truncPoint` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `sqDist`, `trunc`, `trunc_apply`
 - `hasModel_iff` -> `all`, `at`, `bvar`, `induction`
-- `hasNonnegCombo_iff_sum` -> `at`, `dotV`, `le_refl`, `smul`
-- `hasPartIdentity_iff_exists_holder` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `hasNonnegCombo_iff_sum` -> `at`, `d`, `dotV`, `le_refl`, `smul`
+- `hasPartIdentity_iff_exists_holder` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `hcomm_cons_left` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `hcomm_cons_right` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
-- `headEigSq_add_tailEigSq` -> `apply`, `at`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
-- `headEigSq_nonneg` -> `apply`, `at`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `headEigSq_add_tailEigSq` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `headEigSq_nonneg` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `headMass_add_prunedMass` -> `at`, `rho`
 - `headMass_le_topSum` -> `at`, `rho`, `topK_sum_max`
 - `headMass_mono_budget` -> `rho`
-- `head_op_bound` -> `matCLME`, `prune_chain_error`, `quantFwd`
+- `head_op_bound` -> `d`, `matCLME`, `prune_chain_error`, `quantFwd`
 - `head_output_bound` -> `apply`, `at`, `convComb_norm_bound`, `topk_output_bound`
 - `head_pairwise_redundancy_bound` -> `apply`, `topk_output_bound`
-- `head_pruning_bound` -> `at`, `frobeniusNorm`, `matCLME`, `prune_chain_error`, `quantFwd`, `rho`
+- `head_pruning_bound` -> `at`, `d`, `frobeniusNorm`, `matCLME`, `prune_chain_error`, `quantFwd`, `rho`
 - `head_pruning_optimal_bound` -> `rho`
 - `head_redundancy_bound` -> `apply`, `at`, `topk_output_bound`
 - `head_redundancy_bound_subprob` -> `apply`, `at`, `topk_output_bound`
-- `heatKernel_diag` -> `apply`, `at`, `featScore`, `softmax`
-- `heatKernel_gram_psd_const` -> `apply`, `at`, `featScore`, `softmax`
+- `heatKernel_diag` -> `apply`, `at`, `d`, `featScore`, `softmax`
+- `heatKernel_gram_psd_const` -> `apply`, `at`, `d`, `featScore`, `softmax`
 - `heavyBall_contraction` -> `GradientCoCoercive`, `Smooth`, `SubgradientIterate`, `at`, `induction`, `scalar_second_order_converges`, `smooth_descent_bound`, `strong_convex_iterate_contraction`, `zero`
 - `heavyBall_quadratic_converges` -> `Smooth`, `SubgradientIterate`, `induction`, `scalar_second_order_converges`, `smooth_descent_bound`, `zero`
 - `hessianMat_apply_def` -> `add`, `at`, `comp`, `path`, `quadForm`, `single`
@@ -5682,11 +5695,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hetero_chain_numeric_bound` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `SoftmaxAttnOp`, `W`, `apply`, `at`, `chainN_dom_bound`, `le_trans`, `modelBlockLb`
 - `hetero_chain_reduces_to_homo` -> `ChainFwd`, `ModelBlock`, `SoftmaxAttnOp`, `W`, `modelBlockLb`
 - `hetero_to_homo` -> `ChainFwd`, `ModelBlock`, `SoftmaxAttnOp`, `W`, `apply`, `modelBlockLb`
-- `heterogeneity_error` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`
+- `heterogeneity_error` -> `Smooth`, `StrongConvex`, `Subgradient`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`
 - `hhess_of_contDiffAt` -> `quadForm`, `second_order_necessary_multidim`
 - `high_conf_error_bound` -> `apply`, `le`
-- `high_dim_failure_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rotateR`
-- `high_dim_subblock_failure` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `high_dim_failure_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rotateR`
+- `high_dim_subblock_failure` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `hoeffding_inequality_measure` -> `condexp_mono`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
 - `hoeffding_inequality_measure_const_bound` -> `at`
 - `hoeffding_inequality_measure_interval` -> `at`, `condExpFiber`, `condexp_mono`, `hoeffding_tail_of_mgf_bound`, `integral_condexp`, `mgf_bound_of_coordinate_bounds`, `mono`
@@ -5700,7 +5713,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hoeffding_lemma_measure_interval` -> `at`, `le`, `mono`
 - `hoeffding_lemma_measure_symmetric` -> `at`, `le`, `mono`
 - `hoeffding_lemma_measure_symmetric_interval` -> `at`, `le`, `mono`
-- `hoeffding_lemma_scaled` -> `S2`, `apply`, `at`, `card_fin`, `hoeffding_lemma`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
+- `hoeffding_lemma_scaled` -> `S2`, `apply`, `at`, `card_fin`, `d`, `hoeffding_lemma`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `hoeffding_lemma_shifted` -> `apply`, `at`, `card_fin`, `trans`, `uniformProb`
 - `hoeffding_measure_independent_general` -> `prob_isFinite`
 - `hoeffding_tail` -> `apply`, `card_fin`, `uniformProb`
@@ -5710,25 +5723,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hoeffding_tail_of_mgf_bound` -> `le`
 - `hoeffding_two_sided` -> `apply`, `card_fin`, `uniformProb`, `zero`
 - `holder_two_is_cauchy` -> `card_fin`
-- `holdsSet_append` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `induction`, `trivial`
+- `holdsSet_append` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_equiv_append_left` -> `Domain`, `GeoConstraint`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_flatMap_experts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
 - `holdsSet_meaning_equiv` -> `Domain`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
-- `holdsSet_mem` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `induction`, `trivial`
+- `holdsSet_mem` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_member` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `holdsSet_mem`, `length`, `nil_append`, `undo`
 - `holdsSet_midpoint_single` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `trivial`
 - `holdsSet_mono` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
-- `holdsSet_nil` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `induction`, `trivial`
+- `holdsSet_nil` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `holdsSet_of_forall` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `canonical`, `degenerateSolver`, `induction`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `holdsSet_of_forall` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `canonical`, `d`, `degenerateSolver`, `induction`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `holdsSet_of_sublist` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
 - `holdsSet_samePoint_all` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `holdsSet_samePoint_single` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `trivial`
-- `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `induction`, `trivial`
+- `holdsSet_singleton` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_subset` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `induction`, `trivial`
 - `holds_eqZero_const_iff` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `holds_eqZero_sub` -> `GeoExpr`, `Pt`, `evalPts`, `evalPts_sub_eq_zero_iff`
-- `holds_equalLength_const` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
+- `holds_equalLength_const` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
 - `holds_iff` -> `Holds`, `all`, `at`, `bvar`, `induction`
 - `holds_leZero_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`
 - `holds_midpoint_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
@@ -5737,7 +5750,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holds_perpendicular_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_rightAngle_const` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `holds_samePoint_const` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
-- `holds_sqDistEq_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
+- `holds_sqDistEq_const_of_eval_zero` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `evalPts`, `holds_of_degenerateOK`, `sqDist`
 - `holds_translate_iff_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `translate`
 - `holds_translate_of_translatable` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `at`, `collinear`, `collinear_translate`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `translate`
 - `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `reluZ`, `toVec`
@@ -5751,20 +5764,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hyperbolic_paraboloid_analytic_curvature_at_origin` -> `Geometry`, `S2`
 - `hyperparameter_selection_bound` -> `abs_mean_le_one`, `card_fin`, `uniformExpectation`, `uniformProb`
 - `hyperparameter_selection_bound_prob` -> `abs_mean_le_one`, `card_fin`, `uniformExpectation`, `uniformProb`
-- `iclQueryLabel_feature` -> `apply`, `at`
-- `iclQueryLabel_last` -> `apply`, `at`
-- `iclQuery_feature` -> `apply`
-- `iclQuery_last` -> `apply`
-- `iclReadoutQuery_feature` -> `apply`, `at`
-- `iclReadoutQuery_last` -> `apply`, `at`
-- `iclToken_feature` -> `apply`
-- `iclToken_last` -> `apply`
-- `icl_attention_readout_eq` -> `apply`, `at`
-- `icl_one_step_gd` -> `apply`, `at`
-- `icl_one_step_gd_via_state` -> `apply`
-- `icl_precond_identity_recovers_thm1` -> `apply`
-- `icl_precond_one_step` -> `apply`
-- `icl_two_proofs_agree` -> `apply`
+- `iclQueryLabel_feature` -> `apply`, `at`, `d`
+- `iclQueryLabel_last` -> `apply`, `at`, `d`
+- `iclQuery_feature` -> `apply`, `d`
+- `iclQuery_last` -> `apply`, `d`
+- `iclReadoutQuery_feature` -> `apply`, `at`, `d`
+- `iclReadoutQuery_last` -> `apply`, `at`, `d`
+- `iclToken_feature` -> `apply`, `d`
+- `iclToken_last` -> `apply`, `d`
+- `icl_attention_readout_eq` -> `apply`, `at`, `d`
+- `icl_one_step_gd` -> `apply`, `at`, `d`
+- `icl_one_step_gd_via_state` -> `apply`, `d`
+- `icl_precond_identity_recovers_thm1` -> `apply`, `d`
+- `icl_precond_one_step` -> `apply`, `d`
+- `icl_two_proofs_agree` -> `apply`, `d`
 - `idT_preserves` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `apply`, `at`, `length`, `perpendicular_scale`, `perpendicular_translate`, `samePoint_scale`, `samePoint_translate`
 - `id_is_not_a_repair_when_unsat_exists` -> `ConstraintSat`, `LinearConstraint`, `at`, `iterate_succ`, `preserves`
 - `id_strictMono` -> `at`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
@@ -5843,7 +5856,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `implClosure_least` -> `extent`, `subset_extent_intent`
 - `implClosure_monotone` -> `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`
 - `impl_antisymm_iff_extent_eq` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le`, `subset_extent_intent`, `subset_intent_extent`
-- `impl_expressible` -> `all`, `at`, `induction`, `trans`
+- `impl_expressible` -> `all`, `at`, `d`, `induction`, `trans`
 - `impl_iff_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `impl_inter_right` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`, `subset_intent_extent`
 - `impl_of_subset` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`, `subset_intent_extent`
@@ -5862,7 +5875,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `indicator_sum` -> `abs_mean_le_one`, `uniformExpectation`, `uniformProb`
 - `indicesBelow_const` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`, `trivial`
 - `indicesBelow_coord` -> `GeoExpr`, `Pt`, `add`, `evalPts`, `induction`, `mul`
-- `induction` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
+- `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `infConv_eq_of_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infConv_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infinite_sum_bound` -> `E`, `apply`, `le_trans`
@@ -5899,11 +5912,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `injectivity_needs_the_inverse` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
 - `innerUpdate_eq_subgradient_step` -> `at`, `subgradient_descent_step`
 - `inner_ctr_constOne` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
-- `inner_le_sqrt_normsq` -> `apply`, `at`
+- `inner_le_sqrt_normsq` -> `apply`, `at`, `d`
 - `inner_self_norm_sq_scalar` -> `E`
 - `insert_is_backward_compatible` -> `apply`, `at`, `find`
 - `insert_preserves_uniqueness` -> `apply`, `at`, `find`
-- `instDecidableEqTree_eq_iff` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `instDecidableEqTree_eq_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `instanceA_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`
 - `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `instanceC_content_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`
@@ -5918,10 +5931,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intToRat_strictMono` -> `at`, `le_antisymm`
 - `intToReal_not_surjective` -> `Surjective`, `intToReal`, `ratToReal`
 - `intToReal_strictMono` -> `at`, `le_antisymm`
-- `int_dvd_antisymm_left` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `int_dvd_antisymm_right` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `int_dvd_not_antisymmetric` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `int_dvd_not_partial_order` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `int_dvd_antisymm_left` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `int_dvd_antisymm_right` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `int_dvd_not_antisymmetric` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `int_dvd_not_partial_order` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `int_grid_delta_dense` -> `DeltaDense`
 - `int_of_frac_eq` -> `apply`, `at`, `card_fin`, `le`
 - `int_roundtrip` -> `IntRoundtripExists`, `toNat`
@@ -5964,17 +5977,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `induction`, `rankOneEdit`, `run`
 - `interleaving_length` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`
 - `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `interp_extrapolation_bound` -> `absPosEnc`, `le_trans`
+- `interp_extrapolation_bound` -> `absPosEnc`, `d`, `le_trans`
 - `interval_expansive` -> `at`, `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `inv_sub_inv_eq` -> `E`, `le`
 - `invariant_composed_loop` -> `iterate`
 - `invariant_conjunction` -> `iterate`
 - `invariant_preserves_iteration` -> `induction`, `iterate`, `repair`, `zero`
 - `invertibleOn_iff_injOn` -> `apply`, `at`, `le_trans`, `subst`
-- `ir_sem_depends_on_vars` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `compile_stmt`, `ctr`, `e2`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `parallel`, `point`, `subst`
+- `ir_sem_depends_on_vars` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `nil_append`, `normalize`, `parallel`, `point`, `subst`
 - `irreducible_natDegree_le_two_or_even` -> `at`, `eval`
 - `isBounded_setOf_isTransportPlan` -> `e2`, `mul`, `sInf`
-- `isChild_node_iff` -> `add`, `apply`, `at`, `depth`, `mul`, `size`
+- `isChild_node_iff` -> `add`, `apply`, `at`, `d`, `depth`, `mul`, `size`
 - `isClosed_setOf_isTransportPlan` -> `e2`, `inter`, `mul`
 - `isCompact_setOf_isTransportPlan` -> `e2`, `mul`, `sInf`
 - `isFCAClosed_iff` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
@@ -5996,7 +6009,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isPrefixRel_iff_isPrefix` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
 - `isPrefixRel_refl` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
 - `isPrefixRel_trans` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
-- `isPrincipalIdealRing_polynomial` -> `depth`, `induction`, `step`
+- `isPrincipalIdealRing_polynomial` -> `d`, `depth`, `induction`, `step`
 - `isRIP_iff_two_sided` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_lower_bound` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_mono` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
@@ -6013,7 +6026,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isSymmKernel_iff_gram_psd` -> `apply`, `at`, `symmetric_spectral_theorem`
 - `isSymmKernel_of_featureMap` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`
 - `isSymmKernel_of_gram_psd_and_featureMap` -> `kernelGramMatrix`
-- `isSymmMat_symm_part` -> `add`, `at`
+- `isSymmMat_symm_part` -> `add`, `at`, `d`
 - `isTorsion_iff` -> `at`
 - `is_optimal_q` -> `apply`, `at`
 - `is_optimal_q_attained` -> `apply`, `at`
@@ -6023,12 +6036,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `is_unbiased` -> `apply`, `at`, `chiSq`, `fDivergence`, `mul_div_self`
 - `is_variance_bound` -> `apply`, `at`, `chiSq`
 - `is_weight_nonneg` -> `apply`, `at`, `chiSq`, `fDivergence`, `mul_div_self`
-- `isoList_cons` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `isoList_cons_nil` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `isoList_nil` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `isoList_nil_cons` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `iso_iff_eq` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `iso_node_iff` -> `Compiler`, `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `isoList_cons` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `isoList_cons_nil` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `isoList_nil` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `isoList_nil_cons` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `iso_iff_eq` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `iso_node_iff` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `iso_refl` -> `Compiler`, `Tree`, `trans`
 - `iso_self_iff` -> `Compiler`, `Tree`
 - `iso_symm` -> `Compiler`, `Tree`, `trans`
@@ -6074,15 +6087,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ito_second_order_exact_iff` -> `apply`, `at`, `one`, `path`, `quadForm`
 - `ito_second_order_taylor_remainder` -> `apply`, `at`, `path`, `quadForm`, `second_order_taylor`
 - `ito_second_sum_eq_half_qv` -> `apply`, `quadForm`
-- `jacobi_contraction` -> `apply`, `at`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
-- `jacobi_operator_eq` -> `apply`, `at`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
+- `jacobi_contraction` -> `apply`, `at`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
+- `jacobi_operator_eq` -> `apply`, `at`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`
 - `jensen_concave_finset` -> `kl`
 - `jensen_concave_finset_of_mem` -> `kl`
 - `jensen_cond_exp` -> `kl`
 - `jensen_eq_of_strictConvexOn` -> `at`, `kl`
 - `jensen_finset` -> `at`, `kl`
 - `jensen_gap_bounded_second_deriv` -> `le_trans`, `uniformExpectation`
-- `jensen_gap_two_holder` -> `le_trans`, `uniformExpectation`
+- `jensen_gap_two_holder` -> `d`, `le_trans`, `uniformExpectation`
 - `jensen_two` -> `at`, `kl`
 - `jensen_two_eq_of_strictConvexOn` -> `at`, `kl`
 - `jensen_two_strict` -> `at`, `kl`
@@ -6090,10 +6103,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `join_app_disjoint` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`
 - `join_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
 - `join_isLUB` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`
-- `joinable_refl` -> `at`, `induction`, `single`, `star_single`, `star_trans`, `subst`, `trans`
-- `joinable_symm` -> `at`, `induction`, `single`, `star_single`, `star_trans`, `subst`, `trans`
-- `joint_chain_error` -> `E`, `W`, `quantFwd`, `quantized_chain_error_closed`, `quantized_uniform_error`
-- `joint_uniform_bound` -> `E`, `W`, `quantFwd`, `quantized_uniform_error`
+- `joinable_refl` -> `at`, `d`, `induction`, `single`, `star_single`, `star_trans`, `subst`, `trans`
+- `joinable_symm` -> `at`, `d`, `induction`, `single`, `star_single`, `star_trans`, `subst`, `trans`
+- `jointDelta_nonneg` -> `d`
+- `joint_chain_error` -> `E`, `W`, `d`, `quantFwd`, `quantized_chain_error_closed`, `quantized_uniform_error`
+- `joint_uniform_bound` -> `E`, `W`, `d`, `quantFwd`, `quantized_uniform_error`
 - `juxtaposed_agreement_not_forced` -> `Compiler`, `Representation`, `W`, `at`, `comp`, `compile`, `extract`, `roundtrip`
 - `k01_op_error_of_disturbance` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `rmsNormE_constant_iff`, `rmsNormE_sqrt_lipschitz`, `tiny`
 - `k01_relaxed_constant_also_connects` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `tiny`
@@ -6102,9 +6116,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `k01_rmsNorm_lipschitz_dist` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `rmsNormE_constant_iff`, `rmsNormE_sqrt_lipschitz`, `tiny`
 - `kernelAdd_psd` -> `IsPSDKernel`
 - `kernelAdd_symm` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `at`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
-- `kernelGramMatrix_eq_featureMap_mul_transpose` -> `at`, `featScore`, `symmetric_spectral_theorem`
+- `kernelGramMatrix_eq_featureMap_mul_transpose` -> `at`, `d`, `featScore`, `symmetric_spectral_theorem`
 - `kernelGramMatrix_isHermitian` -> `apply`, `at`, `real_isHermitian_iff_transpose`
-- `kernelGramMatrix_psd_iff_exists_featureMap` -> `at`, `featScore`, `symmetric_spectral_theorem`
+- `kernelGramMatrix_psd_iff_exists_featureMap` -> `at`, `d`, `featScore`, `symmetric_spectral_theorem`
 - `kernelGramMatrix_symm` -> `apply`, `at`
 - `kernelGramMatrix_transpose` -> `apply`, `at`, `real_isHermitian_iff_transpose`
 - `kernelMul_psd_of_featureMap` -> `IsPSDKernel`, `IsSymmKernel`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
@@ -6117,11 +6131,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kernel_eq_of_compatible` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
 - `kernel_equivalence` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
 - `kernel_le_half_diag_add` -> `apply`, `at`
-- `kernel_metric_zero_iff` -> `apply`, `featScore`
+- `kernel_metric_zero_iff` -> `apply`, `d`, `featScore`
 - `kernel_sym_part_abs_le` -> `apply`, `at`
 - `keyOrthogonal_zero` -> `Audit`, `E`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`
 - `key_norm_sq_ne_zero` -> `E`, `W`
-- `key_zero_edit_is_identity` -> `ApplyEdit`, `E`
+- `key_zero_edit_is_identity` -> `ApplyEdit`, `E`, `d`
 - `kindInf_le_left` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindInf_le_right` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_antisymm` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
@@ -6136,10 +6150,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindSup_le` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindToBool_boolToKind` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kind_is_bounded_lattice` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
-- `kinkPositive_iff` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
-- `kkt_deriv_quadratic` -> `add`, `at`, `subst`
-- `kkt_one_dim_complete` -> `at`, `comp`
-- `kkt_one_dim_inactive_stationary` -> `at`, `comp`, `mono`
+- `kinkPositive_iff` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `kkt_deriv_quadratic` -> `add`, `at`, `d`, `subst`
+- `kkt_one_dim_complete` -> `at`, `comp`, `d`
+- `kkt_one_dim_inactive_stationary` -> `at`, `comp`, `d`, `mono`
 - `klDensity_eq_ce_sub_entropy_measure` -> `subst`
 - `klDensity_eq_sub_entropies` -> `subst`
 - `klDensity_eq_zero_of_eq` -> `subst`
@@ -6178,28 +6192,28 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kl_term_ge` -> `apply`, `at`, `ce_onehot_eq_neg_log`, `entropy`, `gibbs_ineq`, `onehot`, `softmax`, `softmax_pos`, `softmax_sum_one`
 - `kl_zero_iff_eq` -> `ce_onehot_eq_neg_log`, `entropy`, `onehot`, `softmax`, `softmax_pos`, `softmax_sum_one`
 - `kl_zero_iff_support` -> `apply`, `at`, `ce_onehot_eq_neg_log`, `entropy`, `onehot`, `softmax`, `softmax_pos`, `softmax_sum_one`
-- `kleeneChain_eq_limit_of_le` -> `apply`, `at`, `induction`, `le_antisymm`, `zero`
-- `kleeneChain_le_of_le` -> `apply`, `at`, `card_fin`, `find`, `induction`, `le_antisymm`, `zero`
-- `kleeneChain_le_succ` -> `apply`, `at`, `card_fin`, `find`, `induction`, `le_antisymm`, `trans`, `zero`
-- `kleeneChain_monotone` -> `apply`, `at`, `card_fin`, `find`, `induction`, `le_antisymm`, `trans`, `zero`
-- `kleeneChain_stabilizes` -> `apply`, `at`, `card_fin`, `find`, `induction`, `le_antisymm`, `zero`
-- `kleeneChain_succ` -> `apply`, `at`, `card_fin`, `find`, `induction`, `trans`, `zero`
-- `kleeneChain_zero` -> `apply`, `at`, `card_fin`, `find`, `induction`, `trans`, `zero`
+- `kleeneChain_eq_limit_of_le` -> `apply`, `at`, `d`, `induction`, `le_antisymm`, `zero`
+- `kleeneChain_le_of_le` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `le_antisymm`, `zero`
+- `kleeneChain_le_succ` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `le_antisymm`, `trans`, `zero`
+- `kleeneChain_monotone` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `le_antisymm`, `trans`, `zero`
+- `kleeneChain_stabilizes` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `le_antisymm`, `zero`
+- `kleeneChain_succ` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `trans`, `zero`
+- `kleeneChain_zero` -> `apply`, `at`, `card_fin`, `d`, `find`, `induction`, `trans`, `zero`
 - `kleeneLimit_eq_iUnion` -> `apply`, `at`
-- `kleeneLimit_fixed` -> `apply`, `at`, `induction`, `le_antisymm`, `zero`
-- `kleeneLimit_le_of_fixed` -> `apply`, `at`, `induction`, `le_antisymm`, `zero`
+- `kleeneLimit_fixed` -> `apply`, `at`, `d`, `induction`, `le_antisymm`, `zero`
+- `kleeneLimit_le_of_fixed` -> `apply`, `at`, `d`, `induction`, `le_antisymm`, `zero`
 - `kleeneLimit_unique_minimal` -> `apply`, `at`, `le_antisymm`
-- `kleeneStabIndex_le_card` -> `apply`, `at`, `card_fin`, `induction`, `le_antisymm`, `zero`
-- `kleeneStabIndex_minimal` -> `apply`, `at`, `card_fin`, `induction`, `le_antisymm`, `zero`
-- `kleeneStabIndex_spec` -> `apply`, `at`, `card_fin`, `induction`, `le_antisymm`, `zero`
+- `kleeneStabIndex_le_card` -> `apply`, `at`, `card_fin`, `d`, `induction`, `le_antisymm`, `zero`
+- `kleeneStabIndex_minimal` -> `apply`, `at`, `card_fin`, `d`, `induction`, `le_antisymm`, `zero`
+- `kleeneStabIndex_spec` -> `apply`, `at`, `card_fin`, `d`, `induction`, `le_antisymm`, `zero`
 - `kleene_fixed_point_finite` -> `apply`, `at`, `le_antisymm`
 - `kleene_is_fixpoint` -> `apply`, `at`, `card_fin`, `induction`, `zero`
 - `kleene_least` -> `apply`, `at`, `card_fin`, `induction`, `zero`
 - `kleene_lfp_exists` -> `apply`, `at`, `card_fin`
-- `kleene_mono` -> `apply`, `at`, `card_fin`, `induction`, `trans`, `zero`
-- `kleene_stabilizes` -> `apply`, `at`, `card_fin`, `induction`, `zero`
-- `kleene_succ` -> `apply`, `at`, `card_fin`, `induction`, `trans`, `zero`
-- `kleene_succ_le` -> `apply`, `at`, `card_fin`, `induction`, `trans`, `zero`
+- `kleene_mono` -> `apply`, `at`, `card_fin`, `d`, `induction`, `trans`, `zero`
+- `kleene_stabilizes` -> `apply`, `at`, `card_fin`, `d`, `induction`, `zero`
+- `kleene_succ` -> `apply`, `at`, `card_fin`, `d`, `induction`, `trans`, `zero`
+- `kleene_succ_le` -> `apply`, `at`, `card_fin`, `d`, `induction`, `trans`, `zero`
 - `kp_lipschitz_bound` -> `IsOneLipschitz`, `IsTransportPlan`, `dual_weak`, `le_trans`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `kp_lipschitz_bound_swap` -> `IsOneLipschitz`, `IsTransportPlan`, `dual_weak`, `le_trans`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `krPairValueSet_bddAbove` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `le_antisymm`, `transportCost`
@@ -6237,13 +6251,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l2_loss_visible_at_L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `semantic_not_injective`, `tokenize`, `tokenize_collision`
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `listGcdNat`, `no_left_inverse_at_all`
 - `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
-- `ladder_compose_roundtrip` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
-- `ladder_compose_soundness` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
+- `ladder_compose_roundtrip` -> `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
+- `ladder_compose_soundness` -> `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_crosses_geo_layer` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `ladder_forward`, `satSym`, `satW`
-- `ladder_end_to_end_holds` -> `W`, `at`
-- `ladder_forward` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
-- `ladder_obligations_are_the_fields` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
-- `ladder_reverse_consistent` -> `decode`, `encode`, `roundtrip`, `satSym`, `satW`
+- `ladder_end_to_end_holds` -> `W`, `at`, `d`
+- `ladder_forward` -> `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
+- `ladder_obligations_are_the_fields` -> `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
+- `ladder_reverse_consistent` -> `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `lagrange_at_other` -> `min`, `subst`
 - `lagrange_at_self` -> `min`, `subst`
 - `lagrange_cardinal` -> `min`, `subst`
@@ -6273,10 +6287,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOfListRect_W` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_b` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_eq_full_width` -> `W`, `layerOfListFull`
-- `layerOffsets_example` -> `at`
-- `layerOffsets_nil` -> `at`
-- `layerOffsets_single` -> `at`
-- `layerOffsets_two` -> `at`
+- `layerOffsets_example` -> `at`, `d`
+- `layerOffsets_nil` -> `at`, `d`
+- `layerOffsets_single` -> `at`, `d`
+- `layerOffsets_two` -> `at`, `d`
 - `layerOut_applySymEdit` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `layerOut_beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `length`
 - `layerOut_cast_eq_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
@@ -6290,13 +6304,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_scaleLinearLayer` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
 - `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerParamCount_pos` -> `at`
+- `layerParamCount_pos` -> `at`, `d`
 - `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`
 - `layerQuantizationB_one_bits` -> `IntLayer`, `quant`
 - `layerQuantization_nontrivial` -> `at`, `compileZ`
 - `layerQuantization_refines_scalar` -> `compileZ`
 - `layerQuantization_roundtrip` -> `at`, `compileZ`
-- `layerResid_eq_affineAct` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `affineAct`, `apply`, `lossM`, `residM`, `sq_penalty_exact_matrix`
+- `layerResid_eq_affineAct` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `affineAct`, `apply`, `d`, `lossM`, `residM`, `sq_penalty_exact_matrix`
 - `layerResidual_wStep` -> `W`
 - `layerScaleN_bound_le_exp_one` -> `at`, `le_refl`, `le_trans`, `trans`
 - `layerScaleN_bound_le_exp_one_of_lam0` -> `at`, `le_refl`, `le_trans`, `trans`
@@ -6321,26 +6335,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layer_approx_on` -> `le_trans`, `min`
 - `layer_behaviourally_separates` -> `BehaviourallyEquivalent`
 - `layer_bias_ext` -> `BehaviourallyEquivalent`, `W`, `at`
-- `layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
-- `layer_distill_bound_delta` -> `ChainFwd`, `E`, `apply`, `at`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `layer_distill_bound_delta` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `layer_out_error_bound` -> `le_trans`, `min`
-- `layer_penalty_exact` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `apply`, `lossM`, `residM`, `sq_penalty_exact_matrix`
+- `layer_penalty_exact` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `apply`, `d`, `lossM`, `residM`, `sq_penalty_exact_matrix`
 - `layer_ragged_also_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `layer_weight_ext` -> `BehaviourallyEquivalent`, `W`, `at`
 - `layer_wise_independent` -> `rho`
 - `layernorm_translation_invariant` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `layers_conflict` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
+- `layers_eq` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `length`, `paramCount`, `relu`
 - `layerwise_optimal_is_global_worst` -> `rho`
 - `layerwise_optimal_not_global` -> `rho`
 - `layerwise_optimal_of_nonneg_coupling` -> `rho`
-- `lcm_assoc` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
-- `lcm_gcd_distrib_dvd` -> `all`, `apply`, `at`, `children`, `le_trans`, `length`, `satisfiable`, `trans`
+- `lcm_assoc` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
+- `lcm_gcd_distrib_dvd` -> `all`, `apply`, `at`, `children`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
 - `leZero_halfspace` -> `aff`
 - `leZero_ne_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
 - `leZero_not_affine` -> `aff`, `le_refl`, `subst`
 - `le_and_ge_iff_eq` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `le_antisymm` -> `at`, `empty`, `find`, `subst`
-- `le_antisymm_from_injective` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `le_antisymm_from_injective` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `le_clamp` -> `apply`, `at`, `clampTo`, `le_antisymm`, `le_refl`, `le_trans`, `min`, `quant_error_lt_two_pow`
 - `le_exp_of_le_sq` -> `at`, `le_trans`, `uniformProb`
 - `le_fenchelConjAll` -> `Subgradient`, `apply`, `at`, `fenchelConjugate`, `fenchelConjugate_le`, `le_antisymm`, `subgradient_exists_of_convex`
@@ -6352,8 +6367,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `le_join_left` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`
 - `le_kr_pairValue` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `kp_lipschitz_bound`, `le_antisymm`, `transportCost`
 - `le_meet_iff` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`
-- `le_moreauEnvelope` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
-- `le_opNorm_diagonal` -> `apply`, `at`, `le_antisymm`, `matCLME`, `matCLME_apply`, `single`
+- `le_moreauEnvelope` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
+- `le_opNorm_diagonal` -> `apply`, `at`, `d`, `le_antisymm`, `matCLME`, `matCLME_apply`, `single`
 - `le_preserves` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `le_refl` -> `at`, `empty`, `find`, `subst`
 - `le_roundUpN` -> `at`, `subst`
@@ -6374,22 +6389,22 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_nil_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `lfp_eq_inf_all_fixpoints` -> `apply`, `at`, `card_fin`
 - `lfp_on_kleene_orbit` -> `apply`, `at`, `card_fin`
-- `lib_not_prefix_plugins` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `licq_implies_mfcq_single` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
-- `licq_multiplier_exist_unique` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
-- `licq_multiplier_unique` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
-- `licq_one_dim` -> `at`, `comp`
-- `licq_one_dim_agrees` -> `LICQOneDim`, `at`, `le_refl`, `subst`
-- `licq_one_dim_multiplier_unique` -> `at`, `comp`
-- `licq_single_iff` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
+- `lib_not_prefix_plugins` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `licq_implies_mfcq_single` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `licq_multiplier_exist_unique` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `licq_multiplier_unique` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `licq_one_dim` -> `at`, `comp`, `d`
+- `licq_one_dim_agrees` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
+- `licq_one_dim_multiplier_unique` -> `at`, `comp`, `d`
+- `licq_single_iff` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
 - `liftDB_bvar_ge` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `liftDB_bvar_lt` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `lift_betaSubst_fails` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
 - `lift_lift` -> `Closed`, `apply`, `induction`, `zero`
 - `lift_zero` -> `Closed`, `apply`, `induction`, `zero`
 - `lift_zero_id` -> `Closed`, `apply`, `induction`, `zero`
-- `linAttnDenom_nonneg` -> `convComb_norm_bound`, `softmax`
-- `linAttnDenom_pos` -> `convComb_norm_bound`, `softmax`
+- `linAttnDenom_nonneg` -> `convComb_norm_bound`, `d`, `softmax`
+- `linAttnDenom_pos` -> `convComb_norm_bound`, `d`, `softmax`
 - `linInterp_between` -> `min`
 - `linInterp_convex_form` -> `min`
 - `linInterp_left` -> `min`
@@ -6402,6 +6417,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linearAlgebra_false_but_repairable` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraExtra`, `linearAlgebraPackage`, `linearAlgebra_closed`, `linearAlgebra_extra_length`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_linearAlgebra_orig`, `not_orderTheory_orig`, `not_projectiveGeometry_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
 - `linearAlgebra_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `affineGeometryTemplateNames`, `cross_ratio`, `length`, `linearAlgebraTemplateNames`, `mkTemplates`, `orderTheoryPackage`, `orderTheoryTemplateNames`, `orderTheoryTemplates`, `orderTheoryUnconstructibles`, `orderTheory_templateNames_length`, `projectiveGeometryPackage`, `projectiveGeometryTemplateNames`, `projectiveGeometryTemplates`, `projectiveGeometryUnconstructibles`, `projectiveGeometry_templateNames_length`
 - `linearAlgebra_validB_eq_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraExtra`, `linearAlgebraPackage`, `linearAlgebra_closed`, `linearAlgebra_closedB_eq_true`, `linearAlgebra_extra_length`, `linearAlgebra_false_but_repairable`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_linearAlgebra_orig`, `not_orderTheory_orig`, `not_projectiveGeometry_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
+- `linearAttentionOutput_eq_inv_smul_num` -> `d`
 - `linearFix_absorbs` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `at`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linearFix_residual` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `at`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linearFunctional_gradSq_eq_fderiv` -> `single`
@@ -6411,27 +6427,31 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linearMap_fixed_point_zero` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `linearRepair_measure_drops` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linearRepair_unified` -> `Repair`, `Sat`, `linearRepair`, `preserves_of_sat`
-- `linear_attn_is_softmax` -> `softmax`
-- `linear_attn_output_bound` -> `convComb_norm_bound`, `softmax`
-- `linear_attn_weights_nonneg` -> `convComb_norm_bound`, `softmax`
-- `linear_attn_weights_pmf` -> `convComb_norm_bound`, `softmax`
-- `linear_attn_weights_sum_one` -> `convComb_norm_bound`, `softmax`
+- `linear_attn_associativity` -> `d`
+- `linear_attn_complexity` -> `d`
+- `linear_attn_complexity_strict` -> `d`
+- `linear_attn_is_softmax` -> `d`, `softmax`
+- `linear_attn_output_bound` -> `convComb_norm_bound`, `d`, `softmax`
+- `linear_attn_state_form` -> `d`
+- `linear_attn_weights_nonneg` -> `convComb_norm_bound`, `d`, `softmax`
+- `linear_attn_weights_pmf` -> `convComb_norm_bound`, `d`, `softmax`
+- `linear_attn_weights_sum_one` -> `convComb_norm_bound`, `d`, `softmax`
 - `linear_conjugate_at_slope` -> `at`, `le_refl`
 - `linear_converges` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linear_converges_in_one` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `residual`
-- `linear_interpolation_bound` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
+- `linear_interpolation_bound` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `linear_lr_not_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `linear_lr_one_not_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `linear_map_lipschitz` -> `E`, `W`
 - `linear_repair_preserves_at_sat` -> `Sat`, `linearRepair`, `preserves_of_sat`
 - `linear_system_solution_affine` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_system_solution_structure` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
-- `linear_term_forces_zero` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `mem_orthogonal_range_scalar`
+- `linear_term_forces_zero` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `d`, `mem_orthogonal_range_scalar`
 - `linearization_collapses_models` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `linfNorm_abs` -> `ChainFwd`, `apply`, `geom_contraction_eventually`, `induction`, `le_trans`, `zero`
 - `linfNorm_eq_norm` -> `BellmanOp`, `LinfNorm`, `W`, `apply`, `bddAbove_abs`, `bellman_contraction`, `le_antisymm`, `linfNorm_abs`, `linfNorm_nonneg`
 - `linfNorm_nonneg` -> `ChainFwd`, `apply`, `geom_contraction_eventually`, `induction`, `le_trans`, `zero`
-- `lipschitzSum_succ` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `zero`
+- `lipschitzSum_succ` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `le_trans`, `zero`
 - `lipschitz_add` -> `ChainFwd`, `GeoExpr`, `add`, `chainN_error_bound`, `evalPts`, `le_trans`, `mul`, `trans`
 - `lipschitz_comp` -> `ChainFwd`, `chainN_error_bound`, `lipschitz_add`
 - `lipschitz_const` -> `GeoExpr`, `add`, `evalPts`, `le_trans`, `mul`, `trans`
@@ -6442,11 +6462,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lipschitz_residual` -> `ChainFwd`, `chainN_error_bound`, `lipschitz_add`
 - `lipschitz_sub` -> `GeoExpr`, `evalPts`, `le_trans`, `mul`, `trans`
 - `lipschitz_with_of_le` -> `W`, `induction`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `zero`
-- `listDecEq_cons` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
-- `listDecEq_cons_nil` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
-- `listDecEq_eq_true_iff` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `listDecEq_nil` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
-- `listDecEq_nil_cons` -> `Tree`, `at`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `listDecEq_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `listDecEq_cons_nil` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `listDecEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `listDecEq_nil` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
+- `listDecEq_nil_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listGcdNat_cons` -> `VectorConstraint`, `at`, `induction`, `scaleVec`
 - `listGcdNat_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `induction`, `scaleVec`, `scaleVec_preserves`
 - `listGcdNat_eq_zero_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
@@ -6459,13 +6479,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listOfLayer_b` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `listOfLayer_length` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `list_eq_of_all_zero_of_length_eq` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `list_getD_map_range` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `list_getD_map_range` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `list_sat_of_sat_of_length` -> `at`, `length`, `subst`
 - `list_sq_sum_nonneg` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`
-- `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
+- `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
 - `listing_as_prop_is_trivial` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
 - `listing_is_contentful_iff_not_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
-- `lit_onlyAndOrNot` -> `Compiler`, `induction`
+- `lit_onlyAndOrNot` -> `Compiler`, `d`, `induction`
 - `literalFold_eval` -> `Compiler`, `add`, `induction`, `length`, `lit`, `mul`
 - `lnAffine_scale_invariant` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `lnAffine_translation_invariant` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
@@ -6485,7 +6505,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `localMin_ofLinearForm_implies_loss_zero` -> `LinearForm`, `Pt`, `embed`, `evalPts`, `localMin_implies_penalty_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `ofLinearForm`, `toNatConfig`
 - `localMin_ofLinearForm_implies_zero` -> `LinearForm`, `Pt`, `embed`, `evalPts`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `ofLinearForm`, `toNatConfig`
 - `localMin_of_feasible` -> `apply`, `at`, `isLocalMin_of_forall_le`, `le_refl`, `localMin_iff_feasible`, `lossN`, `not_localMin_of_resid_ne_zero`, `residN`
-- `localUpdate_eq_subgradient_step` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `localUpdate_eq_subgradient_step` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `apply`, `at`, `d`, `gd_converges`, `gd_linear_rate`, `induction`, `strong_convex_contraction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `localmin_sharp` -> `E`, `ResidualEmbedding`, `loss`, `resid`
 - `log_combo_eq_iff` -> `at`
 - `log_concave_pair` -> `at`
@@ -6498,7 +6518,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `log_gibbs_pt` -> `at`, `subst`
 - `log_gibbs_weighted` -> `at`, `subst`
 - `log_le_half_sub_inv` -> `at`, `comp`, `convert`, `div_const`, `markov_exp_tail`, `subst`, `uniformExpectation`, `uniformProb`
-- `log_meanField_eq_sum` -> `apply`, `at`
+- `log_meanField_eq_sum` -> `apply`, `at`, `d`
 - `log_mean_ge_mean_log` -> `apply`, `at`, `card_fin`, `infoNCE`, `softmax`, `softmax_denom_pos`
 - `log_one_add_le` -> `add`, `apply`, `at`, `div_const`, `mul`, `subst`
 - `log_one_add_pade` -> `at`, `comp`, `const_add`, `convert`, `div_const`, `subst`
@@ -6548,15 +6568,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lora_edit_joint_bound` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`
 - `lora_edit_verdict` -> `E`, `W`, `le_trans`
 - `loss2_eq_lossN` -> `localMin_iff_feasible`, `lossN`, `residN`
-- `lossComp_nonneg` -> `NlConstraint`, `at`, `contraction_converges`, `contraction_pow_bound`, `le_antisymm`, `le_total`, `le_trans`
-- `lossM_scaled` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
-- `lossM_step` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
-- `lossN_eq` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
-- `lossN_perturb` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
-- `lossN_perturb_lt` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `lossComp_nonneg` -> `NlConstraint`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `le_antisymm`, `le_total`, `le_trans`
+- `lossM_scaled` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
+- `lossM_step` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
+- `lossN_eq` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `lossN_perturb` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `lossN_perturb_lt` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `lossNotInjectiveProp_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `lossOfActivations_differentiableAt` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
-- `lossOfActivations_differentiableAt_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
+- `lossOfActivations_differentiableAt_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `NonKink`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
 - `lossOfActivations_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `forall_mem_map_iff`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
 - `lossOfLinearForm_eq_sq` -> `E`, `LinearForm`, `Pt`, `embed`, `evalPts`, `lossOfLinearForm`, `ofLinearForm`
 - `lossOfLinearForm_eq_zero` -> `EqConstraint`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `loss_eq_zero_expr`, `loss_nonneg`
@@ -6565,21 +6585,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loss_controls_violation` -> `E`, `ResidualEmbedding`, `loss`, `resid`
 - `loss_differentiable` -> `E`, `at`, `const_add`, `trans`
 - `loss_differentiable_scalar` -> `E`, `apply`, `at`, `const_add`
-- `loss_eq_zero_distEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `evalPts`, `sqDist`, `sqNorm`
-- `loss_eq_zero_expr` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `evalPts`, `sqDist`, `sqNorm`
+- `loss_eq_zero_distEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `diff`, `evalPts`, `sqDist`, `sqNorm`
+- `loss_eq_zero_expr` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `diff`, `evalPts`, `sqDist`, `sqNorm`
 - `loss_eq_zero_of_delta_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Sat`, `SymOne`, `at`, `converges_within`, `countdown`, `iterate`, `le_antisymm`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `rho`, `samePointRepair`, `samples`, `samples_sound`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`
 - `loss_eq_zero_of_poly_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `apply`, `iterate`, `loss`, `poly`, `reinject_sound`, `samePointRepair`, `sqDist_eq_zero_iff`
-- `loss_eq_zero_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `sqDist`, `sqNorm`
-- `loss_eq_zero_samePoint` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `sqDist`, `sqNorm`
-- `loss_eq_zero_toGeo` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`
-- `loss_eq_zero_toGeo_distEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`
-- `loss_eq_zero_toGeo_expr` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`
-- `loss_eq_zero_toGeo_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`
-- `loss_eq_zero_toGeo_samePoint` -> `GeoConstraint`, `Holds`, `Pt`
-- `loss_le_of_le` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
+- `loss_eq_zero_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `diff`, `sqDist`, `sqNorm`
+- `loss_eq_zero_samePoint` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `diff`, `sqDist`, `sqNorm`
+- `loss_eq_zero_toGeo` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`
+- `loss_eq_zero_toGeo_distEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`
+- `loss_eq_zero_toGeo_expr` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`
+- `loss_eq_zero_toGeo_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `d`
+- `loss_eq_zero_toGeo_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `d`
+- `loss_le_of_le` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `samePointRepair`
 - `loss_le_of_sampled_bound` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Sat`, `SymOne`, `at`, `converges_within`, `countdown`, `geo_sampled_bound`, `iterate`, `le_antisymm`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `rho`, `samePointRepair`, `samples`, `samples_sound`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`
-- `loss_le_sq_of_resid_le` -> `E`, `Embedding`, `EqConstraint`, `ErrorBound`, `Pt`, `ResidualEmbedding`, `at`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `resid`, `samePointRepair`
-- `loss_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `diff`, `evalPts`, `sqDist`, `sqNorm`
+- `loss_le_sq_of_resid_le` -> `E`, `Embedding`, `EqConstraint`, `ErrorBound`, `Pt`, `ResidualEmbedding`, `at`, `d`, `iterate`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`, `reinject_loss_eq_zero`, `resid`, `samePointRepair`
+- `loss_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `diff`, `evalPts`, `sqDist`, `sqNorm`
 - `loss_scaling_bound` -> `FloatFormat`, `RoundOp`, `W`, `apply`, `at`, `card_fin`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `loss_scaling_no_overflow` -> `FloatFormat`, `RoundOp`, `W`, `apply`, `at`, `card_fin`, `eps`, `frobeniusNorm`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
 - `loss_scaling_unscale` -> `FloatFormat`, `RoundOp`, `W`, `at`, `card_fin`, `eps`, `induction`, `le_trans`, `roundToFormat`, `tiny`, `zero`
@@ -6608,7 +6628,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lower_upper_adjoint` -> `E`, `at`, `extent`, `intent`
 - `lr_decay_antitone` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `le_trans`, `subst`, `zero`
 - `lr_decay_finite_phase` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `le_trans`, `subst`
-- `lstsqGrad_zero` -> `apply`, `at`
+- `lstsqGrad_zero` -> `apply`, `at`, `d`
 - `ltZero_not_affine` -> `aff`, `subst`
 - `lt_imp_le` -> `apply`, `at`, `empty`, `find`
 - `lt_of_apply_eq_of_strictMono` -> `at`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
@@ -6667,7 +6687,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_claims_recovery` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
 - `manifest_claims_soundness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_spatial` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
-- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
+- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
 - `manifest_no_approximation` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_completeness` -> `Constraint`, `claims`, `completeness`, `manifest`
 - `manifest_no_confluence` -> `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
@@ -6678,12 +6698,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_no_recovery` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_spatial` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
-- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`
-- `manifest_provides` -> `Constraint`, `Repair`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `satisfies`, `soundness`
-- `manifest_requires` -> `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `soundness`
+- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
+- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
+- `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `satisfies`, `soundness`, `weights`
+- `manifest_requires` -> `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `soundness`, `weights`
 - `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `satisfies`, `soundness`
-- `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
+- `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `map_extractVec_compileToLayer_rfl` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `map_mul_eq_at` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
@@ -6698,10 +6718,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `markov_counting` -> `apply`, `at`, `card_fin`, `trans`, `uniformProb`
 - `markov_exp_tail` -> `apply`, `at`, `card_fin`, `uniformProb`
 - `markov_exp_tail_neg` -> `at`, `comp`, `const_add`, `convert`, `div_const`, `markov_counting`, `subst`, `uniformExpectation`, `uniformProb`
-- `markov_inequality` -> `Expect`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `markov_inequality` -> `Expect`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `markov_row_sum` -> `apply`, `at`, `entropy`, `fDivergence`, `kl`, `kl_as_sum_log_ratio`, `tv`
 - `markov_subset_count` -> `trans`
 - `martingale_condexp_tower` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `trans`
+- `martingale_def_equiv` -> `d`
 - `martingale_expected_stoppedValue_eq` -> `at`, `le_antisymm`, `le_refl`, `min`
 - `martingale_expected_stoppedValue_eq_last` -> `le_refl`, `min`
 - `martingale_expected_stoppedValue_eq_of_le` -> `at`, `le_antisymm`, `le_refl`, `min`
@@ -6726,7 +6747,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matCLME_apply` -> `apply`, `at`, `card_fin`, `single`
 - `matCLME_mul` -> `apply`, `at`, `card_fin`, `single`
 - `matCLME_neg` -> `apply`, `frobeniusNorm`, `matCLME`, `matCLME_apply`, `min`, `quantFwd`, `quantized_chain_error_closed`
-- `matCLME_one` -> `apply`, `at`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `matCLME_one` -> `apply`, `at`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
 - `matCLME_sub` -> `apply`, `frobeniusNorm`, `matCLME`, `matCLME_apply`, `min`, `quantFwd`, `quantized_chain_error_closed`
 - `matQuad_bfgs_psd` -> `mulVec`
 - `matQuad_symm` -> `mulVec`
@@ -6738,12 +6759,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matrix_edit_bound` -> `W`
 - `matrix_edit_constraint_row` -> `W`
 - `matrix_mul_norm_bound` -> `apply`, `at`, `card_fin`, `single`
-- `matrix_perturbation_bound` -> `E`, `comp`, `trans`
-- `matrix_perturbation_bound_contraction` -> `E`, `comp`, `trans`
+- `matrix_perturbation_bound` -> `E`, `comp`, `d`, `trans`
+- `matrix_perturbation_bound_contraction` -> `E`, `comp`, `d`, `trans`
 - `matrix_zero_edit_identity` -> `W`
 - `matvecE_add` -> `apply`, `at`, `mulVec`, `single`
 - `matvecE_adjoint_eq` -> `apply`, `single`
-- `matvecE_diagonal` -> `apply`, `at`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
+- `matvecE_diagonal` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
 - `matvecE_mul` -> `apply`, `at`, `card_fin`, `mulVec`, `single`
 - `matvecE_neg` -> `apply`, `frobeniusNorm`, `matCLME`, `matCLME_apply`, `matvecE`, `min`, `quantFwd`, `quantized_chain_error_closed`
 - `matvecE_one` -> `at`, `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`, `mulVec`
@@ -6764,11 +6785,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maxPoint_lt_of_le` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `maxPoint_ofLinearFormAux` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `induction`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `ofLinearFormAux`, `toNatConfig`
 - `maxPoint_ofLinearForm_lt` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `toNatConfig`
-- `maxZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
-- `maxZero_pos_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
-- `max_zero_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `bilinear_sub_le`, `card_fin`, `collinear`, `forall_mem_map_iff`, `induction`, `le_trans`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `sq_lipschitz_on_bounded`, `trunc`
-- `max_zero_sq_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
-- `max_zero_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
+- `maxZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `maxZero_pos_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
+- `max_zero_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `bilinear_sub_le`, `card_fin`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `le_trans`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `sq_lipschitz_on_bounded`, `trunc`
+- `max_zero_sq_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
+- `max_zero_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
 - `mcdiarmidBoundedDiff_implies_range` -> `Surjective`, `at`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `le`, `mono`, `trans`
 - `mcdiarmidSign_abs` -> `uniformProb`
 - `mcdiarmidSign_mean` -> `card_fin`, `uniformExpectation`, `uniformProb`
@@ -6786,13 +6807,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mcdiarmid_uniformExpectation_neg` -> `apply`, `at`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `md_regret_bound` -> `at`, `sum_range_sub_telescoping`
 - `md_single_step_bound` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
-- `meanField_elbo_separable` -> `at`
-- `meanField_isProb` -> `apply`, `at`
-- `meanField_nonneg` -> `apply`, `at`
-- `meanField_single_block_expectation` -> `apply`, `at`
-- `meanField_split_by_block` -> `at`
-- `meanField_split_by_block_ce` -> `at`
-- `meanField_sum_one` -> `apply`, `at`
+- `meanField_elbo_le_log_marginal_interface` -> `d`
+- `meanField_elbo_separable` -> `at`, `d`
+- `meanField_entropy_additive` -> `d`
+- `meanField_isProb` -> `apply`, `at`, `d`
+- `meanField_nonneg` -> `apply`, `at`, `d`
+- `meanField_single_block_expectation` -> `apply`, `at`, `d`
+- `meanField_split_by_block` -> `at`, `d`
+- `meanField_split_by_block_ce` -> `at`, `d`
+- `meanField_sum_one` -> `apply`, `at`, `d`
 - `mean_add_const` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `mean_bound_pos_of_ne` -> `at`, `card_fin`
 - `mean_center` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
@@ -6816,22 +6839,22 @@ module. These are the edges that make the chain a chain rather than a list.
 - `meet_assoc` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
 - `meet_comm` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`, `extent`, `intent`, `intent_antitone`
 - `meet_isGLB` -> `IsFormalConcept`, `IsSubconcept`, `concept_join`, `concept_meet`
-- `memShape_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `beqShape_eq`, `induction`, `mul`, `rule_entails`, `zero`
+- `memShape_sound` -> `EntailsGeo`, `Fires`, `GeoConstraint`, `GeoConstraintSet`, `GeoExpr`, `Rule`, `at`, `beqShape`, `beqShape_eq`, `d`, `induction`, `mul`, `rule_entails`, `zero`
 - `mem_Subdiff` -> `Subgradient`, `at`, `relu`
-- `mem_activeSet` -> `LICQOneDim`, `at`, `le_refl`, `subst`
+- `mem_activeSet` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `mem_constraintExtent_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`
 - `mem_constraintFiber_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
-- `mem_cse` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `mem_deadElim` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `mem_cse` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `mem_deadElim` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
 - `mem_dedup_of_mem` -> `Rule`, `at`, `induction`, `layer`, `length`, `subst`, `trans`
 - `mem_elementFiber_iff` -> `VectorConstraint`, `apply`, `at`, `gazeUp`, `induction`, `scaleVec`, `trans`
-- `mem_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `at`, `collinear`, `layer`, `parallel`, `poly`
+- `mem_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `at`, `collinear`, `d`, `layer`, `parallel`, `poly`
 - `mem_fiber` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `mem_gamma_alpha` -> `at`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
 - `mem_gamma_of_le` -> `at`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
 - `mem_merged_iff` -> `GeoConstraint`, `Holds`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `merged`
 - `mem_merged_of_not_rejected` -> `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `at`, `holdsSet_mem`, `merge_sound`, `merged`
-- `mem_nbhdSet` -> `E`, `at`, `induction`, `trans`, `zero`
+- `mem_nbhdSet` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
 - `mem_of_finrank_adjoin_eq_one` -> `at`, `eval`
 - `mem_of_mem_dedup` -> `Rule`, `at`, `induction`, `layer`, `length`
 - `mem_orthogonal_range` -> `E`, `at`, `trans`
@@ -6839,27 +6862,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mem_pairReach_succ` -> `at`, `dist`, `induction`, `zero`
 - `mem_pairReach_zero` -> `at`, `dist`, `induction`, `zero`
 - `mem_reachL_self` -> `at`, `dist`, `induction`, `le_trans`, `zero`
-- `mem_reachL_succ` -> `at`, `dist`, `induction`, `le_trans`, `zero`
-- `mem_reachL_zero` -> `at`, `dist`, `induction`, `le_trans`, `zero`
+- `mem_reachL_succ` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
+- `mem_reachL_zero` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `mem_replicate_eq` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `at`, `length`, `samePoint_scale`, `samePoint_translate`
 - `mem_span_X_sub_C_iff_eval_eq_zero` -> `depth`, `eval`, `induction`, `step`
 - `mem_span_X_sub_C_iff_isRoot` -> `depth`, `eval`, `induction`, `step`
-- `mem_span_add` -> `depth`, `eval`, `induction`, `step`
-- `mem_span_of_multiplier` -> `LICQOneDim`, `at`, `le_refl`, `subst`
-- `mem_span_singleton_iff_dvd` -> `depth`, `eval`, `induction`, `step`
+- `mem_span_add` -> `d`, `depth`, `eval`, `induction`, `step`
+- `mem_span_of_multiplier` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
+- `mem_span_singleton_iff_dvd` -> `d`, `depth`, `eval`, `induction`, `step`
 - `mem_structuredSet` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneError`, `pruneMatrix`, `prune_magnitude_bound`, `prune_sub_eq_error`
 - `mem_vocab_iff_ne_nil` -> `CharToken`, `apply`, `at`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
-- `member_identity_implies_part_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `member_identity_implies_part_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `memit_additive_bound` -> `E`, `W`, `apply`, `le_trans`
 - `memit_edit_bound` -> `E`, `W`, `le_trans`
 - `memit_edit_verdict` -> `E`, `W`, `le_trans`
 - `mergeHeadsOver_eq_mergeHeads` -> `apply`, `topk_output_bound`
 - `mergeHeads_sub_drop` -> `apply`, `topk_output_bound`
 - `mergeHeads_sub_smul_sum` -> `apply`, `at`, `topk_output_bound`
-- `merge_error_bound` -> `E`, `apply`, `col`
+- `merge_error_bound` -> `E`, `apply`, `col`, `d`
 - `merge_exact_when_identical` -> `apply`, `topk_output_bound`
 - `merge_lossless_when_identical` -> `apply`, `topk_output_bound`
-- `merge_not_exact` -> `E`, `col`
+- `merge_not_exact` -> `E`, `col`, `d`
 - `merge_output_bound` -> `apply`, `at`, `topk_output_bound`
 - `merge_output_bound_subprob` -> `apply`, `at`, `topk_output_bound`
 - `merge_parts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `trivial`
@@ -6870,13 +6893,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `merge_sound_not_composable` -> `HoldsSet`, `Pt`, `at`, `trivial`
 - `merge_sound_unrejected` -> `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `holdsSet_mem`, `merge_sound`, `merged`
 - `merged_sublist` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
-- `metric_eq_kernel_expansion` -> `apply`, `featScore`
-- `metric_kernel_nonneg` -> `apply`, `featScore`
-- `mfcq_one_dim_agrees` -> `LICQOneDim`, `at`, `le_refl`, `subst`
-- `mfcq_perturb` -> `MFCQ`, `at`, `dotV`
-- `mfcq_perturb_neg` -> `MFCQ`, `at`, `dotV`
-- `mfcq_single_iff` -> `LICQOneDim`, `at`, `e2`, `le_refl`, `subst`
-- `mfcq_strict_separation` -> `MFCQ`, `at`, `dotV`
+- `metric_eq_kernel_expansion` -> `apply`, `d`, `featScore`
+- `metric_kernel_nonneg` -> `apply`, `d`, `featScore`
+- `mfcq_one_dim_agrees` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
+- `mfcq_perturb` -> `MFCQ`, `at`, `d`, `dotV`
+- `mfcq_perturb_neg` -> `MFCQ`, `at`, `d`, `dotV`
+- `mfcq_single_iff` -> `LICQOneDim`, `at`, `d`, `e2`, `le_refl`, `subst`
+- `mfcq_strict_separation` -> `MFCQ`, `at`, `d`, `dotV`
 - `mfcq_strict_separation_literal_false` -> `MFCQ`, `at`, `dotV`
 - `mgf_bound_of_bounded_zero_mean` -> `condexp_mono`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
 - `mgf_bound_of_coordinate_bounds` -> `le`
@@ -6901,27 +6924,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpointLayer_act` -> `AffineLayer`, `Ladder`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `midpointPenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `midpointPenalty_nonneg` -> `Pt`
-- `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`
 - `midpoint_expressible` -> `GeoConstraint`
 - `midpoint_iff` -> `Pt`
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
-- `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_translate` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `migration_progress_complete` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `min_eq_half_sub_abs` -> `at`, `geom_sum_eq`, `le_total`, `min`
 - `min_grad_rate` -> `E`, `sphere`
-- `minimality_unique_for_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
-- `minimality_uniqueness_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
-- `minimax_ge_bayes` -> `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
+- `minimality_unique_for_compiled` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `minimality_uniqueness_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `minimax_ge_bayes` -> `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `minimizer_of_proxN_self` -> `at`
-- `minorDefect_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
-- `minorDefect_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `minorDefect_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
+- `minorDefect_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `trunc`
 - `minorDefect_eq_zero_of_parallel` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDefect_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDefect_nonneg` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDiff_le` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
-- `minorTerm_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `minorTerm_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
 - `minorTerm_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minpoly_aeval_eq_zero` -> `at`, `eval`, `min`, `subst`
 - `minpoly_dvd_of_aeval_eq_zero` -> `at`, `eval`, `min`, `subst`
@@ -6997,7 +7020,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `modSinLoss_zero_iff_clm_congruent_without_succ_ablation` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `symVec`, `symW`
 - `modSinLoss_zero_iff_vectorConstraintSat` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `symVec`, `symW`
 - `modSinLoss_zero_iff_vectorConstraintSat_of_lt` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `symVec`, `symW`
-- `mod_eq_zero_iff_dvd` -> `depth`, `eval`, `induction`, `step`
+- `mod_eq_zero_iff_dvd` -> `d`, `depth`, `eval`, `induction`, `step`
 - `mod_preserves` -> `at`
 - `modalLogic_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `modalLogic_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
@@ -7012,20 +7035,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `model_chain_numeric_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `at`, `le_trans`
 - `model_chain_numeric_bound_wired` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`
 - `model_chain_numeric_expanded` -> `ChainFwd`, `SoftmaxAttnOp`, `W`
-- `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfSubsetProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `models_of_mem` -> `Constraint`
-- `models_of_subset` -> `Constraint`
+- `models_of_mem` -> `Constraint`, `d`
+- `models_of_subset` -> `Constraint`, `d`
 - `models_translate` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
-- `modulus_of_posDef_bound` -> `PosDefQ`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sym2`, `two_dim_posdef_iff`
+- `modulus_of_posDef_bound` -> `PosDefQ`, `d`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sym2`, `two_dim_posdef_iff`
 - `modulus_requires_nonvanishing_deriv` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `maxPoint`, `toNatConfig`
-- `modulus_two_dim_of_sylvester` -> `normSq`, `quadForm`, `sym2`, `two_dim_posdef_iff`
+- `modulus_two_dim_of_sylvester` -> `d`, `normSq`, `quadForm`, `sym2`, `two_dim_posdef_iff`
 - `modus2_antitone_extent` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
 - `modus2_antitone_intent` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
 - `moe_expert_selection` -> `IsArgMax`, `sigmoid`, `softmax`, `softmax_monotone`
 - `momentMap_deriv` -> `apply`, `comp`, `gibbsDist`, `gibbsPartition`, `gibbsPartition_pos`
 - `momentMap_eq_deriv_logZ` -> `apply`, `comp`, `gibbsDist`, `gibbsPartition`, `gibbsPartition_pos`
-- `moment_condition_instantiates_D` -> `uniformExpectation`
+- `moment_condition_instantiates_D` -> `d`, `uniformExpectation`
 - `momentum_err_pair_recurrence` -> `E`, `W`, `apply`, `contraction_converges`, `le_trans`
 - `momentum_error_recurrence` -> `E`, `W`, `apply`, `le_trans`
 - `momentum_error_recurrence_step` -> `E`, `W`, `apply`, `le_trans`
@@ -7033,21 +7056,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `momentum_iterate_converges` -> `E`, `W`, `contraction_converges`, `le_trans`
 - `momentum_step_contraction` -> `E`, `W`, `apply`, `contraction_converges`, `le_trans`
 - `momentum_step_contraction_max` -> `E`, `W`, `apply`, `contraction_converges`, `le_trans`
-- `mono` -> `at`, `le_trans`
+- `mono` -> `at`, `d`, `le_trans`
 - `mono_le_of_le` -> `at`, `contraction_converges`, `induction`, `le_refl`, `le_trans`, `step`, `zero`
 - `monotone_commute_preserved` -> `Compiler`, `at`, `comp`
 - `monotone_finite_sequence_stabilizes` -> `apply`, `at`, `induction`, `le_trans`, `zero`
 - `monotone_gap_bound` -> `at`, `contraction_converges`, `induction`, `le_refl`, `zero`
 - `monotone_id_two_fixpoints` -> `apply`, `at`, `card_fin`
-- `moreauEnvelope_dirderiv_lower` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
-- `moreauEnvelope_dirderiv_upper` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
-- `moreauEnvelope_le` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
-- `moreauEnvelope_le_self` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
-- `moreauEnvelope_sandwich` -> `IsProx`, `apply`, `at`, `le_refl`, `prox_linear`
+- `moreauEnvelope_dirderiv_lower` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
+- `moreauEnvelope_dirderiv_upper` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
+- `moreauEnvelope_le` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
+- `moreauEnvelope_le_self` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
+- `moreauEnvelope_sandwich` -> `IsProx`, `apply`, `at`, `d`, `le_refl`, `prox_linear`
 - `moreau_decomposition_linear` -> `IsProx`, `at`, `le_refl`, `prox_linear`
 - `moreau_decomposition_linear_isprox` -> `IsProx`, `at`, `le_refl`, `prox_linear`
-- `mqa_grouping_constant` -> `E`
-- `mqa_is_gqa_extreme` -> `E`
+- `mqa_grouping_constant` -> `E`, `d`
+- `mqa_is_gqa_extreme` -> `E`, `d`
 - `msgPassBoundProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `msgPass_bound_perm`, `soundness`
 - `msgPassChan_equivariant` -> `apply`
 - `msgPassEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `gnnLayer_equivariant`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `msgPass_equivariant`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`
@@ -7081,15 +7104,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mult_slater_multiplier_exists` -> `apply`, `at`, `le`, `le_antisymm`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `mult_strong_duality_convex_slater` -> `le_antisymm`
 - `multiHeadLayer_equivariant` -> `apply`
-- `multiLayerLadder_forward` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
+- `multiLayerLadder_forward` -> `Ladder`, `affineAct`, `ladder_forward`, `layers`, `netAct`
 - `multiLayerLadder_two` -> `Ladder`, `ladder_forward`
-- `multiSite_edit_bound_is_sharp` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `subst`
-- `multiSite_edit_nested_bound` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `subst`
+- `multiSite_edit_bound_is_sharp` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `d`, `subst`
+- `multiSite_edit_nested_bound` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `multi_constraint_verification` -> `uniformProb`
 - `multistep_geometric_exists` -> `Sat`, `iterate`
 - `multistep_preservation` -> `HasType`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`
-- `multivar_converges` -> `Repair`, `Sat`, `dot`, `iterate`, `progress`
-- `multivar_converges_in_one` -> `Repair`, `Sat`, `dot`, `iterate`
+- `multivar_converges` -> `Repair`, `Sat`, `d`, `dot`, `iterate`, `progress`
+- `multivar_converges_in_one` -> `Repair`, `Sat`, `d`, `dot`, `iterate`
 - `mutualCoherence_def` -> `at`, `l0Norm`, `le_trans`, `sqrt_one`
 - `mutualCoherence_le_one_of_unitCols` -> `at`, `l0Norm`, `sqrt_one`
 - `mutualCoherence_lt_inv` -> `at`, `l0Norm`
@@ -7115,13 +7138,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `na_tail_sum_norm_lt` -> `at`, `dist`, `eps`, `le_total`, `le_trans`
 - `naive_fiber_has_two_points` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `naive_injectivity_is_false` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
-- `naive_multisite_sum_bound_is_false` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `subst`
-- `naive_multisite_sum_bound_true_of_nonneg` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `subst`
-- `naive_single_product_bound_fails_two_site` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `subst`
+- `naive_multisite_sum_bound_is_false` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `d`, `subst`
+- `naive_multisite_sum_bound_true_of_nonneg` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
+- `naive_single_product_bound_fails_two_site` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `d`, `subst`
 - `natAbs_step_lt` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
 - `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_pos` -> `at`, `eval`, `min`, `subst`
-- `natParamAct_eq_flatParamActSafe` -> `Chain`, `at`, `eval`, `induction`, `single`, `trans`
+- `natParamAct_eq_flatParamActSafe` -> `Chain`, `at`, `d`, `eval`, `induction`, `single`, `trans`
 - `natToInt_add` -> `Surjective`, `at`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToInt_injective` -> `Surjective`, `at`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToInt_lt_iff` -> `at`, `le_antisymm`
@@ -7158,21 +7181,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nat_catalan_three` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `nat_catalan_two` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `nat_div_two_truncates` -> `card_fin`
-- `nat_dvd_antisymmetric` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `nat_dvd_antisymmetric` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `nat_dvd_bot_is_one` -> `at`, `gcd_comm`, `subst`
 - `nat_dvd_natAbs_of_dvd` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `induction`, `scaleVec`, `scaleVec_preserves`
 - `nat_dvd_not_complete_lattice` -> `at`, `subst`
 - `nat_dvd_top_is_zero` -> `at`, `gcd_comm`, `subst`
 - `nat_inf_assoc` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `nat_inf_dvd_left` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `nat_inf_greatest` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `nat_inf_dvd_left` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `nat_inf_greatest` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `nat_inf_idem` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `nat_inf_semilattice_laws` -> `at`, `gcd_comm`, `subst`
 - `nat_least_positive` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`
 - `nat_metric_dist_translation` -> `Point2R`, `alibiBias`, `dist`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `nat_sup_assoc` -> `apply`, `at`, `gcd_comm`, `subst`, `trans`
 - `nat_sup_idem` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
-- `nat_sup_least` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
+- `nat_sup_least` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `nat_sup_semilattice_laws` -> `at`, `gcd_comm`, `subst`
 - `naturalGradientDiag_one_dim` -> `fisherInfo`, `fisherMatrix_eq_fisherInfo_one_dim`
 - `natural_gradient_maximizes_quadratic` -> `apply`, `at`
@@ -7196,7 +7219,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `neg_log_one_add_nonpos` -> `add`, `apply`, `at`, `div_const`, `mul`, `subst`
 - `neg_log_one_sub_ge` -> `add`, `apply`, `at`, `div_const`, `mul`, `subst`
 - `neg_log_one_sub_le` -> `add`, `apply`, `at`, `div_const`, `kl`, `kl_as_sum_log_sub_log`, `min`, `mul`, `subst`
-- `neg_mul_two_add_neg_mul_neg` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_nonneg`
+- `neg_mul_two_add_neg_mul_neg` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_nonneg`
 - `neg_one_lt_tanh_fid` -> `ZeroFixingR`, `at`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`, `tanh_pos_of_pos`
 - `neg_one_not_square` -> `at`, `eval`, `le`, `trans`
 - `neg_one_not_sum_of_squares` -> `at`, `eval`, `le`, `trans`
@@ -7241,32 +7264,32 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netAct_lipschitz_replicate` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `at`, `layer_act_injective`
 - `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `netLossFDerivRec_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossFDerivRec_cons` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossFDerivRec_eq` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossFDerivRec_nil` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossFDeriv_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossFDeriv_nil` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossOn_differentiableAt` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
-- `netLossOn_differentiableAt_joint` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
-- `netLossOn_differentiableAt_joint_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
-- `netLossOn_differentiableAt_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossOn_differentiableAt_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
-- `netLossOn_differentiableAt_params_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
-- `netLossOn_eq_comp` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
+- `netLossFDerivRec_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossFDerivRec_cons` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossFDerivRec_eq` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossFDerivRec_nil` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossFDeriv_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossFDeriv_nil` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossOn_differentiableAt` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
+- `netLossOn_differentiableAt_joint` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netLossOn_differentiableAt_joint_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `d`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
+- `netLossOn_differentiableAt_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `d`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossOn_differentiableAt_params` -> `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
+- `netLossOn_differentiableAt_params_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `comp`, `d`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
+- `netLossOn_eq_comp` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLossFDeriv`, `singleParams`
 - `netLossOn_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `forall_mem_map_iff`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `netLossOn_fderiv_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
-- `netLossOn_fderiv_apply_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `collinear`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
-- `netLossOn_fderiv_apply_params` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
-- `netLossOn_fderiv_apply_params_nonKink` -> `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `collinear`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
-- `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
-- `netLoss_empty` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
-- `netLoss_eq_zero_of_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
+- `netLossOn_fderiv_apply` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
+- `netLossOn_fderiv_apply_nonKink` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `collinear`, `d`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
+- `netLossOn_fderiv_apply_params` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `NonKink`, `Pt`, `add`, `comp`, `d`, `hasFDerivAt_penaltyLoss_nonKink`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`, `trunc`
+- `netLossOn_fderiv_apply_params_nonKink` -> `ConstraintIndicesBelow`, `GeoConstraint`, `GeoExpr`, `Holds`, `NonKink`, `Pt`, `at`, `collinear`, `d`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`, `sqDist_eq_zero_iff`
+- `netLoss_append` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `d`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
+- `netLoss_empty` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `d`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
+- `netLoss_eq_zero_of_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `d`, `evalPts`, `induction`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `netLoss_layerOfCol` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `at`, `evalPts`, `netAct`, `netLoss`, `penaltyLoss`, `residual`, `residual_rowStepN`, `rowStepN`, `sqNormIn`
 - `netLoss_layerOfCol_stepN` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `at`, `evalPts`, `netAct`, `netLoss`, `residual_rowStepN`, `rowStepN`, `sqNormIn`
-- `netLoss_lipschitz` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
-- `netLoss_lipschitz_of` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
-- `netLoss_nonneg` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `penaltyLoss_nonneg`, `rho`
+- `netLoss_lipschitz` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `d`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
+- `netLoss_lipschitz_of` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `d`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `rho`
+- `netLoss_nonneg` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `PenaltyLipschitz`, `Pt`, `at`, `d`, `evalPts`, `induction`, `le_trans`, `netAct`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `penaltyLoss_nonneg`, `rho`
 - `netLoss_pos_of_ne` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `at`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_shiftLayer` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `at`, `evalPts`, `induction`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `zero`
 - `netLoss_shiftLayerVec` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `residual`, `residual_rowStepN`, `rowStepN`, `sqNormIn`
@@ -7280,17 +7303,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netLoss_tendsto_zero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `at`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `residual`
 - `netLoss_zero_iff_holds` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `add`, `at`, `evalPts`, `netAct`, `netLoss`
 - `netLoss_zero_without_holds` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `evalPts`, `netAct`, `penaltyLoss`
-- `netPoints_eq_trunc` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
+- `netPoints_eq_trunc` -> `AffineLayer`, `ConstraintIndicesBelow`, `GeoConstraint`, `KinkPositive`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `singleParams`, `trunc`
 - `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `at`, `layer_act_injective`
-- `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `at`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`
+- `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `at`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `layers`, `netAct`, `roundtrip`
 - `net_behaviourallyEquivalent_iff` -> `AffineLayer`, `BehaviourallyEquivalent`, `netAct`
-- `neumann_stable_under_perturbation` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
-- `neumann_sum_le_inv_one_sub` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
-- `neumann_summable` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
+- `neumann_stable_under_perturbation` -> `E`, `RealNeuron`, `d`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
+- `neumann_sum_le_inv_one_sub` -> `E`, `RealNeuron`, `d`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
+- `neumann_summable` -> `E`, `RealNeuron`, `d`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
 - `neuronCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `neutral_is_not_a_decision_procedure` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `new_not_rank_one_at_two` -> `AffineLayer`, `W`, `layerOfList`
-- `newman` -> `at`, `induction`, `subst`, `trans`
+- `newman` -> `at`, `d`, `induction`, `subst`, `trans`
 - `newton_contraction_half` -> `NewtonStep`, `Quadratic`, `at`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `zero`
 - `newton_doubly_exponential` -> `NewtonStep`, `Quadratic`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `zero`
 - `newton_error_quadratic_bound` -> `NewtonStep`, `Quadratic`, `at`, `deriv_deriv_quadratic`, `deriv_quadratic`, `induction`, `newton_step_quadratic`, `zero`
@@ -7303,9 +7326,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nlayer_width_forced` -> `MLayer`, `compose`
 - `noSectionProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `no_loss_to_constraint_section`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `no_affine_fit_squares` -> `Chain`, `Pt`, `W`, `affine_map_realisable`, `apply`, `at`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
-- `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `le_refl`, `sq_eq_two_roots`, `subst`
-- `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
-- `no_artifact_extractor_recovers_both` -> `ModelArtifact`, `W`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
+- `no_affine_represents_of_two_roots` -> `aff`, `affine_zeroSet_subsingleton`, `d`, `le_refl`, `sq_eq_two_roots`, `subst`
+- `no_affine_represents_sphere` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `d`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `no_artifact_extractor_recovers_both` -> `ModelArtifact`, `W`, `arch`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `recover`
 - `no_better_than_geometric` -> `Subgradient`, `at`
 - `no_constraint_has_extent_pair` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`
@@ -7331,7 +7354,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_positive_uniform_bound_at_zero_map` -> `SoftmaxAttnOp`, `W`, `at`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `no_quality_loss` -> `min`
 - `no_redundant_entries_in_audit_table` -> `Audit`, `at`, `length`
-- `no_rules_no_steps` -> `GeoConstraint`, `induction`, `subst`, `zero`
+- `no_rules_no_steps` -> `GeoConstraint`, `d`, `induction`, `subst`, `zero`
 - `no_saddle_in_convex` -> `at`, `comp`, `const_add`
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `no_specSolver` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Pt`, `SpecSolver`, `sol`, `sound`
@@ -7339,21 +7362,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
 - `no_uniform_step_size` -> `apply`, `at`, `le_refl`
-- `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
 - `no_universal_constructor` -> `FamilySolver`, `HoldsSet`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `no_upper_iff_no_split` -> `at`, `extent`
 - `no_weight_solution_of_input_zero` -> `W`, `residual`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `no_zero_obligation_in_census_table` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
-- `node_inj` -> `Tree`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
+- `node_inj` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `noiseMatrix_apply` -> `at`, `mulVec`
 - `noiseMatrix_inv_commute` -> `at`
 - `noiseMatrix_mulVec_alpha` -> `at`, `mulVec`
 - `noiseMatrix_mulVec_krigingWeights` -> `at`, `mulVec`
 - `noiseMatrix_psd` -> `at`, `mulVec`
 - `noiseMatrix_zero_eq` -> `at`
-- `noiseVariance_eq` -> `Subgradient`, `SubgradientGap`, `at`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
-- `nonKink_cases` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
+- `noiseVariance_eq` -> `Subgradient`, `SubgradientGap`, `at`, `d`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
+- `nonKink_cases` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `d`, `evalPts`, `parallel`, `penaltyLoss`, `trivial`, `trunc`
 - `nonVacuousFor_nil` -> `PluginLayer`, `PluginName`, `at`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `nondegenerate_exists` -> `Nondegenerate`, `PerpNondegenerate`, `at`, `bump`, `seg`, `unflatten`
 - `nondegenerate_has_content` -> `Nondegenerate`, `bump`
@@ -7368,34 +7391,34 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nonlinear_soundness_local_exact` -> `ApproxOn`, `le_antisymm`
 - `nonneg_is_square` -> `at`, `eval`, `le`, `trans`
 - `nonothing_open` -> `length`
-- `nonpos_set_never_empty` -> `at`, `dotV`, `le`, `smul`
-- `nonpos_set_nonempty` -> `at`, `dotV`, `le`, `smul`
+- `nonpos_set_never_empty` -> `at`, `d`, `dotV`, `le`, `smul`
+- `nonpos_set_nonempty` -> `at`, `d`, `dotV`, `le`, `smul`
 - `normIterateVarianceLeOneProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `batchMean`, `batchVar`, `bnInfer`, `bnTrain`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_iterate_varNormalize_le_one`, `varOf_nonneg`, `varOf_varNormalize_eq_one`, `verified`, `verified_manifest`, `verified_obligations`
 - `normLipschitzProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varOf`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `normLipschitzSharpProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `normProofs_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `normSq_add_le` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
-- `normSq_eq_norm_sq` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `normSq_eq_norm_sq` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `normSq_fderiv_scalar` -> `E`, `NormSqLossScalar`, `at`, `fderiv_apply_direction_scalar`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`, `norm_sq_line_deriv_scalar`
-- `normSq_nonneg` -> `apply`, `at`, `eps`, `induction`, `le_trans`, `loss`, `normSq`, `zero`
-- `normSq_nonneg_euclid` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
-- `normSq_pos` -> `apply`, `at`
-- `normSq_pos_euclid` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `normSq_nonneg` -> `apply`, `at`, `d`, `eps`, `induction`, `le_trans`, `loss`, `normSq`, `zero`
+- `normSq_nonneg_euclid` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `normSq_pos` -> `apply`, `at`, `d`
+- `normSq_pos_euclid` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `normTrainInferAgreeProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `normVarianceEqOneProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `batchMean`, `batchVar`, `bnInfer`, `bnTrain`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_nonneg`, `varOf_varNormalize_eq_one`, `verified`, `verified_manifest`, `verified_obligations`
 - `normVarianceNonnegProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `norm_adversarialVec` -> `at`
 - `norm_difference_eq_kernel_distance` -> `IsPSDKernel`, `kernel_metric_zero_iff`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
-- `norm_grad_split` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `norm_grad_split` -> `Subgradient`, `apply`, `at`, `d`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `norm_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `norm_migrated_registry` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
-- `norm_obligation_is_a_citation` -> `Obligation`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`
+- `norm_obligation_is_a_citation` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`
 - `norm_reproducing_bound` -> `IsPSDKernel`, `at`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_rmsNormE` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `norm_rmsNormGeneral` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
 - `norm_sq_line_deriv` -> `E`, `at`, `const_add`, `trans`
 - `norm_sq_line_deriv_scalar` -> `E`, `add`, `apply`, `const_add`
-- `norm_step_split` -> `Subgradient`, `apply`, `at`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `norm_step_split` -> `Subgradient`, `apply`, `at`, `d`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `norm_sub_neg` -> `at`, `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`, `rmsNormE_antipodal_norm`
 - `norm_sub_neg_general` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
 - `normalCdf_abs_le_one` -> `Gated`, `SoftMasked`, `erf`, `erf_strictMono`, `gated_abs_le`, `geluSoftMask`, `geluTanh`, `gelu_soft_mask_bounds`, `le_trans`, `softMasked_is_gated`
@@ -7409,7 +7432,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normal_equation_iff_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `normal_equation_of_pseudoInverse` -> `at`, `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
 - `normal_equation_unique` -> `at`, `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
-- `normal_form_equiv` -> `Compiler`, `at`, `induction`, `trans`
+- `normal_form_equiv` -> `Compiler`, `at`, `d`, `induction`, `trans`
 - `normalised_sq_mono` -> `Instr`, `applyInstr`, `mean`
 - `normalize_centerSq_eq_one` -> `apply`, `at`, `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
 - `normalize_id_on_unit_sphere` -> `at`, `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
@@ -7425,14 +7448,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normalizedKernel_nonneg` -> `IsPSDKernel`, `IsSymmKernel`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `normalizedKernel_self` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `normalizedKernel_symm` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
-- `normsq_add_smul` -> `apply`, `at`, `min`
-- `normsq_eq_zero_iff` -> `apply`, `at`, `le_antisymm`, `le_trans`, `subst`
-- `normsq_inner_abs_le` -> `apply`, `at`, `le_trans`
-- `normsq_inner_le` -> `apply`, `at`, `le_trans`
-- `normsq_nonneg` -> `apply`, `at`, `le_antisymm`, `le_trans`, `subst`
-- `normsq_smul` -> `apply`, `at`, `le_trans`
-- `normsq_sub` -> `apply`, `at`, `le_trans`
-- `normsq_sub_expand` -> `apply`, `at`, `min`
+- `normsq_add_smul` -> `apply`, `at`, `d`, `min`
+- `normsq_eq_zero_iff` -> `apply`, `at`, `d`, `le_antisymm`, `le_trans`, `subst`
+- `normsq_inner_abs_le` -> `apply`, `at`, `d`, `le_trans`
+- `normsq_inner_le` -> `apply`, `at`, `d`, `le_trans`
+- `normsq_nonneg` -> `apply`, `at`, `d`, `le_antisymm`, `le_trans`, `subst`
+- `normsq_smul` -> `apply`, `at`, `d`, `le_trans`
+- `normsq_sub` -> `apply`, `at`, `d`, `le_trans`
+- `normsq_sub_expand` -> `apply`, `at`, `d`, `min`
 - `notC_eq_xorC_zero` -> `andC`, `orC`, `subst`
 - `notC_eq_zero_iff` -> `andC`, `andC_eq_zero_iff`, `at`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `notC_eq_zero_iff_on_domain` -> `andC`, `andC_eq_zero_iff`, `at`, `int_sq_eq_zero_iff`, `orC`, `subst`
@@ -7440,7 +7463,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `notC_offdomain_counterexample` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `notC_zero_iff_eq_one` -> `andC`, `andC_eq_zero_iff`, `at`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `notC_zero_iff_xorC_zero_zero` -> `andC`, `orC`, `subst`
-- `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
+- `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `not_affineGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `not_allowed_contribution_zero` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `not_andC_zero_iff` -> `at`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
@@ -7455,9 +7478,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_delta_half_unconditional` -> `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`
 - `not_differentiableAt_stepQuant_half` -> `at`
 - `not_element_and_concept` -> `at`, `extent`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
-- `not_eventually_zero_of_small_counterexample` -> `Pt`, `at`, `sqDist`, `sqDist_nonneg`
+- `not_eventually_zero_of_small_counterexample` -> `Pt`, `at`, `d`, `sqDist`, `sqDist_nonneg`
 - `not_factorsThrough_of_not_neutral` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
-- `not_forall_packageDependenciesValid` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `affineGeometryPackage`, `all_twelve_discharged`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `induction`, `informationTheoryPackage`, `layer`, `length`, `length_cons`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `subst`, `trans`, `zfcSetTheoryPackage`
+- `not_forall_packageDependenciesValid` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `affineGeometryPackage`, `all_twelve_discharged`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `induction`, `informationTheoryPackage`, `layer`, `length`, `length_cons`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `subst`, `trans`, `zfcSetTheoryPackage`
 - `not_functionalAnalysis_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisExtra`, `functionalAnalysisPackage`, `functionalAnalysis_closed`, `functionalAnalysis_closedB_eq_true`, `functionalAnalysis_extra_length`, `functionalAnalysis_false_but_repairable`, `functionalAnalysis_validB_eq_false`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `not_probabilityTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_graphTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `not_holds_eqZero_const_one` -> `ConstraintSet`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `Pt`, `SpecSolver`, `evalPts`, `evalPts_const`, `sol`, `sound`
@@ -7471,20 +7494,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_is_prime_one` -> `apply`, `at`, `children`, `le_trans`, `satisfiable`
 - `not_linearAlgebra_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraExtra`, `linearAlgebraPackage`, `linearAlgebra_closed`, `linearAlgebra_closedB_eq_true`, `linearAlgebra_extra_length`, `linearAlgebra_false_but_repairable`, `linearAlgebra_validB_eq_false`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `not_projectiveGeometry_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
 - `not_loadBearing_and_decorative` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `rank`, `scaleVec`, `trivial`
-- `not_localMin_of_resid_ne_zero` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `residN`
+- `not_localMin_of_resid_ne_zero` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `residN`
 - `not_measureTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryExtra`, `measureTheoryPackage`, `measureTheory_closed`, `measureTheory_closedB_eq_true`, `measureTheory_extra_length`, `measureTheory_false_but_repairable`, `measureTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `not_mem_Subdiff_neg_relu` -> `apply`, `at`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `not_mem_interior_improvingSet` -> `apply`, `at`, `dist`, `le`, `le_antisymm`, `mono`
 - `not_mem_interior_multImprovingSet` -> `at`, `dist`, `eps`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `not_mem_merged_of_rejected` -> `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `at`, `holdsSet_mem`, `merge_sound`, `merged`
-- `not_mem_of_layer` -> `GeoConstraint`, `GeoExpr`, `Layer`, `at`, `collinear`, `layer`, `parallel`, `poly`
-- `not_migrated_of_foreign` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `not_minimal_of_scaleVec` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
+- `not_mem_of_layer` -> `GeoConstraint`, `GeoExpr`, `Layer`, `at`, `collinear`, `d`, `layer`, `parallel`, `poly`
+- `not_migrated_of_foreign` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `not_minimal_of_scaleVec` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
 - `not_modalLogic_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryPackage`
 - `not_optConstant_lt` -> `at`
 - `not_optimal_lambda_algebra_sq_form` -> `at`, `convert`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
 - `not_orC_zero_iff` -> `le_antisymm`, `out`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `not_orderTheory_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
+- `not_pathBlockedBy_empty` -> `blocks`
 - `not_probabilityTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_projectiveGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
 - `not_pulled_under_good_event` -> `apply`, `card_fin`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
@@ -7494,18 +7518,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_step_lam_var` -> `Compiler`, `Term`, `app_r`, `at`
 - `not_step_redB` -> `Compiler`, `Term`, `app_r`, `at`
 - `not_step_var` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
-- `not_valid_iff_bad_dep` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `at`, `computabilityTheoryPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
+- `not_valid_iff_bad_dep` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `at`, `computabilityTheoryPackage`, `d`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
 - `not_zeroFixing_iff_exists` -> `ZeroFixing`, `act`, `at`, `toNat`
 - `not_zfcSetTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryExtra`, `graphTheoryPackage`, `graphTheory_closed`, `graphTheory_closedB_eq_true`, `graphTheory_extra_length`, `informationTheoryPackage`, `length`, `measureTheoryExtra`, `measureTheoryPackage`, `measureTheory_closed`, `measureTheory_closedB_eq_true`, `measureTheory_extra_length`, `measureTheory_false_but_repairable`, `measureTheory_validB_eq_false`, `not_measureTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryExtra`, `zfcSetTheoryPackage`, `zfcSetTheory_closed`, `zfcSetTheory_closedB_eq_true`, `zfcSetTheory_extra_length`, `zfcSetTheory_false_but_repairable`, `zfcSetTheory_validB_eq_false`
 - `np_greedy_not_optimal` -> `alpha`
 - `np_replace_ratio` -> `alpha`, `at`, `le_trans`
 - `np_replace_same_size` -> `alpha`, `at`, `le_trans`
-- `ntkScale_dist_le` -> `absPosEnc`, `abs_pos_smooth`, `le_trans`
-- `ntkScale_one` -> `absPosEnc`, `abs_pos_smooth`, `le_trans`
-- `ntkScale_sharp` -> `absPosEnc`, `le_trans`
-- `ntkScale_sub` -> `absPosEnc`, `abs_pos_smooth`, `le_trans`
-- `ntk_scaling_bound` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
-- `ntk_scaling_shrinks_freq` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
+- `ntkScale_dist_le` -> `absPosEnc`, `abs_pos_smooth`, `d`, `le_trans`
+- `ntkScale_one` -> `absPosEnc`, `abs_pos_smooth`, `d`, `le_trans`
+- `ntkScale_sharp` -> `absPosEnc`, `d`, `le_trans`
+- `ntkScale_sub` -> `absPosEnc`, `abs_pos_smooth`, `d`, `le_trans`
+- `ntk_scaling_bound` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
+- `ntk_scaling_shrinks_freq` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `null_levelA` -> `trivial`
 - `nullspace_vanishes_on_column` -> `at`
 - `numOps_add` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
@@ -7513,12 +7537,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `numOps_mul` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `numOps_neg` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `numOps_var` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
-- `nwEstimate_const` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `nwEstimate_eq_sum_weights` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `nwEstimate_le_of_le` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `nwWeights_nonneg` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `nwWeights_sum_one` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `obligationOwnedBy_self` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
+- `nwEstimate_const` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `nwEstimate_eq_sum_weights` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `nwEstimate_le_of_le` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `nwWeights_nonneg` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `nwWeights_sum_one` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `obligationOwnedBy_self` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `manifest`, `subst`
 - `obsC_sum_one` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
 - `obsClosure_eq_id_iff_injective` -> `at`, `obs`
 - `obsClosure_fixedPoints_eq_range` -> `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `obs`
@@ -7538,17 +7562,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ofApprox_compile` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
 - `ofApprox_extract` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
 - `ofApprox_semEq` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
-- `ofArtifact_acts` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
-- `ofArtifact_depth` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
-- `ofArtifact_idempotent_shape` -> `ModelArtifact`, `depth`, `length`
-- `ofArtifact_injective_on_arch` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
-- `ofArtifact_params` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
-- `ofArtifact_widths` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
-- `ofArtifact_widths_nonempty` -> `Arch`, `ModelArtifact`, `W`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
-- `ofClause_onlyAndOrNot` -> `Compiler`, `induction`
+- `ofArtifact_acts` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_depth` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_idempotent_shape` -> `ModelArtifact`, `arch`, `depth`, `length`
+- `ofArtifact_injective_on_arch` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
+- `ofArtifact_params` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_widths` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
+- `ofArtifact_widths_nonempty` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
+- `ofClause_onlyAndOrNot` -> `Compiler`, `d`, `induction`
 - `ofDB_toDB` -> `Compiler`, `all`, `at`, `induction`, `subst`
 - `ofDB_toDB_witness` -> `Compiler`
-- `ofDNF_onlyAndOrNot` -> `Compiler`, `induction`
+- `ofDNF_onlyAndOrNot` -> `Compiler`, `d`, `induction`
 - `ofEquiv_compile_extract` -> `W`, `compile`, `extract`
 - `ofEquiv_roundtrip` -> `W`, `compile`, `extract`
 - `ofLinearFormAux_eval` -> `EqConstraint`, `GeoConstraint`, `Holds`, `LinearForm`, `Pt`, `decodePayload`, `evalPts`, `induction`, `loss`, `loss_eq_zero_expr`, `loss_nonneg`
@@ -7557,7 +7581,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ofPair_toPair` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
 - `ofParams_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `ofRepresentation_roundtrip` -> `LinearForm`, `Representation`, `SemEq`, `W`, `ZB`, `compile`, `decode`, `encode`, `extract`, `obs`, `roundtrip`, `semantic_not_injective`
-- `ofTruthTable_spec` -> `Compiler`, `induction`
+- `ofTruthTable_spec` -> `Compiler`, `d`, `induction`
 - `offSupport_is_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `ogd_regret_bound` -> `at`
 - `old_not_injective` -> `AffineLayer`, `layerOfList`
@@ -7597,14 +7621,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_dim_lower_witness_core` -> `apply`, `at`, `le_refl`
 - `one_le_ceMag` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
 - `one_le_encodeInstr_length` -> `Instr`, `W`, `append_nil`, `at`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
-- `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
+- `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `one_le_instrLengthOfTag` -> `Instr`, `W`, `at`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`, `zero`
 - `one_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `one_le_prod_one_add` -> `at`, `eps`, `induction`, `le_trans`, `zero`
 - `one_mem_Subdiff_max_not_mem` -> `apply`, `at`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `one_mem_Subdiff_relu_via_max` -> `at`, `le_refl`, `relu`, `subgradient_step_decrease`
-- `one_step_suffices` -> `Pt`, `sqDist`
+- `one_step_suffices` -> `Pt`, `d`, `sqDist`
 - `one_sub_inv_le_log` -> `add`, `apply`, `at`, `div_const`, `mul`, `subst`
 - `one_sub_inv_lt_log_of_pos` -> `apply`, `at`
 - `one_sub_inv_lt_log_of_pos_logsum` -> `apply`, `at`
@@ -7613,15 +7637,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_sub_tanh_sq_le_exp` -> `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `one_sub_tanh_sq_sharp_le_coarse` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
 - `one_sub_tanh_sq_sharp_strict_at_zero` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
-- `one_wellFormed` -> `MLayer`, `WellFormed`, `act`, `at`, `count`, `length`
+- `one_wellFormed` -> `MLayer`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `weights`
 - `one_witness_refutes_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `only_counterexample_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
-- `opNorm_diagonal` -> `apply`, `at`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
-- `opNorm_diagonal_le` -> `apply`, `at`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
-- `opNorm_diagonal_lt_one` -> `matCLME`
-- `opNorm_diagonal_pow` -> `apply`, `le_antisymm`, `matCLME`
+- `opNorm_diagonal` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
+- `opNorm_diagonal_le` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
+- `opNorm_diagonal_lt_one` -> `d`, `matCLME`
+- `opNorm_diagonal_pow` -> `apply`, `d`, `le_antisymm`, `matCLME`
 - `opNorm_le_frobenius` -> `apply`, `at`, `card_fin`, `single`
-- `opNorm_pow_le` -> `E`, `RealNeuron`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `induction`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`, `zero`
+- `opNorm_pow_le` -> `E`, `RealNeuron`, `d`, `diagRadius`, `diagRadius_nonneg`, `extractReal`, `induction`, `le_trans`, `matCLME`, `opNorm_diagonal`, `opNorm_diagonal_pow`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`, `zero`
 - `op_apply_le` -> `E`, `comp`
 - `op_dist_le` -> `E`
 - `op_dist_pow_le` -> `E`
@@ -7670,20 +7694,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `orderTheory_closedB_eq_true` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `orderTheory_extra_length` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `orderTheory_false_but_repairable` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_extra_length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `orderTheory_templateNames_length` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `affineGeometryPackage`, `affineGeometryTemplateNames`, `affineGeometryTemplates`, `affineGeometryUnconstructibles`, `affineGeometry_templateNames_length`, `all`, `closed_nil_iff`, `contains`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `dependenciesSatisfiedB_iff`, `length`, `mkTemplates`, `orderTheoryTemplateNames`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`
+- `orderTheory_templateNames_length` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `PackageTemplate`, `TemplateNameAvailable`, `UnconstructibleProblem`, `affineGeometryPackage`, `affineGeometryTemplateNames`, `affineGeometryTemplates`, `affineGeometryUnconstructibles`, `affineGeometry_templateNames_length`, `all`, `closed_nil_iff`, `contains`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB`, `dependenciesSatisfiedB_iff`, `length`, `mkTemplates`, `orderTheoryTemplateNames`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNameAvailableB`, `templateNames`
 - `orderTheory_validB_eq_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `order_dependence_general` -> `ApplyEdit`, `ApplyEdits2`, `E`, `key_norm_sq_ne_zero`
-- `order_difference_witness_nonzero` -> `E`
-- `order_error_bound` -> `ApplyEdits2`, `E`
-- `order_invariance_free` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `editSeq`, `induction`, `key_norm_sq_ne_zero`
-- `order_invariance_orthogonal` -> `ApplyEdit`, `ApplyEdits2`, `E`, `key_norm_sq_ne_zero`
+- `order_dependence_general` -> `ApplyEdit`, `ApplyEdits2`, `E`, `d`, `key_norm_sq_ne_zero`
+- `order_difference_witness_nonzero` -> `E`, `d`
+- `order_difference_zero_of_orthogonal_witness` -> `d`
+- `order_error_bound` -> `ApplyEdits2`, `E`, `d`
+- `order_invariance_free` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`
+- `order_invariance_orthogonal` -> `ApplyEdit`, `ApplyEdits2`, `E`, `d`, `key_norm_sq_ne_zero`
 - `order_unique_of_same_cone` -> `at`, `eval`, `le`, `trans`
-- `orthogonalR_scale` -> `at`
-- `orthogonalR_symm` -> `at`
+- `orthogonalR_scale` -> `at`, `d`
+- `orthogonalR_symm` -> `at`, `d`
 - `orthogonal_gram_diag_solves` -> `BatchEditClosed`, `E`, `W`, `batchClosed_orthogonal_writes`, `key_norm_sq_ne_zero`, `mulVec`, `sum_orthogonal_kill`
 - `orthogonal_gram_recovers_closed_form` -> `BatchEditClosed`, `E`, `W`, `batchClosed_orthogonal_writes`
 - `orthogonal_is_diagonal_gram` -> `BatchEditClosed`, `E`, `W`, `batchClosed_orthogonal_writes`, `key_norm_sq_ne_zero`, `mulVec`, `sum_orthogonal_kill`
-- `orthogonal_step_fixes_nothing` -> `Repair`, `Sat`, `at`, `dot`, `iterate`, `progress`, `residual`, `step`
+- `orthogonal_step_fixes_nothing` -> `Repair`, `Sat`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `orthogonal_two_routes_agree` -> `BatchEditClosed`, `E`, `W`, `batchClosed_orthogonal_writes`
 - `otValue_le_cost` -> `le_antisymm`, `mul`, `sInf`
 - `out_determined_by_construction` -> `Audit`, `Chain`
@@ -7698,8 +7723,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `overSmoothing_tight_constant` -> `E`, `nbhdSet`, `nbhdSum`
 - `overconf_le_ece` -> `apply`, `at`, `le`
 - `overflowConv_exhaustive` -> `at`, `le_trans`, `min`
-- `pU_nonneg` -> `Chain`
-- `pU_sum` -> `Chain`
+- `pU_nonneg` -> `Chain`, `blocks`
+- `pU_sum` -> `Chain`, `blocks`
 - `pValue_le_one` -> `alpha`, `at`, `le_trans`
 - `pValue_nonneg` -> `alpha`, `at`, `le_trans`
 - `pValue_rejects` -> `alpha`, `at`, `le_refl`, `le_trans`
@@ -7721,9 +7746,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pacBayes_risk_bound_of_exponent` -> `kl`, `loss`
 - `pacBayes_risk_bound_optimal_lambda` -> `convert`, `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `uniformProb`
 - `packLayers_apply` -> `AffineLayer`, `W`, `affineAct`, `comp`
-- `packageDependenciesClosedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
-- `packageDependenciesValidB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB_iff`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `templateNames`, `zfcSetTheoryPackage`
-- `packageDependenciesValid_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
+- `packageDependenciesClosedB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `templateNames`, `zfcSetTheoryPackage`
+- `packageDependenciesValidB_iff` -> `AxiomPackageInstance`, `DependenciesClosed`, `DependenciesSatisfied`, `LegalNames`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `closed_nil_iff`, `computabilityTheoryPackage`, `d`, `dependenciesClosed_mono`, `dependenciesClosed_of_subset`, `dependenciesSatisfiedB_iff`, `graphTheoryPackage`, `length`, `modalLogicPackage`, `not_valid_iff_bad_dep`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `templateNames`, `zfcSetTheoryPackage`
+- `packageDependenciesValid_false` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
 - `pairCompile_not_surjective` -> `Representation`, `at`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `pairReach_dist_le` -> `at`, `dist`, `induction`, `zero`
 - `pairReach_singleton_eq` -> `induction`, `zero`
@@ -7758,10 +7783,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parallelRunProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallel_comm_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
 - `parallel_coverage` -> `Primitive`, `at`, `dec`, `inter`, `min`, `run`, `sound`, `union`
-- `parallel_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDistFDeriv`, `trunc`
+- `parallel_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDistFDeriv`, `trunc`
 - `parallel_gap_closed` -> `Pt`, `seg`
 - `parallel_identity_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
-- `parallel_not_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `layer`, `parallel`
+- `parallel_not_expressible` -> `GeoConstraint`, `GeoExpr`, `Layer`, `d`, `layer`, `parallel`
 - `parallel_run` -> `Primitive`, `choice`, `compose`, `identity`, `optional`, `parallel`, `run`
 - `parallel_skolemized` -> `Pt`, `seg`
 - `parallel_sound` -> `Primitive`, `at`, `dec`, `inter`, `min`, `run`, `sound`, `union`
@@ -7774,13 +7799,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `paramLoss_symParam_zero_iff` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_all_outputs` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_pConstraint` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
-- `paramsCountExact_example` -> `at`
-- `paramsCountExact_nil` -> `at`
+- `paramsCountExact_example` -> `at`, `d`
+- `paramsCountExact_nil` -> `at`, `d`
 - `paramsCount_nil` -> `at`
 - `paramsCount_single` -> `at`
 - `paramsCount_two` -> `at`
-- `parentVal_solIter_eq` -> `Chain`, `apply`, `at`, `le`
-- `parent_index_lt` -> `Chain`, `apply`, `at`, `le`
+- `parentVal_solIter_eq` -> `Chain`, `apply`, `at`, `blocks`, `le`
+- `parent_index_lt` -> `Chain`, `apply`, `at`, `blocks`, `le`
 - `paretoDominates_irrefl` -> `e2`, `le_trans`
 - `paretoDominates_trans` -> `e2`, `le_trans`
 - `paretoOptimal_imp_weak` -> `e2`
@@ -7789,9 +7814,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
-- `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `partial_reinject_bound` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
+- `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
+- `partial_reinject_bound` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
 - `partial_sum_monotone` -> `E`, `apply`, `le_trans`
 - `passivity_is_internal_texture` -> `Gaze`, `up`
 - `pathMap_mem_closedBall` -> `at`, `comp`
@@ -7804,34 +7829,34 @@ module. These are the edges that make the chain a chain rather than a list.
 - `payload_getElem` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `pdl_telescoping` -> `induction`, `zero`
 - `penaltyExact_of_epsSat_zero` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
-- `penaltyLipschitz_eqZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_equalLength` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_gtZero` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_leZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_rightAngle` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_samePoint` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_sqDistEq` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`
-- `penaltyLossFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `sqDist`, `trunc`
+- `penaltyLipschitz_eqZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_equalLength` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_gtZero` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_leZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_rightAngle` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_samePoint` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_sqDistEq` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`
+- `penaltyLossFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `sqDist`, `trunc`
 - `penaltyLoss_comp_funext` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `single`, `singleParams`, `trunc`
-- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
-- `penaltyLoss_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
-- `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_gtZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_iff_holds_leZero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
-- `penaltyLoss_eq_zero_iff_holds_midpoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
-- `penaltyLoss_eq_zero_iff_holds_of_safe` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
-- `penaltyLoss_eq_zero_iff_holds_samePoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
-- `penaltyLoss_eq_zero_iff_holds_sq` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
-- `penaltyLoss_eq_zero_leZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_midpoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_of_holds` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
+- `penaltyLoss_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
+- `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_gtZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_iff_holds_leZero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
+- `penaltyLoss_eq_zero_iff_holds_midpoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
+- `penaltyLoss_eq_zero_iff_holds_of_safe` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
+- `penaltyLoss_eq_zero_iff_holds_samePoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
+- `penaltyLoss_eq_zero_iff_holds_sq` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
+- `penaltyLoss_eq_zero_leZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_midpoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_of_holds` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
-- `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `GeoConstraint`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
 - `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
@@ -7847,7 +7872,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perceptron_progress` -> `E`, `induction`, `le`, `le_trans`, `subst`, `zero`
 - `perceptron_progress_iter` -> `E`, `induction`, `le`, `le_trans`, `subst`, `zero`
 - `perfect_separation_auroc_one` -> `apply`, `at`
-- `period_multiple_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `period_multiple_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `permActAdjMulProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`
 - `permActAdjOneProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_one`, `permActFeat`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`
 - `permActAdj_mul` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
@@ -7882,16 +7907,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perp_neg_iff` -> `seg`
 - `perp_neg_invariant` -> `apply`, `seg`, `unflatten`
 - `perp_penalty_ir_exact` -> `GeoConstraint`, `IRConstraintLite`, `IRHolds`, `Pt`, `compileIR_sound`, `seg`
-- `perpendicular_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `perpendicular_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
 - `perpendicular_expressible` -> `GeoConstraint`
 - `perpendicular_iff_dotDisp` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `sqNorm`, `sqNorm_eq_zero_iff`, `trans`
-- `perpendicular_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
+- `perpendicular_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
 - `perpendicular_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
 - `perpendicular_poly_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`, `poly`
 - `perpendicular_rightAngle_agree` -> `Pt`
 - `perpendicular_scale` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `perpendicular_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `collinear`, `diff`, `parallel`, `seg`, `sqDist`, `sqNorm`
-- `pertPointN_dist_lt` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `pertPointN_dist_lt` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `pertPoint_dist_lt` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `not_localMin_of_resid_ne_zero`, `residN`
 - `pertPoint_loss_lt` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `not_localMin_of_resid_ne_zero`, `residN`
 - `pertPoint_resid` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `not_localMin_of_resid_ne_zero`, `residN`
@@ -7900,14 +7925,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perturb_zeroes` -> `apply`, `at`, `dist`, `exists_decrease`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `perturbation_bound` -> `E`, `apply`, `eps`, `induction`, `le_trans`, `op_apply_le`, `op_norm_pow_apply_le_of_le`, `op_norm_pow_le`, `prod_one_add_le_exp`, `zero`
 - `perturbation_identity` -> `E`, `apply`, `eps`, `induction`, `le_trans`, `op_apply_le`, `op_norm_pow_apply_le_of_le`, `op_norm_pow_le`, `prod_one_add_le_exp`, `zero`
-- `pg_integral_linear` -> `apply`
-- `pg_integral_linear_measure` -> `apply`
-- `pg_integral_smul` -> `apply`
-- `pg_log_derivative_identity_integral` -> `apply`
-- `pg_log_derivative_identity_measure` -> `apply`
-- `pg_score_function_form` -> `apply`
-- `pg_zero_reward` -> `apply`
-- `pg_zero_reward_gradient` -> `apply`
+- `pg_integral_linear` -> `apply`, `d`
+- `pg_integral_linear_measure` -> `apply`, `d`
+- `pg_integral_smul` -> `apply`, `d`
+- `pg_log_derivative_identity_integral` -> `apply`, `d`
+- `pg_log_derivative_identity_measure` -> `apply`, `d`
+- `pg_score_function_form` -> `apply`, `d`
+- `pg_zero_reward` -> `apply`, `d`
+- `pg_zero_reward_gradient` -> `apply`, `d`
 - `piFinTwoEquiv_symm_one` -> `apply`, `induction`, `zero`
 - `piFinTwoEquiv_symm_zero` -> `apply`, `induction`, `zero`
 - `pi_ne_zero` -> `at`, `mul`
@@ -7945,7 +7970,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pluginDirOf_penalty` -> `RegistryMigratedFor`, `at`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
 - `pluginDirOf_tokens` -> `RegistryMigratedFor`, `at`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
 - `pluginRegistryComplete_holds` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
-- `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
 - `point_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_hi` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `point_le_iff_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -7956,37 +7981,37 @@ module. These are the edges that make the chain a chain rather than a list.
 - `policy_gradient_vector_directional` -> `E`, `apply`
 - `policy_value_differentiable` -> `E`, `apply`, `const_add`
 - `polyApprox_eps_to` -> `PolyApproxOn`
-- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
-- `polyChainAct_eval` -> `MLayer`, `at`, `eval`, `single`, `trans`
-- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
-- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
-- `polyChain_output_full` -> `MLayer`, `at`, `eval`, `single`
+- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
+- `polyChainAct_eval` -> `MLayer`, `at`, `d`, `eval`, `single`, `trans`
+- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `trans`
+- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
+- `polyChain_output_full` -> `MLayer`, `at`, `d`, `eval`, `single`
 - `polyChain_output_width_one` -> `MLayer`, `at`, `eval`, `single`
-- `polyKernel_one_eq_featScore` -> `apply`, `at`, `featScore`, `softmax`
-- `polyKernel_one_gram_psd` -> `apply`, `at`, `softmax`
-- `polyLayerStep_eval` -> `Chain`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
-- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`, `trans`
+- `polyKernel_one_eq_featScore` -> `apply`, `at`, `d`, `featScore`, `softmax`
+- `polyKernel_one_gram_psd` -> `apply`, `at`, `d`, `softmax`
+- `polyLayerStep_eval` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
+- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`, `trans`
 - `poly_const_distEq` -> `sqDistConst`
 - `poly_const_perpendicular` -> `sqDistConst`
 - `poly_const_samePoint` -> `sqDistConst`
 - `poly_decay_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `poly_expr_localMin_implies_zero` -> `EqConstraint`, `GeoExpr`, `Pt`, `derivExpr`, `diff`, `evalPts_localMin_implies_zero`, `maxPoint`, `poly`, `sqDist`, `sqDist_eq_zero_iff`, `sqDist_nonneg`, `sqNorm`, `toNatConfig`
 - `poly_gap_is_not_a_gap` -> `Repair`, `Sat`
-- `poly_lipschitz_distEq` -> `GeoExpr`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
-- `poly_lipschitz_expr` -> `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
+- `poly_lipschitz_distEq` -> `GeoExpr`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
+- `poly_lipschitz_expr` -> `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
 - `poly_lipschitz_perpendicular` -> `Pt`, `bilinearSum_lipschitz`, `rho`
-- `poly_lipschitz_samePoint` -> `GeoExpr`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
+- `poly_lipschitz_samePoint` -> `GeoExpr`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_lipschitz`
 - `poly_samePoint_eq_sqDist` -> `EqConstraint`, `Pt`, `diff`, `poly`, `sqDist`, `sqDist_eq_zero_iff`, `sqDist_nonneg`, `sqNorm`
 - `poly_samePoint_eq_zero_iff` -> `EqConstraint`, `Pt`, `diff`, `poly`, `sqDist`, `sqDist_eq_zero_iff`, `sqDist_nonneg`, `sqNorm`
 - `poly_samePoint_nonneg` -> `EqConstraint`, `Pt`, `diff`, `poly`, `sqDist`, `sqDist_eq_zero_iff`, `sqDist_nonneg`, `sqNorm`
 - `poly_specific_repairs` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
 - `poly_strict_repairs` -> `GeoConstraint`, `Holds`, `Pt`
 - `posMask_row_is_dummy` -> `maskedSoftmax`
-- `posWeight_eq_of_le` -> `at`
-- `posWeight_le_one` -> `at`
-- `posWeight_sum_eq` -> `at`
+- `posWeight_eq_of_le` -> `at`, `d`
+- `posWeight_le_one` -> `at`, `d`
+- `posWeight_sum_eq` -> `at`, `d`
 - `pos_commutation_version_is_false` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`
-- `posenc_interface_instances` -> `E`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `posenc_interface_instances` -> `E`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `positive_curvature_implies_elliptic` -> `Geometry`, `S2`
 - `post_train_preserves` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `shiftLayer`, `step`
 - `post_train_preserves_holds` -> `GeoConstraint`, `Holds`, `HoldsSet`, `at`, `netAct`, `shiftLayer`, `step`
@@ -8056,7 +8081,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prod_const_one_add` -> `at`, `eps`, `induction`, `le_trans`, `zero`
 - `prod_eq_zero_iff_exists` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `out`
 - `prod_gain_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
-- `prod_nonneg_of_forall` -> `apply`, `induction`
+- `prod_nonneg_of_forall` -> `apply`, `blocks`, `induction`
 - `prod_one_add_le_exp` -> `at`, `eps`
 - `prod_sum_factor` -> `at`, `card_fin`, `convert`, `le`
 - `productPlan_isPlan` -> `e2`, `mul`, `sInf`
@@ -8071,14 +8096,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `progress_needs_closed` -> `HasType`, `Step`, `Value`
 - `progress_of_rate` -> `Repair`, `Sat`, `iterate`
 - `progress_on_wf` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `preserves_of_sat`, `zero`
-- `projFeature_feature` -> `apply`
-- `projFeature_last` -> `apply`
+- `projFeature_feature` -> `apply`, `d`
+- `projFeature_last` -> `apply`, `d`
 - `projGD_contraction_to_solution` -> `E`, `GDUpdate`, `contraction_converges`
 - `projGD_converges` -> `E`, `GDUpdate`, `contraction_converges`
 - `projGD_iterate_contraction` -> `E`, `GDUpdate`, `contraction_converges`
 - `projGD_unconstrained_recovery` -> `E`, `GDUpdate`
-- `projLabelMatrix_mulVec` -> `apply`, `at`
-- `projMatrix_mulVec` -> `apply`
+- `projLabelMatrix_mulVec` -> `apply`, `at`, `d`
+- `projMatrix_mulVec` -> `apply`, `d`
 - `projOn_mem` -> `at`, `le_antisymm`, `le_trans`
 - `projOn_minimal` -> `at`, `le_antisymm`, `le_trans`
 - `projOn_nearest` -> `at`, `le_antisymm`, `le_trans`
@@ -8138,30 +8163,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `proof_holds` -> `Constraint`, `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `length`, `manifest`, `proof`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `proof_soundness` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `proofsFile_under_dir` -> `AllMandatoryKindsCoveredFor`, `Constraint`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
-- `proxGrad_contraction` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
-- `proxGrad_converges` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
+- `proxGrad_contraction` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
+- `proxGrad_converges` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
 - `proxGrad_descent_lemma` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
-- `proxGrad_descent_lemma_step` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
-- `proxGrad_descent_zero_h` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
-- `proxGrad_fixed_iff_kkt` -> `KKTOneDim`, `kkt_one_dim_complete`
-- `proxGrad_fixed_iff_stationary` -> `KKTOneDim`, `at`, `kkt_one_dim_complete`
-- `proxGrad_fixed_iff_subgradient` -> `KKTOneDim`, `Subgradient`, `at`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
-- `proxGrad_zero_h` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
+- `proxGrad_descent_lemma_step` -> `GradientCoCoercive`, `IsProx`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
+- `proxGrad_descent_zero_h` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
+- `proxGrad_fixed_iff_kkt` -> `KKTOneDim`, `d`, `kkt_one_dim_complete`
+- `proxGrad_fixed_iff_stationary` -> `KKTOneDim`, `at`, `d`, `kkt_one_dim_complete`
+- `proxGrad_fixed_iff_subgradient` -> `KKTOneDim`, `Subgradient`, `at`, `d`, `e2`, `kkt_one_dim_complete`, `prox_vi_of_isProx`, `real_norm_sq`
+- `proxGrad_zero_h` -> `GradientCoCoercive`, `IsProx`, `KKTOneDim`, `Smooth`, `Subgradient`, `at`, `contraction_converges`, `d`, `e2`, `kkt_one_dim_complete`, `le_trans`, `prox_nonexpansive`, `prox_self_of_minimizer`, `prox_unique`, `prox_vi_of_isProx`, `real_norm_sq`, `strong_convex_iterate_contraction`
 - `proxL1_eq_softThresh` -> `softThresh`
-- `proxN_nonexpansive` -> `apply`, `at`, `le_antisymm`, `le_trans`
-- `proxN_nonexpansive_sq` -> `apply`, `at`, `le_antisymm`, `le_trans`
+- `proxN_nonexpansive` -> `apply`, `at`, `d`, `le_antisymm`, `le_trans`
+- `proxN_nonexpansive_sq` -> `apply`, `at`, `d`, `le_antisymm`, `le_trans`
 - `proxN_self_of_minimizer` -> `at`
-- `proxN_unique` -> `IsProx`, `apply`, `at`, `le_antisymm`, `le_refl`, `prox_linear`
+- `proxN_unique` -> `IsProx`, `apply`, `at`, `d`, `le_antisymm`, `le_refl`, `prox_linear`
 - `proxVIN_aux` -> `apply`, `at`, `min`
-- `proxVIN_key` -> `apply`, `at`, `min`
+- `proxVIN_key` -> `apply`, `at`, `d`, `min`
 - `proxVIN_of_isProxN` -> `apply`, `at`, `le_antisymm`, `le_trans`, `min`
 - `prox_exists` -> `IsProx`, `add`, `at`, `comp`, `mul`, `prox_unique`
 - `prox_exists_unique` -> `IsProx`, `add`, `at`, `comp`, `mul`, `prox_unique`
 - `prox_vi_aux` -> `at`, `min`
 - `prox_vi_of_isProx` -> `at`, `min`
 - `pruneMatrix_sub_eq_neg` -> `apply`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`
-- `prune_admissible` -> `all`, `apply`, `at`, `children`, `induction`, `length`, `min`, `trans`
-- `prune_branch_safe` -> `all`, `apply`, `at`, `children`, `induction`, `length`, `min`, `trans`
+- `prune_admissible` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`
+- `prune_branch_safe` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`
 - `prune_chain_error` -> `frobeniusNorm`, `matCLME`, `min`, `quantFwd`, `quantized_chain_error_closed`
 - `prune_chain_error_pruned` -> `frobeniusNorm`, `matCLME`, `min`, `quantFwd`
 - `prune_error_norm` -> `frobeniusNorm`, `matCLME`, `min`, `quantFwd`, `quantized_chain_error_closed`
@@ -8201,66 +8226,66 @@ module. These are the edges that make the chain a chain rather than a list.
 - `qSatAllB_iff` -> `Program`, `RealConstraint`, `RealConstraintSat`
 - `qSat_unfold` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`
 - `qSatisfiableOn_iff` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`
-- `qat_convergence` -> `at`, `induction`, `zero`
-- `qat_loss_equals_ptq_plus_term` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `le_trans`, `zero`
-- `qat_mismatch_decomposition` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `le_trans`, `zero`
+- `qat_convergence` -> `at`, `d`, `induction`, `zero`
+- `qat_loss_equals_ptq_plus_term` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `le_trans`, `zero`
+- `qat_mismatch_decomposition` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `le_trans`, `zero`
 - `qat_optimal_stepsize` -> `le`
 - `qat_optimal_stepsize_attained` -> `le`
-- `qat_ptq_degenerate` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `zero`
-- `qat_ptq_gap_lipschitz` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `zero`
+- `qat_ptq_degenerate` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `zero`
+- `qat_ptq_gap_lipschitz` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `zero`
 - `qat_rate_decreasing_in_T` -> `le`
 - `qat_sgd_rate` -> `add`, `at`, `integral_condexp`, `le`, `le_trans`
 - `qat_sgd_rate_measure` -> `at`
 - `qat_sgd_rate_noise` -> `le`
-- `qat_step_bound` -> `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `zero`
+- `qat_step_bound` -> `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `zero`
 - `qat_sum_range_telescope` -> `add`, `at`, `induction`, `integral_condexp`, `le`, `le_trans`, `zero`
-- `quadForm_add` -> `add`, `at`
+- `quadForm_add` -> `add`, `at`, `d`
 - `quadForm_drift_noise_expand` -> `quadForm`
 - `quadForm_hessianMat` -> `add`, `at`, `comp`, `path`, `quadForm`, `second_order_taylor`, `single`
 - `quadForm_mul_diagonal_mul_transpose` -> `apply`, `at`, `symmetric_spectral_theorem`
-- `quadForm_smul` -> `add`, `at`
-- `quadForm_sym2` -> `add`, `at`
-- `quadForm_sym2_expanded` -> `add`, `at`
-- `quadForm_symm_part` -> `add`, `at`
-- `quadForm_transpose` -> `add`, `at`
+- `quadForm_smul` -> `add`, `at`, `d`
+- `quadForm_sym2` -> `add`, `at`, `d`
+- `quadForm_sym2_expanded` -> `add`, `at`, `d`
+- `quadForm_symm_part` -> `add`, `at`, `d`
+- `quadForm_transpose` -> `add`, `at`, `d`
 - `quad_at_naturalGradient` -> `apply`, `at`
 - `quad_complete_square` -> `apply`, `at`
-- `quad_gd_contraction` -> `at`, `le_trans`, `subst`
+- `quad_gd_contraction` -> `at`, `d`, `le_trans`, `subst`
 - `quad_model_smooth` -> `Smooth`, `Subgradient`, `at`, `strong_convex_gap_bound`
 - `quad_model_strong_convex` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `strong_convex_gap_bound`
 - `quad_no_decay_at_boundary` -> `apply`, `at`, `le_refl`
 - `quad_rate_abs_le_one_iff` -> `apply`, `at`, `le_refl`
-- `quad_smooth` -> `at`, `le_trans`, `subst`
+- `quad_smooth` -> `at`, `d`, `le_trans`, `subst`
 - `quad_step_diverges` -> `apply`, `at`, `le_refl`
-- `quad_strong_convex` -> `at`, `le_trans`, `subst`
+- `quad_strong_convex` -> `at`, `d`, `le_trans`, `subst`
 - `quadraticPlusOne_localMin` -> `isLocalMin_of_forall_le`
 - `quadraticPlusOne_ne_zero` -> `isLocalMin_of_forall_le`
 - `quadraticVariation_pos_of_pos_step` -> `apply`, `quadForm`
-- `quadratic_form_pos_def_iff` -> `add`, `at`, `second_order_necessary`
-- `quadratic_kkt` -> `at`, `subst`
-- `quadratic_kkt_minimal` -> `at`
+- `quadratic_form_pos_def_iff` -> `add`, `at`, `d`, `second_order_necessary`
+- `quadratic_kkt` -> `at`, `d`, `subst`
+- `quadratic_kkt_minimal` -> `at`, `d`
 - `quadratic_lower_bound_of_posdef` -> `at`
 - `quadratic_remainder_bound` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
 - `quadratic_remainder_bound_unit` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
 - `quadratic_third_difference` -> `Chain`, `at`, `e2`, `induction`, `zero`
-- `quadratic_unconstrained_stationary` -> `at`, `subst`
+- `quadratic_unconstrained_stationary` -> `at`, `d`, `subst`
 - `quantErrBound_closed` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `zero`
-- `quantErrBound_nonneg` -> `E`, `W`, `induction`, `le_trans`, `zero`
-- `quantErrBound_uniform` -> `E`, `W`, `induction`, `le_trans`, `zero`
+- `quantErrBound_nonneg` -> `E`, `W`, `d`, `induction`, `le_trans`, `zero`
+- `quantErrBound_uniform` -> `E`, `W`, `d`, `induction`, `le_trans`, `zero`
 - `quantFwd_eq_ChainFwd` -> `ChainFwd`, `E`, `W`, `apply`, `at`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `subst`, `zero`
 - `quantFwd_norm_bound` -> `E`, `W`, `apply`, `at`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `subst`, `zero`
 - `quant_delta_nonneg` -> `E`, `W`, `apply`, `at`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `subst`, `zero`
 - `quant_error_lt_two_pow` -> `IntLayer`, `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`, `quant`
 - `quant_layer_pointwise` -> `E`, `W`, `apply`, `at`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `subst`, `zero`
-- `quantization_error_reduction` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `le_trans`, `zero`
-- `quantization_error_reduction_drift` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `induction`, `le_trans`, `zero`
+- `quantization_error_reduction` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `le_trans`, `zero`
+- `quantization_error_reduction_drift` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `d`, `induction`, `le_trans`, `zero`
 - `quantizedLayer_output_error` -> `AffineLayer`, `W`, `affineAct`
 - `quantized_chain_error` -> `E`, `W`, `apply`, `at`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `subst`, `zero`
 - `quantized_chain_error_closed` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `linear_map_lipschitz`, `zero`
-- `quantized_chain_error_lipschitz` -> `ChainFwd`, `E`, `W`, `induction`, `le_trans`, `zero`
-- `quantized_two_layer_error` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `linear_map_lipschitz`, `zero`
-- `quantized_two_layer_error_add` -> `ChainFwd`, `E`, `W`, `apply`, `induction`, `insert`, `le_trans`, `zero`
-- `quantized_uniform_error` -> `E`, `W`, `le_trans`
+- `quantized_chain_error_lipschitz` -> `ChainFwd`, `E`, `W`, `d`, `induction`, `le_trans`, `zero`
+- `quantized_two_layer_error` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `linear_map_lipschitz`, `zero`
+- `quantized_two_layer_error_add` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `le_trans`, `zero`
+- `quantized_uniform_error` -> `E`, `W`, `d`, `le_trans`
 - `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
 - `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
 - `quotient_norm_scale_invariant` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
@@ -8300,19 +8325,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rademacher_abs_le_one` -> `at`, `le_trans`, `uniformExpectation`, `uniformExpectation_eq_zero_of_sum_eq_zero`, `uniformProb`
 - `rademacher_second_moment` -> `at`, `le_trans`, `uniformExpectation`, `uniformExpectation_eq_zero_of_sum_eq_zero`, `uniformProb`
 - `rademacher_sum_zero` -> `at`, `le_trans`, `uniformExpectation`, `uniformExpectation_eq_zero_of_sum_eq_zero`, `uniformProb`
-- `randBayesRisk_eq` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
+- `randBayesRisk_eq` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `randK_unbiased` -> `at`, `card_fin`
 - `randK_variance_eq` -> `at`, `card_fin`
-- `randRisk_eq` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`, `risk`
-- `randRule_probVec` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`
-- `rand_not_better_than_min` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `le`
-- `random_delay_finite_mean_of_tail` -> `at`, `induction`, `le_trans`, `zero`
-- `random_delay_neighborhood_split` -> `at`, `induction`, `le_trans`, `zero`
-- `random_delay_recovers_bounded` -> `at`, `le_trans`
+- `randRisk_eq` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
+- `randRule_probVec` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `d`
+- `rand_not_better_than_min` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`
+- `random_delay_finite_mean_of_tail` -> `at`, `d`, `induction`, `le_trans`, `zero`
+- `random_delay_neighborhood_split` -> `at`, `d`, `induction`, `le_trans`, `zero`
+- `random_delay_recovers_bounded` -> `at`, `d`, `le_trans`
 - `randomization_not_better` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
 - `range_map_get_eq_image` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `range_roundTrip_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `range_roundTrip_k_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `range_roundTrip_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `range_roundTrip_k_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `rankOf_le` -> `alpha`, `at`
 - `rankOf_mem` -> `alpha`, `at`, `card_fin`
 - `rankOneEdit_eq_add_rankOneFun` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`, `rankOneEdit`
@@ -8347,13 +8372,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ratioConstant_iff_ratioFactorized` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
 - `rc_one_is_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
 - `rc_zero_not_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
-- `rcq_kkt_multiplier_not_unique` -> `le_refl`
-- `rcq_multiplier_uniqueness_false_2x2` -> `le_refl`
-- `rcq_multiplier_uniqueness_false_for_any_dim` -> `at`, `le_refl`
-- `rcq_sum_sub_smul_eq_zero` -> `at`, `le_refl`, `subst`
-- `rcq_zero_combo_coeff_unique` -> `at`, `le_refl`, `subst`
-- `rcross_translate` -> `at`
-- `rdot_rotate_diff_le` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `rcq_kkt_multiplier_not_unique` -> `d`, `le_refl`
+- `rcq_multiplier_uniqueness_false_2x2` -> `d`, `le_refl`
+- `rcq_multiplier_uniqueness_false_for_any_dim` -> `at`, `d`, `le_refl`
+- `rcq_sum_sub_smul_eq_zero` -> `at`, `d`, `le_refl`, `subst`
+- `rcq_zero_combo_coeff_unique` -> `at`, `d`, `le_refl`, `subst`
+- `rcross_translate` -> `at`, `d`
+- `rdot_rotate_diff_le` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `rdpDelta_add_eq_mul` -> `E`, `at`, `le`, `le_trans`
 - `rdp_delta_of_log_bound` -> `le_trans`
 - `rdp_event_bound` -> `E`, `at`, `le`, `le_trans`
@@ -8363,9 +8388,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reachL_image_le_max_of_edge_le` -> `at`, `dist`, `induction`, `zero`
 - `reachL_imp` -> `ChainFwd`, `at`, `dist`, `induction`, `le_trans`, `zero`
 - `reachL_le_of_edge_le` -> `at`, `dist`, `induction`, `le_trans`, `zero`
-- `reachL_mono` -> `at`, `dist`, `induction`, `le_trans`, `zero`
-- `reachL_nested` -> `at`, `dist`, `induction`, `le_trans`, `zero`
-- `reachL_singleton_eq_chainFwd` -> `at`, `dist`, `induction`, `le_trans`, `zero`
+- `reachL_mono` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
+- `reachL_nested` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
+- `reachL_singleton_eq_chainFwd` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `reaches_self` -> `Reaches`
 - `readLength_determinate_of_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`
@@ -8427,14 +8452,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `real_xorC_value_table_on_bool` -> `at`
 - `real_xorC_zero_iff_and_or_decomposition` -> `at`, `subst`
 - `real_xorC_zero_table_on_bool` -> `at`
-- `recFwd_bot_le_succ` -> `apply`, `at`, `card_fin`, `induction`, `trans`, `zero`
-- `recFwd_bot_monotone` -> `apply`, `at`, `card_fin`, `induction`, `trans`, `zero`
-- `recFwd_eq_chainFwd` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `invariant_preserves_iteration`, `trans`, `zero`
-- `recFwd_eq_iterate` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
-- `recFwd_monotone` -> `apply`, `at`, `card_fin`, `comp`, `induction`, `trans`, `zero`
-- `recFwd_stabilizes_finite` -> `apply`, `at`, `card_fin`, `induction`, `zero`
-- `recFwd_succ` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
-- `recFwd_succ_apply` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
+- `recFwd_bot_le_succ` -> `apply`, `at`, `card_fin`, `d`, `induction`, `trans`, `zero`
+- `recFwd_bot_monotone` -> `apply`, `at`, `card_fin`, `d`, `induction`, `trans`, `zero`
+- `recFwd_eq_chainFwd` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `trans`, `zero`
+- `recFwd_eq_iterate` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
+- `recFwd_monotone` -> `apply`, `at`, `card_fin`, `comp`, `d`, `induction`, `trans`, `zero`
+- `recFwd_stabilizes_finite` -> `apply`, `at`, `card_fin`, `d`, `induction`, `zero`
+- `recFwd_succ` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
+- `recFwd_succ_apply` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `iterate`, `iterate_step_swap`, `trans`, `zero`
 - `recover_compileToLayer` -> `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `VectorConstraint`, `apply`, `at`, `compileToLayer`, `convertVec`, `dot`, `encode`, `encode_injective`, `extractLayer`, `extractVec`, `length`, `roundtrip_extractVec`
 - `recover_endpoint_prose_duals` -> `Layer`, `SymToken`
 - `recover_injective` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `encode_injective`, `extractLayer`, `length`
@@ -8449,15 +8474,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rectangularRep_degenerates` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
 - `rectangularRep_roundtrip` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `roundtrip`, `weightSymbolRep`
 - `rectangularRep_val_roundtrip` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
-- `recursion_terminates` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `recursive_invariant` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `invariant_preserves_iteration`, `trans`, `zero`
-- `recursive_invariant_chain` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `trans`, `zero`
-- `recursive_termination` -> `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `trans`, `zero`
-- `recursive_termination_eps` -> `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `induction`, `trans`, `zero`
-- `reduce_zero_iff_eval_eq_zero` -> `depth`, `eval`, `induction`, `step`
-- `refPackage_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `at`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
+- `recursion_terminates` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `recursive_invariant` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `trans`, `zero`
+- `recursive_invariant_chain` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `trans`, `zero`
+- `recursive_termination` -> `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `trans`, `zero`
+- `recursive_termination_eps` -> `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `trans`, `zero`
+- `reduce_zero_iff_eval_eq_zero` -> `d`, `depth`, `eval`, `induction`, `step`
+- `refPackage_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
 - `refPackage_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `at`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
-- `refPackage_uncs` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
+- `refPackage_uncs` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
 - `refinement_not_mandatory` -> `empty`, `layer`
 - `refines_iff` -> `induction`, `step`
 - `refines_mono` -> `induction`, `step`
@@ -8499,9 +8524,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reg_support_coverage` -> `E`, `gradStep`, `sphere`, `sphereGD`, `sphereGD_mem_sphere`, `sphereGD_retr_bound`, `supporting_hyperplane_of_boundary_point`, `supporting_hyperplane_real`
 - `registryConsistentFor_nil` -> `PluginLayer`, `PluginName`, `at`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `registryConsistent_holds` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `proof_holds`, `strPrefix_append_right`, `subst`, `verified`
-- `registryMigratedFor_fails_of_foreign` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
-- `registryMigratedFor_fails_of_unlisted` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
-- `registryMigratedFor_nil` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
+- `registryMigratedFor_fails_of_foreign` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `manifest`, `subst`
+- `registryMigratedFor_fails_of_unlisted` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `manifest`, `subst`
+- `registryMigratedFor_nil` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `manifest`, `subst`
 - `reglu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `reglu_is_gated` -> `Gated`, `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `geluSoftMask`, `gelu_is_soft_masked`, `gelu_soft_mask_bounds`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu_is_soft_masked`, `split`
 - `reglu_lipschitz` -> `SoftMasked`, `act`, `at`, `eps`, `gdStep`, `geglu`, `geluSoftMask`, `geluSoftMask_abs_le_one`, `gelu_is_soft_masked`, `glu`, `induction`, `loss`, `reglu`, `reluSoftMask`, `reluSoftMask_abs_le_one`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_abs_le_one`, `siluGLU`, `silu_is_soft_masked`, `zero`
@@ -8518,9 +8543,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
-- `relative_perturbation_bound` -> `E`, `apply`, `comp`, `trans`
-- `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `trans`
-- `relax` -> `at`
+- `relative_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
+- `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `d`, `trans`
+- `relax` -> `at`, `d`
 - `relpos_family_unified` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
 - `reluArch_wf` -> `Arch`, `WellFormed`, `at`, `depth`, `one`
 - `reluCompile_preserves` -> `ApproxOn`, `at`, `le_antisymm`, `relu_eq_zero_iff`, `sign`
@@ -8626,9 +8651,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `resid2_eq_residN` -> `localMin_iff_feasible`, `residN`
 - `resid2_other` -> `at`, `dist`, `exists_decrease`, `min`, `not_localMin_of_resid_ne_zero`
 - `resid2_perturb` -> `at`, `dist`, `exists_decrease`, `min`, `not_localMin_of_resid_ne_zero`
-- `residM_step` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
-- `residN_other` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
-- `residN_perturb` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `residM_step` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_of_feasible`, `min`
+- `residN_other` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `residN_perturb` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `residualMass_eq` -> `min`
 - `residualMass_nonneg` -> `min`
 - `residual_bound_of_sampled_tolerance` -> `DeltaDense`, `LipschitzOn`
@@ -8636,7 +8661,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `residual_edit_constraint` -> `E`, `W`
 - `residual_edit_constraint_scalar` -> `E`, `W`
-- `residual_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `residual_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `residual_edit_local` -> `E`, `W`, `edit_output_bound`
 - `residual_edit_local_scalar` -> `E`, `W`, `edit_output_bound_scalar`
 - `residual_eq_denote` -> `LinearForm`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `at`, `denote`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
@@ -8645,9 +8670,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_error_isolation_scalar` -> `E`, `W`, `edit_output_bound_scalar`
 - `residual_input_zero` -> `W`, `residual`
 - `residual_le_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `at`, `dist`, `trans`
-- `residual_le_of_zero_on_dense_from_generic` -> `dist`, `dist_nonneg`
-- `residual_le_of_zero_on_dense_of_d` -> `dist`, `dist_nonneg`, `trans`
-- `residual_lipschitz` -> `apply`, `induction`
+- `residual_le_of_zero_on_dense_from_generic` -> `d`, `dist`, `dist_nonneg`
+- `residual_le_of_zero_on_dense_of_d` -> `d`, `dist`, `dist_nonneg`, `trans`
+- `residual_lipschitz` -> `apply`, `blocks`, `induction`
 - `residual_lower_bound` -> `SoftmaxAttnOp`, `W`, `apply`, `at`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
 - `residual_lower_bound_free` -> `SoftmaxAttnOp`, `W`, `at`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_lower_bound_pointwise` -> `SoftmaxAttnOp`, `W`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
@@ -8659,7 +8684,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_rowStepN` -> `W`, `induction`, `residual`, `zero`
 - `residual_rowStep_abs_le` -> `W`, `residual`
 - `residual_rowStep_newton` -> `W`, `induction`, `residual`, `zero`
-- `residual_step` -> `Repair`, `Sat`, `apply`, `at`, `dot`, `iterate`, `progress`, `residual`, `step`
+- `residual_step` -> `Repair`, `Sat`, `apply`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `residual_two_layer_isolation_exact` -> `E`
 - `residual_uniform_bound_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `at`, `trans`
 - `residual_vanishes_witness` -> `SoftmaxAttnOp`, `softmax_sum_one`
@@ -8667,6 +8692,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_zero_iff_clm_zero_dim_false` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `layerToCLM`, `layerToCLM_apply`, `linFunc`, `residual`, `symVec`, `symW`
 - `residue_bound_of_finite_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `loss_le_sq_of_resid_le`, `resid`
 - `residue_bound_of_zero_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `loss_le_sq_of_resid_le`, `resid`
+- `resolution_limited_rate_shape` -> `d`
 - `retain_all_error_zero` -> `rho`
 - `retain_all_exact` -> `rho`
 - `retainedMass_add_droppedMass` -> `at`
@@ -8706,24 +8732,24 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rho_self` -> `Pt`, `e2`, `le_antisymm`, `le_refl`, `rho`, `rho_nonneg`
 - `rho_triangle` -> `Pt`, `e2`, `rho`, `rho_nonneg`
 - `rhs_eq_fin_sum` -> `apply`, `at`, `dot`, `length`
-- `richardsonIterate_error` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardsonIterate_succ` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardson_contraction` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardson_converges` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardson_converges_geometric` -> `E`, `apply`, `at`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardson_error` -> `E`, `apply`, `contraction_converges`, `contraction_pow_bound`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
-- `richardson_matCLME_sub` -> `apply`, `at`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardsonIterate_error` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardsonIterate_succ` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardson_contraction` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardson_converges` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardson_converges_geometric` -> `E`, `apply`, `at`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardson_error` -> `E`, `apply`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
+- `richardson_matCLME_sub` -> `apply`, `at`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
 - `ridge_fderiv` -> `E`, `NormSqLossScalar`, `at`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`
 - `ridge_global_min` -> `E`, `NormSqLossScalar`
 - `ridge_stationarity_iff` -> `E`, `NormSqLossScalar`, `at`
 - `riemann_depends_only_on_first_fundamental` -> `E`, `S2`, `split`
 - `rightAnglePenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`
 - `rightAnglePenalty_nonneg` -> `Pt`
-- `rightAngle_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
-- `rightAngle_dot_zero_iff` -> `depth`, `induction`, `step`
+- `rightAngle_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
+- `rightAngle_dot_zero_iff` -> `d`, `depth`, `induction`, `step`
 - `rightAngle_eq_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`
-- `rightAngle_expressible` -> `GeoConstraint`, `GeoExpr`
-- `rightAngle_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
+- `rightAngle_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
+- `rightAngle_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
 - `rightAngle_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `rip_constant_ge_one_of_nonzero_null` -> `apply`, `at`, `l0Norm`, `le_antisymm`, `sqNorm`, `subst`
 - `rip_controls_column_norm` -> `at`, `l0Norm`, `l1Norm`, `sqNorm`, `trans`
@@ -8788,28 +8814,28 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rollback_after_write` -> `BatchEditClosed`, `E`, `ROME`, `ROME_writes_fact`, `RankOnePatch`, `W`, `apply`, `batchClosed_orthogonal_writes`, `induction`
 - `rollback_edit` -> `BatchEditClosed`, `E`, `ROME`, `ROME_writes_fact`, `RankOnePatch`, `W`, `apply`, `batchClosed_orthogonal_writes`, `induction`
 - `rollback_edit_apply` -> `BatchEditClosed`, `E`, `ROME`, `ROME_writes_fact`, `RankOnePatch`, `W`, `apply`, `batchClosed_orthogonal_writes`, `induction`
-- `romeEditSeq_append` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
-- `romeEditSeq_cons` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
-- `romeEditSeq_cons_at_own_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `key_norm_sq_ne_zero`
-- `romeEditSeq_nil` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
-- `romeEditSeq_orthogonal_fixed` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `induction`, `key_norm_sq_ne_zero`
-- `ropeExtrapolate_zero` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `ropeFreq_antitone` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `le_trans`, `rdot`, `rotateR`
-- `ropeFreq_pos` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `ropeFreq_zero` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `rope_B_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
-- `rope_L_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `fin_two_mul_add_one_not_mod`, `le_trans`
-- `rope_angle_add` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `rope_angle_sub` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `romeEditSeq_append` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
+- `romeEditSeq_cons` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
+- `romeEditSeq_cons_at_own_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `key_norm_sq_ne_zero`
+- `romeEditSeq_nil` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
+- `romeEditSeq_orthogonal_fixed` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
+- `ropeExtrapolate_zero` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `ropeFreq_antitone` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
+- `ropeFreq_pos` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `ropeFreq_zero` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `rope_B_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `rope_L_sharp` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
+- `rope_angle_add` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `rope_angle_sub` -> `Point2R`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `rope_relative_preserves_dot` -> `Point2R`, `rdot`
 - `rope_score_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `rotateR_add_two_pi` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
-- `rotateR_add_two_pi_mul` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `rotateR_add_two_pi` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
+- `rotateR_add_two_pi_mul` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `rotateR_eq_iff_sub_eq_two_pi_mul` -> `Point2R`, `at`, `rotateR`
-- `rotateR_eq_of_sub_eq_two_pi_mul` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
-- `rotateR_not_injective` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `rotateR_eq_of_sub_eq_two_pi_mul` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
+- `rotateR_not_injective` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `rotateR_preserves_norm_rdot` -> `Point2R`, `rdot`, `rotateR`, `rotate_preserves_dot`
-- `rotateR_zero_eq_two_pi` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `rotateR_zero_eq_two_pi` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `rotate_compose` -> `Point2R`, `rdot`
 - `rotate_preserves_dot` -> `Point2R`, `rdot`
 - `roundDownN_le` -> `at`, `le_trans`, `roundDownN`, `roundDownN_mono`, `scale`, `subst`, `toNat`
@@ -8824,30 +8850,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundTripAddsNothing_of_factorsThrough_of_fiberPreds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `roundTripAddsNothing_of_leftInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `roundTripAddsNothing_of_weak` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
-- `roundTripFixed_append_singleton_iff` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `roundTripFixed_append_singleton_iff` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundTripFixed_singleton_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundTripNeedsProof_imp_not_forall` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `roundTripNeedsProof_is_false` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `roundTrip_compatible_with_compile` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
-- `roundTrip_eq_iff` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `roundTrip_eq_self` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `roundTrip_eq_iff` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `roundTrip_eq_self` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `roundTrip_fixed_not_discriminating` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundTrip_fixes_ne_iff_scaleVec_ne` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundTrip_funext` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundtrip_extractVec`, `trans`
-- `roundTrip_image_eq_univ` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `roundTrip_injective` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `roundTrip_image_eq_univ` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `roundTrip_injective` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundTrip_mono_iff_of_section` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_mono_of_id_mono` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_net_perturbation_zero` -> `VectorConstraint`, `convertVec`, `extractVec`
 - `roundTrip_perturbation_id` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
 - `roundTrip_preserves_order_iff` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
-- `roundTrip_range_eq_fixedPoints` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `roundTrip_range_eq_fixedPoints` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundUpN_mono` -> `at`, `empty`, `find`, `subst`
 - `round_close` -> `eps`, `induction`, `tiny`, `zero`
 - `round_growth_contract` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `round_keeps` -> `GeoConstraintSet`, `Rule`
 - `round_preserves_zero` -> `at`, `eps`, `induction`, `tiny`, `zero`
-- `round_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `Rule`, `rule_entails`
+- `round_sound` -> `EntailsGeo`, `GeoConstraint`, `GeoConstraintSet`, `Rule`, `d`, `rule_entails`
 - `roundingIsApprox_bound` -> `ErrorBound`, `compile`, `dist`, `extract`
 - `roundingIsApprox_composes` -> `ErrorBound`, `dist`
 - `roundingIsApprox_error_one` -> `ErrorBound`, `dist`
@@ -8899,21 +8925,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rowEditCex_sum` -> `W`, `apply`, `at`
 - `rowEditCex_zero_ne_one` -> `W`, `apply`, `at`
 - `rowEditDelta_apply` -> `W`, `apply`, `at`, `matvecE`, `matvecE_sub`, `single`, `trivial`
-- `rowEdit_commute_of_orthogonal_keys` -> `ApplyEdit`, `E`, `edit2_orthogonal_commutes`, `order_dependence_general`
-- `rowEdit_commute_of_orthogonal_support` -> `ApplyEdit`, `E`, `order_dependence_general`
+- `rowEdit_commute_of_orthogonal_keys` -> `ApplyEdit`, `E`, `d`, `edit2_orthogonal_commutes`, `order_dependence_general`
+- `rowEdit_commute_of_orthogonal_support` -> `ApplyEdit`, `E`, `d`, `order_dependence_general`
 - `rowEdit_depends_only_iff` -> `W`, `apply`, `at`
-- `rowEdit_eq_applyEdit` -> `ApplyEdit`, `E`, `edit2_orthogonal_commutes`, `order_dependence_general`
+- `rowEdit_eq_applyEdit` -> `ApplyEdit`, `E`, `d`, `edit2_orthogonal_commutes`, `order_dependence_general`
 - `rowEdit_not_depends_only_counterexample` -> `W`, `apply`
 - `rowEdit_offRow_zero` -> `W`, `apply`, `at`, `single`, `trivial`
-- `rowEdit_order_difference` -> `ApplyEdit`, `E`, `order_dependence_general`
-- `rowEdit_order_difference_zero_of_orthogonal` -> `ApplyEdit`, `E`
+- `rowEdit_order_difference` -> `ApplyEdit`, `E`, `d`, `order_dependence_general`
+- `rowEdit_order_difference_zero_of_orthogonal` -> `ApplyEdit`, `E`, `d`
 - `rowLocal_of_cellLocal` -> `W`, `apply`
 - `rowMax_eq_pairing_dirac` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `row_cs_bound` -> `apply`, `at`, `card_fin`, `single`
-- `row_fiber_card_le` -> `at`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
-- `row_index_irrelevant_for_commute` -> `ApplyEdit`, `E`, `order_dependence_general`
+- `row_fiber_card_le` -> `at`, `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `row_index_irrelevant_for_commute` -> `ApplyEdit`, `E`, `d`, `order_dependence_general`
 - `row_sum_sq_le` -> `apply`, `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `le_trans`
-- `rpow_pow_one_div_natCast` -> `apply`, `le_antisymm`, `matCLME`
+- `rpow_pow_one_div_natCast` -> `apply`, `d`, `le_antisymm`, `matCLME`
 - `rpow_sum_le_of_renyiDivergence_le` -> `E`, `at`, `le`, `le_trans`
 - `rs_code_distance_ge` -> `alpha`, `at`, `card_fin`, `eval`, `subst`
 - `rs_decoding_existence_given_trusted_set` -> `alpha`, `eval`
@@ -8940,33 +8966,33 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rt_fixedPoints_eq_univ` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
 - `rt_funext` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
 - `rt_isClosureOp` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
-- `rule_entails` -> `GeoConstraint`, `induction`, `sound`, `subst`, `zero`
+- `rule_entails` -> `GeoConstraint`, `d`, `induction`, `sound`, `subst`, `zero`
 - `runChainStr_eq` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `runProg_append` -> `add`, `at`, `induction`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `runSeq_all_succeed` -> `RState`, `Step`, `apply`, `run`
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `edit_seq_comm`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `subst`
 - `run_cons` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
-- `run_eq` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_eq` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_nil` -> `E`, `edit_seq_comm`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
-- `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_preserved` -> `induction`
-- `run_reaches_symbol` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_sound` -> `Ladder`, `W`, `apply`, `at`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_reaches_symbol` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_sound` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `runs_preserved` -> `induction`
-- `s02_convertVec_extractVec_eta` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_cons_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_nil` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_nil_left` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `ex`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_two_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_two_eq_form` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
-- `s02_dot_two_special` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_convertVec_extractVec_eta` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_cons_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_nil` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_nil_left` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `ex`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_two_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_two_eq_form` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_dot_two_special` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_list_completeness_does_not_descend_to_single` -> `AllZeroOutputs`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec_preserves_semantics`, `extractVec`, `subst`
 - `s02_list_realization_complete` -> `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec_preserves_semantics`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_list_realization_witness_is_mechanical` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec_preserves_semantics`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_realizable_layer_has_linear_characterization` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `subst`
 - `s02_realizes_iff_single_linear_form` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `subst`
-- `s02_realizes_to_realizesSet` -> `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
+- `s02_realizes_to_realizesSet` -> `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_single_constraint_incomplete` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_extractLayer`, `convertVec_preserves_semantics`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`
 - `s02_twoAxisLayer_needs_two` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_extractLayer`, `convertVec_preserves_semantics`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`
 - `s02_twoAxisLayer_semantics` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_extractLayer`, `convertVec_preserves_semantics`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`
@@ -8984,14 +9010,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `safe_normalize_radial_bound` -> `E`, `le`
 - `safe_normalize_sub_decomp` -> `E`, `le`
 - `safe_normalize_zero` -> `E`, `le`
-- `sameCompileFibre_iff_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `sameCompileFibre_iff_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `sameFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `sameLayer_imp_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
 - `sameLayer_strictly_finer_than_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_respects_semEq`, `induction`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `zero`
-- `samePointArch_wf` -> `AffineLayer`, `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `count`, `depth`, `identity`, `length`, `one_wellFormed`
-- `samePointArtifact_arch` -> `Arch`, `enc`, `identity`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
-- `samePointArtifact_depth` -> `Arch`, `depth`, `enc`, `identity`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
-- `samePointArtifact_layers` -> `Arch`, `enc`, `identity`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
+- `samePointArch_wf` -> `AffineLayer`, `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `arch`, `count`, `depth`, `identity`, `layers`, `length`, `one_wellFormed`, `weights`
+- `samePointArtifact_arch` -> `Arch`, `arch`, `enc`, `identity`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
+- `samePointArtifact_depth` -> `Arch`, `arch`, `depth`, `enc`, `identity`, `layers`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`, `weights`
+- `samePointArtifact_layers` -> `Arch`, `arch`, `enc`, `identity`, `layers`, `length`, `one`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`, `weights`
 - `samePointArtifact_satW_iff` -> `enc`, `samePointLadder_satW_iff`, `samePointLayer`, `samePointSatW`
 - `samePointLadder_forward` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `samePointLadder_satW_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
@@ -8999,16 +9025,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samePointMeasureFin_le_one` -> `Pt`, `samePointMeasureFin`, `split`
 - `samePointMeasure_eq_zero_iff` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`, `iterate`, `progress`
 - `samePointRepair_unified` -> `Pt`, `Repair`, `Sat`, `linearRepair`, `perpRepair`, `preserves_of_sat`, `samePointRepair`
-- `samePointWeightsLadder_l2l3` -> `Activation`, `ModelArtifact`, `SymbolicSummary`, `affineLayerToMLayer`, `construct_artifact`, `depth`, `enc`, `identity`, `ofArtifact`, `samePointLayer`
-- `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `samePoint_expressible` -> `GeoConstraint`, `GeoExpr`
-- `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `samePointWeightsLadder_l2l3` -> `Activation`, `ModelArtifact`, `SymbolicSummary`, `affineLayerToMLayer`, `construct_artifact`, `depth`, `enc`, `identity`, `layers`, `ofArtifact`, `samePointLayer`, `weights`
+- `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `samePoint_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
+- `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `samePoint_loop_reaches_penalty_zero` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `loss`, `repair_success_is_penalty_zero`, `samePointRepair`
 - `samePoint_loss_eq` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`
 - `samePoint_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
 - `samePoint_measure_le_one` -> `Pt`, `samePointMeasure`, `samePointMeasureFin`, `split`
-- `samePoint_path_of_ne` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `samePoint_path_zero` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `samePoint_path_of_ne` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `samePoint_path_zero` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `samePoint_penalty_iff_sat` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `loss`, `loss_eq_zero_toGeo_samePoint`, `repair_success_is_penalty_zero`, `samePointRepair`
 - `samePoint_penalty_zero_iff_sat_iff` -> `EqConstraint`, `Pt`, `Sat`, `loss`, `samePointRepair`
 - `samePoint_sat_implies_penalty_zero` -> `EqConstraint`, `Pt`, `Sat`, `loss`, `samePointRepair`
@@ -9019,7 +9045,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `same_concept_iff_same_constraintFiber` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `same_concept_iff_same_elementFiber` -> `VectorConstraint`, `apply`, `at`, `gazeUp`, `induction`, `scaleVec`, `trans`
 - `same_degree_noniso_witness` -> `E`, `nbhdSet`, `nbhdSum`
-- `same_row_orthogonal_keys_commute` -> `ApplyEdit`, `E`, `order_dependence_general`
+- `same_row_orthogonal_keys_commute` -> `ApplyEdit`, `E`, `d`, `order_dependence_general`
 - `same_transform_separated` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
 - `sampleCovariance_trace` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `sampleCovariance_trace_nonneg` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
@@ -9057,8 +9083,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sat_ragged_false_positive` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `satisfaction_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `satisfaction_loop_invariant` -> `iterate`, `repair`
-- `satisfiable_cons_iff` -> `Program`, `ProgramSat`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
-- `satisfiable_empty` -> `Program`, `ProgramSat`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
+- `satisfiable_cons_iff` -> `Program`, `ProgramSat`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `d`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
+- `satisfiable_empty` -> `Program`, `ProgramSat`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `d`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
 - `satisfiable_of_linear_layers` -> `GeoConstraint`, `Holds`, `Pt`
 - `satisfiable_of_repair` -> `Repair`, `Sat`, `at`
 - `satisfiable_of_samePoint_only` -> `GeoConstraint`, `Holds`, `Pt`
@@ -9133,12 +9159,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `scale_isLipschitz` -> `Instr`, `W`, `applyInstr`, `scale`
 - `scale_orbit_behaviorally_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `scaled_semEq_unit` -> `IdempotentOn`, `LinearForm`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
-- `scaling_law_variance_limited` -> `uniformExpectation`
-- `scaling_law_variance_limited_holder` -> `uniformExpectation`
+- `scaling_law_variance_limited` -> `d`, `uniformExpectation`
+- `scaling_law_variance_limited_holder` -> `d`, `uniformExpectation`
+- `scaling_law_variance_limited_nonvacuous` -> `d`
 - `scheme_covers_all` -> `Compiler`, `W`, `compile`, `encode`, `satW`
 - `schur_complement_identity` -> `at`
-- `score_lin_lipschitz` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `le_trans`, `linfNorm_eq_norm`, `softmax`
-- `score_lin_lipschitz_qk` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `le_trans`, `linfNorm_eq_norm`, `softmax`
+- `score_lin_lipschitz` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
+- `score_lin_lipschitz_qk` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
 - `score_log_derivative` -> `apply`, `at`, `log_derivative_identity`
 - `search_complete` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
 - `search_complete_z` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
@@ -9146,13 +9173,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `search_sound_z` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
 - `search_terminates` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
 - `second_deriv_zero_undetermined` -> `IsStrictLocalMin`, `at`, `comp`, `const_add`
-- `second_order_necessary` -> `add`, `at`, `le_trans`, `min`, `mono`, `subst`
+- `second_order_necessary` -> `add`, `at`, `d`, `le_trans`, `min`, `mono`, `subst`
 - `second_order_necessary_multidim` -> `add`, `at`, `second_order_necessary`
 - `second_order_necessary_multidim_no_hhess` -> `quadForm`, `second_order_necessary_multidim`
 - `second_order_necessary_of_contDiff` -> `at`, `comp`, `mono`
-- `second_order_sufficient` -> `add`, `at`, `le_trans`, `min`, `mono`
+- `second_order_sufficient` -> `add`, `at`, `d`, `le_trans`, `min`, `mono`
 - `second_order_sufficient_max` -> `IsStrictLocalMin`, `at`, `exists_box_of_continuousAt_neg`, `mono`, `second_order_sufficient`, `toIsLocalMin`
-- `second_order_sufficient_multidim_unconditional` -> `PosDefQ`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sym2`, `two_dim_posdef_iff`
+- `second_order_sufficient_multidim_unconditional` -> `PosDefQ`, `d`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sym2`, `two_dim_posdef_iff`
 - `second_order_sufficient_of_contDiff` -> `at`, `comp`, `mono`
 - `second_order_sufficient_pointwise` -> `at`, `mono`
 - `second_order_taylor` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
@@ -9165,7 +9192,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seg_bump_far` -> `seg`
 - `seg_bump_far_ne` -> `seg`
 - `seg_bump_other` -> `seg`
-- `seg_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `trunc`
+- `seg_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `trunc`
 - `seg_const_zero` -> `GeoConstraint`, `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`, `seg`
 - `seg_eq_segComp` -> `HasNonzeroDeriv`, `add`, `at`, `bump`, `const_add`, `coordProj`, `hasFDerivAt_perpResid`, `localMin_implies_zero`, `seg`, `segComp`
 - `seg_scale` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
@@ -9234,7 +9261,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `enc`, `pieceOf`
 - `sep_present_keeps_two_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
-- `separableKernel_gram_psd` -> `apply`, `featScore`, `softmax`
+- `separableKernel_gram_psd` -> `apply`, `d`, `featScore`, `softmax`
 - `separated_iff_ne` -> `Pt`, `apply`, `at`, `fixPerp`, `fixPerp_other`, `fixSamePoint`, `fixSamePoint_other`, `fixSamePoint_self`
 - `separated_iff_ne_aux` -> `Pt`, `apply`, `at`, `fixPerp`, `fixPerp_other`, `fixSamePoint`, `fixSamePoint_other`, `fixSamePoint_self`
 - `separates_compact_closed_convex` -> `E`, `at`, `dist`, `le`
@@ -9343,27 +9370,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `singleChainWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `single_dev_tail` -> `at`, `card_fin`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `single_solution_constraint_concept` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
-- `single_var_is_multivar` -> `dot`
+- `single_var_is_multivar` -> `d`, `dot`
 - `singleton_contains_iff` -> `apply`, `at`, `empty`, `find`
 - `singleton_contains_self` -> `apply`, `at`, `empty`, `find`
-- `singleton_minimal_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
-- `singularValueSq_eq_gram_eigenvalues` -> `E`, `at`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `singleton_minimal_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
+- `singularValueSq_eq_gram_eigenvalues` -> `E`, `at`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `singularValueSq_nonneg` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `singularValue_nonneg` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `singularValue_sq` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
-- `sizeList_cons` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `sizeList_nil` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_child_lt` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
+- `sizeList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `sizeList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_child_lt` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `size_guard_two` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
 - `size_le_one` -> `alpha`, `at`, `le_refl`, `le_trans`
-- `size_le_sizeList` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_lt_of_mem` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_node` -> `add`, `apply`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_non_increasing` -> `induction`, `step`
+- `size_le_sizeList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_non_increasing` -> `d`, `induction`, `step`
 - `size_nonneg` -> `alpha`, `at`, `le_refl`, `le_trans`
-- `size_pos` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
-- `size_pos_aux` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
+- `size_pos` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_pos_aux` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `skip_no_step` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
@@ -9386,16 +9413,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotCount_eq` -> `at`, `trans`
 - `slotCount_eq_card` -> `at`, `trans`
 - `slotCount_eq_of_ne` -> `at`, `trans`
-- `slotOf_inj_col` -> `at`, `comp`
-- `slotOf_lt_bound` -> `Chain`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
-- `slotOf_row_add` -> `comp`
-- `slotOf_succ_col` -> `at`, `comp`
-- `slotOf_succ_row` -> `at`, `comp`
+- `slotOf_inj_col` -> `at`, `comp`, `d`
+- `slotOf_lt_bound` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `single`, `trans`
+- `slotOf_row_add` -> `comp`, `d`
+- `slotOf_succ_col` -> `at`, `comp`, `d`
+- `slotOf_succ_row` -> `at`, `comp`, `d`
 - `slotOf_weight_lt` -> `MLayer`, `apply`, `single`
 - `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`
 - `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`
-- `slotOf_zero_row` -> `at`
-- `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`
+- `slotOf_zero_row` -> `at`, `d`
+- `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`, `d`
 - `slotWeightLtBiasProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `slotOf`, `slotOf_lt_bound`, `slotOf_weight_lt`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `slotWithinBlockProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `slotOf`, `slotOf_lt_bound`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `slotZeroDeadPastTwoProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
@@ -9410,9 +9437,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `smallstep_final_unique` -> `Compiler`, `at`
 - `smallstep_to_bigstep_single` -> `Compiler`, `at`, `induction`, `subst`, `trans`
 - `smooth_descent_bound` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
-- `smooth_grad_sq_le` -> `E`, `Expect`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `rho`, `sgd_expectation_contraction_variance`, `sgd_update`, `smooth_descent_bound`, `strong_convex_gap_lower`, `zero`
+- `smooth_grad_sq_le` -> `E`, `Expect`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `d`, `induction`, `rho`, `sgd_expectation_contraction_variance`, `sgd_update`, `smooth_descent_bound`, `strong_convex_gap_lower`, `zero`
 - `smooth_step_bound` -> `at`, `le`
-- `smulRight_one_eq_smul` -> `E`, `at`, `comp`, `convert`
+- `smulRight_one_eq_smul` -> `E`, `at`, `comp`, `convert`, `d`
 - `smul_adversarialVec` -> `at`
 - `smul_injective_of_noZeroSMulDivisors` -> `at`
 - `smul_norm_bound` -> `E`, `W`
@@ -9442,9 +9469,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmaxAttnOp_value_bound` -> `SoftmaxAttnOp`, `at`, `attention_output_bound`, `convComb`, `single`, `softmax`, `softmax_sum_one`
 - `softmaxAttnOp_zero` -> `SoftmaxAttnOp`, `W`, `apply`, `at`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
 - `softmaxBlock_attn` -> `SubLayer`, `W`, `apply`, `convComb`, `softmax`
-- `softmax_attention_eq_nwWeights` -> `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `softmax_attention_is_nw` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `softmax_attention_nw_is_prob` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `softmax_attention_eq_nwWeights` -> `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `softmax_attention_is_nw` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `softmax_attention_nw_is_prob` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_output_le` -> `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_ce_differentiableAt` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `softmax_ce_directional_deriv` -> `apply`, `comp`, `const_add`, `softmax`, `softmax_denom_pos`, `softmax_pos`
@@ -9457,7 +9484,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmax_lipschitz` -> `at`, `exp_sub_one_le`, `le_total`, `softmax`, `softmax_le_one`, `softmax_pos`, `trans`
 - `softmax_lipschitz_coord` -> `LinfNorm`, `at`, `bddAbove_abs`, `linfNorm_nonneg`, `softmax`, `softmax_denom_pos`
 - `softmax_monotone` -> `softmax`, `softmax_denom_pos`
-- `softmax_numerator_eq_expKernel` -> `apply`, `at`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
+- `softmax_numerator_eq_expKernel` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_policy_pmf` -> `E`
 - `softmax_policy_pos` -> `E`
 - `softmax_pos` -> `Block`, `SubLayer`, `W`, `apply`, `at`, `attention_output_bound`, `convComb`, `exp_sub_one_le`, `le_total`, `softmax`, `softmax_denom_pos`, `softmax_le_one`, `softmax_nonneg`, `softmax_sum_one`, `trans`
@@ -9471,20 +9498,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmax_temp_preserves_order` -> `at`, `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`, `softmax_monotone`
 - `softmax_temp_scale` -> `at`, `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`, `softmax_monotone`
 - `softmax_translation_invariant` -> `at`, `exp_lipschitz_on`, `le_trans`, `softmax`, `softmax_denom_pos`, `softmax_monotone`
-- `softmax_vs_linear` -> `softmax`
+- `softmax_vs_linear` -> `d`, `softmax`
 - `softplusA_close` -> `at`, `le_trans`
 - `softplus_deriv` -> `add`, `at`, `comp`, `const_add`, `div_const`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `mul`, `sigmoid`, `sigmoid_bounds`, `sigmoid_deriv`, `tanh_abs_le_one`, `tanh_deriv`, `tanh_hasDerivAt`, `trivial`
 - `softplus_hasDerivAt` -> `add`, `at`, `comp`, `const_add`, `div_const`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `mul`, `sigmoid`, `sigmoid_bounds`, `sigmoid_deriv`, `tanh_abs_le_one`, `tanh_deriv`, `tanh_hasDerivAt`, `trivial`
 - `softplus_lipschitz` -> `add`, `at`, `comp`, `const_add`, `div_const`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `mul`, `sigmoid`, `sigmoid_bounds`, `sigmoid_deriv`, `tanh_abs_le_one`, `tanh_deriv`, `tanh_hasDerivAt`, `trivial`
 - `softplus_pos` -> `add`, `at`, `comp`, `const_add`, `div_const`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `mul`, `sigmoid`, `sigmoid_bounds`, `sigmoid_deriv`, `tanh_abs_le_one`, `tanh_deriv`, `tanh_hasDerivAt`, `trivial`
 - `softplus_strictMono` -> `add`, `at`, `comp`, `const_add`, `div_const`, `geluSoftMask`, `geluTanh`, `hardSigmoid`, `mul`, `sigmoid`, `sigmoid_bounds`, `sigmoid_deriv`, `tanh_abs_le_one`, `tanh_deriv`, `tanh_hasDerivAt`, `trivial`
-- `solIter_stable` -> `Chain`, `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `solIter_succ` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `solIter_succ_self` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `solIter_succ_stable` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `sol_apply` -> `Chain`, `apply`, `at`, `le`
-- `sol_eq_mech` -> `Chain`, `at`
-- `solution_perturbation_bound` -> `E`, `apply`, `comp`, `trans`
+- `solIter_stable` -> `Chain`, `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `solIter_succ` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `solIter_succ_self` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `solIter_succ_stable` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `sol_apply` -> `Chain`, `apply`, `at`, `blocks`, `le`
+- `sol_eq_mech` -> `Chain`, `at`, `blocks`
+- `solution_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
 - `soundAbstract_alpha_le` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `zero`
 - `soundAbstract_iff_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
 - `soundAbstract_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
@@ -9493,7 +9520,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sound_of_factors` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `sound_via_scheme` -> `Compiler`, `W`, `compile`, `encode`, `satW`
 - `soundness` -> `HasType`, `Step`, `Ty`, `Value`, `progress`
-- `soundnessProp_holds` -> `BoundedV`, `GeoExpr`, `Holds`, `LipschitzK`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `rho`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `soundnessProp_holds` -> `BoundedV`, `GeoExpr`, `Holds`, `LipschitzK`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `d`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `rho`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `sparseAgreesDenseProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `soundness`, `sparseMsgPass_eq_msgPass`
 - `sparseDelta_eq_pruneError` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`
 - `sparseEdit_sub_eq_delta` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`
@@ -9520,7 +9547,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `spectral_concentration_of_markov` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `spectral_radius_concentration_transfer` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `matCLME`, `spectral_radius_le_opNorm`
 - `spectral_radius_le_opNorm` -> `at`, `frobeniusNorm`, `induction`, `le_trans`, `matCLME`, `matCLME_apply`, `opNorm_le_frobenius`, `zero`
-- `spectral_radius_le_opNorm_diag` -> `HasRealEigenvalue`, `apply`, `at`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
+- `spectral_radius_le_opNorm_diag` -> `HasRealEigenvalue`, `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`, `spectral_radius_le_opNorm`
 - `spectral_radius_le_opNorm_of_real_eigenvalue` -> `HasRealEigenvalue`, `matCLME`, `spectral_radius_le_opNorm`
 - `speculative_acceptMass_eq` -> `at`, `geom_sum_eq`, `min`
 - `speculative_eq_target` -> `min`
@@ -9538,46 +9565,46 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sphere_curvature_algebra` -> `Geometry`, `S2`
 - `sphere_normalize_fixed` -> `E`
 - `sphere_normalize_projects` -> `E`
-- `sphere_one_nonempty` -> `PosDefQ`, `at`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
+- `sphere_one_nonempty` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `spill_required` -> `Adj`
 - `splitLast_append_singleton` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`, `seg`
-- `split_confers_part_identity_immediately` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `trivial`, `up`, `withGaze`
-- `split_error_bound` -> `col`
+- `split_confers_part_identity_immediately` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `trivial`, `up`, `withGaze`
+- `split_error_bound` -> `col`, `d`
 - `split_exposes_parts_to_upward_gaze` -> `at`, `extent`
 - `split_iff_all` -> `at`, `extent`
 - `split_immediately_confers_concept` -> `at`, `extent`
 - `sqDistConst_one` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
 - `sqDistConst_scale` -> `GeoExpr`, `add`, `mul`, `sqDistConst`
-- `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
-- `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `seg`
-- `sqDistEq_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `sqDistEq_expressible` -> `GeoConstraint`, `GeoExpr`
-- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `evalPts`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
-- `sqDistEq_not_affine` -> `aff`, `le_refl`, `sq_eq_two_roots`, `subst`
-- `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `at`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
-- `sqDistFDeriv_apply` -> `Pt`, `comp`, `convert`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
-- `sqDistFix_reaches` -> `Pt`, `sqDist`, `sqDist_nonneg`
-- `sqDistJointFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
-- `sqDistPairFDerivComp_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `sqDistPairFDerivComp_eq` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `sqDistPairFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
+- `sqDistEqPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `seg`
+- `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `seg`
+- `sqDistEq_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistEq_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
+- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `sqDistEq_not_affine` -> `aff`, `d`, `le_refl`, `sq_eq_two_roots`, `subst`
+- `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `at`, `d`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
+- `sqDistFDeriv_apply` -> `Pt`, `comp`, `convert`, `d`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
+- `sqDistFix_reaches` -> `Pt`, `d`, `sqDist`, `sqDist_nonneg`
+- `sqDistJointFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `penaltyLoss`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
+- `sqDistPairFDerivComp_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistPairFDerivComp_eq` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `trunc`, `trunc_apply`
+- `sqDistPairFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `minorDefect`, `penaltyLoss`, `seg`, `sqDist`, `sqDistFDeriv_apply`, `trunc`, `trunc_apply`
 - `sqDist_abs_le` -> `Pt`, `at`, `card_fin`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqDist_eq_sum`, `sqNorm`
-- `sqDist_affine` -> `Pt`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
-- `sqDist_along_path_lt` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `sqDist_along_path_split` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `sqDist_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `comp`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
-- `sqDist_differentiableAt_pair` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
+- `sqDist_affine` -> `Pt`, `d`, `sqDist`, `sqDist_eq_sum`, `sqDist_nonneg`
+- `sqDist_along_path_lt` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `sqDist_along_path_split` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `sqDist_congr` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `seg`, `sqDist`, `trunc`
+- `sqDist_differentiableAt_pair` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `sqDist`, `sqDist_eq_sum`, `trunc`, `trunc_apply`
 - `sqDist_eq_coord_add_rest` -> `Pt`, `diff`, `sqDist`, `sqDist_nonneg`, `sqNorm`
-- `sqDist_eq_of_dist_eq` -> `Pt`, `trans`
-- `sqDist_eq_of_dist_eq_same` -> `Pt`, `trans`
-- `sqDist_eq_resid` -> `GeoExpr`, `diff`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `segComp`, `sqDist`, `sqDistEqPenalty`, `sqNorm`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
-- `sqDist_eq_sqNorm` -> `Pt`, `at`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
-- `sqDist_eq_sum` -> `Pt`, `at`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
-- `sqDist_eq_zero_iff` -> `Pt`, `at`, `sqNorm_eq_zero_iff`, `trans`
+- `sqDist_eq_of_dist_eq` -> `Pt`, `d`, `trans`
+- `sqDist_eq_of_dist_eq_same` -> `Pt`, `d`, `trans`
+- `sqDist_eq_resid` -> `GeoExpr`, `d`, `diff`, `differentiable_sqDistResid`, `equalLengthPenalty`, `evalPts`, `segComp`, `sqDist`, `sqDistEqPenalty`, `sqNorm`, `toNatConfig`, `twoValuedPenalty`, `unflatten`
+- `sqDist_eq_sqNorm` -> `Pt`, `at`, `d`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
+- `sqDist_eq_sum` -> `Pt`, `at`, `d`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
+- `sqDist_eq_zero_iff` -> `Pt`, `at`, `d`, `sqNorm_eq_zero_iff`, `trans`
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
-- `sqDist_nonneg` -> `Pt`, `at`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
+- `sqDist_nonneg` -> `Pt`, `at`, `d`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `at`, `sqDist`, `sqDist_nonneg`
-- `sqDist_self` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `holds_of_degenerateOK`, `sqDist`, `sqDist_eq_zero_iff`
+- `sqDist_self` -> `DegenerateOK`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `evalPts`, `holds_of_degenerateOK`, `sqDist`, `sqDist_eq_zero_iff`
 - `sqDist_translate` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `at`, `collinear`, `collinear_translate`, `diff`, `midpoint_translate`, `parallel`, `parallel_translate`, `perpendicular_translate`, `rightAngle_translate`, `samePoint_translate`, `sqDist`, `sqNorm`, `translate`
 - `sqDist_translateBy` -> `Pt`, `apply`, `at`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
 - `sqDist_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
@@ -9592,12 +9619,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sq_add_le_two_mul_sq_add_sq` -> `at`, `card_fin`
 - `sq_add_two_le` -> `card_fin`
 - `sq_dist_eq_of_dist_eq` -> `E`, `Geometry`, `at`, `dist`
-- `sq_eq_two_roots` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
-- `sq_eq_zero_iff_real` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
+- `sq_eq_two_roots` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `d`, `enc`, `identityTokenizer`, `ladder_forward`, `le`, `netAct`, `satSym`, `satW`
+- `sq_eq_zero_iff_real` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
 - `sq_eq_zero_of_localMin` -> `E`, `sq_localMin_dichotomy`
 - `sq_le_needs_nonneg` -> `Audit`, `at`
 - `sq_localMin_dichotomy` -> `E`, `at`, `hasFDerivAt_sq`, `sq_eq_zero_of_localMin`
-- `sq_lt_sq_iff_mul_sign` -> `Pt`, `at`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
+- `sq_lt_sq_iff_mul_sign` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `sq_not_lipschitz` -> `at`
 - `sq_penalty_eq_zero` -> `E`, `Sat`, `at`, `loss`, `trivial`
 - `sq_penalty_exact` -> `apply`, `at`, `isLocalMin_of_forall_le`, `le_refl`
@@ -9607,7 +9634,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sq_quadraticPlusOne_ge` -> `isLocalMin_of_forall_le`
 - `sq_sum_le_card_mul_sum_sq` -> `at`, `card_fin`
 - `sq_sum_univ_fin_le` -> `card_fin`
-- `sqrt_d_scale_bound` -> `E`
+- `sqrt_d_scale_bound` -> `E`, `d`
 - `sqrt_decay` -> `apply`, `at`, `le_trans`, `subst`
 - `sqrt_decay_explicit` -> `apply`
 - `sqrt_decay_rate` -> `apply`, `at`, `le_trans`, `subst`
@@ -9676,9 +9703,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `star_seq_ctx` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
 - `star_seq_skip_ctx` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
 - `star_seq_then_skip` -> `Compiler`, `at`, `induction`, `single`, `subst`, `trans`
-- `star_single` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `induction`, `lift`, `single`, `star_trans`, `subst`, `subst_lift`, `subst_subst`, `trans`, `up`
+- `star_single` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `d`, `induction`, `lift`, `single`, `star_trans`, `subst`, `subst_lift`, `subst_subst`, `trans`, `up`
 - `star_tail` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `induction`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
-- `star_trans` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `induction`, `lift`, `subst`, `subst_lift`, `subst_subst`, `trans`, `up`
+- `star_trans` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `d`, `induction`, `lift`, `subst`, `subst_lift`, `subst_subst`, `trans`, `up`
 - `stationarity_eq_normal_equation_solutions` -> `E`, `NormSqLoss`
 - `stationarity_same_fit` -> `E`, `NormSqLoss`
 - `stationary_iterate` -> `at`, `contraction_converges`, `induction`, `le_antisymm`, `min`, `mix`, `zero`
@@ -9690,19 +9717,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stdBasis_orthonormal` -> `E`, `at`
 - `steGrad_eq_one` -> `at`, `dist`, `ste_surrogate_deriv`
 - `ste_bias_vanishes_with_stepsize` -> `at`
-- `ste_chain_rule` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `induction`, `le_trans`, `zero`
+- `ste_chain_rule` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `d`, `induction`, `le_trans`, `zero`
 - `ste_error_locallyConst` -> `at`
 - `ste_error_witness` -> `at`
 - `ste_forward_bias_bounded` -> `at`
 - `ste_grad_error_no_rate` -> `at`
-- `ste_gradient_identity` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `induction`, `le_trans`, `zero`
-- `ste_hasDerivAt` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `induction`, `le_trans`, `zero`
+- `ste_gradient_identity` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `d`, `induction`, `le_trans`, `zero`
+- `ste_hasDerivAt` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `d`, `induction`, `le_trans`, `zero`
 - `ste_step_bias_bounded` -> `at`
-- `ste_surrogate_deriv` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `induction`, `le_trans`, `zero`
+- `ste_surrogate_deriv` -> `E`, `GDUpdate`, `GD_contraction_step`, `at`, `comp`, `d`, `induction`, `le_trans`, `zero`
 - `stepBiasPositionalProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
-- `stepIter_apply_ne` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `stepIter_of_le` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `stepIter_of_lt` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
+- `stepIter_apply_ne` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `stepIter_of_le` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `stepIter_of_lt` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
 - `stepNat_coeff_bias` -> `MLayer`, `apply`, `single`, `subst`
 - `stepNat_coeff_other_slot` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `stepNat_coeff_weight` -> `MLayer`, `apply`, `single`
@@ -9712,7 +9739,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepNat_snd_degree_pos` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `at`, `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `stepNat_snd_totalDegree` -> `at`, `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
-- `stepNat_totalDegree_zero` -> `MLayer`, `at`, `eval`, `le_trans`, `length`, `length_cons`
+- `stepNat_totalDegree_zero` -> `MLayer`, `at`, `d`, `eval`, `le_trans`, `length`, `length_cons`
 - `stepQuant_local_zero_at_quarter` -> `at`
 - `stepSound_hypothesis_false` -> `apply`, `step`
 - `stepWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
@@ -9720,7 +9747,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_Omega_inv` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `induction`, `lift`, `not_step_redB`, `redI`, `star_refl`, `step_app_inv`, `step_lam_inv`
 - `step_T_U` -> `Compiler`, `Term`, `app_r`, `at`
 - `step_T_V` -> `Compiler`, `Term`, `app_r`, `at`
-- `step_absorbs` -> `Repair`, `Sat`, `at`, `dot`, `iterate`, `progress`, `residual`, `step`
+- `step_absorbs` -> `Repair`, `Sat`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `step_app_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `shiftLayer`, `step`
 - `step_changes_off_solution` -> `at`, `step`
@@ -9731,23 +9758,23 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_pos` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
 - `step_redU` -> `Compiler`, `Term`, `app_r`, `at`
 - `step_redV` -> `Compiler`, `Term`, `app_r`, `at`
-- `step_residual` -> `Repair`, `Sat`, `at`, `dot`, `iterate`, `progress`, `residual`, `step`
-- `step_sound` -> `GeoConstraint`, `induction`, `subst`, `zero`
+- `step_residual` -> `Repair`, `Sat`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
+- `step_sound` -> `GeoConstraint`, `d`, `induction`, `subst`, `zero`
 - `step_zero` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
-- `stmt_compiled_edge_correct_constraint` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
-- `stmt_compiled_edge_correct_normalize` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
-- `stmt_compiled_edge_correct_point` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `point`, `ptX`, `ptY`, `subst`
-- `stmt_compiled_edge_correct_prove` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
+- `stmt_compiled_edge_correct_constraint` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
+- `stmt_compiled_edge_correct_normalize` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
+- `stmt_compiled_edge_correct_point` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `point`, `ptX`, `ptY`, `subst`
+- `stmt_compiled_edge_correct_prove` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
 - `stoppedValue_neg` -> `at`, `le_antisymm`, `le_refl`, `min`
 - `stopping_property` -> `at`, `contraction_converges`
 - `stopsBy_mono` -> `at`, `contraction_converges`, `induction`, `le_refl`, `le_trans`, `step`, `zero`
-- `strPrefix_append_right` -> `Obligation`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`
-- `strPrefix_cons_ne` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `strPrefix_cons_ne_gen` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `strPrefix_self` -> `Obligation`, `VerifiedPlugin`, `at`, `induction`, `manifest`, `subst`
+- `strPrefix_append_right` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`
+- `strPrefix_cons_ne` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `strPrefix_cons_ne_gen` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
+- `strPrefix_self` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`
 - `strength_min_assoc` -> `Coverage`, `Primitive`, `Strength`, `compose`, `inter`, `min`
 - `strictConcave_interior_gt_endpoint` -> `le`
-- `strictConvexLoss_unique_min` -> `Loss`, `ProbVec`, `at`
+- `strictConvexLoss_unique_min` -> `Loss`, `ProbVec`, `at`, `d`
 - `strictConvexOn_eq_iff_lt` -> `at`, `subst`
 - `strictConvexOn_imp_convexOn` -> `at`, `subst`
 - `strictMonoOn_injOn` -> `apply`, `at`, `le_trans`, `subst`
@@ -9758,36 +9785,36 @@ module. These are the edges that make the chain a chain rather than a list.
 - `strict_local_min_of_deriv_sign` -> `at`, `le_trans`, `min`, `mono`
 - `strict_min_of_quadratic_lower_bound` -> `at`
 - `strictlyDominates_imp_paretoDominates` -> `e2`
-- `stringPrefix_self` -> `Obligation`, `VerifiedPlugin`, `at`, `manifest`, `subst`
+- `stringPrefix_self` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `manifest`, `subst`
 - `strong_convex_contraction` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `le_trans`, `zero`
 - `strong_convex_gap_bound` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_gap_le_grad_sq` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_gap_lower` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_gap_nonneg` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_implies_PL` -> `Smooth`, `StrongConvex`, `Subgradient`, `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `nesterov_descent_lemma`, `strong_convex_gap_le_grad_sq`, `zero`
-- `strong_convex_implies_cocoercive` -> `at`, `subst`
-- `strong_convex_iterate_contraction` -> `at`, `le_trans`, `subst`
+- `strong_convex_implies_cocoercive` -> `at`, `d`, `subst`
+- `strong_convex_iterate_contraction` -> `at`, `d`, `le_trans`, `subst`
 - `strong_convex_minimizer` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_convex_unique_min` -> `SubgradientIterate`, `at`, `contraction_converges`, `induction`, `zero`
 - `strong_duality_convex_case` -> `at`, `le_antisymm`, `le_trans`
 - `strong_duality_convex_slater` -> `le_antisymm`, `mono`
 - `strong_duality_under_compactness` -> `Lagrangian`, `at`, `dualValue`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
-- `strong_normalization` -> `induction`, `step`
+- `strong_normalization` -> `d`, `induction`, `step`
 - `structural_form_is_true` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `structural_loss_propagates_but_symbol_layer_is_lossless` -> `AllSatisfied`, `ConstraintSet`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `semantic_not_injective`, `tokenize`
-- `structure_survives_tokens` -> `add`, `append_assoc`, `at`, `induction`, `le_refl`, `mul`, `nil_append`
+- `structure_survives_tokens` -> `add`, `append_assoc`, `at`, `d`, `induction`, `le_refl`, `mul`, `nil_append`
 - `structure_survives_tokens_full` -> `append_nil`, `at`, `le_refl`
 - `structuredError_eq_pruneError` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneError`, `pruneMatrix`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
 - `structuredMask_eq_pruneMatrix` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
 - `structuredSet_card_le` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
 - `structured_chain_error` -> `matCLME`, `prune_chain_error`, `quantFwd`
-- `structured_error_norm` -> `at`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_chain_error`, `quantFwd`
-- `structured_frobenius_error` -> `at`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_sub_eq_error`
-- `structured_op_bound` -> `at`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`
-- `structured_output_bound` -> `at`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `quantFwd`
+- `structured_error_norm` -> `at`, `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_chain_error`, `quantFwd`
+- `structured_frobenius_error` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_sub_eq_error`
+- `structured_op_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`
+- `structured_output_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `quantFwd`
 - `structured_pruning_error` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
-- `structured_unstructured_ratio` -> `at`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
-- `structured_vs_unstructured` -> `at`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `structured_unstructured_ratio` -> `at`, `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
+- `structured_vs_unstructured` -> `at`, `d`, `frobeniusNorm`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
 - `structured_zero_keep` -> `at`, `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
 - `stuckTm_is_stuck` -> `HasType`, `Step`, `Value`
 - `stuckTm_untypeable` -> `HasType`, `Step`, `Value`
@@ -9857,11 +9884,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_abs_rowDot_le` -> `Instr`, `W`, `applyInstr`, `le_trans`
 - `sum_bool_binInd_eq_one` -> `at`, `obs`
 - `sum_bool_binInd_mul` -> `at`, `obs`
-- `sum_bool_doInd_eq_one` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
-- `sum_bool_doInd_mul` -> `apply`, `at`, `induction`, `le`, `subst`, `trans`, `zero`
+- `sum_bool_doInd_eq_one` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
+- `sum_bool_doInd_mul` -> `apply`, `at`, `d`, `induction`, `le`, `subst`, `trans`, `zero`
 - `sum_card_Ioi_cast` -> `apply`, `at`, `card_fin`, `subst`
 - `sum_card_fiber` -> `AdaptedTo`, `CondZeroMean`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_hoeffding`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `uniformExpectation`, `zero`
-- `sum_card_mul_condExpFiber` -> `apply`, `at`
+- `sum_card_mul_condExpFiber` -> `apply`, `at`, `d`
 - `sum_centered_eq_zero` -> `Instr`, `applyInstr`, `at`, `card_fin`, `mean`
 - `sum_ctr_eq_zero` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `sum_double_ite` -> `apply`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `quantFwd`
@@ -9870,11 +9897,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_eq_zero_of_nonneg` -> `at`
 - `sum_eq_zero_of_uniformExpectation_eq_zero` -> `at`
 - `sum_exp_pos` -> `apply`, `at`, `exp_sub_one_le`, `le_total`, `softmax`, `softmax_le_one`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `trans`
-- `sum_fiber_comm` -> `apply`
-- `sum_fiber_eq` -> `apply`
-- `sum_fiber_eq_row` -> `apply`
-- `sum_finStdBasisVec_smul` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
-- `sum_iclReadout_mul` -> `apply`, `at`
+- `sum_fiber_comm` -> `apply`, `d`
+- `sum_fiber_eq` -> `apply`, `d`
+- `sum_fiber_eq_row` -> `apply`, `d`
+- `sum_finStdBasisVec_smul` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `sum_iclReadout_mul` -> `apply`, `at`, `d`
 - `sum_ite_mem` -> `apply`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `frobenius_bound`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`
 - `sum_le_of_dominated_in` -> `at`, `dec`
 - `sum_marginal_mul_card` -> `card_fin`, `induction`, `uniformExpectation`, `variance`, `zero`
@@ -9888,8 +9915,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_partition` -> `apply`, `at`
 - `sum_pi_single_mul` -> `apply`, `at`, `le_antisymm`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `sum_pos_iff_exists` -> `out`
-- `sum_projFeature_mul` -> `apply`
-- `sum_projLabelMatrix_mul` -> `apply`, `at`
+- `sum_projFeature_mul` -> `apply`, `d`
+- `sum_projLabelMatrix_mul` -> `apply`, `at`, `d`
 - `sum_range_add_const` -> `at`, `min`
 - `sum_range_sub_id` -> `apply`, `at`, `min`
 - `sum_range_sub_telescoping` -> `Subgradient`, `at`, `induction`, `zero`
@@ -9898,7 +9925,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_ratio_le` -> `apply`, `at`, `exp_sub_one_le`, `le_total`, `softmax`, `softmax_le_one`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `trans`
 - `sum_row_kl_decomposition` -> `apply`, `marginalCol`, `marginalRow`, `mutualInformation`, `prodDist`, `prodDist_pos`, `sub_le_mul_log_div`
 - `sum_smul_single_eq` -> `add`, `at`, `comp`, `path`, `quadForm`, `single`
-- `sum_split_by_coord` -> `apply`, `at`
+- `sum_split_by_coord` -> `apply`, `at`, `d`
 - `sum_split_diag` -> `BatchEditClosed`, `E`, `RankOnePatch`, `W`, `apply`, `at`, `key_norm_sq_ne_zero`, `le_antisymm`
 - `sum_sq_eq_trace_transpose_mul` -> `apply`
 - `sum_sq_le_card_mul_sum_sq` -> `apply`, `at`, `card_fin`, `induction`, `le`, `zero`
@@ -9919,30 +9946,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `superposition_capacity_bound` -> `E`, `at`
 - `superposition_capacity_bound_unit` -> `E`, `at`
 - `support_from_decoded_constraints` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrained_agrees_with_constraint_set`
-- `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_functional_of_not_mem_interior` -> `E`, `at`, `dist`, `le`
-- `supporting_hyperplane_fin` -> `E`, `apply`, `dotV`
-- `supporting_hyperplane_of_boundary_point` -> `E`, `apply`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_hyperplane_fin` -> `E`, `apply`, `d`, `dotV`
+- `supporting_hyperplane_of_boundary_point` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_hyperplane_of_finite_convexHull` -> `E`
-- `supporting_hyperplane_of_not_mem_interior` -> `E`, `apply`, `closure`, `dotV`, `supporting_functional_of_not_mem_interior`
-- `supporting_hyperplane_real` -> `E`, `apply`, `dotV`
-- `supporting_hyperplane_strict_interior` -> `E`, `apply`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_hyperplane_of_not_mem_interior` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_hyperplane_real` -> `E`, `apply`, `d`, `dotV`
+- `supporting_hyperplane_strict_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `surjectivity_not_load_bearing` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
-- `suspend_is_not_forgetting` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_is_reversible` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_preserves_hasUpper` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_preserves_relation` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_reask_up_gives_same_answer` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_recovers` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
-- `suspend_recovers_base` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
-- `suspend_three_negations` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_is_not_forgetting` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_is_reversible` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_preserves_hasUpper` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_preserves_relation` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_reask_up_gives_same_answer` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_recovers` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `suspend_recovers_base` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
+- `suspend_three_negations` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
 - `svrgCounterR_conclusion_false` -> `rho`
-- `svrgCounterR_rec` -> `rho`
-- `svrg_epoch_geometric` -> `E`, `induction`, `rho`, `zero`
-- `svrg_geom_step` -> `E`, `induction`, `rho`, `zero`
-- `svrg_linear_rate` -> `induction`, `rho`, `zero`
+- `svrgCounterR_rec` -> `d`, `rho`
+- `svrg_epoch_geometric` -> `E`, `d`, `induction`, `rho`, `zero`
+- `svrg_geom_step` -> `E`, `d`, `induction`, `rho`, `zero`
+- `svrg_linear_rate` -> `d`, `induction`, `rho`, `zero`
 - `svrg_linear_rate_false_without_sign` -> `rho`
-- `svrg_step_recursion` -> `E`, `Expect`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `rho`, `sgd_expectation_contraction_variance`, `sgd_update`, `strong_convex_gap_lower`, `zero`
+- `svrg_step_recursion` -> `E`, `Expect`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `d`, `induction`, `rho`, `sgd_expectation_contraction_variance`, `sgd_update`, `strong_convex_gap_lower`, `zero`
 - `svrg_unbiased` -> `Expect`, `Expect_add`, `Expect_const`, `Expect_sub`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `sgd_expectation_contraction_variance`, `sgd_update`, `sgd_variance_identity`, `smooth_descent_bound`, `strong_convex_gap_lower`
 - `svrg_variance_bound` -> `E`, `Expect`, `Expect_const`, `Expect_sub`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `sgd_expectation_contraction_variance`, `sgd_update`, `sgd_variance_identity`, `smooth_descent_bound`, `strong_convex_gap_lower`, `zero`
 - `svrg_variance_decomp` -> `E`, `Expect`, `Expect_const`, `Expect_sub`, `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `sgd_expectation_contraction_variance`, `sgd_update`, `sgd_variance_identity`, `smooth_descent_bound`, `strong_convex_gap_lower`, `zero`
@@ -9958,14 +9985,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `swiglu_ffn_effective_via_gated` -> `W`, `hardSigmoid_bounds`, `hardSwish`, `relu`, `reluSoftMask`, `sigmoid`, `sigmoid_bounds`, `silu`, `swiglu`
 - `swiglu_is_gated` -> `E`, `SoftMasked`, `W`, `apply`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid`, `hardSigmoid_bounds`, `hardSwish`, `hardSwish_is_soft_masked`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `silu_is_soft_masked`, `swiglu`, `swiglu_is_soft_masked`
 - `swiglu_is_soft_masked` -> `SoftMasked`, `W`, `apply`
-- `sym2_00` -> `add`, `at`
-- `sym2_01` -> `add`, `at`
-- `sym2_10` -> `add`, `at`
-- `sym2_11` -> `add`, `at`
+- `sym2_00` -> `add`, `at`, `d`
+- `sym2_01` -> `add`, `at`, `d`
+- `sym2_10` -> `add`, `at`, `d`
+- `sym2_11` -> `add`, `at`, `d`
 - `symDelta_independent_of_base` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `symDot_eq_realDot` -> `LayerOut`, `LinearLayer`, `RealDot`, `apply`, `at`, `dot`, `dot_eq_dotProduct`, `length`, `toVec`
-- `symEditSet_pointwise_iff` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
-- `symEdit_a_length_law` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`
+- `symEditSet_pointwise_iff` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
+- `symEdit_a_length_law` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`
 - `symEdit_delta_via_append` -> `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `convertVec`, `deltaOf`, `editLayer`, `editLayer_delta_closed_form`
 - `symTwoPoint_log_sup_exact` -> `uniformExpectation`
 - `symTwoPoint_mean` -> `card_fin`, `uniformExpectation`
@@ -9980,7 +10007,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symbolToWeight_residual_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `symbolToWeight_scale_invariant` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `nil_append`, `residual`
 - `symbol_preimage_unique` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
-- `symm_comp_self_eq_id` -> `E`, `apply`, `comp`, `trans`
+- `symm_comp_self_eq_id` -> `E`, `apply`, `comp`, `d`, `trans`
 - `symmetric_det_eq_prod_eigenvalues` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_eigenpair` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_eigenvectorUnitary_mul_transpose` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
@@ -9995,7 +10022,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symmetric_trace_eq_sum_eigenvalues` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_two_two_det` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_two_two_trace` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
-- `sync_recovers_fedavg` -> `at`, `induction`, `le`, `le_trans`, `zero`
+- `sync_recovers_fedavg` -> `at`, `d`, `induction`, `le`, `le_trans`, `zero`
 - `syntacticFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
 - `syntacticFunctor_not_faithful` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
@@ -10015,12 +10042,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `system_rules_length` -> `Rule`, `length`
 - `t0_constructor_exists` -> `FamilySolver`, `HoldsSet`, `Pt`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `t0_constructor_samePoint` -> `FamilySolver`, `HoldsSet`, `Pt`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `t0_empty_spec_holds` -> `ExpressibleSpec`, `GeoConstraint`, `GeoExpr`, `Holds`, `LinearForm`, `MergeRecord`, `MergeSound`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `SemanticRepresentation`, `W`, `ZB`, `canonical`, `compile`, `compile_injective`, `compile_sound`, `compile_sound_general`, `complete`, `converges_within`, `empty`, `extract`, `extract_compile`, `iterate`, `length`, `merged`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `samePointLadder`, `satW`, `scaledForm`, `scaled_semEq_unit`, `sound`, `trivial`, `unitForm`, `unit_ne_scaled`
+- `t0_empty_spec_holds` -> `ExpressibleSpec`, `GeoConstraint`, `GeoExpr`, `Holds`, `LinearForm`, `MergeRecord`, `MergeSound`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `SemanticRepresentation`, `W`, `ZB`, `canonical`, `compile`, `compile_injective`, `compile_sound`, `compile_sound_general`, `complete`, `converges_within`, `d`, `empty`, `extract`, `extract_compile`, `iterate`, `length`, `merged`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `samePointLadder`, `satW`, `scaledForm`, `scaled_semEq_unit`, `sound`, `trivial`, `unitForm`, `unit_ne_scaled`, `weights`
 - `t0_is_statable` -> `ExpressibleSpec`, `length`, `trivial`
 - `t1_compile_sound_general_holds` -> `W`
-- `t1_compile_sound_instance_holds` -> `ExpressibleSpec`, `GeoExpr`, `Holds`, `LinearForm`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `SemanticRepresentation`, `W`, `ZB`, `compile`, `compile_injective`, `compile_sound`, `compile_sound_general`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
+- `t1_compile_sound_instance_holds` -> `ExpressibleSpec`, `GeoExpr`, `Holds`, `LinearForm`, `Pt`, `Repair`, `Representation`, `Sat`, `SemEq`, `SemanticRepresentation`, `W`, `ZB`, `compile`, `compile_injective`, `compile_sound`, `compile_sound_general`, `converges_within`, `d`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t1_t2_bridge` -> `at`, `dist`, `eps`, `le_trans`
-- `t2_penalty_exact_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
+- `t2_penalty_exact_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `d`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penaltyLoss_eq_zero_eqZero`, `penaltyLoss_eq_zero_equalLength`, `penaltyLoss_eq_zero_leZero`, `penaltyLoss_eq_zero_midpoint`, `penaltyLoss_eq_zero_perpendicular`, `penaltyLoss_eq_zero_rightAngle`, `penaltyLoss_eq_zero_sqDistEq`, `penalty_min_to_violation`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t2_relaxed_count` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `extract_compile`, `iterate`, `length`, `no_extractor_both_layers`, `penalty_min_to_violation`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t3_compile_injective_holds` -> `ExpressibleSpec`, `LinearForm`, `Repair`, `Representation`, `Sat`, `SemEq`, `W`, `ZB`, `compile`, `compile_injective`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `scaledForm`, `scaled_semEq_unit`, `trivial`, `unitForm`, `unit_ne_scaled`
 - `t3_no_faithful_extractor_holds` -> `ExpressibleSpec`, `Repair`, `Sat`, `W`, `compile`, `converges_within`, `extract`, `iterate`, `length`, `no_extractor_both_layers`, `progress`, `trivial`
@@ -10038,27 +10065,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `t7_confluence_seq_holds` -> `Effect`, `RState`, `Step`, `applySeq_swap`, `fail_leaves_state`, `run`, `runSeq`, `runSeq_head_fails`
 - `t8_failure_isolation_holds` -> `Effect`, `RState`, `Step`, `fail_leaves_state`, `runSeq`, `runSeq_head_fails`
 - `t8_head_fails_holds` -> `runSeq_head_fails`
-- `tAdd_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `tConst_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `tCoord_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `tMul_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `tSub_eq` -> `GeoExpr`, `add`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
-- `tag0_eq` -> `dec`
-- `tag1_eq` -> `dec`
-- `tag2_eq` -> `dec`
-- `tag3_eq` -> `dec`
-- `tag4_eq` -> `dec`
-- `tagAdd_eq` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `tagConst_eq` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `tagCoord_eq` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `tagMul_eq` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `tagSub_eq` -> `add`, `at`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
-- `tailEigSq_eq_zero_of_le` -> `apply`, `at`, `card_fin`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
-- `tailEigSq_nonneg` -> `apply`, `at`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
-- `tailEigSq_zero` -> `apply`, `at`, `card_fin`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `tAdd_eq` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `tConst_eq` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `tCoord_eq` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `tMul_eq` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `tSub_eq` -> `GeoExpr`, `add`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`
+- `tag0_eq` -> `d`, `dec`
+- `tag1_eq` -> `d`, `dec`
+- `tag2_eq` -> `d`, `dec`
+- `tag3_eq` -> `d`, `dec`
+- `tag4_eq` -> `d`, `dec`
+- `tagAdd_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tagConst_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tagCoord_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tagMul_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tagSub_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tailEigSq_eq_zero_of_le` -> `apply`, `at`, `card_fin`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `tailEigSq_nonneg` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `tailEigSq_zero` -> `apply`, `at`, `card_fin`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `tailSingularValueSq_le_total` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `tailSingularValueSq_nonneg` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
-- `tail_le_head_pointwise` -> `E`, `at`, `card_fin`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `tail_le_head_pointwise` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `talagrand_convex_lipschitz_tail` -> `at`, `single`, `uniformExpectation`, `uniformProb`
 - `talagrand_tail_of_mgf` -> `at`, `markov_exp_tail`, `single`, `uniformExpectation`, `uniformProb`
 - `tangentSpace_smul` -> `E`, `sphere`
@@ -10118,7 +10145,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
-- `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`
+- `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`, `d`
 - `threeLayerAxis_not_affine` -> `at`, `eval`, `eval_add`, `eval_mul`
 - `threeLayerAxis_t3` -> `at`, `eval`, `eval_add`, `eval_mul`
 - `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`
@@ -10131,7 +10158,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `no_left_inverse_at_all`
-- `three_tactic_patterns_work` -> `dec`
+- `three_tactic_patterns_work` -> `d`, `dec`
 - `threshExtent_antitone_attrs` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `threshExtent_antitone_theta` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `threshExtent_high_theta` -> `apply`
@@ -10240,16 +10267,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `torsion_neg_mem` -> `at`
 - `torsion_smul_mem` -> `at`
 - `torsion_submodule_axioms` -> `at`
-- `totalDegree_C_zero` -> `MLayer`, `apply`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
+- `totalDegree_C_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `le_trans`, `length`
 - `totalDegree_X_mul_C_add_X_ge` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
-- `totalDegree_X_mul_C_add_X_zero_nat` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
+- `totalDegree_X_mul_C_add_X_zero_nat` -> `apply`, `at`, `d`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
 - `totalDegree_X_mul_C_le` -> `Chain`
 - `totalDegree_X_mul_add_X` -> `MLayer`, `apply`, `at`, `le_antisymm`, `length`, `length_cons`, `single`
 - `totalDegree_X_mul_add_X_nat` -> `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`, `length`, `length_cons`
 - `totalDegree_X_mul_eq` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
 - `totalDegree_X_mul_eq_nat` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `le_antisymm`, `length`, `length_cons`, `single`
 - `totalDegree_X_zero_nat` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
-- `totalDegree_finset_sum_le` -> `Chain`, `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`
+- `totalDegree_finset_sum_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `induction`, `le_trans`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
@@ -10258,9 +10285,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalResidual_wStep` -> `W`
 - `total_obligations` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
 - `totient_one` -> `apply`, `at`, `children`, `le_trans`, `satisfiable`
-- `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`
-- `tower_property` -> `at`
-- `tower_property_div` -> `at`
+- `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`
+- `tower_property` -> `at`, `d`
+- `tower_property_div` -> `at`, `d`
 - `tpr_mono` -> `E`, `apply`, `at`, `le_trans`
 - `traceFold_cons` -> `all`, `append_assoc`, `at`, `contains`, `induction`, `step`, `subst`
 - `traceFold_nil` -> `all`, `append_assoc`, `at`, `contains`, `induction`, `step`, `subst`
@@ -10269,11 +10296,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `trace_mul_self_conj_of_decomp` -> `apply`
 - `trace_sound_invariant` -> `apply`, `at`, `induction`, `step`
 - `trace_sq_eq_diag_plus_offdiag` -> `apply`, `at`
-- `trace_sq_eq_frobSq` -> `E`, `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `trace_sq_eq_frobSq` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `trace_sq_eq_sum` -> `apply`, `at`
-- `trace_sq_eq_sum_eigSq` -> `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
+- `trace_sq_eq_sum_eigSq` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `trace_sq_symm` -> `apply`, `at`
-- `trace_sub` -> `at`, `card_fin`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`
+- `trace_sub` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`
 - `train_verify_protocol` -> `E`, `GDError`, `GDIterate`, `GD_converges`, `verify_probability_guarantee`
 - `transfer_of_sound_abstraction` -> `at`, `clampTo`, `contains`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
 - `transformer_block_closed` -> `W`, `convComb_lipschitz_prob`, `linear_map_lipschitz`, `lipschitz_add`, `rmsNormE_sqrt_lipschitz`
@@ -10302,7 +10329,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tri_intent_projection_degenerates` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
 - `tri_modus_iff_intent` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
 - `triang_succ_div_two` -> `at`, `induction`, `insert`, `zero`
-- `triangle_combine` -> `at`, `le_trans`
+- `triangle_combine` -> `at`, `d`, `le_trans`
 - `triangle_inequality` -> `Geometry`, `Point`, `dist`
 - `triangle_not_two_colorable` -> `Adj`, `at`
 - `triangle_three_colorable` -> `Adj`
@@ -10316,9 +10343,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `triple_while_iff_wpT_while` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `triple_iff_wpT`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `triple_while_yields_approx` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `trivialProofTrace_passes` -> `apply`, `at`, `eval`, `induction`, `step`
-- `trivial_sat` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `trivial_sat` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
 - `trueGrad_eq_zero_of_eventuallyConst` -> `at`, `dist`
-- `truncDiag_rank_le` -> `E`, `at`, `card_fin`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
+- `truncDiag_rank_le` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `trunc_apply` -> `GeoExpr`, `Pt`, `add`, `comp`, `evalPts`, `induction`, `mul`, `trivial`
 - `truth_equality_forces_same_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
 - `tsum_le_of_uniform_finset_bound` -> `infinite_sum_bound`
@@ -10348,25 +10375,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_third_difference_zero` -> `Chain`, `at`, `e2`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
-- `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
-- `twoValuedPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`, `seg`, `sqDist`
-- `two_dim_posdef_iff` -> `add`, `at`
+- `twoValuedPenalty_eq_zero_iff` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `evalPts`, `seg`, `sqDist`
+- `twoValuedPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `evalPts`, `seg`, `sqDist`
+- `two_dim_posdef_iff` -> `add`, `at`, `d`
 - `two_distinct_constraints` -> `IsFormalConcept`, `RealConstraint`, `at`
 - `two_div_sqrt_pi_mul_sqrt_pi_div_two` -> `at`
 - `two_families_connected` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`
 - `two_hop_msg` -> `apply`, `le_trans`
 - `two_layer_block_edit_bound` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
 - `two_layer_descent_can_stall` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `two_layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
-- `two_layer_distill_bound_closed` -> `ChainFwd`, `E`, `apply`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
-- `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `at`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `two_layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `two_layer_distill_bound_closed` -> `ChainFwd`, `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
+- `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_mul_geluInner_abs` -> `at`, `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `two_mul_ne_zero` -> `apply`
 - `two_points_reachable_width_one` -> `Pt`, `W`, `affine_map_realisable`, `apply`, `at`, `flatParamActSafe`, `readSlot`, `readSlot_of_lt`, `slotOf`
-- `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
-- `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
-- `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `subst`
-- `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `subst`
+- `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
+- `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
+- `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
+- `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `typeII_nonneg` -> `alpha`, `at`, `le_refl`, `le_trans`
 - `typeI_add_typeII_eq_one_of_same_law` -> `alpha`, `at`, `le_trans`
 - `typeI_typeII_equal_of_same_law` -> `alpha`, `at`, `le_trans`
@@ -10381,7 +10408,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unbiased_compression_rate` -> `E`, `at`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `unbiased_epsilon_certificate` -> `E`, `at`, `card_fin`, `eps`
 - `unbiased_iff_pure_variance` -> `E`, `at`, `eps`, `geom_sum_mul`, `induction`, `zero`
-- `unbounded_delay_finite_mean_ok` -> `at`, `induction`, `le_trans`, `zero`
+- `unbounded_delay_finite_mean_ok` -> `at`, `d`, `induction`, `le_trans`, `zero`
 - `unbounded_variance_weaker_than_uniform` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_add`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `at`, `empty`, `induction`, `insert`, `sgd_expected_avg_gap`, `sgd_rate_bound`
 - `unconvertVec_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `undeterminedByWill_not_vacuous` -> `Gaze`, `at`, `extent`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
@@ -10402,7 +10429,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `uniformExpectation_const` -> `card_fin`, `induction`, `uniformExpectation`, `variance`, `zero`
 - `uniformExpectation_const_mul` -> `card_fin`, `induction`, `uniformExpectation`, `variance`, `zero`
 - `uniformExpectation_eq_zero_of_sum_eq_zero` -> `at`
-- `uniformExpectation_exp_le_of_condZeroMean` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
+- `uniformExpectation_exp_le_of_condZeroMean` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `uniformExpectation_exp_nonneg` -> `apply`, `card_fin`, `le`, `uniformExpectation`, `uniformProb`
 - `uniformExpectation_indicator` -> `abs_mean_le_one`, `le`, `uniformExpectation`, `uniformProb`
 - `uniformExpectation_le_eps_add_max_mul_prob` -> `abs_mean_le_one`, `le`, `uniformExpectation`, `uniformProb`
@@ -10436,8 +10463,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `union_prob_le_sum_two` -> `uniformProb`
 - `union_prob_lt_sum_iff_hasOverlap` -> `apply`, `card_fin`, `uniformProb`, `union_prob_le_sum`
 - `unique_bayes_admissible` -> `apply`
-- `unitVec_ne` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
-- `unitVec_self` -> `apply`, `at`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `unitVec_ne` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
+- `unitVec_self` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `unit_ne_scaled` -> `IdempotentOn`, `LinearForm`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `unit_normalize_antipodal_real` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `e2`, `subst`
 - `unit_normalize_constant_lower_bound` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
@@ -10452,11 +10479,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unsat_witness` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
 - `unsatisfiableSpec_no_model` -> `ConstraintSet`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `unused_zero_does_not_imply_loadBearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
-- `upGaze_does_not_open_object` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `extent_intent_extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
-- `upGaze_no_new_parts` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
-- `upGaze_preserves_object_set` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
-- `upGaze_saturates_depth` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
-- `upGaze_within_given_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `upGaze_does_not_open_object` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `extent_intent_extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `upGaze_no_new_parts` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `upGaze_preserves_object_set` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subset_gazeUp_gazeDown`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `upGaze_saturates_depth` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
+- `upGaze_within_given_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `gazeDown`, `gazeUp`, `hasUpper`, `intent_closure_idempotent`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
 - `upRen_comp` -> `Closed`, `apply`, `comp`, `induction`, `zero`
 - `upRen_id` -> `Closed`, `apply`, `comp`, `induction`, `zero`
 - `upRen_idBelow` -> `Closed`, `induction`, `zero`
@@ -10511,7 +10538,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `varOf_varNormalize_eq_one_via_rmsNorm` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `at`, `bayesRisk`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `mean`, `normalize`, `rmsNorm`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `varOf_varNormalize_le_one` -> `gnorm`, `gnorm_scale_invariant`, `induction`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`, `zero`
 - `var_nonneg` -> `Instr`, `applyInstr`, `mean`
-- `var_normal_form` -> `induction`, `step`
+- `var_normal_form` -> `d`, `induction`, `step`
 - `variance_eq_quotient` -> `apply`, `comp`, `gibbsDist`, `gibbsPartition`, `gibbsPartition_pos`
 - `variance_le_one_of_poincare` -> `W`, `at`, `le_trans`, `markov_exp_tail`, `single`, `uniformExpectation`, `uniformProb`
 - `variance_nonneg` -> `apply`, `at`, `comp`, `gibbsDist`, `gibbsDist_pos`, `gibbsDist_sum`, `gibbsPartition`, `gibbsPartition_pos`
@@ -10520,11 +10547,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `varsBelow_coord` -> `GeoExpr`, `Pt`, `add`, `at`, `evalPts`, `induction`, `mul`
 - `varsBelow_mul` -> `GeoExpr`, `Pt`, `add`, `at`, `evalPts`, `induction`, `mul`
 - `varsBelow_sub` -> `GeoExpr`, `Pt`, `add`, `at`, `evalPts`, `induction`, `mul`
-- `vec2_ne_zero` -> `add`, `at`
-- `vec2_ne_zero_of_second` -> `add`, `at`
-- `vec2_one` -> `add`, `at`
-- `vec2_zero` -> `add`, `at`
-- `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
+- `vec2_ne_zero` -> `add`, `at`, `d`
+- `vec2_ne_zero_of_second` -> `add`, `at`, `d`
+- `vec2_one` -> `add`, `at`, `d`
+- `vec2_zero` -> `add`, `at`, `d`
+- `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
 - `vecDot_toFinVec_eq_dot` -> `at`, `dot`, `induction`, `length`, `subst`
 - `vecGdSeq_succ` -> `at`, `eps`, `induction`, `le_trans`, `loss`, `normSq`, `normSq_nonneg`, `zero`
 - `vecMulVec_mulVec` -> `at`, `mulVec`
@@ -10538,8 +10565,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_monoid` -> `Audit`
 - `verdict_monoid_instance_agrees` -> `Audit`
 - `verdict_no_sup` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
-- `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `chain_edit_locality`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
-- `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
+- `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `chain_edit_locality`, `d`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
+- `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verified_manifest` -> `Constraint`, `Repair`, `length`, `manifest`, `verified`, `verified_obligations`
@@ -10552,12 +10579,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verify_stable` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `viaRoundTrip_iff_plain` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `roundtrip_extractVec`, `zero`
 - `violation_nonneg` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `evalPts_localMin_implies_zero`, `maxPoint`, `toNatConfig`
-- `vocab_compat_permutation` -> `E`, `apply`, `col`
-- `vocab_edit_add_new_is_zero` -> `E`, `apply`, `col`
-- `vocab_edit_add_unused_exact` -> `E`, `apply`, `col`
-- `vocab_edit_permutation_exact` -> `E`, `apply`, `col`, `trivial`
-- `vocab_edit_permutation_refl` -> `E`, `apply`, `col`
-- `vocab_edit_reversible` -> `E`, `apply`, `col`, `trivial`
+- `vocab_compat_permutation` -> `E`, `apply`, `col`, `d`
+- `vocab_edit_add_new_is_zero` -> `E`, `apply`, `col`, `d`
+- `vocab_edit_add_unused_exact` -> `E`, `apply`, `col`, `d`
+- `vocab_edit_permutation_exact` -> `E`, `apply`, `col`, `d`, `trivial`
+- `vocab_edit_permutation_refl` -> `E`, `apply`, `col`, `d`
+- `vocab_edit_reversible` -> `E`, `apply`, `col`, `d`, `trivial`
 - `w3_clm_eq_layerOut_cast` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_clm_plus_b_eq_cast` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_layerOut_convertVec` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
@@ -10589,7 +10616,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weightSymbolRep_nontrivial` -> `AffineLayer`, `W`, `at`, `compile`, `layerOfListFull`
 - `weightSymbolRep_roundtrip` -> `AffineLayer`, `Representation`, `W`, `at`, `compile`, `extract`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`, `roundtrip`
 - `weightSymbolRep_val_roundtrip` -> `AffineLayer`, `Representation`, `W`, `at`, `compile`, `extract`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
-- `weight_l1_diff_bound` -> `E`, `LinfNorm`, `apply`, `at`, `comp_norm_bound`, `convComb_lipschitz_prob`, `linfNorm_eq_norm`, `softmax`, `softmax_lipschitz_coord`
+- `weight_l1_diff_bound` -> `E`, `LinfNorm`, `apply`, `at`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `linfNorm_eq_norm`, `softmax`, `softmax_lipschitz_coord`
 - `weighted2_fderiv` -> `E`, `NormSqLossScalar`, `at`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`
 - `weighted2_stationarity_iff` -> `E`, `at`
 - `weighted2_stationarity_of_components` -> `E`
@@ -10597,7 +10624,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weightedBlockCount_const_le_dense` -> `at`, `card_fin`, `split`
 - `weightedBlockCount_tail_decomp` -> `at`
 - `weightedBlockCount_tail_le_uniform` -> `at`, `trans`
-- `weightedCondExp_le_mul` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
+- `weightedCondExp_le_mul` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `weightedN_fderiv` -> `E`, `NormSqLossScalar`, `apply`, `fderiv_loss_apply_scalar`, `loss_differentiable_scalar`
 - `weightedN_stationarity_of_components` -> `E`, `apply`
 - `weightedSum_convexOn` -> `e2`
@@ -10607,18 +10634,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weighted_avg_le_max` -> `ProbVec`
 - `weighted_cauchy_schwarz` -> `at`, `card_fin`
 - `weighted_compose` -> `W`, `apply`, `induction`
-- `weighted_hoeffding_lemma` -> `apply`
+- `weighted_hoeffding_lemma` -> `apply`, `d`
 - `weighted_minimizer_set_convex` -> `e2`
 - `weighted_optimal_is_pareto` -> `e2`
 - `weighted_power_mean_two` -> `card_fin`
-- `wf_children` -> `Compiler`, `add`, `at`, `depth`, `eval`, `mul`, `size`
+- `wf_children` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `while'_true_id` -> `Compiler`, `at`
 - `while'_true_stuck` -> `Compiler`, `at`
 - `whileApprox_embed_body_succ` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `wp`, `wpT`, `zero`
-- `whileApprox_mono` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
-- `whileApprox_mono_le` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
+- `whileApprox_mono` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `d`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
+- `whileApprox_mono_le` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `d`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
 - `whileApprox_succ_eq_whileF` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
-- `whileApprox_zero` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
+- `whileApprox_zero` -> `AExp`, `Denotes`, `State`, `StmtT`, `Triple`, `at`, `d`, `evalA`, `execF`, `execF_mono`, `induction`, `subst`, `triple_iff_wpT`, `whileF`, `wpT`, `wpT_while_fixpoint`, `wpT_while_least`, `zero`
 - `whileF_body` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `whileF_embed_body_eq` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `whileF_embed_body_step` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
@@ -10654,7 +10681,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `windowRowCount_rampdown` -> `apply`, `at`
 - `windowRowCount_rampup` -> `apply`, `at`
 - `windowRowCount_zero` -> `at`, `insert`, `min`
-- `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `rdot`, `rotateR`
+- `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`
 - `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`
 - `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`
@@ -10672,16 +10699,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `witness_flip` -> `apply`
 - `witness_imbalanced_drops` -> `apply`
 - `witness_strictly_dominates` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `lt`, `scaleVec`, `trivial`
-- `wlEq_mono` -> `E`, `at`, `induction`, `zero`
-- `wlEq_mono_aux` -> `E`, `at`, `induction`, `zero`
+- `wlEq_mono` -> `E`, `at`, `d`, `induction`, `zero`
+- `wlEq_mono_aux` -> `E`, `at`, `d`, `induction`, `zero`
 - `wlEq_one_iff` -> `E`, `at`
-- `wlEq_refl` -> `E`, `at`, `induction`, `trans`, `zero`
-- `wlEq_succ` -> `E`, `at`, `induction`, `trans`, `zero`
-- `wlEq_succ_iff` -> `E`, `at`, `induction`, `zero`
-- `wlEq_succ_le` -> `E`, `at`, `induction`, `zero`
-- `wlEq_symm` -> `E`, `at`, `induction`, `trans`, `zero`
-- `wlEq_trans` -> `E`, `at`, `induction`, `trans`, `zero`
-- `wlEq_zero` -> `E`, `at`, `induction`, `trans`, `zero`
+- `wlEq_refl` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
+- `wlEq_succ` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
+- `wlEq_succ_iff` -> `E`, `at`, `d`, `induction`, `zero`
+- `wlEq_succ_le` -> `E`, `at`, `d`, `induction`, `zero`
+- `wlEq_symm` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
+- `wlEq_trans` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
+- `wlEq_zero` -> `E`, `at`, `d`, `induction`, `trans`, `zero`
 - `wlEq_zero_iff_gnnFeat_eq` -> `E`, `at`
 - `wlEq_zero_of_gnnFeat_eq` -> `E`, `at`
 - `wordOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
@@ -10717,7 +10744,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `xorC_zero_set_is_isolated` -> `andC`, `orC`, `subst`
 - `xor_via_not_and_and` -> `andC`, `orC`
 - `ycond_sum` -> `apply`, `at`, `obs`
-- `young_two_mul_le` -> `at`, `le_trans`
+- `young_two_mul_le` -> `at`, `d`, `le_trans`
 - `z_bound_lower` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `linfNorm_nonneg`, `softmax`, `softmax_denom_pos`
 - `z_bound_upper` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `softmax`, `softmax_denom_pos`
 - `z_diff_bound` -> `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `linfNorm_nonneg`, `softmax`, `softmax_denom_pos`
@@ -10763,9 +10790,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zero_gap_iff_complementary_slackness` -> `Lagrangian`, `at`, `dualValue`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
 - `zero_gap_implies_complementary_slackness` -> `Lagrangian`, `at`, `dualValue`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
 - `zero_iff_of_atomic` -> `Repair`, `Sat`
-- `zero_mem_of_closed_convexCone` -> `at`, `dotV`, `le_refl`, `smul`
-- `zero_mem_span` -> `depth`, `eval`, `induction`, `step`
-- `zero_mulVec` -> `all`, `apply`, `at`, `le_trans`, `length`, `satisfiable`, `trans`
+- `zero_mem_of_closed_convexCone` -> `at`, `d`, `dotV`, `le_refl`, `smul`
+- `zero_mem_span` -> `d`, `depth`, `eval`, `induction`, `step`
+- `zero_mulVec` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
 - `zero_query_collapses_curvatures` -> `Subgradient`
 - `zero_slope_all_localMin` -> `apply`, `at`, `isLocalMin_of_forall_le`, `le_refl`
 - `zero_slope_no_feasible` -> `at`
@@ -10777,8 +10804,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zfcSetTheory_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryExtra`, `graphTheoryPackage`, `graphTheory_closed`, `graphTheory_closedB_eq_true`, `graphTheory_extra_length`, `informationTheoryPackage`, `length`, `measureTheoryExtra`, `measureTheoryPackage`, `measureTheory_closed`, `measureTheory_closedB_eq_true`, `measureTheory_extra_length`, `measureTheory_false_but_repairable`, `measureTheory_validB_eq_false`, `not_measureTheory_orig`, `not_zfcSetTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryExtra`, `zfcSetTheoryPackage`, `zfcSetTheory_closed`, `zfcSetTheory_extra_length`
 - `zfcSetTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `graphTheoryPackage`, `graphTheoryTemplateNames`, `graphTheoryTemplates`, `graphTheoryUnconstructibles`, `graphTheory_templateNames_length`, `length`, `measureTheoryTemplateNames`, `mkTemplates`, `path`, `zfcSetTheoryTemplateNames`
 - `zfcSetTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `graphTheoryExtra`, `graphTheoryPackage`, `graphTheory_closed`, `graphTheory_closedB_eq_true`, `graphTheory_extra_length`, `informationTheoryPackage`, `length`, `measureTheoryExtra`, `measureTheoryPackage`, `measureTheory_closed`, `measureTheory_closedB_eq_true`, `measureTheory_extra_length`, `measureTheory_false_but_repairable`, `measureTheory_validB_eq_false`, `not_measureTheory_orig`, `not_zfcSetTheory_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `zfcSetTheoryExtra`, `zfcSetTheoryPackage`, `zfcSetTheory_closed`, `zfcSetTheory_closedB_eq_true`, `zfcSetTheory_extra_length`, `zfcSetTheory_false_but_repairable`
-- `zipWith_add_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `min`, `sqSum`, `totalLoss`
-- `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `zipWith_add_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `getD_eq_getElem`, `induction`, `length`, `min`, `sqSum`, `totalLoss`
+- `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
 - `zip_append_right` -> `at`, `induction`, `length`, `length_cons`
 - `zip_append_tail_eq` -> `at`, `induction`, `length`, `length_cons`
 - `zip_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`

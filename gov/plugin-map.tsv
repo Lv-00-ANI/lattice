@@ -1612,6 +1612,14 @@ lib	Lib/Architectures	Lib/Architectures/SoftmaxSubLayer.lean	softmaxAttention_bo
 lib	Lib/Architectures	Lib/Architectures/SoftmaxSubLayer.lean	softmaxBlock_attn	no
 lib	Lib/Architectures	Lib/Architectures/SoftmaxSubLayer.lean	softmax_pos	no
 lib	Lib/Architectures	Lib/Architectures/SoftmaxSubLayer.lean	softmax_shift	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	arch_depth	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	arch_wf	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	arch_widths	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	artifact_depth	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	artifact_layer_count	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	artifact_params	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	d_pos	no
+lib	Lib/Architectures	Lib/Architectures/TinyTransformer.lean	layers_eq	no
 lib	Lib/Attention	Lib/Attention/AttentionLipschitz.lean	rowDot_lipschitz	no
 lib	Lib/Attention	Lib/Attention/AttentionLipschitz.lean	rowDot_pointwise	no
 lib	Lib/Attention	Lib/Attention/AttentionLipschitz.lean	softmaxAttention_lipschitz	no

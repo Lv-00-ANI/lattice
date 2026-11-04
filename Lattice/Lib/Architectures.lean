@@ -65,4 +65,5 @@ import Lattice.Lib.Architectures.RealTensorNorm
 import Lattice.Lib.Architectures.RealTensorNormN
 import Lattice.Lib.Architectures.RealWLRefinement
 import Lattice.Lib.Architectures.SoftmaxSubLayer
+import Lattice.Lib.Architectures.TinyTransformer
 /-! `Lattice.Lib.Architectures` -- 3 modules. -/

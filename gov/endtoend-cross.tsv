@@ -117,6 +117,7 @@ Core/Activation.lean	actStackEval_of_no_activation
 Core/Activation.lean	relu_not_affine
 Core/Activation.lean	activation_strictly_stronger
 Core/AnalysisHelper.lean	hasFDerivAt_sq
+Core/AnalysisHelper.lean	hasFDerivAt_sq_comp
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm
 Core/Check.lean	be_trans
@@ -176,6 +177,12 @@ Domains/Constraints/ConstraintSet.lean	holdsSet_mem
 Domains/Constraints/ConstraintSet.lean	holdsSet_subset
 Domains/Constraints/ConstraintSet.lean	holdsSet_mono
 Domains/Constraints/ConstraintSet.lean	two_families_connected
+Domains/Constraints/ConstraintTokenizer.lean	dec_enc_const
+Domains/Constraints/ConstraintTokenizer.lean	dec_enc_coord
+Domains/Constraints/ConstraintTokenizer.lean	structure_survives_tokens
+Domains/Constraints/ConstraintTokenizer.lean	dec_add_step
+Domains/Constraints/ConstraintTokenizer.lean	dec_sub_step
+Domains/Constraints/ConstraintTokenizer.lean	dec_mul_step
 Domains/Constraints/ConstraintTokenizer.lean	dec_enc_append
 Domains/Constraints/ConstraintTokenizer.lean	structure_survives_tokens_full
 Domains/Constraints/Differentiable.lean	coordProj_apply
@@ -815,6 +822,12 @@ Lib/Architectures/RealReLUStationarity.lean	P2a_relu_sq_summary
 Lib/Architectures/RealSiluQuant.lean	mul_split_quant
 Lib/Architectures/RealSiluSplit.lean	mul_split_limit_discrete
 Lib/Architectures/RealTransformerEval.lean	Model.eval_nil
+Lib/Architectures/TinyTransformer.lean	arch_wf
+Lib/Architectures/TinyTransformer.lean	arch_depth
+Lib/Architectures/TinyTransformer.lean	artifact_depth
+Lib/Architectures/TinyTransformer.lean	artifact_layer_count
+Lib/Architectures/TinyTransformer.lean	artifact_params
+Lib/Architectures/TinyTransformer.lean	arch_widths
 Lib/Attention/ProgramAttentionLipschitz.lean	applyInstr_attention_lipschitz
 Lib/Attention/ProgramAttentionLipschitz.lean	applyInstr_attention_lipschitz_W
 Lib/Attention/ProgramAttentionLipschitz.lean	applyInstr_attention_lipschitz_joint
@@ -2211,6 +2224,9 @@ Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainParams_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	Chain.actWith_cons
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	Chain.actWith_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	differentiableAt_chainAct
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose2_differentiableAt_joint
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose2_differentiableAt_params
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose3_differentiableAt_joint
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOffsets_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOffsets_two
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	flatChainAct_idf
