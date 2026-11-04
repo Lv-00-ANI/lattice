@@ -8,6 +8,7 @@ import Lattice.Semantics.CompileSoundGeneral
 import Lattice.Semantics.ProgramDomain
 import Lattice.Semantics.MeaningTypes
 import Lattice.Semantics.MeaningTypesFinite
+import Lattice.Semantics.ProgramRefinement
 
 /-!
 # 语义信息主线：阶段划分与聚合

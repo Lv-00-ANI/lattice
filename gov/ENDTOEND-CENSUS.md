@@ -18,12 +18,12 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 0 | 4726 | 49.1% |
 | 1 | 1991 | 20.7% |
 | 2 | 735 | 7.6% |
-| 3 | 647 | 6.7% |
+| 3 | 649 | 6.7% |
 | 4 | 301 | 3.1% |
-| 5 | 756 | 7.9% |
-| 6 | 460 | 4.8% |
+| 5 | 757 | 7.9% |
+| 6 | 462 | 4.8% |
 | 7 | 11 | 0.1% |
-| **合计** | **9627** | |
+| **合计** | **9632** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -56,6 +56,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `exists_abi_entry_without_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bridgedCount_empty` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -88,7 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_nonempty` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_provides` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

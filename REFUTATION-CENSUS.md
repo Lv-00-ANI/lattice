@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**314 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**315 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,6 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 28 | 8.9% |
+| `Semantics` | 1 | 0.3% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -37,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 119 轮新增一条**：`refines_not_trivial` —— **存在不精化任何约束的程序/约束对**，
+**故 `refines` 关系既非空也非全，是真正的二元关系而非永真式的包装。**
+故 `Semantics` 由 0 升为 1、总数由 314 升为 315。
 
 **第 112 轮新增一条**：`sat_alone_not_fixed` —— **仅有 `Sat` 不足以给出不动点**，
 **因为 `fix` 可以在满足点上移动它，除非 `Repair.absorbs` 被施加。**

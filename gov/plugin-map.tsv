@@ -9606,6 +9606,11 @@ semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_meaning_is_option
 semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_symmetric	no
 semantics	Semantics	Semantics/ProgramDomain.lean	programDomain_transitive	no
 semantics	Semantics	Semantics/ProgramDomain.lean	two_domains_exist	no
+semantics	Semantics	Semantics/ProgramRefinement.lean	bridge_exists	no
+semantics	Semantics	Semantics/ProgramRefinement.lean	refines_degenerate_at_zero	no
+semantics	Semantics	Semantics/ProgramRefinement.lean	refines_mono	no
+semantics	Semantics	Semantics/ProgramRefinement.lean	refines_not_trivial	no
+semantics	Semantics	Semantics/ProgramRefinement.lean	refines_of_no_output	no
 semantics	Semantics	Semantics/Stage1.lean	complete_on	no
 semantics	Semantics	Semantics/Stage1.lean	constraintDomain_symmetric	no
 semantics	Semantics	Semantics/Stage1.lean	constraintDomain_transitive	no

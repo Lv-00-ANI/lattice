@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 307 | aggregator at `Lattice/`, re-exports only |
+| root | 308 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,7 +964,7 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
@@ -973,6 +973,7 @@
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.ProgramDomain` <- `Lattice.Semantics.Stage1`
+- `Lattice.Semantics.ProgramRefinement` <- `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
@@ -1935,6 +1936,7 @@
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
 | `Lattice.Semantics.ProgramDomain` | 6 | 3 |
+| `Lattice.Semantics.ProgramRefinement` | 5 | 1 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
@@ -2827,7 +2829,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bregman_nonneg` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
 - `bregman_strong_lower` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
 - `bregman_three_point` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
-- `bridge_exists` -> `Repair`, `Sat`, `iterate`
+- `bridge_exists` -> `Pt`, `Repair`, `Sat`, `constraintDomain`, `iterate`, `programDomain`
 - `bridge_is_necessary` -> `Audit`, `at`, `g`
 - `bridgedCount_append` -> `Audit`, `induction`, `mul`, `one`
 - `bridgedCount_bridged` -> `Audit`, `induction`, `mul`, `one`
@@ -8592,8 +8594,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `refPackage_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `at`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
 - `refPackage_uncs` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `Rule`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
 - `refinement_not_mandatory` -> `empty`, `layer`
+- `refines_degenerate_at_zero` -> `Pt`, `constraintDomain`, `programDomain`
 - `refines_iff` -> `induction`, `step`
-- `refines_mono` -> `induction`, `step`
+- `refines_mono` -> `Pt`, `bridge_exists`, `constraintDomain`, `induction`, `programDomain`, `step`
+- `refines_not_trivial` -> `Pt`, `bridge_exists`, `constraintDomain`, `programDomain`, `refines_mono`
+- `refines_of_no_output` -> `Pt`, `bridge_exists`, `constraintDomain`, `programDomain`, `refines_mono`
 - `refines_refl` -> `induction`, `step`
 - `refl_mask_output_bound` -> `convComb`
 - `refutes_strictly_stronger` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
