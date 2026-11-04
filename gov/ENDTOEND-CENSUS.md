@@ -15,20 +15,21 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 5421 | 57.2% |
-| 1 | 1508 | 15.9% |
+| 0 | 5421 | 57.0% |
+| 1 | 1510 | 15.9% |
 | 2 | 687 | 7.2% |
 | 3 | 648 | 6.8% |
 | 4 | 373 | 3.9% |
-| 5 | 457 | 4.8% |
-| 6 | 383 | 4.0% |
-| 7 | 7 | 0.1% |
-| **合计** | **9484** | |
+| 5 | 468 | 4.9% |
+| 6 | 392 | 4.1% |
+| 7 | 8 | 0.1% |
+| **合计** | **9507** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
+| 7 | `t0_constructor_samePoint` (`Plugins/Targets/Construction.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `holds_samePoint_const` (`Plugins/Targets/Solver.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `t1_compile_sound_instance_holds` (`Plugins/Targets/Statements.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
 | 7 | `mem_merged_of_not_rejected` (`Plugins/Targets/T1Dependence.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
@@ -58,6 +59,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `proofComplete_imp_registry` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
+| 6 | `proofComplete_holds` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -87,8 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_claims_soundness` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_no_equivariance` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_no_confluence` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_no_recovery` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_no_spatial` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

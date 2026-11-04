@@ -548,17 +548,159 @@ theorem pluginRegistryComplete_holds : PluginRegistryComplete :=
 /-! ## Migration: the registry is a set of CITATIONS -/
 
 
-/-- **The honest statement of the current state.**
 
-**The registry is complete and non-vacuous, the census is closed, every plugin is migrated, and eight of
-nine targets have proved content.**
-**=> `ProofComplete` is still unreachable, and the reason is the ONE target without a carried proof.**
-**Any claim of project completion that omitted that clause would be false, and this theorem is where the
-state is recorded as facts rather than remarks.** -/
+/-- **`chainSlot_migrated`** -- `VariableDerivative.lean` moved into the plugin directory. -/
+theorem chainSlot_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Extractors/ChainSlot/"
+      Lattice.Plugins.Extractors.ChainSlot.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Extractors.ChainSlot.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  unfold Lattice.Plugins.ObligationOwnedBy
+  obtain h | h | h | h | h | h | h | h | h | h | h | h := ho <;>
+    rw [h] <;>
+    exact file_under_dir _ _
+
+/-- **`constraint_migrated`** -- `Core/Logic.lean` moved into the plugin directory. -/
+theorem constraint_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Core/Constraint/"
+      Lattice.Plugins.Core.Constraint.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Core.Constraint.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  unfold Lattice.Plugins.ObligationOwnedBy
+  obtain h | h | h | h := ho <;> rw [h] <;> exact file_under_dir _ _
+
+/-- **`compose_migrated`** -- three `Compose` files moved into the plugin directory. -/
+theorem compose_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Compose/"
+      Lattice.Plugins.Compose.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Compose.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  unfold Lattice.Plugins.ObligationOwnedBy
+  obtain h | h | h | h | h | h | h | h | h | h := ho <;>
+    rw [h] <;>
+    exact file_under_dir _ _
+
+/-- **`pluginDirOf` at each registry entry.** -/
+theorem pluginDirOf_coreRepair :
+    pluginDirOf Lattice.Plugins.Core.Repair.verified
+      = some "Lattice/Plugins/Core/Repair/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Core.Repair.verified, Lattice.Plugins.Core.Repair.manifest]
+
+theorem pluginDirOf_penalty :
+    pluginDirOf Lattice.Plugins.Domains.Constraints.Penalty.verified
+      = some "Lattice/Plugins/Domains/Constraints/Penalty/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Domains.Constraints.Penalty.verified,
+        Lattice.Plugins.Domains.Constraints.Penalty.manifest]
+
+theorem pluginDirOf_tokens :
+    pluginDirOf Lattice.Plugins.Domains.Constraints.Tokens.verified
+      = some "Lattice/Plugins/Domains/Constraints/Tokens/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Domains.Constraints.Tokens.verified,
+        Lattice.Plugins.Domains.Constraints.Tokens.manifest]
+
+theorem pluginDirOf_compose :
+    pluginDirOf Lattice.Plugins.Compose.verified
+      = some "Lattice/Plugins/Compose/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Compose.verified, Lattice.Plugins.Compose.manifest]
+
+theorem pluginDirOf_chainSlot :
+    pluginDirOf Lattice.Plugins.Extractors.ChainSlot.verified
+      = some "Lattice/Plugins/Extractors/ChainSlot/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Extractors.ChainSlot.verified,
+        Lattice.Plugins.Extractors.ChainSlot.manifest]
+
+theorem pluginDirOf_gnn :
+    pluginDirOf Lattice.Plugins.Architectures.GNN.verified
+      = some "Lattice/Plugins/Architectures/GNN/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Architectures.GNN.verified,
+        Lattice.Plugins.Architectures.GNN.manifest]
+
+theorem pluginDirOf_norm :
+    pluginDirOf Lattice.Plugins.Architectures.Norm.verified
+      = some "Lattice/Plugins/Architectures/Norm/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Architectures.Norm.verified,
+        Lattice.Plugins.Architectures.Norm.manifest]
+
+/-- **THE REGISTRY IS MIGRATED: every plugin owns its obligations.** -/
+theorem proofRegistry_migrated :
+    Lattice.Plugins.RegistryMigratedFor pluginDirOf proofRegistry := by
+  intro p hp
+  rw [proofRegistry] at hp
+  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · exact ⟨_, pluginDirOf_coreConstraint, constraint_migrated⟩
+  · exact ⟨_, pluginDirOf_coreRepair, repair_migrated⟩
+  · exact ⟨_, pluginDirOf_penalty, penalty_migrated⟩
+  · exact ⟨_, pluginDirOf_tokens, tokens_migrated⟩
+  · exact ⟨_, pluginDirOf_compose, compose_migrated⟩
+  · exact ⟨_, pluginDirOf_chainSlot, chainSlot_migrated⟩
+  · exact ⟨_, pluginDirOf_gnn, gnn_migrated⟩
+  · exact ⟨_, pluginDirOf_norm, norm_migrated⟩
+
+
+/-- **The honest statement of the current state.** -/
 theorem current_state :
     PluginRegistryComplete ∧ ¬ pluginCensusPending ∧
-      Lattice.Plugins.Targets.proved_target_count = 8 ∧
-      Lattice.Plugins.Targets.open_target_count = 1 :=
-  ⟨pluginRegistryComplete_holds, pluginCensusPending_false, rfl, rfl⟩
+      Lattice.Plugins.Targets.proved_target_count = 9 ∧
+      Lattice.Plugins.Targets.open_target_count = 0 ∧
+      Lattice.Plugins.RegistryMigratedFor pluginDirOf proofRegistry :=
+  ⟨pluginRegistryComplete_holds, pluginCensusPending_false, rfl, rfl, proofRegistry_migrated⟩
+
+
+/-- **`ProofComplete` HOLDS.**
+
+**All eighteen conjuncts are discharged, and every one of them by an EXISTING theorem -- nothing here
+constructs a witness.**
+
+## What made this possible, conjunct by conjunct
+
+- **`PluginRegistryComplete`** -- rounds 80-87, including the non-vacuity fix that closed the
+  empty-plugin shortcut;
+- **`¬ pluginCensusPending`** -- round 95, after the census was found to be counting directory groups
+  rather than plugins;
+- **`RegistryMigratedFor pluginDirOf proofRegistry`** -- rounds 88-94, seven actual file moves;
+- **T1/T2/T3/T4** -- their `_holds` theorems in `Targets/Statements.lean`;
+- **T5/T6/T7/T8** -- the runtime carriers in `Runtime/RTargets.lean`.
+
+## What this theorem does NOT claim
+
+**It is a statement about the PREDICATE, and the predicate's scope was fixed long before this round.**
+**`ProofComplete` deliberately excludes the C interface, weight I/O, file formats, conformance test
+suites, and training itself** -- **those are out of scope BY CONSTRUCTION, and this theorem says nothing
+about them.**
+
+**=> "`ProofComplete` holds" means every proposition this project decided to formalise is proved. It does
+not mean `lake build` produces a trainer.** -/
+theorem proofComplete_holds : ProofComplete := by
+  unfold ProofComplete
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact pluginRegistryComplete_holds
+  · exact pluginCensusPending_false
+  · exact proofRegistry_migrated
+  · exact Lattice.Plugins.Targets.t1_compile_sound_instance_holds
+  · exact Lattice.Plugins.Targets.t1_merge_sound_unrejected_holds
+  · exact Lattice.Plugins.Targets.t1_compile_sound_general_holds
+  · exact Lattice.Plugins.Targets.t2_penalty_exact_holds
+  · exact Lattice.Plugins.Targets.t2_penalty_modulus_holds
+  · exact Lattice.Plugins.Targets.t3_parameter_roundtrip_holds
+  · exact Lattice.Plugins.Targets.t3_compile_injective_holds
+  · exact Lattice.Plugins.Targets.t3_semantic_not_injective_holds
+  · exact Lattice.Plugins.Targets.t3_no_faithful_extractor_holds
+  · exact Lattice.Plugins.Targets.t4_repair_progress_holds
+  · exact Lattice.Plugins.Targets.t4_loop_converges_holds
+  · exact Lattice.Plugins.Runtime.t5_recovery_holds
+  · exact Lattice.Plugins.Runtime.t6_spatial_holds
+  · exact Lattice.Plugins.Runtime.t7_confluence_holds
+  · exact Lattice.Plugins.Runtime.t8_failure_isolation_holds
 
 end Lattice.Plugins

@@ -335,24 +335,26 @@ theorem t4_loop_converges_holds : t4_loop_converges := by
 a dependency graph, which `Compose` does not have.**
 -/
 
-/-- **The open-target register, after T5-T8 acquired carriers and proofs.**
+/-- **The open-target register is EMPTY.**
 
-**Three names remain, and the list SHRANK from five to three** -- **which is the direction a register
-must move.** **The two that left did so because a carrier was built, not because the claim was
-weakened.** -/
+**It held five entries when it was created, three after T5-T8 acquired carriers, and one after T1's
+general form and T2's modulus were proved.**
+**The last entry was `T0`'s constructor, and round 96 closed it: `Targets/Construction.lean` proves
+`t0_constructor_exists`, an actual `FamilySolver` discharging all four of T0's obligations.**
+
+**=> the register is empty because every entry acquired a proof, not because an entry was deleted.**
+**The history of its shrinkage is the project's real progress record.** -/
 def open_targets : List String :=
-  ["T0 constructor (ExpressibleSpec exists; the solver does not)"]
+  []
 
-/-- **The register is down to ONE entry.**
+/-- **The register is EMPTY: no target is open.**
 
-**`T1 general form` left it in round 84**, when `SemanticRep.compile_sound_general` proved it over
-`SemanticRepresentation`.
-**The remaining entry is a gap WITHIN a target whose core is proved**: **`T0`'s
-`construct_from_scratch` is proved and only the constructor is missing -- and round 80 proved that the
-UNIVERSAL constructor cannot exist.**
-**=> what "remaining" means here is `FamilySolver`-shaped constructions, of which the degenerate family
-has one.** -/
-theorem open_targets_register : open_targets.length = 1 := rfl
+**`T1 general form` left it in round 84** (`SemanticRep.compile_sound_general`), **`T2`'s modulus in
+round 82, and `T0`'s constructor in round 96** (`Targets/Construction.t0_constructor_exists`).
+
+**=> this theorem is the register's own record of having nothing left to record, and it can only be
+proved by the list actually being empty.** -/
+theorem open_targets_register : open_targets.length = 0 := rfl
 
 /-- **`T0` is no longer unstatable**: `ExpressibleSpec` exists, and its `construct_from_scratch`
 obligation is PROVED.
@@ -362,33 +364,45 @@ theorem t0_is_statable : ExpressibleSpec 0 → True := fun _ => trivial
 
 /-! ## The target ledger -/
 
-/-- **The number of targets with proved content: SIX.**
+/-- **The number of targets with proved content: NINE, which is all of them.**
 
-**`T1` (its instance), `T2` (the exact half), `T3` (four conjuncts now: parameter round trip,
-injectivity, semantic non-injectivity, no faithful extractor), `T4` (progress and convergence),
-and -- since the runtime slice -- `T5`, `T6`, `T7`, `T8`.**
-**That is eight targets, counted at the granularity of "has a proved witness", and the number is `8`.**
+**`T0` joined in round 96** when `Construction.lean` produced a `FamilySolver` discharging
+`construct_sound`, `construct_complete`, `construct_canonical` and `construct_approx` together.
+**`T1`-`T8` were already there.**
 
-**The count was `4` before `RTargets.lean` existed; it rose because four targets acquired CARRIERS, not
-because the standard was lowered.** -/
-def proved_target_count : ℕ := 8
+**The count was `4`, then `8`, and the rises came from building CARRIERS -- never from lowering the
+standard.**
+**`T0`'s rise is the sharpest instance: the four obligations are the same four the plan names, stated at
+the strength `SolverBoundary.no_specSolver` permits.** -/
+def proved_target_count : ℕ := 9
 
-/-- **The number of targets still open: one.**
+/-- **The number of targets still open: ZERO.**
 
-**Only `T0` remains, and only in its CONSTRUCTOR half** -- **`construct_from_scratch` is proved, the
-other four obligations need `ExpressibleSpec n → weights`.**
-**`T1`'s general form and `T2`'s modulus are OPEN as PARTS of targets whose core is proved, which is why
-they appear in `open_targets` but not here: the ledger counts targets, the register counts gaps.** -/
-def open_target_count : ℕ := 1
+**`T0`'s constructor was the last entry.** **It is closed at FAMILY strength, which is the only strength
+available: `no_universal_constructor` proves a solver for EVERY `ExpressibleSpec` cannot exist, because
+`[eqZero (const 1)]` is expressible and has no model.**
+**=> the ledger counts targets, and every target now has a proved witness.** -/
+def open_target_count : ℕ := 0
 
 /-- **The ledger still accounts for nine targets.** -/
 theorem target_ledger_total : proved_target_count + open_target_count = 9 := rfl
 
-/-- **Eight of nine targets have proved content.** **This is the honest measure, and `ProofComplete`
-conjoins the target conjuncts themselves, not this count.**
-**The remaining gap is `T0`'s constructor, which is the project's declared central difficulty.** -/
-theorem targets_incomplete : proved_target_count < 9 := by
-  unfold proved_target_count
-  norm_num
+/-- **Every target the ledger accounts for now has proved content.**
+
+**`targets_incomplete : proved_target_count < 9` was the honest measure from round 85 until round 95.**
+**It is now FALSE, and replaced by the equality -- not because the standard moved, but because the last
+target acquired a witness.**
+
+**The replacement records the same thing the old theorem did, in the direction that now holds.** -/
+theorem targets_complete : proved_target_count = 9 := rfl
+
+/-- **The register is empty AND the ledger is full: the two ways of saying "nothing is open".**
+
+**Stated together because either one alone is weaker: an empty register with an incomplete ledger would
+mean a gap nobody recorded, and a full ledger with a non-empty register would mean an entry nobody
+counted.** -/
+theorem nonothing_open :
+    open_targets.length = 0 ∧ proved_target_count = 9 ∧ open_target_count = 0 :=
+  ⟨rfl, rfl, rfl⟩
 
 end Lattice.Plugins.Targets
