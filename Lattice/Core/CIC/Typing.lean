@@ -74,7 +74,7 @@ abbrev ConstSet : Type := ℕ → Prop
 **A `const` is typable only when the `ConstSet` admits it.** -/
 inductive Typable (K : ConstSet) : CICCtx → Term → Prop
   /-- **A universe is typable at its successor.** -/
-  | sort (Γ : CICCtx) (l : Level) : Typable K Γ (.sort l)
+  | sort (Γ : CICCtx) (k : SortKind) (l : Level) : Typable K Γ (.sort k l)
   /-- **A bound variable takes the type the context assigns it.** -/
   | var (Γ : CICCtx) (A : Term) (n : ℕ) (h : Γ[n]? = some A) : Typable K Γ (.var n)
   /-- **An admissible constant is typable.**
@@ -108,8 +108,9 @@ theorem typable_const {K : ConstSet} (Γ : CICCtx) (k : ℕ) (A : Term) (hK : K 
   Typable.const Γ k A hK
 
 /-- **A universe is typable in every context.** -/
-theorem typable_sort {K : ConstSet} (Γ : CICCtx) (l : Level) : Typable K Γ (.sort l) :=
-  Typable.sort Γ l
+theorem typable_sort {K : ConstSet} (Γ : CICCtx) (k : SortKind) (l : Level) :
+    Typable K Γ (.sort k l) :=
+  Typable.sort Γ k l
 
 /-! ## The boundary this `Typable` does not cross -/
 
@@ -122,7 +123,7 @@ the only structural fact about `Typable` that the encoding must rely on.** -/
 theorem typable_mono {K K' : ConstSet} (h : ∀ k, K k → K' k)
     {Γ : CICCtx} {t : Term} (ht : Typable K Γ t) : Typable K' Γ t := by
   induction ht with
-  | sort Γ l => exact Typable.sort Γ l
+  | sort Γ k l => exact Typable.sort Γ k l
   | @var Γ A n hΓ => exact Typable.var Γ A n hΓ
   | @const Γ k A hK => exact Typable.const Γ k A (h k hK)
   | app Γ f a _ _ ihf iha => exact Typable.app Γ f a ihf iha

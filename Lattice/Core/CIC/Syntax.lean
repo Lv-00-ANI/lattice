@@ -71,6 +71,30 @@ inductive Level : Type
   | param : ℕ → Level
   deriving DecidableEq
 
+/-! ## The two sorts -/
+
+/-- **Which universe FAMILY a `sort` lives in.**
+
+**This is `PARAMETERIZATION-AUDIT.md` item 4, and it is the first of the three that must be settled before
+C0/C2: the audit found that `Term` had a SINGLE universe, so a SPECIFICATION (a proposition) and a MODEL
+STRUCTURE (a type) were the same kind of term.**
+
+**That collapse is exactly what would have made T0's "typability is constructibility" vacuous: if `Spec` and
+`Model` are both `Term`, then "`t` is typable" says nothing about which of the two `t` is.**
+
+**=> the fix is not a new constructor but a PARAMETER: `sort` now carries a `SortKind`, and the two roles are
+distinguished at the syntax level rather than by convention.**
+
+**`Prop` is here because the design's T0/T1 obligations are about propositions; `Type` because the model
+structures are types. A third kind (a `Type` at a higher level) is expressible as `type` with a `Level`.**
+-/
+inductive SortKind : Type
+  /-- **The impredicative sort of propositions.** -/
+  | prop : SortKind
+  /-- **The predicative sort of types, at a level.** -/
+  | type : SortKind
+  deriving DecidableEq
+
 /-! ## Terms -/
 
 /-- **The term syntax.**
@@ -78,11 +102,11 @@ inductive Level : Type
 **`var n` is the de Bruijn index `n`, counted from the innermost binder.**
 **`const k` is a named constant, which is where encoded constraints live: a `GeoConstraint` becomes a closed
 term with a constant head, so it needs no free-variable bookkeeping.**
-**`sort l` is a universe; `pi` and `lam` bind one variable each; `let` binds one and substitutes immediately in
-the body.** -/
+**`sort k l` is a universe: `k` says whether it is `Prop` or `Type`, and `l` is its level.**
+**`pi` and `lam` bind one variable each; `let` binds one and substitutes immediately in the body.** -/
 inductive Term : Type
-  /-- A universe. -/
-  | sort : Level → Term
+  /-- A universe, with its SORT KIND and its level. -/
+  | sort : SortKind → Level → Term
   /-- A de Bruijn variable. -/
   | var : ℕ → Term
   /-- A named constant. -/
@@ -104,7 +128,7 @@ inductive Term : Type
 **`shift c d t` adds `d` to every FREE index `≥ c`; indices below the cutoff are bound inside `t` and stay put.**
 **The cutoff is not a technicality: without it, shifting under a binder would capture.** -/
 def shift : ℕ → ℕ → Term → Term
-  | c, d, .sort l => .sort l
+  | c, d, .sort k l => .sort k l
   | c, d, .var n => if n < c then .var n else .var (n + d)
   | c, d, .const k => .const k
   | c, d, .app f a => .app (shift c d f) (shift c d a)
@@ -133,7 +157,7 @@ and `Nat.add_zero` rather than definitional unfolding.**
 **=> a layer whose shifting law were `rfl` would mean the cutoff was doing nothing.** -/
 theorem shift_zero (c : ℕ) (t : Term) : shift c 0 t = t := by
   induction t generalizing c with
-  | sort l => rfl
+  | sort k l => rfl
   | var n =>
     by_cases hn : n < c
     · rw [shift_var_lt hn]
@@ -162,7 +186,7 @@ constant `0`.** -/
 theorem shift_shift (c d₁ d₂ : ℕ) (t : Term) :
     shift c d₁ (shift c d₂ t) = shift c (d₁ + d₂) t := by
   induction t generalizing c with
-  | sort l => rfl
+  | sort k l => rfl
   | var n =>
     by_cases hn : n < c
     · -- the index is bound, so the inner shift leaves it and the outer one does too

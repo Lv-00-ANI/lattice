@@ -165,7 +165,7 @@ theorem geometryConsts_encode {n : ℕ} (c : GeoConstraint n) :
 hypothesis.** -/
 theorem encode_typable {n : ℕ} (c : GeoConstraint n) :
     Typable geometryConsts [] (encodeConstraint c) :=
-  Typable.const [] _ (.sort .zero) (geometryConsts_encode c)
+  Typable.const [] _ (.sort SortKind.prop Level.zero) (geometryConsts_encode c)
 
 /-- **V2: the encoding's acceptance criterion.**
 

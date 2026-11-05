@@ -58,7 +58,7 @@ open Term
 **That double move is what keeps de Bruijn indices consistent, and it is the only place this definition is
 not a straightforward structural recursion.** -/
 def subst : ℕ → Term → Term → Term
-  | j, s, .sort l => .sort l
+  | j, s, .sort k l => .sort k l
   | j, s, .var n =>
       if n = j then s else if n < j then .var n else .var (n - 1)
   | j, s, .const k => .const k

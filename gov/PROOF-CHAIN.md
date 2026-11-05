@@ -1013,7 +1013,7 @@
 | `Lattice.Core.AnalysisHelper` | 3 | 0 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
-| `Lattice.Core.CIC.Syntax` | 4 | 3 |
+| `Lattice.Core.CIC.Syntax` | 4 | 4 |
 | `Lattice.Core.CIC.Typing` | 3 | 3 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -3701,7 +3701,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraintFiber_self` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `constraintSatRel_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `constraintSet_is_list_of_constraints` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `symbolToWeight_correct`
-- `constraintTag_lt` -> `ConstSet`, `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Pt`, `Term`, `Typable`, `collinear`, `parallel`, `zero`
+- `constraintTag_lt` -> `ConstSet`, `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Level`, `Pt`, `SortKind`, `Term`, `Typable`, `collinear`, `parallel`, `zero`
 - `constraintVocab_denote_sound` -> `Domain`, `GeoConstraint`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `sound`
 - `constraint_args_mem_vars` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `constraints_of_program`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvConstraint`, `lvProgram`, `normalize`, `point`, `subst`
 - `constraint_element_iff_no_split` -> `IsElement`, `RealConstraint`, `Temporal`, `extent`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`
@@ -4663,7 +4663,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encode_sound` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Pt`, `Term`, `Typable`
 - `encode_sound_of_holds` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Pt`, `Term`, `Typable`
 - `encode_total` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Term`
-- `encode_typable` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Pt`, `Term`, `Typable`, `zero`
+- `encode_typable` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Level`, `Pt`, `SortKind`, `Term`, `Typable`, `zero`
 - `encoded_layer_size` -> `AffineLayer`, `FloatFormat`, `enc`, `layerWords`, `length`
 - `encoder_decoder_block_bound` -> `E`, `block_lipschitz_bound`, `dec`, `enc`, `lipschitz_add`, `lipschitz_comp`
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `enc`, `lipschitz_comp`
@@ -5640,7 +5640,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geometric_loop_reaches_all_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
 - `geometric_loop_reaches_satisfied` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
 - `geometric_tail_scope` -> `at`, `induction`, `le`, `zero`
-- `geometryConsts_encode` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Pt`, `Term`, `Typable`, `zero`
+- `geometryConsts_encode` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Level`, `Pt`, `SortKind`, `Term`, `Typable`, `zero`
 - `geometry_is_nontrivial` -> `GeoConstraint`, `GeoExpr`, `Pt`
 - `gershgorin_bound` -> `apply`, `at`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
 - `getConstraints_length_nonneg` -> `Theory`, `length`
@@ -10664,9 +10664,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
-- `typable_const` -> `Level`, `Term`, `induction`
+- `typable_const` -> `Level`, `SortKind`, `Term`, `induction`
 - `typable_mono` -> `Term`, `induction`
-- `typable_sort` -> `Level`, `Term`, `induction`
+- `typable_sort` -> `Level`, `SortKind`, `Term`, `induction`
 - `typeII_nonneg` -> `alpha`, `at`, `le_refl`, `le_trans`
 - `typeI_add_typeII_eq_one_of_same_law` -> `alpha`, `at`, `le_trans`
 - `typeI_typeII_equal_of_same_law` -> `alpha`, `at`, `le_trans`

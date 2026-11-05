@@ -285,6 +285,12 @@ CHECKS = [
     # A document that says "implemented" where the tree says otherwise is a CORRECTNESS problem:
     # later rounds plan against it.
     ("docs: carrier claims match the tree", "check_carrier_claims.py"),
+    # Round 136. Eighteen places where an ABSTRACT ROLE was welded to a CONCRETE INSTANCE
+    # (`Weights` as a bare vector, `State` as `K -> Option Nat`, `Obligation.theoremName` as a
+    # `String`, ...). Each compiles and each proves something; what they cost is EXPRESSIVENESS.
+    # A list in markdown decays, so the audit is executable: a fixed item must be REMOVED from
+    # `PARAMETERIZATION-AUDIT.md`, and the gate says which ones are ready.
+    ("report: parameterization audit is live", "check_parameterization.py"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
     # `linter.unusedVariables`. 139 such binders existed; this gate makes them enumerable. One was
