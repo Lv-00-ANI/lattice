@@ -24,6 +24,9 @@ import Lattice.Core.VariableActLayer
 import Lattice.Core.VariableDerivative
 import Lattice.Core.ModelArtifact
 import Lattice.Core.ModelArtifactInstances
+import Lattice.Core.CIC.Syntax
+import Lattice.Core.CIC.Typing
+
 
 /-!
 # `Lattice.Core` -- the authoritative semantics of LATTICE

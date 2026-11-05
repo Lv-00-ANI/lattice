@@ -15,6 +15,11 @@
 
 它不是训练器（trainer），不是推理引擎，也不是模型。
 
+**主符号载体是 CIC term**（`Lattice/Core/CIC/`）；几何是它的一个编码实例。
+**LATTICE 只提供底层原语与证明**：`Term` / `Typable` / `compile` / `extract` /
+`Effect` / `Fiber`。surface syntax、编辑器、`VocabEdit` / `SemanticEdit` / `Import` /
+`PostTrain` 等打包能力由用户在其上实现与封装。
+
 | 问题 | 常规训练框架 | **LATTICE** |
 |:--|:--|:--|
 | 交付单位 | 一次可复现的训练 / 推理 | **一条被证明的转换**，或**一条被证否的断言** |
@@ -34,14 +39,18 @@
 
 每条链上的边都由**带义务字段的结构**承载，实现字段即得下游定理：
 
-| 边 | 结构 | 义务字段 |
-|:--|:--|:--|
-| 符号 → 权重 | `Compiler` | `sound` |
-| 权重 → 符号 | `Representation` | `roundtrip` |
-| 端到端 | `Ladder` | `l2l3_sound` |
-| 修复回路 | `Repair` | `absorbs` / `decreases` / `atomic` |
+| 边 | 结构 | 义务字段 | CIC 版 |
+|:--|:--|:--|:--|
+| 符号 → 权重 | `Compiler` | `sound` | `compile : Term → Weights` + `compile_sound` |
+| 权重 → 符号 | `Representation` | `roundtrip` | `extract_compile : extract (compile t) ≡β t` |
+| 端到端 | `Ladder` | `l2l3_sound` | 由 `compile_sound` 导出，不再是字段 |
+| 修复回路 | `Repair` | `absorbs` / `decreases` / `atomic` | `repair : Term → Term` |
 
 ⇒ **这里的基本单位不是「训练一次」，而是「一条转换 + 它的义务」。**
+
+**载体说明（2026-11-05）：** 上表左三列是几何/旧结构的形状；
+第四列是 CIC 载体下的目标形状。CIC 化后，`roundtrip` 与 `l2l3_sound` **不再是字段**
+——这正是消除「字段投影型 sound」的关键。见 `CARRIER-CIC.md §5`。
 
 ### 1.2 可逆性分级是原创资产
 

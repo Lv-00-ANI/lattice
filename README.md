@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 978 | `audit_counts.py` |
-> | 定理 / 引理 | 9713 | `audit_counts.py` |
+> | Lean 模块 | 981 | `audit_counts.py` |
+> | 定理 / 引理 | 9728 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -110,8 +110,8 @@
   程序/传感器流        │                  ▲     │
                       │  L1⇄L2          │     │ L3⇄L2（转换层）★ 难点
                       ▼                  │     ▼
-                  L2 符号模型（规则/约束/谓词/DSL，结构化知识）
-                       ▲    实现在 Lattice/Core 上
+                  L2 符号模型（CIC term：规则/约束/谓词/DSL）
+                       ▲    实现在 Lattice/Core/CIC 上
                        │
                   符号引擎（约束 / 表达式 / 惩罚嵌入 / 修复回路）
 ```
@@ -120,6 +120,20 @@
 - **逆向（后训练 / 验证 / 修复）**：把权重行为提取回符号——验证、修正、再注入；
 - **三条路径统一进链路**：神经捷径（数据→token→权重）、符号捷径（知识→符号模型）、
   完整链路（数据→token→符号→权重）。
+
+### 1.0 载体：CIC
+
+**L2 的载体是 CIC term**，不是某个具体领域语言。
+几何（`Domains/Geometry`、`Domains/Constraints`）保留为**一个 CIC 编码实例**：
+`Encode/Geometry` 把 12 个几何构造子映射为 term，单向 `sound`。
+L1 token 也以 term 表达，`L1⇄L2` 是 term 内部操作。
+
+- 决定与理由：[`CARRIER-REPLACEMENT.md`](CARRIER-REPLACEMENT.md)
+- 设计与映射：[`CARRIER-CIC.md`](CARRIER-CIC.md)
+
+**LATTICE 只提供底层**：`Term` / `Typable` / `compile` / `extract` / `Effect` / `Fiber`
+等原语与证明。surface syntax、编辑器、以及 `VocabEdit` / `SemanticEdit` / `Import` /
+`PostTrain` 这类打包能力，由用户在本库之上实现与封装——本库不提供这些入口。
 
 ### 1.1 「可逆」必须分级陈述
 
@@ -145,11 +159,11 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/        26       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口
+│   ├── Core/        28       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
-│   ├── Domains/     104       # 领域实例：Constraints 30 + Geometry 71（原 Geo/ 的 99 个迁入后子划分）
+│   ├── Domains/     105       # 领域实例：Constraints 30 + Geometry 72（含 Encode/CIC）+ 子划分
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
 │   ├── Lib/        623       # 应用库，按主题（建立在链路层之上）
@@ -195,11 +209,17 @@ lattice-new/
 
 ---
 
-## 3. 三个核心决策
+## 3. 四个核心决策
 
-1. **符号模型直接实现在 `Lattice/Core` 上**——它是符号模型的宿主，不是中间层。
-2. **真正的难点 = 转换（符号⇄权重）**——其余都是成熟技术。
-3. **用 Lean 4 形式化证明转换的正确性**——把已验证的编译链延伸到权重。
+1. **符号模型的宿主是 `Lattice/Core/CIC`**——`Term` 与类型规则在这里，它是符号模型的宿主，不是中间层。
+2. **几何是它的一个编码实例**——`Domains/Geometry`、`Domains/Constraints` 保留，
+   通过 `Encode/Geometry` 单向编码进 term；不再作为主线载体。
+3. **真正的难点 = 转换（符号⇄权重）**——其余都是成熟技术。
+4. **用 Lean 4 形式化证明转换的正确性**——把已验证的编译链延伸到权重。
+
+**LATTICE 只提供底层**：`Term` / `Typable` / `compile` / `extract` / `Effect` / `Fiber`
+等原语与证明。surface syntax、编辑器、`VocabEdit` / `SemanticEdit` / `Import` /
+`PostTrain` 等打包能力由用户在其上实现。
 
 ### 3.1 关于编译链：原文路线 vs 已实现路线
 

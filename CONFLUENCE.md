@@ -1,5 +1,17 @@
 # CONFLUENCE
 
+## 0. 载体
+
+`trace`、`construct`、`finalSpec` 定义在 **CIC 载体**上：
+
+- `run : Trace → CIC.State → CIC.State`；
+- `construct : Spec → Option ModelArtifact`；
+- `finalSpec : Trace → Spec`；
+- `ResultEquiv` 的 `behavior` 或 `approx` 口径。
+
+几何版本（`Plugins/Runtime/RTargets.t7_confluence`）只是两个单键写入的交换性，
+**不是**本文件第 1 节的命题；不得以它冒充 T7。
+
 ## 1. 命题
 
 动态加载/卸载/替换插件后的最终模型，等价于从最终配置重新构造一次：
@@ -12,7 +24,8 @@ theorem lattice_confluence :
 
 - `≃` 是 `ResultEquiv` 的 `behavior` 或 `approx` 口径，不是字节相等；
 - `construct (finalSpec trace)` 必须对最终 Spec 有定义；
-- 如果最终 Spec 不在 `ExpressibleSpec`，只能 import/transform，不能声称从零重建。
+- 如果最终 Spec 不可构造（不在 `Typable` 或有 `no_specSolver` 形态），只能 import/transform，
+  不能声称从零重建。
 
 ## 2. 条件
 
@@ -21,7 +34,8 @@ theorem lattice_confluence :
 3. 效果 pairwise independent，或重叠键已串行化；
 4. 无 `FAILED`；
 5. 无未补偿 emission；
-6. `construct (finalSpec trace)` 有定义。
+6. `construct (finalSpec trace)` 有定义；
+7. 每个插件的 `Obligation.theoremName` 在树中真实存在（由 `check_obligation_names.py` 检查）。
 
 ## 3. 反例
 
@@ -30,7 +44,7 @@ theorem lattice_confluence :
 - 编译失败但继续使用半成品；
 - 导出到外部文件后回滚；
 - 非 total 插件只提供部分 service；
-- 最终 Spec 不在 `ExpressibleSpec`。
+- 最终 Spec 不可构造。
 
 ## 4. 变体
 
@@ -55,3 +69,4 @@ theorem lattice_confluence :
 - 失败插件的内部状态；
 - 私有格式解析；
 - 训练过程本身。
+

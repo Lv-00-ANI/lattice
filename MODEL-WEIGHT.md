@@ -18,6 +18,18 @@ structure ModelArtifact where
 - 没有 `format` 字段；
 - 没有 `bytes` 字段。
 
+**来源是 CIC term 的编码**：
+
+```lean
+def compile : Term → Weights
+def archOf  : Term → Arch
+def artifactOf (t : Term) : ModelArtifact :=
+  { arch := archOf t, weights := compile t }
+```
+
+几何侧的 `Pt n → Weights` 保留为一条 Domain 实例路径
+（`Domains/Geometry`），不再是唯一来源。理由见 `CARRIER-REPLACEMENT.md`。
+
 `RawModel` 只存在于工程侧：
 
 ```lean
@@ -56,12 +68,16 @@ inductive ResultEquiv : ModelArtifact → ModelArtifact → Prop
 ## 5. 构造
 
 ```lean
-def construct : Spec → Option ModelArtifact
+def construct : Typable Γ t A → Option ModelArtifact
 ```
 
-- 只对 `ExpressibleSpec`；
+- 构造的输入是 **term**，不是点配置；
+- 「可构造」= 「可类型性」+ 「`compile` 有定义」，因此可判定；
 - exact / canonical / approx；
-- 无符号规格时返回 `none`。
+- 无 `Typable` 见证时返回 `none`。
+
+几何上的旧构造器（`ExpressibleSpec n → Pt n`）只以 family 强度存在：
+`no_specSolver`（`Plugins/Targets/SolverBoundary.lean`）已证明它对任意 spec 不可能。
 
 ## 6. 变换
 

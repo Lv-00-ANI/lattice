@@ -15,6 +15,7 @@
 | `Lattice.Domains.AffineClass` | 134 | 9 | WeightSideLadder |
 | `Lattice.Domains.ApproxEmbedding` | 106 | 1 | Loss |
 | `Lattice.Domains.CExprCodegen` | 136 | 5 | ComputableExpr |
+| `Lattice.Domains.CIC` | 231 | 9 | Constraint |
 | `Lattice.Domains.ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
 | `Lattice.Domains.ClosedLoop` | 203 | 10 | Loop, SeqRepresentation, ConjRepair, Flatten |
 | `Lattice.Domains.CodegenLadder` | 110 | 3 | CExprCodegen |

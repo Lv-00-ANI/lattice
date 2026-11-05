@@ -59,12 +59,18 @@ LATTICE 对应：
 
 ## 2. LATTICE 的 effect 模型
 
+**目标形状（CIC 载体）：**
+
 ```lean
 structure LatticeEffect where
-  run  : State → State × (State → State)
+  run  : CIC.State → CIC.State × (CIC.State → CIC.State)
   mode : EffectMode
   cert : Option Cert
 ```
+
+- `CIC.State` 是 elaborator state 的抽象（不是 `K → Option ℕ`）；
+- 当前的 `Spatiotemporal/Model.lean` 的 `RState K := K → Option ℕ`
+  保留为**最小语义实例**，不再声称它就是运行时。
 
 ```lean
 inductive EffectMode
@@ -120,6 +126,16 @@ theorem lattice_failure_isolated : ...
 - T6：依赖满足才启动；provider 替换时先 deactivate 依赖者；
 - T7：动态演化后的最终模型 = 从最终 Spec 重建；
 - T8：失败插件隔离并回滚。
+
+**状态说明（2026-11-05）：**
+
+- 上述五个名字目前**在树中不存在**；
+- 实际的对应物是 `Plugins/Runtime/RTargets.lean` 的
+  `t5_recovery` / `t6_spatial` / `t7_confluence` / `t8_failure_isolation`；
+- 这四条是**弱化版**：载体是 `K → Option ℕ`，没有插件身份、没有证书、
+  `t7` 不是 `run trace ≃ construct (finalSpec)`；
+- 在 CIC 载体上重述后才能兑现本节标题所述的义务。
+  见 `CARRIER-CIC.md §5`。
 
 ## 5. 边界：acquisition vs emission
 

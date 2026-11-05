@@ -5,6 +5,13 @@
 > **C 实现最后**：C ABI、序列化、conformance、C runtime 的**接口与前置现在定义**；C 代码最后写。
 > **不提供打包能力**：没有 `VocabEdit`、`SemanticEdit`、`Import`、`PostTrain` 这类入口；只提供基础 `Primitive`，组合由用户完成。
 
+> **载体更新（2026-11-05）**：主符号载体是 **CIC term**（`Lattice/Core/CIC/`）。
+> 几何（`Geometry` / `constraintDomain`）保留为**一个编码实例**：
+> 它的 `Holds` 通过 `encode` 映射到 `Typable`，单向 `sound`。
+> 决定见 `CARRIER-REPLACEMENT.md`，映射见 `CARRIER-CIC.md`。
+> 下文的 `SemanticDomain` / `Vocab` / `Geometry` / `Inherits` 结构**不变**，
+> 但 `Geometry` 的角色从「主语义域」降为「Domain 实例之一」。
+
 ---
 
 ## 0. 一句话
@@ -30,6 +37,13 @@
 5. **每个 `Primitive` 有 `pre/post/sound/strength/coverage/frame`**。
 6. **Primitive 之间不互相 import**；只依赖 `Kernel`/`Runtime`/`Domains`。
 7. **C 接口/前置现在定义，C 实现最后**；接口规格属于本文，C 代码不属于。
+8. **主载体是 CIC term**（`Lattice/Core/CIC/`）；L1 token 与 L2 语义域都以 term 表达，
+   `L1⇄L2` 是 term 内部操作。几何是 `Encode/Geometry` 实例，不是主载体。
+9. **LATTICE 只提供底层**：`Term`/`Typable`/`compile`/`extract`/`Effect`/`Fiber` 等原语与证明。
+   surface syntax、编辑器、以及 `VocabEdit`/`SemanticEdit`/`Import`/`PostTrain` 这类**打包能力**
+   由用户在本库之上实现与封装，本库不提供入口。
+10. **`Primitives/*` 是 term 上的操作**：`SourceTerm` / `EditTerm` 的构造与检查，
+    而不是某个具体领域语言的 API。
 
 ---
 
@@ -57,6 +71,24 @@ structure Inherits (D) (G : Geometry D) (M : Type) where
   sound  : ∀ m x, G.label (embed m x) = behavior m x
   complete : ∀ y : D.Meaning, ∃ m x, G.label (embed m x) = y
 ```
+
+**载体（2026-11-05 新增）：**
+
+```lean
+structure Carrier where
+  Term    : Type
+  Typable : Context → Term → Type → Prop
+  denote  : Term → D.Meaning
+
+structure Encode (D) (C : Carrier D) (G : Geometry D) where
+  encode : G.Carrier → C.Term
+  sound  : ∀ c : G.Carrier, ∀ m, G.label c = m → ∃ A, C.Typable Γ (encode c) A
+```
+
+- `Carrier` 的具体实例是 **CIC**（`Lattice/Core/CIC/`）；
+- `Geometry` 是**一个** `Encode` 实例的载体，不是唯一载体；
+- `encode` 是**单向**的：几何 `Holds` ⟹ CIC `Typable`；
+  反方向不存在（`semantic_not_injective` / `no_extractor_preserves_both`）。
 
 **关键**：
 

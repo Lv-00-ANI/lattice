@@ -287,3 +287,56 @@ CIC.Syntax < CIC.Substitution < CIC.Reduction
 > **CIC 成为主载体后，T0 变成「可类型性即可构造」、T1 变成「`compile` 必须消费输入」、**
 > **T2 变成「β 步数给出显式 ε」、T3 变成「到 `NormalForm` 的定理而非字段投影」；**
 > **几何的 757 条定理保留为 Domain 级证据，不删除、不重写。**
+
+---
+
+## 11. CIC 化的完整范围
+
+“只要有收益的都可以做”——本文件的范围不止 L2 与靶定理。
+
+### 11.1 一级：直接消除已知缺陷
+
+| 对象 | 消除的缺陷 | 依据 |
+|:--|:--|:--|
+| L2 语义域 | `no_specSolver`、`l2l3` 丢参数、`g ≡ 0` | §1.1 |
+| 插件 `Obligation` | 幽灵名（DAG `denote_seq`/`denote_par`、Norm 路径错配） | `PROOF-OBLIGATIONS.md` §Plugin |
+| `PluginProof` | 12 字段 + “非空 ⇒ 12 字段全真” | §5 T0–T8 的连带 |
+| T5–T8 | 玩具 `K → Option ℕ`、无插件身份、无证书 | §5 |
+| 五个架构载体 | 孤岛、未接 CIC、`⟨rfl,rfl⟩` | `ARCHITECTURE-CARRIERS.md` §7 |
+
+### 11.2 二级：统一而非消除
+
+| 对象 | 统一为 | 收益 |
+|:--|:--|:--|
+| L1 token | 与 L2 同语义域；`L1⇄L2` 变成 term 内部操作 | 消除 L1/L2 两套语义 |
+| `Primitives` | term 上的操作（`SourceTerm`、`EditTerm`） | 与 L2 同构，`S1–S20` 的载体统一 |
+| 五载体 | `Term` 上的架构编码（`encode : ArchSyntax → Term`） | 消除孤岛，可复用 `Typable` |
+
+### 11.3 不做 CIC 化
+
+| 对象 | 原因 |
+|:--|:--|
+| `Weights` | 数值向量，不是语法对象；CIC 化会让“权重 ⇄ 符号”退化为“符号 ⇄ 符号” |
+| `ModelArtifact` | 产物，不是语法；可从它**提取** term（`archOf`），但对象本身不是 term |
+| 外部训练器 | `Delegate`，证书只能是 `Imported` / `Empirical` |
+| `CInterface` ABI | 依赖语言实现，工程侧未定 |
+| `Lib/` 的 ≈ 8,900 条定理 | 与 L2 无直接关系 |
+
+### 11.4 边界：LATTICE 只提供底层
+
+> **LATTICE 只提供底层原语与证明；surface syntax、编辑器、工作流由用户在其上构建与封装。**
+
+| 层 | LATTICE 提供 | 用户提供 |
+|:--|:--|:--|
+| L2 语法 | `Term` / `Level` / 类型规则（`Typing.typable`） | 自己的 surface syntax、DSL、parser |
+| L2 编码 | `Encode` 接口 + `encode_sound` | 自己领域的编码器 |
+| L2 检查 | 可判定的 `Typable` | 错误消息、诊断、IDE 集成 |
+| L2⇄L3 | `compile : Term → Weights` + `compile_sound` | 自己的编译策略与优化 |
+| L3→符号 | `extract : Weights → Option Term` | 自己的提取启发式 |
+| 插件 | `PluginManifest` / `VerifiedPlugin` / `Registry` | 自己的插件与义务 |
+| 编辑 | `Effect` / `Fiber` / `undo` / `snapshot` 原语 | `VocabEdit` / `SemanticEdit` / `Import` / `PostTrain` 等打包能力 |
+| 时空 | `Trace` / `construct` / `finalSpec` / `ResultEquiv` | 自己的编排与调度 |
+
+**这与 `SEMANTICS-MAINLINE.md` 的「不提供打包能力」一致**：
+`VocabEdit`、`SemanticEdit`、`Import`、`PostTrain` 都是**用户层**的封装，不是 LATTICE 提供的入口。
+

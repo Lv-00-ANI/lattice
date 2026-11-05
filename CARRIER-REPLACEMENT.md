@@ -13,6 +13,9 @@
 | **主符号载体** | 从 `GeoConstraint n` 改为 **CIC term** |
 | **几何** | 降为 `Domains/Geometry` 与 `Domains/Constraints` 的**编码实例**，不再作为主线载体 |
 | **几何定理** | 全部保留（≈ 757 条），不删除、不重写；角色从「靶定理的证据」变为「Domain 级证据 + `encode` 的验证」 |
+| **CIC 化范围** | **只要有收益的都做**：L2 语义域、L1 token、插件 `Obligation`、`PluginProof`、T5–T8、五个架构载体、`Primitives` |
+| **不 CIC 化** | `Weights`、`ModelArtifact`、外部训练器、`CInterface` ABI、`Lib/` 的 ≈ 8,900 条定理 |
+| **LATTICE 边界** | **只提供底层**：`Term`/`Typable`/`compile`/`extract`/`Effect`/`Fiber` 等原语与证明；surface syntax、编辑器、`VocabEdit`/`SemanticEdit`/`Import`/`PostTrain` 等打包能力由用户在其上实现 |
 | **语言实现** | 不在本仓库；由工程侧立项实现（parser / elaborator / evaluator） |
 | **C 代码** | 不写；只写 ABI / 布局 / conformance / refinement 的 Lean 侧规格 |
 

@@ -44,7 +44,7 @@ L0 数据 ──► L1 token ──► L3 权重（模型）
    │             │          ▲     │
    │             │ L1⇄L2    │     │ L2⇄L3
    ▼             ▼          │     ▼
-              L2 符号模型（规则/约束/谓词/DSL）
+              L2 符号模型（CIC term：规则/约束/谓词/DSL）
 ```
 
 三条路径：
@@ -55,19 +55,29 @@ L0 数据 ──► L1 token ──► L3 权重（模型）
 
 LATTICE 负责 L1⇄L2、L2⇄L3 的转换与证明；训练引擎由外部框架承担。
 
+**L2 的载体是 CIC term**，不是某个具体领域语言：
+
+- 几何约束被编码为 term（`Encode/Geometry`，单向 `sound`）；
+- 其他领域（程序、规则、DSL）同样以编码方式接入；
+- 因此 L2⇄L3 的定理陈述在 CIC 上，几何只是其中一个实例。
+
 ## 3. 新类型预训练
 
 ### 3.1 Construct（从零构造）
 
 ```text
-Spec → Constraints → Solve → Params → ModelArtifact
+Typable Γ t A → Term t → compile t → Weights → ModelArtifact
 ```
 
-- 只对 `ExpressibleSpec`；
+- 构造的对象是 **term**，不是点配置；
+- 「可构造」= 「可类型性」+ 「`compile` 有定义」，因此**可判定**；
 - 规格唯一确定权重时 **exact**；
 - 欠定时选 **canonical**（最小范数/对称固定/规范形）；
-- 不可精确时 **approx ε**；
-- 无符号规格时 **unsupported**，不能假装构造。
+- 不可精确时 **approx ε**（`ε` 来自归约步数，见 `PROOF-OBLIGATIONS.md` T2）；
+- 无 `Typable` 见证时 **unsupported**，不能假装构造。
+
+几何上的旧构造（`ExpressibleSpec n → Pt n`）保留为 Domain 实例：
+`no_specSolver` 已证明它**不可能**对任意 spec 成立，因此几何构造只以 family 强度存在。
 
 ### 3.2 Forward（注入现有训练）
 
@@ -104,7 +114,13 @@ structure ModelArtifact where
 - 没有 `ByteArray`；
 - 没有文件系统。
 
+`Arch` 与 `Weights` 的来源是 **CIC term 的编码**：
+`compile : Term → Weights`，`archOf : Term → Arch`。
+几何侧的 `pt n → Weights` 保留为一条 Domain 实例路径。
+
 格式解析、I/O、C、conformance 属于 `ENGINEERING.md`，不进入 `ProofComplete`。
+CIC 的语法与类型规则属于本仓库（`Lattice/Core/CIC/`）；
+CIC 的**实现**（parser / elaborator / evaluator）属于工程侧，已单独立项。
 
 ## 6. 插件运行时
 
@@ -133,29 +149,32 @@ structure ModelArtifact where
 - 空间：反应式余效应 + provider 解析；
 - 汇合：动态演化 = 从最终 Spec 重建。
 
+effect 的载体是 **CIC 编码**（elaborator state 的抽象），
+不是 `K → Option ℕ` 玩具模型；玩具模型保留为最小语义实例。
+
 ## 9. 架构载体
 
-Conv / Attention / Norm / DAG 是 L3 载体插件，不是主线。
+Conv / Attention / Norm / DAG / GNN 是 L3 载体插件，不是主线。
+在新载体下，它们是 **CIC term 上的架构编码**。
 见 `ARCHITECTURE-CARRIERS.md`。
 
 ## 10. 证明义务
 
 T0–T8，见 `PROOF-OBLIGATIONS.md`。
+每条义务在 CIC 载体上陈述；几何版本作为 Domain 实例保留。
 
 ## 11. ProofComplete
 
+**判据的实际形状由 `Lattice/Plugins.lean` 的定义为准。**
+文档中的形状必须与代码逐项一致；任何一处不一致都按缺陷处理。
+
+概念形状：
+
 ```lean
 def ProofComplete : Prop :=
-  T0_construct ∧
-  T1_compile ∧
-  T2_penalty ∧
-  T3_extract ∧
-  T4_repair ∧
-  T5_recovery ∧
-  T6_spatial ∧
-  T7_confluence ∧
-  T8_failure ∧
-  PluginRegistryComplete
+  PluginRegistryComplete ∧ ¬ pluginCensusPending ∧
+  RegistryMigratedFor pluginDirOf proofRegistry ∧
+  T1 ∧ T2 ∧ T3 ∧ T4 ∧ T5 ∧ T6 ∧ T7 ∧ T8
 ```
 
 不含：
@@ -168,6 +187,15 @@ def ProofComplete : Prop :=
 - SFT/DPO/RLHF；
 - optimizer；
 - 泛化。
+
+**纪律：** 判据里不允许出现以下形状：
+
+- `def X : Prop := True`；
+- `theorem X : A → True`；
+- `def X : String := "..."`；
+- 只数自己写下的字面量的 `rfl`（如 `proved_target_count := 9`）；
+- 别名 def 冒充独立义务；
+- 绑定变量在命题中不出现。
 
 ## 12. 非目标
 

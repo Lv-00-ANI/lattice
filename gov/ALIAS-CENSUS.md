@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 723 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 725 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 161 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -51,6 +51,8 @@
 | `Domains/Geometry/ClosedLoop.lean` | `geometric_loop_is_stable` |
 | `Domains/Geometry/CodegenLadder.lean` | `codegenLadder_forward` |
 | `Domains/Geometry/ConstraintDescent.lean` | `netLoss_tendsto_zero` |
+| `Domains/Geometry/Encode/CIC.lean` | `encode_sound` |
+| `Domains/Geometry/Encode/CIC.lean` | `encode_sound_of_holds` |
 | `Domains/Geometry/EqualLengthRepair.lean` | `repair_coverage_geometric` |
 | `Domains/Geometry/Exact.lean` | `geo_penalty_exact` |
 | `Domains/Geometry/Exact.lean` | `perpendicular_loss_nonneg` |

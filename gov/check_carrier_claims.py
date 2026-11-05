@@ -37,10 +37,14 @@ REPO = os.path.dirname(HERE)
 DOC = os.path.join(REPO, "ARCHITECTURE-CARRIERS.md")
 ARCH = os.path.join(REPO, "Lattice", "Plugins", "Architectures")
 
-DONE = "已实现"
-TODO = "未实现"
+#: `已建` (possibly with a parenthetical caveat) means the directory must exist.
+DONE = "已建"
+#: `未建` means it must not.
+TODO = "未建"
 
-LINE = re.compile(r"^\s*Lattice/Plugins/Architectures/(\w+)/\s*--\s*(\S+)\s*$")
+#: `-- 已建（...）` and `-- 未建` are both matched; the parenthetical is the doc's own caveat and is kept
+#: out of `status` so the comparison stays exact.
+LINE = re.compile(r"^\s*Lattice/Plugins/Architectures/(\w+)/\s*--\s*(\S+?)(?:\uff08.*\uff09)?\s*$")
 
 
 def parse():
@@ -120,8 +124,8 @@ def _self_test():
             DOC, ARCH = old
 
     doc = ("```text\n"
-           "Lattice/Plugins/Architectures/A/  -- 已实现\n"
-           "Lattice/Plugins/Architectures/B/  -- 未实现\n"
+           "Lattice/Plugins/Architectures/A/  -- 已建\n"
+           "Lattice/Plugins/Architectures/B/  -- 未建\n"
            "```\n")
 
     cases = [
