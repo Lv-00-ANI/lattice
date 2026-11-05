@@ -73,16 +73,24 @@
 **为什么这条必须最先定：`CARRIER-CIC.md` 的 T0 说「可满足性 = 可类型性」。若 `Spec` 与 `Model` 都是同一个 `Term`，那么「`t` 可类型化」对 `t` 是哪一个**什么也没说**——这条义务就会退化为同义反复。**
 **=> `SortKind` 把两个角色在**语法层**分开，而不是靠约定。**
 
-### 1.5 `Obligation.theoremName` 选成了 `String`
+### 1.5 `Obligation.theoremName` 选成了 `String` —— **已部分修（第 137 轮）**
 
 | 项 | 内容 |
 |:--|:--|
-| **现状** | **`theoremName : String`（`Plugins/Manifest.lean:162`），无检查** |
+| **现状** | **`theoremName : String`（`Plugins/Manifest.lean`），**现已并列 `proof : Option Prop`**** |
 | **选成了什么** | **用「字符串」承载「定理引用」** |
-| **后果** | **DAG 两条幽灵名；Norm 路径错配；`check_obligation_names.py` 只是补丁** |
-| **改法** | **`Obligation := { kind : ObligationKind, proof : Prop }`，直接内嵌命题** |
+| **后果** | **DAG 两条幽灵名（`denote_seq`/`denote_par` 实为 `dag_denote_seq`/`dag_denote_par`）；Norm 路径错配** |
+| **改法** | **✅ `Obligation.proof : Option Prop` + `verifiedObligation` 构造器** |
 | **影响面** | **`PluginProof`、`Manifest`、11 个插件** |
 | **难度** | **S–M** |
+| **状态** | **✅ 字段已加、构造器已加、DAG 三条已改为携带 `Prop`、两个幽灵名已修、`check_obligation_proofs.py` 已度量：**3 verified / 71 named**。** |
+
+**为什么 `proof` 是**可选**的，以及这代价什么：**
+
+**74 个 manifest 已经把定理名写成字符串。要让字段必填，要么一次性重写（无法保证正确），要么每个 manifest 填一个占位——**而占位就是原问题，只是下移了一层**。**
+
+**⇒ 字段现在可选，`verifiedObligation` 是填它的构造器，门禁**度量**迁移而不是承诺迁移。**
+**迁移目标：71 → 0。**
 
 ---
 

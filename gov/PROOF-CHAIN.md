@@ -823,7 +823,7 @@
 - `Lattice.Plugins.Architectures.Conv.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Architectures.Conv.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Proofs`
 - `Lattice.Plugins.Architectures.Conv.Proofs` 
-- `Lattice.Plugins.Architectures.DAG.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Architectures.DAG.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
 - `Lattice.Plugins.Architectures.DAG.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
 - `Lattice.Plugins.Architectures.DAG.Proofs` 
 - `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`
@@ -1852,7 +1852,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 14 | 1 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` | 206 | 69 |
-| `Lattice.Plugins.Manifest` | 6 | 14 |
+| `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
@@ -2160,7 +2160,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `at`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `Model.eval_lipschitz` -> `apply`, `blocks`
 - `Model.eval_nil` -> `apply`, `blocks`, `induction`
-- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `soundness`, `zero`
+- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `soundness`, `zero`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `at`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `at`, `trans`
 - `P0_normal_equation_scalar` -> `E`, `at`
@@ -2176,7 +2176,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PMix_stationarity_characterization` -> `at`
 - `PMix_stationarity_implies_satisfied` -> `add`, `at`
 - `P_ne_L` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `soundness`, `zero`
+- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `soundness`, `zero`
 - `PluginManifest.empty_claims_false` -> `completeness`, `empty`, `layer`, `soundness`
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
 - `PluginProof.trivial_fields` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
@@ -2231,7 +2231,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Text.ofList_encode` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text_encode_ab` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `TwoK3Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
-- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `soundness`, `zero`
+- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `proof`, `soundness`, `zero`
 - `W1_bddBelow` -> `IsTransportPlan`, `le_antisymm`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `W1_comm` -> `IsOneLipschitz`, `IsTransportPlan`, `le_trans`, `sInf`, `step`, `transportCost`
 - `W1_image_comm` -> `IsTransportPlan`, `le_antisymm`, `sInf`, `transportCost`
@@ -10847,6 +10847,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
+- `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `proof`, `soundness`, `zero`
 - `verified_manifest` -> `Constraint`, `Repair`, `length`, `manifest`, `verified`, `verified_obligations`
 - `verified_obligations` -> `Constraint`, `Repair`, `length`, `manifest`, `verified`
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`, `le`, `le_trans`, `verifier_reliable_clean`

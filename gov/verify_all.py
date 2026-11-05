@@ -291,6 +291,11 @@ CHECKS = [
     # A list in markdown decays, so the audit is executable: a fixed item must be REMOVED from
     # `PARAMETERIZATION-AUDIT.md`, and the gate says which ones are ready.
     ("report: parameterization audit is live", "check_parameterization.py"),
+    # Round 137. `Obligation.theoremName` was a `String`, so a manifest could name a theorem that
+    # did not exist -- and TWO DAG OBLIGATIONS DID (`denote_seq`, `denote_par` for
+    # `dag_denote_seq`, `dag_denote_par`). `Obligation.proof : Option Prop` now carries the
+    # proposition; this check counts the migration and catches ghost names and missing files.
+    ("report: obligations carry their proofs", "check_obligation_proofs.py"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
     # `linter.unusedVariables`. 139 such binders existed; this gate makes them enumerable. One was

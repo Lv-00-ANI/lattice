@@ -8320,6 +8320,7 @@ plugins	Plugins	Plugins/Manifest.lean	empty_claims_false	no
 plugins	Plugins	Plugins/Manifest.lean	empty_never_covers	no
 plugins	Plugins	Plugins/Manifest.lean	not_lt_self	no
 plugins	Plugins	Plugins/Manifest.lean	refinement_not_mandatory	no
+plugins	Plugins	Plugins/Manifest.lean	verifiedObligation_proof	no
 plugins	Plugins	Plugins/Migration.lean	P_ne_L	no
 plugins	Plugins	Plugins/Migration.lean	lib_not_prefix_plugins	yes
 plugins	Plugins	Plugins/Migration.lean	norm_obligation_is_a_citation	yes

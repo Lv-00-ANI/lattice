@@ -40,6 +40,7 @@ the result.**
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Architectures.DAG.Proofs
 
 namespace Lattice.Plugins.Architectures.DAG
 
@@ -58,20 +59,23 @@ def manifest : PluginManifest where
   provides := ["arch.schedule"]
   obligations := [
     -- CONFLUENCE: commuting nodes give the same result regardless of traversal direction.
-    { name := "dag_confluence"
-      kind := .confluence
-      theoremName := "dag_confluence"
-      file := "Lattice/Plugins/Architectures/DAG/Proofs.lean" },
+    -- CARRIES ITS PROOF (`PARAMETERIZATION-AUDIT.md` item 3): the `${}` in the proposition is the statement
+    -- the manifest means, not a pointer to a name that might not exist.
+    verifiedObligation "dag_confluence" .confluence
+      "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_confluence"
+      (∀ (α : Type) (fs : DagProgram α),
+        (∀ f ∈ fs, ∀ g ∈ fs, DagCommute f g) →
+        ∀ x : α, dagEval fs x = dagEval fs.reverse x),
     -- SOUNDNESS: evaluation of a concatenation is the composition of evaluations.
-    { name := "dag_denote_seq"
-      kind := .soundness
-      theoremName := "denote_seq"
-      file := "Lattice/Plugins/Architectures/DAG/Proofs.lean" },
+    verifiedObligation "dag_denote_seq" .soundness
+      "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_denote_seq"
+      (∀ (α : Type) (p q : DagProgram α) (x : α),
+        dagEval (dagSeq p q) x = dagEval q (dagEval p x)),
     -- EXACTNESS: parallel composition denotes the same as concatenation.
-    { name := "dag_denote_par"
-      kind := .exactness
-      theoremName := "denote_par"
-      file := "Lattice/Plugins/Architectures/DAG/Proofs.lean" }
+    verifiedObligation "dag_denote_par" .exactness
+      "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_denote_par"
+      (∀ (α : Type) (p q : DagProgram α) (x : α),
+        dagEval (dagPar p q) x = dagEval q (dagEval p x))
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.** -/

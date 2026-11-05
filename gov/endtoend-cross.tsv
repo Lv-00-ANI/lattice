@@ -2423,6 +2423,7 @@ Lib/Quantization/RealIEEE754/Nonvacuous.lean	ieee_round_eq_id_of_eps_zero
 Plugins/Manifest.lean	ObligationKind.all_length
 Plugins/Manifest.lean	PluginLayer.card_eq_eight
 Plugins/Manifest.lean	Version.not_lt_self
+Plugins/Manifest.lean	verifiedObligation_proof
 Plugins/Manifest.lean	PluginManifest.empty_claims_false
 Plugins/Manifest.lean	refinement_not_mandatory
 Plugins/Manifest.lean	PluginManifest.empty_never_covers

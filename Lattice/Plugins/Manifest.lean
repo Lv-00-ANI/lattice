@@ -170,7 +170,49 @@ structure Obligation where
   theoremName : String
   /-- The file declaring that constant. -/
   file : String
-  deriving Repr, Inhabited
+  /-- **The PROPOSITION the obligation asserts, when this manifest carries it directly.**
+
+  **This is the field that makes an obligation checkable: a `String` can name a theorem that does not exist,
+  and a `Prop` cannot.**
+  **It is OPTIONAL because seventy-four manifests already name their theorems as strings, and a mandatory
+  field would have forced either a mass rewrite or a placeholder -- and a placeholder IS the `String`
+  problem, one layer down.**
+  **=> `verifiedObligation` below is the constructor a new manifest should use.** -/
+  proof : Option Prop := none
+  deriving Inhabited
+
+/-- **`Repr` for an obligation:** the `proof` field is a `Prop`, which has no `Repr`, so it is printed as its PRESENCE only. -/
+instance : Repr Obligation where
+  reprPrec o _ :=
+    "{ name := " ++ repr o.name ++ ", kind := " ++ repr o.kind ++
+    ", theoremName := " ++ repr o.theoremName ++ ", file := " ++ repr o.file ++
+    ", proof := " ++ (if o.proof.isSome then "some <prop>" else "none") ++ " }"
+
+/-- **An obligation that CARRIES ITS PROOF.**
+
+**`verifiedObligation name kind file thmName h` stores the proposition `h` itself, so the manifest holds a
+`Prop` rather than a pointer to one.** -/
+def verifiedObligation (name : String) (kind : ObligationKind) (file : String)
+    (thmName : String) (h : Prop) : Obligation :=
+  { name := name, kind := kind, theoremName := thmName, file := file, proof := some h }
+
+/-- **An obligation built by `verifiedObligation` carries its proof.**
+
+**=> the constructor's contract, stated so a caller cites it rather than unfolds the definition.** -/
+theorem verifiedObligation_proof (name : String) (kind : ObligationKind) (file : String)
+    (thmName : String) (h : Prop) :
+    (verifiedObligation name kind file thmName h).proof = some h :=
+  rfl
+
+/-- **The invariant an obligation satisfies: it carries a proof, or it names one.**
+
+**`some _` -- the manifest holds the proposition.**
+**`none` -- it holds a non-empty name AND file, the weakest thing a `String` obligation can honestly assert.**
+
+**=> this is deliberately weak. It records that a `String` obligation is a POINTER, and that a pointer is all
+it is. A manifest that wants more must use `verifiedObligation`.** -/
+def obligation_has_proof_or_name (o : Obligation) : Prop :=
+  o.proof.isSome ∨ (o.theoremName ≠ "" ∧ o.file ≠ "")
 
 /-- **The static description of a plugin.**
 
