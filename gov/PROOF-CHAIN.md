@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 324 | aggregator at `Lattice/`, re-exports only |
+| root | 325 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -974,7 +974,7 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CompilationInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
@@ -985,6 +985,7 @@
 - `Lattice.Semantics.InheritsInstance` <- `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.InheritsStructural` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.InheritsInstance`
 - `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
+- `Lattice.Semantics.MeaningTypesBounded` 
 - `Lattice.Semantics.MeaningTypesFinite` <- `Lattice.Semantics.MeaningTypes`
 - `Lattice.Semantics.Merge` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.PostTrain` <- `Lattice.Core.Net`, `Lattice.Domains.Geometry.ConstraintDescent`, `Lattice.Domains.Constraints.ConstraintSet`
@@ -1964,6 +1965,7 @@
 | `Lattice.Semantics.InheritsInstance` | 4 | 2 |
 | `Lattice.Semantics.InheritsStructural` | 3 | 2 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
+| `Lattice.Semantics.MeaningTypesBounded` | 3 | 2 |
 | `Lattice.Semantics.MeaningTypesFinite` | 4 | 1 |
 | `Lattice.Semantics.Merge` | 12 | 6 |
 | `Lattice.Semantics.PostTrain` | 7 | 0 |
@@ -5160,6 +5162,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `finite_card_identities` -> `constraintDomain`, `d`, `programDomain`
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
+- `finite_meaning_types_differ` -> `d`
+- `finite_meaning_types_equiv_separated` -> `at`, `card_fin`, `d`
 - `finite_separation` -> `at`, `constraintDomain`, `d`, `programDomain`
 - `finite_separation_d_one_collides` -> `constraintDomain`, `programDomain`
 - `finite_separation_general` -> `constraintDomain`, `d`, `programDomain`

@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**319 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**320 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
-| `Semantics` | 4 | 1.2% |
+| `Semantics` | 5 | 1.5% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 130 轮新增一条**：`nat_not_finite` —— **`ℕ` 没有 `Fintype` 实例**，
+**故 `meaningTypesDiffer` 的计数路线在项目载体上无法起步——这不是缺证明，是路线的前提不成立。**
+故 `Semantics` 由 4 升为 5、总数由 319 升为 320。
 
 **第 128 轮新增一条**：`noncommuting_counterexample` —— **两个不交换的节点使 `dag_confluence` 为假**，
 **故该定理的交换性假设是真实成本而非装饰。**

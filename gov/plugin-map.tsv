@@ -9649,6 +9649,9 @@ semantics	Semantics	Semantics/MeaningTypes.lean	codomains_differ_at_d	no
 semantics	Semantics	Semantics/MeaningTypes.lean	option_fin_has_d_plus_one	no
 semantics	Semantics	Semantics/MeaningTypes.lean	prop_has_two_values	no
 semantics	Semantics	Semantics/MeaningTypes.lean	value_spaces_differ	no
+semantics	Semantics	Semantics/MeaningTypesBounded.lean	finite_meaning_types_differ	no
+semantics	Semantics	Semantics/MeaningTypesBounded.lean	finite_meaning_types_equiv_separated	no
+semantics	Semantics	Semantics/MeaningTypesBounded.lean	nat_not_finite	no
 semantics	Semantics	Semantics/MeaningTypesFinite.lean	finite_card_identities	no
 semantics	Semantics	Semantics/MeaningTypesFinite.lean	finite_separation	no
 semantics	Semantics	Semantics/MeaningTypesFinite.lean	finite_separation_d_one_collides	no
