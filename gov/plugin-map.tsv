@@ -103,6 +103,9 @@ core	Core	Core/AnalysisHelper.lean	smulRight_one_eq_smul	no
 core	Core	Core/ArchParams.lean	layerParamCount_eq	no
 core	Core	Core/ArchParams.lean	layerParamCount_pos	no
 core	Core	Core/ArchParams.lean	weightCount_cons	no
+core	Core	Core/ArchWeights.lean	slotOfIndex_injective	no
+core	Core	Core/ArchWeights.lean	slotOfIndex_layer	no
+core	Core	Core/ArchWeights.lean	slotOfIndex_reachable	no
 core	Core	Core/Check.lean	be_refl	no
 core	Core	Core/Check.lean	be_symm	no
 core	Core	Core/Check.lean	be_trans	no

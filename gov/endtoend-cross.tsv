@@ -128,6 +128,9 @@ Core/Activation.lean	activation_strictly_stronger
 Core/AnalysisHelper.lean	hasFDerivAt_sq
 Core/AnalysisHelper.lean	hasFDerivAt_sq_comp
 Core/ArchParams.lean	weightCount_cons
+Core/ArchWeights.lean	slotOfIndex_layer
+Core/ArchWeights.lean	slotOfIndex_injective
+Core/ArchWeights.lean	slotOfIndex_reachable
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm
 Core/Check.lean	be_trans
