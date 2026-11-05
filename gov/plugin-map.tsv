@@ -9585,6 +9585,9 @@ semantics	Semantics	Semantics/ContextualInheritsNontrivial.lean	holdsSet_samePoi
 semantics	Semantics	Semantics/ContextualInheritsNontrivial.lean	labelAt_depends_on_carrier	no
 semantics	Semantics	Semantics/ContextualInheritsNontrivial.lean	labelAt_depends_on_context	no
 semantics	Semantics	Semantics/ContextualInheritsNontrivial.lean	not_holdsSet_eqZero_const_one	no
+semantics	Semantics	Semantics/DPhaseAdditions.lean	d5_geometry_nontrivial_holds	no
+semantics	Semantics	Semantics/DPhaseAdditions.lean	d6_sound_computed_holds	no
+semantics	Semantics	Semantics/DPhaseAdditions.lean	dPhaseAdditions_holds	no
 semantics	Semantics	Semantics/InheritsInstance.lean	constant_label_blocks_complete	no
 semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_complete	no
 semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_sound	no

@@ -14,6 +14,7 @@ import Lattice.Semantics.InheritsStructural
 import Lattice.Semantics.ContextualInheritsInstance
 import Lattice.Semantics.ContextualInheritsNontrivial
 import Lattice.Semantics.CompilationInherits
+import Lattice.Semantics.DPhaseAdditions
 
 /-!
 # 语义信息主线：阶段划分与聚合
