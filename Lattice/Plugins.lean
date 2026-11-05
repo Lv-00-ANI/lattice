@@ -31,6 +31,9 @@ import Lattice.Semantics.DPhaseAdditions
 import Lattice.Plugins.Architectures.Conv.Proofs
 import Lattice.Plugins.Architectures.Conv.Manifest
 import Lattice.Plugins.Architectures.Conv.Plugin
+import Lattice.Plugins.Architectures.Attention.Proofs
+import Lattice.Plugins.Architectures.Attention.Manifest
+import Lattice.Plugins.Architectures.Attention.Plugin
 
 namespace Lattice.Plugins
 
@@ -53,7 +56,8 @@ def proofRegistry : List VerifiedPlugin :=
    Lattice.Plugins.Extractors.ChainSlot.verified,
    Lattice.Plugins.Architectures.GNN.verified,
    Lattice.Plugins.Architectures.Norm.verified,
-   Lattice.Plugins.Architectures.Conv.verified]
+   Lattice.Plugins.Architectures.Conv.verified,
+   Lattice.Plugins.Architectures.Attention.verified]
 
 /-- The registry contains the penalty plugin. -/
 theorem proofRegistry_penalty_mem :
@@ -100,8 +104,13 @@ theorem proofRegistry_compose_mem :
     Lattice.Plugins.Compose.verified ∈ proofRegistry := by
   simp [proofRegistry]
 
+/-- The registry contains the attention carrier. -/
+theorem proofRegistry_attention_mem :
+    Lattice.Plugins.Architectures.Attention.verified ∈ proofRegistry := by
+  simp [proofRegistry]
+
 /-- The registry currently holds exactly eight plugins. -/
-theorem proofRegistry_length : proofRegistry.length = 9 := rfl
+theorem proofRegistry_length : proofRegistry.length = 10 := rfl
 
 /-- **Every registered plugin is consistent.** -/
 def RegistryConsistent : Prop := RegistryConsistentFor proofRegistry
@@ -114,7 +123,7 @@ theorem registryConsistent_holds : RegistryConsistent := by
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · exact fun _ => Lattice.Plugins.Core.Constraint.proof_holds
   · exact fun _ => Lattice.Plugins.Core.Repair.proof_holds
   · exact fun _ => Lattice.Plugins.Domains.Constraints.Penalty.proof_holds
@@ -124,6 +133,7 @@ theorem registryConsistent_holds : RegistryConsistent := by
   · exact fun _ => Lattice.Plugins.Architectures.GNN.proof_holds
   · exact fun _ => Lattice.Plugins.Architectures.Norm.proof_holds
   · exact fun _ => Lattice.Plugins.Architectures.Conv.proof_holds
+  · exact fun _ => Lattice.Plugins.Architectures.Attention.proof_holds
 
 /-- **Every mandatory kind is now covered.**
 
@@ -199,7 +209,7 @@ sides can no longer drift apart silently: they are compared on every `verify_all
 
 **This makes `pluginCensusPending` a statement about the plugin abstraction rather than about directory
 layout, which is what it always claimed to be.** -/
-def pluginCensusSize : ℕ := 9
+def pluginCensusSize : ℕ := 10
 
 /-- **The gap this registry cannot see: plugins that exist as manifests but are not listed.**
 
@@ -255,6 +265,8 @@ def pluginDirOf (p : VerifiedPlugin) : Option String :=
   else if p.manifest.name = "Architectures.GNN" then some "Lattice/Plugins/Architectures/GNN/"
   else if p.manifest.name = "Architectures.Norm" then some "Lattice/Plugins/Architectures/Norm/"
   else if p.manifest.name = "Architectures.Conv" then some "Lattice/Plugins/Architectures/Conv/"
+  else if p.manifest.name = "Architectures.Attention" then
+  some "Lattice/Plugins/Architectures/Attention/"
   else none
 
 /-- **Every plugin in the current registry IS listed.**
@@ -536,7 +548,7 @@ theorem proofRegistry_nonvacuous : NonVacuousFor proofRegistry := by
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · rw [Lattice.Plugins.Core.Constraint.verified_manifest]
     exact Lattice.Plugins.Core.Constraint.manifest_nonempty
   · rw [Lattice.Plugins.Core.Repair.verified_manifest]
@@ -555,6 +567,8 @@ theorem proofRegistry_nonvacuous : NonVacuousFor proofRegistry := by
     exact Lattice.Plugins.Architectures.Norm.manifest_nonempty
   · rw [Lattice.Plugins.Architectures.Conv.verified_manifest]
     exact Lattice.Plugins.Architectures.Conv.manifest_nonempty
+  · rw [Lattice.Plugins.Architectures.Attention.verified_manifest]
+    exact Lattice.Plugins.Architectures.Attention.manifest_nonempty
 
 /-- **`PluginRegistryComplete` holds**: the registry is consistent, NON-VACUOUS, and every mandatory
 kind has a witness. -/
@@ -673,6 +687,33 @@ theorem conv_migrated :
     unfold Lattice.Plugins.ObligationOwnedBy
     exact convProofs_under_dir
 
+/-- **`Lattice/Plugins/Architectures/Attention/Proofs.lean` IS under the plugin's directory.** -/
+theorem attentionProofs_under_dir :
+    Lattice.Plugins.StringPrefix "Lattice/Plugins/Architectures/Attention/"
+      "Lattice/Plugins/Architectures/Attention/Proofs.lean" := by
+  have h := proofsFile_under_dir "Lattice/Plugins/Architectures/Attention/"
+  simpa using h
+
+/-- **`Attention`'s obligations are its own.** -/
+theorem attention_migrated :
+    Lattice.Plugins.Migrated "Lattice/Plugins/Architectures/Attention/"
+      Lattice.Plugins.Architectures.Attention.manifest := by
+  intro o ho
+  simp only [Lattice.Plugins.Architectures.Attention.manifest, List.mem_cons,
+    List.not_mem_nil, or_false] at ho
+  obtain rfl | rfl | rfl := ho
+  all_goals
+    unfold Lattice.Plugins.ObligationOwnedBy
+    exact attentionProofs_under_dir
+
+/-- **The attention carrier's directory.** -/
+theorem pluginDirOf_attention :
+    pluginDirOf Lattice.Plugins.Architectures.Attention.verified
+      = some "Lattice/Plugins/Architectures/Attention/" := by
+  unfold pluginDirOf
+  simp [Lattice.Plugins.Architectures.Attention.verified,
+        Lattice.Plugins.Architectures.Attention.manifest]
+
 /-- **The convolution carrier's directory.** -/
 theorem pluginDirOf_conv :
     pluginDirOf Lattice.Plugins.Architectures.Conv.verified
@@ -687,7 +728,7 @@ theorem proofRegistry_migrated :
   intro p hp
   rw [proofRegistry] at hp
   simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
   · exact ⟨_, pluginDirOf_coreConstraint, constraint_migrated⟩
   · exact ⟨_, pluginDirOf_coreRepair, repair_migrated⟩
   · exact ⟨_, pluginDirOf_penalty, penalty_migrated⟩
@@ -697,6 +738,7 @@ theorem proofRegistry_migrated :
   · exact ⟨_, pluginDirOf_gnn, gnn_migrated⟩
   · exact ⟨_, pluginDirOf_norm, norm_migrated⟩
   · exact ⟨_, pluginDirOf_conv, conv_migrated⟩
+  · exact ⟨_, pluginDirOf_attention, attention_migrated⟩
 
 
 /-- **The honest statement of the current state.** -/

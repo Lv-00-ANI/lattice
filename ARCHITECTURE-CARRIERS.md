@@ -5,7 +5,7 @@
 Conv / Attention / Norm / DAG 是 **L3 载体插件**，不是 LATTICE 主线。
 
 > **实现状态（第 125 轮实测更正）：**
-> **`Norm`、`GNN`、`Conv` 已实现；`Attention`、`DAG` 未实现。**
+> **`Norm`、`GNN`、`Conv`、`Attention` 已实现；`DAG` 未实现。**
 > **`Conv`、`Attention`、`DAG` 三个目录**不存在**，本文档第 4 节列出的证明名也**不在树中**。**
 > **=> 本节余下内容是**设计规格**，不是实现陈述。**
 > **本段是第 125 轮补上的：此前的版本把三者与 `Norm` 并列列出，读者无法区分已有与未做。**
@@ -16,7 +16,7 @@ LATTICE 主线是符号⇄权重转换；架构是转换的目标载体。
 
 ```text
 Lattice/Plugins/Architectures/Conv/        -- 已实现
-Lattice/Plugins/Architectures/Attention/   -- 未实现
+Lattice/Plugins/Architectures/Attention/   -- 已实现
 Lattice/Plugins/Architectures/Norm/        -- 已实现
 Lattice/Plugins/Architectures/DAG/         -- 未实现
 Lattice/Plugins/Architectures/GNN/         -- 已实现
@@ -54,11 +54,11 @@ structure CarrierPlugin where
 - L3：Toeplitz/循环结构；
 - **证明（已存在）**：见 `Lattice/Plugins/Architectures/Conv/`——`conv_translation_equivariant`、`conv_eq_shared_filter`、`conv_window_determines_output`。
 
-### Attention（**未实现**）
+### Attention（**已实现**）
 
 - 符号：路由/选择约束；
 - L3：softmax 核；
-- **待证**：行随机性、mask 语义、`attn_equivariant`——**均不在树中**。
+- **证明（已存在）**：见 `Lattice/Plugins/Architectures/Attention/`——`softmax_row_stochastic`、`attention_masked_excludes`、`attention_perm_equivariant`。
 
 ### Norm（**已实现**）
 
@@ -88,7 +88,7 @@ Carrier < Compiler < Extractor < Verifier < Repairer
 
 ## 7. 状态与后续
 
-**已实现：`Norm`、`GNN`、`Conv`（第 126 轮）。**
+**已实现：`Norm`、`GNN`、`Conv`（第 126 轮）、`Attention`（第 127 轮）。**
 **未实现：`Conv`、`Attention`、`DAG`。**
 
 **=> 补齐这三个载体是 F 阶段的实际工作，其优先级与形状见 `MACRO-COGNITION.md` 第 6 节。**

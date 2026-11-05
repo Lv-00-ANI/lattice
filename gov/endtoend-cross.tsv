@@ -8,6 +8,7 @@ Plugins.lean	proofRegistry_norm_mem
 Plugins.lean	proofRegistry_gnn_mem
 Plugins.lean	proofRegistry_conv_mem
 Plugins.lean	proofRegistry_compose_mem
+Plugins.lean	proofRegistry_attention_mem
 Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
 Plugins.lean	coverage_all_mandatory
@@ -35,6 +36,8 @@ Plugins.lean	pluginDirOf_chainSlot
 Plugins.lean	pluginDirOf_gnn
 Plugins.lean	pluginDirOf_norm
 Plugins.lean	conv_migrated
+Plugins.lean	attention_migrated
+Plugins.lean	pluginDirOf_attention
 Plugins.lean	pluginDirOf_conv
 Plugins.lean	proofRegistry_migrated
 Plugins.lean	current_state
@@ -1953,6 +1956,10 @@ Plugins/Registry.lean	registryConsistentFor_nil
 Plugins/Registry.lean	nonVacuousFor_nil
 Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
+Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty
+Plugins/Architectures/Attention/Plugin.lean	proof_holds
+Plugins/Architectures/Attention/Plugin.lean	verified_manifest
+Plugins/Architectures/Attention/Plugin.lean	verified_obligations
 Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds
 Plugins/Architectures/Conv/Plugin.lean	proof_holds

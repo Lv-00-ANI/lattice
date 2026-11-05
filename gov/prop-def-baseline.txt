@@ -55,3 +55,14 @@ scan	t5_recovery_single	t5_recovery_single_holds	K
 scan	t6_spatial_nonvacuous	t6_spatial_nonvacuous_holds	Name
 scan	t7_confluence_seq	t7_confluence_seq_holds	K
 scan	t8_head_fails	t8_head_fails_holds	K
+# Round 127. The three `Attention` propositions quantify over an IMPLICIT TYPE parameter `ι`:
+#     ∀ {ι : Type} [Fintype ι] [Nonempty ι] (s : ι → ℝ), ∑ i, softmaxWeight s i = 1
+# The `intro` line binds `ι`, and the scanner sees no further mention of it because every later use is
+# inside the TYPE `ι → ℝ` in the same declaration -- a position the scanner's binder-mention test does not
+# reach. The proof genuinely DEPENDS on `ι`: the sum is over its `Fintype` and the division needs its
+# `Nonempty`. So the finding is a scanner blind spot, not a discarded hypothesis.
+# Registered rather than silenced: a future scanner that understands implicit type parameters should drop
+# these three lines.
+Plugins/Architectures/Attention/Plugin.lean	AttentionPermEquivarianceProp
+Plugins/Architectures/Attention/Plugin.lean	AttentionRowStochasticProp
+Plugins/Architectures/Attention/Plugin.lean	AttentionMaskExcludesProp
