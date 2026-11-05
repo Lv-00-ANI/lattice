@@ -280,6 +280,11 @@ CHECKS = [
     # sub-class (`a = a`, `a ↔ a`, `True`) with zero false positives, and the file states plainly
     # which sub-class it does NOT catch.
     ("meta: no vacuously true hypothesis", "check_vacuous_hypotheses.py"),
+    # Round 125. ARCHITECTURE-CARRIERS.md listed Conv / Attention / DAG beside Norm, with a
+    # directory block and per-carrier proof names, while only Norm and GNN existed on disk.
+    # A document that says "implemented" where the tree says otherwise is a CORRECTNESS problem:
+    # later rounds plan against it.
+    ("docs: carrier claims match the tree", "check_carrier_claims.py"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
     # `linter.unusedVariables`. 139 such binders existed; this gate makes them enumerable. One was
