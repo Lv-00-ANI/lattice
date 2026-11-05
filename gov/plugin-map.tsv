@@ -9640,6 +9640,10 @@ semantics	Semantics	Semantics/ContextualInheritsNontrivial.lean	not_holdsSet_eqZ
 semantics	Semantics	Semantics/DPhaseAdditions.lean	d5_geometry_nontrivial_holds	no
 semantics	Semantics	Semantics/DPhaseAdditions.lean	d6_sound_computed_holds	no
 semantics	Semantics	Semantics/DPhaseAdditions.lean	dPhaseAdditions_holds	no
+semantics	Semantics	Semantics/GeometricThresholdInherits.lean	geomThreshold_at_zero	no
+semantics	Semantics	Semantics/GeometricThresholdInherits.lean	geomThreshold_sound_is_not_definitional	no
+semantics	Semantics	Semantics/GeometricThresholdInherits.lean	sqDist_equivalence_requires_nonneg	no
+semantics	Semantics	Semantics/GeometricThresholdInherits.lean	sqDist_le_sq_iff_sqrt_le	no
 semantics	Semantics	Semantics/InheritsInstance.lean	constant_label_blocks_complete	no
 semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_complete	no
 semantics	Semantics	Semantics/InheritsInstance.lean	identityInherits_sound	no

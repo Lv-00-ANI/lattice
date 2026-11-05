@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**321 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**322 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
-| `Semantics` | 6 | 1.9% |
+| `Semantics` | 7 | 2.2% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 133 轮新增一条**：`sqDist_equivalence_requires_nonneg` —— **在真实 `sqDist` 上，去掉 `0 ≤ t` 后平方形式与开方形式仍不等价**，
+**故几何层的阈值假设同样是真实成本，不只是坐标层。**
+故 `Semantics` 由 6 升为 7、总数由 321 升为 322。
 
 **第 132 轮新增一条**：`threshold_extraction_requires_nonneg` —— **去掉 `0 ≤ tau` 后平方形式与绝对值形式不再等价**，
 **故 `thresholdInherits` 的 `sound` 所带的子类型假设是真实成本。**

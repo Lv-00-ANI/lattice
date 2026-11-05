@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 327 | aggregator at `Lattice/`, re-exports only |
+| root | 328 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -974,7 +974,7 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`, `Lattice.Semantics.CodomainExtraction`, `Lattice.Semantics.ThresholdInherits`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`, `Lattice.Semantics.CodomainExtraction`, `Lattice.Semantics.ThresholdInherits`, `Lattice.Semantics.GeometricThresholdInherits`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CodomainExtraction` 
 - `Lattice.Semantics.CompilationInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Domains.Constraints.ConstraintSet`
@@ -983,6 +983,7 @@
 - `Lattice.Semantics.ContextualInheritsInstance` <- `Lattice.Semantics.InheritsStructural`
 - `Lattice.Semantics.ContextualInheritsNontrivial` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.DPhaseAdditions` <- `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`
+- `Lattice.Semantics.GeometricThresholdInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Semantics.InheritsInstance` <- `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.InheritsStructural` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.InheritsInstance`
 - `Lattice.Semantics.MeaningTypes` <- `Lattice.Semantics.ProgramDomain`
@@ -1965,6 +1966,7 @@
 | `Lattice.Semantics.ContextualInheritsInstance` | 5 | 3 |
 | `Lattice.Semantics.ContextualInheritsNontrivial` | 5 | 2 |
 | `Lattice.Semantics.DPhaseAdditions` | 3 | 5 |
+| `Lattice.Semantics.GeometricThresholdInherits` | 4 | 4 |
 | `Lattice.Semantics.InheritsInstance` | 4 | 2 |
 | `Lattice.Semantics.InheritsStructural` | 3 | 2 |
 | `Lattice.Semantics.MeaningTypes` | 4 | 0 |
@@ -5605,6 +5607,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geo_penalty_exact` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`, `sq_eq_zero_of_localMin`
 - `geo_repair_progress` -> `Pt`, `Repair`, `Sat`, `iterate`, `progress`
 - `geo_sampled_bound` -> `EqConstraint`, `Pt`, `d`, `poly`, `residual_le_of_zero_on_dense_of_d`, `rho`, `rho_nonneg`
+- `geomThreshold_at_zero` -> `Pt`, `sqDist`, `sqDist_eq_zero_iff`
+- `geomThreshold_sound_is_not_definitional` -> `Pt`, `Weights`, `behavior`, `embed`, `sound`, `sqDist`, `sqDist_eq_zero_iff`
 - `geom_contraction_eventually` -> `le_refl`
 - `geom_sum_eq` -> `at`, `div_const`, `mul`
 - `geom_sum_eq_one_sub` -> `E`, `apply`, `geom_sum_mul`, `iterateStep`, `iterateStep_norm_le`, `le_trans`, `op_norm_pow_le`
@@ -9822,6 +9826,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_eq_sqNorm` -> `Pt`, `at`, `d`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_eq_sum` -> `Pt`, `at`, `d`, `sqNorm`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_eq_zero_iff` -> `Pt`, `at`, `d`, `sqNorm_eq_zero_iff`, `trans`
+- `sqDist_equivalence_requires_nonneg` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `sqDist`, `sqDist_eq_zero_iff`
+- `sqDist_le_sq_iff_sqrt_le` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `sqDist`, `sqDist_eq_zero_iff`
 - `sqDist_lipschitz` -> `Pt`, `diff`, `rho`, `rho_nonneg`, `sqDist`, `sqNorm`
 - `sqDist_nonneg` -> `Pt`, `at`, `d`, `sqNorm_eq_zero_iff`, `sqNorm_nonneg`, `trans`
 - `sqDist_samePoint_not_localMin` -> `Pt`, `at`, `sqDist`, `sqDist_nonneg`
