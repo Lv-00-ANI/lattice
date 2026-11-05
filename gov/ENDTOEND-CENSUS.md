@@ -15,15 +15,15 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 4728 | 49.0% |
-| 1 | 1991 | 20.6% |
-| 2 | 735 | 7.6% |
+| 0 | 4727 | 48.9% |
+| 1 | 1997 | 20.7% |
+| 2 | 738 | 7.6% |
 | 3 | 650 | 6.7% |
 | 4 | 301 | 3.1% |
-| 5 | 757 | 7.8% |
-| 6 | 481 | 5.0% |
+| 5 | 760 | 7.9% |
+| 6 | 485 | 5.0% |
 | 7 | 11 | 0.1% |
-| **合计** | **9654** | |
+| **合计** | **9669** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -67,6 +67,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Compose, Core, Domains, Runtime, Semantics, root |
 | 6 | `proofComplete_imp_registry` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `proofComplete_holds` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/Conv/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `proof_holds` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `verified_manifest` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `verified_obligations` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -85,10 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proof_holds` (`Plugins/Architectures/GNN/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/GNN/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/GNN/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_obligation_count` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_nonempty` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_layer` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_requires` (`Plugins/Architectures/Norm/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

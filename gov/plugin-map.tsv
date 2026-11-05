@@ -8240,6 +8240,8 @@ lib	Lib/Quantization/RealIEEE754	Lib/Quantization/RealIEEE754/TinyGrid.lean	tiny
 plugins	Plugins	Plugins.lean	chainSlot_migrated	no
 plugins	Plugins	Plugins.lean	compose_migrated	no
 plugins	Plugins	Plugins.lean	constraint_migrated	no
+plugins	Plugins	Plugins.lean	convProofs_under_dir	no
+plugins	Plugins	Plugins.lean	conv_migrated	no
 plugins	Plugins	Plugins.lean	coverageComplete_holds	no
 plugins	Plugins	Plugins.lean	coverage_all_mandatory	no
 plugins	Plugins	Plugins.lean	current_state	no
@@ -8254,6 +8256,7 @@ plugins	Plugins	Plugins.lean	penalty_migrated	no
 plugins	Plugins	Plugins.lean	pluginCensusPending_false	yes
 plugins	Plugins	Plugins.lean	pluginDirOf_chainSlot	no
 plugins	Plugins	Plugins.lean	pluginDirOf_compose	no
+plugins	Plugins	Plugins.lean	pluginDirOf_conv	no
 plugins	Plugins	Plugins.lean	pluginDirOf_coreConstraint	no
 plugins	Plugins	Plugins.lean	pluginDirOf_coreRepair	no
 plugins	Plugins	Plugins.lean	pluginDirOf_gnn	no
@@ -8265,6 +8268,7 @@ plugins	Plugins	Plugins.lean	proofComplete_holds	no
 plugins	Plugins	Plugins.lean	proofComplete_imp_registry	no
 plugins	Plugins	Plugins.lean	proofRegistry_compose_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_constraint_mem	no
+plugins	Plugins	Plugins.lean	proofRegistry_conv_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_extractor_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_gnn_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_length	no
@@ -8305,6 +8309,17 @@ plugins	Plugins	Plugins/Registry.lean	nonVacuousFor_nil	no
 plugins	Plugins	Plugins/Registry.lean	registryConsistentFor_nil	no
 plugins	Plugins	Plugins/Registry.lean	trivial_fields	no
 plugins	Plugins	Plugins/Registry.lean	trivial_holds	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	convWeightSharingProp_holds	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	convWindowDeterminesOutputProp_holds	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	proof_holds	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	verified_manifest	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	verified_obligations	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_eq_shared_filter	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_equivariant	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_window_determines_output	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_approximation	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_equivariance	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_invariants	no

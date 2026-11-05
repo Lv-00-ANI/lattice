@@ -6,6 +6,7 @@ Plugins.lean	proofRegistry_extractor_mem
 Plugins.lean	proofRegistry_constraint_mem
 Plugins.lean	proofRegistry_norm_mem
 Plugins.lean	proofRegistry_gnn_mem
+Plugins.lean	proofRegistry_conv_mem
 Plugins.lean	proofRegistry_compose_mem
 Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
@@ -33,6 +34,8 @@ Plugins.lean	pluginDirOf_compose
 Plugins.lean	pluginDirOf_chainSlot
 Plugins.lean	pluginDirOf_gnn
 Plugins.lean	pluginDirOf_norm
+Plugins.lean	conv_migrated
+Plugins.lean	pluginDirOf_conv
 Plugins.lean	proofRegistry_migrated
 Plugins.lean	current_state
 Plugins.lean	proofComplete_holds
@@ -1950,6 +1953,13 @@ Plugins/Registry.lean	registryConsistentFor_nil
 Plugins/Registry.lean	nonVacuousFor_nil
 Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
+Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
+Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds
+Plugins/Architectures/Conv/Plugin.lean	proof_holds
+Plugins/Architectures/Conv/Plugin.lean	verified_manifest
+Plugins/Architectures/Conv/Plugin.lean	verified_obligations
+Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant
+Plugins/Architectures/Conv/Proofs.lean	conv_equivariant
 Plugins/Architectures/GNN/Manifest.lean	manifest_obligation_count
 Plugins/Architectures/GNN/Manifest.lean	manifest_nonempty
 Plugins/Architectures/GNN/Manifest.lean	manifest_layer

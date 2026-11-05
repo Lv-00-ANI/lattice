@@ -5,7 +5,7 @@
 Conv / Attention / Norm / DAG 是 **L3 载体插件**，不是 LATTICE 主线。
 
 > **实现状态（第 125 轮实测更正）：**
-> **只有 `Norm` 与 `GNN` 存在于 `Lattice/Plugins/Architectures/`。**
+> **`Norm`、`GNN`、`Conv` 已实现；`Attention`、`DAG` 未实现。**
 > **`Conv`、`Attention`、`DAG` 三个目录**不存在**，本文档第 4 节列出的证明名也**不在树中**。**
 > **=> 本节余下内容是**设计规格**，不是实现陈述。**
 > **本段是第 125 轮补上的：此前的版本把三者与 `Norm` 并列列出，读者无法区分已有与未做。**
@@ -15,7 +15,7 @@ LATTICE 主线是符号⇄权重转换；架构是转换的目标载体。
 ## 2. 目录
 
 ```text
-Lattice/Plugins/Architectures/Conv/        -- 未实现
+Lattice/Plugins/Architectures/Conv/        -- 已实现
 Lattice/Plugins/Architectures/Attention/   -- 未实现
 Lattice/Plugins/Architectures/Norm/        -- 已实现
 Lattice/Plugins/Architectures/DAG/         -- 未实现
@@ -48,11 +48,11 @@ structure CarrierPlugin where
 
 ## 4. 四个载体
 
-### Conv（**未实现**）
+### Conv（**已实现**）
 
 - 符号：卷积/权重共享约束；
 - L3：Toeplitz/循环结构；
-- **待证**：`compile_conv_sound`、`extract_conv_sound`、`conv_equivariant`——**三者均不在树中**。
+- **证明（已存在）**：见 `Lattice/Plugins/Architectures/Conv/`——`conv_translation_equivariant`、`conv_eq_shared_filter`、`conv_window_determines_output`。
 
 ### Attention（**未实现**）
 
@@ -88,7 +88,7 @@ Carrier < Compiler < Extractor < Verifier < Repairer
 
 ## 7. 状态与后续
 
-**已实现：`Norm`、`GNN`。**
+**已实现：`Norm`、`GNN`、`Conv`（第 126 轮）。**
 **未实现：`Conv`、`Attention`、`DAG`。**
 
 **=> 补齐这三个载体是 F 阶段的实际工作，其优先级与形状见 `MACRO-COGNITION.md` 第 6 节。**
