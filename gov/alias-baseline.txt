@@ -887,3 +887,6 @@ forward	Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R
 forward	Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3
 forward	Domains/Geometry/Encode/CIC.lean	encode_sound
 forward	Domains/Geometry/Encode/CIC.lean	encode_sound_of_holds
+forward	Core/CIC/Reduction.lean	reduces_of_step
+forward	Core/CIC/Reduction.lean	beta_reduces
+forward	Core/CIC/Reduction.lean	zeta_reduces

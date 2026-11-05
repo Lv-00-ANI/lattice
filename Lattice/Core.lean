@@ -26,6 +26,8 @@ import Lattice.Core.ModelArtifact
 import Lattice.Core.ModelArtifactInstances
 import Lattice.Core.CIC.Syntax
 import Lattice.Core.CIC.Typing
+import Lattice.Core.CIC.Substitution
+import Lattice.Core.CIC.Reduction
 
 
 /-!

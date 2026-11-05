@@ -175,6 +175,14 @@ Core/Weight.lean	layer_act_injective
 Core/Weight.lean	layer_behaviourally_separates
 Core/Weight.lean	reversibility_depends_on_representation
 Core/WeightNet.lean	net_behaviourallyEquivalent_iff
+Core/CIC/Reduction.lean	reduces_trans
+Core/CIC/Reduction.lean	reduces_of_step
+Core/CIC/Reduction.lean	beta_reduces
+Core/CIC/Reduction.lean	zeta_reduces
+Core/CIC/Substitution.lean	subst_var_eq
+Core/CIC/Substitution.lean	subst_var_lt
+Core/CIC/Substitution.lean	subst_var_gt
+Core/CIC/Substitution.lean	subst_const
 Core/CIC/Syntax.lean	shift_var_lt
 Core/CIC/Syntax.lean	shift_var_ge
 Core/CIC/Syntax.lean	shift_zero
