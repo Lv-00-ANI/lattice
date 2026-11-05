@@ -1959,6 +1959,7 @@ Plugins/Registry.lean	registryConsistentFor_nil
 Plugins/Registry.lean	nonVacuousFor_nil
 Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
+Plugins/Architectures/CarrierAdditions.lean	archCarrierAdditions_holds
 Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Attention/Plugin.lean	proof_holds
 Plugins/Architectures/Attention/Plugin.lean	verified_manifest

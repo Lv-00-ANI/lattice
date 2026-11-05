@@ -37,6 +37,7 @@ import Lattice.Plugins.Architectures.Attention.Plugin
 import Lattice.Plugins.Architectures.DAG.Proofs
 import Lattice.Plugins.Architectures.DAG.Manifest
 import Lattice.Plugins.Architectures.DAG.Plugin
+import Lattice.Plugins.Architectures.CarrierAdditions
 
 namespace Lattice.Plugins
 
@@ -533,7 +534,8 @@ def ProofComplete : Prop :=
     Lattice.Runtime.ladder_end_to_end ∧
     Lattice.Runtime.verification_loop_closes ∧
     Lattice.Plugins.Targets.CPhaseAdditions ∧
-    Lattice.Semantics.Stage1.DPhaseAdditions
+    Lattice.Semantics.Stage1.DPhaseAdditions ∧
+    Lattice.Plugins.Architectures.ArchCarrierAdditions
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -817,7 +819,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -840,5 +842,6 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Runtime.verification_loop_closes_holds
   · exact Lattice.Plugins.Targets.cPhaseAdditions_holds
   · exact Lattice.Semantics.Stage1.dPhaseAdditions_holds
+  · exact Lattice.Plugins.Architectures.archCarrierAdditions_holds
 
 end Lattice.Plugins

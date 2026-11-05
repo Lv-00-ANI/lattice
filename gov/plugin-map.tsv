@@ -8317,6 +8317,7 @@ plugins	Plugins	Plugins/Registry.lean	nonVacuousFor_nil	no
 plugins	Plugins	Plugins/Registry.lean	registryConsistentFor_nil	no
 plugins	Plugins	Plugins/Registry.lean	trivial_fields	no
 plugins	Plugins	Plugins/Registry.lean	trivial_holds	no
+plugins	Plugins/Architectures	Plugins/Architectures/CarrierAdditions.lean	archCarrierAdditions_holds	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Plugin.lean	attentionMaskExcludesProp_holds	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Plugin.lean	attentionPermEquivarianceProp_holds	no
