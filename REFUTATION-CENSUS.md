@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**317 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**318 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 28 | 8.9% |
-| `Semantics` | 3 | 0.9% |
+| `Semantics` | 4 | 1.2% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 122 轮新增一条**：`not_holdsSet_eqZero_const_one` —— **`eqZero (const 1)` 在零配置处不成立**，
+**故 `labelAt_depends_on_carrier` 有真实见证：空集与它在该配置上取值不同。**
+故 `Semantics` 由 3 升为 4、总数由 317 升为 318。
 
 **第 121 轮新增一条**：`no_token_dependent_inherits` —— **`Inherits` 中不存在依赖 token 的行为**，
 **因为 `sound` 的左边不含 `toks`，故右边不能含。第 120 轮的缺口是结构设计限制，不是缺实例。**

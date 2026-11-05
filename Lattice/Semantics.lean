@@ -12,6 +12,7 @@ import Lattice.Semantics.ProgramRefinement
 import Lattice.Semantics.InheritsInstance
 import Lattice.Semantics.InheritsStructural
 import Lattice.Semantics.ContextualInheritsInstance
+import Lattice.Semantics.ContextualInheritsNontrivial
 
 /-!
 # 语义信息主线：阶段划分与聚合
