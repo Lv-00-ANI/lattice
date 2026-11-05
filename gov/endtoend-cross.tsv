@@ -131,6 +131,8 @@ Core/ArchAssemble.lean	toLayer_W
 Core/ArchAssemble.lean	toLayer_b
 Core/ArchAssemble.lean	toLayer_unique
 Core/ArchAssemble.lean	toLayer_act
+Core/ArchChain.lean	toChainBetween_self
+Core/ArchChain.lean	toChainBetween_head
 Core/ArchParams.lean	weightCount_cons
 Core/ArchWeights.lean	slotOfIndex_layer
 Core/ArchWeights.lean	slotOfIndex_injective

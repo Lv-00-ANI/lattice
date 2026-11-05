@@ -31,6 +31,7 @@ import Lattice.Core.CIC.Reduction
 import Lattice.Core.ArchParams
 import Lattice.Core.ArchWeights
 import Lattice.Core.ArchAssemble
+import Lattice.Core.ArchChain
 
 
 /-!
