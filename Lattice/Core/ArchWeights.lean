@@ -4,7 +4,7 @@
 ## What round 138 left, and said it left
 
 **`Core/ArchParams.lean` built `Arch.ArchIndex`, a sum type carrying `(layer, row, column)`, and
-`Weights A := ArchIndex A → ℝ`.**
+`Weights A := ArchIndex A width → ℝ`.**
 
 **Two consumers were named as NOT done:**
 
@@ -77,7 +77,7 @@ inductive SlotKind : Type
 
 **A `weight` and a `bias` both carry an `i : Fin A.depth`; this extracts it, so a slot can be built without
 pattern-matching at every call site.** -/
-def ArchIndex.layer {A : Arch} : ArchIndex A → Fin A.depth
+def ArchIndex.layer {A : Arch} {width : ℕ → ℕ} : ArchIndex A width → Fin A.depth
   | .weight i _ _ => i
   | .bias i _ => i
 
@@ -104,14 +104,14 @@ structure Slot where
 **The layer comes from the index itself, so this is a total function with no arithmetic search.**
 **=> this is the theorem the bare vector made impossible: `off + i * b + j` needs `b` and `off` supplied from
 outside, while `slotOfIndex` reads them off the index.** -/
-def slotOfIndex {A : Arch} : ArchIndex A → Slot
+def slotOfIndex {A : Arch} {width : ℕ → ℕ} : ArchIndex A width → Slot
   | .weight i r c => { layer := i.val, kind := .weight, row := r.val, col := c.val }
   | .bias i c => { layer := i.val, kind := .bias, row := 0, col := c.val }
 
 /-- **The layer of a slot IS the layer of its index.**
 
 **=> the property the audit asked for, stated so it can be cited.** -/
-theorem slotOfIndex_layer {A : Arch} (x : ArchIndex A) :
+theorem slotOfIndex_layer {A : Arch} {width : ℕ → ℕ} (x : ArchIndex A width) :
     (slotOfIndex x).layer = x.layer.val := by
   cases x <;> rfl
 
@@ -123,8 +123,8 @@ fires after the layer indices are equated. That is why this is a theorem rather 
 
 **The `subst` order matters: equating `i` and `i'` first retypes `r'` and `c'`, and only then can their `Fin`
 extensionality be used.** -/
-theorem slotOfIndex_injective {A : Arch} :
-    ∀ x y : ArchIndex A, slotOfIndex x = slotOfIndex y → x = y := by
+theorem slotOfIndex_injective {A : Arch} {width : ℕ → ℕ} :
+    ∀ x y : ArchIndex A width, slotOfIndex x = slotOfIndex y → x = y := by
   intro x y h
   cases x with
   | weight i r c =>
@@ -165,7 +165,7 @@ theorem slotOfIndex_injective {A : Arch} :
 **`off + row * width + col` for a weight, `off + row * width + col` for a bias with `row = 0`.**
 **=> an export format needs a LINEAR index, and this supplies one; it does NOT replace `Slot`, because a linear
 index cannot recover the layer.** -/
-def ArchIndex.offset {A : Arch} (width : ℕ → ℕ) : ArchIndex A → ℕ
+def ArchIndex.offset {A : Arch} (width : ℕ → ℕ) : ArchIndex A width → ℕ
   | .weight i r c => width i.val * width (i.val + 1) + r.val * width (i.val + 1) + c.val
   | .bias i c => width i.val * width (i.val + 1) + c.val
 
@@ -178,28 +178,43 @@ def Slot.Reachable (width : ℕ → ℕ) (s : Slot) : Prop :=
   | .weight => s.row < width s.layer ∧ s.col < width (s.layer + 1)
   | .bias => s.row = 0 ∧ s.col < width (s.layer + 1)
 
+/-- **`Reachable` is a `Prop` whose TYPE does not mention `width`.**
+
+**=> this is what makes the transport in `slotOfIndex_reachable` type-correct: the equation `width = A.widths`
+can be rewritten under `Reachable` because `Reachable` is a plain proposition about NUMBERS.**
+**The `Prop` is definitionally the same; the theorem records the fact that a rewrite needs.** -/
+theorem Slot.reachable_of_eq {s : Slot} {w₁ w₂ : ℕ → ℕ} (h : w₁ = w₂)
+    (hr : s.Reachable w₁) : s.Reachable w₂ := by
+  subst h; exact hr
+
 /-- **Every slot that `slotOfIndex` produces is reachable.**
 
-**The bounds come from the `Fin` types the index carries.**
-**`hwidth` supplies the width at the layer; `hnext` supplies it one layer further, which is a SEPARATE hypothesis
-because `i.val + 1` need not be a valid `Fin A.depth` -- at the last layer it equals `A.depth`, and a `Fin`
-cannot index it.**
-**=> stating the two separately is what makes the theorem TRUE; a single `∀ i : Fin A.depth` would have claimed
-a bound that does not exist at the last layer.** -/
+**The bounds come from the `Fin` types the index carries, transported to `A.widths` by `hwidth`/`hnext`.**
+**They are SEPARATE hypotheses because `i.val + 1` need not be a valid `Fin A.depth`: at the last layer it equals
+`A.depth`, and a `Fin` cannot index it.**
+
+**The transport is `omega` over the `Fin` bound and the family equation: the two are LINEAR facts about Naturals,
+and `omega` handles the direction that `lt_of_lt_of_eq` kept getting backwards.** -/
 theorem slotOfIndex_reachable {A : Arch} {width : ℕ → ℕ}
     (hwidth : ∀ i : Fin A.depth, width i.val = A.widths.get! i.val)
     (hnext : ∀ i : Fin A.depth, width (i.val + 1) = A.widths.get! (i.val + 1))
-    (x : ArchIndex A) : (slotOfIndex x).Reachable width := by
+    (x : ArchIndex A width) : (slotOfIndex x).Reachable width := by
   cases x with
   | weight i r c =>
     simp only [slotOfIndex, Slot.Reachable]
-    rw [hwidth i, hnext i]
-    exact ⟨r.isLt, c.isLt⟩
+    constructor
+    · have h := r.isLt
+      have hw := hwidth i
+      omega
+    · have h := c.isLt
+      have hw := hnext i
+      omega
   | bias i c =>
     simp only [slotOfIndex, Slot.Reachable]
-    rw [hnext i]
-    exact ⟨trivial, c.isLt⟩
-    
+    refine ⟨trivial, ?_⟩
+    have h := c.isLt
+    have hw := hnext i
+    omega
 
 end Arch
 

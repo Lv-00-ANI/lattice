@@ -79,19 +79,19 @@ def weightCount : Arch → ℕ
 /-- **Each parameter KNOWS its layer, its row and its column.**
 
 **=> this is the field the bare vector lacked, and the reason `ChainSlot` could not read an `MLayer`.** -/
-inductive ArchIndex : Arch → Type
+inductive ArchIndex (A : Arch) (width : ℕ → ℕ) : Type
   /-- **A weight at layer `i`, row `r`, column `c`.** -/
-  | weight {A : Arch} (i : Fin A.depth) (r : Fin (A.widths.get! i.val))
-      (c : Fin (A.widths.get! (i.val + 1))) : ArchIndex A
+  | weight (i : Fin A.depth) (r : Fin (width i.val))
+      (c : Fin (width (i.val + 1))) : ArchIndex A width
   /-- **A bias at layer `i`, position `c`.** -/
-  | bias {A : Arch} (i : Fin A.depth) (c : Fin (A.widths.get! (i.val + 1))) : ArchIndex A
+  | bias (i : Fin A.depth) (c : Fin (width (i.val + 1))) : ArchIndex A width
 
 /-- **A weight assignment for an architecture.**
 
 **`Weights A` is a function from `A.Params`, so two weights at different layers are DIFFERENT ARGUMENTS rather
 than two offsets into one vector.**
 **=> this is `Weights A : A.Params → ℝ`, exactly what `PARAMETERIZATION-AUDIT.md` item 1 asked for.** -/
-def Weights (A : Arch) : Type := ArchIndex A → ℝ
+def Weights (A : Arch) (width : ℕ → ℕ) : Type := ArchIndex A width → ℝ
 
 /-- **The layer parameter count is positive whenever both widths are.**
 

@@ -127,9 +127,14 @@ Core/Activation.lean	relu_not_affine
 Core/Activation.lean	activation_strictly_stronger
 Core/AnalysisHelper.lean	hasFDerivAt_sq
 Core/AnalysisHelper.lean	hasFDerivAt_sq_comp
+Core/ArchAssemble.lean	toLayer_W
+Core/ArchAssemble.lean	toLayer_b
+Core/ArchAssemble.lean	toLayer_unique
+Core/ArchAssemble.lean	toLayer_act
 Core/ArchParams.lean	weightCount_cons
 Core/ArchWeights.lean	slotOfIndex_layer
 Core/ArchWeights.lean	slotOfIndex_injective
+Core/ArchWeights.lean	Slot.reachable_of_eq
 Core/ArchWeights.lean	slotOfIndex_reachable
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm

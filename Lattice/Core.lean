@@ -30,6 +30,7 @@ import Lattice.Core.CIC.Substitution
 import Lattice.Core.CIC.Reduction
 import Lattice.Core.ArchParams
 import Lattice.Core.ArchWeights
+import Lattice.Core.ArchAssemble
 
 
 /-!

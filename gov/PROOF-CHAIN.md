@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 32 | no imports from lift/lib |
+| core | 33 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -23,6 +23,7 @@
 
 - `Lattice.Core.Activation` <- `Lattice.Core.Net`
 - `Lattice.Core.AnalysisHelper` 
+- `Lattice.Core.ArchAssemble` <- `Lattice.Core.ArchWeights`, `Lattice.Core.VariableNet`
 - `Lattice.Core.ArchParams` <- `Lattice.Core.ModelArtifact`
 - `Lattice.Core.ArchWeights` <- `Lattice.Core.ArchParams`, `Lattice.Core.VariableNet`
 - `Lattice.Core.CIC.Reduction` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Substitution`
@@ -695,7 +696,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1013,8 +1014,9 @@
 |:--|--:|--:|
 | `Lattice.Core.Activation` | 6 | 3 |
 | `Lattice.Core.AnalysisHelper` | 3 | 0 |
+| `Lattice.Core.ArchAssemble` | 4 | 1 |
 | `Lattice.Core.ArchParams` | 3 | 4 |
-| `Lattice.Core.ArchWeights` | 3 | 6 |
+| `Lattice.Core.ArchWeights` | 4 | 6 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
@@ -2223,6 +2225,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `RoundMode.nearestEven_not_directed` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`
 - `S2_all_atom_false` -> `all`, `at`, `bvar`, `induction`
 - `S2_ex_atom_true` -> `all`, `at`, `bvar`, `induction`
+- `Slot.reachable_of_eq` -> `Arch`, `ArchIndex`, `Slot`, `depth`, `subst`, `trivial`, `width`
 - `Strength.min_rank_le_left` -> `le_refl`, `run`, `sound`
 - `Strength.min_rank_le_right` -> `le_refl`, `run`, `sound`
 - `Subgradient.add` -> `Subgradient`, `at`, `g`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`
@@ -10461,6 +10464,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `toFloatFormatFixed_eps` -> `FloatFormat`, `RoundOp`
 - `toFloatFormatFixed_expBits` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`
 - `toFloatFormatFixed_tiny` -> `FloatFormat`, `RoundOp`, `W`
+- `toLayer_W` -> `Arch`, `MLayer`, `W`, `Weights`, `depth`, `mlayerAct`, `width`
+- `toLayer_act` -> `Arch`, `Weights`, `depth`, `mlayerAct`, `width`
+- `toLayer_b` -> `Arch`, `MLayer`, `Weights`, `depth`, `mlayerAct`, `width`
+- `toLayer_unique` -> `Arch`, `MLayer`, `Weights`, `depth`, `mlayerAct`, `width`
 - `toLayers_length` -> `card_fin`, `length`
 - `toMLayer_ofMLayer` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `toNatConfig_apply` -> `GeoConstraint`, `cofactor`, `collinearPenalty`, `differentiable_coord`, `differentiable_segComp`, `mul`, `parallelPenalty`, `pluckerNorm`, `seg`, `segComp`, `toNatConfig`, `unflatten`
