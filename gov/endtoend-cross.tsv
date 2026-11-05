@@ -2872,6 +2872,8 @@ Semantics/Annotations.lean	edit_apply_idempotent_of_no_add
 Semantics/Annotations.lean	edit_apply_not_idempotent_of_add
 Semantics/Annotations.lean	edit_undo_restores_removed
 Semantics/Annotations.lean	edit_undo_drops_add
+Semantics/CompilationInherits.lean	holdsSet_flatten
+Semantics/CompilationInherits.lean	sound_is_not_definitional
 Semantics/CompileSound.lean	holdsSet_samePoint_single
 Semantics/CompileSound.lean	holdsSet_midpoint_single
 Semantics/CompileSound.lean	compile_sound

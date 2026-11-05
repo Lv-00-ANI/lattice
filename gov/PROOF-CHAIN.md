@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 312 | aggregator at `Lattice/`, re-exports only |
+| root | 313 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -964,8 +964,9 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.CompilationInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
 - `Lattice.Semantics.ContextualInheritsInstance` <- `Lattice.Semantics.InheritsStructural`
@@ -1933,6 +1934,7 @@
 | `Lattice.Runtime.WeightToSymbolEquivalence` | 4 | 3 |
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
+| `Lattice.Semantics.CompilationInherits` | 2 | 5 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
 | `Lattice.Semantics.ContextualInheritsInstance` | 5 | 3 |
@@ -5808,6 +5810,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holdsSet_append` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_equiv_append_left` -> `Domain`, `GeoConstraint`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_flatMap_experts` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
+- `holdsSet_flatten` -> `ContextualInherits`, `HoldsSet`, `Pt`, `Weights`, `apply`, `behavior`, `constraintDomain`, `embed`, `g`, `holdsSet_append`, `induction`, `sound`
 - `holdsSet_meaning_equiv` -> `Domain`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_mem` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `Pt`, `at`, `d`, `induction`, `trivial`
 - `holdsSet_member` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `holdsSet_mem`, `length`, `nil_append`, `undo`
@@ -9663,6 +9666,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `soundAbstract_iff_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
 - `soundAbstract_image_subset` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
 - `sound_holds` -> `E`, `PenaltyEmbedding`, `apply`, `compile`, `encode`, `loss`, `satW`
+- `sound_is_not_definitional` -> `Pt`, `behavior`, `embed`, `sound`
 - `sound_not_exact` -> `Sat`, `loss`, `trivial`
 - `sound_of_factors` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `sound_via_scheme` -> `Compiler`, `W`, `compile`, `encode`, `satW`
