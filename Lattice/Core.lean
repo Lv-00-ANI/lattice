@@ -28,6 +28,7 @@ import Lattice.Core.CIC.Syntax
 import Lattice.Core.CIC.Typing
 import Lattice.Core.CIC.Substitution
 import Lattice.Core.CIC.Reduction
+import Lattice.Core.ArchParams
 
 
 /-!

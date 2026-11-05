@@ -127,6 +127,7 @@ Core/Activation.lean	relu_not_affine
 Core/Activation.lean	activation_strictly_stronger
 Core/AnalysisHelper.lean	hasFDerivAt_sq
 Core/AnalysisHelper.lean	hasFDerivAt_sq_comp
+Core/ArchParams.lean	weightCount_cons
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm
 Core/Check.lean	be_trans
@@ -2822,8 +2823,17 @@ Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainParams_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	Chain.actWith_cons
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	Chain.actWith_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	differentiableAt_chainAct
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	paramsCountExact_example
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerOffsets_example
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerOffsets_nil
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerOffsets_single
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	paramsCountExact_nil
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerParamCount_pos
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerOffsets_two
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose2_differentiableAt_joint
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose2_differentiableAt_params
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	slotStep_eq_layerParamCount
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	thirdOffset_gt
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	compose3_differentiableAt_joint
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOffsets_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOffsets_two
@@ -2842,6 +2852,8 @@ Plugins/Extractors/ChainSlot/VariableDerivative.lean	twoLayer_no_affine_fit
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	twoLayerChain_explicit
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	twoLayerChain_linear_in_g2
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	threeLayerChain_explicit
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerParamCount_width_one
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	flatParamActSafe_width_one
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	flatChainAct_cons_width_one
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	flatChainAct_cons_general
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	wideChain_explicit_zero
@@ -2879,6 +2891,7 @@ Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainDepth_chainOneToChain
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOnePoly_idf
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOnePoly_degree_le
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOnePoly_eval_act
+Plugins/Extractors/ChainSlot/VariableDerivative.lean	flatParamActSafe_width_one_fun
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOneAct_eq_flatChainAct
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOne_output_degree
 Plugins/Extractors/ChainSlot/VariableDerivative.lean	chainOne_output_eval

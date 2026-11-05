@@ -41,7 +41,7 @@ AUDIT = os.path.join(REPO, "PARAMETERIZATION-AUDIT.md")
 #: A probe matches when the FILE at `path` exists AND the regex is found in it. `None` means the item is
 #: registered but not machine-checkable at this level (documented in the report).
 PROBES = [
-    ("1", "Weights as a bare vector", None),
+    ("1", "Weights as a bare vector", ("Core/ModelArtifact.lean", r"\u2192\s*Pt\s+n|Weights\s*:=\s*\u2115\s*\u2192")),
     ("2", "State as K -> Option Nat", ("Plugins/Runtime/Spatiotemporal/Model.lean", r"abbrev\s+RState.*Option")),
     ("3", "Effect as single-key overwrite", ("Plugins/Runtime/Spatiotemporal/Model.lean", r"structure\s+Effect")),
     ("4", "Term has no Prop/Type split", ("Core/CIC/Syntax.lean", r"\|\s*sort\s*:\s*Level\s*\u2192")),
