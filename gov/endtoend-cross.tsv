@@ -2967,3 +2967,4 @@ Semantics/Stage1.lean	constraintVocab_denote_sound
 Semantics/Stage1.lean	inherits_sound
 Semantics/Stage1.lean	complete_on
 Semantics/Stage1.lean	inherits_behavior_ext
+Semantics/ThresholdInherits.lean	threshold_sound_is_not_definitional

@@ -9696,6 +9696,9 @@ semantics	Semantics	Semantics/Stage1.lean	holdsSet_equiv_append_left	no
 semantics	Semantics	Semantics/Stage1.lean	holdsSet_meaning_equiv	no
 semantics	Semantics	Semantics/Stage1.lean	inherits_behavior_ext	no
 semantics	Semantics	Semantics/Stage1.lean	inherits_sound	no
+semantics	Semantics	Semantics/ThresholdInherits.lean	sq_le_sq_iff_abs_le	no
+semantics	Semantics	Semantics/ThresholdInherits.lean	threshold_extraction_requires_nonneg	yes
+semantics	Semantics	Semantics/ThresholdInherits.lean	threshold_sound_is_not_definitional	no
 semantics	Semantics	Semantics/VocabEdit.lean	merge_error_bound	no
 semantics	Semantics	Semantics/VocabEdit.lean	merge_not_exact	no
 semantics	Semantics	Semantics/VocabEdit.lean	split_error_bound	no

@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**320 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**321 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -20,7 +20,7 @@
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
-| `Semantics` | 5 | 1.5% |
+| `Semantics` | 6 | 1.9% |
 | `(root)` | 2 | 0.6% |
 
 **分布值得注意**：87% 的否证在 `Lib`（具体领域），承重层（`Core`/`Lift`/`Runtime`/`Geo`/`Evidence`）
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 132 轮新增一条**：`threshold_extraction_requires_nonneg` —— **去掉 `0 ≤ tau` 后平方形式与绝对值形式不再等价**，
+**故 `thresholdInherits` 的 `sound` 所带的子类型假设是真实成本。**
+故 `Semantics` 由 5 升为 6、总数由 320 升为 321。
 
 **第 130 轮新增一条**：`nat_not_finite` —— **`ℕ` 没有 `Fintype` 实例**，
 **故 `meaningTypesDiffer` 的计数路线在项目载体上无法起步——这不是缺证明，是路线的前提不成立。**

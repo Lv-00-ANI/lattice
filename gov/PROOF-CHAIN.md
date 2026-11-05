@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 326 | aggregator at `Lattice/`, re-exports only |
+| root | 327 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -974,7 +974,7 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`, `Lattice.Semantics.CodomainExtraction`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`, `Lattice.Semantics.CodomainExtraction`, `Lattice.Semantics.ThresholdInherits`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Semantics.CodomainExtraction` 
 - `Lattice.Semantics.CompilationInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Domains.Constraints.ConstraintSet`
@@ -993,6 +993,7 @@
 - `Lattice.Semantics.ProgramDomain` <- `Lattice.Semantics.Stage1`
 - `Lattice.Semantics.ProgramRefinement` <- `Lattice.Semantics.ProgramDomain`
 - `Lattice.Semantics.Stage1` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.ThresholdInherits` <- `Lattice.Semantics.InheritsStructural`
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
@@ -1974,6 +1975,7 @@
 | `Lattice.Semantics.ProgramDomain` | 6 | 3 |
 | `Lattice.Semantics.ProgramRefinement` | 5 | 1 |
 | `Lattice.Semantics.Stage1` | 8 | 10 |
+| `Lattice.Semantics.ThresholdInherits` | 3 | 4 |
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
 | `Lattice.Usage` | 0 | 0 |
@@ -9842,6 +9844,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sq_eq_zero_iff_real` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
 - `sq_eq_zero_of_localMin` -> `E`, `sq_localMin_dichotomy`
 - `sq_le_needs_nonneg` -> `Audit`, `at`
+- `sq_le_sq_iff_abs_le` -> `ContextualInherits`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`
 - `sq_lipschitz_on_bounded` -> `g`
 - `sq_localMin_dichotomy` -> `E`, `at`, `hasFDerivAt_sq`, `sq_eq_zero_of_localMin`
 - `sq_lt_sq_iff_mul_sign` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
@@ -10396,7 +10399,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `threshIntent_monotone_mu` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `thresh_concept_iff` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
 - `thresh_galois` -> `IsFormalConcept`, `apply`, `extent`, `formal_concept_iff_closure`, `intent`, `trans`
+- `threshold_extraction_requires_nonneg` -> `Weights`, `at`, `behavior`, `embed`, `sound`
 - `threshold_separation_iff` -> `at`
+- `threshold_sound_is_not_definitional` -> `Weights`, `behavior`, `embed`, `sound`
 - `tinyGrid_err` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `tinyGrid_idem` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `tinyGrid_mono` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`

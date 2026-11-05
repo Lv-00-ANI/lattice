@@ -17,6 +17,7 @@ import Lattice.Semantics.CompilationInherits
 import Lattice.Semantics.DPhaseAdditions
 import Lattice.Semantics.MeaningTypesBounded
 import Lattice.Semantics.CodomainExtraction
+import Lattice.Semantics.ThresholdInherits
 
 /-!
 # 语义信息主线：阶段划分与聚合
