@@ -5,7 +5,7 @@
 Conv / Attention / Norm / DAG 是 **L3 载体插件**，不是 LATTICE 主线。
 
 > **实现状态（第 125 轮实测更正）：**
-> **`Norm`、`GNN`、`Conv`、`Attention` 已实现；`DAG` 未实现。**
+> **四个载体全部已实现：`Norm`、`GNN`、`Conv`、`Attention`、`DAG`。**
 > **`Conv`、`Attention`、`DAG` 三个目录**不存在**，本文档第 4 节列出的证明名也**不在树中**。**
 > **=> 本节余下内容是**设计规格**，不是实现陈述。**
 > **本段是第 125 轮补上的：此前的版本把三者与 `Norm` 并列列出，读者无法区分已有与未做。**
@@ -18,7 +18,7 @@ LATTICE 主线是符号⇄权重转换；架构是转换的目标载体。
 Lattice/Plugins/Architectures/Conv/        -- 已实现
 Lattice/Plugins/Architectures/Attention/   -- 已实现
 Lattice/Plugins/Architectures/Norm/        -- 已实现
-Lattice/Plugins/Architectures/DAG/         -- 未实现
+Lattice/Plugins/Architectures/DAG/         -- 已实现
 Lattice/Plugins/Architectures/GNN/         -- 已实现
 ```
 
@@ -66,11 +66,11 @@ structure CarrierPlugin where
 - L3：幂等归一化；
 - **证明（已存在）**：见 `Lattice/Plugins/Architectures/Norm/`。
 
-### DAG（**未实现**）
+### DAG（**已实现**）
 
 - 符号：程序/约束图；
 - L3：顺序/并行/残差；
-- **待证**：`denote_seq`、`denote_par`、`denote_resid`、`dag_confluence`——**均不在树中**。
+- **证明（已存在）**：见 `Lattice/Plugins/Architectures/DAG/`——`dag_denote_seq`、`dag_denote_par`、`dag_denote_resid`、`dag_confluence`。
 
 ## 5. 依赖
 
@@ -88,8 +88,8 @@ Carrier < Compiler < Extractor < Verifier < Repairer
 
 ## 7. 状态与后续
 
-**已实现：`Norm`、`GNN`、`Conv`（第 126 轮）、`Attention`（第 127 轮）。**
-**未实现：`Conv`、`Attention`、`DAG`。**
+**已实现：`Norm`、`GNN`、`Conv`（第 126 轮）、`Attention`（第 127 轮）、`DAG`（第 128 轮）。**
+**未实现：无——F 阶段的四个载体已全部建立。**
 
 **=> 补齐这三个载体是 F 阶段的实际工作，其优先级与形状见 `MACRO-COGNITION.md` 第 6 节。**
 **本文档在第 125 轮之前把未实现项与已实现项混列，已更正；今后任何载体的增删都应同步更新本节。**

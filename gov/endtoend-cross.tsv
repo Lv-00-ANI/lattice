@@ -9,6 +9,7 @@ Plugins.lean	proofRegistry_gnn_mem
 Plugins.lean	proofRegistry_conv_mem
 Plugins.lean	proofRegistry_compose_mem
 Plugins.lean	proofRegistry_attention_mem
+Plugins.lean	proofRegistry_dag_mem
 Plugins.lean	proofRegistry_length
 Plugins.lean	registryConsistent_holds
 Plugins.lean	coverage_all_mandatory
@@ -36,6 +37,8 @@ Plugins.lean	pluginDirOf_chainSlot
 Plugins.lean	pluginDirOf_gnn
 Plugins.lean	pluginDirOf_norm
 Plugins.lean	conv_migrated
+Plugins.lean	dag_migrated
+Plugins.lean	pluginDirOf_dag
 Plugins.lean	attention_migrated
 Plugins.lean	pluginDirOf_attention
 Plugins.lean	pluginDirOf_conv
@@ -1967,6 +1970,18 @@ Plugins/Architectures/Conv/Plugin.lean	verified_manifest
 Plugins/Architectures/Conv/Plugin.lean	verified_obligations
 Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant
 Plugins/Architectures/Conv/Proofs.lean	conv_equivariant
+Plugins/Architectures/DAG/Manifest.lean	manifest_nonempty
+Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds
+Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds
+Plugins/Architectures/DAG/Plugin.lean	dagDenoteParProp_holds
+Plugins/Architectures/DAG/Plugin.lean	proof_holds
+Plugins/Architectures/DAG/Plugin.lean	verified_manifest
+Plugins/Architectures/DAG/Plugin.lean	verified_obligations
+Plugins/Architectures/DAG/Proofs.lean	dag_denote_seq
+Plugins/Architectures/DAG/Proofs.lean	dag_denote_par
+Plugins/Architectures/DAG/Proofs.lean	dag_denote_resid
+Plugins/Architectures/DAG/Proofs.lean	dagEval_commute_past
+Plugins/Architectures/DAG/Proofs.lean	dag_confluence
 Plugins/Architectures/GNN/Manifest.lean	manifest_obligation_count
 Plugins/Architectures/GNN/Manifest.lean	manifest_nonempty
 Plugins/Architectures/GNN/Manifest.lean	manifest_layer

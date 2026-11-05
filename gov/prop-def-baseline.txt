@@ -66,3 +66,10 @@ scan	t8_head_fails	t8_head_fails_holds	K
 Plugins/Architectures/Attention/Plugin.lean	AttentionPermEquivarianceProp
 Plugins/Architectures/Attention/Plugin.lean	AttentionRowStochasticProp
 Plugins/Architectures/Attention/Plugin.lean	AttentionMaskExcludesProp
+# Round 128. The same scanner blind spot as the three `Attention` entries above: the `DAG` propositions
+# quantify over an IMPLICIT TYPE parameter `α`, and every later use sits inside the type `DagProgram α`,
+# which the binder-mention test does not reach. The proofs genuinely depend on `α`: the list and its
+# evaluation are both indexed by it.
+Plugins/Architectures/DAG/Plugin.lean	DAGConfluenceProp
+Plugins/Architectures/DAG/Plugin.lean	DAGDenoteSeqProp
+Plugins/Architectures/DAG/Plugin.lean	DAGDenoteParProp

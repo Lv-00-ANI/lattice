@@ -8247,6 +8247,8 @@ plugins	Plugins	Plugins.lean	conv_migrated	no
 plugins	Plugins	Plugins.lean	coverageComplete_holds	no
 plugins	Plugins	Plugins.lean	coverage_all_mandatory	no
 plugins	Plugins	Plugins.lean	current_state	no
+plugins	Plugins	Plugins.lean	dagProofs_under_dir	no
+plugins	Plugins	Plugins.lean	dag_migrated	no
 plugins	Plugins	Plugins.lean	file_under_dir	no
 plugins	Plugins	Plugins.lean	gnnProofs_under_dir	no
 plugins	Plugins	Plugins.lean	gnn_migrated	no
@@ -8262,6 +8264,7 @@ plugins	Plugins	Plugins.lean	pluginDirOf_compose	no
 plugins	Plugins	Plugins.lean	pluginDirOf_conv	no
 plugins	Plugins	Plugins.lean	pluginDirOf_coreConstraint	no
 plugins	Plugins	Plugins.lean	pluginDirOf_coreRepair	no
+plugins	Plugins	Plugins.lean	pluginDirOf_dag	no
 plugins	Plugins	Plugins.lean	pluginDirOf_gnn	no
 plugins	Plugins	Plugins.lean	pluginDirOf_norm	no
 plugins	Plugins	Plugins.lean	pluginDirOf_penalty	no
@@ -8273,6 +8276,7 @@ plugins	Plugins	Plugins.lean	proofRegistry_attention_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_compose_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_constraint_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_conv_mem	no
+plugins	Plugins	Plugins.lean	proofRegistry_dag_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_extractor_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_gnn_mem	no
 plugins	Plugins	Plugins.lean	proofRegistry_length	no
@@ -8337,6 +8341,19 @@ plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_e
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_equivariant	no
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant	no
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Proofs.lean	conv_window_determines_output	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Manifest.lean	manifest_nonempty	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	dagDenoteParProp_holds	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	proof_holds	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	verified_manifest	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Plugin.lean	verified_obligations	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dagEval_commute_past	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_confluence	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_denote_par	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_denote_resid	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_denote_seq	no
+plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	noncommuting_counterexample	yes
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_approximation	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_equivariance	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_invariants	no
