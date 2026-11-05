@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 325 | aggregator at `Lattice/`, re-exports only |
+| root | 326 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -974,8 +974,9 @@
 - `Lattice.Runtime.WeightLadderN` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Net`, `Lattice.Core.Semantics`
 - `Lattice.Runtime.WeightSymbolRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.WeightLadderInverse`
 - `Lattice.Runtime.WeightToSymbolEquivalence` <- `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`
-- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`
+- `Lattice.Semantics` <- `Lattice.Semantics.Stage1`, `Lattice.Semantics.VocabEdit`, `Lattice.Semantics.Annotations`, `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Semantics.PostTrain`, `Lattice.Semantics.CompileSoundGeneral`, `Lattice.Semantics.ProgramDomain`, `Lattice.Semantics.MeaningTypes`, `Lattice.Semantics.MeaningTypesFinite`, `Lattice.Semantics.ProgramRefinement`, `Lattice.Semantics.InheritsInstance`, `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsInstance`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Semantics.CompilationInherits`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Semantics.MeaningTypesBounded`, `Lattice.Semantics.CodomainExtraction`
 - `Lattice.Semantics.Annotations` <- `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Semantics.CodomainExtraction` 
 - `Lattice.Semantics.CompilationInherits` <- `Lattice.Semantics.InheritsStructural`, `Lattice.Semantics.ContextualInheritsNontrivial`, `Lattice.Domains.Constraints.ConstraintSet`
 - `Lattice.Semantics.CompileSound` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Geometry.WeightSideLadder`, `Lattice.Semantics.Merge`
 - `Lattice.Semantics.CompileSoundGeneral` <- `Lattice.Semantics.Merge`, `Lattice.Semantics.CompileSound`, `Lattice.Domains.Geometry.WeightSideLadder`
@@ -1956,6 +1957,7 @@
 | `Lattice.Runtime.WeightToSymbolEquivalence` | 4 | 3 |
 | `Lattice.Semantics` | 0 | 0 |
 | `Lattice.Semantics.Annotations` | 9 | 3 |
+| `Lattice.Semantics.CodomainExtraction` | 2 | 2 |
 | `Lattice.Semantics.CompilationInherits` | 2 | 5 |
 | `Lattice.Semantics.CompileSound` | 4 | 0 |
 | `Lattice.Semantics.CompileSoundGeneral` | 5 | 1 |
@@ -3274,6 +3276,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `codegenLadder_forward` -> `Ladder`, `StackOp`, `compileProg`, `g`, `ladder_forward`, `runProg`, `satSym`, `satW`, `toStack`
 - `codegenLadder_l2l3_changes_representation` -> `compileProg`, `g`, `toStack`
 - `codegenLadder_satW_iff` -> `StackOp`, `compileProg`, `g`, `runProg`, `satW`, `toStack`
+- `codomainExtraction_unique` -> `trans`
 - `codomains_differ_at_d` -> `d`
 - `coeff_C_of_ne_zero` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `cofactor_diag` -> `GeoConstraint`, `Pt`, `seg`

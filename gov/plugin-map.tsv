@@ -9614,6 +9614,8 @@ semantics	Semantics	Semantics/Annotations.lean	edit_realizes	no
 semantics	Semantics	Semantics/Annotations.lean	edit_undo_drops_add	no
 semantics	Semantics	Semantics/Annotations.lean	edit_undo_restores_removed	no
 semantics	Semantics	Semantics/Annotations.lean	holdsSet_member	no
+semantics	Semantics	Semantics/CodomainExtraction.lean	codomainExtraction_unique	no
+semantics	Semantics	Semantics/CodomainExtraction.lean	naturality_holds_at_unique	no
 semantics	Semantics	Semantics/CompilationInherits.lean	holdsSet_flatten	no
 semantics	Semantics	Semantics/CompilationInherits.lean	sound_is_not_definitional	no
 semantics	Semantics	Semantics/CompileSound.lean	compile_sound	no
