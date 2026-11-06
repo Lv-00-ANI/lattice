@@ -199,6 +199,13 @@ Core/CIC/Normalization.lean	reduces_of_within
 Core/CIC/Normalization.lean	within_of_reduces
 Core/CIC/Normalization.lean	within_zero_iff
 Core/CIC/Normalization.lean	reduces_iff_exists_within
+Core/CIC/ParallelSubst.lean	inst_lift_id
+Core/CIC/ParallelSubst.lean	inst_id
+Core/CIC/ParallelSubst.lean	inst_lift_zero
+Core/CIC/ParallelSubst.lean	inst_lift_succ
+Core/CIC/ParallelSubst.lean	inst_var
+Core/CIC/ParallelSubst.lean	inst_const
+Core/CIC/ParallelSubst.lean	inst_sort
 Core/CIC/Reduction.lean	reduces_trans
 Core/CIC/Reduction.lean	reduces_of_step
 Core/CIC/Reduction.lean	beta_reduces
@@ -1067,7 +1074,13 @@ Lib/Chain/RealAbstractionRegistry.lean	reg_inst_ite_distBias
 Lib/Chain/RealAbstractionRegistry.lean	reg_compressor_coverage_errorFeedback
 Lib/Chain/RealAbstractionRegistry.lean	reg_compressor_half_residual_bound
 Lib/Chain/RealAbstractionRegistry.lean	reg_support_coverage
+Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot
+Lib/Chain/RealAdjoinRootCard.lean	arc_adjoin_root_two_le_card
+Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot_pos
+Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot_irreducible
 Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot_irreducible_apply
+Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot_X
+Lib/Chain/RealAdjoinRootCard.lean	arc_pow_card_eq_self
 Lib/Chain/RealChainAxioms3.lean	b194_anchor_consumer
 Lib/Chain/RealChainEntryOOV.lean	tokAuxV_VAll_eq
 Lib/Chain/RealChainEntryOOV.lean	tokenizeV_VAll_eq_tokenizeRaw

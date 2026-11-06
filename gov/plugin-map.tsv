@@ -205,6 +205,13 @@ core	Core/CIC	Core/CIC/Normalization.lean	reduces_iff_exists_within	no
 core	Core/CIC	Core/CIC/Normalization.lean	reduces_of_within	no
 core	Core/CIC	Core/CIC/Normalization.lean	within_of_reduces	no
 core	Core/CIC	Core/CIC/Normalization.lean	within_zero_iff	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_const	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_id	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_id	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_succ	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_zero	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_sort	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_var	no
 core	Core/CIC	Core/CIC/Reduction.lean	beta_reduces	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_of_step	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_trans	no

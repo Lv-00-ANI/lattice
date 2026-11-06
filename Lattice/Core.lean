@@ -43,6 +43,7 @@ import Lattice.Core.CIC.Normalization
 import Lattice.Core.CIC.ShiftNonComm
 import Lattice.Core.CIC.SubstTable
 import Lattice.Core.CIC.SubstComp
+import Lattice.Core.CIC.ParallelSubst
 
 
 /-!
