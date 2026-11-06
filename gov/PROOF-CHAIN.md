@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 50 | no imports from lift/lib |
+| core | 51 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -44,6 +44,7 @@
 - `Lattice.Core.CIC.SubstitutionShift` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Syntax` 
 - `Lattice.Core.CIC.Typing` <- `Lattice.Core.CIC.Syntax`
+- `Lattice.Core.CIC.Value` <- `Lattice.Core.CIC.Typing`
 - `Lattice.Core.CastLemmas` 
 - `Lattice.Core.ChainCastAct` <- `Lattice.Core.VariableNet`, `Lattice.Core.CastLemmas`
 - `Lattice.Core.ChainEvalFinal` <- `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`
@@ -713,7 +714,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1053,6 +1054,7 @@
 | `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
 | `Lattice.Core.CIC.Typing` | 3 | 3 |
+| `Lattice.Core.CIC.Value` | 3 | 3 |
 | `Lattice.Core.CastLemmas` | 3 | 0 |
 | `Lattice.Core.ChainCastAct` | 2 | 0 |
 | `Lattice.Core.ChainEvalFinal` | 3 | 2 |
@@ -3005,12 +3007,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `canonical_abs` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `canonical_eq_none_of_not_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `canonical_form_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
-- `canonical_forms_bool` -> `Compiler`, `Step`, `add`, `e2`, `induction`, `step`
+- `canonical_forms_bool` -> `Compiler`, `Step`, `Value`, `add`, `e2`, `induction`, `step`
 - `canonical_forms_ext_bool` -> `add`, `e2`, `induction`, `step`
 - `canonical_forms_ext_int` -> `add`, `e2`, `induction`, `step`
 - `canonical_forms_ext_real` -> `add`, `e2`, `induction`, `step`
-- `canonical_forms_int` -> `Compiler`, `Step`, `add`, `e2`, `induction`, `step`
-- `canonical_forms_real` -> `Compiler`, `Step`, `add`, `e2`, `induction`, `step`
+- `canonical_forms_int` -> `Compiler`, `Step`, `Value`, `add`, `e2`, `induction`, `step`
+- `canonical_forms_real` -> `Compiler`, `Step`, `Value`, `add`, `e2`, `induction`, `step`
 - `canonical_isSome_of_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `canonical_not_refl_for_arbitrary` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
 - `canonical_representative_gives_quotient_inverse` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
@@ -6281,6 +6283,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `is_second_moment_const` -> `apply`, `at`, `chiSq`, `g`
 - `is_second_moment_eq` -> `apply`, `at`, `chiSq`, `fDivergence`, `g`
 - `is_unbiased` -> `apply`, `at`, `chiSq`, `fDivergence`, `g`, `mul_div_self`
+- `is_value_of_unique` -> `Term`, `at`
 - `is_variance_bound` -> `apply`, `at`, `chiSq`, `g`
 - `is_weight_nonneg` -> `apply`, `at`, `chiSq`, `fDivergence`, `g`, `mul_div_self`
 - `isoList_cons` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
@@ -7643,7 +7646,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_specSolver` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `no_step_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_step_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
-- `no_stuck_well_typed_literals` -> `Compiler`, `Step`
+- `no_stuck_well_typed_literals` -> `Compiler`, `Step`, `Value`
 - `no_token_dependent_inherits` -> `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
@@ -8347,7 +8350,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `preimage_subsingleton` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
 - `preservation` -> `Compiler`, `HasType`, `Step`, `Ty`, `Value`, `add`, `induction`, `progress`, `step`
 - `preservation_ext` -> `induction`, `step`
-- `preservation_multistep` -> `Compiler`, `Step`, `add`, `induction`, `step`
+- `preservation_multistep` -> `Compiler`, `Step`, `Value`, `add`, `induction`, `step`
 - `preservation_multistep_ext` -> `induction`, `step`
 - `preservation_needs_a_projection_law` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `preserves` -> `Sat`, `at`, `induction`, `iterate`, `progress`, `zero`
@@ -10784,6 +10787,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `typable_const` -> `Level`, `SortKind`, `Term`, `induction`
+- `typable_has_value` -> `CICCtx`, `ConstSet`, `Term`, `Typable`, `at`
 - `typable_mono` -> `Term`, `induction`
 - `typable_sort` -> `Level`, `SortKind`, `Term`, `induction`
 - `typeII_nonneg` -> `alpha`, `at`, `le_refl`, `le_trans`
@@ -10792,8 +10796,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `typeI_typeII_incompatible` -> `alpha`, `at`, `le_trans`
 - `typeI_typeII_sum_one` -> `alpha`, `at`, `le_trans`
 - `typeI_typeII_tradeoff` -> `alpha`, `at`, `le_refl`, `le_trans`
-- `type_preservation_add` -> `Compiler`, `Step`, `add`
-- `type_soundness` -> `Compiler`, `Step`, `add`
+- `type_preservation_add` -> `Compiler`, `Step`, `Value`, `add`
+- `type_soundness` -> `Compiler`, `Step`, `Value`, `add`
 - `ucb_confidence_radius` -> `apply`, `card_fin`, `g`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `ucb_deterministic_bound_arithmetic` -> `g`
 - `ucb_deterministic_bound_counterexample` -> `g`
@@ -10911,6 +10915,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `validation_gap_budget` -> `at`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `validation_gap_tail` -> `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `validity_does_not_determine_syntax` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`
+- `valueOf_total` -> `CICCtx`, `ConstSet`, `Term`, `Typable`, `at`
 - `valuePrimitives_length` -> `length`
 - `value_iteration_contraction` -> `ChainFwd`, `geom_contraction_eventually`, `induction`, `zero`
 - `value_iteration_converges` -> `ChainFwd`, `geom_contraction_eventually`

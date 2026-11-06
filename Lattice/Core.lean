@@ -48,6 +48,7 @@ import Lattice.Core.CIC.SubstBridge
 import Lattice.Core.CIC.ParallelSubstCutoff
 import Lattice.Core.CIC.LiftAtCutoff
 import Lattice.Core.CIC.LiftShiftTotal
+import Lattice.Core.CIC.Value
 
 
 /-!

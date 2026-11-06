@@ -255,6 +255,9 @@ core	Core/CIC	Core/CIC/Syntax.lean	shift_zero	no
 core	Core/CIC	Core/CIC/Typing.lean	typable_const	no
 core	Core/CIC	Core/CIC/Typing.lean	typable_mono	no
 core	Core/CIC	Core/CIC/Typing.lean	typable_sort	no
+core	Core/CIC	Core/CIC/Value.lean	is_value_of_unique	no
+core	Core/CIC	Core/CIC/Value.lean	typable_has_value	no
+core	Core/CIC	Core/CIC/Value.lean	valueOf_total	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	const_is_executable	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_add	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_const	no
