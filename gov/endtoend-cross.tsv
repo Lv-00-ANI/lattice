@@ -262,6 +262,10 @@ Core/CIC/Value.lean	typable_has_value
 Core/CIC/Value.lean	is_value_of_unique
 Core/IR/Basic.lean	Relation.part_irrelevant
 Core/IR/Basic.lean	LatticeIR.order_invariant
+Core/IR/Chain.lean	roundtrip_parse
+Core/IR/Chain.lean	compileSkel_injective
+Core/IR/Chain.lean	chain_determines_structure
+Core/IR/Chain.lean	compileSkel_parse_congr
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective

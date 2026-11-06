@@ -57,6 +57,7 @@ import Lattice.Core.IR.Compile
 import Lattice.Core.IR.Skeleton
 import Lattice.Core.IR.Parse
 import Lattice.Core.IR.Depends
+import Lattice.Core.IR.Chain
 
 
 /-!
