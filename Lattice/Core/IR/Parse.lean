@@ -163,4 +163,99 @@ theorem parse_has_tensor (t : Term) : (parse t).tensors ≠ [] := by
   unfold parse parseSkeleton termTensors
   exact List.ne_nil_of_length_pos (by simpa using tensorCount_pos t)
 
+/-! ## The term's dependency graph: `parseWithRelations`
+
+**Round 182 made `depends` available; this section uses it.**
+
+**The design: walk the term left to right, giving each subterm a tensor id, and emit one `depends` edge per
+constructor -- the constructor's own tensor id depends on its children's ids.**
+
+**=> a term's IR becomes its APPLICATION GRAPH, which is exactly what `IR-CANONICAL` §2.4's `depends` is for and what
+P0-12's `Arch` graph refines.**
+
+**The walk takes a starting id, so the ids are GLOBALLY distinct across a shared prefix -- that is what makes the
+relations meaningful rather than local.** -/
+
+/-- **The relation shape for an `app`/`lam`/`pi`/`letE`: the head depends on each of its children.**
+
+**`dep` is a `List TensorId` of the children's ROOT ids.**
+**=> recording the ROOT (not every descendant) is what makes the graph's edges minimal, and transitivity then
+composes them.** -/
+def dependsShape (head : TensorId) (children : List TensorId) : RelationShape where
+  kind := .depends
+  args := (head, []) :: children.map (fun c => (c, []))
+  part := some .arch
+
+/-- **THE WALK: `Term -> Nat -> (tensors, relations, next id)`.**
+
+**Left-to-right, with the head taking the incoming id and the children taking subsequent ones.**
+**=> every tensor id in the result is in `[start, next)`, and the ids are pairwise distinct.** -/
+def walkWithRelations : Term → ℕ → (List TensorShape × List RelationShape × ℕ)
+  | Term.sort _ _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Term.var _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Term.const _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Term.app f a, n =>
+    let (tf, rf, n1) := walkWithRelations f (n + 1)
+    let (ta, ra, n2) := walkWithRelations a n1
+    (TensorShape.mk n termShape :: (tf ++ ta),
+     dependsShape n [n + 1] :: (rf ++ ra), n2)
+  | Term.lam _ b, n =>
+    let (tb, rb, n1) := walkWithRelations b (n + 1)
+    (TensorShape.mk n termShape :: tb,
+     dependsShape n [n + 1] :: rb, n1)
+  | Term.pi _ B, n =>
+    let (tB, rB, n1) := walkWithRelations B (n + 1)
+    (TensorShape.mk n termShape :: tB,
+     dependsShape n [n + 1] :: rB, n1)
+  | Term.letE _ t b, n =>
+    let (tt, rt, n1) := walkWithRelations t (n + 1)
+    let (tb, rb, n2) := walkWithRelations b n1
+    (TensorShape.mk n termShape :: (tt ++ tb),
+     dependsShape n [n + 1] :: (rt ++ rb), n2)
+
+/-- **THE STRUCTURE OF A TERM, WITH ITS DEPENDENCY EDGES.** -/
+def parseSkeletonWithRelations (t : Term) : IRSkeleton :=
+  let (ts, rs, _) := walkWithRelations t 0
+  ⟨ts, rs⟩
+
+/-- **THE RELATIONS ARE `depends` EDGES, ALL OF THEM.**
+
+**Stated as a property of the walk's output: every emitted relation has kind `.depends`.**
+**=> the structure a term parses to is exactly its dependency graph, with no other relation kinds mixed in.**
+**That is what makes `parse`'s output REFINABLE: adding `equal` edges later never contradicts what `parse` said.** -/
+theorem walkWithRelations_relations_are_depends (t : Term) (n : ℕ) :
+    ∀ r ∈ (walkWithRelations t n).2.1, r.kind = RelKind.depends := by
+  induction t generalizing n with
+  | sort k l => intro r hr; simp [walkWithRelations] at hr
+  | var k => intro r hr; simp [walkWithRelations] at hr
+  | const k => intro r hr; simp [walkWithRelations] at hr
+  | app f a ihf iha =>
+    intro r hr
+    simp only [walkWithRelations] at hr
+    rcases List.mem_cons.mp hr with h | h
+    · rw [h]; rfl
+    · rcases List.mem_append.mp h with h' | h'
+      · exact ihf (n + 1) r h'
+      · exact iha _ r h'
+  | lam A b ihA ihb =>
+    intro r hr
+    simp only [walkWithRelations] at hr
+    rcases List.mem_cons.mp hr with h | h
+    · rw [h]; rfl
+    · exact ihb (n + 1) r h
+  | pi A B ihA ihB =>
+    intro r hr
+    simp only [walkWithRelations] at hr
+    rcases List.mem_cons.mp hr with h | h
+    · rw [h]; rfl
+    · exact ihB (n + 1) r h
+  | letE A t b ihA iht ihb =>
+    intro r hr
+    simp only [walkWithRelations] at hr
+    rcases List.mem_cons.mp hr with h | h
+    · rw [h]; rfl
+    · rcases List.mem_append.mp h with h' | h'
+      · exact iht (n + 1) r h'
+      · exact ihb _ r h'
+
 end Lattice.Core.IR

@@ -1072,7 +1072,7 @@
 | `Lattice.Core.IR.Basic` | 3 | 6 |
 | `Lattice.Core.IR.Compile` | 4 | 5 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Parse` | 7 | 5 |
+| `Lattice.Core.IR.Parse` | 8 | 8 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Skeleton` | 7 | 11 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -8145,12 +8145,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_iff` -> `e2`
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
-- `parseSkeleton_total` -> `IRSkeleton`, `Term`, `induction`, `length`
-- `parse_eq_parseSkeleton` -> `Term`, `length`
-- `parse_has_tensor` -> `Term`
+- `parseSkeleton_total` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
+- `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
+- `parse_has_tensor` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
-- `parse_tensors_length` -> `Term`, `length`
-- `parse_total` -> `IRSkeleton`, `Term`, `length`
+- `parse_tensors_length` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
+- `parse_total` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
@@ -10562,7 +10562,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `td_fixed_point_is_value` -> `at`
 - `td_operator_affine` -> `ChainFwd`, `LinfNorm`, `W`, `at`, `contraction_converges`, `le`, `linfNorm_eq_norm`, `linfNorm_nonneg`
 - `tendsto_Zpow_fact` -> `PolyApproxOn`, `comp`
-- `tensorCount_pos` -> `IRSkeleton`, `Term`, `induction`, `length`
+- `tensorCount_pos` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `tensorFrobSq_cons_decomp` -> `apply`
 - `tensorFrobSq_inner_sq_le` -> `apply`, `induction`, `zero`
 - `tensorFrobSq_le_card_mul` -> `apply`, `induction`, `zero`
@@ -10574,7 +10574,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrob_smul` -> `apply`, `induction`, `zero`
 - `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `termCode_injective` -> `at`, `induction`
-- `termTensors_ne_nil` -> `IRSkeleton`, `Term`, `length`
+- `termTensors_ne_nil` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `testFun_isOneLipschitz` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `le_antisymm`, `transportCost`
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
@@ -11050,6 +11050,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `w3_layerOut_unfold` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_mod_ne_zero` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `modSinLoss_zero_iff_congruent`, `symVec`, `symW`
 - `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `walkWithRelations_relations_are_depends` -> `RelKind`, `Term`, `at`, `induction`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `weakSim_comp` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
 - `weakSim_of_sim` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`

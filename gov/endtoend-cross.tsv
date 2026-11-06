@@ -272,6 +272,7 @@ Core/IR/Parse.lean	parse_total
 Core/IR/Parse.lean	parse_eq_parseSkeleton
 Core/IR/Parse.lean	parse_tensors_length
 Core/IR/Parse.lean	parse_has_tensor
+Core/IR/Parse.lean	walkWithRelations_relations_are_depends
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective
