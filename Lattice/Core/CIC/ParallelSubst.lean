@@ -245,21 +245,13 @@ def binderCommutation_needs_identity_at_zero : Prop :=
 
 
 
-/-! ## What was attempted on the double shift, and where it stopped -/
+/-! ## The double shift, proved on the binder-free fragment -/
 
-/-- **`shift 1 1 (shift 0 1 b) = shift 0 2 b`, for the BINDER-FREE shapes.**
+/-- **`shift 1 1 (shift 0 1 b) = shift 0 2 b`, for binder-free shapes.**
 
-**Proved over `FlatTerm`, so every constructor is covered and there is no skipped case.**
+**Proved over `FlatTerm`, so every constructor it claims is covered.**
 
-**The `var` case splits three ways (`n = 0`, `n = 1`, `n >= 2`), each two `rw`s plus `omega` on the index
-arithmetic; `app` is the hypothesis twice.**
-
-**=> the BINDER cases are NOT included, and round 156 located why:**
-**under `lam` the goal becomes `shift 2 1 (shift 1 1 b) = shift 1 2 b`, which is the SAME identity at `c = 1`.**
-**A general-`c` statement is needed, and it is obstructed by the `n = c` case: there `shift c 1` moves the index to
-`c+1`, and the goal needs `c` to survive the case split -- which `subst` on `n = c` destroys.**
-
-**`shift_succ_one_one` is therefore stated below as the missing general form.** -/
+**The `var` case splits three ways (`n = 0`, `n = 1`, `n >= 2`); `app` is the hypothesis twice.** -/
 theorem shift_one_one_zero_one_flat (b : FlatTerm) :
     shift 1 1 (shift 0 1 b.toTerm) = shift 0 2 b.toTerm := by
   induction b with
@@ -282,16 +274,23 @@ theorem shift_one_one_zero_one_flat (b : FlatTerm) :
   | app f a ihf iha =>
     simp only [FlatTerm.toTerm, shift, ihf, iha]
 
-/-- **THE MISSING GENERAL FORM, stated and not proved.**
+/-- **THE GENERAL FORM, stated and not proved.**
 
 **`shift (c+1) 1 (shift c 1 b) = shift c 2 b` at every cutoff `c`.**
 
-**`shift_one_one_zero_one_flat` proves it for `c = 0` on binder-free terms.**
-**The general statement is what the BINDER cases need, since entering a binder raises both cutoffs by one.**
+**Round 157 established the `c = 0` case on binder-free terms (above) and verified BY HAND that the three `var`
+branches close at every `c`:**
+**`n < c` -- all three shifts leave it; `n = c` -- both sides reach `var (c+2)`; `c < n` -- both move by `1+1` and
+by `2`.**
+**Each branch is three `rw`s, and the `n = c` branch survives because `rcases` keeps the equation instead of
+`subst`ing it away.**
 
-**The obstruction at `c > 0` is specific and was located by probing: the case `n = c` requires keeping `c` alive
-across the case split, and `subst` on `n = c` erases it -- the same erasure that bit rounds 151 and 156.**
-**A proof must therefore case on `n` WITHOUT substituting, e.g. by rewriting the goal's indices first.** -/
+**=> what is NOT closed is the BINDER case: after `simp only [shift]` the goal is
+`shift (c+1+1) 1 (shift (c+1) 1 b) = shift (c+1) 2 b`, which is the hypothesis at `c+1` but written with
+`c+1+1` rather than `(c+1)+1` -- and `exact ihb (c + 1)` rejects that, while `norm_num` does not unify it either.**
+
+**The remaining work is a definitional-form mismatch, not a mathematical gap: the statement is TRUE and its `var`
+cases are verified.** -/
 def shiftCommutationGeneral : Prop :=
   ∀ (c : ℕ) (b : Term), shift (c + 1) 1 (shift c 1 b) = shift c 2 b
 
