@@ -62,6 +62,7 @@ import Lattice.Core.IR.Unique
 import Lattice.Core.IR.Obligations
 import Lattice.Core.IR.T4Repair
 import Lattice.Core.IR.Modulus
+import Lattice.Core.IR.ArchGraph
 
 
 /-!

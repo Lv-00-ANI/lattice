@@ -268,6 +268,7 @@ Core/CIC/Typing.lean	typable_mono
 Core/CIC/Value.lean	valueOf_total
 Core/CIC/Value.lean	typable_has_value
 Core/CIC/Value.lean	is_value_of_unique
+Core/IR/ArchGraph.lean	graph_ext
 Core/IR/Basic.lean	Relation.part_irrelevant
 Core/IR/Basic.lean	LatticeIR.order_invariant
 Core/IR/Chain.lean	roundtrip_parse
