@@ -15,6 +15,17 @@
 
 **阅读顺序：** `CARRIER-REPLACEMENT.md` → `CARRIER-CIC.md` → `PROOF-OBLIGATIONS.md`。
 
+## 2bis. 结构表示文档（2026-11-07 新增）
+
+- `IR-CANONICAL.md` — **结构语义表示规范形 IR**：权重内部关系、高维超边、原语分类、
+  唯一性来源、正逆统一、语义九项、修改、渲染、不实现部分、最小验证、开放问题。
+
+**定位：** IR 不是新载体，不是新语言；载体仍是 CIC，IR 是权重的结构描述。
+**与载体文档的关系：** `CARRIER-*` 讲“符号用什么表达”；`IR-CANONICAL.md` 讲“权重用什么描述”。
+两者正交。
+
+**阅读顺序：** `CARRIER-REPLACEMENT.md` → `CARRIER-CIC.md` → `IR-CANONICAL.md` → `PROOF-OBLIGATIONS.md`。
+
 ## 3. 证明文档
 
 - `README.md`

@@ -346,3 +346,65 @@ h✝ : (Nat.unpair n).1 = 1
 **`rw [← hp]` 会递归改写到 `(Nat.unpair n).2` 里的 `n`，所以要用 `conv` 或 `nth_rewrite` 把改写限制在**一处**。**
 
 **⇒ 下一轮的动作：把投影写法 + `h` + `hp` + `pair_one_ge_two` 拼起来，届时终止性应当一次通过。**
+
+---
+
+## 12. 第 174 轮：`conv_lhs` 解决了 `hn`，而**分支数**是最后一处
+
+### `hn` **已解决**
+
+```lean
+have hn : n = Nat.pair tag (Nat.unpair n).2 := by
+  conv_lhs => rw [← Nat.pair_unpair n]
+  rw [h]
+```
+
+**`conv_lhs` 只改写目标的**左边**，所以 `(Nat.unpair n).2` 里的 `n` 不受影响。**
+**裸 `rw [← Nat.pair_unpair n]` 会把那里的 `n` 也改写掉，产生循环目标——这就是 §11 说的问题。**
+
+**⇒ **已验证通过**。**
+
+### 逐分支验证通过
+
+**两个分支（tag = 1 与 tag = 2）用手写 `·` 全部通过：**
+
+```lean
+termination_by n
+decreasing_by
+  · simp_wf; rename_i h
+    have hge : 2 ≤ n := by
+      have hn : n = Nat.pair 1 (Nat.unpair n).2 := by conv_lhs => rw [← Nat.pair_unpair n]; rw [h]
+      rw [hn]; exact pair_one_ge_two _
+    exact unpair_snd_lt hge
+  · simp_wf; rename_i h
+    have hge : 2 ≤ n := by
+      have hn : n = Nat.pair 2 (Nat.unpair n).2 := by conv_lhs => rw [← Nat.pair_unpair n]; rw [h]
+      rw [hn, Nat.pair]; split_ifs <;> nlinarith
+    exact unpair_snd_lt hge
+```
+
+### 最后一处：**bullet 的数量必须与递归调用点的数量一致**
+
+**`decodeLevel` 的五个 `if` 分支里，递归调用点数是：**
+**tag=0：0 个；tag=1：1 个；tag=2：2 个（`max` 的两个子级）；tag=3：2 个；tag=4：0 个。**
+
+**⇒ 共 5 个 `decreasing_by` 目标，而不是 5 个「分支」——数量**按调用点**算，不按 `if` 分支算。**
+
+**第 174 轮生成的 bullet 数量与调用点数不匹配（把 5 个分支当成 5 个调用点），于是 `first` 把错误的 tag 用到了错误的分支上，报
+`Nat.pair 1 ... = Nat.pair 3 ...` 一类的目标。**
+
+**⇒ 下一轮的确切动作：**按调用点数**生成 bullet，而不是按 `if` 分支数。**
+**更省事的写法：每个 bullet 用**不知道 tag** 的通用证明——**
+
+```lean
+· simp_wf
+  rename_i h
+  have hp : Nat.pair (Nat.unpair n).1 (Nat.unpair n).2 = n := Nat.pair_unpair n
+  have hge : 2 ≤ n := by
+    rw [← hp, Nat.pair]; split_ifs <;> omega
+  exact unpair_snd_lt hge
+```
+
+**这条不需要知道 tag 是多少，因为 `h` 已经把 `(unpair n).1` 固定成一个 ≥ 1 的值。**
+
+**⇒ 这是最后一步，而且它比上一轮的做法更简单，不是更复杂。**
