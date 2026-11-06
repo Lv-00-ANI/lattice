@@ -33,6 +33,7 @@ import Lattice.Core.ArchWeights
 import Lattice.Core.ArchAssemble
 import Lattice.Core.ArchChain
 import Lattice.Core.ArchChainEval
+import Lattice.Core.CastLemmas
 
 
 /-!
