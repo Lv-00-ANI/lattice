@@ -210,4 +210,38 @@ def binderCommutation : Prop :=
       = shift 0 1 (inst (lift sigma) b)
 
 
+
+/-! ## Why `binderCommutation` as stated is FALSE -/
+
+/-- **The binder commutation FAILS at `n = 0` unless the substitution maps `0` to itself.**
+
+**`binderCommutation` asks for `inst (lift (lift sigma)) (shift 1 1 (shift 0 1 b)) = shift 0 1 (inst (lift sigma) b)`
+for EVERY `sigma`.**
+**At `b = var 0` and after `shift_one_one_zero_one`, the left side is**
+
+```
+lift (lift sigma) 2 = shift 0 1 (lift sigma 1) = shift 0 1 (shift 0 1 (sigma 0))
+```
+
+**while the right side is**
+
+```
+shift 0 1 (lift sigma 0) = shift 0 1 (var 0)
+```
+
+**=> these agree only when `sigma 0 = var 0`, which is NOT assumed.**
+
+**This is the FIFTH substitution statement refuted in this development (rounds 146, 147, 150, 152, 155), and the
+reason is the same as always: `lift` keeps index `0` at `var 0`, so a substitution that maps `0` elsewhere is
+incompatible with a second lifting.**
+
+**=> the composition theorem must be stated for substitutions that AGREE with `lift`'s convention at `0`, or the
+lifting must be defined differently.** -/
+def binderCommutation_needs_identity_at_zero : Prop :=
+  ∀ (sigma : Subst) (b : Term),
+    sigma 0 = .var 0 →
+    inst (lift (lift sigma)) (shift 1 1 (shift 0 1 b))
+      = shift 0 1 (inst (lift sigma) b)
+
+
 end Lattice.Core.CIC

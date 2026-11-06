@@ -1034,7 +1034,7 @@
 | `Lattice.Core.ArchParams` | 3 | 4 |
 | `Lattice.Core.ArchWeights` | 4 | 6 |
 | `Lattice.Core.CIC.Normalization` | 4 | 1 |
-| `Lattice.Core.CIC.ParallelSubst` | 8 | 7 |
+| `Lattice.Core.CIC.ParallelSubst` | 8 | 8 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.ReductionOriented` | 3 | 1 |
 | `Lattice.Core.CIC.ShiftComm` | 2 | 0 |
