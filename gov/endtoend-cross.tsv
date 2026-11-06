@@ -206,6 +206,7 @@ Core/CIC/ParallelSubst.lean	inst_lift_succ
 Core/CIC/ParallelSubst.lean	inst_var
 Core/CIC/ParallelSubst.lean	inst_const
 Core/CIC/ParallelSubst.lean	inst_sort
+Core/CIC/ParallelSubst.lean	inst_lift_shift_flat
 Core/CIC/Reduction.lean	reduces_trans
 Core/CIC/Reduction.lean	reduces_of_step
 Core/CIC/Reduction.lean	beta_reduces

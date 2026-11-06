@@ -147,4 +147,67 @@ theorem inst_const (σ : Subst) (k : ℕ) : inst σ (.const k) = .const k := rfl
 /-- **A universe is untouched.** -/
 theorem inst_sort (σ : Subst) (k : SortKind) (l : Level) : inst σ (.sort k l) = .sort k l := rfl
 
+
+/-! ## The commutation lemma, and the composition theorem -/
+
+/-! ## What the commutation covers, and what it does not -/
+
+/-- **A TERM SHAPE with no binders: sorts, constants, variables and applications.**
+
+**Defined so the commutation lemma can be stated over it WITHOUT a case split that skips constructors.**
+**=> this is the honest way to say "proved for the non-binding fragment" in Lean: not a `sorry`, not a partial
+`induction`, but a separate inductive type.** -/
+inductive FlatTerm : Type
+  /-- A universe. -/
+  | sort : SortKind → Level → FlatTerm
+  /-- A variable. -/
+  | var : ℕ → FlatTerm
+  /-- A constant. -/
+  | const : ℕ → FlatTerm
+  /-- An application. -/
+  | app : FlatTerm → FlatTerm → FlatTerm
+
+/-- **The embedding of a binder-free shape into `Term`.** -/
+def FlatTerm.toTerm : FlatTerm → Term
+  | .sort k l => .sort k l
+  | .var n => .var n
+  | .const k => .const k
+  | .app f a => .app f.toTerm a.toTerm
+
+/-- **APPLYING A LIFTED SUBSTITUTION COMMUTES WITH SHIFTING, ON BINDER-FREE TERMS.**
+
+**`inst (lift sigma) (shift 0 1 (toTerm t)) = shift 0 1 (inst sigma (toTerm t))`.**
+
+**The `var` case is `rfl`, the `app` case is the hypothesis twice, and the other two are `rfl`.**
+**=> the partial result, stated as a real theorem over a real type.** -/
+theorem inst_lift_shift_flat (t : FlatTerm) :
+    ∀ (sigma : Subst),
+      inst (lift sigma) (shift 0 1 t.toTerm) = shift 0 1 (inst sigma t.toTerm) := by
+  induction t with
+  | sort k l => intro sigma; rfl
+  | const k => intro sigma; rfl
+  | var n => intro sigma; rfl
+  | app f a ihf iha =>
+    intro sigma
+    simp only [FlatTerm.toTerm, shift, inst, ihf sigma, iha sigma]
+
+/-- **What the BINDER case would need, stated so the obstruction is a formula.**
+
+**Under `lam`, the goal is**
+
+```
+inst (lift (lift sigma)) (shift (0 + 1) 1 b) = shift 0 1 (inst (lift sigma) b)
+```
+
+**whose LEFT side shifts at cutoff `1` while the right shifts at cutoff `0`.**
+**=> the different-cutoff boundary that round 150 refuted a commutation law over appears again one level deeper:
+parallel substitution removes the DECREMENT problem and exposes the CUTOFF problem.**
+
+**This `Prop` names the missing lemma rather than leaving the gap implicit.** -/
+def binderCommutation : Prop :=
+  ∀ (sigma : Subst) (b : Term),
+    inst (lift (lift sigma)) (shift 1 1 (shift 0 1 b))
+      = shift 0 1 (inst (lift sigma) b)
+
+
 end Lattice.Core.CIC

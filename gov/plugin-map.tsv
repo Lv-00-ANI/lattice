@@ -208,6 +208,7 @@ core	Core/CIC	Core/CIC/Normalization.lean	within_zero_iff	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_const	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_id	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_id	no
+core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_shift_flat	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_succ	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_lift_zero	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_sort	no

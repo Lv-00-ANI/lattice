@@ -1034,7 +1034,7 @@
 | `Lattice.Core.ArchParams` | 3 | 4 |
 | `Lattice.Core.ArchWeights` | 4 | 6 |
 | `Lattice.Core.CIC.Normalization` | 4 | 1 |
-| `Lattice.Core.CIC.ParallelSubst` | 7 | 4 |
+| `Lattice.Core.CIC.ParallelSubst` | 8 | 7 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.ReductionOriented` | 3 | 1 |
 | `Lattice.Core.CIC.ShiftComm` | 2 | 0 |
@@ -6145,13 +6145,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `insert_is_backward_compatible` -> `apply`, `at`, `find`
 - `insert_preserves_uniqueness` -> `apply`, `at`, `find`
 - `instDecidableEqTree_eq_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `inst_const` -> `Level`, `SortKind`
+- `inst_const` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
 - `inst_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
 - `inst_lift_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `zero`
-- `inst_lift_succ` -> `Level`, `SortKind`, `shift`
-- `inst_lift_zero` -> `Level`, `SortKind`, `shift`
-- `inst_sort` -> `Level`, `SortKind`
-- `inst_var` -> `Level`, `SortKind`
+- `inst_lift_shift_flat` -> `Term`, `induction`, `shift`
+- `inst_lift_succ` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
+- `inst_lift_zero` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
+- `inst_sort` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
+- `inst_var` -> `Level`, `SortKind`, `Term`, `induction`, `shift`
 - `instanceA_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`
 - `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `instanceC_content_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`
