@@ -201,6 +201,13 @@ core	Core	Core/Weight.lean	layer_bias_ext	no
 core	Core	Core/Weight.lean	layer_weight_ext	no
 core	Core	Core/Weight.lean	reversibility_depends_on_representation	yes
 core	Core	Core/WeightNet.lean	net_behaviourallyEquivalent_iff	no
+core	Core/CIC	Core/CIC/Compile.lean	compile_distinct	no
+core	Core/CIC	Core/CIC/Compile.lean	compile_injective	no
+core	Core/CIC	Core/CIC/Compile.lean	compile_sound	no
+core	Core/CIC	Core/CIC/Compile.lean	levelCode_injective	no
+core	Core/CIC	Core/CIC/Compile.lean	pair_tag_diff	no
+core	Core/CIC	Core/CIC/Compile.lean	sortKindCode_injective	no
+core	Core/CIC	Core/CIC/Compile.lean	termCode_injective	no
 core	Core/CIC	Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_ge	no
 core	Core/CIC	Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_lt	no
 core	Core/CIC	Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_zero	no

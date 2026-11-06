@@ -195,6 +195,11 @@ Core/Weight.lean	layer_act_injective
 Core/Weight.lean	layer_behaviourally_separates
 Core/Weight.lean	reversibility_depends_on_representation
 Core/WeightNet.lean	net_behaviourallyEquivalent_iff
+Core/CIC/Compile.lean	levelCode_injective
+Core/CIC/Compile.lean	termCode_injective
+Core/CIC/Compile.lean	compile_injective
+Core/CIC/Compile.lean	compile_sound
+Core/CIC/Compile.lean	compile_distinct
 Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_lt
 Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_zero
 Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_ge
