@@ -277,6 +277,14 @@ core	Core/IR	Core/IR/Compile.lean	argsCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	kindCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	listCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	partCode_injective	no
+core	Core/IR	Core/IR/Depends.lean	dependsHolds_mono	no
+core	Core/IR	Core/IR/Depends.lean	dependsHolds_nil	no
+core	Core/IR	Core/IR/Depends.lean	dependsHolds_refl	no
+core	Core/IR	Core/IR/Depends.lean	dependsHolds_weaken	no
+core	Core/IR	Core/IR/Depends.lean	holds3_depends	no
+core	Core/IR	Core/IR/Depends.lean	holds3_equal	no
+core	Core/IR	Core/IR/Depends.lean	holds3_unhandled	no
+core	Core/IR	Core/IR/Depends.lean	holds3_zero	no
 core	Core/IR	Core/IR/Parse.lean	parseSkeleton_total	no
 core	Core/IR	Core/IR/Parse.lean	parse_eq_parseSkeleton	no
 core	Core/IR	Core/IR/Parse.lean	parse_has_tensor	no
