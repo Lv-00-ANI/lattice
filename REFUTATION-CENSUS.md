@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**334 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**336 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 16 | 4.8% |
+| `Core` | 18 | 5.4% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -52,6 +52,9 @@
 
 **第 189 轮新增一条**：`empty_graph_depends_false` —— **空依赖图不满足任何带真实输入的 `depends`**（`edges = fun _ => []` 时无物依赖无物），
 故 `Core` 由 15 升为 16、总数由 333 升为 334。
+
+**第 190 轮新增两条**：`canActivate_needs_requires`（需求未激活则激活门**拒绝**）与`resolution_certificate_stable`（provider 未变则证书**不失效**），
+故 `Core` 由 16 升为 18、总数由 334 升为 336。
 
 **第 160 轮新增一条**：`cutoff_commutation_false` —— **任意截断值下的 inst/shift 交换律为假**
 **（`j=1, σ=常值 var 5, t=var 0` 时左边 `var 0`、右边 `var 6`），**根因是 `lift σ 0 = var 0` 而 `shift j 1` 在 `j>0` 时不动下标 0**。

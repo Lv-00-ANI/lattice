@@ -292,6 +292,16 @@ core	Core/IR	Core/IR/Depends.lean	holds3_depends	no
 core	Core/IR	Core/IR/Depends.lean	holds3_equal	no
 core	Core/IR	Core/IR/Depends.lean	holds3_unhandled	no
 core	Core/IR	Core/IR/Depends.lean	holds3_zero	no
+core	Core/IR	Core/IR/Lifecycle.lean	canActivate_needs_requires	no
+core	Core/IR	Core/IR/Lifecycle.lean	lattice_ordering	no
+core	Core/IR	Core/IR/Lifecycle.lean	lattice_resolution_coherent	no
+core	Core/IR	Core/IR/Lifecycle.lean	recovery_exact	no
+core	Core/IR	Core/IR/Lifecycle.lean	resolution_certificate_stable	no
+core	Core/IR	Core/IR/Lifecycle.lean	resolution_coherent_of_replacement	no
+core	Core/IR	Core/IR/Lifecycle.lean	undo_active	no
+core	Core/IR	Core/IR/Lifecycle.lean	undo_effect	no
+core	Core/IR	Core/IR/Lifecycle.lean	unload_inactive	no
+core	Core/IR	Core/IR/Lifecycle.lean	unload_removes_only_own	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_mono_in_eps	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_slack	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_tends_to_zero	no

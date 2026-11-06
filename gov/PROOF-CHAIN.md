@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 65 | no imports from lift/lib |
+| core | 66 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -56,6 +56,7 @@
 - `Lattice.Core.IR.Chain` <- `Lattice.Core.IR.Parse`
 - `Lattice.Core.IR.Compile` <- `Lattice.Core.IR.Relations`
 - `Lattice.Core.IR.Depends` <- `Lattice.Core.IR.Relations`
+- `Lattice.Core.IR.Lifecycle` <- `Lattice.Core.IR.ArchGraph`
 - `Lattice.Core.IR.Modulus` <- `Lattice.Core.IR.Obligations`
 - `Lattice.Core.IR.Obligations` <- `Lattice.Core.IR.Unique`
 - `Lattice.Core.IR.Parse` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.CIC.Syntax`
@@ -728,7 +729,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1080,6 +1081,7 @@
 | `Lattice.Core.IR.Chain` | 4 | 2 |
 | `Lattice.Core.IR.Compile` | 4 | 5 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
+| `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
 | `Lattice.Core.IR.Parse` | 8 | 8 |
@@ -2233,7 +2235,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `at`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `Model.eval_lipschitz` -> `apply`, `blocks`
 - `Model.eval_nil` -> `apply`, `blocks`, `induction`
-- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `semantics`, `soundness`, `zero`
+- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `requires`, `semantics`, `soundness`, `zero`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `at`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `at`, `trans`
 - `P0_normal_equation_scalar` -> `E`, `at`
@@ -2249,7 +2251,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PMix_stationarity_characterization` -> `at`
 - `PMix_stationarity_implies_satisfied` -> `add`, `at`
 - `P_ne_L` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `semantics`, `soundness`, `zero`
+- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `requires`, `semantics`, `soundness`, `zero`
 - `PluginManifest.empty_claims_false` -> `completeness`, `empty`, `layer`, `soundness`
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
 - `PluginProof.trivial_fields` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
@@ -2306,7 +2308,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Text.ofList_encode` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text_encode_ab` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `TwoK3Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
-- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `proof`, `soundness`, `zero`
+- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `proof`, `requires`, `soundness`, `zero`
 - `W1_bddBelow` -> `IsTransportPlan`, `le_antisymm`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `W1_comm` -> `IsOneLipschitz`, `IsTransportPlan`, `le_trans`, `sInf`, `step`, `transportCost`
 - `W1_image_comm` -> `IsTransportPlan`, `le_antisymm`, `sInf`, `transportCost`
@@ -3034,6 +3036,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cache_row_output_supported_on_prefix` -> `apply`, `at`, `causalSoftmax`, `causal_attention_output_bound`, `convComb`
 - `cache_size_eq_processed` -> `apply`, `at`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `cache_weights_supported_on_prefix` -> `apply`, `at`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`
+- `canActivate_needs_requires` -> `at`
 - `canDeactivate_of_nil_live` -> `Reaches`, `at`
 - `candidateSearch_iff` -> `QProgram`, `ZProgram`, `qSatAllB_iff`
 - `candidateSet_eq` -> `CharToken`, `apply`, `at`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
@@ -6587,6 +6590,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lastBias_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lastWord_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
+- `lattice_ordering` -> `at`
 - `layerBytes_eq` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `layerBytes_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `layerBytes_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
@@ -7023,7 +7027,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_claims_recovery` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
 - `manifest_claims_soundness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_spatial` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
-- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
+- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
 - `manifest_no_approximation` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_completeness` -> `Constraint`, `claims`, `completeness`, `manifest`
 - `manifest_no_confluence` -> `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
@@ -7034,11 +7038,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_no_recovery` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_spatial` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
-- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `satisfies`, `soundness`, `weights`
-- `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `satisfies`, `soundness`, `weights`
-- `manifest_requires` -> `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `soundness`, `weights`
-- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `satisfies`, `soundness`
+- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_requires` -> `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `requires`, `soundness`, `weights`
+- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `requires`, `satisfies`, `soundness`
 - `map_comp_measure` -> `g`
 - `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_eq_of_eq` -> `g`
@@ -8852,6 +8856,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `recover_not_factor_through_behavior` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`
 - `recover_readback` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `extractLayer`, `extractLayer_compileToLayer`, `recover`, `recover_compileToLayer`
 - `recover_then_behavior_preserved` -> `AllZeroOutputs`, `Beh`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `compileToLayer`, `decode`, `decode_encode`, `dot`, `g`, `length`, `recover`, `recover_compileToLayer`, `recover_injective`, `zeroLayer_out`
+- `recovery_exact` -> `at`, `subst`
 - `rectangularRep_bias` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
 - `rectangularRep_coeff` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
 - `rectangularRep_degenerates` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
@@ -10897,8 +10902,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `undeterminedByWill_not_vacuous` -> `Gaze`, `at`, `extent`, `g`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
 - `undoSeq_apply` -> `Effect`, `RState`, `apply`, `induction`, `undo_apply`
 - `undoSeq_apply_pair` -> `Effect`, `RState`, `apply`, `applySeq`, `undoSeq`, `undo_apply`
-- `undo_apply` -> `Effect`, `apply`, `subst`
-- `undo_apply_at` -> `Effect`, `apply`
+- `undo_active` -> `at`, `subst`
+- `undo_apply` -> `Effect`, `apply`, `subst`, `undo`
+- `undo_apply_at` -> `Effect`, `apply`, `undo`
+- `undo_effect` -> `at`, `subst`
 - `unflatten_add` -> `flatEquiv`, `seg`, `unflatten`
 - `unflatten_add_smul_bump` -> `seg`, `unflatten`
 - `unflatten_flatten` -> `Pt`, `Representation`, `Surjective`, `compile`, `extract`, `flatEquiv`, `ofEquiv`
@@ -10958,6 +10965,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unit_normalize_sharp` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `unit_normalize_two_div_not_attained` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `unlisted_plugin_fails_migration` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
+- `unload_inactive` -> `at`, `subst`
+- `unload_removes_only_own` -> `at`, `subst`
 - `unpair_fst_lt` -> `at`
 - `unpair_snd_lt` -> `at`
 - `unsat_monotone` -> `Program`
@@ -11058,7 +11067,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
-- `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `proof`, `soundness`, `zero`
+- `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `proof`, `requires`, `soundness`, `zero`
 - `verified_manifest` -> `Constraint`, `Repair`, `length`, `manifest`, `verified`, `verified_obligations`
 - `verified_obligations` -> `Constraint`, `Repair`, `length`, `manifest`, `verified`
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`, `le`, `le_trans`, `verifier_reliable_clean`

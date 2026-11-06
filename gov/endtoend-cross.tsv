@@ -278,6 +278,7 @@ Core/IR/Chain.lean	compileSkel_parse_congr
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective
+Core/IR/Lifecycle.lean	recovery_exact
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps
