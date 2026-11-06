@@ -1,9 +1,124 @@
 # IR-CANONICAL —— 结构语义表示规范形 IR
 
-> **状态：** 设计规格（2026-11-07）。实现未开始。
+> **状态：** 设计规格（2026-11-07）。**实现未开始，代码为零。**
 > **定位：** 这不是新载体，不是新语言，是**规范形 IR**：
 > 模型权重的**结构语义表示**，正逆统一，唯一。
 > **不实现：** LLM 前端、语言实现、大规模验证、训练、格式 I/O、C、自回归、MoE 执行。
+
+---
+
+## 给代理的阅读说明
+
+> **本节是给“已有本项目认知、但没读过这份文件”的代理看的。读完本节再读 §0。**
+
+### A. 这份文件是什么
+
+| 是 | 说明 |
+|:--|:--|
+| **设计规格** | IR 的**唯一权威定义** |
+| **权重侧的结构描述** | 回答“权重怎么被解析成关系网、怎么反向编译回去” |
+| **正逆统一的设计** | `compile` / `extract` / `roundtrip` |
+| **契约合成的落地** | `Ladder.satW` 从退化升级为契约合取 |
+
+### B. 这份文件不是什么
+
+| 不是 | 去哪里看 |
+|:--|:--|
+| **不是实现** | 代码在 `Lattice/Core/IR/`（**尚未建**） |
+| **不是路线图** | 规划在会话输出，不进本文件；阶段在 `ROADMAP.md` |
+| **不是证明清单** | T0–T8 在 `PROOF-OBLIGATIONS.md` |
+| **不是载体文档** | 载体在 `CARRIER-REPLACEMENT.md` / `CARRIER-CIC.md` |
+| **不是工程文档** | 格式/IO/C 在 `ENGINEERING.md` |
+| **不是已完成声明** | 全部 §1–§14 是**设计**，§15 是**未定** |
+
+### C. 与其他文档的关系
+
+```text
+CARRIER-REPLACEMENT.md   决定：载体是 CIC
+      ↓
+CARRIER-CIC.md           载体设计：几何如何编码进 CIC
+      ↓
+IR-CANONICAL.md          权重侧的结构表示（本文件）
+      ↓
+PROOF-OBLIGATIONS.md     T0–T8 的 CIC 版
+```
+
+**一句话：`CARRIER-*` 讲“符号用什么表达”；本文件讲“权重用什么描述”。两者正交。**
+
+### D. 读之前必须知道的五个概念
+
+| 概念 | 一句话 | 在哪节 |
+|:--|:--|:--|
+| **IR** | 权重的结构语义表示规范形 | §0、§1 |
+| **超边** | 带多轴索引的关系，**不投影**成二元边 | §2.2、§3 |
+| **`part`** | 视图标注（词表/架构/共享），**不影响唯一性、不决定传播** | §2.2、§8.6 |
+| **规范形** | `extract` 唯一，所以 IR 是规范形 | §5 |
+| **契约合成** | 原语的 `sym`/`weight` 逐条合成 `l2l3_sound` | §7bis |
+
+### E. 状态标记约定
+
+| 标记 | 含义 |
+|:--|:--|
+| ✅ | 已在代码中 |
+| ⚠️ | 部分或需验证 |
+| ❌ | 仅文档，代码为零 |
+| **未定** | §15 的开放问题，不是遗漏 |
+
+**本文件内所有结构（`Tensor`、`Relation`、`IR`、`PrimitiveContract`、`Edit`、`Rendered`）
+目前都是 ❌ 状态——**只有文档，没有代码**。**
+
+### F. 常见误读（必看）
+
+| 误读 | 正确 |
+|:--|:--|
+| “IR 是新载体” | **IR 是权重的结构描述**；载体是 CIC |
+| “`part` 决定编辑传播” | **`part` 只用于渲染分组**；传播沿依赖边 |
+| “改词表和改结构是两件事” | **词表在 IR 里就是关系**；编辑统一为 `Edit` |
+| “唯一性来自原语互斥” | **唯一性来自关系集**；原语只是关系的名字 |
+| “本文件已实现” | **代码为零**；§14 是最小验证计划，不是已完成 |
+| “§7bis 是另一套设计” | **§7bis 是 §7 的实现**（怎么接到 `Ladder`） |
+| “§15 的问题会阻塞设计” | **§15 是未定项**，不是阻塞项 |
+
+### G. 导航
+
+| 想找 | 去 |
+|:--|:--|
+| 定位 | §1 |
+| 核心对象（`Tensor` / `Relation` / `IR`） | §2 |
+| 权重内部关系、为什么不投影 | §3 |
+| 原语、十一类分类、随插件扩展 | §4 |
+| 唯一性 | §5 |
+| 正逆统一 | §6 |
+| 契约（静态定义） | §7 |
+| **契约合成（完整实现）** | **§7bis** |
+| 语义、词表、实际语义怎么看 | §8 |
+| 编辑（统一 `Edit`） | §9 |
+| 渲染 | §10 |
+| 与已有工作 | §11 |
+| 与 T0–T8 | §12 |
+| 不实现的部分 | §13 |
+| **最小验证** | **§14** |
+| **开放问题（未定）** | **§15** |
+
+### H. 给代理的行动指引
+
+| 你要做什么 | 先读 | 再读 |
+|:--|:--|:--|
+| 实现 IR 基础类型 | §2 | §14 |
+| 实现关系判据 | §2.4 | §3 |
+| 实现 `extract` | §5 | §6 |
+| 实现 `compile` | §6 | §7 |
+| 写契约 | §7 | **§7bis** |
+| 接 `Ladder` | **§7bis.6** | §7bis.5 |
+| 实现编辑 | §9 | §8.5 |
+| 实现渲染 | §10 | §8.3.5 |
+| 判断唯一性 | §5 | §5.3 |
+| 接 CIC | §11、§12 | `CARRIER-CIC.md` |
+| 查未定项 | **§15** | — |
+
+### I. 一句话给别人讲
+
+> **“这份文件定义 IR：权重的结构语义表示规范形。它说明权重怎么被解析成关系网、怎么反向编译回去、语义怎么从结构来、编辑为什么统一。代码还没写。”**
 
 ---
 
@@ -430,6 +545,208 @@ structure Contract where
 - 契约保证“构造的权重满足符号侧要求”；
 - 这是 `l2l3_sound` 的来源；
 - 契约是 `Obligation` 在语义侧的对应。
+
+---
+
+## 7bis. 契约合成：完整实现
+
+> **本节是 §7 的实现：怎么把契约接到 `Ladder`，怎么逐条合成 `l2l3_sound`，最小验证怎么做。**
+
+### 7bis.1 定位：模型领域的汇编语言语义层
+
+| 汇编语言需要什么 | 契约合成提供什么 |
+|:--|:--|
+| 原语级语义契约 | `PrimitiveContract` |
+| 可检查 | `Decidable (satW w)`（条件见 §7bis.6） |
+| 可组合 | 契约的合取 |
+| 可编译 | `compileAll` |
+| 可逆 | `extract` 读出契约（§5、§6） |
+
+**每条指令有契约；程序是契约的合取。**
+
+### 7bis.2 `PrimitiveContract`
+
+```lean
+structure PrimitiveContract (Sym W : Type) where
+  key    : ServiceKey
+  plugin : PluginName          -- 提供者
+  arity  : Nat                 -- 参数个数
+  Sym    : Type                -- 该原语的符号侧类型
+  W      : Type                -- 该原语的权重侧类型
+  sym    : Sym → Prop          -- 符号侧要求
+  weight : W → Prop            -- 权重侧要求
+  build  : Sym → W             -- 构造
+  sound  : ∀ s, sym s → weight (build s)
+```
+
+**与 §4.1 的 `Primitive` 的关系：**
+
+| 字段 | §4.1 `Primitive` | §7bis `PrimitiveContract` |
+|:--|:--|:--|
+| `key` | ✅ | ✅ |
+| `plugin` | ✅ | ✅ |
+| `arity` | ✅ | ✅ |
+| `build` | ✅ | ✅ |
+| `contract` | ✅（嵌套） | **展开为 `sym` / `weight` / `sound`** |
+| `relKind` | ✅ | ❌（契约不关心关系种类） |
+
+**`PrimitiveContract` 是 `Primitive` 的“契约部分”单独抽出，便于合成。**
+
+### 7bis.3 由契约合成 `satSym` / `satW`
+
+```lean
+-- 程序：原语的列表（最简；嵌套见 §7bis.4）
+abbrev Program (Sym W : Type) := List (PrimitiveContract Sym W)
+
+-- 符号侧：每个原语的 sym 都成立
+def satSym {Sym W} (ps : Program Sym W) (s : List Sym) : Prop :=
+  ∀ i, (h : i < ps.length) → ps[i].sym (s[i]'h)
+
+-- 权重侧：每个原语的 weight 都成立
+def satW {Sym W} (ps : Program Sym W) (w : List W) : Prop :=
+  ∀ i, (h : i < ps.length) → ps[i].weight (w[i]'h)
+```
+
+**关键：`satSym` 与 `satW` 不再是“零点映零”，而是“每个原语的契约”。**
+
+### 7bis.4 嵌套程序
+
+```lean
+inductive Program (Sym W : Type) where
+| prim  : PrimitiveContract Sym W → Program Sym W
+| seq   : Program Sym W → Program Sym W → Program Sym W
+| par   : Program Sym W → Program Sym W → Program Sym W
+```
+
+| 构造 | `satSym` | `satW` |
+|:--|:--|:--|
+| `.prim p` | `p.sym s` | `p.weight w` |
+| `.seq a b` | `satSym a s₁ ∧ satSym b s₂` | `satW a w₁ ∧ satW b w₂` |
+| `.par a b` | `satSym a s₁ ∧ satSym b s₂` | `satW a w₁ ∧ satW b w₂` |
+
+### 7bis.5 `compile` 与 `l2l3_sound`
+
+```lean
+-- 正向：程序 → 权重列表
+def compileAll {Sym W} : Program Sym W → List Sym → List W
+| .prim p, s => [p.build s.head]
+| .seq a b, s => compileAll a s ++ compileAll b s
+| .par a b, s => compileAll a s ++ compileAll b s
+```
+
+```lean
+-- 核心定理：逐条合成
+theorem l2l3_sound {Sym W} (p : Program Sym W) (s : List Sym) :
+    satSym p s → satW p (compileAll p s) := by
+  induction p with
+  | prim q =>
+      -- 基例：直接用 q.sound
+      intro hs
+      exact q.sound s.head hs
+  | seq a b iha ihb =>
+      -- 归纳：两个子程序各自 sound
+      intro ⟨hsa, hsb⟩
+      exact ⟨iha hsa, ihb hsb⟩
+  | par a b iha ihb =>
+      intro ⟨hsa, hsb⟩
+      exact ⟨iha hsa, ihb hsb⟩
+```
+
+**`l2l3_sound` 不再是退化命题；它的前提是“每个原语的符号侧要求”，结论是“每个原语的权重侧要求”。删掉 `q.sound` 后结论不成立。**
+
+### 7bis.6 接 `Ladder` 接口
+
+```lean
+def contractLadder {Sym W} (ps : Program Sym W) : Ladder where
+  Data := Unit
+  Tok  := Unit
+  Sym  := List Sym
+  W    := List W
+  l0l1 := fun _ => ()
+  l1l2 := fun _ => []
+  l2l3 := compileAll ps
+  satSym := satSym ps
+  satW := satW ps
+  l2l3_sound := l2l3_sound ps
+```
+
+**`Ladder` 接口不变；内容非退化。**
+
+### 7bis.7 `Decidable` 的条件
+
+```lean
+instance (ps : Program Sym W) (w : List W) [DecidablePred (satW ps)] :
+    Decidable (satW ps w) := ...
+```
+
+**可判定性不是免费的：**
+
+| 原语的 `weight` | 可判定 |
+|:--|:--|
+| `netAct w x = c`（固定 `x`） | ✅ |
+| `∀ x, netAct w x = f x`（有限 `x`） | ✅ |
+| `∀ x, netAct w x = f x`（无界） | ❌ |
+| `‖netAct w x − f x‖ ≤ ε`（紧集） | ⚠️ 需 Lipschitz |
+
+**推荐：契约写成“有限样本 + 区间界”，既全域可检查又可判定。**
+
+### 7bis.8 最小验证（`identity` + `const`）
+
+```lean
+def identityContract : PrimitiveContract ℝ ℝ where
+  key    := "core.identity"
+  plugin := "core"
+  arity  := 0
+  Sym    := ℝ
+  W      := ℝ
+  sym    := fun _ => True
+  weight := fun w => w = 1
+  build  := fun _ => 1
+  sound  := by intro s _; rfl
+
+def constContract (c : ℝ) : PrimitiveContract Unit ℝ where
+  key    := "core.const"
+  plugin := "core"
+  arity  := 1
+  Sym    := Unit
+  W      := ℝ
+  sym    := fun _ => True
+  weight := fun w => w = c
+  build  := fun _ => c
+  sound  := by intro s _; rfl
+```
+
+**五步验证：**
+
+| 步 | 内容 | 验收 |
+|--:|:--|:--|
+| 1 | 定义 `PrimitiveContract` | 类型落地 |
+| 2 | `identityContract` + `constContract` | 两条契约 |
+| 3 | `contractLadder [identity, const 3]` | 合成实例 |
+| 4 | `l2l3_sound` 非退化 | 删 `q.sound` 后不成立 |
+| 5 | `lake build` + gate 0 | 通过 |
+
+**若这五步成立，契约合成验证通过；若不成立，说明 `Ladder` 接口需要改。**
+
+### 7bis.9 与 IR 的关系
+
+| 契约合成 | IR |
+|:--|:--|
+| `PrimitiveContract` | IR 的 `Relation` 的“契约面” |
+| `satSym` / `satW` | IR 的 `Holds` |
+| `compileAll` | IR 的 `compile` |
+| `l2l3_sound` | IR 的 `compile_sound` |
+| `Program` | IR 的子结构 |
+
+**契约合成是 IR 在 `Ladder` 上的具体落地；IR 是契约合成的结构表示。**
+
+### 7bis.10 与 §5 唯一性的关系
+
+| 项 | 关系 |
+|:--|:--|
+| `extract` 唯一 | 保证“契约合成”输入的程序是唯一的 |
+| `roundtrip` | 保证“合成 → 编译 → 提取 → 再合成”回到同一点 |
+| `PrimitiveContract` 唯一 | 由 `key` 唯一 |
 
 ---
 
@@ -892,7 +1209,10 @@ structure Rendered where
 
 ---
 
-## 15. 开放问题
+## 15. 开放问题（未定）
+
+> **以下 11 条是设计里明确标“未定”的项，不是遗漏，也不阻塞 §1–§14 的实现。**
+> **实现 §14 最小验证时不需要回答它们；大规模落地前才需要。**
 
 | # | 问题 | 性质 |
 |--:|:--|:--|

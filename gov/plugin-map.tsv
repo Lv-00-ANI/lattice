@@ -8373,6 +8373,7 @@ plugins	Plugins	Plugins.lean	norm_migrated	no
 plugins	Plugins	Plugins.lean	norm_migrated_registry	no
 plugins	Plugins	Plugins.lean	penalty_migrated	no
 plugins	Plugins	Plugins.lean	pluginCensusPending_false	yes
+plugins	Plugins	Plugins.lean	pluginCensusSize_eq_registry	no
 plugins	Plugins	Plugins.lean	pluginDirOf_attention	no
 plugins	Plugins	Plugins.lean	pluginDirOf_chainSlot	no
 plugins	Plugins	Plugins.lean	pluginDirOf_compose	no

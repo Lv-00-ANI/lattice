@@ -22,6 +22,8 @@ Plugins.lean	gnn_migrated
 Plugins.lean	tokens_migrated
 Plugins.lean	repair_migrated
 Plugins.lean	penalty_migrated
+Plugins.lean	migration_progress_complete
+Plugins.lean	pluginCensusSize_eq_registry
 Plugins.lean	proofComplete_imp_registry
 Plugins.lean	coverageComplete_holds
 Plugins.lean	proofRegistry_nonvacuous

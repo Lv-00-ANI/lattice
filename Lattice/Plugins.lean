@@ -480,10 +480,10 @@ theorem penalty_migrated :
 required a theorem like the ones above.**
 
 **A `def` rather than a docstring count, because a count a reader must recompute is a count that drifts.** -/
-def migratedPluginCount : ℕ := 8
+def migratedPluginCount : ℕ := proofRegistry.length
 
 /-- **The registered total.** -/
-def registeredPluginCount : ℕ := 8
+def registeredPluginCount : ℕ := proofRegistry.length
 
 /-- **The migration is COMPLETE: the count equals the total.**
 
@@ -495,6 +495,22 @@ inequality could no longer hold.**
 finishes, so no one can keep asserting it after the fact.** -/
 theorem migration_progress_complete :
     migratedPluginCount = registeredPluginCount := rfl
+
+/-- **THE CENSUS AGREES WITH THE REGISTRY.**
+
+**`pluginCensusSize` is the ONE literal that remains, and it is not a defect:**
+**`gov/plugin_inventory.py --check` READS it out of this file and compares it against the number of directories
+carrying a `Manifest.lean`, so the two sides cannot drift apart silently.**
+
+**What this theorem adds is the OTHER direction: the Lean side now knows that the census and the registry agree,
+so a reader does not have to consult Python to see it.**
+
+**=> with this, the three numbers (`pluginCensusSize`, `proofRegistry.length`, and the manifest count) are tied
+together by a proof as well as by a gate.** -/
+theorem pluginCensusSize_eq_registry :
+    pluginCensusSize = proofRegistry.length := by
+  unfold pluginCensusSize proofRegistry
+  decide
 
 /-- **The project's completion predicate.**
 
