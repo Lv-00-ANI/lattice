@@ -274,24 +274,57 @@ theorem shift_one_one_zero_one_flat (b : FlatTerm) :
   | app f a ihf iha =>
     simp only [FlatTerm.toTerm, shift, ihf, iha]
 
-/-- **THE GENERAL FORM, stated and not proved.**
+/-- **THE DOUBLE SHIFT COMPOSES AT EVERY CUTOFF.**
 
-**`shift (c+1) 1 (shift c 1 b) = shift c 2 b` at every cutoff `c`.**
+**`shift (c+1) 1 (shift c 1 b) = shift c 2 b`.**
 
-**Round 157 established the `c = 0` case on binder-free terms (above) and verified BY HAND that the three `var`
-branches close at every `c`:**
-**`n < c` -- all three shifts leave it; `n = c` -- both sides reach `var (c+2)`; `c < n` -- both move by `1+1` and
-by `2`.**
-**Each branch is three `rw`s, and the `n = c` branch survives because `rcases` keeps the equation instead of
-`subst`ing it away.**
+**Two shifts one apart compose into one of length two.**
+**The statement is general in `c` because entering a binder raises BOTH cutoffs by one, so the identity must hold
+at every level.**
 
-**=> what is NOT closed is the BINDER case: after `simp only [shift]` the goal is
-`shift (c+1+1) 1 (shift (c+1) 1 b) = shift (c+1) 2 b`, which is the hypothesis at `c+1` but written with
-`c+1+1` rather than `(c+1)+1` -- and `exact ihb (c + 1)` rejects that, while `norm_num` does not unify it either.**
+**The `var` case splits on `n` versus `c` WITHOUT substituting -- `rcases` keeps the equation as a hypothesis,
+where `subst` would ERASE the very variable the goal mentions (the erasure that blocked rounds 151 and 156).**
 
-**The remaining work is a definitional-form mismatch, not a mathematical gap: the statement is TRUE and its `var`
-cases are verified.** -/
-def shiftCommutationGeneral : Prop :=
-  ∀ (c : ℕ) (b : Term), shift (c + 1) 1 (shift c 1 b) = shift c 2 b
+**The binder cases are the crux of the induction: after `simp only [shift]` the body's shifts are at cutoffs
+`c+1` and `c+2`, which is the hypothesis at `c+1`.**
+**=> generalizing `c` in the induction is what makes that application typecheck, and it is why the `c = 0` version
+alone could not be lifted to the binder case.** -/
+theorem shift_commutation_general : ∀ (c : ℕ) (b : Term),
+    shift (c + 1) 1 (shift c 1 b) = shift c 2 b := by
+  intro c b
+  induction b generalizing c with
+  | sort k l => rfl
+  | const k => rfl
+  | var n =>
+    rcases Nat.lt_trichotomy n c with h | h | h
+    · -- `n < c`: all three shifts leave the index
+      rw [shift_var_lt h, shift_var_lt (by omega : n < c + 1), shift_var_lt h]
+    · -- `n = c`: `shift c 1` moves it to `c+1`, which `shift (c+1) 1` leaves; the right side moves it by `2`
+      rw [h]
+      rw [shift_var_ge (by omega : ¬ c < c)]
+      rw [shift_var_ge (by omega : ¬ c + 1 < c + 1)]
+      rw [shift_var_ge (by omega : ¬ c < c)]
+    · -- `c < n`: both move, by `1+1` and by `2`
+      rw [shift_var_ge (by omega : ¬ n < c)]
+      rw [shift_var_ge (by omega : ¬ n + 1 < c + 1)]
+      rw [shift_var_ge (by omega : ¬ n < c)]
+  | app f a ihf iha =>
+    simp only [shift, ihf c, iha c]
+  | lam A b ihA ihb =>
+    simp only [shift, ihA c]
+    rw [ihb (c + 1)]
+  | pi A B ihA ihB =>
+    simp only [shift, ihA c]
+    rw [ihB (c + 1)]
+  | letE A t b ihA iht ihb =>
+    simp only [shift, ihA c, iht c]
+    rw [ihb (c + 1)]
+
+/-- **The `c = 0` instance: `shift 1 1 (shift 0 1 b) = shift 0 2 b`.**
+
+**=> round 155's identity, now a COROLLARY of the general form.** -/
+theorem shift_one_one_zero_one (b : Term) :
+    shift 1 1 (shift 0 1 b) = shift 0 2 b :=
+  shift_commutation_general 0 b
 
 end Lattice.Core.CIC

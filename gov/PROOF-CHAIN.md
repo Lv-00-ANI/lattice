@@ -1034,7 +1034,7 @@
 | `Lattice.Core.ArchParams` | 3 | 4 |
 | `Lattice.Core.ArchWeights` | 4 | 6 |
 | `Lattice.Core.CIC.Normalization` | 4 | 1 |
-| `Lattice.Core.CIC.ParallelSubst` | 9 | 9 |
+| `Lattice.Core.CIC.ParallelSubst` | 11 | 8 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.ReductionOriented` | 3 | 1 |
 | `Lattice.Core.CIC.ShiftComm` | 2 | 0 |
@@ -6145,14 +6145,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `insert_is_backward_compatible` -> `apply`, `at`, `find`
 - `insert_preserves_uniqueness` -> `apply`, `at`, `find`
 - `instDecidableEqTree_eq_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `inst_const` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_lift_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`, `zero`
-- `inst_lift_shift_flat` -> `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_lift_succ` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_lift_zero` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_sort` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
-- `inst_var` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
+- `inst_const` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_lift_id` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`, `zero`
+- `inst_lift_shift_flat` -> `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_lift_succ` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_lift_zero` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_sort` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `inst_var` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
 - `instanceA_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`
 - `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `instanceC_content_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`
@@ -9622,8 +9622,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `shiftLayer_step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `shiftLayer`, `step`
 - `shift_by_one_fails_to_preserve` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `shift_comm_counterexample` -> `Term`, `at`, `shift`, `shift_var_ge`, `shift_var_lt`
+- `shift_commutation_general` -> `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`
 - `shift_different_cutoffs_dont_commute` -> `Term`, `at`, `shift`, `shift_var_ge`, `shift_var_lt`
-- `shift_one_one_zero_one_flat` -> `Term`, `induction`, `shift`, `shift_var_ge`, `subst`
+- `shift_one_one_zero_one` -> `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
+- `shift_one_one_zero_one_flat` -> `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
 - `shift_shift` -> `d`, `induction`
 - `shift_typing` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `shift`, `subst`, `zero`
 - `shift_var_ge` -> `d`, `induction`

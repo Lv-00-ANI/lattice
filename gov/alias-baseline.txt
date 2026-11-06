@@ -892,3 +892,4 @@ forward	Core/CIC/Reduction.lean	beta_reduces
 forward	Core/CIC/Reduction.lean	zeta_reduces
 forward	Core/ChainCastAct.lean	act_cast_snd
 forward	Core/ChainCastAct.lean	act_cast_fst
+forward	Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
