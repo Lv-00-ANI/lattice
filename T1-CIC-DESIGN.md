@@ -163,3 +163,48 @@ def Models (W : CICWeights) (t : Term) : Prop := W = compile t
 **把 `levelCode` 与 `sortKindCode` 改成「每个构造子都是 `cantor tag payload`」的统一形式，
 使得 `cantor_tag_diff` 在每个分支都适用于相同形状。**
 **这是**设计**的一行改动，而不是证明技巧。**
+
+---
+
+## 8. 第 167 轮的补充：`cantor` 这个 abbreviation 本身是**第三个**障碍
+
+**第 167 轮实施了 §7 的统一形式（`levelCode .zero = cantor 0 0`），**形状问题确实解决了**：**
+
+```lean
+-- 单独验证，通过了：
+example (l : Level) : levelCode .zero ≠ levelCode (.succ l) := by
+  show cantor 0 0 ≠ cantor 1 (levelCode l)
+  exact cantor_tag_diff (by decide)
+```
+
+**但在**归纳证明内部**，同样的一步仍报 `application type mismatch`。**
+
+### 定位到的根因
+
+**`cantor` 是 `abbrev cantor : ℕ → ℕ → ℕ := Nat.pair`。**
+
+**`abbrev` 在 elaboration 时被**立即展开**成 `Nat.pair`，所以 `cantor_tag_diff` 的结论
+`cantor a b ≠ cantor c d` 在内部已经是 `Nat.pair a b ≠ Nat.pair c d`。**
+
+**而 `hu` 里的 `cantor` 可能**没有**被同样的方式展开（取决于 `simp only [...]` 展开到了哪一层）。**
+
+**⇒ 两边虽然"看起来"都是 `cantor`，但在 elaboration 层面是**不同深度**的表达式，隐式参数
+`a`、`b` 推断不出来。**
+
+### 验证：直接用 `Nat.pair` 就没有这个问题
+
+```lean
+-- 无 import、无 abbreviation，直接通过：
+example {a b c d : ℕ} (h : Nat.pair a b = Nat.pair c d) (hne : a ≠ c) : False := by
+  exact hne (Nat.pair_eq_pair.mp h).1
+```
+
+**⇒ `cantor` 这个 abbreviation 是**多余的**，而且它引入的展开时序差异正是三次尝试失败的共同原因。**
+
+### 下一轮的确切动作（修正 §7）
+
+1. **去掉 `abbrev cantor`，全文直接用 `Nat.pair`；**
+2. **统一形式保持（每个构造子都是 `Nat.pair tag payload`）；**
+3. **`cantor_tag_diff` 改名 `pair_tag_diff`，陈述与证明都用 `Nat.pair`。**
+
+**⇒ 三个障碍（碰撞、`zero` 形状、abbreviation 展开时序）都已定位，且每一个的修法都是**删除**而不是增加。**
