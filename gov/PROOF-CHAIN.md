@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 38 | no imports from lift/lib |
+| core | 39 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -30,6 +30,7 @@
 - `Lattice.Core.ArchWeights` <- `Lattice.Core.ArchParams`, `Lattice.Core.VariableNet`
 - `Lattice.Core.CIC.Reduction` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Substitution` <- `Lattice.Core.CIC.Syntax`
+- `Lattice.Core.CIC.SubstitutionShift` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Syntax` 
 - `Lattice.Core.CIC.Typing` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CastLemmas` 
@@ -701,7 +702,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1026,6 +1027,7 @@
 | `Lattice.Core.ArchWeights` | 4 | 6 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
+| `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
 | `Lattice.Core.CIC.Typing` | 3 | 3 |
 | `Lattice.Core.CastLemmas` | 3 | 0 |
@@ -7818,6 +7820,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ogd_regret_bound` -> `at`
 - `old_not_injective` -> `AffineLayer`, `layerOfList`
 - `old_rank_one_at_two` -> `AffineLayer`, `W`, `layerOfList`
+- `old_subst_shift_law_is_false` -> `Term`, `shift`, `subst`
 - `omegaStar_eq_singleton` -> `BetaStar`, `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
 - `omegaStar_iff` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `lift`, `redI`, `star_refl`
 - `omegaStar_self` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `lift`, `redI`, `star_refl`
@@ -10157,6 +10160,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_lift` -> `Closed`, `Term`, `apply`, `induction`, `subst`, `zero`
 - `subst_preserves_typing` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `subst_ren` -> `Closed`, `Term`, `apply`, `induction`, `subst`, `zero`
+- `subst_shift_above_one` -> `Term`, `shift`, `shift_var_ge`, `subst`, `subst_var_gt`, `subst_var_lt`
+- `subst_shift_target` -> `Term`, `shift`, `shift_var_ge`, `subst`, `subst_var_eq`, `subst_var_gt`, `subst_var_lt`
 - `subst_subst` -> `Closed`, `Term`, `apply`, `induction`, `subst`, `zero`
 - `subst_var_eq` -> `Term`, `shift`
 - `subst_var_gt` -> `Term`, `shift`

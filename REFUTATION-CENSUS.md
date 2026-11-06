@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**322 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**323 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 4 | 1.3% |
+| `Core` | 5 | 1.5% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 146 轮新增一条**：`old_subst_shift_law_is_false` —— **第 135 轮点名的 `subst_shift_law` 本身为**假****（`j = 1` 时左边得 `var 1`、右边得 `var 0`），
+**六次证明尝试失败不是因为重写顺序，而是因为命题不成立。**
+故 `Core` 由 4 升为 5、总数由 322 升为 323。
 
 **第 133 轮新增一条**：`sqDist_equivalence_requires_nonneg` —— **在真实 `sqDist` 上，去掉 `0 ≤ t` 后平方形式与开方形式仍不等价**，
 **故几何层的阈值假设同样是真实成本，不只是坐标层。**

@@ -209,6 +209,9 @@ core	Core/CIC	Core/CIC/Substitution.lean	subst_const	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_eq	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_gt	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_lt	no
+core	Core/CIC	Core/CIC/SubstitutionShift.lean	old_subst_shift_law_is_false	yes
+core	Core/CIC	Core/CIC/SubstitutionShift.lean	subst_shift_above_one	no
+core	Core/CIC	Core/CIC/SubstitutionShift.lean	subst_shift_target	no
 core	Core/CIC	Core/CIC/Syntax.lean	shift_shift	no
 core	Core/CIC	Core/CIC/Syntax.lean	shift_var_ge	no
 core	Core/CIC	Core/CIC/Syntax.lean	shift_var_lt	no
