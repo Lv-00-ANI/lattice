@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 55 | no imports from lift/lib |
+| core | 56 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -52,6 +52,7 @@
 - `Lattice.Core.ChainEvalFinal` <- `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.IR.Basic` 
+- `Lattice.Core.IR.Compile` <- `Lattice.Core.IR.Relations`
 - `Lattice.Core.IR.Relations` <- `Lattice.Core.IR.Basic`
 - `Lattice.Core.Idempotent` 
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
@@ -718,7 +719,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1066,6 +1067,7 @@
 | `Lattice.Core.ChainEvalFinal` | 3 | 2 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.IR.Basic` | 3 | 6 |
+| `Lattice.Core.IR.Compile` | 4 | 5 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
@@ -2618,6 +2620,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `argmax_softmax_weight_max` -> `softmax`
 - `argmax_stable` -> `IsArgMax`, `apply`, `argmax_unique`, `at`, `subst`
 - `argmax_unique` -> `softmax`, `softmax_denom_pos`
+- `argsCode_injective` -> `at`, `induction`, `subst`
 - `arity_is_load_bearing` -> `LinearForm`, `SatisfiesEq`, `denote`, `length`, `seg`
 - `artifactOfLadder_layers` -> `Activation`, `SymbolicSummary`, `affineLayerToMLayer`, `depth`, `enc`, `identity`, `layers`, `ofArtifact`, `samePointLayer`, `weights`
 - `artifactOfLadder_summary` -> `Activation`, `SymbolicSummary`, `depth`, `enc`, `identity`, `ofArtifact`
@@ -6404,6 +6407,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kindAnchoredSolve_anchor` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
 - `kindAnchoredSolve_canonical` -> `ExpressibleSpec`, `GeoConstraint`, `at`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `kindAnchoredSolve_sound` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `length`, `maxIndex`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`, `trivial`
+- `kindCode_injective` -> `PartKind`, `TensorId`, `arch`, `at`, `induction`, `subst`, `vocab`
 - `kindInf_le_left` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindInf_le_right` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `kindLe_antisymm` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
@@ -6750,6 +6754,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lipschitz_residual` -> `ChainFwd`, `chainN_error_bound`, `g`, `lipschitz_add`
 - `lipschitz_sub` -> `GeoExpr`, `evalPts`, `le_trans`, `mul`, `trans`
 - `lipschitz_with_of_le` -> `W`, `induction`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `zero`
+- `listCode_injective` -> `TensorId`, `at`, `induction`, `subst`
 - `listDecEq_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listDecEq_cons_nil` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listDecEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
@@ -8125,6 +8130,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
+- `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `partial_reinject_bound` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`

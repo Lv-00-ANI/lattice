@@ -262,6 +262,9 @@ Core/CIC/Value.lean	typable_has_value
 Core/CIC/Value.lean	is_value_of_unique
 Core/IR/Basic.lean	Relation.part_irrelevant
 Core/IR/Basic.lean	LatticeIR.order_invariant
+Core/IR/Compile.lean	partCode_injective
+Core/IR/Compile.lean	listCode_injective
+Core/IR/Compile.lean	argsCode_injective
 Domains/Constraints/Constraint.lean	sqDistEq_rhs_nonneg
 Domains/Constraints/Constraint.lean	holds_eqZero_sub
 Domains/Constraints/Constraint.lean	perpendicular_rightAngle_agree

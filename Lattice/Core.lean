@@ -53,6 +53,7 @@ import Lattice.Core.CIC.Compile
 import Lattice.Core.CIC.PairBounds
 import Lattice.Core.IR.Basic
 import Lattice.Core.IR.Relations
+import Lattice.Core.IR.Compile
 
 
 /-!
