@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 731 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 161 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 163 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -770,6 +770,7 @@
 |:--|:--|
 | `CInterface/ABI.lean` | `abiTable_errors_wellFormed` |
 | `CInterface/ABI.lean` | `abiTable_returns_a_value` |
+| `Core/IR/Modulus.lean` | `modulus_tends_to_zero` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_expr` |
 | `Domains/Constraints/Loss.lean` | `loss_eq_zero_perpendicular` |
 | `Domains/Geometry/ClauseComposition.lean` | `repair_then_reinject` |
@@ -789,6 +790,7 @@
 | `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_right` |
+| `Lib/Architectures/RealLayerScaleDepth.lean` | `add_one_le_exp_not_improvable` |
 | `Lib/Architectures/RealMoELoadBalance.lean` | `witness_balanced_no_drop` |
 | `Lib/Architectures/RealMoELoadBalance.lean` | `witness_imbalanced_drops` |
 | `Lib/Architectures/RealMoERouteCapacity.lean` | `nc_k_fits_no_drop` |

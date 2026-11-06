@@ -15,15 +15,15 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 4457 | 45.1% |
-| 1 | 1799 | 18.2% |
-| 2 | 733 | 7.4% |
-| 3 | 980 | 9.9% |
-| 4 | 372 | 3.8% |
-| 5 | 1011 | 10.2% |
-| 6 | 520 | 5.3% |
+| 0 | 4342 | 43.9% |
+| 1 | 1344 | 13.6% |
+| 2 | 547 | 5.5% |
+| 3 | 773 | 7.8% |
+| 4 | 271 | 2.7% |
+| 5 | 2033 | 20.6% |
+| 6 | 566 | 5.7% |
 | 7 | 11 | 0.1% |
-| **合计** | **9883** | |
+| **合计** | **9887** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -52,6 +52,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `every_primitive_has_boundary` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `boundaryPrimitives_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `interior_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `composeArgs_has_no_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `abiTable_compose_args` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `exists_abi_entry_without_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -62,8 +63,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
 | 6 | `encode_not_injective` (`Domains/Geometry/Encode/CIC.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `tag_injective_eqZero_leZero` (`Domains/Geometry/Encode/Tags.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `preserves_foldl` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `iterate_from_fold` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `bridgedCount_append` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bridgedCount_empty` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bridgedCount_hom` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -75,6 +79,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `total_obligations` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `no_zero_obligation_in_census_table` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `census_env_agrees` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `verdict_lub_of_length_eq` (`Evidence/VerdictLattice.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `any_edit_relation_gives_symbol_preimage` (`Lib/Editing/RealEditToSymbol.lean`) | Compose, Core, Domains, Runtime, Semantics, root |
 | 6 | `proofComplete_imp_registry` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
 | 6 | `proofComplete_holds` (`Plugins.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics |
@@ -82,13 +87,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proof_holds` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
+| 6 | `archCarrierAdditions_holds` (`Plugins/Architectures/CarrierAdditions.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_nonempty` (`Plugins/Architectures/Conv/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `proof_holds` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_manifest` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_obligations` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_nonempty` (`Plugins/Architectures/DAG/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

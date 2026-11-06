@@ -289,6 +289,10 @@ core	Core/IR	Core/IR/Depends.lean	holds3_depends	no
 core	Core/IR	Core/IR/Depends.lean	holds3_equal	no
 core	Core/IR	Core/IR/Depends.lean	holds3_unhandled	no
 core	Core/IR	Core/IR/Depends.lean	holds3_zero	no
+core	Core/IR	Core/IR/Modulus.lean	modulus_mono_in_eps	no
+core	Core/IR	Core/IR/Modulus.lean	modulus_slack	no
+core	Core/IR	Core/IR/Modulus.lean	modulus_tends_to_zero	no
+core	Core/IR	Core/IR/Modulus.lean	size_nonneg	no
 core	Core/IR	Core/IR/Obligations.lean	compile_sound	no
 core	Core/IR	Core/IR/Obligations.lean	construct_sound	no
 core	Core/IR	Core/IR/Obligations.lean	construct_sound_wf	no
