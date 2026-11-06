@@ -33,6 +33,15 @@
 - `CARRIER-REPLACEMENT.md`
 - `CARRIER-CIC.md`
 
+## 3b. CIC 实施记录（阶段 1 逐项）
+
+- `IR-CANONICAL.md` — 规范形 IR：模型权重的结构语义表示，正逆统一
+- `T1-CIC-DESIGN.md` — T1 编码设计与四个障碍的逐层记录
+- `T3-CIC-DESIGN.md` — T3 解码器设计与终止性障碍的逐层记录
+
+**这三份是**实施过程**的记录，不是最终规格；最终规格在代码与 `PROOF-OBLIGATIONS.md`。**
+**⇒ 它们的作用是让下一轮从**已定位的障碍**出发，而不是重复已被否证的假设。**
+
 ## 4. 工程文档
 
 - `ENGINEERING.md`
