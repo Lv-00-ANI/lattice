@@ -284,6 +284,8 @@ Core/IR/Skeleton.lean	skeletonCode_injective
 Core/IR/Skeleton.lean	compileIR_injective
 Core/IR/Skeleton.lean	extract_compileIR
 Core/IR/Skeleton.lean	roundtrip_determines_skeleton
+Core/IR/Unique.lean	skeleton_unique_from_weights
+Core/IR/Unique.lean	ir_unique_from_parse
 Domains/Constraints/Constraint.lean	sqDistEq_rhs_nonneg
 Domains/Constraints/Constraint.lean	holds_eqZero_sub
 Domains/Constraints/Constraint.lean	perpendicular_rightAngle_agree

@@ -309,6 +309,8 @@ core	Core/IR	Core/IR/Skeleton.lean	roundtrip_determines_skeleton	no
 core	Core/IR	Core/IR/Skeleton.lean	shapesCode_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	skeletonCode_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	tensorShapeCode_injective	no
+core	Core/IR	Core/IR/Unique.lean	ir_unique_from_parse	no
+core	Core/IR	Core/IR/Unique.lean	skeleton_unique_from_weights	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	const_is_executable	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_add	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_const	no
