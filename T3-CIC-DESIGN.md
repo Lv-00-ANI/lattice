@@ -291,3 +291,58 @@ decreasing_by
 
 **⇒ 障碍已缩到「把 `decreasing_by` 的 `all_goals` + `first` 改成逐分支 `·`」。**
 **这是纯机械的改写，不含任何新的数学或 elaboration 问题。**
+
+---
+
+## 11. 第 173 轮：改成逐分支 `·` **不够**——真正的差别是**投影 vs 嵌套模式**
+
+**第 173 轮按 §10 的建议改成逐分支 `·`，仍失败。**
+**但`trace_state` 揭示了真正的原因。**
+
+### 嵌套模式写法：假设**不在**上下文里
+
+```lean
+match Nat.unpair n with
+| (1, m) => (dl m).map (· + 1)
+```
+
+**`simp_wf` 之后上下文只有 `n m : ℕ`，目标 `m < n`。**
+**把 `m` 和 `Nat.unpair n` 联系起来的等式**已经被 `simp_wf` 消掉了**。**
+
+**⇒ `m` 成了**抽象变量**，`show (Nat.unpair n).2 < n` 报 `type mismatch`。**
+
+### 投影写法：假设**在**上下文里
+
+```lean
+if (Nat.unpair n).1 = 1 then (dl (Nat.unpair n).2).map (· + 1)
+else if (Nat.unpair n).1 = 2 then ...
+```
+
+**`simp_wf` 之后：**
+
+```
+h✝ : (Nat.unpair n).1 = 1
+⊢ (Nat.unpair n).2 < n
+```
+
+**⇒ 假设**在**，目标**正是** `unpair_snd_lt` 的形状，且只用 `rename_i h` 就能命名。**
+
+### 结论：**不要用嵌套模式**
+
+**`Nat.unpair n` 的投影写法让 `decreasing_by` 看到完整的模式等式；**
+**嵌套元组模式会把等式吸收进 `simp_wf`，`decreasing_by` 就拿不到了。**
+
+**⇒ 这是第 173 轮最重要的发现，也是第 169–172 轮失败的真正原因：**
+**前几轮一直假设「假设不在上下文里是 `decreasing_by` 的限制」，实际上那是**嵌套模式**造成的。**
+
+### 已入库的
+
+**`pair_one_ge_two : 2 ≤ Nat.pair 1 m`（`PairBounds.lean`）。**
+**由它加上 `h : (unpair n).1 = 1` 即可得 `2 ≤ n`，进而 `unpair_snd_lt`。**
+
+### 剩下的最后一步
+
+**`hn : n = Nat.pair 1 (Nat.unpair n).2` 的证明。**
+**`rw [← hp]` 会递归改写到 `(Nat.unpair n).2` 里的 `n`，所以要用 `conv` 或 `nth_rewrite` 把改写限制在**一处**。**
+
+**⇒ 下一轮的动作：把投影写法 + `h` + `hp` + `pair_one_ge_two` 拼起来，届时终止性应当一次通过。**

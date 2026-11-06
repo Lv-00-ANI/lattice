@@ -1044,7 +1044,7 @@
 | `Lattice.Core.CIC.LiftAtCutoff` | 3 | 0 |
 | `Lattice.Core.CIC.LiftShiftTotal` | 1 | 0 |
 | `Lattice.Core.CIC.Normalization` | 4 | 1 |
-| `Lattice.Core.CIC.PairBounds` | 4 | 0 |
+| `Lattice.Core.CIC.PairBounds` | 5 | 0 |
 | `Lattice.Core.CIC.ParallelSubst` | 11 | 8 |
 | `Lattice.Core.CIC.ParallelSubstCutoff` | 1 | 0 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |

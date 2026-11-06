@@ -71,13 +71,17 @@ theorem unpair_snd_lt {n : ℕ} (h : 2 ≤ n) : (Nat.unpair n).2 < n := by
     have he : n = a * a + a + b := by rw [Nat.pair, if_neg (by omega)] at hp; omega
     nlinarith
 
-/-- **The first component is dominated by the pair.** -/
-theorem pair_dominates_fst (a b : ℕ) : a ≤ Nat.pair a b := by
-  rw [Nat.pair]
-  split_ifs <;> omega
+/-- **The first component is dominated by the pair -- Mathlib already has this as `Nat.left_le_pair`.** -/
+theorem pair_dominates_fst (a b : ℕ) : a ≤ Nat.pair a b := Nat.left_le_pair a b
 
-/-- **The second component is dominated by the pair.** -/
-theorem pair_dominates_snd (a b : ℕ) : b ≤ Nat.pair a b := by
+/-- **The second component is dominated by the pair -- Mathlib already has this as `Nat.right_le_pair`.** -/
+theorem pair_dominates_snd (a b : ℕ) : b ≤ Nat.pair a b := Nat.right_le_pair a b
+
+
+/-- **Nat.pair 1 m is at least 2, for every m.**
+
+**Both branches of Nat.pair 1 m are at least m + 1, hence at least 2.** -/
+theorem pair_one_ge_two (m : ℕ) : 2 ≤ Nat.pair 1 m := by
   rw [Nat.pair]
   split_ifs <;> nlinarith
 

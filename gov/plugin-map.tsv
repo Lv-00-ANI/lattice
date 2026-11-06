@@ -218,6 +218,7 @@ core	Core/CIC	Core/CIC/Normalization.lean	within_of_reduces	no
 core	Core/CIC	Core/CIC/Normalization.lean	within_zero_iff	no
 core	Core/CIC	Core/CIC/PairBounds.lean	pair_dominates_fst	no
 core	Core/CIC	Core/CIC/PairBounds.lean	pair_dominates_snd	no
+core	Core/CIC	Core/CIC/PairBounds.lean	pair_one_ge_two	no
 core	Core/CIC	Core/CIC/PairBounds.lean	unpair_fst_lt	no
 core	Core/CIC	Core/CIC/PairBounds.lean	unpair_snd_lt	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_const	no
