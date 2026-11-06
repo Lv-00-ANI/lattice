@@ -265,6 +265,13 @@ Core/IR/Basic.lean	LatticeIR.order_invariant
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective
+Core/IR/Parse.lean	parseSkeleton_total
+Core/IR/Parse.lean	tensorCount_pos
+Core/IR/Parse.lean	termTensors_ne_nil
+Core/IR/Parse.lean	parse_total
+Core/IR/Parse.lean	parse_eq_parseSkeleton
+Core/IR/Parse.lean	parse_tensors_length
+Core/IR/Parse.lean	parse_has_tensor
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

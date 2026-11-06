@@ -277,6 +277,13 @@ core	Core/IR	Core/IR/Compile.lean	argsCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	kindCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	listCode_injective	no
 core	Core/IR	Core/IR/Compile.lean	partCode_injective	no
+core	Core/IR	Core/IR/Parse.lean	parseSkeleton_total	no
+core	Core/IR	Core/IR/Parse.lean	parse_eq_parseSkeleton	no
+core	Core/IR	Core/IR/Parse.lean	parse_has_tensor	no
+core	Core/IR	Core/IR/Parse.lean	parse_tensors_length	no
+core	Core/IR	Core/IR/Parse.lean	parse_total	no
+core	Core/IR	Core/IR/Parse.lean	tensorCount_pos	no
+core	Core/IR	Core/IR/Parse.lean	termTensors_ne_nil	no
 core	Core/IR	Core/IR/Relations.lean	basicHolds_unhandled	no
 core	Core/IR	Core/IR/Relations.lean	equalHolds_refl	no
 core	Core/IR	Core/IR/Relations.lean	equalHolds_symm	no
