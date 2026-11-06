@@ -1,4 +1,4 @@
-# ROADMAP
+﻿# ROADMAP
 
 > **2026-11-05 重排：** 主载体从几何改为 CIC（见 `CARRIER-REPLACEMENT.md`）。
 > CIC 的最小验证（C0）先于一切；旧的 P0–P6 顺序保留为“CIC 之后的内容”。
@@ -24,15 +24,15 @@
 - `Encode/Geometry.lean` 补完备性；
 - 反方向 `decode` 的部分性与 `no_full_decode` 反例。
 
-### C2 T0–T4 在 CIC 上重述（10 天）
+### C2 T0–T4 在 IR 上重述（10 天）
 
-- T0 `construct`：`Typable → Term → Weights`；
-- T1 `compile_sound`：结论必须含 `t`；
-- T2 `modulus`：`steps t * ε`；
-- T3 `extract_compile`：到 `NormalForm`；
+- T0 `construct`：`Typable → parse t = some S → compile S → Weights`；
+- T1 `compile_sound`：结论必须含 IR `S`；
+- T2 `modulus`：`size S * ε`；
+- T3 `extract_compile`：`extract (compile S) = S`（IR 层，不需要 fuel）；
 - T4 `repair` + `conj_loop_fixed_point`。
 
-### C3 T5–T8 在 CIC 上（8 天）
+### C3 T5–T8 在 IR 上（8 天）
 
 - effect = elaborator state；
 - `canActivate` / `unload_removes_only_own`；

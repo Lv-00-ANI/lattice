@@ -1,15 +1,45 @@
-# T3-CIC 设计记录（第 169 轮）
+﻿# T3-CIC 设计记录（第 169 轮）
 
-> **状态：设计完成，递归解码的终止性未解决。`Extract.lean` 未入库。**
-> **本轮已完成的：往返定理的形态、两条解码路线、障碍的精确位置。**
+> **状态（第 176 轮）：旧形状 `extract : Weights → Option Term` 已废弃；IR 路线取代它。**
+> **本文档保留为设计演进记录；当前 T3 定义见头部 §1 修正版。**
+
+---
+
+> **状态（2026-11-07 第 176 轮修正）：**
+> **本文档第 169–175 轮的全部技术记录保留为历史。**
+> **但结论已经改变：`compile` 的输入从 `Term` 改为 `IR`。**
+> **T3 不再需要解码任意 CIC term——它只解码有界的 IR 关系集。**
+> **⇒ 第 169–175 轮讨论的 fuel / 良基递归 / 嵌套模式 / bullet 数，全部是针对
+> `extract : Weights → Option Term` 这个**选错的形状**。IR 路线让它们消失。**
+>
+> **正确的 T3：**
+>
+> ```lean
+> extract : Weights → IR
+> extract_compile : extract (compile S) = S        -- compile 单射，extract 是其逆
+> ```
+>
+> **`Term → IR` 由 `parse : Term → Option IR` 负责，不属于 T3 的往返义务。**
+>
+> **理由（分层职责）：**
+> - **CIC 负责可计算与符号化**：`Term` / `Typable` / 归约；
+> - **IR 负责可表示性**：`Tensor` + `Relation`，关系有界；
+> - `compile : IR → Weights` 的逆在 IR 层，不在 Term 层。
+>
+> 见 `IR-CANONICAL.md` 头部层级说明与 §1.3。
 
 ---
 
 ## 1. T3 要求什么
 
+**（第 176 轮修正版）**
+
 ```
-extract : CICWeights → Option Term
-extract_compile : extract (compile t) ≡β t
+parse   : Term → Option IR
+compile : IR → Weights
+extract : Weights → IR
+
+extract_compile : extract (compile S) = S
 ```
 
 **规划的要求很具体，而且是对树里一处真实缺陷的纠正：**
@@ -19,14 +49,21 @@ extract_compile : extract (compile t) ≡β t
 **`Representation.roundtrip` 是结构的一个**字段**，所以它按 `rfl` 成立、什么也没说。**
 **⇒ T3 必须把往返做成关于**两个分别定义的函数**的定理。**
 
+**IR 路线还额外解决了一件事：**
+**`compile : IR → Weights` 的逆不需要 fuel，因为 IR 的关系集是有界的**
+**（张量集有界、关系集有界、每条关系的索引元数有界）。**
+
 ---
 
-## 2. 为什么用 `Option`
+## 2. 为什么用 `Option`（原记录，针对旧形状）
+
+**（第 176 轮注：本节针对 `extract : Weights → Option Term` 的旧形状。**
+**在 IR 路线下 `extract : Weights → IR` 是否仍需要 `Option`，取决于 IR 是否允许“非法权重”。**
+**若 `IR` 定义使得任意 `Weights` 都能读出一个（可能是空关系集）IR，则不需要 `Option`；**
+**若要求关系自洽，则需要。这是 §15 的未定项。）**
 
 **`extract` 定义在**所有**权重向量上，而绝大多数向量不是码。**
 **⇒ `Option Term`：能解码给 `some t`，不能给 `none`。**
-
-**⇒ 全函数性保留，部分性显式，而不是藏在一个默认值后面。**
 
 ---
 

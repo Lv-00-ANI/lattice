@@ -1,4 +1,4 @@
-# CARRIER：从几何到 CIC
+﻿# CARRIER：从几何到 CIC
 
 > **状态：** 设计决定已采纳（2026-11-05）。实施未开始。
 > **范围：** 本文件说明 LATTICE 的**主符号载体**为什么从 `GeoConstraint n` 改为 **CIC term**，
@@ -179,9 +179,9 @@ CIC.Syntax < CIC.Substitution < CIC.Reduction
 | 目标 | 几何版（现状） | CIC 版（目标） | 为什么不再是弱化 |
 |:--|:--|:--|:--|
 | **T0** | `construct : ExpressibleSpec n → Pt n`，`SpecSolver` 为空 | `construct : Typable Γ t A → Term`（构造项） | 可满足性 = 可类型性，**可判定**；不再需要「任意 spec 都可解」这个假命题 |
-| **T1** | `compile_sound` 结论不含 `R` | `compile : Term → Weights`；`compile_sound : Typable Γ t A → Models (compile t) A` | 结论**必须**含 `t`；`compile` 是 elaborate，不可能丢弃输入 |
-| **T2** | `penalty_min_to_violation` 的 `g ≡ 0` | `modulus : Typable Γ t A → |denote (compile t) - denote t| ≤ steps t * ε` | `ε` 来自 β 归约步数，是**显式**的；`ε → 0` 对应 `steps → 0` |
-| **T3** | 参数层 `Representation.roundtrip` 字段投影 | `extract : Weights → Term`，`extract_compile : extract (compile t) ≡β t`（到 `NormalForm`） | 往返是**定理**不是字段；不可逆由 `semantic_not_injective` 在 term 层刻画 |
+| **T1** | `compile_sound` 结论不含 `R` | `parse : Term → Option IR`；`compile : IR → Weights`；`compile_sound : WellFormed S → Models (compile S) (semantics S)` | 结论**必须**含 `S`；`compile` 作用于结构，不可能丢弃输入 |
+| **T2** | `penalty_min_to_violation` 的 `g ≡ 0` | `modulus : WellFormed S → |denote (compile S) - denote S| ≤ size S * ε` | `ε` 来自结构规模，是**显式**的；`ε → 0` 对应 `size S → 1` |
+| **T3** | 参数层 `Representation.roundtrip` 字段投影 | `extract : Weights → IR`；`extract_compile : extract (compile S) = S`（单射即逆） | 往返是**定理**不是字段；`extract` 只读回有界的 IR，不需要 fuel 解码任意 term |
 | **T4** | 几何修复回路 | `repair : Term → Term`，`Sat (repair t) ∨ progress` | 修复的对象是 term，不是点配置 |
 | **T5** | `undoSeq_apply`（`K → Option ℕ`） | effect = elaborator state 变换；`undo_apply` | 有真实载体（elaborator），不是玩具 |
 | **T6** | `deactivate_before_unload`（纯图论） | `canActivate` + provider 解析（`Coeffect`） | 有激活门，不只有停用门 |
@@ -261,7 +261,7 @@ CIC.Syntax < CIC.Substitution < CIC.Reduction
 | `SEMANTICS-MAINLINE.md` | §2.1 语义域加 `Carrier := CIC.Term`；§2.3 三种几何加第四种「CIC 编码」；§5 的 S1–S20 标注 CIC 位置；§7 加 `Lattice/Core/CIC/` |
 | `DESIGN.md` | §2 链路图的 L2 改为 CIC term；§5 的 `ModelArtifact` 来源；§11 `ProofComplete` 同步 |
 | `MODEL-WEIGHT.md` | §2 的 `Arch`/`Weights` 从 CIC term 编码；§5 `construct` 改 `Typable → Term` |
-| `CONSTRUCTIVE-TRAINING.md` | §1 流程改为 `Term → Weights`；§2 `ExpressibleSpec` 改为 `Typable`；§3 四条定理的 CIC 形式 |
+| `CONSTRUCTIVE-TRAINING.md` | §1 流程改为 `Term --parse--> IR --compile--> Weights`；§2 `ExpressibleSpec` 改为 `WellFormed`；§3 四条定理的 IR 形式 |
 | `PROOF-OBLIGATIONS.md` | T0–T8 全部给 CIC 版本；修正 §T5–T8 的六个幽灵名 |
 | `GLOSSARY.md` | 新增 CIC / term / `Typable` / `NormalForm` / encode / elaborate；几何标注 Domain |
 | `README.md` | 定位段、§1 链路图、§3 决策、§3.9 `ProofComplete`、§7 证明债 |
@@ -283,7 +283,7 @@ CIC.Syntax < CIC.Substitution < CIC.Reduction
    这条蕴含关系可能比预期难；
 3. **弱规范化是否够用**：T2 需要「归约步数」，弱规范化是否给出可用的界，未验证；
 4. **CIC 的 `Term` 定义粒度**：de Bruijn 还是 named，未定；
-5. **与 `ModelArtifact` 的对接**：`compile : Term → Weights` 的 `Weights` 形状未定；
+5. **与 `ModelArtifact` 的对接**：`compile : IR → Weights` 与 `parse : Term → Option IR` 的 `Weights` 形状未定；
 6. **是否影响 `Plugins/Targets` 的 24 个文件**：双写期需要保留旧文件，文件数会暂时增加。
 
 ---
@@ -338,7 +338,7 @@ CIC.Syntax < CIC.Substitution < CIC.Reduction
 | L2 语法 | `Term` / `Level` / 类型规则（`Typing.typable`） | 自己的 surface syntax、DSL、parser |
 | L2 编码 | `Encode` 接口 + `encode_sound` | 自己领域的编码器 |
 | L2 检查 | 可判定的 `Typable` | 错误消息、诊断、IDE 集成 |
-| L2⇄L3 | `compile : Term → Weights` + `compile_sound` | 自己的编译策略与优化 |
+| L2⇄L3 | `parse : Term → Option IR` + `compile : IR → Weights` + `compile_sound` | 自己的编译策略与优化 |
 | L3→符号 | `extract : Weights → Option Term` | 自己的提取启发式 |
 | 插件 | `PluginManifest` / `VerifiedPlugin` / `Registry` | 自己的插件与义务 |
 | 编辑 | `Effect` / `Fiber` / `undo` / `snapshot` 原语 | `VocabEdit` / `SemanticEdit` / `Import` / `PostTrain` 等打包能力 |

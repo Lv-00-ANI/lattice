@@ -1,4 +1,4 @@
-# DOCS MAP
+﻿# DOCS MAP
 
 ## 1. 权威顺序
 
@@ -11,7 +11,7 @@
 ## 2. 载体文档（2026-11-05 新增）
 
 - `CARRIER-REPLACEMENT.md` — 决定：主载体从几何改为 CIC；备选、影响、回滚。
-- `CARRIER-CIC.md` — 设计：几何如何编码进 CIC；T0–T8 的 CIC 版；新目录。
+- `CARRIER-CIC.md` — 设计：CIC 的语法与类型规则（基础语法层，可计算、符号化）；新目录。
 
 **阅读顺序：** `CARRIER-REPLACEMENT.md` → `CARRIER-CIC.md` → `PROOF-OBLIGATIONS.md`。
 
@@ -21,7 +21,7 @@
   唯一性来源、正逆统一、语义九项、修改、渲染、不实现部分、最小验证、开放问题。
 
 **定位：** IR 不是新载体，不是新语言；载体仍是 CIC，IR 是权重的结构描述。
-**与载体文档的关系：** `CARRIER-*` 讲“符号用什么表达”；`IR-CANONICAL.md` 讲“权重用什么描述”。
+**与载体文档的关系：** `CARRIER-*` 讲“符号语法层”；`IR-CANONICAL.md` 讲“符号结构层”。**两者是上下层，不是并列：CIC 在下，IR 在上。**
 两者正交。
 
 **阅读顺序：** `CARRIER-REPLACEMENT.md` → `CARRIER-CIC.md` → `IR-CANONICAL.md` → `PROOF-OBLIGATIONS.md`。
@@ -46,9 +46,9 @@
 
 ## 3b. CIC 实施记录（阶段 1 逐项）
 
-- `IR-CANONICAL.md` — 规范形 IR：模型权重的结构语义表示，正逆统一
+- `IR-CANONICAL.md` — 规范形 IR：CIC 之上的结构语义层（`Tensor` + `Relation`），负责可表示性；正逆统一
 - `T1-CIC-DESIGN.md` — T1 编码设计与四个障碍的逐层记录
-- `T3-CIC-DESIGN.md` — T3 解码器设计与终止性障碍的逐层记录
+- `T3-CIC-DESIGN.md` — T3 解码器设计记录（第 169–175 轮）；**第 176 轮已改为 IR 路线，旧形状废弃**
 
 **这三份是**实施过程**的记录，不是最终规格；最终规格在代码与 `PROOF-OBLIGATIONS.md`。**
 **⇒ 它们的作用是让下一轮从**已定位的障碍**出发，而不是重复已被否证的假设。**

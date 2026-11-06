@@ -1,4 +1,4 @@
-# LATTICE
+﻿# LATTICE
 
 **Representation Lattice for Symbolic↔Weight Training**（表示谱系格）
 符号 ⇄ 权重的**带证明转换层**：正向编译符号知识到权重，逆向把权重行为提取回符号，并对违反做验证与修复。
@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1007 | `audit_counts.py` |
-> | 定理 / 引理 | 9830 | `audit_counts.py` |
+> | Lean 模块 | 1008 | `audit_counts.py` |
+> | 定理 / 引理 | 9833 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -113,7 +113,7 @@
   程序/传感器流        │                  ▲     │
                       │  L1⇄L2          │     │ L3⇄L2（转换层）★ 难点
                       ▼                  │     ▼
-                  L2 符号模型（CIC term：规则/约束/谓词/DSL）
+                  L2 符号模型（CIC.Term ──parse──► IR：Tensor + Relation）
                        ▲    实现在 Lattice/Core/CIC 上
                        │
                   符号引擎（约束 / 表达式 / 惩罚嵌入 / 修复回路）
@@ -126,7 +126,7 @@
 
 ### 1.0 载体：CIC
 
-**L2 的载体是 CIC term**，不是某个具体领域语言。
+**L2 有两层：CIC（基础语法、可计算、符号化）在下，IR（结构语义、可表示性）在上**。
 几何（`Domains/Geometry`、`Domains/Constraints`）保留为**一个 CIC 编码实例**：
 `Encode/Geometry` 把 12 个几何构造子映射为 term，单向 `sound`。
 L1 token 也以 term 表达，`L1⇄L2` 是 term 内部操作。
@@ -162,7 +162,7 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/        53       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
+│   ├── Core/        54       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
@@ -212,15 +212,15 @@ lattice-new/
 
 ---
 
-## 3. 四个核心决策
+## 3. 五个核心决策
 
-1. **符号模型的宿主是 `Lattice/Core/CIC`**——`Term` 与类型规则在这里，它是符号模型的宿主，不是中间层。
-2. **几何是它的一个编码实例**——`Domains/Geometry`、`Domains/Constraints` 保留，
-   通过 `Encode/Geometry` 单向编码进 term；不再作为主线载体。
-3. **真正的难点 = 转换（符号⇄权重）**——其余都是成熟技术。
-4. **用 Lean 4 形式化证明转换的正确性**——把已验证的编译链延伸到权重。
+1. **CIC 是基础语法层**（`Lattice/Core/CIC`）——`Term` / `Typable` / 归约，负责可计算与符号化；`parse : Term → Option IR` 把它接到结构层。
+2. **IR 是 CIC 之上的结构层**（`Lattice/Core/IR`）——`Tensor` + `Relation`，负责可表示性；`compile : IR → Weights`，`extract : Weights → IR`。
+3. **几何已标 [待移除]**——`Domains/Geometry`、`Domains/Constraints` 保留为参考，待移入 `Reference/Geometry`；不再参与主线。
+4. **真正的难点 = 转换（符号⇄权重）**——其余都是成熟技术。
+5. **用 Lean 4 形式化证明转换的正确性**——把已验证的编译链延伸到权重。
 
-**LATTICE 只提供底层**：`Term` / `Typable` / `compile` / `extract` / `Effect` / `Fiber`
+**LATTICE 只提供底层**：`Term` / `Typable` / `parse` / `compile` / `extract` / `Effect` / `Fiber`
 等原语与证明。surface syntax、编辑器、`VocabEdit` / `SemanticEdit` / `Import` /
 `PostTrain` 等打包能力由用户在其上实现。
 

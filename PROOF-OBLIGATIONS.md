@@ -1,4 +1,4 @@
-# PROOF OBLIGATIONS
+﻿# PROOF OBLIGATIONS
 
 本文件把“证明部分完成”拆成可验收的 Lean 定理。
 **每条义务在 CIC 载体上陈述**；几何版本作为 Domain 实例保留（见 `CARRIER-CIC.md`）。
@@ -11,11 +11,11 @@
 ## 载体约定
 
 | 符号 | 含义 |
-|:--|:--|
-| `Term` | CIC 项（`Lattice/Core/CIC/Syntax.lean`） |
-| `Typable Γ t A` | 在 context `Γ` 下 `t : A` 可类型化 |
-| `compile : Term → Weights` | 编码到抽象权重 |
-| `denote : Weights → Behavior` | 权重的行为语义 |
+| `Term` / `IR` | CIC 语法 `Term`；IR 是 `Term` 的结构层（`parse : Term → Option IR`） |
+| `Typable Γ t A` | 在 context `Γ` 下 `t : A` 可类型化（CIC 层） |
+| `WellFormed S` | IR `S` 的关系集自洽（IR 层） |
+| `compile : IR → Weights` | IR 编码到抽象权重 |
+| `parse : Term → Option IR` | CIC 语法解析成结构 |
 | `steps t` | `t` 的归约步数上界 |
 | `ε` | 单步误差界 |
 
@@ -26,10 +26,10 @@
 ## T0 Construct
 
 ```lean
-construct_sound     : Typable Γ t A → Models (compile t) A
-construct_complete  : Typable Γ t A → ∃ W, compile t = W
-construct_canonical : compile t = W → ∀ W', Models W' A → canonical W ≤ canonical W'
-construct_approx    : compile t = W → ∀ x, |denote W x - denote t x| ≤ steps t * ε
+construct_sound     : WellFormed S ∧ parse t = some S → Models (compile S) (semantics S)
+construct_complete  : WellFormed S → ∃ W, compile S = W
+construct_canonical : compile S = W → ∀ W', Models W' (semantics S) → canonical W ≤ canonical W'
+construct_approx    : compile S = W → ∀ x, |denote W x - denote S x| ≤ size S * ε
 ```
 
 - 构造的对象是 **term**，不是点配置；
@@ -44,7 +44,7 @@ construct_approx    : compile t = W → ∀ x, |denote W x - denote t x| ≤ ste
 ## T1 Compile
 
 ```lean
-compile_sound : Typable Γ t A → Models (compile t) A
+compile_sound : WellFormed S → Models (compile S) (semantics S)
 ```
 
 - 编译后的对象保语义；
@@ -66,7 +66,7 @@ penalty_exact :
 
 ```lean
 penalty_min_to_violation :
-  IsLocalMin (fun y => loss (compile y)) x → violation (compile t) x ≤ steps t * ε
+  IsLocalMin (fun y => loss (compile y)) x → violation (compile S) x ≤ size S * ε
 ```
 
 要求：
@@ -81,11 +81,11 @@ penalty_min_to_violation :
 ## T3 Extract
 
 ```lean
-extract_compile      : extract (compile t) ≡β t        -- 到 NormalForm
+extract_compile      : extract (compile S) = S            -- compile 单射，extract 是其逆
 flatten_injective    : Function.Injective flatten
 semantic_not_injective : ¬ Function.Injective (fun c => denote c)
 no_extractor_preserves_both :
-  ¬ ∃ E, (∀ t, E (compile t) = t) ∧ (∀ c c', denote c = denote c' → E c = E c')
+  ¬ ∃ E, (∀ S, E (compile S) = S) ∧ (∀ c c', denote c = denote c' → E c = E c')
 ```
 
 - 对象层双射；

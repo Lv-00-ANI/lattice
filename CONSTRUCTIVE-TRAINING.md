@@ -1,4 +1,4 @@
-# CONSTRUCTIVE TRAINING
+﻿# CONSTRUCTIVE TRAINING
 
 ## 1. 定义
 
@@ -7,7 +7,7 @@
 **新载体（CIC）下的流程：**
 
 ```text
-Typable Γ t A → Term t → compile t → Weights → ModelArtifact
+Typable Γ t A → parse t = some S → compile S → Weights → ModelArtifact
 ```
 
 **几何实例（Domain）下的流程：**
@@ -25,13 +25,13 @@ ExpressibleSpec → Family → solve → Pt n → Weights → ModelArtifact
 ### 2.1 CIC 版本
 
 ```lean
-def Typable : Context → Term → Type → Prop
+def parse : Term → Option IR
 ```
 
 条件：
 
-- term 在给定 context 下可类型化；
-- `compile : Term → Weights` 有定义；
+- term 在给定 context 下可类型化，且 `parse t = some S`；
+- `compile : IR → Weights` 有定义，且 `WellFormed S`；
 - 欠定有 canonical 规则。
 
 ### 2.2 几何版本（Domain 实例）
@@ -62,16 +62,16 @@ def ExpressibleSpec : Set Spec
 
 ```lean
 theorem construct_sound :
-  Typable Γ t A → Models (compile t) A
+  WellFormed S → Models (compile S) (semantics S)
 
 theorem construct_complete :
-  Typable Γ t A → ∃ W, compile t = W
+  WellFormed S → ∃ W, compile S = W
 
 theorem construct_canonical :
-  compile t = W → ∀ W', Models W' A → canonical W ≤ canonical W'
+  compile S = W → ∀ W', Models W' (semantics S) → canonical W ≤ canonical W'
 
 theorem construct_approx :
-  compile t = W → ∀ x, |denote W x - denote t x| ≤ steps t * ε
+  compile S = W → ∀ x, |denote W x - denote S x| ≤ size S * ε
 ```
 
 注意 `construct_approx` 的 `ε` 来自 **β 归约步数 `steps t`**，
@@ -96,8 +96,8 @@ theorem construct_complete :
 
 `construct` 要求：
 
-- 输入是 term（CIC）或 spec（几何 Domain）；
-- 通过 `compile` 或 `solve` 得到 `Weights`；
+- 输入是 CIC 的 term，经 `parse` 得到 IR `S`；
+- 通过 `compile : IR → Weights` 得到 `Weights`；
 - 有 `construct_sound` 或 `construct_approx`。
 
 ## 5. 与训练

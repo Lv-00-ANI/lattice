@@ -1,6 +1,6 @@
-# LATTICE DESIGN
+﻿# LATTICE DESIGN
 
-> **[待移除] 主线载体（2026-11-06）**：主符号载体是 **CIC term**（`Lattice/Core/CIC/`）。
+> **[待移除] 分层（2026-11-07 修正）**：**CIC 是基础语法层**（`Lattice/Core/CIC/`，负责可计算与符号化）；**IR 是 CIC 之上的结构层**（`Lattice/Core/IR/`，负责可表示性）。
 > **几何（`Domains/Geometry` / `Domains/Constraints`）已标待移除，**仅作参考与反例来源**。
 
 ## 0. 目的
@@ -25,12 +25,12 @@ LATTICE 是**符号 ⇄ 权重的带证明转换层**：
 
 - **正向**：符号知识 → 损失项 / 数据合成 / 结构化初始化；
 - **逆向**：权重 → 符号/行为 → 验证 → 修复 → 再注入；
-- **构造**：符号规格 → CIC term → 权重 → 完整模型；
+- **构造**：符号规格 → CIC term --parse--> IR --compile--> 权重 → 完整模型；
 - **可扩展**：编译器、提取器、验证器、修复器、架构载体都是插件；
 - **时空可组合**：插件可动态加载/卸载/替换，最终状态等于从最终规格重建。
 
-**主符号载体是 CIC term**（`Lattice/Core/CIC/`），不是几何约束。
-几何（`Domains/Geometry`、`Domains/Constraints`）保留为**一个 CIC 编码实例**，
+**CIC 是基础语法层，IR 是 CIC 之上的结构层**：`CIC.Term --parse--> IR --compile--> Weights`。
+几何（`Domains/Geometry`、`Domains/Constraints`）保留为**参考**，待移入 `Reference/Geometry`。
 其定理作为 Domain 级证据，不再是靶定理的陈述对象。决定与理由见
 `CARRIER-REPLACEMENT.md`，设计与映射见 `CARRIER-CIC.md`。
 
@@ -47,7 +47,7 @@ L0 数据 ──► L1 token ──► L3 权重（模型）
    │             │          ▲     │
    │             │ L1⇄L2    │     │ L2⇄L3
    ▼             ▼          │     ▼
-              L2 符号模型（CIC term：规则/约束/谓词/DSL）
+              L2 符号模型（CIC.Term ──parse──► IR：Tensor + Relation）
 ```
 
 三条路径：
@@ -58,26 +58,26 @@ L0 数据 ──► L1 token ──► L3 权重（模型）
 
 LATTICE 负责 L1⇄L2、L2⇄L3 的转换与证明；训练引擎由外部框架承担。
 
-**L2 的载体是 CIC term**，不是某个具体领域语言：
+**L2 有两层：CIC（语法、可计算）在下，IR（结构、可表示性）在上**，不是某个具体领域语言：
 
 - 几何约束被编码为 term（`Encode/Geometry`，单向 `sound`）；
 - 其他领域（程序、规则、DSL）同样以编码方式接入；
-- 因此 L2⇄L3 的定理陈述在 CIC 上，几何只是其中一个实例。
+- 因此 L2⇄L3 的定理陈述在 **IR** 上，几何只是其中一个待归档的实例。
 
 ## 3. 新类型预训练
 
 ### 3.1 Construct（从零构造）
 
 ```text
-Typable Γ t A → Term t → compile t → Weights → ModelArtifact
+Typable Γ t A → parse t = some S → compile S → Weights → ModelArtifact
 ```
 
 - 构造的对象是 **term**，不是点配置；
-- 「可构造」= 「可类型性」+ 「`compile` 有定义」，因此**可判定**；
+- 「可构造」= 「可类型性」+ 「`parse` 成功」+ 「`WellFormed S`」，因此**可判定**；
 - 规格唯一确定权重时 **exact**；
 - 欠定时选 **canonical**（最小范数/对称固定/规范形）；
 - 不可精确时 **approx ε**（`ε` 来自归约步数，见 `PROOF-OBLIGATIONS.md` T2）；
-- 无 `Typable` 见证时 **unsupported**，不能假装构造。
+- 无 `parse` 见证时 **unsupported**，不能假装构造。
 
 几何上的旧构造（`ExpressibleSpec n → Pt n`）保留为 Domain 实例：
 `no_specSolver` 已证明它**不可能**对任意 spec 成立，因此几何构造只以 family 强度存在。
@@ -117,8 +117,8 @@ structure ModelArtifact where
 - 没有 `ByteArray`；
 - 没有文件系统。
 
-`Arch` 与 `Weights` 的来源是 **CIC term 的编码**：
-`compile : Term → Weights`，`archOf : Term → Arch`。
+`Arch` 与 `Weights` 的来源是 **IR 的编译**：
+`compile : IR → Weights`，`archOf : IR → Arch`；IR 由 `parse : Term → Option IR` 从 CIC 得到。
 几何侧的 `pt n → Weights` 保留为一条 Domain 实例路径。
 
 格式解析、I/O、C、conformance 属于 `ENGINEERING.md`，不进入 `ProofComplete`。
@@ -152,19 +152,19 @@ CIC 的**实现**（parser / elaborator / evaluator）属于工程侧，已单�
 - 空间：反应式余效应 + provider 解析；
 - 汇合：动态演化 = 从最终 Spec 重建。
 
-effect 的载体是 **CIC 编码**（elaborator state 的抽象），
+effect 的载体是 **IR state**（结构层的状态变换），
 不是 `K → Option ℕ` 玩具模型；玩具模型保留为最小语义实例。
 
 ## 9. 架构载体
 
 Conv / Attention / Norm / DAG / GNN 是 L3 载体插件，不是主线。
-在新载体下，它们是 **CIC term 上的架构编码**。
+在新分层下，它们是 **IR 关系集上的架构编码**。
 见 `ARCHITECTURE-CARRIERS.md`。
 
 ## 10. 证明义务
 
 T0–T8，见 `PROOF-OBLIGATIONS.md`。
-每条义务在 CIC 载体上陈述；几何版本作为 Domain 实例保留。
+每条义务在 **IR** 上陈述；几何版本待归档到 `Reference/Geometry`。
 
 ## 11. ProofComplete
 

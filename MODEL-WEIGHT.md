@@ -1,4 +1,4 @@
-# MODEL / WEIGHT SEMANTICS
+﻿# MODEL / WEIGHT SEMANTICS
 
 ## 1. 范围
 
@@ -18,10 +18,10 @@ structure ModelArtifact where
 - 没有 `format` 字段；
 - 没有 `bytes` 字段。
 
-**来源是 CIC term 的编码**：
+**来源是 IR 的编译（IR 由 `parse` 从 CIC 得到）**：
 
 ```lean
-def compile : Term → Weights
+def compile : IR → Weights
 def archOf  : Term → Arch
 def artifactOf (t : Term) : ModelArtifact :=
   { arch := archOf t, weights := compile t }

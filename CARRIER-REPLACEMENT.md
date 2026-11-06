@@ -1,4 +1,4 @@
-# 载体替换决定（CARRIER-REPLACEMENT）
+﻿# 载体替换决定（CARRIER-REPLACEMENT）
 
 > **状态：** Accepted（2026-11-05）。
 > **性质：** 架构决定记录（ADR），记录决定、备选与回滚条件。
@@ -170,7 +170,7 @@ CARRIER-REPLACEMENT.md  （本文件）
 
 1. **C0 最小验证失败**：`typable_has_term` 或 `encode_sound` 在 CIC 模型上
    无法在合理工作量内证明；
-2. **CIC 的 `Weights` 对接失败**：`compile : Term → Weights` 无法定义出
+2. **IR 的 `Weights` 对接失败**：`compile : IR → Weights` 无法定义出
    与 `ModelArtifact` 兼容的形状；
 3. **强规范化不可得**导致 T2 完全无法给出 `ε`（弱规范化也不够时）。
 

@@ -1,11 +1,11 @@
-# 语义信息：基础 Primitive 与证明义务（SEMANTICS-MAINLINE）
+﻿# 语义信息：基础 Primitive 与证明义务（SEMANTICS-MAINLINE）
 
 > **状态**：Lean 规格/证明 + C 接口规格，不是完成声明。
 > **范围**：语义域、词表编辑、语义编辑、基础 `Primitive`、证明义务、C 接口/前置。
 > **C 实现最后**：C ABI、序列化、conformance、C runtime 的**接口与前置现在定义**；C 代码最后写。
 > **不提供打包能力**：没有 `VocabEdit`、`SemanticEdit`、`Import`、`PostTrain` 这类入口；只提供基础 `Primitive`，组合由用户完成。
 
-> **载体更新（2026-11-05）**：主符号载体是 **CIC term**（`Lattice/Core/CIC/`）。
+> **分层更新（2026-11-07）**：**CIC 是基础语法层**（`Lattice/Core/CIC/`，可计算、符号化）；**IR 是 CIC 之上的结构层**（`Lattice/Core/IR/`，可表示性）。
 > 几何（`Geometry` / `constraintDomain`）保留为**一个编码实例**：
 > 它的 `Holds` 通过 `encode` 映射到 `Typable`，单向 `sound`。
 > 决定见 `CARRIER-REPLACEMENT.md`，映射见 `CARRIER-CIC.md`。
@@ -40,7 +40,7 @@
 5. **每个 `Primitive` 有 `pre/post/sound/strength/coverage/frame`**。
 6. **Primitive 之间不互相 import**；只依赖 `Kernel`/`Runtime`/`Domains`。
 7. **C 接口/前置现在定义，C 实现最后**；接口规格属于本文，C 代码不属于。
-8. **主载体是 CIC term**（`Lattice/Core/CIC/`）；L1 token 与 L2 语义域都以 term 表达，
+8. **CIC 是基础语法层，IR 是 CIC 之上的结构层**；L1 token 与 L2 语义域以 CIC term 表达，`parse : Term → Option IR` 接到结构层。
    `L1⇄L2` 是 term 内部操作。几何是 `Encode/Geometry` 实例，不是主载体。
 9. **LATTICE 只提供底层**：`Term`/`Typable`/`compile`/`extract`/`Effect`/`Fiber` 等原语与证明。
    surface syntax、编辑器、以及 `VocabEdit`/`SemanticEdit`/`Import`/`PostTrain` 这类**打包能力**

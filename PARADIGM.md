@@ -1,4 +1,4 @@
-# LATTICE 的范式定位（PARADIGM）
+﻿# LATTICE 的范式定位（PARADIGM）
 
 > 本文回答一个问题：**这个项目是什么类型的东西，因此该用什么标准衡量它。**
 >
@@ -15,7 +15,7 @@
 
 它不是训练器（trainer），不是推理引擎，也不是模型。
 
-**主符号载体是 CIC term**（`Lattice/Core/CIC/`）；几何是它的一个编码实例。
+**CIC 是基础语法层**（`Lattice/Core/CIC/`，可计算、符号化）；**IR 是 CIC 之上的结构层**（`Lattice/Core/IR/`，可表示性）。几何待归档。
 **LATTICE 只提供底层原语与证明**：`Term` / `Typable` / `compile` / `extract` /
 `Effect` / `Fiber`。surface syntax、编辑器、`VocabEdit` / `SemanticEdit` / `Import` /
 `PostTrain` 等打包能力由用户在其上实现与封装。
@@ -41,8 +41,8 @@
 
 | 边 | 结构 | 义务字段 | CIC 版 |
 |:--|:--|:--|:--|
-| 符号 → 权重 | `Compiler` | `sound` | `compile : Term → Weights` + `compile_sound` |
-| 权重 → 符号 | `Representation` | `roundtrip` | `extract_compile : extract (compile t) ≡β t` |
+| 符号 → 权重 | `Compiler` / `compile` | `sound` | `parse : Term → Option IR` + `compile : IR → Weights` + `compile_sound` |
+| 权重 → 符号 | `Representation` / `extract` | `roundtrip` | `extract_compile : extract (compile S) = S` |
 | 端到端 | `Ladder` | `l2l3_sound` | 由 `compile_sound` 导出，不再是字段 |
 | 修复回路 | `Repair` | `absorbs` / `decreases` / `atomic` | `repair : Term → Term` |
 

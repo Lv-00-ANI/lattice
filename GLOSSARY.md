@@ -1,4 +1,4 @@
-# GLOSSARY
+﻿# GLOSSARY
 
 本文件固定 LATTICE 文档中的状态词、流程词、产物词与插件词。
 同一术语在不同文档中不得改变含义。
@@ -23,12 +23,12 @@
 |:--|:--|
 | **L0** | 数据层 |
 | **L1** | token 层 |
-| **L2** | 符号模型层：**CIC term**（几何/程序/DSL 都是它的编码实例） |
+| **L2** | 符号模型层：两层——**CIC（语法，可计算）** 在下，**IR（结构，可表示性）** 在上 |
 | **L3** | 权重层（模型参数） |
 | **Forward** | 符号 → 损失/数据/初始化 |
 | **Reverse** | 权重 → 符号/行为 |
 | **Repair** | 违反约束 → 修正权重 |
-| **Construct** | 规格 → term → 权重 → 模型，从零构造 |
+| **Construct** | 规格 → term → IR → 权重 → 模型，从零构造 |
 | **Delegate** | 调外部训练器产生候选，再验证 |
 | **Confluence** | 动态演化后的最终模型 = 从最终规格重建 |
 
@@ -36,22 +36,22 @@
 
 | 词 | 含义 |
 |:--|:--|
-| **CIC** | Calculus of Inductive Constructions；LATTICE 的主符号载体 |
-| **Term** | CIC 项；`Lattice/Core/CIC/Syntax.lean` |
-| **Typable** | `Typable Γ t A`：在 context `Γ` 下 `t : A` 可类型化 |
-| **NormalForm** | 归约到的不动点；`extract_compile` 的落点 |
+| **CIC** | Calculus of Inductive Constructions；LATTICE 的**基础语法层**（可计算、符号化） |
+| **IR** | CIC 之上的**结构语义层**（`Tensor` + `Relation`）；负责可表示性；`Lattice/Core/IR/` |
+| **WellFormed** | IR 关系集自洽；`compile` 的前提 |
+| **NormalForm** | 归约到的不动点；`parse` 的落点 |
 | **steps** | 归约步数上界；T2 的 `ε` 来源 |
-| **encode** | 几何（或其他 Domain）→ CIC term；单向 `sound` |
-| **compile** | `Term → Weights`；elaboration 的抽象对应 |
-| **Domain instance** | 用 CIC 编码进来的具体领域；几何是一个实例 |
-| **domain-legacy** | 旧几何载体上的定理；保留为 Domain 级证据，不进 `ProofComplete` |
+| **parse** | `Term → Option IR`；CIC 到 IR 的桥 |
+| **compile** | `IR → Weights`；结构到权重 |
+| **extract** | `Weights → IR`；权重读回结构；IR 层的逆 |
+| **Domain instance** | 用 IR 编码进来的具体领域；几何是待归档的旧实例 |
 
 ## 3. 靶定理
 
 | 词 | 内容 |
 |:--|:--|
-| **T0** | 构造：从 `Typable` 构造 term，再 `compile` 到权重 |
-| **T1** | 编译保语义：结论必须出现输入 term |
+| **T0** | 构造：从 `Typable` + `parse` 得到 IR，再 `compile` 到权重 |
+| **T1** | 编译保语义：结论必须出现输入 IR `S` |
 | **T2** | 约束嵌入：精确载体 exact；一般情形 `steps t * ε` 显式界 |
 | **T3** | 提取：对象层双射 + 语义层不可逆 + 无 extractor 同时保两层 |
 | **T4** | 修复：收敛、不动点、不破坏语义 |
@@ -64,7 +64,7 @@
 
 | 词 | 含义 |
 |:--|:--|
-| **ModelArtifact** | Lean 内的抽象模型：`arch : Arch` + `weights : Weights`；来源是 `Term` 的编码 |
+| **ModelArtifact** | Lean 内的抽象模型：`arch : Arch` + `weights : Weights`；来源是 `IR` 的编译 |
 | **RawModel** | 工程侧的字节/格式对象：`bytes` + `format` |
 | **Weights** | 抽象权重，不是 `ByteArray`、不是文件 |
 | **ResultEquiv** | `weights` / `behavior` / `approx ε`；`bytes` 属于工程测试 |

@@ -182,6 +182,7 @@ Core/OneStepBridge.lean	oneStepRepair_converges
 Core/OneStepBridge.lean	oneStepRepair_one_step
 Core/OneStepBridge.lean	natCountdownAsRepair_converges
 Core/OneStepBridge.lean	bridge_exists
+Core/Simulation.lean	run_preserved
 Core/StackDerivative.lean	netActN_eq_netAct
 Core/StackDerivative.lean	differentiableAt_netAct_ofFn
 Core/StackDerivative.lean	hasFDerivAt_netAct_ofFn
@@ -259,6 +260,8 @@ Core/CIC/Typing.lean	typable_mono
 Core/CIC/Value.lean	valueOf_total
 Core/CIC/Value.lean	typable_has_value
 Core/CIC/Value.lean	is_value_of_unique
+Core/IR/Basic.lean	Relation.part_irrelevant
+Core/IR/Basic.lean	LatticeIR.order_invariant
 Domains/Constraints/Constraint.lean	sqDistEq_rhs_nonneg
 Domains/Constraints/Constraint.lean	holds_eqZero_sub
 Domains/Constraints/Constraint.lean	perpendicular_rightAngle_agree
@@ -1510,7 +1513,13 @@ Lib/Compiler/RealBetaReduction.lean	step_redV
 Lib/Compiler/RealBetaReduction.lean	step_T_U
 Lib/Compiler/RealBetaReduction.lean	step_T_V
 Lib/Compiler/RealBetaReduction.lean	diamond_fails
+Lib/Compiler/RealBigStepSmallStep.lean	star_from_skip
+Lib/Compiler/RealBigStepSmallStep.lean	star_seq_ctx
+Lib/Compiler/RealBigStepSmallStep.lean	star_seq_skip_ctx
+Lib/Compiler/RealBigStepSmallStep.lean	star_seq_then_skip
+Lib/Compiler/RealBigStepSmallStep.lean	bigstep_to_smallstep
 Lib/Compiler/RealBigStepSmallStep.lean	smallstep_to_bigstep_single
+Lib/Compiler/RealBigStepSmallStep.lean	bigstep_implies_final
 Lib/Compiler/RealBigStepSmallStep.lean	bigstep_deterministic
 Lib/Compiler/RealBigStepSmallStep.lean	smallstep_final_unique
 Lib/Compiler/RealBigStepSmallStep.lean	while'_true_stuck
@@ -1560,8 +1569,13 @@ Lib/Compiler/RealFirstOrderLogic.lean	validOnFinite_iff
 Lib/Compiler/RealFirstOrderLogic.lean	holds_iff
 Lib/Compiler/RealFirstOrderLogic.lean	toDB_ne_none_of_free
 Lib/Compiler/RealFirstOrderLogic.lean	ofDB_toDB_witness
+Lib/Compiler/RealGlobalConfluence.lean	joinable_refl
+Lib/Compiler/RealGlobalConfluence.lean	joinable_symm
 Lib/Compiler/RealGlobalConfluence.lean	star_single
 Lib/Compiler/RealGlobalConfluence.lean	star_trans
+Lib/Compiler/RealGlobalConfluence.lean	confluent_of_wf
+Lib/Compiler/RealGlobalConfluence.lean	newman
+Lib/Compiler/RealGlobalConfluence.lean	confluent_normalForm_unique
 Lib/Compiler/RealGlobalConfluence.lean	prec_locallyConfluent
 Lib/Compiler/RealGlobalConfluence.lean	prec_confluent
 Lib/Compiler/RealLambdaCalculus.lean	ren_id
@@ -1660,6 +1674,11 @@ Lib/Compiler/RealSatComplete.lean	sat_complete_decidable
 Lib/Compiler/RealSatComplete.lean	sat_complete_decidable_z
 Lib/Compiler/RealSemanticsPreservation.lean	scaleOffset_step_comm
 Lib/Compiler/RealSemanticsPreservation.lean	sim_scaleOffset
+Lib/Compiler/RealSemanticsPreservation.lean	weakSim_of_sim
+Lib/Compiler/RealSemanticsPreservation.lean	weakSim_star_tau
+Lib/Compiler/RealSemanticsPreservation.lean	weakSim_comp
+Lib/Compiler/RealSemanticsPreservation.lean	sim_preserves_star
+Lib/Compiler/RealSemanticsPreservation.lean	sim_preserves_invariant
 Lib/Compiler/RealSemanticsPreservation.lean	forward_not_backward
 Lib/Compiler/RealTreeDecidable.lean	count_node_eq
 Lib/Compiler/RealTreeRecursion.lean	isChild_node_iff
@@ -2249,6 +2268,8 @@ Lib/LearningTheory/RealCausalDoCalculus.lean	parentVal_solIter_eq
 Lib/LearningTheory/RealCausalDoCalculus.lean	sol_eq_mech
 Lib/LearningTheory/RealCausalDoCalculus.lean	do_truncated
 Lib/LearningTheory/RealCausalDoCalculus.lean	do_outside
+Lib/LearningTheory/RealCausalDoCalculus.lean	backdoorSet_not_mem
+Lib/LearningTheory/RealCausalDoCalculus.lean	backdoor_adjustment_general
 Lib/LearningTheory/RealConversionFixedPoint.lean	rt_eq_self
 Lib/LearningTheory/RealConversionFixedPoint.lean	rt_funext
 Lib/LearningTheory/RealConversionFixedPoint.lean	rt_isClosureOp
