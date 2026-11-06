@@ -121,8 +121,45 @@ def Models (W : CICWeights) (t : Term) : Prop := W = compile t
 
 ---
 
-## 7. 下一轮的第一件事
+## 7. 第 166 轮的补充：§4 的修法**不够**
 
-**按 §4 的修法把每条 `exact absurd hu (...)` 前面加上 `simp only [termCode] at hu`，
-重新尝试 `termCode_injective`。**
-**设计已定，只差证明的形状。**
+**第 166 轮实施了 §4 的修法（每分支先 `simp only [levelCode] at hu`），并**确认它不足以**闭合证明。**
+
+### 真正的障碍（第 166 轮定位）
+
+**`hu` 展开后，`levelCode .zero` 是 `0`，而 `levelCode (.succ l)` 是 `Nat.pair 1 (levelCode l)`。**
+
+**⇒ 目标变成 `¬ 0 = Nat.pair 1 (levelCode l)`。**
+
+**⇒ 两边**形状不同**：左边是字面量 `0`，右边是 `Nat.pair` 的应用。**
+**`cantor_tag_diff` 要求两边都是 `cantor a b` 的形状，所以它**用不上**。**
+
+### 为什么这不是一处小修
+
+**朴素编码里 `levelCode .zero = 0` 是**故意的**——它让 `zero` 成为最小的码。**
+**但那恰恰让 `zero` 与**所有**其他构造子形状不同，于是「tag 分离」这条统一引理在 `zero` 处失效。**
+
+**⇒ 修法有两条，都需要设计改动：**
+
+1. **让 `levelCode .zero` 也写成 `cantor 0 0`**——统一形状，`cantor_tag_diff` 立刻可用。
+   代价：`cantor 0 0` 不再是最小值，但**码值本身不重要，单射才重要**。
+2. **或者**用 `Nat.pair` 而不是自写的 `cantor`，并补一条 `0 ≠ Nat.pair a b` 类的引理。
+
+**⇒ 第 1 条更干净：把每个构造子的码都写成 `cantor tag payload`，**无一例外**。**
+
+### 第 166 轮的具体尝试记录
+
+| 尝试 | 结果 |
+|:--|:--|
+| **`(by decide)` 裸用** | **`application type mismatch`（类型未定）** |
+| **`(by decide : (0:ℕ) ≠ 1)`** | **单分支通过**；跨分支仍失败 |
+| **先 `simp only [levelCode] at hu`** | **把 `hu` 化成 `¬ 0 = Nat.pair 1 _`，形状不匹配** |
+| **自写 `cantor` + `omega`** | **`cantor 0 b ≠ cantor 1 d` 的除法推理失败** |
+
+**⇒ 四路尝试，同一结论：`zero` 的特殊形状是根因。**
+
+### 下一轮的确切动作
+
+**把 `levelCode` 与 `sortKindCode` 改成「每个构造子都是 `cantor tag payload`」的统一形式，
+使得 `cantor_tag_diff` 在每个分支都适用于相同形状。**
+**这是**设计**的一行改动，而不是证明技巧。**
