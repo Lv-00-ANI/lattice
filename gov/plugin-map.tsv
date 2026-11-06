@@ -215,6 +215,11 @@ core	Core/CIC	Core/CIC/ReductionOriented.lean	oriented_heads_holds	no
 core	Core/CIC	Core/CIC/ShiftComm.lean	shift_comm_counterexample	yes
 core	Core/CIC	Core/CIC/ShiftComm.lean	shift_zero_succ_var	no
 core	Core/CIC	Core/CIC/ShiftNonComm.lean	shift_different_cutoffs_dont_commute	yes
+core	Core/CIC	Core/CIC/SubstTable.lean	comp_eq	no
+core	Core/CIC	Core/CIC/SubstTable.lean	comp_gt_eq	no
+core	Core/CIC	Core/CIC/SubstTable.lean	comp_gt_succ	no
+core	Core/CIC	Core/CIC/SubstTable.lean	comp_lt	no
+core	Core/CIC	Core/CIC/SubstTable.lean	comp_table	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_const	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_eq	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_gt	no
