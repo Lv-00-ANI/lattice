@@ -44,6 +44,7 @@ import Lattice.Core.CIC.ShiftNonComm
 import Lattice.Core.CIC.SubstTable
 import Lattice.Core.CIC.SubstComp
 import Lattice.Core.CIC.ParallelSubst
+import Lattice.Core.CIC.SubstBridge
 
 
 /-!
