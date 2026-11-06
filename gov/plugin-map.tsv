@@ -106,6 +106,9 @@ core	Core	Core/ArchAssemble.lean	toLayer_b	no
 core	Core	Core/ArchAssemble.lean	toLayer_unique	no
 core	Core	Core/ArchChain.lean	toChainBetween_head	no
 core	Core	Core/ArchChain.lean	toChainBetween_self	no
+core	Core	Core/ArchChainEval.lean	act_cons	no
+core	Core	Core/ArchChainEval.lean	act_single	no
+core	Core	Core/ArchChainEval.lean	toChainBetween_single	no
 core	Core	Core/ArchParams.lean	layerParamCount_eq	no
 core	Core	Core/ArchParams.lean	layerParamCount_pos	no
 core	Core	Core/ArchParams.lean	weightCount_cons	no
