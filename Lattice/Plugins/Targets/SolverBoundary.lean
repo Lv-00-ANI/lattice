@@ -26,6 +26,18 @@ family is `fun _ => True`, i.e. never for these carriers.**
 
 import Lattice.Plugins.Targets.MultiSolver
 
+/-! **[待移除] 几何载体靶定理。**
+
+**本文件的靶定理建立在几何载体（`Holds` / `GeoConstraint` / 点配置 `Phi`）之上。**
+**CIC 版就绪后移入 `Lattice/Reference/Geometry/Obligations/`，届时不再参与 `lake build`。**
+
+**归档原因见 `Lattice/Domains/Geometry/README.md`：**
+**`Holds` 的见证是点配置、`Typable` 的见证是 term，两者之间没有自然的桥。**
+
+**在此之前：不新增对几何模块的依赖，不让新的 `ProofComplete` 合取项依赖本文件。**
+-/
+
+
 namespace Lattice.Plugins.Targets
 
 open Lattice.Geo

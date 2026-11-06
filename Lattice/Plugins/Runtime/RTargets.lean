@@ -25,6 +25,15 @@ cannot.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Runtime.Spatiotemporal
 
+/-! **[待移除] T5–T8 的玩具模型（`K -> Option Nat`）。**
+
+**这里的 effect 是几何载体意义上的玩具模型，不是 CIC state 变换。**
+**CIC effect 版（`Effect.lean` / `Trace.lean` / `Fiber.lean`）就绪后替换本文件。**
+
+**归档原因见 `Lattice/Domains/Geometry/README.md`。**
+-/
+
+
 namespace Lattice.Plugins.Runtime
 
 open Lattice.Plugins.Runtime.Spatiotemporal

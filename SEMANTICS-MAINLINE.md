@@ -11,6 +11,9 @@
 > 决定见 `CARRIER-REPLACEMENT.md`，映射见 `CARRIER-CIC.md`。
 > 下文的 `SemanticDomain` / `Vocab` / `Geometry` / `Inherits` 结构**不变**，
 > 但 `Geometry` 的角色从「主语义域」降为「Domain 实例之一」。
+>
+> **[待移除] 几何归档通知（2026-11-06）**：`Geometry` 结构已标待移除，将随 `Domains/Geometry` 一起移入 `Lattice/Reference/Geometry`。
+> **下文对 `Geometry` 的描述**仅作参考**，不再是主线的语义域。**
 
 ---
 

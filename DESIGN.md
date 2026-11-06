@@ -1,5 +1,8 @@
 # LATTICE DESIGN
 
+> **[待移除] 主线载体（2026-11-06）**：主符号载体是 **CIC term**（`Lattice/Core/CIC/`）。
+> **几何（`Domains/Geometry` / `Domains/Constraints`）已标待移除，**仅作参考与反例来源**。
+
 ## 0. 目的
 
 本文件定义 LATTICE 的单一设计口径：

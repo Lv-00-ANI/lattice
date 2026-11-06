@@ -11,7 +11,8 @@
 | 项 | 决定 |
 |:--|:--|
 | **主符号载体** | 从 `GeoConstraint n` 改为 **CIC term** |
-| **几何** | 降为 `Domains/Geometry` 与 `Domains/Constraints` 的**编码实例**，不再作为主线载体 |
+| **几何** | **归档待移除**：`Domains/Geometry` 与 `Domains/Constraints` 已标 `[待移除]`，CIC 版 T0–T8 就绪后移入 `Lattice/Reference/Geometry`，不再参与 `lake build` 与 `ProofComplete`。**原因：`Holds` 的见证是点配置、`Typable` 的见证是 term，两者之间没有自然的桥。**
+| **几何** | 原计划作为编码实例保留，现已改为**归档**（见上行）线载体 |
 | **几何定理** | 全部保留（≈ 757 条），不删除、不重写；角色从「靶定理的证据」变为「Domain 级证据 + `encode` 的验证」 |
 | **CIC 化范围** | **只要有收益的都做**：L2 语义域、L1 token、插件 `Obligation`、`PluginProof`、T5–T8、五个架构载体、`Primitives` |
 | **不 CIC 化** | `Weights`、`ModelArtifact`、外部训练器、`CInterface` ABI、`Lib/` 的 ≈ 8,900 条定理 |

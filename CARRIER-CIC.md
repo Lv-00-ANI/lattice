@@ -5,6 +5,13 @@
 > 以及几何如何作为**一个编码实例**保留下来。
 > **不覆盖：** 语言本身的实现（工程侧，已单独立项）、C 代码、格式解析。
 
+
+> **[待移除] 几何归档通知（2026-11-06）**：
+> **`Domains/Geometry` 与 `Domains/Constraints` 已标记待移除，将移入 `Lattice/Reference/Geometry`。**
+> **因此本文§3 的 `Encode/Geometry` 映射是**不承诺**的——它的见证结构不可比：**
+> **`Holds` 的见证是点配置 `Φ : ℕ → Pt n`，`Typable` 的见证是构造项 `t : Term`，两者之间没有自然的桥。**
+> **主线在 `Lattice/Core/CIC/`。**
+
 ---
 
 ## 0. 一句话

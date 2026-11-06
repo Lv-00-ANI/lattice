@@ -4,6 +4,10 @@
 
 Conv / Attention / Norm / DAG / GNN 是 **L3 载体插件**，不是 LATTICE 主线。
 
+> **[待移除] 几何归档（2026-11-06）**：五载体的**当前实现是几何/点云语义**，待接 CIC（CIC 版就绪后）。
+> **几何载体本身（`Domains/Geometry` / `Domains/Constraints`）已标待移除，将移入 `Lattice/Reference/Geometry`。**
+
+
 > **状态（2026-11-05 实测）：**
 > **五个目录都存在并已登记：`Norm`、`GNN`、`Conv`、`Attention`、`DAG`。**
 > **但“存在”不等于“内容兑现”：**
