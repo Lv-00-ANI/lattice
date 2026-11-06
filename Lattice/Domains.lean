@@ -1,6 +1,7 @@
 import Lattice.Domains.Constraints
 import Lattice.Domains.Geometry
 import Lattice.Domains.Geometry.Encode.CIC
+import Lattice.Domains.Geometry.Encode.Tags
 
 /-!
 # `Lattice.Domains` —— 领域实例层（Geo 搬迁的第一站）

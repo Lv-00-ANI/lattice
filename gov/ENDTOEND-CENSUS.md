@@ -15,15 +15,15 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 4468 | 45.7% |
+| 0 | 4468 | 45.6% |
 | 1 | 1798 | 18.4% |
 | 2 | 741 | 7.6% |
-| 3 | 954 | 9.8% |
+| 3 | 955 | 9.8% |
 | 4 | 364 | 3.7% |
-| 5 | 923 | 9.4% |
-| 6 | 517 | 5.3% |
+| 5 | 936 | 9.6% |
+| 6 | 518 | 5.3% |
 | 7 | 11 | 0.1% |
-| **合计** | **9776** | |
+| **合计** | **9791** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -59,6 +59,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
 | 6 | `encode_not_injective` (`Domains/Geometry/Encode/CIC.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `tag_injective_eqZero_leZero` (`Domains/Geometry/Encode/Tags.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `bridgedCount_empty` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, root |
@@ -88,7 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

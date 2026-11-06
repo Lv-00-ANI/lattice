@@ -114,6 +114,7 @@
 | `Lattice.Domains.SynthesisConnection` | 158 | 7 | Synthesis, SynthesisMulti |
 | `Lattice.Domains.SynthesisCoverage` | 150 | 5 | Synthesis, Constraint, Dist |
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
+| `Lattice.Domains.Tags` | 125 | 14 | Encode.CIC |
 | `Lattice.Domains.Unconditional` | 117 | 7 | FormDeriv, Derivative |
 | `Lattice.Domains.Unified` | 91 | 4 | Loop, LoopPerp |
 | `Lattice.Domains.WeightSideLadder` | 298 | 9 | Constraint, GeoLadder |

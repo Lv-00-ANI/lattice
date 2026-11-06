@@ -40,6 +40,7 @@ import Lattice.Core.CIC.SubstitutionShift
 import Lattice.Core.CIC.ShiftComm
 import Lattice.Core.CIC.ReductionOriented
 import Lattice.Core.CIC.Normalization
+import Lattice.Core.CIC.ShiftNonComm
 
 
 /-!

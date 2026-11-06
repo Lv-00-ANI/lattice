@@ -8,14 +8,14 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 42 | no imports from lift/lib |
+| core | 43 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 329 | aggregator at `Lattice/`, re-exports only |
+| root | 330 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -32,6 +32,7 @@
 - `Lattice.Core.CIC.Reduction` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.ReductionOriented` <- `Lattice.Core.CIC.Reduction`
 - `Lattice.Core.CIC.ShiftComm` <- `Lattice.Core.CIC.Syntax`
+- `Lattice.Core.CIC.ShiftNonComm` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.Substitution` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.SubstitutionShift` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Syntax` 
@@ -705,8 +706,8 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`
-- `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`
+- `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
 - `Lattice.Domains.Constraints.Constraint` <- `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.Dist`
@@ -753,6 +754,7 @@
 - `Lattice.Domains.Geometry.Derivative` <- `Lattice.Domains.Constraints.Pipeline`, `Lattice.Lib.Penalty.PolyExact`
 - `Lattice.Domains.Geometry.Derive` <- `Lattice.Domains.Geometry.Engine`
 - `Lattice.Domains.Geometry.Encode.CIC` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Domains.Constraints.Constraint`
+- `Lattice.Domains.Geometry.Encode.Tags` <- `Lattice.Domains.Geometry.Encode.CIC`
 - `Lattice.Domains.Geometry.Engine` <- `Lattice.Domains.Constraints.Constraint`, `Lattice.Core.Logic`
 - `Lattice.Domains.Geometry.EqualLengthRepair` <- `Lattice.Domains.Geometry.RepairCoverage`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Domains.Geometry.Exact` <- `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Loss`, `Lattice.Lib.Penalty.PolyExact`
@@ -1032,6 +1034,7 @@
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.ReductionOriented` | 3 | 1 |
 | `Lattice.Core.CIC.ShiftComm` | 2 | 0 |
+| `Lattice.Core.CIC.ShiftNonComm` | 1 | 0 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
 | `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
@@ -1753,6 +1756,7 @@
 | `Lattice.Domains.Geometry.Derivative` | 3 | 1 |
 | `Lattice.Domains.Geometry.Derive` | 2 | 2 |
 | `Lattice.Domains.Geometry.Encode.CIC` | 8 | 5 |
+| `Lattice.Domains.Geometry.Encode.Tags` | 14 | 0 |
 | `Lattice.Domains.Geometry.Engine` | 14 | 7 |
 | `Lattice.Domains.Geometry.EqualLengthRepair` | 3 | 1 |
 | `Lattice.Domains.Geometry.Exact` | 4 | 0 |
@@ -9591,6 +9595,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `shiftLayer_step_at_solution` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `shiftLayer`, `step`
 - `shift_by_one_fails_to_preserve` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `shift_comm_counterexample` -> `Term`, `at`, `shift`, `shift_var_ge`, `shift_var_lt`
+- `shift_different_cutoffs_dont_commute` -> `Term`, `at`, `shift`, `shift_var_ge`, `shift_var_lt`
 - `shift_shift` -> `d`, `induction`
 - `shift_typing` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `shift`, `subst`, `zero`
 - `shift_var_ge` -> `d`, `induction`
@@ -10391,6 +10396,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tagCoord_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
 - `tagMul_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
 - `tagSub_eq` -> `add`, `at`, `d`, `induction`, `le_refl`, `length`, `length_cons`, `mul`, `nil_append`
+- `tag_injective_eqZero_leZero` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `constraintTag`
+- `tag_of_collinear` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_eqZero` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_equalLength` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_gtZero` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_leZero` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_ltZero` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_midpoint` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_parallel` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_rightAngle` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_samePoint` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_of_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
+- `tag_surjective` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `collinear`, `constraintTag`, `parallel`
 - `tags_distinct` -> `GeoConstraint`, `GeoExpr`, `Geometry`
 - `tailEigSq_eq_zero_of_le` -> `apply`, `at`, `card_fin`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `tailEigSq_nonneg` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`

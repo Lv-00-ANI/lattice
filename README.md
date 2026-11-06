@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 995 | `audit_counts.py` |
-> | 定理 / 引理 | 9773 | `audit_counts.py` |
+> | Lean 模块 | 997 | `audit_counts.py` |
+> | 定理 / 引理 | 9788 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -159,11 +159,11 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/        42       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
+│   ├── Core/        43       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
-│   ├── Domains/     105       # 领域实例：Constraints 30 + Geometry 72（含 Encode/CIC）+ 子划分
+│   ├── Domains/     106       # 领域实例：Constraints 30 + Geometry 72（含 Encode/CIC）+ 子划分
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
 │   ├── Lib/        623       # 应用库，按主题（建立在链路层之上）
