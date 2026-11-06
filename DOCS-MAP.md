@@ -57,3 +57,15 @@
 - **判据（`ProofComplete`）的实际形状以 `Lattice/Plugins.lean` 为准**，文档只做同步；
 - 文档中的定理名必须能在树中检索到（`gov/check_obligation_names.py`）；
 - 载体相关陈述必须标注 CIC 版还是 Domain 版。
+## archive/ —— 历史快照（第 148 轮建立）
+
+**根目录曾同时存在 9 份 ROADMAP-v3.md … ROADMAP-v11.md。**
+**它们是**已废止的路线快照**：既不参与当前判据，也不被任何门禁检查，但会与当前的 ROADMAP.md 争夺读者的注意力。**
+
+**⇒ 已移入 rchive/，当前 ROADMAP.md 是唯一权威。**
+
+| 归档文件 | 内容 |
+|:--|:--|
+| rchive/ROADMAP-v3.md … rchive/ROADMAP-v11.md | **历代路线快照，只读，不参与判据** |
+
+**纪律：** **任何被 ROADMAP.md 取代的版本移入 rchive/，而不是删除；文件名保持原样，以便追溯。**
