@@ -46,6 +46,7 @@ import Lattice.Core.CIC.SubstComp
 import Lattice.Core.CIC.ParallelSubst
 import Lattice.Core.CIC.SubstBridge
 import Lattice.Core.CIC.ParallelSubstCutoff
+import Lattice.Core.CIC.LiftAtCutoff
 
 
 /-!
