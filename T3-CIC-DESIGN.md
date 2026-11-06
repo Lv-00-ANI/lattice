@@ -169,3 +169,68 @@ rcases Nat.lt_or_ge a b with hlt | hge
 
 **⇒ T3 的难度**不在**数学，而在 Lean 里写一个终止的递归解码器。**
 **这一点值得记下来：前四轮（165–168）卡在编码设计，第五轮（169）卡在实现细节。**
+
+---
+
+## 9. 第 171 轮：`unpair_snd_lt` 的**前提本身是错的**
+
+### 用 `#eval` 一次就查清了
+
+```lean
+#eval (List.range 30).map (fun n => ((Nat.unpair n).2, n))
+-- [(0,0), (1,1), (0,2), (1,3), (2,4), ...]
+```
+
+**⇒ `n = 0` 时第二分量是 `0`（`0 < 0` 假），`n = 1` 时是 `1`（`1 < 1` 假）。**
+
+**⇒ `unpair_snd_lt : 0 < n → (unpair n).2 < n` **本身是假的**。**
+
+### 修正后立刻证出
+
+```lean
+theorem unpair_snd_lt {n : ℕ} (h : 2 ≤ n) : (Nat.unpair n).2 < n := by
+  set a := (Nat.unpair n).1
+  set b := (Nat.unpair n).2
+  have hp : Nat.pair a b = n := Nat.pair_unpair n
+  rcases Nat.lt_or_ge a b with hlt | hge
+  · have he : n = b * b + a := by rw [Nat.pair, if_pos hlt] at hp; omega
+    nlinarith
+  · have he : n = a * a + a + b := by rw [Nat.pair, if_neg (by omega)] at hp; omega
+    nlinarith
+```
+
+**⇒ 两次 `nlinarith` 闭合。**
+
+**⇒ 第 169、170 轮的**八次**尝试全部失败，原因不是策略，而是**陈述错了**。**
+**而 `#eval` 花了一次调用就查出来了。**
+
+### 这印证了一条已有的纪律
+
+**第 148 轮定的规矩是「写下陈述之前先在具体值上求值」。**
+**第 171 轮把它用在了 `Nat.unpair` 的具体取值上，一次 `#eval` 就否证了**八轮**的工作假设。**
+
+**⇒ 这条规矩的适用范围比之前以为的更宽：不只对**项**成立，对**辅助引理的假设**也成立。**
+
+### 剩下的唯一障碍：`decreasing_by` 的上下文
+
+**`unpair_snd_lt` 需要 `2 ≤ n`，而 `decreasing_by` 里拿不到这个前提：**
+
+- **`match` 写法：`simp_wf` 之后目标仍缺 `2 ≤ n`，`omega` 报 `could not prove the goal`；**
+- **`if` 写法：`deferred`，报 `failed to synthesize`（`Decidable` 实例）。**
+
+**⇒ 下一轮的写法：在 `decreasing_by` 块里**显式构造** `2 ≤ n`，**
+**用 `Nat.pair_unpair` 与 `match` 给出的等式（如 `n = Nat.pair 1 m`）作 `have`，再喂给 `unpair_snd_lt`。**
+
+**具体地：**
+
+```lean
+decreasing_by
+  · -- goal: (Nat.unpair m).2 < levelCode-code n, with n = Nat.pair 1 m
+    have hn : n = Nat.pair 1 m := (Nat.pair_unpair n).symm.trans (by rw [hpat])
+    have : 2 ≤ n := by omega
+    exact unpair_snd_lt this
+```
+
+**其中 `hpat` 是 `match` 生成的 `(Nat.unpair n).1 = 1` 一类的等式。**
+
+**⇒ 障碍已精确到「如何在 `decreasing_by` 里取出 `match` 生成的等式」。**
