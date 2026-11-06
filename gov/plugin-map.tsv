@@ -273,6 +273,11 @@ core	Core/CIC	Core/CIC/Value.lean	valueOf_total	no
 core	Core/IR	Core/IR/Basic.lean	data_size	no
 core	Core/IR	Core/IR/Basic.lean	order_invariant	no
 core	Core/IR	Core/IR/Basic.lean	part_irrelevant	no
+core	Core/IR	Core/IR/Relations.lean	basicHolds_unhandled	no
+core	Core/IR	Core/IR/Relations.lean	equalHolds_refl	no
+core	Core/IR	Core/IR/Relations.lean	equalHolds_symm	no
+core	Core/IR	Core/IR/Relations.lean	equalHolds_trans	no
+core	Core/IR	Core/IR/Relations.lean	equal_zero_consistent	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	const_is_executable	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_add	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	evalC_const	no

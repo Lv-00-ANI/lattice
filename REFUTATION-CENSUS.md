@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**330 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**331 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 12 | 3.6% |
+| `Core` | 13 | 3.9% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -42,6 +42,10 @@
 **第 162 轮新增一条**：`lift_shift_no_commute` —— **`inst_lift_shift` 的总体形式为假**
 **（`b = var 0` 时左边 `var 0`、右边 `var 1`），故第 154 轮的「无绑定片段」限制**不是临时局限而是边界**。
 故 `Core` 由 11 升为 12、总数由 329 升为 330。
+
+**第 178 轮新增一条**：`basicHolds_unhandled` —— **IR 不含未定义语义的关系种类**
+**（`lowRank` / `symmetry` / `depends` 等未定义 `Holds` 的 kind 造不出 `Relation`）**，
+故 `Core` 由 12 升为 13、总数由 330 升为 331。
 
 **第 160 轮新增一条**：`cutoff_commutation_false` —— **任意截断值下的 inst/shift 交换律为假**
 **（`j=1, σ=常值 var 5, t=var 0` 时左边 `var 0`、右边 `var 6`），**根因是 `lift σ 0 = var 0` 而 `shift j 1` 在 `j>0` 时不动下标 0**。
