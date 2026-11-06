@@ -209,6 +209,8 @@ Core/CIC/ReductionOriented.lean	oriented_heads_holds
 Core/CIC/ShiftComm.lean	shift_zero_succ_var
 Core/CIC/ShiftComm.lean	shift_comm_counterexample
 Core/CIC/ShiftNonComm.lean	shift_different_cutoffs_dont_commute
+Core/CIC/SubstComp.lean	comp_row_eq_agrees
+Core/CIC/SubstComp.lean	comp_candidate_false
 Core/CIC/SubstTable.lean	comp_lt
 Core/CIC/SubstTable.lean	comp_eq
 Core/CIC/SubstTable.lean	comp_gt_succ

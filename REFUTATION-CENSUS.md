@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**327 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**328 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 9 | 2.8% |
+| `Core` | 10 | 3.1% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 152 轮新增一条**：`comp_candidate_false` —— **教科书式替换复合律在本演算下为假**
+**（`j=0, s=var 1, t=var 0, u=var 1` 时左边 `var 1`、右边 `var 0`），**根因是两侧的递减次数不同**。
+故 `Core` 由 9 升为 10、总数由 327 升为 328。
 
 **第 150 轮新增一条**：`shift_different_cutoffs_dont_commute` —— **第三次尝试的 shift 交换律也为假**（`c=2,d=1,c'=1,d'=1,n=1` 时左边 `var 3`、右边 `var 2`），
 **三次都卡在同一个边界：恰好落在两个截断值之间的索引。**
