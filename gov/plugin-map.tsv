@@ -216,6 +216,7 @@ core	Core/CIC	Core/CIC/ParallelSubst.lean	inst_var	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	shift_commutation_general	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	shift_one_one_zero_one	no
 core	Core/CIC	Core/CIC/ParallelSubst.lean	shift_one_one_zero_one_flat	no
+core	Core/CIC	Core/CIC/ParallelSubstCutoff.lean	cutoff_commutation_false	yes
 core	Core/CIC	Core/CIC/Reduction.lean	beta_reduces	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_of_step	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_trans	no
