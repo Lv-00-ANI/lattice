@@ -234,3 +234,60 @@ decreasing_by
 **其中 `hpat` 是 `match` 生成的 `(Nat.unpair n).1 = 1` 一类的等式。**
 
 **⇒ 障碍已精确到「如何在 `decreasing_by` 里取出 `match` 生成的等式」。**
+
+---
+
+## 10. 第 172 轮：机制**已验证可行**，多分支命名是最后一处
+
+### 单独验证通过的最小例子
+
+```lean
+def tiny (n : ℕ) : ℕ :=
+  if h : (Nat.unpair n).1 = 1 then 1 + tiny (Nat.unpair n).2
+  else 0
+termination_by n
+decreasing_by
+  simp_wf
+  have hp : Nat.pair (Nat.unpair n).1 (Nat.unpair n).2 = n := Nat.pair_unpair n
+  have h2 : n = Nat.pair 1 (Nat.unpair n).2 := by rw [← h, hp]
+  have hge : 2 ≤ n := by rw [h2, Nat.pair]; split_ifs <;> nlinarith
+  exact unpair_snd_lt hge
+```
+
+**⇒ **通过**。**
+
+**这证明了两件事：**
+
+1. **`decreasing_by` 里**可以**显式构造 `2 ≤ n`；**
+2. **`Nat.pair 1 m ≥ 2` 对任意 `m` 成立（`split_ifs <;> nlinarith` 闭合）。**
+
+### `match` 写法下的等式名
+
+**单分支时目标直接是 `m < n`，`m` 是模式变量，`match` 的等式在上下文里但**不需要 `rename`**：**
+
+```lean
+def dl (n : ℕ) : Option ℕ :=
+  match Nat.unpair n with
+  | (0, _) => some 0
+  | (1, m) => (dl m).map (· + 1)
+  | _ => none
+termination_by n
+decreasing_by
+  simp_wf
+  -- 目标: m < n
+```
+
+**⇒ `simp_wf` 之后目标是 `m < n`，此时 `m` 已经绑定了 `(Nat.unpair n).2`。**
+
+### 最后剩下的问题
+
+**多分支时，`decreasing_by` 的每个分支有**不同的**模式等式，而匿名假设 `‹(Nat.unpair n).1 = 1›` 只在**对应当前分支**时才可解。**
+
+**第 172 轮用 `first | ... | ...` 尝试，第 1 个分支成功、第 2 个分支报 `assumption failed`——**
+**因为 `first` 在第一个分支上已经吃掉了目标，后续分支的目标形状不同。**
+
+**⇒ 下一轮的正确写法：**不要用 `first`**，而是对每个分支**显式列一条 `·`**，**
+**每条里写出该分支自己的等式（`1`、`2`、`3`、`4` 各一条）。**
+
+**⇒ 障碍已缩到「把 `decreasing_by` 的 `all_goals` + `first` 改成逐分支 `·`」。**
+**这是纯机械的改写，不含任何新的数学或 elaboration 问题。**
