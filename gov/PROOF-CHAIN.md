@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 62 | no imports from lift/lib |
+| core | 63 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -59,6 +59,7 @@
 - `Lattice.Core.IR.Parse` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.IR.Relations` <- `Lattice.Core.IR.Basic`
 - `Lattice.Core.IR.Skeleton` <- `Lattice.Core.IR.Compile`
+- `Lattice.Core.IR.T4Repair` <- `Lattice.Core.IR.Obligations`, `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Core.IR.Unique` <- `Lattice.Core.IR.Chain`
 - `Lattice.Core.Idempotent` 
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
@@ -725,7 +726,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1080,6 +1081,7 @@
 | `Lattice.Core.IR.Parse` | 8 | 8 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Skeleton` | 7 | 11 |
+| `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
@@ -2648,6 +2650,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `async_random_delay_converges` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
 - `async_random_delay_step` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
 - `atomicOfZeroIffProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `atomic_is_the_base_case` -> `Repair`, `Sat`
 - `atomic_of_binary` -> `Repair`, `Sat`
 - `atomic_of_zero_iff` -> `Repair`, `Sat`
 - `atpBackendEntry_default_available` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
@@ -3388,8 +3391,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `colMin_le_pairing` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `col_norm_le_opNorm` -> `apply`, `at`, `card_fin`, `single`
 - `col_norm_sq` -> `apply`, `at`, `card_fin`, `single`
-- `collapseTo_apply` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
-- `collapseTo_pairwise` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
+- `collapseTo_apply` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
+- `collapseTo_pairwise` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
 - `collinearFix_on_line` -> `Pt`, `d`, `sqDist`
 - `collinearPenalty_eq_zero_iff_of_ne` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `collinear`, `collinearPenalty`, `parallel`, `parallelPenalty`, `pluckerNorm_eq_zero_iff`, `seg`
 - `collinearPenalty_nonneg` -> `Pt`
@@ -3753,7 +3756,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conjMeasure_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `fixPerp`, `fixPerp_absorbs`, `fixPerp_holds`, `fixPerp_preserves_samePoint`, `fixSamePoint`, `fixSamePoint_absorbs`, `fixSamePoint_holds`, `perpMeasure_eq_zero_iff`, `samePointMeasure_eq_zero_iff`
 - `conjRepair_reaches_ir` -> `GeoConstraint`, `IRConstraintLite`, `IRHolds`, `Pt`, `compileIR_sound`, `conjRepair`, `progress`, `seg`
 - `conjRepair_sat_iff_ir` -> `GeoConstraint`, `Holds`, `IRConstraintLite`, `IRHolds`, `Pt`, `Sat`, `compileIR_sound`, `conjRepair`, `progress`, `seg`
-- `conj_loop_fixed_point` -> `GeoConstraint`, `Holds`, `Pt`, `Sat`, `compile`, `conjRepair`, `extract`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
+- `conj_loop_fixed_point` -> `GeoConstraint`, `Holds`, `IRSkeleton`, `Pt`, `Repair`, `Sat`, `compile`, `compileSkel`, `conjRepair`, `extract`, `extractSkel`, `extract_compile_skel`, `iterate`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`, `skeletonCode`
 - `conj_loop_is_fixed_point_shape` -> `Pt`, `conjRepair`, `conj_loop_fixed_point`
 - `conj_loop_is_stable` -> `GeoConstraint`, `Holds`, `Pt`, `conjRepair`, `loop_fixed_point_stable`, `seqRepresentation`
 - `conj_loop_reaches` -> `GeoConstraint`, `Holds`, `Pt`, `Sat`, `conjRepair`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
@@ -5742,11 +5745,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `geom_sum_mul` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `geom_sum_range_succ` -> `E`, `W`, `apply`, `at`, `geom_sum_eq`, `induction`, `trans`, `zero`
 - `geometric_error_decay` -> `E`, `W`, `at`, `geom_sum_eq`, `induction`, `trans`, `zero`
-- `geometric_loop_all_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
-- `geometric_loop_fixed_point` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
-- `geometric_loop_is_stable` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
-- `geometric_loop_reaches_all_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
-- `geometric_loop_reaches_satisfied` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
+- `geometric_loop_all_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `seqRepresentation`
+- `geometric_loop_fixed_point` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
+- `geometric_loop_is_stable` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
+- `geometric_loop_reaches_all_samePoint` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `seqRepresentation`
+- `geometric_loop_reaches_satisfied` -> `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `compile`, `conjRepair`, `conj_loop_fixed_point`, `extract`, `flattenRepresentation`, `loop_fixed_point`, `loop_fixed_point_stable`, `progress`, `roundtrip`, `samePointRepairFin`, `seqRepresentation`
 - `geometric_tail_scope` -> `at`, `induction`, `le`, `zero`
 - `geometryConsts_encode` -> `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Level`, `Pt`, `SortKind`, `Term`, `Typable`, `zero`
 - `geometry_is_nontrivial` -> `GeoConstraint`, `GeoExpr`, `Pt`
@@ -6873,6 +6876,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_fixed_point_existsUnique` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
 - `loop_fixed_point_stable` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `loop_fixed_point_unique` -> `W`, `at`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
+- `loop_fixed_point_with_roundtrip` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `skeletonCode`
 - `loop_invariant_wp` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `loop_iterate_convergence` -> `W`, `contraction_converges`, `iterate`, `iterate_step_swap`
 - `loop_iterate_tendsto_fixedPoint` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `op_norm_pow_apply_le`, `zero`
@@ -9008,6 +9012,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_of_satisfiable` -> `Repair`, `Sat`, `at`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
+- `repair_progress` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `iterate`, `progress`, `skeletonCode`
 - `repair_run_preserved` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `iterate`, `progress`, `runs_preserved`, `sim_id`
 - `repair_success_is_penalty_zero` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`, `progress`
 - `repair_then_reinject` -> `EqConstraint`, `Pt`, `Sat`, `SymOne`, `converges_within`, `countdown`, `iterate`, `loss`, `reinject_loss_eq_zero`, `samePointRepair`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`

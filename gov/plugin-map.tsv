@@ -314,6 +314,10 @@ core	Core/IR	Core/IR/Skeleton.lean	roundtrip_determines_skeleton	no
 core	Core/IR	Core/IR/Skeleton.lean	shapesCode_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	skeletonCode_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	tensorShapeCode_injective	no
+core	Core/IR	Core/IR/T4Repair.lean	atomic_is_the_base_case	no
+core	Core/IR	Core/IR/T4Repair.lean	conj_loop_fixed_point	no
+core	Core/IR	Core/IR/T4Repair.lean	loop_fixed_point_with_roundtrip	no
+core	Core/IR	Core/IR/T4Repair.lean	repair_progress	no
 core	Core/IR	Core/IR/Unique.lean	ir_unique_from_parse	no
 core	Core/IR	Core/IR/Unique.lean	skeleton_unique_from_weights	no
 domains	Domains/Constraints	Domains/Constraints/ComputableExpr.lean	const_is_executable	no

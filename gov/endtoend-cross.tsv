@@ -289,6 +289,10 @@ Core/IR/Skeleton.lean	skeletonCode_injective
 Core/IR/Skeleton.lean	compileIR_injective
 Core/IR/Skeleton.lean	extract_compileIR
 Core/IR/Skeleton.lean	roundtrip_determines_skeleton
+Core/IR/T4Repair.lean	repair_progress
+Core/IR/T4Repair.lean	conj_loop_fixed_point
+Core/IR/T4Repair.lean	loop_fixed_point_with_roundtrip
+Core/IR/T4Repair.lean	atomic_is_the_base_case
 Core/IR/Unique.lean	skeleton_unique_from_weights
 Core/IR/Unique.lean	ir_unique_from_parse
 Domains/Constraints/Constraint.lean	sqDistEq_rhs_nonneg
