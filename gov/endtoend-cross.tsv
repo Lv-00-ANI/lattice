@@ -265,6 +265,13 @@ Core/IR/Basic.lean	LatticeIR.order_invariant
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective
+Core/IR/Skeleton.lean	shapesCode_injective
+Core/IR/Skeleton.lean	tensorShapeCode_injective
+Core/IR/Skeleton.lean	relationShapeCode_injective
+Core/IR/Skeleton.lean	skeletonCode_injective
+Core/IR/Skeleton.lean	compileIR_injective
+Core/IR/Skeleton.lean	extract_compileIR
+Core/IR/Skeleton.lean	roundtrip_determines_skeleton
 Domains/Constraints/Constraint.lean	sqDistEq_rhs_nonneg
 Domains/Constraints/Constraint.lean	holds_eqZero_sub
 Domains/Constraints/Constraint.lean	perpendicular_rightAngle_agree
