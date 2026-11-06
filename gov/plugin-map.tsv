@@ -201,10 +201,17 @@ core	Core	Core/Weight.lean	layer_bias_ext	no
 core	Core	Core/Weight.lean	layer_weight_ext	no
 core	Core	Core/Weight.lean	reversibility_depends_on_representation	yes
 core	Core	Core/WeightNet.lean	net_behaviourallyEquivalent_iff	no
+core	Core/CIC	Core/CIC/Normalization.lean	reduces_iff_exists_within	no
+core	Core/CIC	Core/CIC/Normalization.lean	reduces_of_within	no
+core	Core/CIC	Core/CIC/Normalization.lean	within_of_reduces	no
+core	Core/CIC	Core/CIC/Normalization.lean	within_zero_iff	no
 core	Core/CIC	Core/CIC/Reduction.lean	beta_reduces	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_of_step	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_trans	no
 core	Core/CIC	Core/CIC/Reduction.lean	zeta_reduces	no
+core	Core/CIC	Core/CIC/ReductionOriented.lean	no_step_sort	no
+core	Core/CIC	Core/CIC/ReductionOriented.lean	no_step_var	no
+core	Core/CIC	Core/CIC/ReductionOriented.lean	oriented_heads_holds	no
 core	Core/CIC	Core/CIC/ShiftComm.lean	shift_comm_counterexample	yes
 core	Core/CIC	Core/CIC/ShiftComm.lean	shift_zero_succ_var	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_const	no

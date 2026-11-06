@@ -195,10 +195,17 @@ Core/Weight.lean	layer_act_injective
 Core/Weight.lean	layer_behaviourally_separates
 Core/Weight.lean	reversibility_depends_on_representation
 Core/WeightNet.lean	net_behaviourallyEquivalent_iff
+Core/CIC/Normalization.lean	reduces_of_within
+Core/CIC/Normalization.lean	within_of_reduces
+Core/CIC/Normalization.lean	within_zero_iff
+Core/CIC/Normalization.lean	reduces_iff_exists_within
 Core/CIC/Reduction.lean	reduces_trans
 Core/CIC/Reduction.lean	reduces_of_step
 Core/CIC/Reduction.lean	beta_reduces
 Core/CIC/Reduction.lean	zeta_reduces
+Core/CIC/ReductionOriented.lean	no_step_var
+Core/CIC/ReductionOriented.lean	no_step_sort
+Core/CIC/ReductionOriented.lean	oriented_heads_holds
 Core/CIC/ShiftComm.lean	shift_zero_succ_var
 Core/CIC/ShiftComm.lean	shift_comm_counterexample
 Core/CIC/Substitution.lean	subst_var_eq

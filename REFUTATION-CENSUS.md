@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**324 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**326 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 6 | 1.9% |
+| `Core` | 8 | 2.5% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -38,6 +38,10 @@
 `Plugins` 的两条是插件框架的两条**边界**结论：
 `refinement_not_mandatory`（C 后端不在强制义务内）与
 `allMandatoryKindsCovered_nil_fails`（空注册表不可能覆盖任何强制义务）。
+
+**第 149 轮新增两条**：`no_step_var` 与 `no_step_sort` —— **`Step` 的每个构造子源形状都是 `app`/`letE`/`const`/`lam`/`pi`，故变量与宇宙**无出边****，
+**这是 `reduction_is_oriented` 的正确替代形式（该 Prop 过强）。**
+故 `Core` 由 6 升为 8、总数由 324 升为 326。
 
 **第 147 轮新增一条**：`shift_comm_counterexample` —— **第 146 轮点名的 shift 交换律本身为**假****（`c=3, d=2, t=var 2` 时左边 `var 5`、右边 `var 3`），
 **故修正后的替换律需要另寻分解，不能靠这条交换律。**
