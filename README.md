@@ -67,6 +67,9 @@
 
 > **设计与证明阅读顺序**：
 > 总设计 → [`DESIGN.md`](DESIGN.md)；
+> 载体决定 → [`CARRIER-REPLACEMENT.md`](CARRIER-REPLACEMENT.md)；
+> 载体设计 → [`CARRIER-CIC.md`](CARRIER-CIC.md)；
+> **结构语义表示规范形 IR → [`IR-CANONICAL.md`](IR-CANONICAL.md)**；
 > 模型/权重语义 → [`MODEL-WEIGHT.md`](MODEL-WEIGHT.md)；
 > 从零构造 → [`CONSTRUCTIVE-TRAINING.md`](CONSTRUCTIVE-TRAINING.md)；
 > 运行时插件 → [`PLUGIN-PROTOCOL.md`](PLUGIN-PROTOCOL.md)；

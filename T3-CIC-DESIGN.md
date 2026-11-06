@@ -408,3 +408,56 @@ decreasing_by
 **这条不需要知道 tag 是多少，因为 `h` 已经把 `(unpair n).1` 固定成一个 ≥ 1 的值。**
 
 **⇒ 这是最后一步，而且它比上一轮的做法更简单，不是更复杂。**
+---
+
+## 13. 第 175 轮：**调用点数**与**两级嵌套**是两个独立问题
+
+### 问题 A：bullet 数量
+
+**`decodeLevel` 的递归调用点数：**
+**tag=0 → 0；tag=1 → 1；tag=2 → 2；tag=3 → 2；tag=4 → 0，**共 5 个**。**
+
+**`decodeCode` 的递归调用点数：**
+**tag=0 → 2；tag=1,2 → 0；tag=3,4,5 → 2；tag=6 → 4，**共 10 个**。**
+
+**⇒ 两个函数的 bullet 数**不同**（5 vs 10），这不是「每分支一个」。**
+
+### 问题 B：两级嵌套的下标
+
+**`decodeLevel` 的 tag=2/3 分支递归到 `(Nat.unpair (Nat.unpair n).2).1`，**
+**这是**两级**取投影，需要 `(unpair (unpair n).2).1 < n`。**
+
+**第 175 轮尝试证明它，发现：**
+
+```lean
+#eval (List.range 20).map (fun n => ((Nat.unpair n).1, (Nat.unpair n).2))
+-- [(0,0), (0,1), (1,0), (1,1), (0,2), (1,2), (2,0), ...]
+```
+
+**⇒ `(unpair n).2` **可以是 0**（`n = 0, 2, 6, 12` 处）。**
+
+**⇒ `(unpair n).2 = 0` 时，`(unpair (unpair n).2).1 = (unpair 0).1 = 0`，而 `0 < n` 成立——这一支没问题；**
+**但 `(unpair n).2 > 0` 时，需要 `(unpair n).2 < n`，而那需要 `2 ≤ n`——即**又回到问题 A 的同一个前提**。**
+
+### 结论：**这个解码器形状选错了**
+
+**用 `Nat.unpair` 的两级嵌套来编码二元构造子（`max`/`imax`/`app`/`lam`/`pi`/`letE`），**
+**使终止性取决于一个**需要递归证明**的界。**
+
+**⇒ 下一轮应当改**编码**，而不是继续攻终止性：**
+
+**把二元构造子的负载编码成 `Nat.pair (termCode f) (termCode a)` 时，**
+**其**分量**由 `pair_unpair` 得到，而 `pair a b >= a` 与 `pair a b >= b`（`Nat.left_le_pair` / `Nat.right_le_pair`）**
+**直接给出 `≤`，配合 `pair > 0` 即得 `<`——**不需要任何 `2 ≤ n` 前提**。**
+
+**⇒ 关键：`Nat.left_le_pair` / `Nat.right_le_pair` 是**弱**界，而要 `<` 需要分量**严格**小于整体。**
+**这只有在 `pair a b > max a b` 时成立，而 `Nat.pair a b = if a<b then b*b+a else a*a+a+b`：**
+**当 `a < b` 时 `pair = b*b + a ≥ b*b > b`（b ≥ 2）；当 `a ≥ b` 时 `pair = a*a + a + b > a`（a ≥ 1）。**
+
+**⇒ **仍然需要 `a ≥ 1` 或 `b ≥ 2` 一类的侧条件。****
+
+**⇒ 真正干净的做法：给解码器一个**燃料**（`fuel : ℕ`），即 `decodeCode (fuel) (n)`，**
+**`fuel` 每层减 1，`fuel = 0` 时返回 `none`。这样**完全不需要**终止性证明，**
+**而 `decodeCode_termCode` 只需 `fuel` 足够大（取 `termCode t + 1` 即可）。**
+
+**⇒ 这是下一轮的方案：改 `fuel` 结构，放弃良基递归。**

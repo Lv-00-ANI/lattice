@@ -89,11 +89,20 @@ structure Relation where
   kind : RelKind
   args : List (TensorId × List Nat)   -- 每个参数带多轴索引
   hold : Holds kind args
+  part : Option PartKind              -- 视图标注，不影响唯一性
+```
+
+```lean
+inductive PartKind where
+| vocab      -- 词表部分
+| arch       -- 架构部分
+| shared     -- 两者共享
 ```
 
 - **不投影到二元边**；
 - 轴是参数的一部分；
-- 一条关系可有 n 个参数。
+- 一条关系可有 n 个参数；
+- `part` 只是标注，不是结构的一部分。
 
 ### 2.3 `IR`
 
@@ -104,9 +113,12 @@ structure IR where
 ```
 
 - 张量集 + 关系集；
+- **词表信息已展开为关系，IR 自包含**；
 - 由权重唯一决定（见 §5）。
 
 ### 2.4 关系种类（初始集）
+
+#### 架构关系
 
 | 种类 | 含义 | 唯一性来源 |
 |:--|:--|:--|
@@ -121,7 +133,19 @@ structure IR where
 | `transposed` | 转置 | 由索引唯一 |
 | `shared` | 共享参数 | 由相等唯一 |
 
-**初始集，可随插件扩展（见 §7）。**
+#### 词表关系
+
+| 种类 | 含义 | 参数形态 | 唯一性来源 |
+|:--|:--|:--|:--|
+| `tokenOf` | 索引 `i` 的 token 是 `s` | `(E, i)`, `s` | 由 id 唯一 |
+| `merges` | `c = a ++ b` | `a`, `b`, `c` | 由规则唯一 |
+| `specialToken` | `i` 是特殊 token `s` | `(E, i)`, `s` | 由 id 唯一 |
+| `contiguous` | 某范围同属一族 | `(E, [lo,hi])` | 可选结构信息 |
+| `sorted` | 某范围按频率排序 | `(E, [lo,hi])` | 可选结构信息 |
+
+**前三条是必须的；后两条是可选的。**
+
+**初始集，可随插件扩展（见 §4.4）。**
 
 ---
 
@@ -441,18 +465,132 @@ def semantics (S : IR) : Semantics
 | 语义 = 结构 + 词表生成 | **结构是本体；词表是命名** |
 | 词表是语义来源 | **词表只是解释的词汇** |
 
-### 8.3 词表
+### 8.3 词表：直接读入 IR
+
+#### 8.3.1 词表是什么
+
+词表 = **大模型自带的 tokenizer 词表文件**（`vocab.json` / `merges.txt` / `tokenizer.model` / `tokenizer.json`）。
+
+**格式由工程侧的解析器处理**；LATTICE 只消费解析后的抽象结构：
 
 ```lean
-structure Vocab where
-  Name    : Type
-  Meaning : Type
-  denote  : Name → Meaning
+structure ParsedVocab where
+  tokens  : List String                          -- 按 id 排序
+  merges  : List (String × String × String)      -- (a, b, c) 表示 c = a ++ b
+  special : List (String × Nat)                  -- 特殊 token
 ```
 
-- 只是把结构片段命名成可读的词；
-- **不增加语义**；
-- 换词表，语义不变，解释变。
+**这是工程侧的输出；LATTICE 不解析文件。**
+
+#### 8.3.2 抽象覆盖大多数厂商
+
+不看格式，只看结构：
+
+| 共性 | 抽象 | 覆盖 |
+|:--|:--|:--|
+| token 到 id 的映射 | `tokenOf(i, s)` | 全部 |
+| id 到 token 的映射 | `tokenOf` 反向 | 全部 |
+| 特殊 token | `specialToken(i, s)` | 全部 |
+| 子词合并 | `merges(a, b, c)` | BPE / WordPiece / Unigram |
+| 词表大小 | `Tensor E` 的行数 | 全部 |
+| 嵌入向量 | `Tensor E` 的数据 | 全部 |
+
+**六项足以覆盖大多数厂商。**
+
+#### 8.3.3 映射进 IR
+
+```lean
+def vocabRelations (v : ParsedVocab) (E : TensorId) : List Relation
+```
+
+- 生成 `tokenOf`、`merges`、`specialToken` 关系；
+- 参数带 `E` 与索引；
+- `part := some .vocab`。
+
+**词表信息在 `relations` 里，IR 自包含。**
+
+#### 8.3.4 词表部分与架构部分的区分
+
+| 部分 | 关系 | `part` |
+|:--|:--|:--|
+| **词表部分** | `tokenOf` / `merges` / `specialToken` | `.vocab` |
+| **架构部分** | `lowRank` / `block` / `depends` / `transposed` | `.arch` |
+| **共享部分** | `tie(E, U)`（既是词表也是架构） | `.shared` |
+
+**`part` 是视图标注，不影响 `ir_unique`。**
+
+#### 8.3.5 实际语义信息怎么看
+
+三步：
+
+| 步 | 内容 | 产出 |
+|--:|:--|:--|
+| 1 | `extract w = IR` | 结构 |
+| 2 | 按 `part` 分组遍历关系 | 词表部分 / 架构部分 / 共享部分 |
+| 3 | 每条关系用词表查名字 | 可读文本 |
+
+**示例：**
+
+IR：
+
+```
+tensors:
+  E (32000 × 4096)   -- 词表嵌入
+  U (4096 × 32000)   -- 输出头
+
+relations:
+  tokenOf(E, 0, "<pad>")        part=vocab
+  tokenOf(E, 1, "<s>")          part=vocab
+  tokenOf(E, 2, "的")            part=vocab
+  merges("的", "话", "的话")     part=vocab
+  specialToken(E, 0, "<pad>")    part=vocab
+  transposed(E, U)              part=arch
+  lowRank(E, r=?)               part=arch
+  tie(E, U)                     part=shared
+```
+
+渲染：
+
+```
+vocab:
+  E: 词表嵌入 32000 × 4096
+    token 0 = "<pad>"  (特殊)
+    token 1 = "<s>"
+    token 2 = "的"
+    ...
+    merges: "的" + "话" → "的话"
+
+arch:
+  E: 低秩
+  U: 是 E 的转置
+
+shared:
+  U 与 E 共享行
+```
+
+**这就是“实际语义信息”——能看见每个 token 对应哪一行、哪些是架构关系。**
+
+#### 8.3.6 词表关系也参与唯一性
+
+| 关系 | 唯一性 |
+|:--|:--|
+| `tokenOf` | ✅ 由 id 唯一 |
+| `merges` | ✅ 由规则唯一 |
+| `specialToken` | ✅ 由 id 唯一 |
+| `contiguous` / `sorted` | ⚠️ 可选，不参与 |
+
+**词表关系不影响唯一性，反而增加确定性。**
+
+#### 8.3.7 词表格式不在本仓库
+
+| 项 | 归属 |
+|:--|:--|
+| `vocab.json` 解析 | **工程侧** |
+| `merges.txt` 解析 | **工程侧** |
+| `tokenizer.model` 解析 | **工程侧** |
+| `ParsedVocab` | LATTICE 消费 |
+| `vocabRelations` | LATTICE 提供 |
+| 词表编辑 | 见 §9 |
 
 ### 8.4 语义的“解释”
 
@@ -465,34 +603,173 @@ structure Vocab where
 
 **解释是“读出来”，不是“写进去”。**
 
+### 8.5 词表编辑 = 结构编辑
+
+> **词表在 IR 里就是关系；所以改词表就是改结构中的一部分关系。**
+
+```text
+tokenOf(E, 2, "的")          -- 词表关系
+merges("的", "话", "的话")     -- 词表关系
+specialToken(E, 0, "<pad>")  -- 词表关系
+lowRank(E, r=8)              -- 架构关系
+tie(E, U)                    -- 架构关系
+```
+
+**它们都是 `Relation`；`part` 只是视图标注。**
+
+因此：
+
+| 想做的 | 实际是 |
+|:--|:--|
+| 改 token 名 | 改一条 `part := .vocab` 的关系 |
+| 加 token | 加一条 `tokenOf` 关系 + 扩 `E` |
+| 改合并规则 | 改一条 `merges` 关系 |
+| 改架构关系 | 改一条 `part := .arch` 的关系 |
+
+**统一为 `Edit`，见 §9。**
+
+### 8.6 `part` 只用于渲染分组
+
+| 用途 | 是否用 `part` |
+|:--|:--|
+| 决定是否传播 | ❌ 不用 |
+| 决定渲染分组 | ✅ 用 |
+| 决定一致性检查 | ❌ 不用 |
+| 决定 `ir_unique` | ❌ 不用 |
+
+**`part` 不影响编辑语义；它只影响“渲染时怎么分组显示”。**
+
+### 8.7 旧的抽象 `Vocab`
+
+> **此前设计的 `Vocab { Name, Meaning, denote }` 是展示层的命名系统，不是模型词表。**
+
+| 对象 | 作用 |
+|:--|:--|
+| `ParsedVocab` | 模型词表（工程侧解析） |
+| `vocabRelations` | 词表 → IR 关系 |
+| `Vocab { Name, Meaning }` | **展示层**：给关系起可读名 |
+
+**两者不同：模型词表是数据；展示词表是命名。**
+
 ---
 
-## 9. 修改
+## 9. 编辑：统一模型
 
-### 9.1 三类修改
+### 9.1 只有一个操作
+
+```lean
+inductive EditTarget where
+| tensor     : TensorId → EditTarget
+| relation   : RelationId → EditTarget
+| value      : TensorId → List Nat → EditTarget
+| subgraph   : List RelationId → EditTarget
+
+inductive Change where
+| setValue    : ℝ → Change
+| rename      : String → Change
+| setParam    : Nat → Change
+| addRelation : Relation → Change
+| delRelation : RelationId → Change
+| replace     : IR → Change
+
+inductive EditMode where
+| relational   -- 关系编辑：传播到所有受影响处
+| hard         -- 硬编辑：直接改，不传播
+
+structure Edit where
+  target : EditTarget
+  change : Change
+  mode   : EditMode
+```
+
+**词表编辑、结构编辑、数值编辑都是 `Edit` 的不同 `target`。**
+
+### 9.2 关系编辑（`mode := relational`）
+
+```lean
+def applyRelational (e : Edit) (S : IR) : IR
+```
+
+- 改一条关系；
+- **沿依赖边传播到所有受影响的关系**；
+- 不区分 `part` 是 `.vocab` 还是 `.arch`。
+
+**传播规则：沿依赖边传。**
+
+| 编辑 | 传播到 |
+|:--|:--|
+| 改 `tokenOf` | 所有引用该 token 的关系 |
+| 改 `lowRank` | 所有依赖该分解的关系 |
+| 改 `tie(E,U)` | `E` 与 `U` 同步 |
+| 改 `merges` | 所有引用合并结果的 token |
+
+### 9.3 硬编辑（`mode := hard`）
+
+```lean
+def applyHard (e : Edit) (S : IR) : IR
+```
+
+- 直接改一个数值；
+- **不更新关系**；
+- 可能破坏 `Consistent`；
+- **这是有意的“关闭传播”**。
+
+**硬编辑的合法性：**
+
+| 项 | 处理 |
+|:--|:--|
+| 硬编辑后 IR 不一致 | 允许，但要标注 |
+| `compile` 遇不一致 | 拒绝或给 ε |
+| 硬编辑后的 `roundtrip` | 可能不成立 |
+
+### 9.4 一致性
+
+```lean
+def Consistent (S : IR) : Prop :=
+  ∀ r ∈ S.relations, r.hold
+```
+
+| 编辑 | `Consistent` |
+|:--|:--|
+| 关系编辑 | 保持 |
+| 硬编辑 | 可能破坏 |
+
+**硬编辑后需要显式修复，或者接受不一致。**
+
+```lean
+def repair (S : IR) : Option IR
+```
+
+### 9.5 交换性
+
+```lean
+structure Commutes (e₁ e₂ : Edit) (S : IR) where
+  commutes : apply e₁ (apply e₂ S) = apply e₂ (apply e₁ S)
+```
+
+- 两个编辑可交换；
+- 也可以写成语义一致：`semantics (apply e₁ (apply e₂ S)) = semantics (apply e₂ (apply e₁ S))`。
+
+### 9.6 与已有三件套的关系
+
+| 旧三件套 | 统一后 |
+|:--|:--|
+| `VocabEdit V V'` | `Edit` on `.vocab` relations |
+| `WeightTransform M M'` | `Edit` on `.arch` relations 或 values |
+| `VocabCompat σ T` | 两个 `Edit` 的 `Commutes` |
+
+**三者只是 `Edit` 的不同实例。**
+
+### 9.7 编辑的语义
 
 | 想要的修改 | 实际要改 | 权重变 | 语义变 |
 |:--|:--|:--|:--|
-| 改模型行为 | **改 IR（结构）** | ✅ | ✅ |
-| 改命名 | **改词表** | ❌ | ❌ |
-| 两者 | 都改，并证 `commutes` | ✅ | ✅ |
+| 改模型行为 | 改架构关系（`relational`） | ✅ | ✅ |
+| 改 token 名 | 改词表关系（`relational`） | ❌ | ❌ |
+| 直接改数值 | 硬编辑（`hard`） | ✅ | ⚠️ 可能不一致 |
+| 加 token | 加关系 + 扩 `E` | ✅ | ✅ |
 
-### 9.2 交换性
-
-```lean
-structure VocabCompat (σ : VocabEdit) (τ : IREdit) where
-  commutes : semantics (τ.apply S) = f (semantics S)
-```
-
-**`commutes` 是“结构和词表同时改时语义一致”的定理。**
-
-### 9.3 与已有三件套的关系
-
-| 已有结构 | 对应 |
-|:--|:--|
-| `VocabEdit V V'` | 词表变换 |
-| `WeightTransform M M'` | 结构变换的编译 |
-| `VocabCompat σ T` | 两者同时改的交换性 |
+**“改命名”也是改关系，只是那条关系恰好属于 `.vocab`。**
 
 ---
 
@@ -502,14 +779,17 @@ structure VocabCompat (σ : VocabEdit) (τ : IREdit) where
 
 ```lean
 structure Rendered where
-  text     : String
-  bindings : List (Name × RelationId)
-  numerals : List (RelationId × ℝ)
-  sound    : semantics (unrender text) = semantics S
+  vocabPart : String                       -- 词表部分文本
+  archPart  : String                       -- 架构部分文本
+  sharedPart: String                       -- 共享部分文本
+  bindings  : List (Name × RelationId)
+  numerals  : List (RelationId × ℝ)
+  sound     : semantics (unrender text) = semantics S
 ```
 
+- 三部分分开：**词表 / 架构 / 共享**；
 - `text` 是给人读的；
-- `bindings` 是词表命名；
+- `bindings` 是展示层命名；
 - `numerals` 是无法命名的数值；
 - `sound` 保证 `render`/`unrender` 不引入新语义。
 
@@ -529,6 +809,16 @@ structure Rendered where
 | 结构可命名 | ⚠️ 启发式 |
 
 **“可读”不能完全形式化；可证的是“关系合法 + 语义正确”。**
+
+### 10.3bis 三部分显示
+
+| 部分 | 内容 | 示例 |
+|:--|:--|:--|
+| **词表部分** | `tokenOf` / `merges` / `specialToken` | `token 2 = "的"`、`"的"+"话" → "的话"` |
+| **架构部分** | `lowRank` / `block` / `depends` / `transposed` | `E: 低秩`、`U: E 的转置` |
+| **共享部分** | `tie(E, U)` | `U 与 E 共享行` |
+
+**分开显示，人一眼能看出“哪些是词表、哪些是架构”。**
 
 ### 10.4 逆向的层次
 
@@ -589,15 +879,16 @@ structure Rendered where
 
 | 步 | 内容 | 验收 |
 |--:|:--|:--|
-| 1 | `Tensor` / `Relation` / `IR` | 类型落地 |
-| 2 | 三种关系：`equal` / `zero` / `depends` | 判据 |
-| 3 | `extract` 一个最简单权重 | 能提取 |
-| 4 | `extract_unique`（三种关系下） | 唯一性 |
-| 5 | `compile` | 能构造 |
-| 6 | `roundtrip` | 往返成立 |
-| 7 | `render` / `unrender` | `sound` 成立 |
+| 1 | `Tensor` / `Relation` / `IR` / `PartKind` | 类型落地 |
+| 2 | 三种架构关系：`equal` / `zero` / `depends` | 判据 |
+| 3 | **三种词表关系：`tokenOf` / `merges` / `specialToken`** | 判据 |
+| 4 | `extract` 一个最简单权重（含 `E` + 词表） | 能提取 |
+| 5 | `extract_unique`（六种关系下） | 唯一性 |
+| 6 | `compile` | 能构造 |
+| 7 | `roundtrip` | 往返成立 |
+| 8 | `render` / `unrender`（三部分） | `sound` 成立 |
 
-**不做**：十类关系全做、MoE、自回归、大规模。
+**不做**：十类关系全做、MoE、自回归、大规模、词表文件解析。
 
 ---
 
@@ -613,6 +904,9 @@ structure Rendered where
 | 6 | `Rendered` 格式 | 需设计 |
 | 7 | 与 CIC 的接口 | 需设计 |
 | 8 | 大规模验证边界 | 需评估 |
+| 9 | **词表抽象是否覆盖所有厂商** | 需厂商调研 |
+| 10 | **`merges` 是否足以表达 WordPiece / Unigram** | 需验证 |
+| 11 | **特殊 token 的 `part` 归属** | 需设计 |
 
 ---
 
@@ -621,4 +915,6 @@ structure Rendered where
 **IR 是权重的结构语义表示规范形：正逆统一，`extract` 唯一，`roundtrip` 统一。**
 **它不是新载体，不是新语言；载体仍是 CIC，IR 是权重的结构描述。**
 **唯一性来自关系集（相等/零/秩/最细块/最大群），不来自原语互斥，也不需要投影。**
-**语义是结构自带的九项；词表是命名；修改语义必须改结构。**
+**语义是结构自带的九项；模型词表（`ParsedVocab`）直接读入为关系；`part` 只用于渲染分组。**
+**编辑统一为一个 `Edit`：`relational` 传播，`hard` 不传播；词表编辑与结构编辑是同一个操作。**
+**词表格式解析是工程侧的事情，LATTICE 只消费 `ParsedVocab`。**
