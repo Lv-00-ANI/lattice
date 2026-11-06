@@ -103,6 +103,57 @@ extract_compile     : ∀ t, extract (compile t) = some t
 
 ---
 
+## 8. 第 170 轮：四条**已确证**的事实，与一条**未证**的界
+
+### 确证的
+
+| # | 事实 | 状态 |
+|--:|:--|:--|
+| **1** | **`Nat.pair` 是**平方配对**：`pair a b = if a < b then b*b + a else a*a + a + b`** | **`#print` 确认** |
+| **2** | **`Nat.pair 0 0 = 0`、`pair 0 1 = 1`、`pair 1 0 = 2`** | **`#eval` 确认** |
+| **3** | **`Nat.unpair_left_le : (unpair n).1 ≤ n`、`Nat.unpair_right_le : (unpair n).2 ≤ n`** | **`#check` 确认** |
+| **4** | **`Nat.unpair_lt : 1 ≤ n → (unpair n).1 < n`** | **`#check` 确认，且 `unpair_fst_lt` 随之得证** |
+
+### 未证的
+
+**`unpair_snd_lt : 0 < n → (unpair n).2 < n`。**
+
+**七次尝试全部失败，最后一次的错误是 `linarith failed to find a contradiction`。**
+
+**失败的原因是**证明策略**而不是事实：**
+
+**`b ≤ n` 已知（事实 3，非严格），要升成 `b < n` 必须排除 `b = n`。**
+**而 `b = n` 时，`n = pair a b` 展开（事实 1）为 `b*b + a` 或 `a*a + a + b`，两者都 `> n`——**
+**但把这条链写成 `nlinarith` 能吃的形式，需要同时提供 `1 ≤ n`、`a < n`、`b = n` 与展开式，**
+**而 `split_ifs at hp` 会破坏 `hp` 的形状，导致前提丢一个。**
+
+**⇒ 下一轮的正确写法：**不**用 `split_ifs at hp`；而是**
+
+```lean
+rcases Nat.lt_or_ge a b with hlt | hge
+· -- n = b*b + a
+  have : n = b * b + a := by rw [Nat.pair, if_pos hlt] at hp; omega
+  ...
+· -- n = a*a + a + b
+  have : n = a * a + a + b := by rw [Nat.pair, if_neg (by omega)] at hp; omega
+  ...
+```
+
+**即**先按 `a < b` 分类，再用 `rw` 把 `hp` 换成显式等式**，而不是让 `split_ifs` 在处理 `hp` 时丢失前提。**
+
+### 一条可能更省事的路
+
+**事实 2 说明 `pair 0 0 = 0`。**
+
+**⇒ 在**编码**里避免 `pair 0 _`：把每个 tag 从 `1` 开始，或者给每个码加 `1`。**
+**这样任何**合法码**都 `> 0`，而 `0 < n` 的前提在解码时**总是**成立，`unpair_snd_lt` 的证明就只在 `0 < n` 下需要。**
+
+**这不改变单射性（`termCode_injective` 不受影响），只让终止性证明的前提更干净。**
+
+**⇒ 两条路都记下来，下一轮先试第二条（更省），不行再走第一条。**
+
+---
+
 ## 6. 本轮**未**做
 
 - **`Extract.lean` 未入库：递归解码的终止性未解决；删除而非留半成品。**
