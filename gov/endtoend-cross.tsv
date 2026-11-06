@@ -269,6 +269,11 @@ Core/IR/Chain.lean	compileSkel_parse_congr
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective
+Core/IR/Obligations.lean	compile_sound
+Core/IR/Obligations.lean	extract_compile_skel
+Core/IR/Obligations.lean	extract_compile_iff
+Core/IR/Obligations.lean	construct_sound
+Core/IR/Obligations.lean	construct_sound_wf
 Core/IR/Parse.lean	parseSkeleton_total
 Core/IR/Parse.lean	tensorCount_pos
 Core/IR/Parse.lean	termTensors_ne_nil

@@ -20,10 +20,10 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 2 | 731 | 7.4% |
 | 3 | 980 | 9.9% |
 | 4 | 372 | 3.8% |
-| 5 | 1005 | 10.2% |
-| 6 | 519 | 5.3% |
+| 5 | 1009 | 10.2% |
+| 6 | 520 | 5.3% |
 | 7 | 11 | 0.1% |
-| **合计** | **9874** | |
+| **合计** | **9879** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -58,6 +58,7 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `compile_sound` (`Core/CIC/Compile.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
+| 6 | `compile_sound` (`Core/IR/Obligations.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
 | 6 | `bridge_exists` (`Core/OneStepBridge.lean`) | Compose, Domains, Lib, Runtime, Semantics, root |
 | 6 | `encode_not_injective` (`Domains/Geometry/Encode/CIC.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `tag_injective_eqZero_leZero` (`Domains/Geometry/Encode/Tags.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
@@ -88,7 +89,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `manifest_nonempty` (`Plugins/Architectures/DAG/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
-| 6 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

@@ -289,6 +289,11 @@ core	Core/IR	Core/IR/Depends.lean	holds3_depends	no
 core	Core/IR	Core/IR/Depends.lean	holds3_equal	no
 core	Core/IR	Core/IR/Depends.lean	holds3_unhandled	no
 core	Core/IR	Core/IR/Depends.lean	holds3_zero	no
+core	Core/IR	Core/IR/Obligations.lean	compile_sound	no
+core	Core/IR	Core/IR/Obligations.lean	construct_sound	no
+core	Core/IR	Core/IR/Obligations.lean	construct_sound_wf	no
+core	Core/IR	Core/IR/Obligations.lean	extract_compile_iff	no
+core	Core/IR	Core/IR/Obligations.lean	extract_compile_skel	no
 core	Core/IR	Core/IR/Parse.lean	parseSkeleton_total	no
 core	Core/IR	Core/IR/Parse.lean	parse_eq_parseSkeleton	no
 core	Core/IR	Core/IR/Parse.lean	parse_has_tensor	no

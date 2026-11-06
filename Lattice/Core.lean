@@ -59,6 +59,7 @@ import Lattice.Core.IR.Parse
 import Lattice.Core.IR.Depends
 import Lattice.Core.IR.Chain
 import Lattice.Core.IR.Unique
+import Lattice.Core.IR.Obligations
 
 
 /-!
