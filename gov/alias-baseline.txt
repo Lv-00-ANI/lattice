@@ -890,3 +890,5 @@ forward	Domains/Geometry/Encode/CIC.lean	encode_sound_of_holds
 forward	Core/CIC/Reduction.lean	reduces_of_step
 forward	Core/CIC/Reduction.lean	beta_reduces
 forward	Core/CIC/Reduction.lean	zeta_reduces
+forward	Core/ChainCastAct.lean	act_cast_snd
+forward	Core/ChainCastAct.lean	act_cast_fst

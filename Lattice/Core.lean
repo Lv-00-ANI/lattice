@@ -34,6 +34,8 @@ import Lattice.Core.ArchAssemble
 import Lattice.Core.ArchChain
 import Lattice.Core.ArchChainEval
 import Lattice.Core.CastLemmas
+import Lattice.Core.ChainCastAct
+import Lattice.Core.ChainEvalFinal
 
 
 /-!

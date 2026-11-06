@@ -142,6 +142,11 @@ Core/ArchWeights.lean	slotOfIndex_injective
 Core/ArchWeights.lean	Slot.reachable_of_eq
 Core/ArchWeights.lean	slotOfIndex_reachable
 Core/CastLemmas.lean	cast_cast
+Core/ChainCastAct.lean	act_cast_snd
+Core/ChainCastAct.lean	act_cast_fst
+Core/ChainEvalFinal.lean	stackChain_zero
+Core/ChainEvalFinal.lean	runLayers_zero
+Core/ChainEvalFinal.lean	act_stackChain
 Core/Check.lean	be_refl
 Core/Check.lean	be_symm
 Core/Check.lean	be_trans

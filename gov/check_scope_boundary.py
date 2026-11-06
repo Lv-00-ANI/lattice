@@ -101,6 +101,15 @@ def scan(C):
             if cut < 0 or (0 <= wc < cut):
                 cut = wc
             sig = tail[:cut] if cut >= 0 else tail
+            # Round 145. A RECURSIVE definition's body starts with `|` patterns, not with `:=`, so the
+            # `:=`/`where` cut left the whole body inside the "signature" -- and the body's recursive call
+            # mentions the parameter type again, which made every recursive definition over `Weights` look
+            # like a `Weights -> Weights` trainer.
+            # Truncating at the first `|` at column 2 keeps the signature to what it is: the part before the
+            # equations.
+            cut2 = sig.find("\n  |")
+            if cut2 >= 0:
+                sig = sig[:cut2]
             for T in PARAM_TYPES:
                 # twice in one signature = argument side and return side
                 if len(re.findall(r"\b%s\b" % re.escape(T), sig)) >= 2:

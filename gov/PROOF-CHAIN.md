@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 36 | no imports from lift/lib |
+| core | 38 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -33,6 +33,8 @@
 - `Lattice.Core.CIC.Syntax` 
 - `Lattice.Core.CIC.Typing` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CastLemmas` 
+- `Lattice.Core.ChainCastAct` <- `Lattice.Core.VariableNet`, `Lattice.Core.CastLemmas`
+- `Lattice.Core.ChainEvalFinal` <- `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`
 - `Lattice.Core.Check` <- `Lattice.Core.Semantics`, `Lattice.Core.Syntax`
 - `Lattice.Core.Idempotent` 
 - `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
@@ -699,7 +701,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1027,6 +1029,8 @@
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
 | `Lattice.Core.CIC.Typing` | 3 | 3 |
 | `Lattice.Core.CastLemmas` | 3 | 0 |
+| `Lattice.Core.ChainCastAct` | 2 | 0 |
+| `Lattice.Core.ChainEvalFinal` | 3 | 2 |
 | `Lattice.Core.Check` | 5 | 2 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
@@ -2341,6 +2345,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `actStackSingle_affine` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
 - `act_append` -> `induction`
 - `act_apply` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `at`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `act_cast_fst` -> `Chain`, `act`, `subst`
+- `act_cast_snd` -> `Chain`, `act`, `subst`
 - `act_cons` -> `Arch`, `Chain`, `MLayer`, `Weights`, `act`, `act_idf`, `depth`, `mlayerAct`, `toChainBetween`, `toLayer`, `width`
 - `act_geluTanhR_injOn` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`
 - `act_geluTanhR_strictMonoOn` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `zeroFixingHoldsBounded`
@@ -2348,6 +2354,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `act_idf` -> `induction`
 - `act_leakyReluZ_eq_zero_iff` -> `ZeroFixing`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `zeroFixingHoldsBounded`
 - `act_single` -> `Arch`, `Chain`, `Weights`, `act`, `act_idf`, `depth`, `mlayerAct`, `toChainBetween`, `toLayer`, `width`
+- `act_stackChain` -> `Arch`, `Chain`, `Weights`, `act`, `act_cast_snd`, `act_cons`, `act_idf`, `depth`, `induction`, `mlayerAct`, `toLayer`, `width`, `zero`
 - `act_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `act_zero_all_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `at`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `act_zero_apply` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `at`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
@@ -9217,6 +9224,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rt_isClosureOp` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
 - `rule_entails` -> `GeoConstraint`, `d`, `induction`, `sound`, `subst`, `zero`
 - `runChainStr_eq` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
+- `runLayers_zero` -> `Arch`, `Chain`, `Weights`, `act`, `act_cast_snd`, `act_cons`, `act_idf`, `depth`, `induction`, `mlayerAct`, `toLayer`, `width`, `zero`
 - `runProg_append` -> `add`, `at`, `induction`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `runSeq_all_succeed` -> `RState`, `Step`, `apply`, `run`
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
@@ -9962,6 +9970,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ssm_state_growth_bound` -> `E`, `apply`
 - `stable` -> `Sat`, `at`, `induction`, `iterate`, `progress`, `zero`
 - `stableProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `stackChain_zero` -> `Arch`, `Chain`, `Weights`, `act`, `act_cast_snd`, `act_cons`, `act_idf`, `depth`, `induction`, `mlayerAct`, `toLayer`, `width`, `zero`
 - `stackDepth_eq_one` -> `add`, `induction`, `length`, `lit`, `mul`
 - `stackDepth_left` -> `add`, `at`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `stackDepth_right` -> `add`, `at`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
