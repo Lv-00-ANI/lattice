@@ -37,6 +37,7 @@ import Lattice.Core.CastLemmas
 import Lattice.Core.ChainCastAct
 import Lattice.Core.ChainEvalFinal
 import Lattice.Core.CIC.SubstitutionShift
+import Lattice.Core.CIC.ShiftComm
 
 
 /-!

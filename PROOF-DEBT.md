@@ -63,8 +63,8 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9483 | 1238 | 14.5% |
-| **入度 ≥ 1（承重集）** | **964** | **964** | **100%** |
+| 定理 + 引理 | 9485 | 1238 | 14.5% |
+| **入度 ≥ 1（承重集）** | **966** | **966** | **100%** |
 | **入度 = 0** | **8519** | **432** | **4.4%** |
 
 **两个方向都要读；只读一个是误导。**
@@ -364,7 +364,7 @@
 | `Lib/Optim/RealSeamBridges2.lean:365` | `bmean_eq_mean` | 0 | 与 RealSeamBridges.lean:75 **同名、同陈述、同为 `rfl`** 的第二份 `bmean_eq_mean`；同样被 Lib/Optim.lean:51-52 汇聚导入，构成同名双声明，且 `users` 指向的正是被复写的 RealSeamBridges.lean（两份副本互为「用户」，in_degree 非独立使用）。建议删除本副本并 import RealSeamBridges（或改名）。登记 PROOF-DEBT。 |
 | `Lib/Penalty/PolyExact.lean:79` | `hasFDerivAt_sq` | 0 | `Lattice.hasFDerivAt_sq` 与 `Lattice.Lift.hasFDerivAt_sq`（Lift/PenaltyAnalysis.lean:45）**陈述逐字相同**，证明体只调用后者——本条不引入任何新数学，是缩短命名空间的再导出。另注意：本条 `users` 指向 Lift/PenaltyAnalysis.lean，而该文件正是被转发的**下层原件**，不可能反向依赖本文件，这条引用是命名比对产物而非真实使用。建议改为 `export`/别… |
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
-| `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
+| `Lib/Quantization/RealStructuredPruning.lean:324` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
 | `Runtime/EndToEnd.lean:60` | `decode_encode` | 0 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
 
 ## 已处理（修好的条目**保留**在这里，不删）

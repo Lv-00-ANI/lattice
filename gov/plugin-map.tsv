@@ -205,6 +205,8 @@ core	Core/CIC	Core/CIC/Reduction.lean	beta_reduces	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_of_step	no
 core	Core/CIC	Core/CIC/Reduction.lean	reduces_trans	no
 core	Core/CIC	Core/CIC/Reduction.lean	zeta_reduces	no
+core	Core/CIC	Core/CIC/ShiftComm.lean	shift_comm_counterexample	yes
+core	Core/CIC	Core/CIC/ShiftComm.lean	shift_zero_succ_var	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_const	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_eq	no
 core	Core/CIC	Core/CIC/Substitution.lean	subst_var_gt	no
