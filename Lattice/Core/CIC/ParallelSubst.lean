@@ -244,4 +244,55 @@ def binderCommutation_needs_identity_at_zero : Prop :=
       = shift 0 1 (inst (lift sigma) b)
 
 
+
+/-! ## What was attempted on the double shift, and where it stopped -/
+
+/-- **`shift 1 1 (shift 0 1 b) = shift 0 2 b`, for the BINDER-FREE shapes.**
+
+**Proved over `FlatTerm`, so every constructor is covered and there is no skipped case.**
+
+**The `var` case splits three ways (`n = 0`, `n = 1`, `n >= 2`), each two `rw`s plus `omega` on the index
+arithmetic; `app` is the hypothesis twice.**
+
+**=> the BINDER cases are NOT included, and round 156 located why:**
+**under `lam` the goal becomes `shift 2 1 (shift 1 1 b) = shift 1 2 b`, which is the SAME identity at `c = 1`.**
+**A general-`c` statement is needed, and it is obstructed by the `n = c` case: there `shift c 1` moves the index to
+`c+1`, and the goal needs `c` to survive the case split -- which `subst` on `n = c` destroys.**
+
+**`shift_succ_one_one` is therefore stated below as the missing general form.** -/
+theorem shift_one_one_zero_one_flat (b : FlatTerm) :
+    shift 1 1 (shift 0 1 b.toTerm) = shift 0 2 b.toTerm := by
+  induction b with
+  | sort k l => rfl
+  | const k => rfl
+  | var n =>
+    rcases Nat.lt_trichotomy n 1 with h | h | h
+    · have hn : n = 0 := by omega
+      subst hn
+      rw [FlatTerm.toTerm, shift_var_ge (by omega : ¬ (0 : ℕ) < 0)]
+      rw [shift_var_ge (by omega : ¬ (1 : ℕ) < 1)]
+      rw [shift_var_ge (by omega : ¬ (0 : ℕ) < 0)]
+    · subst h
+      rw [FlatTerm.toTerm, shift_var_ge (by omega : ¬ (1 : ℕ) < 0)]
+      rw [shift_var_ge (by omega : ¬ (2 : ℕ) < 1)]
+      rw [shift_var_ge (by omega : ¬ (1 : ℕ) < 0)]
+    · rw [FlatTerm.toTerm, shift_var_ge (by omega : ¬ n < 0)]
+      rw [shift_var_ge (by omega : ¬ n + 1 < 1)]
+      rw [shift_var_ge (by omega : ¬ n < 0)]
+  | app f a ihf iha =>
+    simp only [FlatTerm.toTerm, shift, ihf, iha]
+
+/-- **THE MISSING GENERAL FORM, stated and not proved.**
+
+**`shift (c+1) 1 (shift c 1 b) = shift c 2 b` at every cutoff `c`.**
+
+**`shift_one_one_zero_one_flat` proves it for `c = 0` on binder-free terms.**
+**The general statement is what the BINDER cases need, since entering a binder raises both cutoffs by one.**
+
+**The obstruction at `c > 0` is specific and was located by probing: the case `n = c` requires keeping `c` alive
+across the case split, and `subst` on `n = c` erases it -- the same erasure that bit rounds 151 and 156.**
+**A proof must therefore case on `n` WITHOUT substituting, e.g. by rewriting the goal's indices first.** -/
+def shiftCommutationGeneral : Prop :=
+  ∀ (c : ℕ) (b : Term), shift (c + 1) 1 (shift c 1 b) = shift c 2 b
+
 end Lattice.Core.CIC
