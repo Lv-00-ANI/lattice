@@ -281,6 +281,54 @@ theorem walk_mono : ∀ (t : Term) (n : ℕ), n ≤ (walkWithRelations t n).2.2
     show n ≤ (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2
     omega
 
+/-- **THE WALK'S TENSOR COUNT DOES NOT DEPEND ON THE STARTING COUNTER.**
+
+**`(walkWithRelations t n).1.length = (walkWithRelations t m).1.length` for any `n`, `m`.**
+
+**=> the walk emits one tensor per node, so shifting where the numbering STARTS cannot change how many it emits.**
+**This is what lets `walk_count` (proved at a general `n`) be specialised to `n = 0` and compared with
+`termTensors`, whose length is `tensorCount t` by definition.**
+
+**The two `app`/`letE` cases need `generalize` before `omega`, for the same reason `walk_count` did: `omega` treats
+`walkWithRelations ...` as opaque and cannot relate two occurrences of it (round 223).** -/
+theorem walk_length_indep : ∀ (t : Term) (n m : ℕ),
+    (walkWithRelations t n).1.length = (walkWithRelations t m).1.length := by
+  intro t
+  induction t with
+  | sort k l => intro n m; simp [walkWithRelations]
+  | var k => intro n m; simp [walkWithRelations]
+  | const k => intro n m; simp [walkWithRelations]
+  | lam kk b _ ihb =>
+    intro n m
+    have h := ihb (n + 1) (m + 1)
+    simp only [walkWithRelations, List.length_cons]
+    omega
+  | pi kk B _ ihB =>
+    intro n m
+    have h := ihB (n + 1) (m + 1)
+    simp only [walkWithRelations, List.length_cons]
+    omega
+  | app f a ihf iha =>
+    intro n m
+    have h1 := ihf (n + 1) (m + 1)
+    have h2 := iha (walkWithRelations f (n + 1)).2.2 (walkWithRelations f (m + 1)).2.2
+    simp only [walkWithRelations, List.length_append, List.length_cons]
+    generalize (walkWithRelations f (n + 1)).1.length = A1 at h1 ⊢
+    generalize (walkWithRelations f (m + 1)).1.length = B1 at h1 ⊢
+    generalize (walkWithRelations a (walkWithRelations f (n + 1)).2.2).1.length = A2 at h2 ⊢
+    generalize (walkWithRelations a (walkWithRelations f (m + 1)).2.2).1.length = B2 at h2 ⊢
+    omega
+  | letE kk tt b _ ihtt ihb =>
+    intro n m
+    have h1 := ihtt (n + 1) (m + 1)
+    have h2 := ihb (walkWithRelations tt (n + 1)).2.2 (walkWithRelations tt (m + 1)).2.2
+    simp only [walkWithRelations, List.length_append, List.length_cons]
+    generalize (walkWithRelations tt (n + 1)).1.length = A1 at h1 ⊢
+    generalize (walkWithRelations tt (m + 1)).1.length = B1 at h1 ⊢
+    generalize (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).1.length = A2 at h2 ⊢
+    generalize (walkWithRelations b (walkWithRelations tt (m + 1)).2.2).1.length = B2 at h2 ⊢
+    omega
+
 /-- **THE WALK ALLOCATES EXACTLY ONE TENSOR PER VISITED NODE.**
 
 **`(walkWithRelations t n).1.length + n = (walkWithRelations t n).2.2`.**

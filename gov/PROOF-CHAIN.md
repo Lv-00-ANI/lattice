@@ -1103,7 +1103,7 @@
 | `Lattice.Core.IR.Materialize` | 6 | 4 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
-| `Lattice.Core.IR.Parse` | 13 | 8 |
+| `Lattice.Core.IR.Parse` | 14 | 8 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Semantics` | 3 | 2 |
@@ -8238,12 +8238,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_iff` -> `e2`
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
-- `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `length`, `length_cons`, `subst`
-- `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
-- `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`
-- `parse_tensors_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
-- `parse_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `parse_tensors_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parse_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
 - `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `vocab`, `zero`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
@@ -10684,7 +10684,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `td_fixed_point_is_value` -> `at`
 - `td_operator_affine` -> `ChainFwd`, `LinfNorm`, `W`, `at`, `contraction_converges`, `le`, `linfNorm_eq_norm`, `linfNorm_nonneg`
 - `tendsto_Zpow_fact` -> `PolyApproxOn`, `comp`
-- `tensorCount_pos` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `length`, `length_cons`, `subst`
+- `tensorCount_pos` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `tensorFrobSq_cons_decomp` -> `apply`
 - `tensorFrobSq_inner_sq_le` -> `apply`, `induction`, `zero`
 - `tensorFrobSq_le_card_mul` -> `apply`, `induction`, `zero`
@@ -10696,8 +10696,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrob_smul` -> `apply`, `induction`, `zero`
 - `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `termCode_injective` -> `at`, `induction`
-- `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `length`, `length_cons`, `subst`
-- `termTensors_ne_nil` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `termTensors_ne_nil` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `termTensors_nodup` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `testFun_isOneLipschitz` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `le_antisymm`, `transportCost`
 - `test_roc_trajectory_mono` -> `alpha`
@@ -11180,6 +11180,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
 - `walkWithRelations_relations_are_depends` -> `RelKind`, `Term`, `at`, `induction`
 - `walk_count` -> `RelKind`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `walk_length_indep` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_mono` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_range` -> `RelKind`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `subst`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
