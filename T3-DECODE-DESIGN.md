@@ -138,3 +138,55 @@ omega 跨越。**
 at.rec。**
 
 **下一轮应当在路线 B 上投入，而不是继续在路线 A 的非线性算术上打转。**
+
+---
+
+## 7. 第 209 轮：`decodeRelationShape` 的第三层障碍
+
+**本轮尝试把 `decodeRelationShape` 补齐（`relationShapeCode` 有三个分量：`kindCode`、`argsCode`、`partCode`）。**
+
+### 7.1 已完成的部分
+
+| 分量 | 逆 | 状态 |
+|:--|:--|:--|
+| **`kindCode`** | **`kindOfCode` / `kindOfCode_kindCode`** | **第 208 轮已证** |
+| **`listCode`（在 `argsCode` 内）** | **`decodeList` / `decodeList_code`** | **第 207 轮已证** |
+| **`partCode`** | **`partOfCode` / `partOfCode_partCode`** | **本轮写出并通过 `lean` 检查** |
+
+**`partOfCode` 是四个标签的匹配（`none` + 三个 `PartKind`），`partOfCode_partCode` 逐分支 `simp` 即可。**
+
+### 7.2 未完成的部分与确切原因
+
+**`argsCode` 的列表解码器没写出来。**
+
+**`argsCode` 的构造是 `Nat.pair (Nat.pair t (listCode ix) + 1) (argsCode rest)`，比 `tensorShapeCode` 多一层内层
+`pair`。**
+
+**失败点精确记录：** 在归纳步里 `rw [Nat.add_sub_cancel]` 之后，目标中仍含有 `map` 包裹的递归调用
+`decodeArgsAux k u.2`，而：
+
+| 已尝试 | 结果 |
+|:--|:--|
+| **`dsimp only`** | **"made no progress"——`let` 绑定的 `u` 尚未归约** |
+| **`rw [ih k …]`** | **失败——递归调用在 `map` 内部，`rw` 够不到** |
+| **`simp only [...]`** | **同样无法穿透 `let` + `map` 的嵌套** |
+
+**=> 正确的做法是先用 `obtain`/`simp only` 把 `let u := Nat.unpair n` 的 `u` 换成它的分量，再 `rw`。这是与
+`decodeTensorListAux_code` **不同**的证明形状——后者没有 `let` 绑定。**
+
+### 7.3 一个文件级的教训
+
+**本轮还遇到一个纯语法问题：docstring 里写了 `` `obtain`/`simp only` ``，其中的 `/` 与前面的 `-` 在某些位置构成
+`-/`，提前闭合了注释块，导致后续声明报 "unexpected token"。**
+
+**=> 在 docstring 里避免连续出现 `/` 与 `-` 的组合；写成 "A 与 B" 而不是 "A/B"。**
+**这条已在本会话中重复出现，值得写进 `CONVENTIONS` 的注释规范。**
+
+### 7.4 交付状态
+
+**`DecodeSkeleton.lean` 本轮创建后删除——其中的 `decodeArgsAux_code` 未闭合，按项目纪律不留半成品。**
+
+**工作树干净，`BUILD=0`，全部门禁绿。**
+
+**下一轮应当：先把 `let` 归约（`obtain ⟨a, b⟩ := Nat.unpair n` 后 `rw`），再套用 `decodeTensorListAux_code` 的
+归纳骨架。**
