@@ -195,7 +195,8 @@ rcases Nat.lt_or_ge a b with hlt | hge
 
 - **`Extract.lean` 未入库：递归解码的终止性未解决；删除而非留半成品。**
 - **树的状态：`BUILD=0`，工作树干净。**
-- **`subst_shift_law` 仍是唯一登记的未证义务。**
+- **`subst_shift_law` 不是「未证」而是「已被证明为假」**（第 146 轮 `old_subst_shift_law_is_false`；第 196 轮的 `Core/CIC/SubstShiftAnalysis.lean` 给出结构性原因：`shift` 是**插入**、`subst` 是**删除**，两者把索引线推向相反方向，在 `n = j` 处失配）。
+  **⇒ 本条不再作为待办；把它当作可证命题会浪费独立轮次。**
 
 ---
 

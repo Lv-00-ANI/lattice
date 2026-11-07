@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 69 | no imports from lift/lib |
+| core | 70 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -59,6 +59,7 @@
 - `Lattice.Core.IR.Confluence` <- `Lattice.Core.IR.Lifecycle`
 - `Lattice.Core.IR.Depends` <- `Lattice.Core.IR.Relations`
 - `Lattice.Core.IR.Lifecycle` <- `Lattice.Core.IR.ArchGraph`
+- `Lattice.Core.IR.Materialize` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Depends`
 - `Lattice.Core.IR.Modulus` <- `Lattice.Core.IR.Obligations`
 - `Lattice.Core.IR.Obligations` <- `Lattice.Core.IR.Unique`
 - `Lattice.Core.IR.Parse` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.CIC.Syntax`
@@ -732,7 +733,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1087,6 +1088,7 @@
 | `Lattice.Core.IR.Confluence` | 20 | 8 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
+| `Lattice.Core.IR.Materialize` | 5 | 3 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
 | `Lattice.Core.IR.Parse` | 8 | 8 |
@@ -2149,7 +2151,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `E8_null_source_control` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `tokenize`
 - `E8_source_at_L0L1_exists` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `tokenize`
 - `E8_source_count_exactly_one` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `tokenize`
-- `EGraph.find` -> `addConstraint`, `at`, `g`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
+- `EGraph.find` -> `addConstraint`, `at`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `split`, `splitOn`
 - `EditLayer_ORIGINAL_delta_not_pinned_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `EditLayer_ORIGINAL_is_too_weak_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `subst`, `symVec`
 - `EditLayer_consequence` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
@@ -2188,8 +2190,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `GeoConstraint.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `at`, `collinear`, `d`, `parallel`
 - `GeoExpr.beqShape_eq` -> `GeoConstraint`, `GeoExpr`, `add`, `at`, `collinear`, `d`, `induction`, `mul`, `parallel`
 - `GeoExpr.beqShape_refl_coord` -> `GeoExpr`
-- `GeomConstraintTPTP.encode_connection` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`, `splitOn`
-- `GeomConstraintTPTP.encode_incidence` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`, `splitOn`
+- `GeomConstraintTPTP.encode_connection` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`, `splitOn`
+- `GeomConstraintTPTP.encode_incidence` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`, `splitOn`
 - `HasFDerivAt.path_hasDerivAt` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
 - `HasFDerivAt.scalarPath_hasDerivAt` -> `add`, `at`, `comp`, `g`, `mul`
 - `HasQuadraticLowerBound_false` -> `apply`, `at`, `le_refl`
@@ -3003,15 +3005,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `budget_error_zero_budget` -> `at`
 - `bump_ne` -> `flatEquiv`, `seg`, `unflatten`
 - `bump_self` -> `flatEquiv`, `seg`, `unflatten`
-- `bvadd_comm` -> `at`, `children`, `g`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvadd_eq_core` -> `at`, `children`, `g`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvadd_mod` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvadd_valid` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvand_valid` -> `apply`, `at`, `children`, `g`, `length`, `point`, `satisfiable`, `splitOn`
+- `bvadd_comm` -> `at`, `children`, `g`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvadd_eq_core` -> `at`, `children`, `g`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvadd_mod` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvadd_valid` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvand_valid` -> `apply`, `at`, `children`, `g`, `length`, `output`, `point`, `satisfiable`, `splitOn`
 - `bvar_scale` -> `apply`
-- `bvmul_comm` -> `at`, `children`, `g`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvmul_valid` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
-- `bvule_trans` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `point`, `satisfiable`, `splitOn`
+- `bvmul_comm` -> `at`, `children`, `g`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvmul_valid` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `output`, `point`, `satisfiable`, `splitOn`
+- `bvule_trans` -> `apply`, `at`, `children`, `g`, `le_trans`, `length`, `output`, `point`, `satisfiable`, `splitOn`
 - `bytesPerWord_16bit_agree` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bytesPerWord_bf16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `bytesPerWord_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
@@ -3427,10 +3429,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `collision_implies_not_injective` -> `LinearLayer`, `extractVec`
 - `colorable_iff_coloring` -> `Adj`, `at`
 - `combinatorPrimitives_length` -> `length`
-- `combine_disjoint_signatures_trivial` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `point`, `satisfiable`, `split`, `splitOn`
-- `combine_isConvex` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
-- `combine_symbols_subset_left` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
-- `combine_symbols_subset_right` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `point`, `split`, `splitOn`
+- `combine_disjoint_signatures_trivial` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `satisfiable`, `split`, `splitOn`
+- `combine_isConvex` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `split`, `splitOn`
+- `combine_symbols_subset_left` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `split`, `splitOn`
+- `combine_symbols_subset_right` -> `at`, `children`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `split`, `splitOn`
 - `combinedAnchor_midpoint_0_0_0` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `combinedAnchor_samePoint_0_0` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `indicesOf_nil`, `indicesOf_samePoint`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `combinedAnchor_samePoint_3_7` -> `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `kindSum`, `kindTag`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
@@ -7109,6 +7111,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matCLME_sub` -> `apply`, `frobeniusNorm`, `matCLME`, `matCLME_apply`, `min`, `quantFwd`, `quantized_chain_error_closed`
 - `matQuad_bfgs_psd` -> `mulVec`
 - `matQuad_symm` -> `mulVec`
+- `materialize_empty` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `TensorId`, `length`
+- `materialize_exists` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `TensorId`, `length`
+- `materialize_tensors_length` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `TensorId`, `length`
 - `matrixExpectation_apply` -> `at`, `card_fin`, `subst`
 - `matrixExpectation_eq_zero` -> `apply`, `at`, `card_fin`, `subst`
 - `matrixExpectation_trace` -> `apply`, `at`, `card_fin`, `subst`
@@ -8093,6 +8098,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `out_determined_by_construction` -> `Audit`, `Chain`
 - `outer_lipschitz_amplifies` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
 - `outer_rank_one` -> `apply`, `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `g`, `le_trans`
+- `output` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `length`
 - `outward_rounding_safe` -> `at`, `subst`, `value`
 - `overSmoothing_M_zero_not_tight` -> `E`, `nbhdSet`, `nbhdSum`
 - `overSmoothing_bound` -> `E`, `le_trans`, `nbhdSet`, `nbhdSum`
@@ -8196,7 +8202,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parseSkeleton_total` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `parse_has_tensor` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`
-- `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `split`
+- `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`
 - `parse_tensors_length` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `parse_total` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
@@ -9839,6 +9845,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `toNat`
+- `skeleton_of_fillZeros` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `length`
 - `skeleton_unique_from_weights` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `compileSkel`, `compileSkel_injective`, `parse`, `trans`
 - `skip_no_step` -> `Compiler`, `Relation`, `at`, `induction`, `single`, `subst`, `trans`
 - `slaterCounterF_neg_one` -> `Lagrangian`, `at`, `dualValue`, `le_antisymm`

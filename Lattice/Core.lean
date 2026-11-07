@@ -67,6 +67,7 @@ import Lattice.Core.IR.Lifecycle
 import Lattice.Core.IR.Confluence
 import Lattice.Core.PluginComplete
 import Lattice.Core.CIC.SubstShiftAnalysis
+import Lattice.Core.IR.Materialize
 
 
 /-!

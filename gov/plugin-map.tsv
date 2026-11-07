@@ -329,6 +329,11 @@ core	Core/IR	Core/IR/Lifecycle.lean	undo_active	no
 core	Core/IR	Core/IR/Lifecycle.lean	undo_effect	no
 core	Core/IR	Core/IR/Lifecycle.lean	unload_inactive	no
 core	Core/IR	Core/IR/Lifecycle.lean	unload_removes_only_own	no
+core	Core/IR	Core/IR/Materialize.lean	materialize_empty	no
+core	Core/IR	Core/IR/Materialize.lean	materialize_exists	no
+core	Core/IR	Core/IR/Materialize.lean	materialize_tensors_length	no
+core	Core/IR	Core/IR/Materialize.lean	output	no
+core	Core/IR	Core/IR/Materialize.lean	skeleton_of_fillZeros	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_mono_in_eps	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_slack	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_tends_to_zero	no

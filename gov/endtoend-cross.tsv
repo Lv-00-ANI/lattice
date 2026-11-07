@@ -300,6 +300,10 @@ Core/IR/Confluence.lean	run_ignores_initial_of_edits
 Core/IR/Confluence.lean	lattice_confluence
 Core/IR/Confluence.lean	lattice_confluence_zero
 Core/IR/Lifecycle.lean	recovery_exact
+Core/IR/Materialize.lean	skeleton_of_fillZeros
+Core/IR/Materialize.lean	materialize_tensors_length
+Core/IR/Materialize.lean	materialize_empty
+Core/IR/Materialize.lean	materialize_exists
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps
