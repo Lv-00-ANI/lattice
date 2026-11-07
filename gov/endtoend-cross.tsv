@@ -349,6 +349,7 @@ Core/IR/Parse.lean	walk_mono
 Core/IR/Parse.lean	walk_length_indep
 Core/IR/Parse.lean	walk_count
 Core/IR/Parse.lean	walk_range
+Core/IR/Parse.lean	dependsShape_args
 Core/IR/Parse.lean	walk_own_id_mem
 Core/IR/Parse.lean	walk_increasing
 Core/IR/Parse.lean	walk_nodup

@@ -487,6 +487,29 @@ theorem walk_range : ∀ (t : Term) (n : ℕ),
       · exact ⟨le_trans (le_trans (Nat.le_succ n) hmt) (hb s hs).1, (hb s hs).2⟩
 
 
+/-- **A `dependsShape` RELATION'S ARGUMENTS ARE EXACTLY ITS HEAD AND ITS CHILDREN.**
+
+**For the shape the walk actually emits, `dependsShape n [n + 1]`, every argument's id is `n` or `n + 1`.**
+
+**=> this is the classification `WellFormed`'s second conjunct needs: it reduces "every argument names an existing
+tensor" to "`n` and `n + 1` are both emitted ids", and `walk_own_id_mem` already supplies `n`.**
+
+**The proof's shape is worth recording: `dependsShape`'s args are `(head, []) :: children.map (fun c => (c, []))`, so
+after `simp only [dependsShape, List.mem_cons, List.mem_map, List.not_mem_nil, List.mem_singleton]` the membership
+splits into the head case and a `(c, [])` case, and the child's singleton membership becomes `c = n + 1 ∨ False`
+-- which needs its own `rcases` before `subst` can fire.** -/
+theorem dependsShape_args {n : ℕ} {a : TensorId × List ℕ}
+    (ha : a ∈ (dependsShape n [n + 1]).args) :
+    a.1 = n ∨ a.1 = n + 1 := by
+  simp only [dependsShape, List.mem_cons, List.mem_map, List.not_mem_nil, List.mem_singleton] at ha
+  rcases ha with ⟨rfl, _⟩ | ⟨c, hc, he⟩
+  · left
+    rfl
+  · rcases hc with rfl | hf
+    · right
+      rw [← he]
+    · exact absurd hf (by simp)
+
 /-- **THE WALK'S OWN ID IS AMONG ITS TENSOR IDS.**
 
 **`n ∈ (walkWithRelations t n).1.map (·.id)`.**
