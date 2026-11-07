@@ -348,3 +348,86 @@ b - d ≤ 0     -- 来自 hma : b ≤ d
 ```
 
 **其余两个分支（左子树、右子树）照第 217 轮的写法已经通过。**
+
+---
+
+## 10. 第 219 轮：`walk_nodup` 的真正障碍是**两个归纳假设**
+
+### 10.1 决定性发现
+
+**`walk_nodup` 的所有失败尝试都源于同一件事：`Term.lam`/`Term.pi`/`Term.letE` 分支的 `induction` 给出**两个**归纳假设，而不是一个。**
+
+**`trace_state` 的输出：**
+
+```
+ih      : ∀ (n : ℕ), (List.map (fun x => x.id) (walkWithRelations kk n).1).Nodup
+a_ih✝   : ∀ (n : ℕ), (List.map (fun x => x.id) (walkWithRelations b n).1).Nodup
+n       : ℕ
+⊢ (List.map (fun x => x.id) (walkWithRelations (kk.lam b) n).1).Nodup
+```
+
+**`ih` 属于**被绑定的类型** `kk`，`a_ih✝` 才属于**子项** `b`。**
+
+**=> 第 217–219 轮的 `ih (n+1)` 全部用错了假设，这就是「类型不匹配」的真正来源。**
+
+**`walk_mono` 与 `walk_range` 之所以没撞上这个坑，是因为它们用的是**定义式递归**（`| Term.lam _ b, n => by ...`），那个写法里 `b` 是直接的模式变量，没有对应的归纳假设。**
+
+### 10.2 正确的写法
+
+**用位置占位符跳过第一个假设，给第二个显式命名：**
+
+```lean
+  | Term.lam kk b _ ihb =>
+    intro n
+    have hb : ((walkWithRelations b (n+1)).1.map (·.id)).Nodup := ihb (n+1)
+```
+
+**验证：这一改法让**类型不匹配消失**（第 219 轮实测）。**
+
+### 10.3 剩下的最后一步
+
+**`lam` 分支的目标是 `{id := n, shape := termShape}.id ∉ (walkWithRelations b (n+1)).1.map (·.id)`，展开成：**
+
+```
+∀ s ∈ (walkWithRelations b (n+1)).1, ¬({id := n, shape := termShape}.id = s)
+```
+
+**`walk_range b (n+1) s hs` 给出 `n + 1 ≤ s.id`，与 `n = s.id` 矛盾。**
+
+**问题：`omega` 需要把 `s` 的 `TensorShape.mk` 投影展开成 `n`，而在 `∀ s ∈ ..., ¬(...)` 这种**嵌套量词**里，`simp only [TensorShape.mk]` 与 `omega` 的配合需要显式给出。**
+
+**第 219 轮试过：**
+
+| 写法 | 结果 |
+|:--|:--|
+| **`obtain ⟨s, hs, hid⟩ := List.mem_map.mp hc` 然后 `omega`** | **`omega` 拿不到 `hid`** |
+| **先 `simp only [TensorShape.mk] at h` 再 `omega`** | **同上** |
+| **`simp only at hid`** | **"simp made no progress"** |
+
+**=> 修法应当是把 `hid` 显式喂给 `omega`：**
+
+```lean
+    obtain ⟨s, hs, hid⟩ := List.mem_map.mp hc
+    have h := hr s hs
+    simp only [TensorShape.mk] at h
+    omega
+```
+
+**这里的 `hid : s.id = n`（不是 `s.id` 的投影形式），`h : n + 1 ≤ s.id`，两条合起来在 `omega` 里应当立刻矛盾。**
+**若仍失败，说明 `hid` 的左侧也是投影形式，需要先 `simp only [TensorShape.mk] at hid`，再 `omega`。**
+
+### 10.4 三条不变式的状态
+
+| 不变式 | 状态 |
+|:--|:--|
+| **`walk_mono`** | **已证（第 216 轮），定义式递归** |
+| **`walk_range`** | **已证（第 218 轮），定义式递归** |
+| **`walk_nodup`** | **未证；必须用 `induction`，且必须用第二个归纳假设** |
+
+### 10.5 为什么第 219 轮没做完
+
+**第 219 轮在 `lam` 分支上做了十二次修正。前十一都在用错误的归纳假设 `ih`（10.1 的根因），第十二次改用 `ihb` 后类型不匹配消失，只剩 `omega` 与投影的配合。**
+
+**=> 根因已定位、修法已写明，但本轮时间用完。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
