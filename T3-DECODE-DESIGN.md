@@ -734,3 +734,101 @@ theorem walk_length_indep : ∀ (t : Term) (n m : ℕ),
 **=> 三条路的**精确阻塞点**都已定位，`walk_length_indep` 是本轮新发现的、也是最短的下一步。**
 
 **按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono`、`walk_range`、`walk_count` 保留。**
+
+---
+
+## 15. 第 226 轮：`Nodup` 的正确路线是**严格递增**，不是计数
+
+### 15.1 为什么计数路线走不通
+
+**第 224 轮已经确认：`walk_range`（每个 id 在 `[n, 最终计数)` 内）加上 `walk_count`（数量 = 最终计数 - n）
+**不足以**推出 `Nodup`，因为「`len` 个元素落在长度 `len` 的区间内」本身就要求它们互异——**这是循环的**。**
+
+**第 226 轮又试了 `tensorCount_walk` 那条路（用 `termTensors` 的张量 + `walkWithRelations` 的关系），同样卡在
+`(walkWithRelations b 1).1.length` 与 `(walkWithRelations b 0).1.length` 的对齐上，需要额外 `generalize`。**
+
+### 15.2 正确路线：id 严格递增
+
+**walk 是**前序遍历**：先访问当前节点（拿 id `n`），再访问子节点（从 `n+1` 起）。因此 id 列表**严格递增**，
+而严格递增的列表必然 `Nodup`。**
+
+```lean
+theorem walk_increasing : ∀ (t : Term) : ∀ n : ℕ,
+    ((walkWithRelations t n).1.map (·.id)).Pairwise (· < ·)
+```
+
+**转换成 `Nodup` 的方法（第 226 轮验证通过）：**
+
+```lean
+exact List.Pairwise.imp (fun {a b} (hab : a < b) => Nat.ne_of_lt hab) h
+```
+
+**注意 `List.Pairwise.imp` 的参数是隐式的 `{a b}`，用 `fun a b hab => ...` 会类型不匹配。**
+
+### 15.3 已通过的两个分支：`lam` 与 `pi`
+
+**两者结构相同，第 226 轮**完整通过**：**
+
+```lean
+  | Term.lam kk b _ ihb =>
+    intro n
+    simp only [walkWithRelations, List.map_cons]
+    refine List.pairwise_cons.mpr ⟨?_, ihb (n+1)⟩
+    intro x hx
+    obtain ⟨s, hs, hid⟩ := List.mem_map.mp hx
+    have hr := walk_range b (n+1) s hs
+    simp only [TensorShape.mk] at hr
+    subst hid
+    exact hr.1
+```
+
+**三个关键点：**
+1. **`_ ihb` —— 第二个归纳假设（第 219/222/225/226 轮反复确认）**
+2. **`subst hid` —— `hid : x = s.id` 的方向使 `rw` 失败，`subst` 才能替换**
+3. **`simp only [TensorShape.mk] at hr` —— 先把 `s.id` 化成 `n`，再 `exact hr.1`**
+
+### 15.4 `app` 的结构与阻塞点
+
+**`app` 的 id 列表是 `n :: (l1 ++ l2)`，所以需要三层：**
+
+```
+pairwise_cons(n, l1 ++ l2)  ←  拆分首元素
+  × pairwise_append(l1, l2)  ←  拆分成两段
+  × 跨段的 ∀ a ∈ l1, ∀ b ∈ l2, a < b
+```
+
+**第 226 轮把 `List.pairwise_append` 放进 `simp only`，但它在 `n :: (l1 ++ l2)` 上不适用（目标外层还是
+`Pairwise (n :: ...)`），`simp` 因此只做了部分展开，`refine ⟨...⟩` 失败。**
+
+**=> 正确的写法是分两步：**
+
+```lean
+    simp only [walkWithRelations, List.map_cons, List.map_append]
+    refine List.pairwise_cons.mpr ⟨?_, ?_⟩
+    · -- head < every element of l1 ++ l2
+      intro x hx
+      ...
+    · -- the tail is Pairwise
+      rw [List.pairwise_append]
+      refine ⟨ihf (n+1), iha (walkWithRelations f (n+1)).2.2, ?_⟩
+      intro x hx y hy
+      ...
+```
+
+**关键是 `pairwise_cons` 在 `pairwise_append` **之前**，而 `pairwise_append` 作用在**尾部**而不是整体。**
+
+### 15.5 为什么第 226 轮没做完
+
+**第 226 轮在 `walk_nodup` 上做了八次尝试，`lam`/`pi` 完整通过，`app` 卡在 `pairwise_cons` 与
+`pairwise_append` 的嵌套顺序上。**
+
+**=> 修法已明确（15.4 的两步写法），本轮时间用完。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。**
+
+### 15.6 一条副产物：`tensorCount_walk` 的部分进展
+
+**第 226 轮在 `tensorCount_walk` 上发现：`lam` 分支需要 `show (walkWithRelations b (0+1)).1.length + 1 =
+1 + tensorCount b` 然后 `norm_num`——因为 `simp` 不会把 `0 + 1` 化成 `1`。**
+
+**这条修正本身是对的，但它不解决 `pi`/`app`/`letE`，所以没有单独提交。**
