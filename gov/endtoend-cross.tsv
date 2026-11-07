@@ -278,6 +278,11 @@ Core/CIC/Value.lean	is_value_of_unique
 Core/IR/ArchGraph.lean	graph_ext
 Core/IR/Basic.lean	Relation.part_irrelevant
 Core/IR/Basic.lean	LatticeIR.order_invariant
+Core/IR/Canonical.lean	IsIR.shapes
+Core/IR/Canonical.lean	IsIR.covered
+Core/IR/Canonical.lean	IsIR.maximal
+Core/IR/Canonical.lean	materialize_isIR
+Core/IR/Canonical.lean	ir_unique_relations
 Core/IR/Chain.lean	roundtrip_parse
 Core/IR/Chain.lean	compileSkel_injective
 Core/IR/Chain.lean	chain_determines_structure

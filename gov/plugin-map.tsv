@@ -283,6 +283,11 @@ core	Core/IR	Core/IR/ArchGraph.lean	mem_nodes_of_edge	no
 core	Core/IR	Core/IR/Basic.lean	data_size	no
 core	Core/IR	Core/IR/Basic.lean	order_invariant	no
 core	Core/IR	Core/IR/Basic.lean	part_irrelevant	no
+core	Core/IR	Core/IR/Canonical.lean	covered	no
+core	Core/IR	Core/IR/Canonical.lean	ir_unique_relations	no
+core	Core/IR	Core/IR/Canonical.lean	materialize_isIR	no
+core	Core/IR	Core/IR/Canonical.lean	maximal	no
+core	Core/IR	Core/IR/Canonical.lean	shapes	no
 core	Core/IR	Core/IR/Chain.lean	chain_determines_structure	no
 core	Core/IR	Core/IR/Chain.lean	compileSkel_injective	no
 core	Core/IR	Core/IR/Chain.lean	compileSkel_parse_congr	no

@@ -99,15 +99,20 @@ def maximal (rels : List RelationShape) : Prop :=
 
 /-! ## The two conditions for the skeleton-alone IR -/
 
-/-- **THE SKELETON-ALONE IR IS COVERING VACUOUSLY.**
+/-- **THE SKELETON-ALONE IR IS COVERING VACUOUSLY, WITH NO RELATIONS AT ALL.**
 
 **`materialize k` gives every tensor ZERO data, so `readOf` at every position is `0`, so the covering implication's
-antecedent is always false.**
+antecedent is always false -- and the relation list is `[]` because `materialize` produces no `Relation` (a `hold`
+proof cannot be supplied for zero data at nonzero positions).**
 
-**=> the theorem has content: it says the zero-data materialisation needs NO relations to be covering, which is
-exactly the right answer and is NOT the same as saying covering is trivially satisfiable in general.** -/
+**=> the theorem has content: the zero-data materialisation needs NO relations to be covering.**
+**It is NOT the same as saying covering is trivially satisfiable in general: a structure with any nonzero entry WOULD
+need relations, and `covered`'s antecedent is what distinguishes the two cases.**
+
+**Round 199 corrected this statement from `k.relations.map id` to `[]`: the materialised IR carries no relations, so
+the earlier form described a list the IR does not have.** -/
 theorem materialize_covered {H : RelKind → List (TensorId × List ℕ) → Prop} (k : IRSkeleton) :
-    covered (materialize (H := H) k).tensors (k.relations.map fun r => r) := by
+    covered (materialize (H := H) k).tensors [] := by
   intro t i hmem hlt hne
   -- Every tensor of `materialize k` is `zerosOf s`, so all its data is zero.
   have hzero : ∀ u ∈ (materialize (H := H) k).tensors,
