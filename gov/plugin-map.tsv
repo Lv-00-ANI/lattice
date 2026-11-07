@@ -342,6 +342,9 @@ core	Core/IR	Core/IR/Depends.lean	holds3_depends	no
 core	Core/IR	Core/IR/Depends.lean	holds3_equal	no
 core	Core/IR	Core/IR/Depends.lean	holds3_unhandled	no
 core	Core/IR	Core/IR/Depends.lean	holds3_zero	no
+core	Core/IR	Core/IR/Extract.lean	extract_compile	no
+core	Core/IR	Core/IR/Extract.lean	extract_injective_on_compiled	no
+core	Core/IR	Core/IR/Extract.lean	weightCodeIR_compileSkel	no
 core	Core/IR	Core/IR/IsIR.lean	materialize_covered	no
 core	Core/IR	Core/IR/IsIR.lean	maximal_nil	no
 core	Core/IR	Core/IR/Lifecycle.lean	canActivate_needs_requires	no

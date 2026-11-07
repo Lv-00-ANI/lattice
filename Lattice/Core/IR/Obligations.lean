@@ -1,5 +1,6 @@
 import Mathlib
 import Lattice.Core.IR.Unique
+import Lattice.Core.IR.Extract
 
 /-!
 # `Core/IR/Obligations.lean` -- T0-T4, stated over the IR (round 186, P2-4)
@@ -136,4 +137,17 @@ theorem construct_sound_wf {t : Term} {k : IRSkeleton}
   subst h
   exact rfl
 
+/-! ## T3's reverse direction comes from `Extract.lean`
+
+**`compileSkel` is the forward direction and `extract` is the reverse; the loop they make is
+`extract_compile` in `Core/IR/Extract.lean`.**
+
+**This file IMPORTS that module, which is what makes `extract` reachable: `Obligations` is imported by `Modulus`,
+`Semantics` and `T4Repair`, so it is not a leaf.**
+**=> round 213's extractor was withdrawn because nothing non-leaf reached it; the import is the fix, and restating
+the theorems here would have been a pure forward (which the alias census correctly refuses).**
+
+**A reader of T3 finds the reverse half by following this import, not by a duplicate statement.** -/
+
 end Lattice.Core.IR
+

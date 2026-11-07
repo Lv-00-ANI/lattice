@@ -317,6 +317,9 @@ Core/IR/DecodeRelations.lean	decodeRelListAux_code
 Core/IR/DecodeRelations.lean	shapesCode_rel_ge_length
 Core/IR/DecodeRelations.lean	decodeRelList_code
 Core/IR/DecodeRelations.lean	decodeSkeleton_code
+Core/IR/Extract.lean	weightCodeIR_compileSkel
+Core/IR/Extract.lean	extract_compile
+Core/IR/Extract.lean	extract_injective_on_compiled
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/Lifecycle.lean	recovery_exact
@@ -2580,12 +2583,14 @@ Lib/Editing/RealReversibilityBoundary.lean	relu_zero_not_implies_eq
 Lib/Editing/RealReversibilityBoundary.lean	relu_global_not_invertible
 Lib/Editing/RealReversibilityBoundary.lean	relu_zero_fiber_not_singleton
 Lib/Editing/RealReversibilityBoundary.lean	reversibility_boundary
+Lib/Editing/RealReversibilityBoundary.lean	no_extractor_preserves_both
 Lib/Editing/RealReversibilityBoundary.lean	semantic_layer_not_injective
 Lib/Editing/RealRoundTripVacuity.lean	rt1_leftInverse
 Lib/Editing/RealRoundTripVacuity.lean	rt1_is_instance_of_branch_B
 Lib/Editing/RealRoundTripVacuity.lean	rt1_matches_existing
 Lib/Editing/RealRoundTripVacuity.lean	rt2_is_instance_of_branch_B
 Lib/Editing/RealRoundTripVacuity.lean	fiberStable_iterate
+Lib/Editing/RealRoundtripBound.lean	extract_compile_identity_int
 Lib/Editing/RealRoundtripNondegenerate.lean	foldl_init_eq_of_zero_d21
 Lib/Editing/RealRoundtripNondegenerate.lean	dot_append_zero_d21
 Lib/Editing/RealRoundtripNondegenerate.lean	sameLayer_imp_semEqL_d21
@@ -4180,6 +4185,8 @@ Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_coeff
 Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_bias
 Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_exact
 Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_nontrivial
+Runtime/WeightToSymbolEquivalence.lean	roundtrip_extract
+Runtime/WeightToSymbolEquivalence.lean	extract_is_valid
 Semantics/Annotations.lean	edit_frame
 Semantics/Annotations.lean	holdsSet_member
 Semantics/Annotations.lean	edit_frame_holds
