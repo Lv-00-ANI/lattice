@@ -281,6 +281,97 @@ theorem walk_mono : ∀ (t : Term) (n : ℕ), n ≤ (walkWithRelations t n).2.2
     show n ≤ (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2
     omega
 
+/-- **EVERY EMITTED TENSOR ID LIES IN `[n, final counter)`.**
+
+**`∀ s ∈ (walkWithRelations t n).1, n ≤ s.id ∧ s.id < (walkWithRelations t n).2.2`.**
+
+**=> together with `walk_mono` this says the walk hands out DISTINCT ids, one per visited node, all below the final
+counter -- which is what makes them usable as `TensorId`s.**
+
+**Two disciplines carry the whole proof:**
+**1. the recursive result is captured with `have` BEFORE the membership list is unfolded, because `rcases` rewrites
+`hs` into the sub-list's membership and a call made afterwards would not typecheck;**
+**2. the "this node" branches end with `show` plus `omega` rather than `simp` plus `omega`, because `simp`'s
+hypothesis cleaning would DELETE the very `walk_mono` facts `omega` needs.**
+**=> point 2 is what cost round 217 eleven attempts; the diagnosis and the fix are its §9.3-9.5.** -/
+theorem walk_range : ∀ (t : Term) (n : ℕ),
+    ∀ s ∈ (walkWithRelations t n).1, n ≤ s.id ∧ s.id < (walkWithRelations t n).2.2
+  | Term.sort _ _, n => by
+    intro s hs
+    simp only [walkWithRelations, List.mem_singleton] at hs
+    subst hs
+    exact ⟨le_refl n, Nat.lt_succ_self n⟩
+  | Term.var _, n => by
+    intro s hs
+    simp only [walkWithRelations, List.mem_singleton] at hs
+    subst hs
+    exact ⟨le_refl n, Nat.lt_succ_self n⟩
+  | Term.const _, n => by
+    intro s hs
+    simp only [walkWithRelations, List.mem_singleton] at hs
+    subst hs
+    exact ⟨le_refl n, Nat.lt_succ_self n⟩
+  | Term.lam _ b, n => by
+    intro s hs
+    have hb : ∀ r ∈ (walkWithRelations b (n + 1)).1,
+        n + 1 ≤ r.id ∧ r.id < (walkWithRelations b (n + 1)).2.2 := walk_range b (n + 1)
+    have hm := walk_mono b (n + 1)
+    simp only [walkWithRelations] at hs ⊢
+    rcases List.mem_cons.mp hs with rfl | hs
+    · refine ⟨le_refl n, ?_⟩
+      show n < (walkWithRelations b (n + 1)).2.2
+      omega
+    · exact ⟨le_trans (Nat.le_succ n) (hb s hs).1, (hb s hs).2⟩
+  | Term.pi _ B, n => by
+    intro s hs
+    have hB : ∀ r ∈ (walkWithRelations B (n + 1)).1,
+        n + 1 ≤ r.id ∧ r.id < (walkWithRelations B (n + 1)).2.2 := walk_range B (n + 1)
+    have hm := walk_mono B (n + 1)
+    simp only [walkWithRelations] at hs ⊢
+    rcases List.mem_cons.mp hs with rfl | hs
+    · refine ⟨le_refl n, ?_⟩
+      show n < (walkWithRelations B (n + 1)).2.2
+      omega
+    · exact ⟨le_trans (Nat.le_succ n) (hB s hs).1, (hB s hs).2⟩
+  | Term.app f a, n => by
+    intro s hs
+    have hf : ∀ r ∈ (walkWithRelations f (n + 1)).1,
+        n + 1 ≤ r.id ∧ r.id < (walkWithRelations f (n + 1)).2.2 := walk_range f (n + 1)
+    have ha : ∀ r ∈ (walkWithRelations a (walkWithRelations f (n + 1)).2.2).1,
+        (walkWithRelations f (n + 1)).2.2 ≤ r.id ∧
+          r.id < (walkWithRelations a (walkWithRelations f (n + 1)).2.2).2.2 :=
+      walk_range a (walkWithRelations f (n + 1)).2.2
+    have hmf := walk_mono f (n + 1)
+    have hma := walk_mono a (walkWithRelations f (n + 1)).2.2
+    simp only [walkWithRelations] at hs ⊢
+    rcases List.mem_cons.mp hs with rfl | hs
+    · refine ⟨le_refl n, ?_⟩
+      show n < (walkWithRelations a (walkWithRelations f (n + 1)).2.2).2.2
+      omega
+    · rcases List.mem_append.mp hs with hs | hs
+      · exact ⟨le_trans (Nat.le_succ n) (hf s hs).1,
+               lt_of_lt_of_le (hf s hs).2 hma⟩
+      · exact ⟨le_trans (le_trans (Nat.le_succ n) hmf) (ha s hs).1, (ha s hs).2⟩
+  | Term.letE _ tt b, n => by
+    intro s hs
+    have ht : ∀ r ∈ (walkWithRelations tt (n + 1)).1,
+        n + 1 ≤ r.id ∧ r.id < (walkWithRelations tt (n + 1)).2.2 := walk_range tt (n + 1)
+    have hb : ∀ r ∈ (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).1,
+        (walkWithRelations tt (n + 1)).2.2 ≤ r.id ∧
+          r.id < (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2 :=
+      walk_range b (walkWithRelations tt (n + 1)).2.2
+    have hmt := walk_mono tt (n + 1)
+    have hmb := walk_mono b (walkWithRelations tt (n + 1)).2.2
+    simp only [walkWithRelations] at hs ⊢
+    rcases List.mem_cons.mp hs with rfl | hs
+    · refine ⟨le_refl n, ?_⟩
+      show n < (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2
+      omega
+    · rcases List.mem_append.mp hs with hs | hs
+      · exact ⟨le_trans (Nat.le_succ n) (ht s hs).1,
+               lt_of_lt_of_le (ht s hs).2 hmb⟩
+      · exact ⟨le_trans (le_trans (Nat.le_succ n) hmt) (hb s hs).1, (hb s hs).2⟩
+
 /-- **THE RELATIONS ARE `depends` EDGES, ALL OF THEM.**
 
 **Stated as a property of the walk's output: every emitted relation has kind `.depends`.**

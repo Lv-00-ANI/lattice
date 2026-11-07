@@ -383,6 +383,7 @@ core	Core/IR	Core/IR/Parse.lean	termTensors_ne_nil	no
 core	Core/IR	Core/IR/Parse.lean	termTensors_nodup	no
 core	Core/IR	Core/IR/Parse.lean	walkWithRelations_relations_are_depends	no
 core	Core/IR	Core/IR/Parse.lean	walk_mono	no
+core	Core/IR	Core/IR/Parse.lean	walk_range	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_depends	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_equal	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_exact	no

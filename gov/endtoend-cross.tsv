@@ -346,6 +346,7 @@ Core/IR/Parse.lean	parse_eq_parseSkeleton
 Core/IR/Parse.lean	parse_tensors_length
 Core/IR/Parse.lean	parse_has_tensor
 Core/IR/Parse.lean	walk_mono
+Core/IR/Parse.lean	walk_range
 Core/IR/Parse.lean	walkWithRelations_relations_are_depends
 Core/IR/Penalty.lean	penalty_equal
 Core/IR/Penalty.lean	penalty_zero
