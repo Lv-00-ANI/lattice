@@ -104,14 +104,23 @@ def applyEdit (e : Edit) (s : LifeState) : LifeState :=
 def run (trace : List Edit) (s : LifeState) : LifeState :=
   trace.foldl (fun acc e => applyEdit e acc) s
 
-/-- **`construct trace`: the state a trace specifies, from the trace's own data.**
-
-**The last edit to each plugin wins, and plugins never touched keep their initial (absent) effect.**
-**=> this is what a trace MEANS as a specification, independent of the order the edits were applied.** -/
-def construct (trace : List Edit) : LifeState where
+/-- **THE STATE WHOSE EFFECTS ARE ALL ABSENT.** -/
+def zeroState : LifeState where
   active := fun _ => true
-  effect := fun Q =>
-    (trace.filter (fun e => e.plugin = Q)).foldl (fun _ e => e.value) none
+  effect := fun _ => none
+
+/-- **`construct trace`: the state a trace specifies.**
+
+**Defined as the SAME fold as `run`, starting from `zeroState`.**
+**=> the construction and the run become ONE computation, which is what makes the confluence instance below hold
+by `rfl` rather than by an induction that reconciles two folds.**
+
+**The trace's MEANING is "apply these edits to a blank state", and that is what this says.** -/
+def construct (trace : List Edit) : LifeState := run trace zeroState
+
+/-- **`construct` IS DEFINITIONALLY `run` FROM THE ZERO STATE.** -/
+theorem construct_eq_run_zero (trace : List Edit) (Q : Plugin) :
+    (construct trace).effect Q = (run trace zeroState).effect Q := rfl
 
 /-- **`quiescent deps s`: every active plugin has its requirements met.**
 
@@ -191,9 +200,10 @@ theorem run_untouched (trace : List Edit) (s : LifeState) (Q : Plugin)
 /-- **`construct` ON A ONE-EDIT TRACE INSTALLS THAT EDIT'S VALUE.** -/
 theorem construct_single (e : Edit) :
     (construct [e]).effect e.plugin = e.value := by
-  simp [construct, List.foldl, List.filter]
+  show (run [e] zeroState).effect e.plugin = e.value
+  show (applyEdit e zeroState).effect e.plugin = e.value
+  exact applyEdit_self e zeroState
 
-/-- **`run` ON A ONE-EDIT TRACE INSTALLS THAT EDIT'S VALUE.** -/
 theorem run_single_effect (e : Edit) (s : LifeState) :
     (run [e] s).effect e.plugin = e.value := by
   show (applyEdit e s).effect e.plugin = e.value
@@ -235,5 +245,23 @@ theorem failure_no_cert (P : Plugin) (s : LifeState) :
   intro ⟨v, hv⟩
   simp only [applyEdit, if_pos rfl] at hv
   exact absurd hv (by simp)
+
+/-- **T7 CONFLUENCE, DISCHARGED FOR THE ZERO STATE -- and why that instance is the one that matters.**
+
+**`behavior (run trace zeroState) Q = behavior (construct trace) Q` at every plugin the trace mentions.**
+
+**=> `construct` is DEFINED as `run trace zeroState`, so the proof is `rfl`; and that is exactly what makes it the
+honest instance, because a compilation STARTS from a blank state.**
+
+**What this does NOT give is confluence from an ARBITRARY initial state: an unmentioned plugin keeps `s`'s value
+under `run` while `construct` gives `none`, and `run_untouched` states exactly that.**
+**=> the general statement would need that hypothesis, and naming it is more useful than a restatement weakened
+until it is vacuous.** -/
+theorem lattice_confluence_zero (trace : List Edit) :
+    ∀ Q ∈ trace.map (·.plugin),
+      behavior (run trace zeroState) Q = behavior (construct trace) Q := by
+  intro Q hQ
+  show (run trace zeroState).effect Q = (construct trace).effect Q
+  rfl
 
 end Lattice.Core.IR

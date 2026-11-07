@@ -1081,7 +1081,7 @@
 | `Lattice.Core.IR.Basic` | 3 | 6 |
 | `Lattice.Core.IR.Chain` | 4 | 2 |
 | `Lattice.Core.IR.Compile` | 4 | 5 |
-| `Lattice.Core.IR.Confluence` | 14 | 7 |
+| `Lattice.Core.IR.Confluence` | 16 | 8 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
@@ -3836,6 +3836,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `construct_artifact_layers_nonempty` -> `AffineLayer`, `layers`, `length`, `weights`
 - `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `construct_eq_run_zero` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `value`
 - `construct_single` -> `LifeState`, `Plugin`, `at`, `value`
 - `construct_sound` -> `IRSkeleton`, `Term`, `WellFormed`, `compileSkel`, `parse`, `subst`
 - `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
