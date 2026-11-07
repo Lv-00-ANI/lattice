@@ -532,6 +532,89 @@ theorem walk_own_id_mem (t : Term) (n : ℕ) :
   | app f a ihf iha => simp [walkWithRelations]
   | letE kk tt b ih1 ih2 => simp [walkWithRelations]
 
+/-- **EVERY EMITTED RELATION'S ARGUMENTS NAME EMITTED TENSORS.**
+
+**`∀ r ∈ (walkWithRelations t n).2.1, ∀ a ∈ r.args, a.1 ∈ (walkWithRelations t n).1.map (·.id)`.**
+
+**=> this is `WellFormed`'s SECOND conjunct, stated for the walk's own output.**
+**Together with `walk_nodup` it makes `parseSkeletonWithRelations` a well-formed skeleton.**
+
+**Two facts do all the work: `dependsShape_args` says each argument is `n` or `n + 1`; `walk_own_id_mem` says both are
+emitted (`n` at the head, `n + 1` at the head of the CHILD's list).**
+
+**The `app`/`letE` cases additionally need `List.mem_append_left` / `List.mem_append_right` plus
+`List.mem_cons_of_mem`: the emitted tensor list is `mk n :: (tf ++ ta)` and the relation list is
+`dependsShape n [n+1] :: (rf ++ ra)`, so an argument's membership has to be carried up through both a `cons` and an
+`append`.**
+**=> writing that composition explicitly is what makes it go through; leaving it to `simp` does not.** -/
+theorem walk_rel_args (t : Term) : ∀ n : ℕ,
+    ∀ r ∈ (walkWithRelations t n).2.1, ∀ a ∈ r.args, a.1 ∈ (walkWithRelations t n).1.map (·.id) := by
+  induction t with
+  | sort k l =>
+    intro n r hr
+    simp [walkWithRelations] at hr
+  | var k =>
+    intro n r hr
+    simp [walkWithRelations] at hr
+  | const k =>
+    intro n r hr
+    simp [walkWithRelations] at hr
+  | lam kk b _ ihb =>
+    intro n r hr a ha
+    simp only [walkWithRelations, List.mem_cons] at hr
+    rcases hr with rfl | hr
+    · rcases dependsShape_args ha with h | h
+      · rw [h]; simp [walkWithRelations]
+      · rw [h]
+        simp only [walkWithRelations, List.map_cons]
+        exact List.mem_cons_of_mem _ (walk_own_id_mem b (n+1))
+    · have hh := ihb (n+1) r hr a ha
+      simp only [walkWithRelations, List.map_cons] at hh ⊢
+      exact List.mem_cons_of_mem _ hh
+  | pi kk B _ ihB =>
+    intro n r hr a ha
+    simp only [walkWithRelations, List.mem_cons] at hr
+    rcases hr with rfl | hr
+    · rcases dependsShape_args ha with h | h
+      · rw [h]; simp [walkWithRelations]
+      · rw [h]
+        simp only [walkWithRelations, List.map_cons]
+        exact List.mem_cons_of_mem _ (walk_own_id_mem B (n+1))
+    · have hh := ihB (n+1) r hr a ha
+      simp only [walkWithRelations, List.map_cons] at hh ⊢
+      exact List.mem_cons_of_mem _ hh
+  | app f a ihf iha =>
+    intro n r hr aa ha
+    simp only [walkWithRelations, List.mem_cons, List.mem_append] at hr
+    rcases hr with rfl | hr | hr
+    · rcases dependsShape_args ha with h | h
+      · rw [h]; simp [walkWithRelations]
+      · rw [h]
+        simp only [walkWithRelations, List.map_cons, List.map_append]
+        exact List.mem_cons_of_mem _ (List.mem_append_left _ (walk_own_id_mem f (n+1)))
+    · have hh := ihf (n+1) r hr aa ha
+      simp only [walkWithRelations, List.map_cons, List.map_append, List.mem_append] at hh ⊢
+      exact List.mem_cons_of_mem _ (List.mem_append_left _ hh)
+    · have hh := iha (walkWithRelations f (n+1)).2.2 r hr aa ha
+      simp only [walkWithRelations, List.map_cons, List.map_append, List.mem_append] at hh ⊢
+      exact List.mem_cons_of_mem _ (List.mem_append_right _ hh)
+  | letE kk tt b _ ihtt ihb =>
+    intro n r hr aa ha
+    simp only [walkWithRelations, List.mem_cons, List.mem_append] at hr
+    rcases hr with rfl | hr | hr
+    · rcases dependsShape_args ha with h | h
+      · rw [h]; simp [walkWithRelations]
+      · rw [h]
+        simp only [walkWithRelations, List.map_cons, List.map_append]
+        exact List.mem_cons_of_mem _ (List.mem_append_left _ (walk_own_id_mem tt (n+1)))
+    · have hh := ihtt (n+1) r hr aa ha
+      simp only [walkWithRelations, List.map_cons, List.map_append, List.mem_append] at hh ⊢
+      exact List.mem_cons_of_mem _ (List.mem_append_left _ hh)
+    · have hh := ihb (walkWithRelations tt (n+1)).2.2 r hr aa ha
+      simp only [walkWithRelations, List.map_cons, List.map_append, List.mem_append] at hh ⊢
+      exact List.mem_cons_of_mem _ (List.mem_append_right _ hh)
+
+
 /-- **THE WALK'S TENSOR IDS ARE STRICTLY INCREASING.**
 
 **`((walkWithRelations t n).1.map (·.id)).Pairwise (· < ·)`.**
