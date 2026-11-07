@@ -298,6 +298,8 @@ core	Core/IR	Core/IR/Confluence.lean	quiescent_spec	no
 core	Core/IR	Core/IR/Confluence.lean	resultEquiv_refl	no
 core	Core/IR	Core/IR/Confluence.lean	resultEquiv_symm	no
 core	Core/IR	Core/IR/Confluence.lean	resultEquiv_trans	no
+core	Core/IR	Core/IR/Confluence.lean	run_congr_of_agree	no
+core	Core/IR	Core/IR/Confluence.lean	run_cons	no
 core	Core/IR	Core/IR/Confluence.lean	run_single_effect	no
 core	Core/IR	Core/IR/Confluence.lean	run_untouched	no
 core	Core/IR	Core/IR/Depends.lean	dependsHolds_mono	no

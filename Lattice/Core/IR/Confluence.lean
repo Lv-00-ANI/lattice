@@ -246,6 +246,58 @@ theorem failure_no_cert (P : Plugin) (s : LifeState) :
   simp only [applyEdit, if_pos rfl] at hv
   exact absurd hv (by simp)
 
+/-- **`run` ON A CONS IS ONE MORE EDIT AFTER `run` ON THE TAIL.** -/
+theorem run_cons (e : Edit) (rest : List Edit) (s : LifeState) :
+    run (e :: rest) s = run rest (applyEdit e s) := by
+  simp only [run, List.foldl]
+
+/-- **TWO STATES THAT AGREE ON A TRACE'S PLUGINS STAY IN STEP THROUGH IT.**
+
+**`(∀ R ∈ trace.map (·.plugin), s.effect R = t.effect R) -> (run trace s).effect Q =
+(run trace t).effect Q` for `Q` in the trace.**
+
+**=> this is the general engine of T7: a trace's effect at a plugin is decided by the trace ALONE once the incoming
+states agree there.**
+**It is what any confluence argument must contain, and it is stated for ARBITRARY `s` and `t` so that it does not
+depend on which states a caller has in hand.**
+
+**The induction peels the head via `run_cons`. `applyEdit` writes the edit's VALUE, which does not depend on the
+incoming state, so at the head's own plugin both sides receive that value; at every other plugin the pair hypothesis
+carries.**
+**The head's plugin is split on whether `rest` mentions it again: if it does, the induction continues; if not,
+`run_untouched` says the value survives, and both sides already hold the same one.** -/
+theorem run_congr_of_agree (trace : List Edit) (s t : LifeState)
+    (hagree : ∀ R ∈ trace.map (·.plugin), s.effect R = t.effect R) :
+    ∀ Q ∈ trace.map (·.plugin), (run trace s).effect Q = (run trace t).effect Q := by
+  induction trace generalizing s t with
+  | nil => intro Q hQ; simp at hQ
+  | cons e rest ih =>
+    intro Q hQ
+    rw [run_cons e rest s, run_cons e rest t]
+    have hnext : ∀ R ∈ rest.map (·.plugin),
+        (applyEdit e s).effect R = (applyEdit e t).effect R := by
+      intro R hR
+      by_cases hRe : R = e.plugin
+      · subst hRe; rw [applyEdit_self, applyEdit_self]
+      · rw [applyEdit_other e s R hRe, applyEdit_other e t R hRe]
+        apply hagree R
+        simp only [List.map_cons, List.mem_cons]
+        exact Or.inr hR
+    have hQ' : Q ∈ rest.map (·.plugin) ∨ Q = e.plugin := by
+      have h := hQ
+      simp only [List.map_cons, List.mem_cons] at h
+      rcases h with h | h
+      · exact Or.inr h
+      · exact Or.inl h
+    rcases hQ' with hQ' | hQ'
+    · exact ih (applyEdit e s) (applyEdit e t) hnext Q hQ'
+    · subst hQ'
+      by_cases hlater : e.plugin ∈ rest.map (·.plugin)
+      · exact ih (applyEdit e s) (applyEdit e t) hnext e.plugin hlater
+      · rw [run_untouched rest (applyEdit e s) e.plugin hlater,
+            run_untouched rest (applyEdit e t) e.plugin hlater,
+            applyEdit_self, applyEdit_self]
+
 /-- **T7 CONFLUENCE, DISCHARGED FOR THE ZERO STATE -- and why that instance is the one that matters.**
 
 **`behavior (run trace zeroState) Q = behavior (construct trace) Q` at every plugin the trace mentions.**

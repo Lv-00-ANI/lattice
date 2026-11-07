@@ -1081,7 +1081,7 @@
 | `Lattice.Core.IR.Basic` | 3 | 6 |
 | `Lattice.Core.IR.Chain` | 4 | 2 |
 | `Lattice.Core.IR.Compile` | 4 | 5 |
-| `Lattice.Core.IR.Confluence` | 16 | 8 |
+| `Lattice.Core.IR.Confluence` | 18 | 8 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
@@ -2578,8 +2578,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `application_outputs_absorbable` -> `Rule`, `at`, `layer`, `length`
 - `applyCorrect_tt_const` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `length`, `min`, `trans`, `value`
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
-- `applyEdit_other` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `value`
-- `applyEdit_self` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `value`
+- `applyEdit_other` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `applyEdit_self` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_attention_between` -> `Instr`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `le`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `attention`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`, `weighted_average_weights_lipschitz`
@@ -2782,7 +2782,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `be_trans` -> `BehaviourallyEquivalent`, `trans`
 - `beh_coarser_than_recover` -> `Layer`, `SymToken`, `g`
 - `beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
-- `behavior_ignores_active` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `value`
+- `behavior_ignores_active` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
 - `behavior_token_independent` -> `Geometry`, `Inherits`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `behaviouralFibre_card_ge_two` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
@@ -3444,8 +3444,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `commute_of_disjoint` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
 - `commute_refl` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
 - `commute_symm` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
-- `commute_with_list` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
-- `commute_with_list_via` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
+- `commute_with_list` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
+- `commute_with_list_via` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
 - `commute_write_write` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
 - `compBound_le_of_le` -> `E`, `apply`, `le_trans`
 - `compBound_monotone` -> `E`, `apply`, `induction`, `le_trans`, `zero`
@@ -3736,8 +3736,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conflict_loser_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `conflict_resolve_fixed_point` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`, `value`
 - `conflicts_not_automatic` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
-- `confluence_of_commuting` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
-- `confluence_single` -> `LifeState`, `Plugin`, `at`
+- `confluence_of_commuting` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
+- `confluence_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
 - `confluent_normalForm_unique` -> `Relation`, `at`, `d`, `induction`, `subst`, `trans`
 - `confluent_of_wf` -> `Relation`, `at`, `d`, `induction`, `subst`, `trans`
 - `conformal_conditional_false` -> `alpha`, `at`
@@ -3836,8 +3836,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `construct_artifact_layers_nonempty` -> `AffineLayer`, `layers`, `length`, `weights`
 - `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `construct_eq_run_zero` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `value`
-- `construct_single` -> `LifeState`, `Plugin`, `at`, `value`
+- `construct_eq_run_zero` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `value`
+- `construct_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
 - `construct_sound` -> `IRSkeleton`, `Term`, `WellFormed`, `compileSkel`, `parse`, `subst`
 - `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_sound_wf` -> `IRSkeleton`, `Term`, `WellFormed`, `compileSkel`, `parse`, `subst`
@@ -5144,7 +5144,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `factors_project` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `fail_leaves_state` -> `Effect`, `RState`, `Step`, `apply`, `run`
 - `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
-- `failure_no_cert` -> `LifeState`, `Plugin`, `at`
+- `failure_no_cert` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `familyTotalGives_no_solver` -> `Pt`, `SpecSolver`
@@ -5960,8 +5960,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasModel_iff` -> `all`, `at`, `bvar`, `induction`
 - `hasNonnegCombo_iff_sum` -> `at`, `d`, `dotV`, `le_refl`, `smul`
 - `hasPartIdentity_iff_exists_holder` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
-- `hcomm_cons_left` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
-- `hcomm_cons_right` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
+- `hcomm_cons_left` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
+- `hcomm_cons_right` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
 - `headEigSq_add_tailEigSq` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `headEigSq_nonneg` -> `apply`, `at`, `d`, `le`, `rank`, `real_isHermitian_iff_transpose`, `sum_sq_eq_trace_transpose_mul`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `headMass_add_prunedMass` -> `at`, `rho`
@@ -6292,8 +6292,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interior_improvingSet_nonempty` -> `apply`, `at`, `dist`, `g`, `le`, `le_antisymm`, `mono`
 - `interior_length` -> `length`
 - `interior_multImprovingSet_nonempty` -> `at`, `dist`, `eps`, `g`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
-- `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`
-- `interleaving_length` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`
+- `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
+- `interleaving_length` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_cons`
 - `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `interp_extrapolation_bound` -> `absPosEnc`, `d`, `le_trans`
 - `interval_expansive` -> `at`, `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `scale`, `toNat`
@@ -6598,7 +6598,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lagrangian_lower_bound` -> `at`, `e2`, `g`, `le_antisymm`, `le_trans`
 - `lastBias_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lastWord_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
-- `lattice_failure_isolated` -> `LifeState`, `Plugin`, `at`
+- `lattice_failure_isolated` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
 - `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
 - `lattice_ordering` -> `at`
 - `layerBytes_eq` -> `AffineLayer`, `FloatFormat`, `apply`, `enc`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
@@ -7882,7 +7882,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_probabilityTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryExtra`, `informationTheoryPackage`, `informationTheory_closed`, `informationTheory_closedB_eq_true`, `informationTheory_extra_length`, `informationTheory_false_but_repairable`, `informationTheory_validB_eq_false`, `length`, `linearAlgebraPackage`, `not_informationTheory_orig`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryExtra`, `probabilityTheoryPackage`, `probabilityTheory_closed`, `probabilityTheory_closedB_eq_true`, `probabilityTheory_extra_length`, `probabilityTheory_false_but_repairable`, `probabilityTheory_validB_eq_false`, `projectiveGeometryPackage`
 - `not_projectiveGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `computabilityTheoryPackage`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_forall_packageDependenciesValid`, `not_orderTheory_orig`, `orderTheoryExtra`, `orderTheoryPackage`, `orderTheory_closed`, `orderTheory_closedB_eq_true`, `orderTheory_extra_length`, `orderTheory_false_but_repairable`, `orderTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryExtra`, `projectiveGeometryPackage`, `projectiveGeometry_closed`, `projectiveGeometry_closedB_eq_true`, `projectiveGeometry_extra_length`, `projectiveGeometry_false_but_repairable`, `projectiveGeometry_validB_eq_false`, `zfcSetTheoryPackage`
 - `not_pulled_under_good_event` -> `apply`, `card_fin`, `g`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
-- `not_quiescent_of_unmet` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `requires`, `value`
+- `not_quiescent_of_unmet` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `requires`, `subst`, `value`
 - `not_reachable_width_one` -> `Chain`, `Pt`, `W`, `affine_map_realisable`, `apply`, `at`, `flatChainAct`, `flatChainAct_idf`, `flatParamActSafe`, `flatParamActSafe_width_one`, `g`, `readSlot`, `readSlot_of_lt`, `slotOf`, `twoLayerProbeRest`
 - `not_sim_of_obs_mismatch` -> `Compiler`, `ForwardSim`, `at`
 - `not_stepSound_of_unsat` -> `apply`, `step`
@@ -8684,7 +8684,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quantized_two_layer_error` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `linear_map_lipschitz`, `zero`
 - `quantized_two_layer_error_add` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `le_trans`, `zero`
 - `quantized_uniform_error` -> `E`, `W`, `d`, `le_trans`
-- `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `value`
+- `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `value`
 - `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
 - `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
 - `quotient_norm_scale_invariant` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
@@ -9103,9 +9103,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residue_bound_of_finite_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `loss_le_sq_of_resid_le`, `resid`
 - `residue_bound_of_zero_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `loss_le_sq_of_resid_le`, `resid`
 - `resolution_limited_rate_shape` -> `d`
-- `resultEquiv_refl` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `trans`, `value`
-- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `trans`, `value`
-- `resultEquiv_trans` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `trans`, `value`
+- `resultEquiv_refl` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_trans` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
 - `retain_all_error_zero` -> `rho`
 - `retain_all_exact` -> `rho`
 - `retainedMass_add_droppedMass` -> `at`
@@ -9388,16 +9388,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `runProg_append` -> `add`, `at`, `induction`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
 - `runSeq_all_succeed` -> `RState`, `Step`, `apply`, `run`
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
-- `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `compile`, `edit_seq_comm`, `g`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `subst`
-- `run_cons` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
+- `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `compile`, `edit_seq_comm`, `g`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `run_cons`, `subst`
+- `run_congr_of_agree` -> `LifeState`, `apply`, `at`, `induction`, `subst`
+- `run_cons` -> `E`, `LifeState`, `apply`, `at`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `subst`
 - `run_eq` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_nil` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`
+- `run_nil` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `run_cons`
 - `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_preserved` -> `Relation`, `induction`
 - `run_reaches_symbol` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_single_effect` -> `LifeState`, `Plugin`, `at`, `value`
+- `run_single_effect` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
 - `run_sound` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_untouched` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `value`
+- `run_untouched` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
 - `runs_preserved` -> `induction`
 - `s02_convertVec_extractVec_eta` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_dot_cons_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
