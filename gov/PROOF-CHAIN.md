@@ -1094,7 +1094,7 @@
 | `Lattice.Core.IR.Compile` | 4 | 5 |
 | `Lattice.Core.IR.Confluence` | 20 | 8 |
 | `Lattice.Core.IR.Decode` | 9 | 6 |
-| `Lattice.Core.IR.DecodeRelations` | 5 | 4 |
+| `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
 | `Lattice.Core.IR.IsIR` | 2 | 4 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
@@ -4214,9 +4214,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decide_aux` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `decide_eq_iff_decEq` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `decodeArgsAux_code` -> `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `zero`
-- `decodeArgs_code` -> `RelationShape`, `TensorId`, `argsCode`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`
-- `decodeArgs_ge_length` -> `RelationShape`, `TensorId`, `argsCode`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`
+- `decodeArgsAux_code` -> `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `zero`
+- `decodeArgs_code` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
+- `decodeArgs_ge_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeInstr_encode_affine` -> `Instr`, `W`, `attention`, `induction`, `length`, `length_cons`, `relu`, `scale`, `softmax`
@@ -4231,7 +4231,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
 - `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `relu`, `scale`, `softmax`, `zero`
 - `decodeProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
-- `decodeRelationShape_code` -> `RelationShape`, `argsCode`, `kindCode`, `kindOfCode_kindCode`, `pair_gt_snd`, `partCode`, `relationShapeCode`
+- `decodeRelListAux_code` -> `IRSkeleton`, `RelationShape`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
+- `decodeRelList_code` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `outer`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
+- `decodeRelationShape_code` -> `IRSkeleton`, `RelationShape`, `argsCode`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `kindCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
+- `decodeSkeleton_code` -> `IRSkeleton`, `decodeTensorList_code`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `decodeTensorListAux_code` -> `TensorShape`, `at`, `induction`, `length`, `length_cons`, `shapesCode`, `tensorShapeCode`, `zero`
 - `decodeTensorList_code` -> `TensorShape`, `shapesCode`, `tensorShapeCode`
 - `decodeTensorShape_code` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `shapesCode`, `tensorShapeCode`, `zero`
@@ -8239,7 +8242,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parse_tensors_length` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `parse_total` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
-- `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `vocab`, `zero`
+- `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `vocab`, `zero`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `partial_reinject_bound` -> `EqConstraint`, `ErrorBound`, `Pt`, `at`, `d`, `le_antisymm`, `le_refl`, `le_trans`, `loss`, `loss_nonneg`, `poly`
@@ -9774,6 +9777,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sgd_variance_identity` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
+- `shapesCode_rel_ge_length` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `shapesCode_tensor_ge_length` -> `TensorShape`, `length`, `length_cons`, `shapesCode`, `tensorShapeCode`
 - `sharedChain_eq_iterate` -> `ChainFwd`, `ChainTail`, `apply`, `at`, `chainN_identical_blocks_bound`, `chain_edit_locality`, `g`, `induction`, `iterate`, `iterate_step_swap`, `zero`
 - `shared_chain_edit_locality` -> `ChainTail`, `apply`, `at`, `chain_edit_locality`, `g`

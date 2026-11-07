@@ -219,4 +219,144 @@ theorem decodeRelationShape_code (r : RelationShape) :
   -- The three component inverses.
   simp [decodeArgs_code, kindOfCode_kindCode, partOfCode_partCode]
 
+/-! ## The relation-list layer
+
+**`shapesCode relationShapeCode` has the same fold as `shapesCode tensorShapeCode`: `0` for empty,
+`Nat.pair (f x + 1) _` otherwise.**
+**=> the list decoder repeats `decodeTensorListAux`, with `decodeRelationShape` as the per-item decoder.** -/
+
+/-- **DECODE A LIST OF RELATION SHAPES, fuel-driven.** -/
+def decodeRelListAux : (fuel : ℕ) → ℕ → Option (List RelationShape)
+  | 0, n => if _h : n = 0 then some [] else none
+  | k + 1, n =>
+    if _h : n = 0 then some []
+    else
+      let u := Nat.unpair n
+      if _hu : u.1 = 0 then none
+      else
+        match decodeRelationShape (u.1 - 1) with
+        | none => none
+        | some t =>
+          match decodeRelListAux k u.2 with
+          | none => none
+          | some ts => some (t :: ts)
+
+/-- **THE ROUND TRIP FOR `shapesCode relationShapeCode`.**
+
+**`xs.length ≤ k -> decodeRelListAux k (shapesCode relationShapeCode xs) = some xs`.** -/
+theorem decodeRelListAux_code :
+    ∀ (xs : List RelationShape) (k : ℕ), xs.length ≤ k →
+      decodeRelListAux k (shapesCode relationShapeCode xs) = some xs := by
+  intro xs
+  induction xs with
+  | nil =>
+    intro k _hk
+    cases k with
+    | zero =>
+      show (if _h : (0:ℕ) = 0 then some [] else none) = some []
+      rw [dif_pos rfl]
+    | succ k => simp [decodeRelListAux, shapesCode]
+  | cons t ts ih =>
+    intro k hk
+    cases k with
+    | zero => simp at hk
+    | succ k =>
+      show (if _h : shapesCode relationShapeCode (t :: ts) = 0 then some []
+              else
+                let u := Nat.unpair (shapesCode relationShapeCode (t :: ts))
+                if _hu : u.1 = 0 then none
+                else
+                  match decodeRelationShape (u.1 - 1) with
+                  | none => none
+                  | some t' =>
+                    match decodeRelListAux k u.2 with
+                    | none => none
+                    | some ts' => some (t' :: ts')) = some (t :: ts)
+      have hne : shapesCode relationShapeCode (t :: ts) ≠ 0 := by
+        simp only [shapesCode]
+        have := Nat.left_le_pair (relationShapeCode t + 1) (shapesCode relationShapeCode ts)
+        omega
+      rw [dif_neg hne]
+      simp only [decodeRelListAux, shapesCode, Nat.unpair_pair]
+      have hsucc : relationShapeCode t + 1 ≠ 0 := by omega
+      rw [dif_neg hsucc]
+      rw [Nat.add_sub_cancel]
+      rw [decodeRelationShape_code t]
+      simp only [decodeRelListAux]
+      rw [ih k (by simp at hk; omega)]
+
+/-- **THE CODE IS AT LEAST AS LONG AS THE RELATION LIST.** -/
+theorem shapesCode_rel_ge_length :
+    ∀ xs : List RelationShape, xs.length ≤ shapesCode relationShapeCode xs
+  | [] => by simp [shapesCode]
+  | t :: ts => by
+    have ih := shapesCode_rel_ge_length ts
+    have hgt : shapesCode relationShapeCode ts <
+        Nat.pair (relationShapeCode t + 1) (shapesCode relationShapeCode ts) :=
+      pair_gt_snd (relationShapeCode t + 1) (shapesCode relationShapeCode ts) (by omega)
+    simp only [List.length_cons, shapesCode]
+    omega
+
+/-- **THE RELATION LIST DECODER WITH THE CODE AS ITS OWN BUDGET.** -/
+def decodeRelList (n : ℕ) : Option (List RelationShape) :=
+  decodeRelListAux n n
+
+/-- **THE ROUND TRIP FOR THE SELF-FUELLED RELATION LIST DECODER.** -/
+theorem decodeRelList_code (xs : List RelationShape) :
+    decodeRelList (shapesCode relationShapeCode xs) = some xs := by
+  unfold decodeRelList
+  exact decodeRelListAux_code xs (shapesCode relationShapeCode xs) (shapesCode_rel_ge_length xs)
+
+/-! ## THE SKELETON DECODER -- the composition all the above was for
+
+`skeletonCode k = Nat.pair (shapesCode tensorShapeCode k.tensors + 1)
+                            (shapesCode relationShapeCode k.relations)`
+
+**=> decoding is: split the outer pair, subtract the `+1` patch, decode the tensor list, decode the relation list,
+rebuild.**
+**No component is new: every per-item and list decoder below was proved in an earlier step.** -/
+
+/-- **DECODE AN `IRSkeleton` FROM ITS `skeletonCode`.** -/
+def decodeSkeleton (code : ℕ) : Option IRSkeleton :=
+  if _h : code = 0 then none
+  else
+    let outer := Nat.unpair code
+    if _hu : outer.1 = 0 then none
+    else
+      match decodeTensorList (outer.1 - 1) with
+      | none => none
+      | some ts =>
+        match decodeRelList outer.2 with
+        | none => none
+        | some rs => some ⟨ts, rs⟩
+
+set_option maxHeartbeats 800000 in
+/-- THE SKELETON ROUND TRIP -- the inverse `extract` was missing.
+
+`decodeSkeleton (skeletonCode k) = some k`.
+
+The proof splits the pair, subtracts the `+1`, and hands each component to its own decoder, which already has its
+round trip.
+`maxHeartbeats` is raised because `skeletonCode` nests the whole list encoding inside two `Nat.pair`s and the
+elaboration of the `match` on `Option` is expensive at the default budget.
+-/
+theorem decodeSkeleton_code (k : IRSkeleton) : decodeSkeleton (skeletonCode k) = some k := by
+  obtain ⟨ts, rs⟩ := k
+  have hcode : skeletonCode ⟨ts, rs⟩ =
+      Nat.pair (shapesCode tensorShapeCode ts + 1) (shapesCode relationShapeCode rs) := by
+    unfold skeletonCode
+    rfl
+  rw [hcode]
+  unfold decodeSkeleton
+  have hne : Nat.pair (shapesCode tensorShapeCode ts + 1) (shapesCode relationShapeCode rs) ≠ 0 := by
+    have := Nat.left_le_pair (shapesCode tensorShapeCode ts + 1) (shapesCode relationShapeCode rs)
+    omega
+  rw [dif_neg hne]
+  simp only [Nat.unpair_pair]
+  have hsucc : shapesCode tensorShapeCode ts + 1 ≠ 0 := by omega
+  rw [dif_neg hsucc]
+  rw [Nat.add_sub_cancel]
+  rw [decodeTensorList_code, decodeRelList_code]
+
 end Lattice.Core.IR
+
