@@ -278,6 +278,14 @@ Core/IR/Chain.lean	compileSkel_parse_congr
 Core/IR/Compile.lean	partCode_injective
 Core/IR/Compile.lean	listCode_injective
 Core/IR/Compile.lean	argsCode_injective
+Core/IR/Confluence.lean	applyEdit_other
+Core/IR/Confluence.lean	applyEdit_self
+Core/IR/Confluence.lean	run_untouched
+Core/IR/Confluence.lean	construct_single
+Core/IR/Confluence.lean	run_single_effect
+Core/IR/Confluence.lean	confluence_single
+Core/IR/Confluence.lean	lattice_failure_isolated
+Core/IR/Confluence.lean	failure_no_cert
 Core/IR/Lifecycle.lean	recovery_exact
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
@@ -4202,3 +4210,10 @@ Semantics/Stage1.lean	inherits_sound
 Semantics/Stage1.lean	complete_on
 Semantics/Stage1.lean	inherits_behavior_ext
 Semantics/ThresholdInherits.lean	threshold_sound_is_not_definitional
+Semantics/VocabEdit.lean	vocab_edit_permutation_exact
+Semantics/VocabEdit.lean	vocab_compat_permutation
+Semantics/VocabEdit.lean	vocab_edit_add_unused_exact
+Semantics/VocabEdit.lean	vocab_edit_add_new_is_zero
+Semantics/VocabEdit.lean	merge_error_bound
+Semantics/VocabEdit.lean	merge_not_exact
+Semantics/VocabEdit.lean	split_error_bound

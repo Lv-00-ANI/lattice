@@ -64,6 +64,7 @@ import Lattice.Core.IR.T4Repair
 import Lattice.Core.IR.Modulus
 import Lattice.Core.IR.ArchGraph
 import Lattice.Core.IR.Lifecycle
+import Lattice.Core.IR.Confluence
 
 
 /-!
