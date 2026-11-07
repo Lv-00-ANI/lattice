@@ -299,6 +299,8 @@ Core/IR/Confluence.lean	run_congr_of_agree
 Core/IR/Confluence.lean	run_ignores_initial_of_edits
 Core/IR/Confluence.lean	lattice_confluence
 Core/IR/Confluence.lean	lattice_confluence_zero
+Core/IR/IsIR.lean	materialize_covered
+Core/IR/IsIR.lean	maximal_nil
 Core/IR/Lifecycle.lean	recovery_exact
 Core/IR/Materialize.lean	skeleton_of_fillZeros
 Core/IR/Materialize.lean	materialize_tensors_length

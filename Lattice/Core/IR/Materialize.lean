@@ -65,6 +65,35 @@ def zerosOf (s : TensorShape) : Tensor where
   shape := s.shape
   data := fun _ => 0
 
+/-- **`readOf ts id ix`: the value a position holds.**
+
+Looks `id` up in `ts` and reads its single-axis index. An absent tensor, an out-of-range index, or a multi-axis index
+all read as `0`.
+
+=> `readOf` is TOTAL, and this docstring says exactly where the zeros are CONVENTIONAL rather than data. -/
+def readOf (ts : List Tensor) : TensorId → List ℕ → ℝ :=
+  fun id ix =>
+    match ts.find? (fun t => t.id = id) with
+    | none => 0
+    | some t =>
+      match ix with
+      | [i] => if h : i < t.shape.prod then t.data ⟨i, h⟩ else 0
+      | _ => 0
+
+/-- **A list whose tensors all carry zero data reads as zero everywhere.**
+
+This is the lemma that makes the skeleton-alone IR's covering condition vacuous, and it is stated for ANY such list
+so a caller can apply it without knowing how the list was built. -/
+theorem readOf_zero_data (ts : List Tensor) (hzero : ∀ t ∈ ts, t.data = fun _ => (0 : ℝ)) :
+    ∀ (id : TensorId) (ix : List ℕ), readOf ts id ix = 0 := by
+  intro id ix
+  unfold readOf
+  split
+  · rfl
+  · rename_i t ht
+    rw [hzero t (List.mem_of_find?_eq_some ht)]
+    split <;> simp
+
 /-- **PRODUCING DATA PRESERVES THE SKELETON'S INFORMATION.**
 
 **`id` and `shape` are copied unchanged, so the materialised tensor's skeleton is the one it came from.**
