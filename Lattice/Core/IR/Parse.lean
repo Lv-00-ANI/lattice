@@ -281,6 +281,72 @@ theorem walk_mono : ∀ (t : Term) (n : ℕ), n ≤ (walkWithRelations t n).2.2
     show n ≤ (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2
     omega
 
+/-- **THE WALK ALLOCATES EXACTLY ONE TENSOR PER VISITED NODE.**
+
+**`(walkWithRelations t n).1.length + n = (walkWithRelations t n).2.2`.**
+
+**=> the final counter is the starting counter plus the number of tensors emitted, which is what makes the ids an
+ENUMERATION of the interval `[n, final)` rather than merely lying inside it.**
+
+**Three techniques carry this proof, and each cost a round to find:**
+**1. `induction` (not recursive definition), because the `letE`/`lam`/`pi` cases must cite `walk_range`;**
+**2. the SECOND hypothesis in `lam`/`pi` and the second-and-third in `letE` -- the first belongs to the BOUND
+type, not the body (rounds 219, 222);**
+**3. `generalize` before `omega`, because `omega` treats `walkWithRelations ...`.1.length as an opaque term and
+cannot relate two occurrences of it (round 223).**
+**In `letE` the order matters: the inner counter `F1` must be generalized in `h1`, `h2` AND the goal FIRST, so the
+other three generalizations see the same name.** -/
+theorem walk_count : ∀ (t : Term) (n : ℕ),
+    (walkWithRelations t n).1.length + n = (walkWithRelations t n).2.2 := by
+  intro t
+  induction t with
+  | sort k l =>
+    intro n
+    simp [walkWithRelations]
+    omega
+  | var k =>
+    intro n
+    simp [walkWithRelations]
+    omega
+  | const k =>
+    intro n
+    simp [walkWithRelations]
+    omega
+  | lam kk b _ ihb =>
+    intro n
+    have h := ihb (n + 1)
+    simp only [walkWithRelations, List.length_cons]
+    generalize (walkWithRelations b (n + 1)).1.length = L at h ⊢
+    generalize (walkWithRelations b (n + 1)).2.2 = F at h ⊢
+    omega
+  | pi kk B _ ihB =>
+    intro n
+    have h := ihB (n + 1)
+    simp only [walkWithRelations, List.length_cons]
+    generalize (walkWithRelations B (n + 1)).1.length = L at h ⊢
+    generalize (walkWithRelations B (n + 1)).2.2 = F at h ⊢
+    omega
+  | app f a ihf iha =>
+    intro n
+    have h1 := ihf (n + 1)
+    have h2 := iha (walkWithRelations f (n + 1)).2.2
+    simp only [walkWithRelations, List.length_append, List.length_cons]
+    generalize (walkWithRelations f (n + 1)).2.2 = F1 at h1 h2 ⊢
+    generalize (walkWithRelations f (n + 1)).1.length = L1 at h1 ⊢
+    generalize (walkWithRelations a F1).2.2 = F2 at h2 ⊢
+    generalize (walkWithRelations a F1).1.length = L2 at h2 ⊢
+    omega
+  | letE kk tt b _ ihtt ihb =>
+    intro n
+    have h1 := ihtt (n + 1)
+    have h2 := ihb (walkWithRelations tt (n + 1)).2.2
+    simp only [walkWithRelations, List.length_append, List.length_cons]
+    generalize (walkWithRelations tt (n + 1)).2.2 = F1 at h1 h2 ⊢
+    generalize (walkWithRelations tt (n + 1)).1.length = L1 at h1 ⊢
+    generalize (walkWithRelations b F1).2.2 = F2 at h2 ⊢
+    generalize (walkWithRelations b F1).1.length = L2 at h2 ⊢
+    omega
+
 /-- **EVERY EMITTED TENSOR ID LIES IN `[n, final counter)`.**
 
 **`∀ s ∈ (walkWithRelations t n).1, n ≤ s.id ∧ s.id < (walkWithRelations t n).2.2`.**
