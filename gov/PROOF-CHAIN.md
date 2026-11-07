@@ -1081,7 +1081,7 @@
 | `Lattice.Core.IR.Basic` | 3 | 6 |
 | `Lattice.Core.IR.Chain` | 4 | 2 |
 | `Lattice.Core.IR.Compile` | 4 | 5 |
-| `Lattice.Core.IR.Confluence` | 18 | 8 |
+| `Lattice.Core.IR.Confluence` | 20 | 8 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
@@ -6598,6 +6598,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lagrangian_lower_bound` -> `at`, `e2`, `g`, `le_antisymm`, `le_trans`
 - `lastBias_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lastWord_fits` -> `AffineLayer`, `FloatFormat`, `enc`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
+- `lattice_confluence` -> `LifeState`
 - `lattice_failure_isolated` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
 - `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
 - `lattice_ordering` -> `at`
@@ -9104,7 +9105,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residue_bound_of_zero_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `loss_le_sq_of_resid_le`, `resid`
 - `resolution_limited_rate_shape` -> `d`
 - `resultEquiv_refl` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
-- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `ex`, `induction`, `requires`, `subst`, `trans`, `value`
 - `resultEquiv_trans` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
 - `retain_all_error_zero` -> `rho`
 - `retain_all_exact` -> `rho`
@@ -9389,9 +9390,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `runSeq_all_succeed` -> `RState`, `Step`, `apply`, `run`
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `compile`, `edit_seq_comm`, `g`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `run_cons`, `subst`
-- `run_congr_of_agree` -> `LifeState`, `apply`, `at`, `induction`, `subst`
-- `run_cons` -> `E`, `LifeState`, `apply`, `at`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `subst`
+- `run_congr_of_agree` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
+- `run_cons` -> `E`, `LifeState`, `Plugin`, `apply`, `at`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `subst`
 - `run_eq` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
+- `run_ignores_initial_of_edits` -> `LifeState`, `Plugin`, `at`, `induction`, `subst`
 - `run_nil` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `run_cons`
 - `run_not_reversible_of_collision` -> `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_preserved` -> `Relation`, `induction`

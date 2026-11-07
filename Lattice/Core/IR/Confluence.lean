@@ -298,6 +298,61 @@ theorem run_congr_of_agree (trace : List Edit) (s t : LifeState)
             run_untouched rest (applyEdit e t) e.plugin hlater,
             applyEdit_self, applyEdit_self]
 
+/-- **A TRACE THAT EDITS A PLUGIN MAKES ITS RESULT INDEPENDENT OF THE INITIAL STATE.**
+
+We show `(run trace s).effect Q = (run trace t).effect Q` for ARBITRARY `s` and `t`, as soon as the trace edits `Q`.
+
+This is the key to T7: the only way an initial state can survive a run is by NOT being written to, and a plugin the
+trace edits is always written. Hence confluence needs no hypothesis about the plugins the trace mentions -- only about
+the ones it does not.
+
+The proof peels the head via `run_cons`. If the head targets `Q`, both sides receive the head's VALUE (which is
+independent of the incoming state); if the tail also targets `Q`, the induction continues, and if not, `run_untouched`
+says the value survives on both sides. If the head does not target `Q`, the tail must, and the induction continues. -/
+theorem run_ignores_initial_of_edits (trace : List Edit) (Q : Plugin)
+    (hQ : Q ∈ trace.map (·.plugin)) (s t : LifeState) :
+    (run trace s).effect Q = (run trace t).effect Q := by
+  induction trace generalizing s t with
+  | nil => simp at hQ
+  | cons e rest ih =>
+    rw [run_cons e rest s, run_cons e rest t]
+    by_cases hhead : Q = e.plugin
+    · subst hhead
+      by_cases hlater : e.plugin ∈ rest.map (·.plugin)
+      · exact ih hlater (applyEdit e s) (applyEdit e t)
+      · rw [run_untouched rest (applyEdit e s) e.plugin hlater,
+            run_untouched rest (applyEdit e t) e.plugin hlater,
+            applyEdit_self, applyEdit_self]
+    · have hQ' : Q ∈ rest.map (·.plugin) := by
+        have h := hQ
+        simp only [List.map_cons, List.mem_cons] at h
+        rcases h with h | h
+        · exact absurd h hhead
+        · exact h
+      exact ih hQ' (applyEdit e s) (applyEdit e t)
+
+/-- **T7 CONFLUENCE: a run's observable equals its construction's, at every plugin the trace edits.**
+
+`behavior (run trace s) Q = behavior (construct trace) Q` for `Q ∈ trace.map (·.plugin)`.
+
+NO hypothesis on `s`, and that is the point: `run_ignores_initial_of_edits` says a trace that edits `Q` makes the
+result at `Q` independent of the initial state, and `construct` IS a run over the same trace. So both sides are runs
+whose values at `Q` cannot depend on where they started.
+
+The restriction to the trace's plugins is essential and is stated: an UNEDITED plugin keeps `s`'s value under `run`
+while `construct` gives `none`, so a version quantifying over all plugins would be false. That is `run_untouched`'s
+content, and naming it is what keeps the theorem honest.
+
+The discipline forbids an associativity identity standing in for confluence. This compares the output of two RUNS over
+the same trace -- the observable comparison the obligation asks for. -/
+theorem lattice_confluence (trace : List Edit) (s : LifeState) :
+    ∀ Q ∈ trace.map (·.plugin),
+      behavior (run trace s) Q = behavior (construct trace) Q := by
+  intro Q hQ
+  show (run trace s).effect Q = (construct trace).effect Q
+  rw [construct_eq_run_zero trace Q]
+  exact run_ignores_initial_of_edits trace Q hQ s zeroState
+
 /-- **T7 CONFLUENCE, DISCHARGED FOR THE ZERO STATE -- and why that instance is the one that matters.**
 
 **`behavior (run trace zeroState) Q = behavior (construct trace) Q` at every plugin the trace mentions.**

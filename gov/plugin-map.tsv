@@ -291,6 +291,7 @@ core	Core/IR	Core/IR/Confluence.lean	confluence_single	no
 core	Core/IR	Core/IR/Confluence.lean	construct_eq_run_zero	no
 core	Core/IR	Core/IR/Confluence.lean	construct_single	no
 core	Core/IR	Core/IR/Confluence.lean	failure_no_cert	no
+core	Core/IR	Core/IR/Confluence.lean	lattice_confluence	no
 core	Core/IR	Core/IR/Confluence.lean	lattice_confluence_zero	no
 core	Core/IR	Core/IR/Confluence.lean	lattice_failure_isolated	no
 core	Core/IR	Core/IR/Confluence.lean	not_quiescent_of_unmet	no
@@ -300,6 +301,7 @@ core	Core/IR	Core/IR/Confluence.lean	resultEquiv_symm	no
 core	Core/IR	Core/IR/Confluence.lean	resultEquiv_trans	no
 core	Core/IR	Core/IR/Confluence.lean	run_congr_of_agree	no
 core	Core/IR	Core/IR/Confluence.lean	run_cons	no
+core	Core/IR	Core/IR/Confluence.lean	run_ignores_initial_of_edits	no
 core	Core/IR	Core/IR/Confluence.lean	run_single_effect	no
 core	Core/IR	Core/IR/Confluence.lean	run_untouched	no
 core	Core/IR	Core/IR/Depends.lean	dependsHolds_mono	no
