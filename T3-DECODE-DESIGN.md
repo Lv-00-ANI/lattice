@@ -431,3 +431,83 @@ n       : ℕ
 **=> 根因已定位、修法已写明，但本轮时间用完。**
 
 **按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
+
+---
+
+## 11. 第 220 轮：`walk_nodup` 的目标形状已完全确定，以及一条更短的替代路线
+
+### 11.1 目标形状（`trace_state` 实测）
+
+**`lam` 分支在 `refine List.nodup_cons.mpr ⟨?_, hb⟩` 之后，第一个目标精确是：**
+
+```
+⊢ n ∉ List.map (fun x => x.id) (walkWithRelations b (n + 1)).1
+```
+
+**它是一个**否定**（`∉`），不是等式。**
+
+**第 220 轮试过的展开方式与结果：**
+
+| 写法 | 结果 |
+|:--|:--|
+| **`intro hc; obtain ⟨s, hs, hid⟩ := List.mem_map.mp hc; omega`** | **`omega` 报反例约束 `a - c ≥ 1`（`a := s.id`, `c := n`），即它**已经有** `n+1 ≤ s.id`，但仍失败** |
+| **`simp only [List.mem_map, not_exists, not_and]` 然后 `intro s hs hid; omega`** | **同上** |
+| **`show ¬ (n = s.id)`** | **类型不匹配（方向不对）** |
+| **`simp only [List.mem_map] at hc` 后再 `omega`** | **"simp made no progress"** |
+
+**关键：`omega` 的反例约束显示它**已经拿到** `s.id ≥ n + 1`，也就是说 `hr` 被正确使用了。**
+**它仍然失败，说明目标的否定形式里 `n` 与 `s.id` 的关系没有被 `omega` 的线性算术引擎识别为矛盾——因为 `n` 在目标里是**目标左侧的固定项**，而 `s.id` 是**存在量词绑定**的。**
+
+**=> 纯算术部分单独验证过：**
+
+```lean
+example (n m : ℕ) (hr : n + 1 <= m) (hn : m = n) : False := by omega
+```
+
+**这条**通过**。所以问题不在算术，而在**量词结构**：`omega` 在 `∀ s, ... → s.id = n → False` 里无法把 `s` 的假设串起来。**
+
+### 11.2 更短的替代路线：先证计数引理
+
+**如果 `walkWithRelations` 满足**
+
+```lean
+theorem walk_count : ∀ (t : Term) (n : ℕ),
+    (walkWithRelations t n).1.length + n = (walkWithRelations t n).2.2
+```
+
+**那么结合 `walk_range`（每个 id 在 `[n, 最终)`）就能推出 `Nodup`：数量恰好等于区间长度，且 id 全在区间内。**
+
+**第 220 轮实测这条引理的三个**叶子**分支都通过：**
+
+```lean
+  | Term.sort k l => simp [walkWithRelations]; omega      -- 1 + n = n + 1
+```
+
+**四个递归分支失败，原因是 `simp only [walkWithRelations]` 在目标上重新引入 `let` 三元组，与 `have h := ih (n+1)` 的展开形式对不上。**
+
+**=> 这与 `walk_nodup` 的障碍同源：**目标必须用 `show` 写成与假设同构的形式**，而不是靠 `simp` 展开。**
+
+### 11.3 下一轮的确切做法
+
+**先证 `walk_count`，每个递归分支用 `show` 而不是 `simp`：**
+
+```lean
+  | Term.lam kk b ih =>
+    have h := ih (n + 1)
+    show 1 + (walkWithRelations b (n + 1)).1.length + n = (walkWithRelations b (n + 1)).2.2
+    omega
+```
+
+**（`lam` 的 walk 是 `⟨mk n termShape :: tb, dependsShape n [n+1] :: rb, n1⟩`，所以长度是 `tb.length + 1`。）**
+
+**`app`/`letE` 同样写出 `(tf ++ ta).length + 1 + n = n2` 的 `show`，再 `omega`。**
+
+**`walk_count` 证出后，`walk_nodup` 可以从「数量 = 区间长度」+「每个 id 在区间内」推出——这需要 `List.Nodup` 的一个标准引理（`List.nodup_iff_nth_le` 或 `List.Nodup` 与 `List.range` 的关系），而不再需要处理嵌套量词。**
+
+### 11.4 为什么第 220 轮没做完
+
+**第 220 轮在 `walk_nodup` 的 `lam` 分支上又做了五次展开尝试（11.1 的表），并在 `walk_count` 上做了两次，都卡在同一个「`simp` 展开后与假设不同构」的问题上。**
+
+**=> 根因和修法都已写明（`show` 而非 `simp`），本轮时间用完。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
