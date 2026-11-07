@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 68 | no imports from lift/lib |
+| core | 69 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -41,6 +41,7 @@
 - `Lattice.Core.CIC.ShiftNonComm` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.SubstBridge` <- `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.SubstComp` <- `Lattice.Core.CIC.SubstTable`
+- `Lattice.Core.CIC.SubstShiftAnalysis` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.SubstTable` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Substitution` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.SubstitutionShift` <- `Lattice.Core.CIC.Substitution`
@@ -731,7 +732,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1068,6 +1069,7 @@
 | `Lattice.Core.CIC.ShiftNonComm` | 1 | 0 |
 | `Lattice.Core.CIC.SubstBridge` | 3 | 1 |
 | `Lattice.Core.CIC.SubstComp` | 2 | 1 |
+| `Lattice.Core.CIC.SubstShiftAnalysis` | 5 | 0 |
 | `Lattice.Core.CIC.SubstTable` | 5 | 0 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
 | `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
@@ -9755,6 +9757,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `shift_typing` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `shift`, `subst`, `zero`
 - `shift_var_ge` -> `d`, `induction`
 - `shift_var_lt` -> `d`, `induction`
+- `shift_var_untouched_below` -> `Term`, `d`, `shift`, `subst`
 - `shift_zero` -> `d`, `induction`
 - `shift_zero_succ_var` -> `Term`, `at`, `shift`, `shift_var_ge`, `shift_var_lt`
 - `sigA_close` -> `at`, `le_trans`
@@ -10338,11 +10341,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_preserves_typing` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `subst_ren` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `subst_shift_above_one` -> `Term`, `shift`, `shift_var_ge`, `subst`, `subst_var_gt`, `subst_var_lt`
+- `subst_shift_agree_below` -> `Term`, `d`, `shift`, `subst`
+- `subst_shift_at_untouched_index` -> `Term`, `d`, `shift`, `subst`
+- `subst_shift_counterexample` -> `Term`, `shift`, `subst`
 - `subst_shift_target` -> `Term`, `shift`, `shift_var_ge`, `subst`, `subst_var_eq`, `subst_var_gt`, `subst_var_lt`
 - `subst_subst` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `subst_var_eq` -> `Term`, `shift`
 - `subst_var_gt` -> `Term`, `shift`
 - `subst_var_lt` -> `Term`, `shift`
+- `subst_var_self` -> `Term`, `d`, `shift`, `subst`
 - `substantive_representation_instance` -> `compile`, `compile_injective`, `extract`, `roundtrip`
 - `substitution_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
 - `sumEven_eq_zero_iff` -> `at`, `induction`

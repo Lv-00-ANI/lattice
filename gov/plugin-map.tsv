@@ -250,6 +250,11 @@ core	Core/CIC	Core/CIC/SubstBridge.lean	lift_singleSubst	no
 core	Core/CIC	Core/CIC/SubstBridge.lean	singleSubst_var	no
 core	Core/CIC	Core/CIC/SubstComp.lean	comp_candidate_false	yes
 core	Core/CIC	Core/CIC/SubstComp.lean	comp_row_eq_agrees	no
+core	Core/CIC	Core/CIC/SubstShiftAnalysis.lean	shift_var_untouched_below	no
+core	Core/CIC	Core/CIC/SubstShiftAnalysis.lean	subst_shift_agree_below	no
+core	Core/CIC	Core/CIC/SubstShiftAnalysis.lean	subst_shift_at_untouched_index	no
+core	Core/CIC	Core/CIC/SubstShiftAnalysis.lean	subst_shift_counterexample	no
+core	Core/CIC	Core/CIC/SubstShiftAnalysis.lean	subst_var_self	no
 core	Core/CIC	Core/CIC/SubstTable.lean	comp_eq	no
 core	Core/CIC	Core/CIC/SubstTable.lean	comp_gt_eq	no
 core	Core/CIC	Core/CIC/SubstTable.lean	comp_gt_succ	no
