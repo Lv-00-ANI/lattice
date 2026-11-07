@@ -135,4 +135,24 @@ theorem modelsIRS_implies_modelsIR {W : IRWeights} {k : IRSkeleton}
 **The theorem is stated because it is the concrete difference from the old `semantics k := k`.** -/
 theorem semanticsOf_nil : semanticsOf ⟨[], []⟩ = [] := rfl
 
+/-- **`parseSkeletonWithRelations` IS WELL FORMED.**
+
+**`WellFormed (parseSkeletonWithRelations t)`.**
+
+**=> this is T0's precondition, and it was unreachable until the walk's two invariants were proved:**
+**- `walk_nodup` (round 227) gives the `Nodup` conjunct;**
+**- `walk_rel_args` (round 230) gives the "every relation argument names an existing tensor" conjunct.**
+
+**The proof writes the goal out with `show` rather than destructuring with `split`, because `split` names the
+components by POSITION and the tuple is `(tensors, relations, counter)` -- naming them `ts rs m` binds `ts` to the
+RELATIONS and makes both `exact`s fail with a type mismatch that reads like a proof error but is a naming error.** -/
+theorem parseWithRelations_wellFormed (t : Lattice.Core.CIC.Term) :
+    WellFormed (parseSkeletonWithRelations t) := by
+  unfold parseSkeletonWithRelations
+  show WellFormed ⟨(walkWithRelations t 0).1, (walkWithRelations t 0).2.1⟩
+  constructor
+  · exact walk_nodup t 0
+  · exact walk_rel_args t 0
+
 end Lattice.Core.IR
+

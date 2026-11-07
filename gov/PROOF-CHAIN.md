@@ -1106,7 +1106,7 @@
 | `Lattice.Core.IR.Parse` | 19 | 8 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
-| `Lattice.Core.IR.Semantics` | 3 | 2 |
+| `Lattice.Core.IR.Semantics` | 4 | 2 |
 | `Lattice.Core.IR.Skeleton` | 7 | 11 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
@@ -3571,7 +3571,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_program_vars_subset` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_sound` -> `CICCtx`, `ConstSet`, `GeoConstraint`, `HoldsSet`, `IRSkeleton`, `MergeRecord`, `MergeSound`, `Pt`, `Term`, `Typable`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `parse`, `samePointLadder`, `samePointLadder_satW_iff`, `satW`, `skeletonCode`, `skeletonCode_injective`, `subst`
 - `compile_sound_as_special` -> `GeoConstraint`, `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`, `samePointLadder`, `satW`
-- `compile_sound_content` -> `IRSkeleton`, `IRWeights`, `W`, `WellFormed`, `compileSkel`, `materialize_covered`
+- `compile_sound_content` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `WellFormed`, `compileSkel`, `materialize_covered`, `parseSkeletonWithRelations`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `compile_sound_general` -> `ConstraintSet`, `GeoConstraint`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `W`, `collinear`, `compile`, `decode`, `encode`, `extract`, `holdsSet_mem`, `merge_sound`, `merged`, `parallel`, `preserves`, `roundtrip`, `samePointLadder`, `satW`, `subst`, `trans`, `trivial`
 - `compile_sound_mentions_R` -> `GeoConstraint`, `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`
 - `compile_sound_midpoint` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `satW`
@@ -7439,7 +7439,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `model_chain_numeric_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `at`, `le_trans`
 - `model_chain_numeric_bound_wired` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`
 - `model_chain_numeric_expanded` -> `ChainFwd`, `SoftmaxAttnOp`, `W`
-- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `W`, `compileSkel`
+- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `WellFormed`, `compileSkel`, `parseSkeletonWithRelations`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfSubsetProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `models_of_mem` -> `Constraint`, `d`
@@ -8240,6 +8240,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
 - `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parseWithRelations_wellFormed` -> `Term`, `WellFormed`, `parseSkeletonWithRelations`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`
@@ -9740,6 +9741,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `GeoConstraint`, `Holds`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Pt`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `extract`, `extractVec`, `fiber`, `g`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`, `translate`
 - `semantic_of_extract` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
 - `semantic_roundtrip_compiles_agree` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
+- `semanticsOf_nil` -> `Term`, `WellFormed`, `parseSkeletonWithRelations`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `sep_absent_gives_zero_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `enc`, `pieceOf`
