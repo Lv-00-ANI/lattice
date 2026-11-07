@@ -70,6 +70,7 @@ import Lattice.Core.CIC.SubstShiftAnalysis
 import Lattice.Core.IR.Materialize
 import Lattice.Core.IR.IsIR
 import Lattice.Core.IR.Canonical
+import Lattice.Core.IR.Penalty
 
 
 /-!

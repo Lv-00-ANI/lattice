@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 72 | no imports from lift/lib |
+| core | 73 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -65,6 +65,7 @@
 - `Lattice.Core.IR.Modulus` <- `Lattice.Core.IR.Obligations`
 - `Lattice.Core.IR.Obligations` <- `Lattice.Core.IR.Unique`
 - `Lattice.Core.IR.Parse` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.CIC.Syntax`
+- `Lattice.Core.IR.Penalty` <- `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Skeleton`
 - `Lattice.Core.IR.Relations` <- `Lattice.Core.IR.Basic`
 - `Lattice.Core.IR.Skeleton` <- `Lattice.Core.IR.Compile`
 - `Lattice.Core.IR.T4Repair` <- `Lattice.Core.IR.Obligations`, `Lattice.Plugins.Core.Repair.Repair`
@@ -735,7 +736,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`
+- `Lattice.Core` <- `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`
 - `Lattice.Domains` <- `Lattice.Domains.Constraints`, `Lattice.Domains.Geometry`, `Lattice.Domains.Geometry.Encode.CIC`, `Lattice.Domains.Geometry.Encode.Tags`
 - `Lattice.Domains.Constraints` <- `Lattice.Domains.Constraints.ComputableExpr`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.ConstraintSet`, `Lattice.Domains.Constraints.ConstraintTokenizer`, `Lattice.Domains.Constraints.Differentiable`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Constraints.DistContinuous`, `Lattice.Domains.Constraints.DistLipschitz`, `Lattice.Domains.Constraints.EqConstraintListTokens`, `Lattice.Domains.Constraints.EqConstraintToken`, `Lattice.Domains.Constraints.EqConstraintTokenizer`, `Lattice.Domains.Constraints.EqConstraintTokens`, `Lattice.Domains.Constraints.Eval`, `Lattice.Domains.Constraints.Expr`, `Lattice.Domains.Constraints.ExprDeriv`, `Lattice.Domains.Constraints.Flatten`, `Lattice.Domains.Constraints.FlattenAgreement`, `Lattice.Domains.Constraints.Lipschitz`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.NetLoss`, `Lattice.Domains.Constraints.PenaltyLoss`, `Lattice.Domains.Constraints.Perturb`, `Lattice.Domains.Constraints.Pipeline`, `Lattice.Domains.Constraints.RealToken`, `Lattice.Domains.Constraints.RealTokenRoundtrip`, `Lattice.Domains.Constraints.SeqRepresentation`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Domains.Constraints.DistDerivative`, `Lattice.Domains.Constraints.ExprDerivative`, `Lattice.Domains.Constraints.PenaltyLossDerivative`, `Lattice.Domains.Constraints.NetLossDerivative`, `Lattice.Domains.Constraints.FlatLoss`, `Lattice.Domains.Constraints.LossExtraction`
 - `Lattice.Domains.Constraints.ComputableExpr` <- `Lattice.Domains.Constraints.Expr`
@@ -1096,6 +1097,7 @@
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
 | `Lattice.Core.IR.Parse` | 8 | 8 |
+| `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Skeleton` | 7 | 11 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
@@ -4835,7 +4837,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eqConstraint_loss_le_sq_of_resid_le` -> `EqConstraint`, `Pt`, `loss`, `loss_le_sq_of_resid_le`, `poly`
 - `eqZero_const_one_expressible` -> `ConstraintSet`, `ExpressibleLayer`, `ExpressibleSpec`, `FamilySolver`, `GeoConstraint`, `GeoExpr`, `Holds`, `HoldsSet`, `IsExpressible`, `Pt`, `SpecSolver`, `evalPts`, `evalPts_const`, `single`, `sol`, `sound`
 - `eqZero_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
-- `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `eqZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `eqZero_penalty_eq_violation_sq` -> `GeoExpr`, `evalPts`, `toNatConfig`, `violation`, `violation_nonneg`
 - `eqZero_representable` -> `aff`, `subst`
 - `eqZero_value_is_eval` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `evalPts`
@@ -4857,7 +4859,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `equalLength_constConfigOK` -> `GeoConstraint`
 - `equalLength_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `equalLength_expressible` -> `GeoConstraint`
-- `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `equalLength_lipschitz` -> `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `le_trans`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `equalLength_not_affine` -> `aff`, `d`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `equalLength_sound` -> `Pt`, `sqDist`
 - `equalLength_translate` -> `GeoConstraint`, `Holds`, `Pt`, `diff`, `seg`, `sqDist`, `sqNorm`
@@ -5900,7 +5902,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `group_axioms_of_group` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `grouped_output_bound` -> `E`, `convComb_norm_bound`, `d`, `g`, `softmax`
 - `grow_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `weights`
-- `gtZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `gtZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `gtZero_not_affine` -> `aff`, `subst`
 - `hDone_apply` -> `Relation`, `at`, `compile`, `step`, `trivial`
 - `hG_is_substantive` -> `at`, `dist`, `induction`, `zero`
@@ -7161,11 +7163,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maxPoint_lt_of_le` -> `GeoExpr`, `add`, `at`, `evalPts`, `hasFDerivAt_coord`, `induction`, `mul`, `unflatten`
 - `maxPoint_ofLinearFormAux` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `induction`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `ofLinearFormAux`, `toNatConfig`
 - `maxPoint_ofLinearForm_lt` -> `GeoExpr`, `HasNonzeroDeriv`, `LinearForm`, `Pt`, `derivExpr`, `derivExpr_ofLinearForm_ne_zero`, `embed`, `evalPts`, `hasFDerivAt_eval`, `localMin_implies_penalty_zero`, `localMin_implies_zero`, `lossOfLinearForm`, `lossOfLinearForm_eq_sq`, `maxPoint`, `ofLinearForm`, `toNatConfig`
-- `maxZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `maxZero_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `maxZero_pos_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
 - `max_zero_eq_zero_iff` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `bilinear_sub_le`, `card_fin`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `le_trans`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `sq_lipschitz_on_bounded`, `trunc`
-- `max_zero_sq_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
-- `max_zero_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
+- `max_zero_sq_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
+- `max_zero_sub_le` -> `GeoConstraint`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sq_lipschitz_on_bounded`
 - `maximal_nil` -> `at`, `maximal`
 - `mcdiarmidBoundedDiff_implies_range` -> `Surjective`, `at`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `le`, `mono`, `trans`
 - `mcdiarmidSign_abs` -> `uniformProb`
@@ -7301,12 +7303,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `midpointLayer_act` -> `AffineLayer`, `Ladder`, `affineAct`, `at`, `enc`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
 - `midpointPenalty_eq_zero_iff` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `midpointPenalty_nonneg` -> `Pt`
-- `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `midpointTerm_diff_le` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_differentiableAt` -> `Pt`, `comp`, `hasFDerivAt_sq_comp`, `minorDefect`, `mul`, `seg`, `trunc`
 - `midpoint_expressible` -> `GeoConstraint`
 - `midpoint_iff` -> `Pt`
 - `midpoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
-- `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `midpoint_sum_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `card_fin`, `collinear`, `d`, `evalPts`, `le_trans`, `parallel`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `midpoint_translate` -> `GeoConstraint`, `Holds`, `Pt`, `seg`
 - `migration_progress_complete` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Extract`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `min_eq_half_sub_abs` -> `at`, `geom_sum_eq`, `le_total`, `min`
@@ -8232,41 +8234,46 @@ module. These are the edges that make the chain a chain rather than a list.
 - `payload_getElem` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `pdl_telescoping` -> `induction`, `zero`
 - `penaltyExact_of_epsSat_zero` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
-- `penaltyLipschitz_eqZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_equalLength` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_gtZero` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_leZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_rightAngle` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLipschitz_samePoint` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `rho`, `seg`, `sqDist`
-- `penaltyLipschitz_sqDistEq` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_eqZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `penaltyLoss`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_equalLength` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_gtZero` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `penaltyLoss`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_leZero` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `penaltyLoss`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_perpendicular` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_rightAngle` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLipschitz_samePoint` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `penaltyLoss`, `rho`, `seg`, `sqDist`
+- `penaltyLipschitz_sqDistEq` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `Holds`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `rho`, `seg`, `sqDist`
 - `penaltyLossFDeriv_apply` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `hasFDerivAt_evalPts`, `hasFDerivAt_sq_comp`, `parallel`, `sqDist`, `trunc`
 - `penaltyLoss_comp_funext` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `penaltyLossFDeriv`, `single`, `singleParams`, `trunc`
 - `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `ConstraintIndicesBelow`, `E`, `GeoConstraint`, `KinkPositive`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `hasFDerivAt_penaltyLoss`, `induction`, `netActN`, `parallel`, `penaltyLoss`, `penaltyLossFDeriv`, `trunc`
 - `penaltyLoss_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPtsFDeriv`, `evalPts_differentiableAt`, `parallel`, `penaltyLoss`, `sqDist`, `sqDistFDeriv`, `trunc`
-- `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_gtZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_eqZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_equalLength` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_gtZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_eq_zero_iff_holds_leZero` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
 - `penaltyLoss_eq_zero_iff_holds_midpoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
 - `penaltyLoss_eq_zero_iff_holds_of_safe` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `trunc`
 - `penaltyLoss_eq_zero_iff_holds_samePoint` -> `AffineLayer`, `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
 - `penaltyLoss_eq_zero_iff_holds_sq` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sqDist_eq_zero_iff`, `trunc`
-- `penaltyLoss_eq_zero_leZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_midpoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_of_holds` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist_eq_zero_iff`
-- `penaltyLoss_eq_zero_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_leZero` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_midpoint` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_of_holds` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_rightAngle` -> `GeoConstraint`, `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist_eq_zero_iff`
+- `penaltyLoss_eq_zero_sqDistEq` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `collinear`, `d`, `evalPts`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`, `seg`, `sqDist`, `sqDist_eq_zero_iff`
 - `penaltyLoss_leZero_eq_ltZero` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
-- `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
+- `penaltyLoss_nonneg` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `collinear`, `d`, `evalPts`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_lipschitz`, `sqDist_nonneg`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `GeoConstraint`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
+- `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
+- `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
+- `penalty_exact` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `out`, `zeroHolds`
+- `penalty_inexact_witness` -> `RelKind`
 - `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `penalty_min_to_violation` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `evalPts_localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `penalty_min_violation_eq_zero` -> `GeoExpr`, `derivExpr`, `evalPts`, `evalPts_const`, `evalPts_localMin_implies_zero`, `maxPoint`, `toNatConfig`
 - `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `GeoConstraint`, `HoldsSet`, `Pt`, `at`, `canonical`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `penalty_samePoint_const` -> `GeoConstraint`, `Holds`, `Pt`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
+- `penalty_zero` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
 - `perSlotExtractionSoundProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
 - `perceptron_bound` -> `E`, `le`, `le_trans`, `subst`
 - `perceptron_converges` -> `E`, `le`, `subst`
@@ -8313,7 +8320,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perpendicular_differentiableAt` -> `GeoConstraint`, `GeoExpr`, `IndicesBelow`, `Pt`, `collinear`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `minorDefect`, `mul`, `parallel`, `penaltyLoss`, `seg`, `trunc`
 - `perpendicular_expressible` -> `GeoConstraint`
 - `perpendicular_iff_dotDisp` -> `GeoConstraint`, `Holds`, `Pt`, `apply`, `sqNorm`, `sqNorm_eq_zero_iff`, `trans`
-- `perpendicular_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
+- `perpendicular_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `penaltyLoss`, `rho`, `seg`, `sq_lipschitz_on_bounded`
 - `perpendicular_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
 - `perpendicular_poly_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`, `poly`
 - `perpendicular_rightAngle_agree` -> `Pt`
@@ -9187,7 +9194,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rightAngle_dot_zero_iff` -> `d`, `depth`, `induction`, `size`, `step`
 - `rightAngle_eq_perpendicular` -> `GeoConstraint`, `Holds`, `Pt`
 - `rightAngle_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
-- `rightAngle_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `rho`, `seg`, `sq_lipschitz_on_bounded`
+- `rightAngle_lipschitz` -> `BoundedV`, `GeoConstraint`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_abs_le`, `bilinearSum_lipschitz`, `d`, `le_trans`, `penaltyLoss`, `rho`, `seg`, `sq_lipschitz_on_bounded`
 - `rightAngle_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `rip_constant_ge_one_of_nonzero_null` -> `apply`, `at`, `l0Norm`, `le_antisymm`, `sqNorm`, `subst`
 - `rip_controls_column_norm` -> `at`, `l0Norm`, `l1Norm`, `sqNorm`, `trans`
@@ -9474,7 +9481,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samePointWeightsLadder_l2l3` -> `Activation`, `ModelArtifact`, `SymbolicSummary`, `affineLayerToMLayer`, `construct_artifact`, `depth`, `enc`, `identity`, `layers`, `ofArtifact`, `samePointLayer`, `weights`
 - `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `samePoint_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
-- `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_trans`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_trans`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `samePoint_loop_reaches_penalty_zero` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `loss`, `repair_success_is_penalty_zero`, `samePointRepair`
 - `samePoint_loss_eq` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`
 - `samePoint_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
@@ -10058,7 +10065,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDistEqPenalty_nonneg` -> `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `d`, `seg`
 - `sqDistEq_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `sqDistEq_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
-- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `le_trans`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
+- `sqDistEq_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `bilinearSum_lipschitz`, `d`, `evalPts`, `le_trans`, `penaltyLoss`, `rho`, `seg`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
 - `sqDistEq_not_affine` -> `aff`, `d`, `le_refl`, `sq_eq_two_roots`, `subst`
 - `sqDistEq_rhs_nonneg` -> `GeoExpr`, `Pt`, `at`, `d`, `evalPts`, `evalPts_sub_eq_zero_iff`, `sqDist_nonneg`
 - `sqDistFDeriv_apply` -> `Pt`, `comp`, `convert`, `d`, `hasFDerivAt_sq`, `sqDist`, `sqDist_eq_sum`
