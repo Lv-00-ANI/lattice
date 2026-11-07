@@ -486,6 +486,116 @@ theorem walk_range : ∀ (t : Term) (n : ℕ),
                lt_of_lt_of_le (ht s hs).2 hmb⟩
       · exact ⟨le_trans (le_trans (Nat.le_succ n) hmt) (hb s hs).1, (hb s hs).2⟩
 
+
+/-- **THE WALK'S TENSOR IDS ARE STRICTLY INCREASING.**
+
+**`((walkWithRelations t n).1.map (·.id)).Pairwise (· < ·)`.**
+
+**=> `walkWithRelations` is a PRE-ORDER traversal: it visits the current node first (taking id `n`) and only then the
+children (from `n + 1`).**
+**So the emitted ids form an increasing sequence, and an increasing sequence is `Nodup` -- which is the cleanest route
+to `WellFormed`'s first conjunct.**
+
+**=> the counting route was tried first (rounds 223-225) and does NOT work: "`len` elements inside an interval of
+length `len`" already presupposes they are distinct.**
+
+**Two techniques carry the proof:**
+**1. `subst hid` -- the membership witness gives `hid : x = s.id`, and `rw` fails on it while `subst` succeeds;**
+**2. `lt_of_lt_of_le hx'.2 hy'.1` for the cross-segment case -- stating the composition beats asking `omega` to find
+it, because `omega` sees only the `.1` projections when both segments' bounds are in play.** -/
+theorem walk_increasing : ∀ (t : Term) (n : ℕ),
+    ((walkWithRelations t n).1.map (·.id)).Pairwise (· < ·) := by
+  intro t
+  induction t with
+  | sort k l => intro n; simp [walkWithRelations]
+  | var k => intro n; simp [walkWithRelations]
+  | const k => intro n; simp [walkWithRelations]
+  | lam kk b _ ihb =>
+    intro n
+    simp only [walkWithRelations, List.map_cons]
+    refine List.pairwise_cons.mpr ⟨?_, ihb (n + 1)⟩
+    intro x hx
+    obtain ⟨s, hs, hid⟩ := List.mem_map.mp hx
+    have hr := walk_range b (n + 1) s hs
+    simp only [TensorShape.mk] at hr
+    subst hid
+    exact hr.1
+  | pi kk B _ ihB =>
+    intro n
+    simp only [walkWithRelations, List.map_cons]
+    refine List.pairwise_cons.mpr ⟨?_, ihB (n + 1)⟩
+    intro x hx
+    obtain ⟨s, hs, hid⟩ := List.mem_map.mp hx
+    have hr := walk_range B (n + 1) s hs
+    simp only [TensorShape.mk] at hr
+    subst hid
+    exact hr.1
+  | app f a ihf iha =>
+    intro n
+    have hmn : n < (walkWithRelations f (n + 1)).2.2 := walk_mono f (n + 1)
+    simp only [walkWithRelations, List.map_cons, List.map_append]
+    refine List.pairwise_cons.mpr ⟨?_, ?_⟩
+    · intro x hx
+      simp only [List.mem_append, List.mem_map] at hx
+      rcases hx with ⟨s, hs, hid⟩ | ⟨s, hs, hid⟩
+      · have hr := walk_range f (n + 1) s hs
+        simp only [TensorShape.mk] at hr
+        subst hid
+        exact lt_of_lt_of_le (Nat.lt_succ_self n) hr.1
+      · have hr := walk_range a (walkWithRelations f (n + 1)).2.2 s hs
+        simp only [TensorShape.mk] at hr
+        subst hid
+        exact lt_of_lt_of_le hmn hr.1
+    · rw [List.pairwise_append]
+      refine ⟨ihf (n + 1), iha (walkWithRelations f (n + 1)).2.2, ?_⟩
+      intro x hx y hy
+      obtain ⟨s, hs, hid⟩ := List.mem_map.mp hx
+      obtain ⟨t2, ht2, hid2⟩ := List.mem_map.mp hy
+      have hx' := walk_range f (n + 1) s hs
+      have hy' := walk_range a (walkWithRelations f (n + 1)).2.2 t2 ht2
+      simp only [TensorShape.mk] at hx' hy'
+      subst hid
+      subst hid2
+      exact lt_of_lt_of_le hx'.2 hy'.1
+  | letE kk tt b _ ihtt ihb =>
+    intro n
+    have hmn : n < (walkWithRelations tt (n + 1)).2.2 := walk_mono tt (n + 1)
+    simp only [walkWithRelations, List.map_cons, List.map_append]
+    refine List.pairwise_cons.mpr ⟨?_, ?_⟩
+    · intro x hx
+      simp only [List.mem_append, List.mem_map] at hx
+      rcases hx with ⟨s, hs, hid⟩ | ⟨s, hs, hid⟩
+      · have hr := walk_range tt (n + 1) s hs
+        simp only [TensorShape.mk] at hr
+        subst hid
+        exact lt_of_lt_of_le (Nat.lt_succ_self n) hr.1
+      · have hr := walk_range b (walkWithRelations tt (n + 1)).2.2 s hs
+        simp only [TensorShape.mk] at hr
+        subst hid
+        exact lt_of_lt_of_le hmn hr.1
+    · rw [List.pairwise_append]
+      refine ⟨ihtt (n + 1), ihb (walkWithRelations tt (n + 1)).2.2, ?_⟩
+      intro x hx y hy
+      obtain ⟨s, hs, hid⟩ := List.mem_map.mp hx
+      obtain ⟨t2, ht2, hid2⟩ := List.mem_map.mp hy
+      have hx' := walk_range tt (n + 1) s hs
+      have hy' := walk_range b (walkWithRelations tt (n + 1)).2.2 t2 ht2
+      simp only [TensorShape.mk] at hx' hy'
+      subst hid
+      subst hid2
+      exact lt_of_lt_of_le hx'.2 hy'.1
+
+/-- **THE WALK'S TENSOR IDS ARE PAIRWISE DISTINCT.**
+
+**`((walkWithRelations t n).1.map (·.id)).Nodup`.**
+
+**=> immediate from `walk_increasing`: a strictly increasing list has no repeats.**
+**The conversion `List.Pairwise.imp` takes its comparison as an IMPLICIT argument pair, so writing `fun a b hab =>`
+would not typecheck.** -/
+theorem walk_nodup (t : Term) (n : ℕ) :
+    ((walkWithRelations t n).1.map (·.id)).Nodup :=
+  List.Pairwise.imp (fun {a b} (hab : a < b) => Nat.ne_of_lt hab) (walk_increasing t n)
+
 /-- **THE RELATIONS ARE `depends` EDGES, ALL OF THEM.**
 
 **Stated as a property of the walk's output: every emitted relation has kind `.depends`.**
