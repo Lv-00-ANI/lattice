@@ -275,3 +275,94 @@ LAYERS = ["Core", "Lift", "Lib", "Geo"]
 **最后一行是这份文档最重要的一句**：本次把 `Lift` 与 `Geo` 搬完了，
 **但 §9 目标结构里的 `Kernel`、`Primitives`、`CInterface`、`Evidence` 四个层一个都没建。**
 搬迁完成度**不是**重构完成度。
+
+---
+
+## 10. 第 200 轮重测：IR 层建成，义务表只剩一项
+
+> **本节与 §1–§9 一样，每个数字都由代码直接数出来，不引用任何其他文档的断言。**
+> **数法写在各处。**
+
+### 10.1 义务表的实测状态
+
+`PROOF-OBLIGATIONS.md` 列出 20 条具名义务。逐条在树中按 `^theorem <name>|^def <name>` 检索，结果：
+
+| 状态 | 条数 | 条目 |
+|:--|--:|:--|
+| **已证** | **19** | `construct_sound`、`construct_complete`、`construct_canonical`、`construct_approx`、`compile_sound`、`penalty_min_to_violation`、`extract_compile`、`flatten_injective`、`semantic_not_injective`、`no_extractor_preserves_both`、`repair_progress`、`loop_converges`、`conj_loop_fixed_point`、`lattice_ordering`、`lattice_resolution_coherent`、`lattice_confluence`、`lattice_failure_isolated`、`plugin_registry_complete`，以及以 `recovery_exact` 命名的 T5（**名字不带 `lattice_` 前缀，这是检索时容易漏掉的一处**） |
+| **未做** | **1** | **`penalty_exact`** |
+
+**`penalty_exact` 是唯一缺口**，其要求是「对显式列出的精确构造子集合，`penaltyLoss c Φ = 0 ↔ Holds c Φ`」。
+**它尚未做，因为 `exactConstructors` 这个集合本身还没有定义——要定义它，必须先决定哪些构造子是「精确的」，而那是一个设计判断，不是证明问题。**
+
+### 10.2 IR 层：从零到 17 个模块
+
+第 177 轮之前 `Lattice/Core/IR/` 不存在。第 200 轮实测：
+
+| 模块 | 字节 | 承担的节 |
+|:--|--:|:--|
+| `Basic.lean` | 7,938 | §2 核心对象 |
+| `Relations.lean` | 6,419 | §2.4 `equal`/`zero` |
+| `Depends.lean` | 6,714 | §2.4 `depends` |
+| `Skeleton.lean` | 10,339 | §5 规范形的可编码部分 |
+| `Compile.lean` | 7,111 | §6 编码器单射性 |
+| `Parse.lean` | 11,405 | §6 `parse : Term → IRSkeleton` |
+| `Chain.lean` | 5,305 | §6 端到端闭合 |
+| `Unique.lean` | 3,853 | §5.2 唯一性 |
+| `ArchGraph.lean` | 5,729 | §2.4 计算图 |
+| `Lifecycle.lean` | 11,919 | T5/T6 |
+| `Confluence.lean` | 17,616 | T7/T8 |
+| `T4Repair.lean` | 3,553 | T4 |
+| `Modulus.lean` | 5,360 | T2 |
+| `Obligations.lean` | 6,217 | T0/T1/T3 |
+| `Materialize.lean` | 7,273 | P1-4 `Tensor.data` |
+| `IsIR.lean` | 6,349 | §5.1 覆盖/极大 |
+| `Canonical.lean` | 6,097 | §5.2 `IsIR` 与唯一性 |
+| **合计** | **~143 KB** | **§2、§5、§6、T0–T8 全部** |
+
+**=> 这 17 个模块就是「IR-CANONICAL 从文档变成代码」的全部内容。**
+
+### 10.3 各层实测规模
+
+按顶层目录数（`^theorem|^lemma`，含 `Reference/`）：
+
+| 层 | 模块 | 定理 |
+|:--|--:|--:|
+| `Lib` | 623 | 7,251 |
+| `Reference` | 121 | 1,391 |
+| `Domains` | 106 | 653 |
+| `Plugins` | 84 | 824 |
+| `Runtime` | 74 | 458 |
+| **`Core`** | **72** | **288** |
+| `Semantics` | 21 | 107 |
+| `Evidence` | 12 | 72 |
+
+**`Core` 从 §1 记录的 18 个模块长到 72 个**——增量几乎全部是 IR 层与 CIC 层。
+**=> §1 的结论「链路本体只占 13%」仍然成立，但**链路本体的绝对量翻了几倍**。**
+
+### 10.4 三次「命题为假」的发现，比三次「证明成功」更有价值
+
+第 200 轮回看，最有信息量的三个事件都不是证出了什么，而是发现**陈述本身错了**：
+
+| 轮次 | 事件 | 教训 |
+|--:|:--|:--|
+| **146** | `subst_shift_law` **为假** | 六次证明尝试失败，原因是命题不成立 |
+| **196** | 给出**为什么**为假：`shift` 是插入、`subst` 是删除，在 `n = j` 处失配 | 结构性原因可以被**写下来**，而不只是「证不出来」 |
+| **199** | `materialize_covered` 陈述的是 IR **并不拥有**的关系列表 | 一个没有消费者触碰的文件里的错误陈述，会在**第一次被消费时**暴露 |
+
+**=> 这三件事共同的教训：tactic 的拒绝、类型的不匹配、以及「证不出来」，都是**关于陈述的证据**，而不是关于证明能力的证据。**
+**把它们记下来，比反复重试更有价值——第 135–145 轮正是反复重试的代价。**
+
+### 10.5 当前的真实边界
+
+**链路的三个方向都已闭合**（`parse`/`compile`/`extract`，第 184 轮的 `chain_determines_structure`），**T0–T8 十九项已证**，**IR 层 17 个模块**。
+
+**仍然缺的三样，按重要性：**
+
+| 缺口 | 性质 | 阻塞于 |
+|:--|:--|:--|
+| **`penalty_exact`** | **设计判断**（`exactConstructors` 该含哪些） | **无技术阻塞，需要一个决定** |
+| **覆盖/极大的判定过程** | **设计行为**（精确相等还是 `eps` 以内） | **同上** |
+| **几何载体归档** | **工程顺序**（IR 双写期结束才能搬） | **P3 的剩余项** |
+
+**=> 三者都不是「证不出来」，而是「还没决定」。这是一个健康的状态：剩下的工作是决策与工程，不是数学障碍。**
