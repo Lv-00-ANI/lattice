@@ -511,3 +511,78 @@ theorem walk_count : ∀ (t : Term) (n : ℕ),
 **=> 根因和修法都已写明（`show` 而非 `simp`），本轮时间用完。**
 
 **按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
+
+---
+
+## 12. 第 221 轮：`walk_nodup`/`walk_count` 的 `ih` 签名与直觉不符，以及一条绕开它们的路
+
+### 12.1 实测的 `ih` 签名
+
+**`walk_mono` 与 `walk_range` 用的是**定义式递归**（`| Term.lam _ b, n => by ...`），在那里 `b` 是模式变量，`walk_mono b (n+1)` 直接可用。**
+
+**`walk_count` 与 `walk_nodup` 必须用 **`induction`**（因为要在归纳过程中引用 `walk_range`），而 `induction` 给出的 `ih` 签名并不是 `∀ n, P n` 的简单形式。**
+
+**第 221 轮实测：**
+
+- **`letI := ih` 通过**（说明 `ih` 是可用的函数）
+- **但 `have h : (walkWithRelations b (n+1)).1.length + (n+1) = (walkWithRelations b (n+1)).2.2 := ih (n+1)` 报类型不匹配**
+
+**=> `ih` 能接受一个参数并返回一个等式，但返回的等式的**具体形式**与手写的目标不一致（很可能是 `Nat` 加法结合方向或 `n+1` 与 `1+n` 的差异）。**
+
+**=> 修法：不手写 `h` 的类型，而是让 Lean 推断，再用 `omega` 处理：**
+
+```lean
+    have h := ih (n + 1)
+    simp only [walkWithRelations, List.length_cons] at h ⊢
+    omega
+```
+
+**这条在第 221 轮**仍然失败**，`omega` 报的反例约束里出现了 `a - b - c - d ≥ 2` 这类无法闭合的组合——说明 `h` 被 `simp at h` 改写成了某个未预期的形式。**
+
+### 12.2 一条真正绕开这两条引理的路
+
+**观察：`WellFormed` 的两个合取项里，`Nodup` 是为了让张量 id 互异。而第 203 轮已经证明过 `termTensors_nodup`：**
+
+```lean
+theorem termTensors_nodup (t : Term) : ((termTensors t).map (·.id)).Nodup
+```
+
+**它用的是 `List.range` 分配 id，证明只需 `List.nodup_range`。**
+
+**=> 所以正确的架构不是「让 `parse` 用 `walkWithRelations`」，而是：**
+
+| 层 | 用什么 |
+|:--|:--|
+| **张量列表与 id** | **`termTensors`（`List.range`，`Nodup` 已证）** |
+| **关系列表** | **`dependsShape n [n+1]` 的列表，其中 `n` 正是 `termTensors` 分配的那个 id** |
+
+**`walkWithRelations` 的价值在于它把「哪个节点依赖哪个子节点」算出来了；但它的**张量分配**与
+`termTensors` 是同一个方案（前序遍历，第 i 个节点拿 id i），只是写法不同。**
+
+**=> 因此可以保留 `walkWithRelations` 的关系产出，而用 `termTensors` 的张量产出，两者的一致性由
+`walk_count` 或一条「两者长度相等且 id 相同」的引理桥接。**
+
+**那条桥接引理比 `walk_nodup` 弱，因为它不需要 `Nodup`——`termTensors` 已经提供了。**
+
+### 12.3 下一轮的做法
+
+**先证一条最弱的桥接引理：**
+
+```lean
+theorem walk_tensors_eq (t : Term) (n : ℕ) :
+    (walkWithRelations t n).1.map (·.id) = (List.range ((walkWithRelations t n).2.2 - n)).map (fun i => i + n)
+```
+
+**若这条成立，则 `parse` 可以直接用 `termTensors` 的张量列表 + `walkWithRelations` 的关系列表，`WellFormed` 由
+`termTensors_nodup` 给出。**
+
+**这条引理的难度与 `walk_count` 相当（都要对 `t` 归纳），但它的**结论**是 `parse` 真正需要的形式，而且不需要
+`omega` 处理数组区间，只需要 `List.map` 与 `List.range` 的重写。**
+
+### 12.4 为什么第 221 轮没做完
+
+**第 221 轮在 `walk_count` 上做了八次尝试，每次都在 `ih` 的返回类型或 `simp at h` 的改写形式上卡住。**
+
+**=> 根因已定位（`ih` 的签名与手写目标形式不符），但修法尚未找到。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
