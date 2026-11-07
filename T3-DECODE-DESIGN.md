@@ -586,3 +586,86 @@ theorem walk_tensors_eq (t : Term) (n : ℕ) :
 **=> 根因已定位（`ih` 的签名与手写目标形式不符），但修法尚未找到。**
 
 **按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
+
+---
+
+## 13. 第 222 轮：`walk_tensors_eq` 的机制已验证，剩下一个 `List.range` 分段引理
+
+### 13.1 关键机制：又是第二个归纳假设
+
+**第 222 轮把第 219/221 轮的教训用在 `walk_tensors_eq` 上，`lam` 分支的 `rw [h]` **一次成功**：**
+
+```lean
+  | Term.lam kk b _ ihb =>
+    have h := ihb (n+1)
+    simp only [walkWithRelations, List.map_cons]
+    rw [h]
+```
+
+**若写成 `| Term.lam kk b ih =>`（不跳过第一个），`ih` 属于被绑定的类型 `kk`，`rw` 会报「找不到模式」。**
+
+**=> 这三次（第 219、221、222 轮）都撞在同一件事上，说明它是 `Term.lam`/`Term.pi`/`Term.letE` 分支的**固定规律**：**
+**`induction` 为每个子项生成一个假设，而 binder 的类型也是一个子项，所以**第一个假设属于 binder，第二个才属于 body**。**
+
+### 13.2 叶子分支
+
+**三个叶子在 `walk_tensors_eq` 下的目标是：**
+
+```
+[n] = (List.range 1).map (fun i => i + n)
+```
+
+**`simp [List.range_succ]` 可以直接闭合**（它对第二条引理无用，但对叶子有效）。**
+
+**`List.range 1` 的展开**不是 `simp` 的默认行为**，必须显式给出 `List.range_succ`。**
+
+### 13.3 剩下的 `shift_range`
+
+**`lam` 的收尾需要一个纯列表引理：**
+
+```lean
+theorem shift_range : ∀ (k n : ℕ),
+    (n :: (List.range k).map (fun i => i + (n+1))) = (List.range (k+1)).map (fun i => i + n)
+```
+
+**它的含义是：walk 在 `lam` 分支上把 `n` 放在最前、把子树的 id 整体加一，等价于从 `n` 开始按顺序编号。**
+
+**第 222 轮把它推到了 `succ` 分支的展开式：**
+
+```
+⊢ n :: (map (+ (n+1)) (range k) ++ (k + (n+1)) :: map (+ (n+1)) [])
+    = map (+ n) (range k) ++ (k + n) :: map (+ n) [] ++ (k + 1 + n) :: map (+ n) []
+```
+
+**剩余的三处：**
+1. **`map ... []` 应化为 `[]`（`simp` 可做）**
+2. **`(k + (n+1))` 与 `(k + 1 + n)` 的加法重排（`Nat.add_assoc` + `Nat.add_comm`）**
+3. **`n :: (... ++ [...])` 与 `n :: ... ++ ...` 的 `append` 分配**
+
+**=> 修法是把这三步显式写出来，而不是交给 `congr 1` + `simp`——第 222 轮用 `congr 1` 后目标形状未被正确分解。**
+
+### 13.4 下一轮的做法
+
+**把 `shift_range` 的 `succ` 分支拆成两段：**
+
+```lean
+  | succ k ih =>
+    intro n
+    rw [List.range_succ, List.range_succ]
+    simp only [List.map_append, List.map_map, List.map_cons, List.map_nil, List.singleton_append, List.append_nil]
+    rw [← ih n]
+    -- now both sides start with `n :: ...`; peel the head and close the tails by `congr 1` + `Nat.add_assoc`
+    congr 2
+    ext i
+    omega
+```
+
+**关键是 `List.map_nil` 和 `List.append_nil` 必须显式出现在 `simp only` 里——`map ... []` 不化归是第 222 轮卡住的原因之一。**
+
+### 13.5 为什么第 222 轮没做完
+
+**第 222 轮在 `shift_range` 上做了五次尝试，最后一次把目标推到了可读的形式（13.3），但 `congr 1` 未能正确分解。**
+
+**=> 修法已写明（显式 `simpa` 链 + `congr 2` + `ext`），本轮时间用完。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
