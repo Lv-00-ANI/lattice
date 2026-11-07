@@ -50,6 +50,11 @@ WILDCARD_NONE = re.compile(r"\|\s*_\s*=>\s*none")
 
 #: file (relative to `Lattice/`) -> (reason, the theorem or justification)
 COVERED = {
+    "Core/IR/DecodeRelations.lean": (
+        "covered by round-trip",
+        "`partOfCode`'s wildcard is the tag-above-3 arm, and `partOfCode_partCode` proves the "
+        "encoding's image is exactly the four tags `partCode` writes. The rejection arm is "
+        "unreachable on any value `partCode` produces."),
     "Geo/EqConstraintToken.lean": (
         "covered by round-trip",
         "`decCon_expr` / `decCon_samePoint` / `decCon_perp` / `decCon_distEq` give the `some` arm on "

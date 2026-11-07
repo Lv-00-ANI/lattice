@@ -73,6 +73,7 @@ import Lattice.Core.IR.Canonical
 import Lattice.Core.IR.Penalty
 import Lattice.Core.IR.Semantics
 import Lattice.Core.IR.Decode
+import Lattice.Core.IR.DecodeRelations
 
 
 /-!
