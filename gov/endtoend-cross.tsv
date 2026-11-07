@@ -332,6 +332,10 @@ Core/IR/Penalty.lean	penalty_equal
 Core/IR/Penalty.lean	penalty_zero
 Core/IR/Penalty.lean	penalty_depends
 Core/IR/Penalty.lean	penalty_exact
+Core/IR/Semantics.lean	compile_sound_content
+Core/IR/Semantics.lean	modelsIRS_implies_modelsIR
+Core/IR/Semantics.lean	semanticsOf_nil
+Core/IR/Semantics.lean	semanticsOf_ne_nil
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

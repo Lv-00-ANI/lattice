@@ -369,6 +369,10 @@ core	Core/IR	Core/IR/Relations.lean	equalHolds_refl	no
 core	Core/IR	Core/IR/Relations.lean	equalHolds_symm	no
 core	Core/IR	Core/IR/Relations.lean	equalHolds_trans	no
 core	Core/IR	Core/IR/Relations.lean	equal_zero_consistent	no
+core	Core/IR	Core/IR/Semantics.lean	compile_sound_content	no
+core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
+core	Core/IR	Core/IR/Semantics.lean	semanticsOf_ne_nil	no
+core	Core/IR	Core/IR/Semantics.lean	semanticsOf_nil	no
 core	Core/IR	Core/IR/Skeleton.lean	compileIR_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	extract_compileIR	no
 core	Core/IR	Core/IR/Skeleton.lean	relationShapeCode_injective	no
