@@ -166,6 +166,8 @@ core	Core	Core/OneStepBridge.lean	oneStepRepair_converges	no
 core	Core	Core/OneStepBridge.lean	oneStepRepair_mu_le_one	no
 core	Core	Core/OneStepBridge.lean	oneStepRepair_one_step	no
 core	Core	Core/OneStepBridge.lean	oneStepRepair_reaches	no
+core	Core	Core/PluginComplete.lean	plugin_registry_complete	no
+core	Core	Core/PluginComplete.lean	proofRegistry_nonempty	no
 core	Core	Core/Simulation.lean	forwardSim_preorder	no
 core	Core	Core/Simulation.lean	run_preserved	no
 core	Core	Core/Simulation.lean	runs_preserved	no
