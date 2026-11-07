@@ -88,4 +88,92 @@ theorem decodeListAux_code : ∀ (xs : List ℕ) (k : ℕ), xs.length ≤ k →
       rw [Nat.add_sub_cancel, ih k (by simp at hk; omega)]
 
 
+/-- **`Nat.pair a b > b` FOR `a ≥ 1`.**
+
+**This is the step that blocked rounds 204 and 205: `Nat.pair` is `b*b + a` when `a < b` and `a*a + a + b`
+otherwise, and neither `omega` nor `nlinarith` crosses the `if` without it being unfolded first.**
+
+**=> `unfold Nat.pair` then `by_cases` on the branch, and each side is an ordinary nonlinear inequality in plain
+`Nat`s.**
+**`a ≥ 1` is what makes both sides strict: in the first branch `b ≥ a ≥ 1` gives `b*b ≥ b`, and in the second `a*a +
+a ≥ 1`.** -/
+theorem pair_gt_snd (a b : ℕ) (ha : 1 ≤ a) : b < Nat.pair a b := by
+  unfold Nat.pair
+  by_cases hab : a < b
+  · rw [if_pos hab]
+    nlinarith
+  · rw [if_neg hab]
+    nlinarith
+
+/-- **THE CODE IS ALWAYS AT LEAST AS LONG AS THE LIST IT ENCODES.**
+
+**`xs.length ≤ listCode xs`.**
+
+**=> this is the bound the self-fuelled decoder needs, and it is a strict comparison at each step:
+`listCode (x :: xs) = Nat.pair (x+1) (listCode xs) > listCode xs` by `pair_gt_snd`, so the length grows by at least
+one per constructor.**
+**That is what makes `decodeList` (below) total without an explicit fuel argument.** -/
+theorem listCode_ge_length : ∀ xs : List ℕ, xs.length ≤ listCode xs
+  | [] => by simp [listCode]
+  | x :: xs => by
+    have ih := listCode_ge_length xs
+    have hgt : listCode xs < Nat.pair (x + 1) (listCode xs) :=
+      pair_gt_snd (x + 1) (listCode xs) (by omega)
+    simp only [List.length_cons, listCode]
+    omega
+
+/-- **THE SELF-FUELLED DECODER: no explicit fuel argument.**
+
+**`decodeList code := decodeListAux code code` -- the code is its own budget.**
+**=> total on `Nat`, and `decodeList_code` shows it inverts `listCode`.** -/
+def decodeList (n : ℕ) : List ℕ :=
+  decodeListAux n n
+
+/-- **THE ROUND TRIP FOR THE SELF-FUELLED DECODER.**
+
+**`decodeList (listCode xs) = xs`.**
+
+**=> `listCode_ge_length` supplies the budget `xs.length ≤ listCode xs` that `decodeListAux_code` demands, so this is
+the composition of the two and nothing else.** -/
+theorem decodeList_code (xs : List ℕ) : decodeList (listCode xs) = xs := by
+  unfold decodeList
+  exact decodeListAux_code xs (listCode xs) (listCode_ge_length xs)
+
+/-- **A `TensorShape` DECODER, given the shape list already decoded.**
+
+**`tensorShapeCode t = Nat.pair (Nat.pair t.id (listCode t.shape) + 1) 0`.**
+**=> one `unpair` gives `(the inner pair + 1, a discarded 0)`, and a second gives `(id, the shape's code)`, which
+`decodeList` turns into the shape itself.**
+**The `+1` patch is why the inner component is subtracted: `tensorShapeCode` adds it to separate the empty template
+from a real one.** -/
+def decodeTensorShape (code : ℕ) : Option TensorShape :=
+  if code = 0 then none
+  else
+    let outer := Nat.unpair code
+    if outer.1 = 0 then none
+    else
+      let inner := Nat.unpair (outer.1 - 1)
+      some ⟨inner.1, decodeList inner.2⟩
+
+/-- **THE ROUND TRIP FOR `tensorShapeCode`.**
+
+**`decodeTensorShape (tensorShapeCode t) = some t`.**
+
+**=> the composition of `decodeList_code` with two `unpair`s, and the `if` guards are discharged by the `+1` patch:
+`Nat.pair (t.id, shape's code) + 1 ≠ 0` always.** -/
+theorem decodeTensorShape_code (t : TensorShape) :
+    decodeTensorShape (tensorShapeCode t) = some t := by
+  obtain ⟨tid, shape⟩ := t
+  show decodeTensorShape (Nat.pair (Nat.pair tid (listCode shape) + 1) 0) = some ⟨tid, shape⟩
+  unfold decodeTensorShape
+  have hne : Nat.pair (Nat.pair tid (listCode shape) + 1) 0 ≠ 0 := by
+    have := Nat.left_le_pair (Nat.pair tid (listCode shape) + 1) 0
+    omega
+  rw [if_neg hne]
+  simp only [Nat.unpair_pair]
+  have hne2 : Nat.pair tid (listCode shape) + 1 ≠ 0 := by omega
+  rw [if_neg hne2]
+  rw [Nat.add_sub_cancel]
+  simp [decodeList_code]
+
 end Lattice.Core.IR
