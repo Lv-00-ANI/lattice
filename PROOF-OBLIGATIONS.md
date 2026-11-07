@@ -188,7 +188,7 @@ plugin_registry_complete : PluginRegistryComplete
   不是“非空 ⇒ 12 字段全真”；
 - registry 中所有插件通过；
 - 插件的 `Obligation.theoremName` 必须在树中真实存在
-  （由 `gov/check_obligation_names.py` 检查）。
+  （由 `gov/check_obligation_proofs.py` 检查 —— 它扫描 74 条义务，报告 `no ghost names, no missing files`；第 195 轮核对时发现原文引用的 `check_obligation_names.py` 并不存在，而实际承担该职责的是 `check_obligation_proofs.py`）。
 
 **纪律：** `pluginCensusSize` 等计数不得手写字面量；
 `migratedPluginCount` 必须由 `proofRegistry.length` 推导。
