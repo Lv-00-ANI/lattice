@@ -190,3 +190,77 @@ at.rec。**
 
 **下一轮应当：先把 `let` 归约（`obtain ⟨a, b⟩ := Nat.unpair n` 后 `rw`），再套用 `decodeTensorListAux_code` 的
 归纳骨架。**
+
+---
+
+## 8. 第 215 轮：`parse` 接线的前置条件，与一条审计指控的澄清
+
+### 8.1 审计的 P1-6 指控中，有一条不成立
+
+**审计说 `walkWithRelations` 的 `letE` 分支「用 `n+1` 而非 `n1`，所以 `letE` 的边指向错误张量」。**
+
+**实测两者同构：**
+
+```
+| Term.app f a, n =>
+    let (tf, rf, n1) := walkWithRelations f (n + 1)
+    let (ta, ra, n2) := walkWithRelations a n1
+    ...
+| Term.letE _ t b, n =>
+    let (tt, rt, n1) := walkWithRelations t (n + 1)
+    let (tb, rb, n2) := walkWithRelations b n1
+    ...
+```
+
+**两处的首个子项都用 `n+1` 作为起点，`letE` 的 `b` 从 `n1` 开始，`app` 的 `a` 也从 `n1` 开始。**
+**=> 结构完全一致，不存在把 `n1` 写成 `n+1` 的错误。**
+
+**审计的这一条判断错了。它看出「`n+1` 与 `n1` 是两个不同的东西」，这观察是对的；但结论「所以 `letE` 错了」不成立，因为 `app` 用的是同一个模式。**
+
+### 8.2 真正的前置条件
+
+**要让 `parse` 用 `parseSkeletonWithRelations` 并保持 `parse_wellFormed`，需要两条不变式：**
+
+| 不变式 | 内容 | 状态 |
+|:--|:--|:--|
+| **值域** | **`w := walkWithRelations t n`，则 `∀ s ∈ w.1, n ≤ s.id < w.2.2`** | **未证** |
+| **单调** | **`n ≤ (walkWithRelations t n).2.2`** | **未证** |
+
+**两条都靠对 `t` 的归纳，但归纳假设必须写成 `generalizing n` 的形式——因为 `walkWithRelations` 的递归把 `n+1` 递给子项，而子项的归纳假设需要作用在**任意**起点上。**
+
+**第 215 轮尝试了 `induction t with`（不带 `generalizing n`），归纳假设被固定在最初的 `n` 上，于是 `ihf (n+1)` 类型不匹配。**
+**=> 正确的形状是 `induction t generalizing n with`，且每次对 `walkWithRelations ... n` 先 `obtain` 出三元组，再让 `omega` 在三个计数器上工作。**
+
+### 8.3 为什么没做完
+
+**`induction t generalizing n` 之后，`app`/`letE` 分支的目标里包含两层的 `let` 与 `++`，`simp only [walkWithRelations]` 展开后的形式与 `obtain` 出的三元组对不上，`omega` 因此拿不到可用的不等式。**
+
+**=> 这与 `argsCode` 的情况相同：**先归约再重写**，而且必须先让 `let` 绑定在目标里显形。**
+**第 210 轮解决 `argsCode` 用的正是「先 `rw [hcode]` 把守卫的形状固定，再 `dif_neg`」；这里需要的是「先 `obtain` 三元组，再 `show` 出纯计数器的形式」。**
+
+**按项目纪律，本轮不提交半成品：`Parse.lean` 未改动，`parse` 仍然不产出关系。**
+
+### 8.4 下一轮的确切切入点
+
+**写两条引理，都用 `induction t generalizing n`：**
+
+```lean
+theorem walk_mono : ∀ (t : Term) (n : ℕ), n ≤ (walkWithRelations t n).2.2
+theorem walk_range : ∀ (t : Term) (n : ℕ),
+    ∀ s ∈ (walkWithRelations t n).1, n ≤ s.id ∧ s.id < (walkWithRelations t n).2.2
+```
+
+**每个分支的骨架：**
+
+```lean
+  | app f a ihf iha =>
+    intro n
+    obtain ⟨tf, rf, n1⟩ := walkWithRelations f (n + 1)
+    obtain ⟨ta, ra, n2⟩ := walkWithRelations a n1
+    have h1 := ihf (n + 1)   -- 类型现在正确，因为 generalizing n
+    have h2 := iha n1
+    show ...
+    omega
+```
+
+**`walk_range` 证出后，`parse_wellFormed` 的第二合取项（id 互异）由 `walk_range` 与 `walk_mono` 共同给出；关系的合取项在 `parseSkeletonWithRelations` 产出 `dependsShape` 后不再空洞，需要额外证明「每个 `dependsShape n xs` 的 `n` 都在张量 id 集合里」——那由 `walk_range` 的 `n ≤ s.id` 直接得到。**
