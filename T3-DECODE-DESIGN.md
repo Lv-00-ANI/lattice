@@ -669,3 +669,68 @@ theorem shift_range : ∀ (k n : ℕ),
 **=> 修法已写明（显式 `simpa` 链 + `congr 2` + `ext`），本轮时间用完。**
 
 **按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono` 与 `walk_range` 保留。**
+
+---
+
+## 14. 第 224 轮：`walk_count` 不足以桥接 `termTensors`，需要一条新引理
+
+### 14.1 本轮的两条否定结论
+
+**第 224 轮试了两条路，都走不通，但都给出了精确的否定理由：**
+
+| 路线 | 结论 |
+|:--|:--|
+| **用 `walk_count` + `walk_range` 直接推 `Nodup`** | **论证是**循环的**：`[n, n+len)` 内 `len` 个元素互异，需要先知道它们互异。`omega` 报的反例约束正是这一点。** |
+| **用 `walk_tensors_eq`（id 列表恰好等于 `range` 的像）** | **只剩 `shift_range` 一个列表引理，但它需要 `List.ext_getElem` + 三段区间分析；第 224 轮做到 `ext` 后 `split` 的 `omega` 拿不到分支信息。** |
+
+### 14.2 `shift_range` 已被推到最后一格
+
+**它的 `succ` 分支已经化简到：**
+
+```
+⊢ map (· + n) (range k) ++ [k + n, k + (n+1)] = map (· + n) (range (k+2))
+```
+
+**右边 = `map (· + n) (range k) ++ [k + n] ++ [k + 1 + n]`，与左边只差 `k + (n+1)` 与 `k + 1 + n`。**
+
+**=> 修法：对 `k + 2` 做两次 `List.range_succ`（或用 `range_add_one` 类引理），然后 `simp [Nat.add_assoc]`。**
+
+**第 224 轮试过 `rw [show k + 2 = (k+1) + 1 from rfl]`，`rfl` 不成立（`k+1+1` 与 `k+2` 定义上不同），应当用 `by omega` 或 `Nat.add_assoc`。**
+
+### 14.3 一条更短的桥接需要的新引理
+
+**第 224 轮试了第三条路：用 `termTensors`（`List.range` 分配，`Nodup` 已证）作张量列表，`walkWithRelations`
+只取关系。这需要 `tensorCount t = (walkWithRelations t 0).2.2`。**
+
+**`walk_count t 0` 已给出 `(walkWithRelations t 0).1.length + 0 = (walkWithRelations t 0).2.2`，所以只需**
+
+```lean
+theorem tensorCount_walk : ∀ (t : Term), (walkWithRelations t 0).1.length = tensorCount t
+```
+
+**第 224 轮把它推到 `lam` 分支，剩下：**
+
+```
+⊢ (walkWithRelations b 1).1.length + 1 = 1 + tensorCount b
+```
+
+**这需要一条`起始计数器不影响长度`的引理：**
+
+```lean
+theorem walk_length_indep : ∀ (t : Term) (n m : ℕ),
+    (walkWithRelations t n).1.length = (walkWithRelations t m).1.length
+```
+
+**=> 它比 `shift_range` 简单，因为只涉及 `List.length`，不涉及 `List.map` 或元素相等。**
+
+**=> 下一轮应当证这条，然后用 `walk_count` 得到 `tensorCount_walk`，再用 `termTensors_nodup` 完成
+`parse_wellFormed`。**
+
+### 14.4 为什么第 224 轮没做完
+
+**第 224 轮在三条路线上各做了若干次尝试：直接推 `Nodup`（发现循环）、`shift_range`（推到最后一格）、
+`tensorCount_walk`（推到需要 `walk_length_indep`）。**
+
+**=> 三条路的**精确阻塞点**都已定位，`walk_length_indep` 是本轮新发现的、也是最短的下一步。**
+
+**按纪律，`Parse.lean` 未改动，`parse` 仍然不产出关系。`walk_mono`、`walk_range`、`walk_count` 保留。**
