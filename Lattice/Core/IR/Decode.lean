@@ -176,4 +176,147 @@ theorem decodeTensorShape_code (t : TensorShape) :
   rw [Nat.add_sub_cancel]
   simp [decodeList_code]
 
+/-- **THE `RelKind` INVERSE OF `kindCode`.**
+
+**`kindCode` writes `Nat.pair tag 0` for the fifteen nullary tags and `Nat.pair 15 n` for `other n`.**
+**=> `kindOfCode` reads the tag from the pair's first component and, for tag `15`, the payload from the second.**
+**Tags above 15 fall to `other`, which is the honest total answer: `kindCode` never writes them, so a value produced
+by a real skeleton always decodes exactly.** -/
+def kindOfCode (n : ℕ) : RelKind :=
+  match (Nat.unpair n).1 with
+  | 0 => RelKind.equal
+  | 1 => RelKind.zero
+  | 2 => RelKind.lowRank
+  | 3 => RelKind.block
+  | 4 => RelKind.symmetry
+  | 5 => RelKind.depends
+  | 6 => RelKind.ordered
+  | 7 => RelKind.scaled
+  | 8 => RelKind.transposed
+  | 9 => RelKind.shared
+  | 10 => RelKind.tokenOf
+  | 11 => RelKind.merges
+  | 12 => RelKind.specialToken
+  | 13 => RelKind.contiguous
+  | 14 => RelKind.sorted
+  | _ => RelKind.other (Nat.unpair n).2
+
+/-- **`kindOfCode` INVERTS `kindCode`.**
+
+**`kindOfCode (kindCode k) = k`, by cases on `k`.**
+**Each nullary tag reads back to itself (`Nat.unpair_pair` plus the tag's own branch), and `other n` reads `n` out of
+the pair's second component.** -/
+theorem kindOfCode_kindCode (k : RelKind) : kindOfCode (kindCode k) = k := by
+  cases k with
+  | equal => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | zero => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | lowRank => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | block => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | symmetry => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | depends => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | ordered => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | scaled => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | transposed => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | shared => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | tokenOf => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | merges => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | specialToken => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | contiguous => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | sorted => simp [kindCode, kindOfCode, Nat.unpair_pair]
+  | other n => simp [kindCode, kindOfCode, Nat.unpair_pair]
+
+/-- **DECODE A LIST OF TENSOR SHAPES, fuel-driven.**
+
+**The per-item decoder is `decodeTensorShape` (already proved to invert `tensorShapeCode`), so this is the list layer
+with a REAL per-item decoder rather than the identity -- which is what the withdrawn generic version lacked.**
+
+**`fuel` removes the termination obligation, exactly as in `decodeListAux`.** -/
+def decodeTensorListAux : (fuel : ℕ) → ℕ → Option (List TensorShape)
+  | 0, n => if _h : n = 0 then some [] else none
+  | k + 1, n =>
+    if _h : n = 0 then some []
+    else
+      let u := Nat.unpair n
+      if _hu : u.1 = 0 then none
+      else
+        match decodeTensorShape (u.1 - 1) with
+        | none => none
+        | some t =>
+          match decodeTensorListAux k u.2 with
+          | none => none
+          | some ts => some (t :: ts)
+
+/-- **THE ROUND TRIP FOR THE TENSOR LIST.**
+
+**`xs.length ≤ k -> decodeTensorListAux k (shapesCode tensorShapeCode xs) = some xs`.**
+
+**=> an induction on `xs` and then on `k`, using `decodeTensorShape_code` for the head and the induction hypothesis
+for the tail.**
+**The `+1` patch makes the `if` guards discharge: `Nat.pair (tensorShapeCode t + 1) _ ≠ 0`.** -/
+theorem decodeTensorListAux_code :
+    ∀ (xs : List TensorShape) (k : ℕ), xs.length ≤ k →
+      decodeTensorListAux k (shapesCode tensorShapeCode xs) = some xs := by
+  intro xs
+  induction xs with
+  | nil =>
+    intro k _hk
+    cases k with
+    | zero =>
+      show (if _h : (0:ℕ) = 0 then some [] else none) = some []
+      rw [dif_pos rfl]
+    | succ k => simp [decodeTensorListAux, shapesCode]
+  | cons t ts ih =>
+    intro k hk
+    cases k with
+    | zero => simp at hk
+    | succ k =>
+      show (if _h : shapesCode tensorShapeCode (t :: ts) = 0 then some []
+              else
+                let u := Nat.unpair (shapesCode tensorShapeCode (t :: ts))
+                if _hu : u.1 = 0 then none
+                else
+                  match decodeTensorShape (u.1 - 1) with
+                  | none => none
+                  | some t' =>
+                    match decodeTensorListAux k u.2 with
+                    | none => none
+                    | some ts' => some (t' :: ts')) = some (t :: ts)
+      have hne : shapesCode tensorShapeCode (t :: ts) ≠ 0 := by
+        simp only [shapesCode]
+        have := Nat.left_le_pair (tensorShapeCode t + 1) (shapesCode tensorShapeCode ts)
+        omega
+      rw [dif_neg hne]
+      simp only [decodeTensorListAux, shapesCode, Nat.unpair_pair]
+      have hsucc : tensorShapeCode t + 1 ≠ 0 := by omega
+      rw [dif_neg hsucc]
+      rw [Nat.add_sub_cancel]
+      rw [decodeTensorShape_code t]
+      simp only [decodeTensorListAux]
+      rw [ih k (by simp at hk; omega)]
+
+/-- **THE CODE IS AT LEAST AS LONG AS THE TENSOR LIST.** -/
+theorem shapesCode_tensor_ge_length :
+    ∀ xs : List TensorShape, xs.length ≤ shapesCode tensorShapeCode xs
+  | [] => by simp [shapesCode]
+  | t :: ts => by
+    have ih := shapesCode_tensor_ge_length ts
+    have hgt : shapesCode tensorShapeCode ts <
+        Nat.pair (tensorShapeCode t + 1) (shapesCode tensorShapeCode ts) :=
+      pair_gt_snd (tensorShapeCode t + 1) (shapesCode tensorShapeCode ts) (by omega)
+    simp only [List.length_cons, shapesCode]
+    omega
+
+/-- **THE TENSOR LIST DECODER WITH THE CODE AS ITS OWN BUDGET.** -/
+def decodeTensorList (n : ℕ) : Option (List TensorShape) :=
+  decodeTensorListAux n n
+
+/-- **THE ROUND TRIP FOR THE SELF-FUELLED TENSOR LIST DECODER.** -/
+theorem decodeTensorList_code (xs : List TensorShape) :
+    decodeTensorList (shapesCode tensorShapeCode xs) = some xs := by
+  unfold decodeTensorList
+  exact decodeTensorListAux_code xs (shapesCode tensorShapeCode xs)
+    (shapesCode_tensor_ge_length xs)
+
 end Lattice.Core.IR
+
+
