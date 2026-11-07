@@ -87,9 +87,41 @@ def tensorCount : Term → ℕ
   | Term.pi _ B => 1 + tensorCount B
   | Term.letE _ t b => 1 + tensorCount t + tensorCount b
 
-/-- **The tensor shapes of a term: `tensorCount t` tensors, each of shape `[1]`.** -/
+/-- **The tensor shapes of a term: `tensorCount t` tensors, each of shape `[1]`, with DISTINCT ids.**
+
+**Round 203 corrected this from `List.replicate (tensorCount t) ⟨0, termShape⟩`, which gave EVERY tensor id `0`.**
+
+**=> that made `WellFormed`'s `(k.tensors.map (·.id)).Nodup` FALSE for any term with two or more subterms, so
+`construct_sound_wf` could not be instantiated for a nontrivial term.**
+**The ids are now `0, 1, …, tensorCount t - 1`, and `termTensors_nodup` records why.** -/
 def termTensors (t : Term) : List TensorShape :=
-  List.replicate (tensorCount t) ⟨0, termShape⟩
+  (List.range (tensorCount t)).map (fun i => (⟨i, termShape⟩ : TensorShape))
+
+/-- **THE TENSOR IDS ARE DISTINCT.**
+
+**`((termTensors t).map (·.id)).Nodup`.**
+
+**=> this is the property round 203 restored: the term's tensors can be TOLD APART, which is what `WellFormed`
+demands and what any relation between them presupposes.** -/
+theorem termTensors_nodup (t : Term) : ((termTensors t).map (·.id)).Nodup := by
+  unfold termTensors
+  rw [List.map_map]
+  have hid : ((fun x : TensorShape => x.id) ∘ fun i => (⟨i, termShape⟩ : TensorShape)) = id := by
+    funext i; rfl
+  rw [hid, List.map_id]
+  exact List.nodup_range (tensorCount t)
+
+/-- **THE FIRST TENSOR'S ID IS `0`, and the last is `tensorCount t - 1`.**
+
+**Stated as the membership fact a caller needs: every id is strictly below the tensor count.**
+**=> that is the bound `WellFormed` needs to reason about which tensors exist.** -/
+theorem termTensors_id_lt (t : Term) :
+    ∀ s ∈ termTensors t, s.id < tensorCount t := by
+  intro s hs
+  unfold termTensors at hs
+  simp only [List.mem_map, List.mem_range] at hs
+  obtain ⟨i, hi, rfl⟩ := hs
+  exact hi
 
 /-- **THE SKELETON OF A TERM: its tensors, and no relations yet.**
 

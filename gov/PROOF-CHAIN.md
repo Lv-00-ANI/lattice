@@ -67,7 +67,7 @@
 - `Lattice.Core.IR.Parse` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.IR.Penalty` <- `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Skeleton`
 - `Lattice.Core.IR.Relations` <- `Lattice.Core.IR.Basic`
-- `Lattice.Core.IR.Semantics` <- `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Canonical`
+- `Lattice.Core.IR.Semantics` <- `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Parse`
 - `Lattice.Core.IR.Skeleton` <- `Lattice.Core.IR.Compile`
 - `Lattice.Core.IR.T4Repair` <- `Lattice.Core.IR.Obligations`, `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Core.IR.Unique` <- `Lattice.Core.IR.Chain`
@@ -1097,10 +1097,10 @@
 | `Lattice.Core.IR.Materialize` | 6 | 4 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
-| `Lattice.Core.IR.Parse` | 8 | 8 |
+| `Lattice.Core.IR.Parse` | 10 | 8 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
-| `Lattice.Core.IR.Semantics` | 4 | 2 |
+| `Lattice.Core.IR.Semantics` | 3 | 2 |
 | `Lattice.Core.IR.Skeleton` | 7 | 11 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
@@ -9716,8 +9716,6 @@ module. These are the edges that make the chain a chain rather than a list.
 - `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `GeoConstraint`, `Holds`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Pt`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `extract`, `extractVec`, `fiber`, `g`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`, `translate`
 - `semantic_of_extract` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
 - `semantic_roundtrip_compiles_agree` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
-- `semanticsOf_ne_nil` -> `IRSkeleton`
-- `semanticsOf_nil` -> `IRSkeleton`
 - `sep_absent_gives_zero_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `enc`, `pieceOf`
@@ -10673,7 +10671,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrob_smul` -> `apply`, `induction`, `zero`
 - `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `termCode_injective` -> `at`, `induction`
+- `termTensors_id_lt` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `termTensors_ne_nil` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
+- `termTensors_nodup` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`
 - `testFun_isOneLipschitz` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `le_antisymm`, `transportCost`
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`

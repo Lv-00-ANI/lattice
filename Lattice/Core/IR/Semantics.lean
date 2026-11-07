@@ -3,6 +3,7 @@ import Lattice.Core.IR.Obligations
 import Lattice.Core.IR.IsIR
 import Lattice.Core.IR.Penalty
 import Lattice.Core.IR.Canonical
+import Lattice.Core.IR.Parse
 
 /-!
 # `Core/IR/Semantics.lean` -- giving `semantics` and `ModelsIR` CONTENT (round 202)
@@ -133,12 +134,5 @@ theorem modelsIRS_implies_modelsIR {W : IRWeights} {k : IRSkeleton}
 **=> `semanticsOf` is not `id`: it ERASES the relations, so a structure and its semantics are different objects.**
 **The theorem is stated because it is the concrete difference from the old `semantics k := k`.** -/
 theorem semanticsOf_nil : semanticsOf ⟨[], []⟩ = [] := rfl
-
-/-- **THE SEMANTICS OF A SKELETON WITH RELATIONS IS NOT EMPTY.**
-
-**`k.relations ≠ [] -> semanticsOf k ≠ []`.**
-**=> the mapping is faithful on the relations, which the old `semantics k := k` could not express because it did not
-distinguish them from the tensors.** -/
-theorem semanticsOf_ne_nil {k : IRSkeleton} (h : k.relations ≠ []) : semanticsOf k ≠ [] := h
 
 end Lattice.Core.IR

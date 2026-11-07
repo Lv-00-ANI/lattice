@@ -357,7 +357,9 @@ core	Core/IR	Core/IR/Parse.lean	parse_has_tensor	no
 core	Core/IR	Core/IR/Parse.lean	parse_tensors_length	no
 core	Core/IR	Core/IR/Parse.lean	parse_total	no
 core	Core/IR	Core/IR/Parse.lean	tensorCount_pos	no
+core	Core/IR	Core/IR/Parse.lean	termTensors_id_lt	no
 core	Core/IR	Core/IR/Parse.lean	termTensors_ne_nil	no
+core	Core/IR	Core/IR/Parse.lean	termTensors_nodup	no
 core	Core/IR	Core/IR/Parse.lean	walkWithRelations_relations_are_depends	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_depends	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_equal	no
@@ -371,7 +373,6 @@ core	Core/IR	Core/IR/Relations.lean	equalHolds_trans	no
 core	Core/IR	Core/IR/Relations.lean	equal_zero_consistent	no
 core	Core/IR	Core/IR/Semantics.lean	compile_sound_content	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
-core	Core/IR	Core/IR/Semantics.lean	semanticsOf_ne_nil	no
 core	Core/IR	Core/IR/Semantics.lean	semanticsOf_nil	no
 core	Core/IR	Core/IR/Skeleton.lean	compileIR_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	extract_compileIR	no
