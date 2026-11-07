@@ -158,4 +158,65 @@ theorem decodeArgs_code (xs : List (TensorId × List ℕ)) :
   exact decodeArgsAux_code xs (argsCode xs) (decodeArgs_ge_length xs)
 
 
+/-! ## The relation-shape decoder
+
+`relationShapeCode r = Nat.pair (Nat.pair (kindCode r.kind)
+                                         (Nat.pair (argsCode r.args) (partCode r.part) + 1)) 0`
+
+**The `+1` sits on the INNER pair, not on `argsCode`.**
+
+**=> the decoder reads the outer pair, then the middle pair, then subtracts the `+1` BEFORE the third `unpair`.**
+**Rounds 209 and 210 both placed the `+1` one level too high, and every subsequent step failed for that reason;
+`hcode`'s `rfl` is what finally pinned the position down.** -/
+
+/-- **DECODE A `RelationShape` FROM ITS `relationShapeCode`.**
+
+**One `unpair` for the outer pair (its second component is the discarded `0`), one for the middle pair (giving
+`kindCode` and the `+1`-patched inner pair), then the `+1` is subtracted and a third `unpair` gives `argsCode` and
+`partCode`.** -/
+def decodeRelationShape (code : ℕ) : Option RelationShape :=
+  if _h : code = 0 then none
+  else
+    let outer := Nat.unpair code
+    let mid := Nat.unpair outer.1
+    if _hb : mid.2 = 0 then none
+    else
+      let rest := Nat.unpair (mid.2 - 1)
+      (decodeArgs rest.1).map
+        (fun args => (⟨kindOfCode mid.1, args, partOfCode rest.2⟩ : RelationShape))
+
+set_option maxHeartbeats 400000 in
+/-- **THE ROUND TRIP FOR relationShapeCode.**
+
+decodeRelationShape (relationShapeCode r) = some r.
+
+The proof pins the encoding shape with hcode first, then discharges the two if guards,
+subtracts the +1, and applies the three component inverses.
+maxHeartbeats is raised because the three nested Nat.pair terms make elaboration slow.
+-/
+theorem decodeRelationShape_code (r : RelationShape) :
+    decodeRelationShape (relationShapeCode r) = some r := by
+  obtain ⟨kind, args, part⟩ := r
+  have hcode : relationShapeCode ⟨kind, args, part⟩ =
+      Nat.pair (Nat.pair (kindCode kind) (Nat.pair (argsCode args) (partCode part) + 1)) 0 := by
+    unfold relationShapeCode
+    rfl
+  rw [hcode]
+  unfold decodeRelationShape
+  -- The outer guard: the code is a `Nat.pair` with its first component at least 1.
+  have hne : Nat.pair (Nat.pair (kindCode kind) (Nat.pair (argsCode args) (partCode part) + 1)) 0 ≠ 0 := by
+    have h1 : 1 ≤ Nat.pair (kindCode kind) (Nat.pair (argsCode args) (partCode part) + 1) := by
+      have := Nat.right_le_pair (kindCode kind) (Nat.pair (argsCode args) (partCode part) + 1)
+      omega
+    have := pair_gt_snd _ 0 h1
+    omega
+  rw [dif_neg hne]
+  simp only [Nat.unpair_pair]
+  -- The inner guard: the `+1`-patched pair is non-zero.
+  have hpos : Nat.pair (argsCode args) (partCode part) + 1 ≠ 0 := by omega
+  rw [dif_neg hpos]
+  rw [Nat.add_sub_cancel]
+  -- The three component inverses.
+  simp [decodeArgs_code, kindOfCode_kindCode, partOfCode_partCode]
+
 end Lattice.Core.IR

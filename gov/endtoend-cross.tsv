@@ -312,6 +312,7 @@ Core/IR/Decode.lean	decodeTensorList_code
 Core/IR/DecodeRelations.lean	partOfCode_partCode
 Core/IR/DecodeRelations.lean	decodeArgsAux_code
 Core/IR/DecodeRelations.lean	decodeArgs_code
+Core/IR/DecodeRelations.lean	decodeRelationShape_code
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/Lifecycle.lean	recovery_exact

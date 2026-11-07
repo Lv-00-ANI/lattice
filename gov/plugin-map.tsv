@@ -328,6 +328,7 @@ core	Core/IR	Core/IR/Decode.lean	shapesCode_tensor_ge_length	no
 core	Core/IR	Core/IR/DecodeRelations.lean	decodeArgsAux_code	no
 core	Core/IR	Core/IR/DecodeRelations.lean	decodeArgs_code	no
 core	Core/IR	Core/IR/DecodeRelations.lean	decodeArgs_ge_length	no
+core	Core/IR	Core/IR/DecodeRelations.lean	decodeRelationShape_code	no
 core	Core/IR	Core/IR/DecodeRelations.lean	partOfCode_partCode	no
 core	Core/IR	Core/IR/Depends.lean	dependsHolds_mono	no
 core	Core/IR	Core/IR/Depends.lean	dependsHolds_nil	no
