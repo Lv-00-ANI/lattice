@@ -1103,7 +1103,7 @@
 | `Lattice.Core.IR.Materialize` | 6 | 4 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
-| `Lattice.Core.IR.Parse` | 16 | 8 |
+| `Lattice.Core.IR.Parse` | 17 | 8 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Semantics` | 3 | 2 |
@@ -11179,11 +11179,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `w3_mod_ne_zero` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `modSinLoss_zero_iff_congruent`, `symVec`, `symW`
 - `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
 - `walkWithRelations_relations_are_depends` -> `RelKind`, `Term`, `at`, `induction`
-- `walk_count` -> `TensorShape`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `walk_count` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_increasing` -> `RelKind`, `TensorShape`, `Term`, `at`, `induction`, `subst`
 - `walk_length_indep` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_mono` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_nodup` -> `RelKind`, `Term`, `at`, `induction`
+- `walk_own_id_mem` -> `RelKind`, `TensorShape`, `Term`, `at`, `induction`, `subst`
 - `walk_range` -> `TensorShape`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `subst`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `weakSim_comp` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`

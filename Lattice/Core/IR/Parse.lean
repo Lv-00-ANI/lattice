@@ -487,6 +487,28 @@ theorem walk_range : ∀ (t : Term) (n : ℕ),
       · exact ⟨le_trans (le_trans (Nat.le_succ n) hmt) (hb s hs).1, (hb s hs).2⟩
 
 
+/-- **THE WALK'S OWN ID IS AMONG ITS TENSOR IDS.**
+
+**`n ∈ (walkWithRelations t n).1.map (·.id)`.**
+
+**=> the walk's first tensor is the current node, tagged with the id it was handed.**
+**This is the base of `WellFormed`'s second conjunct: a relation emitted at node `n` mentions `n`, and `n` must be a
+tensor the structure HAS.**
+
+**The proof is `simp [walkWithRelations]` in every branch, because the current node's tensor is the HEAD of the
+emitted list in each case.**
+**=> no induction hypothesis is needed at all, which is why this one is so much shorter than `walk_range`.** -/
+theorem walk_own_id_mem (t : Term) (n : ℕ) :
+    n ∈ (walkWithRelations t n).1.map (·.id) := by
+  induction t generalizing n with
+  | sort k l => simp [walkWithRelations]
+  | var k => simp [walkWithRelations]
+  | const k => simp [walkWithRelations]
+  | lam kk b ih => simp [walkWithRelations]
+  | pi kk B ih => simp [walkWithRelations]
+  | app f a ihf iha => simp [walkWithRelations]
+  | letE kk tt b ih1 ih2 => simp [walkWithRelations]
+
 /-- **THE WALK'S TENSOR IDS ARE STRICTLY INCREASING.**
 
 **`((walkWithRelations t n).1.map (·.id)).Pairwise (· < ·)`.**

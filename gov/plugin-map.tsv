@@ -387,6 +387,7 @@ core	Core/IR	Core/IR/Parse.lean	walk_increasing	no
 core	Core/IR	Core/IR/Parse.lean	walk_length_indep	no
 core	Core/IR	Core/IR/Parse.lean	walk_mono	no
 core	Core/IR	Core/IR/Parse.lean	walk_nodup	no
+core	Core/IR	Core/IR/Parse.lean	walk_own_id_mem	no
 core	Core/IR	Core/IR/Parse.lean	walk_range	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_depends	no
 core	Core/IR	Core/IR/Penalty.lean	penalty_equal	no
