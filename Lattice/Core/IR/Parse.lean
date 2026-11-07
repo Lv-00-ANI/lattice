@@ -250,6 +250,37 @@ def parseSkeletonWithRelations (t : Term) : IRSkeleton :=
   let (ts, rs, _) := walkWithRelations t 0
   ⟨ts, rs⟩
 
+/-- **THE COUNTER NEVER DECREASES.**
+
+**`n ≤ (walkWithRelations t n).2.2` for every term and every starting counter.**
+
+**The proof avoids destructuring the triple: it works with the PROJECTIONS `.2.2` directly, so the recursive calls'
+counters appear in the goal in the same form the induction hypothesis produces them.**
+**=> an earlier attempt destructured with `obtain` and then unfolded with `simp`, which re-introduced the `let` that
+`obtain` had just removed; keeping the projections sidesteps that entirely.** -/
+theorem walk_mono : ∀ (t : Term) (n : ℕ), n ≤ (walkWithRelations t n).2.2
+  | Term.sort _ _, n => by simp [walkWithRelations]
+  | Term.var _, n => by simp [walkWithRelations]
+  | Term.const _, n => by simp [walkWithRelations]
+  | Term.app f a, n => by
+    have h1 := walk_mono f (n + 1)
+    have h2 := walk_mono a (walkWithRelations f (n + 1)).2.2
+    show n ≤ (walkWithRelations a (walkWithRelations f (n + 1)).2.2).2.2
+    omega
+  | Term.lam _ b, n => by
+    have h1 := walk_mono b (n + 1)
+    show n ≤ (walkWithRelations b (n + 1)).2.2
+    omega
+  | Term.pi _ B, n => by
+    have h1 := walk_mono B (n + 1)
+    show n ≤ (walkWithRelations B (n + 1)).2.2
+    omega
+  | Term.letE _ tt b, n => by
+    have h1 := walk_mono tt (n + 1)
+    have h2 := walk_mono b (walkWithRelations tt (n + 1)).2.2
+    show n ≤ (walkWithRelations b (walkWithRelations tt (n + 1)).2.2).2.2
+    omega
+
 /-- **THE RELATIONS ARE `depends` EDGES, ALL OF THEM.**
 
 **Stated as a property of the walk's output: every emitted relation has kind `.depends`.**
