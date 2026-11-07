@@ -264,3 +264,87 @@ theorem walk_range : ∀ (t : Term) (n : ℕ),
 ```
 
 **`walk_range` 证出后，`parse_wellFormed` 的第二合取项（id 互异）由 `walk_range` 与 `walk_mono` 共同给出；关系的合取项在 `parseSkeletonWithRelations` 产出 `dependsShape` 后不再空洞，需要额外证明「每个 `dependsShape n xs` 的 `n` 都在张量 id 集合里」——那由 `walk_range` 的 `n ≤ s.id` 直接得到。**
+
+---
+
+## 9. 第 217 轮：`walk_range` 已推到只剩一个投影问题
+
+### 9.1 已经立住的部分
+
+**`walk_mono`（第 216 轮已提交）：`n ≤ (walkWithRelations t n).2.2`，用**投影**而非解构三元组证出。**
+
+**第 217 轮把 `walk_range` 推到了同样的形状：**
+
+```lean
+theorem walk_range : ∀ (t : Term) (n : ℕ),
+    ∀ s ∈ (walkWithRelations t n).1, n ≤ s.id ∧ s.id < (walkWithRelations t n).2.2
+```
+
+**七个分支中，`sort`/`var`/`const`/`lam`/`pi` 五个已通过；`app` 与 `letE` 只剩「首个张量那个分支」的界。**
+
+### 9.2 三个已解决的子障碍（都值得记录）
+
+| 障碍 | 修法 |
+|:--|:--|
+| **`rcases hs` 后无法调用 `walk_range b (n+1)`** | **先 `have hb := walk_range b (n+1)` 把递归结果存成假设，再 `simp only [walkWithRelations] at hs ⊢`，最后 `rcases List.mem_cons.mp hs`。先存后用，`hb` 不受目标化简影响。** |
+| **`List.mem_append` 与 `List.mem_cons` 的顺序** | **`rcases List.mem_cons.mp hs with rfl | hs` 之后，对 `hs` 再做 `rcases List.mem_append.mp hs with hs | hs`，得到三个分支：本节点 / 左子树的张量 / 右子树的张量。** |
+| **`Nat.lt_succ_of_le` 多产生一个 `.succ`** | **用 `Nat.lt_of_succ_le`。这两条引理方向不同：前者给 `n < m.succ`，后者给 `n < m`（来自 `n.succ ≤ m`）。** |
+
+### 9.3 剩下的确切问题
+
+**`app`/`letE` 的「本节点」分支，目标是：**
+
+```
+{ id := n, shape := termShape }.id < (walkWithRelations a (walkWithRelations f (n+1)).2.2).2.2
+```
+
+**`omega` 报出的反例约束是：**
+
+```
+b := (walkWithRelations f (n + 1)).2.2
+c := n
+d := (walkWithRelations a (walkWithRelations f (n + 1)).2.2).2.2
+b - c ≥ 1     -- 来自 hmf : n + 1 ≤ b
+b - d ≤ 0     -- 来自 hma : b ≤ d
+```
+
+**这三条**合起来足以推出 `n < d`**（`c + 1 ≤ b ≤ d` ⇒ `c < d`）。**
+
+**`omega` 仍然失败，唯一的原因是目标左侧的 `{ id := n, shape := termShape }.id` 没有被归约成 `n`——`omega` 把它当成不透明的变量。**
+
+**=> 修法是把 `simp only [TensorShape.mk]`（或 `show n < d`）放在 `omega` **之前**，且顺序必须是 `rfl` 分支 → 化简投影 → `omega`。**
+
+**第 217 轮试过 `refine ⟨le_refl n, ?_⟩` + `simp only` + `omega`，但 `simp only [...] at hs ⊢` 在前一步已经执行，`simp` 的「清理无用假设」把 `hmf`/`hma` 一并删掉了，于是 `omega` 的上下文是空的。**
+
+**=> 正确的顺序是：**
+
+```lean
+    · show n < (walkWithRelations a (walkWithRelations f (n+1)).2.2).2.2
+      omega
+```
+
+**用 `show` 直接把目标写成纯计数器的形式（`rfl` 分支已经让 `s.id` 就是 `n`），**不碰上下文**，`hmf`/`hma` 因此留在作用域里。**
+
+### 9.4 为什么本轮没做完
+
+**第 217 轮在 `app`/`letE` 的两个「本节点」分支上尝试了十一次修正，每次都调换 `simp`/`omega`/`exact` 的顺序，都没有找到既化简投影又保留上下文的组合。**
+
+**=> 根因现在清楚了（9.3 的 `show` 写法），但本轮的时间已经用完。**
+
+**按纪律，`Parse.lean` 已回滚到 HEAD，`parse` 仍然不产出关系。`walk_mono` 保留。**
+
+### 9.5 下一轮的确切做法
+
+**把 `walk_range` 重新加进 `Parse.lean`，五个已通过的分支照第 217 轮写成：**
+
+- **`sort`/`var`/`const`**：`simp only [walkWithRelations, List.mem_singleton] at hs`，`subst`，`exact ⟨le_refl n, Nat.lt_succ_self n⟩`
+- **`lam`/`pi`**：`have hb := walk_range b (n+1)`；`have hm := walk_mono b (n+1)`；`simp only [walkWithRelations] at hs ⊢`；`rcases List.mem_cons.mp hs with rfl | hs`；`rfl` 分支 `exact ⟨le_refl n, Nat.lt_succ_of_le hm⟩`；`hs` 分支 `exact ⟨le_trans (Nat.le_succ n) (hb s hs).1, (hb s hs).2⟩`
+
+**`app`/`letE` 的两个「本节点」分支改用 9.3 的 `show` + `omega`：**
+
+```lean
+    · show n < (walkWithRelations a (walkWithRelations f (n+1)).2.2).2.2
+      omega
+```
+
+**其余两个分支（左子树、右子树）照第 217 轮的写法已经通过。**
