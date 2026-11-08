@@ -1097,7 +1097,7 @@
 | `Lattice.Core.IR.Decode` | 9 | 6 |
 | `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Extract` | 12 | 3 |
+| `Lattice.Core.IR.Extract` | 13 | 3 |
 | `Lattice.Core.IR.IsIR` | 4 | 6 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Materialize` | 11 | 5 |
@@ -5134,6 +5134,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `extractWith_absent` -> `IRSkeleton`, `TensorShape`, `find`
+- `extractWith_collision` -> `IRSkeleton`, `TensorShape`
 - `extractWith_compileWith` -> `IRSkeleton`, `TensorShape`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
 - `extractWith_spec` -> `IRSkeleton`, `TensorShape`
 - `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`

@@ -328,6 +328,7 @@ Core/IR/Extract.lean	compileWith_zero
 Core/IR/Extract.lean	compileWith_zero_snd
 Core/IR/Extract.lean	extractWith_absent
 Core/IR/Extract.lean	extractWith_spec
+Core/IR/Extract.lean	extractWith_collision
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered

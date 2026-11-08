@@ -315,4 +315,27 @@ theorem extractWith_spec (k : IRSkeleton)
   ⟨fun st hst => extractWith_compileWith k f hnd hst,
    fun st hid i => extractWith_absent k f hid i⟩
 
+/-- **THE ID-COLLISION CASE: A SHAPE THAT IS NOT IN THE SKELETON BUT SHARES A `id` READS THE OCCUPANT'S POSITION.**
+
+**If `st` is not a tensor of `k` yet `st.id = u.id`, then reading `st` at index `i` returns whatever `compileWith` put
+at the position belonging to `u`.**
+
+**=> this closes the decoder's specification.**
+**`extractWith_spec` (round 244) says the reading is `f st` on the skeleton and `0` off it; this theorem says WHICH
+position an off-skeleton reading lands on when the id collides, and it is the occupant's.**
+
+**The design consequence, stated plainly: the encoding is BY `id`, so `id` is the currency.**
+**Two shapes with the same `id` are the SAME tensor as far as the weight function is concerned -- which is consistent
+with `WellFormed` requiring the skeleton's ids to be `Nodup`: within a skeleton there is nothing to confuse, and
+outside it the confusion is specified rather than accidental.**
+
+**The proof is one rewrite: `extractWith` reads `Nat.pair (st.id + 1) ↑i + 1`, and `st.id = u.id` turns that into the
+occupant's position.** -/
+theorem extractWith_collision (k : IRSkeleton) (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    {st u : TensorShape} (hid : st.id = u.id) (i : Fin st.shape.prod) :
+    extractWith (compileWith k f) st i
+      = compileWith k f (Nat.pair (u.id + 1) (i : ℕ) + 1) := by
+  unfold extractWith
+  rw [hid]
+
 end Lattice.Core.IR
