@@ -407,6 +407,9 @@ Core/IR/Semantics.lean	parse_models
 Core/IR/Semantics.lean	parse_models_full
 Core/IR/Semantics.lean	parse_models_extract
 Core/IR/Semantics.lean	parse_loop_rejects_then_accepts
+Core/IR/Semantics.lean	covered_of_vanishing
+Core/IR/Semantics.lean	complies_and_covered
+Core/IR/Semantics.lean	agrees_not_subsumes_covered
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

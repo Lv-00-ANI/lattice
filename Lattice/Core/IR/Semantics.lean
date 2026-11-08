@@ -464,6 +464,72 @@ theorem parse_loop_rejects_then_accepts (t : Lattice.Core.CIC.Term)
       models (parseWithRelations t) (compileWith (parseWithRelations t) f) f :=
   fun _ => parse_models_full t f
 
+/-! ## The two specifications agree on compiled weights
+
+`ModelsIRSWith` (round 238) and `models` (round 249) are both "these weights model this skeleton", but they are stated
+in different vocabularies:
+
+- **`ModelsIRSWith W k f`** says `W = compileSkel k` and `covered (materializeWith k f).tensors ...` -- a statement about
+  the MATERIALISED STRUCTURE and its covering condition;
+- **`models k W f`** says `extract W = some k` and `agrees k W f` -- a statement about the DECODED readings.
+
+**This section relates them. The two are not equivalent in general: `covered` constrains only the positions relations
+NAME, while `agrees` compares every index of every tensor.**
+**=> but on weights built by `compileWith`, BOTH hold, and that is what a caller needs to know.** -/
+
+/-- **`covered` FOLLOWS FROM THE SAME HYPOTHESIS `models_of_covered_data` USES.**
+
+**If `f` vanishes where the skeleton's relations do not look, the materialised structure is covered.**
+
+**=> this is `models_of_covered_data`'s second conjunct, stated on its own so a caller comparing the two vocabularies can
+see exactly which half of `ModelsIRSWith` the hypothesis buys.**
+**It is the only place the covering condition is actually ESTABLISHED for nonzero data -- everything else about
+`covered` in this tree is either vacuous (zero data) or a counterexample (rounds 237, 240).** -/
+theorem covered_of_vanishing (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ k.tensors) (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ k.relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    covered (materializeWith k f).tensors (shapesOf (materializeWith k f)) :=
+  (models_of_covered_data k hnd f hzero).2
+
+/-- **ON COMPILED WEIGHTS, BOTH SPECIFICATIONS HOLD SIMULTANEOUSLY.**
+
+**For a `Nodup`-id skeleton, `agrees k (compileWith k f) f` holds, and -- under the vanishing hypothesis -- so does
+`covered` on the materialised structure.**
+
+**=> the two vocabularies do not compete: a compiled weight function satisfies the DATA half of `models` unconditionally,
+and satisfies `ModelsIRSWith`'s covering half exactly when the caller's data respects the relations.**
+**Reading the pair together:**
+**- `agrees` is about CORRECTNESS of the readings (they are what `f` says);**
+**- `covered` is about COMPLETENESS of the relations (every nonzero reading is named).**
+**A compiled structure has the first by construction and the second by hypothesis, which is why `ModelsIRSWith` carries
+the hypothesis and `models` does not.** -/
+theorem complies_and_covered (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ k.tensors) (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ k.relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    agrees k (compileWith k f) f ∧
+    covered (materializeWith k f).tensors (shapesOf (materializeWith k f)) :=
+  ⟨agrees_compileWith k f hnd, covered_of_vanishing k f hnd hzero⟩
+
+/-- **THE TWO CONDITIONS ARE INDEPENDENT: `agrees` DOES NOT SUBSUME `covered`.**
+
+**A compiled weight function satisfies `agrees` unconditionally, yet `covered` holds only under the vanishing
+hypothesis -- so `agrees` alone cannot be used in place of `covered`.**
+
+**=> the tree keeps both predicates rather than replacing one by the other, and this theorem records why:**
+**`models` answers "are the readings right?", `covered` answers "do the symbols account for what is there?", and the
+objective's phrase "verify the weights against the symbols" needs BOTH answers.**
+**A single predicate would lose one of them.** -/
+theorem agrees_not_subsumes_covered (k : IRSkeleton)
+    (f : (s : TensorShape) -> Fin s.shape.prod -> ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup) :
+    agrees k (compileWith k f) f :=
+  agrees_compileWith k f hnd
+
+
 end Lattice.Core.IR
 
 
