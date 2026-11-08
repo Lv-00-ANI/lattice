@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**341 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**342 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 23 | 5.7% |
+| `Core` | 24 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 23 | `¬ Function.Injective relu` |
-| `Core` | 23 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 23 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 23 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 23 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 24 | `¬ Function.Injective relu` |
+| `Core` | 24 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 24 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 24 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 24 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |

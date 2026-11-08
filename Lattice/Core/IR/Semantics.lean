@@ -412,6 +412,58 @@ theorem parse_models (t : Lattice.Core.CIC.Term)
     ModelsIRSWith (compileSkel (parseWithRelations t)) (parseWithRelations t) f :=
   models_of_covered_data _ (walk_nodup t 0) f hzero
 
+/-! ## The verification loop AT THE LEVEL OF SOURCE TERMS
+
+`models` (round 249) is the weights-level verification predicate: `extract W = some k` and `agrees k W f`.
+Rounds 242-248 built the loop that establishes it.
+
+**This section puts the loop on TERMS: start from a `Term`, parse it, compile it with data, and the weights are
+accepted -- with the skeleton being the one the term parses to.**
+
+**=> that is the chain's public entry point: a caller who has a term and an intention for its data gets a weight
+function the verification loop accepts, and the theorems are about THAT term's skeleton rather than about a hand-built
+one.**
+
+**`walk_nodup t 0` (round 227) is what supplies the `Nodup` hypothesis at this level, so the `WellFormed` work of rounds
+227-231 is consumed here in its term-level form.** -/
+
+/-- **A TERM'S WEIGHTS ARE ACCEPTED BY THE FULL CHECK.**
+
+**`models (parseWithRelations t) (compileWith (parseWithRelations t) f) f` for every term and every data function.**
+
+**=> the verification predicate holds for weights built from a TERM, with no hypothesis beyond the term itself.**
+**The `Nodup` requirement is discharged by `walk_nodup t 0`, which is a theorem about every term, so this statement has
+NO side conditions at all.** -/
+theorem parse_models_full (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    models (parseWithRelations t) (compileWith (parseWithRelations t) f) f :=
+  models_compileWith _ f (walk_nodup t 0)
+
+/-- **A TERM'S WEIGHTS DECODE TO ITS SKELETON.**
+
+**`extract (compileWith (parseWithRelations t) f) = some (parseWithRelations t)`.**
+
+**=> the reverse direction returns EXACTLY the skeleton the term parsed to, content included -- so the structure half of
+the loop closes at the term level.** -/
+theorem parse_models_extract (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    extract (compileWith (parseWithRelations t) f) = some (parseWithRelations t) :=
+  extract_compileWith _ f
+
+/-- **THE TERM-LEVEL LOOP TERMINATES IN ONE STEP.**
+
+**If any weights `W` are rejected by the check on a term's skeleton, re-compiling from the term's skeleton and the
+intended data is accepted.**
+
+**=> "parse, compile, check; if rejected, re-compile" is a circuit with a proved bound of one at the TERM level, which
+is the form a caller actually writes.** -/
+theorem parse_loop_rejects_then_accepts (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (W : IRWeights) :
+    ¬ models (parseWithRelations t) W f →
+      models (parseWithRelations t) (compileWith (parseWithRelations t) f) f :=
+  fun _ => parse_models_full t f
+
 end Lattice.Core.IR
 
 

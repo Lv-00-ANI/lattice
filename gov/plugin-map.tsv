@@ -439,7 +439,10 @@ core	Core/IR	Core/IR/Semantics.lean	matw_roundtrip	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
 core	Core/IR	Core/IR/Semantics.lean	models_of_covered_data	no
 core	Core/IR	Core/IR/Semantics.lean	parseWithRelations_wellFormed	no
+core	Core/IR	Core/IR/Semantics.lean	parse_loop_rejects_then_accepts	no
 core	Core/IR	Core/IR/Semantics.lean	parse_models	no
+core	Core/IR	Core/IR/Semantics.lean	parse_models_extract	no
+core	Core/IR	Core/IR/Semantics.lean	parse_models_full	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_models	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_nodup	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_wrong_relation_not_models	yes

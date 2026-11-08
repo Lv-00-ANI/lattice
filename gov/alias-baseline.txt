@@ -898,3 +898,5 @@ forward	Core/IR/Semantics.lean	parse_models
 copy	Core/IR/Materialize.lean	find_id_eq_some_of_nodup
 copy	Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape
 forward	Core/IR/Extract.lean	loop_preserves_others
+forward	Core/IR/Semantics.lean	parse_models_full
+forward	Core/IR/Semantics.lean	parse_models_extract
