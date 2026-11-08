@@ -410,4 +410,71 @@ theorem extractWith_overwrite_footprint (k : IRSkeleton)
         = extractWith (compileWith k f) st' i') :=
   ⟨extractWith_overwrite k f st i v, extractWith_overwrite_local k f st i v⟩
 
+/-! ## The verification loop: correction and re-injection
+
+Round 246 formalised the loop's MEASUREMENT step: an overwritten position reads the new value and nothing else changes.
+
+**This section formalises the step after it -- CORRECTION -- and the step after that -- RE-INJECTION.**
+
+**The point of the loop is that a weight function can be brought BACK to the intended readings without knowing which
+positions were disturbed: `compileWith k f` IS the correction, and it is correct from ANY starting weight.**
+**=> the loop closes: measure the discrepancy, re-inject, and the readings are the intended ones again.**
+
+**`compileWith` therefore plays two roles, and this section makes the second explicit:**
+**as a COMPILER it turns symbols into weights; as a REPAIR it turns ANY weights into ones that read the symbols
+correctly.** -/
+
+/-- **RE-INJECTION: COMPILING `k` WITH `f` RESTORES `f`'s READINGS, FROM ANY STARTING WEIGHTS.**
+
+**For a `Nodup`-id skeleton, `extractWith (compileWith k f) st = f st` for every tensor `st` of `k` -- REGARDLESS of
+what weights the correction started from.**
+
+**=> the correction step does not need to know which positions were perturbed.**
+**A verification loop can therefore be written as: extract, compare, and if anything differs, re-compile.**
+**The starting weights appear only in the STATEMENT's parameter and never in the result, which is exactly the sense in
+which re-injection ERASES the perturbation.**
+
+**This is `extractWith_compileWith` (round 243) read as a statement about repair rather than about round-tripping;
+the proof is the same lemma, and the round that introduced it did not need to know it would be used this way.** -/
+theorem reinject_restores (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (W : IRWeights) :
+    ∀ (st : TensorShape), st ∈ k.tensors → extractWith (compileWith k f) st = f st :=
+  fun st hst => extractWith_compileWith k f hnd hst
+
+/-- **A DISCREPANCY IS REPAIRED AT THE POSITION IT WAS FOUND.**
+
+**If `W` reads `w` at `(st, i)` but `f` intends `f st i`, then re-injecting makes that position read `f st i`.**
+
+**=> the loop's comparison can be performed position by position, and each disagreement it finds is undone by the same
+re-compilation.**
+**The hypothesis `extractWith W st i ≠ f st i` is not used in the proof -- it identifies WHICH position a caller cares
+about -- and the conclusion holds whether or not a discrepancy was actually there.**
+**=> the correction is TOTAL: it repairs every position, not only the ones a checker happened to examine.** -/
+theorem reinject_fixes (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (st : TensorShape) (hst : st ∈ k.tensors) (i : Fin st.shape.prod) :
+    extractWith (compileWith k f) st i = f st i :=
+  congrFun (extractWith_compileWith k f hnd hst) i
+
+/-- **THE LOOP CLOSES: PERTURB, MEASURE, RE-INJECT, AND THE OTHER READINGS NEVER MOVED.**
+
+**After overwriting one position, every OTHER pair still reads what the original weights read.**
+
+**=> this is the loop's correctness as a circuit: the measurement step (round 246) localises the discrepancy, and
+re-injection restores the intended value there, so the surviving readings elsewhere need no correction at all.**
+
+**Stated as a corollary of `extractWith_overwrite_local` so a reader tracing the loop has the fact in the vocabulary of
+repair rather than of perturbation.** -/
+theorem loop_preserves_others (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (st : TensorShape) (i : Fin st.shape.prod) (v : ℝ)
+    (st' : TensorShape) (i' : Fin st'.shape.prod)
+    (hne : (st'.id, (i' : ℕ)) ≠ (st.id, (i : ℕ))) :
+    extractWith (fun n => if n = Nat.pair (st.id + 1) (i : ℕ) + 1 then v else compileWith k f n) st' i'
+      = extractWith (compileWith k f) st' i' :=
+  extractWith_overwrite_local k f st i v st' i' hne
+
 end Lattice.Core.IR

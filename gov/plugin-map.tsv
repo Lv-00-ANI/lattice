@@ -356,7 +356,10 @@ core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite_local	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_spec	no
 core	Core/IR	Core/IR/Extract.lean	extract_compile	no
 core	Core/IR	Core/IR/Extract.lean	extract_injective_on_compiled	no
+core	Core/IR	Core/IR/Extract.lean	loop_preserves_others	no
 core	Core/IR	Core/IR/Extract.lean	pair_succ_pos_ne_zero	no
+core	Core/IR	Core/IR/Extract.lean	reinject_fixes	no
+core	Core/IR	Core/IR/Extract.lean	reinject_restores	no
 core	Core/IR	Core/IR/Extract.lean	weightCodeIR_compileSkel	no
 core	Core/IR	Core/IR/IsIR.lean	materialize_covered	no
 core	Core/IR	Core/IR/IsIR.lean	maximal_nil	no

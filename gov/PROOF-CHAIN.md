@@ -1097,7 +1097,7 @@
 | `Lattice.Core.IR.Decode` | 9 | 6 |
 | `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Extract` | 16 | 3 |
+| `Lattice.Core.IR.Extract` | 19 | 3 |
 | `Lattice.Core.IR.IsIR` | 4 | 6 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Materialize` | 11 | 5 |
@@ -3531,9 +3531,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileToLayer_sound` -> `AffineLayer`, `Ladder`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`, `satSym`, `satW`
 - `compileWith_code` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
 - `compileWith_read` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
-- `compileWith_roundtrip` -> `IRSkeleton`, `TensorShape`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `compileWith_zero` -> `IRSkeleton`, `TensorShape`, `apply`, `compileSkel`, `find`
-- `compileWith_zero_snd` -> `IRSkeleton`, `TensorShape`, `apply`, `find`
+- `compileWith_roundtrip` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
+- `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`
+- `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `find`
 - `compileZ_not_injective` -> `LossyRep`, `at`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `at`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_apply` -> `compile`, `compile_injective`, `extract`, `roundtrip`
@@ -5133,13 +5133,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extractWith_absent` -> `IRSkeleton`, `TensorShape`, `apply`, `find`
-- `extractWith_collision` -> `IRSkeleton`, `TensorShape`, `apply`
-- `extractWith_compileWith` -> `IRSkeleton`, `TensorShape`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `extractWith_overwrite` -> `IRSkeleton`, `TensorShape`, `apply`
-- `extractWith_overwrite_footprint` -> `IRSkeleton`, `TensorShape`
-- `extractWith_overwrite_local` -> `IRSkeleton`, `TensorShape`, `apply`
-- `extractWith_spec` -> `IRSkeleton`, `TensorShape`, `apply`
+- `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `find`
+- `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
+- `extractWith_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
+- `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
+- `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
+- `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
 - `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `apply`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
 - `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
 - `extract_compile_identity` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
@@ -6964,6 +6964,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_model_contraction` -> `W`, `at`, `contraction_converges`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `loop_mono` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
+- `loop_preserves_others` -> `IRSkeleton`, `TensorShape`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
@@ -9034,11 +9035,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `regular_uniform_aggregate_eq` -> `E`, `nbhdSet`, `nbhdSum`
 - `reinject_correct` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `iterate`, `loss`, `reinject_sound`, `samePointRepair`
 - `reinject_entails` -> `EntailsGeo`, `GeoConstraint`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`
+- `reinject_fixes` -> `IRSkeleton`, `TensorShape`
 - `reinject_generic` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`
 - `reinject_loss_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `apply`, `iterate`, `loss`, `poly`, `reinject_sound`, `samePointRepair`, `sqDist_eq_zero_iff`
 - `reinject_of_hold` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`
 - `reinject_perpRepair` -> `EqConstraint`, `Pt`, `converges_within`, `iterate`, `loss`, `perpRepair`
 - `reinject_perpendicular` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`
+- `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `reinject_sound` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`, `iterate`
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`

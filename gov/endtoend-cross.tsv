@@ -332,6 +332,9 @@ Core/IR/Extract.lean	extractWith_collision
 Core/IR/Extract.lean	extractWith_overwrite
 Core/IR/Extract.lean	extractWith_overwrite_local
 Core/IR/Extract.lean	extractWith_overwrite_footprint
+Core/IR/Extract.lean	reinject_restores
+Core/IR/Extract.lean	reinject_fixes
+Core/IR/Extract.lean	loop_preserves_others
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered

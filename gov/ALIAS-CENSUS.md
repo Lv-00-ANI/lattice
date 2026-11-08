@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 732 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 733 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 165 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -38,6 +38,7 @@
 | `Core/CIC/Reduction.lean` | `zeta_reduces` |
 | `Core/ChainCastAct.lean` | `act_cast_fst` |
 | `Core/ChainCastAct.lean` | `act_cast_snd` |
+| `Core/IR/Extract.lean` | `loop_preserves_others` |
 | `Core/IR/Semantics.lean` | `parse_models` |
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
