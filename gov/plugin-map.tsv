@@ -1055,6 +1055,8 @@ domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	one_step_suffices	
 domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	sqDistFix_reaches	no
 domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	sqDist_affine	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	constraintLossCompiler_compile	no
+domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	midpointOperator_mark	no
+domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	parallelOperator_mark	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	repair_loss_zero_of_exact	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_loop_reaches_penalty_zero	no

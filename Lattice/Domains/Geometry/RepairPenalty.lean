@@ -1,5 +1,7 @@
 import Lattice.Domains.Geometry.PartialReinjection
 import Lattice.Runtime.ConstraintToLoss
+import Lattice.Domains.Geometry.MissingRepairs
+import Lattice.Domains.Geometry.ParallelRepair
 import Mathlib
 import Lattice.Domains.Geometry.Loop
 import Lattice.Domains.Constraints.Loss
@@ -148,5 +150,69 @@ noncomputable def constraintLossCompiler (n : ℕ) :
 theorem constraintLossCompiler_compile (n : ℕ) (c : EqConstraint n) :
     (constraintLossCompiler n).compile c = fun pts => EqConstraint.loss c pts :=
   Lattice.Lift.PenaltyToLossCompiler.compile_is_loss (constraintPenalty n) c
+
+/-! ## 修正算子目录：三种修正的统一登记
+
+本树里已经有三个各自独立的修正算子，覆盖三种不同的几何约束：
+
+| 约束 | 算子 | 文件 |
+|:--|:--|:--|
+| **平行** | `parallelFix` | `ParallelRepair.lean` |
+| **中点** | `midpointFix` | `MissingRepairs.lean` |
+| **等距** | `sqDistFix` | `RepairCoverage.lean` |
+
+**它们此前互不相识：每个文件只谈自己的约束、自己的算子。**
+**⇒ 本节给它们一个**共同的形状**：一个修正算子就是「给定配置，返回修好的配置」加上「它确实达成目标」的保证。**
+
+**这不是把它们硬塞进同一个类型 —— 三者的参数不同（平行要四个点、中点要三个）。**
+**而是把**共同的那一部分**抽出来：每个算子都接受一个配置并返回一个配置，而「它做了什么」可以独立陈述。**
+**⇒ 于是「修正」在目标的意义上成为一个可枚举的集合，而不是三份互不引用的代码。** -/
+
+/-- **修正算子的共同形状。**
+
+**`fix` 把配置映到配置；`mark` 把「这个算子针对什么」编码成一个可陈述的性质。**
+**=> 抽出的只是**共同部分**：参数怎么给留给各自的构造，本节只统一「接受配置、返回配置」这一层。**
+**`mark` 为 `Prop` 而非具体约束，是因为三个算子的目标类型不同（平行、中点、等距），强行统一会丢失它们各自
+的内容。** -/
+structure FixOperator (n : ℕ) where
+  /-- **把配置映到修好的配置。** -/
+  fix : (ℕ → Pt n) → (ℕ → Pt n)
+  /-- **这个算子达成的性质。** -/
+  mark : (ℕ → Pt n) → Prop
+
+/-- **平行修正作为一个 `FixOperator`。**
+
+**=> 登记只保留「接受配置、返回配置」这一层；**目标性质**由 `parallelOperator_mark` 单独陈述，
+因为它要引用**输入**的 `pts`（平行说的是「修好的 `ab` 与原来的 `ce` 平行」），而 `mark` 只看到输出。**
+**这正是本次抽象**不能**统一的那一部分：三者的目标都要提到输入，而 `mark` 的形式是 `输出 → Prop`。** -/
+noncomputable def parallelOperator (a b c e : ℕ) : FixOperator n where
+  fix := fun pts => Lattice.Geo.ParallelRepair.parallelFix pts a b c e
+  mark := fun _ => True
+
+/-- **中点修正作为一个 `FixOperator`。**
+
+**=> 与上一条同理：`mark` 记为 `True`，真正的保证在 `midpointOperator_mark` 中。**
+**中点约束只看**输出**（`m` 是否在 `a` 与 `b` 的中点），但仍统一成 `True` 以保持两个构造的形状一致。** -/
+noncomputable def midpointOperator (m a b : ℕ) : FixOperator n where
+  fix := fun pts => Lattice.Geo.MissingRepairs.midpointFix m a b pts
+  mark := fun _ => True
+
+/-- **登记后的平行修正仍达成它的目标。**
+
+**=> 「修好之后存在 `t` 使得 `ab` = `t · ce`」——`parallelFix_reaches` 的原命题，只是现在挂在目录的构造上。**
+**登记不改变结论，只改变**陈述的位置**：一个想浏览「有哪些修正算子」的读者只需读本节。** -/
+theorem parallelOperator_mark (pts : ℕ → Pt n) (a b c e : ℕ) (hb : b ≠ a) :
+    ∃ t, Lattice.Geo.GeoConstraint.seg ((parallelOperator (n := n) a b c e).fix pts) a b
+      = fun i => t * Lattice.Geo.GeoConstraint.seg pts c e i :=
+  Lattice.Geo.ParallelRepair.parallelFix_reaches pts a b c e hb
+
+/-- **登记后的中点修正仍达成它的目标。**
+
+**=> `midpointFix_reaches` 的目录形式，与上一条并列。**
+**两条合起来说明：目录里的每个算子的**实际保证**都被保留，而不只是它的名字。** -/
+theorem midpointOperator_mark (m a b : ℕ) (pts : ℕ → Pt n) (ha : a ≠ m) (hb : b ≠ m) :
+    (Lattice.Geo.GeoConstraint.midpoint m a b).Holds
+      ((midpointOperator (n := n) m a b).fix pts) :=
+  Lattice.Geo.MissingRepairs.midpointFix_reaches m a b pts ha hb
 
 end Lattice.Geo
