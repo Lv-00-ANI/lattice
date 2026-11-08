@@ -437,6 +437,8 @@ core	Core/IR	Core/IR/Semantics.lean	agrees_not_subsumes_covered	no
 core	Core/IR	Core/IR/Semantics.lean	compile_sound_content	no
 core	Core/IR	Core/IR/Semantics.lean	complies_and_covered	no
 core	Core/IR	Core/IR/Semantics.lean	covered_of_vanishing	no
+core	Core/IR	Core/IR/Semantics.lean	dependsShape_args_empty	no
+core	Core/IR	Core/IR/Semantics.lean	dependsShape_names_nothing	no
 core	Core/IR	Core/IR/Semantics.lean	length_tensors_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	matw_roundtrip	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no

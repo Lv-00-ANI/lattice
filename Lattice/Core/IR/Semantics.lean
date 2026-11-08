@@ -639,6 +639,53 @@ theorem parse_var_not_covered :
   rw [hshapes] at hr
   exact absurd hr (by simp)
 
+/-! ## A STRUCTURAL GAP: `covered` cannot be satisfied by walk-emitted relations
+
+Rounds 251-253 related `covered` and `agrees` and refuted `covered` for a leaf term.
+
+**This section records something stronger and more uncomfortable: `covered`'s nonzero clause can NEVER be discharged
+by a relation that `walkWithRelations` emits, because the two speak about DIFFERENT INDEX LISTS.**
+
+**`covered` asks, for a reading at `t.id` with index `[i]`, for a relation `r` with `Names r t.id [i]`, i.e.
+`(t.id, [i]) ∈ r.args`.**
+**But `dependsShape head children`'s argument list is `(head, []) :: children.map (fun c => (c, []))` -- EVERY entry has
+the EMPTY index list.**
+**=> `Names (dependsShape h c) id [i]` is FALSE for every `i`, so no walk-emitted relation can cover a single reading.**
+
+**That is why `covered_of_vanishing` (round 251) needs its hypothesis: without it the condition is not merely hard to
+satisfy, it is UNSATISFIABLE.**
+
+**The two definitions are not wrong on their own terms -- `covered` is about READINGS at concrete indices, and
+`dependsShape` is about DEPENDENCY EDGES between tensors -- but they do not meet, and a reader who assumes they do would
+be misled.**
+**=> recording the gap is the honest move; closing it would require `dependsShape` to enumerate indices, which is a
+design change and not a proof.** -/
+
+/-- **EVERY `dependsShape` ARGUMENT HAS THE EMPTY INDEX LIST.**
+
+**=> `dependsShape` describes DEPENDENCY EDGES, not readings: it says "tensor `head` depends on tensor `c`" without
+saying anything about which index of either is involved.** -/
+theorem dependsShape_args_empty (head : TensorId) (children : List TensorId) :
+    ∀ a ∈ (dependsShape head children).args, a.2 = [] := by
+  intro a ha
+  simp only [dependsShape, List.mem_cons, List.mem_map, List.not_mem_nil] at ha
+  rcases ha with ⟨rfl, _⟩ | ⟨c, _, he⟩
+  · rfl
+  · rw [← he]
+
+/-- **NO `dependsShape` NAMES A READING AT A CONCRETE INDEX.**
+
+**`Names (dependsShape h c) id [i]` is FALSE for every `id` and every `i`.**
+
+**=> the gap between `covered` (about readings) and `dependsShape` (about edges), stated as a theorem.**
+**Combined with `dependsShape_args_empty` this says the walk's relations can never satisfy `covered`'s nonzero clause,
+which is why `covered_of_vanishing`'s hypothesis is not a convenience but the only way the condition can hold.** -/
+theorem dependsShape_names_nothing (head : TensorId) (children : List TensorId) (id : TensorId) (i : Nat) :
+    Not (Names (dependsShape head children) id [i]) := by
+  intro h
+  have := dependsShape_args_empty head children (id, [i]) h
+  simp at this
+
 end Lattice.Core.IR
 
 
