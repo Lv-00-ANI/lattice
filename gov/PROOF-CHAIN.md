@@ -2021,7 +2021,7 @@
 | `Lattice.Runtime.LossyRepresentation` | 2 | 3 |
 | `Lattice.Runtime.MultiLayerLadder` | 4 | 8 |
 | `Lattice.Runtime.NonIdenticalEncoding` | 4 | 6 |
-| `Lattice.Runtime.NondegenerateInstance` | 5 | 2 |
+| `Lattice.Runtime.NondegenerateInstance` | 7 | 2 |
 | `Lattice.Runtime.PartialRepresentation` | 1 | 3 |
 | `Lattice.Runtime.PenaltyAnalysis` | 3 | 0 |
 | `Lattice.Runtime.PenaltyEmbedding` | 10 | 5 |
@@ -2429,7 +2429,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `actStackEval_of_no_activation` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
 - `actStackSingle_affine` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
 - `act_append` -> `induction`
-- `act_apply` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `at`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `act_apply` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `apply`, `at`, `compileToLayerN`, `compile_sound_n`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`, `satSym`, `satW`
 - `act_cast_fst` -> `Chain`, `act`, `subst`
 - `act_cast_snd` -> `Chain`, `act`, `subst`
 - `act_cons` -> `Arch`, `Chain`, `MLayer`, `Weights`, `act`, `act_idf`, `depth`, `mlayerAct`, `toChainBetween`, `toLayer`, `width`
@@ -2441,7 +2441,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `act_single` -> `Arch`, `Chain`, `Weights`, `act`, `act_idf`, `depth`, `mlayerAct`, `toChainBetween`, `toLayer`, `width`
 - `act_stackChain` -> `Arch`, `Chain`, `Weights`, `act`, `act_cast_snd`, `act_cons`, `act_idf`, `depth`, `induction`, `mlayerAct`, `toLayer`, `width`, `zero`
 - `act_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
-- `act_zero_all_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `apply`, `at`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `act_zero_all_iff` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `apply`, `at`, `compileToLayerN`, `compile_sound_n`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`, `satSym`, `satW`
 - `act_zero_apply` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `at`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
 - `act_zero_eq_zero_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `compileToLayer`, `decode`, `encode`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `roundtrip`, `satSym`, `satW`
 - `act_zero_of_all_zero` -> `AffineLayer`, `Ladder`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `satSym`, `satW`
@@ -3584,6 +3584,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_sound_mentions_R` -> `GeoConstraint`, `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`
 - `compile_sound_midpoint` -> `GeoConstraint`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `midpointLadder`, `midpointLadder_satW_iff`, `satW`
 - `compile_sound_n` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
+- `compile_sound_n_is_pointwise` -> `SymN`, `affineAct`, `compileToLayerN`, `resid`
+- `compile_sound_n_zero` -> `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `resid`
 - `compile_stmt_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
 - `compile_strength_iff` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compiledIndistinct_equivalence` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
@@ -5655,7 +5657,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fullAnchor_separates` -> `GeoConstraint`, `at`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
-- `fullCompile_sound` -> `AffineLayer`, `Ladder`, `affineAct`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `fullCompile_sound` -> `AffineLayer`, `Ladder`, `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`, `satSym`, `satW`
 - `fullFamilySolver_anchor` -> `ExpressibleSpec`
 - `fullRegistry_wellFormed` -> `length`
 - `fullSolver_splits_kinds` -> `ExpressibleSpec`
@@ -8857,7 +8859,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rankOneEdit_eq_add_rankOneFun` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`, `rankOneEdit`
 - `rankOneFun_add_neg` -> `E`, `LoRAEdit`, `W`
 - `rankZero_exact` -> `at`, `frob_add_le`, `frobeniusNorm`
-- `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `identityTokenizer`, `ladder_forward`, `netAct`, `satSym`, `satW`
+- `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `identityTokenizer`, `ladder_forward`, `netAct`, `resid`, `satSym`, `satW`
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
 - `ratRoundtrip_fixed_not_discriminating` -> `QConstraint`, `QSat`, `at`
@@ -11272,7 +11274,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weightLadderNFullWidth_has_inverse` -> `W`, `layerOfListFull`, `length`, `listOfLayer`, `roundtrip`
 - `weightLadderNFullWidth_l2l3_reads` -> `W`
 - `weightLadderN_forward` -> `ladder_forward`, `satSym`, `satW`
-- `weightLadderNondeg_forward` -> `ladder_forward`, `satSym`, `satW`
+- `weightLadderNondeg_forward` -> `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `ladder_forward`, `resid`, `satSym`, `satW`
 - `weightLadder_forward` -> `ladder_forward`, `satSym`, `satW`
 - `weightSymbolRep_bias` -> `AffineLayer`, `Representation`, `W`, `at`, `compile`, `extract`, `layerOfListFull`, `layerOfListFull_b`, `length`
 - `weightSymbolRep_coeff` -> `AffineLayer`, `Representation`, `W`, `at`, `compile`, `extract`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`

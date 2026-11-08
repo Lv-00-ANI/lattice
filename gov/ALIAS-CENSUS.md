@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 736 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 737 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 167 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -747,6 +747,7 @@
 | `Runtime/LossyRepresentation.lean` | `ofRepresentation_roundtrip` |
 | `Runtime/MultiLayerLadder.lean` | `multiLayerLadder_forward` |
 | `Runtime/MultiLayerLadder.lean` | `multiLayerLadder_two` |
+| `Runtime/NondegenerateInstance.lean` | `compile_sound_n_zero` |
 | `Runtime/RealTokenization.lean` | `foldBlanks_idem` |
 | `Runtime/RealTokenization.lean` | `foldBlanks_length_le` |
 | `Runtime/RealTokenization.lean` | `tokenize_detok` |

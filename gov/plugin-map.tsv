@@ -9658,6 +9658,8 @@ runtime	Runtime	Runtime/NonIdenticalEncoding.lean	project_not_injective	no
 runtime	Runtime	Runtime/NonIdenticalEncoding.lean	project_sound	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	act_apply	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	act_zero_all_iff	no
+runtime	Runtime	Runtime/NondegenerateInstance.lean	compile_sound_n_is_pointwise	no
+runtime	Runtime	Runtime/NondegenerateInstance.lean	compile_sound_n_zero	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	fullCompile_sound	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	rank_one_is_degenerate	yes
 runtime	Runtime	Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward	no

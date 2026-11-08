@@ -4082,6 +4082,8 @@ Runtime/NondegenerateInstance.lean	act_apply
 Runtime/NondegenerateInstance.lean	act_zero_all_iff
 Runtime/NondegenerateInstance.lean	fullCompile_sound
 Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward
+Runtime/NondegenerateInstance.lean	compile_sound_n_zero
+Runtime/NondegenerateInstance.lean	compile_sound_n_is_pointwise
 Runtime/PartialRepresentation.lean	roundtrip_apply
 Runtime/PenaltyAnalysis.lean	hasFDerivAt_sq
 Runtime/PenaltyAnalysis.lean	sq_localMin_dichotomy

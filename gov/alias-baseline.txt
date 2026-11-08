@@ -903,3 +903,4 @@ forward	Core/IR/Semantics.lean	parse_models_extract
 forward	Core/IR/Semantics.lean	agrees_not_subsumes_covered
 copy	Core/IR/Semantics.lean	parse_var_relations_nil
 copy	Core/IR/Semantics.lean	parse_var_tensors_length
+forward	Runtime/NondegenerateInstance.lean	compile_sound_n_zero

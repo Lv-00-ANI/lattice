@@ -211,6 +211,41 @@ theorem weightLadderNondeg_forward (n : ℕ) (s : List ℝ)
     (weightLadderNondeg n).satW ((weightLadderNondeg n).l2l3 s) :=
   (weightLadderNondeg n).ladder_forward s h
 
+/-! ## 与 `WeightLadderN.compile_sound_n` 的关系
+
+本节把**本文件的非退化结论**与 **`WeightLadderN` 的原始格梯**对齐：
+
+**`compile_sound_n`** 说「残差全零 ⇒ `compileToLayerN s` 在**零点**处输出零」；
+**`fullCompile_sound`** 说「系数与常数项全零 ⇒ `fullLayer s` 在**所有输入**处输出零」。
+
+**⇒ 两者的差别正是本文件存在的理由：`satW` 从「零点映零」升为「处处为零」，而那要求符号侧给出更强的义务。**
+**本节把前者**作为**后者的一端引用进来，使两条结论在同一语境中并列，而不是各自孤立。** -/
+
+/-- **原始格梯的零点结论**（`WeightLadderN.compile_sound_n` 的等价陈述）。
+
+**残差全零时，`compileToLayerN s` 把零点映到零点。**
+**⇒ 这是**最弱**的 `satW`：只测一个点。**
+**本文件的 `fullCompile_sound` 把它加强到「所有输入」，代价是符号侧必须给出每个权重元素为零。** -/
+theorem compile_sound_n_zero {n : ℕ} (s : Lattice.Lift.WeightLadderN.SymN n)
+    (h : ∀ j, s.resid j = 0) :
+    Lattice.Core.affineAct (Lattice.Lift.WeightLadderN.compileToLayerN s) (fun _ => (0 : ℝ))
+      = (fun _ => (0 : ℝ)) :=
+  Lattice.Lift.WeightLadderN.compile_sound_n s h
+
+/-- **两条结论的形式对比。**
+
+**`compile_sound_n_zero` 的结论是一个等式于 `(fun _ => 0)`；`fullCompile_sound` 的结论是 `∀ x` 的等式。**
+**⇒ 后者的输入是全称量化的，前者固定在一点；这就是 `fullCompile_sound` 不是 `compile_sound_n` 的改名、而是
+它的严格加强的形式化表现。** -/
+theorem compile_sound_n_is_pointwise {n : ℕ} (s : Lattice.Lift.WeightLadderN.SymN n)
+    (h : ∀ j, s.resid j = 0) (x : Fin n → ℝ) :
+    x = (fun _ => (0 : ℝ)) →
+      Lattice.Core.affineAct (Lattice.Lift.WeightLadderN.compileToLayerN s) x = (fun _ => (0 : ℝ)) := by
+  intro hx
+  rw [hx]
+  exact compile_sound_n_zero s h
+
+
 end NondegenerateInstance
 
 end Lattice.Lift
