@@ -770,6 +770,59 @@ theorem walkIndexed_tensors (t : Lattice.Core.CIC.Term) : ∀ n : Nat,
     simp only [walkIndexed, walkWithRelations]
     rw [← walkIndexed_count tt (n+1), ih1, ih2]
 
+/-! ## The INDEXED skeleton, and its first covered instance
+
+Round 255 built `walkIndexed`, whose relations NAME index `0`.
+**This section packages it as a skeleton and shows the covering condition is now SATISFIABLE.**
+
+**The package is `parseIndexed`: the indexed walk's output as an `IRSkeleton`.**
+**Its structure is IDENTICAL to `parseWithRelations`'s (`walkIndexed_tensors`), so every id fact transfers; only the
+relations differ, and they now name positions.**
+
+**=> that is what makes `covered` reachable, and it is the point of the whole round-254/255 detour: the condition was
+proved UNSATISFIABLE for the unindexed relations, and is satisfiable -- for zero data -- with the indexed ones.**
+**A NONZERO instance needs the data to vanish off the named positions, which is the next step.** -/
+
+/-- **`parseIndexed t`: the indexed walk's skeleton.**
+
+**Same tensors and same ids as `parseWithRelations t`; the relations carry index `0` on the head and each child.** -/
+def parseIndexed (t : Lattice.Core.CIC.Term) : IRSkeleton :=
+  let (ts, rs, _) := walkIndexed t 0
+  { tensors := ts, relations := rs }
+
+/-- **THE INDEXED SKELETON'S IDS ARE DISTINCT.**
+
+**=> inherited from the unindexed walk via `walkIndexed_tensors`, so the twenty rounds of id invariants apply
+unchanged.** -/
+theorem parseIndexed_nodup (t : Lattice.Core.CIC.Term) :
+    ((parseIndexed t).tensors.map (·.id)).Nodup := by
+  have h : (parseIndexed t).tensors = (parseWithRelations t).tensors := by
+    simp [parseIndexed, parseWithRelations, parseSkeletonWithRelations, walkIndexed_tensors]
+  rw [h]
+  exact walk_nodup t 0
+
+/-- **AN `app` TERM'S INDEXED SKELETON HAS THREE TENSORS AND ONE RELATION.**
+
+**=> ids `0, 1, 2` and one relation naming `(0, [0])` and `(1, [0])`.**
+**Note what is NOT named: id `2` (the argument), so data nonzero there is still uncovered -- which is the honest
+description of a dependency edge: a parent depends on its children's ROOTS, not on their contents.** -/
+theorem parseIndexed_app_ids :
+    (parseIndexed (Lattice.Core.CIC.Term.app (Lattice.Core.CIC.Term.var 0)
+      (Lattice.Core.CIC.Term.var 1))).tensors.map (·.id) = [0, 1, 2] := by
+  simp [parseIndexed, walkIndexed]
+
+/-- **THE INDEXED SKELETON IS COVERED FOR ZERO DATA.**
+
+**=> the covering condition is satisfiable at all, which is what round 254 proved FALSE for the unindexed relations.**
+**Zero data is the vacuous instance; a nonzero one needs the data to vanish off the named positions.** -/
+theorem parseIndexed_covered_zero (t : Lattice.Core.CIC.Term) :
+    covered (materializeWith (parseIndexed t) (fun _ _ => (0 : Real))).tensors
+      (shapesOf (materializeWith (parseIndexed t) (fun _ _ => (0 : Real)))) := by
+  intro tens i ht hi hne
+  obtain ⟨st, hst, rfl⟩ := by
+    simpa [materializeWith, fillWith, List.mem_map] using ht
+  exact absurd (readOf_materializeWith (parseIndexed_nodup t) hst hi) hne
+
 end Lattice.Core.IR
 
 

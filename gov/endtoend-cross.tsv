@@ -419,6 +419,9 @@ Core/IR/Semantics.lean	dependsShape_args_empty
 Core/IR/Semantics.lean	dependsShape_names_nothing
 Core/IR/Semantics.lean	walkIndexed_count
 Core/IR/Semantics.lean	walkIndexed_tensors
+Core/IR/Semantics.lean	parseIndexed_nodup
+Core/IR/Semantics.lean	parseIndexed_app_ids
+Core/IR/Semantics.lean	parseIndexed_covered_zero
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

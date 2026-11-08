@@ -443,6 +443,9 @@ core	Core/IR	Core/IR/Semantics.lean	length_tensors_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	matw_roundtrip	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
 core	Core/IR	Core/IR/Semantics.lean	models_of_covered_data	no
+core	Core/IR	Core/IR/Semantics.lean	parseIndexed_app_ids	no
+core	Core/IR	Core/IR/Semantics.lean	parseIndexed_covered_zero	no
+core	Core/IR	Core/IR/Semantics.lean	parseIndexed_nodup	no
 core	Core/IR	Core/IR/Semantics.lean	parseWithRelations_wellFormed	no
 core	Core/IR	Core/IR/Semantics.lean	parse_chain	no
 core	Core/IR	Core/IR/Semantics.lean	parse_chain_summary	no
