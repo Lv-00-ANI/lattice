@@ -266,6 +266,93 @@ theorem readOf_materializeWith {k : IRSkeleton}
   simp only [materializeWith]
   exact readOf_fillWith hnd hst hid
 
+/-! ## `ModelsIRSWith` has an inhabitant
+
+The model relation is now inhabited with data that is NOT all zero.
+
+**The exhibit: a skeleton with one tensor of shape `[2]`, one relation naming `(0, [0])`, and a data function that is
+`1` at index `0` and `0` elsewhere.**
+
+**=> the first structure for which "the weights model the skeleton" is a claim about CONTENT rather than about a
+vacuous condition.**
+
+**Three of the last seven rounds produced the tools this needs:**
+**`fillWith` (233) supplies the data, `readOf_fillWith` (236) / `readOf_materializeWith` (239) make a reading
+recoverable, and `shapesOf_materializeWith` (239) says the relations are the skeleton's own.** -/
+
+/-- **A skeleton with one tensor of shape `[2]` and one `depends` relation naming `(0, [0])`.** -/
+def pointSkeleton : IRSkeleton :=
+  { tensors := [{ id := 0, shape := [2] }],
+    relations := [{ kind := .depends, args := [(0, [0])], part := some .arch }] }
+
+/-- **The data: `1` at index `0`, `0` elsewhere.** -/
+def pointData (s : TensorShape) : Fin s.shape.prod → ℝ :=
+  fun i => if (i : ℕ) = 0 then 1 else 0
+
+/-- **`pointSkeleton`'s ids are distinct.**
+
+**=> this is the hypothesis `readOf_fillWith` and `readOf_materializeWith` both need, and for a one-element list it is
+immediate.** -/
+theorem pointSkeleton_nodup : (pointSkeleton.tensors.map (·.id)).Nodup := by
+  simp [pointSkeleton]
+
+/-- **THE WEIGHTS MODEL THE SKELETON, WITH REAL DATA.**
+
+**`ModelsIRSWith (compileSkel pointSkeleton) pointSkeleton pointData`.**
+
+**=> this is `ModelsIRSWith`'s first inhabitant whose data is not identically zero.**
+**The two halves of `ModelsIRSWith` are discharged differently, and that is the point:**
+**- the weight equation `W = compileSkel k` holds by `rfl` -- compilation is a definition, not an assumption;**
+**- the covering conjunct is the real work, and it needs `readOf_fillWith`'s content: only index `0` is nonzero, and
+`(0, [0])` is exactly what the relation names.**
+
+**=> `ModelsIRS` (the zero-data version) would have been satisfied here no matter what the data was, because its
+`covered` is vacuous; this one is satisfied BECAUSE the relation names the nonzero position.** -/
+theorem pointSkeleton_models :
+    ModelsIRSWith (compileSkel pointSkeleton) pointSkeleton pointData := by
+  constructor
+  · rfl
+  · intro t i ht hi hne
+    simp only [materializeWith, fillWith, pointSkeleton, List.map_cons, List.map_nil,
+               List.mem_singleton] at ht
+    subst ht
+    have hi0 : i = 0 := by
+      by_contra h
+      exact hne (by simp [readOf, materializeWith, fillWith, pointSkeleton, pointData, hi, h])
+    refine ⟨{ kind := .depends, args := [(0, [0])], part := some .arch }, ?_, ?_⟩
+    · simp [shapesOf, materializeWith, pointSkeleton]
+    · subst hi0
+      simp [Names]
+
+/-- **A skeleton identical to `pointSkeleton` but whose relation names `(0, [1])` -- the WRONG position.** -/
+def pointSkeletonWrong : IRSkeleton :=
+  { tensors := [{ id := 0, shape := [2] }],
+    relations := [{ kind := .depends, args := [(0, [1])], part := some .arch }] }
+
+/-- **THE COVERING CONJUNCT IS WHAT DOES THE WORK: WITH THE WRONG RELATION, THE SAME SKELETON AND DATA FAIL.**
+
+**`pointSkeletonWrong` has the same tensor and the same data function as `pointSkeleton`, but its relation names
+`(0, [1])` instead of `(0, [0])`, and it does NOT model `pointData`.**
+
+**=> so `pointSkeleton_models` is not a `rfl`-style formality: the same tensors and the same data are modelled by one
+relation list and not by another, which is precisely what the materialisation layer was rebuilt to make expressible.** -/
+theorem pointSkeleton_wrong_relation_not_models :
+    ¬ ModelsIRSWith (compileSkel pointSkeletonWrong) pointSkeletonWrong pointData := by
+  intro hcov
+  obtain ⟨_, hcovered⟩ := hcov
+  have hmem : ({ id := 0, shape := [2], data := pointData ⟨0, [2]⟩ } : Tensor)
+      ∈ (materializeWith pointSkeletonWrong pointData).tensors := by
+    simp [materializeWith, fillWith, pointSkeletonWrong]
+  have hpos : (0 : ℕ) < ([2] : List ℕ).prod := by
+    decide
+  have hnz : readOf (materializeWith pointSkeletonWrong pointData).tensors 0 [0] ≠ 0 := by
+    simp [readOf, materializeWith, fillWith, pointSkeletonWrong, pointData]
+  obtain ⟨r, hr, hnames⟩ := hcovered _ 0 hmem hpos hnz
+  simp only [shapesOf, materializeWith, pointSkeletonWrong, List.map_cons, List.map_nil,
+             List.mem_singleton] at hr
+  subst hr
+  simp [Names] at hnames
+
 end Lattice.Core.IR
 
 

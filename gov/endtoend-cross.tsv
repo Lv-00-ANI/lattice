@@ -377,6 +377,9 @@ Core/IR/Semantics.lean	shapesOf_materializeWith
 Core/IR/Semantics.lean	length_tensors_materializeWith
 Core/IR/Semantics.lean	tensors_materializeWith_zero
 Core/IR/Semantics.lean	readOf_materializeWith
+Core/IR/Semantics.lean	pointSkeleton_nodup
+Core/IR/Semantics.lean	pointSkeleton_models
+Core/IR/Semantics.lean	pointSkeleton_wrong_relation_not_models
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective
