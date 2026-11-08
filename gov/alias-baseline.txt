@@ -895,3 +895,5 @@ forward	Core/ChainCastAct.lean	act_cast_fst
 forward	Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
 copy	Core/IR/Modulus.lean	modulus_tends_to_zero
 copy	Lib/Architectures/RealLayerScaleDepth.lean	add_one_le_exp_not_improvable
+forward	Core/IR/Semantics.lean	parse_models
+

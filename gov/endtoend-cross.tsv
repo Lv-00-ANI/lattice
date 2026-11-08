@@ -380,6 +380,8 @@ Core/IR/Semantics.lean	readOf_materializeWith
 Core/IR/Semantics.lean	pointSkeleton_nodup
 Core/IR/Semantics.lean	pointSkeleton_models
 Core/IR/Semantics.lean	pointSkeleton_wrong_relation_not_models
+Core/IR/Semantics.lean	models_of_covered_data
+Core/IR/Semantics.lean	parse_models
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

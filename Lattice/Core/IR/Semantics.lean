@@ -353,6 +353,65 @@ theorem pointSkeleton_wrong_relation_not_models :
   subst hr
   simp [Names] at hnames
 
+/-! ## From a skeleton, and from a TERM, to modelled weights
+
+`pointSkeleton_models` (round 240) exhibited one skeleton that models real data.
+
+**This section states the GENERAL condition: whenever the supplied data is zero at every position the skeleton does not
+name, `ModelsIRSWith` holds.**
+**=> that condition is exactly what "the relations account for all the content" means, stated in the form the
+covering predicate consumes.**
+
+**The last theorem specialises it to skeletons arising from a TERM, which closes the chain from source syntax to
+modelled weights.** -/
+
+/-- **A SKELETON MODELS ANY DATA THAT IS ZERO WHERE ITS RELATIONS DO NOT LOOK.**
+
+**If `f` vanishes at every `(st, i)` that no relation of `k` names, then `ModelsIRSWith (compileSkel k) k f`.**
+
+**=> this is the general form of the exhibit: the covering conjunct asks precisely that the relations account for the
+nonzero readings, so the hypothesis is exactly "the relations account for all the content".**
+
+**Two facts do the work:**
+**`readOf_materializeWith` turns the reading into `f st ⟨i, _⟩`, so "the reading is nonzero" becomes "`f` is nonzero
+there";**
+**`shapesOf_materializeWith` identifies the materialised relation list with `k.relations`, so a name found in the
+materialised structure is a name of the skeleton's own.**
+**=> without the second the proof cannot transfer a membership from one list to the other.** -/
+theorem models_of_covered_data (k : IRSkeleton)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ k.tensors) (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ k.relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    ModelsIRSWith (compileSkel k) k f := by
+  constructor
+  · rfl
+  · intro x i hx hi hne
+    simp only [materializeWith, fillWith, List.mem_map] at hx
+    obtain ⟨st, hst, rfl⟩ := hx
+    by_contra hnon
+    apply hne
+    rw [readOf_materializeWith hnd hst hi]
+    refine hzero st hst i hi ?_
+    intro r hr hnames
+    exact hnon ⟨r, by rw [shapesOf_materializeWith]; exact hr, hnames⟩
+
+/-- **A TERM'S SKELETON MODELS ANY DATA THAT IS ZERO WHERE ITS RELATIONS DO NOT LOOK.**
+
+**=> this is the chain's last link: start from a `Term`, parse it into a skeleton with relations
+(`parseWithRelations`), and you get weights that model that skeleton, provided the data respects the relations.**
+
+**`parseWithRelations_wellFormed` (round 231) is what supplies the `Nodup` hypothesis, so the two halves of the
+`WellFormed` work land here together: the distinctness of the ids and the relation coverage are both needed, and both
+are available for any term.** -/
+theorem parse_models (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ (parseWithRelations t).tensors)
+        (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ (parseWithRelations t).relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    ModelsIRSWith (compileSkel (parseWithRelations t)) (parseWithRelations t) f :=
+  models_of_covered_data _ (walk_nodup t 0) f hzero
+
 end Lattice.Core.IR
 
 

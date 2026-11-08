@@ -414,7 +414,9 @@ core	Core/IR	Core/IR/Semantics.lean	compile_sound_content	no
 core	Core/IR	Core/IR/Semantics.lean	length_tensors_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	matw_roundtrip	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
+core	Core/IR	Core/IR/Semantics.lean	models_of_covered_data	no
 core	Core/IR	Core/IR/Semantics.lean	parseWithRelations_wellFormed	no
+core	Core/IR	Core/IR/Semantics.lean	parse_models	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_models	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_nodup	no
 core	Core/IR	Core/IR/Semantics.lean	pointSkeleton_wrong_relation_not_models	yes
