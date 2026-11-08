@@ -1097,7 +1097,7 @@
 | `Lattice.Core.IR.Decode` | 9 | 6 |
 | `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Extract` | 19 | 3 |
+| `Lattice.Core.IR.Extract` | 22 | 4 |
 | `Lattice.Core.IR.IsIR` | 4 | 6 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Materialize` | 11 | 5 |
@@ -2544,6 +2544,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_gap_shape` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `alibi_attention_output_bound` -> `at`, `attention_output_bound`, `convComb`, `dist`, `softmax`, `softmax_monotone`
 - `alibi_bias_lipschitz` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `alibi_bias_monotone` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
@@ -3487,7 +3488,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comp_strictMono_of_strictMono` -> `at`, `comp`, `g`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `comp_table` -> `Term`, `subst`
 - `compatible_iff_witness` -> `Repair`, `Sat`
-- `compatible_roundtrip` -> `W`, `comp`, `compile`, `extract`, `roundtrip`
+- `compatible_roundtrip` -> `W`, `agrees`, `comp`, `compile`, `extract`, `roundtrip`
 - `compileAcc_correct` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mul`
 - `compileConstraint_sound` -> `EqConstraint`, `EqTok`, `Ladder`, `Pt`, `cSamePoint`, `encode`, `eqConstraintListTokenizer`, `eqConstraintTokenizer`, `ladder_forward`, `poly`, `satSym`, `satW`
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
@@ -6483,7 +6484,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `jointDelta_nonneg` -> `d`
 - `joint_chain_error` -> `E`, `W`, `d`, `quantFwd`, `quantized_chain_error_closed`, `quantized_uniform_error`
 - `joint_uniform_bound` -> `E`, `W`, `d`, `quantFwd`, `quantized_uniform_error`
-- `juxtaposed_agreement_not_forced` -> `Compiler`, `Representation`, `W`, `at`, `comp`, `compile`, `extract`, `roundtrip`
+- `juxtaposed_agreement_not_forced` -> `Compiler`, `Representation`, `W`, `agrees`, `at`, `comp`, `compile`, `extract`, `roundtrip`
 - `k01_op_error_of_disturbance` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `rmsNormE_constant_iff`, `rmsNormE_sqrt_lipschitz`, `tiny`
 - `k01_relaxed_constant_also_connects` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `tiny`
 - `k01_rmsNorm_constant_not_improvable` -> `FloatFormat`, `dist`, `eps`, `rmsNormE`, `rmsNormE_constant_iff`, `tiny`
@@ -6964,9 +6965,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_model_contraction` -> `W`, `at`, `contraction_converges`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `loop_mono` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
-- `loop_preserves_others` -> `IRSkeleton`, `TensorShape`
+- `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
+- `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
 - `loop_witness` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
@@ -7904,6 +7906,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `notC_zero_iff_xorC_zero_zero` -> `andC`, `orC`, `subst`
 - `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `not_affineGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
+- `not_agrees_of_disagreement` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `not_allowed_contribution_zero` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `not_andC_zero_iff` -> `at`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `not_bddAbove_range_id` -> `fenchelConjAll`
@@ -9035,7 +9038,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `regular_uniform_aggregate_eq` -> `E`, `nbhdSet`, `nbhdSum`
 - `reinject_correct` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `iterate`, `loss`, `reinject_sound`, `samePointRepair`
 - `reinject_entails` -> `EntailsGeo`, `GeoConstraint`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`
-- `reinject_fixes` -> `IRSkeleton`, `TensorShape`
+- `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `reinject_generic` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`
 - `reinject_loss_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `apply`, `iterate`, `loss`, `poly`, `reinject_sound`, `samePointRepair`, `sqDist_eq_zero_iff`
 - `reinject_of_hold` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`

@@ -477,4 +477,64 @@ theorem loop_preserves_others (k : IRSkeleton)
       = extractWith (compileWith k f) st' i' :=
   extractWith_overwrite_local k f st i v st' i' hne
 
+/-! ## The checker: when is a weight function (data-)correct?
+
+Rounds 246-247 gave the loop a measurement step and a repair step.
+
+**This section supplies the step between them -- the CHECKER -- and states its three properties: it accepts every
+compile, it rejects any single disagreement, and the repair brings it back to acceptance.**
+
+**The predicate is `agrees k W f`: `W`'s readings match `f`'s intentions on every tensor of `k` at every index that
+tensor has.**
+**=> that is exactly the property the loop needs to check, stated so that a single disagreement refutes it and a
+re-compilation establishes it.** -/
+
+/-- **`agrees k W f`: `W` reads `f`'s intended values everywhere on the skeleton.**
+
+**=> the checker's predicate.**
+**It quantifies over the skeleton's own tensors (`st ∈ k.tensors`) rather than over all `TensorShape`s, because an
+off-skeleton shape has no intended value: `f` is only defined on shapes, and the intended reading of a shape the
+skeleton does not have is not the caller's business.** -/
+def agrees (k : IRSkeleton) (W : IRWeights)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) : Prop :=
+  ∀ (st : TensorShape), st ∈ k.tensors → ∀ i : Fin st.shape.prod, extractWith W st i = f st i
+
+/-- **THE CHECKER ACCEPTS EVERY COMPILE.**
+
+**=> no compiled weight function is ever rejected, which is the loop's baseline: `compileWith` is a FIXED POINT of
+"extract, check, and if the check fails, re-compile".** -/
+theorem agrees_compileWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup) :
+    agrees k (compileWith k f) f := by
+  intro st hst i
+  exact reinject_fixes k f hnd st hst i
+
+/-- **THE CHECKER IS EXACT: ONE DISAGREEMENT REFUTES IT.**
+
+**A single `(st, i)` at which `W` reads something other than `f st i` makes `agrees k W f` FALSE.**
+
+**=> there is no slack: a weight function that is wrong anywhere is rejected, so acceptance means the whole skeleton
+agrees and not merely a sample of it.** -/
+theorem not_agrees_of_disagreement (k : IRSkeleton) (W : IRWeights)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (st : TensorShape) (hst : st ∈ k.tensors) (i : Fin st.shape.prod)
+    (h : extractWith W st i ≠ f st i) :
+    ¬ agrees k W f :=
+  fun hag => h (hag st hst i)
+
+/-- **THE LOOP CLOSES: A REJECTED WEIGHT FUNCTION IS REPAIRED TO AN ACCEPTED ONE.**
+
+**`agrees k (compileWith k f) f` holds no matter what `W` was, so the loop's repair step always restores acceptance.**
+
+**=> "extract, check, and if rejected, re-compile" terminates after ONE iteration, with an accepted weight function.**
+**That is the sense in which the verification circuit is a circuit: it is not an open-ended search, it is a
+measure-and-repair with a proved bound of one.** -/
+theorem loop_rejects_then_accepts (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (W : IRWeights) :
+    ¬ agrees k W f → agrees k (compileWith k f) f :=
+  fun _ => agrees_compileWith k f hnd
+
 end Lattice.Core.IR
