@@ -338,6 +338,10 @@ Core/IR/Extract.lean	loop_preserves_others
 Core/IR/Extract.lean	agrees_compileWith
 Core/IR/Extract.lean	not_agrees_of_disagreement
 Core/IR/Extract.lean	loop_rejects_then_accepts
+Core/IR/Extract.lean	extract_compileWith
+Core/IR/Extract.lean	models_compileWith
+Core/IR/Extract.lean	models_structure
+Core/IR/Extract.lean	models_data
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered

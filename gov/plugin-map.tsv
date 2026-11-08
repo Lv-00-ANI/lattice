@@ -356,9 +356,13 @@ core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite_footprint	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite_local	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_spec	no
 core	Core/IR	Core/IR/Extract.lean	extract_compile	no
+core	Core/IR	Core/IR/Extract.lean	extract_compileWith	no
 core	Core/IR	Core/IR/Extract.lean	extract_injective_on_compiled	no
 core	Core/IR	Core/IR/Extract.lean	loop_preserves_others	no
 core	Core/IR	Core/IR/Extract.lean	loop_rejects_then_accepts	no
+core	Core/IR	Core/IR/Extract.lean	models_compileWith	no
+core	Core/IR	Core/IR/Extract.lean	models_data	no
+core	Core/IR	Core/IR/Extract.lean	models_structure	no
 core	Core/IR	Core/IR/Extract.lean	not_agrees_of_disagreement	no
 core	Core/IR	Core/IR/Extract.lean	pair_succ_pos_ne_zero	no
 core	Core/IR	Core/IR/Extract.lean	reinject_fixes	no

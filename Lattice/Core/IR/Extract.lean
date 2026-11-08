@@ -537,4 +537,76 @@ theorem loop_rejects_then_accepts (k : IRSkeleton)
     ¬ agrees k W f → agrees k (compileWith k f) f :=
   fun _ => agrees_compileWith k f hnd
 
+/-! ## The full check: structure AND data
+
+Round 248 supplied `agrees k W f`, the DATA half of the verification predicate.
+
+**This section supplies the STRUCTURE half and combines them, so that "these weights model this skeleton with this
+data" becomes a single, checkable proposition -- and shows it is exactly `ModelsIRSWith`'s content at the weight level.**
+
+**The structure half needs no new machinery: `compileWith` puts `skeletonCode k` at position `0`, which is what
+`compileSkel` puts there, so `extract` decodes it identically.**
+**=> that is `compileWith_code`'s honesty about position `0` paying off a second time (the first was
+`weightCodeIR_compileSkel`'s reader), and it is why the data half can be added to the encoding WITHOUT disturbing the
+reverse direction.** -/
+
+/-- **THE STRUCTURE HALF DECODES CORRECTLY: `extract` SEES THROUGH THE DATA.**
+
+**`extract (compileWith k f) = some k`.**
+
+**=> adding content to the weight function does not confuse the skeleton decoder, because the content lives at paired
+positions and the decoder reads position `0`.**
+**This is the LOAD-BEARING consequence of the encoding's two-part layout: the halves are decodable INDEPENDENTLY.** -/
+theorem extract_compileWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    extract (compileWith k f) = some k := by
+  unfold extract
+  rw [compileWith_code]
+  have h := extract_compile k
+  unfold extract at h
+  rw [weightCodeIR_compileSkel] at h
+  exact h
+
+/-- **`models k W f`: `W` decodes to `k` AND reads `f`'s values.**
+
+**=> the full verification predicate: BOTH halves checked at once.**
+**- `extract W = some k` is the STRUCTURE half (the weights decode to the skeleton);**
+**- `agrees k W f` is the DATA half (the readings match the intentions).**
+
+**This is `ModelsIRSWith` (round 238) restated in the vocabulary of the weights rather than of the materialised
+structure: `ModelsIRSWith`'s first conjunct is `W = compileSkel k`, and `models` replaces it with "`W` DECODES to `k`",
+which is the weaker and more useful condition -- a weight function need not EQUAL `compileSkel k` to model it, it need
+only decode to it.** -/
+def models (k : IRSkeleton) (W : IRWeights)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) : Prop :=
+  extract W = some k ∧ agrees k W f
+
+/-- **EVERY COMPILE MODELS.**
+
+**`models k (compileWith k f) f` for a `Nodup`-id skeleton.**
+
+**=> the two halves hold together: `extract_compileWith` for the structure and `agrees_compileWith` for the data.**
+**This is the loop's baseline in its combined form: `compileWith` is accepted by the FULL check, not merely by the data
+half.** -/
+theorem models_compileWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup) :
+    models k (compileWith k f) f :=
+  ⟨extract_compileWith k f, agrees_compileWith k f hnd⟩
+
+/-- **`models` IMPLIES THE DATA HALF, AND THE STRUCTURE HALF SEPARATELY.**
+
+**=> a caller who has established `models` can use either half without re-deriving the other, which is what makes the
+combined predicate usable as a specification rather than as a bundle of unrelated facts.** -/
+theorem models_structure (k : IRSkeleton) (W : IRWeights)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    models k W f → extract W = some k :=
+  fun h => h.1
+
+/-- **AND `models` IMPLIES THE DATA HALF.** -/
+theorem models_data (k : IRSkeleton) (W : IRWeights)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    models k W f → agrees k W f :=
+  fun h => h.2
+
 end Lattice.Core.IR

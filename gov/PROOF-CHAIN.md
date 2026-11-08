@@ -1097,7 +1097,7 @@
 | `Lattice.Core.IR.Decode` | 9 | 6 |
 | `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Extract` | 22 | 4 |
+| `Lattice.Core.IR.Extract` | 26 | 5 |
 | `Lattice.Core.IR.IsIR` | 4 | 6 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Materialize` | 11 | 5 |
@@ -2544,7 +2544,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_gap_shape` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `alibi_attention_output_bound` -> `at`, `attention_output_bound`, `convComb`, `dist`, `softmax`, `softmax_monotone`
 - `alibi_bias_lipschitz` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `alibi_bias_monotone` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
@@ -3533,8 +3533,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileWith_code` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
 - `compileWith_read` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
 - `compileWith_roundtrip` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`
-- `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `find`
+- `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`
+- `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `Tensor`, `TensorShape`, `W`, `apply`, `at`, `find`
 - `compileZ_not_injective` -> `LossyRep`, `at`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `at`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_apply` -> `compile`, `compile_injective`, `extract`, `roundtrip`
@@ -5134,15 +5134,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `find`
-- `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
+- `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `find`
+- `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
 - `extractWith_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
-- `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
-- `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
-- `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`
+- `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
+- `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
+- `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
 - `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `apply`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
 - `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
+- `extract_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `extract_compile_identity` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_int` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_vec` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convertReal`, `convertVec`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extractVec`
@@ -6965,10 +6966,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_model_contraction` -> `W`, `at`, `contraction_converges`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `loop_mono` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
-- `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
-- `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
 - `loop_witness` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
@@ -7099,7 +7100,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_claims_recovery` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
 - `manifest_claims_soundness` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_claims_laws`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `soundness`
 - `manifest_claims_spatial` -> `claims`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `soundness`
-- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_layer` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `models`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
 - `manifest_no_approximation` -> `Constraint`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_completeness` -> `Constraint`, `claims`, `completeness`, `manifest`
 - `manifest_no_confluence` -> `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`
@@ -7110,11 +7111,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_no_recovery` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_refinement`, `manifest_no_spatial`
 - `manifest_no_refinement` -> `Repair`, `claims`, `manifest`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`
 - `manifest_no_spatial` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`
-- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
-- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
-- `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `normalize`, `parallel`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_nonempty` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `models`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_obligation_count` -> `Constraint`, `PluginLayer`, `Repair`, `arch`, `at`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `layer`, `length`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_provides`, `manifest_requires`, `manifest_requires_nothing`, `models`, `normalize`, `parallel`, `poly`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
+- `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `models`, `normalize`, `parallel`, `repair`, `requires`, `satisfies`, `soundness`, `weights`
 - `manifest_requires` -> `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `poly`, `requires`, `soundness`, `weights`
-- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `requires`, `satisfies`, `soundness`
+- `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `models`, `requires`, `satisfies`, `soundness`
 - `map_comp_measure` -> `g`
 - `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
 - `map_eq_of_eq` -> `g`
@@ -7464,9 +7465,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfSubsetProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `models_data` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `models_of_covered_data` -> `IRSkeleton`, `Names`, `TensorShape`, `Term`, `apply`, `at`, `compileSkel`, `fillWith`, `parseWithRelations`, `walk_nodup`
 - `models_of_mem` -> `Constraint`, `d`
 - `models_of_subset` -> `Constraint`, `d`
+- `models_structure` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `models_translate` -> `GeoConstraint`, `Holds`, `Pt`, `translate`
 - `modulus_at_zero` -> `GeoExpr`, `evalPts`, `toNatConfig`, `violation`
 - `modulus_attained` -> `GeoExpr`, `evalPts`, `toNatConfig`, `violation`
@@ -7906,7 +7910,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `notC_zero_iff_xorC_zero_zero` -> `andC`, `orC`, `subst`
 - `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `not_affineGeometry_orig` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryExtra`, `affineGeometryPackage`, `affineGeometry_closed`, `affineGeometry_closedB_eq_true`, `affineGeometry_extra_length`, `affineGeometry_false_but_repairable`, `affineGeometry_validB_eq_false`, `all_twelve_discharged`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `forall`, `functionalAnalysisPackage`, `graphTheoryPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_forall_packageDependenciesValid`, `orderTheoryPackage`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
-- `not_agrees_of_disagreement` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `not_agrees_of_disagreement` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `not_allowed_contribution_zero` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `not_andC_zero_iff` -> `at`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `not_bddAbove_range_id` -> `fenchelConjAll`
@@ -9038,13 +9042,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `regular_uniform_aggregate_eq` -> `E`, `nbhdSet`, `nbhdSum`
 - `reinject_correct` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `iterate`, `loss`, `reinject_sound`, `samePointRepair`
 - `reinject_entails` -> `EntailsGeo`, `GeoConstraint`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`
-- `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `reinject_generic` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`
 - `reinject_loss_eq_zero` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `apply`, `iterate`, `loss`, `poly`, `reinject_sound`, `samePointRepair`, `sqDist_eq_zero_iff`
 - `reinject_of_hold` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `loss_eq_zero_of_poly_eq_zero`, `perpRepair`, `poly`
 - `reinject_perpRepair` -> `EqConstraint`, `Pt`, `converges_within`, `iterate`, `loss`, `perpRepair`
 - `reinject_perpendicular` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `converges_within`, `iterate`, `loss`, `perpRepair`
-- `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `reinject_sound` -> `EntailsGeo`, `GeoConstraint`, `Holds`, `Pt`, `Repair`, `Sat`, `at`, `entailsGeo_refl`, `iterate`
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
