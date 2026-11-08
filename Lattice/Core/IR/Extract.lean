@@ -238,4 +238,81 @@ theorem compileWith_roundtrip (k : IRSkeleton)
     ∀ (st : TensorShape), st ∈ k.tensors → extractWith (compileWith k f) st = f st :=
   ⟨compileWith_code k f, fun st hst => extractWith_compileWith k f hnd hst⟩
 
+/-! ## Totality and boundary behaviour of the data encoding
+
+`extractWith` and `compileWith` (rounds 243, 242) round-trip on the tensors a skeleton HAS.
+
+**This section states what happens on the ones it does not: a position the skeleton never wrote reads as `0`.**
+**=> `extractWith` is a TOTAL function with a specified value everywhere, not a partial decoder that happens to work on
+the skeleton's own tensors.**
+
+**Together with `extractWith_compileWith` this pins the decoder down completely:**
+**on a skeleton tensor the reading is `f`'s value; off the skeleton it is `0`.**
+
+**The `hid` hypothesis is NOT redundant: `compileWith` looks a tensor up BY `id`, so a shape that is absent from the
+skeleton but whose `id` collides with one that is present would read the OTHER tensor's data.**
+**=> the hypothesis says the absent shape's id is also unclaimed, and that is exactly when `find?` returns `none`.** -/
+
+/-- **POSITION `0` CARRIES THE CODE, AND `compileWith` AGREES WITH `compileSkel` THERE.**
+
+**=> the structure half of the encoding is untouched by adding data: any reader that only looks at position `0` (such
+as `weightCodeIR`) sees exactly what it saw before.** -/
+theorem compileWith_zero (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    compileWith k f 0 = compileSkel k 0 := by
+  simp [compileWith, compileSkel]
+
+/-- **A POSITION WHOSE PAIR HAS FIRST COMPONENT `0` READS AS `0`.**
+
+**The encoder reserves `Nat.unpair (n - 1)).1 = 0` for "not a tensor position", so such a position is a hole.**
+**=> the encoder's range is exactly the paired positions with a positive first component, plus position `0`.** -/
+theorem compileWith_zero_snd (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (n : ℕ) (h0 : n ≠ 0) (hid1 : (Nat.unpair (n - 1)).1 = 0) :
+    compileWith k f n = 0 := by
+  unfold compileWith
+  simp only [if_neg h0]
+  rw [hid1]
+
+/-- **`extractWith` IS TOTAL: AN ABSENT SHAPE READS AS `0`.**
+
+**If no tensor of the skeleton carries `st`'s `id`, then `extractWith (compileWith k f) st i = 0` for every index.**
+
+**=> this is the boundary half of the decoder's specification.**
+**Its two steps are `Nat.unpair_pair` (to recover the position's components) and `List.find?_eq_none` (to see the
+lookup fail), with `hid` supplying the reason the lookup cannot succeed.** -/
+theorem extractWith_absent (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    {st : TensorShape} (hid : ∀ u ∈ k.tensors, u.id ≠ st.id)
+    (i : Fin st.shape.prod) :
+    extractWith (compileWith k f) st i = 0 := by
+  unfold extractWith compileWith
+  simp only [Nat.succ_ne_zero, if_false]
+  have h2 : Nat.pair (st.id + 1) (i : ℕ) + 1 - 1 = Nat.pair (st.id + 1) (i : ℕ) := by omega
+  rw [h2, Nat.unpair_pair]
+  simp only
+  have hnone : k.tensors.find? (fun s => s.id = st.id) = none := by
+    rw [List.find?_eq_none]
+    intro u hu h
+    exact hid u hu (of_decide_eq_true h)
+  rw [hnone]
+
+/-- **THE DECODER IS COMPLETELY SPECIFIED.**
+
+**For a `Nodup`-id skeleton, `extractWith (compileWith k f)` agrees with `f` on the skeleton's tensors and is `0` at
+every shape whose `id` the skeleton does not claim.**
+
+**=> the two halves (`extractWith_compileWith` and `extractWith_absent`) together say the weight function's data
+positions hold `f` exactly where the skeleton has a tensor and `0` everywhere else.**
+**That is a complete functional specification of the data encoding, which is what makes `compileWith` an ENCODING and
+not merely an injection.** -/
+theorem extractWith_spec (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup) :
+    (∀ (st : TensorShape), st ∈ k.tensors → extractWith (compileWith k f) st = f st) ∧
+    (∀ (st : TensorShape), (∀ u ∈ k.tensors, u.id ≠ st.id) →
+        ∀ i : Fin st.shape.prod, extractWith (compileWith k f) st i = 0) :=
+  ⟨fun st hst => extractWith_compileWith k f hnd hst,
+   fun st hid i => extractWith_absent k f hid i⟩
+
 end Lattice.Core.IR
