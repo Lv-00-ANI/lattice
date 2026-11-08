@@ -338,4 +338,76 @@ theorem extractWith_collision (k : IRSkeleton) (f : (s : TensorShape) → Fin s.
   unfold extractWith
   rw [hid]
 
+/-! ## The verification loop: what a PERTURBED weight decodes to
+
+**The objective calls the closed loop a verification circuit: extract behaviour back out of weights, compare it with
+the symbols, correct, and re-inject.**
+**That loop needs one thing above all: knowing what a CHANGED weight reads as.**
+
+**`extractWith` is a total function, so it can be applied to weights that `compileWith` did not produce.**
+**This section specifies that case for the SIMPLEST and most important perturbation -- one data position overwritten.**
+
+**The result is exact and it is LOCAL: the overwritten position reads the new value, and every other position reads
+what it read before.**
+**=> a weight edit has a TRACKABLE footprint, which is what makes the loop a circuit rather than a black box.** -/
+
+/-- **AN OVERWRITE IS READ BACK EXACTLY AT THE OVERWRITTEN POSITION.**
+
+**If `W` agrees with `compileWith k f` except at `Nat.pair (st.id + 1) i + 1`, where it takes `v`, then
+`extractWith W st i = v`.**
+
+**=> the decoder does not mask, clamp, or reinterpret what it finds: whatever the weight function holds at a data
+position IS the reading.** -/
+theorem extractWith_overwrite (k : IRSkeleton) (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (st : TensorShape) (i : Fin st.shape.prod) (v : ℝ) :
+    extractWith (fun n => if n = Nat.pair (st.id + 1) (i : ℕ) + 1 then v else compileWith k f n) st i = v := by
+  unfold extractWith
+  simp
+
+/-- **AN OVERWRITE IS LOCAL: EVERY OTHER POSITION READS AS IT DID BEFORE.**
+
+**If `(st', i')` is a different (id, index) pair from `(st, i)`, then overwriting `(st, i)`'s position does not change
+what `(st', i')` reads.**
+
+**=> the footprint of a single weight edit is exactly one reading, which is the property the verification loop needs:
+a discrepancy between extracted and expected behaviour can be TRACED to the positions that were changed.**
+
+**The injectivity used is `Nat.unpair`'s: `Nat.pair a b = Nat.pair c d` gives `a = c` and `b = d` by applying
+`Nat.unpair_pair` to both sides, which is how the hypothesis `(st'.id, ↑i') ≠ (st.id, ↑i)` rules out the positions
+coinciding.** -/
+theorem extractWith_overwrite_local (k : IRSkeleton) (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (st : TensorShape) (i : Fin st.shape.prod) (v : ℝ) :
+    ∀ (st' : TensorShape) (i' : Fin st'.shape.prod),
+      (st'.id, (i' : ℕ)) ≠ (st.id, (i : ℕ)) →
+      extractWith (fun n => if n = Nat.pair (st.id + 1) (i : ℕ) + 1 then v else compileWith k f n) st' i'
+        = extractWith (compileWith k f) st' i' := by
+  intro st' i' hne
+  unfold extractWith
+  simp only
+  by_cases h : Nat.pair (st'.id + 1) (i' : ℕ) + 1 = Nat.pair (st.id + 1) (i : ℕ) + 1
+  · exfalso
+    apply hne
+    have h1 : Nat.pair (st'.id + 1) (i' : ℕ) = Nat.pair (st.id + 1) (i : ℕ) := by omega
+    have h2 := congrArg Nat.unpair h1
+    simpa [Nat.unpair_pair] using h2
+  · simp only [h, if_false]
+
+/-- **THE VERIFICATION LOOP'S FIRST LAW: EXTRACTION THEN COMPARISON FINDS EXACTLY THE PERTURBED POSITION.**
+
+**An overwrite changes the extracted function at the overwritten position and NOWHERE else.**
+
+**=> so a difference between the extracted readings and the intended ones is a complete and faithful record of what
+was changed -- no false positives (untouched positions still compare equal) and no false negatives (the touched one
+does not).**
+**That is what a verification circuit needs from its measurement step.** -/
+theorem extractWith_overwrite_footprint (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (st : TensorShape) (i : Fin st.shape.prod) (v : ℝ) :
+    extractWith (fun n => if n = Nat.pair (st.id + 1) (i : ℕ) + 1 then v else compileWith k f n) st i = v ∧
+    (∀ (st' : TensorShape) (i' : Fin st'.shape.prod),
+      (st'.id, (i' : ℕ)) ≠ (st.id, (i : ℕ)) →
+      extractWith (fun n => if n = Nat.pair (st.id + 1) (i : ℕ) + 1 then v else compileWith k f n) st' i'
+        = extractWith (compileWith k f) st' i') :=
+  ⟨extractWith_overwrite k f st i v, extractWith_overwrite_local k f st i v⟩
+
 end Lattice.Core.IR

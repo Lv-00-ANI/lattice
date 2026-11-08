@@ -350,6 +350,9 @@ core	Core/IR	Core/IR/Extract.lean	compileWith_zero_snd	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_absent	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_collision	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_compileWith	no
+core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite	no
+core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite_footprint	no
+core	Core/IR	Core/IR/Extract.lean	extractWith_overwrite_local	no
 core	Core/IR	Core/IR/Extract.lean	extractWith_spec	no
 core	Core/IR	Core/IR/Extract.lean	extract_compile	no
 core	Core/IR	Core/IR/Extract.lean	extract_injective_on_compiled	no
