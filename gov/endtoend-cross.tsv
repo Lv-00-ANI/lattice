@@ -322,6 +322,8 @@ Core/IR/Extract.lean	extract_compile
 Core/IR/Extract.lean	extract_injective_on_compiled
 Core/IR/Extract.lean	compileWith_code
 Core/IR/Extract.lean	compileWith_read
+Core/IR/Extract.lean	extractWith_compileWith
+Core/IR/Extract.lean	compileWith_roundtrip
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered

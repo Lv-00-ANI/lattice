@@ -182,4 +182,60 @@ theorem compileWith_read (k : IRSkeleton) (f : (s : TensorShape) → Fin s.shape
   simp only
   rw [dif_pos hi]
 
+/-! ## Reading the DATA back out of the weights
+
+`compileWith` (round 242) writes the structure at position `0` and the readings at `Nat.pair (id + 1) i + 1`.
+
+**This section reads the readings back: `extractWith W st i = W (Nat.pair (st.id + 1) i + 1)`.**
+
+**=> the reverse direction is now complete on BOTH halves: `extract` recovers the skeleton from position `0`, and
+`extractWith` recovers the data from the paired positions.**
+**`extractWith` does not need the skeleton as an argument -- the position is determined by the SHAPE's own `id` and the
+index -- which is what makes it a genuine decoding rather than a lookup table the caller has to supply.** -/
+
+/-- **`extractWith W`: the readings encoded in `W`, as a function of a tensor's shape and an index.**
+
+**The position read is exactly the one `compileWith` writes: `Nat.pair (st.id + 1) i + 1`.**
+**=> the two are inverse on the data half, which `extractWith_compileWith` states.** -/
+def extractWith (W : IRWeights) : (s : TensorShape) → Fin s.shape.prod → ℝ :=
+  fun s i => W (Nat.pair (s.id + 1) (i : ℕ) + 1)
+
+/-- **`extractWith` IS A LEFT INVERSE OF `compileWith` ON EVERY TENSOR OF THE SKELETON.**
+
+**For a `Nodup`-id skeleton, a tensor `st` of it, `extractWith (compileWith k f) st = f st`.**
+
+**=> the data half of the encoding round-trips EXACTLY: what went in at `compileWith` comes out at `extractWith`,
+pointwise over the whole index type.**
+
+**Two facts carry it: `compileWith_read` gives the value at every index, and `extractWith` reads that same position --
+so the proof is a `funext` followed by one application, with `i.isLt` supplying the range hypothesis.**
+
+**=> note what is NOT needed: the skeleton `k` is not passed to `extractWith`, and the proof never has to search the
+skeleton's tensor list, because `compileWith_read` already did that ONCE and for all indices.** -/
+theorem extractWith_compileWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    {st : TensorShape} (hst : st ∈ k.tensors) :
+    extractWith (compileWith k f) st = f st := by
+  funext i
+  exact compileWith_read k f hnd hst i.isLt
+
+/-- **THE WHOLE PICTURE: BOTH HALVES OF THE ENCODING ARE RECOVERABLE FROM THE WEIGHTS ALONE.**
+
+**`weightCodeIR (compileWith k f) = skeletonCode k` (the structure)
+AND `extractWith (compileWith k f) st = f st` for every `st` of the skeleton (the content).**
+
+**=> the weight function carries the skeleton AND the data, and both are readable:
+- `extract` / `extract_compile` recover the skeleton from position `0`;
+- `extractWith` / `extractWith_compileWith` recover the readings from the paired positions.
+
+**That is the round trip on the WEIGHTS side, which is the half of 符号 ⇄ 权重 that the objective calls the real
+difficulty.** -/
+theorem compileWith_roundtrip (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup) :
+    weightCodeIR (compileWith k f) = skeletonCode k ∧
+    ∀ (st : TensorShape), st ∈ k.tensors → extractWith (compileWith k f) st = f st :=
+  ⟨compileWith_code k f, fun st hst => extractWith_compileWith k f hnd hst⟩
+
 end Lattice.Core.IR
