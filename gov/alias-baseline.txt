@@ -912,3 +912,6 @@ forward	Primitives/MultistepLoop.lean	bidirLoop_ends_sat
 forward	Primitives/WeightDescent.lean	bidir_step_is_strict_descent
 forward	Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps
 forward	Domains/Geometry/RepairPenalty.lean	constraintLossCompiler_compile
+forward	Runtime/ApproxExtraction.lean	rat_exact_roundtrip
+forward	Runtime/RatRepresentation.lean	rat_compile_injective_via_abstract
+forward	Runtime/RatRepresentation.lean	rat_extract_compile

@@ -1063,6 +1063,7 @@ domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_loop_reac
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_penalty_iff_sat	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_penalty_zero_iff_sat_iff	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_sat_implies_penalty_zero	no
+domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	sqDistOperator_mark	no
 domains	Domains/Geometry	Domains/Geometry/RepairPerp.lean	fixPerp_disp	no
 domains	Domains/Geometry	Domains/Geometry/RepairPerp.lean	fixPerp_holds	no
 domains	Domains/Geometry	Domains/Geometry/RepairPerp.lean	fixPerp_other	no
@@ -9507,6 +9508,8 @@ runtime	Runtime	Runtime/ApproxExact.lean	penaltyExact_of_epsSat_zero	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	approx_extract_bound	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	compose_via_calculus	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	error_zero_is_exact	no
+runtime	Runtime	Runtime/ApproxExtraction.lean	rat_endpoint_is_exact	no
+runtime	Runtime	Runtime/ApproxExtraction.lean	rat_exact_roundtrip	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	roundingIsApprox_bound	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	roundingIsApprox_composes	no
 runtime	Runtime	Runtime/ApproxExtraction.lean	roundingIsApprox_error_one	no
@@ -9724,6 +9727,8 @@ runtime	Runtime	Runtime/QuantErrorPropagation.lean	quantizedLayer_output_error	n
 runtime	Runtime	Runtime/RatRepresentation.lean	compile_apply	no
 runtime	Runtime	Runtime/RatRepresentation.lean	compile_injective	no
 runtime	Runtime	Runtime/RatRepresentation.lean	den_positive	no
+runtime	Runtime	Runtime/RatRepresentation.lean	rat_compile_injective_via_abstract	no
+runtime	Runtime	Runtime/RatRepresentation.lean	rat_extract_compile	no
 runtime	Runtime	Runtime/RatRepresentation.lean	substantive_representation_instance	no
 runtime	Runtime	Runtime/RealLV.lean	lv_compile_invariant	no
 runtime	Runtime	Runtime/RealLV.lean	lv_loss_invariant	no

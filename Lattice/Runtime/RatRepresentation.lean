@@ -142,6 +142,28 @@ theorem substantive_representation_instance :
     (∀ q : ℚ, ratRepresentation.extract (ratRepresentation.compile q) = q) :=
   ⟨compile_apply, compile_injective, fun q => ratRepresentation.roundtrip q⟩
 
+/-- **抽象 `Representation` 层在有理数表示上的实例。**
+
+**`Runtime/Extraction.lean` 的 `Representation.extract_compile` 说「任何表示的 `extract` 都是 `compile` 的
+左逆」—— 那是**结构性**的，对**任何** `Representation` 成立，因此它本身没有说任何具体的表示存在。**
+
+**本节把那条抽象定理接到 `ratRepresentation` 上，使「提取是编译的左逆」不再只是一个抽象断言，而有了一个由
+**算术**保证的实例：`compile q = (q.num, q.den)`、`extract (n, d) = n / d`，往返由 `Rat.num_div_den` 给出。** -/
+theorem rat_extract_compile (q : ℚ) :
+    ratRepresentation.extract (ratRepresentation.compile q) = q :=
+  Lattice.Lift.Representation.extract_compile ratRepresentation q
+
+/-- **抽象的单射性定理在本实例上成立，且来源不同。**
+
+**`Representation.compile_injective` 从 `extract_compile` 推出单射；而在 `ratRepresentation` 上，
+本节另有 `compile_injective` 是**直接**用分子分母的算术证明的。**
+**=> 两条证明走的是不同路径，因此它们互相验证：抽象路径说「有左逆则单射」，算术路径说「分子分母对相等则
+有理数相等」。**
+**这是一个实质的一致性检查，而不只是同一命题的两种写法。** -/
+theorem rat_compile_injective_via_abstract :
+    Function.Injective ratRepresentation.compile :=
+  Lattice.Lift.Representation.compile_injective ratRepresentation
+
 end RatRepresentation
 
 end Lattice.Lift

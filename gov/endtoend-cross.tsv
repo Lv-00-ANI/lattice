@@ -934,6 +934,7 @@ Domains/Geometry/RepairPenalty.lean	repair_loss_zero_of_exact
 Domains/Geometry/RepairPenalty.lean	constraintLossCompiler_compile
 Domains/Geometry/RepairPenalty.lean	parallelOperator_mark
 Domains/Geometry/RepairPenalty.lean	midpointOperator_mark
+Domains/Geometry/RepairPenalty.lean	sqDistOperator_mark
 Domains/Geometry/RepairPerp.lean	perpendicular_iff_dotDisp
 Domains/Geometry/RepairPerp.lean	selfDot_ne_zero
 Domains/Geometry/RepairPerp.lean	perpRatio_mul
@@ -3988,6 +3989,8 @@ Runtime/ApproxExtraction.lean	error_zero_is_exact
 Runtime/ApproxExtraction.lean	roundingIsApprox_bound
 Runtime/ApproxExtraction.lean	roundingIsApprox_error_one
 Runtime/ApproxExtraction.lean	roundingIsApprox_composes
+Runtime/ApproxExtraction.lean	rat_exact_roundtrip
+Runtime/ApproxExtraction.lean	rat_endpoint_is_exact
 Runtime/ApproxLadder.lean	approx_ladder_forward
 Runtime/ApproxLadder.lean	approx_ladder_bound_mono
 Runtime/ApproxLadder.lean	roundingLadder_forward
@@ -4134,6 +4137,8 @@ Runtime/QuantErrorPropagation.lean	quantizedLayer_output_error
 Runtime/RatRepresentation.lean	compile_apply
 Runtime/RatRepresentation.lean	compile_injective
 Runtime/RatRepresentation.lean	substantive_representation_instance
+Runtime/RatRepresentation.lean	rat_extract_compile
+Runtime/RatRepresentation.lean	rat_compile_injective_via_abstract
 Runtime/RealNonlinear.lean	sumRelu_nonneg
 Runtime/RealNonlinear.lean	sumRelu_eq_zero_iff_each
 Runtime/RealNonlinear.lean	sumRelu_all_constraints

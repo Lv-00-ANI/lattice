@@ -24,10 +24,10 @@
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
-| 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
+| 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 1 | 12 | `Runtime/ApproxExtraction.lean` |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 5 | `Runtime/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | `Domains/Geometry/GeoSampledBound.lean` | 2 | 0 | `Domains/Geometry/ClauseComposition.lean`, `Usage/Examples.lean` |
-| 3.3 inverse: repair | `sqDistFix` | `Domains/Geometry/RepairCoverage.lean` | 1 | 3 | `Domains/Geometry/EqualLengthRepair.lean` |
+| 3.3 inverse: repair | `sqDistFix` | `Domains/Geometry/RepairCoverage.lean` | 2 | 3 | `Domains/Geometry/EqualLengthRepair.lean`, `Domains/Geometry/RepairPenalty.lean` |
 | 3.3 inverse: repair | `parallelFix` | `Domains/Geometry/ParallelRepair.lean` | 1 | 12 | `Domains/Geometry/RepairPenalty.lean` |
 | 3.3 inverse: repair | `midpointFix` | `Domains/Geometry/MissingRepairs.lean` | 1 | 13 | `Domains/Geometry/RepairPenalty.lean` |
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
@@ -44,7 +44,7 @@
 - 条款数：14
 - 载体总数：27
 - **死代码载体（同文件也不用）：0**
-- 仅同文件使用的载体：1
+- 仅同文件使用的载体：0
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

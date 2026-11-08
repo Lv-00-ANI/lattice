@@ -1,6 +1,7 @@
 import Lattice.Domains.Geometry.PartialReinjection
 import Lattice.Runtime.ConstraintToLoss
 import Lattice.Domains.Geometry.MissingRepairs
+import Lattice.Domains.Geometry.RepairCoverage
 import Lattice.Domains.Geometry.ParallelRepair
 import Mathlib
 import Lattice.Domains.Geometry.Loop
@@ -214,5 +215,24 @@ theorem midpointOperator_mark (m a b : ℕ) (pts : ℕ → Pt n) (ha : a ≠ m) 
     (Lattice.Geo.GeoConstraint.midpoint m a b).Holds
       ((midpointOperator (n := n) m a b).fix pts) :=
   Lattice.Geo.MissingRepairs.midpointFix_reaches m a b pts ha hb
+
+/-- **等距修正作为一个 `FixOperator`。**
+
+**=> 这是注册表的第三项：`sqDistFix` 把 `b` 沿 `a→b` 方向伸缩，使 `|ab|²` 恰为给定的 `d`。**
+**与前两项一样，`mark` 记为 `True`，真正的保证在 `sqDistOperator_mark` 中 —— 因为该保证要提到 `a`、`d` 与
+**输入**的 `b`，而 `mark` 只看到输出。** -/
+noncomputable def sqDistOperator (a : Pt n) (d : ℝ) : FixOperator n where
+  fix := fun pts => fun i => if i = 0 then Lattice.Geo.RepairCoverage.sqDistFix a d (pts i) else pts i
+  mark := fun _ => True
+
+/-- **登记后的等距修正仍达成它的目标。**
+
+**=> `sqDistFix_reaches` 的目录形式：修复后 `a` 与第 `0` 个点之间的距离平方恰为 `d`。**
+**这是注册表的第三项保证，与前两项并列，使「修正算子」的枚举从两个变成三个。** -/
+theorem sqDistOperator_mark (a : Pt n) (d : ℝ) (hd : 0 ≤ d) (b : Pt n)
+    (hne : Lattice.Geo.sqDist a b ≠ 0) :
+    Lattice.Geo.sqDist a
+      ((sqDistOperator (n := n) a d).fix (fun _ => b) 0) = d :=
+  Lattice.Geo.RepairCoverage.sqDistFix_reaches a b hd hne
 
 end Lattice.Geo

@@ -81,6 +81,7 @@ import Mathlib
 import Lattice.Runtime.Extraction
 import Lattice.Runtime.ErrorCalculus
 import Lattice.Runtime.RoundingBackend
+import Lattice.Runtime.RatRepresentation
 
 namespace Lattice.Lift
 
@@ -226,6 +227,34 @@ theorem roundingIsApprox_composes (x : ℤ) :
   show roundingIsApprox.dist x x ≤ roundingIsApprox.ε + roundingIsApprox.ε
   show |(x : ℝ) - (x : ℝ)| ≤ 1 + 1
   simp
+
+/-- **有理数表示是一个精确表示，因此也是一个近似表示。**
+
+**`exact_is_approx` 说任何 `Representation` 都是误差为零的 `ApproxRepresentation`；这里把它用在
+`RatRepresentation.ratRepresentation` 上。**
+
+**=> 这是本文件抽象的 `ApproxRepresentation` 的一个**具体的**来源，而那个来源是**算术**：分子分母对与除法。**
+**因此「近似提取」这一层不再只有抽象的结构要求，而有了一个可以由 `Rat.num_div_den` 核对的端点。** -/
+theorem rat_exact_roundtrip (q : ℚ) :
+    Lattice.Lift.RatRepresentation.ratRepresentation.extract
+      (Lattice.Lift.RatRepresentation.ratRepresentation.compile q) = q :=
+  Lattice.Lift.RatRepresentation.ratRepresentation.roundtrip q
+
+/-- **有理数端点上的误差是零，而不是「足够小」。**
+
+**=> 与 `approx_extract_bound` 的对照是本条的意义所在：那条定理要求一个正误差预算 `ε`，而这里 `ε = 0` 就够。**
+**⇒ 这标出了**精确表示**与**真正近似**的分界：有理数的分子分母对是无损的，而实数权重到符号的提取不是。**
+**一个只见过 `approx_extract_bound` 的读者会以为提取总要付误差代价；本定理说明那代价来自**实数**，而非来自
+提取这一动作本身。** -/
+theorem rat_endpoint_is_exact (q : ℚ) :
+    Lattice.Lift.RatRepresentation.ratRepresentation.extract
+      (Lattice.Lift.RatRepresentation.ratRepresentation.compile q) = q ∧
+    Lattice.Lift.RatRepresentation.ratRepresentation.compile
+      (Lattice.Lift.RatRepresentation.ratRepresentation.extract
+        (Lattice.Lift.RatRepresentation.ratRepresentation.compile q))
+      = Lattice.Lift.RatRepresentation.ratRepresentation.compile q :=
+  ⟨Lattice.Lift.RatRepresentation.ratRepresentation.roundtrip q,
+   by rw [Lattice.Lift.RatRepresentation.ratRepresentation.roundtrip q]⟩
 
 end ApproxExtraction
 

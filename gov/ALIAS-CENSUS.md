@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 745 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 748 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 167 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -732,6 +732,7 @@
 | `Primitives/WeightDescent.lean` | `bidir_terminates_in_abs_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |
 | `Runtime/ApproxExtraction.lean` | `compose_via_calculus` |
+| `Runtime/ApproxExtraction.lean` | `rat_exact_roundtrip` |
 | `Runtime/ApproxLadder.lean` | `approx_ladder_bound_mono` |
 | `Runtime/ApproxLadder.lean` | `roundingLadder_forward` |
 | `Runtime/ApproximationBridge.lean` | `approx_min_le_gives_sat` |
@@ -756,6 +757,8 @@
 | `Runtime/MultiLayerLadder.lean` | `multiLayerLadder_two` |
 | `Runtime/NondegenerateInstance.lean` | `compile_sound_n_zero` |
 | `Runtime/NondegenerateInstance.lean` | `weightLadderN_satSym_implies_nondeg` |
+| `Runtime/RatRepresentation.lean` | `rat_compile_injective_via_abstract` |
+| `Runtime/RatRepresentation.lean` | `rat_extract_compile` |
 | `Runtime/RealTokenization.lean` | `foldBlanks_idem` |
 | `Runtime/RealTokenization.lean` | `foldBlanks_length_le` |
 | `Runtime/RealTokenization.lean` | `tokenize_detok` |

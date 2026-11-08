@@ -101,7 +101,7 @@
 | `Lattice.Domains.Repair` | 90 | 4 | Loss, Constraint |
 | `Lattice.Domains.RepairBridge` | 247 | 14 | Loop, Loss |
 | `Lattice.Domains.RepairCoverage` | 142 | 4 | LoopPerp, Constraint, Dist, RepairPerp |
-| `Lattice.Domains.RepairPenalty` | 219 | 9 | PartialReinjection, MissingRepairs, ParallelRepair, Loop, Loss, RepairBridge |
+| `Lattice.Domains.RepairPenalty` | 239 | 10 | PartialReinjection, MissingRepairs, RepairCoverage, ParallelRepair, Loop, Loss, RepairBridge |
 | `Lattice.Domains.RepairPerp` | 193 | 6 | Constraint |
 | `Lattice.Domains.RepairQuality` | 151 | 9 | Loop, LoopPerp |
 | `Lattice.Domains.RhoMetric` | 120 | 5 | Lipschitz |
