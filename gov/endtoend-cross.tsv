@@ -327,6 +327,7 @@ Core/IR/Materialize.lean	skeleton_of_fillZeros
 Core/IR/Materialize.lean	materialize_tensors_length
 Core/IR/Materialize.lean	materialize_empty
 Core/IR/Materialize.lean	materialize_exists
+Core/IR/Materialize.lean	fillWith_zero
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps

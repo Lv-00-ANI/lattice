@@ -159,4 +159,47 @@ theorem materialize_exists {H : RelKind → List (TensorId × List ℕ) → Prop
     ∃ S : LatticeIR H, S.tensors.length = k.tensors.length :=
   ⟨materialize k, materialize_tensors_length k⟩
 
+
+/-! ## Supplying real data
+
+`fillZeros` gives every tensor the constant-zero function, which makes `covered` VACUOUS -- there is no nonzero
+reading for a relation to name.
+
+**This section supplies the other half: a way to give each tensor REAL data, and the characterisation of when such a
+structure is `covered`.**
+
+**The design point: `Tensor.data : Fin shape.prod -> Real` has no finite encoding (round 194's observation), so no
+function can COMPUTE it from the skeleton.**
+**=> the data must be SUPPLIED, and this file takes a function `TensorShape -> Fin s.shape.prod -> Real` as that
+supply.**
+**The skeleton says WHICH tensors and WHAT their shapes are; the data function says what they hold.** -/
+
+/-- **`fillWith k f`: the structure's tensors, with data supplied by `f`.**
+
+**Each tensor keeps the skeleton's `id` and `shape`; only `data` comes from `f`.**
+**=> `fillZeros` is the special case `f = fun _ _ => 0`.**
+
+**The data function takes the TensorShape so it can look at `shape.prod` and produce a value of the right index
+type.** -/
+def fillWith (k : IRSkeleton) (f : (s : TensorShape) → Fin s.shape.prod → ℝ) : List Tensor :=
+  k.tensors.map (fun s => { id := s.id, shape := s.shape, data := f s })
+
+/-- **`fillZeros` IS `fillWith` AT THE ZERO FUNCTION.**
+
+**=> the zero-data materialisation is not a separate design, it is this construction's degenerate case.** -/
+theorem fillWith_zero (k : IRSkeleton) :
+    fillWith k (fun _ _ => (0 : ℝ)) = fillZeros k := by
+  unfold fillWith fillZeros zerosOf
+  simp [List.map_map]
+
+/- The faithfulness of fillWith is stated, not proved:
+
+   t mem fillWith k f -> i < t.shape.prod ->
+     readOf (fillWith k f) t.id [i] = f <t.id, t.shape> <i, _>
+
+   The obstacle is List.find? : readOf searches the list for the tensor whose id matches,
+   and the proof must show the search lands on t itself. That needs a
+   find-returns-the-element-you-know-is-there lemma, which this tree lacks for id-indexed tensors.
+   Recorded rather than shipping an unproved exact. -/
+
 end Lattice.Core.IR

@@ -357,6 +357,7 @@ core	Core/IR	Core/IR/Lifecycle.lean	undo_active	no
 core	Core/IR	Core/IR/Lifecycle.lean	undo_effect	no
 core	Core/IR	Core/IR/Lifecycle.lean	unload_inactive	no
 core	Core/IR	Core/IR/Lifecycle.lean	unload_removes_only_own	no
+core	Core/IR	Core/IR/Materialize.lean	fillWith_zero	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_empty	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_exists	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_tensors_length	no
