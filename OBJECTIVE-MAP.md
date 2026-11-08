@@ -21,7 +21,7 @@
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 1 | 0 | `Domains/Geometry/SynthesisConnection.lean` |
-| 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
+| 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 0 *(仅本文件)* | 7 | — |
@@ -31,7 +31,7 @@
 | 3.3 inverse: repair | `parallelFix` | `Domains/Geometry/ParallelRepair.lean` | 0 *(仅本文件)* | 12 | — |
 | 3.3 inverse: repair | `midpointFix` | `Domains/Geometry/MissingRepairs.lean` | 0 *(仅本文件)* | 13 | — |
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
-| 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 0 **← 死代码** | 0 | — |
+| 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 1 | 0 | `Domains/Geometry/RepairPenalty.lean` |
 | 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 12 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
 | 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 27 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
@@ -43,8 +43,8 @@
 
 - 条款数：14
 - 载体总数：27
-- **死代码载体（同文件也不用）：1**
-- 仅同文件使用的载体：6
+- **死代码载体（同文件也不用）：0**
+- 仅同文件使用的载体：5
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

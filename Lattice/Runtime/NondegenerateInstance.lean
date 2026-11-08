@@ -246,6 +246,54 @@ theorem compile_sound_n_is_pointwise {n : ℕ} (s : Lattice.Lift.WeightLadderN.S
   exact compile_sound_n_zero s h
 
 
+/-! ## 与 `WeightLadderN.weightLadderN` 的符号侧对照
+
+本文件与 `WeightLadderN` 定义的是**同一类型**的两个 `Ladder` 实例：
+
+| 实例 | `satSym` | `satW` |
+|:--|:--|:--|
+| `weightLadderN n` | **列表的每一项为零** | **零点映零** |
+| `weightLadderNondeg n` | **前 `n*n` 个系数为零，且后 `n` 个常数项为零** | **处处为零** |
+
+**⇒ 两者是一对**反方向的交换**：`weightLadderN` 的符号义务更强（整个列表），权重义务更弱（一个点）；
+`weightLadderNondeg` 的符号义务更弱（只约束被读到的元素），权重义务更强（所有输入）。**
+**这不是矛盾，而是「"内容上成立"的两种编码」：把义务放在符号侧还是放在权重侧，总强度是一个权衡。**
+
+**本节证明那个反方向的蕴含：`weightLadderN` 的符号义务**蕴含** `weightLadderNondeg` 的。**
+**⇒ 于是「更强的符号义务换来更弱的权重义务」这一取舍有了形式化的单向证据。** -/
+
+/-- **`weightLadderN` 的符号义务蕴含 `weightLadderNondeg` 的。**
+
+**「列表每一项为零」推出「第 `i*n+j` 个与第 `n*n+j` 个为零」——因为后者读的是前者的子集。**
+**⇒ 这就是反方向蕴含的全部内容：`weightLadderNondeg` 只读前 `n*n + n` 个元素，而 `weightLadderN` 约束所有元素。**
+**两个分支的写法（`getElem` 与 `default`）覆盖了「下标在范围内」与「越界」两种情形，后者由 `getD` 的默认值 `0`
+直接给出结论。** -/
+theorem sym_all_implies_indexed {n : ℕ} (s : List ℝ) (h : ∀ x ∈ s, x = 0) :
+    (∀ i j : Fin n, s.getD (i.val * n + j.val) 0 = 0) ∧
+    (∀ j : Fin n, s.getD (n * n + j.val) 0 = 0) := by
+  constructor
+  · intro i j
+    by_cases hlt : i.val * n + j.val < s.length
+    · rw [List.getD_eq_getElem _ _ hlt]
+      exact h _ (List.getElem_mem hlt)
+    · rw [List.getD_eq_default _ _ (by omega)]
+  · intro j
+    by_cases hlt : n * n + j.val < s.length
+    · rw [List.getD_eq_getElem _ _ hlt]
+      exact h _ (List.getElem_mem hlt)
+    · rw [List.getD_eq_default _ _ (by omega)]
+
+/-- **`weightLadderN` 的符号侧在本文件中被引用，且是有内容的引用。**
+
+**=> 把 `weightLadderN` 的 `satSym`（`∀ x ∈ s, x = 0`）作为 `sym_all_implies_indexed` 的输入，
+结论正是 `weightLadderNondeg` 的 `satSym`。**
+**因此「换符号义务换权重义务」这一取舍的两端都在树里，且它们的蕴含方向被证明。** -/
+theorem weightLadderN_satSym_implies_nondeg {n : ℕ} (s : List ℝ)
+    (h : (Lattice.Lift.WeightLadderN.weightLadderN n).satSym s) :
+    (weightLadderNondeg n).satSym s :=
+  sym_all_implies_indexed s h
+
+
 end NondegenerateInstance
 
 end Lattice.Lift

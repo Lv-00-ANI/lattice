@@ -1054,6 +1054,8 @@ domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	collinearFix_on_li
 domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	one_step_suffices	no
 domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	sqDistFix_reaches	no
 domains	Domains/Geometry	Domains/Geometry/RepairCoverage.lean	sqDist_affine	no
+domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual	no
+domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	repair_loss_zero_of_exact	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_loop_reaches_penalty_zero	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_penalty_iff_sat	no
 domains	Domains/Geometry	Domains/Geometry/RepairPenalty.lean	samePoint_penalty_zero_iff_sat_iff	no
@@ -9664,6 +9666,8 @@ runtime	Runtime	Runtime/NondegenerateInstance.lean	compile_sound_n_is_pointwise	
 runtime	Runtime	Runtime/NondegenerateInstance.lean	compile_sound_n_zero	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	fullCompile_sound	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	rank_one_is_degenerate	yes
+runtime	Runtime	Runtime/NondegenerateInstance.lean	sym_all_implies_indexed	no
+runtime	Runtime	Runtime/NondegenerateInstance.lean	weightLadderN_satSym_implies_nondeg	no
 runtime	Runtime	Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward	no
 runtime	Runtime	Runtime/PartialRepresentation.lean	roundtrip_apply	no
 runtime	Runtime	Runtime/PenaltyAnalysis.lean	hasFDerivAt_sq	no

@@ -929,6 +929,8 @@ Domains/Geometry/RepairPenalty.lean	samePoint_penalty_iff_sat
 Domains/Geometry/RepairPenalty.lean	samePoint_loop_reaches_penalty_zero
 Domains/Geometry/RepairPenalty.lean	samePoint_sat_implies_penalty_zero
 Domains/Geometry/RepairPenalty.lean	samePoint_penalty_zero_iff_sat_iff
+Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual
+Domains/Geometry/RepairPenalty.lean	repair_loss_zero_of_exact
 Domains/Geometry/RepairPerp.lean	perpendicular_iff_dotDisp
 Domains/Geometry/RepairPerp.lean	selfDot_ne_zero
 Domains/Geometry/RepairPerp.lean	perpRatio_mul
@@ -4086,6 +4088,7 @@ Runtime/NondegenerateInstance.lean	fullCompile_sound
 Runtime/NondegenerateInstance.lean	weightLadderNondeg_forward
 Runtime/NondegenerateInstance.lean	compile_sound_n_zero
 Runtime/NondegenerateInstance.lean	compile_sound_n_is_pointwise
+Runtime/NondegenerateInstance.lean	weightLadderN_satSym_implies_nondeg
 Runtime/PartialRepresentation.lean	roundtrip_apply
 Runtime/PenaltyAnalysis.lean	hasFDerivAt_sq
 Runtime/PenaltyAnalysis.lean	sq_localMin_dichotomy

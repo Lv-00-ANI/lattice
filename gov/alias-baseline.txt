@@ -905,3 +905,5 @@ copy	Core/IR/Semantics.lean	parse_var_relations_nil
 copy	Core/IR/Semantics.lean	parse_var_tensors_length
 forward	Runtime/NondegenerateInstance.lean	compile_sound_n_zero
 forward	Domains/Geometry/SynthesisConnection.lean	synthesis_preserves_separation
+forward	Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual
+forward	Runtime/NondegenerateInstance.lean	weightLadderN_satSym_implies_nondeg
