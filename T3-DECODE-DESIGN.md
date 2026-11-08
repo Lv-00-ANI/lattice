@@ -832,3 +832,58 @@ pairwise_cons(n, l1 ++ l2)  ←  拆分首元素
 1 + tensorCount b` 然后 `norm_num`——因为 `simp` 不会把 `0 + 1` 化成 `1`。**
 
 **这条修正本身是对的，但它不解决 `pi`/`app`/`letE`，所以没有单独提交。**
+
+---
+
+## 16. 第 234 轮：`readOf_fillWith` 的三条路线与各自的精确障碍
+
+### 16.1 目标
+
+```lean
+theorem readOf_fillWith {k : IRSkeleton} {f : (s : TensorShape) → Fin s.shape.prod → ℝ}
+    {t : Tensor} (ht : t ∈ fillWith k f) {i : ℕ} (hi : i < t.shape.prod) :
+    readOf (fillWith k f) t.id [i] = f ⟨t.id, t.shape⟩ ⟨i, hi⟩
+```
+
+### 16.2 路线一：通用的「find 返回已知元素」
+
+```lean
+theorem find?_eq_some_of_unique {α} (l : List α) (p : α → Bool) (x : α)
+    (hx : x ∈ l) (huniq : ∀ y ∈ l, p y = true → y = x) : l.find? p = some x
+```
+
+**第 234 轮把它推到了 `cons` 分支的 `false` 情形，剩下的子目标是 `x ∈ tl` 的提取：`rcases hx with hh | hx'` 在 `x = h :: tl` 的两种情形上，`rfl` 方向与 `Nodup` 的用法不匹配，`subst hh` 又在 `h` 与 `x` 的类型相同时才可用。**
+**=> 需要 `Or.elim` 显式处理，且 `h : h ∈ h :: tl` 的证明要用 `List.mem_cons_self` 而非 `simp`。**
+
+### 16.3 路线二：`Nodup` 推出 id 单射
+
+```lean
+theorem fillWith_id_unique {k} {f} (hnd : (k.tensors.map (·.id)).Nodup)
+    {u t : Tensor} (hu : u ∈ fillWith k f) (ht : t ∈ fillWith k f)
+    (hid : u.id = t.id) : u = t
+```
+
+**第 234 轮试了三种写法：**
+
+| 写法 | 障碍 |
+|:--|:--|
+| **`List.Nodup.injective`** | **不是字段记法；`@List.Nodup.injective` 也不存在** |
+| **`List.idxOf`** | **不存在于本树** |
+| **对 `k.tensors` 手动归纳** | **`hnd` 在归纳过程中被固定，`simp only [List.map_cons, List.nodup_cons] at hnd` 报 "made no progress"——需要 `generalizing` 或先 `revert`** |
+
+**=> 第三条路最接近成功：`key` 引理的结构是对的（`cons` 分支的四种情形都覆盖了），只是 `hnd` 的可得性需要重排。**
+
+### 16.4 路线三：让 `fillWith` 携带 `Nodup` 的证据
+
+**若 `fillWith` 的类型里带 `(hnd : (k.tensors.map (·.id)).Nodup)`，则 16.3 的前提不需要从外部传入。**
+**但这会把 `fillWith` 从「任意骨架」收窄到「良构骨架」，而 `WellFormed` 已经提供 `Nodup`，所以这不算损失。**
+
+**=> 下一轮的最短路径：把 `hnd` 作为 `fillWith` 的显式参数（或从 `WellFormed k` 导出），再用 16.3 的 `key` 引理。**
+
+### 16.5 为什么第 234 轮没做完
+
+**三条路线各做了 3–6 次尝试，都停在「前提不可得」或「`rcases` 方向」这类细节上，而没有停在数学上。**
+
+**=> 共同点：`Nodup` 与 `List.find?` 的交互需要把「元素唯一」这件事**在正确的形式上**喂给下一步，而 `simp only` 与 `rcases` 在这两处都会把形式改掉。**
+
+**按纪律，`Materialize.lean` 未改动，`fillWith` 与 `fillWith_zero`（第 233 轮）保留，`readOf_fillWith` 仍只是文件里的记录。**
