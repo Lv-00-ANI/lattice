@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**337 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
+**338 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | 6 | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 19 | 5.7% |
+| `Core` | 20 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -58,6 +58,7 @@
 
 **第 191 轮新增一条**：`not_quiescent_of_unmet` —— **需求未满足的状态**不**是静息的**（`quiescent` 因此有实质内容，而非 `True`），
 故 `Core` 由 18 升为 19、总数由 336 升为 337。
+第 237 轮又加入一条：`pointTensors_not_covered`（`Core/IR/IsIR.lean`）证明「命名了错误位置的 relation 列表**不**覆盖同一批张量」，故 `Core` 由 19 升为 20、总数由 337 升为 338。
 
 **第 160 轮新增一条**：`cutoff_commutation_false` —— **任意截断值下的 inst/shift 交换律为假**
 **（`j=1, σ=常值 var 5, t=var 0` 时左边 `var 0`、右边 `var 6`），**根因是 `lift σ 0 = var 0` 而 `shift j 1` 在 `j>0` 时不动下标 0**。
@@ -226,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | `relu_not_injective` | `¬ Function.Injective relu` |
-| `Core` | `netRelu_not_injective` | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | `no_uniform_bound` | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | `layer_behaviourally_separates` | `¬ BehaviourallyEquivalent p q` |
-| `Core` | `reversibility_depends_on_representation` | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 20 | `¬ Function.Injective relu` |
+| `Core` | 20 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 20 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 20 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 20 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |

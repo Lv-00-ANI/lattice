@@ -133,4 +133,59 @@ theorem maximal_nil : maximal [] := by
   intro r ⟨r', hr', _⟩
   simp at hr'
 
+/-! ## `covered` has an inhabited instance with REAL data
+
+`covered` becomes non-vacuous only when some structure's nonzero readings are all named.
+
+**This section exhibits one: a single tensor of shape `[2]` holding `1` at index `0` and `0` elsewhere, covered by a
+single `depends` relation whose argument list is exactly `(0, [0])`.**
+
+**=> the first inhabited instance of the INTERESTING case: the data is not all zero, and the relation list names
+precisely the position that is not.**
+
+**And a second theorem shows the converse: a relation list naming the WRONG position fails.**
+**That pair is what makes `covered` a real constraint rather than a `True` -- the same tensors are covered by one
+relation list and uncovered by another.** -/
+
+/-- **A tensor of shape `[2]` that is `1` at index `0` and `0` at index `1`.** -/
+def pointTensors : List Tensor :=
+  [{ id := 0, shape := [2], data := fun i => if (i : ℕ) = 0 then 1 else 0 }]
+
+/-- **The relation naming exactly the nonzero position `(0, [0])`.** -/
+def pointRelations : List RelationShape :=
+  [{ kind := .depends, args := [(0, [0])], part := some .arch }]
+
+/-- **`pointTensors` IS COVERED BY `pointRelations`.**
+
+**=> `covered` has an inhabited instance whose data is NOT identically zero, so the condition constrains something.** -/
+theorem pointTensors_covered : covered pointTensors pointRelations := by
+  intro t i ht hi hne
+  simp only [pointTensors, List.mem_singleton] at ht
+  subst ht
+  have hi0 : i = 0 := by
+    by_contra h
+    exact hne (by simp [readOf, pointTensors, List.find?, hi, h])
+  refine ⟨{ kind := .depends, args := [(0, [0])], part := some .arch }, by simp [pointRelations], ?_⟩
+  subst hi0
+  simp [Names]
+
+/-- **THE COVERAGE CONDITION CAN FAIL: A RELATION LIST NAMING THE WRONG POSITION DOES NOT COVER.**
+
+**=> together with `pointTensors_covered` this shows `covered` SPLITS the relation lists over the same tensors,
+which no `True`-valued condition can do.** -/
+theorem pointTensors_not_covered :
+    ¬ covered pointTensors [{ kind := .depends, args := [(0, [1])], part := some .arch }] := by
+  intro hcov
+  have hmem : ({ id := 0, shape := [2], data := fun i => if (i : ℕ) = 0 then 1 else 0 } : Tensor)
+      ∈ pointTensors := by
+    simp [pointTensors]
+  have hpos : (0 : ℕ) < ([2] : List ℕ).prod := by
+    decide
+  have hnz : readOf pointTensors 0 [0] ≠ 0 := by
+    simp [readOf, pointTensors, List.find?]
+  obtain ⟨r, hr, hnames⟩ := hcov _ 0 hmem hpos hnz
+  simp only [List.mem_singleton] at hr
+  subst hr
+  simp [Names] at hnames
+
 end Lattice.Core.IR

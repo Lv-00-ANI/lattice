@@ -215,7 +215,7 @@ facts about `List.find?` and `List.Nodup` that mathlib does not package for `id`
 
 **=> this is the "find returns what you know is present" fact that `readOf`'s search needs.**
 **Stated for an abstract list with `DecidableEq`, so it applies to `List Tensor` without unfolding the record.** -/
-theorem find?_eq_some_of_nodup {α : Type} [DecidableEq α]
+theorem find_eq_some_of_nodup {α : Type} [DecidableEq α]
     (l : List α) (hnd : l.Nodup) {x : α} (hx : x ∈ l) :
     l.find? (fun u => u = x) = some x := by
   induction l with
@@ -262,10 +262,10 @@ theorem map_inj_of_nodup {α : Type} (l : List α) (g : α → ℕ) (hnd : (l.ma
 
 **`(l.map (·.id)).Nodup` and `x ∈ l` give `l.find? (fun u => u.id = x.id) = some x`.**
 
-**=> this is `find?_eq_some_of_nodup` specialised to tensors, and the specialisation is not cosmetic: `Tensor` has no
+**=> this is `find_eq_some_of_nodup` specialised to tensors, and the specialisation is not cosmetic: `Tensor` has no
 `DecidableEq` -- its `data` is a function -- so the equality-predicate form CANNOT be stated for it.**
 **The `id` predicate is the only available handle, and this lemma says it behaves exactly like equality would.** -/
-theorem find?_id_eq_some (l : List Tensor) (hnd : (l.map (·.id)).Nodup)
+theorem find_id_eq_some_of_nodup (l : List Tensor) (hnd : (l.map (·.id)).Nodup)
     {x : Tensor} (hx : x ∈ l) :
     l.find? (fun u => u.id = x.id) = some x := by
   induction l with
@@ -311,7 +311,7 @@ theorem readOf_fillWith {k : IRSkeleton}
   have hmem : ({ id := st.id, shape := st.shape, data := f st } : Tensor) ∈
       k.tensors.map (fun s => ({ id := s.id, shape := s.shape, data := f s } : Tensor)) :=
     List.mem_map_of_mem (fun s => ({ id := s.id, shape := s.shape, data := f s } : Tensor)) hst
-  rw [find?_id_eq_some _ hnd2 hmem]
+  rw [find_id_eq_some_of_nodup _ hnd2 hmem]
   simp only
   rw [dif_pos hid]
 
