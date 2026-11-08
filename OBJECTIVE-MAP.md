@@ -20,7 +20,7 @@
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 37 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
-| 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 0 **← 死代码** | 0 | — |
+| 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 1 | 0 | `Domains/Geometry/SynthesisConnection.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 0 *(仅本文件)* | 4 | — |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
@@ -43,7 +43,7 @@
 
 - 条款数：14
 - 载体总数：27
-- **死代码载体（同文件也不用）：2**
+- **死代码载体（同文件也不用）：1**
 - 仅同文件使用的载体：6
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。

@@ -111,7 +111,7 @@
 | `Lattice.Domains.Shape` | 204 | 3 | Derive |
 | `Lattice.Domains.Square` | 161 | 10 | Loss, Dist |
 | `Lattice.Domains.Synthesis` | 215 | 8 | Invariant, Initialise |
-| `Lattice.Domains.SynthesisConnection` | 158 | 7 | Synthesis, SynthesisMulti |
+| `Lattice.Domains.SynthesisConnection` | 203 | 9 | Synthesis, SynthesisMulti, SynthesisCoverage |
 | `Lattice.Domains.SynthesisCoverage` | 150 | 5 | Synthesis, Constraint, Dist |
 | `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
 | `Lattice.Domains.Tags` | 125 | 14 | Encode.CIC |

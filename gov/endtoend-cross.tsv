@@ -978,6 +978,8 @@ Domains/Geometry/SynthesisConnection.lean	synthesize_singleton
 Domains/Geometry/SynthesisConnection.lean	synthesize_empty_family
 Domains/Geometry/SynthesisConnection.lean	synthesis_connects_to_chain
 Domains/Geometry/SynthesisConnection.lean	synthesis_pipeline
+Domains/Geometry/SynthesisConnection.lean	synthesis_preserves_separation
+Domains/Geometry/SynthesisConnection.lean	synthesis_two_guarantees
 Domains/Geometry/SynthesisCoverage.lean	translateBy_apply
 Domains/Geometry/SynthesisCoverage.lean	sqDist_translateBy
 Domains/Geometry/SynthesisCoverage.lean	samples_distinct

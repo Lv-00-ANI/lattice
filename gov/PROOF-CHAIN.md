@@ -842,7 +842,7 @@
 - `Lattice.Domains.Geometry.Shape` <- `Lattice.Domains.Geometry.Derive`
 - `Lattice.Domains.Geometry.Square` <- `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Geometry.Synthesis` <- `Lattice.Domains.Geometry.Invariant`, `Lattice.Domains.Geometry.Initialise`
-- `Lattice.Domains.Geometry.SynthesisConnection` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Domains.Geometry.SynthesisConnection` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Geometry.SynthesisMulti`, `Lattice.Domains.Geometry.SynthesisCoverage`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Domains.Geometry.SynthesisCoverage` <- `Lattice.Domains.Geometry.Synthesis`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`
 - `Lattice.Domains.Geometry.SynthesisMulti` <- `Lattice.Domains.Geometry.Synthesis`
 - `Lattice.Domains.Geometry.Unconditional` <- `Lattice.Domains.Geometry.FormDeriv`, `Lattice.Domains.Geometry.Derivative`
@@ -1878,7 +1878,7 @@
 | `Lattice.Domains.Geometry.Shape` | 3 | 2 |
 | `Lattice.Domains.Geometry.Square` | 10 | 5 |
 | `Lattice.Domains.Geometry.Synthesis` | 7 | 5 |
-| `Lattice.Domains.Geometry.SynthesisConnection` | 6 | 0 |
+| `Lattice.Domains.Geometry.SynthesisConnection` | 8 | 0 |
 | `Lattice.Domains.Geometry.SynthesisCoverage` | 5 | 0 |
 | `Lattice.Domains.Geometry.SynthesisMulti` | 4 | 1 |
 | `Lattice.Domains.Geometry.Unconditional` | 7 | 0 |
@@ -10629,16 +10629,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntax_differs_semantics_same` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `synth_coverage` -> `Pt`, `sqDist`, `translateBy`
-- `synthesis_connects_to_chain` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`
-- `synthesis_pipeline` -> `GeoConstraint`, `Holds`, `Pt`, `samples`
+- `synthesis_connects_to_chain` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `ladder_forward`, `samples`, `satSym`, `satW`, `sqDist`, `synth_coverage`, `translateBy`
+- `synthesis_pipeline` -> `GeoConstraint`, `Holds`, `Pt`, `samples`, `sqDist`, `synth_coverage`, `translateBy`
+- `synthesis_preserves_separation` -> `GeoConstraint`, `Holds`, `Pt`, `samples`, `sqDist`, `synth_coverage`, `translateBy`
 - `synthesis_then_verify` -> `EqConstraint`, `GeoConstraint`, `Holds`, `Pt`, `Sat`, `SymOne`, `converges_within`, `countdown`, `iterate`, `loss`, `reinject_loss_eq_zero`, `samePointRepair`, `samples`, `samples_sound`, `satSym`, `satW`, `weightLadder`, `weightLadder_forward`
-- `synthesize_empty_family` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `satSym`, `satW`
-- `synthesize_for` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `samples_sound`, `satSym`, `satW`
-- `synthesize_for_multi` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `satSym`, `satW`
+- `synthesis_two_guarantees` -> `GeoConstraint`, `Holds`, `Pt`, `samples`, `sqDist`, `translateBy`
+- `synthesize_empty_family` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `satSym`, `satW`, `sqDist`, `synth_coverage`, `translateBy`
+- `synthesize_for` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `samples_sound`, `satSym`, `satW`, `sqDist`, `synth_coverage`, `translateBy`
+- `synthesize_for_multi` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `samplesOf`, `samplesOf_sound`, `satSym`, `satW`, `sqDist`, `synth_coverage`, `translateBy`
 - `synthesize_from_initialisation` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `at`, `length`, `samePoint_scale`, `samePoint_translate`
 - `synthesize_perpendicular_multi` -> `GeoConstraint`, `Holds`, `Pt`, `standardFamily`, `standardFamily_preserves_perpendicular`
 - `synthesize_perpendicular_samples` -> `GeoConstraint`, `Holds`, `Pt`, `allSame`, `allSame_samePoint`, `at`, `length`, `samePoint_scale`, `samePoint_translate`
-- `synthesize_singleton` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `satSym`, `satW`
+- `synthesize_singleton` -> `GeoConstraint`, `Holds`, `Ladder`, `Pt`, `W`, `at`, `ladder_forward`, `samples`, `satSym`, `satW`, `sqDist`, `synth_coverage`, `translateBy`
 - `system_covers_all_kinds` -> `Rule`, `length`
 - `system_rules_length` -> `Rule`, `length`
 - `t0_constructor_exists` -> `FamilySolver`, `HoldsSet`, `Pt`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`

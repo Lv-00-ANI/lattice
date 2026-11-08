@@ -66,6 +66,7 @@ theorem synthesize_from_initialisation (G : List (GeoConstraint n))
 import Mathlib
 import Lattice.Domains.Geometry.Synthesis
 import Lattice.Domains.Geometry.SynthesisMulti
+import Lattice.Domains.Geometry.SynthesisCoverage
 import Lattice.Runtime.EndToEnd
 
 open scoped BigOperators
@@ -151,6 +152,50 @@ theorem synthesis_pipeline (c : GeoConstraint n)
     (∀ T ∈ Ts, GeoConstraint.Holds c (T seed)) :=
   ⟨synthesize_for c Ts seed hT hseed,
    fun T hT' => hT T hT' seed hseed⟩
+
+/-! ## 合成的两条保证并列：满足约束，且样本保持分离
+
+`synthesis_pipeline` 说「合成的每个样本都满足约束」；
+`SynthesisCoverage.synth_coverage` 说「平移合成保持样本间的距离与互异」。
+
+**这两条是**不同的**性质，此前分别住在两个文件里，谁都不引用谁。**
+**⇒ 本节把它们并列，使「数据合成」这一目标条款的两个保证第一次出现在同一处。**
+
+**为什么两者都需要：**
+**- 满足约束说的是「样本**对**」——它落在解集里；**
+**- 保持分离说的是「样本**不塌缩**」——两个不同的种子不会合成出同一点。**
+**一个只满足约束的合成器可以把整个种子空间映到同一个解上；一个只保持分离的合成器可以完全不满足约束。**
+**⇒ 两条缺一不可，而缺的那条不会被另一条发现。** -/
+
+/-- **合成的分离保证**（`SynthesisCoverage.synth_coverage` 在本流水线中的样子）。
+
+**给定两个距离至少 `ρ` 的种子点，平移合成给出的两个样本距离仍至少 `ρ` 且互异。**
+**⇒ 这是「合成不塌缩」的形式化：`translateBy` 是一族等距映射，因此它不可能把两个不同点合并。** -/
+theorem synthesis_preserves_separation {n : ℕ} (s t : Pt n) (seed : ℕ → Pt n) (k : ℕ) {ρ : ℝ}
+    (hsep : ρ ≤ sqDist s t) (hne : s ≠ t) :
+    ρ ≤ sqDist (translateBy s seed k) (translateBy t seed k) ∧
+    translateBy s seed k ≠ translateBy t seed k :=
+  Lattice.Geo.SynthesisCoverage.synth_coverage s t seed k hsep hne
+
+/-- **合成的两条保证并列成立。**
+
+**=> 同一条流水线既产出**满足约束**的样本，又**保持种子间的分离**。**
+**这是把「数据合成」这一环的两半接起来的定理：`synthesis_pipeline` 给前半，
+`synthesis_preserves_separation` 给后半，而二者的前提互不相干 —— 一个说约束在合成下保持，一个说距离在合成下
+保持。**
+**⇒ 调用者可以同时得到两个结论，而不必在两个文件之间来回。** -/
+theorem synthesis_two_guarantees {n : ℕ} (c : GeoConstraint n)
+    (Ts : List ((ℕ → Pt n) → (ℕ → Pt n))) (seed : ℕ → Pt n)
+    (hT : ∀ T ∈ Ts, ∀ pts, GeoConstraint.Holds c pts → GeoConstraint.Holds c (T pts))
+    (hseed : GeoConstraint.Holds c seed)
+    (s t : Pt n) (k : ℕ) {ρ : ℝ} (hsep : ρ ≤ sqDist s t) (hne : s ≠ t) :
+    ((∀ x ∈ samples Ts seed, GeoConstraint.Holds c x) ∧
+     (∀ T ∈ Ts, GeoConstraint.Holds c (T seed))) ∧
+    (ρ ≤ sqDist (translateBy s seed k) (translateBy t seed k) ∧
+     translateBy s seed k ≠ translateBy t seed k) :=
+  ⟨synthesis_pipeline c Ts seed hT hseed,
+   synthesis_preserves_separation s t seed k hsep hne⟩
+
 
 end SynthesisConnection
 
