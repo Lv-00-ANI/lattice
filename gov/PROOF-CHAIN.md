@@ -61,7 +61,7 @@
 - `Lattice.Core.IR.Decode` <- `Lattice.Core.IR.Skeleton`
 - `Lattice.Core.IR.DecodeRelations` <- `Lattice.Core.IR.Decode`
 - `Lattice.Core.IR.Depends` <- `Lattice.Core.IR.Relations`
-- `Lattice.Core.IR.Extract` <- `Lattice.Core.IR.Chain`, `Lattice.Core.IR.DecodeRelations`
+- `Lattice.Core.IR.Extract` <- `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.DecodeRelations`
 - `Lattice.Core.IR.IsIR` <- `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.Depends`
 - `Lattice.Core.IR.Lifecycle` <- `Lattice.Core.IR.ArchGraph`
 - `Lattice.Core.IR.Materialize` <- `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Depends`
@@ -1097,7 +1097,7 @@
 | `Lattice.Core.IR.Decode` | 9 | 6 |
 | `Lattice.Core.IR.DecodeRelations` | 9 | 7 |
 | `Lattice.Core.IR.Depends` | 8 | 2 |
-| `Lattice.Core.IR.Extract` | 3 | 1 |
+| `Lattice.Core.IR.Extract` | 6 | 2 |
 | `Lattice.Core.IR.IsIR` | 4 | 6 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
 | `Lattice.Core.IR.Materialize` | 11 | 5 |
@@ -1107,7 +1107,7 @@
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Semantics` | 14 | 7 |
-| `Lattice.Core.IR.Skeleton` | 7 | 11 |
+| `Lattice.Core.IR.Skeleton` | 8 | 11 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -3497,7 +3497,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileIR_distance_penalty_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `compileIR`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_eqExpr_exact` -> `EqConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `compileIR`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_equalLength_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `compileIR`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
-- `compileIR_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`
+- `compileIR_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`
 - `compileIR_midpoint_exact` -> `Pt`, `compileIR`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`
 - `compileIR_parallel_exact` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Pt`, `at`, `center`, `compileIR`, `eqToGeo`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
 - `compileIR_penalty_exact_of` -> `EqConstraint`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `at`, `center`, `collinear`, `collinearPenalty`, `collinearPenalty_eq_zero_iff_of_ne`, `compileIR`, `d`, `eqToGeo`, `equalLengthPenalty`, `equalLengthPenalty_eq_zero_iff`, `loss`, `loss_eq_zero_toGeo_expr`, `loss_eq_zero_toGeo_perpendicular`, `midpointPenalty`, `midpointPenalty_eq_zero_iff`, `mul`, `parallel`, `parallelPenalty`, `parallelPenalty_eq_zero_iff_of_ne`, `rightAnglePenalty`, `rightAnglePenalty_eq_zero_iff`, `seg`, `sqDistEqPenalty`, `sqDistEqPenalty_eq_zero_iff`
@@ -3529,6 +3529,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileToLayer_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
 - `compileToLayer_scaleLayerFun` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `compileToLayer_sound` -> `AffineLayer`, `Ladder`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`, `satSym`, `satW`
+- `compileWith_code` -> `IRSkeleton`, `TensorShape`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
+- `compileWith_read` -> `IRSkeleton`, `TensorShape`, `find_id_eq_some_of_nodup_shape`
 - `compileZ_not_injective` -> `LossyRep`, `at`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `at`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_apply` -> `compile`, `compile_injective`, `extract`, `roundtrip`
@@ -5128,8 +5130,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extract_compile` -> `IRSkeleton`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
-- `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`
+- `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
+- `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
 - `extract_compile_identity` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_int` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_vec` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convertReal`, `convertVec`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extractVec`
@@ -5141,7 +5143,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extract_fixpoints_many` -> `PiecewiseConstraint`, `at`, `closureOperator`, `extent`, `intent`, `piecewiseCompile`, `reluInv`, `trans`
 - `extract_functional` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
 - `extract_idempotent` -> `IsFormalConcept`, `at`, `closure_idempotent`, `extent_antitone`, `g`, `intent_antitone`, `relu`, `subset_extent_intent`
-- `extract_injective_on_compiled` -> `IRSkeleton`, `at`, `compileSkel`
+- `extract_injective_on_compiled` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
 - `extract_is_valid` -> `ConstraintSat`, `LinearNeuron`, `NeuronOut`, `extract`
 - `extract_lipschitz_one` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `extract_lossy_of_no_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
@@ -5353,6 +5355,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fin_zero_ne_one` -> `Compiler`, `at`
 - `find_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `subst`
 - `find_id_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `induction`
+- `find_id_eq_some_of_nodup_shape` -> `at`, `find`, `induction`
 - `finite_card_identities` -> `constraintDomain`, `d`, `programDomain`
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -8185,6 +8188,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pairReach_singleton_eq` -> `induction`, `zero`
 - `pairRep_roundtrip` -> `Representation`, `at`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `pair_gt_snd` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `outer`, `shapesCode`, `tensorShapeCode`, `zero`
+- `pair_succ_pos_ne_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `at`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
 - `pair_tag_diff` -> `Level`, `SortKind`, `Term`, `at`, `d`, `induction`, `zero`
 - `pairing_dirac_col` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `pairing_dirac_row` -> `ProbVec`, `le_antisymm`, `le_trans`
@@ -9029,7 +9033,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
-- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `kindCode_injective`, `partCode`, `partCode_injective`, `toNat`
+- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `relative_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relax` -> `at`, `d`, `g`
@@ -9377,7 +9381,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundtrip_bijective` -> `g`
 - `roundtrip_convertVecQ` -> `at`, `induction`
 - `roundtrip_convertVec_rfl` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
-- `roundtrip_determines_skeleton` -> `LatticeIR`, `RelKind`, `TensorId`, `at`
+- `roundtrip_determines_skeleton` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
 - `roundtrip_error_amplification` -> `FloatFormat`, `RoundOp`, `at`, `eps`, `le_trans`, `tiny`
 - `roundtrip_error_bound` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `convertReal`, `layer_out_error_bound`, `le_trans`
 - `roundtrip_error_bound_exact` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `convertReal`, `le_trans`
@@ -9799,7 +9803,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sgd_rate_bound_averaged` -> `Subgradient`, `at`, `g`
 - `sgd_variance_identity` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
-- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
+- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
 - `shapesCode_rel_ge_length` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `shapesCode_tensor_ge_length` -> `TensorShape`, `length`, `length_cons`, `shapesCode`, `tensorShapeCode`
 - `shapesOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
@@ -9913,7 +9917,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `size_pos_aux` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
-- `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `toNat`
+- `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`, `toNat`
 - `skeleton_of_fillZeros` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
 - `skeleton_unique_from_weights` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `compileSkel`, `compileSkel_injective`, `parse`, `trans`
 - `skip_no_step` -> `Compiler`, `Relation`, `at`, `induction`, `single`, `subst`, `trans`
@@ -10715,7 +10719,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrobSq_zero_iff` -> `apply`, `induction`, `zero`
 - `tensorFrob_nonneg` -> `apply`, `induction`, `zero`
 - `tensorFrob_smul` -> `apply`, `induction`, `zero`
-- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
+- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `tensors_materializeWith_zero` -> `IRSkeleton`, `Names`, `Tensor`, `TensorShape`, `Term`, `apply`, `arch`, `at`, `compileSkel`, `fillWith`, `fillWith_zero`, `fillZeros`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
 - `termCode_injective` -> `at`, `induction`
 - `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
@@ -11220,7 +11224,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weak_pareto_optimal_of_scalarization` -> `e2`
 - `weakening_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
 - `weierstrass_prod_le` -> `E`, `at`, `empty`, `induction`, `le_trans`
-- `weightCodeIR_compileSkel` -> `IRSkeleton`, `at`, `compileSkel`, `decodeSkeleton_code`, `skeletonCode`, `weightCodeIR`
+- `weightCodeIR_compileSkel` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `at`, `compileSkel`, `decodeSkeleton_code`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
 - `weightCount_cons` -> `Activation`, `Arch`
 - `weightFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
 - `weightFunctor_compileToLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`

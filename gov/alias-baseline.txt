@@ -854,7 +854,6 @@ forward	Semantics/VocabEdit.lean	split_error_bound
 forward	Semantics/VocabEdit.lean	vocab_compat_permutation
 copy	Lib/Attention/SoftmaxLipschitzBound.lean	sum_exp_pos
 copy	Lib/InfoTheory/RealMaxEntropy.lean	gibbsPartition_pos
-
 copy	Plugins/Extractors/ChainSlot/VariableDerivative.lean	lowDeg_affine
 copy	Plugins/Extractors/ChainSlot/VariableDerivative.lean	lowDeg_zero_of_const
 forward	Domains/Constraints/ConstraintSet.lean	holdsSet_nil
@@ -896,4 +895,5 @@ forward	Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
 copy	Core/IR/Modulus.lean	modulus_tends_to_zero
 copy	Lib/Architectures/RealLayerScaleDepth.lean	add_one_le_exp_not_improvable
 forward	Core/IR/Semantics.lean	parse_models
-
+copy	Core/IR/Materialize.lean	find_id_eq_some_of_nodup
+copy	Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape

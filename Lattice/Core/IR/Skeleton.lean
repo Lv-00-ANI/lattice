@@ -241,4 +241,29 @@ theorem roundtrip_determines_skeleton {H : RelKind → List (TensorId × List �
   rw [extract_compileIR, extract_compileIR] at h
   exact skeletonCode_injective (Option.some.inj h)
 
+/-- **`find?` WITH THE `id` PREDICATE HITS THE SHAPE YOU KNOW IS THERE.**
+
+**`(l.map (·.id)).Nodup` and `x ∈ l` give `l.find? (fun s => s.id = x.id) = some x`.**
+
+**=> the `TensorShape` counterpart of `find_id_eq_some_of_nodup` (`Materialize.lean`, for `Tensor`).**
+**It needs no `DecidableEq`, because `TensorShape` has one but the proof never uses it: `id` is the only handle, which
+is exactly why the `id` predicate is the right form for both types.**
+**The two branches are `List.find?_cons_of_pos` / `find?_cons_of_neg`, with `Nodup`'s head fact supplying
+`hne : ¬ (h.id = x.id)`.** -/
+theorem find_id_eq_some_of_nodup_shape (l : List TensorShape) (hnd : (l.map (·.id)).Nodup)
+    {x : TensorShape} (hx : x ∈ l) :
+    l.find? (fun s => s.id = x.id) = some x := by
+  induction l with
+  | nil => simp at hx
+  | cons h tl ih =>
+    simp only [List.map_cons, List.nodup_cons] at hnd
+    obtain ⟨hnot, hndtl⟩ := hnd
+    rcases List.mem_cons.mp hx with rfl | hx
+    · simp
+    · have hne : ¬ (h.id = x.id) := by
+        intro hh
+        exact hnot (hh ▸ List.mem_map_of_mem (·.id) hx)
+      rw [List.find?_cons_of_neg _ (by simp [hne])]
+      exact ih hndtl hx
+
 end Lattice.Core.IR

@@ -320,6 +320,8 @@ Core/IR/DecodeRelations.lean	decodeSkeleton_code
 Core/IR/Extract.lean	weightCodeIR_compileSkel
 Core/IR/Extract.lean	extract_compile
 Core/IR/Extract.lean	extract_injective_on_compiled
+Core/IR/Extract.lean	compileWith_code
+Core/IR/Extract.lean	compileWith_read
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered
@@ -389,6 +391,7 @@ Core/IR/Skeleton.lean	skeletonCode_injective
 Core/IR/Skeleton.lean	compileIR_injective
 Core/IR/Skeleton.lean	extract_compileIR
 Core/IR/Skeleton.lean	roundtrip_determines_skeleton
+Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape
 Core/IR/T4Repair.lean	repair_progress
 Core/IR/T4Repair.lean	conj_loop_fixed_point
 Core/IR/T4Repair.lean	loop_fixed_point_with_roundtrip
