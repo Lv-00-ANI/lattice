@@ -331,6 +331,8 @@ Core/IR/Materialize.lean	materialize_exists
 Core/IR/Materialize.lean	fillWith_zero
 Core/IR/Materialize.lean	find
 Core/IR/Materialize.lean	map_inj_of_nodup
+Core/IR/Materialize.lean	find
+Core/IR/Materialize.lean	readOf_fillWith
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps

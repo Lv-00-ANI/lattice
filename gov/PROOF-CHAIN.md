@@ -1100,7 +1100,7 @@
 | `Lattice.Core.IR.Extract` | 3 | 1 |
 | `Lattice.Core.IR.IsIR` | 2 | 4 |
 | `Lattice.Core.IR.Lifecycle` | 10 | 8 |
-| `Lattice.Core.IR.Materialize` | 9 | 5 |
+| `Lattice.Core.IR.Materialize` | 11 | 5 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
 | `Lattice.Core.IR.Parse` | 21 | 9 |
@@ -5334,7 +5334,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `field_strictly_beats_ring_on_scaling` -> `QConstraint`, `QSat`, `at`
 - `file_under_dir` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `fillConsts_toSExpr` -> `GeoExpr`, `add`, `append_assoc`, `append_nil`, `at`, `dec`, `enc`, `encLen`, `induction`, `mul`, `nil_append`, `structure_survives_tokens_full`
-- `fillWith_zero` -> `IRSkeleton`, `at`, `g`, `induction`, `subst`
+- `fillWith_zero` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `g`, `induction`, `subst`
 - `filterMap_comp_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
 - `filterMap_sym_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
 - `filter_filter_fiber` -> `apply`, `at`, `d`, `g`
@@ -7102,7 +7102,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `map_eq_of_eq` -> `g`
 - `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`
 - `map_extractVec_compileToLayer_rfl` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`
-- `map_inj_of_nodup` -> `at`, `g`, `induction`
+- `map_inj_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `g`, `induction`
 - `map_mono_measure` -> `g`
 - `map_mul_eq_at` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
 - `map_mul_eq_self_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
@@ -8857,6 +8857,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reachL_singleton_eq_chainFwd` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `reaches_self` -> `Reaches`
 - `readLength_determinate_of_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `readOf_fillWith` -> `IRSkeleton`, `Tensor`, `TensorShape`
 - `readOf_zero_data` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `g`, `induction`, `length`, `split`, `subst`
 - `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
 - `readSlot_linear` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`

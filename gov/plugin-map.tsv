@@ -359,11 +359,13 @@ core	Core/IR	Core/IR/Lifecycle.lean	unload_inactive	no
 core	Core/IR	Core/IR/Lifecycle.lean	unload_removes_only_own	no
 core	Core/IR	Core/IR/Materialize.lean	fillWith_zero	no
 core	Core/IR	Core/IR/Materialize.lean	find	no
+core	Core/IR	Core/IR/Materialize.lean	find	no
 core	Core/IR	Core/IR/Materialize.lean	map_inj_of_nodup	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_empty	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_exists	no
 core	Core/IR	Core/IR/Materialize.lean	materialize_tensors_length	no
 core	Core/IR	Core/IR/Materialize.lean	output	no
+core	Core/IR	Core/IR/Materialize.lean	readOf_fillWith	no
 core	Core/IR	Core/IR/Materialize.lean	readOf_zero_data	no
 core	Core/IR	Core/IR/Materialize.lean	skeleton_of_fillZeros	no
 core	Core/IR	Core/IR/Modulus.lean	modulus_mono_in_eps	no

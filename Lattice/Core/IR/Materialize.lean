@@ -258,4 +258,61 @@ theorem map_inj_of_nodup {α : Type} (l : List α) (g : α → ℕ) (hnd : (l.ma
         exact hnot (h.symm ▸ List.mem_map_of_mem g ha)
       · exact ih hndtl ha hb
 
+/-- **`find?` WITH THE `id` PREDICATE HITS THE ELEMENT YOU KNOW IS THERE.**
+
+**`(l.map (·.id)).Nodup` and `x ∈ l` give `l.find? (fun u => u.id = x.id) = some x`.**
+
+**=> this is `find?_eq_some_of_nodup` specialised to tensors, and the specialisation is not cosmetic: `Tensor` has no
+`DecidableEq` -- its `data` is a function -- so the equality-predicate form CANNOT be stated for it.**
+**The `id` predicate is the only available handle, and this lemma says it behaves exactly like equality would.** -/
+theorem find?_id_eq_some (l : List Tensor) (hnd : (l.map (·.id)).Nodup)
+    {x : Tensor} (hx : x ∈ l) :
+    l.find? (fun u => u.id = x.id) = some x := by
+  induction l with
+  | nil => simp at hx
+  | cons h tl ih =>
+    simp only [List.map_cons, List.nodup_cons] at hnd
+    obtain ⟨hnot, hndtl⟩ := hnd
+    rcases List.mem_cons.mp hx with rfl | hx
+    · simp
+    · have hne : ¬ (h.id = x.id) := by
+        intro hh
+        exact hnot (hh ▸ List.mem_map_of_mem (·.id) hx)
+      rw [List.find?_cons_of_neg _ (by simp [hne])]
+      exact ih hndtl hx
+
+/-- **`fillWith` IS FAITHFUL: THE SUPPLIED DATA IS READ BACK EXACTLY.**
+
+**For a `Nodup`-id skeleton, reading the tensor built from `st` at index `i` returns `f st`'s value at `i`.**
+
+**=> this closes the gap that made `fillWith` (round 233) a definition without a use: without it, nothing could say
+that the data a caller supplied is the data the structure READS.**
+**With it, `covered` becomes a substantive condition -- it can compare nonzero readings against named positions,
+because the readings are finally known.**
+
+**Three facts carry the proof, and each was needed in full:**
+**1. `hnd2`: the id list of `fillWith k f` is `Nodup`, inherited from `k.tensors`'s (`simpa`);**
+**2. `find?_id_eq_some`: the search `readOf` performs lands on `st`'s tensor;**
+**3. `dif_pos hid`: the index is in range, so `readOf` takes the `data` branch rather than returning `0`.**
+
+**=> note what is NOT used: `map_inj_of_nodup` (round 235).**
+**It was proved on the route to this theorem, but `find?_id_eq_some` subsumes the identification step, so the proof
+never needs to compare two tensors.** -/
+theorem readOf_fillWith {k : IRSkeleton}
+    {f : (s : TensorShape) → Fin s.shape.prod → ℝ}
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    {st : TensorShape} (hst : st ∈ k.tensors) {i : ℕ}
+    (hid : i < st.shape.prod) :
+    readOf (fillWith k f) st.id [i] = f st ⟨i, hid⟩ := by
+  unfold readOf fillWith
+  have hnd2 :
+      ((k.tensors.map (fun s => ({ id := s.id, shape := s.shape, data := f s } : Tensor))).map (·.id)).Nodup := by
+    simpa using hnd
+  have hmem : ({ id := st.id, shape := st.shape, data := f st } : Tensor) ∈
+      k.tensors.map (fun s => ({ id := s.id, shape := s.shape, data := f s } : Tensor)) :=
+    List.mem_map_of_mem (fun s => ({ id := s.id, shape := s.shape, data := f s } : Tensor)) hst
+  rw [find?_id_eq_some _ hnd2 hmem]
+  simp only
+  rw [dif_pos hid]
+
 end Lattice.Core.IR
