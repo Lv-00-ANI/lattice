@@ -202,4 +202,60 @@ theorem fillWith_zero (k : IRSkeleton) :
    find-returns-the-element-you-know-is-there lemma, which this tree lacks for id-indexed tensors.
    Recorded rather than shipping an unproved exact. -/
 
+/-! ## Two list lemmas that `readOf` needs
+
+`readOf` SEARCHES the tensor list for the entry whose `id` matches.  Recovering what it finds therefore needs two
+facts about `List.find?` and `List.Nodup` that mathlib does not package for `id`-indexed records.
+
+**Both are stated for abstract lists, so they are reusable outside this file.** -/
+
+/-- **IN A `Nodup` LIST, `find?` ALWAYS HITS THE ELEMENT YOU KNOW IS THERE.**
+
+**`l.Nodup` and `x ∈ l` give `l.find? (· = x) = some x`.**
+
+**=> this is the "find returns what you know is present" fact that `readOf`'s search needs.**
+**Stated for an abstract list with `DecidableEq`, so it applies to `List Tensor` without unfolding the record.** -/
+theorem find?_eq_some_of_nodup {α : Type} [DecidableEq α]
+    (l : List α) (hnd : l.Nodup) {x : α} (hx : x ∈ l) :
+    l.find? (fun u => u = x) = some x := by
+  induction l with
+  | nil => simp at hx
+  | cons h tl ih =>
+    rw [List.nodup_cons] at hnd
+    obtain ⟨hnot, hndtl⟩ := hnd
+    rcases List.mem_cons.mp hx with heq | hx
+    · subst heq
+      rw [List.find?_cons_of_pos _ (by simp)]
+    · have hxh : ¬ (h = x) := by
+        intro hh
+        exact hnot (hh ▸ hx)
+      rw [List.find?_cons_of_neg _ (by simp [hxh])]
+      exact ih hndtl hx
+
+/-- **A `Nodup` IMAGE MAKES THE FIBRES SINGLETONS.**
+
+**If `(l.map g).Nodup` and `a, b ∈ l` have `g a = g b`, then `a = b`.**
+
+**=> this turns "the ids are distinct" into "the ids IDENTIFY the elements", which is what lets `readOf`'s search
+result be compared with the tensor the caller already holds.**
+**The proof is a `cons` induction; the `Nodup` head fact forbids the element found in the tail from carrying the head's
+image value, and that is exactly the two `exfalso` branches.** -/
+theorem map_inj_of_nodup {α : Type} (l : List α) (g : α → ℕ) (hnd : (l.map g).Nodup)
+    {a b : α} (ha : a ∈ l) (hb : b ∈ l) (h : g a = g b) : a = b := by
+  induction l with
+  | nil => simp at ha
+  | cons x tl ih =>
+    simp only [List.map_cons, List.nodup_cons] at hnd
+    obtain ⟨hnot, hndtl⟩ := hnd
+    simp only [List.mem_cons] at ha hb
+    rcases ha with rfl | ha
+    · rcases hb with rfl | hb
+      · rfl
+      · exfalso
+        exact hnot (h ▸ List.mem_map_of_mem g hb)
+    · rcases hb with rfl | hb
+      · exfalso
+        exact hnot (h.symm ▸ List.mem_map_of_mem g ha)
+      · exact ih hndtl ha hb
+
 end Lattice.Core.IR
