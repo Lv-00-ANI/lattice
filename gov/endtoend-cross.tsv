@@ -372,7 +372,11 @@ Core/IR/Semantics.lean	compile_sound_content
 Core/IR/Semantics.lean	modelsIRS_implies_modelsIR
 Core/IR/Semantics.lean	semanticsOf_nil
 Core/IR/Semantics.lean	parseWithRelations_wellFormed
-Core/IR/Semantics.lean	length_shapesOf_materializeWith
+Core/IR/Semantics.lean	matw_roundtrip
+Core/IR/Semantics.lean	shapesOf_materializeWith
+Core/IR/Semantics.lean	length_tensors_materializeWith
+Core/IR/Semantics.lean	tensors_materializeWith_zero
+Core/IR/Semantics.lean	readOf_materializeWith
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

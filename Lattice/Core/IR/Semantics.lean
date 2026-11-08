@@ -178,18 +178,43 @@ def materializeWith (k : IRSkeleton)
   tensors := fillWith k f
   relations := k.relations.map (fun r => { kind := r.kind, args := r.args, hold := trivial, part := r.part })
 
-/-- **`materializeWith`'s relation list has the skeleton's own LENGTH.**
+/-- **THE `RelationShape` / `Relation` ROUND TRIP IS THE IDENTITY.**
 
-**`(shapesOf (materializeWith k f)).length = k.relations.length`.**
+**`materializeWith` maps a shape to a `Relation` by adding `trivial`; `shapesOf` maps a `Relation` back to a shape by
+projection; and the two compose to the identity on `RelationShape`.**
 
-**=> the materialisation keeps EVERY relation of the skeleton.**
-**The full equality `shapesOf (materializeWith k f) = k.relations` is also true and easier to state, but its proof
-needs a composition identity between `RelationShape` and `Relation (fun _ _ => True)` that this round did not close;
-the LENGTH statement carries the same "nothing is dropped" content and closes immediately.** -/
-theorem length_shapesOf_materializeWith (k : IRSkeleton)
+**=> this is the composition identity round 238 recorded as open.**
+**Its difficulty was a TYPE MISMATCH, not a mathematical one: the composition is `RelationShape -> Relation ->
+RelationShape`, so `funext` over `RelationShape` is the right move, but the INTERMEDIATE type is `Relation` and
+`List.map_congr_left` wants a different goal shape than the list equality has.**
+**Stating the pointwise step separately (`matw_roundtrip`) and then `funext`-ing over it is what makes it go.** -/
+theorem matw_roundtrip (r : RelationShape) :
+    (fun s : Relation (fun _ _ => True) =>
+        ({ kind := s.kind, args := s.args, part := s.part } : RelationShape))
+      ({ kind := r.kind, args := r.args, hold := trivial, part := r.part } : Relation (fun _ _ => True))
+    = r := rfl
+
+/-- **`materializeWith` KEEPS THE SKELETON'S RELATIONS EXACTLY.**
+
+**`shapesOf (materializeWith k f) = k.relations`.**
+
+**=> the materialisation loses NOTHING about the structure: the relation shapes read back from the materialised object
+are the skeleton's own list, element for element.**
+**Together with `fillWith_zero` this says `materializeWith` is a faithful translation of both halves of a skeleton.**
+**The proof is `matw_roundtrip` plus `funext` plus `List.map_id`: the composition of the two maps is `id`, so mapping
+by it changes nothing.** -/
+theorem shapesOf_materializeWith (k : IRSkeleton)
     (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
-    (shapesOf (materializeWith k f)).length = k.relations.length := by
-  simp only [shapesOf, materializeWith, List.length_map]
+    shapesOf (materializeWith k f) = k.relations := by
+  simp only [shapesOf, materializeWith, List.map_map]
+  have h : ((fun s : Relation (fun _ _ => True) =>
+        ({ kind := s.kind, args := s.args, part := s.part } : RelationShape))
+      ∘ (fun r : RelationShape =>
+        ({ kind := r.kind, args := r.args, hold := trivial, part := r.part } : Relation (fun _ _ => True))))
+      = id := by
+    funext r
+    exact matw_roundtrip r
+  rw [h, List.map_id]
 
 /-- **`ModelsIRSWith`: the weights model the skeleton, WITH REAL DATA.**
 
@@ -204,6 +229,42 @@ def ModelsIRSWith (W : IRWeights) (k : IRSkeleton)
     (f : (s : TensorShape) → Fin s.shape.prod → ℝ) : Prop :=
   W = compileSkel k ∧
   covered (materializeWith k f).tensors (shapesOf (materializeWith k f))
+
+/-- **`materializeWith` KEEPS THE SKELETON'S TENSOR COUNT.**
+
+**`(materializeWith k f).tensors.length = k.tensors.length`.**
+
+**=> the materialisation does not add or drop tensors; only the `data` FIELDS differ from `materialize`'s.**
+**This is the tensor-side companion of `shapesOf_materializeWith`: together they say `materializeWith` translates both
+halves of a skeleton without loss.** -/
+theorem length_tensors_materializeWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    (materializeWith k f).tensors.length = k.tensors.length := by
+  simp only [materializeWith, fillWith, List.length_map]
+
+/-- **`materializeWith` AT THE ZERO FUNCTION IS `materialize`'s TENSOR LIST.**
+
+**=> the two materialisations agree on TENSORS when the caller supplies the zero function; they differ only in whether
+the relations survive.**
+**So `materializeWith` is a genuine generalisation of `materialize`, not an alternative to it.** -/
+theorem tensors_materializeWith_zero (k : IRSkeleton) :
+    (materializeWith k (fun _ _ => (0 : ℝ))).tensors = fillZeros k := by
+  simp only [materializeWith, fillWith_zero]
+
+/-- **READING A `materializeWith` STRUCTURE AT A NONZERO POSITION.**
+
+**If the supplied function is nonzero at `i` and the index is in range, `readOf` returns that value -- provided the ids
+are `Nodup`.**
+
+**=> this is `readOf_fillWith` (round 236) lifted to the `LatticeIR` level, and it is the bridge that lets a caller
+reason about a materialised structure's CONTENT rather than about its `fillWith` internals.** -/
+theorem readOf_materializeWith {k : IRSkeleton}
+    {f : (s : TensorShape) → Fin s.shape.prod → ℝ}
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    {st : TensorShape} (hst : st ∈ k.tensors) {i : ℕ} (hid : i < st.shape.prod) :
+    readOf (materializeWith k f).tensors st.id [i] = f st ⟨i, hid⟩ := by
+  simp only [materializeWith]
+  exact readOf_fillWith hnd hst hid
 
 end Lattice.Core.IR
 
