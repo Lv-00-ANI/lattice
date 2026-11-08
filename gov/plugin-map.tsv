@@ -374,6 +374,8 @@ core	Core/IR	Core/IR/Obligations.lean	extract_compile_iff	no
 core	Core/IR	Core/IR/Obligations.lean	extract_compile_skel	no
 core	Core/IR	Core/IR/Parse.lean	dependsShape_args	no
 core	Core/IR	Core/IR/Parse.lean	parseSkeleton_total	no
+core	Core/IR	Core/IR/Parse.lean	parseWithRelations_eq	no
+core	Core/IR	Core/IR/Parse.lean	parseWithRelations_has_tensor	no
 core	Core/IR	Core/IR/Parse.lean	parse_eq_parseSkeleton	no
 core	Core/IR	Core/IR/Parse.lean	parse_has_tensor	no
 core	Core/IR	Core/IR/Parse.lean	parse_tensors_length	no

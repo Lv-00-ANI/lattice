@@ -250,6 +250,28 @@ def parseSkeletonWithRelations (t : Term) : IRSkeleton :=
   let (ts, rs, _) := walkWithRelations t 0
   ⟨ts, rs⟩
 
+/-- **`parseWithRelations`: the walk's full output, TENSORS AND RELATIONS.**
+
+**`parse` (above) takes only the tensor half (`parseSkeleton`); this takes both.**
+
+**=> the two coexist deliberately: `parse` is the shape-only parse whose theorems (`parse_tensors_length`,
+`parse_has_tensor`, `parse_eq_parseSkeleton`) are stated about it, and `parseWithRelations` is the dependency-graph
+parse.**
+**Replacing `parse` outright would break those three theorems for no gain, and the objective's rule is that no route
+is abolished -- so the richer parse is ADDED rather than substituted.**
+
+**`parseWithRelations_wellFormed` (`Semantics.lean`) shows this one is well formed, which `parse` could not claim
+because it emits no relations to be well formed ABOUT.** -/
+def parseWithRelations (t : Term) : IRSkeleton :=
+  parseSkeletonWithRelations t
+
+/-- **`parseWithRelations` IS THE WALK'S SKELETON, definitionally.** -/
+theorem parseWithRelations_eq (t : Term) :
+    parseWithRelations t = parseSkeletonWithRelations t :=
+  rfl
+
+
+
 /-- **THE COUNTER NEVER DECREASES.**
 
 **`n ≤ (walkWithRelations t n).2.2` for every term and every starting counter.**
@@ -763,5 +785,18 @@ theorem walkWithRelations_relations_are_depends (t : Term) (n : ℕ) :
     · rcases List.mem_append.mp h with h' | h'
       · exact iht (n + 1) r h'
       · exact ihb _ r h'
+
+/-- **`parseWithRelations` EMITS AT LEAST ONE TENSOR, for every term.**
+
+**=> the dependency-graph parse never yields the empty skeleton, which is what makes its relations meaningful: there
+is always a tensor for an argument to name.**
+**The proof is contrapositive on `walk_own_id_mem`: if the tensor list were empty, `n = 0` could not be in its map.** -/
+theorem parseWithRelations_has_tensor (t : Term) : (parseWithRelations t).tensors ≠ [] := by
+  have h := walk_own_id_mem t 0
+  unfold parseWithRelations parseSkeletonWithRelations
+  show (walkWithRelations t 0).1 ≠ []
+  intro he
+  rw [he] at h
+  simp at h
 
 end Lattice.Core.IR

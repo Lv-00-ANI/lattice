@@ -1103,7 +1103,7 @@
 | `Lattice.Core.IR.Materialize` | 6 | 4 |
 | `Lattice.Core.IR.Modulus` | 4 | 1 |
 | `Lattice.Core.IR.Obligations` | 5 | 3 |
-| `Lattice.Core.IR.Parse` | 19 | 8 |
+| `Lattice.Core.IR.Parse` | 21 | 9 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Semantics` | 4 | 2 |
@@ -8240,6 +8240,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `progress`, `zero`
 - `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parseWithRelations_eq` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
+- `parseWithRelations_has_tensor` -> `Term`, `at`
 - `parseWithRelations_wellFormed` -> `Term`, `WellFormed`, `parseSkeletonWithRelations`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
