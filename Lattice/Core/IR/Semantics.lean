@@ -823,6 +823,78 @@ theorem parseIndexed_covered_zero (t : Lattice.Core.CIC.Term) :
     simpa [materializeWith, fillWith, List.mem_map] using ht
   exact absurd (readOf_materializeWith (parseIndexed_nodup t) hst hi) hne
 
+/-! ## A NONZERO covered instance -- the indexed relations earn their keep
+
+`parseIndexed_covered_zero` (round 256) showed the covering condition is satisfiable, but only vacuously.
+
+**This section gives a NONZERO instance, which is what round 254 proved impossible for the UNINDEXED relations.**
+**=> that is the whole payoff of the indexed variant: a structure whose data is not identically zero can now be
+covered, and the earlier impossibility theorem remains true for the original encoding.**
+
+**The witness is an `app` term whose indexed skeleton names `(0, [0])` and `(1, [0])`, and data that is `1` at index
+`0` of those two ids and `0` everywhere else.**
+**=> the third tensor (`id 2`, the argument) is NOT named, so the data must vanish there, and it does.** -/
+
+/-- **Data that is `1` at index `0` of ids `0` and `1`, and `0` everywhere else.**
+
+**=> exactly the shape of content the `app` skeleton`s indexed relation can account for: two named positions, one
+nonzero reading each.**
+**The nested `if` structure (rather than a conjunction) is deliberate: each test is a `Decidable` proposition, so the
+proof can SPLIT on them and extract `(s.id = 0 or s.id = 1) and i = 0` from a nonzero reading.** -/
+def namedFirstData (s : TensorShape) : Fin s.shape.prod → ℝ :=
+  fun i => if s.id = 0 then (if (i : ℕ) = 0 then 1 else 0)
+           else (if s.id = 1 then (if (i : ℕ) = 0 then 1 else 0) else 0)
+
+/-- **A NONZERO READING OF `namedFirstData` COMES FROM A NAMED POSITION AT INDEX `0`.**
+
+**=> the extraction that makes the covering proof go: nonzero implies `(s.id = 0 or s.id = 1) and i = 0`, which is
+precisely "this position is one the `app` relation names".** -/
+theorem namedFirstData_zero_or {s : TensorShape} {i : ℕ} {hi : i < s.shape.prod}
+    (h : namedFirstData s ⟨i, hi⟩ ≠ 0) : (s.id = 0 ∨ s.id = 1) ∧ i = 0 := by
+  unfold namedFirstData at h
+  split at h
+  · split at h
+    · exact ⟨Or.inl ‹s.id = 0›, by assumption⟩
+    · exact absurd rfl h
+  · split at h
+    · split at h
+      · exact ⟨Or.inr ‹s.id = 1›, by assumption⟩
+      · exact absurd rfl h
+    · exact absurd rfl h
+
+/-- **AN `app` TERM`S INDEXED SKELETON IS COVERED BY NONZERO DATA.**
+
+**=> the NONZERO instance round 256 could not state and round 254 proved unreachable for the unindexed relations.**
+**Three facts carry it: `readOf_materializeWith` turns the reading into `namedFirstData`; `namedFirstData_zero_or`
+turns nonzero into "named id at index 0"; and the emitted relation` s argument list `[(0, [0]), (1, [0])]` is exactly
+what that conclusion needs.** -/
+theorem app_indexed_covered_nonzero :
+    covered (materializeWith (Lattice.Core.IR.parseIndexed
+      (Lattice.Core.CIC.Term.app (Lattice.Core.CIC.Term.var 0) (Lattice.Core.CIC.Term.var 1)))
+        namedFirstData).tensors
+      (shapesOf (materializeWith (Lattice.Core.IR.parseIndexed
+        (Lattice.Core.CIC.Term.app (Lattice.Core.CIC.Term.var 0) (Lattice.Core.CIC.Term.var 1)))
+          namedFirstData)) := by
+  intro t i ht hi hne
+  obtain ⟨st, hst, rfl⟩ := by
+    simpa [materializeWith, fillWith, List.mem_map] using ht
+  have hnd : ((Lattice.Core.IR.parseIndexed
+      (Lattice.Core.CIC.Term.app (Lattice.Core.CIC.Term.var 0) (Lattice.Core.CIC.Term.var 1))).tensors.map
+        (·.id)).Nodup := parseIndexed_nodup _
+  have hval : readOf (materializeWith (Lattice.Core.IR.parseIndexed
+      (Lattice.Core.CIC.Term.app (Lattice.Core.CIC.Term.var 0) (Lattice.Core.CIC.Term.var 1)))
+        namedFirstData).tensors st.id [i] = namedFirstData st ⟨i, hi⟩ :=
+    readOf_materializeWith hnd hst hi
+  rw [hval] at hne
+  obtain ⟨hid, hi0⟩ := namedFirstData_zero_or hne
+  refine ⟨{ kind := .depends, args := [(0, [0]), (1, [0])], part := some .arch }, ?_, ?_⟩
+  · rw [shapesOf_materializeWith]
+    simp [Lattice.Core.IR.parseIndexed, walkIndexed, dependsShapeAt]
+  · rw [hi0]
+    rcases hid with h0 | h1
+    · rw [h0]; simp [Names]
+    · rw [h1]; simp [Names]
+
 end Lattice.Core.IR
 
 

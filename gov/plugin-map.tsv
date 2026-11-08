@@ -434,6 +434,7 @@ core	Core/IR	Core/IR/Relations.lean	equalHolds_symm	no
 core	Core/IR	Core/IR/Relations.lean	equalHolds_trans	no
 core	Core/IR	Core/IR/Relations.lean	equal_zero_consistent	no
 core	Core/IR	Core/IR/Semantics.lean	agrees_not_subsumes_covered	no
+core	Core/IR	Core/IR/Semantics.lean	app_indexed_covered_nonzero	no
 core	Core/IR	Core/IR/Semantics.lean	compile_sound_content	no
 core	Core/IR	Core/IR/Semantics.lean	complies_and_covered	no
 core	Core/IR	Core/IR/Semantics.lean	covered_of_vanishing	no
@@ -443,6 +444,7 @@ core	Core/IR	Core/IR/Semantics.lean	length_tensors_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	matw_roundtrip	no
 core	Core/IR	Core/IR/Semantics.lean	modelsIRS_implies_modelsIR	no
 core	Core/IR	Core/IR/Semantics.lean	models_of_covered_data	no
+core	Core/IR	Core/IR/Semantics.lean	namedFirstData_zero_or	no
 core	Core/IR	Core/IR/Semantics.lean	parseIndexed_app_ids	no
 core	Core/IR	Core/IR/Semantics.lean	parseIndexed_covered_zero	no
 core	Core/IR	Core/IR/Semantics.lean	parseIndexed_nodup	no
