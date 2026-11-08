@@ -686,6 +686,90 @@ theorem dependsShape_names_nothing (head : TensorId) (children : List TensorId) 
   have := dependsShape_args_empty head children (id, [i]) h
   simp at this
 
+/-! ## CLOSING the gap: an indexed `dependsShape`
+
+Round 254 proved that `dependsShape`'s arguments all have the EMPTY index list, so `covered` could never be satisfied by
+walk-emitted relations.
+
+**This section closes it the way the objective allows: by ADDING a variant rather than changing the original, so no
+route is abolished.**
+**`dependsShapeAt` puts index `0` on the head and on each child, and `walkIndexed` mirrors the walk using it.**
+
+**=> the tensors and the counter are IDENTICAL to `walkWithRelations`'s (`walkIndexed_tensors`,
+`walkIndexed_count`), so the only difference is that the relations now NAME positions.**
+**That is exactly what `covered` needs, and it is the design change round 254 identified.** -/
+
+/-- **An indexed dependency edge: the head depends on each child AT INDEX `0`.**
+
+**=> the same graph as `dependsShape`, with the positions made explicit.**
+**Index `0` is the only one that can be named without knowing the tensors' shapes, which is why this variant is what
+the walk can produce: the walk knows the ids, not the index ranges.** -/
+def dependsShapeAt (head : TensorId) (children : List TensorId) : RelationShape where
+  kind := .depends
+  args := (head, [0]) :: children.map (fun c => (c, [0]))
+  part := some .arch
+
+/-- **THE WALK, WITH INDEXED RELATIONS.**
+
+**Same recursion, same tensors, same counter as `walkWithRelations`; only `dependsShape` becomes `dependsShapeAt`.** -/
+def walkIndexed : Lattice.Core.CIC.Term -> Nat -> (List TensorShape × List RelationShape × Nat)
+  | Lattice.Core.CIC.Term.sort _ _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Lattice.Core.CIC.Term.var _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Lattice.Core.CIC.Term.const _, n => ([TensorShape.mk n termShape], [], n + 1)
+  | Lattice.Core.CIC.Term.app f a, n =>
+    let (tf, rf, n1) := walkIndexed f (n + 1)
+    let (ta, ra, n2) := walkIndexed a n1
+    (TensorShape.mk n termShape :: (tf ++ ta),
+     dependsShapeAt n [n + 1] :: (rf ++ ra), n2)
+  | Lattice.Core.CIC.Term.lam _ b, n =>
+    let (tb, rb, n1) := walkIndexed b (n + 1)
+    (TensorShape.mk n termShape :: tb, dependsShapeAt n [n + 1] :: rb, n1)
+  | Lattice.Core.CIC.Term.pi _ B, n =>
+    let (tB, rB, n1) := walkIndexed B (n + 1)
+    (TensorShape.mk n termShape :: tB, dependsShapeAt n [n + 1] :: rB, n1)
+  | Lattice.Core.CIC.Term.letE _ t b, n =>
+    let (tt, rt, n1) := walkIndexed t (n + 1)
+    let (tb, rb, n2) := walkIndexed b n1
+    (TensorShape.mk n termShape :: (tt ++ tb),
+     dependsShapeAt n [n + 1] :: (rt ++ rb), n2)
+
+/-- **THE COUNTER IS UNCHANGED BY INDEXING.**
+
+**=> the variant allocates ids exactly as the original does, so every id fact proved for `walkWithRelations` (rounds
+216-231) transfers.** -/
+theorem walkIndexed_count (t : Lattice.Core.CIC.Term) : ∀ n : Nat,
+    (walkIndexed t n).2.2 = (walkWithRelations t n).2.2 := by
+  induction t with
+  | sort k l => intro n; simp [walkIndexed, walkWithRelations]
+  | var k => intro n; simp [walkIndexed, walkWithRelations]
+  | const k => intro n; simp [walkIndexed, walkWithRelations]
+  | lam kk b _ ih => intro n; simp [walkIndexed, walkWithRelations, ih]
+  | pi kk B _ ih => intro n; simp [walkIndexed, walkWithRelations, ih]
+  | app f a ihf iha => intro n; simp [walkIndexed, walkWithRelations, ihf, iha]
+  | letE kk tt b _ ih1 ih2 => intro n; simp [walkIndexed, walkWithRelations, ih1, ih2]
+
+/-- **THE TENSOR LIST IS UNCHANGED BY INDEXING.**
+
+**=> the variant produces the SAME structure; only the relation shapes differ.**
+**The `app`/`letE` cases need `walkIndexed_count` first, because the second sub-walk is started at the FIRST one's
+counter, and the two walks must agree there before their tensor lists can be compared.** -/
+theorem walkIndexed_tensors (t : Lattice.Core.CIC.Term) : ∀ n : Nat,
+    (walkIndexed t n).1 = (walkWithRelations t n).1 := by
+  induction t with
+  | sort k l => intro n; simp [walkIndexed, walkWithRelations]
+  | var k => intro n; simp [walkIndexed, walkWithRelations]
+  | const k => intro n; simp [walkIndexed, walkWithRelations]
+  | lam kk b _ ih => intro n; simp [walkIndexed, walkWithRelations, ih]
+  | pi kk B _ ih => intro n; simp [walkIndexed, walkWithRelations, ih]
+  | app f a ihf iha =>
+    intro n
+    simp only [walkIndexed, walkWithRelations]
+    rw [← walkIndexed_count f (n+1), ihf, iha]
+  | letE kk tt b _ ih1 ih2 =>
+    intro n
+    simp only [walkIndexed, walkWithRelations]
+    rw [← walkIndexed_count tt (n+1), ih1, ih2]
+
 end Lattice.Core.IR
 
 

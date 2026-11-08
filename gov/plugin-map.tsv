@@ -460,6 +460,8 @@ core	Core/IR	Core/IR/Semantics.lean	readOf_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	semanticsOf_nil	no
 core	Core/IR	Core/IR/Semantics.lean	shapesOf_materializeWith	no
 core	Core/IR	Core/IR/Semantics.lean	tensors_materializeWith_zero	no
+core	Core/IR	Core/IR/Semantics.lean	walkIndexed_count	no
+core	Core/IR	Core/IR/Semantics.lean	walkIndexed_tensors	no
 core	Core/IR	Core/IR/Skeleton.lean	compileIR_injective	no
 core	Core/IR	Core/IR/Skeleton.lean	extract_compileIR	no
 core	Core/IR	Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape	no

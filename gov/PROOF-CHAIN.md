@@ -1106,7 +1106,7 @@
 | `Lattice.Core.IR.Parse` | 21 | 9 |
 | `Lattice.Core.IR.Penalty` | 5 | 3 |
 | `Lattice.Core.IR.Relations` | 5 | 5 |
-| `Lattice.Core.IR.Semantics` | 27 | 8 |
+| `Lattice.Core.IR.Semantics` | 29 | 10 |
 | `Lattice.Core.IR.Skeleton` | 8 | 11 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
@@ -2545,7 +2545,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_gap_shape` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
-- `agrees_not_subsumes_covered` -> `IRSkeleton`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `agrees_not_subsumes_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `alibi_attention_output_bound` -> `at`, `attention_output_bound`, `convComb`, `dist`, `softmax`, `softmax_monotone`
 - `alibi_bias_lipschitz` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `alibi_bias_monotone` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `dist_nonneg`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
@@ -3656,7 +3656,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_rope_score_phase_relation` -> `complexRotate`, `complex_rope_phase_shift`, `softmax`
 - `complex_score_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `complies_and_covered` -> `IRSkeleton`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `complies_and_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
 - `compose2_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`
@@ -4011,7 +4011,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coverage_all_mandatory` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryCompleteFor`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `VerifiedPlugin`, `at`, `claims`, `length`, `mandatoryKinds`, `manifest`, `strPrefix_append_right`, `subst`, `verified`
 - `coverage_corrected` -> `GeoConstraint`, `Holds`, `Pt`
 - `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `g`, `inter`
-- `covered_of_vanishing` -> `IRSkeleton`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `covered_of_vanishing` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `covers_mono` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `cps_call_by_value_shape` -> `Compiler`, `at`, `lit`
 - `cps_correct` -> `Compiler`, `add`, `at`, `induction`, `lit`
@@ -4301,8 +4301,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dependsHolds_refl` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsHolds_weaken` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `at`, `induction`, `subst`
-- `dependsShape_args_empty` -> `Names`, `TensorId`, `at`, `children`, `dependsShape`
-- `dependsShape_names_nothing` -> `Names`, `TensorId`, `at`, `children`, `dependsShape`
+- `dependsShape_args_empty` -> `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `dependsShape`, `induction`, `termShape`, `walkWithRelations`
+- `dependsShape_names_nothing` -> `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `dependsShape`, `induction`, `termShape`, `walkWithRelations`
 - `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `d`, `depth`, `eval`, `mul`, `size`
 - `depthList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
@@ -7467,7 +7467,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `model_chain_numeric_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `at`, `le_trans`
 - `model_chain_numeric_bound_wired` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`
 - `model_chain_numeric_expanded` -> `ChainFwd`, `SoftmaxAttnOp`, `W`
-- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfSubsetProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
@@ -8276,21 +8276,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parseWithRelations_eq` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `parseWithRelations_has_tensor` -> `Term`, `at`
-- `parseWithRelations_wellFormed` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
-- `parse_chain` -> `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_chain_summary` -> `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
+- `parseWithRelations_wellFormed` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `parse_chain` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_chain_summary` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
 - `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `parse_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileSkel`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_models_extract` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_models_full` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_models_extract` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_models_full` -> `IRSkeleton`, `IRWeights`, `Names`, `Rel`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`
 - `parse_tensors_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
 - `parse_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_var_not_covered` -> `Names`, `Tensor`, `TensorId`, `Term`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
-- `parse_var_relations_nil` -> `Names`, `Tensor`, `TensorId`, `Term`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
-- `parse_var_tensors_length` -> `Names`, `Tensor`, `TensorId`, `Term`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
+- `parse_var_not_covered` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
+- `parse_var_relations_nil` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
+- `parse_var_tensors_length` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
 - `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `vocab`, `zero`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
@@ -9795,7 +9795,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `GeoConstraint`, `Holds`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Pt`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `extract`, `extractVec`, `fiber`, `g`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`, `translate`
 - `semantic_of_extract` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
 - `semantic_roundtrip_compiles_agree` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
-- `semanticsOf_nil` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `semanticsOf_nil` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `sep_absent_gives_zero_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `enc`, `pieceOf`
@@ -11237,6 +11237,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `w3_layerOut_unfold` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_mod_ne_zero` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `modSinLoss_zero_iff_congruent`, `symVec`, `symW`
 - `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `walkIndexed_count` -> `Term`, `induction`, `walkWithRelations`
+- `walkIndexed_tensors` -> `Term`, `induction`, `walkWithRelations`
 - `walkWithRelations_relations_are_depends` -> `RelKind`, `Term`, `at`, `induction`
 - `walk_count` -> `TensorId`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_increasing` -> `RelKind`, `TensorShape`, `Term`, `at`, `induction`, `subst`
