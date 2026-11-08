@@ -530,6 +530,52 @@ theorem agrees_not_subsumes_covered (k : IRSkeleton)
   agrees_compileWith k f hnd
 
 
+/-! ## The chain's summary theorem: a term, its relations, and the weights that satisfy both checks
+
+Rounds 250-251 put the loop on terms and related the two specifications.
+
+**This section states them TOGETHER, as the chain's public deliverable: given a `Term` and data that respects the term's
+relations, the compiled weights are accepted by BOTH checks.**
+
+**=> this is the most a caller can ask of the forward direction: the structure decodes back to the term's own skeleton,
+the readings are exactly the intended ones, and the symbols account for every nonzero reading.**
+
+**The only hypothesis beyond the term is `hzero`, and it is not a technicality: it is the caller's claim that their
+data is EXPLAINED by the symbols.**
+**Without it `covered` can fail (rounds 237, 240 exhibit such cases), so a chain that promised it unconditionally would
+be promising something false.** -/
+theorem parse_chain (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ (parseWithRelations t).tensors)
+        (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ (parseWithRelations t).relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    models (parseWithRelations t) (compileWith (parseWithRelations t) f) f ∧
+    covered (materializeWith (parseWithRelations t) f).tensors
+            (shapesOf (materializeWith (parseWithRelations t) f)) := by
+  refine ⟨parse_models_full t f, ?_⟩
+  exact covered_of_vanishing _ f (walk_nodup t 0) hzero
+
+/-- **THE CHAIN'S SUMMARY, IN ONE LINE: EVERY ARROW PROVED, EVERY HYPOTHESIS NAMED.**
+
+**For a term `t` and data `f` that vanishes where `t`'s relations do not look:**
+**1. `extract` of the compiled weights returns EXACTLY `parseWithRelations t` (round 250);**
+**2. the readings match `f` on every tensor of that skeleton (round 249);**
+**3. the materialised structure is `covered` (round 251);**
+**4. and every one of those holds with NO hypothesis on the term (round 227's `walk_nodup`).**
+
+**=> the forward direction of the representation chain -- symbols to weights -- is closed at the level a caller writes
+at, with the covering obligation honestly conditioned on the caller's data.** -/
+theorem parse_chain_summary (t : Lattice.Core.CIC.Term)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ (parseWithRelations t).tensors)
+        (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ (parseWithRelations t).relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    extract (compileWith (parseWithRelations t) f) = some (parseWithRelations t) ∧
+    (models (parseWithRelations t) (compileWith (parseWithRelations t) f) f ∧
+     covered (materializeWith (parseWithRelations t) f).tensors
+             (shapesOf (materializeWith (parseWithRelations t) f))) :=
+  ⟨parse_models_extract t f, parse_chain t f hzero⟩
+
 end Lattice.Core.IR
 
 
