@@ -154,5 +154,57 @@ theorem parseWithRelations_wellFormed (t : Lattice.Core.CIC.Term) :
   · exact walk_nodup t 0
   · exact walk_rel_args t 0
 
+/-! ## A materialisation with REAL data, and the model relation for it
+
+`materialize` fills every tensor with zeros AND drops the relations, so `covered` on it is vacuously true.
+
+**This section supplies the alternative: data from a caller-supplied function, and the skeleton's relations KEPT.**
+
+**=> the covering condition can finally FAIL on a skeleton-derived structure, which is what makes it a condition.** -/
+
+/-- **`materializeWith k f`: the structure's tensors with SUPPLIED data, and its relations KEPT.**
+
+**Two things make `materialize`'s version vacuous and this one substantive:**
+**1. the data comes from `f` rather than from the constant-zero function;**
+**2. the relations are the skeleton's own, translated to `Relation` under the permissive hypothesis
+`fun _ _ => True` (whose `hold` field is `trivial`).**
+
+**=> `covered` on this structure can be FALSE, because the data can be nonzero and the relations can fail to name it.**
+**Round 237 demonstrated such a failure on a hand-built pair; this function is how such a pair is produced FROM A
+SKELETON.** -/
+def materializeWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    LatticeIR (fun _ _ => True) where
+  tensors := fillWith k f
+  relations := k.relations.map (fun r => { kind := r.kind, args := r.args, hold := trivial, part := r.part })
+
+/-- **`materializeWith`'s relation list has the skeleton's own LENGTH.**
+
+**`(shapesOf (materializeWith k f)).length = k.relations.length`.**
+
+**=> the materialisation keeps EVERY relation of the skeleton.**
+**The full equality `shapesOf (materializeWith k f) = k.relations` is also true and easier to state, but its proof
+needs a composition identity between `RelationShape` and `Relation (fun _ _ => True)` that this round did not close;
+the LENGTH statement carries the same "nothing is dropped" content and closes immediately.** -/
+theorem length_shapesOf_materializeWith (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) :
+    (shapesOf (materializeWith k f)).length = k.relations.length := by
+  simp only [shapesOf, materializeWith, List.length_map]
+
+/-- **`ModelsIRSWith`: the weights model the skeleton, WITH REAL DATA.**
+
+**`ModelsIRS` requires `covered (materialize k).tensors ...`, and `materialize` uses zero data and no relations, so
+that conjunct holds for every skeleton.**
+**This version uses `materializeWith`, so the conjunct can FAIL.**
+
+**=> the statement keeps `ModelsIRS`'s two halves -- the weight equation and the covering condition -- but the covering
+condition now has content, so `ModelsIRSWith` is a genuine STRENGTHENING of `ModelsIRS` rather than a replacement for
+it.** -/
+def ModelsIRSWith (W : IRWeights) (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ) : Prop :=
+  W = compileSkel k ∧
+  covered (materializeWith k f).tensors (shapesOf (materializeWith k f))
+
 end Lattice.Core.IR
+
 
