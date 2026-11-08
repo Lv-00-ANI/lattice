@@ -412,6 +412,9 @@ Core/IR/Semantics.lean	complies_and_covered
 Core/IR/Semantics.lean	agrees_not_subsumes_covered
 Core/IR/Semantics.lean	parse_chain
 Core/IR/Semantics.lean	parse_chain_summary
+Core/IR/Semantics.lean	parse_var_relations_nil
+Core/IR/Semantics.lean	parse_var_tensors_length
+Core/IR/Semantics.lean	parse_var_not_covered
 Core/IR/Skeleton.lean	shapesCode_injective
 Core/IR/Skeleton.lean	tensorShapeCode_injective
 Core/IR/Skeleton.lean	relationShapeCode_injective

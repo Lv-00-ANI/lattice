@@ -576,6 +576,69 @@ theorem parse_chain_summary (t : Lattice.Core.CIC.Term)
              (shapesOf (materializeWith (parseWithRelations t) f))) :=
   ⟨parse_models_extract t f, parse_chain t f hzero⟩
 
+/-! ## `hzero` is NECESSARY, not merely convenient
+
+`parse_chain` (round 252) conditions the covering half on `hzero`: the data vanishes where the term's relations do not
+look.
+
+**This section shows the hypothesis cannot be dropped.**
+**A LEAF term's skeleton has ONE tensor and NO relations** (the walk over a `var` emits only its own node), **so any
+nonzero reading on it is unnameable and `covered` fails.**
+
+**=> the chain's promise is sharp: unconditional where it can be, conditioned where it must be.**
+**A theorem that asserted `covered` for arbitrary data would be FALSE, and the witness is a single `Term.var`.** -/
+
+/-- **A data function that is `1` at index `0` and `0` elsewhere.**
+
+**=> the smallest nontrivial content: one nonzero reading, everything else zero.** -/
+def nonzeroData (s : TensorShape) : Fin s.shape.prod -> Real :=
+  fun i => if (i : Nat) = 0 then 1 else 0
+
+/-- **A LEAF TERM'S SKELETON HAS NO RELATIONS.**
+
+**=> the walk over `Term.var n` emits its own node and nothing else, so there is nothing for a relation to say.**
+**This is why a leaf skeleton cannot cover nonzero data: the covering condition asks for a relation naming each nonzero
+reading, and there are none.** -/
+theorem parse_var_relations_nil (n : Nat) :
+    (parseWithRelations (Lattice.Core.CIC.Term.var n)).relations = [] := by
+  simp [parseWithRelations, parseSkeletonWithRelations, walkWithRelations]
+
+/-- **A LEAF TERM'S SKELETON HAS EXACTLY ONE TENSOR.** -/
+theorem parse_var_tensors_length (n : Nat) :
+    (parseWithRelations (Lattice.Core.CIC.Term.var n)).tensors.length = 1 := by
+  simp [parseWithRelations, parseSkeletonWithRelations, walkWithRelations]
+
+/-- **`hzero` CANNOT BE DROPPED: A LEAF TERM WITH NONZERO DATA IS NOT COVERED.**
+
+**`covered` FAILS for `parseWithRelations (Term.var 0)` materialised with `nonzeroData`.**
+
+**=> this is the term-level counterpart of rounds 237 and 240's hand-built counterexamples, and it is sharper: the term
+is a single constructor, so the failure is structural rather than a matter of a badly chosen relation list.**
+**It is what makes `parse_chain`'s hypothesis honest: the chain does not CLAIM coverage for arbitrary data, because the
+claim would be false.** -/
+theorem parse_var_not_covered :
+    Not (covered (materializeWith (parseWithRelations (Lattice.Core.CIC.Term.var 0)) nonzeroData).tensors
+      (shapesOf (materializeWith (parseWithRelations (Lattice.Core.CIC.Term.var 0)) nonzeroData))) := by
+  intro hcov
+  have hrel : (parseWithRelations (Lattice.Core.CIC.Term.var 0)).relations = [] := parse_var_relations_nil 0
+  have hlen : (parseWithRelations (Lattice.Core.CIC.Term.var 0)).tensors.length = 1 :=
+    parse_var_tensors_length 0
+  have hshape : (termShape : List Nat).prod = 1 := by simp [termShape]
+  have hmem : ({ id := 0, shape := termShape, data := nonzeroData ⟨0, termShape⟩ } : Tensor)
+      ∈ (materializeWith (parseWithRelations (Lattice.Core.CIC.Term.var 0)) nonzeroData).tensors := by
+    simp [materializeWith, fillWith, parseWithRelations, parseSkeletonWithRelations, walkWithRelations]
+  have hpos : (0 : Nat) < termShape.prod := by rw [hshape]; decide
+  have hnz : readOf (materializeWith (parseWithRelations (Lattice.Core.CIC.Term.var 0)) nonzeroData).tensors
+      0 [0] ≠ 0 := by
+    simp [readOf, materializeWith, fillWith, parseWithRelations, parseSkeletonWithRelations,
+          walkWithRelations, nonzeroData, hshape]
+  obtain ⟨r, hr, _⟩ := hcov _ 0 hmem hpos hnz
+  have hshapes : shapesOf (materializeWith (parseWithRelations (Lattice.Core.CIC.Term.var 0)) nonzeroData)
+      = [] := by
+    rw [shapesOf_materializeWith, hrel]
+  rw [hshapes] at hr
+  exact absurd hr (by simp)
+
 end Lattice.Core.IR
 
 
