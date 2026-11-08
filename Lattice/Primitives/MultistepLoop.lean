@@ -74,6 +74,7 @@
 import Mathlib
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
+import Lattice.Runtime.VerificationLoop
 
 namespace Lattice.Geo
 
@@ -176,6 +177,46 @@ theorem multistep_geometric_exists :
     (∃ k : ℤ, ¬ bidirRepair.Sat (bidirRepair.fix k)) ∧
     (∃ k : ℤ, bidirRepair.fix k ≠ k - 1) :=
   ⟨bidir_steps, bidir_not_one_step, not_countdown⟩
+
+/-! ## `bidirRepair` 作为 `VerificationLoop` 的一个具体实例
+
+`Runtime/VerificationLoop.lean` 定义了一个**抽象的**验证回路：它取一个 `Repair α` 与一个目标函数 `α → ℝ`，
+然后证明回路会终止于满足状态。
+
+**那个文件里全是抽象的定理；本节提供第一个**具体的**实例。**
+**⇒ 「闭环」这一目标条款此前只有抽象载体（`VerificationLoop` 本身），现在有了一个跑得起来的具体回路。**
+
+**为什么 `bidirRepair` 是这个位置的正确选择：**
+**- 它的状态空间是 `ℤ`，因此目标函数可以是 `|k|`（到零的距离）——**度量是真的一维距离**；**
+**- 它**双向**收敛：正数往下、负数往上，两者都以 `1` 的步长接近零；**
+**- `bidir_steps` 已经证明它在 `|k|` 步内到达满足状态，因此回路的终止有一个**可算的界**。** -/
+
+/-- **双向修正回路**：以 `bidirRepair` 为修正算子，以 `|k|` 为目标函数。
+
+**=> 这是 `VerificationLoop` 的第一个具体实例：抽象回路的所有定理（终止、吸收、单调下降）现在都可以在这
+个 `ℤ` 上的双向修正上**直接引用**。** -/
+def bidirLoop : Lattice.Runtime.VerificationLoop ℤ :=
+  { repair := bidirRepair
+    objective := fun k => (k.natAbs : ℝ) }
+
+/-- **抽象回路的终止定理在具体实例上成立。**
+
+**`VerificationLoop.loop_end_sat` 说：任何回路的 `μ` 步之后都停在满足状态。**
+**⇒ 本节把它用在 `bidirLoop` 上，得到「`bidirRepair` 在 `|k|` 步后满足」。**
+**这个结论此前只能从 `bidir_steps` 直接读出；现在它也是抽象定理的一个**实例**，因此抽象层的任何改进都会
+自动落到这个具体回路上。** -/
+theorem bidirLoop_ends_sat (k : ℤ) :
+    bidirLoop.repair.Sat (bidirLoop.run (bidirLoop.repair.μ k) k) :=
+  Lattice.Runtime.VerificationLoop.loop_end_sat bidirLoop k
+
+/-- **回路在已满足的状态上不移动。**
+
+**=> `loop_absorbs` 的实例：`bidirRepair.Sat k` 时 `run 1 k = k`，即回路在不动点处是恒等。**
+**这是「闭环」一词的精确含义在具体层面的表现：已经正确的东西不被改动。** -/
+theorem bidirLoop_absorbs {k : ℤ} (h : bidirRepair.Sat k) :
+    bidirLoop.run 1 k = k :=
+  Lattice.Runtime.VerificationLoop.loop_absorbs bidirLoop h
+
 
 end MultistepLoop
 

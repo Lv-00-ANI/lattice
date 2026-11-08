@@ -33,7 +33,7 @@
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
 | 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 1 | 0 | `Domains/Geometry/RepairPenalty.lean` |
 | 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 12 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
-| 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 0 *(仅本文件)* | 11 | — |
+| 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
 | 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 27 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
 | 5 symbolic engine | `derivation_sound` | `Domains/Geometry/Engine.lean` | 1 | 0 | `Domains/Geometry/Rules.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
@@ -44,7 +44,7 @@
 - 条款数：14
 - 载体总数：27
 - **死代码载体（同文件也不用）：0**
-- 仅同文件使用的载体：5
+- 仅同文件使用的载体：4
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 740 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 744 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 167 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -724,7 +724,11 @@
 | `Plugins/Targets/SpecReadingSolver.lean` | `specAnchoredSolve_complete` |
 | `Plugins/Targets/SpecReadingSolver.lean` | `specAnchoredSolve_cost_zero` |
 | `Plugins/Targets/T3Instances.lean` | `flattenRepresentation_meets_t3` |
+| `Primitives/MultistepLoop.lean` | `bidirLoop_absorbs` |
+| `Primitives/MultistepLoop.lean` | `bidirLoop_ends_sat` |
 | `Primitives/MultistepLoop.lean` | `bidir_steps` |
+| `Primitives/WeightDescent.lean` | `bidir_step_is_strict_descent` |
+| `Primitives/WeightDescent.lean` | `bidir_terminates_in_abs_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |
 | `Runtime/ApproxExtraction.lean` | `compose_via_calculus` |
 | `Runtime/ApproxLadder.lean` | `approx_ladder_bound_mono` |

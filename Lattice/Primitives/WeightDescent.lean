@@ -63,6 +63,7 @@ r(u') = r − 2η r ‖x‖² = (1 − 2η‖x‖²) · r
 -/
 import Mathlib
 import Lattice.Core.Net
+import Lattice.Primitives.MultistepLoop
 
 namespace Lattice.Geo.WeightDescent
 
@@ -300,5 +301,37 @@ theorem all_residuals_zero_at_newton {n : ℕ} (W : Fin n → Fin n → ℝ) (x 
   have : 1 - 2 * (1 / (2 * sqNormIn x)) * sqNormIn x = 0 := by
     field_simp
   rw [this, zero_mul]
+
+/-! ## 一维的精确对照：`bidirRepair` 的下降
+
+本文件的定理都是**实数域上的**下降：`residual_rowStep` 说步长 `η` 下残差如何变化，
+`all_residuals_zero_at_newton` 说某个特定步长下一次更新归零所有残差。
+
+**它们都带有「步长要取特定值」这类条件，因为实数的下降是**近似**的 —— 步长稍偏结论就弱化。**
+
+**`MultistepLoop.bidirRepair` 提供了一维的**精确**对照：状态空间是 `ℤ`，步长恒为 `1`，
+而下降是**严格**的 —— 每一步 `|k|` 都真正减少 `1`，没有任何「步长取何值」的条件。**
+**=> 把这个精确情形放在本文件旁边，是为了给实数的近似下降一个**可核对的端点**：如果连一维整数上的严格下降都
+不成立，实数的近似下降就更无从谈起。** -/
+
+/-- **一维双向修正是严格的下降：非零状态下 `|k|` 每步减一。**
+
+**=> `natAbs_step_lt` 的定量形式，也是本文件所有实数下降结论的**端点对照**：**
+**这里没有任何「步长取何值」的假设，步长恰为 `1`，下降恰为 `1`。**
+**实数情形做不到这一点（`residual_rowStep` 的条件正是为此），因此这个一维实例说明了「精确」与「近似」的
+分界在哪里。** -/
+theorem bidir_step_is_strict_descent {k : ℤ} (h : k ≠ 0) :
+    (Lattice.Geo.MultistepLoop.step k).natAbs < k.natAbs :=
+  Lattice.Geo.MultistepLoop.natAbs_step_lt h
+
+/-- **一维回路终止于满足状态，且步数恰为 `|k|`。**
+
+**=> `MultistepLoop.bidirRepair` 的终止定理，给出**可算**的终止步数。**
+**与实数情形的对比是本文件的价值所在：实数下降只能给出「某个步长下收敛」，而这里给出**恰好** `|k|` 步，
+且 `bidirRepair.Sat k ↔ k = 0`，因此「满足」就是「到达零点」。** -/
+theorem bidir_terminates_in_abs_steps (k : ℤ) :
+    Lattice.Geo.MultistepLoop.bidirRepair.Sat
+      (Lattice.Geo.MultistepLoop.bidirRepair.iterate k.natAbs k) :=
+  Lattice.Geo.MultistepLoop.bidir_steps k
 
 end Lattice.Geo.WeightDescent

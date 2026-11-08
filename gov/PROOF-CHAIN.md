@@ -948,10 +948,10 @@
 - `Lattice.Plugins.Targets.T3NonVacuous` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Domains.Geometry.Semantic`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Targets.T4FixedPoint` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Domains.Geometry.ClosedLoop`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
-- `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
+- `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationLoop`
 - `Lattice.Primitives.TokenizeStrategy` 
 - `Lattice.Primitives.TokenizerPattern` 
-- `Lattice.Primitives.WeightDescent` <- `Lattice.Core.Net`
+- `Lattice.Primitives.WeightDescent` <- `Lattice.Core.Net`, `Lattice.Primitives.MultistepLoop`
 - `Lattice.Runtime` <- `Lattice.Runtime.ActivationLadder`, `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.ApproxExtraction`, `Lattice.Runtime.ApproxLadder`, `Lattice.Runtime.ApproximationBridge`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.ComboN`, `Lattice.Runtime.CompilerScheme`, `Lattice.Runtime.ConstraintEmbeddingSoundness`, `Lattice.Runtime.ConstraintRepresentation`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.EncodingAbstraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.EndToEndApproximation`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.ExtractionStrength`, `Lattice.Runtime.GeoSampledBound`, `Lattice.Runtime.GridDensity`, `Lattice.Runtime.IntRoundtrip`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.LayerComposition`, `Lattice.Runtime.LayerQuantization`, `Lattice.Runtime.LayerQuantizationBits`, `Lattice.Runtime.LayerNormSemantics`, `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.MultiLayerLadder`, `Lattice.Runtime.NonIdenticalEncoding`, `Lattice.Runtime.NondegenerateInstance`, `Lattice.Runtime.PenaltyAnalysis`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.PartialRepresentation`, `Lattice.Runtime.ProgramAST`, `Lattice.Runtime.ProgramLipschitz`, `Lattice.Runtime.ProgramRepresentation`, `Lattice.Runtime.QuantErrorPropagation`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealModLoss`, `Lattice.Runtime.RealNonlinear`, `Lattice.Runtime.RealRandomVerify`, `Lattice.Runtime.RealTokenSymbolLink`, `Lattice.Runtime.RealTokenization`, `Lattice.Runtime.RealTokenizationEntry`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.RealVerifierReliable`, `Lattice.Runtime.RectangularRepresentation`, `Lattice.Runtime.RectangularWeightEncoding`, `Lattice.Runtime.RepresentationFamilies`, `Lattice.Runtime.RoundingBackend`, `Lattice.Runtime.SaturationQuantization`, `Lattice.Runtime.StackCodegen`, `Lattice.Runtime.StackError`, `Lattice.Runtime.SemanticRepresentation`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Runtime.TokenAlphabet`, `Lattice.Runtime.TotalLoss`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Runtime.VerifierRate`, `Lattice.Runtime.VerifyLoopProgress`, `Lattice.Runtime.WeightLadder`, `Lattice.Runtime.WeightLadderFullWidth`, `Lattice.Runtime.WeightLadderFullWidthInstance`, `Lattice.Runtime.WeightLadderInverse`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.WeightSymbolRepresentation`, `Lattice.Runtime.WeightToSymbolEquivalence`, `Lattice.Runtime.LadderClosure`, `Lattice.Runtime.VerificationLoop`
 - `Lattice.Runtime.ActivationLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Activation`
 - `Lattice.Runtime.ApproxExact` <- `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.PenaltyAnalysis`
@@ -1984,10 +1984,10 @@
 | `Lattice.Plugins.Targets.T3NonVacuous` | 4 | 1 |
 | `Lattice.Plugins.Targets.T4FixedPoint` | 5 | 1 |
 | `Lattice.Primitives` | 0 | 0 |
-| `Lattice.Primitives.MultistepLoop` | 8 | 3 |
+| `Lattice.Primitives.MultistepLoop` | 10 | 4 |
 | `Lattice.Primitives.TokenizeStrategy` | 0 | 0 |
 | `Lattice.Primitives.TokenizerPattern` | 9 | 7 |
-| `Lattice.Primitives.WeightDescent` | 12 | 6 |
+| `Lattice.Primitives.WeightDescent` | 14 | 6 |
 | `Lattice.Runtime` | 0 | 0 |
 | `Lattice.Runtime.ActivationLadder` | 4 | 1 |
 | `Lattice.Runtime.ApproxExact` | 8 | 2 |
@@ -2394,8 +2394,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abs_pos_symmetry_cos` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_pos_symmetry_sin` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `d`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `abs_resid_le_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
-- `abs_residual_rowStepN` -> `W`, `residual`
-- `abs_residual_rowStepN_le` -> `W`, `residual`
+- `abs_residual_rowStepN` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
+- `abs_residual_rowStepN_le` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
 - `abs_round_le` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `abs_round_le_growth` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `abs_sin_sub_sin_le` -> `Point2R`, `abs_cos_sub_cos_le`, `apply`, `at`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
@@ -2571,7 +2571,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `all_coord_constraints_after_one_step` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `at`, `evalPts`, `netAct`, `netLoss`, `penaltyLoss`, `residual`, `residual_rowStepN`, `rowStepN`, `sqNormIn`
 - `all_deviations_tail` -> `at`, `card_fin`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_deviations_tail_classic` -> `apply`, `at`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
-- `all_residuals_zero_at_newton` -> `W`
+- `all_residuals_zero_at_newton` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
 - `all_twelve_discharged` -> `PackageDependenciesValid`, `affineGeometryPackage`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `informationTheoryPackage`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_forall_packageDependenciesValid`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `allowed_is_convex_weights` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`
 - `alpha_gamma_le` -> `at`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
@@ -2898,8 +2898,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bias_slot_eq_slotOf` -> `MLayer`, `apply`, `single`
 - `bias_variance_decomposition` -> `E`, `at`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `at`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
-- `bidir_not_one_step` -> `Sat`, `iterate`, `step`
-- `bidir_steps` -> `Sat`, `converges_within`, `iterate`, `step`
+- `bidirLoop_absorbs` -> `Sat`, `VerificationLoop`, `loop_absorbs`, `run`
+- `bidirLoop_ends_sat` -> `Sat`, `VerificationLoop`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`
+- `bidir_not_one_step` -> `Sat`, `VerificationLoop`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`
+- `bidir_step_is_strict_descent` -> `Sat`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
+- `bidir_steps` -> `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`
+- `bidir_terminates_in_abs_steps` -> `Sat`, `bidirRepair`, `bidir_steps`, `iterate`
 - `bigstep_assign_self` -> `Compiler`, `at`, `induction`, `subst`, `trans`
 - `bigstep_deterministic` -> `Compiler`, `at`, `induction`, `subst`, `trans`
 - `bigstep_implies_final` -> `Compiler`, `at`, `induction`, `subst`, `trans`
@@ -6710,7 +6714,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerQuantization_refines_scalar` -> `compileZ`
 - `layerQuantization_roundtrip` -> `at`, `compileZ`
 - `layerResid_eq_affineAct` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `affineAct`, `apply`, `d`, `lossM`, `residM`, `sq_penalty_exact_matrix`
-- `layerResidual_wStep` -> `W`
+- `layerResidual_wStep` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
 - `layerScaleN_bound_le_exp_one` -> `at`, `le_refl`, `le_trans`, `trans`
 - `layerScaleN_bound_le_exp_one_of_lam0` -> `at`, `le_refl`, `le_trans`, `trans`
 - `layerScaleN_bound_not_tight_at_one` -> `at`, `trans`
@@ -7556,7 +7560,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `multiSite_edit_bound_is_sharp` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `d`, `subst`
 - `multiSite_edit_nested_bound` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `multi_constraint_verification` -> `uniformProb`
-- `multistep_geometric_exists` -> `Sat`, `iterate`
+- `multistep_geometric_exists` -> `Sat`, `VerificationLoop`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`
 - `multistep_preservation` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `induction`, `preservation`, `progress`
 - `multivar_converges` -> `Repair`, `Sat`, `d`, `dot`, `iterate`, `progress`
 - `multivar_converges_in_one` -> `Repair`, `Sat`, `d`, `dot`, `iterate`
@@ -7589,7 +7593,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `naive_multisite_sum_bound_true_of_nonneg` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `naive_single_product_bound_fails_two_site` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `d`, `subst`
 - `namedFirstData_zero_or` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `readOf`, `shapesOf`, `split`
-- `natAbs_step_lt` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
+- `natAbs_step_lt` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_pos` -> `at`, `eval`, `min`, `subst`
 - `natParamAct_eq_flatParamActSafe` -> `Chain`, `at`, `d`, `eval`, `induction`, `layerParamCount`, `single`, `trans`
@@ -7818,7 +7822,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
 - `no_universal_constructor` -> `FamilySolver`, `HoldsSet`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `no_upper_iff_no_split` -> `at`, `extent`, `g`
-- `no_weight_solution_of_input_zero` -> `W`, `residual`
+- `no_weight_solution_of_input_zero` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
 - `no_zero_obligation_in_census_table` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
 - `node_inj` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
@@ -7929,7 +7933,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_computabilityTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `computabilityTheoryExtra`, `computabilityTheoryPackage`, `computabilityTheory_closed`, `computabilityTheory_closedB_eq_true`, `computabilityTheory_extra_length`, `computabilityTheory_false_but_repairable`, `computabilityTheory_validB_eq_false`, `functionalAnalysisPackage`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `modalLogicExtra`, `modalLogicPackage`, `modalLogic_closed`, `modalLogic_closedB_eq_true`, `modalLogic_extra_length`, `modalLogic_false_but_repairable`, `modalLogic_validB_eq_false`, `not_modalLogic_orig`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `not_concept_iff_element` -> `at`, `extent`, `g`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
 - `not_continuousAt_stepQuant_half` -> `at`, `dist`
-- `not_countdown` -> `Sat`, `iterate`, `step`
+- `not_countdown` -> `Sat`, `VerificationLoop`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`
 - `not_delta_half_unconditional` -> `crossEntropy`, `entropy`, `kl`, `kl_nonneg`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`
 - `not_differentiableAt_stepQuant_half` -> `at`
 - `not_element_and_concept` -> `at`, `extent`, `g`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
@@ -9202,7 +9206,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_eq_zero_of_zero_dense` -> `DeltaDense`, `LipschitzOn`, `at`
 - `residual_error_isolation` -> `E`, `W`, `edit_output_bound`
 - `residual_error_isolation_scalar` -> `E`, `W`, `edit_output_bound_scalar`
-- `residual_input_zero` -> `W`, `residual`
+- `residual_input_zero` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
 - `residual_le_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `at`, `dist`, `trans`
 - `residual_le_of_zero_on_dense_from_generic` -> `d`, `dist`, `dist_nonneg`
 - `residual_le_of_zero_on_dense_of_d` -> `d`, `dist`, `dist_nonneg`, `trans`
@@ -9214,10 +9218,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residual_lower_bound_positive` -> `SoftmaxAttnOp`, `W`, `at`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `residual_nil_input` -> `LayerOut`, `LinearLayer`, `dot`, `nil_append`, `residual`
 - `residual_orthogonal_of_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `mem_orthogonal_range_scalar`
-- `residual_rowStep` -> `W`, `induction`, `residual`, `zero`
-- `residual_rowStepN` -> `W`, `induction`, `residual`, `zero`
-- `residual_rowStep_abs_le` -> `W`, `residual`
-- `residual_rowStep_newton` -> `W`, `induction`, `residual`, `zero`
+- `residual_rowStep` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `induction`, `iterate`, `natAbs_step_lt`, `residual`, `step`, `zero`
+- `residual_rowStepN` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `induction`, `iterate`, `natAbs_step_lt`, `residual`, `step`, `zero`
+- `residual_rowStep_abs_le` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
+- `residual_rowStep_newton` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `induction`, `iterate`, `natAbs_step_lt`, `residual`, `step`, `zero`
 - `residual_step` -> `Repair`, `Sat`, `apply`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `residual_two_layer_isolation_exact` -> `E`
 - `residual_uniform_bound_of_zero_on_dense` -> `DeltaDense`, `LipschitzOn`, `at`, `trans`
@@ -10193,7 +10197,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqDist_translateBy` -> `Pt`, `apply`, `at`, `sqDist`, `sqDist_eq_sum`, `sqDist_eq_zero_iff`, `translateBy`
 - `sqDist_translate_apply` -> `Pt`, `induction`, `length`, `length_cons`, `samplesOf`, `sqDist`, `sqDist_eq_sum`, `translate`, `translateBy`
 - `sqLoss_deriv_zero_of_localMin` -> `apply`, `at`, `isLocalMin_of_forall_le`, `le_refl`
-- `sqNormIn_nonneg` -> `W`, `induction`, `residual`, `zero`
+- `sqNormIn_nonneg` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `induction`, `iterate`, `natAbs_step_lt`, `residual`, `step`, `zero`
 - `sqPenalty_exact_gives_sound` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_levelA` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_nonneg` -> `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `loss`
@@ -10341,13 +10345,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_descent_lemma` -> `E`, `at`, `g`, `induction`, `le_trans`, `zero`
 - `step_half` -> `AffineLayer`, `GeoConstraint`, `GeoExpr`, `Holds`, `Pt`, `W`, `add`, `affineAct`, `apply`, `at`, `evalPts`, `netAct`, `netLoss`, `netLoss_nonneg`, `penaltyLoss`, `penaltyLoss_eq_zero_eqZero`, `residual`
 - `step_lam_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
-- `step_neg` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
-- `step_pos` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
+- `step_neg` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
+- `step_pos` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `step_redU` -> `Compiler`, `Term`, `app_r`, `at`
 - `step_redV` -> `Compiler`, `Term`, `app_r`, `at`
 - `step_residual` -> `Repair`, `Sat`, `at`, `d`, `dot`, `iterate`, `progress`, `residual`, `step`
 - `step_sound` -> `GeoConstraint`, `d`, `induction`, `subst`, `zero`
-- `step_zero` -> `Repair`, `Sat`, `converges_within`, `iterate`, `step`, `subst`
+- `step_zero` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `stmt_compiled_edge_correct_constraint` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
 - `stmt_compiled_edge_correct_normalize` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `ptX`, `ptY`, `subst`
 - `stmt_compiled_edge_correct_point` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_stmt`, `cross`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `normalize`, `parallel`, `point`, `ptX`, `ptY`, `subst`
@@ -10920,7 +10924,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_eq_zero_iff_allSatisfied` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `compileToLayer`, `symbolToWeight_correct`, `trans`
 - `totalLoss_verify` -> `AllSatisfied`, `ConstraintSet`
-- `totalResidual_wStep` -> `W`
+- `totalResidual_wStep` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
 - `total_obligations` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
 - `totient_one` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `g`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`

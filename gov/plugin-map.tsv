@@ -9453,6 +9453,8 @@ plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	fixed_point_form_match
 plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	fixed_point_gives_sat	no
 plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	sat_alone_not_fixed	yes
 plugins	Plugins/Targets	Plugins/Targets/T4FixedPoint.lean	t4_loop_fixed_point_holds	no
+primitives	Primitives	Primitives/MultistepLoop.lean	bidirLoop_absorbs	no
+primitives	Primitives	Primitives/MultistepLoop.lean	bidirLoop_ends_sat	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_not_one_step	no
 primitives	Primitives	Primitives/MultistepLoop.lean	bidir_steps	no
 primitives	Primitives	Primitives/MultistepLoop.lean	multistep_geometric_exists	no
@@ -9476,6 +9478,8 @@ primitives	Primitives	Primitives/TokenizerPattern.lean	three_tactic_patterns_wor
 primitives	Primitives	Primitives/WeightDescent.lean	abs_residual_rowStepN	no
 primitives	Primitives	Primitives/WeightDescent.lean	abs_residual_rowStepN_le	no
 primitives	Primitives	Primitives/WeightDescent.lean	all_residuals_zero_at_newton	no
+primitives	Primitives	Primitives/WeightDescent.lean	bidir_step_is_strict_descent	no
+primitives	Primitives	Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps	no
 primitives	Primitives	Primitives/WeightDescent.lean	layerResidual_wStep	no
 primitives	Primitives	Primitives/WeightDescent.lean	no_weight_solution_of_input_zero	no
 primitives	Primitives	Primitives/WeightDescent.lean	residual_input_zero	no

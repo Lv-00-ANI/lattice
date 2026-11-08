@@ -3949,6 +3949,8 @@ Primitives/MultistepLoop.lean	bidir_steps
 Primitives/MultistepLoop.lean	bidir_not_one_step
 Primitives/MultistepLoop.lean	not_countdown
 Primitives/MultistepLoop.lean	multistep_geometric_exists
+Primitives/MultistepLoop.lean	bidirLoop_ends_sat
+Primitives/MultistepLoop.lean	bidirLoop_absorbs
 Primitives/TokenizeStrategy.lean	dec_c1_step
 Primitives/TokenizeStrategy.lean	dec_c2_step
 Primitives/TokenizeStrategy.lean	dec_c0_step
@@ -3967,6 +3969,8 @@ Primitives/WeightDescent.lean	no_weight_solution_of_input_zero
 Primitives/WeightDescent.lean	layerResidual_wStep
 Primitives/WeightDescent.lean	totalResidual_wStep
 Primitives/WeightDescent.lean	all_residuals_zero_at_newton
+Primitives/WeightDescent.lean	bidir_step_is_strict_descent
+Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps
 Runtime/ActivationLadder.lean	actStackEval_append
 Runtime/ActivationLadder.lean	activationLadder_forward
 Runtime/ActivationLadder.lean	activationLadder_l2l3_is_a_split

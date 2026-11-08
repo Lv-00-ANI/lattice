@@ -907,3 +907,7 @@ forward	Runtime/NondegenerateInstance.lean	compile_sound_n_zero
 forward	Domains/Geometry/SynthesisConnection.lean	synthesis_preserves_separation
 forward	Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual
 forward	Runtime/NondegenerateInstance.lean	weightLadderN_satSym_implies_nondeg
+forward	Primitives/MultistepLoop.lean	bidirLoop_absorbs
+forward	Primitives/MultistepLoop.lean	bidirLoop_ends_sat
+forward	Primitives/WeightDescent.lean	bidir_step_is_strict_descent
+forward	Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps
