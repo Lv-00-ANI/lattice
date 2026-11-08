@@ -18,8 +18,8 @@
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 38 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 1 | 1 | `Runtime/NondegenerateInstance.lean` |
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 37 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
-| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Domains/Geometry/RepairPenalty.lean` |
+| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Domains/Geometry/RepairPenalty.lean` |
 | 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 1 | 0 | `Domains/Geometry/SynthesisConnection.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
@@ -44,7 +44,7 @@
 - 条款数：14
 - 载体总数：27
 - **死代码载体（同文件也不用）：0**
-- 仅同文件使用的载体：4
+- 仅同文件使用的载体：3
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

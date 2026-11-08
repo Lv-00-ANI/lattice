@@ -931,6 +931,7 @@ Domains/Geometry/RepairPenalty.lean	samePoint_sat_implies_penalty_zero
 Domains/Geometry/RepairPenalty.lean	samePoint_penalty_zero_iff_sat_iff
 Domains/Geometry/RepairPenalty.lean	repair_loss_bounded_by_residual
 Domains/Geometry/RepairPenalty.lean	repair_loss_zero_of_exact
+Domains/Geometry/RepairPenalty.lean	constraintLossCompiler_compile
 Domains/Geometry/RepairPerp.lean	perpendicular_iff_dotDisp
 Domains/Geometry/RepairPerp.lean	selfDot_ne_zero
 Domains/Geometry/RepairPerp.lean	perpRatio_mul

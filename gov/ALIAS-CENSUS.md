@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 744 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 745 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 167 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -108,6 +108,7 @@
 | `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_perpRepair` |
 | `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_perpendicular` |
 | `Domains/Geometry/RepairBridge.lean` | `converges` |
+| `Domains/Geometry/RepairPenalty.lean` | `constraintLossCompiler_compile` |
 | `Domains/Geometry/RepairPenalty.lean` | `repair_loss_bounded_by_residual` |
 | `Domains/Geometry/RepairPenalty.lean` | `samePoint_loop_reaches_penalty_zero` |
 | `Domains/Geometry/RepairQuality.lean` | `copy_keeps_a` |

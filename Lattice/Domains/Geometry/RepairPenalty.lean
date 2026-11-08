@@ -1,4 +1,5 @@
 import Lattice.Domains.Geometry.PartialReinjection
+import Lattice.Runtime.ConstraintToLoss
 import Mathlib
 import Lattice.Domains.Geometry.Loop
 import Lattice.Domains.Constraints.Loss
@@ -108,5 +109,44 @@ theorem repair_loss_zero_of_exact (c : EqConstraint n) (pts : ℕ → Pt n)
   have hb := Lattice.Geo.PartialReinjection.partial_reinject_bound c pts (le_refl (0 : ℝ)) h
   simpa using hb
 
+
+/-! ## `EqConstraint` 的损失作为 `penaltyToLoss` 的具体实例
+
+`Runtime/ConstraintToLoss.lean` 定义了一个**通用**的约束损失编译器：给定一个 `PenaltyEmbedding P X`，它产出
+一个把「约束」编译成「损失函数」的 `Compiler`。
+
+**=> 那个文件里全是抽象的定理；本节给它第一个**具体的**几何实例。**
+
+**为什么这重要：目标说的是「把符号知识编译成权重（约束损失、数据合成、结构化初始化）」，而「约束损失」
+这一环在抽象层只有 `PenaltyEmbedding` 这一个结构 —— 没有任何东西证明它非空。**
+**本节用 `EqConstraint` 填上它：`loss` 就是本文件一直在用的 `EqConstraint.loss`，`Sat` 就是「损失为零」。** -/
+
+/-- **`EqConstraint` 的惩罚嵌入**：损失是约束的损失，满足是「损失恰好为零」。
+
+**=> 这是 `PenaltyEmbedding` 的第一个具体实例，也是「约束损失」这一目标条款的实际承载。**
+**它的两个字段都直接复用本文件已有的定义，因此不是另起一套：`loss` 就是 `EqConstraint.loss`，
+`Sat` 就是那个损失等于零 —— 与 `samePoint_sat_implies_penalty_zero` 说的是同一件事的两个呈现。** -/
+noncomputable def constraintPenalty (n : ℕ) :
+    Lattice.Lift.PenaltyEmbedding (EqConstraint n) (ℕ → Pt n) where
+  loss := fun c pts => EqConstraint.loss c pts
+  Sat := fun c pts => EqConstraint.loss c pts = 0
+
+/-- **约束损失编译器在几何约束上的实例。**
+
+**`penaltyToLoss (constraintPenalty n)`：把 `EqConstraint n` 编译成一个从点到实数的函数。**
+**=> 抽象层的 `Compiler P (X → ℝ) X X` 现在有了一个**具体的** `P`，而那个 `P` 正是几何层一直在用的约束类型。** -/
+noncomputable def constraintLossCompiler (n : ℕ) :
+    Lattice.Lift.Compiler (EqConstraint n) ((ℕ → Pt n) → ℝ) (ℕ → Pt n) (ℕ → Pt n) :=
+  Lattice.Lift.PenaltyToLossCompiler.penaltyToLoss (constraintPenalty n)
+
+/-- **编译的产物就是损失本身。**
+
+**=> 这条等式把抽象编译器的 `compile` 与本文件的 `loss` 接上，因此「编译到约束损失」不是隐喻：
+`compile c` 作为一个函数，在每一点上等于 `loss c`。**
+**⇒ 于是本文件此前所有关于 `loss` 的定量结论（`repair_loss_bounded_by_residual` 等）都自动成为
+对**编译产物**的结论。** -/
+theorem constraintLossCompiler_compile (n : ℕ) (c : EqConstraint n) :
+    (constraintLossCompiler n).compile c = fun pts => EqConstraint.loss c pts :=
+  Lattice.Lift.PenaltyToLossCompiler.compile_is_loss (constraintPenalty n) c
 
 end Lattice.Geo

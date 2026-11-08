@@ -833,7 +833,7 @@
 - `Lattice.Domains.Geometry.Repair` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Constraints.Constraint`
 - `Lattice.Domains.Geometry.RepairBridge` <- `Lattice.Core.Repair`, `Lattice.Core.Invariant`, `Lattice.Core.Simulation`, `Lattice.Core.Idempotent`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`
 - `Lattice.Domains.Geometry.RepairCoverage` <- `Lattice.Domains.Geometry.LoopPerp`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Domains.Constraints.Dist`, `Lattice.Domains.Geometry.RepairPerp`
-- `Lattice.Domains.Geometry.RepairPenalty` <- `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.RepairBridge`
+- `Lattice.Domains.Geometry.RepairPenalty` <- `Lattice.Domains.Geometry.PartialReinjection`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Constraints.Loss`, `Lattice.Domains.Geometry.RepairBridge`
 - `Lattice.Domains.Geometry.RepairPerp` <- `Lattice.Core.Repair`, `Lattice.Domains.Constraints.Constraint`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Domains.Geometry.RepairQuality` <- `Lattice.Domains.Geometry.Loop`, `Lattice.Domains.Geometry.LoopPerp`
 - `Lattice.Domains.Geometry.RhoMetric` <- `Lattice.Domains.Constraints.Lipschitz`
@@ -1869,7 +1869,7 @@
 | `Lattice.Domains.Geometry.Repair` | 3 | 0 |
 | `Lattice.Domains.Geometry.RepairBridge` | 14 | 0 |
 | `Lattice.Domains.Geometry.RepairCoverage` | 4 | 3 |
-| `Lattice.Domains.Geometry.RepairPenalty` | 6 | 0 |
+| `Lattice.Domains.Geometry.RepairPenalty` | 7 | 2 |
 | `Lattice.Domains.Geometry.RepairPerp` | 8 | 4 |
 | `Lattice.Domains.Geometry.RepairQuality` | 9 | 2 |
 | `Lattice.Domains.Geometry.RhoMetric` | 5 | 0 |
@@ -3849,6 +3849,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraintDomain_transitive` -> `Domain`, `GeoConstraint`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`, `trans`
 - `constraintFiber_nonempty_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `constraintFiber_self` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
+- `constraintLossCompiler_compile` -> `EqConstraint`, `compile`, `compile_is_loss`, `loss`
 - `constraintSatRel_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `constraintSet_is_list_of_constraints` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `symbolToWeight_correct`
 - `constraintTag_lt` -> `ConstSet`, `GeoConstraint`, `GeoExpr`, `Geometry`, `Holds`, `Level`, `Pt`, `SortKind`, `Term`, `Typable`, `collinear`, `parallel`, `zero`
@@ -9161,8 +9162,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
 - `repair_iff_satisfiable` -> `Repair`, `Sat`, `at`
 - `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
-- `repair_loss_bounded_by_residual` -> `EqConstraint`, `Pt`, `le_refl`, `loss`, `partial_reinject_bound`, `poly`
-- `repair_loss_zero_of_exact` -> `EqConstraint`, `Pt`, `le_refl`, `loss`, `partial_reinject_bound`, `poly`
+- `repair_loss_bounded_by_residual` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `partial_reinject_bound`, `penaltyToLoss`, `poly`
+- `repair_loss_zero_of_exact` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `partial_reinject_bound`, `penaltyToLoss`, `poly`
 - `repair_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `repair_of_satisfiable` -> `Repair`, `Sat`, `at`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
@@ -9578,15 +9579,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `samePoint_differentiableAt` -> `GeoExpr`, `IndicesBelow`, `Pt`, `comp`, `d`, `evalPts`, `evalPts_differentiableAt`, `hasFDerivAt_sq`, `hasFDerivAt_sq_comp`, `mul`, `seg`, `sqDist`, `trunc`, `trunc_apply`
 - `samePoint_expressible` -> `GeoConstraint`, `GeoExpr`, `d`
 - `samePoint_lipschitz` -> `BoundedV`, `GeoExpr`, `LipschitzK`, `Pt`, `d`, `evalPts`, `le_trans`, `penaltyLoss`, `rho`, `sqDist`, `sqDist_abs_le`, `sqDist_lipschitz`, `sq_lipschitz_on_bounded`
-- `samePoint_loop_reaches_penalty_zero` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `le_refl`, `loss`, `partial_reinject_bound`, `poly`, `repair_success_is_penalty_zero`, `samePointRepair`
+- `samePoint_loop_reaches_penalty_zero` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Repair`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `partial_reinject_bound`, `penaltyToLoss`, `poly`, `repair_success_is_penalty_zero`, `samePointRepair`
 - `samePoint_loss_eq` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`, `sqDist`
 - `samePoint_loss_nonneg` -> `EqConstraint`, `Pt`, `loss`, `loss_nonneg`
 - `samePoint_measure_le_one` -> `Pt`, `samePointMeasure`, `samePointMeasureFin`, `split`
 - `samePoint_path_of_ne` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
 - `samePoint_path_zero` -> `Pt`, `at`, `d`, `min`, `sqDist`, `sqDist_eq_coord_add_rest`, `sqDist_nonneg`
-- `samePoint_penalty_iff_sat` -> `EqConstraint`, `Pt`, `Repair`, `Sat`, `le_refl`, `loss`, `loss_eq_zero_toGeo_samePoint`, `partial_reinject_bound`, `poly`, `repair_success_is_penalty_zero`, `samePointRepair`
-- `samePoint_penalty_zero_iff_sat_iff` -> `EqConstraint`, `Pt`, `Sat`, `le_refl`, `loss`, `partial_reinject_bound`, `poly`, `samePointRepair`
-- `samePoint_sat_implies_penalty_zero` -> `EqConstraint`, `Pt`, `Sat`, `le_refl`, `loss`, `partial_reinject_bound`, `poly`, `samePointRepair`
+- `samePoint_penalty_iff_sat` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Repair`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `loss_eq_zero_toGeo_samePoint`, `partial_reinject_bound`, `penaltyToLoss`, `poly`, `repair_success_is_penalty_zero`, `samePointRepair`
+- `samePoint_penalty_zero_iff_sat_iff` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `partial_reinject_bound`, `penaltyToLoss`, `poly`, `samePointRepair`
+- `samePoint_sat_implies_penalty_zero` -> `Compiler`, `EqConstraint`, `PenaltyEmbedding`, `Pt`, `Sat`, `compile`, `compile_is_loss`, `le_refl`, `loss`, `partial_reinject_bound`, `penaltyToLoss`, `poly`, `samePointRepair`
 - `samePoint_scale` -> `GeoConstraint`, `Holds`, `Pt`
 - `samePoint_translate` -> `GeoConstraint`, `Holds`, `Pt`, `at`, `diff`, `seg`, `sqDist`, `sqNorm`
 - `sameTokens_equivalence` -> `at`, `trans`

@@ -911,3 +911,4 @@ forward	Primitives/MultistepLoop.lean	bidirLoop_absorbs
 forward	Primitives/MultistepLoop.lean	bidirLoop_ends_sat
 forward	Primitives/WeightDescent.lean	bidir_step_is_strict_descent
 forward	Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps
+forward	Domains/Geometry/RepairPenalty.lean	constraintLossCompiler_compile
