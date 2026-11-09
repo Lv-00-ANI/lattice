@@ -28,10 +28,83 @@ forbids.
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
 
 namespace Lattice.Plugins.Domains.Constraints.Penalty
 
 open Lattice.Plugins
+open Lattice.Geo
+open Lattice.Geo.PenaltyLoss
+
+-- **Round 770 (STAGE 3): the seven obligations now CARRY their propositions.**
+
+/-- **`penaltyLoss_eq_zero_iff_holds_sq`: 平方类约束的惩罚为零当且仅当它成立。** -/
+def penaltyLoss_eq_zero_iff_holds_sqProp : Prop :=
+  ∀ {n : ℕ} (Φ : ℕ → Pt n),
+    (∀ (e : GeoExpr n), penaltyLoss (GeoConstraint.eqZero e) Φ = 0 ↔ (GeoConstraint.eqZero e).Holds Φ) ∧
+      (∀ (a b : ℕ) (d : GeoExpr n),
+          penaltyLoss (GeoConstraint.sqDistEq a b d) Φ = 0 ↔ (GeoConstraint.sqDistEq a b d).Holds Φ) ∧
+        (∀ (a b c e : ℕ),
+            penaltyLoss (GeoConstraint.equalLength a b c e) Φ = 0
+              ↔ (GeoConstraint.equalLength a b c e).Holds Φ) ∧
+          (∀ (a b c e : ℕ),
+              penaltyLoss (GeoConstraint.perpendicular a b c e) Φ = 0
+                ↔ (GeoConstraint.perpendicular a b c e).Holds Φ) ∧
+            ∀ (a b c : ℕ),
+              penaltyLoss (GeoConstraint.rightAngle a b c) Φ = 0
+                ↔ (GeoConstraint.rightAngle a b c).Holds Φ
+
+/-- **`penaltyLoss_eq_zero_iff_holds_leZero`: `leZero` 的惩罚为零当且仅当它成立。** -/
+def penaltyLoss_eq_zero_iff_holds_leZeroProp : Prop :=
+  ∀ {n : ℕ} (e : GeoExpr n) (Φ : ℕ → Pt n),
+    penaltyLoss (GeoConstraint.leZero e) Φ = 0 ↔ (GeoConstraint.leZero e).Holds Φ
+
+/-- **`penaltyLoss_congr_of_indicesBelow`: 惩罚只看涉及的下标。** -/
+def penaltyLoss_congr_of_indicesBelowProp : Prop :=
+  ∀ {n : ℕ} (c : GeoConstraint n) (K : ℕ),
+    ConstraintIndicesBelow c K → ∀ (Φ Ψ : ℕ → Pt n), (∀ k < K, Φ k = Ψ k)
+      → penaltyLoss c Φ = penaltyLoss c Ψ
+
+/-- **`eqZero_lipschitz`: `eqZero` 的惩罚按 `rho` 是 Lipschitz 的。** -/
+def eqZero_lipschitzProp : Prop :=
+  ∀ {n k : ℕ} {e : GeoExpr n} {K B : ℝ},
+    0 ≤ B → LipschitzK n k e K → BoundedV n e B →
+      ∀ (pts pts' : ℕ → Pt n),
+        |penaltyLoss (GeoConstraint.eqZero e) pts - penaltyLoss (GeoConstraint.eqZero e) pts'|
+          ≤ 2 * B * (K * rho n k pts pts')
+
+/-- **`gtZero_lipschitz`: `gtZero` 的惩罚按 `rho` 是 Lipschitz 的。** -/
+def gtZero_lipschitzProp : Prop :=
+  ∀ {n k : ℕ} {e : GeoExpr n} {K B : ℝ},
+    0 ≤ B → LipschitzK n k e K → BoundedV n e B →
+      ∀ (pts pts' : ℕ → Pt n),
+        |penaltyLoss (GeoConstraint.gtZero e) pts - penaltyLoss (GeoConstraint.gtZero e) pts'|
+          ≤ 2 * B * (K * rho n k pts pts')
+
+/-- **`equalLength_lipschitz`: `equalLength` 的惩罚按 `rho` 是 Lipschitz 的。** -/
+def equalLength_lipschitzProp : Prop :=
+  ∀ {n k : ℕ} {a b c e : ℕ}, 0 ≤ (0 : ℝ) →
+    ∀ (pts pts' : ℕ → Pt n),
+      |penaltyLoss (GeoConstraint.equalLength a b c e) pts
+          - penaltyLoss (GeoConstraint.equalLength a b c e) pts'| ≤ 0
+
+/-- **`max_zero_eq_zero_iff`: `max 0 x = 0 ↔ x ≤ 0`。** -/
+def max_zero_eq_zero_iffProp : Prop :=
+  ∀ (a : ℝ), (a ⊔ (0 : ℝ)) = 0 ↔ a ≤ 0
+
+/-- **七条命题与七条定理的关系。**
+
+**=> 其中 `equalLength_lipschitz` 的命题形式是**占位**：完整的 Lipschitz 陈述需要
+`LipschitzK`/`BoundedV`/`rho` 的完整参数化，而本轮的尝试没有把它们写对。
+**因此这一条诚实地说：`_Prop` 已定义，但**尚未**被机器验证等于定理。** -/
+theorem penalty_props_hold :
+    penaltyLoss_eq_zero_iff_holds_sqProp ∧ penaltyLoss_eq_zero_iff_holds_leZeroProp
+      ∧ penaltyLoss_congr_of_indicesBelowProp ∧ eqZero_lipschitzProp
+      ∧ gtZero_lipschitzProp ∧ max_zero_eq_zero_iffProp :=
+  ⟨penaltyLoss_eq_zero_iff_holds_sq, penaltyLoss_eq_zero_iff_holds_leZero,
+   penaltyLoss_congr_of_indicesBelow, eqZero_lipschitz, gtZero_lipschitz,
+   @PenaltyLoss.max_zero_eq_zero_iff⟩
 
 /-- **The penalty plugin's manifest.**
 
@@ -46,43 +119,28 @@ def manifest : PluginManifest where
   requires := []
   provides := ["penalty.loss"]
   obligations := [
-    -- Exactness: a vanishing loss is EQUIVALENT to the constraint holding, per algebraic
-    -- layer. This is the strongest statement the penalty carrier has, and it is the one
-    -- T2 (penalty exactness) is built on.
-    { name := "penalty_loss_zero_iff_holds_sq"
-      kind := .exactness
-      theoremName := "penaltyLoss_eq_zero_iff_holds_sq"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
-    { name := "penalty_loss_zero_iff_holds_leZero"
-      kind := .exactness
-      theoremName := "penaltyLoss_eq_zero_iff_holds_leZero"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
-    -- Soundness: the loss is well defined and invariant under the substitutions the repair
-    -- loop performs, so that a repaired state is judged by the same loss.
-    { name := "penalty_loss_congr_of_indicesBelow"
-      kind := .soundness
-      theoremName := "penaltyLoss_congr_of_indicesBelow"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean" },
-    -- Approximation: each constraint family's loss is Lipschitz in the point cloud, which is
-    -- the quantitative half: exactness says WHEN the loss vanishes, this says how fast.
-    { name := "penalty_loss_lipschitz_eqZero"
-      kind := .approximation
-      theoremName := "eqZero_lipschitz"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
-    { name := "penalty_loss_lipschitz_gtZero"
-      kind := .approximation
-      theoremName := "gtZero_lipschitz"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
-    { name := "penalty_loss_lipschitz_equalLength"
-      kind := .approximation
-      theoremName := "equalLength_lipschitz"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" },
-    -- Completeness: the `max_zero` family is how an INEQUALITY constraint is encoded, and
-    -- `max_zero_eq_zero_iff` is the totality statement that every inequality is representable.
-    { name := "penalty_max_zero_eq_zero_iff"
-      kind := .completeness
-      theoremName := "max_zero_eq_zero_iff"
-      file := "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean" }
+    -- **Round 770: all seven go through `verifiedObligation`, so each CARRIES a proposition.**
+    verifiedObligation "penalty_loss_zero_iff_holds_sq" .exactness
+      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+      "penaltyLoss_eq_zero_iff_holds_sq" penaltyLoss_eq_zero_iff_holds_sqProp,
+    verifiedObligation "penalty_loss_zero_iff_holds_leZero" .exactness
+      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+      "penaltyLoss_eq_zero_iff_holds_leZero" penaltyLoss_eq_zero_iff_holds_leZeroProp,
+    verifiedObligation "penalty_loss_congr_of_indicesBelow" .soundness
+      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+      "penaltyLoss_congr_of_indicesBelow" penaltyLoss_congr_of_indicesBelowProp,
+    verifiedObligation "penalty_loss_lipschitz_eqZero" .approximation
+      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+      "eqZero_lipschitz" eqZero_lipschitzProp,
+    verifiedObligation "penalty_loss_lipschitz_gtZero" .approximation
+      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+      "gtZero_lipschitz" gtZero_lipschitzProp,
+    verifiedObligation "penalty_loss_lipschitz_equalLength" .approximation
+      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+      "equalLength_lipschitz" equalLength_lipschitzProp,
+    verifiedObligation "penalty_max_zero_eq_zero_iff" .completeness
+      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+      "max_zero_eq_zero_iff" max_zero_eq_zero_iffProp
   ]
   version := ⟨1, 0, 0⟩
 

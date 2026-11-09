@@ -8271,6 +8271,7 @@ plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_obligation_count	no
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_provides	no
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_requires_nothing	no
+plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/Manifest.lean	penalty_props_hold	no
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean	differentiableAt_netActN_jointAt	no
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean	differentiableAt_netActN_paramsAt	no
 plugins	Plugins/Domains/Constraints/Penalty	Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean	differentiableAt_penaltyLoss_family	no

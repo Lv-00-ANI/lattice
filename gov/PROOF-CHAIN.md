@@ -801,7 +801,7 @@
 - `Lattice.Plugins.Core.Repair.RepairWF` <- `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Plugins.Domains` <- `Lattice.Plugins.Domains.Constraints`
 - `Lattice.Plugins.Domains.Constraints` <- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.Plugin`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Plugin`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`, `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`
-- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`
 - `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative` <- `Lattice.Reference.Geometry.Constraints.PenaltyLossDerivative`, `Lattice.Reference.Geometry.Constraints.NetLoss`, `Lattice.Core.StackDerivative`, `Lattice.Core.Net`
 - `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss` <- `Lattice.Reference.Geometry.Constraints.Constraint`, `Lattice.Reference.Geometry.Constraints.Dist`, `Lattice.Reference.Geometry.Constraints.Lipschitz`, `Lattice.Reference.Geometry.Constraints.DistLipschitz`, `Lattice.Reference.Geometry.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Reference.Geometry.Constraints.NetLossDerivative`, `Lattice.Reference.Geometry.Constraints.PenaltyLoss`
@@ -1741,7 +1741,7 @@
 | `Lattice.Plugins.Core.Repair.RepairWF` | 4 | 3 |
 | `Lattice.Plugins.Domains` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints` | 0 | 0 |
-| `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 12 | 1 |
+| `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 13 | 8 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative` | 45 | 9 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss` | 36 | 3 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
@@ -7736,6 +7736,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penalty_exact` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `out`, `zeroHolds`
 - `penalty_inexact_witness` -> `RelKind`
 - `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
+- `penalty_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `claims`, `completeness`, `eqZero_lipschitz`, `equalLength_lipschitz`, `gtZero_lipschitz`, `layer`, `length`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `max_zero_eq_zero_iff`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `requires`, `soundness`, `verifiedObligation`
 - `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `HoldsSet`, `Pt`, `at`, `canonical`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `penalty_samePoint_const` -> `Holds`, `Pt`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `penalty_zero` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`

@@ -2840,6 +2840,7 @@ Plugins/Core/Repair/RepairWF.lean	iterate_succ
 Plugins/Core/Repair/RepairWF.lean	iterate_shift
 Plugins/Core/Repair/RepairWF.lean	progress_on_wf
 Plugins/Core/Repair/RepairWF.lean	preserves_of_sat
+Plugins/Domains/Constraints/Penalty/Manifest.lean	penalty_props_hold
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_obligation_count
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_nonempty
 Plugins/Domains/Constraints/Penalty/Manifest.lean	manifest_layer
