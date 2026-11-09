@@ -815,3 +815,5 @@ forward	Semantics/PostTrain.lean	post_train_preserves_set
 forward	Semantics/Stage1.lean	inherits_sound
 forward	Semantics/VocabEdit.lean	split_error_bound
 forward	Semantics/VocabEdit.lean	vocab_compat_permutation
+forward	Core/Data/Models.lean	data_models
+forward	Core/Data/Models.lean	data_models_shape

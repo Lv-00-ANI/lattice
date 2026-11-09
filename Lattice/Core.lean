@@ -1,3 +1,4 @@
+import Lattice.Core.Data
 import Lattice.Core.Check
 import Lattice.Core.Idempotent
 import Lattice.Core.Invariant

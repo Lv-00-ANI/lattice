@@ -1,4 +1,5 @@
 import Lattice.Core
+import Lattice.Core.Data
 import Lattice.Runtime
 import Lattice.Slots
 import Lattice.Primitives

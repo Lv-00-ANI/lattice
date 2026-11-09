@@ -50,6 +50,13 @@ WILDCARD_NONE = re.compile(r"\|\s*_\s*=>\s*none")
 
 #: file (relative to `Lattice/`) -> (reason, the theorem or justification)
 COVERED = {
+    "Core/Data/Decode.lean": (
+        "covered by round-trip",
+        "The three `none` arms are the rejection arms of `decodeWidth`, `decodeCorpusList` and "
+        "`decode`. **`decodeCorpusList_encodeCorpus` proves that every term `encodeCorpus` produces "
+        "takes the `some` arm** -- so on the encoding's image the `none` arms are unreachable. "
+        "Off the image they are reachable BY DESIGN: the CIC term space is larger than the data "
+        "space, and `decode` is a partial function, not a total one."),
     "Core/IR/DecodeRelations.lean": (
         "covered by round-trip",
         "`partOfCode`'s wildcard is the tag-above-3 arm, and `partOfCode_partCode` proves the "

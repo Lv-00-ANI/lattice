@@ -24,12 +24,12 @@
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 0 *(仅本文件)* | 2 | — |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
-| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 1 | 31 | `Core/IR/Semantics.lean` |
+| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 2 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 1 | 12 | `Runtime/ApproxExtraction.lean` |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 5 | `Runtime/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | **未找到** | — | — | — |
-| 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 2 | 3 | `Core/IR/Semantics.lean`, `Plugins/Core/Constraint/Manifest.lean` |
+| 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 3 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistFix` | **未找到** | — | — | — |
 | 3.3 inverse: repair | `parallelFix` | **未找到** | — | — | — |
