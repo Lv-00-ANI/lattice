@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**336 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
+**339 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | **0** | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 24 | 5.7% |
+| `Core` | 27 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 24 | `¬ Function.Injective relu` |
-| `Core` | 24 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 24 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 24 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 24 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 27 | `¬ Function.Injective relu` |
+| `Core` | 27 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 27 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 27 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 27 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |
@@ -276,3 +276,6 @@
    而 §2 的分类给出了哪些方向的排除已存在。
 3. **定位**：项目自称通用基础设施。基础设施的可信度来自**边界清晰**，
    本清册就是那条边界的清单。
+
+**第 779 轮**：新增 3 条（`binderCommutation_counterexample`、`binderCommutation_false`、
+`binderCommutation_needs_identity_at_zero_false`），故 `Core` 由 24 升为 27、总数由 336 升为 339。

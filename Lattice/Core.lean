@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.BinderCommutationFalse
 import Lattice.Core.CIC.ShiftCommGeneral
 import Lattice.Core.Data
 import Lattice.Core.Check
