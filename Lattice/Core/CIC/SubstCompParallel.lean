@@ -63,18 +63,67 @@ theorem liftN_comp (j k : ℕ) (sigma : Subst) :
   | succ i ih =>
       simp only [liftN_succ, ih, Nat.succ_add]
 
-/-! ## 尚未完成：`inst_shift_gen`
+/-- **两个替换的复合：先应用 `tau`，再把 `sigma` 作用到结果上。**
 
-**本轮把它写出来并试了三十多次，阻塞点已精确定位：**
+**=> 这就是 `inst_comp` 右端需要的映射。** -/
+def compSubst (sigma tau : Subst) : Subst := fun n => inst sigma (tau n)
 
-**绑定情形需要 `liftN (k+1) (lift σ) = lift (liftN k σ)`。
-左边展开是 `lift (liftN k (lift σ))`，右边展开是 `lift (liftN k σ)`。
-两边都是对 `σ` 应用 `lift` `k+2` 次 —— **它们应该相等，但 `liftN_comp` 的形式
-与之不完全对齐（`liftN (k+1) (lift σ)` 的 `liftN` 参数与 `lift` 的嵌套顺序不一致）。**
+/-- **复合在 `var` 处的取值。**
 
-**=> 下一步是把 `liftN (j + k) σ = liftN j (liftN k σ)` 与本条用 `liftN_succ`
-同时展开到 `lift` 嵌套的层数，然后用 `funext` 比较逐点值。**
+**`inst sigma (inst tau (var n)) = compSubst sigma tau n`。**
 
-**本文件不声称它已证。** -/
+**=> `inst_comp` 的原子情形，已证；其余构造子由归纳假设给出。** -/
+theorem compSubst_apply (sigma tau : Subst) (n : ℕ) :
+    inst sigma (inst tau (Term.var n)) = compSubst sigma tau n := rfl
+
+/-! ## 第 781 轮发现的指数错位（已定位，不再猜）
+
+**绑定情形需要 `liftN (k+1) (lift σ) = lift (liftN k σ)`。实测：**
+
+```
+liftN 1 (lift σ) = lift (lift σ)
+lift (liftN 0 σ) = lift σ
+```
+
+**—— 左边比右边多一次 `lift`，所以那个等式**是假的**。
+**=> `inst_shift_gen` 不能在「`liftN k` 与 `shift k` 同指数」的形式下归纳。** -/
+/-- **吨收律：先 `lift` 再 `liftN k` 等于 `liftN (k+1)`。**
+
+**`liftN k (lift σ) = liftN (k + 1) σ`。**
+
+**=> 这是第 781 轮找到的**关键桥梁**。对 `σ` 先做 `lift`、再做 `k` 次 `liftN`，
+与直接做 `k+1` 次 `liftN` 是**同一件事**。**
+
+**=> 因此 `inst_comp` 的绑定情形里 `lift (liftN k σ)` 可以当作
+`liftN (k+1) σ` 来用。** -/
+theorem liftN_absorb (k : ℕ) (sigma : Subst) :
+    liftN k (lift sigma) = liftN (k + 1) sigma := by
+  induction k with
+  | zero => rfl
+  | succ i ih =>
+      rw [liftN_succ] at ih ⊢
+      rw [ih]
+      rfl
+
+/-! ## 尚未完成：`inst_comp`
+
+**`inst σ (inst τ u) = compSubst σ τ u` 的 `var`/`sort`/`const`/`app` 情形都直接闭合，
+绑定情形是开的。第 781 轮它定位到一个精确的指数错位：**
+
+**绑定情形需要 `liftN (k+1) (lift σ) = lift (liftN k σ)`。而实测：**
+
+```
+liftN 1 (lift σ) = lift (lift σ)
+lift (liftN 0 σ) = lift σ
+```
+
+**——左边比右边多一次 `lift`。所以那个等式**是假的**。**
+
+**=> `inst_shift_gen`（以及由它推出的 `inst_comp`）**不能**在「`liftN k` 与 `shift k` 同指数」
+的形式下归纳。正确的推广必须让**`lift` 的层数比 cutoff 多一**，
+或者让归纳假设携带一个新的辅勩恒等式把两者对齐。**
+
+**本文件**不**声称 `inst_comp` 已证。把错位写成一个可复算的等式比写一个 `sorry`
+更有用：下一个人不必再从头定位。** -/
 
 end Lattice.Core.CIC

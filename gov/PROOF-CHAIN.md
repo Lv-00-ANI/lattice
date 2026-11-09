@@ -986,7 +986,7 @@
 | `Lattice.Core.CIC.ShiftNonComm` | 1 | 0 |
 | `Lattice.Core.CIC.SubstBridge` | 3 | 1 |
 | `Lattice.Core.CIC.SubstComp` | 2 | 1 |
-| `Lattice.Core.CIC.SubstCompParallel` | 3 | 1 |
+| `Lattice.Core.CIC.SubstCompParallel` | 5 | 2 |
 | `Lattice.Core.CIC.SubstShiftAnalysis` | 5 | 0 |
 | `Lattice.Core.CIC.SubstTable` | 5 | 0 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
@@ -3241,6 +3241,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compBound_monotone` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_nonneg` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_succ` -> `E`, `apply`, `induction`, `le_trans`, `zero`
+- `compSubst_apply` -> `Subst`, `Term`, `at`, `induction`, `inst`, `lift`, `zero`
 - `comp_apply_strictMono` -> `at`, `comp`, `g`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `comp_assoc_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `g`, `induction`, `scaleVec`
 - `comp_candidate_false` -> `Term`, `at`, `subst`, `subst_var_eq`, `subst_var_gt`
@@ -6322,9 +6323,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `licq_single_iff` -> `LICQOneDim`, `at`, `d`, `e2`, `g`, `le_refl`, `subst`
 - `liftDB_bvar_ge` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `liftDB_bvar_lt` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
-- `liftN_comp` -> `Subst`, `induction`, `zero`
-- `liftN_succ` -> `Subst`, `induction`, `lift`, `zero`
-- `liftN_zero` -> `Subst`, `induction`, `lift`, `zero`
+- `liftN_absorb` -> `Subst`, `at`, `induction`, `lift`, `zero`
+- `liftN_comp` -> `Subst`, `Term`, `at`, `induction`, `inst`, `lift`, `zero`
+- `liftN_succ` -> `Subst`, `Term`, `at`, `induction`, `inst`, `lift`, `zero`
+- `liftN_zero` -> `Subst`, `Term`, `at`, `induction`, `inst`, `lift`, `zero`
 - `lift_at_cutoff_ge` -> `Subst`, `inst`, `lift`, `shift`, `shift_var_ge`
 - `lift_at_cutoff_lt` -> `Subst`, `inst`, `lift`, `shift`, `shift_var_ge`, `shift_var_lt`
 - `lift_at_cutoff_zero` -> `Subst`, `inst`, `lift`, `shift`, `shift_var_ge`, `shift_var_lt`
