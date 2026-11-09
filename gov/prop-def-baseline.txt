@@ -73,3 +73,7 @@ Plugins/Architectures/Attention/Plugin.lean	AttentionMaskExcludesProp
 Plugins/Architectures/DAG/Plugin.lean	DAGConfluenceProp
 Plugins/Architectures/DAG/Plugin.lean	DAGDenoteSeqProp
 Plugins/Architectures/DAG/Plugin.lean	DAGDenoteParProp
+Plugins/Targets/IRCarrier.lean	ir_data_models
+Plugins/Targets/IRCarrier.lean	ir_parse_models
+Plugins/Targets/IRCarrier.lean	ir_chain_closes
+Plugins/Targets/IRCarrier.lean	ir_encode_sound

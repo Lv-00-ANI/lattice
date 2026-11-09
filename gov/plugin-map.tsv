@@ -8706,6 +8706,13 @@ plugins	Plugins/Targets	Plugins/Targets/FullAnchorSolver.lean	fullFamilySolver_a
 plugins	Plugins/Targets	Plugins/Targets/FullAnchorSolver.lean	fullSolver_splits_kinds	no
 plugins	Plugins/Targets	Plugins/Targets/FullAnchorSolver.lean	indicesOf_midpoint	no
 plugins	Plugins/Targets	Plugins/Targets/FullAnchorSolver.lean	kindSum_midpoint_0_0_0	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	irCarrierAdditions_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_chain_closes_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_data_models_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_decode_shape_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_encode_sound_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_parse_models_holds	no
+plugins	Plugins/Targets	Plugins/Targets/IRCarrier.lean	ir_token_count_holds	no
 plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	fullAnchor_separates	no
 plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_anchor	no
 plugins	Plugins/Targets	Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_canonical	no

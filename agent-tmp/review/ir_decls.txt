@@ -1,0 +1,325 @@
+﻿ArchGraph.lean:75	structure ArchGraph where
+ArchGraph.lean:86	theorem ArchGraph.mem_nodes_of_edge (G : ArchGraph) {t d : TensorId}
+ArchGraph.lean:95	theorem empty_graph_depends_false (t : TensorId) (i : TensorId 脳 List 鈩? :
+ArchGraph.lean:106	theorem graph_ext {G H : ArchGraph} (hn : G.nodes = H.nodes)
+ArchGraph.lean:123	def ArchGraph.ofSkeleton (k : IRSkeleton) : ArchGraph where
+Basic.lean:11	structure Tensor   where id : TensorId; shape : List Nat; data : Fin shape.product -> Real
+Basic.lean:12	structure Relation where kind : RelKind; args : List (TensorId x List Nat); hold : Holds kind args;
+Basic.lean:14	structure IR       where tensors : List Tensor; relations : List Relation
+Basic.lean:65	abbrev TensorId : Type := 鈩?
+Basic.lean:71	structure Tensor where
+Basic.lean:81	theorem Tensor.data_size (t : Tensor) : t.data 鈭?(fun x => x) = t.data := rfl
+Basic.lean:88	inductive PartKind where
+Basic.lean:102	inductive RelKind where
+Basic.lean:145	structure Relation (RelationHolds : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop) where
+Basic.lean:159	theorem Relation.part_irrelevant {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Basic.lean:167	structure LatticeIR (H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop) where
+Basic.lean:179	theorem LatticeIR.order_invariant {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Canonical.lean:14	theorem ir_unique (w : Weights) : 鈭? S, IsIR S w
+Canonical.lean:76	def shapesOf {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (S : LatticeIR H) : List RelationShape :=
+Canonical.lean:83	def IsIR {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Canonical.lean:88	theorem IsIR.shapes {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Canonical.lean:93	theorem IsIR.covered {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Canonical.lean:98	theorem IsIR.maximal {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Canonical.lean:108	theorem materialize_isIR {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (k : IRSkeleton) :
+Canonical.lean:120	theorem ir_unique_relations {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (k : IRSkeleton) :
+Chain.lean:69	noncomputable def compileSkel (k : IRSkeleton) : IRWeights :=
+Chain.lean:73	noncomputable def extractSkel (W : IRWeights) : Option 鈩?:=
+Chain.lean:81	theorem roundtrip_parse (t : Term) :
+Chain.lean:91	theorem compileSkel_injective : Function.Injective compileSkel := by
+Chain.lean:112	theorem chain_determines_structure {s t : Term}
+Chain.lean:121	theorem compileSkel_parse_congr {s t : Term} (h : parse s = parse t) :
+Compile.lean:74	abbrev IRWeights : Type := 鈩?鈫?鈩?
+Compile.lean:80	def kindCode : RelKind 鈫?鈩?  | .equal => Nat.pair 0 0
+Compile.lean:98	theorem kindCode_injective : Function.Injective kindCode := by
+Compile.lean:103	def partCode : Option PartKind 鈫?鈩?  | none => Nat.pair 0 0
+Compile.lean:109	theorem partCode_injective : Function.Injective partCode := by
+Compile.lean:127	def listCode : List 鈩?鈫?鈩?  | [] => 0
+Compile.lean:133	theorem listCode_injective : Function.Injective listCode := by
+Compile.lean:159	def argsCode : List (TensorId 脳 List 鈩? 鈫?鈩?  | [] => 0
+Compile.lean:163	theorem argsCode_injective : Function.Injective argsCode := by
+Confluence.lean:77	def behavior (s : LifeState) : Plugin 鈫?Option 鈩?:= s.effect
+Confluence.lean:80	def ResultEquiv (s t : LifeState) : Prop := behavior s = behavior t
+Confluence.lean:83	theorem resultEquiv_refl (s : LifeState) : ResultEquiv s s := rfl
+Confluence.lean:86	theorem resultEquiv_symm {s t : LifeState} (h : ResultEquiv s t) : ResultEquiv t s := h.symm
+Confluence.lean:89	theorem resultEquiv_trans {s t u : LifeState} (h鈧?: ResultEquiv s t) (h鈧?: ResultEquiv t u) :
+Confluence.lean:92	structure Edit where
+Confluence.lean:98	def applyEdit (e : Edit) (s : LifeState) : LifeState :=
+Confluence.lean:102	def run (trace : List Edit) (s : LifeState) : LifeState :=
+Confluence.lean:106	def zeroState : LifeState where
+Confluence.lean:117	def construct (trace : List Edit) : LifeState := run trace zeroState
+Confluence.lean:120	theorem construct_eq_run_zero (trace : List Edit) (Q : Plugin) :
+Confluence.lean:128	def quiescent (deps : Plugin 鈫?List Plugin) (s : LifeState) : Prop :=
+Confluence.lean:134	theorem quiescent_spec (deps : Plugin 鈫?List Plugin) (s : LifeState)
+Confluence.lean:143	theorem not_quiescent_of_unmet (deps : Plugin 鈫?List Plugin) (s : LifeState)
+Confluence.lean:156	theorem behavior_ignores_active (s t : LifeState) (h : 鈭€ Q, s.effect Q = t.effect Q) :
+Confluence.lean:165	theorem applyEdit_other (e : Edit) (s : LifeState) (Q : Plugin) (h : Q 鈮?e.plugin) :
+Confluence.lean:170	theorem applyEdit_self (e : Edit) (s : LifeState) :
+Confluence.lean:182	theorem run_untouched (trace : List Edit) (s : LifeState) (Q : Plugin)
+Confluence.lean:199	theorem construct_single (e : Edit) :
+Confluence.lean:205	theorem run_single_effect (e : Edit) (s : LifeState) :
+Confluence.lean:219	theorem confluence_single (e : Edit) (s : LifeState) :
+Confluence.lean:232	theorem lattice_failure_isolated (P : Plugin) (s : LifeState) (Q : Plugin) (h : Q 鈮?P) :
+Confluence.lean:241	theorem failure_no_cert (P : Plugin) (s : LifeState) :
+Confluence.lean:247	theorem run_cons (e : Edit) (rest : List Edit) (s : LifeState) :
+Confluence.lean:266	theorem run_congr_of_agree (trace : List Edit) (s t : LifeState)
+Confluence.lean:309	theorem run_ignores_initial_of_edits (trace : List Edit) (Q : Plugin)
+Confluence.lean:345	theorem lattice_confluence (trace : List Edit) (s : LifeState) :
+Confluence.lean:364	theorem lattice_confluence_zero (trace : List Edit) :
+Decode.lean:53	def decodeListAux : (fuel : 鈩? 鈫?鈩?鈫?List 鈩?  | 0, _ => []
+Decode.lean:67	theorem decodeListAux_code : 鈭€ (xs : List 鈩? (k : 鈩?, xs.length 鈮?k 鈫?    decodeListAux k (listCode xs) = xs := by
+Decode.lean:98	theorem pair_gt_snd (a b : 鈩? (ha : 1 鈮?a) : b < Nat.pair a b := by
+Decode.lean:114	theorem listCode_ge_length : 鈭€ xs : List 鈩? xs.length 鈮?listCode xs
+Decode.lean:127	def decodeList (n : 鈩? : List 鈩?:=
+Decode.lean:136	theorem decodeList_code (xs : List 鈩? : decodeList (listCode xs) = xs := by
+Decode.lean:147	def decodeTensorShape (code : 鈩? : Option TensorShape :=
+Decode.lean:161	theorem decodeTensorShape_code (t : TensorShape) :
+Decode.lean:181	def kindOfCode (n : 鈩? : RelKind :=
+Decode.lean:205	theorem kindOfCode_kindCode (k : RelKind) : kindOfCode (kindCode k) = k := by
+Decode.lean:230	def decodeTensorListAux : (fuel : 鈩? 鈫?鈩?鈫?Option (List TensorShape)
+Decode.lean:252	theorem decodeTensorListAux_code :
+Decode.lean:293	theorem shapesCode_tensor_ge_length :
+Decode.lean:305	def decodeTensorList (n : 鈩? : Option (List TensorShape) :=
+Decode.lean:309	theorem decodeTensorList_code (xs : List TensorShape) :
+DecodeRelations.lean:64	def partOfCode (n : 鈩? : Option PartKind :=
+DecodeRelations.lean:72	theorem partOfCode_partCode (p : Option PartKind) : partOfCode (partCode p) = p := by
+DecodeRelations.lean:88	def decodeArgsAux : (fuel : 鈩? 鈫?鈩?鈫?Option (List (TensorId 脳 List 鈩?)
+DecodeRelations.lean:106	theorem decodeArgsAux_code :
+DecodeRelations.lean:138	theorem decodeArgs_ge_length :
+DecodeRelations.lean:150	def decodeArgs (n : 鈩? : Option (List (TensorId 脳 List 鈩?) :=
+DecodeRelations.lean:154	theorem decodeArgs_code (xs : List (TensorId 脳 List 鈩?) :
+DecodeRelations.lean:176	def decodeRelationShape (code : 鈩? : Option RelationShape :=
+DecodeRelations.lean:196	theorem decodeRelationShape_code (r : RelationShape) :
+DecodeRelations.lean:228	def decodeRelListAux : (fuel : 鈩? 鈫?鈩?鈫?Option (List RelationShape)
+DecodeRelations.lean:246	theorem decodeRelListAux_code :
+DecodeRelations.lean:287	theorem shapesCode_rel_ge_length :
+DecodeRelations.lean:299	def decodeRelList (n : 鈩? : Option (List RelationShape) :=
+DecodeRelations.lean:303	theorem decodeRelList_code (xs : List RelationShape) :
+DecodeRelations.lean:318	def decodeSkeleton (code : 鈩? : Option IRSkeleton :=
+DecodeRelations.lean:340	theorem decodeSkeleton_code (k : IRSkeleton) : decodeSkeleton (skeletonCode k) = some k := by
+Depends.lean:59	def dependsHolds (dep : TensorId 鈫?List TensorId) (args : List (TensorId 脳 List 鈩?) : Prop :=
+Depends.lean:65	theorem dependsHolds_nil (dep : TensorId 鈫?List TensorId) :
+Depends.lean:73	theorem dependsHolds_refl (dep : TensorId 鈫?List TensorId) (o : TensorId) (ix : List 鈩?
+Depends.lean:84	theorem dependsHolds_mono {dep dep' : TensorId 鈫?List TensorId} {args : List (TensorId 脳 List 鈩?}
+Depends.lean:96	theorem dependsHolds_weaken {dep : TensorId 鈫?List TensorId} {out : TensorId} {ix : List 鈩晑
+Depends.lean:110	def holds3 (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId) :
+Depends.lean:118	theorem holds3_equal (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId)
+Depends.lean:123	theorem holds3_zero (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId)
+Depends.lean:128	theorem holds3_depends (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId)
+Depends.lean:136	theorem holds3_unhandled (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId)
+Extract.lean:14	noncomputable def extractCode (W : IRWeights) : Option Nat :=
+Extract.lean:61	noncomputable def extract (W : IRWeights) : Option IRSkeleton :=
+Extract.lean:69	theorem weightCodeIR_compileSkel (k : IRSkeleton) :
+Extract.lean:80	theorem extract_compile (k : IRSkeleton) :
+Extract.lean:92	theorem extract_injective_on_compiled (k l : IRSkeleton)
+Extract.lean:119	theorem pair_succ_pos_ne_zero (a b : 鈩? : Nat.pair (a + 1) b 鈮?0 := by
+Extract.lean:139	def compileWith (k : IRSkeleton)
+Extract.lean:157	theorem compileWith_code (k : IRSkeleton)
+Extract.lean:172	theorem compileWith_read (k : IRSkeleton) (f : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩?
+Extract.lean:200	def extractWith (W : IRWeights) : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩?:=
+Extract.lean:215	theorem extractWith_compileWith (k : IRSkeleton)
+Extract.lean:234	theorem compileWith_roundtrip (k : IRSkeleton)
+Extract.lean:258	theorem compileWith_zero (k : IRSkeleton)
+Extract.lean:267	theorem compileWith_zero_snd (k : IRSkeleton)
+Extract.lean:282	theorem extractWith_absent (k : IRSkeleton)
+Extract.lean:307	theorem extractWith_spec (k : IRSkeleton)
+Extract.lean:329	theorem extractWith_collision (k : IRSkeleton) (f : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩?
+Extract.lean:356	theorem extractWith_overwrite (k : IRSkeleton) (f : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩?
+Extract.lean:373	theorem extractWith_overwrite_local (k : IRSkeleton) (f : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩?
+Extract.lean:397	theorem extractWith_overwrite_footprint (k : IRSkeleton)
+Extract.lean:430	theorem reinject_restores (k : IRSkeleton)
+Extract.lean:446	theorem reinject_fixes (k : IRSkeleton)
+Extract.lean:462	theorem loop_preserves_others (k : IRSkeleton)
+Extract.lean:489	def agrees (k : IRSkeleton) (W : IRWeights)
+Extract.lean:497	theorem agrees_compileWith (k : IRSkeleton)
+Extract.lean:510	theorem not_agrees_of_disagreement (k : IRSkeleton) (W : IRWeights)
+Extract.lean:524	theorem loop_rejects_then_accepts (k : IRSkeleton)
+Extract.lean:551	theorem extract_compileWith (k : IRSkeleton)
+Extract.lean:571	def models (k : IRSkeleton) (W : IRWeights)
+Extract.lean:582	theorem models_compileWith (k : IRSkeleton)
+Extract.lean:591	theorem models_structure (k : IRSkeleton) (W : IRWeights)
+Extract.lean:597	theorem models_data (k : IRSkeleton) (W : IRWeights)
+IsIR.lean:65	def NonTrivial (ts : List Tensor) (id : TensorId) (ix : List 鈩? : Prop :=
+IsIR.lean:69	def Names (r : RelationShape) (id : TensorId) (ix : List 鈩? : Prop :=
+IsIR.lean:82	def covered (ts : List Tensor) (rels : List RelationShape) : Prop :=
+IsIR.lean:95	def maximal (rels : List RelationShape) : Prop :=
+IsIR.lean:113	theorem materialize_covered {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (k : IRSkeleton) :
+IsIR.lean:131	theorem maximal_nil : maximal [] := by
+IsIR.lean:149	def pointTensors : List Tensor :=
+IsIR.lean:153	def pointRelations : List RelationShape :=
+IsIR.lean:159	theorem pointTensors_covered : covered pointTensors pointRelations := by
+IsIR.lean:173	theorem pointTensors_not_covered :
+Lifecycle.lean:78	structure Plugin where
+Lifecycle.lean:84	structure LifeState where
+Lifecycle.lean:90	def effectOf (P : Plugin) (s : LifeState) : Option 鈩?:= s.effect P
+Lifecycle.lean:97	def unload (P : Plugin) (s : LifeState) : LifeState :=
+Lifecycle.lean:101	def requires (deps : Plugin 鈫?List Plugin) (P Q : Plugin) : Prop := Q 鈭?deps P
+Lifecycle.lean:114	theorem unload_removes_only_own (P Q : Plugin) (s : LifeState) (h : Q 鈮?P) :
+Lifecycle.lean:121	theorem unload_inactive (P : Plugin) (s : LifeState) : (unload P s).active P = false := by
+Lifecycle.lean:129	def undo (P : Plugin) (a : Bool) (e : Option 鈩? (s : LifeState) : LifeState :=
+Lifecycle.lean:134	theorem undo_effect (P : Plugin) (a : Bool) (e : Option 鈩? (s : LifeState) :
+Lifecycle.lean:139	theorem undo_active (P : Plugin) (a : Bool) (e : Option 鈩? (s : LifeState) :
+Lifecycle.lean:150	theorem recovery_exact (P : Plugin) (s : LifeState) :
+Lifecycle.lean:173	def canActivate (deps : Plugin 鈫?List Plugin) (s : LifeState) (P : Plugin) : Prop :=
+Lifecycle.lean:185	theorem lattice_ordering (deps : Plugin 鈫?List Plugin) (s : LifeState)
+Lifecycle.lean:202	theorem canActivate_needs_requires (deps : Plugin 鈫?List Plugin) (s : LifeState)
+Lifecycle.lean:216	def invalidated (c : Option 鈩? (P : Plugin) (s : LifeState) : Prop :=
+Lifecycle.lean:229	theorem lattice_resolution_coherent (P : Plugin) (s s' : LifeState)
+Lifecycle.lean:246	theorem resolution_coherent_of_replacement (P : Plugin) (s s' : LifeState) (c : Option 鈩?
+Lifecycle.lean:256	theorem resolution_certificate_stable (P : Plugin) (s s' : LifeState) (c : Option 鈩?
+Materialize.lean:63	def zerosOf (s : TensorShape) : Tensor where
+Materialize.lean:74	def readOf (ts : List Tensor) : TensorId 鈫?List 鈩?鈫?鈩?:=
+Materialize.lean:87	theorem readOf_zero_data (ts : List Tensor) (hzero : 鈭€ t 鈭?ts, t.data = fun _ => (0 : 鈩?) :
+Materialize.lean:102	theorem output (s : TensorShape) :
+Materialize.lean:106	def fillZeros (k : IRSkeleton) : List Tensor :=
+Materialize.lean:116	theorem skeleton_of_fillZeros (k : IRSkeleton) :
+Materialize.lean:131	def materialize {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (k : IRSkeleton) :
+Materialize.lean:140	theorem materialize_tensors_length {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Materialize.lean:146	theorem materialize_empty {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} :
+Materialize.lean:155	theorem materialize_exists {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (k : IRSkeleton) :
+Materialize.lean:165	structure is `covered`.**
+Materialize.lean:180	def fillWith (k : IRSkeleton) (f : (s : TensorShape) 鈫?Fin s.shape.prod 鈫?鈩? : List Tensor :=
+Materialize.lean:186	theorem fillWith_zero (k : IRSkeleton) :
+Materialize.lean:214	theorem find_eq_some_of_nodup {伪 : Type} [DecidableEq 伪]
+Materialize.lean:239	theorem map_inj_of_nodup {伪 : Type} (l : List 伪) (g : 伪 鈫?鈩? (hnd : (l.map g).Nodup)
+Materialize.lean:264	theorem find_id_eq_some_of_nodup (l : List Tensor) (hnd : (l.map (路.id)).Nodup)
+Materialize.lean:297	theorem readOf_fillWith {k : IRSkeleton}
+Modulus.lean:80	def size (k : IRSkeleton) : 鈩?:= k.tensors.length + k.relations.length
+Modulus.lean:83	theorem size_nonneg (k : IRSkeleton) : (0 : 鈩? 鈮?(size k : 鈩? := by
+Modulus.lean:93	theorem modulus_tends_to_zero (k : IRSkeleton) (v : 鈩?
+Modulus.lean:103	theorem modulus_mono_in_eps (k : IRSkeleton) {eps鈧?eps鈧?: 鈩潁 (h : eps鈧?鈮?eps鈧?
+Modulus.lean:113	theorem modulus_slack (k : IRSkeleton) {v eps : 鈩潁
+Obligations.lean:60	def WellFormed (k : IRSkeleton) : Prop :=
+Obligations.lean:69	def semantics (k : IRSkeleton) : IRSkeleton := k
+Obligations.lean:72	def ModelsIR (W : IRWeights) (k : IRSkeleton) : Prop := W = compileSkel k
+Obligations.lean:85	theorem compile_sound {k : IRSkeleton} (h : WellFormed k) :
+Obligations.lean:97	theorem extract_compile_skel (k : IRSkeleton) :
+Obligations.lean:107	theorem extract_compile_iff (k : IRSkeleton) {j : IRSkeleton}
+Obligations.lean:123	theorem construct_sound {t : Term} {k : IRSkeleton} (h : parse t = k) :
+Obligations.lean:132	theorem construct_sound_wf {t : Term} {k : IRSkeleton}
+Parse.lean:74	def termShape : List 鈩?:= [1]
+Parse.lean:81	def tensorCount : Term 鈫?鈩?  | Term.sort _ _ => 1
+Parse.lean:96	def termTensors (t : Term) : List TensorShape :=
+Parse.lean:105	theorem termTensors_nodup (t : Term) : ((termTensors t).map (路.id)).Nodup := by
+Parse.lean:117	theorem termTensors_id_lt (t : Term) :
+Parse.lean:129	def parseSkeleton (t : Term) : IRSkeleton where
+Parse.lean:136	theorem parseSkeleton_total (t : Term) : 鈭?k : IRSkeleton, parseSkeleton t = k :=
+Parse.lean:139	theorem tensorCount_pos (t : Term) : 0 < tensorCount t := by
+Parse.lean:150	theorem termTensors_ne_nil (t : Term) : termTensors t 鈮?[] := by
+Parse.lean:168	def parse (t : Term) : IRSkeleton :=
+Parse.lean:174	theorem parse_total (t : Term) : 鈭?k : IRSkeleton, parse t = k :=
+Parse.lean:179	theorem parse_eq_parseSkeleton (t : Term) : parse t = parseSkeleton t := rfl
+Parse.lean:186	theorem parse_tensors_length (t : Term) : (parse t).tensors.length = tensorCount t := by
+Parse.lean:191	theorem parse_has_tensor (t : Term) : (parse t).tensors 鈮?[] := by
+Parse.lean:213	def dependsShape (head : TensorId) (children : List TensorId) : RelationShape where
+Parse.lean:222	def walkWithRelations : Term 鈫?鈩?鈫?(List TensorShape 脳 List RelationShape 脳 鈩?
+Parse.lean:246	def parseSkeletonWithRelations (t : Term) : IRSkeleton :=
+Parse.lean:261	def parseWithRelations (t : Term) : IRSkeleton :=
+Parse.lean:265	theorem parseWithRelations_eq (t : Term) :
+Parse.lean:279	theorem walk_mono : 鈭€ (t : Term) (n : 鈩?, n 鈮?(walkWithRelations t n).2.2
+Parse.lean:312	theorem walk_length_indep : 鈭€ (t : Term) (n m : 鈩?,
+Parse.lean:357	theorem walk_count : 鈭€ (t : Term) (n : 鈩?,
+Parse.lean:409	theorem walk_range : 鈭€ (t : Term) (n : 鈩?,
+Parse.lean:480	theorem dependsShape_args {n : 鈩晑 {a : TensorId 脳 List 鈩晑
+Parse.lean:502	theorem walk_own_id_mem (t : Term) (n : 鈩? :
+Parse.lean:528	theorem walk_rel_args (t : Term) : 鈭€ n : 鈩?
+Parse.lean:606	theorem walk_increasing : 鈭€ (t : Term) (n : 鈩?,
+Parse.lean:687	theorem walk_nodup (t : Term) (n : 鈩? :
+Parse.lean:696	theorem walkWithRelations_relations_are_depends (t : Term) (n : 鈩? :
+Parse.lean:736	theorem parseWithRelations_has_tensor (t : Term) : (parseWithRelations t).tensors 鈮?[] := by
+Penalty.lean:78	def exactConstructors : List RelKind := [.equal, .zero, .depends]
+Penalty.lean:84	def unmetCount (dep : TensorId 鈫?List TensorId) (args : List (TensorId 脳 List 鈩?) : 鈩?:=
+Penalty.lean:95	def penaltyLoss (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId) :
+Penalty.lean:112	theorem penalty_equal (read : TensorId 鈫?List 鈩?鈫?鈩? (a b : TensorId 脳 List 鈩? :
+Penalty.lean:118	theorem penalty_zero (read : TensorId 鈫?List 鈩?鈫?鈩? (a : TensorId 脳 List 鈩? :
+Penalty.lean:127	theorem penalty_depends (dep : TensorId 鈫?List TensorId) (out : TensorId) (ix : List 鈩?
+Penalty.lean:157	theorem about `|.|` or about counting, NOT about the penalty's definition being circular.** -/
+Penalty.lean:158	theorem penalty_exact (read : TensorId 鈫?List 鈩?鈫?鈩? (dep : TensorId 鈫?List TensorId) :
+Penalty.lean:186	theorem penalty_inexact_witness : RelKind.lowRank 鈭?exactConstructors := by
+Relations.lean:57	structure Slice (read : TensorId 鈫?List 鈩?鈫?鈩? where
+Relations.lean:63	def Slice.value {read : TensorId 鈫?List 鈩?鈫?鈩潁 (s : Slice read) : 鈩?:=
+Relations.lean:67	def equalHolds {read : TensorId 鈫?List 鈩?鈫?鈩潁 (args : List (TensorId 脳 List 鈩?) : Prop :=
+Relations.lean:77	def zeroHolds {read : TensorId 鈫?List 鈩?鈫?鈩潁 (args : List (TensorId 脳 List 鈩?) : Prop :=
+Relations.lean:86	theorem equalHolds_refl {read : TensorId 鈫?List 鈩?鈫?鈩潁 (a : TensorId 脳 List 鈩? :
+Relations.lean:95	theorem equalHolds_symm {read : TensorId 鈫?List 鈩?鈫?鈩潁 {a b : TensorId 脳 List 鈩晑
+Relations.lean:104	theorem equalHolds_trans {read : TensorId 鈫?List 鈩?鈫?鈩潁 {a b c : TensorId 脳 List 鈩晑
+Relations.lean:114	theorem equal_zero_consistent {read : TensorId 鈫?List 鈩?鈫?鈩潁 {a b : TensorId 脳 List 鈩晑
+Relations.lean:127	def basicHolds {read : TensorId 鈫?List 鈩?鈫?鈩潁 :
+Relations.lean:136	theorem rather than as a convention.** -/
+Relations.lean:137	theorem basicHolds_unhandled {read : TensorId 鈫?List 鈩?鈫?鈩潁 (k : RelKind)
+Semantics.lean:16	def semantics (k : IRSkeleton) : IRSkeleton := k
+Semantics.lean:17	def ModelsIR (W : IRWeights) (k : IRSkeleton) : Prop := W = compileSkel k
+Semantics.lean:23	theorem compile_sound (h : WellFormed k) : ModelsIR (compileSkel k) (semantics k) := by
+Semantics.lean:88	def semanticsOf (k : IRSkeleton) : List RelationShape := k.relations
+Semantics.lean:98	def ModelsIRS (W : IRWeights) (k : IRSkeleton) : Prop :=
+Semantics.lean:113	theorem compile_sound_content {k : IRSkeleton} (h : WellFormed k) :
+Semantics.lean:126	theorem modelsIRS_implies_modelsIR {W : IRWeights} {k : IRSkeleton}
+Semantics.lean:134	theorem semanticsOf_nil : semanticsOf 鉄╗], []鉄?= [] := rfl
+Semantics.lean:147	theorem parseWithRelations_wellFormed (t : Lattice.Core.CIC.Term) :
+Semantics.lean:172	def materializeWith (k : IRSkeleton)
+Semantics.lean:188	theorem matw_roundtrip (r : RelationShape) :
+Semantics.lean:203	theorem shapesOf_materializeWith (k : IRSkeleton)
+Semantics.lean:225	def ModelsIRSWith (W : IRWeights) (k : IRSkeleton)
+Semantics.lean:236	theorem length_tensors_materializeWith (k : IRSkeleton)
+Semantics.lean:246	theorem tensors_materializeWith_zero (k : IRSkeleton) :
+Semantics.lean:257	theorem readOf_materializeWith {k : IRSkeleton}
+Semantics.lean:280	def pointSkeleton : IRSkeleton :=
+Semantics.lean:285	def pointData (s : TensorShape) : Fin s.shape.prod 鈫?鈩?:=
+Semantics.lean:292	theorem pointSkeleton_nodup : (pointSkeleton.tensors.map (路.id)).Nodup := by
+Semantics.lean:307	theorem pointSkeleton_models :
+Semantics.lean:323	def pointSkeletonWrong : IRSkeleton :=
+Semantics.lean:334	theorem pointSkeleton_wrong_relation_not_models :
+Semantics.lean:376	theorem models_of_covered_data (k : IRSkeleton)
+Semantics.lean:401	theorem parse_models (t : Lattice.Core.CIC.Term)
+Semantics.lean:431	theorem parse_models_full (t : Lattice.Core.CIC.Term)
+Semantics.lean:442	theorem parse_models_extract (t : Lattice.Core.CIC.Term)
+Semantics.lean:454	theorem parse_loop_rejects_then_accepts (t : Lattice.Core.CIC.Term)
+Semantics.lean:481	theorem covered_of_vanishing (k : IRSkeleton)
+Semantics.lean:501	theorem complies_and_covered (k : IRSkeleton)
+Semantics.lean:517	theorem agrees_not_subsumes_covered (k : IRSkeleton)
+Semantics.lean:538	theorem parse_chain (t : Lattice.Core.CIC.Term)
+Semantics.lean:557	theorem parse_chain_summary (t : Lattice.Core.CIC.Term)
+Semantics.lean:580	def nonzeroData (s : TensorShape) : Fin s.shape.prod -> Real :=
+Semantics.lean:588	theorem parse_var_relations_nil (n : Nat) :
+Semantics.lean:593	theorem parse_var_tensors_length (n : Nat) :
+Semantics.lean:605	theorem parse_var_not_covered :
+Semantics.lean:654	theorem dependsShape_args_empty (head : TensorId) (children : List TensorId) :
+Semantics.lean:668	theorem dependsShape_names_nothing (head : TensorId) (children : List TensorId) (id : TensorId) (i : Nat) :
+Semantics.lean:692	def dependsShapeAt (head : TensorId) (children : List TensorId) : RelationShape where
+Semantics.lean:700	def walkIndexed : Lattice.Core.CIC.Term -> Nat -> (List TensorShape 脳 List RelationShape 脳 Nat)
+Semantics.lean:725	theorem walkIndexed_count (t : Lattice.Core.CIC.Term) : 鈭€ n : Nat,
+Semantics.lean:741	theorem walkIndexed_tensors (t : Lattice.Core.CIC.Term) : 鈭€ n : Nat,
+Semantics.lean:774	def parseIndexed (t : Lattice.Core.CIC.Term) : IRSkeleton :=
+Semantics.lean:782	theorem parseIndexed_nodup (t : Lattice.Core.CIC.Term) :
+Semantics.lean:794	theorem parseIndexed_app_ids :
+Semantics.lean:803	theorem parseIndexed_covered_zero (t : Lattice.Core.CIC.Term) :
+Semantics.lean:829	def namedFirstData (s : TensorShape) : Fin s.shape.prod 鈫?鈩?:=
+Semantics.lean:837	theorem namedFirstData_zero_or {s : TensorShape} {i : 鈩晑 {hi : i < s.shape.prod}
+Semantics.lean:854	theorem app_indexed_covered_nonzero :
+Skeleton.lean:39	STRUCTURE of an IR, not its real-valued contents (which they encode, not equal).**
+Skeleton.lean:63	structure TensorShape where
+Skeleton.lean:73	structure RelationShape where
+Skeleton.lean:83	structure IRSkeleton where
+Skeleton.lean:93	def skeleton {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop} (S : LatticeIR H) : IRSkeleton where
+Skeleton.lean:98	def tensorShapeCode (t : TensorShape) : 鈩?:=
+Skeleton.lean:102	def relationShapeCode (r : RelationShape) : 鈩?:=
+Skeleton.lean:106	def shapesCode {伪 : Type} (f : 伪 鈫?鈩? : List 伪 鈫?鈩?  | [] => 0
+Skeleton.lean:112	theorem shapesCode_injective {伪 : Type} (f : 伪 鈫?鈩? (hf : Function.Injective f) :
+Skeleton.lean:140	def skeletonCode (k : IRSkeleton) : 鈩?:=
+Skeleton.lean:145	theorem tensorShapeCode_injective : Function.Injective tensorShapeCode := by
+Skeleton.lean:157	theorem relationShapeCode_injective : Function.Injective relationShapeCode := by
+Skeleton.lean:171	theorem skeletonCode_injective : Function.Injective skeletonCode := by
+Skeleton.lean:185	noncomputable def compileIR {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Skeleton.lean:190	noncomputable def weightCodeIR (W : IRWeights) : 鈩?:=
+Skeleton.lean:198	theorem compileIR_injective {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Skeleton.lean:210	noncomputable def extractCode (W : IRWeights) : Option 鈩?:=
+Skeleton.lean:221	theorem extract_compileIR {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Skeleton.lean:234	theorem roundtrip_determines_skeleton {H : RelKind 鈫?List (TensorId 脳 List 鈩? 鈫?Prop}
+Skeleton.lean:249	theorem find_id_eq_some_of_nodup_shape (l : List TensorShape) (hnd : (l.map (路.id)).Nodup)
+T4Repair.lean:29	theorem repair_progress {伪 : Type} (R : Repair 伪) (x : 伪) (h : 卢 R.Sat x) :
+T4Repair.lean:41	theorem conj_loop_fixed_point {伪 : Type} (R : Repair 伪) (x : 伪) :
+T4Repair.lean:54	theorem loop_fixed_point_with_roundtrip {伪 : Type} (R : Repair 伪) (x : 伪)
+T4Repair.lean:70	theorem atomic_is_the_base_case {伪 : Type} (R : Repair 伪) (x : 伪)
+Unique.lean:10	theorem ir_unique (w : Weights) : 鈭? S, IsIR S w
+Unique.lean:75	theorem skeleton_unique_from_weights {W : IRWeights} {k : IRSkeleton}
+Unique.lean:87	theorem ir_unique_from_parse (t : Term) :

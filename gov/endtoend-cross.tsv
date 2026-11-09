@@ -3197,6 +3197,13 @@ Plugins/Targets/FullAnchorSolver.lean	combinedAnchor_samePoint_3_7
 Plugins/Targets/FullAnchorSolver.lean	combinedAnchor_separates
 Plugins/Targets/FullAnchorSolver.lean	fullSolver_splits_kinds
 Plugins/Targets/FullAnchorSolver.lean	fullFamilySolver_anchor
+Plugins/Targets/IRCarrier.lean	ir_data_models_holds
+Plugins/Targets/IRCarrier.lean	ir_parse_models_holds
+Plugins/Targets/IRCarrier.lean	ir_chain_closes_holds
+Plugins/Targets/IRCarrier.lean	ir_token_count_holds
+Plugins/Targets/IRCarrier.lean	ir_encode_sound_holds
+Plugins/Targets/IRCarrier.lean	ir_decode_shape_holds
+Plugins/Targets/IRCarrier.lean	irCarrierAdditions_holds
 Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_anchor
 Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_sound
 Plugins/Targets/KindReadingSolver.lean	kindAnchoredSolve_canonical

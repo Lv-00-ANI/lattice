@@ -38,6 +38,7 @@ import Lattice.Plugins.Architectures.DAG.Proofs
 import Lattice.Plugins.Architectures.DAG.Manifest
 import Lattice.Plugins.Architectures.DAG.Plugin
 import Lattice.Plugins.Architectures.CarrierAdditions
+import Lattice.Plugins.Targets.IRCarrier
 
 namespace Lattice.Plugins
 
@@ -551,7 +552,15 @@ def ProofComplete : Prop :=
     Lattice.Runtime.verification_loop_closes ∧
     Lattice.Plugins.Targets.CPhaseAdditions ∧
     Lattice.Semantics.Stage1.DPhaseAdditions ∧
-    Lattice.Plugins.Architectures.ArchCarrierAdditions
+    Lattice.Plugins.Architectures.ArchCarrierAdditions ∧
+    -- Round 766 (STAGE 2): **the criterion now names the representation chain.**
+    -- The audit measured that all 23 source files of `ProofComplete` contained ZERO references to
+    -- `Core.IR` and `Core.CIC` -- the criterion could be true while the chain did nothing.
+    -- `irCarrierAdditions` is SIX mainline theorems covering the chain's four hops and both inverse
+    -- directions: data->skeleton->weights (`models`), term->skeleton->weights (`parse_models_full`),
+    -- extract o compile = id, token count conservation, encode type-preservation, and the shape
+    -- round trip. **Appended, not substituted** -- CARRIER-REPLACEMENT.md 48's dual-write rule.
+    Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -835,7 +844,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -859,5 +868,6 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Plugins.Targets.cPhaseAdditions_holds
   · exact Lattice.Semantics.Stage1.dPhaseAdditions_holds
   · exact Lattice.Plugins.Architectures.archCarrierAdditions_holds
+  · exact Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions_holds
 
 end Lattice.Plugins
