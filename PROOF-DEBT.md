@@ -63,9 +63,9 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9138 | 1326 | 14.5% |
+| 定理 + 引理 | 9140 | 1326 | 14.5% |
 | **入度 ≥ 1（承重集）** | **946** | **946** | **100.0%** |
-| **入度 = 0** | **8192** | **380** | **4.6%** |
+| **入度 = 0** | **8194** | **380** | **4.6%** |
 
 **两个方向都要读；只读一个是误导。**
 
@@ -73,7 +73,7 @@
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
-- **零入度只有 4.6%**：8192 条入度为 0 的定理里审了 380 条。**这才是「样本」真正指的东西。**
+- **零入度只有 4.6%**：8194 条入度为 0 的定理里审了 380 条。**这才是「样本」真正指的东西。**
 
 ### 承重集**已全部审阅**
 
@@ -87,7 +87,7 @@
 
 ### 零入度的抽样协议（第 27 轮写下）
 
-**8192 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
+**8194 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
 
 **抽样的依据**：过去的审阅按「旧的有缺陷的入度」选第一层，因此其中约三百多条
 实际入度为 0——**它们不是为「零入度」抽的样，而是为「高价值」抽的样，事后发现落在零入度里。**
@@ -161,7 +161,7 @@
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
 > **承重集（修正入度 ≥ 1）：946 条，其中已审 946 条。**
-> **零入度：8192 条，已抽审 380 条。**
+> **零入度：8194 条，已抽审 380 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
 ## 一、`delete`：陈述无信息量
@@ -207,7 +207,7 @@
 | `Plugins/Core/Repair/Repair.lean:117` | `stable` | 0 | 证明体就是 R.absorbs x h，即 Repair 结构体的一个字段投影，一字未改；等于把构造 Repair 时承诺的假设原样复述成「定理」。 |
 | `Plugins/Core/Repair/RepairAtomicity.lean:73` | `atomic_of_zero_iff` | 0 | 证明是 fun x hx => (h x).mp hx：结论就是前提的一个方向，重言。 |
 | `Reference/Geometry/Constraints/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
-| `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
+| `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :86 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
 | `Runtime/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
 | `Runtime/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
 | `Runtime/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
@@ -327,7 +327,7 @@
 | `Lib/Compiler/RealLv00CompilerSpec.lean:119` | `compile_constraint_degenerately_satisfied` | 0 | register：doc 已诚实标 (B/空洞)，但下游 RealLv00CompilerSat 仍可能把它当编译正确性引用。登记 PROOF-DEBT：补任意 env 的 sound/complete，退化版降为示例。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:311` | `compile_bridge_sem` | 0 | register：与 119 条同一债务。名字 compile_bridge_sem 容易让下游误以为完成了编译语义桥接，实际只是退化模型特化；登记 PROOF-DEBT 并考虑改名。 |
 | `Lib/Editing/RealCanonicalForm.lean:642` | `canonicalize_injective_on_quotient_boundary` | 0 | 数学上没问题（本库少见的真否定结论），问题只在名字与 doc 首句『性质③（商上单射）』同陈述（全称否定）不一致。建议改名 `canonicalize_not_constant_on_scaleClass`；改名会波及 RealExtractDecidability.lean:557 的文档引用，故登记而非现在改。 |
-| `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :185 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
+| `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :186 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:221` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealSymbolToWeightWidened.lean:304 同名同义重复；两文件互不 import，文件内也没有证明使用（in_degree=1 是同名声明碰撞而非语义引用）。doc 把它当「承重件」，实际是死件 + 双副本：登记 PROOF-DEBT，建议收敛为一份并接上消费者。 |
 | `Lib/Editing/RealExtractNonInjective.lean:137` | `convertVec_injective` | 0 | 同一声明在库内至少三份（另见 RealEditToSymbol:122、RealReversibilityBoundary:85）。doc 已诚实标注为「本文件内导出」，但正是这种自包含再导出在积累漂移面。建议登记 PROOF-DEBT：统一引用一处；当前不影响正确性。 |
 | `Lib/Editing/RealExtractSurjectivity.lean:369` | `extractVec_convertVec_rfl` | 0 | 与 RealCanonicalCompileComm:148 的同名定理（那里是真 `rfl`）构成两处同义声明，均由 Meta/RealRflAudit 消费。作为审计证据可以留，但应在 Meta 层只引一处。登记 PROOF-DEBT，现值不值得改。 |
