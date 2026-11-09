@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.TermSize
 import Lattice.Core.CIC.InstLiftSixOfSeven
 import Lattice.Core.CIC.InstLiftCutoff
 import Lattice.Core.CIC.InstShiftObstruction

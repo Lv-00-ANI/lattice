@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 91 | no imports from lift/lib |
+| core | 92 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -52,6 +52,7 @@
 - `Lattice.Core.CIC.Substitution` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.SubstitutionShift` <- `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.Syntax` 
+- `Lattice.Core.CIC.TermSize` <- `Lattice.Core.CIC.Reduction`, `Lattice.Core.CIC.Normalization`
 - `Lattice.Core.CIC.Typing` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.Value` <- `Lattice.Core.CIC.Typing`
 - `Lattice.Core.CastLemmas` 
@@ -754,7 +755,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -998,6 +999,7 @@
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
 | `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
 | `Lattice.Core.CIC.Syntax` | 4 | 4 |
+| `Lattice.Core.CIC.TermSize` | 16 | 1 |
 | `Lattice.Core.CIC.Typing` | 3 | 3 |
 | `Lattice.Core.CIC.Value` | 3 | 3 |
 | `Lattice.Core.CastLemmas` | 3 | 0 |
@@ -3123,8 +3125,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chiSqSym_perturbation_le` -> `eps`, `fisherInfo`, `fisherMatrix_eq_fisherInfo_one_dim`, `g`, `kl`
 - `chiSq_eq_sum_sq_div` -> `apply`, `at`, `chiSq`, `fDivergence`, `g`
 - `chiSq_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
-- `child_sizeOf_lt` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `children_node` -> `apply`, `at`, `d`, `depth`, `size`
+- `child_sizeOf_lt` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `children_node` -> `apply`, `at`, `d`, `depth`, `size`, `size_pos`
 - `choice_coverage` -> `Primitive`, `at`, `dec`, `g`, `run`, `sound`, `union`
 - `choice_self_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `run`
 - `choice_sound` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
@@ -4026,16 +4028,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `at`, `induction`, `subst`
 - `dependsShape_args_empty` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `dependsShape_names_nothing` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `d`, `depth`, `eval`, `mul`, `size`
-- `depthList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
+- `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depthList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depth_growth` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
 - `depth_growth_at_least_two_pow` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `depth_le_depthList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`
-- `depth_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `depth_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `depth_le_depthList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depth_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `depth_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depth_non_increasing` -> `d`, `depth`, `induction`, `size`, `step`
 - `dequantB_quantB_error` -> `IntLayer`, `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`, `quant`
 - `dequant_quant_error` -> `LossyRep`, `at`, `compile`, `compileZ`, `decode`, `encode`, `extract`, `obs`, `roundtrip_error_le_one`
@@ -4576,8 +4578,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalDNF_truthTable` -> `Compiler`, `at`, `d`, `induction`
 - `evalFloat_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `evalLinearMap_apply` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
-- `evalList_cons` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `evalList_nil` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `evalList_cons` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
+- `evalList_nil` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `evalProgram_append_softmax` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `eval_append`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
 - `evalProgram_append_softmax_nonneg` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
 - `evalProgram_append_softmax_sum_one` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
@@ -4585,29 +4587,29 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`
 - `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`
 - `evalReal_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
-- `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
+- `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_append` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
 - `eval_congr` -> `all`, `at`, `d`, `induction`, `trans`
-- `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
+- `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_eq_true_iff` -> `at`, `d`, `induction`, `trans`
 - `eval_expr_depends_on_vars` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
 - `eval_falsity` -> `Compiler`, `at`, `d`, `induction`
 - `eval_lit` -> `Compiler`, `at`, `d`, `induction`
 - `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
-- `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`
+- `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
+- `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`, `size_pos`
 - `eval_nil` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
-- `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_ofClause` -> `Compiler`, `at`, `d`, `induction`
 - `eval_ofDNF` -> `Compiler`, `at`, `d`, `induction`
-- `eval_recursion_decreasing` -> `Compiler`, `size`
-- `eval_recursion_decreasing_size` -> `Compiler`, `size`
-- `eval_size_pos` -> `Compiler`, `size`
+- `eval_recursion_decreasing` -> `Compiler`, `size`, `size_pos`
+- `eval_recursion_decreasing_size` -> `Compiler`, `size`, `size_pos`
+- `eval_size_pos` -> `Compiler`, `size`, `size_pos`
 - `eval_truth` -> `Compiler`, `at`, `d`, `induction`
-- `eval_var` -> `Compiler`, `add`, `eval`, `mul`, `size`
-- `eval_var_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`
+- `eval_var` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
+- `eval_var_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `even_combo_preserves` -> `EvenOut`, `EvenSat`, `at`
 - `even_combo_verify` -> `EvenOut`, `EvenSat`
 - `even_loop_converges` -> `EvenSat`, `induction`, `zero`
@@ -5774,7 +5776,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `indicesOf_midpoint` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
 - `indicesOf_nil` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `indicesOf_samePoint` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
-- `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `infConv_eq_of_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infConv_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infinite_sum_bound` -> `E`, `apply`, `le_trans`
@@ -5904,7 +5906,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ir_unique_relations` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `materialize`, `trans`
 - `irreducible_natDegree_le_two_or_even` -> `at`, `eval`
 - `isBounded_setOf_isTransportPlan` -> `e2`, `g`, `mul`, `sInf`
-- `isChild_node_iff` -> `add`, `apply`, `at`, `d`, `depth`, `mul`, `size`
+- `isChild_node_iff` -> `add`, `apply`, `at`, `d`, `depth`, `mul`, `size`, `size_pos`
 - `isClosed_setOf_isTransportPlan` -> `e2`, `g`, `inter`, `mul`
 - `isCompact_setOf_isTransportPlan` -> `e2`, `g`, `mul`, `sInf`
 - `isFCAClosed_iff` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
@@ -6946,10 +6948,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `models_structure` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `modulus_at_zero` -> `violation`
 - `modulus_attained` -> `violation`
-- `modulus_mono_in_eps` -> `IRSkeleton`, `eps`
+- `modulus_mono_in_eps` -> `IRSkeleton`, `eps`, `size`
 - `modulus_of_posDef_bound` -> `PosDefQ`, `d`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sym2`, `two_dim_posdef_iff`
-- `modulus_slack` -> `IRSkeleton`, `eps`
-- `modulus_tends_to_zero` -> `IRSkeleton`, `eps`, `le_refl`
+- `modulus_slack` -> `IRSkeleton`, `eps`, `size`
+- `modulus_tends_to_zero` -> `IRSkeleton`, `eps`, `le_refl`, `size`
 - `modulus_two_dim_of_sylvester` -> `d`, `normSq`, `quadForm`, `sym2`, `two_dim_posdef_iff`
 - `modus2_antitone_extent` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
 - `modus2_antitone_intent` -> `IsFormalConcept`, `apply`, `at`, `extent`, `intent`
@@ -8363,7 +8365,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rectangularRep_degenerates` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
 - `rectangularRep_roundtrip` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `roundtrip`, `weightSymbolRep`
 - `rectangularRep_val_roundtrip` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
-- `recursion_terminates` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `recursion_terminates` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `recursive_invariant` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `invariant_preserves_iteration`, `trans`, `zero`
 - `recursive_invariant_chain` -> `ChainFwd`, `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `trans`, `zero`
 - `recursive_termination` -> `apply`, `at`, `card_fin`, `comp`, `contraction_converges`, `d`, `induction`, `trans`, `zero`
@@ -9237,21 +9239,36 @@ module. These are the edges that make the chain a chain rather than a list.
 - `singularValueSq_nonneg` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `singularValue_nonneg` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `singularValue_sq` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
-- `sizeList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `sizeList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `size_child_lt` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `sizeList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `sizeList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `size_app` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_beta_grows` -> `Level`, `SortKind`, `Term`, `zero`
+- `size_child_lt` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `size_const` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_guard_two` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`
+- `size_lam` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_le_one` -> `alpha`, `at`, `le_refl`, `le_trans`
-- `size_le_sizeList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `size_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `size_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_le_sizeList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `size_letE` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
+- `size_node` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `size_non_increasing` -> `d`, `induction`, `size`, `step`
-- `size_nonneg` -> `IRSkeleton`, `alpha`, `at`, `eps`, `le_refl`, `le_trans`
-- `size_pos` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
-- `size_pos_aux` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `size_nonneg` -> `IRSkeleton`, `alpha`, `at`, `eps`, `le_refl`, `le_trans`, `size`
+- `size_pi` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_pos` -> `Compiler`, `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `zero`
+- `size_pos_aux` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
+- `size_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_appL` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_appR` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_lamBody` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_letBody` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_letVal` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_piCod` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_step_piDom` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`, `toNat`
 - `skeleton_of_fillZeros` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
 - `skeleton_unique_from_weights` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `compileSkel`, `compileSkel_injective`, `parse`, `trans`
@@ -10506,7 +10523,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weighted_minimizer_set_convex` -> `e2`
 - `weighted_optimal_is_pareto` -> `e2`
 - `weighted_power_mean_two` -> `card_fin`
-- `wf_children` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`
+- `wf_children` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `while'_true_id` -> `Compiler`, `at`
 - `while'_true_stuck` -> `Compiler`, `at`
 - `whileApprox_embed_body_succ` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `wp`, `wpT`, `zero`
