@@ -230,6 +230,8 @@ Core/CIC/NormalFormFailure.lean	selfLoop_step
 Core/CIC/NormalFormFailure.lean	selfLoop_step_eq
 Core/CIC/NormalFormFailure.lean	selfLoop_reduces_n
 Core/CIC/NormalFormFailure.lean	selfLoop_no_normal_form
+Core/CIC/NormalFormWF.lean	no_self_delta
+Core/CIC/NormalFormWF.lean	maxConst_step_nonincreasing_beta
 Core/CIC/Normalization.lean	reduces_of_within
 Core/CIC/Normalization.lean	within_of_reduces
 Core/CIC/Normalization.lean	within_zero_iff

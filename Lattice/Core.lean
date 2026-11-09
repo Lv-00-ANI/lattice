@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.NormalFormWF
 import Lattice.Core.CIC.NormalFormFailure
 import Lattice.Core.CIC.TermSize
 import Lattice.Core.CIC.InstLiftSixOfSeven

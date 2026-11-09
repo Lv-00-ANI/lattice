@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**340 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
+**342 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | **0** | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 28 | 5.7% |
+| `Core` | 30 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 28 | `¬ Function.Injective relu` |
-| `Core` | 28 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 28 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 28 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 28 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 30 | `¬ Function.Injective relu` |
+| `Core` | 30 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 30 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 30 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 30 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |
@@ -281,3 +281,5 @@
 `binderCommutation_needs_identity_at_zero_false`），故 `Core` 由 24 升为 27、总数由 336 升为 339。
 
 **第 786 轮**：新增 1 条（`selfLoop_no_normal_form`），故 `Core` 由 27 升为 28、总数由 339 升为 340。
+
+**第 787 轮**：新增 2 条（`selfLoopEnv_not_lowerOnly`、`no_self_delta`），故 `Core` 由 28 升为 30、总数由 340 升为 342。
