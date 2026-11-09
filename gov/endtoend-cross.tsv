@@ -2793,6 +2793,7 @@ Plugins/Core/Constraint/Proofs.lean	entails_cons
 Plugins/Core/Constraint/Proofs.lean	entails_mono
 Plugins/Core/Constraint/Proofs.lean	models_of_mem
 Plugins/Core/Constraint/Proofs.lean	models_of_subset
+Plugins/Core/Repair/Manifest.lean	repair_props_hold
 Plugins/Core/Repair/Manifest.lean	manifest_obligation_count
 Plugins/Core/Repair/Manifest.lean	manifest_nonempty
 Plugins/Core/Repair/Manifest.lean	manifest_layer
@@ -2944,6 +2945,7 @@ Plugins/Domains/Constraints/Tokens/Flatten.lean	flattenRepresentation_compile_ex
 Plugins/Domains/Constraints/Tokens/LossExtraction.lean	penaltyLoss_leZero_eq_ltZero
 Plugins/Domains/Constraints/Tokens/LossExtraction.lean	penaltyLoss_not_injective
 Plugins/Domains/Constraints/Tokens/LossExtraction.lean	no_loss_to_constraint_section
+Plugins/Domains/Constraints/Tokens/Manifest.lean	token_props_hold
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_obligation_count
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_nonempty
 Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_layer

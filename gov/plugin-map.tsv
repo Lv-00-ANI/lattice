@@ -8222,6 +8222,7 @@ plugins	Plugins/Core/Repair	Plugins/Core/Repair/Manifest.lean	manifest_nonempty	
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Manifest.lean	manifest_obligation_count	no
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Manifest.lean	manifest_provides	no
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Manifest.lean	manifest_requires_nothing	no
+plugins	Plugins/Core/Repair	Plugins/Core/Repair/Manifest.lean	repair_props_hold	no
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Plugin.lean	atomicOfZeroIffProp_holds	no
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Plugin.lean	convergesWithinProp_holds	no
 plugins	Plugins/Core/Repair	Plugins/Core/Repair/Plugin.lean	convergesWithinTightProp_holds	no
@@ -8381,6 +8382,7 @@ plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Ma
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_obligation_count	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_provides	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Manifest.lean	manifest_requires	no
+plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Manifest.lean	token_props_hold	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Plugin.lean	flattenInjectiveProp_holds	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Plugin.lean	flattenRoundtripProp_holds	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Plugin.lean	flattenSurjectiveProp_holds	no

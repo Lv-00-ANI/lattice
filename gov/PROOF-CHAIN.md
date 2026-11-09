@@ -792,7 +792,7 @@
 - `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Core.Logic`
 - `Lattice.Plugins.Core.Constraint.Proofs` <- `Lattice.Core.Semantics`
-- `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Plugins.Core.Repair.RepairAtomicity`, `Lattice.Plugins.Core.Repair.RepairWF`, `Lattice.Plugins.Core.Repair.RepairMultistep`
 - `Lattice.Plugins.Core.Repair.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairWF`
 - `Lattice.Plugins.Core.Repair.Repair` 
 - `Lattice.Plugins.Core.Repair.RepairAtomicity` <- `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairMultistep`
@@ -807,7 +807,7 @@
 - `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Reference.Geometry.Constraints.NetLossDerivative`, `Lattice.Reference.Geometry.Constraints.PenaltyLoss`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` <- `Lattice.Reference.Geometry.Constraints.PenaltyLoss`
-- `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Reference.Geometry.Constraints.Flatten`, `Lattice.Reference.Geometry.Constraints.SeqRepresentation`, `Lattice.Reference.Geometry.Constraints.LossExtraction`
 - `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
@@ -1732,7 +1732,7 @@
 | `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 7 | 6 |
 | `Lattice.Plugins.Core.Constraint.Proofs` | 4 | 6 |
-| `Lattice.Plugins.Core.Repair.Manifest` | 12 | 1 |
+| `Lattice.Plugins.Core.Repair.Manifest` | 13 | 9 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
 | `Lattice.Plugins.Core.Repair.Repair` | 9 | 5 |
 | `Lattice.Plugins.Core.Repair.RepairAtomicity` | 4 | 1 |
@@ -1747,7 +1747,7 @@
 | `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` | 6 | 5 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` | 4 | 0 |
-| `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 12 | 1 |
+| `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 13 | 8 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` | 4 | 3 |
 | `Lattice.Plugins.Extractors` | 0 | 0 |
@@ -8492,6 +8492,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `repair_progress` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `iterate`, `progress`, `skeletonCode`
+- `repair_props_hold` -> `PluginLayer`, `PluginManifest`, `Repair`, `RepairWF`, `at`, `atomic_of_zero_iff`, `claims`, `completeness`, `converges_within`, `converges_within_is_tight`, `iterate_succ`, `layer`, `length`, `loop`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `preserves`, `progress`, `progress_on_wf`, `repair`, `repair_preserves`, `repair_progress`, `requires`, `soundness`, `stable`, `verifiedObligation`
 - `replayGradientBudget_eq` -> `at`
 - `replay_bound` -> `at`
 - `replay_forgetting_unbounded` -> `at`
@@ -10032,6 +10033,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokAux_ne_none` -> `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `token_count` -> `Data`, `Models`, `Sample`, `Token`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_tokenizeSample`, `tokenize`, `tokenizeSample`, `width`
 - `token_index_eq` -> `Data`, `Sample`, `at`
+- `token_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `claims`, `completeness`, `flatten`, `flattenRepresentation_roundtrip`, `flatten_injective`, `flatten_surjective`, `layer`, `length`, `loss`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `no_loss_to_constraint_section`, `penaltyLoss_not_injective`, `requires`, `seqDecode_encode`, `seqEncode_decode`, `soundness`, `verifiedObligation`
 - `tokenizeRaw_detok` -> `apply`, `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `tokenizeRaw_injective` -> `apply`, `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `tokenizeStr_detok` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize_detok`

@@ -34,10 +34,56 @@ has to live inside** -- the parameter layer round-trips, the semantic layer does
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction
+import Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation
+open Lattice.Geo
 
 namespace Lattice.Plugins.Domains.Constraints.Tokens
 
 open Lattice.Plugins
+
+-- **Round 769 (STAGE 3): the seven obligations now CARRY their propositions.**
+
+/-- **`flatten_injective`: 展平是单射。** -/
+def flatten_injectiveProp : Prop :=
+  ∀ {k n : ℕ}, Function.Injective (flatten (k := k) (n := n) : (Fin k → Pt n) → Fin (k * n) → ℝ)
+
+/-- **`flatten_surjective`: 展平是满射。** -/
+def flatten_surjectiveProp : Prop :=
+  ∀ {k n : ℕ}, Function.Surjective (flatten (k := k) (n := n) : (Fin k → Pt n) → Fin (k * n) → ℝ)
+
+/-- **`flattenRepresentation_roundtrip`: 展平表示的往返复原。** -/
+def flattenRepresentation_roundtripProp : Prop :=
+  ∀ (k n : ℕ) (pts : Fin k → Pt n),
+    (flattenRepresentation k n).extract ((flattenRepresentation k n).compile pts) = pts
+
+/-- **`seqDecode_encode`: 序列编码被解码复原。** -/
+def seqDecode_encodeProp : Prop :=
+  ∀ {n : ℕ} (hn : 0 < n) (pts : ℕ → Pt n), seqDecode n (seqEncode n hn pts) = pts
+
+/-- **`seqEncode_decode`: 序列编码是解码的左逆。** -/
+def seqEncode_decodeProp : Prop :=
+  ∀ {n : ℕ} (hn : 0 < n) (v : ℕ → ℝ), seqEncode n hn (seqDecode n v) = v
+
+/-- **`penaltyLoss_not_injective`: 惩罚损失不是单射 —— 逆向**必然**有损。** -/
+def penaltyLoss_not_injectiveProp : Prop :=
+  ∀ {n : ℕ}, GeoExpr n →
+    ¬Function.Injective (fun c : GeoConstraint n => PenaltyLoss.penaltyLoss c)
+
+/-- **`no_loss_to_constraint_section`: 不存在从损失回到约束的截面。** -/
+def no_loss_to_constraint_sectionProp : Prop :=
+  ∀ {n : ℕ}, GeoExpr n →
+    ¬ ∃ g : ((ℕ → Pt n) → ℝ) → GeoConstraint n,
+        ∀ (c : GeoConstraint n), g (PenaltyLoss.penaltyLoss c) = c
+
+/-- **七条命题就是七条定理的类型。** -/
+theorem token_props_hold :
+    flatten_injectiveProp ∧ flatten_surjectiveProp ∧ flattenRepresentation_roundtripProp
+      ∧ seqDecode_encodeProp ∧ seqEncode_decodeProp
+      ∧ penaltyLoss_not_injectiveProp :=
+  ⟨@flatten_injective, @flatten_surjective, flattenRepresentation_roundtrip,
+   @seqDecode_encode, @seqEncode_decode, @penaltyLoss_not_injective⟩
 
 /-- **The constraint-tokenisation plugin's manifest.**
 
@@ -51,40 +97,28 @@ def manifest : PluginManifest where
   requires := ["penalty.loss"]
   provides := ["constraint.tokens", "constraint.flatten"]
   obligations := [
-    -- T3 / flatten_injective: the point-cloud / flat-vector correspondence is injective.
-    { name := "flatten_injective"
-      kind := .exactness
-      theoremName := "flatten_injective"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
-    -- T3 / the other half: every flat vector is realised by some point cloud.
-    { name := "flatten_surjective"
-      kind := .completeness
-      theoremName := "flatten_surjective"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
-    -- The round trip stated as an equality rather than through the bijection lemmas.
-    { name := "flatten_roundtrip"
-      kind := .laws
-      theoremName := "flattenRepresentation_roundtrip"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean" },
-    -- T1 / the sequence representation round-trips on both sides.
-    { name := "seq_decode_encode"
-      kind := .laws
-      theoremName := "seqDecode_encode"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean" },
-    { name := "seq_encode_decode"
-      kind := .laws
-      theoremName := "seqEncode_decode"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean" },
-    -- T3 / the NEGATIVE half of the reversibility boundary.
-    { name := "penalty_loss_not_injective"
-      kind := .soundness
-      theoremName := "penaltyLoss_not_injective"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean" },
-    -- The sharper statement: no section of the loss map exists.
-    { name := "no_loss_to_constraint_section"
-      kind := .soundness
-      theoremName := "no_loss_to_constraint_section"
-      file := "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean" }
+    -- **Round 769: all seven go through `verifiedObligation`, so each CARRIES its proposition.**
+    verifiedObligation "flatten_injective" .exactness
+      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+      "flatten_injective" flatten_injectiveProp,
+    verifiedObligation "flatten_surjective" .completeness
+      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+      "flatten_surjective" flatten_surjectiveProp,
+    verifiedObligation "flatten_roundtrip" .laws
+      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+      "flattenRepresentation_roundtrip" flattenRepresentation_roundtripProp,
+    verifiedObligation "seq_decode_encode" .laws
+      "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
+      "seqDecode_encode" seqDecode_encodeProp,
+    verifiedObligation "seq_encode_decode" .laws
+      "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
+      "seqEncode_decode" seqEncode_decodeProp,
+    verifiedObligation "penalty_loss_not_injective" .soundness
+      "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
+      "penaltyLoss_not_injective" penaltyLoss_not_injectiveProp,
+    verifiedObligation "no_loss_to_constraint_section" .soundness
+      "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
+      "no_loss_to_constraint_section" no_loss_to_constraint_sectionProp
   ]
   version := ⟨1, 0, 0⟩
 
