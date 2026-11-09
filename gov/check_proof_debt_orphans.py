@@ -47,8 +47,9 @@ from _debt_path_map import PATH_MAP
 def collect(rev):
     """`{file: count}` over every verdict record in `rev`."""
     files = {}
+    names = {}
     if not os.path.isdir(rev):
-        return files
+        return files, names
     for fn in sorted(os.listdir(rev)):
         if not (fn.startswith("verdicts_") and fn.endswith(".jsonl")):
             continue
@@ -61,9 +62,12 @@ def collect(rev):
             except json.JSONDecodeError:
                 continue
             f = v.get("file")
+            n = v.get("name")
             if f:
                 files[f] = files.get(f, 0) + 1
-    return files
+                if n:
+                    names.setdefault(f, set()).add(n)
+    return files, names
 
 
 def scan(files, lat, path_map):
@@ -74,6 +78,36 @@ def scan(files, lat, path_map):
         if not os.path.exists(os.path.join(lat, mapped.replace("/", os.sep))):
             orphaned.append((f, n))
     return orphaned
+
+
+DECL = __import__("re").compile(
+    r"(?m)^\s*(?:@\[[^\]]*\]\s*)?(?:noncomputable\s+|private\s+|protected\s+|partial\s+)*"
+    r"(?:theorem|lemma|def|abbrev|structure|inductive|class)\s+([A-Za-z0-9_'\u2080-\u2089.]+)")
+
+
+def scan_names(names, lat, path_map):
+    """**Round 775 (STAGE 4, gate defect G-11): verdicts also name a DECLARATION, and this checker
+    only verified the FILE existed.**
+
+    **=> a verdict could point at `Core/Net.lean :: net_sound_squared` where `Core/Net.lean` exists
+    and `net_sound_squared` was renamed or deleted years ago, and nothing would say so.** That is the
+    same class of defect as a manifest naming a nonexistent theorem -- one layer up.
+
+    Returns `(file, name)` pairs whose declaration is absent from an existing file.
+    """
+    import re
+    missing = []
+    for f, ns in sorted(names.items()):
+        mapped = path_map.get(f, f)
+        full = os.path.join(lat, mapped.replace("/", os.sep))
+        if not os.path.exists(full):
+            continue  # already reported by `scan`
+        src = io.open(full, encoding="utf-8", errors="replace").read()
+        present = {m.group(1).split(".")[-1] for m in DECL.finditer(src)}
+        for n in sorted(ns):
+            if n.split(".")[-1] not in present:
+                missing.append((f, n))
+    return missing
 
 
 def main(argv):
@@ -105,15 +139,45 @@ def main(argv):
         print("SELFTEST FAILED: expected exactly ['No/Such/Module.lean'], got %r" % (got,))
         return 1
 
-    files = collect(REV_DEFAULT)
+    collected = collect(REV_DEFAULT)
+    if isinstance(collected, tuple):
+        files, names = collected
+    else:
+        files, names = collected, {}
     orphaned = scan(files, LAT_DEFAULT, PATH_MAP)
     if orphaned:
         print("PROOF-DEBT ORPHANS: %d file(s) with verdicts but no file in the tree" % len(orphaned))
         for f, n in orphaned:
             print("    %s  (%d verdict(s)) -- moved without a PATH_MAP entry?" % (f, n))
         return 1
-    print("PROOF-DEBT ORPHANS: all %d reviewed file(s) still resolve (PATH_MAP covers the moved ones)"
-          % len(files))
+    missing = scan_names(names, LAT_DEFAULT, PATH_MAP)
+    # **Round 775: the 39 declarations this finds are the SAME 39 that
+    # `check_verdict_freshness.py` already reports as STALE and that
+    # `verdict-stale-baseline.txt` already records WITH A REASON.** Re-reporting them here would be a
+    # second copy of one finding -- the exact "five versions of one number" defect this stage exists
+    # to remove.
+    # **=> consult the same baseline. This checker's job is to catch a NEW orphan, not to recount a
+    # known one.** The two checkers now share one source of truth instead of each keeping its own.
+    stale_base = os.path.join(HERE, "verdict-stale-baseline.txt")
+    baselined = set()
+    if os.path.exists(stale_base):
+        for line in io.open(stale_base, encoding="utf-8"):
+            line = line.rstrip("\n")
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split("\t")
+            if len(parts) >= 2:
+                baselined.add((parts[0], parts[1]))
+    new_missing = [(f, n) for (f, n) in missing if (f, n) not in baselined]
+    if new_missing:
+        print("PROOF-DEBT ORPHANS: %d NEW verdict(s) name a declaration that is NOT in its file"
+              % len(new_missing))
+        for f, n in new_missing[:20]:
+            print("    %s :: %s -- renamed or deleted?" % (f, n))
+        return 1
+    print("PROOF-DEBT ORPHANS: all %d reviewed file(s) resolve; %d named declaration(s) checked, "
+          "%d known-stale (shared with verdict-freshness), %d new"
+          % (len(files), sum(len(v) for v in names.values()), len(missing), len(new_missing)))
     return 0
 
 

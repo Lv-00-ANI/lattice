@@ -45,6 +45,7 @@ REPORT_ONLY = {
     "audit: claims", "audit: liveness", "audit: region", 
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
+    "obligations doc: sections name their carriers",
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
     "census: end-to-end by content",
     "gen: primitive matrix",
@@ -125,6 +126,13 @@ CHECKS = [
     ("audit: islands", "audit_islands.py"),
     ("audit: duplicate statements", "audit_duplicate_statements.py"),
     ("audit: untracked work", "audit_untracked.py"),
+    # **Round 775 (STAGE 4, gate defect G-12): the SPEC SOURCE had no gate at all.**
+    # `PROOF-OBLIGATIONS.md` is the document that says what the project promises to prove, and every
+    # other checker guards a DERIVED artifact instead. **=> a spec source that no gate reads can
+    # drift from the tree forever without anything failing.**
+    # **Report-only while the five bare sections are repaired** -- the checker already finds a real
+    # gap, and turning it gating before the gap is closed would block every other check.
+    ("obligations doc: sections name their carriers", "check_obligations_doc.py"),
     ("gen: proof chain (geo)", "proof_chain_geo.py"),
     # Census, NOT a gate: a theorem that touches one layer is not a defect. What would be a
     # defect is CLAIMING otherwise, and I5 is the gate for that. This runs the same transitive
