@@ -36,7 +36,7 @@ which is what makes `MLayer n n` the right type rather than `MLayer m n` with `m
 import Mathlib
 import Lattice.Core.ModelArtifact
 import Lattice.Core.ModelArtifactInstances
-import Lattice.Domains.Geometry.WeightSideLadder
+import Lattice.Reference.Geometry.Geometry.WeightSideLadder
 import Lattice.Core.Net
 
 /-! **[待移除] 几何载体靶定理。**

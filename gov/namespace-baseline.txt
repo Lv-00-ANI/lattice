@@ -1,8 +1,6 @@
 # files whose outermost namespace is not closed by the last line.
 # Lean ACCEPTS these; the convention is to close them, and a baseline entry means
 # 'this one predates the check'. A NEW one is almost always script damage.
-Domains/Geometry/PolySpecificRepair.lean
-Domains/Geometry/QualityBridge.lean
 Lib/Attention/RealSoftmaxLipschitz.lean
 Lib/Chain/RealCrossUniverseApplication.lean
 Lib/Chain/RealCrossUniverseConsumer.lean

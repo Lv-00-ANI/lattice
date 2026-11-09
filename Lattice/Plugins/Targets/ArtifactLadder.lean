@@ -42,7 +42,7 @@ import Mathlib
 import Lattice.Core.ModelArtifact
 import Lattice.Plugins.Targets.ConstructArtifact
 import Lattice.Plugins.Targets.ExtractArtifact
-import Lattice.Domains.Geometry.WeightSideLadder
+import Lattice.Reference.Geometry.Geometry.WeightSideLadder
 import Lattice.Runtime.EndToEnd
 
 /-! **[待移除] 几何载体靶定理。**

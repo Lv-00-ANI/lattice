@@ -28,9 +28,9 @@ closed form, and it validates the interface by actually inhabiting it.**
 -/
 
 import Lattice.Plugins.Targets.Expressible
-import Lattice.Domains.Constraints.ConstraintSet
-import Lattice.Domains.Constraints.PenaltyLoss
-import Lattice.Domains.Constraints.Dist
+import Lattice.Reference.Geometry.Constraints.ConstraintSet
+import Lattice.Reference.Geometry.Constraints.PenaltyLoss
+import Lattice.Reference.Geometry.Constraints.Dist
 import Lattice.Semantics.CompileSound
 
 /-! **[待移除] 几何载体靶定理。**

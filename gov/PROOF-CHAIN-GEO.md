@@ -12,112 +12,278 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `Lattice.Domains.AffineClass` | 134 | 9 | WeightSideLadder |
-| `Lattice.Domains.ApproxEmbedding` | 106 | 1 | Loss |
-| `Lattice.Domains.CExprCodegen` | 136 | 5 | ComputableExpr |
-| `Lattice.Domains.CIC` | 231 | 9 | Constraint |
-| `Lattice.Domains.ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
-| `Lattice.Domains.ClosedLoop` | 203 | 10 | Loop, SeqRepresentation, ConjRepair, Flatten |
-| `Lattice.Domains.CodegenLadder` | 110 | 3 | CExprCodegen |
-| `Lattice.Domains.Compile` | 98 | 2 | Loss, Constraint |
-| `Lattice.Domains.ComputableExpr` | 249 | 7 | Expr |
-| `Lattice.Domains.ConjRepair` | 157 | 3 | Loop, LoopPerp, RepairPerp |
-| `Lattice.Domains.Constraint` | 161 | 4 | Expr, Dist |
-| `Lattice.Domains.ConstraintDescent` | 524 | 21 | Constraint, PenaltyLoss, NetLoss |
-| `Lattice.Domains.ConstraintSet` | 175 | 7 | Constraint |
-| `Lattice.Domains.ConstraintTokenizer` | 420 | 12 | Expr |
-| `Lattice.Domains.Constraints` | 46 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, DistDerivative, ExprDerivative, PenaltyLossDerivative, NetLossDerivative, FlatLoss, LossExtraction |
-| `Lattice.Domains.Derivative` | 94 | 3 | Pipeline |
-| `Lattice.Domains.Derive` | 71 | 2 | Engine |
-| `Lattice.Domains.Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
-| `Lattice.Domains.Dist` | 135 | 9 | Expr |
-| `Lattice.Domains.DistContinuous` | 47 | 1 | Dist |
-| `Lattice.Domains.DistDerivative` | 119 | 5 | Dist |
-| `Lattice.Domains.DistLipschitz` | 182 | 4 | Lipschitz, Dist |
-| `Lattice.Domains.Engine` | 290 | 14 | Constraint |
-| `Lattice.Domains.EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
-| `Lattice.Domains.EqConstraintToken` | 275 | 8 | RealTokenRoundtrip, Loss |
-| `Lattice.Domains.EqConstraintTokenizer` | 211 | 4 | ConstraintTokenizer, Loss |
-| `Lattice.Domains.EqConstraintTokens` | 141 | 4 | EqConstraintToken |
-| `Lattice.Domains.EqualLengthRepair` | 113 | 3 | RepairCoverage, Constraint |
-| `Lattice.Domains.Eval` | 98 | 3 | Constraint, Dist |
-| `Lattice.Domains.Exact` | 91 | 4 | Differentiable, Loss |
-| `Lattice.Domains.Exec` | 132 | 6 | Shape, Derive |
-| `Lattice.Domains.ExecutableCheck` | 189 | 4 | Constraint, ComputableExpr |
-| `Lattice.Domains.ExecutableGeoCheck` | 237 | 7 | ExecutableCheck |
-| `Lattice.Domains.Expr` | 136 | 1 | — |
-| `Lattice.Domains.ExprDeriv` | 179 | 8 | Differentiable, Pipeline |
-| `Lattice.Domains.ExprDerivative` | 229 | 8 | Expr |
-| `Lattice.Domains.ExprLocalMin` | 74 | 3 | ExprDeriv, Derivative |
-| `Lattice.Domains.Exterior` | 110 | 5 | Constraint, Square |
-| `Lattice.Domains.ExteriorSmooth` | 150 | 9 | Differentiable, Exterior, ExprDeriv |
-| `Lattice.Domains.Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
-| `Lattice.Domains.Finite` | 106 | 1 | Expr, Flatten |
-| `Lattice.Domains.FlatLoss` | 527 | 19 | NetLossDerivative |
-| `Lattice.Domains.Flatten` | 11 | 0 | — |
-| `Lattice.Domains.FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
-| `Lattice.Domains.FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
-| `Lattice.Domains.GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
-| `Lattice.Domains.GeoSampledBound` | 79 | 1 | Lipschitz, RhoMetric, PolyAssemble |
-| `Lattice.Domains.Geometry` | 85 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder, AffineClass |
-| `Lattice.Domains.IRBridge` | 307 | 13 | LayerExact, Loss |
-| `Lattice.Domains.IRRepair` | 86 | 3 | IRBridge, ConjRepair, LoopPerp |
-| `Lattice.Domains.Initialise` | 125 | 9 | Constraint, Invariant |
-| `Lattice.Domains.Invariant` | 189 | 12 | Constraint |
-| `Lattice.Domains.LadderInstance` | 130 | 2 | Expr |
-| `Lattice.Domains.LayerExact` | 127 | 3 | Plucker |
-| `Lattice.Domains.Lipschitz` | 260 | 11 | Expr |
-| `Lattice.Domains.Loop` | 209 | 10 | Constraint, Engine |
-| `Lattice.Domains.LoopPerp` | 170 | 7 | RepairPerp |
-| `Lattice.Domains.LoopRate` | 89 | 3 | Loop |
-| `Lattice.Domains.Loss` | 199 | 10 | Expr, Dist, Constraint |
-| `Lattice.Domains.LossExtraction` | 11 | 0 | — |
-| `Lattice.Domains.MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
-| `Lattice.Domains.MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
-| `Lattice.Domains.NetLoss` | 268 | 7 | ConstraintSet, PenaltyLoss |
-| `Lattice.Domains.NetLossDerivative` | 11 | 0 | — |
-| `Lattice.Domains.Nondegenerate` | 307 | 13 | Differentiable, Perturb, Derivative |
-| `Lattice.Domains.NondegenerateInstance` | 143 | 6 | Perturb, Nondegenerate |
-| `Lattice.Domains.ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
-| `Lattice.Domains.PartialReinjection` | 157 | 6 | Loss, Reinjection |
-| `Lattice.Domains.PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `Lattice.Domains.PenaltyLoss` | 11 | 0 | — |
-| `Lattice.Domains.PenaltyLossDerivative` | 1288 | 44 | PenaltyLoss, DistDerivative, ExprDerivative |
-| `Lattice.Domains.PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
-| `Lattice.Domains.Perturb` | 126 | 8 | Flatten |
-| `Lattice.Domains.Pipeline` | 169 | 7 | Constraint, Expr, Loss |
-| `Lattice.Domains.Plucker` | 105 | 2 | Exterior |
-| `Lattice.Domains.PolyAssemble` | 128 | 4 | Lipschitz, DistLipschitz, PolyLipschitz, Loss |
-| `Lattice.Domains.PolyConstants` | 159 | 5 | Lipschitz, DistLipschitz, PolyAssemble |
-| `Lattice.Domains.PolyLipschitz` | 150 | 2 | Lipschitz, DistLipschitz, Loss |
-| `Lattice.Domains.PolyNondegenerate` | 210 | 8 | Loss, ExprLocalMin, Dist, Derivative |
-| `Lattice.Domains.PolyRepair` | 174 | 5 | RepairCoverage, Constraint |
-| `Lattice.Domains.PolySpecificRepair` | 216 | 7 | Loss, Constraint |
-| `Lattice.Domains.QualityBridge` | 76 | 3 | RepairQuality |
-| `Lattice.Domains.RealToken` | 217 | 5 | Expr |
-| `Lattice.Domains.RealTokenRoundtrip` | 243 | 7 | RealToken |
-| `Lattice.Domains.Reinjection` | 121 | 3 | Loop, Loss, LoopRate |
-| `Lattice.Domains.ReinjectionGeneral` | 134 | 5 | Reinjection, LoopPerp |
-| `Lattice.Domains.Repair` | 90 | 4 | Loss, Constraint |
-| `Lattice.Domains.RepairBridge` | 247 | 14 | Loop, Loss |
-| `Lattice.Domains.RepairCoverage` | 142 | 4 | LoopPerp, Constraint, Dist, RepairPerp |
-| `Lattice.Domains.RepairPenalty` | 239 | 10 | PartialReinjection, MissingRepairs, RepairCoverage, ParallelRepair, Loop, Loss, RepairBridge |
-| `Lattice.Domains.RepairPerp` | 193 | 6 | Constraint |
-| `Lattice.Domains.RepairQuality` | 151 | 9 | Loop, LoopPerp |
-| `Lattice.Domains.RhoMetric` | 120 | 5 | Lipschitz |
-| `Lattice.Domains.Rules` | 135 | 1 | Engine |
-| `Lattice.Domains.Semantic` | 179 | 7 | Invariant, Extract |
-| `Lattice.Domains.SeqRepresentation` | 11 | 0 | — |
-| `Lattice.Domains.Shape` | 204 | 3 | Derive |
-| `Lattice.Domains.Square` | 161 | 10 | Loss, Dist |
-| `Lattice.Domains.Synthesis` | 215 | 8 | Invariant, Initialise |
-| `Lattice.Domains.SynthesisConnection` | 203 | 9 | Synthesis, SynthesisMulti, SynthesisCoverage |
-| `Lattice.Domains.SynthesisCoverage` | 150 | 5 | Synthesis, Constraint, Dist |
-| `Lattice.Domains.SynthesisMulti` | 132 | 4 | Synthesis |
-| `Lattice.Domains.Tags` | 125 | 14 | Encode.CIC |
-| `Lattice.Domains.Unconditional` | 117 | 7 | FormDeriv, Derivative |
-| `Lattice.Domains.Unified` | 91 | 4 | Loop, LoopPerp |
-| `Lattice.Domains.WeightSideLadder` | 298 | 9 | Constraint, GeoLadder |
+| `ATPBackendTheory` | 516 | 9 | — |
+| `ApplicationLayer` | 212 | 11 | — |
+| `AutoDiffTheory` | 360 | 12 | — |
+| `AxiomDiscoveryTheory` | 643 | 11 | — |
+| `BDDEncoding` | 553 | 9 | — |
+| `Basic` | 4 | 0 | — |
+| `Betweenness` | 4 | 0 | — |
+| `CSGGeometryTheory` | 413 | 9 | — |
+| `CacheCoherenceTheory` | 754 | 19 | — |
+| `CompilerTooling` | 1 | 0 | — |
+| `Congruence` | 4 | 0 | — |
+| `Consistency` | 4 | 0 | — |
+| `ConstraintPropagation` | 66 | 5 | — |
+| `ConstraintSoundness` | 140 | 6 | — |
+| `ContextInvariantsTheory` | 884 | 62 | — |
+| `Continuity` | 4 | 0 | — |
+| `ConvenienceAPIsTheory` | 807 | 33 | — |
+| `CryptoHashTheory` | 853 | 39 | — |
+| `Cv00Lang` | 281 | 6 | — |
+| `Defs` | 4 | 0 | — |
+| `DifferentialGeometry` | 588 | 16 | — |
+| `EntryPointTheory` | 902 | 37 | — |
+| `Equivalence` | 4 | 0 | — |
+| `EuclideanPlane` | 4 | 0 | — |
+| `ExactArithmeticTheory` | 98 | 9 | — |
+| `Expr` | 136 | 1 | — |
+| `ExpressionCanonicalizationTheory` | 379 | 8 | — |
+| `FFI` | 4 | 0 | — |
+| `Flatten` | 11 | 0 | — |
+| `FormulaSemantics` | 182 | 5 | — |
+| `FuncBlockTheory` | 357 | 11 | — |
+| `GeometricAlgebra` | 110 | 9 | — |
+| `GeometricAlgebraDefs` | 144 | 7 | — |
+| `GeometryCompressionTheory` | 688 | 17 | — |
+| `GeometryInfrastructure` | 351 | 12 | — |
+| `GeometryPresetDefs` | 223 | 3 | — |
+| `GeometryPresets` | 44 | 3 | — |
+| `GeometrySymbolicsTheory` | 226 | 11 | — |
+| `GeometryTopologyTheory` | 988 | 52 | — |
+| `GlobalStateInvariantsTheory` | 959 | 35 | — |
+| `Graph` | 4 | 0 | — |
+| `GroebnerTheory` | 828 | 28 | — |
+| `GroupTheoryFoundation` | 1013 | 34 | — |
+| `HilbertAxioms` | 4 | 0 | — |
+| `IR` | 188 | 4 | — |
+| `Incidence` | 4 | 0 | — |
+| `Instances` | 4 | 0 | — |
+| `InteropSoundness` | 71 | 5 | — |
+| `IntervalArithmeticTheory` | 946 | 28 | — |
+| `KernelInvariants` | 46 | 3 | — |
+| `LinearAlgebraFoundation` | 906 | 78 | — |
+| `LogicalFramework` | 480 | 2 | — |
+| `LossExtraction` | 11 | 0 | — |
+| `LvDSL` | 1616 | 5 | — |
+| `LvDSL_tmp` | 535 | 5 | — |
+| `MagicConstantsTheory` | 731 | 27 | — |
+| `MathPresetSoundness` | 31 | 5 | — |
+| `MemorySafetyTheory` | 1467 | 42 | — |
+| `MetaProofTheory` | 117 | 7 | — |
+| `ModuleSystemTheory` | 521 | 12 | — |
+| `NDimGeometry` | 79 | 4 | — |
+| `NetLossDerivative` | 11 | 0 | — |
+| `Normalization` | 4 | 0 | — |
+| `NormalizationProperties` | 109 | 7 | — |
+| `NumberTheoryFoundation` | 1091 | 76 | — |
+| `Numeric` | 40 | 4 | — |
+| `NumericDefs` | 40 | 0 | — |
+| `ODESolver` | 100 | 8 | — |
+| `ODESolverDefs` | 157 | 6 | — |
+| `OrchestrationSoundness` | 74 | 4 | — |
+| `Order` | 4 | 0 | — |
+| `PackageValidation` | 4 | 0 | — |
+| `Parallel` | 4 | 0 | — |
+| `PenaltyLoss` | 11 | 0 | — |
+| `PluginSystemTheory` | 518 | 17 | — |
+| `Primitive` | 4 | 0 | — |
+| `ProofCompilerTheory` | 153 | 10 | — |
+| `ResourceManagement` | 435 | 26 | — |
+| `RewriteProperties` | 280 | 7 | — |
+| `RuleTemplate` | 4 | 0 | — |
+| `SATEncoding` | 266 | 6 | — |
+| `SMTTheory` | 208 | 10 | — |
+| `SeqRepresentation` | 11 | 0 | — |
+| `SolverInfrastructure` | 367 | 24 | — |
+| `SolverModelTheory` | 382 | 9 | — |
+| `Soundness` | 4 | 0 | — |
+| `SparseLinearAlgebraTheory` | 950 | 54 | — |
+| `StreamInvariants` | 70 | 4 | — |
+| `StreamingTheory` | 69 | 5 | — |
+| `TikZExportTheory` | 112 | 6 | — |
+| `Trace` | 4 | 0 | — |
+| `TypeLogicTheory` | 327 | 17 | — |
+| `UnificationTheory` | 366 | 7 | — |
+| `VisualBlockTheory` | 1007 | 26 | — |
+| `VisualLayerSoundness` | 71 | 4 | — |
+| `VisualRuntimeTheory` | 931 | 20 | — |
+| `check_temp` | 6 | 0 | — |
+| `lvLang` | 224 | 10 | — |
+| `lvMeta` | 4 | 0 | — |
+
+### L1 —— 距离与线性化
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `BootstrapDefs` | 36 | 0 | lvLang |
+| `Codegen` | 234 | 6 | IR, Cv00Lang |
+| `Compiler` | 188 | 5 | lvLang, IR |
+| `ComputableExpr` | 249 | 7 | Expr |
+| `ConstraintModelTheory` | 1211 | 7 | LogicalFramework, IR |
+| `ConstraintTokenizer` | 420 | 12 | Expr |
+| `Cv00Memory` | 174 | 11 | Cv00Lang, lvLang |
+| `DSLWrappersSoundness` | 58 | 3 | IR |
+| `Dist` | 135 | 9 | Expr |
+| `Evidence` | 534 | 10 | IR |
+| `ExprDerivative` | 229 | 8 | Expr |
+| `Finite` | 106 | 1 | Expr, Flatten |
+| `FlatLoss` | 527 | 19 | NetLossDerivative |
+| `FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
+| `GeomPresetSoundness` | 45 | 3 | IR |
+| `InteractiveGeoSoundness` | 120 | 2 | IR |
+| `LadderInstance` | 130 | 2 | Expr |
+| `Lipschitz` | 260 | 11 | Expr |
+| `Perturb` | 126 | 8 | Flatten |
+| `PresetGeometry` | 62 | 3 | IR |
+| `PresetGeometryDefs` | 231 | 8 | GeometryPresetDefs |
+| `ProofEngineSoundness` | 74 | 4 | lvLang, IR |
+| `RealToken` | 217 | 5 | Expr |
+| `SolverCorrectness` | 64 | 3 | lvLang, IR |
+
+### L2 —— 约束与扰动代数
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `CExprCodegen` | 136 | 5 | ComputableExpr |
+| `CodegenCorrectness` | 216 | 8 | IR, Cv00Lang, Codegen, Cv00Memory, Compiler |
+| `CompilerCorrectness` | 751 | 8 | lvLang, IR, Compiler |
+| `Constraint` | 161 | 4 | Expr, Dist |
+| `DistContinuous` | 47 | 1 | Dist |
+| `DistDerivative` | 119 | 5 | Dist |
+| `DistLipschitz` | 182 | 4 | Lipschitz, Dist |
+| `InteropCorrectness` | 238 | 18 | IR, Evidence |
+| `LvSemantics` | 564 | 6 | LvDSL, IR, Evidence, LogicalFramework |
+| `MetaVerificationTheory` | 132 | 8 | IR, Evidence |
+| `ProofStrategy` | 566 | 13 | Evidence, IR, AxiomDiscoveryTheory |
+| `RealTokenRoundtrip` | 243 | 7 | RealToken |
+| `RhoMetric` | 120 | 5 | Lipschitz |
+
+### L3 —— 损失构造
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `BootstrapCorrectness` | 71 | 6 | lvLang, IR, Compiler, CompilerCorrectness |
+| `CIC` | 231 | 9 | Constraint |
+| `CodegenLadder` | 110 | 3 | CExprCodegen |
+| `ConstraintSet` | 175 | 7 | Constraint |
+| `EndToEndCorrectness` | 73 | 7 | lvLang, IR, Compiler, CompilerCorrectness, Codegen, Cv00Lang, Cv00Memory, Evidence |
+| `Engine` | 290 | 14 | Constraint |
+| `EngineInvariants` | 129 | 7 | lvLang, IR, Compiler, Codegen, CodegenCorrectness, CompilerCorrectness, Evidence |
+| `Eval` | 98 | 3 | Constraint, Dist |
+| `ExecutableCheck` | 189 | 4 | Constraint, ComputableExpr |
+| `Invariant` | 189 | 12 | Constraint |
+| `Loss` | 199 | 10 | Expr, Dist, Constraint |
+| `PenaltyLossDerivative` | 1288 | 44 | PenaltyLoss, DistDerivative, ExprDerivative |
+| `RepairPerp` | 193 | 6 | Constraint |
+| `UndefinedBehavior` | 111 | 7 | IR, Cv00Lang, Codegen, CodegenCorrectness |
+
+### L4 —— 微分与提取
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `ApproxEmbedding` | 106 | 1 | Loss |
+| `Compile` | 98 | 2 | Loss, Constraint |
+| `Derive` | 71 | 2 | Engine |
+| `Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
+| `EqConstraintToken` | 275 | 8 | RealTokenRoundtrip, Loss |
+| `EqConstraintTokenizer` | 211 | 4 | ConstraintTokenizer, Loss |
+| `ExecutableGeoCheck` | 237 | 7 | ExecutableCheck |
+| `Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
+| `Initialise` | 125 | 9 | Constraint, Invariant |
+| `Loop` | 209 | 10 | Constraint, Engine |
+| `LoopPerp` | 170 | 7 | RepairPerp |
+| `MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
+| `NetLoss` | 268 | 7 | ConstraintSet, PenaltyLoss |
+| `Pipeline` | 169 | 7 | Constraint, Expr, Loss |
+| `PolyLipschitz` | 150 | 2 | Lipschitz, DistLipschitz, Loss |
+| `PolySpecificRepair` | 216 | 7 | Loss, Constraint |
+| `Repair` | 90 | 4 | Loss, Constraint |
+| `Rules` | 135 | 1 | Engine |
+| `Square` | 161 | 10 | Loss, Dist |
+| `Tags` | 125 | 14 | CIC |
+
+### L5 —— 精确性
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `ConjRepair` | 157 | 3 | Loop, LoopPerp, RepairPerp |
+| `ConstraintDescent` | 524 | 21 | Constraint, PenaltyLoss, NetLoss |
+| `Derivative` | 94 | 3 | Pipeline |
+| `EqConstraintTokens` | 141 | 4 | EqConstraintToken |
+| `Exact` | 91 | 4 | Differentiable, Loss |
+| `ExprDeriv` | 179 | 8 | Differentiable, Pipeline |
+| `Exterior` | 110 | 5 | Constraint, Square |
+| `LoopRate` | 89 | 3 | Loop |
+| `PolyAssemble` | 128 | 4 | Lipschitz, DistLipschitz, PolyLipschitz, Loss |
+| `RepairBridge` | 247 | 14 | Loop, Loss |
+| `RepairCoverage` | 142 | 4 | LoopPerp, Constraint, Dist, RepairPerp |
+| `RepairQuality` | 151 | 9 | Loop, LoopPerp |
+| `Semantic` | 179 | 7 | Invariant, Extract |
+| `Shape` | 204 | 3 | Derive |
+| `Synthesis` | 215 | 8 | Invariant, Initialise |
+| `Unified` | 91 | 4 | Loop, LoopPerp |
+
+### L6 —— 
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `ClosedLoop` | 203 | 10 | Loop, SeqRepresentation, ConjRepair, Flatten |
+| `EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
+| `EqualLengthRepair` | 113 | 3 | RepairCoverage, Constraint |
+| `Exec` | 132 | 6 | Shape, Derive |
+| `ExprLocalMin` | 74 | 3 | ExprDeriv, Derivative |
+| `ExteriorSmooth` | 150 | 9 | Differentiable, Exterior, ExprDeriv |
+| `FormDeriv` | 158 | 8 | ExprDeriv, Perturb |
+| `GeoSampledBound` | 79 | 1 | Lipschitz, RhoMetric, PolyAssemble |
+| `Nondegenerate` | 307 | 13 | Differentiable, Perturb, Derivative |
+| `ParallelRepair` | 182 | 4 | RepairCoverage, Constraint |
+| `PenaltySmooth` | 105 | 4 | Differentiable, Square, ExprDeriv |
+| `Plucker` | 105 | 2 | Exterior |
+| `PolyConstants` | 159 | 5 | Lipschitz, DistLipschitz, PolyAssemble |
+| `PolyRepair` | 174 | 5 | RepairCoverage, Constraint |
+| `QualityBridge` | 76 | 3 | RepairQuality |
+| `Reinjection` | 121 | 3 | Loop, Loss, LoopRate |
+| `SynthesisCoverage` | 150 | 5 | Synthesis, Constraint, Dist |
+| `SynthesisMulti` | 132 | 4 | Synthesis |
+
+### L7 —— 
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
+| `ConstraintsRoot` | 46 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, DistDerivative, ExprDerivative, PenaltyLossDerivative, NetLossDerivative, FlatLoss, LossExtraction |
+| `GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
+| `LayerExact` | 127 | 3 | Plucker |
+| `MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |
+| `NondegenerateInstance` | 143 | 6 | Perturb, Nondegenerate |
+| `PartialReinjection` | 157 | 6 | Loss, Reinjection |
+| `PolyNondegenerate` | 210 | 8 | Loss, ExprLocalMin, Dist, Derivative |
+| `ReinjectionGeneral` | 134 | 5 | Reinjection, LoopPerp |
+| `SynthesisConnection` | 203 | 9 | Synthesis, SynthesisMulti, SynthesisCoverage |
+| `Unconditional` | 117 | 7 | FormDeriv, Derivative |
+
+### L8 —— 
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `IRBridge` | 307 | 13 | LayerExact, Loss |
+| `PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
+| `RepairPenalty` | 239 | 10 | PartialReinjection, MissingRepairs, RepairCoverage, ParallelRepair, Loop, Loss, RepairBridge |
+| `WeightSideLadder` | 298 | 9 | Constraint, GeoLadder |
+
+### L9 —— 
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `AffineClass` | 134 | 9 | WeightSideLadder |
+| `IRRepair` | 86 | 3 | IRBridge, ConjRepair, LoopPerp |
+
+### L10 —— 
+
+| 模块 | 行数 | 定理 | 依赖 |
+|:--|--:|--:|:--|
+| `GeometryRoot` | 85 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder, AffineClass |
 
 ## 二、四条靶定理在几何层中的落点
 

@@ -28,8 +28,8 @@ commutativity of the penalty SUM live in the `NetLoss` plugin, not here.
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Domains.Constraints.Penalty.Manifest
-import Lattice.Domains.Constraints.NetLossDerivative
-import Lattice.Domains.Constraints.PenaltyLoss
+import Lattice.Reference.Geometry.Constraints.NetLossDerivative
+import Lattice.Reference.Geometry.Constraints.PenaltyLoss
 
 namespace Lattice.Plugins.Domains.Constraints.Penalty
 

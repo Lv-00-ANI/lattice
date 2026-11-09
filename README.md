@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1031 | `audit_counts.py` |
-> | 定理 / 引理 | 10061 | `audit_counts.py` |
+> | Lean 模块 | 926 | `audit_counts.py` |
+> | 定理 / 引理 | 9373 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -166,7 +166,7 @@ lattice-new/
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
-│   ├── Domains/     106       # 领域实例：Constraints 30 + Geometry 72（含 Encode/CIC）+ 子划分
+│   ├── Domains/     0         # 第 265 轮整层归档至 Reference/Geometry/（后者不参与主构建）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
 │   ├── Lib/        623       # 应用库，按主题（建立在链路层之上）
@@ -177,7 +177,7 @@ lattice-new/
 │   │   ├── Optim          60    Quantization    18    Linear         8
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
-│       └── LvFormal/  121  # Lv-00 上游（唯一源）
+│       └── LvFormal/  227  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
 ├── gov/                    # 门禁与审计（8 条不变量 + 93 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
@@ -234,7 +234,7 @@ lattice-new/
 | lvLang → IR | ⚠️ 部分 | `compile_constraint` 有 12 处 `\| _ => none` |
 | IR → Cv00 | ❌ 断 | `CompilerCorrectness` 全文 0 次出现 `Cv00` |
 | Cv00 → 权重 | ❌ 不存在 | LvFormal 中提到 `Weight` 的文件 0 个 |
-| **IR → 权重（已实现路线）** | ✅ | `Lattice.Geo.IRBridge.compileIR_sound` + 9 条 `compileIR_*_exact` |
+| **IR → 权重（已实现路线）** | ✅ | `compileWith_roundtrip` / `extract_compileWith` / `models_compileWith`（`Core/IR/Extract.lean`，主线） |
 
 **本库走 IR → 权重的短路径，绕过 Cv00。** 理由（不是省略，是论证）：
 
@@ -618,7 +618,7 @@ PROCESS 的判据表，属于证明层的工作），仅在此标注。
 | G1 | 四跳链路 | ⚠️ **过度声称，已降级**（见下） |
 | G2 | 正向三路径 | ✅ |
 | G3 | 逆向四步 | ✅ |
-| G4 | 闭环收敛 | ✅（**注意**：`loop_converges` 的度量是「修一次即归零」，未表达多次迭代） |
+| G4 | 闭环收敛 | ✅（**注意**：`parse_loop_rejects_then_accepts`（`Core/IR/Semantics.lean`） 的度量是「修一次即归零」，未表达多次迭代） |
 | G5 | 符号引擎 | ✅ |
 | G6 | 不绑定框架 | ✅（依赖事实，非定理；**但该事实目前不可在他机复现**，见 §4.2(e)） |
 | G7 | lvLang→IR→Cv00→权重 | ⚠️ **原文路线断；IR→权重路线通**（见 §3.1） |

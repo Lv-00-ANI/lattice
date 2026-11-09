@@ -9,8 +9,8 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 748 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 167 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 663 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 152 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -45,89 +45,6 @@
 | `Core/IR/Semantics.lean` | `parse_models_full` |
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
-| `Domains/Constraints/ConstraintSet.lean` | `holdsSet_nil` |
-| `Domains/Constraints/Dist.lean` | `sqDist_eq_of_dist_eq_same` |
-| `Domains/Constraints/Dist.lean` | `sqDist_nonneg` |
-| `Domains/Constraints/ExprDeriv.lean` | `maxPoint_lt_of_coord` |
-| `Domains/Constraints/ExprDerivative.lean` | `indicesBelow_const` |
-| `Domains/Constraints/Loss.lean` | `loss_eq_zero_toGeo_expr` |
-| `Domains/Constraints/Loss.lean` | `loss_eq_zero_toGeo_samePoint` |
-| `Domains/Geometry/ApproxEmbedding.lean` | `eqConstraint_loss_le_sq_of_resid_le` |
-| `Domains/Geometry/ClauseComposition.lean` | `init_then_weight` |
-| `Domains/Geometry/ClauseComposition.lean` | `rate_then_repair` |
-| `Domains/Geometry/ClauseComposition.lean` | `repair_then_reinject` |
-| `Domains/Geometry/ClauseComposition.lean` | `synthesis_then_verify` |
-| `Domains/Geometry/ClosedLoop.lean` | `conj_loop_is_stable` |
-| `Domains/Geometry/ClosedLoop.lean` | `geometric_loop_fixed_point` |
-| `Domains/Geometry/ClosedLoop.lean` | `geometric_loop_is_stable` |
-| `Domains/Geometry/CodegenLadder.lean` | `codegenLadder_forward` |
-| `Domains/Geometry/ConstraintDescent.lean` | `netLoss_tendsto_zero` |
-| `Domains/Geometry/Encode/CIC.lean` | `encode_sound` |
-| `Domains/Geometry/Encode/CIC.lean` | `encode_sound_of_holds` |
-| `Domains/Geometry/EqualLengthRepair.lean` | `repair_coverage_geometric` |
-| `Domains/Geometry/Exact.lean` | `geo_penalty_exact` |
-| `Domains/Geometry/Exact.lean` | `perpendicular_loss_nonneg` |
-| `Domains/Geometry/Exact.lean` | `samePoint_loss_nonneg` |
-| `Domains/Geometry/ExprLocalMin.lean` | `evalPts_localMin_implies_zero` |
-| `Domains/Geometry/Exterior.lean` | `collinearPenalty_nonneg` |
-| `Domains/Geometry/Exterior.lean` | `parallelPenalty_nonneg` |
-| `Domains/Geometry/Extract.lean` | `configOf_inv` |
-| `Domains/Geometry/Extract.lean` | `configOf_roundtrip` |
-| `Domains/Geometry/GeoLadder.lean` | `geoLadder_forward` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_collinear_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_distance_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_eqExpr_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_equalLength_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_midpoint_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_parallel_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_perpendicular_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_radius_exact` |
-| `Domains/Geometry/IRBridge.lean` | `compileIR_rightAngle_exact` |
-| `Domains/Geometry/LadderInstance.lean` | `linearLadder_forward` |
-| `Domains/Geometry/LadderInstance.lean` | `linearLadder_l1l2_roundtrip` |
-| `Domains/Geometry/Loop.lean` | `reinject_sound` |
-| `Domains/Geometry/LoopPerp.lean` | `perp_loop_converges_in_one` |
-| `Domains/Geometry/LoopPerp.lean` | `perp_loop_preserves` |
-| `Domains/Geometry/Nondegenerate.lean` | `perpResid_localMin_implies_zero` |
-| `Domains/Geometry/Nondegenerate.lean` | `perpResid_localMin_of_nondegenerate` |
-| `Domains/Geometry/ParallelRepair.lean` | `parallel_gap_closed` |
-| `Domains/Geometry/ParallelRepair.lean` | `parallel_skolemized` |
-| `Domains/Geometry/PartialReinjection.lean` | `exact_reinject_zero` |
-| `Domains/Geometry/PartialReinjection.lean` | `loss_le_of_le` |
-| `Domains/Geometry/PartialReinjection.lean` | `partial_reinject_bound` |
-| `Domains/Geometry/PolyAssemble.lean` | `poly_lipschitz_perpendicular` |
-| `Domains/Geometry/PolyConstants.lean` | `poly_const_perpendicular` |
-| `Domains/Geometry/PolyConstants.lean` | `poly_const_samePoint` |
-| `Domains/Geometry/PolyNondegenerate.lean` | `poly_expr_localMin_implies_zero` |
-| `Domains/Geometry/PolyRepair.lean` | `poly_gap_is_not_a_gap` |
-| `Domains/Geometry/QualityBridge.lean` | `copy_preserves_at_sat` |
-| `Domains/Geometry/QualityBridge.lean` | `linear_repair_preserves_at_sat` |
-| `Domains/Geometry/QualityBridge.lean` | `project_preserves_at_sat` |
-| `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_generic` |
-| `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_of_hold` |
-| `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_perpRepair` |
-| `Domains/Geometry/ReinjectionGeneral.lean` | `reinject_perpendicular` |
-| `Domains/Geometry/RepairBridge.lean` | `converges` |
-| `Domains/Geometry/RepairPenalty.lean` | `constraintLossCompiler_compile` |
-| `Domains/Geometry/RepairPenalty.lean` | `repair_loss_bounded_by_residual` |
-| `Domains/Geometry/RepairPenalty.lean` | `samePoint_loop_reaches_penalty_zero` |
-| `Domains/Geometry/RepairQuality.lean` | `copy_keeps_a` |
-| `Domains/Geometry/RepairQuality.lean` | `copy_writes_b` |
-| `Domains/Geometry/RepairQuality.lean` | `project_keeps_a` |
-| `Domains/Geometry/Square.lean` | `equalLengthPenalty_nonneg` |
-| `Domains/Geometry/Square.lean` | `sqDistEqPenalty_nonneg` |
-| `Domains/Geometry/Synthesis.lean` | `synthesize_perpendicular_samples` |
-| `Domains/Geometry/SynthesisConnection.lean` | `synthesis_connects_to_chain` |
-| `Domains/Geometry/SynthesisConnection.lean` | `synthesis_preserves_separation` |
-| `Domains/Geometry/SynthesisConnection.lean` | `synthesize_for` |
-| `Domains/Geometry/SynthesisConnection.lean` | `synthesize_for_multi` |
-| `Domains/Geometry/SynthesisMulti.lean` | `synthesize_perpendicular_multi` |
-| `Domains/Geometry/Unconditional.lean` | `localMin_ofLinearForm_implies_loss_zero` |
-| `Domains/Geometry/Unconditional.lean` | `localMin_ofLinearForm_implies_zero` |
-| `Domains/Geometry/Unified.lean` | `every_repair_preserves_at_sat` |
-| `Domains/Geometry/Unified.lean` | `linearRepair_unified` |
-| `Domains/Geometry/Unified.lean` | `perpRepair_unified` |
-| `Domains/Geometry/Unified.lean` | `samePointRepair_unified` |
 | `Evidence/MultiComposition.lean` | `chain_single` |
 | `Evidence/MultiComposition.lean` | `chain_two` |
 | `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
@@ -720,7 +637,6 @@
 | `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Plugins/Migration.lean` | `stringPrefix_self` |
 | `Plugins/Targets/ConstructArtifact.lean` | `samePointArch_wf` |
-| `Plugins/Targets/ConstructArtifactBridge.lean` | `samePointArtifact_satW_iff` |
 | `Plugins/Targets/ExtractArtifact.lean` | `no_artifact_extractor_recovers_both` |
 | `Plugins/Targets/SpecReadingSolver.lean` | `specAnchoredSolve_complete` |
 | `Plugins/Targets/SpecReadingSolver.lean` | `specAnchoredSolve_cost_zero` |
@@ -771,9 +687,8 @@
 | `Runtime/WeightLadder.lean` | `weightLadder_forward` |
 | `Semantics/Annotations.lean` | `edit_frame_holds` |
 | `Semantics/Annotations.lean` | `holdsSet_member` |
-| `Semantics/CompileSoundGeneral.lean` | `bridged_midpoint_iff` |
-| `Semantics/CompileSoundGeneral.lean` | `bridged_samePoint_iff` |
 | `Semantics/CompileSoundGeneral.lean` | `compile_sound_mentions_R` |
+| `Semantics/ConstraintCore.lean` | `holdsSet_nil` |
 | `Semantics/Merge.lean` | `merge_sound` |
 | `Semantics/PostTrain.lean` | `post_train_preserves_holds` |
 | `Semantics/PostTrain.lean` | `post_train_preserves_set` |
@@ -792,21 +707,6 @@
 | `Core/IR/Semantics.lean` | `parse_var_relations_nil` |
 | `Core/IR/Semantics.lean` | `parse_var_tensors_length` |
 | `Core/IR/Skeleton.lean` | `find_id_eq_some_of_nodup_shape` |
-| `Domains/Constraints/Loss.lean` | `loss_eq_zero_expr` |
-| `Domains/Constraints/Loss.lean` | `loss_eq_zero_perpendicular` |
-| `Domains/Geometry/ClauseComposition.lean` | `repair_then_reinject` |
-| `Domains/Geometry/Invariant.lean` | `collinear_translate` |
-| `Domains/Geometry/Invariant.lean` | `parallel_translate` |
-| `Domains/Geometry/Invariant.lean` | `perpendicular_translate` |
-| `Domains/Geometry/Invariant.lean` | `rightAngle_translate` |
-| `Domains/Geometry/PartialReinjection.lean` | `exact_reinject_zero` |
-| `Domains/Geometry/QualityBridge.lean` | `copy_preserves_at_sat` |
-| `Domains/Geometry/QualityBridge.lean` | `linear_repair_preserves_at_sat` |
-| `Domains/Geometry/QualityBridge.lean` | `project_preserves_at_sat` |
-| `Domains/Geometry/Square.lean` | `midpointPenalty_nonneg` |
-| `Domains/Geometry/Unified.lean` | `linearRepair_unified` |
-| `Domains/Geometry/Unified.lean` | `perpRepair_unified` |
-| `Domains/Geometry/Unified.lean` | `samePointRepair_unified` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_left` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
@@ -942,7 +842,6 @@
 | `Plugins/Extractors/ChainSlot/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
 | `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
-| `Primitives/WeightDescent.lean` | `sqNormIn_nonneg` |
 | `Runtime/ConvertVectorLinear.lean` | `foldl_init_add` |
 | `Runtime/GeoSampledBound.lean` | `residual_le_of_zero_on_dense_of_d` |
 | `Runtime/L1L2Roundtrip.lean` | `filterMap_comp_append` |
@@ -952,3 +851,4 @@
 | `Runtime/VerificationSoundness.lean` | `residual_le_of_zero_on_dense` |
 | `Semantics/CompileSound.lean` | `holdsSet_midpoint_single` |
 | `Semantics/CompileSound.lean` | `holdsSet_samePoint_single` |
+| `Semantics/ConstraintCore.lean` | `holdsSet_singleton` |

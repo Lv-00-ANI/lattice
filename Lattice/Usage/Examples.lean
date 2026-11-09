@@ -13,12 +13,12 @@ import Lattice.Runtime.CompilerScheme
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
-import Lattice.Domains.Constraints.ComputableExpr
-import Lattice.Domains.Geometry.ExecutableCheck
-import Lattice.Domains.Geometry.GeoSampledBound
-import Lattice.Domains.Geometry.Reinjection
-import Lattice.Domains.Geometry.Synthesis
-import Lattice.Domains.Geometry.PolyConstants
+import Lattice.Reference.Geometry.Constraints.ComputableExpr
+import Lattice.Reference.Geometry.Geometry.ExecutableCheck
+import Lattice.Reference.Geometry.Geometry.GeoSampledBound
+import Lattice.Reference.Geometry.Geometry.Reinjection
+import Lattice.Reference.Geometry.Geometry.Synthesis
+import Lattice.Reference.Geometry.Geometry.PolyConstants
 
 namespace Lattice.Usage
 

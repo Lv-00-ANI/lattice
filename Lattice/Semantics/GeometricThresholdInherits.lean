@@ -49,7 +49,7 @@ used here.**
 
 import Mathlib
 import Lattice.Semantics.InheritsStructural
-import Lattice.Domains.Constraints.Dist
+import Lattice.Reference.Geometry.Constraints.Dist
 
 namespace Lattice.Semantics.Stage1
 

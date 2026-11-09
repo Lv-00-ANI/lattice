@@ -14,37 +14,41 @@
 | 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 12 | 23 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
-| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 6 | 0 | `Domains/Constraints/Pipeline.lean`, `Domains/Geometry/LadderInstance.lean` |
+| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 38 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 1 | 1 | `Runtime/NondegenerateInstance.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 37 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Domains/Geometry/RepairPenalty.lean` |
-| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Domains/Geometry/RepairPenalty.lean` |
-| 2.2 forward: data synthesis | `synth_coverage` | `Domains/Geometry/SynthesisCoverage.lean` | 1 | 0 | `Domains/Geometry/SynthesisConnection.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 36 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
+| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
+| 2.2 forward: data synthesis | `synth_coverage` | **未找到** | — | — | — |
+| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 0 *(仅本文件)* | 2 | — |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
+| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 1 | 31 | `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 1 | 12 | `Runtime/ApproxExtraction.lean` |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 5 | `Runtime/ApproximationBridge.lean` |
-| 3.2 inverse: verification | `geo_sampled_bound` | `Domains/Geometry/GeoSampledBound.lean` | 2 | 0 | `Domains/Geometry/ClauseComposition.lean`, `Usage/Examples.lean` |
-| 3.3 inverse: repair | `sqDistFix` | `Domains/Geometry/RepairCoverage.lean` | 2 | 3 | `Domains/Geometry/EqualLengthRepair.lean`, `Domains/Geometry/RepairPenalty.lean` |
-| 3.3 inverse: repair | `parallelFix` | `Domains/Geometry/ParallelRepair.lean` | 1 | 12 | `Domains/Geometry/RepairPenalty.lean` |
-| 3.3 inverse: repair | `midpointFix` | `Domains/Geometry/MissingRepairs.lean` | 1 | 13 | `Domains/Geometry/RepairPenalty.lean` |
-| 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Domains/Geometry/Reinjection.lean` | 2 | 1 | `Domains/Geometry/ClauseComposition.lean`, `Domains/Geometry/PartialReinjection.lean` |
-| 3.4 inverse: re-injection | `partial_reinject_bound` | `Domains/Geometry/PartialReinjection.lean` | 1 | 0 | `Domains/Geometry/RepairPenalty.lean` |
-| 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 12 | 2 | `Core/OneStepBridge.lean`, `Domains/Geometry/ClauseComposition.lean` |
+| 3.2 inverse: verification | `geo_sampled_bound` | **未找到** | — | — | — |
+| 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 2 | 3 | `Core/IR/Semantics.lean`, `Plugins/Core/Constraint/Manifest.lean` |
+| 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
+| 3.3 inverse: repair | `sqDistFix` | **未找到** | — | — | — |
+| 3.3 inverse: repair | `parallelFix` | **未找到** | — | — | — |
+| 3.3 inverse: repair | `midpointFix` | **未找到** | — | — | — |
+| 3.4 inverse: re-injection | `reinject_loss_eq_zero` | **未找到** | — | — | — |
+| 3.4 inverse: re-injection | `partial_reinject_bound` | **未找到** | — | — | — |
+| 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
-| 5 symbolic engine | `evalPts` | `Domains/Constraints/Expr.lean` | 27 | 22 | `Domains/Constraints/Constraint.lean`, `Domains/Constraints/Eval.lean` |
-| 5 symbolic engine | `derivation_sound` | `Domains/Geometry/Engine.lean` | 1 | 0 | `Domains/Geometry/Rules.lean` |
+| 5 symbolic engine | `evalPts` | **未找到** | — | — | — |
+| 5 symbolic engine | `derivation_sound` | **未找到** | — | — | — |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
-| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 4 | 0 | `Domains/Geometry/LadderInstance.lean`, `Evidence/Hypotheses.lean` |
+| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
 
 ## 汇总
 
 - 条款数：14
-- 载体总数：27
-- **死代码载体（同文件也不用）：0**
-- 仅同文件使用的载体：0
+- 载体总数：31
+- **死代码载体（同文件也不用）：9**
+- 仅同文件使用的载体：2
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

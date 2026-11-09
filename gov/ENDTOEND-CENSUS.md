@@ -15,80 +15,79 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 4361 | 43.3% |
-| 1 | 1342 | 13.3% |
-| 2 | 558 | 5.5% |
-| 3 | 782 | 7.8% |
-| 4 | 259 | 2.6% |
-| 5 | 8 | 0.1% |
-| 6 | 2240 | 22.3% |
-| 7 | 514 | 5.1% |
-| **合计** | **10064** | |
+| 0 | 4321 | 46.1% |
+| 1 | 1444 | 15.4% |
+| 2 | 879 | 9.4% |
+| 3 | 323 | 3.4% |
+| 4 | 106 | 1.1% |
+| 5 | 1839 | 19.6% |
+| 6 | 464 | 4.9% |
+| **合计** | **9376** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
 | 层数 | 定理 | 触及的层 |
 |--:|:--|:--|
-| 7 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `abiTable_names_eq_verified` (`CInterface/ABI.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `conformance_names_dedup_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `conformance_iff_abi` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `every_primitive_has_boundary` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `boundaryPrimitives_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `interior_length` (`CInterface/Conformance.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `composeArgs_has_no_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `abiTable_compose_args` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `exists_abi_entry_without_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `preserves_foldl` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `iterate_from_fold` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `bridgedCount_append` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `bridgedCount_empty` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `bridgedCount_hom` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `commutativeBlock_trivial` (`Evidence/PredicateWitnesses.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `census_length` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `repair_is_densest` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `total_obligations` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `no_zero_obligation_in_census_table` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `census_env_agrees` (`Evidence/StructureCensus.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verdict_lub_of_length_eq` (`Evidence/VerdictLattice.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_nonempty` (`Plugins/Architectures/Attention/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `proof_holds` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_manifest` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_obligations` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `archCarrierAdditions_holds` (`Plugins/Architectures/CarrierAdditions.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_nonempty` (`Plugins/Architectures/Conv/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `proof_holds` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_manifest` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_obligations` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_nonempty` (`Plugins/Architectures/DAG/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dagConfluenceProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dagDenoteSeqProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dagDenoteParProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dag_denote_seq` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dag_denote_par` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dag_denote_resid` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dagEval_commute_past` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `dag_confluence` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
-| 7 | `manifest_requires` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Domains, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_length` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_names_nodup` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_names_eq_verified` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `conformance_names_dedup_length` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `conformance_iff_abi` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `every_primitive_has_boundary` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `boundaryPrimitives_nodup` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `interior_length` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `composeArgs_has_no_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_compose_args` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `exists_abi_entry_without_data_parameter` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `preserves_foldl` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `iterate_from_fold` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `loop_preserves` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `bridgedCount_append` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `bridgedCount_empty` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `bridgedCount_hom` (`Evidence/CompositionAlgebra.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `no_redundant_entries_in_audit_table` (`Evidence/Hypotheses.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `chainAudit_length` (`Evidence/Hypotheses.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `every_judgement_carries_a_reason` (`Evidence/Hypotheses.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `census_length` (`Evidence/StructureCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `repair_is_densest` (`Evidence/StructureCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `total_obligations` (`Evidence/StructureCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `no_zero_obligation_in_census_table` (`Evidence/StructureCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `census_env_agrees` (`Evidence/StructureCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verdict_lub_of_length_eq` (`Evidence/VerdictLattice.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/Attention/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `proof_holds` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_manifest` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_obligations` (`Plugins/Architectures/Attention/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `archCarrierAdditions_holds` (`Plugins/Architectures/CarrierAdditions.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/Conv/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `proof_holds` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_manifest` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_obligations` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/DAG/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagConfluenceProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagDenoteSeqProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagDenoteParProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dag_denote_seq` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dag_denote_par` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dag_denote_resid` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagEval_commute_past` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dag_confluence` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_requires` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `manifest_provides` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

@@ -10,8 +10,6 @@
 #
 # Format:  <file>\t<line>\t<kind>\t<declaration>
 #
-Geo/PolyAssemble.lean	80	bare-hypothesis	poly_lipschitz_expr
-Geo/Synthesis.lean	71	bare-hypothesis	idT_preserves
 Lib/Attention/RealTemporalLayer.lean	224	bare-hypothesis	split_immediately_confers_concept
 Lib/Chain/RealLv00GeometryDifferential.lean	524	bare-hypothesis	gauss_bonnet_local_flat_degenerate
 Lib/Chain/RealNumericChainOrder_parts/C.lean	210	bare-hypothesis	nat_least_positive

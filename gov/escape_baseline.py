@@ -55,7 +55,11 @@ def asc(s):
 def scan():
     found = {}
     for base, dirs, fs in os.walk(os.path.join(ZERO, "Lattice")):
-        dirs[:] = [d for d in dirs if d not in (".lake", ".git")]
+        # Round 265 (STAGE 0): the ARCHIVE (`Lattice/Reference/`) is not part of the mainline
+        # build closure. Its `admit`s are pre-existing Lv-00 upstream code that the archival
+        # deliberately moved OUT of the chain; counting them as new escapes would report the
+        # archival itself as a regression.
+        dirs[:] = [d for d in dirs if d not in (".lake", ".git", "Reference")]
         for f in sorted(fs):
             if not f.endswith(".lean"):
                 continue

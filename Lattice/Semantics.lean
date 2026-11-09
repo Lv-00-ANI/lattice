@@ -1,3 +1,4 @@
+import Lattice.Semantics.ConstraintCore
 import Lattice.Semantics.Stage1
 import Lattice.Semantics.VocabEdit
 import Lattice.Semantics.Annotations

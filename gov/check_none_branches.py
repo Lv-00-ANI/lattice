@@ -55,12 +55,12 @@ COVERED = {
         "`partOfCode`'s wildcard is the tag-above-3 arm, and `partOfCode_partCode` proves the "
         "encoding's image is exactly the four tags `partCode` writes. The rejection arm is "
         "unreachable on any value `partCode` produces."),
-    "Geo/EqConstraintToken.lean": (
+    "Reference/Geometry/Constraints/EqConstraintToken.lean": (
         "covered by round-trip",
         "`decCon_expr` / `decCon_samePoint` / `decCon_perp` / `decCon_distEq` give the `some` arm on "
         "each constructor's payload; `decCon_enc_nil` gives the round-trip. The `none` arms are "
         "unreachable on any list `encCon` produces."),
-    "Geo/RealToken.lean": (
+    "Reference/Geometry/Constraints/RealToken.lean": (
         "covered by round-trip",
         "`decExpr_coord` / `decExpr_const` plus `decExpr_enc` -- same shape as `EqConstraintToken`."),
     "Lift/WeightLadder.lean": (
