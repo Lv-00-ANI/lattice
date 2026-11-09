@@ -766,11 +766,11 @@
 - `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
-- `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
 - `Lattice.Plugins.Architectures.Attention.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
 - `Lattice.Plugins.Architectures.Attention.Proofs` 
 - `Lattice.Plugins.Architectures.CarrierAdditions` <- `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Plugin`
-- `Lattice.Plugins.Architectures.Conv.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Architectures.Conv.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Conv.Proofs`
 - `Lattice.Plugins.Architectures.Conv.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Proofs`
 - `Lattice.Plugins.Architectures.Conv.Proofs` 
 - `Lattice.Plugins.Architectures.DAG.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
@@ -1706,11 +1706,11 @@
 | `Lattice.Lib` | 0 | 0 |
 | `Lattice.Plugins` | 55 | 9 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
-| `Lattice.Plugins.Architectures.Attention.Manifest` | 1 | 1 |
+| `Lattice.Plugins.Architectures.Attention.Manifest` | 2 | 4 |
 | `Lattice.Plugins.Architectures.Attention.Plugin` | 6 | 5 |
 | `Lattice.Plugins.Architectures.Attention.Proofs` | 6 | 4 |
 | `Lattice.Plugins.Architectures.CarrierAdditions` | 1 | 4 |
-| `Lattice.Plugins.Architectures.Conv.Manifest` | 1 | 1 |
+| `Lattice.Plugins.Architectures.Conv.Manifest` | 2 | 4 |
 | `Lattice.Plugins.Architectures.Conv.Plugin` | 6 | 5 |
 | `Lattice.Plugins.Architectures.Conv.Proofs` | 4 | 2 |
 | `Lattice.Plugins.Architectures.DAG.Manifest` | 1 | 1 |
@@ -2481,6 +2481,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `attention_lipschitz_numeric` -> `E`, `LinfNorm`, `RMSNormOp`, `RMSNormOp_eq_rmsNormE`, `W`, `bddAbove_abs`, `le_trans`, `linear_map_lipschitz`, `linfNorm_eq_norm`, `rmsNormE_sqrt_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_lipschitz_weighted` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `convComb_lipschitz_prob`, `le_trans`, `linfNorm_eq_norm`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_migrated` -> `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
+- `attention_props_hold` -> `PluginManifest`, `arch`, `attention_masked_excludes`, `attention_perm_equivariant`, `layer`, `requires`, `softmax_row_stochastic`, `soundness`, `verifiedObligation`
 - `attnState_projFeature_last` -> `apply`, `d`
 - `audit_bridge_needs_bddAbove` -> `fenchelConjAll`
 - `audit_ereal_convexity_unconditional` -> `fenchelConjAll`
@@ -3653,6 +3654,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conv_eq_shared_filter` -> `shift`
 - `conv_equivariant` -> `shift`
 - `conv_migrated` -> `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `StringPrefix`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
+- `conv_props_hold` -> `PluginManifest`, `arch`, `conv_eq_shared_filter`, `conv_translation_equivariant`, `conv_window_determines_output`, `layer`, `manifest`, `manifest_nonempty`, `requires`, `soundness`, `verifiedObligation`
 - `conv_translation_equivariant` -> `shift`
 - `convergesWithinProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `convergesWithinTightProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`

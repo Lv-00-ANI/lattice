@@ -34,10 +34,37 @@ file proves the freely-masked case and states the boundary.**
 -/
 
 import Lattice.Plugins.Manifest
+-- Round 767: the obligations now CARRY their propositions, and those propositions are the
+-- theorems' own types -- so the manifest must import the file that proves them.
+import Lattice.Plugins.Architectures.Attention.Proofs
 
 namespace Lattice.Plugins.Architectures.Attention
 
 open Lattice.Plugins
+
+/-- **The equivariance obligation's proposition**: permuting keys and values changes nothing. -/
+def attention_perm_equivariantProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] [Nonempty ι] (s v : ι → ℝ) (σ : ι ≃ ι),
+    attention (fun i => s (σ i)) (fun i => v (σ i)) = attention s v
+
+/-- **The soundness obligation's proposition**: the softmax weights sum to one. -/
+def attention_row_stochasticProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] [Nonempty ι] (s : ι → ℝ),
+    (Finset.univ.sum (fun i : ι => softmaxWeight s i)) = 1
+
+/-- **The exactness obligation's proposition**: a masked-out index contributes zero. -/
+def attention_mask_excludesProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (M : ι → Bool) (s v : ι → ℝ) (i : ι),
+    M i = true → maskedWeight M s i * v i = 0
+
+/-- **The three propositions are exactly the three theorems' types.**
+
+**=> 这三条把 `Prop` 定义与已证定理接上：命题不是新写的，是定理自己的类型。
+⇒ 若定理改名或改陈述，这几条会立刻失败 —— 这正是 `proof` 字段要保证的事。** -/
+theorem attention_props_hold :
+    attention_perm_equivariantProp ∧ attention_row_stochasticProp
+      ∧ attention_mask_excludesProp :=
+  ⟨attention_perm_equivariant, softmax_row_stochastic, attention_masked_excludes⟩
 
 /-- **The attention carrier's manifest.**
 
@@ -52,20 +79,20 @@ def manifest : PluginManifest where
   provides := ["arch.attend"]
   obligations := [
     -- EQUIVARIANCE: permuting the keys changes nothing.
-    { name := "attention_perm_equivariant"
-      kind := .equivariance
-      theoremName := "attention_perm_equivariant"
-      file := "Lattice/Plugins/Architectures/Attention/Proofs.lean" },
+    -- **Round 767: the three obligations now go through `verifiedObligation`, so each CARRIES its
+    -- proposition.** Before this round the manifest named a theorem as a `String`, and a manifest
+    -- could name a theorem that did not exist without anything in the tree noticing.
+    verifiedObligation "attention_perm_equivariant" .equivariance
+      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+      "attention_perm_equivariant" attention_perm_equivariantProp,
     -- SOUNDNESS: the weights are row-stochastic.
-    { name := "attention_row_stochastic"
-      kind := .soundness
-      theoremName := "softmax_row_stochastic"
-      file := "Lattice/Plugins/Architectures/Attention/Proofs.lean" },
+    verifiedObligation "attention_row_stochastic" .soundness
+      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+      "softmax_row_stochastic" attention_row_stochasticProp,
     -- EXACTNESS: a masked-out index contributes exactly zero.
-    { name := "attention_mask_excludes"
-      kind := .exactness
-      theoremName := "attention_masked_excludes"
-      file := "Lattice/Plugins/Architectures/Attention/Proofs.lean" }
+    verifiedObligation "attention_mask_excludes" .exactness
+      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+      "attention_masked_excludes" attention_mask_excludesProp
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.** -/

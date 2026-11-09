@@ -2627,6 +2627,7 @@ Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Attention/Plugin.lean	proof_holds
 Plugins/Architectures/Attention/Plugin.lean	verified_manifest
 Plugins/Architectures/Attention/Plugin.lean	verified_obligations
+Plugins/Architectures/Conv/Manifest.lean	conv_props_hold
 Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds
 Plugins/Architectures/Conv/Plugin.lean	proof_holds

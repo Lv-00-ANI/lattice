@@ -7992,6 +7992,7 @@ plugins	Plugins	Plugins/Registry.lean	registryConsistentFor_nil	no
 plugins	Plugins	Plugins/Registry.lean	trivial_fields	no
 plugins	Plugins	Plugins/Registry.lean	trivial_holds	no
 plugins	Plugins/Architectures	Plugins/Architectures/CarrierAdditions.lean	archCarrierAdditions_holds	no
+plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Manifest.lean	attention_props_hold	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Plugin.lean	attentionMaskExcludesProp_holds	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Plugin.lean	attentionPermEquivarianceProp_holds	no
@@ -8005,6 +8006,7 @@ plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Proofs.l
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Proofs.lean	softmaxDenom_pos	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Proofs.lean	softmax_row_stochastic	no
 plugins	Plugins/Architectures/Attention	Plugins/Architectures/Attention/Proofs.lean	softmax_weights_perm	no
+plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Manifest.lean	conv_props_hold	no
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty	no
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds	no
 plugins	Plugins/Architectures/Conv	Plugins/Architectures/Conv/Plugin.lean	convWeightSharingProp_holds	no

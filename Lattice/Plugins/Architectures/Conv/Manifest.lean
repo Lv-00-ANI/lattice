@@ -35,10 +35,35 @@ stated rather than discovered later.**
 -/
 
 import Lattice.Plugins.Manifest
+-- Round 767: obligations carry their propositions, so the manifest imports the proofs.
+import Lattice.Plugins.Architectures.Conv.Proofs
 
 namespace Lattice.Plugins.Architectures.Conv
 
 open Lattice.Plugins
+
+/-- **Translation equivariance**: shifting the input shifts the output. -/
+def conv_translation_equivariantProp : Prop :=
+  ∀ (k : ℕ) (f : Fin k → ℝ) (x : ℕ → ℝ) (t i : ℕ),
+    convApply k f (shift t x) i = convApply k f x (i + t)
+
+/-- **Weight sharing**: every offset uses the same filter. -/
+def conv_weight_sharingProp : Prop :=
+  ∀ (k : ℕ) (f : Fin k → ℝ) (x : ℕ → ℝ) (i i' : ℕ),
+    convApply k f x i = Finset.univ.sum (fun j : Fin k => f j * x (i + (j : ℕ)))
+      ∧ convApply k f x i' = Finset.univ.sum (fun j : Fin k => f j * x (i' + (j : ℕ)))
+
+/-- **Window determination**: the output is determined by its input window. -/
+def conv_window_determines_outputProp : Prop :=
+  ∀ (k : ℕ) (f : Fin k → ℝ) (x y : ℕ → ℝ), ℕ → ∀ (j₀ : ℕ),
+    (∀ (j : Fin k), x (j₀ + (j : ℕ)) = y (j₀ + (j : ℕ))) →
+      convApply k f x j₀ = convApply k f y j₀
+
+/-- **The three propositions are the three theorems' types.** -/
+theorem conv_props_hold :
+    conv_translation_equivariantProp ∧ conv_weight_sharingProp
+      ∧ conv_window_determines_outputProp :=
+  ⟨conv_translation_equivariant, conv_eq_shared_filter, conv_window_determines_output⟩
 
 /-- **The convolution carrier's manifest.**
 
@@ -52,21 +77,15 @@ def manifest : PluginManifest where
   requires := ["domain.points"]
   provides := ["arch.convolve"]
   obligations := [
-    -- EQUIVARIANCE: shifting the input shifts the output.
-    { name := "conv_translation_equivariant"
-      kind := .equivariance
-      theoremName := "conv_translation_equivariant"
-      file := "Lattice/Plugins/Architectures/Conv/Proofs.lean" },
-    -- SOUNDNESS: every offset uses the same filter (weight sharing).
-    { name := "conv_weight_sharing"
-      kind := .soundness
-      theoremName := "conv_eq_shared_filter"
-      file := "Lattice/Plugins/Architectures/Conv/Proofs.lean" },
-    -- EXACTNESS: the output is determined by the window.
-    { name := "conv_window_determines_output"
-      kind := .exactness
-      theoremName := "conv_window_determines_output"
-      file := "Lattice/Plugins/Architectures/Conv/Proofs.lean" }
+    verifiedObligation "conv_translation_equivariant" .equivariance
+      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+      "conv_translation_equivariant" conv_translation_equivariantProp,
+    verifiedObligation "conv_weight_sharing" .soundness
+      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+      "conv_eq_shared_filter" conv_weight_sharingProp,
+    verifiedObligation "conv_window_determines_output" .exactness
+      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+      "conv_window_determines_output" conv_window_determines_outputProp
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.**
