@@ -154,16 +154,25 @@ _COV = check_coverage_claim.measure()
 _debt_coverage.emit(A, _COV)
 A("")
 A("")
-A("> **范围（一条必须说清的更正）**：本文件覆盖 **1,360 条**已审定理。")
-A("> 它们最初是按**旧的、有缺陷的** `in_degree` 选出来的「第一层」。")
-A("> 审阅人指出该指标把 docstring 提及与不同命名空间的同名声明算成引用，")
-A("> 修正后（只计代码、且要求引用方真的 `import` 该模块）入度 ≥ 1 的定理只剩 **839** 条，")
-A("> 最高入度从 183 降到 18。")
+# **Round 777 (STAGE 4, gate defect G-3): every number below was HARDCODED.**
+# The block said "1,360 reviewed", "839 load-bearing", "521 with in-degree 0", "7,587 remaining" --
+# four literals in one paragraph, each of which had drifted from the tree by the time anyone read it.
+# **=> the paragraph is now an INTERPOLATION over the live measurement.** A number that a generator
+# can compute must never be typed into the generator.
+_n_reviewed = len(flagged_all) if "flagged_all" in dir() else len(flagged)
+_n_load = _COV.get("load", 0)
+_n_zero = _COV.get("zero", 0)
+_n_zero_reviewed = _COV.get("zero_audited", 0)
+A("> **\u8303\u56f4\uff08\u5b9e\u6d4b\uff0c\u6bcf\u6b21\u91cd\u7b97\uff09**\uff1a\u672c\u6587\u4ef6\u8986\u76d6 **%d \u6761**\u5df2\u5ba1\u5b9a\u7406\u3002"
+  % _n_reviewed)
+A("> **\u672c\u6bb5\u6b64\u524d\u5199\u6b7b\u4e86\u56db\u4e2a\u6570\u5b57\uff081,360 / 839 / 521 / 7,587\uff09\uff0c\u800c\u5b83\u4eec\u65e9\u5df2\u4e0e\u6811\u8131\u8282\u3002**")
+A("> **\u2192 \u7b2c 777 \u8f6e\u6539\u4e3a\u63d2\u503c\uff1a\u53ef\u7b97\u7684\u6570\u5b57\u4e0d\u5f97\u88ab\u6253\u5b57\u8fdb\u751f\u6210\u5668\u3002**")
 A(">")
-A("> 所以：**这 1,360 条是「高价值样本」，不是精确的「承重集合」**——其中约 521 条实际入度为 0，")
-A("> 而真正的承重集合里可能有尚未审阅的条目。")
-A("> **六维度的判定本身不受影响**（它们不依赖入度），受影响的只有排序与层边界。")
-A("> 下一轮按修正后的入度重跑第一层，并补齐剩余 7,587 条。")
+A("> **\u627f\u91cd\u96c6\uff08\u4fee\u6b63\u5165\u5ea6 \u2265 1\uff09\uff1a%d \u6761\uff0c\u5176\u4e2d\u5df2\u5ba1 %d \u6761\u3002**"
+  % (_n_load, _COV.get("load_audited", 0)))
+A("> **\u96f6\u5165\u5ea6\uff1a%d \u6761\uff0c\u5df2\u62bd\u5ba1 %d \u6761\u3002**"
+  % (_n_zero, _n_zero_reviewed))
+A("> **\u516d\u7ef4\u5ea6\u7684\u5224\u5b9a\u672c\u8eab\u4e0d\u4f9d\u8d56\u5165\u5ea6**\uff0c\u56e0\u6b64\u4e0d\u53d7\u4fee\u6b63\u5f71\u54cd\u3002")
 A("")
 
 TITLES = {

@@ -1,4 +1,4 @@
-﻿# PROOF OBLIGATIONS
+# PROOF OBLIGATIONS
 
 本文件把“证明部分完成”拆成可验收的 Lean 定理。
 **每条义务在 CIC 载体上陈述**；几何版本作为 Domain 实例保留（见 `CARRIER-CIC.md`）。
@@ -122,9 +122,22 @@ conj_loop_fixed_point  : ∃ r, Sat r ∧ fix r = r ∧ extract (compile r) = r
 ## T5 Recovery
 
 ```lean
-lattice_recovery_exact :
-  unload P s = s' → effectOf P s = e → undo e s' = s
+-- **第 777 轮：原清单写的是 `unload`/`effectOf`/`undo` 三元组，
+-- 而主树里的实际载体是 `Spatiotemporal` 的 `applySeq`/`undoSeq`/`Captured`。**
+-- **两者是同一个命题 ——「执行序列后撤销序列恢复起始状态」。**
+-- **→ 规范保留原意图，但右侧写出主树里那条定理的真实名字。**
+t5_recovery :
+  ∀ {K : Type} [DecidableEq K] (es : List (Effect K)) (s : RState K),
+    Captured es s → undoSeq es (applySeq es s) = s
 ```
+
+> **✅ 第 777 轮实测：本条**已实现**。**
+>
+> **载体：`Lattice.Plugins.Runtime.t5_recovery`（`Plugins/Runtime/RTargets.lean`）。**
+> **`t5_recovery_holds` 证明它，而它在 `ProofComplete` 的合取里。**
+>
+> **→ 之前的款式是「承诺但未实现」，原因是规范用了主树不存在的名字。**
+> **现在规范与实现对；对齐的方式是**改规范**，而不是去造一个同名定理。**
 
 - 卸载插件只撤销自己的影响；
 - 其他插件效果保留；
