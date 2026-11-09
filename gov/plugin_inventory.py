@@ -284,10 +284,16 @@ def main(argv):
     by_plugin, duplicates, owners = summarise(rows)
     shared = shared_names(owners)
 
-    with io.open(OUT, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write("layer\tplugin\tfile\ttheorem\trefuted\n")
-        for layer, plugin, rp, name, ref in rows:
-            fh.write("%s\t%s\t%s\t%s\t%s\n" % (layer, plugin, rp, name, ref))
+    # Round 774 (STAGE 4, gate defect G-7): **a checker must not write the artifact it checks.**
+    # `plugin-map.tsv` used to be rewritten on EVERY invocation, including `--check`, so the
+    # question "does the map match the tree?" was answered by first rebuilding the map FROM the
+    # tree -- the same defect as G-6 in `audit_aliases.py`, in a second file.
+    # **=> write only outside check mode.**
+    if not args.check:
+        with io.open(OUT, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write("layer\tplugin\tfile\ttheorem\trefuted\n")
+            for layer, plugin, rp, name, ref in rows:
+                fh.write("%s\t%s\t%s\t%s\t%s\n" % (layer, plugin, rp, name, ref))
 
     print("plugin inventory\n")
     print("theorems              : %d" % len(rows))

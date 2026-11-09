@@ -45,7 +45,20 @@ LAT = os.path.join(ROOT, "Lattice")
 BASE = os.path.join(HERE, "prop-def-baseline.txt")
 
 #: `def NAME ... : Prop :=` -- capture the name and the rest of the declaration.
-PROP_DEF = re.compile(r"^\s*def\s+([\w'₀-₉.]+)[^\n]*:\s*Prop\s*:=", re.M)
+#:
+#: **Round 774 (STAGE 4, gate defect G-5): the `[^\n]*` confined the match to ONE LINE, so a
+#: declaration written as**
+#:
+#:     def X
+#:         : Prop := ...
+#:
+#: **was invisible. This file's entire subject is `def _ : Prop`, and the pattern that finds them
+#: required the type on the SAME LINE -- a formatting choice, not a semantic one.**
+#:
+#: **=> `(?:[^\n]*\n)*?` lets the type sit on a following line, NON-GREEDILY, so the match still
+#: stops at the FIRST `: Prop :=` instead of swallowing later declarations.**
+PROP_DEF = re.compile(
+    r"^\s*def\s+([\w'₀-₉.]+)(?:[^\n]*\n)*?[^\n]*:\s*Prop\s*:=", re.M)
 
 #: `theorem NAME : TARGET :=` -- capture the name and what it proves.
 THEOREM = re.compile(r"^\s*theorem\s+([\w'₀-₉.]+)[^\n]*:\s*([\w'₀-₉.]+)\s*:=", re.M)
