@@ -8104,6 +8104,7 @@ plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Manifest.lean	mani
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Manifest.lean	manifest_obligation_count	no
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Manifest.lean	manifest_provides	no
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Manifest.lean	manifest_requires	no
+plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Manifest.lean	norm_props_hold	no
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Plugin.lean	normIterateVarianceLeOneProp_holds	no
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Plugin.lean	normLipschitzProp_holds	no
 plugins	Plugins/Architectures/Norm	Plugins/Architectures/Norm/Plugin.lean	normLipschitzSharpProp_holds	no
@@ -8185,6 +8186,7 @@ plugins	Plugins/Compose	Plugins/Compose/Proofs.lean	optional_true_run	no
 plugins	Plugins/Compose	Plugins/Compose/Proofs.lean	parallel_comm_run	no
 plugins	Plugins/Compose	Plugins/Compose/Proofs.lean	parallel_identity_run	no
 plugins	Plugins/Compose	Plugins/Compose/Proofs.lean	parallel_run	no
+plugins	Plugins/Core/Constraint	Plugins/Core/Constraint/Manifest.lean	constraint_props_hold	no
 plugins	Plugins/Core/Constraint	Plugins/Core/Constraint/Manifest.lean	manifest_claims_laws	no
 plugins	Plugins/Core/Constraint	Plugins/Core/Constraint/Manifest.lean	manifest_claims_soundness	no
 plugins	Plugins/Core/Constraint	Plugins/Core/Constraint/Manifest.lean	manifest_layer	no

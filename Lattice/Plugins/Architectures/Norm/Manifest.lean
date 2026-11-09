@@ -37,10 +37,47 @@ and they belong to a different carrier (`GNN`, not `Norm`).
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Architectures.Norm.Proofs
 
 namespace Lattice.Plugins.Architectures.Norm
 
 open Lattice.Plugins
+
+/-- **`varOf_iterate_varNormalize_le_one` 的命题：反复归一化后方差不超过 1。** -/
+def varOf_iterate_varNormalize_le_oneProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (x : ι → ℝ) (n : ℕ), varOf (varNormalize^[n + 1] x) ≤ 1
+
+/-- **`varOf_varNormalize_eq_one` 的命题：非退化输入归一化后方差恰为 1。** -/
+def varOf_varNormalize_eq_oneProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (x : ι → ℝ), varOf x ≠ 0 → varOf (varNormalize x) = 1
+
+/-- **`bn_train_eq_infer` 的命题：训练模式与推理模式在给定统计量下一致。** -/
+def bn_train_eq_inferProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (gamma beta eps mu sigmaSq : ℝ) (X : ι → ℝ),
+    batchMean X = mu → batchVar X = sigmaSq →
+      ∀ (i : ι), bnTrain gamma beta eps X i = bnInfer gamma beta eps mu sigmaSq (X i)
+
+/-- **`varNormalize_unit_lipschitz_sharp` 的命题：单位归一化的 Lipschitz 常数可取 `1/c`。** -/
+def varNormalize_unit_lipschitz_sharpProp : Prop :=
+  ∀ {n : ℕ} (x y : EuclideanSpace ℝ (Fin n)) (c : ℝ),
+    0 < c → c ≤ ‖x‖ → c ≤ ‖y‖ → ‖(1 / ‖x‖) • x - (1 / ‖y‖) • y‖ ≤ 1 / c * ‖x - y‖
+
+/-- **`varNormalize_unit_lipschitz` 的命题：单位归一化的 Lipschitz 常数可取 `2/c`。** -/
+def varNormalize_unit_lipschitzProp : Prop :=
+  ∀ {n : ℕ} (x y : EuclideanSpace ℝ (Fin n)) (c : ℝ),
+    0 < c → c ≤ ‖x‖ → c ≤ ‖y‖ → ‖(1 / ‖x‖) • x - (1 / ‖y‖) • y‖ ≤ 2 / c * ‖x - y‖
+
+/-- **`varOf_nonneg` 的命题：方差非负。** -/
+def varOf_nonnegProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (x : ι → ℝ), 0 ≤ varOf x
+
+/-- **六条命题就是六条定理的类型。** -/
+theorem norm_props_hold :
+    varOf_iterate_varNormalize_le_oneProp ∧ varOf_varNormalize_eq_oneProp
+      ∧ bn_train_eq_inferProp ∧ varNormalize_unit_lipschitz_sharpProp
+      ∧ varNormalize_unit_lipschitzProp ∧ varOf_nonnegProp :=
+  ⟨varOf_iterate_varNormalize_le_one, varOf_varNormalize_eq_one, bn_train_eq_infer,
+   varNormalize_unit_lipschitz_sharp, varNormalize_unit_lipschitz, varOf_nonneg⟩
 
 /-- **The normalisation carrier's manifest.**
 
@@ -53,36 +90,32 @@ def manifest : PluginManifest where
   requires := ["domain.points"]
   provides := ["arch.normalize"]
   obligations := [
-    -- IDEMPOTENCE: iterating the normaliser keeps the variance bounded by 1.
-    { name := "norm_iterate_variance_le_one"
-      kind := .idempotence
-      theoremName := "varOf_iterate_varNormalize_le_one"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
-    -- EXACTNESS: on a non-degenerate input the normalised variance is exactly 1.
-    { name := "norm_variance_eq_one"
-      kind := .exactness
-      theoremName := "varOf_varNormalize_eq_one"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
-    -- SOUNDNESS: train-mode and inference-mode agree on the batch they were computed from.
-    { name := "norm_train_infer_agree"
-      kind := .soundness
-      theoremName := "bn_train_eq_infer"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
-    -- APPROXIMATION: the unit-scale normaliser is Lipschitz with the SHARP constant.
-    { name := "norm_lipschitz_sharp"
-      kind := .approximation
-      theoremName := "varNormalize_unit_lipschitz_sharp"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
-    -- APPROXIMATION: the same bound in its non-sharp (unconditional) form.
-    { name := "norm_lipschitz"
-      kind := .approximation
-      theoremName := "varNormalize_unit_lipschitz"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" },
-    -- SOUNDNESS: the variance is non-negative -- the normaliser is well defined.
-    { name := "norm_variance_nonneg"
-      kind := .soundness
-      theoremName := "varOf_nonneg"
-      file := "Lattice/Plugins/Architectures/Norm/Proofs.lean" }
+    -- **Round 768: every obligation goes through `verifiedObligation`, so each CARRIES its
+    -- proposition.** The proposition is the named `_Prop` def above, which `norm_props_hold`
+    -- proves equal to the theorem's own type -- so a rename breaks compilation.
+    verifiedObligation "norm_iterate_variance_le_one" .idempotence
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "varOf_iterate_varNormalize_le_one" varOf_iterate_varNormalize_le_oneProp
+,
+    verifiedObligation "norm_variance_eq_one" .exactness
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "varOf_varNormalize_eq_one" varOf_varNormalize_eq_oneProp
+,
+    verifiedObligation "norm_train_infer_agree" .soundness
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "bn_train_eq_infer" bn_train_eq_inferProp
+,
+    verifiedObligation "norm_lipschitz_sharp" .approximation
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "varNormalize_unit_lipschitz_sharp" varNormalize_unit_lipschitz_sharpProp
+,
+    verifiedObligation "norm_lipschitz" .approximation
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "varNormalize_unit_lipschitz" varNormalize_unit_lipschitzProp
+,
+    verifiedObligation "norm_variance_nonneg" .soundness
+      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+      "varOf_nonneg" varOf_nonnegProp
   ]
   version := ⟨1, 0, 0⟩
 

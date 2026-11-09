@@ -26,10 +26,43 @@ satisfiability, never the reverse.**
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Core.Constraint.Proofs
+open Lattice.Core
 
 namespace Lattice.Plugins.Core.Constraint
 
 open Lattice.Plugins
+
+/-- **`entails_cons` 的命题：`c :: cs` 的蕴涵等价于 `c` 单独成立且 `cs` 成立。** -/
+def entails_consProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    {c : LinearForm.Constraint R n} {cs : List (LinearForm.Constraint R n)} {x : Point R n},
+    Entails (c :: cs) x ↔ Satisfies c x ∧ Entails cs x
+
+/-- **`entails_mono` 的命题：约束集变大，蕴涵变弱。** -/
+def entails_monoProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    {cs ds : List (LinearForm.Constraint R n)} {x : Point R n},
+    (∀ c ∈ cs, c ∈ ds) → Entails ds x → Entails cs x
+
+/-- **`models_of_mem` 的命题：集合内的每条约束都被该集合模型化。** -/
+def models_of_memProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    {H : List (LinearForm.Constraint R n)} {c : LinearForm.Constraint R n},
+    c ∈ H → Models H c
+
+/-- **`models_of_subset` 的命题：模型化在超集上保持。** -/
+def models_of_subsetProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    {H K : List (LinearForm.Constraint R n)} {c : LinearForm.Constraint R n},
+    (∀ d ∈ H, d ∈ K) → Models H c → Models K c
+
+/-- **四条命题就是四条定理的类型。**
+
+**=> 若定理改名或改陈述，本定理失败 —— 这正是 `proof` 字段要保证的事。** -/
+theorem constraint_props_hold :
+    entails_consProp ∧ entails_monoProp ∧ models_of_memProp ∧ models_of_subsetProp :=
+  ⟨@entails_cons, @entails_mono, @models_of_mem, @models_of_subset⟩
 
 /-- **The constraint-logic plugin's manifest.**
 
@@ -43,27 +76,21 @@ def manifest : PluginManifest where
   requires := []
   provides := ["constraint.satisfies", "constraint.entails", "constraint.models"]
   obligations := [
-    -- LAW: entailment of a cons splits into head and tail. This is the structural recursion
-    -- that lets a compiler walk the program.
-    { name := "entails_cons"
-      kind := .laws
-      theoremName := "entails_cons"
-      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
-    -- LAW: entailment is monotone in the constraint set -- a larger program is stronger.
-    { name := "entails_mono"
-      kind := .laws
-      theoremName := "entails_mono"
-      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
-    -- SOUNDNESS: a set models any constraint it contains.
-    { name := "models_of_mem"
-      kind := .soundness
-      theoremName := "models_of_mem"
-      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" },
-    -- SOUNDNESS: models is contravariantly monotone in the hypothesis set.
-    { name := "models_of_subset"
-      kind := .soundness
-      theoremName := "models_of_subset"
-      file := "Lattice/Plugins/Core/Constraint/Proofs.lean" }
+    -- **Round 768: all four obligations go through `verifiedObligation`, so each CARRIES its
+    -- proposition.** Before this, the manifest named a theorem as a `String`; a manifest could name
+    -- a theorem that did not exist and nothing in the tree could tell.
+    verifiedObligation "entails_cons" .laws
+      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "entails_cons" entails_consProp,
+    verifiedObligation "entails_mono" .laws
+      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "entails_mono" entails_monoProp,
+    verifiedObligation "models_of_mem" .soundness
+      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "models_of_mem" models_of_memProp,
+    verifiedObligation "models_of_subset" .soundness
+      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "models_of_subset" models_of_subsetProp
   ]
   version := ⟨1, 0, 0⟩
 

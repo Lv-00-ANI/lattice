@@ -2686,6 +2686,7 @@ Plugins/Architectures/GNN/Proofs.lean	sparseMsgPass_equivariant
 Plugins/Architectures/GNN/Proofs.lean	sparseMsgPass_bound
 Plugins/Architectures/GNN/Proofs.lean	msgPassChan_equivariant
 Plugins/Architectures/GNN/Proofs.lean	multiHeadLayer_equivariant
+Plugins/Architectures/Norm/Manifest.lean	norm_props_hold
 Plugins/Architectures/Norm/Manifest.lean	manifest_obligation_count
 Plugins/Architectures/Norm/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Norm/Manifest.lean	manifest_layer
@@ -2768,6 +2769,7 @@ Plugins/Compose/Proofs.lean	optional_true_run
 Plugins/Compose/Proofs.lean	optional_false_run
 Plugins/Compose/Proofs.lean	compose_identity_right
 Plugins/Compose/Proofs.lean	compose_choice_distrib_run
+Plugins/Core/Constraint/Manifest.lean	constraint_props_hold
 Plugins/Core/Constraint/Manifest.lean	manifest_obligation_count
 Plugins/Core/Constraint/Manifest.lean	manifest_nonempty
 Plugins/Core/Constraint/Manifest.lean	manifest_layer

@@ -779,7 +779,7 @@
 - `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Plugins.Architectures.GNN.Proofs` <- `Lattice.Lib.Architectures.RealGNN`
-- `Lattice.Plugins.Architectures.Norm.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Architectures.Norm.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Norm.Proofs`
 - `Lattice.Plugins.Architectures.Norm.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Lib.Architectures.RealBatchNormConsistency`
 - `Lattice.Plugins.Architectures.Norm.Proofs` <- `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`
 - `Lattice.Plugins.Compose` <- `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Plugin`
@@ -789,7 +789,7 @@
 - `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Compose.Laws`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
 - `Lattice.Plugins.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Plugin`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
-- `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Core.Logic`
 - `Lattice.Plugins.Core.Constraint.Proofs` <- `Lattice.Core.Semantics`
 - `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`
@@ -1719,7 +1719,7 @@
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 15 | 1 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
 | `Lattice.Plugins.Architectures.GNN.Proofs` | 30 | 10 |
-| `Lattice.Plugins.Architectures.Norm.Manifest` | 14 | 1 |
+| `Lattice.Plugins.Architectures.Norm.Manifest` | 15 | 7 |
 | `Lattice.Plugins.Architectures.Norm.Plugin` | 9 | 8 |
 | `Lattice.Plugins.Architectures.Norm.Proofs` | 21 | 11 |
 | `Lattice.Plugins.Compose` | 0 | 0 |
@@ -1729,7 +1729,7 @@
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Compose.Proofs` | 9 | 0 |
 | `Lattice.Plugins.Core` | 0 | 0 |
-| `Lattice.Plugins.Core.Constraint.Manifest` | 12 | 1 |
+| `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 7 | 6 |
 | `Lattice.Plugins.Core.Constraint.Proofs` | 4 | 6 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 12 | 1 |
@@ -3584,6 +3584,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraint_implication_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `constraint_migrated` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `manifest`, `verified`
 - `constraint_on_subspace_preserved` -> `E`, `W`, `card_fin`, `rankOneFun`
+- `constraint_props_hold` -> `Constraint`, `PluginLayer`, `PluginManifest`, `at`, `claims`, `completeness`, `entails_cons`, `entails_mono`, `layer`, `length`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_exactness`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `models`, `models_of_mem`, `models_of_subset`, `requires`, `soundness`, `verifiedObligation`
 - `constraint_satisfaction_propagates` -> `AllSatisfied`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
 - `constraint_suspend_dissolves_identity` -> `IsElement`, `RealConstraint`, `Temporal`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`
 - `constraint_suspend_idempotent` -> `RealConstraint`, `Temporal`, `suspend`, `suspend_idempotent`
@@ -7270,6 +7271,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `norm_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `norm_migrated_registry` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `norm_obligation_is_a_citation` -> `Obligation`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`
+- `norm_props_hold` -> `PluginLayer`, `PluginManifest`, `arch`, `at`, `bn_train_eq_infer`, `claims`, `layer`, `length`, `manifest`, `manifest_claims_approximation`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `normalize`, `requires`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf_iterate_varNormalize_le_one`, `varOf_nonneg`, `varOf_varNormalize_eq_one`, `verifiedObligation`
 - `norm_reproducing_bound` -> `IsPSDKernel`, `at`, `g`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `norm_rmsNormE` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `norm_rmsNormGeneral` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
