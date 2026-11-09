@@ -2734,6 +2734,7 @@ Plugins/Compose/ComposeObligation.lean	compose_h_not_derivable
 Plugins/Compose/ComposeObligation.lean	blocked_run_none
 Plugins/Compose/ComposeObligation.lean	compose_h_of_pre_true
 Plugins/Compose/ComposeObligation.lean	Composed.toPrimitive_run
+Plugins/Compose/Manifest.lean	compose_props_hold
 Plugins/Compose/Manifest.lean	manifest_obligation_count
 Plugins/Compose/Manifest.lean	manifest_nonempty
 Plugins/Compose/Manifest.lean	manifest_layer

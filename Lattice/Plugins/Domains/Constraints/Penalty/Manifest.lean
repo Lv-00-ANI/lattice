@@ -82,12 +82,20 @@ def gtZero_lipschitzProp : Prop :=
         |penaltyLoss (GeoConstraint.gtZero e) pts - penaltyLoss (GeoConstraint.gtZero e) pts'|
           ≤ 2 * B * (K * rho n k pts pts')
 
-/-- **`equalLength_lipschitz`: `equalLength` 的惩罚按 `rho` 是 Lipschitz 的。** -/
+/-- **`equalLength_lipschitz`: `equalLength` 的惩罚按 `rho` 是 Lipschitz 的。**
+
+**=> 第 771 轮补上了完整参数化：四条下标界、常数非负、两个配置的有界性，以及界里的常数
+`2·(8nB²)·(8nB + 8nB)·rho`。** -/
 def equalLength_lipschitzProp : Prop :=
-  ∀ {n k : ℕ} {a b c e : ℕ}, 0 ≤ (0 : ℝ) →
-    ∀ (pts pts' : ℕ → Pt n),
-      |penaltyLoss (GeoConstraint.equalLength a b c e) pts
-          - penaltyLoss (GeoConstraint.equalLength a b c e) pts'| ≤ 0
+  ∀ {n k a b c e : ℕ} {B : ℝ},
+    a < k → b < k → c < k → e < k → 0 ≤ B →
+      ∀ (pts pts' : ℕ → Pt n),
+        (∀ (p : ℕ) (i : Fin n), |pts p i| ≤ B) →
+          (∀ (p : ℕ) (i : Fin n), |pts' p i| ≤ B) →
+            |penaltyLoss (GeoConstraint.equalLength a b c e) pts
+                - penaltyLoss (GeoConstraint.equalLength a b c e) pts'|
+              ≤ 2 * (8 * (n : ℝ) * B * B)
+                  * (8 * (n : ℝ) * B * rho n k pts pts' + 8 * (n : ℝ) * B * rho n k pts pts')
 
 /-- **`max_zero_eq_zero_iff`: `max 0 x = 0 ↔ x ≤ 0`。** -/
 def max_zero_eq_zero_iffProp : Prop :=
@@ -95,16 +103,14 @@ def max_zero_eq_zero_iffProp : Prop :=
 
 /-- **七条命题与七条定理的关系。**
 
-**=> 其中 `equalLength_lipschitz` 的命题形式是**占位**：完整的 Lipschitz 陈述需要
-`LipschitzK`/`BoundedV`/`rho` 的完整参数化，而本轮的尝试没有把它们写对。
-**因此这一条诚实地说：`_Prop` 已定义，但**尚未**被机器验证等于定理。** -/
+**=> 第 771 轮补齐了 `equalLength_lipschitz` 的完整参数化，因此**七条全部**被机器验证等于定理。** -/
 theorem penalty_props_hold :
     penaltyLoss_eq_zero_iff_holds_sqProp ∧ penaltyLoss_eq_zero_iff_holds_leZeroProp
       ∧ penaltyLoss_congr_of_indicesBelowProp ∧ eqZero_lipschitzProp
-      ∧ gtZero_lipschitzProp ∧ max_zero_eq_zero_iffProp :=
+      ∧ gtZero_lipschitzProp ∧ equalLength_lipschitzProp ∧ max_zero_eq_zero_iffProp :=
   ⟨penaltyLoss_eq_zero_iff_holds_sq, penaltyLoss_eq_zero_iff_holds_leZero,
    penaltyLoss_congr_of_indicesBelow, eqZero_lipschitz, gtZero_lipschitz,
-   @PenaltyLoss.max_zero_eq_zero_iff⟩
+   @equalLength_lipschitz, @PenaltyLoss.max_zero_eq_zero_iff⟩
 
 /-- **The penalty plugin's manifest.**
 

@@ -785,7 +785,7 @@
 - `Lattice.Plugins.Compose` <- `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Plugin`
 - `Lattice.Plugins.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Plugins.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
-- `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Compose.Proofs`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Plugins.Compose.ComposeObligation`
 - `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Compose.Laws`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
 - `Lattice.Plugins.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Plugin`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
@@ -1725,7 +1725,7 @@
 | `Lattice.Plugins.Compose` | 0 | 0 |
 | `Lattice.Plugins.Compose.Combinators` | 8 | 3 |
 | `Lattice.Plugins.Compose.ComposeObligation` | 7 | 3 |
-| `Lattice.Plugins.Compose.Manifest` | 14 | 1 |
+| `Lattice.Plugins.Compose.Manifest` | 15 | 11 |
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Compose.Proofs` | 9 | 0 |
 | `Lattice.Plugins.Core` | 0 | 0 |
@@ -3425,6 +3425,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_migrated` -> `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `manifest`, `verified`
 - `compose_post_assoc_iff` -> `Primitive`, `compose`, `g`
 - `compose_pre_assoc` -> `Primitive`, `compose`, `g`
+- `compose_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `claims`, `compose`, `compose_coverage`, `compose_h_of_pre_true`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `identity_compose_run`, `layer`, `length`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `parallel`, `parallel_comm_run`, `parallel_identity_run`, `parallel_run`, `requires`, `soundness`, `verifiedObligation`
 - `compose_run` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
 - `compose_run_assoc` -> `Primitive`, `compose`, `g`, `run`, `sound`
 - `compose_sequential` -> `Audit`, `g`

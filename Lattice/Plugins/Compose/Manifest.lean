@@ -37,10 +37,84 @@ project has already REFUTED (`no_extractor_preserves_both`).**
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Compose.Proofs
+import Lattice.Plugins.Compose.Combinators
+import Lattice.Plugins.Compose.ComposeObligation
 
 namespace Lattice.Plugins.Compose
 
 open Lattice.Plugins
+open Lattice.Compose
+
+-- **Round 771 (STAGE 3): the ten obligations now CARRY their propositions.**
+
+/-- **`parallel_comm_run`: 并行组合在交换意义下一致。** -/
+def parallel_comm_runProp : Prop :=
+  ∀ {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂) (a : I₁) (b : I₂),
+    (parallel f g).run (a, b) = Option.map Prod.swap ((parallel g f).run (b, a))
+
+/-- **`compose_run_assoc`: 组合的结合律（在 `run` 上）。** -/
+def compose_run_assocProp : Prop :=
+  ∀ {I A B C : Type} (f : Primitive I A) (g : Primitive A B) (k : Primitive B C)
+    (h₁ : ∀ (x : I) (y : A), f.post x y → g.pre y),
+    (∀ (y : A) (z : B), g.post y z → k.pre z) →
+      ∀ (h₃ : ∀ (x : I) (z : B), (compose f g h₁).post x z → k.pre z) (x : I),
+        (compose (compose f g h₁) k h₃).run x
+          = (f.run x).bind fun y => (g.run y).bind fun z => k.run z
+
+/-- **`identity_compose_run`: 单位在左侧。** -/
+def identity_compose_runProp : Prop :=
+  ∀ {I O : Type} (f : Primitive I O) (h : ∀ (x y : I), (identity I).post x y → f.pre y) (x : I),
+    (compose (identity I) f h).run x = f.run x
+
+/-- **`compose_identity_right`: 单位在右侧。** -/
+def compose_identity_rightProp : Prop :=
+  ∀ {I O : Type} (f : Primitive I O)
+    (h : ∀ (x : I) (y : O), f.post x y → (identity O).pre y) (x : I),
+    (compose f (identity O) h).run x = f.run x
+
+/-- **`compose_sound`: 前条件成立则组合有结果且后条件成立。** -/
+def compose_soundProp : Prop :=
+  ∀ {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ (x : I) (y : M), f.post x y → g.pre y) (x : I),
+    f.pre x → ∃ z, (compose f g h).run x = some z ∧ (compose f g h).post x z
+
+/-- **`compose_strength`: 组合的强度是两段的较小者。** -/
+def compose_strengthProp : Prop :=
+  ∀ {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ (x : I) (y : M), f.post x y → g.pre y),
+    (compose f g h).strength = f.strength.min g.strength
+
+/-- **`compose_coverage`: 组合的覆盖是两段的交集。** -/
+def compose_coverageProp : Prop :=
+  ∀ {I M O : Type} (f : Primitive I M) (g : Primitive M O)
+    (h : ∀ (x : I) (y : M), f.post x y → g.pre y),
+    (compose f g h).coverage = f.coverage.inter g.coverage
+
+/-- **`parallel_run`: 并行的 `run` 是两侧结果的配对。** -/
+def parallel_runProp : Prop :=
+  ∀ {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂) (a : I₁) (b : I₂),
+    (parallel f g).run (a, b) = (f.run a).bind fun y => Option.map (fun z => (y, z)) (g.run b)
+
+/-- **`parallel_identity_run`: 两个单位的并行是恒等。** -/
+def parallel_identity_runProp : Prop :=
+  ∀ (I O : Type) (a : I) (b : O), (parallel (identity I) (identity O)).run (a, b) = some (a, b)
+
+/-- **`compose_h_of_pre_true`: 后置条件恒真时义务自动成立。** -/
+def compose_h_of_pre_trueProp : Prop :=
+  ∀ {I M O : Type} (f : Primitive I M) (g : Primitive M O),
+    (∀ y, g.pre y) → ∀ x y, f.post x y → g.pre y
+
+/-- **十条命题就是十条定理的类型。** -/
+theorem compose_props_hold :
+    parallel_comm_runProp ∧ compose_run_assocProp ∧ identity_compose_runProp
+      ∧ compose_identity_rightProp ∧ compose_soundProp ∧ compose_strengthProp
+      ∧ compose_coverageProp ∧ parallel_runProp ∧ parallel_identity_runProp
+      ∧ compose_h_of_pre_trueProp :=
+  ⟨@parallel_comm_run, @compose_run_assoc, @identity_compose_run,
+   @compose_identity_right, @compose_sound, @compose_strength,
+   @compose_coverage, @parallel_run, parallel_identity_run,
+   @compose_h_of_pre_true⟩
 
 /-- **The composition-algebra plugin's manifest.**
 
@@ -53,58 +127,37 @@ def manifest : PluginManifest where
   requires := ["core.primitive"]
   provides := ["compose.binary", "compose.parallel"]
   obligations := [
-    -- SPATIAL: parallel composition commutes (the orders do not interfere).
-    { name := "parallel_comm"
-      kind := .spatial
-      theoremName := "parallel_comm_run"
-      file := "Lattice/Plugins/Compose/Proofs.lean" },
-    -- CONFLUENCE: composition is associative at the level of `run`.
-    { name := "compose_assoc"
-      kind := .confluence
-      theoremName := "compose_run_assoc"
-      file := "Lattice/Plugins/Compose/Combinators.lean" },
-    -- RECOVERY: `identity` is a left unit, so a step can be cancelled by not composing it.
-    { name := "identity_left_unit"
-      kind := .recovery
-      theoremName := "identity_compose_run"
-      file := "Lattice/Plugins/Compose/Combinators.lean" },
-    -- RECOVERY: and a right unit.
-    { name := "identity_right_unit"
-      kind := .recovery
-      theoremName := "compose_identity_right"
-      file := "Lattice/Plugins/Compose/Proofs.lean" },
-    -- LAWS: sequential composition is sound -- the composite preserves the postcondition.
-    { name := "compose_sound"
-      kind := .soundness
-      theoremName := "compose_sound"
-      file := "Lattice/Plugins/Compose/Combinators.lean" },
-    -- LAWS: the composite's strength is the minimum of the parts.
-    { name := "compose_strength"
-      kind := .laws
-      theoremName := "compose_strength"
-      file := "Lattice/Plugins/Compose/Combinators.lean" },
-    -- LAWS: the composite's coverage is the intersection of the parts.
-    { name := "compose_coverage"
-      kind := .laws
-      theoremName := "compose_coverage"
-      file := "Lattice/Plugins/Compose/Combinators.lean" },
-    -- LAW: parallel composition is well defined on pairs.
-    { name := "parallel_run"
-      kind := .laws
-      theoremName := "parallel_run"
-      file := "Lattice/Plugins/Compose/Proofs.lean" },
-    -- LAW: parallel composition has a unit.
-    { name := "parallel_identity"
-      kind := .laws
-      theoremName := "parallel_identity_run"
-      file := "Lattice/Plugins/Compose/Proofs.lean" },
-    -- SOUNDNESS: the composition hypothesis collapses when the second component's precondition is
-    -- trivially true. (The library's counterexample for the general case is `private`, so it is
-    -- not citable from a plugin; the positive statement is what can be cited.)
-    { name := "compose_h_of_pre_true"
-      kind := .soundness
-      theoremName := "compose_h_of_pre_true"
-      file := "Lattice/Plugins/Compose/ComposeObligation.lean" }
+    -- **Round 771: all ten go through `verifiedObligation`, so each CARRIES its proposition.**
+    verifiedObligation "parallel_comm" .spatial
+      "Lattice/Plugins/Compose/Proofs.lean"
+      "parallel_comm_run" parallel_comm_runProp,
+    verifiedObligation "compose_assoc" .confluence
+      "Lattice/Plugins/Compose/Combinators.lean"
+      "compose_run_assoc" compose_run_assocProp,
+    verifiedObligation "identity_left_unit" .recovery
+      "Lattice/Plugins/Compose/Combinators.lean"
+      "identity_compose_run" identity_compose_runProp,
+    verifiedObligation "identity_right_unit" .recovery
+      "Lattice/Plugins/Compose/Proofs.lean"
+      "compose_identity_right" compose_identity_rightProp,
+    verifiedObligation "compose_sound" .soundness
+      "Lattice/Plugins/Compose/Combinators.lean"
+      "compose_sound" compose_soundProp,
+    verifiedObligation "compose_strength" .laws
+      "Lattice/Plugins/Compose/Combinators.lean"
+      "compose_strength" compose_strengthProp,
+    verifiedObligation "compose_coverage" .laws
+      "Lattice/Plugins/Compose/Combinators.lean"
+      "compose_coverage" compose_coverageProp,
+    verifiedObligation "parallel_run" .laws
+      "Lattice/Plugins/Compose/Proofs.lean"
+      "parallel_run" parallel_runProp,
+    verifiedObligation "parallel_identity" .laws
+      "Lattice/Plugins/Compose/Proofs.lean"
+      "parallel_identity_run" parallel_identity_runProp,
+    verifiedObligation "compose_h_of_pre_true" .soundness
+      "Lattice/Plugins/Compose/ComposeObligation.lean"
+      "compose_h_of_pre_true" compose_h_of_pre_trueProp
   ]
   version := ⟨1, 0, 0⟩
 

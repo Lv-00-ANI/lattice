@@ -8150,6 +8150,7 @@ plugins	Plugins/Compose	Plugins/Compose/ComposeObligation.lean	compose_h_of_pre_
 plugins	Plugins/Compose	Plugins/Compose/ComposeObligation.lean	identity_post	no
 plugins	Plugins/Compose	Plugins/Compose/ComposeObligation.lean	identity_pre	no
 plugins	Plugins/Compose	Plugins/Compose/ComposeObligation.lean	toPrimitive_run	no
+plugins	Plugins/Compose	Plugins/Compose/Manifest.lean	compose_props_hold	no
 plugins	Plugins/Compose	Plugins/Compose/Manifest.lean	manifest_claims_confluence	no
 plugins	Plugins/Compose	Plugins/Compose/Manifest.lean	manifest_claims_laws	no
 plugins	Plugins/Compose	Plugins/Compose/Manifest.lean	manifest_claims_recovery	no

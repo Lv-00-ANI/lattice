@@ -71,7 +71,11 @@ def penaltyLoss_not_injectiveProp : Prop :=
   ∀ {n : ℕ}, GeoExpr n →
     ¬Function.Injective (fun c : GeoConstraint n => PenaltyLoss.penaltyLoss c)
 
-/-- **`no_loss_to_constraint_section`: 不存在从损失回到约束的截面。** -/
+/-- **`no_loss_to_constraint_section`: 不存在从损失回到约束的截面。**
+
+**=> 第 771 轮补上了 `g` 的显式类型 `((ℕ → Pt n) → ℝ) → GeoConstraint n`：
+`penaltyLoss` 的第一个参数是**配置**（`ℕ → Pt n`），返回 `ℝ`，而 `g` 必须把它映回约束。
+不写这个类型，Lean 在 `∃` 绑定处无法定出 `g` 的 domains。** -/
 def no_loss_to_constraint_sectionProp : Prop :=
   ∀ {n : ℕ}, GeoExpr n →
     ¬ ∃ g : ((ℕ → Pt n) → ℝ) → GeoConstraint n,
@@ -81,9 +85,10 @@ def no_loss_to_constraint_sectionProp : Prop :=
 theorem token_props_hold :
     flatten_injectiveProp ∧ flatten_surjectiveProp ∧ flattenRepresentation_roundtripProp
       ∧ seqDecode_encodeProp ∧ seqEncode_decodeProp
-      ∧ penaltyLoss_not_injectiveProp :=
+      ∧ penaltyLoss_not_injectiveProp ∧ no_loss_to_constraint_sectionProp :=
   ⟨@flatten_injective, @flatten_surjective, flattenRepresentation_roundtrip,
-   @seqDecode_encode, @seqEncode_decode, @penaltyLoss_not_injective⟩
+   @seqDecode_encode, @seqEncode_decode, @penaltyLoss_not_injective,
+   @no_loss_to_constraint_section⟩
 
 /-- **The constraint-tokenisation plugin's manifest.**
 
