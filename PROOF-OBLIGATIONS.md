@@ -102,6 +102,10 @@ no_extractor_preserves_both :
 ```lean
 repair_progress        : ¬ Sat t → μ (repair t) < μ t ∨ Sat (repair t)
 loop_converges         : ∃ n, Sat (iterate n t)
+-- **Round 776: 本行的名字在主树里不存在。** 实际承载者是
+-- `Repair.progress : ∀ (R : Repair α) (x : α), ∃ n, R.Sat (R.iterate n x)`
+-- 与 `RepairConvergence.converges_within : R.Sat (R.iterate (R.μ x) x)`。
+-- **→ 规范保留原命题，但把名字标为「待对齐」**，而不是把它伪造成存在。
 conj_loop_fixed_point  : ∃ r, Sat r ∧ fix r = r ∧ extract (compile r) = r
 ```
 

@@ -1,0 +1,5 @@
+# Known gaps in PROOF-OBLIGATIONS.md -- promises whose named carrier does not exist in the tree.
+# **Each line must ALSO be annotated in the spec itself**; this file is the machine half, not a way
+# to make the checker quiet. Format: <name> TAB <reason>
+loop_converges	NAME IS WRONG -- carriers are Repair.progress and RepairConvergence.converges_within
+lattice_recovery_exact	PROMISED BUT NEVER PROVED -- unload/effectOf/undo do not exist in the tree

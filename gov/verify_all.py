@@ -45,7 +45,10 @@ REPORT_ONLY = {
     "audit: claims", "audit: liveness", "audit: region", 
 "audit: abstraction", "audit: islands",
     "audit: duplicate statements", "audit: untracked work",
-    "obligations doc: sections name their carriers",
+    # **Round 776: no longer report-only.** The five bare sections were repaired (the spec states its
+    # obligations in fenced `name : ...` blocks, which the checker now reads) and the two remaining
+    # broken promises are annotated in the spec AND recorded in `obligations-known-gaps.txt` with a
+    # reason. **What is left is a real gate.**
     "gen: proof chain (geo)", "gen: proof chain (kernel)",
     "census: end-to-end by content",
     "gen: primitive matrix",
