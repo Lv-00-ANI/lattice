@@ -179,6 +179,18 @@ def _bare_hypothesis(proof, binders):
     return False, None
 
 
+def _declares_prop(stmt):
+    """True when a declaration's TYPE is `Prop` -- e.g. `def foo : Prop := ...`.
+
+    **Round 773.** The `def` exemption in `scan` must not cover `Prop`-valued defs: those are
+    propositions, and the whole point of this checker is that a proposition's proof should not be
+    a tautology. Detecting it syntactically is enough for the same reason the rest of this file is
+    syntactic: a `Prop`-typed declaration is `: Prop` at the top level of its statement.
+    """
+    flat = " ".join(stmt.split())
+    return flat.rstrip().endswith(": Prop") or " : Prop :=" in flat or flat.rstrip().endswith(":Prop")
+
+
 def scan(root=None):
     root = root or LAT
     findings = []   # (rel, line, kind, detail)
@@ -198,11 +210,20 @@ def scan(root=None):
                 line = src[:pos].count("\n") + 1
                 stmt, proof = _split_statement(block)
                 binders = _binder_names(stmt)
-                # A `def` declares a TERM, not a proof. Its body being `fun x => …` or a
+                # A `def` declares a TERM, not a proof. Its body being `fun x => ...` or a
                 # constructor is not a tautology, and treating it as one is a false positive --
-                # which the first version produced (`def quant: proof is just `a → a``).
+                # which the first version produced (`def quant: proof is just `a -> a``).
+                #
+                # **Round 773 (STAGE 4, gate defect G-4): the exemption above is TOO WIDE.**
+                # `def X : Prop := <statement>` declares a PROPOSITION, and a proposition is
+                # exactly the kind of declaration whose "proof" can be a tautology. **The audit
+                # named this blind spot: `check_proof_strength` was structurally immune to
+                # `def ... : Prop`, so a `Prop`-valued def could be reflexive or bare-hypothesis
+                # and no gate would say so.**
+                # **=> narrow the exemption: skip `def` UNLESS its declared type is `Prop`.**
                 if kind not in ("theorem", "lemma"):
-                    continue
+                    if not _declares_prop(stmt):
+                        continue
                 is_refl, op = _reflexive(stmt)
                 if is_refl:
                     findings.append((rel, line, "reflexive", "%s %s: conclusion is `a %s a`"

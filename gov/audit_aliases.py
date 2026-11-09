@@ -235,7 +235,13 @@ def self_test():
 
 def main(argv):
     forwards, copies = scan()
-    write_report(forwards, copies)
+    # Round 773 (STAGE 4, gate defect G-6): **a checker must not write the artifact it is checking.**
+    # `write_report` used to run unconditionally, so `verify_all` regenerated `ALIAS-CENSUS.md` on
+    # every invocation -- which made "does the report match the tree?" unanswerable, because the
+    # report was rewritten from the tree immediately before the question was asked.
+    # **=> write the report only when NOT in check mode.**
+    if "--check" not in argv:
+        write_report(forwards, copies)
     keys = {("forward", r, n) for r, n in forwards} | {("copy", r, n) for r, n in copies}
 
     if "--write-baseline" in argv:
