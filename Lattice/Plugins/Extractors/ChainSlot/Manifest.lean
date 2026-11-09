@@ -35,10 +35,92 @@ polynomial.**
 -/
 
 import Lattice.Plugins.Manifest
+import Lattice.Plugins.Extractors.ChainSlot.VariableDerivative
 
 namespace Lattice.Plugins.Extractors.ChainSlot
 
 open Lattice.Plugins
+open Lattice.Core
+
+-- **Round 772 (STAGE 3, final batch): the twelve obligations now CARRY their propositions.**
+-- **These are the ChainSlot extractor's SLOT-BOUND laws -- the reason a weight offset can be read
+-- back from a polynomial coefficient without ambiguity.**
+
+/-- **`slotOf_weight_lt`: 权重槽位落在 `off + a*b` 之内。** -/
+def slotOf_weight_ltProp : Prop :=
+  ∀ {a b i j off : ℕ}, i < a → j < b → slotOf off b i j < off + a * b
+
+/-- **`slotOf_lt_bound`: 槽位与偏置的总界。** -/
+def slotOf_lt_boundProp : Prop :=
+  ∀ {a b i j : ℕ}, i < a → j < b → ∀ (off : ℕ), slotOf off b i j < off + a * b + b
+
+/-- **`bias_slot_eq_slotOf`: 偏置槽位就是第 `a` 行的槽位。** -/
+def bias_slot_eq_slotOfProp : Prop :=
+  ∀ (off a b j : ℕ), off + a * b + j = slotOf off b a j
+
+/-- **`oneLayerPolyNat_coeff_weight`: 单层多项式在权重槽上的系数就是权重本身。** -/
+def oneLayerPolyNat_coeff_weightProp : Prop :=
+  ∀ (off : ℕ) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | off => 1) (oneLayerPolyNat off c) = c
+
+/-- **`stepNat_coeff_weight`: 一层的步进在权重槽上读出权重。** -/
+def stepNat_coeff_weightProp : Prop :=
+  ∀ (off : ℕ) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | off => 1) (stepNat (off, MvPolynomial.C c)).2 = c
+
+/-- **`stepNat_coeff_bias`: 一层的步进在偏置槽上读出 1。** -/
+def stepNat_coeff_biasProp : Prop :=
+  ∀ (off : ℕ) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | off + 1 => 1) (stepNat (off, MvPolynomial.C c)).2 = 1
+
+/-- **`chainNatPoly_single_coeff_weight`: 单层链在首槽上读出权重。** -/
+def chainNatPoly_single_coeff_weightProp : Prop :=
+  ∀ (l : MLayer 1 1) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | 0 => 1) (chainNatPoly [l] (MvPolynomial.C c)) = c
+
+/-- **`stepNat_coeff_zero_irrelevant`: 深槽不影响首槽系数。** -/
+def stepNat_coeff_zero_irrelevantProp : Prop :=
+  ∀ (off : ℕ), 2 ≤ off → ∀ (p : MvPolynomial ℕ ℝ),
+    MvPolynomial.coeff (fun₀ | 0 => 1) (stepNat (off, p)).2 = 0
+
+/-- **`foldl_coeff_zero_irrelevant`: 折叠后首槽系数仍与深槽无关。** -/
+def foldl_coeff_zero_irrelevantProp : Prop :=
+  ∀ (ls : List (MLayer 1 1)) (off : ℕ) (p : MvPolynomial ℕ ℝ),
+    2 ≤ off →
+      MvPolynomial.coeff (fun₀ | 0 => 1) p = 0 →
+        MvPolynomial.coeff (fun₀ | 0 => 1)
+          (List.foldl (fun acc x => stepNat acc) (off, p) ls).2 = 0
+
+/-- **`stepNat_coeff_other_slot`: 不涉及的槽位系数为零。** -/
+def stepNat_coeff_other_slotProp : Prop :=
+  ∀ (m : ℕ) (p : MvPolynomial ℕ ℝ) (s : ℕ →₀ ℕ),
+    s ≠ 0 → m ∉ s.support → m + 1 ∉ s.support →
+      MvPolynomial.coeff s (stepNat (m, p)).2 = 0
+
+/-- **`chainNatPolyAfter_one_coeff`: 一层之后首槽读出权重。** -/
+def chainNatPolyAfter_one_coeffProp : Prop :=
+  ∀ (l : MLayer 1 1) (rest : List (MLayer 1 1)) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | 0 => 1)
+      (chainNatPolyAfter (l :: rest) (MvPolynomial.C c) 1) = c
+
+/-- **`chainNatPoly_deep_coeff_zero`: 两层以上的链首槽系数为零。** -/
+def chainNatPoly_deep_coeff_zeroProp : Prop :=
+  ∀ (l l' : MLayer 1 1) (tl : List (MLayer 1 1)) (c : ℝ),
+    MvPolynomial.coeff (fun₀ | 0 => 1) (chainNatPoly (l :: l' :: tl) (MvPolynomial.C c)) = 0
+
+/-- **十二条命题就是十二条定理的类型。** -/
+theorem chainSlot_props_hold :
+    slotOf_weight_ltProp ∧ slotOf_lt_boundProp ∧ bias_slot_eq_slotOfProp
+      ∧ oneLayerPolyNat_coeff_weightProp ∧ stepNat_coeff_weightProp
+      ∧ stepNat_coeff_biasProp ∧ chainNatPoly_single_coeff_weightProp
+      ∧ stepNat_coeff_zero_irrelevantProp ∧ foldl_coeff_zero_irrelevantProp
+      ∧ stepNat_coeff_other_slotProp ∧ chainNatPolyAfter_one_coeffProp
+      ∧ chainNatPoly_deep_coeff_zeroProp :=
+  ⟨@slotOf_weight_lt, @slotOf_lt_bound, bias_slot_eq_slotOf,
+   oneLayerPolyNat_coeff_weight, stepNat_coeff_weight, stepNat_coeff_bias,
+   chainNatPoly_single_coeff_weight, stepNat_coeff_zero_irrelevant,
+   foldl_coeff_zero_irrelevant, stepNat_coeff_other_slot,
+   chainNatPolyAfter_one_coeff, chainNatPoly_deep_coeff_zero⟩
 
 /-- **The chain-slot extractor's manifest.**
 
@@ -51,66 +133,43 @@ def manifest : PluginManifest where
   requires := ["chain.poly"]
   provides := ["extract.weights"]
   obligations := [
-    -- POSITIONAL: the weight block ends where the bias block begins.
-    { name := "slot_weight_lt_bias"
-      kind := .exactness
-      theoremName := "slotOf_weight_lt"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- POSITIONAL: every weight slot and the bias slot fit inside one layer's block.
-    { name := "slot_within_block"
-      kind := .exactness
-      theoremName := "slotOf_lt_bound"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- POSITIONAL law: the bias slot is the slot a weight slot would occupy at row `a`.
-    { name := "bias_slot_is_row_a"
-      kind := .laws
-      theoremName := "bias_slot_eq_slotOf"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- VALUE: the weight is readable from a one-layer polynomial.
-    { name := "one_layer_weight_readable"
-      kind := .exactness
-      theoremName := "oneLayerPolyNat_coeff_weight"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- VALUE: the same for the chain-level step, from a constant input.
-    { name := "step_weight_readable"
-      kind := .exactness
-      theoremName := "stepNat_coeff_weight"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- VALUE: the bias is recorded POSITIONALLY (coefficient 1), not by value.
-    { name := "step_bias_positional"
-      kind := .soundness
-      theoremName := "stepNat_coeff_bias"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- VALUE at chain level, ONE element: the output polynomial carries its weight.
-    { name := "single_chain_weight_readable"
-      kind := .exactness
-      theoremName := "chainNatPoly_single_coeff_weight"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- The NEGATIVE positional fact at step level: a step past offset 2 zeroes slot 0.
-    { name := "slot_zero_dead_past_two"
-      kind := .soundness
-      theoremName := "stepNat_coeff_zero_irrelevant"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- Its lift to the foldl: slot 0 stays zero for the whole remaining list.
-    { name := "foldl_slot_zero_preserved"
-      kind := .soundness
-      theoremName := "foldl_coeff_zero_irrelevant"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- The general positional locality: a step touches ONLY slots `m` and `m+1`.
-    { name := "per_slot_extraction_sound"
-      kind := .soundness
-      theoremName := "stepNat_coeff_other_slot"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- The INTERMEDIATE-polynomial route: after `k` layers, slot `2k` holds layer `k`'s weight.
-    { name := "intermediate_poly_readable"
-      kind := .exactness
-      theoremName := "chainNatPolyAfter_one_coeff"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" },
-    -- The IMPOSSIBILITY: a deep chain's final slot 0 is zero, so no weight is readable there.
-    { name := "deep_chain_final_slot_dead"
-      kind := .soundness
-      theoremName := "chainNatPoly_deep_coeff_zero"
-      file := "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean" }
+    -- **Round 772: all twelve go through `verifiedObligation`, so each CARRIES its proposition.**
+    verifiedObligation "slot_weight_lt_bias" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "slotOf_weight_lt" slotOf_weight_ltProp,
+    verifiedObligation "slot_within_block" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "slotOf_lt_bound" slotOf_lt_boundProp,
+    verifiedObligation "bias_slot_is_row_a" .laws
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "bias_slot_eq_slotOf" bias_slot_eq_slotOfProp,
+    verifiedObligation "one_layer_weight_readable" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "oneLayerPolyNat_coeff_weight" oneLayerPolyNat_coeff_weightProp,
+    verifiedObligation "step_weight_readable" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "stepNat_coeff_weight" stepNat_coeff_weightProp,
+    verifiedObligation "step_bias_positional" .soundness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "stepNat_coeff_bias" stepNat_coeff_biasProp,
+    verifiedObligation "single_chain_weight_readable" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "chainNatPoly_single_coeff_weight" chainNatPoly_single_coeff_weightProp,
+    verifiedObligation "slot_zero_dead_past_two" .soundness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "stepNat_coeff_zero_irrelevant" stepNat_coeff_zero_irrelevantProp,
+    verifiedObligation "foldl_slot_zero_preserved" .soundness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "foldl_coeff_zero_irrelevant" foldl_coeff_zero_irrelevantProp,
+    verifiedObligation "per_slot_extraction_sound" .soundness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "stepNat_coeff_other_slot" stepNat_coeff_other_slotProp,
+    verifiedObligation "intermediate_poly_readable" .exactness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "chainNatPolyAfter_one_coeff" chainNatPolyAfter_one_coeffProp,
+    verifiedObligation "deep_chain_final_slot_dead" .soundness
+      "Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean"
+      "chainNatPoly_deep_coeff_zero" chainNatPoly_deep_coeff_zeroProp
   ]
   version := ⟨1, 0, 0⟩
 

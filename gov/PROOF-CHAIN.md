@@ -776,7 +776,7 @@
 - `Lattice.Plugins.Architectures.DAG.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
 - `Lattice.Plugins.Architectures.DAG.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
 - `Lattice.Plugins.Architectures.DAG.Proofs` 
-- `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.GNN.Proofs`
 - `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Lib.Architectures.RealGNNEquivariance`
 - `Lattice.Plugins.Architectures.GNN.Proofs` <- `Lattice.Lib.Architectures.RealGNN`
 - `Lattice.Plugins.Architectures.Norm.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Norm.Proofs`
@@ -811,7 +811,7 @@
 - `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Reference.Geometry.Constraints.Flatten`, `Lattice.Reference.Geometry.Constraints.SeqRepresentation`, `Lattice.Reference.Geometry.Constraints.LossExtraction`
 - `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
-- `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`
+- `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
 - `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
 - `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` <- `Lattice.Core.VariableNet`, `Lattice.Core.VariableActLayer`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Plugins.Manifest` 
@@ -1716,7 +1716,7 @@
 | `Lattice.Plugins.Architectures.DAG.Manifest` | 1 | 1 |
 | `Lattice.Plugins.Architectures.DAG.Plugin` | 6 | 5 |
 | `Lattice.Plugins.Architectures.DAG.Proofs` | 6 | 7 |
-| `Lattice.Plugins.Architectures.GNN.Manifest` | 15 | 1 |
+| `Lattice.Plugins.Architectures.GNN.Manifest` | 16 | 12 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
 | `Lattice.Plugins.Architectures.GNN.Proofs` | 30 | 10 |
 | `Lattice.Plugins.Architectures.Norm.Manifest` | 15 | 7 |
@@ -1751,7 +1751,7 @@
 | `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` | 13 | 9 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` | 4 | 3 |
 | `Lattice.Plugins.Extractors` | 0 | 0 |
-| `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 14 | 1 |
+| `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 15 | 13 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` | 206 | 69 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
@@ -3057,6 +3057,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainQuad_m_zero` -> `apply`, `at`, `le_refl`
 - `chainQuad_m_zero_smooth` -> `apply`, `at`, `le_refl`
 - `chainSlot_migrated` -> `Constraint`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `manifest`, `verified`
+- `chainSlot_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `bias_slot_eq_slotOf`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `claims`, `completeness`, `extract`, `foldl_coeff_zero_irrelevant`, `layer`, `length`, `manifest`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `oneLayerPolyNat_coeff_weight`, `requires`, `slotOf_lt_bound`, `slotOf_weight_lt`, `soundness`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verifiedObligation`, `weights`
 - `chainTail_eq_chainFwd` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`
 - `chain_determines_structure` -> `Term`, `at`, `parse`, `skeletonCode_injective`
 - `chain_discrete_then_dense` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`
@@ -5433,6 +5434,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gnnLayer_lipschitz` -> `W`, `apply`, `le_trans`
 - `gnnProofs_under_dir` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified_manifest`
 - `gnn_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified_manifest`
+- `gnn_props_hold` -> `PluginLayer`, `PluginManifest`, `arch`, `at`, `claims`, `completeness`, `gnnLayer_equivariant`, `layer`, `layerStack_equivariant`, `length`, `manifest`, `manifest_nonempty`, `msgPass_bound_perm`, `msgPass_equivariant`, `permActAdj_mul`, `permActAdj_one`, `permActFeat_mul`, `permActFeat_one`, `readout_invariant`, `readout_invariant_of_layerStack`, `requires`, `soundness`, `sparseMsgPass_eq_msgPass`, `verifiedObligation`
 - `gnorm_scale_invariant` -> `rms`, `rmsNorm`
 - `gnorm_scale_invariant_reuse` -> `gnorm`, `gnorm_scale_invariant`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`
 - `gnorm_univ_eq_rmsNorm` -> `rmsNorm`

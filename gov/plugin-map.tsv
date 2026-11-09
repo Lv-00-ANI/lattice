@@ -8031,6 +8031,7 @@ plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_deno
 plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_denote_resid	no
 plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	dag_denote_seq	no
 plugins	Plugins/Architectures/DAG	Plugins/Architectures/DAG/Proofs.lean	noncommuting_counterexample	yes
+plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	gnn_props_hold	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_approximation	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_equivariance	no
 plugins	Plugins/Architectures/GNN	Plugins/Architectures/GNN/Manifest.lean	manifest_claims_invariants	no
@@ -8402,6 +8403,7 @@ plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/Se
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqEncode_decode	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqRepresentation_compile_extract	no
 plugins	Plugins/Domains/Constraints/Tokens	Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqRepresentation_roundtrip	no
+plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Manifest.lean	chainSlot_props_hold	no
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Manifest.lean	manifest_claims_exactness	no
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Manifest.lean	manifest_claims_laws	no
 plugins	Plugins/Extractors/ChainSlot	Plugins/Extractors/ChainSlot/Manifest.lean	manifest_claims_soundness	no

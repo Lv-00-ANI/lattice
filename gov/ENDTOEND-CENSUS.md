@@ -21,8 +21,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 3 | 326 | 3.5% |
 | 4 | 106 | 1.1% |
 | 5 | 1853 | 19.7% |
-| 6 | 476 | 5.1% |
-| **合计** | **9421** | |
+| 6 | 478 | 5.1% |
+| **合计** | **9423** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -83,11 +83,11 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `dag_denote_resid` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dagEval_commute_past` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dag_confluence` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `gnn_props_hold` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `manifest_nonempty` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `manifest_layer` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `manifest_requires` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `manifest_provides` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

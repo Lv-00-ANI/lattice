@@ -2647,6 +2647,7 @@ Plugins/Architectures/DAG/Proofs.lean	dag_denote_par
 Plugins/Architectures/DAG/Proofs.lean	dag_denote_resid
 Plugins/Architectures/DAG/Proofs.lean	dagEval_commute_past
 Plugins/Architectures/DAG/Proofs.lean	dag_confluence
+Plugins/Architectures/GNN/Manifest.lean	gnn_props_hold
 Plugins/Architectures/GNN/Manifest.lean	manifest_obligation_count
 Plugins/Architectures/GNN/Manifest.lean	manifest_nonempty
 Plugins/Architectures/GNN/Manifest.lean	manifest_layer
@@ -2977,6 +2978,7 @@ Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqDecode_encode
 Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqEncode_decode
 Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqRepresentation_roundtrip
 Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean	seqRepresentation_compile_extract
+Plugins/Extractors/ChainSlot/Manifest.lean	chainSlot_props_hold
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_obligation_count
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_nonempty
 Plugins/Extractors/ChainSlot/Manifest.lean	manifest_layer
