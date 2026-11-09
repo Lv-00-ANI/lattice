@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.InstLiftCutoff
 import Lattice.Core.CIC.InstShiftObstruction
 import Lattice.Core.CIC.SubstCompParallel
 import Lattice.Core.CIC.BinderCommutationFalse
