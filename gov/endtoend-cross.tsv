@@ -253,6 +253,9 @@ Core/CIC/SubstBridge.lean	lift_singleSubst
 Core/CIC/SubstBridge.lean	inst_singleSubst
 Core/CIC/SubstComp.lean	comp_row_eq_agrees
 Core/CIC/SubstComp.lean	comp_candidate_false
+Core/CIC/SubstCompParallel.lean	liftN_zero
+Core/CIC/SubstCompParallel.lean	liftN_succ
+Core/CIC/SubstCompParallel.lean	liftN_comp
 Core/CIC/SubstShiftAnalysis.lean	shift_var_untouched_below
 Core/CIC/SubstShiftAnalysis.lean	subst_shift_agree_below
 Core/CIC/SubstShiftAnalysis.lean	subst_var_self

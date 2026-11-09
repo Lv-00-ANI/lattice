@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.SubstCompParallel
 import Lattice.Core.CIC.BinderCommutationFalse
 import Lattice.Core.CIC.ShiftCommGeneral
 import Lattice.Core.Data
