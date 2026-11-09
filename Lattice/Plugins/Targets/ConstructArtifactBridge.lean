@@ -26,7 +26,7 @@ exactly the failure the whole project audits for.**
 
 import Mathlib
 import Lattice.Plugins.Targets.ConstructArtifact
-import Lattice.Domains.Geometry.WeightSideLadder
+import Lattice.Reference.Geometry.Geometry.WeightSideLadder
 
 /-! **[待移除] 几何载体靶定理。**
 

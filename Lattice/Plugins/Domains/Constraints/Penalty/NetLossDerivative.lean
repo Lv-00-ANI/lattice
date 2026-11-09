@@ -9,8 +9,8 @@ The old path is now a facade that imports this file and contains no proof.
 -/
 
 import Mathlib
-import Lattice.Domains.Constraints.PenaltyLossDerivative
-import Lattice.Domains.Constraints.NetLoss
+import Lattice.Reference.Geometry.Constraints.PenaltyLossDerivative
+import Lattice.Reference.Geometry.Constraints.NetLoss
 import Lattice.Core.StackDerivative
 import Lattice.Core.Net
 

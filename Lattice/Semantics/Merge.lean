@@ -58,8 +58,8 @@
 - 本节**不改** `Geo/*` 与 `Semantics/Annotations.lean`。
 -/
 import Mathlib
-import Lattice.Domains.Constraints.ConstraintSet
-import Lattice.Domains.Constraints.Constraint
+import Lattice.Reference.Geometry.Constraints.ConstraintSet
+import Lattice.Reference.Geometry.Constraints.Constraint
 
 namespace Lattice.Semantics.Merge
 

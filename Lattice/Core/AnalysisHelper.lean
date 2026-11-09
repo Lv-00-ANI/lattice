@@ -11,7 +11,7 @@ import Mathlib
 2. **`smulRight 1 k` 等于 `k • id`**。
 
 **它们在第 114 轮的定位过程中暴露了一个实例推断现象**：同样的证明在只 `import Mathlib` 时通过，
-在多 `import Lattice.Domains.Constraints.Dist` 之后报
+在多 `import Lattice.Reference.Geometry.Constraints.Dist` 之后报
 `typeclass instance problem is stuck: NormedSpace ?m`。
 
 **⇒ 处理方式是【分层】：纯实分析的引理放在只依赖 `Mathlib` 的最底层，

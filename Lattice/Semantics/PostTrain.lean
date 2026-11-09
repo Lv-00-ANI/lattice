@@ -45,8 +45,8 @@ post_train_preserves : β + c = 0 → P (配置 β) → P (配置 (step η c β)
 - **`step` 的符号**：`netLoss = (β + c)²`，其导数是 `2(β + c)`，所以 `step η c β = β − η·2(β+c)`。 -/
 import Mathlib
 import Lattice.Core.Net
-import Lattice.Domains.Geometry.ConstraintDescent
-import Lattice.Domains.Constraints.ConstraintSet
+import Lattice.Reference.Geometry.Geometry.ConstraintDescent
+import Lattice.Reference.Geometry.Constraints.ConstraintSet
 
 namespace Lattice.Semantics.PostTrain
 

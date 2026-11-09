@@ -82,11 +82,11 @@ EqConstraint.loss  : …                                    -- poly 的平方
   本节是 `GeoConstraint` 的并列新增，两者服务不同层。
 -/
 import Mathlib
-import Lattice.Domains.Constraints.Constraint
-import Lattice.Domains.Constraints.Dist
-import Lattice.Domains.Constraints.Lipschitz
-import Lattice.Domains.Constraints.DistLipschitz
-import Lattice.Domains.Geometry.PolyLipschitz
+import Lattice.Reference.Geometry.Constraints.Constraint
+import Lattice.Reference.Geometry.Constraints.Dist
+import Lattice.Reference.Geometry.Constraints.Lipschitz
+import Lattice.Reference.Geometry.Constraints.DistLipschitz
+import Lattice.Reference.Geometry.Geometry.PolyLipschitz
 import Lattice.Lib.Penalty.BilinearLocallyLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 

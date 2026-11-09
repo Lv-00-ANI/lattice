@@ -7,7 +7,7 @@ The old path is now a facade that imports this file and contains no proof.
 -/
 
 import Mathlib
-import Lattice.Domains.Constraints.Expr
+import Lattice.Reference.Geometry.Constraints.Expr
 import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Geo.Flatten` -- configurations as finite vectors

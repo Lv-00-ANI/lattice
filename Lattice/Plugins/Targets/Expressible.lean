@@ -30,7 +30,7 @@ member of any spec. **The exclusion, which is what makes the subtype informative
 -/
 
 import Lattice.Plugins.Manifest
-import Lattice.Domains.Constraints.Constraint
+import Lattice.Reference.Geometry.Constraints.Constraint
 
 /-! **[待移除] 几何载体靶定理。**
 

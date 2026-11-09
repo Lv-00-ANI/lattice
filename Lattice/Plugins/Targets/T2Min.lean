@@ -30,7 +30,7 @@ convenience.** **Recording the counterexample beside the theorem is what keeps t
 -/
 
 import Lattice.Plugins.Manifest
-import Lattice.Domains.Geometry.ExprLocalMin
+import Lattice.Reference.Geometry.Geometry.ExprLocalMin
 
 /-! **[待移除] 几何载体靶定理。**
 

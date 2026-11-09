@@ -56,7 +56,7 @@ statement about the quantifier, and an instance is a statement about the carrier
 
 import Mathlib
 import Lattice.Plugins.Targets.Statements
-import Lattice.Domains.Geometry.Semantic
+import Lattice.Reference.Geometry.Geometry.Semantic
 import Lattice.Runtime.Extraction
 
 /-! **[待移除] 几何载体靶定理。**

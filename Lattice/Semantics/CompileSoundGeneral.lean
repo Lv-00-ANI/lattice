@@ -47,7 +47,7 @@ singleton case rather than replacing it.**
 import Mathlib
 import Lattice.Semantics.Merge
 import Lattice.Semantics.CompileSound
-import Lattice.Domains.Geometry.WeightSideLadder
+import Lattice.Reference.Geometry.Geometry.WeightSideLadder
 
 namespace Lattice.Semantics.Merge
 

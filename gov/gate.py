@@ -315,7 +315,12 @@ LAYER_OF = {
     # `Primitives` at rank 4 has consumers staying at rank <= 3 (worst in-degree 8), so rank 4 would
     # be an upward import. A "basic call used by domain instances" must live at or below them.
     "Lattice/Primitives": "primitives",
-    "Lattice/Domains": "domains",
+    # Round 265 (STAGE 0: geometry archival). `Domains/` is GONE -- the whole subtree moved to
+    # `Lattice/Reference/Geometry/` and no longer participates in the mainline build.
+    # **`Reference/` gets its own layer at rank 99 (== `top`) so that NOTHING it contains can
+    # constrain a mainline import: the archive may import anything, and nothing may import it
+    # back without failing I4.** That is the mechanical form of "archived means out of the chain".
+    "Lattice/Reference": "reference",
     "Lattice/Geo": "geo",
     # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
     # check_layering skipped it entirely -- 4 modules / 38 theorems with no I4 validation at all.
@@ -355,7 +360,7 @@ def check_layering(rep):
     rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
             "domains": 3, "cinterface": 6,
             "geo": 4, "audit": 5, "evidence": 5,
-            "compose": 6, "top": 99}
+            "compose": 6, "reference": 99, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":

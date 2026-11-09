@@ -98,7 +98,7 @@ import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
 import Lattice.Core.RepairConvergence
 import Lattice.Runtime.VerificationSoundness
-import Lattice.Domains.Geometry.Reinjection
+import Lattice.Reference.Geometry.Geometry.Reinjection
 import Lattice.Runtime.EndToEnd
 
 namespace Lattice.Audit

@@ -44,7 +44,7 @@ holdsSet_flatten : HoldsSet (flatten ws) pts  ↔  ∀ g ∈ ws, HoldsSet g pts
 import Mathlib
 import Lattice.Semantics.InheritsStructural
 import Lattice.Semantics.ContextualInheritsNontrivial
-import Lattice.Domains.Constraints.ConstraintSet
+import Lattice.Reference.Geometry.Constraints.ConstraintSet
 
 namespace Lattice.Semantics.Stage1
 
