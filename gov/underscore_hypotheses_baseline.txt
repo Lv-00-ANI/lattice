@@ -20,8 +20,6 @@
 #
 # ⚠ Round 30 measured the split rather than asserting it: see `agent-tmp/classify_unused_hyp.py`.
 # An entry with `E-other` is a REASON NOT YET ESTABLISHED, and the gate prints those separately.
-Geo/Pipeline.lean	token_to_weight	_hdec	unused	B-equality-precondition
-Geo/Pipeline.lean	token_to_loss	_hdec	unused	B-equality-precondition
 Lib/Architectures/RealGeluDerivBound.lean	mul_exp_neg_mul_le	_ht	unused	A-numeric-bound
 Lib/Architectures/RealLayerScale.lean	layerscale_lipschitz	_hL	unused	A-numeric-bound
 Lib/Architectures/RealLoopModel.lean	rnn_step_input_lipschitz	_hLu	unused	A-numeric-bound

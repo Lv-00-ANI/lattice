@@ -20,12 +20,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ZERO = os.path.abspath(os.path.join(HERE, ".."))
 # Round 246. This pointed at `Lattice/Geo`, which no longer exists: the whole layer moved to
 # `Domains/` (99 modules), then split into `Domains/Constraints/` (28) and `Domains/Geometry/` (71).
-GEO = os.path.join(ZERO, "Lattice", "Domains")
+# Round 265 (STAGE 0): `Domains/` was ARCHIVED -- the subtree now lives at
+# `Lattice/Reference/Geometry/{Geometry,Constraints,LvFormal}`. `GEO` still names ONE root, and
+# the walk below is recursive, so pointing it at the archive keeps every module in scope.
+GEO = os.path.join(ZERO, "Lattice", "Reference", "Geometry")
 
 # Round 246, second defect in this line: it matched `Zero.Geo.`, the old library's module prefix.
 # The tree imports `Lattice.Geo.` (the namespace survived the move per §2.8) -- and the MODULE path
 # is `Lattice.Domains[.Constraints|.Geometry].`. Both are accepted; the walk is recursive.
-IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
+# Round 265: the archive path has FOUR segments (`Lattice.Reference.Geometry.<Sub>.<Mod>`),
+# so the alternation gains an `Reference\.Geometry\.[A-Za-z]+` branch.
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Reference\.Geometry\.[A-Za-z]+|Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
 THEOREM = re.compile(r"^theorem\s+([A-Za-z0-9_']+)", re.M)
 DEFN = re.compile(r"^(?:noncomputable\s+)?(?:def|abbrev|structure|inductive)\s+([A-Za-z0-9_']+)", re.M)
 

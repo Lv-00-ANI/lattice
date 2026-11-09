@@ -32,7 +32,7 @@ def main():
     ok = True
 
     # 断点 1：兜底数 **与** 构造子 case 数必须一起看
-    comp = read("Lattice/Reference/LvFormal/Theory/Compiler.lean")
+    comp = read("Lattice/Reference/Geometry/LvFormal/Theory/Compiler.lean")
     n1 = comp.count("| _ => none")
     ncases = len(re.findall(r"\n  \| \.\w+ =>", comp))
     print("断点 1  compile_constraint 的 `| _ => none` 数量 =", n1, "（兜底，文档声称 12）")
@@ -43,7 +43,7 @@ def main():
     ok &= (ncases == 14)
 
     # 断点 2：case 全部实现，但 .var 丢弃 y
-    src2 = read("Lattice/Reference/LvFormal/Theory/IR.lean")
+    src2 = read("Lattice/Reference/Geometry/LvFormal/Theory/IR.lean")
     line2 = [l.strip() for l in src2.splitlines() if ".var n" in l and "=>" in l]
     print("断点 2  eval_expr 的 .var 分支 =", line2[0] if line2 else "（未找到）")
     found2 = bool(line2) and "ptX" in line2[0]
@@ -61,14 +61,14 @@ def main():
     ok &= found2
 
     # 断点 3
-    n3 = read("Lattice/Reference/LvFormal/Theory/CompilerCorrectness.lean").count("Cv00")
+    n3 = read("Lattice/Reference/Geometry/LvFormal/Theory/CompilerCorrectness.lean").count("Cv00")
     print("断点 3  CompilerCorrectness 中 `Cv00` 出现次数 =", n3, "（文档声称 0）")
     ok &= (n3 == 0)
 
     # 断点 4：exec_stmt 的实现分支 vs Cv00Stmt 的构造子
-    mem = read("Lattice/Reference/LvFormal/Theory/Cv00Memory.lean")
+    mem = read("Lattice/Reference/Geometry/LvFormal/Theory/Cv00Memory.lean")
     stmt_branches = len(re.findall(r"\n\s+\| \.\w+ \w* *=>", mem))
-    lang = read("Lattice/Reference/LvFormal/Theory/Cv00Lang.lean")
+    lang = read("Lattice/Reference/Geometry/LvFormal/Theory/Cv00Lang.lean")
     m = re.search(r"inductive Cv00Stmt where(.*?)\n\n", lang, re.S)
     nstmts = len(re.findall(r"\n  \| \w+", m.group(1))) if m else -1
     print("断点 4  exec_stmt 的实现分支 =", stmt_branches, "/ Cv00Stmt 构造子 =", nstmts)

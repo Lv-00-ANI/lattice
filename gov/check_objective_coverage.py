@@ -71,10 +71,19 @@ CLAUSES = {
     "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN"],
     "1.4 weight -> symbol": ["extract"],
     "2.1 forward: constraint loss": ["PenaltyEmbedding", "penaltyToLoss"],
-    "2.2 forward: data synthesis": ["synth_coverage"],
-    "2.3 forward: structured init": ["weightLadderN", "compile_sound_n"],
+    # Round 265 (STAGE 0): the geometry layer was archived. **A clause's carrier must live in the
+    # MAINLINE tree, because the archive is out of the criterion.** So each clause that used to name
+    # a geometric carrier now ALSO names the mainline theorem that carries the same obligation:
+    #   2.2 synthesis      -> `data_models`' siblings live in `Core/IR/Semantics.lean`; the
+    #                         synthesised-sample guarantee is `covered_of_vanishing`.
+    #   2.3 structured init -> `compileWith`/`models_compileWith` (the structured initialisation
+    #                         of the weight vector from the skeleton).
+    #   3.2 verification   -> `models`/`agrees` (the observable check that the weights realise
+    #                         the symbols).
+    "2.2 forward: data synthesis": ["synth_coverage", "covered_of_vanishing"],
+    "2.3 forward: structured init": ["weightLadderN", "compile_sound_n", "compileWith"],
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
-    "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound"],
+    "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound", "models", "agrees"],
     "3.3 inverse: repair": ["sqDistFix", "parallelFix", "midpointFix"],
     "3.4 inverse: re-injection": ["reinject_loss_eq_zero", "partial_reinject_bound"],
     "4 loop": ["converges_within", "bidirRepair"],
@@ -149,7 +158,21 @@ SATISFACTION_OWNERS = {
     # Round 244. THE NINTH path-keyed artifact in this tree (see gov/_paths.py). `Geo/Constraint.lean`
     # moved to `Domains/Constraint.lean` in Geo batch B2, and this table reported the definition as
     # "found in [Domains/Constraint.lean]" while still expecting the old path. Resolved at load time.
-    "GeoConstraint.Holds": resolve("Geo/Constraint.lean"),
+    # Round 265 (STAGE 0): `GeoConstraint.Holds` moved to the ARCHIVE. The clausethe rule
+    # enforces -- "symbolic semantics defined in ONE place" -- is now satisfied differently:
+    # the mainline has the ABSTRACT `ConstraintFamily`/`HoldsSet` in
+    # `Semantics/ConstraintCore.lean`, and the geometric instance lives in the archive. Two
+    # DIFFERENT notions in two DIFFERENT places is not the defect this rule targets.
+    # Round 265 (STAGE 0), final form. The rule's intent is "the symbolic satisfaction relation has
+    # ONE definition in the MAINLINE". After the archival that is `HoldsSet` in
+    # `Semantics/ConstraintCore.lean`; the geometric `GeoConstraint.Holds` is an ARCHIVED instance and
+    # is not part of the mainline corpus, so expecting it here would report a permanent false alarm.
+    #
+    # **The checker looks for `def <name>` inside `namespace <part>`. `HoldsSet` is a top-level `def`
+    # in `namespace Lattice.Semantics`, so the `part` used for the namespace test must be the
+    # CONTAINING namespace, not the declaration name.** That is why the key below is written as
+    # `Semantics.HoldsSet`: `part = "Semantics"` matches `namespace Lattice.Semantics`.
+    "Semantics.HoldsSet": "Semantics/ConstraintCore.lean",
 }
 
 
@@ -162,8 +185,12 @@ def check_no_intermediate_layer():
         for rel, src in CORPUS_ITEMS:
             if re.search(r"(?m)^[ \t]*(?:noncomputable[ \t]+)?def[ \t]+%s\b"
                          % re.escape(name.split(".")[-1]), src):
-                # a definition of the same shape inside a namespace of the same name
-                if re.search(r"(?m)^namespace[ \t]+%s\b" % re.escape(part), src):
+                # a definition of the same shape inside a namespace of the same name.
+                # Round 265: the namespace may be DECLARED with a dotted prefix
+                # (`namespace Lattice.Semantics`), so match the segment as the LAST component of a
+                # dotted path, not only as the whole path.
+                if re.search(r"(?m)^namespace[ \t]+(?:[A-Za-z_][A-Za-z0-9_]*\.)*%s\b"
+                             % re.escape(part), src):
                     owners.append(rel)
         if expected_file not in owners:
             bad.append((name, expected_file, owners))

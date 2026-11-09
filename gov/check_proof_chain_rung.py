@@ -28,8 +28,12 @@ def decl_index():
     pat = re.compile(r"(?m)^\s*(?:(?:noncomputable|private|protected)\s+)*"
                      r"(theorem|lemma|def|structure|abbrev|inductive|class)\s+([A-Za-z0-9_.']+)")
     for root, _, files in os.walk(LAT):
-        if "Reference" in root:
-            continue
+        # Round 265 (STAGE 0): the geometry layer was ARCHIVED to `Lattice/Reference/Geometry/`.
+        # **`PROOF-CHAIN-RUNG.md` is a historical document: it cites the geometry carriers by name,
+        # and those names still exist in the archive.** Refusing to index the archive would turn an
+        # archival into 37 phantom "UNRESOLVED" symbols. The archive is excluded from the CRITERION
+        # (`ProofComplete`), not from the record of what the chain's carriers were.
+        pass
         for f in files:
             if not f.endswith(".lean"):
                 continue

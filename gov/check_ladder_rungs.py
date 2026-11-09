@@ -64,7 +64,9 @@ def instances(root=LAT):
                 if not re.search(r"(?<![A-Za-z])Ladder\b", ln):
                     continue
                 stripped = ln.lstrip()
-                if stripped.startswith(("-", "/-", "*", "|")) or stripped.startswith("`"):
+                # Round 265: `#` catches Markdown headings inside `/-- ... -/`; a heading like
+                # `## 1. Why Representation, not Ladder` contains the word `Ladder`.
+                if stripped.startswith(("-", "/-", "*", "|", "#")) or stripped.startswith("`"):
                     continue
                 chunk = "\n".join(lines[i:i + 8])
                 head_line = " ".join(lines[i:i + 3])
@@ -96,6 +98,10 @@ def classify(l1l2):
         return "identity (singleton)"
     if re.search(r"encode\s*:=\s*fun\s+\w+\s*=>\s*\[[^\]]*,[^\]]*\]", flat):
         return "field projection (>=2 tokens)"
+    # Round 265: `{ encode := id, decode := some, roundtrip := fun _ => rfl }` IS `identityTokenizer`
+    # written out by hand -- same rung, different syntax.
+    if re.search(r"encode\s*:=\s*id\b", flat) and re.search(r"decode\s*:=\s*some\b", flat):
+        return "identity (id/some literal)"
     if "encodeForm" in flat or "decodePayload" in flat or "decCon" in flat or "encCon" in flat \
             or "eqConstraintTokenizer" in flat:
         return "real encoder"
@@ -124,11 +130,9 @@ IDENTITY_OK = {
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
     "Lift/WeightLadderN.lean":
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok",
-    # Round 168. This is the one ladder whose l2l3 genuinely CHANGES the representation
-    # (`CExpr` tree -> `List StackOp`), so its l1l2 has nothing to do: Sym and Tok are both
-    # `ShallowCExpr n`. The substantive rung here is l2l3, whose proof uses `toStack_correct`.
-    "Geo/CodegenLadder.lean":
-        "Sym = ShallowCExpr and Tok = ShallowCExpr -- the same type; the substance is in l2l3",
+    # Round 265: the two geometry ladders (`CodegenLadder`, `WeightSideLadder`) were ARCHIVED to
+    # `Reference/Geometry/Geometry/`. The scanner does not visit the archive, so their entries are
+    # removed here -- **archived is not "correct identity rung", it is "out of scope".**
     # Round 180. Same types (`List ℝ` / `ℝ`), so `identityTokenizer` is the honest rung. The point of
     # this ladder is l2l3: it uses the FULL-WIDTH encoder, which has an exact inverse, where
     # `weightLadderN`'s rank-one encoder provably has none.
@@ -136,8 +140,6 @@ IDENTITY_OK = {
         "Sym = List ℝ and Tok = ℝ, so Sym IS List Tok; the substance is the full-width l2l3",
     # Round 200. Same reason: Sym = List Unit and Tok = Unit. The substance is l2l3, which produces a
     # REAL affine weight layer whose action is exactly the coordinate difference -- and `satW` is `∀`.
-    "Geo/WeightSideLadder.lean":
-        "Sym = List Unit and Tok = Unit, so Sym IS List Tok; the substance is the weight-side l2l3",
 }
 
 # Round 241, the EIGHTH path-keyed artifact found in this tree (see gov/_paths.py for the list).

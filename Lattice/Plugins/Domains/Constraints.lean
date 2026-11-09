@@ -15,3 +15,6 @@ import Lattice.Plugins.Domains.Constraints.Penalty.Manifest
 import Lattice.Plugins.Domains.Constraints.Penalty.Plugin
 import Lattice.Plugins.Domains.Constraints.Tokens.Manifest
 import Lattice.Plugins.Domains.Constraints.Tokens.Plugin
+import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction

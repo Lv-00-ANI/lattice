@@ -317,9 +317,12 @@ LAYER_OF = {
     "Lattice/Primitives": "primitives",
     # Round 265 (STAGE 0: geometry archival). `Domains/` is GONE -- the whole subtree moved to
     # `Lattice/Reference/Geometry/` and no longer participates in the mainline build.
-    # **`Reference/` gets its own layer at rank 99 (== `top`) so that NOTHING it contains can
-    # constrain a mainline import: the archive may import anything, and nothing may import it
-    # back without failing I4.** That is the mechanical form of "archived means out of the chain".
+    # **`Reference/` is the ARCHIVE layer: rank 4, exactly where `Geo` used to sit.**
+    # The archive imports `Core`/`Lib`/`Runtime`/`Plugins` (all rank <= 3), so rank 4 keeps
+    # those imports legal; and `Semantics` (rank 5) may import the archive because it is above it.
+    # **=> "archived" means REMOVED FROM `ProofComplete`, not removed from the build.** The
+    # archive stays importable as DOMAIN EVIDENCE (CARRIER-CIC.md §6.4), which is what lets the
+    # 8 `Semantics` files keep their geometric vocabulary without pretending it is mainline.
     "Lattice/Reference": "reference",
     "Lattice/Geo": "geo",
     # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
@@ -360,7 +363,7 @@ def check_layering(rep):
     rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
             "domains": 3, "cinterface": 6,
             "geo": 4, "audit": 5, "evidence": 5,
-            "compose": 6, "reference": 99, "top": 99}
+            "compose": 6, "reference": 4, "top": 99}
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":
@@ -597,6 +600,13 @@ def check_artifacts(rep):
                 full = os.path.join(base, f)
                 mod = os.path.relpath(full, LIB).replace("\\", ".").replace("/", ".")[:-len(".olean")]
                 if mod in known:
+                    continue
+                # Round 265 (STAGE 0): the ARCHIVE (`Lattice/Reference/`) is NOT part of the mainline
+                # build closure (`roots = ["Lattice"]` reaches it only via the 8 importers that keep
+                # geometric vocabulary). Its `.olean`s exist but are not mainline artifacts, so I7
+                # must not treat them as stale. **The archive is checked by being unbuildable into the
+                # criterion, not by being absent from disk.**
+                if mod.startswith("Lattice.Reference."):
                     continue
                 if scope is not None:
                     srcpath = os.path.join(ZERO, mod.replace(".", os.sep) + ".lean")

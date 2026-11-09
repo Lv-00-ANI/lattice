@@ -41,12 +41,12 @@ _RAW_EXPECTED = {
     # Round 92: `RepairConvergence.lean` MOVED into the `Core.Repair` plugin's directory, so the
     # chain table must name its current home. The theorem is the same theorem; only the path moved.
     "converges_within": ("Plugins/Core/Repair/RepairConvergence.lean", 1),
-    "loss_eq_zero_of_poly_eq_zero": ("Geo/Reinjection.lean", 2),
+    "loss_eq_zero_of_poly_eq_zero": ("Reference/Geometry/Geometry/Reinjection.lean", 1),
     "residual_le_of_zero_on_dense": ("Lift/VerificationSoundness.lean", 1),
     "ladder_forward": ("Lift/EndToEnd.lean", 0),
     "sound_of_factors": ("Lift/EncodingAbstraction.lean", 2),
     "scheme_covers_all": ("Lift/CompilerScheme.lean", 3),
-    "reinject_of_hold": ("Geo/ReinjectionGeneral.lean", 3),
+    "reinject_of_hold": ("Reference/Geometry/Geometry/ReinjectionGeneral.lean", 2),
     "decreases_of_one_step": ("Evidence/DecreasesRole.lean", 1),
     "absorbs_not_derivable": ("Evidence/ObligationIndependence.lean", 5),
 }

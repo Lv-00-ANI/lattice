@@ -28,8 +28,8 @@ ZERO = os.path.abspath(os.path.join(HERE, ".."))
 # It now audits both directories (either may be populated during a migration) and **fails when the
 # total module count is zero**. The name is kept because renaming a gate is a separate change; the
 # docstring says what it actually covers.
-GEO = os.path.join(ZERO, "Lattice", "Domains")
-GEO_LEGACY = os.path.join(ZERO, "Lattice", "Geo")
+GEO = os.path.join(ZERO, "Lattice", "Reference", "Geometry")
+GEO_LEGACY = os.path.join(ZERO, "Lattice", "Reference", "Geometry")
 
 # Round 242. This matched `Zero.Geo.`, the OLD library's module prefix. Measured on the current tree:
 # **183** `import Lattice.Geo.*` and **0** `import Zero.Geo.*` -- so the regex matched nothing, the
@@ -46,7 +46,10 @@ GEO_LEGACY = os.path.join(ZERO, "Lattice", "Geo")
 #
 # It now matches the layer it actually scans, and `main` asserts NON-VACUITY below: a scan with zero
 # internal edges on a multi-module layer is a defect, not a pass.
-IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
+# Round 265 (STAGE 0): the geometry layer moved to `Reference/Geometry/{Geometry,Constraints,LvFormal}`,
+# so the module path now has FOUR segments after `Lattice`. The alternation below keeps the old
+# shapes AND accepts the archive path, which is what makes the edge scan non-vacuous again.
+IMPORT = re.compile(r"^import\s+(?:Lattice|Zero)\.(?:Reference\.Geometry\.(?:Geometry|Constraints|LvFormal)|Geo|Domains)(?:\.[A-Za-z]+)?\.(\S+)", re.M)
 DECL = re.compile(r"^(?:noncomputable\s+|private\s+|protected\s+|@\[[^\]]*\]\s*)*"
                   r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
                   r"([A-Za-z0-9_']+)", re.M)
