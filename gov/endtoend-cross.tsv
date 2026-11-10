@@ -216,6 +216,9 @@ Core/CIC/Compile.lean	termCode_injective
 Core/CIC/Compile.lean	compile_injective
 Core/CIC/Compile.lean	compile_sound
 Core/CIC/Compile.lean	compile_distinct
+Core/CIC/HeadForm.lean	headForm_beta_steps
+Core/CIC/HeadForm.lean	headForm_zeta_steps
+Core/CIC/HeadForm.lean	headForm_delta_steps
 Core/CIC/InstLiftCutoff.lean	lift_apply_succ
 Core/CIC/InstLiftCutoff.lean	lift_apply_zero
 Core/CIC/InstLiftShiftGeneral.lean	shift_zero_one_vs_one_one

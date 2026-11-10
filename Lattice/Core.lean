@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.HeadForm
 import Lattice.Core.CIC.Spine
 import Lattice.Core.CIC.NeutralClosed
 import Lattice.Core.CIC.HasType
