@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ProgressComplete
 import Lattice.Core.CIC.PiShape
 import Lattice.Core.CIC.ProgressNoConsts
 import Lattice.Core.CIC.ProgressEnv
