@@ -266,6 +266,8 @@ Core/CIC/NormalizationAssembly.lean	beta_no_lex_descent
 Core/CIC/ParRedSBridge.lean	parRedS_refl
 Core/CIC/ParRedUEquivalence.lean	step_to_parRedU
 Core/CIC/ParRedUEquivalence.lean	parRedU_imp_reduces
+Core/CIC/ParSubstLemma.lean	shift_zero_is_refl
+Core/CIC/ParSubstLemma.lean	shift_app_pair
 Core/CIC/ParallelReduction.lean	parRed_refl_atom
 Core/CIC/ParallelReduction.lean	parRed_of_step_var
 Core/CIC/ParallelReduction.lean	parRed_sort
