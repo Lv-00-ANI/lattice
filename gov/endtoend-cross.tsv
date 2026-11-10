@@ -298,6 +298,14 @@ Core/CIC/ProgressEnv.lean	const_no_step_empty
 Core/CIC/ProgressEnv.lean	const_app_cannot_step
 Core/CIC/ProgressFalse.lean	stuck_term_cannot_step
 Core/CIC/ProgressFalse.lean	progress_is_false
+Core/CIC/ReducesCongruence.lean	reduces_app_l
+Core/CIC/ReducesCongruence.lean	reduces_app_r
+Core/CIC/ReducesCongruence.lean	reduces_lam_body
+Core/CIC/ReducesCongruence.lean	reduces_pi_domain
+Core/CIC/ReducesCongruence.lean	reduces_pi_codomain
+Core/CIC/ReducesCongruence.lean	reduces_letE_value
+Core/CIC/ReducesCongruence.lean	reduces_letE_body
+Core/CIC/ReducesCongruence.lean	lam_type_position_frozen
 Core/CIC/Reduction.lean	reduces_trans
 Core/CIC/Reduction.lean	reduces_of_step
 Core/CIC/Reduction.lean	beta_reduces
