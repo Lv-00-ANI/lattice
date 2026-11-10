@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.PiShapeRDirection
 import Lattice.Core.CIC.PiShapeR
 import Lattice.Core.CIC.ProgressComplete
 import Lattice.Core.CIC.PiShape
