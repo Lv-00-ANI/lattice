@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 94 | no imports from lift/lib |
+| core | 95 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -38,6 +38,7 @@
 - `Lattice.Core.CIC.NormalFormFailure` <- `Lattice.Core.CIC.Reduction`, `Lattice.Core.CIC.TermSize`
 - `Lattice.Core.CIC.NormalFormWF` <- `Lattice.Core.CIC.Reduction`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.NormalFormFailure`
 - `Lattice.Core.CIC.Normalization` <- `Lattice.Core.CIC.Reduction`
+- `Lattice.Core.CIC.NormalizationAssembly` <- `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.TermSize`
 - `Lattice.Core.CIC.PairBounds` 
 - `Lattice.Core.CIC.ParallelSubst` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.ParallelSubstCutoff` <- `Lattice.Core.CIC.SubstBridge`
@@ -757,7 +758,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -987,6 +988,7 @@
 | `Lattice.Core.CIC.NormalFormFailure` | 5 | 1 |
 | `Lattice.Core.CIC.NormalFormWF` | 12 | 2 |
 | `Lattice.Core.CIC.Normalization` | 4 | 1 |
+| `Lattice.Core.CIC.NormalizationAssembly` | 4 | 3 |
 | `Lattice.Core.CIC.PairBounds` | 5 | 0 |
 | `Lattice.Core.CIC.ParallelSubst` | 11 | 8 |
 | `Lattice.Core.CIC.ParallelSubstCutoff` | 1 | 0 |
@@ -2678,6 +2680,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `betaSubst_var0` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `betaSubst_varSucc` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `beta_le_parStar` -> `BetaStar`, `Compiler`, `RedStep`, `Relation`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
+- `beta_no_lex_descent` -> `Term`, `maxConst`, `size`, `subst`
 - `beta_preserves_depth` -> `d`, `depth`, `induction`, `size`, `step`
 - `beta_reduces` -> `E`, `Term`, `subst`
 - `beta_strictly_decreases_size` -> `d`, `depth`, `induction`, `size`, `step`
@@ -3717,8 +3720,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convexOn_exp_mul` -> `Surjective`, `add`, `at`, `comp`, `div_const`, `le`, `mono`, `trans`
 - `convexOn_exp_mul_measure` -> `Surjective`, `at`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `le`, `mono`, `trans`
 - `convexOn_iff_subgradient_support` -> `Subgradient`, `g`
-- `convex_improvingSet` -> `apply`, `at`, `dist`, `g`, `le`
-- `convex_multImprovingSet` -> `at`, `dist`, `eps`, `g`, `le`, `single`, `supporting_functional_of_not_mem_interior`
+- `convex_improvingSet` -> `aa`, `apply`, `at`, `bb`, `dist`, `g`, `le`
+- `convex_multImprovingSet` -> `aa`, `at`, `bb`, `dist`, `eps`, `g`, `le`, `single`, `supporting_functional_of_not_mem_interior`
 - `convex_proj_of_variational` -> `at`, `le_antisymm`, `le_trans`
 - `convex_proj_variational` -> `at`, `le_antisymm`, `le_trans`
 - `convex_stationary_is_global_min` -> `at`, `comp`, `const_add`, `g`
@@ -4029,7 +4032,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dependsHolds_nil` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsHolds_refl` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsHolds_weaken` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
-- `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `at`, `induction`, `subst`
+- `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
 - `dependsShape_args_empty` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `dependsShape_names_nothing` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
@@ -5886,7 +5889,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interface_iff_no_witness` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `interface_implies_no_new_semantics` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `interface_or_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
-- `interior_improvingSet_nonempty` -> `apply`, `at`, `dist`, `g`, `le`, `le_antisymm`, `mono`
+- `interior_improvingSet_nonempty` -> `aa`, `apply`, `at`, `bb`, `dist`, `g`, `le`, `le_antisymm`, `mono`
 - `interior_length` -> `length`
 - `interior_multImprovingSet_nonempty` -> `at`, `dist`, `eps`, `g`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
@@ -6708,6 +6711,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matvec_smul` -> `W`, `apply`
 - `matw_roundtrip` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
 - `maxConst_app` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `selfLoopEnv`, `subst`, `trivial`
+- `maxConst_beta_after` -> `Term`, `maxConst`, `size`, `subst`
+- `maxConst_beta_before` -> `Term`, `maxConst`, `size`, `subst`
 - `maxConst_const` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `selfLoopEnv`, `subst`, `trivial`
 - `maxConst_delta` -> `DefEnv`, `E`, `Term`
 - `maxConst_lam` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `selfLoopEnv`, `subst`, `trivial`
@@ -7400,7 +7405,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_localMin_of_resid_ne_zero` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `lossN`, `min`, `residN`
 - `not_measureTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `functionalAnalysisPackage`, `informationTheoryPackage`, `length`, `linearAlgebraPackage`, `measureTheoryExtra`, `measureTheoryPackage`, `measureTheory_closed`, `measureTheory_closedB_eq_true`, `measureTheory_extra_length`, `measureTheory_false_but_repairable`, `measureTheory_validB_eq_false`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `not_mem_Subdiff_neg_relu` -> `apply`, `at`, `g`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
-- `not_mem_interior_improvingSet` -> `apply`, `at`, `dist`, `g`, `le`, `le_antisymm`, `mono`
+- `not_mem_interior_improvingSet` -> `aa`, `apply`, `at`, `bb`, `dist`, `g`, `le`, `le_antisymm`, `mono`
 - `not_mem_interior_multImprovingSet` -> `at`, `dist`, `eps`, `g`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `not_mem_merged_of_rejected` -> `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `allConstraints`, `at`, `holdsSet_mem`, `merge_sound`, `merged`
 - `not_mem_of_layer` -> `Layer`, `at`, `collinear`, `d`, `layer`, `parallel`
@@ -8451,7 +8456,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
-- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `partCode`, `partCode_injective`, `toNat`
+- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `relative_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relax` -> `at`, `d`, `g`
@@ -9125,11 +9130,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `pieceOf`
 - `sep_present_keeps_two_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `separableKernel_gram_psd` -> `apply`, `d`, `featScore`, `softmax`
-- `separates_compact_closed_convex` -> `E`, `at`, `dist`, `g`, `le`
+- `separates_compact_closed_convex` -> `E`, `aa`, `at`, `bb`, `dist`, `g`, `le`
 - `separates_point_of_closed_convex` -> `E`, `at`, `dist`, `g`, `le`
 - `separates_point_of_closed_convex_real` -> `E`, `at`, `dist`, `g`, `le`
-- `separates_point_of_finite_convex_hull` -> `E`, `at`, `dist`, `g`, `le`
-- `separates_point_point` -> `E`, `at`, `dist`, `g`, `le`
+- `separates_point_of_finite_convex_hull` -> `E`, `aa`, `at`, `bb`, `dist`, `g`, `le`
+- `separates_point_point` -> `E`, `aa`, `at`, `bb`, `dist`, `g`, `le`
 - `separation_from_threshold` -> `apply`, `at`
 - `separator_count_distinguishes` -> `LinearForm`, `Token`, `length`
 - `seqDecodeEncodeProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `seqDecode`, `seqDecode_encode`, `seqEncode`, `seqEncode_decode`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
@@ -9158,7 +9163,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sgd_rate_bound_averaged` -> `Subgradient`, `at`, `g`
 - `sgd_variance_identity` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
-- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
+- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
 - `shapesCode_rel_ge_length` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `shapesCode_tensor_ge_length` -> `TensorShape`, `length`, `length_cons`, `shapesCode`, `tensorShapeCode`
 - `shapesOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
@@ -9264,6 +9269,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sizeList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `sizeList_pos_of_ne_nil` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `size_app` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
+- `size_beta_before_after` -> `Term`, `maxConst`, `size`, `subst`
 - `size_beta_grows` -> `Level`, `SortKind`, `Term`, `zero`
 - `size_child_lt` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `size_const` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
@@ -9302,7 +9308,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slater_implies_feasible` -> `Lagrangian`, `at`, `dualValue`, `g`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
 - `slater_implies_strong_duality` -> `Lagrangian`, `at`, `dualValue`, `g`, `le_antisymm`
 - `slater_lagrangian_lt` -> `Lagrangian`, `at`, `dualValue`, `g`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
-- `slater_multiplier_exists` -> `apply`, `at`, `g`, `le`, `le_antisymm`, `mono`
+- `slater_multiplier_exists` -> `aa`, `apply`, `at`, `bb`, `g`, `le`, `le_antisymm`, `mono`
 - `slater_multiplier_vanishes` -> `Lagrangian`, `at`, `dualValue`, `g`, `le_antisymm`
 - `slater_not_sufficient_discrete` -> `Lagrangian`, `at`, `dualValue`, `le_antisymm`
 - `slater_sum_strictly_negative` -> `Lagrangian`, `at`, `dualValue`, `g`, `lagrangian_lower_bound`, `le_antisymm`, `le_trans`
@@ -9837,7 +9843,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `superposition_capacity_bound_unit` -> `E`, `at`
 - `support_from_decoded_constraints` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrained_agrees_with_constraint_set`
 - `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
-- `supporting_functional_of_not_mem_interior` -> `E`, `at`, `dist`, `g`, `le`
+- `supporting_functional_of_not_mem_interior` -> `E`, `aa`, `at`, `bb`, `dist`, `g`, `le`
 - `supporting_hyperplane_fin` -> `E`, `apply`, `d`, `dotV`
 - `supporting_hyperplane_of_boundary_point` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_hyperplane_of_finite_convexHull` -> `E`
@@ -10015,7 +10021,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrobSq_zero_iff` -> `apply`, `induction`, `zero`
 - `tensorFrob_nonneg` -> `apply`, `induction`, `zero`
 - `tensorFrob_smul` -> `apply`, `induction`, `zero`
-- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
+- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
 - `tensors_materializeWith_zero` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
 - `termCode_injective` -> `at`, `induction`
 - `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
@@ -10491,9 +10497,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `walk_length_indep` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_mono` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_nodup` -> `RelKind`, `Term`, `at`, `induction`
-- `walk_own_id_mem` -> `TensorShape`, `Term`, `at`, `induction`, `subst`
-- `walk_range` -> `TensorId`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `subst`
-- `walk_rel_args` -> `TensorShape`, `Term`, `at`, `induction`, `subst`
+- `walk_own_id_mem` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
+- `walk_range` -> `TensorId`, `Term`, `aa`, `at`, `induction`, `le_refl`, `le_trans`, `subst`
+- `walk_rel_args` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `weakSim_comp` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
 - `weakSim_of_sim` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`

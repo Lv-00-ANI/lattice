@@ -236,6 +236,9 @@ Core/CIC/Normalization.lean	reduces_of_within
 Core/CIC/Normalization.lean	within_of_reduces
 Core/CIC/Normalization.lean	within_zero_iff
 Core/CIC/Normalization.lean	reduces_iff_exists_within
+Core/CIC/NormalizationAssembly.lean	maxConst_beta_after
+Core/CIC/NormalizationAssembly.lean	size_beta_before_after
+Core/CIC/NormalizationAssembly.lean	beta_no_lex_descent
 Core/CIC/ParallelSubst.lean	inst_lift_id
 Core/CIC/ParallelSubst.lean	inst_id
 Core/CIC/ParallelSubst.lean	inst_lift_zero
@@ -1694,6 +1697,7 @@ Lib/Convex/RealFenchelEReal.lean	fenchelConjAllEReal_toReal_of_bddAbove
 Lib/Convex/RealFenchelMoreau.lean	fenchelConjAll_subgradient
 Lib/Convex/RealFenchelMoreau.lean	subgradient_iff_fenchelConj_eq
 Lib/Convex/RealFenchelMoreau.lean	fenchel_biconj_eq_self
+Lib/Convex/RealKKTMultivariate.lean	convex_multImprovingSet
 Lib/Convex/RealKKTMultivariate.lean	interior_multImprovingSet_nonempty
 Lib/Convex/RealKKTMultivariate.lean	not_mem_interior_multImprovingSet
 Lib/Convex/RealKKTMultivariate.lean	mult_slater_multiplier_exists
