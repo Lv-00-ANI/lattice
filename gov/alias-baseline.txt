@@ -819,3 +819,4 @@ forward	Core/Data/Models.lean	data_models
 forward	Core/Data/Models.lean	data_models_shape
 copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_none
 copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_one
+forward	Core/CIC/InstLiftShiftGeneral.lean	shift_one_one_zero_one_from_general

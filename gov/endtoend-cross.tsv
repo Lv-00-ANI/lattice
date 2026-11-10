@@ -218,6 +218,8 @@ Core/CIC/Compile.lean	compile_sound
 Core/CIC/Compile.lean	compile_distinct
 Core/CIC/InstLiftCutoff.lean	lift_apply_succ
 Core/CIC/InstLiftCutoff.lean	lift_apply_zero
+Core/CIC/InstLiftShiftGeneral.lean	shift_zero_one_vs_one_one
+Core/CIC/InstLiftShiftGeneral.lean	shift_one_one_zero_one_from_general
 Core/CIC/InstLiftSixOfSeven.lean	shift_apply_bound_var
 Core/CIC/InstLiftSixOfSeven.lean	shift_apply_free_var
 Core/CIC/InstLiftSixOfSeven.lean	shift_apply_above
