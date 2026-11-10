@@ -376,6 +376,10 @@ Core/CIC/Syntax.lean	shift_var_lt
 Core/CIC/Syntax.lean	shift_var_ge
 Core/CIC/Syntax.lean	shift_zero
 Core/CIC/Syntax.lean	shift_shift
+Core/CIC/TakahashiDev.lean	dev_var
+Core/CIC/TakahashiDev.lean	dev_sort
+Core/CIC/TakahashiDev.lean	dev_lam
+Core/CIC/TakahashiDev.lean	dev_pi
 Core/CIC/TermSize.lean	size_sort
 Core/CIC/TermSize.lean	size_var
 Core/CIC/TermSize.lean	size_const
