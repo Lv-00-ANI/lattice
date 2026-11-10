@@ -343,6 +343,8 @@ Core/CIC/ShiftNonComm.lean	shift_different_cutoffs_dont_commute
 Core/CIC/ShiftShiftMixed.lean	shift_shift_mixed_d_false
 Core/CIC/ShiftShiftMixed.lean	shift_shift_mixed_d_at_zero
 Core/CIC/ShiftSubstAssembly.lean	shift_subst_var_middle
+Core/CIC/ShiftSubstBinder.lean	subst_binder_both_displacements_one
+Core/CIC/ShiftSubstBinder.lean	shift_subst_var_at_one_below_j
 Core/CIC/ShiftSubstBoundary.lean	shift_subst_fails_at_cutoff_boundary
 Core/CIC/ShiftSubstCommute.lean	subst_zero_var_zero
 Core/CIC/ShiftSubstCommute.lean	subst_shift_atom_pos
