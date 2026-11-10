@@ -829,3 +829,5 @@ forward	Core/CIC/ProgressComplete.lean	var_does_not_step
 forward	Core/CIC/PiShapeBridge.lean	piShape_of_hasType
 forward	Core/CIC/PiShapeBridge.lean	piShapeR_recursion
 forward	Core/CIC/Conversion.lean	conv_trans
+copy	Core/CIC/ProgressNoConsts.lean	no_const_typed
+copy	Core/CIC/TypeUniqueness.lean	hasTypeW_no_const

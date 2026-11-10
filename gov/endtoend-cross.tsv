@@ -371,6 +371,10 @@ Core/CIC/TermSize.lean	size_step_piCod
 Core/CIC/TermSize.lean	size_step_letVal
 Core/CIC/TermSize.lean	size_step_letBody
 Core/CIC/TermSize.lean	size_beta_grows
+Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_lam
+Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_var
+Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_letE
+Core/CIC/TypeUniqueness.lean	hasTypeW_no_const
 Core/CIC/Typing.lean	typable_mono
 Core/Data/Basic.lean	dataValid_empty
 Core/Data/Bridge.lean	bridge_empty
