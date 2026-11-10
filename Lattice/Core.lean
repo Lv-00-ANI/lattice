@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstCommute
 import Lattice.Core.CIC.ParallelReductionVarying
 import Lattice.Core.CIC.ParSubstLemma
 import Lattice.Core.CIC.TakahashiDev
