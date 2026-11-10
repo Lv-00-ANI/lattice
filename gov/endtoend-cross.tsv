@@ -340,6 +340,8 @@ Core/CIC/ShiftComm.lean	shift_comm_counterexample
 Core/CIC/ShiftCommGeneral.lean	shift_commute_var
 Core/CIC/ShiftCommGeneral.lean	shift_commute_general
 Core/CIC/ShiftNonComm.lean	shift_different_cutoffs_dont_commute
+Core/CIC/ShiftShiftMixed.lean	shift_shift_mixed_d_false
+Core/CIC/ShiftShiftMixed.lean	shift_shift_mixed_d_at_zero
 Core/CIC/ShiftSubstAssembly.lean	shift_subst_var_middle
 Core/CIC/ShiftSubstBoundary.lean	shift_subst_fails_at_cutoff_boundary
 Core/CIC/ShiftSubstCommute.lean	subst_zero_var_zero
