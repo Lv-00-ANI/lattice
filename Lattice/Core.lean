@@ -1,3 +1,5 @@
+import Lattice.Core.CIC.HasType
+import Lattice.Core.CIC.Neutrality
 import Lattice.Core.CIC.ProgressFalse
 import Lattice.Core.CIC.ValueTriviality
 import Lattice.Core.CIC.InstLiftShiftGeneral
