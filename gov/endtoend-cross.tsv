@@ -269,6 +269,10 @@ Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
 Core/CIC/ParallelSubstCutoff.lean	cutoff_commutation_false
 Core/CIC/PiShape.lean	pi_typed_shape
 Core/CIC/PiShape.lean	piShape_not_sort
+Core/CIC/PiShapeRDomain.lean	piShapeR_not_sort
+Core/CIC/PiShapeRDomain.lean	piShapeR_not_pi
+Core/CIC/PiShapeRDomain.lean	piShapeR_sort_false
+Core/CIC/PiShapeRDomain.lean	sort_typed_not_piShapeR
 Core/CIC/Progress.lean	lookup_lt
 Core/CIC/Progress.lean	letE_steps
 Core/CIC/Progress.lean	beta_steps
