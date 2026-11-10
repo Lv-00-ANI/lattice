@@ -257,6 +257,8 @@ Core/CIC/ParallelSubst.lean	shift_one_one_zero_one_flat
 Core/CIC/ParallelSubst.lean	shift_commutation_general
 Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
 Core/CIC/ParallelSubstCutoff.lean	cutoff_commutation_false
+Core/CIC/ProgressFalse.lean	stuck_term_cannot_step
+Core/CIC/ProgressFalse.lean	progress_is_false
 Core/CIC/Reduction.lean	reduces_trans
 Core/CIC/Reduction.lean	reduces_of_step
 Core/CIC/Reduction.lean	beta_reduces

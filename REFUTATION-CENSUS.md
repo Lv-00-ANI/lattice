@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**343 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
+**345 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | **0** | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 31 | 5.7% |
+| `Core` | 33 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 31 | `¬ Function.Injective relu` |
-| `Core` | 31 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 31 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 31 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 31 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 33 | `¬ Function.Injective relu` |
+| `Core` | 33 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 33 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 33 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 33 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |
@@ -285,3 +285,5 @@
 **第 787 轮**：新增 2 条（`selfLoopEnv_not_lowerOnly`、`no_self_delta`），故 `Core` 由 28 升为 30、总数由 340 升为 342。
 
 **第 791 轮**：新增 1 条（`all_indices_bound_too_strong`），故 `Core` 由 30 升为 31、总数由 342 升为 343。
+
+**第 796 轮**：新增 2 条（`stuck_term_cannot_step`、`progress_is_false`），故 `Core` 由 31 升为 33、总数由 343 升为 345。
