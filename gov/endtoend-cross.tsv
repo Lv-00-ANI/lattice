@@ -219,6 +219,12 @@ Core/CIC/Compile.lean	termCode_injective
 Core/CIC/Compile.lean	compile_injective
 Core/CIC/Compile.lean	compile_sound
 Core/CIC/Compile.lean	compile_distinct
+Core/CIC/Conversion.lean	conv_refl
+Core/CIC/Conversion.lean	conv_symm
+Core/CIC/Conversion.lean	conv_trans
+Core/CIC/Conversion.lean	conv_of_step
+Core/CIC/Conversion.lean	conv_of_reduces
+Core/CIC/Conversion.lean	conv_symm_iff
 Core/CIC/HasTypeHeadForm.lean	hasType_headShape
 Core/CIC/HeadForm.lean	headForm_beta_steps
 Core/CIC/HeadForm.lean	headForm_zeta_steps
@@ -2725,11 +2731,13 @@ Plugins/Architectures/Attention/Plugin.lean	verified_obligations
 Plugins/Architectures/Conv/Manifest.lean	conv_props_hold
 Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds
+Plugins/Architectures/Conv/Plugin.lean	convWindowDeterminesOutputProp_holds
 Plugins/Architectures/Conv/Plugin.lean	proof_holds
 Plugins/Architectures/Conv/Plugin.lean	verified_manifest
 Plugins/Architectures/Conv/Plugin.lean	verified_obligations
 Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant
 Plugins/Architectures/Conv/Proofs.lean	conv_equivariant
+Plugins/Architectures/Conv/Proofs.lean	conv_window_determines_output
 Plugins/Architectures/DAG/Manifest.lean	manifest_nonempty
 Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds
