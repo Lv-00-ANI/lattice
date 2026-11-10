@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ProgressEnv
 import Lattice.Core.CIC.Progress
 import Lattice.Core.CIC.CanonicalForm
 import Lattice.Core.CIC.HasTypeHeadForm

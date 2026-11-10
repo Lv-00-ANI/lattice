@@ -271,6 +271,8 @@ Core/CIC/Progress.lean	lookup_lt
 Core/CIC/Progress.lean	letE_steps
 Core/CIC/Progress.lean	beta_steps
 Core/CIC/Progress.lean	var_is_bound
+Core/CIC/ProgressEnv.lean	const_no_step_empty
+Core/CIC/ProgressEnv.lean	const_app_cannot_step
 Core/CIC/ProgressFalse.lean	stuck_term_cannot_step
 Core/CIC/ProgressFalse.lean	progress_is_false
 Core/CIC/Reduction.lean	reduces_trans
