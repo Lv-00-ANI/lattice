@@ -10,7 +10,7 @@
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
 | **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 680 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 156 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 158 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -720,6 +720,8 @@
 | `CInterface/ABI.lean` | `abiTable_errors_wellFormed` |
 | `CInterface/ABI.lean` | `abiTable_returns_a_value` |
 | `Core/CIC/ProgressNoConsts.lean` | `no_const_typed` |
+| `Core/CIC/ShiftSubstCutoff.lean` | `subst_self_var` |
+| `Core/CIC/SubstShiftAnalysis.lean` | `subst_var_self` |
 | `Core/CIC/SubstSizeBound.lean` | `subst_size_bound_none` |
 | `Core/CIC/SubstSizeBound.lean` | `subst_size_bound_one` |
 | `Core/CIC/TypeUniqueness.lean` | `hasTypeW_no_const` |

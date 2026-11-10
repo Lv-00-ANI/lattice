@@ -836,3 +836,5 @@ forward	Core/CIC/TypeUniqProof.lean	typeUniq_no_consts_blocks_const
 forward	Core/CIC/ParallelReductionZero.lean	parRedT_refl
 forward	Core/CIC/ParallelReductionComplete.lean	parRedU_refl
 forward	Core/CIC/ParallelReductionVarying.lean	parRedV_refl
+copy	Core/CIC/ShiftSubstCutoff.lean	subst_self_var
+copy	Core/CIC/SubstShiftAnalysis.lean	subst_var_self
