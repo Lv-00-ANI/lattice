@@ -7,7 +7,7 @@
 
 ## 1. 数量与分布
 
-**355 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
+**356 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
@@ -16,7 +16,7 @@
 | `Runtime` | 10 | 3.2% |
 | `Domains` | **0** | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 43 | 5.7% |
+| `Core` | 44 | 5.7% |
 | `Geo` | 0 | 0.0% |
 | `Compose` | 0 | 0.0% |
 | `Plugins` | 29 | 9.2% |
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 43 | `¬ Function.Injective relu` |
-| `Core` | 43 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 43 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 43 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 43 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 44 | `¬ Function.Injective relu` |
+| `Core` | 44 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 44 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 44 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 44 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |
@@ -297,3 +297,5 @@
 **第 802 轮**：新增 2 条（`canonical_not_app`、`canonical_not_letE`），故 `Core` 由 38 升为 40、总数由 350 升为 352。
 
 **第 804 轮**：新增 3 条（`totalEnv_ne_empty`、`const_no_step_empty`、`const_app_cannot_step`），故 `Core` 由 40 升为 43、总数由 352 升为 355。
+
+**第 805 轮**：新增 1 条（`no_const_typed`），故 `Core` 由 43 升为 44、总数由 355 升为 356。
