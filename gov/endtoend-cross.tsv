@@ -264,6 +264,12 @@ Core/CIC/ReductionOriented.lean	no_step_sort
 Core/CIC/ReductionOriented.lean	oriented_heads_holds
 Core/CIC/RouteCObstruction.lean	subst_breaks_bound
 Core/CIC/RouteCObstruction.lean	subst_binder_shifts_index
+Core/CIC/ShiftAsInst.lean	shift_zero_one_var
+Core/CIC/ShiftAsInst.lean	lift_succSubst_zero
+Core/CIC/ShiftAsInst.lean	lift_succSubst_one
+Core/CIC/ShiftAsInst.lean	lift_succSubst_two
+Core/CIC/ShiftAsInst.lean	shift_two_one_two
+Core/CIC/ShiftAsInst.lean	lift_succSubst_agrees_shift_one
 Core/CIC/ShiftComm.lean	shift_zero_succ_var
 Core/CIC/ShiftComm.lean	shift_comm_counterexample
 Core/CIC/ShiftCommGeneral.lean	shift_commute_var
