@@ -833,3 +833,4 @@ copy	Core/CIC/ProgressNoConsts.lean	no_const_typed
 copy	Core/CIC/TypeUniqueness.lean	hasTypeW_no_const
 forward	Core/CIC/TypeUniqProof.lean	typeUniq_sort
 forward	Core/CIC/TypeUniqProof.lean	typeUniq_no_consts_blocks_const
+forward	Core/CIC/ParallelReductionZero.lean	parRedT_refl

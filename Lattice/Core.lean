@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ParallelReductionZero
 import Lattice.Core.CIC.ParRedSBridge
 import Lattice.Core.CIC.ParallelReductionAligned
 import Lattice.Core.CIC.ReducesCongruence

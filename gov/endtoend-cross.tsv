@@ -271,6 +271,8 @@ Core/CIC/ParallelReductionAligned.lean	parRedS_var
 Core/CIC/ParallelReductionAligned.lean	parRedS_sort
 Core/CIC/ParallelReductionAligned.lean	parRedS_const
 Core/CIC/ParallelReductionAligned.lean	parRedS_lam_type_fixed
+Core/CIC/ParallelReductionZero.lean	parRedT_refl
+Core/CIC/ParallelReductionZero.lean	parRedS_to_parRedT
 Core/CIC/ParallelSubst.lean	inst_lift_id
 Core/CIC/ParallelSubst.lean	inst_id
 Core/CIC/ParallelSubst.lean	inst_lift_zero
