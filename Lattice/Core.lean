@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.RouteCObstruction
 import Lattice.Core.CIC.SubstSizeBound
 import Lattice.Core.CIC.NormalizationAssembly
 import Lattice.Core.CIC.NormalFormWF

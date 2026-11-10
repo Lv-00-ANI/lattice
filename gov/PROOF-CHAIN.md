@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 96 | no imports from lift/lib |
+| core | 97 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -44,6 +44,7 @@
 - `Lattice.Core.CIC.ParallelSubstCutoff` <- `Lattice.Core.CIC.SubstBridge`
 - `Lattice.Core.CIC.Reduction` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.ReductionOriented` <- `Lattice.Core.CIC.Reduction`
+- `Lattice.Core.CIC.RouteCObstruction` <- `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.Reduction`
 - `Lattice.Core.CIC.ShiftComm` <- `Lattice.Core.CIC.Syntax`
 - `Lattice.Core.CIC.ShiftCommGeneral` <- `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.ShiftComm`
 - `Lattice.Core.CIC.ShiftNonComm` <- `Lattice.Core.CIC.Syntax`
@@ -759,7 +760,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -995,6 +996,7 @@
 | `Lattice.Core.CIC.ParallelSubstCutoff` | 1 | 0 |
 | `Lattice.Core.CIC.Reduction` | 4 | 4 |
 | `Lattice.Core.CIC.ReductionOriented` | 3 | 1 |
+| `Lattice.Core.CIC.RouteCObstruction` | 3 | 0 |
 | `Lattice.Core.CIC.ShiftComm` | 2 | 0 |
 | `Lattice.Core.CIC.ShiftCommGeneral` | 2 | 0 |
 | `Lattice.Core.CIC.ShiftNonComm` | 1 | 0 |
@@ -2379,6 +2381,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `all_contains_of_subset` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
 - `all_deviations_tail` -> `at`, `card_fin`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_deviations_tail_classic` -> `apply`, `at`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
+- `all_indices_bound_too_strong` -> `Term`, `countVar`
 - `all_residuals_zero_at_newton` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
 - `all_twelve_discharged` -> `PackageDependenciesValid`, `affineGeometryPackage`, `closed_nil_iff`, `computabilityTheoryPackage`, `dependenciesClosed_mono`, `functionalAnalysisPackage`, `graphTheoryPackage`, `graphTheory_orig_true`, `informationTheoryPackage`, `linearAlgebraPackage`, `measureTheoryPackage`, `modalLogicPackage`, `not_affineGeometry_orig`, `not_computabilityTheory_orig`, `not_forall_packageDependenciesValid`, `not_functionalAnalysis_orig`, `not_informationTheory_orig`, `not_linearAlgebra_orig`, `not_measureTheory_orig`, `not_modalLogic_orig`, `not_orderTheory_orig`, `not_probabilityTheory_orig`, `not_projectiveGeometry_orig`, `not_zfcSetTheory_orig`, `orderTheoryPackage`, `probabilityTheoryPackage`, `projectiveGeometryPackage`, `zfcSetTheoryPackage`
 - `allowed_is_convex_weights` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`
@@ -9767,6 +9770,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subspace_proj_idempotent` -> `E`, `W`, `card_fin`, `proj_fixed`, `rankOneFun`
 - `subspace_proj_mem` -> `E`, `W`, `card_fin`, `proj_fixed`, `rankOneFun`
 - `subst_aux` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `nil_append`, `preservation`, `progress`, `shift`, `subst`
+- `subst_binder_shifts_index` -> `Term`, `countVar`, `shift`, `subst`
+- `subst_breaks_bound` -> `Term`, `countVar`, `shift`, `subst`
 - `subst_const` -> `Term`, `shift`
 - `subst_ext` -> `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `subst_id` -> `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
