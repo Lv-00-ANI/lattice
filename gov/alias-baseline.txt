@@ -821,3 +821,4 @@ copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_none
 copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_one
 forward	Core/CIC/InstLiftShiftGeneral.lean	shift_one_one_zero_one_from_general
 forward	Core/CIC/ValueTriviality.lean	typable_has_value_premise_redundant
+forward	Core/CIC/Spine.lean	neutral_head_cannot_step

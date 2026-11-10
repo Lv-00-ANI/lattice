@@ -282,6 +282,10 @@ Core/CIC/ShiftComm.lean	shift_comm_counterexample
 Core/CIC/ShiftCommGeneral.lean	shift_commute_var
 Core/CIC/ShiftCommGeneral.lean	shift_commute_general
 Core/CIC/ShiftNonComm.lean	shift_different_cutoffs_dont_commute
+Core/CIC/Spine.lean	spine_two_apps
+Core/CIC/Spine.lean	neutral_spine_head
+Core/CIC/Spine.lean	neutral_head_cannot_step
+Core/CIC/Spine.lean	neutral_can_be_stuck_var
 Core/CIC/SubstBridge.lean	singleSubst_var
 Core/CIC/SubstBridge.lean	lift_singleSubst
 Core/CIC/SubstBridge.lean	inst_singleSubst
