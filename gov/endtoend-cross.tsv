@@ -232,6 +232,9 @@ Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_lt
 Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_zero
 Core/CIC/LiftAtCutoff.lean	lift_at_cutoff_ge
 Core/CIC/LiftShiftTotal.lean	lift_shift_no_commute
+Core/CIC/NeutralClosed.lean	neutral_head
+Core/CIC/NeutralClosed.lean	closed_head_lt
+Core/CIC/NeutralClosed.lean	neutral_head_closed
 Core/CIC/NormalFormFailure.lean	selfLoop_step
 Core/CIC/NormalFormFailure.lean	selfLoop_step_eq
 Core/CIC/NormalFormFailure.lean	selfLoop_reduces_n

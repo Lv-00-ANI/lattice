@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.NeutralClosed
 import Lattice.Core.CIC.HasType
 import Lattice.Core.CIC.Neutrality
 import Lattice.Core.CIC.ProgressFalse
