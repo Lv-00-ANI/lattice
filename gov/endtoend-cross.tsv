@@ -226,6 +226,8 @@ Core/CIC/Conversion.lean	conv_of_step
 Core/CIC/Conversion.lean	conv_of_reduces
 Core/CIC/Conversion.lean	conv_symm_iff
 Core/CIC/HasTypeHeadForm.lean	hasType_headShape
+Core/CIC/HasTypeW.lean	hasType_to_hasTypeW
+Core/CIC/HasTypeW.lean	hasTypeW_app_pi
 Core/CIC/HeadForm.lean	headForm_beta_steps
 Core/CIC/HeadForm.lean	headForm_zeta_steps
 Core/CIC/HeadForm.lean	headForm_delta_steps
