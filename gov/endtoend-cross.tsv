@@ -263,6 +263,9 @@ Core/CIC/Normalization.lean	reduces_iff_exists_within
 Core/CIC/NormalizationAssembly.lean	maxConst_beta_after
 Core/CIC/NormalizationAssembly.lean	size_beta_before_after
 Core/CIC/NormalizationAssembly.lean	beta_no_lex_descent
+Core/CIC/ParallelReduction.lean	parRed_refl_atom
+Core/CIC/ParallelReduction.lean	parRed_of_step_var
+Core/CIC/ParallelReduction.lean	parRed_sort
 Core/CIC/ParallelSubst.lean	inst_lift_id
 Core/CIC/ParallelSubst.lean	inst_id
 Core/CIC/ParallelSubst.lean	inst_lift_zero

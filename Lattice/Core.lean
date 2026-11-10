@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ParallelReduction
 import Lattice.Core.CIC.TypeUniqProof
 import Lattice.Core.CIC.TypeUniqPrereq
 import Lattice.Core.CIC.TypeUniqueness
