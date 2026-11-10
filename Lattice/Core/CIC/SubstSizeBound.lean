@@ -76,4 +76,101 @@ theorem countVar_A0 : countVar 0 A0 = 0 := by decide
 **=> 这就是 `beta` 在它上面**增长**的定量原因：`3 ≥ 2`。** -/
 theorem countVar_bb : countVar 0 bb = 4 := by decide
 
+/-- **`shift` 不改变项的大小。**
+
+**对**任意** cutoff `c` 与位移量 `d`：`size (shift c d s) = size s`。**
+
+**=> 必须对 `c` 一般化：绑定情形会把 cutoff 加一，
+只对 `c = 0` 证的版本在 `lam`/`pi`/`letE` 上会要求 `shift 0 1 b` 而实际需要 `shift 1 1 b`。
+这是第 783 轮同一结论的第二次出现。** -/
+theorem size_shift_gen (s : Term) (c d : ℕ) : size (shift c d s) = size s := by
+  induction s generalizing c with
+  | var n => simp only [shift]; split <;> simp only [size]
+  | sort a l => simp only [shift, size]
+  | const k => simp only [shift, size]
+  | app f a ihf iha => simp only [shift, size, ihf, iha]
+  | lam A b ihA ihb => simp only [shift, size]; rw [ihA c, ihb (c + 1)]
+  | pi A B ihA ihB => simp only [shift, size]; rw [ihA c, ihB (c + 1)]
+  | letE A tt b ihA iht ihb => simp only [shift, size]; rw [ihA c, iht c, ihb (c + 1)]
+
+/-- **替换的尺寸上界（路线 C 的核心）。**
+
+**`size (subst k a b) ≤ countVar k b * size a + size b`。**
+
+**意思是「替换把 `a` 复制了至多 `countVar k b` 次」。
+绑定情形需要 `size (shift 0 1 a) = size a`，那正是上一条。** -/
+theorem subst_size_bound (b a : Term) (k : ℕ) :
+    size (subst k a b) ≤ countVar k b * size a + size b := by
+  induction b generalizing k a with
+  | var n =>
+      simp only [subst, countVar]
+      by_cases h : n = k
+      · simp only [h, if_true, if_pos, size_var]; omega
+      · simp only [h, if_neg, if_false]
+        split <;> simp only [size_var, if_neg h] <;> omega
+  | sort x l => simp only [subst, countVar, size]; omega
+  | const c => simp only [subst, countVar, size]; omega
+  | app f x ihf ihx =>
+      simp only [subst, countVar, size]
+      have h1 := ihf a k
+      have h2 := ihx a k
+      have p1 := size_pos f
+      have p2 := size_pos x
+      nlinarith
+  | lam A b ihA ihb =>
+      simp only [subst, countVar, size]
+      have h1 := ihA a k
+      have h2 := ihb (shift 0 1 a) (k + 1)
+      rw [size_shift_gen a 0 1] at h2
+      nlinarith
+  | pi A B ihA ihB =>
+      simp only [subst, countVar, size]
+      have h1 := ihA a k
+      have h2 := ihB (shift 0 1 a) (k + 1)
+      rw [size_shift_gen a 0 1] at h2
+      nlinarith
+  | letE A tt b ihA iht ihb =>
+      simp only [subst, countVar, size]
+      have h1 := ihA a k
+      have h2 := iht a k
+      have h3 := ihb (shift 0 1 a) (k + 1)
+      rw [size_shift_gen a 0 1] at h3
+      nlinarith
+
+/-- **当 `b` 里没有 `var 0` 时，替换不增大。**
+
+**`countVar 0 b = 0 → size (subst 0 a b) ≤ size b`。** -/
+theorem subst_size_bound_none {b a : Term} (h : countVar 0 b = 0) :
+    size (subst 0 a b) ≤ size b := by
+  have hb := subst_size_bound b a 0
+  rw [h] at hb
+  omega
+
+/-- **当 `b` 里 `var 0` 恰出现一次时，替换至多加一份 `a`。**
+
+**`countVar 0 b = 1 → size (subst 0 a b) ≤ size a + size b`。** -/
+theorem subst_size_bound_one {b a : Term} (h : countVar 0 b = 1) :
+    size (subst 0 a b) ≤ size a + size b := by
+  have hb := subst_size_bound b a 0
+  rw [h] at hb
+  omega
+
+/-- **路线 C 的结论：`var 0` 出现不超过一次时，`beta` **严格下降**。**
+
+**`countVar 0 b ≤ 1 → size (subst 0 a b) < size (app (lam A b) a)`。**
+
+**=> 这就是第 788 轮所说「路线 C：限制 `b`」的**正式内容**。
+第 785 轮的反例有 `countVar 0 bb = 4`，恰好在这条界之外。** -/
+theorem beta_size_decreases_of_countVar_le_one {A b a : Term}
+    (h : countVar 0 b ≤ 1) :
+    size (subst 0 a b) < size (Term.app (Term.lam A b) a) := by
+  have hb := subst_size_bound b a 0
+  have hpos := size_pos a
+  have hsize : size (Term.app (Term.lam A b) a) = size A + size b + 1 + size a + 1 := rfl
+  rw [hsize]
+  have : countVar 0 b * size a ≤ size a := by
+    nlinarith
+  have hA := size_pos A
+  nlinarith
+
 end Lattice.Core.CIC

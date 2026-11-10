@@ -1002,7 +1002,7 @@
 | `Lattice.Core.CIC.SubstComp` | 2 | 1 |
 | `Lattice.Core.CIC.SubstCompParallel` | 5 | 2 |
 | `Lattice.Core.CIC.SubstShiftAnalysis` | 5 | 0 |
-| `Lattice.Core.CIC.SubstSizeBound` | 10 | 1 |
+| `Lattice.Core.CIC.SubstSizeBound` | 15 | 1 |
 | `Lattice.Core.CIC.SubstTable` | 5 | 0 |
 | `Lattice.Core.CIC.Substitution` | 4 | 2 |
 | `Lattice.Core.CIC.SubstitutionShift` | 3 | 0 |
@@ -2685,6 +2685,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `beta_no_lex_descent` -> `Term`, `maxConst`, `size`, `subst`
 - `beta_preserves_depth` -> `d`, `depth`, `induction`, `size`, `step`
 - `beta_reduces` -> `E`, `Term`, `subst`
+- `beta_size_decreases_of_countVar_le_one` -> `Term`, `size`, `size_pos`, `subst`
 - `beta_strictly_decreases_size` -> `d`, `depth`, `induction`, `size`, `step`
 - `bf16_round_nonempty` -> `IEEERound`, `RoundMode`, `bf16`, `fp32`, `tiny`
 - `bfgs_form_pd` -> `at`, `mulVec`
@@ -3740,16 +3741,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `correction_is_witnessed` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `countList_cons` -> `Compiler`, `Tree`
 - `countList_nil` -> `Compiler`, `Tree`
-- `countVar_A0` -> `A0`, `bb`
-- `countVar_app` -> `A0`, `Term`, `bb`
-- `countVar_bb` -> `bb`
-- `countVar_const` -> `A0`, `Term`, `bb`
-- `countVar_lam` -> `A0`, `Term`, `bb`
-- `countVar_letE` -> `A0`, `Term`, `bb`
-- `countVar_pi` -> `A0`, `Term`, `bb`
-- `countVar_sort` -> `A0`, `Level`, `SortKind`, `Term`, `bb`
-- `countVar_var_eq` -> `A0`, `Term`, `bb`
-- `countVar_var_ne` -> `A0`, `Term`, `bb`
+- `countVar_A0` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_app` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_bb` -> `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_const` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_lam` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_letE` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_pi` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_sort` -> `A0`, `Level`, `SortKind`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_var_eq` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `countVar_var_ne` -> `A0`, `Term`, `at`, `bb`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
 - `count_eq_of_eq` -> `Compiler`, `Tree`
 - `count_node` -> `Compiler`, `Tree`
 - `count_node_eq` -> `Compiler`, `Tree`
@@ -9299,6 +9300,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `size_pos_aux` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `size_pos_both` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_pos`, `size_seq`
 - `size_pos_both_mutual` -> `induction`, `lit`, `size`, `size_pos`, `subst`
+- `size_shift_gen` -> `Term`, `at`, `d`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
 - `size_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_step_appL` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_step_appR` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
@@ -9776,6 +9778,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_shift_at_untouched_index` -> `Term`, `d`, `shift`, `subst`
 - `subst_shift_counterexample` -> `Term`, `shift`, `subst`
 - `subst_shift_target` -> `Term`, `shift`, `shift_var_ge`, `subst`, `subst_var_eq`, `subst_var_gt`, `subst_var_lt`
+- `subst_size_bound` -> `Term`, `at`, `induction`, `shift`, `size`, `size_pos`, `size_var`, `split`, `subst`
+- `subst_size_bound_none` -> `Term`, `at`, `size`, `size_pos`, `subst`
+- `subst_size_bound_one` -> `Term`, `at`, `size`, `size_pos`, `subst`
 - `subst_subst` -> `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `subst_var_eq` -> `Term`, `shift`
 - `subst_var_gt` -> `Term`, `shift`

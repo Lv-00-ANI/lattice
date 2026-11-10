@@ -278,6 +278,11 @@ Core/CIC/SubstShiftAnalysis.lean	subst_shift_agree_below
 Core/CIC/SubstShiftAnalysis.lean	subst_var_self
 Core/CIC/SubstShiftAnalysis.lean	subst_shift_at_untouched_index
 Core/CIC/SubstShiftAnalysis.lean	subst_shift_counterexample
+Core/CIC/SubstSizeBound.lean	size_shift_gen
+Core/CIC/SubstSizeBound.lean	subst_size_bound
+Core/CIC/SubstSizeBound.lean	subst_size_bound_none
+Core/CIC/SubstSizeBound.lean	subst_size_bound_one
+Core/CIC/SubstSizeBound.lean	beta_size_decreases_of_countVar_le_one
 Core/CIC/SubstTable.lean	comp_lt
 Core/CIC/SubstTable.lean	comp_eq
 Core/CIC/SubstTable.lean	comp_gt_succ

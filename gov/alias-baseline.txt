@@ -817,3 +817,5 @@ forward	Semantics/VocabEdit.lean	split_error_bound
 forward	Semantics/VocabEdit.lean	vocab_compat_permutation
 forward	Core/Data/Models.lean	data_models
 forward	Core/Data/Models.lean	data_models_shape
+copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_none
+copy	Core/CIC/SubstSizeBound.lean	subst_size_bound_one
