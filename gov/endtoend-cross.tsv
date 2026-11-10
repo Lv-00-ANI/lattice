@@ -269,6 +269,7 @@ Core/CIC/ParallelSubst.lean	shift_one_one_zero_one
 Core/CIC/ParallelSubstCutoff.lean	cutoff_commutation_false
 Core/CIC/PiShape.lean	pi_typed_shape
 Core/CIC/PiShape.lean	piShape_not_sort
+Core/CIC/PiShapeBridge.lean	piShape_of_hasType
 Core/CIC/PiShapeRDomain.lean	piShapeR_not_sort
 Core/CIC/PiShapeRDomain.lean	piShapeR_not_pi
 Core/CIC/PiShapeRDomain.lean	piShapeR_sort_false

@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.PiShapeBridge
 import Lattice.Core.CIC.PiShapeRDomain
 import Lattice.Core.CIC.PiShapeRDirection
 import Lattice.Core.CIC.PiShapeR

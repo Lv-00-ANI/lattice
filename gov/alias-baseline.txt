@@ -826,3 +826,5 @@ forward	Core/CIC/HeadForm.lean	headForm_value_not_neutral
 forward	Core/CIC/CanonicalForm.lean	hasType_shape4
 forward	Core/CIC/ProgressComplete.lean	var_bound_in_closed
 forward	Core/CIC/ProgressComplete.lean	var_does_not_step
+forward	Core/CIC/PiShapeBridge.lean	piShape_of_hasType
+forward	Core/CIC/PiShapeBridge.lean	piShapeR_recursion
