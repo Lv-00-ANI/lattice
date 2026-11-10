@@ -834,3 +834,4 @@ copy	Core/CIC/TypeUniqueness.lean	hasTypeW_no_const
 forward	Core/CIC/TypeUniqProof.lean	typeUniq_sort
 forward	Core/CIC/TypeUniqProof.lean	typeUniq_no_consts_blocks_const
 forward	Core/CIC/ParallelReductionZero.lean	parRedT_refl
+forward	Core/CIC/ParallelReductionComplete.lean	parRedU_refl
