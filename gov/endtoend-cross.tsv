@@ -216,6 +216,7 @@ Core/CIC/Compile.lean	termCode_injective
 Core/CIC/Compile.lean	compile_injective
 Core/CIC/Compile.lean	compile_sound
 Core/CIC/Compile.lean	compile_distinct
+Core/CIC/HasTypeHeadForm.lean	hasType_headShape
 Core/CIC/HeadForm.lean	headForm_beta_steps
 Core/CIC/HeadForm.lean	headForm_zeta_steps
 Core/CIC/HeadForm.lean	headForm_delta_steps
