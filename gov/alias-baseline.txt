@@ -835,4 +835,4 @@ forward	Core/CIC/TypeUniqProof.lean	typeUniq_sort
 forward	Core/CIC/TypeUniqProof.lean	typeUniq_no_consts_blocks_const
 forward	Core/CIC/ParallelReductionZero.lean	parRedT_refl
 forward	Core/CIC/ParallelReductionComplete.lean	parRedU_refl
-forward	Core/CIC/ParSubstLemma.lean	shift_zero_is_refl
+forward	Core/CIC/ParallelReductionVarying.lean	parRedV_refl

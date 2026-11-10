@@ -36,8 +36,8 @@
 | `Core/CIC/Conversion.lean` | `conv_trans` |
 | `Core/CIC/HeadForm.lean` | `headForm_value_not_neutral` |
 | `Core/CIC/InstLiftShiftGeneral.lean` | `shift_one_one_zero_one_from_general` |
-| `Core/CIC/ParSubstLemma.lean` | `shift_zero_is_refl` |
 | `Core/CIC/ParallelReductionComplete.lean` | `parRedU_refl` |
+| `Core/CIC/ParallelReductionVarying.lean` | `parRedV_refl` |
 | `Core/CIC/ParallelReductionZero.lean` | `parRedT_refl` |
 | `Core/CIC/ParallelSubst.lean` | `shift_one_one_zero_one` |
 | `Core/CIC/PiShapeBridge.lean` | `piShapeR_recursion` |
