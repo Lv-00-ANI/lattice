@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ValueTriviality
 import Lattice.Core.CIC.InstLiftShiftGeneral
 import Lattice.Core.CIC.ShiftAsInst
 import Lattice.Core.CIC.InstShiftZero
