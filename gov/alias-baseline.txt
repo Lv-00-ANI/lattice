@@ -823,3 +823,4 @@ forward	Core/CIC/InstLiftShiftGeneral.lean	shift_one_one_zero_one_from_general
 forward	Core/CIC/ValueTriviality.lean	typable_has_value_premise_redundant
 forward	Core/CIC/Spine.lean	neutral_head_cannot_step
 forward	Core/CIC/HeadForm.lean	headForm_value_not_neutral
+forward	Core/CIC/CanonicalForm.lean	hasType_shape4
