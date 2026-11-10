@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstBoundary
 import Lattice.Core.CIC.ShiftSubstLaw
 import Lattice.Core.CIC.ShiftSubstCutoff
 import Lattice.Core.CIC.ShiftSubstCommute
