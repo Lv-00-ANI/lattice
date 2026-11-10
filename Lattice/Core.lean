@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstStable
 import Lattice.Core.CIC.ShiftShiftMixed
 import Lattice.Core.CIC.ShiftSubstAssembly
 import Lattice.Core.CIC.ShiftSubstBoundary

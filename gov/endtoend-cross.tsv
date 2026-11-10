@@ -354,6 +354,8 @@ Core/CIC/ShiftSubstCutoff.lean	shift_above_cutoff_var
 Core/CIC/ShiftSubstCutoff.lean	shift_subst_needs_strict
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_self
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_below
+Core/CIC/ShiftSubstStable.lean	shift_one_one_commutes
+Core/CIC/ShiftSubstStable.lean	shift_one_one_self
 Core/CIC/Spine.lean	spine_two_apps
 Core/CIC/Spine.lean	neutral_spine_head
 Core/CIC/Spine.lean	neutral_head_cannot_step
