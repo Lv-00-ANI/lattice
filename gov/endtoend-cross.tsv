@@ -348,6 +348,8 @@ Core/CIC/ShiftSubstCutoff.lean	subst_self_var
 Core/CIC/ShiftSubstCutoff.lean	subst_below_var
 Core/CIC/ShiftSubstCutoff.lean	shift_above_cutoff_var
 Core/CIC/ShiftSubstCutoff.lean	shift_subst_needs_strict
+Core/CIC/ShiftSubstLaw.lean	shift_subst_var_self
+Core/CIC/ShiftSubstLaw.lean	shift_subst_var_below
 Core/CIC/Spine.lean	spine_two_apps
 Core/CIC/Spine.lean	neutral_spine_head
 Core/CIC/Spine.lean	neutral_head_cannot_step
