@@ -376,6 +376,10 @@ Core/CIC/TypeUniqPrereq.lean	reduces_pi_cod
 Core/CIC/TypeUniqPrereq.lean	conv_pi_dom
 Core/CIC/TypeUniqPrereq.lean	conv_pi_cod
 Core/CIC/TypeUniqPrereq.lean	conv_pi_congr
+Core/CIC/TypeUniqProof.lean	typeUniq_no_consts_blocks_const
+Core/CIC/TypeUniqProof.lean	typeUniq_fails_for_any_consts
+Core/CIC/TypeUniqProof.lean	typeUniq_sort
+Core/CIC/TypeUniqProof.lean	typeUniq_var
 Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_lam
 Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_var
 Core/CIC/TypeUniqueness.lean	hasTypeW_piShapeR_letE

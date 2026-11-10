@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.TypeUniqProof
 import Lattice.Core.CIC.TypeUniqPrereq
 import Lattice.Core.CIC.TypeUniqueness
 import Lattice.Core.CIC.HasTypeW
