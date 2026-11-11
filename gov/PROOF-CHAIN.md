@@ -11,7 +11,7 @@
 | core | 155 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 623 | instantiated library, may import core only |
+| lib | 624 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -370,6 +370,7 @@
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.CombinatorsXorNot` <- `Lattice.Lib.Compiler.Combinators`
 - `Lattice.Lib.Compiler.Disjunction` <- `Lattice.Runtime.ConvertLinear`
+- `Lattice.Lib.Compiler.FloatMulBoundDischarged` <- `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.LvDSLPartial` 
 - `Lattice.Lib.Compiler.ModConstraint` 
@@ -833,7 +834,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1380,6 +1381,7 @@
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
 | `Lattice.Lib.Compiler.CombinatorsXorNot` | 17 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
+| `Lattice.Lib.Compiler.FloatMulBoundDischarged` | 8 | 1 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
 | `Lattice.Lib.Compiler.ModConstraint` | 13 | 3 |
@@ -3470,6 +3472,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_correct_empty` -> `Compiler`, `add`, `at`, `compile`, `induction`, `length`, `lit`, `mul`, `run`
 - `compile_empty` -> `CompilerConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
 - `compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le_trans`, `lit`, `tiny`
+- `compile_error_bound_mul_discharged` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `at`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `mag`, `numOps`, `tiny`
 - `compile_error_bound_pure` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `lit`, `mul`, `tiny`
 - `compile_exact_of_zero_ops` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `lit`, `mul`
 - `compile_extract_adjunction_iso` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
@@ -10401,6 +10404,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tinyGrid_sign_pos` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `eps`, `fp16`, `fp32`, `tiny`
 - `tinyGrid_subnormal` -> `FloatFormat`, `IEEERound`, `RoundMode`, `bf16`, `fp16`, `fp32`, `tiny`
 - `tk_exists_aux` -> `IsTopK`, `at`, `induction`, `insert`, `zero`
+- `toCP_add` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceFloat`, `ceMag`, `ceOps`, `ceReal`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_float` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceFloat`, `ceMag`, `ceOps`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_mag` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceMag`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_mul` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceFloat`, `ceMag`, `ceOps`, `ceReal`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_neg` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceFloat`, `ceMag`, `ceOps`, `ceReal`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_ops` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceMag`, `ceOps`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
+- `toCP_real` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `add`, `at`, `ceFloat`, `ceMag`, `ceOps`, `ceReal`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `induction`, `lit`, `mag`, `mul`, `numOps`, `tiny`
 - `toChainBetween_head` -> `Arch`, `Chain`, `Weights`, `depth`, `toLayer`, `width`
 - `toChainBetween_self` -> `Arch`, `Chain`, `Weights`, `depth`, `le_refl`, `toLayer`, `width`
 - `toChainBetween_single` -> `Arch`, `Chain`, `Weights`, `depth`, `toChainBetween`, `toLayer`, `width`

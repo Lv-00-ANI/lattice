@@ -85,7 +85,13 @@ def lean_files(root=ZERO, scope=None):
     out = []
     for base, dirs, names in os.walk(root):
         parts = base.split(os.sep)
-        if ".lake" in parts or "gov" in parts or "_archive" in parts:
+        # `agent-tmp` is the scratch directory: throwaway probes, one-liner `#eval` files and
+        # experimental rewrites live there and are NOT part of the tree. It has been written into with a
+        # `.lean` probe five separate times across this development, and each time the gate turned red on
+        # a file nobody meant to ship. Excluding the directory rather than pattern-matching `*Probe.lean`
+        # is deliberate: `Lattice/Core/CIC/ShiftSubstOffsetProbe` is a REAL submitted module with a real
+        # docstring and a real importer, and a `*Probe.lean` glob would silently drop it.
+        if ".lake" in parts or "gov" in parts or "_archive" in parts or "agent-tmp" in parts:
             continue
         for n in names:
             if not n.endswith(".lean"):

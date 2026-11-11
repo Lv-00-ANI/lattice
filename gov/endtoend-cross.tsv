@@ -1341,6 +1341,11 @@ Lib/Compiler/CombinatorsXorNot.lean	notC_eq_xorC_zero
 Lib/Compiler/CombinatorsXorNot.lean	notC_zero_iff_xorC_zero_zero
 Lib/Compiler/Disjunction.lean	prod_eq_zero_iff_exists
 Lib/Compiler/Disjunction.lean	disjN_preserves
+Lib/Compiler/FloatMulBoundDischarged.lean	toCP_real
+Lib/Compiler/FloatMulBoundDischarged.lean	toCP_float
+Lib/Compiler/FloatMulBoundDischarged.lean	toCP_ops
+Lib/Compiler/FloatMulBoundDischarged.lean	toCP_mag
+Lib/Compiler/FloatMulBoundDischarged.lean	compile_error_bound_mul_discharged
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le_of_fixed
