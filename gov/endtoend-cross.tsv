@@ -271,6 +271,9 @@ Core/CIC/ParRedUEquivalence.lean	step_to_parRedU
 Core/CIC/ParRedUEquivalence.lean	parRedU_imp_reduces
 Core/CIC/ParSubstLemma.lean	shift_zero_displacement
 Core/CIC/ParSubstLemma.lean	parRedVStruct_shift
+Core/CIC/ParSubstOneDim.lean	subst_var_cases
+Core/CIC/ParSubstOneDim.lean	parRedV_subst_var
+Core/CIC/ParSubstOneDim.lean	parRedV_subst_app
 Core/CIC/ParallelReduction.lean	parRed_refl_atom
 Core/CIC/ParallelReduction.lean	parRed_of_step_var
 Core/CIC/ParallelReduction.lean	parRed_sort
