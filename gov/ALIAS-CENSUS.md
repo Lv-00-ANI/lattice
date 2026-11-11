@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 688 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 689 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -49,6 +49,7 @@
 | `Core/CIC/Reduction.lean` | `zeta_reduces` |
 | `Core/CIC/ShiftSubstBinder.lean` | `subst_binder_both_displacements_one` |
 | `Core/CIC/ShiftSubstComplete.lean` | `shift_subst_var_d1_complete` |
+| `Core/CIC/ShiftSubstJointBounded.lean` | `shift_subst_joint_bounded_one` |
 | `Core/CIC/ShiftSubstStable.lean` | `shift_one_one_commutes` |
 | `Core/CIC/ShiftSubstStable.lean` | `shift_one_one_self` |
 | `Core/CIC/Spine.lean` | `neutral_head_cannot_step` |
