@@ -10,7 +10,6 @@ Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean
 Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean
 Lib/Chain/RealLv00LinearAlgebra.lean
 Lib/Chain/RealModelFamilyChainWiring.lean
-Lib/Chain/RealN2AxiomDischargeJia.lean
 Lib/Chain/RealNumericChainOrder.lean
 Lib/Chain/RealNumericChainOrder_parts/A.lean
 Lib/Chain/RealNumericChainOrder_parts/B.lean

@@ -52,7 +52,6 @@ import Lattice.Lib.Chain.RealLv00Systems
 import Lattice.Lib.Chain.RealModelChain
 import Lattice.Lib.Chain.RealModelChainHetero
 import Lattice.Lib.Chain.RealModelFamilyChainWiring
-import Lattice.Lib.Chain.RealN2AxiomDischargeJia
 import Lattice.Lib.Chain.RealNumericChainOrder
 import Lattice.Lib.Chain.RealOrphanWiring
 import Lattice.Lib.Chain.RealPAdicValuationAbstract
