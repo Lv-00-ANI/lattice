@@ -1137,6 +1137,9 @@ Lib/Chain/RealLv00Solver.lean	parse_szs_status_theorem_prefix
 Lib/Chain/RealLv00Solver.lean	atp_to_lv_step_mapping_resolution
 Lib/Chain/RealLv00Solver.lean	atp_to_lv_step_mapping_superposition
 Lib/Chain/RealLv00Solver.lean	atp_to_lv_step_mapping_exhaustive
+Lib/Chain/RealLv00SolverConflictDetection.lean	detDetect_empty_of_no_conflict
+Lib/Chain/RealLv00SolverConflictDetection.lean	detDetect_nonempty_of_conflict
+Lib/Chain/RealLv00SolverConflictDetection.lean	detDetect_isMinimal_eq_false
 Lib/Chain/RealLv00Systems.lean	go_nil
 Lib/Chain/RealLv00Systems.lean	go_cons
 Lib/Chain/RealLv00Systems.lean	traceFold_nil

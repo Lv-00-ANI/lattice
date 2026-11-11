@@ -11,7 +11,7 @@
 | core | 155 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 625 | instantiated library, may import core only |
+| lib | 626 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -345,6 +345,7 @@
 - `Lattice.Lib.Chain.RealLv00GroebnerConstraint` 
 - `Lattice.Lib.Chain.RealLv00LinearAlgebra` 
 - `Lattice.Lib.Chain.RealLv00Solver` 
+- `Lattice.Lib.Chain.RealLv00SolverConflictDetection` 
 - `Lattice.Lib.Chain.RealLv00Systems` 
 - `Lattice.Lib.Chain.RealModelChain` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockConstants`
 - `Lattice.Lib.Chain.RealModelChainHetero` <- `Lattice.Lib.Chain.RealModelChain`, `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealBlockConstants`
@@ -835,7 +836,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1357,6 +1358,7 @@
 | `Lattice.Lib.Chain.RealLv00GroebnerConstraint` | 25 | 6 |
 | `Lattice.Lib.Chain.RealLv00LinearAlgebra` | 36 | 29 |
 | `Lattice.Lib.Chain.RealLv00Solver` | 54 | 72 |
+| `Lattice.Lib.Chain.RealLv00SolverConflictDetection` | 3 | 6 |
 | `Lattice.Lib.Chain.RealLv00Systems` | 27 | 23 |
 | `Lattice.Lib.Chain.RealModelChain` | 6 | 2 |
 | `Lattice.Lib.Chain.RealModelChainHetero` | 6 | 2 |
@@ -4252,6 +4254,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `destructiveFix_atomic` -> `Audit`, `Sat`, `at`, `subst`
 - `destructiveFix_decreases` -> `Audit`, `Sat`, `at`, `subst`
 - `destructiveFix_not_absorbs` -> `Audit`, `Sat`, `at`, `subst`
+- `detDetect_empty_of_no_conflict` -> `Chain`, `at`, `split`
+- `detDetect_isMinimal_eq_false` -> `Chain`, `split`
+- `detDetect_nonempty_of_conflict` -> `Chain`, `at`, `split`
 - `detP_nonneg` -> `BellmanOp`, `split`, `step`
 - `detP_row_sum` -> `BellmanOp`, `split`, `step`
 - `detailedBalance_stationary` -> `at`, `contraction_converges`, `induction`, `le_antisymm`, `min`, `mix`, `zero`
