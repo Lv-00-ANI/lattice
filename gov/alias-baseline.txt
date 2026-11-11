@@ -841,3 +841,4 @@ copy	Core/CIC/SubstShiftAnalysis.lean	subst_var_self
 forward	Core/CIC/ShiftSubstStable.lean	shift_one_one_commutes
 forward	Core/CIC/ShiftSubstStable.lean	shift_one_one_self
 forward	Core/CIC/ShiftSubstBinder.lean	subst_binder_both_displacements_one
+forward	Core/CIC/ShiftSubstComplete.lean	shift_subst_var_d1_complete

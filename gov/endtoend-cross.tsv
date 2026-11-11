@@ -351,6 +351,8 @@ Core/CIC/ShiftSubstCommute.lean	subst_zero_var_zero
 Core/CIC/ShiftSubstCommute.lean	subst_shift_atom_pos
 Core/CIC/ShiftSubstCommute.lean	shift_var_zero_at
 Core/CIC/ShiftSubstCommute.lean	shift_subst_no_unconditional
+Core/CIC/ShiftSubstComplete.lean	shift_subst_var_d1
+Core/CIC/ShiftSubstComplete.lean	shift_subst_var_d1_complete
 Core/CIC/ShiftSubstCutoff.lean	subst_self_var
 Core/CIC/ShiftSubstCutoff.lean	subst_below_var
 Core/CIC/ShiftSubstCutoff.lean	shift_above_cutoff_var
