@@ -2,52 +2,38 @@ import Mathlib
 import Lattice.Core.CIC.SubstBounded
 
 /-!
-# `bounded` 与 `shift`：三段已证，以及绑定分支**真正**的障碍（阶段 5）
+# `bounded` 在 `shift` 下保持：完整证明（阶段 5）
 
-## 第 844 轮的诊断是错的，本轮把它纠正
+## 两轮才走通的原因，以及最终写法
 
-**第 844 轮把绑定分支的失败归因于「`(j+1)+d` 与 `j+(1+d)` 无法被 Lean 统一」。**
-
-**本轮重试并在错误信息里读到了真正的原因，它是**归纳假设的签名**，不是算术：**
+**第 844 轮把障碍误报成「算术不统一」；第 845 轮读错误信息后查明真正原因是
+`induction ... generalizing j c d` 生成的归纳假设把这三个参数放在**最前面**：**
 
 ```lean
-ihA : ∀ (j c d : ℕ), c ≤ j → bounded j A = true → bounded (j + d) (shift c d A) = true
+ihA : ∀ (j c d : Nat), c ≤ j → bounded j A = true → bounded (j + d) (shift c d A) = true
 ```
 
-**`generalizing j c d` 把三个参数**放在最前面**，所以正确的应用是**
+**所以正确的应用是 `ihA j c d hc hA`（本体）与 `ihA (j+1) (c+1) d (by omega) hb`（绑定体内），
+而不是 `ihA hc hA`。**
 
-```
-ihA (j+1) (c+1) d (by omega) hb         -- 四个显式参数，再是两个前提
-```
+**本轮按这个顺序写，`app` 与 `lam` 一次通过 —— 两轮的全部差别就是一个参数顺序。**
 
-**而不是 `ihA hc hA`（那会试图把 `hc` 当作 `j`）。第 844 轮的 `simpa ... using` 掩盖了这个
-参数顺序问题，把错误报成了「算术不统一」。**
+## 六个分支
 
-**=> 教训：`induction ... generalizing x y z` 生成的假设把 `x y z` 当成**前三个显式参数**，
-必须按那个顺序给出实参；`hc`、`hA` 这类前提排在它们**之后**。**
-
-## 本文件保留什么
-
-| 定理 | 内容 |
+| `t` | 依据 |
 |:--|:--|
-| `bounded_shift_atom` | **`sort`/`const` 在 `shift` 下保持 `bounded`** |
-| `bounded_shift_var` | **`var n` 的情形，两个 `shift` 分支都闭合** |
-| `bounded_shift_app` | **`app` 情形由两侧归纳假设给出** |
+| `sort` / `const` | **`simp [bounded, shift]`** |
+| `var n` | **`bounded_shift_var`** |
+| `app f a` | **`ihf j c d hc hf` 与 `iha j c d hc ha`** |
+| `lam A b` | **`ihA j c d hc hA` 与 `ihb (j+1) (c+1) d (by omega) hb`** |
+| `pi A B` | **同 `lam`** |
+| `letE A t b` | **类型与值用 `(j, c)`；体用 `(j+1, c+1)`** |
 
-**=> 三个非绑定分支成立；缺口在绑定层，而它的**形状**本轮已查明（见上）。**
-**下一次尝试可以直接写 `ihA (j+1) (c+1) d (by omega) hb`，不需要再做任何算术调试。** -/
+**=> 关键是把每个归纳假设的**三个一般化参数**显式给出，并把前提排在它们之后。** -/
 
 namespace Lattice.Core.CIC
 
-/-- **`sort` 在 `shift` 下保持 `bounded`（恒真）。** -/
-theorem bounded_shift_atom (c d : ℕ) (k : SortKind) (l : Level) :
-    bounded (0 + d) (shift c d (.sort k l)) = true := by
-  simp [bounded, shift]
-
-/-- **`var n` 在 `shift` 下的保持：`n < j` 给出 `n < j + d`。**
-
-**=> `shift` 的两个分支分别给 `var n`（当 `n < c`）与 `var (n+d)`；
-两者都 `< j + d`，因为 `n < j` 与 `n + d < j + d`。** -/
+/-- **`var n` 在 `shift` 下的保持：`n < j` 给出 `n < j + d`。** -/
 theorem bounded_shift_var {j : ℕ} (n : ℕ) (hn : n < j) (c d : ℕ) :
     bounded (j + d) (shift c d (.var n)) = true := by
   simp only [shift]
@@ -61,15 +47,71 @@ theorem bounded_shift_var {j : ℕ} (n : ℕ) (hn : n < j) (c d : ℕ) :
     simp
     omega
 
-/-- **`app` 在 `shift` 下的保持：两侧各有归纳假设即可。**
+/-- **`bounded` 在 `shift` 下保持：上界恰好抬高 `d`。**
 
-**=> 这是 `bounded` 与 `shift` 在**二元构造子**上的相容性，
-它不涉及任何 cutoff 的重排，因此是安全的。** -/
-theorem bounded_shift_app {j d : ℕ} {f a : Term}
-    (hf : bounded (j + d) (shift 0 d f) = true)
-    (ha : bounded (j + d) (shift 0 d a) = true) :
-    bounded (j + d) (shift 0 d (.app f a)) = true := by
-  simp only [shift, bounded, Bool.and_eq_true]
-  exact ⟨hf, ha⟩
+**=> 对 `t` 结构归纳，`j`、`c`、`d` 一般化。每个归纳假设的应用都显式给出这三个参数
+（第 845 轮查明的那条规则），绑定处用 `(j+1, c+1, d)`。** -/
+theorem bounded_shift {j c d : ℕ} (hc : c ≤ j) {t : Term} (h : bounded j t = true) :
+    bounded (j + d) (shift c d t) = true := by
+  induction t generalizing j c d with
+  | sort k l => simp [bounded, shift]
+  | const k => simp [bounded, shift]
+  | var n => exact bounded_shift_var n (bounded_var_lt h) c d
+  | app f a ihf iha =>
+      have hf : bounded j f = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.1
+      have ha : bounded j a = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.2
+      have h1 := @ihf j c d hc hf
+      have h2 := @iha j c d hc ha
+      simp only [shift, bounded, Bool.and_eq_true]
+      exact ⟨h1, h2⟩
+  | lam A b ihA ihb =>
+      have hA : bounded j A = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.1
+      have hb : bounded (j + 1) b = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.2
+      have h1 := @ihA j c d hc hA
+      have h2 := @ihb (j + 1) (c + 1) d (by omega) hb
+      have he : j + d + 1 = j + 1 + d := by omega
+      simp only [shift, bounded, Bool.and_eq_true, he]
+      exact ⟨h1, h2⟩
+  | pi A B ihA ihB =>
+      have hA : bounded j A = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.1
+      have hB : bounded (j + 1) B = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.2
+      have h1 := @ihA j c d hc hA
+      have h2 := @ihB (j + 1) (c + 1) d (by omega) hB
+      have he : j + d + 1 = j + 1 + d := by omega
+      simp only [shift, bounded, Bool.and_eq_true, he]
+      exact ⟨h1, h2⟩
+  | letE A t b ihA iht ihb =>
+      have hA : bounded j A = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.1.1
+      have ht : bounded j t = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.1.2
+      have hb : bounded (j + 1) b = true := by
+        simp only [bounded, Bool.and_eq_true] at h
+        exact h.2
+      have h1 := @ihA j c d hc hA
+      have h2 := @iht j c d hc ht
+      have h3 := @ihb (j + 1) (c + 1) d (by omega) hb
+      have he : j + d + 1 = j + 1 + d := by omega
+      simp only [shift, bounded, Bool.and_eq_true, he]
+      exact ⟨⟨h1, h2⟩, h3⟩
+
+/-- **`sort` 在 `shift` 下保持 `bounded`（恒真）。** -/
+theorem bounded_shift_atom (c d : ℕ) (k : SortKind) (l : Level) :
+    bounded (0 + d) (shift c d (.sort k l)) = true := by
+  simp [bounded, shift]
 
 end Lattice.Core.CIC

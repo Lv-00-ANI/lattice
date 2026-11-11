@@ -2931,9 +2931,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `boundaryPrimitives_nodup` -> `length`
 - `bounded_loss_trivial_capacity` -> `g`, `popRisk`
 - `bounded_params_give_sup_bound` -> `g`, `popRisk`
-- `bounded_shift_app` -> `Term`, `bounded`, `d`, `shift`
-- `bounded_shift_atom` -> `Level`, `SortKind`, `Term`, `bounded`, `bounded_var`, `d`, `shift`
-- `bounded_shift_var` -> `Term`, `bounded`, `bounded_var`, `d`, `shift`
+- `bounded_shift` -> `Level`, `SortKind`, `Term`, `at`, `bounded`, `bounded_var`, `bounded_var_lt`, `d`, `induction`, `shift`
+- `bounded_shift_atom` -> `Level`, `SortKind`, `bounded`, `d`, `shift`
+- `bounded_shift_var` -> `Level`, `SortKind`, `Term`, `at`, `bounded`, `bounded_var`, `bounded_var_lt`, `d`, `induction`, `shift`
 - `bounded_var` -> `at`
 - `bounded_var_lt` -> `at`
 - `branch_condition_equals_relu_mask` -> `at`, `reluSoftMask`

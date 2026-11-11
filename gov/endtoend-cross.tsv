@@ -211,9 +211,9 @@ Core/WeightNet.lean	net_behaviourallyEquivalent_iff
 Core/CIC/BinderCommutationFalse.lean	binderCommutation_counterexample
 Core/CIC/BinderCommutationFalse.lean	binderCommutation_false
 Core/CIC/BinderCommutationFalse.lean	binderCommutation_needs_identity_at_zero_false
-Core/CIC/BoundedShift.lean	bounded_shift_atom
 Core/CIC/BoundedShift.lean	bounded_shift_var
-Core/CIC/BoundedShift.lean	bounded_shift_app
+Core/CIC/BoundedShift.lean	bounded_shift
+Core/CIC/BoundedShift.lean	bounded_shift_atom
 Core/CIC/CanonicalForm.lean	shape4_of_headShape
 Core/CIC/CanonicalForm.lean	hasType_shape4
 Core/CIC/CanonicalForm.lean	shape4_redex_not_canonical
