@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstTotal
 import Lattice.Core.CIC.ShiftSubstComplete
 import Lattice.Core.CIC.ShiftSubstAbove
 import Lattice.Core.CIC.ShiftSubstBinder
