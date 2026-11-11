@@ -35,12 +35,12 @@
 
 | 判定 | 条数 |
 |:--|--:|
-| `delete` | 44 |
-| `strengthen` | 24 |
+| `delete` | 43 |
+| `strengthen` | 21 |
 | `downgrade` | 0 |
-| `register` | 97 |
-| `keep` | 1429 |
-| **合计审阅** | **1621** |
+| `register` | 81 |
+| `keep` | 1385 |
+| **合计审阅** | **1561** |
 
 **这张表是「第一审判了多少条」，不是「还剩多少条没做」。**
 
@@ -63,21 +63,21 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9435 | 1295 | 13.7% |
+| 定理 + 引理 | 9435 | 1356 | 14.4% |
 | **入度 ≥ 1（承重集）** | **974** | **974** | **100.0%** |
 | **入度 = 0** | **8461** | **382** | **4.5%** |
 
 **两个方向都要读；只读一个是误导。**
 
-- **承重集 100.0% 覆盖**：1008 条被下游真正消费的定理里审了 1008 条。
+- **承重集 100.0% 覆盖**：974 条被下游真正消费的定理里审了 974 条。
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
-- **零入度只有 4.6%**：8407 条入度为 0 的定理里审了 380 条。**这才是「样本」真正指的东西。**
+- **零入度只有 4.5%**：8461 条入度为 0 的定理里审了 382 条。**这才是「样本」真正指的东西。**
 
 ### 承重集**已全部审阅**
 
-| **入度 ≥ 1（承重集）** | **974** | **974** | **100.0%** |
+入度 ≥ 1 的定理全部有判定。这不是声称，是 `check_coverage_claim.py` 每次重新算出来的。
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -87,11 +87,11 @@
 
 ### 零入度的抽样协议（第 27 轮写下）
 
-**8407 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
+**8461 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
 
 **抽样的依据**：过去的审阅按「旧的有缺陷的入度」选第一层，因此其中约三百多条
 实际入度为 0——**它们不是为「零入度」抽的样，而是为「高价值」抽的样，事后发现落在零入度里。**
-所以这个 380 条样本**不是随机抽样**，**偏向「曾经看起来重要」的那一侧**，
+所以这个 382 条样本**不是随机抽样**，**偏向「曾经看起来重要」的那一侧**，
 这对零入度集合是**有偏**的（偏向复杂的、被写进 docstring 的、跨文件重名的）。
 
 **边界，写成可核对的断言**：
@@ -156,12 +156,12 @@
 把记录删掉会让账本看起来更干净，**而它并不会更干净**。
 
 
-> **范围（实测，每次重算）**：本文件覆盖 **165 条**已审定理。
+> **范围（实测，每次重算）**：本文件覆盖 **145 条**已审定理。
 > **本段此前写死了四个数字（1,360 / 839 / 521 / 7,587），而它们早已与树脱节。**
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
-| **入度 ≥ 1（承重集）** | **974** | **974** | **100.0%** |
-> **零入度：8407 条，已抽审 380 条。**
+> **承重集（修正入度 ≥ 1）：974 条，其中已审 974 条。**
+> **零入度：8461 条，已抽审 382 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
 ## 一、`delete`：陈述无信息量
@@ -180,7 +180,6 @@
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:180` | `decidable_zeroFixing_siluZ` | 1 | ZeroFixing act_siluZ 展开为 ∀ y, (y = 0 ↔ y = 0)；证明体两方向分别就是 `hy` 与 `hy ▸ rfl`，是重言。 |
 | `Lib/Lift/RealNonlinearFidelity_parts/B.lean:185` | `decidable_zeroFixing_geluZ` | 1 | ZeroFixing act_geluZ 展开为 ∀ y, (y = 0 ↔ y = 0)，证明体两方向都是 hy / hy ▸ rfl：重言。 |
 | `Reference/Geometry/Geometry/RepairCoverage.lean:84` | `sqDist_nonneg` | 1 | 逐字重复（同陈述、同 4 行证明），位于 `Lattice.Geo.RepairCoverage` 命名空间下。 |
-| `Runtime/WeightToSymbolEquivalence.lean:44` | `roundtrip_behavior` | 1 | 第一项展开 `extract`/`ConstraintSat`/`NeuronOut`（`ConvertLinear:52/62/67`）后两边是同一个表达式，`simpa using h` 即 `fun h => h`；第二项是 `convert_preserves_semantics`（`ConvertLinear:73`）的 `.mpr`。零新增信息。 |
 | `Runtime/WeightToSymbolEquivalence.lean:72` | `extract_is_valid` | 1 | 展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。 |
 | `Evidence/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
 | `Evidence/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
@@ -207,7 +206,7 @@
 | `Plugins/Core/Repair/Repair.lean:117` | `stable` | 0 | 证明体就是 R.absorbs x h，即 Repair 结构体的一个字段投影，一字未改；等于把构造 Repair 时承诺的假设原样复述成「定理」。 |
 | `Plugins/Core/Repair/RepairAtomicity.lean:73` | `atomic_of_zero_iff` | 0 | 证明是 fun x hx => (h x).mp hx：结论就是前提的一个方向，重言。 |
 | `Reference/Geometry/Constraints/FlattenAgreement.lean:52` | `rather` | 0 | 非陈述：`stmt` = "theorem rather than a definitional equality. -/"，取自 docstring 第 52 行。 |
-| `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :86 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
+| `Runtime/ConstraintToLoss.lean:101` | `compile_changes_type` | 0 | 与同文件 :85 `compile_is_loss` 逐字同一陈述，证明 rfl——零新增信息。 |
 | `Runtime/Extraction.lean:146` | `applies` | 0 | 非陈述：`stmt` = "lemma applies definitionally rather than needing a structure extensionality step..."（docstring 散文）。 |
 | `Runtime/RatRepresentation.lean:121` | `compile_changes_type` | 0 | 与同文件 :113 `compile_apply` 逐字同一陈述，证明 rfl。 |
 | `Runtime/VerifyLoopProgress.lean:104` | `repair_preserves` | 0 | `simpa [repair] using h` 展开后是 `ConstraintSat c x → ConstraintSat c x`（`fun h => h`）——只复述假设。 |
@@ -217,8 +216,6 @@
 
 | 位置 | 定理 | 入度 | 判定依据 |
 |:--|:--|--:|:--|
-| `Runtime/ConvertVectorLinear.lean:154` | `convertVec_preserves_semantics` | 12 | 强度不足：用途是 L1→L2 的语义保持，但陈述建立在被截断的 `VectorConstraintSat` 上（`dot` = List.zip，静默截断到较短表）。`∀ x : List Int` 包含 \|x\| ≠ \|a\| 的 ragged 输入，那里满足性为真而语义上应为假——本仓 RealSymbolToWeightWidened.sat_ragged_false_positive 已经机器证明这一点，并指出本定理「两侧共享同一截断缺陷，因此永远抓不到它」。 |
-| `Runtime/SymbolToWeightCorrectness.lean:65` | `symbolToWeight_correct` | 12 | 强度不足：名字声称 symbol→weight 的正确性，实际内容是「∀-map 分配（forall_mem_map_iff）+ 逐元素 rfl 级桥」，而且它认证的满足语义带有截断假阳性。本仓 RealSymbolToWeightWidened 已逐条给出消融：删掉逐元素桥则命题为假 ⟹ 「原定理的全部内容都集中在这个 rfl 桥上」；并给出 layer_ragged_also_zero 说明两侧共享缺陷、定理无诊断力。 |
 | `Runtime/RealTokenSymbolLink.lean:306` | `decode_drops_trailing_partial` | 2 | A: 需要更强:把单点见证换成一般命题,否则 doc 的一般结论无机器依据 |
 | `Lib/Architectures/RealReLULayer.lean:80` | `ReLUSum_iff_all_constraints` | 1 | doc 声称给出「全部约束满足」的批量判定，但陈述里 as/bs 与 ls、x 没有任何结构联系，撑不起该用途 |
 | `Lib/Chain/RealChainEntryOOV.lean:249` | `e2e_path_exists_str` | 1 | 陈述太弱：只要求 ∃ts 使 tokenizeStr s = some ts，没把 ts 与 Text.encode s 的关系写进结论；encode 被改成常函数 [] 时它仍为真（文件自身 :268 的 V01 实测）。撑不起文件头 Z04-G2 宣称的「入口桥闭合」。 |
@@ -228,7 +225,6 @@
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
 | `Reference/Geometry/Geometry/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 1 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
-| `Reference/Geometry/Geometry/LoopPerp.lean:47` | `fixPerp_absorbs` | 1 | 结论可以更强:目前把保守性限制在非退化参考段上,而证明并不需要这个限制。 |
 | `Runtime/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
 | `Runtime/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 1 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
 | `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 1 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
@@ -307,27 +303,11 @@
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean:101` | `orderTheory_extra_length` | 0 | 【实测】本侧（Instances/PerPackage）的 `orderTheoryTemplateNames` 已由 EXEC-Y1 追加外名，`orderTheoryExtra` 没同步清理，5/9 个 extra 名已在模板表内；实际缺口 = graph_isomorphism, group_theory, poset_dimension, zfc_set_theory（4 名）。`in_degree` 指向 Jia 副本，那里无 padding、extra 恰为… |
 | `Lib/Chain/RealLv00AxiomDischargeSummary.lean:33` | `all_twelve_discharged` | 0 | 【实测，双向分叉】本条是 post-EXEC-Y1 版（graph 真），Jia:1236 是 pre-EXEC-Y1 版（graph 假）；同名、相反陈述、都 0 sorry，且各自 `#print axioms` 都干净。`in_degree` 指向 Jia 副本。登记：删一侧或按数据版本改名；在合并前，任何「12/12 discharged」的引用都必须写明是哪一版。 |
 | `Lib/Chain/RealLv00Solver.lean:707` | `lcm_assoc` | 0 | 【实测，锚点为假】`RealDvdLatticeStratification.lean` 只 `import Mathlib`，其中 `lcm_assoc` 仅出现在注释（:107），且该文件用 `Nat.dvd_antisymm` **自己重证**了 `nat_sup_assoc`（:109–126），还错误宣称「mathlib 的 `Nat` 上无现成 `lcm_assoc`」——本条正是 `Nat.lcm_assoc` 的逐字包装。⇒ in_degree=1 是注… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:181` | `computabilityTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 55（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:219` | `modalLogic_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 27 / 副本 28（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLogi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:264` | `zfcSetTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 29（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:327` | `graphTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 70 / 副本 71（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLogi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:379` | `measureTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 66（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:420` | `functionalAnalysis_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 37（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:475` | `probabilityTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 87 / 副本 89（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLogi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:535` | `informationTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 106 / 副本 117（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLo… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:591` | `linearAlgebra_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 90（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:632` | `projectiveGeometry_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 38 / 副本 48（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLogi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:673` | `orderTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件 32 / 副本 37（副本另有 padding 名，见其 `EXEC-Y1-EXTERNAL-30` 注释）。12 个包里 6 个分叉（modalLogi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:718` | `affineGeometry_templateNames_length` | 0 | 【实测，锚点为假 + 数据已分叉】in_degree 指向 `RealLv00AxiomDischargeInstances.lean`，但该文件只 `import ...AxiomDischargeCore`，并在 `:88` 起**自行重声明**同名定理（副本，非使用）。同一上游包的两份模板表长度已不一致：本文件与副本同为 56（数一致，但仍是两份数据源）。12 个包里 6 个分叉（modalLogic 27/28、graphTheory 70/71、probabi… |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:757` | `packageDependenciesValidB_iff` | 0 | 登记为「复制-分叉模块」债务：Jia 文件是 Closure 的 fork（同名字段、同名谓词、同名定理），两条桥与两份结构必须一起收敛；现在改任一侧都会静默失配。 |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:762` | `packageDependenciesClosedB_iff` | 0 | 同 #57 的 fork 债务（含 extra 版本）。 |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:773` | `dependenciesClosed_mono` | 0 | 登记理由：这是同一语义的第三套独立实现（自带结构定义 + 自带谓词），三处结论无法在 Lean 内互相引用/校验，是本库「平行重写」的典型。登记待收敛，不作为新成果。 |
-| `Lib/Chain/RealN2AxiomDischargeJia.lean:786` | `dependenciesClosed_of_subset` | 0 | 登记理由同 :773：三份平行实现之一（自带结构、无 import），建议收敛到规范实现或补等价桥后再作为成果引用。 |
 | `Lib/Compiler/RealCompileFloatCorrectness.lean:471` | `compile_error_bound` | 0 | register：hMul 等于把 mul 分支的目标原样作为前提（自指式降级），且 hcontract 可从 eps/tiny 非负内部推出。登记 PROOF-DEBT：补 mul_error_bound 并删去 hMul/hcontract；在此之前任何把本条当『全语言浮点正确性』的引用都过强。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:119` | `compile_constraint_degenerately_satisfied` | 0 | register：doc 已诚实标 (B/空洞)，但下游 RealLv00CompilerSat 仍可能把它当编译正确性引用。登记 PROOF-DEBT：补任意 env 的 sound/complete，退化版降为示例。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:311` | `compile_bridge_sem` | 0 | register：与 119 条同一债务。名字 compile_bridge_sem 容易让下游误以为完成了编译语义桥接，实际只是退化模型特化；登记 PROOF-DEBT 并考虑改名。 |
 | `Lib/Editing/RealCanonicalForm.lean:642` | `canonicalize_injective_on_quotient_boundary` | 0 | 数学上没问题（本库少见的真否定结论），问题只在名字与 doc 首句『性质③（商上单射）』同陈述（全称否定）不一致。建议改名 `canonicalize_not_constant_on_scaleClass`；改名会波及 RealExtractDecidability.lean:557 的文档引用，故登记而非现在改。 |
-| `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :186 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
+| `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :185 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:221` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealSymbolToWeightWidened.lean:304 同名同义重复；两文件互不 import，文件内也没有证明使用（in_degree=1 是同名声明碰撞而非语义引用）。doc 把它当「承重件」，实际是死件 + 双副本：登记 PROOF-DEBT，建议收敛为一份并接上消费者。 |
 | `Lib/Editing/RealExtractNonInjective.lean:137` | `convertVec_injective` | 0 | 同一声明在库内至少三份（另见 RealEditToSymbol:122、RealReversibilityBoundary:85）。doc 已诚实标注为「本文件内导出」，但正是这种自包含再导出在积累漂移面。建议登记 PROOF-DEBT：统一引用一处；当前不影响正确性。 |
 | `Lib/Editing/RealExtractSurjectivity.lean:369` | `extractVec_convertVec_rfl` | 0 | 与 RealCanonicalCompileComm:148 的同名定理（那里是真 `rfl`）构成两处同义声明，均由 Meta/RealRflAudit 消费。作为审计证据可以留，但应在 Meta 层只引一处。登记 PROOF-DEBT，现值不值得改。 |
@@ -420,7 +400,7 @@
 于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。
 实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。
 
-| **入度 ≥ 1（承重集）** | **974** | **974** | **100.0%** |
+修正后（标识符按 `.` 切开）入度 ≥ 1 的定理从 839 升到 **872**，排名重排：
 `roundtrip_extractVec` 升到首位（18）。
 
 **这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。

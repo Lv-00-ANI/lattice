@@ -76,7 +76,12 @@ if os.path.exists(_RES):
             continue
         _p = _ln.split("\t")
         if len(_p) >= 2:
-            RESOLVED_KEYS.add((_p[0].strip(), _p[1].strip()))
+            # P0-10 (round 858). The verdicts above are remapped through `PATH_MAP` so a `git mv`
+            # keeps its review; the RESOLVED list was NOT, so after any move its entries stopped
+            # matching and four genuinely-fixed debts kept appearing as flagged. Both sides of the
+            # join must use the same key, or the map is applied to one half only.
+            _resolved_file = PATH_MAP.get(_p[0].strip(), _p[0].strip())
+            RESOLVED_KEYS.add((_resolved_file, _p[1].strip()))
 
 for _v in verdicts:
     _f = (_v.get("file") or "").replace("\\", "/")

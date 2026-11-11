@@ -164,12 +164,48 @@ def main(argv):
         return 0
 
     found = scan()
+
+    # P0-8 (round 858). The audit found this check had NO baseline, so its "0 findings" was
+    # indistinguishable from a check that cannot fail. With a baseline the number becomes a
+    # measurement in BOTH directions: a new trivial binder is NEW (fail), and a registered one that
+    # is gone is STALE (also fail -- otherwise the file silently excuses binders forever, the same
+    # failure round 30 found in `plugin_inventory.py --check`).
+    baseline_path = os.path.join(HERE, "vacuous-baseline.txt")
+    baseline = set()
+    if os.path.exists(baseline_path):
+        for ln in io.open(baseline_path, encoding="utf-8"):
+            ln = ln.rstrip("\n")
+            if ln and not ln.startswith("#"):
+                baseline.add(ln)
+
+    keys = {"%s\t%s\t%s" % (rel, name, var) for rel, _line, name, var, _ty, _why in found}
+    new = sorted(keys - baseline)
+    stale = sorted(baseline - keys)
+
     for rel, line, name, var, ty, why in found:
-        print("  FINDING  %s:%d  [%s]  binder `%s : %s` -- %s" % (rel, line, name, var, ty, why))
+        mark = "NEW     " if ("%s\t%s\t%s" % (rel, name, var)) in new else "KNOWN   "
+        print("  %s %s:%d  [%s]  binder `%s : %s` -- %s" % (mark, rel, line, name, var, ty, why))
+    for k in stale:
+        print("  STALE   %s (registered but no longer found -- remove it from the baseline)"
+              % k.replace("\t", " :: "))
     print()
-    if found:
-        print("VACUOUS HYPOTHESES: %d" % len(found))
+
+    if "--write-baseline" in sys.argv:
+        with io.open(baseline_path, "w", encoding="utf-8", newline="\n") as f:
+            for k in sorted(keys):
+                f.write(k + "\n")
+        print("wrote %s (%d entries)" % (os.path.basename(baseline_path), len(keys)))
+        return 0
+
+    if new:
+        print("VACUOUS HYPOTHESES: %d NEW trivial binder(s)" % len(new))
         return 1
+    if stale:
+        print("VACUOUS HYPOTHESES: %d stale baseline entry(ies)" % len(stale))
+        return 1
+    if found:
+        print("VACUOUS HYPOTHESES: %d, all registered" % len(found))
+        return 0
     print("VACUOUS HYPOTHESES: no syntactically trivial binder")
     print("(Class B that is not syntactically visible -- e.g. `stackDepth e ≤ 1` -- is NOT checked here;")
     print(" see PROOF-DEBT.md for which ones are known.)")
