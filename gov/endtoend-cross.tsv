@@ -375,6 +375,7 @@ Core/CIC/ShiftSubstJointBounded.lean	shift_subst_joint_bounded_one
 Core/CIC/ShiftSubstJointVar.lean	shift_subst_joint_var_lt
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_self
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_below
+Core/CIC/ShiftSubstOffset.lean	shift_subst_offset_fails_at_var
 Core/CIC/ShiftSubstOffsetProbe.lean	probe_subst_result
 Core/CIC/ShiftSubstOffsetProbe.lean	probe_shift_of_subst
 Core/CIC/ShiftSubstOffsetProbe.lean	probe_shift_of_term
