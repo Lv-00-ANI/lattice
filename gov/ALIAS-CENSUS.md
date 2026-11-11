@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 684 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 687 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 160 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -668,8 +668,10 @@
 | `Primitives/WeightDescent.lean` | `bidir_step_is_strict_descent` |
 | `Primitives/WeightDescent.lean` | `bidir_terminates_in_abs_steps` |
 | `Runtime/ActivationLadder.lean` | `activationLadder_forward` |
+| `Runtime/ApproxExtraction.lean` | `approx_extract_bound` |
 | `Runtime/ApproxExtraction.lean` | `compose_via_calculus` |
 | `Runtime/ApproxExtraction.lean` | `rat_exact_roundtrip` |
+| `Runtime/ApproxExtraction.lean` | `roundingIsApprox_bound` |
 | `Runtime/ApproxLadder.lean` | `approx_ladder_bound_mono` |
 | `Runtime/ApproxLadder.lean` | `roundingLadder_forward` |
 | `Runtime/ApproximationBridge.lean` | `approx_min_le_gives_sat` |
@@ -686,6 +688,7 @@
 | `Runtime/Extraction.lean` | `extract_compile` |
 | `Runtime/Extraction.lean` | `roundtrip_idempotentOn` |
 | `Runtime/Extraction.lean` | `roundtrip_iterate` |
+| `Runtime/ExtractionStrength.lean` | `ofApprox_semEq` |
 | `Runtime/GeoSampledBound.lean` | `residual_le_of_zero_on_dense_from_generic` |
 | `Runtime/L1L2Roundtrip.lean` | `decodeConst_encodeForm` |
 | `Runtime/LossyRepresentation.lean` | `lossy_weaker` |

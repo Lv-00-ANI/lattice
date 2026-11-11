@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 148 | no imports from lift/lib |
+| core | 149 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 623 | instantiated library, may import core only |
@@ -94,6 +94,7 @@
 - `Lattice.Core.CIC.ShiftSubstStable` <- `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftCommGeneral`
 - `Lattice.Core.CIC.ShiftSubstTotal` <- `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstStable`
 - `Lattice.Core.CIC.Spine` <- `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.ReductionOriented`
+- `Lattice.Core.CIC.SubstAvoids` <- `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstTotal`
 - `Lattice.Core.CIC.SubstBridge` <- `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.Substitution`
 - `Lattice.Core.CIC.SubstComp` <- `Lattice.Core.CIC.SubstTable`
 - `Lattice.Core.CIC.SubstCompParallel` <- `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.ShiftCommGeneral`
@@ -811,7 +812,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -1097,6 +1098,7 @@
 | `Lattice.Core.CIC.ShiftSubstStable` | 2 | 0 |
 | `Lattice.Core.CIC.ShiftSubstTotal` | 5 | 1 |
 | `Lattice.Core.CIC.Spine` | 6 | 1 |
+| `Lattice.Core.CIC.SubstAvoids` | 3 | 1 |
 | `Lattice.Core.CIC.SubstBridge` | 3 | 1 |
 | `Lattice.Core.CIC.SubstComp` | 2 | 1 |
 | `Lattice.Core.CIC.SubstCompParallel` | 5 | 2 |
@@ -2211,10 +2213,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
 - `PluginProof.trivial_fields` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
 - `PluginProof.trivial_holds` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
-- `PositionEncoding.error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.error_bound_of_close` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.output_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
-- `PositionEncoding.stack_error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `bounded`, `card_fin`, `d`, `dist`, `eps`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.error_bound_of_close` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `bounded`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.output_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `bounded`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
+- `PositionEncoding.stack_error_bound` -> `E`, `IsTranslationEquivariant`, `Point2R`, `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_pos_bounded`, `abs_pos_relative_shift`, `abs_pos_smooth`, `alibiBias`, `alibi_bias_lipschitz`, `alibi_bias_translation_equivariant`, `alibi_is_bounded_perturbation`, `apply`, `at`, `bounded`, `card_fin`, `d`, `dist`, `eps`, `fin_two_mul_add_one_not_mod`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `Primitive.withCoverage_sound` -> `sound`
 - `QuadGrad_eq` -> `Subgradient`, `at`
 - `QuadIter_exact` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `strong_convex_gap_bound`, `zero`
@@ -2546,10 +2548,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `approxOn_mono_domain` -> `g`, `le_trans`
 - `approxOn_trans` -> `g`, `le_trans`, `min`
 - `approxOn_trans_same` -> `g`, `le_trans`
-- `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
-- `approx_ladder_bound_mono` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
-- `approx_ladder_eps_nonneg` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
-- `approx_ladder_forward` -> `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
+- `approx_extract_bound` -> `ErrorBound`, `Representation`, `W`, `apply`, `at`, `bounded`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `le_refl`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
+- `approx_ladder_bound_mono` -> `bounded`, `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
+- `approx_ladder_eps_nonneg` -> `bounded`, `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
+- `approx_ladder_forward` -> `bounded`, `compile`, `dist`, `extract`, `identityTokenizer`, `le_trans`, `roundingIsApprox`, `satSym`, `satW`
 - `approx_min_le_gives_sat` -> `E`, `ResidualEmbedding`, `le_trans`, `loss`, `resid`
 - `approx_min_violation_bound` -> `violation`, `violation_nonneg`
 - `approx_satisfies` -> `E`, `EpsSat`, `ResidualEmbedding`, `at`, `le_trans`, `loss`, `resid`
@@ -2648,6 +2650,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `avoids_letE_body` -> `Term`, `at`, `avoids`, `avoids_var`
 - `avoids_letE_type` -> `Term`, `at`, `avoids`, `avoids_var`
 - `avoids_letE_value` -> `Term`, `at`, `avoids`, `avoids_var`
+- `avoids_not_enough_for_subst_fixpoint` -> `Term`, `at`, `avoids`, `avoids_var`, `subst`
 - `avoids_pi_cod` -> `Term`, `at`, `avoids`, `avoids_var`
 - `avoids_pi_type` -> `Term`, `at`, `avoids`, `avoids_var`
 - `avoids_sort` -> `Level`, `SortKind`, `Term`
@@ -2924,6 +2927,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `boundaryPrimitives_nodup` -> `length`
 - `bounded_loss_trivial_capacity` -> `g`, `popRisk`
 - `bounded_params_give_sup_bound` -> `g`, `popRisk`
+- `bounded_var` -> `at`
+- `bounded_var_lt` -> `at`
 - `branch_condition_equals_relu_mask` -> `at`, `reluSoftMask`
 - `branch_constraint_when_then` -> `W`, `at`, `reluSoftMask`
 - `branch_else_when_nonpos` -> `W`, `at`, `reluSoftMask`
@@ -3594,7 +3599,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_strength` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
 - `compose_strength_coverage_assoc` -> `Primitive`, `compose`, `g`
 - `compose_three_with_bridges` -> `Audit`, `at`, `g`
-- `compose_via_calculus` -> `ErrorBound`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
+- `compose_via_calculus` -> `ErrorBound`, `at`, `bounded`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
 - `compose_with_bridge` -> `Audit`, `at`, `g`
 - `composition_contraction` -> `at`, `contraction_pow_bound`, `d`, `g`, `le_total`, `le_trans`
 - `compressed_direction_bounded` -> `ExpDist`, `ExpGap`, `g`, `le`, `le_trans`, `sgd_expected_gap_sum_seq`, `sgd_rate_bound`
@@ -4730,7 +4735,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `errorFeedback_bounded` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_bounded_aux` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_convergence` -> `ExpDist`, `ExpGap`, `g`, `sgd_rate_bound`
-- `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `at`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
+- `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `at`, `bounded`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
 - `euclid_norm_sq_eq` -> `apply`, `at`, `mulVec`, `single`
 - `euclidean_affine_fixed_point_existsUnique` -> `at`, `complete`
 - `euclidean_derivative_fixed_point_existsUnique` -> `at`, `complete`
@@ -7679,9 +7684,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `obs_eq_xmarg_mul_ycond_mul_pZobs` -> `apply`, `at`, `obs`
 - `odd_gt_zero` -> `EvenSat`, `at`, `induction`, `zero`
 - `odd_irreducible_natDegree_eq_one` -> `at`, `eval`
-- `ofApprox_compile` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
-- `ofApprox_extract` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
-- `ofApprox_semEq` -> `ApproxRepresentation`, `W`, `compile`, `dist`, `extract`, `obs`
+- `ofApprox_compile` -> `ApproxRepresentation`, `W`, `bounded`, `compile`, `dist`, `extract`, `obs`
+- `ofApprox_extract` -> `ApproxRepresentation`, `W`, `bounded`, `compile`, `dist`, `extract`, `obs`
+- `ofApprox_semEq` -> `ApproxRepresentation`, `W`, `bounded`, `compile`, `dist`, `extract`, `obs`
 - `ofArtifact_acts` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
 - `ofArtifact_depth` -> `Arch`, `ModelArtifact`, `W`, `arch`, `at`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`, `paramCount`
 - `ofArtifact_idempotent_shape` -> `ModelArtifact`, `arch`, `depth`, `length`
@@ -9022,9 +9027,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `round_close` -> `eps`, `g`, `induction`, `tiny`, `zero`
 - `round_growth_contract` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`
 - `round_preserves_zero` -> `at`, `eps`, `g`, `induction`, `tiny`, `zero`
-- `roundingIsApprox_bound` -> `ErrorBound`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
-- `roundingIsApprox_composes` -> `ErrorBound`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
-- `roundingIsApprox_error_one` -> `ErrorBound`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
+- `roundingIsApprox_bound` -> `ErrorBound`, `bounded`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
+- `roundingIsApprox_composes` -> `ErrorBound`, `bounded`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
+- `roundingIsApprox_error_one` -> `ErrorBound`, `bounded`, `compile`, `dist`, `extract`, `ratRepresentation`, `roundtrip`
 - `roundingLadder_forward` -> `compile`, `dist`, `extract`, `satW`
 - `roundtrip` -> `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `roundtripCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`
