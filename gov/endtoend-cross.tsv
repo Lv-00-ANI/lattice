@@ -363,6 +363,7 @@ Core/CIC/ShiftSubstJoint.lean	shift_subst_joint_at_lam
 Core/CIC/ShiftSubstJoint.lean	shift_subst_joint_at_pi
 Core/CIC/ShiftSubstJoint.lean	shift_subst_joint_at_var
 Core/CIC/ShiftSubstJoint.lean	shift_subst_joint_at_app
+Core/CIC/ShiftSubstJointVar.lean	shift_subst_joint_var_lt
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_self
 Core/CIC/ShiftSubstLaw.lean	shift_subst_var_below
 Core/CIC/ShiftSubstStable.lean	shift_one_one_commutes

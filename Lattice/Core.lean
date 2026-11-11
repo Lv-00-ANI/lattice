@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstJointVar
 import Lattice.Core.CIC.ShiftSubstJoint
 import Lattice.Core.CIC.ShiftSubstFalse
 import Lattice.Core.CIC.ShiftSubstFull
