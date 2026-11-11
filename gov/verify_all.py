@@ -208,6 +208,15 @@ CHECKS = [
     # checked that a NEW placeholder is labelled, so an unlabelled one would make the theorems about
     # it true-but-empty with no invariant noticing.
     ("stubs: every placeholder definition is labelled", "check_stub_registry.py"),
+    # Round 856 (P0-4): the plan asked for the `:= rfl` theorems to be downgraded, quoting 60 of them.
+    # Measurement found 246, and they are NOT one kind: 119 are load-bearing API, 41 are constructor
+    # unfoldings, and only 85 are leaf numeral/bool literals -- the only class that records a constant
+    # nothing consumes. Classifying by CITATION rather than by statement shape (text cannot tell the
+    # classes apart: `artifact_layer_count` and `graphTheory_templateNames_length` are identical in form
+    # but one is a derivation check and the other a free-floating constant) makes those 85 a registered
+    # baseline, so a NEW free-floating literal cannot appear unnoticed while legitimate proofs are
+    # never touched.
+    ("literals: free-floating `rfl` theorems are registered", "check_literal_rfl.py"),
     # The audit found that `plugin_inventory.py --check` had a HARD-CODED empty `duplicates` dict,
     # so it could never fail, and that it was not wired into any gate at all -- meaning the plugin
     # map could silently acquire an ambiguous attribution. The duplicate detection is now computed
