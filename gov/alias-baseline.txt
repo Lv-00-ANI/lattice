@@ -847,3 +847,4 @@ copy	Core/CIC/ShiftSubstFull.lean	avoids_pi_cod
 forward	Runtime/ApproxExtraction.lean	approx_extract_bound
 forward	Runtime/ApproxExtraction.lean	roundingIsApprox_bound
 forward	Runtime/ExtractionStrength.lean	ofApprox_semEq
+forward	Core/CIC/SubstBounded.lean	subst_bounded_ignores

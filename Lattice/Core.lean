@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.SubstBounded
 import Lattice.Core.CIC.SubstAvoids
 import Lattice.Core.CIC.ShiftSubstJointVar
 import Lattice.Core.CIC.ShiftSubstJoint

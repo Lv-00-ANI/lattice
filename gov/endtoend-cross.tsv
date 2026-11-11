@@ -373,6 +373,8 @@ Core/CIC/Spine.lean	neutral_spine_head
 Core/CIC/Spine.lean	neutral_head_cannot_step
 Core/CIC/Spine.lean	neutral_can_be_stuck_var
 Core/CIC/SubstAvoids.lean	avoids_not_enough_for_subst_fixpoint
+Core/CIC/SubstBounded.lean	subst_bounded
+Core/CIC/SubstBounded.lean	subst_bounded_ignores
 Core/CIC/SubstBridge.lean	singleSubst_var
 Core/CIC/SubstBridge.lean	lift_singleSubst
 Core/CIC/SubstBridge.lean	inst_singleSubst
