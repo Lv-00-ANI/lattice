@@ -11,7 +11,7 @@
 | core | 155 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 624 | instantiated library, may import core only |
+| lib | 625 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -780,6 +780,7 @@
 - `Lattice.Lib.Quantization.RealCompressionJoint` <- `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.LearningTheory.RealDistill`
 - `Lattice.Lib.Quantization.RealCompressionRandom` <- `Lattice.Lib.Optim.RealSGDStochastic`
 - `Lattice.Lib.Quantization.RealCompressionRate` <- `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Optim.RealErrorFeedback`
+- `Lattice.Lib.Quantization.RealCompressionStepDischarged` <- `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Quantization.RealCompressionRate`
 - `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Optim.RealConvergence`, `Lattice.Lib.Quantization.RealFloatFormat`, `Lattice.Lib.Editing.RealRoundtripBound`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.Optim.RealConversionStabilityConvergence`
 - `Lattice.Lib.Quantization.RealFloatConsistency` <- `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.Lib.Quantization.RealFloatFormat` <- `Lattice.Lib.Optim.RealApprox`
@@ -834,7 +835,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1791,6 +1792,7 @@
 | `Lattice.Lib.Quantization.RealCompressionJoint` | 6 | 1 |
 | `Lattice.Lib.Quantization.RealCompressionRandom` | 15 | 4 |
 | `Lattice.Lib.Quantization.RealCompressionRate` | 21 | 1 |
+| `Lattice.Lib.Quantization.RealCompressionStepDischarged` | 1 | 0 |
 | `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds` | 13 | 7 |
 | `Lattice.Lib.Quantization.RealFloatConsistency` | 21 | 7 |
 | `Lattice.Lib.Quantization.RealFloatFormat` | 10 | 6 |
@@ -9958,6 +9960,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_app_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `step_at_solution` -> `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `step`
 - `step_changes_off_solution` -> `at`, `step`
+- `step_contraction_of_subgradient` -> `Expect`, `Subgradient`, `g`, `sgd_expectation_contraction`, `sgd_update`
 - `step_descent_lemma` -> `E`, `at`, `g`, `induction`, `le_trans`, `zero`
 - `step_lam_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `step_neg` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`

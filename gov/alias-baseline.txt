@@ -849,3 +849,4 @@ forward	Runtime/ApproxExtraction.lean	roundingIsApprox_bound
 forward	Runtime/ExtractionStrength.lean	ofApprox_semEq
 forward	Core/CIC/SubstBounded.lean	subst_bounded_ignores
 forward	Core/CIC/ShiftSubstJointBounded.lean	shift_subst_joint_bounded_one
+forward	Lib/Quantization/RealCompressionStepDischarged.lean	step_contraction_of_subgradient
