@@ -1,3 +1,4 @@
+import Lattice.Core.CIC.ShiftSubstOffsetProbe
 import Lattice.Core.CIC.ParRedVShiftBeta
 import Lattice.Core.CIC.ParSubstOneDim
 import Lattice.Core.CIC.ShiftSubstJointBounded
