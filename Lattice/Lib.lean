@@ -1,3 +1,4 @@
+import Lattice.Lib.Chain.L1BridgeHomomorphism
 import Lattice.Lib.Quantization.RealCompressionStepDischarged
 import Lattice.Lib.Compiler.FloatMulBoundDischarged
 import Lattice.Lib.Architectures

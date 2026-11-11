@@ -932,6 +932,9 @@ Lib/Attention/RealTemporalLayerExt.lean	up_gaze_content_is_passive
 Lib/Attention/RealTemporalLayerExt.lean	passivity_is_internal_texture
 Lib/Attention/RealTemporalLayerExt.lean	active_choice_passive_content
 Lib/Attention/RealTemporalLayerExt.lean	passivity_requires_domain
+Lib/Chain/L1BridgeHomomorphism.lean	L1Bridge_append
+Lib/Chain/L1BridgeHomomorphism.lean	L1Bridge_append_length
+Lib/Chain/L1BridgeHomomorphism.lean	toSegs_L1Bridge_append
 Lib/Chain/RealAbstractionRegistry.lean	reg_inst_softMasked_relu
 Lib/Chain/RealAbstractionRegistry.lean	reg_softMasked_coverage
 Lib/Chain/RealAbstractionRegistry.lean	reg_inst_gated_swiglu

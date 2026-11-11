@@ -39,9 +39,9 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1007 | `audit_counts.py` |
-> | 定理 / 引理 | 9712 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
+> | Lean 模块 | 1008 | `audit_counts.py` |
+> | 定理 / 引理 | 9715 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 626 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -169,7 +169,7 @@ lattice-new/
 │   ├── Domains/     0         # 第 265 轮整层归档至 Reference/Geometry/（后者不参与主构建）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
-│   ├── Lib/        625       # 应用库，按主题（建立在链路层之上）
+│   ├── Lib/        626       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26
@@ -586,7 +586,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 
 ### 5.1 为什么 CORRECTIONS 冻结而不重编号
 
-`B<n>` 编号被引用 **4,855 处**（文档）与 **625 处**（`lean/*.lean` 的 docstring）。
+`B<n>` 编号被引用 **4,855 处**（文档）与 **626 处**（`lean/*.lean` 的 docstring）。
 重新编号会让这些引用同时失去指代对象。所以本库把整份登记**原样**搬入 `archive/`，
 逐字节校验一致（SHA256 比对通过）。
 
