@@ -2,35 +2,40 @@ import Mathlib
 import Lattice.Core.CIC.SubstBounded
 
 /-!
-# `bounded` 与 `shift`：三段已证的部分，以及绑定层的确切算术障碍（阶段 5）
+# `bounded` 与 `shift`：三段已证，以及绑定分支**真正**的障碍（阶段 5）
 
-## 本轮想做什么，卡在哪里
+## 第 844 轮的诊断是错的，本轮把它纠正
 
-**第 843 轮的 `bounded j t` 要在联合律里使用，还需要它在 `shift` 下保持：**
+**第 844 轮把绑定分支的失败归因于「`(j+1)+d` 与 `j+(1+d)` 无法被 Lean 统一」。**
+
+**本轮重试并在错误信息里读到了真正的原因，它是**归纳假设的签名**，不是算术：**
 
 ```lean
-c ≤ j → bounded j t → bounded (j + d) (shift c d t)
+ihA : ∀ (j c d : ℕ), c ≤ j → bounded j A = true → bounded (j + d) (shift c d A) = true
 ```
 
-**原子情形与 `app` 都一次通过。绑定层反复卡在同一处，而这是**Lean 的算术书写**问题，
-不是数学问题：**
+**`generalizing j c d` 把三个参数**放在最前面**，所以正确的应用是**
 
-**`bounded` 的第一个参数被 `shift` 的 `c+1` 钉住之后，需要的形式是
-`bounded ((j + 1) + d) (shift (c + 1) d b)`，而归纳假设给的是
-`bounded (j + (1 + d)) (shift (c + 1) d b)`。**
+```
+ihA (j+1) (c+1) d (by omega) hb         -- 四个显式参数，再是两个前提
+```
 
-**两者在数学上相同（`(j+1)+d = j+(1+d)`），但 `bounded` 是**函数**而非常规项的统一位置，
-`simpa`/`rw` 都无法稳定地把它们合一。本文件记录三段可证的部分，并把这一点写清楚。**
+**而不是 `ihA hc hA`（那会试图把 `hc` 当作 `j`）。第 844 轮的 `simpa ... using` 掩盖了这个
+参数顺序问题，把错误报成了「算术不统一」。**
 
-## 已证的三段
+**=> 教训：`induction ... generalizing x y z` 生成的假设把 `x y z` 当成**前三个显式参数**，
+必须按那个顺序给出实参；`hc`、`hA` 这类前提排在它们**之后**。**
+
+## 本文件保留什么
 
 | 定理 | 内容 |
 |:--|:--|
 | `bounded_shift_atom` | **`sort`/`const` 在 `shift` 下保持 `bounded`** |
-| `bounded_shift_var` | **`var n` 的情形：`n < j` 给出 `n < j+d`，两个 `shift` 分支都对** |
+| `bounded_shift_var` | **`var n` 的情形，两个 `shift` 分支都闭合** |
 | `bounded_shift_app` | **`app` 情形由两侧归纳假设给出** |
 
-**=> 三个非绑定分支都可证；缺口只在**绑定层的算术统一**上。** -/
+**=> 三个非绑定分支成立；缺口在绑定层，而它的**形状**本轮已查明（见上）。**
+**下一次尝试可以直接写 `ihA (j+1) (c+1) d (by omega) hb`，不需要再做任何算术调试。** -/
 
 namespace Lattice.Core.CIC
 
