@@ -140,6 +140,24 @@ theorem batchVar_nonneg (X : ι → ℝ) : 0 ≤ batchVar X := by
 def batchVarUnbiased (X : ι → ℝ) : ℝ :=
   (∑ i, (X i - batchMean X) ^ 2) / ((Fintype.card ι : ℝ) - 1)
 
+/-- **代数律：**无偏**方差估计也非负。**
+
+**=> `batchVar_nonneg` 已给出有偏估计非负；本条把无偏估计
+`batchVarUnbiased` 也加进来，使两个估计在「非负」这一点上一致。**
+
+**前提 `hm : 0 < Fintype.card ι` 是**必要**的：若 `ι` 为空，分母
+`0 - 1 = -1` 为负，商的符号就不由分子决定。
+而 `Fintype ι` **不**蕴含 `ι` 非空，所以这条必须显式写出。** -/
+theorem batchVarUnbiased_nonneg {ι : Type} [Fintype ι] (X : ι → ℝ)
+    (hm : 0 < Fintype.card ι) : 0 ≤ batchVarUnbiased X := by
+  have key : batchVarUnbiased X
+      = (∑ i, (X i - batchMean X) ^ 2) / ((Fintype.card ι : ℝ) - 1) := rfl
+  rw [key]
+  have hc : (0 : ℝ) < (Fintype.card ι : ℝ) := by exact_mod_cast hm
+  have h1 : (1 : ℝ) ≤ (Fintype.card ι : ℝ) := by
+    exact_mod_cast Nat.succ_le_of_lt hm
+  exact div_nonneg (Finset.sum_nonneg (fun i _ => sq_nonneg _)) (by linarith)
+
 /-- **精确偏差恒等式**：`S/(m−1) − S/m = S/(m(m−1))`。 -/
 theorem batchVarUnbiased_sub_batchVar (X : ι → ℝ)
     (hm : (Fintype.card ι : ℝ) ≠ 0) (hm1 : (Fintype.card ι : ℝ) - 1 ≠ 0) :

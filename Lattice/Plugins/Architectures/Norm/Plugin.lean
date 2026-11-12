@@ -32,6 +32,18 @@ open scoped BigOperators
 def NormIterateVarianceLeOneProp : Prop :=
   ∀ {ι : Type} [Fintype ι] (x : ι → ℝ) (n : ℕ), varOf ((varNormalize^[n + 1]) x) ≤ 1
 
+/-- **`laws` 槽位：两个方差估计都**非负**。** -/
+def NormVarianceLawsProp : Prop :=
+  (∀ {ι : Type} [Fintype ι] (X : ι → ℝ), 0 ≤ batchVar X) ∧
+  (∀ {ι : Type} [Fintype ι] (X : ι → ℝ),
+      (hm : 0 < Fintype.card ι) → 0 ≤ batchVarUnbiased X)
+
+/-- **`NormVarianceLawsProp` holds** -- by `batchVar_nonneg` and `batchVarUnbiased_nonneg`. -/
+theorem normVarianceLawsProp_holds : NormVarianceLawsProp := by
+  refine ⟨?_, ?_⟩
+  · intro ι _ X; exact batchVar_nonneg X
+  · intro ι _ X hm; exact batchVarUnbiased_nonneg X hm
+
 /-- **`NormIterateVarianceLeOneProp` holds** -- by `varOf_iterate_varNormalize_le_one`. -/
 theorem normIterateVarianceLeOneProp_holds : NormIterateVarianceLeOneProp := by
   intro ι _ x n
@@ -92,7 +104,7 @@ Six claimed obligations, including the registry's FIRST `idempotence` witness.
 -/
 def proof : PluginProof where
   soundness := NormTrainInferAgreeProp ∧ NormVarianceNonnegProp
-  laws := True
+  laws := NormVarianceLawsProp
   exactness := NormVarianceEqOneProp
   approximation := NormLipschitzSharpProp ∧ NormLipschitzProp
   recovery := True
@@ -108,7 +120,7 @@ def proof : PluginProof where
 theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨⟨normTrainInferAgreeProp_holds, normVarianceNonnegProp_holds⟩,
-         True.intro,
+         normVarianceLawsProp_holds,
          normVarianceEqOneProp_holds,
          ⟨normLipschitzSharpProp_holds, normLipschitzProp_holds⟩,
          True.intro, True.intro, True.intro, True.intro,

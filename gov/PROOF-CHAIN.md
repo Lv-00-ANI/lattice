@@ -1875,8 +1875,8 @@
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
 | `Lattice.Plugins.Architectures.GNN.Proofs` | 30 | 10 |
 | `Lattice.Plugins.Architectures.Norm.Manifest` | 15 | 7 |
-| `Lattice.Plugins.Architectures.Norm.Plugin` | 9 | 8 |
-| `Lattice.Plugins.Architectures.Norm.Proofs` | 21 | 11 |
+| `Lattice.Plugins.Architectures.Norm.Plugin` | 10 | 9 |
+| `Lattice.Plugins.Architectures.Norm.Proofs` | 22 | 11 |
 | `Lattice.Plugins.Compose` | 0 | 0 |
 | `Lattice.Plugins.Compose.Combinators` | 8 | 3 |
 | `Lattice.Plugins.Compose.ComposeObligation` | 7 | 3 |
@@ -2749,6 +2749,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `batchN_orthogonal_writes` -> `BatchEdit2`, `BatchEditN`, `E`, `ROME`, `ROME_writes_fact`, `W`, `key_norm_sq_ne_zero`
 - `batchN_pointwise_bound` -> `E`, `W`, `apply`
 - `batchRankOneEdit_eq_rankOnePatch` -> `BatchEditClosed`, `E`, `ROME`, `ROME_writes_fact`, `RankOnePatch`, `W`, `apply`, `batchClosed_orthogonal_writes`, `g`, `induction`
+- `batchVarUnbiased_nonneg` -> `card_fin`, `subst`
 - `batchVarUnbiased_sub_batchVar` -> `card_fin`, `subst`
 - `batchVar_bias_le` -> `card_fin`, `subst`
 - `batchVar_nonneg` -> `card_fin`, `subst`
@@ -7591,6 +7592,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normSq_pos_euclid` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `single`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `normTrainInferAgreeProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `normVarianceEqOneProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `batchMean`, `batchVar`, `bnInfer`, `bnTrain`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_nonneg`, `varOf_varNormalize_eq_one`, `verified`, `verified_manifest`, `verified_obligations`
+- `normVarianceLawsProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `batchMean`, `batchVar`, `batchVarUnbiased_nonneg`, `batchVar_nonneg`, `bnInfer`, `bnTrain`, `bn_train_eq_infer`, `completeness`, `eps`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varNormalize`, `varNormalize_unit_lipschitz`, `varNormalize_unit_lipschitz_sharp`, `varOf`, `varOf_iterate_varNormalize_le_one`, `varOf_nonneg`, `varOf_varNormalize_eq_one`, `verified`, `verified_manifest`, `verified_obligations`
 - `normVarianceNonnegProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `varOf_nonneg`, `verified`, `verified_manifest`, `verified_obligations`
 - `norm_adversarialVec` -> `at`
 - `norm_difference_eq_kernel_distance` -> `IsPSDKernel`, `g`, `kernel_metric_zero_iff`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
