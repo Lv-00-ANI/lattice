@@ -1,3 +1,4 @@
+import Lattice.Plugins.ProofSlotCensus
 /-
 # LATTICE Plugins
 

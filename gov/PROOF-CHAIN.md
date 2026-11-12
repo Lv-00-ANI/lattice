@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 229 | aggregator at `Lattice/`, re-exports only |
+| root | 230 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -840,7 +840,7 @@
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
-- `Lattice.Plugins` <- `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
+- `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
 - `Lattice.Plugins.Architectures.Attention.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -892,6 +892,7 @@
 - `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` <- `Lattice.Core.VariableNet`, `Lattice.Core.VariableActLayer`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Migration` <- `Lattice.Plugins.Registry`
+- `Lattice.Plugins.ProofSlotCensus` <- `Lattice.Plugins.Registry`
 - `Lattice.Plugins.Registry` <- `Lattice.Plugins.Manifest`
 - `Lattice.Plugins.Runtime.RTargets` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Runtime.Spatiotemporal`
 - `Lattice.Plugins.Runtime.Spatiotemporal` <- `Lattice.Plugins.Runtime.Spatiotemporal.Model`, `Lattice.Plugins.Runtime.Spatiotemporal.Seq`, `Lattice.Plugins.Runtime.Spatiotemporal.Dep`, `Lattice.Plugins.Runtime.Spatiotemporal.Confluence`, `Lattice.Plugins.Runtime.Spatiotemporal.Fail`
@@ -1910,6 +1911,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` | 206 | 69 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
+| `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
 | `Lattice.Plugins.Runtime.Spatiotemporal` | 0 | 0 |
@@ -5888,12 +5890,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holds_eqZero_const_iff` -> `DegenerateOK`, `Holds`, `Pt`, `holds_of_degenerateOK`
 - `holds_equalLength_const` -> `DegenerateOK`, `Holds`, `Pt`, `d`, `holds_of_degenerateOK`
 - `holds_iff` -> `all`, `at`, `bvar`, `induction`
+- `holds_iff_all_fields` -> `Holds`, `PluginProof`, `completeness`, `soundness`, `subst`, `trivial`, `trivial_holds`
+- `holds_laws` -> `Holds`, `PluginProof`, `subst`, `trivial`, `trivial_holds`
 - `holds_leZero_const_of_eval_zero` -> `DegenerateOK`, `Holds`, `Pt`, `holds_of_degenerateOK`
 - `holds_midpoint_const` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `holds_of_degenerateOK` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `holds_perpendicular_const` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `holds_rightAngle_const` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `holds_samePoint_const` -> `ConstraintSet`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
+- `holds_soundness` -> `Holds`, `PluginProof`, `soundness`, `subst`, `trivial`, `trivial_holds`
 - `holds_sqDistEq_const_of_eval_zero` -> `DegenerateOK`, `Holds`, `Pt`, `d`, `holds_of_degenerateOK`
 - `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `g`, `length`, `reluZ`, `toVec`
 - `hreach_of_uniform_gap` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `SoftmaxAttnOp`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`, `residual_lower_bound_positive`
@@ -10620,6 +10625,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `triple_while_iff_wpT_while` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `triple_iff_wpT`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `triple_while_yields_approx` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `trivialProofTrace_passes` -> `apply`, `at`, `eval`, `g`, `induction`, `step`
+- `trivial_holds_iff` -> `Holds`, `PluginProof`, `subst`, `trivial`, `trivial_holds`
 - `trivial_sat` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
 - `trueGrad_eq_zero_of_eventuallyConst` -> `at`, `dist`
 - `truncDiag_rank_le` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`

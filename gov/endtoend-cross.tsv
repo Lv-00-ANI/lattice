@@ -2749,6 +2749,10 @@ Plugins/Migration.lean	obligationOwnedBy_self
 Plugins/Migration.lean	registryMigratedFor_nil
 Plugins/Migration.lean	registryMigratedFor_fails_of_unlisted
 Plugins/Migration.lean	registryMigratedFor_fails_of_foreign
+Plugins/ProofSlotCensus.lean	holds_iff_all_fields
+Plugins/ProofSlotCensus.lean	holds_soundness
+Plugins/ProofSlotCensus.lean	holds_laws
+Plugins/ProofSlotCensus.lean	trivial_holds_iff
 Plugins/Registry.lean	PluginProof.trivial_holds
 Plugins/Registry.lean	PluginProof.trivial_fields
 Plugins/Registry.lean	registryConsistentFor_nil
