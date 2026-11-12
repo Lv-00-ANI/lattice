@@ -1,3 +1,4 @@
+import Lattice.CInterface.PrerequisiteCensus
 import Lattice.CInterface.ABI
 import Lattice.CInterface.ContractBoundary
 import Lattice.CInterface.Conformance

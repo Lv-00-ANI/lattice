@@ -15,14 +15,14 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
-| 0 | 4304 | 44.7% |
+| 0 | 4304 | 44.6% |
 | 1 | 1506 | 15.6% |
 | 2 | 1019 | 10.6% |
 | 3 | 330 | 3.4% |
 | 4 | 106 | 1.1% |
 | 5 | 1893 | 19.6% |
-| 6 | 481 | 5.0% |
-| **合计** | **9639** | |
+| 6 | 483 | 5.0% |
+| **合计** | **9641** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -46,6 +46,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `seven_primitives_float_inputs_have_no_f64_slot` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `three_primitives_have_too_few_f64_slots` (`CInterface/ContractBoundary.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `encoded_layer_size` (`CInterface/LayoutBytes.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_certificate` (`CInterface/PrerequisiteCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `abiTable_signature_only` (`CInterface/PrerequisiteCensus.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `preserves_foldl` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `preserves_iterate` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `iterate_from_fold` (`Evidence/ChainTransitivity.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `dag_denote_resid` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dagEval_commute_past` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dag_confluence` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `gnn_props_hold` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `manifest_obligation_count` (`Plugins/Architectures/GNN/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

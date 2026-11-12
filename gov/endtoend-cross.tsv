@@ -85,6 +85,8 @@ CInterface/LayoutBytes.lean	wordOffset_lt_biasOffset
 CInterface/LayoutBytes.lean	lastWord_fits
 CInterface/LayoutBytes.lean	lastBias_fits
 CInterface/LayoutBytes.lean	encoded_layer_size
+CInterface/PrerequisiteCensus.lean	abiTable_certificate
+CInterface/PrerequisiteCensus.lean	abiTable_signature_only
 CInterface/Serialization.lean	layerWords_length
 CInterface/Serialization.lean	wPart_length
 CInterface/Serialization.lean	layerWords_getD_W

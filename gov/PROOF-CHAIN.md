@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 226 | aggregator at `Lattice/`, re-exports only |
+| root | 227 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -804,11 +804,12 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.CInterface` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
+- `Lattice.CInterface` <- `Lattice.CInterface.PrerequisiteCensus`, `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
 - `Lattice.CInterface.ABI` <- `Lattice.Compose.PrimitiveShape`
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.ContractBoundary` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
+- `Lattice.CInterface.PrerequisiteCensus` <- `Lattice.CInterface.ABI`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
 - `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
 - `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
@@ -1824,6 +1825,7 @@
 | `Lattice.CInterface.Conformance` | 7 | 18 |
 | `Lattice.CInterface.ContractBoundary` | 6 | 2 |
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
+| `Lattice.CInterface.PrerequisiteCensus` | 2 | 0 |
 | `Lattice.CInterface.Serialization` | 10 | 2 |
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.AdapterMatrix` | 8 | 3 |
@@ -2305,12 +2307,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `at`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `at`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `at`, `le_trans`
+- `abiTable_certificate` -> `CFunction`, `CType`, `abiTable`, `abiTable_errors_wellFormed`, `abiTable_length`, `abiTable_names_nodup`, `abiTable_returns_a_value`, `errorsWellFormed`, `length`
 - `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `abiTable_errors_wellFormed` -> `at`, `primitiveNames`
 - `abiTable_length` -> `at`, `length`, `primitiveNames`
 - `abiTable_names_eq_verified` -> `primitiveNames`
 - `abiTable_names_nodup` -> `at`, `primitiveNames`
 - `abiTable_returns_a_value` -> `at`, `primitiveNames`
+- `abiTable_signature_only` -> `abiTable`
 - `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
