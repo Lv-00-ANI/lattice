@@ -538,6 +538,10 @@ Core/IR/Extract.lean	extract_compileWith
 Core/IR/Extract.lean	models_compileWith
 Core/IR/Extract.lean	models_structure
 Core/IR/Extract.lean	models_data
+Core/IR/FinalSpec.lean	finalSpec_of_run
+Core/IR/FinalSpec.lean	finalSpec_construct_eq
+Core/IR/FinalSpec.lean	finalSpec_nil
+Core/IR/FinalSpec.lean	finalSpec_apply
 Core/IR/IsIR.lean	materialize_covered
 Core/IR/IsIR.lean	maximal_nil
 Core/IR/IsIR.lean	pointTensors_covered
