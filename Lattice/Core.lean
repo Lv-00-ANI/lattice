@@ -1,3 +1,4 @@
+import Lattice.Core.IR.CertSnapshot
 import Lattice.Core.IR.UnloadEffect
 import Lattice.Core.IR.MaximalScope
 import Lattice.Core.IR.SlotBridge

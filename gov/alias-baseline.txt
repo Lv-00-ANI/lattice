@@ -853,3 +853,4 @@ forward	Lib/Quantization/RealCompressionStepDischarged.lean	step_contraction_of_
 forward	Lib/Editing/RealOperatorSplit.lean	t3_name_irrelevant
 forward	Runtime/VecCarrierCensus.lean	truncated_iff_indexed
 forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form
+forward	Core/IR/CertSnapshot.lean	cert_matches_at_issue
