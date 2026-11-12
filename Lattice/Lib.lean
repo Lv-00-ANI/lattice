@@ -1,3 +1,4 @@
+import Lattice.Lib.Fiber.FiberBridge
 import Lattice.Lib.Chain.RealLv00SolverConflictDetection
 import Lattice.Lib.Chain.L1BridgeHomomorphism
 import Lattice.Lib.Quantization.RealCompressionStepDischarged

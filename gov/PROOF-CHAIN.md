@@ -11,7 +11,7 @@
 | core | 157 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 626 | instantiated library, may import core only |
+| lib | 627 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -569,6 +569,7 @@
 - `Lattice.Lib.FCA.RealFCATriadicCompleteLattice` <- `Lattice.Lib.FCA.RealFCA`, `Lattice.Lib.FCA.RealFCATriadic`
 - `Lattice.Lib.FCA.RealImplication` <- `Lattice.Runtime.RealLinear`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.FCA.RealImplicationExt` <- `Lattice.Runtime.RealNonlinear`, `Lattice.Lib.FCA.RealImplication`
+- `Lattice.Lib.Fiber.FiberBridge` <- `Lattice.Lib.Concentration.RealStochasticProcess`, `Lattice.Lib.Editing.RealExtractNonInjective`, `Lattice.Lib.Editing.RealRoundTripVacuity`
 - `Lattice.Lib.FloatStackRefinement` <- `Lattice.Runtime.StackError`, `Lattice.Lib.Quantization.RealIEEE754.Basic`
 - `Lattice.Lib.InfoTheory` <- `Lattice.Lib.InfoTheory.RealContinuousKL`, `Lattice.Lib.InfoTheory.RealCrossEntropy`, `Lattice.Lib.InfoTheory.RealDPIComplete`, `Lattice.Lib.InfoTheory.RealDPIEquality`, `Lattice.Lib.InfoTheory.RealDataProcessing`, `Lattice.Lib.InfoTheory.RealDroppedMass`, `Lattice.Lib.InfoTheory.RealELBO`, `Lattice.Lib.InfoTheory.RealEntropyConcavity`, `Lattice.Lib.InfoTheory.RealFDivergence`, `Lattice.Lib.InfoTheory.RealFisherInfo`, `Lattice.Lib.InfoTheory.RealFisherMatrix`, `Lattice.Lib.InfoTheory.RealInfoNCELowerBound`, `Lattice.Lib.InfoTheory.RealInformationGeometry`, `Lattice.Lib.InfoTheory.RealKL`, `Lattice.Lib.InfoTheory.RealKLChainRule`, `Lattice.Lib.InfoTheory.RealKLConvexity`, `Lattice.Lib.InfoTheory.RealKLJointConvex`, `Lattice.Lib.InfoTheory.RealKleeneFixedPoint`, `Lattice.Lib.InfoTheory.RealLogSumEquality`, `Lattice.Lib.InfoTheory.RealMaxEntropy`, `Lattice.Lib.InfoTheory.RealMaxEntropyII`, `Lattice.Lib.InfoTheory.RealMutualInformation`, `Lattice.Lib.InfoTheory.RealOptimalTransport`, `Lattice.Lib.InfoTheory.RealRNGibbs`, `Lattice.Lib.InfoTheory.RealRenyiDP`, `Lattice.Lib.InfoTheory.RealWasserstein`
 - `Lattice.Lib.InfoTheory.RealContinuousKL` <- `Lattice.Lib.InfoTheory.RealKL`
@@ -839,7 +840,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1588,6 +1589,7 @@
 | `Lattice.Lib.FCA.RealFCATriadicCompleteLattice` | 16 | 2 |
 | `Lattice.Lib.FCA.RealImplication` | 6 | 0 |
 | `Lattice.Lib.FCA.RealImplicationExt` | 5 | 0 |
+| `Lattice.Lib.Fiber.FiberBridge` | 4 | 0 |
 | `Lattice.Lib.FloatStackRefinement` | 3 | 1 |
 | `Lattice.Lib.InfoTheory` | 0 | 0 |
 | `Lattice.Lib.InfoTheory.RealContinuousKL` | 9 | 4 |
@@ -5172,13 +5174,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fenchel_inequality` -> `E`, `apply`, `at`, `fDivergence`, `g`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`, `tv`, `tv_eq_sum_abs`
 - `fiberCard_sum_eq` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `g`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `fiberPred_factorsThrough` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
+- `fiberPred_iff` -> `fiber`, `fiberPred`
 - `fiberStable_iff_neutral_on_fiberPreds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
 - `fiberStable_iterate` -> `g`, `induction`, `zero`
 - `fiberStable_of_leftInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
+- `fiber_agrees` -> `fiber`, `fiberPred`
 - `fiber_extractVec_eq_singleton` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `fiber_extractVec_exists_unique` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `fiber_extractVec_is_singleton` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `fiber_extractVec_subsingleton` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
+- `fiber_finset_mem_iff` -> `fiber`, `fiberPred`
+- `fiber_mem_iff` -> `fiber`, `fiberPred`
 - `fiber_sum_eq` -> `apply`, `at`, `d`, `g`
 - `fiber_sum_eq_filtered_fiber_sum` -> `at`, `d`, `g`
 - `fiber_zero_of_row_zero` -> `apply`, `d`, `g`
