@@ -1866,8 +1866,8 @@
 | `Lattice.Plugins.Architectures.Attention.Proofs` | 7 | 4 |
 | `Lattice.Plugins.Architectures.CarrierAdditions` | 1 | 4 |
 | `Lattice.Plugins.Architectures.Conv.Manifest` | 2 | 4 |
-| `Lattice.Plugins.Architectures.Conv.Plugin` | 6 | 5 |
-| `Lattice.Plugins.Architectures.Conv.Proofs` | 4 | 2 |
+| `Lattice.Plugins.Architectures.Conv.Plugin` | 7 | 6 |
+| `Lattice.Plugins.Architectures.Conv.Proofs` | 6 | 2 |
 | `Lattice.Plugins.Architectures.DAG.Manifest` | 1 | 1 |
 | `Lattice.Plugins.Architectures.DAG.Plugin` | 6 | 5 |
 | `Lattice.Plugins.Architectures.DAG.Proofs` | 6 | 7 |
@@ -3856,12 +3856,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `contraction_pow_bound` -> `induction`, `le_refl`, `zero`
 - `contraction_pow_le_one` -> `E`, `apply`, `eps`, `induction`, `le_trans`, `op_apply_le`, `op_norm_pow_le`, `prod_one_add_le_exp`, `zero`
 - `contradiction_of_same_coeff` -> `Program`, `RealConstraint`, `RealConstraintSat`, `all`, `at`
+- `convApply_add` -> `Conv`, `shift`
+- `convApply_smul` -> `Conv`, `shift`
 - `convComb_coreValue` -> `VectorConstraint`, `convComb`, `convComb_norm_bound`, `toVec`
 - `convComb_coreValue_norm_bound` -> `VectorConstraint`, `convComb`, `convComb_norm_bound`
 - `convComb_lipschitz` -> `E`, `apply`
 - `convComb_lipschitz_prob` -> `E`, `apply`
 - `convComb_norm_bound` -> `E`, `apply`, `d`
 - `convEquivarianceProp_holds` -> `Conv`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `convApply`, `conv_eq_shared_filter`, `conv_equivariant`, `conv_window_determines_output`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `convLinearityProp_holds` -> `Conv`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `convApply`, `convApply_add`, `convApply_smul`, `conv_eq_shared_filter`, `conv_equivariant`, `conv_window_determines_output`, `length`, `manifest`, `proof`, `proof_holds`, `shift`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `convProofs_under_dir` -> `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `StringPrefix`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
 - `convWeightSharingProp_holds` -> `Conv`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `convApply`, `conv_eq_shared_filter`, `conv_window_determines_output`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `convWindowDeterminesOutputProp_holds` -> `Conv`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `conv_window_determines_output`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`

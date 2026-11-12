@@ -65,6 +65,32 @@ support.** -/
 noncomputable def convApply (k : ℕ) (f : Fin k → ℝ) (x : ℕ → ℝ) (i : ℕ) : ℝ :=
   ∑ j : Fin k, f j * x (i + j)
 
+/-! ## 代数律：卷积是**线性**的 -
+
+**`convApply k f x i := ∑ j, f j * x (i + j)` 对 `x` 是线性的。
+这是一条**代数律**，与 `soundness`（权重共享）**独立**：
+权重共享说的是「滞，用同一个 `f`」，而线性说的是「对 `x` 可加」。
+
+**=> 第 867 轮用它们把 `Conv` 插件的 `laws` 槽位从 `True` 换成真内容。** -/
+
+/-- **叠加律：卷积保持逐点相加。** -/
+theorem convApply_add (k : ℕ) (f : Fin k → ℝ) (x y : ℕ → ℝ) (i : ℕ) :
+    convApply k f (fun j => x j + y j) i = convApply k f x i + convApply k f y i := by
+  unfold convApply
+  rw [← Finset.sum_add_distrib]
+  congr 1
+  ext j
+  ring
+
+/-- **齐次律：标量可以提出卷积。** -/
+theorem convApply_smul (k : ℕ) (f : Fin k → ℝ) (c : ℝ) (x : ℕ → ℝ) (i : ℕ) :
+    convApply k f (fun j => c * x j) i = c * convApply k f x i := by
+  unfold convApply
+  rw [Finset.mul_sum]
+  congr 1
+  ext j
+  ring
+
 /-- **Translation of a signal.** -/
 def shift (t : ℕ) (x : ℕ → ℝ) : ℕ → ℝ :=
   fun i => x (i + t)

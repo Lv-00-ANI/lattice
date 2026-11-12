@@ -33,6 +33,19 @@ namespace Lattice.Plugins.Architectures.Conv
 
 open Lattice.Plugins
 
+/-- **`laws` 槽位：卷积对输入是**线性**的（叠加 + 齐次）。** -/
+def ConvLinearityProp : Prop :=
+  (∀ (k : ℕ) (f : Fin k → ℝ) (x y : ℕ → ℝ) (i : ℕ),
+      convApply k f (fun j => x j + y j) i = convApply k f x i + convApply k f y i) ∧
+  (∀ (k : ℕ) (f : Fin k → ℝ) (c : ℝ) (x : ℕ → ℝ) (i : ℕ),
+      convApply k f (fun j => c * x j) i = c * convApply k f x i)
+
+/-- **`ConvLinearityProp` holds** -- by `convApply_add` and `convApply_smul`. -/
+theorem convLinearityProp_holds : ConvLinearityProp := by
+  constructor
+  · intro k f x y i; exact convApply_add k f x y i
+  · intro k f c x i; exact convApply_smul k f c x i
+
 /-- **Equivariance: shifting the input shifts the output.** -/
 def ConvEquivarianceProp : Prop :=
   ∀ (k : ℕ) (f : Fin k → ℝ) (x : ℕ → ℝ) (t : ℕ),
@@ -70,7 +83,7 @@ theorem convWindowDeterminesOutputProp_holds : ConvWindowDeterminesOutputProp :=
 -/
 def proof : PluginProof where
   soundness := ConvWeightSharingProp
-  laws := True
+  laws := ConvLinearityProp
   exactness := ConvWindowDeterminesOutputProp
   approximation := True
   recovery := True
@@ -86,7 +99,7 @@ def proof : PluginProof where
 theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨convWeightSharingProp_holds,
-         True.intro,
+         convLinearityProp_holds,
          convWindowDeterminesOutputProp_holds,
          True.intro, True.intro, True.intro, True.intro,
          convEquivarianceProp_holds,
