@@ -1,3 +1,4 @@
+import Lattice.Core.IR.MaximalScope
 import Lattice.Core.IR.SlotBridge
 import Lattice.Core.IR.FinSupport
 import Lattice.Core.CIC.ShiftSubstOffset

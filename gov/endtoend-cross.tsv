@@ -552,6 +552,9 @@ Core/IR/Materialize.lean	find_eq_some_of_nodup
 Core/IR/Materialize.lean	map_inj_of_nodup
 Core/IR/Materialize.lean	find_id_eq_some_of_nodup
 Core/IR/Materialize.lean	readOf_fillWith
+Core/IR/MaximalScope.lean	maximal_closure_scope
+Core/IR/MaximalScope.lean	maximal_singleton_false
+Core/IR/MaximalScope.lean	maximal_nil_is_closure
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps
