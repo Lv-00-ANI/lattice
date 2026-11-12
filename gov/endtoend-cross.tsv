@@ -500,6 +500,10 @@ Core/IR/Confluence.lean	run_congr_of_agree
 Core/IR/Confluence.lean	run_ignores_initial_of_edits
 Core/IR/Confluence.lean	lattice_confluence
 Core/IR/Confluence.lean	lattice_confluence_zero
+Core/IR/DeactivateGate.lean	canDeactivate_iff
+Core/IR/DeactivateGate.lean	canDeactivate_not_required_by_active
+Core/IR/DeactivateGate.lean	deactivate_preserves_ordering
+Core/IR/DeactivateGate.lean	canDeactivate_nil
 Core/IR/Decode.lean	decodeListAux_code
 Core/IR/Decode.lean	decodeList_code
 Core/IR/Decode.lean	decodeTensorShape_code

@@ -1,3 +1,4 @@
+import Lattice.Core.IR.DeactivateGate
 import Lattice.Core.IR.FinalSpec
 import Lattice.Core.IR.CertSnapshot
 import Lattice.Core.IR.UnloadEffect
