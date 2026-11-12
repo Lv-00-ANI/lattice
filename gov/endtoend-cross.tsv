@@ -3509,6 +3509,9 @@ Runtime/ConvertVectorLinear.lean	scaleVec_preserves
 Runtime/ConvertVectorLinear.lean	sat_of_list_sat
 Runtime/ConvertVectorLinear.lean	list_sat_of_sat_of_length
 Runtime/ConvertVectorLinear.lean	sat_iff_list_sat
+Runtime/DotTruncationDefect.lean	dot_nil
+Runtime/DotTruncationDefect.lean	dot_replicate_zero
+Runtime/DotTruncationDefect.lean	dot_not_injective
 Runtime/EncodingAbstraction.lean	sound_of_factors
 Runtime/EncodingAbstraction.lean	factors_project
 Runtime/EndToEnd.lean	decode_encode

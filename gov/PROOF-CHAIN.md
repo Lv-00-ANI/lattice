@@ -1962,7 +1962,7 @@
 | `Lattice.Runtime.ConstraintToLoss` | 4 | 1 |
 | `Lattice.Runtime.ConvertLinear` | 4 | 7 |
 | `Lattice.Runtime.ConvertVectorLinear` | 11 | 11 |
-| `Lattice.Runtime.DotTruncationDefect` | 4 | 0 |
+| `Lattice.Runtime.DotTruncationDefect` | 7 | 0 |
 | `Lattice.Runtime.EncodingAbstraction` | 3 | 0 |
 | `Lattice.Runtime.EndToEnd` | 7 | 3 |
 | `Lattice.Runtime.EndToEndApproximation` | 3 | 0 |
@@ -4416,19 +4416,21 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_eq_dotProduct_of_length` -> `apply`, `at`, `dot`, `length`
 - `dot_eq_fin_sum` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`
-- `dot_ignores_missing_assignments` -> `dot`, `vecDot`
-- `dot_ignores_ragged_assignment` -> `dot`, `vecDot`
+- `dot_ignores_missing_assignments` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
+- `dot_ignores_ragged_assignment` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `subst`
+- `dot_nil` -> `at`, `dot`, `induction`, `length`, `length_cons`
 - `dot_nil_left_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `dot_nil_right` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
 - `dot_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
 - `dot_nil_right_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `dot_not_faithful` -> `dot`, `vecDot`
+- `dot_not_faithful` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
+- `dot_not_injective` -> `at`, `dot`, `length`
 - `dot_not_injective_concrete` -> `length`
 - `dot_not_injective_witness` -> `length`
 - `dot_of_append_zeros_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `at`, `dot`
-- `dot_replicate_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot`, `dot_replicate_zero_any`, `induction`, `length`, `symbolToWeight_correct`, `zero`
-- `dot_replicate_zero_any` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `subst`, `symbolToWeight_correct`, `zero`
+- `dot_replicate_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `at`, `compileToLayer`, `dot`, `dot_replicate_zero_any`, `induction`, `length`, `length_cons`, `symbolToWeight_correct`, `zero`
+- `dot_replicate_zero_any` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_replicate_zero`, `extractVec`, `induction`, `length`, `length_cons`, `subst`, `symbolToWeight_correct`, `zero`
 - `dot_representation_agreement` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_representation_agreement_bridge` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_same_length_ok` -> `at`, `induction`, `length`, `length_cons`
@@ -6478,7 +6480,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_perturbation_bound` -> `VectorConstraint`, `convertVec`, `extractVec`
 - `layerOut_scaleLinearLayer` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
-- `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
+- `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
 - `layerParamCount_eq` -> `Activation`, `Arch`
 - `layerParamCount_pos` -> `Activation`, `Arch`, `at`, `d`, `g`, `layerParamCount`, `slotOf`
 - `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
@@ -10839,7 +10841,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vec2_one` -> `add`, `at`, `d`
 - `vec2_zero` -> `add`, `at`, `d`
 - `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
-- `vecDot_is_sum_not_zip` -> `vecDot`
+- `vecDot_is_sum_not_zip` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `vecDot_toFinVec_eq_dot` -> `at`, `dot`, `induction`, `length`, `subst`
 - `vecGdSeq_succ` -> `at`, `eps`, `g`, `induction`, `le_trans`, `loss`, `normSq`, `normSq_nonneg`, `zero`
 - `vecMulVec_mulVec` -> `at`, `mulVec`
