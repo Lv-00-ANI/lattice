@@ -1,3 +1,4 @@
+import Lattice.Runtime.DotTruncationDefect
 import Lattice.Runtime.ActivationLadder
 import Lattice.Runtime.ApproxExact
 import Lattice.Runtime.ApproxExtraction
