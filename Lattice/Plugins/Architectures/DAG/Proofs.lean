@@ -83,6 +83,34 @@ def dagPar {α : Type} (p q : DagProgram α) : DagProgram α := p ++ q
 /-- **Residual composition: the second branch refines the first.** -/
 def dagResid {α : Type} (p q : DagProgram α) : DagProgram α := p ++ q
 
+/-! ## 代数律：`dagEval` 是一个**幺半群作用** -
+
+**`dagEval` 对程序的拼接行为像一个作用：空程序作用为恒等，
+拼接作用为复合。这是一条**代数律**，与 `soundness`
+（`dagEval (dagSeq p q) x = dagEval q (dagEval p x)`）**独立**：
+后者已把 `dagSeq` 展开为 `p ++ q`，而本节说的是
+**拼接本身**的代数性质（幺元、结合律、作用性）。** -/
+
+/-- **幺元律：空程序作用为恒等。** -/
+theorem dagEval_nil {α : Type} (x : α) : dagEval (∅ : DagProgram α) x = x := rfl
+
+/-- **拼接作用律：拼接的作用是作用的复合。** -/
+theorem dagEval_append {α : Type} (p q : DagProgram α) (x : α) :
+    dagEval (p ++ q) x = dagEval q (dagEval p x) := by
+  induction p generalizing x with
+  | nil => rfl
+  | cons f fs ih =>
+      simp only [List.cons_append, dagEval]
+      exact ih (f x)
+
+/-- **结合律：三段拼接无关加括号。**
+
+**=> 这条与上两条合起来，说明 `dagEval` 是 `List` 幺半群
+在 `α → α` 上的一个**作用**。** -/
+theorem dagEval_append_assoc {α : Type} (p q r : DagProgram α) (x : α) :
+    dagEval ((p ++ q) ++ r) x = dagEval (p ++ (q ++ r)) x := by
+  rw [List.append_assoc]
+
 /-! ## Three of the four obligations -/
 
 /-- **`denote_seq`: evaluating a concatenation is the composition of the evaluations.**

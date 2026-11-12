@@ -16,13 +16,13 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 4306 | 44.6% |
-| 1 | 1512 | 15.7% |
+| 1 | 1514 | 15.7% |
 | 2 | 1021 | 10.6% |
 | 3 | 330 | 3.4% |
 | 4 | 106 | 1.1% |
 | 5 | 1897 | 19.6% |
-| 6 | 487 | 5.0% |
-| **合计** | **9659** | |
+| 6 | 489 | 5.1% |
+| **合计** | **9663** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -77,17 +77,17 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `verified_obligations` (`Plugins/Architectures/Conv/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `conv_window_determines_output` (`Plugins/Architectures/Conv/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `manifest_nonempty` (`Plugins/Architectures/DAG/Manifest.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagEvalMonoidActionProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dagConfluenceProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dagDenoteSeqProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dagDenoteParProp_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `dagEval_append` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dag_denote_seq` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dag_denote_par` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `dag_denote_resid` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `dagEval_commute_past` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `dag_confluence` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

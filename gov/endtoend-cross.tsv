@@ -2777,12 +2777,14 @@ Plugins/Architectures/Conv/Proofs.lean	conv_translation_equivariant
 Plugins/Architectures/Conv/Proofs.lean	conv_equivariant
 Plugins/Architectures/Conv/Proofs.lean	conv_window_determines_output
 Plugins/Architectures/DAG/Manifest.lean	manifest_nonempty
+Plugins/Architectures/DAG/Plugin.lean	dagEvalMonoidActionProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteParProp_holds
 Plugins/Architectures/DAG/Plugin.lean	proof_holds
 Plugins/Architectures/DAG/Plugin.lean	verified_manifest
 Plugins/Architectures/DAG/Plugin.lean	verified_obligations
+Plugins/Architectures/DAG/Proofs.lean	dagEval_append
 Plugins/Architectures/DAG/Proofs.lean	dag_denote_seq
 Plugins/Architectures/DAG/Proofs.lean	dag_denote_par
 Plugins/Architectures/DAG/Proofs.lean	dag_denote_resid

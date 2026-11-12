@@ -36,6 +36,21 @@ def DAGConfluenceProp : Prop :=
   ∀ {α : Type} (fs : DagProgram α),
     (∀ f ∈ fs, ∀ g ∈ fs, DagCommute f g) → ∀ x : α, dagEval fs x = dagEval fs.reverse x
 
+/-- **`laws` 槽位：`dagEval` 是 `List` 幺半群在 `α → α` 上的**作用**。** -/
+def DAGEvalMonoidActionProp : Prop :=
+  (∀ {α : Type} (x : α), dagEval (∅ : DagProgram α) x = x) ∧
+  (∀ {α : Type} (p q : DagProgram α) (x : α),
+      dagEval (p ++ q) x = dagEval q (dagEval p x)) ∧
+  (∀ {α : Type} (p q r : DagProgram α) (x : α),
+      dagEval ((p ++ q) ++ r) x = dagEval (p ++ (q ++ r)) x)
+
+/-- **`DAGEvalMonoidActionProp` holds** -- by the three `dagEval_*` laws. -/
+theorem dagEvalMonoidActionProp_holds : DAGEvalMonoidActionProp := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro α x; exact dagEval_nil x
+  · intro α p q x; exact dagEval_append p q x
+  · intro α p q r x; exact dagEval_append_assoc p q r x
+
 /-- **`DAGConfluenceProp` holds** -- by `dag_confluence`. -/
 theorem dagConfluenceProp_holds : DAGConfluenceProp := by
   intro α fs h x
@@ -64,7 +79,7 @@ theorem dagDenoteParProp_holds : DAGDenoteParProp := by
 **`confluence` filled here -- the first non-`True` confluence in an architecture plugin.** -/
 def proof : PluginProof where
   soundness := DAGDenoteSeqProp
-  laws := True
+  laws := DAGEvalMonoidActionProp
   exactness := DAGDenoteParProp
   approximation := True
   recovery := True
@@ -80,7 +95,7 @@ def proof : PluginProof where
 theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨dagDenoteSeqProp_holds,
-         True.intro,
+         dagEvalMonoidActionProp_holds,
          dagDenoteParProp_holds,
          True.intro, True.intro, True.intro,
          dagConfluenceProp_holds,
