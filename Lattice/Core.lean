@@ -1,3 +1,4 @@
+import Lattice.Core.IR.SlotBridge
 import Lattice.Core.IR.FinSupport
 import Lattice.Core.CIC.ShiftSubstOffset
 import Lattice.Core.CIC.ShiftSubstOffsetProbe

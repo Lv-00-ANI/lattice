@@ -8,7 +8,7 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 156 | no imports from lift/lib |
+| core | 157 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 626 | instantiated library, may import core only |
@@ -151,6 +151,7 @@
 - `Lattice.Core.IR.Relations` <- `Lattice.Core.IR.Basic`
 - `Lattice.Core.IR.Semantics` <- `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Parse`
 - `Lattice.Core.IR.Skeleton` <- `Lattice.Core.IR.Compile`
+- `Lattice.Core.IR.SlotBridge` <- `Lattice.Core.IR.Extract`, `Lattice.Core.IR.FinSupport`
 - `Lattice.Core.IR.T4Repair` <- `Lattice.Core.IR.Obligations`, `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Core.IR.Unique` <- `Lattice.Core.IR.Chain`
 - `Lattice.Core.Idempotent` 
@@ -822,7 +823,7 @@
 - `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -1165,6 +1166,7 @@
 | `Lattice.Core.IR.Relations` | 5 | 5 |
 | `Lattice.Core.IR.Semantics` | 34 | 12 |
 | `Lattice.Core.IR.Skeleton` | 8 | 11 |
+| `Lattice.Core.IR.SlotBridge` | 4 | 1 |
 | `Lattice.Core.IR.T4Repair` | 4 | 0 |
 | `Lattice.Core.IR.Unique` | 2 | 0 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
@@ -2065,9 +2067,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `C6_twoK3_1WL_blind` -> `nbhdSum`
 - `C6_twoK3_partition_eq` -> `nbhdSum`
 - `C6_twoK3_same_card` -> `E`, `nbhdSet`, `nbhdSum`
-- `C_ne_zero_of_ne_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`
-- `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
-- `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
+- `C_ne_zero_of_ne_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`, `slotOf`
+- `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
 - `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`, `induction`, `zero`
 - `ChainFwd_const_add` -> `ChainFwd`, `ChainTail`, `W`, `at`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
@@ -2487,7 +2489,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_unique` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
-- `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `zero`
+- `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `affine_second_difference` -> `W`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
@@ -2846,7 +2848,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `biasOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `biasSlotIsRowAProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `bias_compose` -> `W`, `apply`, `induction`
-- `bias_slot_eq_slotOf` -> `MLayer`, `apply`, `single`
+- `bias_slot_eq_slotOf` -> `MLayer`, `apply`, `single`, `slotOf`
 - `bias_variance_decomposition` -> `E`, `at`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `at`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `bidirLoop_absorbs` -> `Sat`, `VerificationLoop`, `loop_absorbs`, `run`
@@ -3188,7 +3190,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainDepth_chainOneToChain` -> `at`, `eval`, `eval_add`, `eval_mul`, `g`
 - `chainDepth_cons` -> `Chain`, `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`, `g`
 - `chainDepth_idf` -> `Chain`, `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`, `g`
-- `chainDepth_polyChainToChain` -> `at`, `d`, `eval`, `induction`, `layerParamCount`, `single`, `trans`
+- `chainDepth_polyChainToChain` -> `at`, `d`, `eval`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
 - `chainErrReal_le` -> `E`, `induction`, `zero`
 - `chainErrReal_nonneg` -> `E`, `induction`, `zero`
 - `chainFwd_replacement_bound_last_layer` -> `ChainFwd`, `ChainTail`
@@ -3204,9 +3206,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainLift_le_u_l` -> `compose`
 - `chainLift_premise_instantiable` -> `compose`
 - `chainLift_two` -> `compose`
-- `chainList_degree_attained` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `length`
+- `chainList_degree_attained` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `length`, `slotOf`
 - `chainList_output_eval` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
-- `chainList_output_full` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`
+- `chainList_output_full` -> `Chain`, `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`, `slotOf`
 - `chainList_output_is_polynomial` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
 - `chainMin_last` -> `apply`, `at`, `le_refl`
 - `chainMin_zero` -> `apply`, `at`, `le_refl`
@@ -3225,9 +3227,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainNatPoly_single_coeff_bias` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `chainNatPoly_single_coeff_weight` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `chainNatPoly_totalDegree` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`, `single`
-- `chainNatPoly_totalDegree_any` -> `MLayer`, `d`, `eval`, `g`, `layerParamCount`, `le_trans`, `length`
-- `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `chainOffsets_two` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
+- `chainNatPoly_totalDegree_any` -> `MLayer`, `d`, `eval`, `g`, `layerParamCount`, `le_trans`, `length`, `slotOf`
+- `chainOffsets_idf` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `chainOffsets_two` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
 - `chainOneAct_allOnesWeights` -> `apply`, `at`, `d`, `eval`, `le_antisymm`, `single`
 - `chainOneAct_cons` -> `MLayer`, `apply`, `at`, `d`, `eval`, `g`, `le_antisymm`, `single`
 - `chainOneAct_eq_flatChainAct` -> `MLayer`, `at`, `d`, `eval`, `g`, `layerParamCount`, `single`
@@ -3242,7 +3244,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOne_output_degree` -> `MLayer`, `at`, `d`, `eval`, `g`, `single`
 - `chainOne_output_eval` -> `MLayer`, `apply`, `at`, `d`, `eval`, `g`, `le_antisymm`, `single`
 - `chainOne_output_poly_exists` -> `MLayer`, `apply`, `at`, `d`, `eval`, `g`, `le_antisymm`, `single`
-- `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
+- `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
 - `chainPoly_degree_le` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainPoly_idf` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `at`, `le_refl`
@@ -3470,6 +3472,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileWith_code` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
 - `compileWith_read` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
 - `compileWith_roundtrip` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
+- `compileWith_slotOf` -> `IRSkeleton`, `TensorShape`, `at`, `compileWith`, `extractWith_compileWith`
 - `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`
 - `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `Tensor`, `TensorShape`, `W`, `apply`, `at`, `find`
 - `compileZ_not_injective` -> `LossyRep`, `at`, `compile`, `decode`, `encode`, `extract`, `obs`
@@ -3598,9 +3601,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complies_and_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
-- `compose2_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`
-- `compose2_differentiableAt_params` -> `Chain`, `comp`, `d`, `g`, `layerParamCount`
-- `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`
+- `compose2_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `compose2_differentiableAt_params` -> `Chain`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `at`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
 - `composeAssocProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeCoverageProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose_coverage`, `g`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
@@ -4296,10 +4299,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `differentiableAt_affineAct_joint` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
-- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
-- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
-- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
+- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
 - `differentiableAt_netActN_jointAt` -> `Pt`, `add`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
@@ -4740,7 +4743,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `eqZero_const_one_expressible` -> `ConstraintSet`, `ExpressibleLayer`, `ExpressibleSpec`, `FamilySolver`, `Holds`, `HoldsSet`, `IsExpressible`, `Pt`, `SpecSolver`, `single`, `sol`, `sound`
 - `eqZero_lipschitz` -> `Pt`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `eqZero_penalty_eq_violation_sq` -> `violation`, `violation_nonneg`
-- `eq_C_of_totalDegree_zero_nat` -> `MLayer`, `apply`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`, `subst`
+- `eq_C_of_totalDegree_zero_nat` -> `MLayer`, `apply`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`, `slotOf`, `subst`
 - `eq_iff_children_eq` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `eq_of_compileToLayer_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `eq_of_dataEquiv` -> `Data`, `at`, `d`
@@ -4971,6 +4974,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `find`
 - `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
 - `extractWith_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
+- `extractWith_eq_slotOf` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
 - `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
 - `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
@@ -5249,17 +5253,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fixed_point_gives_sat` -> `Pt`, `Repair`, `Sat`, `conj_loop_fixed_point`, `converges_within`, `iterate`, `trivial`
 - `fixpoint_transfer_le` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `fixpoint_transfer_le_of_fixed` -> `at`, `clampTo`, `contains`, `kleeneLimit`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`
-- `flatChainAct_cons_general` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
-- `flatChainAct_cons_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
-- `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `at`, `comp`, `g`, `layerParamCount`
-- `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
+- `flatChainAct_cons_general` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_cons_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_differentiableAt_input` -> `Chain`, `MLayer`, `at`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
 - `flatChainAct_fdiffIter_two` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
-- `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `flatChainAct_linear_activation` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `flatChainAct_not_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
+- `flatChainAct_idf` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_linear_activation` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_not_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `flatChainAct_oneLayer_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
 - `flatChainAct_scalar_affine` -> `Chain`, `at`, `e2`, `g`
-- `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`, `W`, `at`, `g`, `layerParamCount`
+- `flatChainAct_zeroLayer_affine` -> `Chain`, `MLayer`, `W`, `at`, `g`, `layerParamCount`, `slotOf`
 - `flatEquiv_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_injective` -> `Flat`
@@ -5267,24 +5271,24 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatEquiv_preserves_size` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_symm_apply_inl` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
 - `flatEquiv_symm_apply_inr` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `run`, `size`
-- `flatLayerAct_differentiableAt` -> `comp`, `d`, `g`
+- `flatLayerAct_differentiableAt` -> `comp`, `d`, `g`, `slotOf`
 - `flatMeasure_inl` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `flatMeasure_inr` -> `induction`, `lit`, `size`, `size_pos`, `subst`
-- `flatParamActSafe_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `flatParamActSafe_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
+- `flatParamActSafe_affine` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `flatParamActSafe_differentiableAt_activation` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `flatParamActSafe_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `flatParamActSafe_linear_activation` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `flatParamActSafe_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `flatParamActSafe_width_one_fun` -> `MLayer`, `at`, `d`, `eval`, `g`, `layerParamCount`, `single`
-- `flatParamAct_apply` -> `comp`, `d`, `g`, `layerParamCount`
-- `flatParamAct_differentiableAt_activation` -> `comp`, `d`, `g`, `layerParamCount`
-- `flatParamAct_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`
-- `flatParamAct_differentiableAt_params` -> `comp`, `d`, `g`, `layerParamCount`
-- `flatParams_differentiableAt_apply` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `flatParams_differentiableAt_linear` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `flatParams_differentiableAt_linear_vec` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `flatParams_normedAddCommGroup` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `flatParams_normedSpace` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
+- `flatParamAct_apply` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `flatParamAct_differentiableAt_activation` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `flatParamAct_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `flatParamAct_differentiableAt_params` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
+- `flatParams_differentiableAt_apply` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `flatParams_differentiableAt_linear` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `flatParams_differentiableAt_linear_vec` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `flatParams_normedAddCommGroup` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `flatParams_normedSpace` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
@@ -5356,7 +5360,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `foldl_init_add` -> `at`, `dot`, `induction`, `length`, `subst`
 - `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `foldl_step_totalDegree` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`
-- `foldl_step_totalDegree_any` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`
+- `foldl_step_totalDegree_any` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`, `slotOf`
 - `foldl_zip_add` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `fomaml_grad_eq_maml_zero_hessian` -> `at`, `g`
 - `forall` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `induction`, `netAct`, `netAct_deviation_le_devB`, `tiny`
@@ -6449,10 +6453,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOfListRect_W` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_b` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_eq_full_width` -> `W`, `layerOfListFull`
-- `layerOffsets_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `layerOffsets_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `layerOffsets_single` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `layerOffsets_two` -> `at`, `d`, `g`, `layerParamCount`
+- `layerOffsets_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `layerOffsets_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `layerOffsets_single` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `layerOffsets_two` -> `at`, `d`, `g`, `layerParamCount`, `slotOf`
 - `layerOut_applySymEdit` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `layerOut_beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `g`, `length`
 - `layerOut_cast_eq_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
@@ -6467,8 +6471,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
 - `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
 - `layerParamCount_eq` -> `Activation`, `Arch`
-- `layerParamCount_pos` -> `Activation`, `Arch`, `at`, `d`, `g`, `layerParamCount`
-- `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
+- `layerParamCount_pos` -> `Activation`, `Arch`, `at`, `d`, `g`, `layerParamCount`, `slotOf`
+- `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `layerQuantizationB_one_bits` -> `IntLayer`, `quant`
 - `layerQuantization_nontrivial` -> `at`, `compileZ`
 - `layerQuantization_refines_scalar` -> `compileZ`
@@ -7155,8 +7159,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mla_score_eq_absorbedMap` -> `E`, `g`, `gqaLogits`, `mlaScoreAbsorbed`, `mla_absorb_query`, `sqrt_one`
 - `mla_score_eq_gqa_logits_id` -> `E`, `g`, `gqaLogits`, `sqrt_one`
 - `mla_score_eq_plain_inner` -> `E`, `g`, `gqaLogits`, `mlaScoreAbsorbed`, `sqrt_one`
-- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
-- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`
+- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
 - `modEq_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `modEq_to_congruentInt` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `modReLU_bounded` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
@@ -7314,7 +7318,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `natAbs_step_lt` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_pos` -> `at`, `eval`, `min`, `subst`
-- `natParamAct_eq_flatParamActSafe` -> `Chain`, `at`, `d`, `eval`, `induction`, `layerParamCount`, `single`, `trans`
+- `natParamAct_eq_flatParamActSafe` -> `Chain`, `at`, `d`, `eval`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
 - `natToInt_add` -> `Surjective`, `at`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `ratToReal`, `ratToReal_strictMono`, `subst`
 - `natToInt_injective` -> `Surjective`, `at`, `intToRat`, `intToRat_strictMono`, `intToReal`, `natToInt`, `natToInt_strictMono`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToInt_lt_iff` -> `at`, `le_antisymm`
@@ -7752,7 +7756,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `oneHot_represents_token` -> `E`
 - `oneLayerParamPoly_degree_le` -> `Chain`, `eval`, `eval_add`, `eval_mul`, `g`
 - `oneLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`, `g`
-- `oneLayerPolyNat_coeff_weight` -> `MLayer`, `single`
+- `oneLayerPolyNat_coeff_weight` -> `MLayer`, `single`, `slotOf`
 - `oneLayerWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `oneLayer_second_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `oneStepRepair_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `le_refl`
@@ -7964,11 +7968,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `paramLoss_symParam_zero_iff` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_all_outputs` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_pConstraint` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
-- `paramsCountExact_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `paramsCountExact_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `paramsCount_nil` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `paramsCount_single` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
-- `paramsCount_two` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`
+- `paramsCountExact_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `paramsCountExact_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `paramsCount_nil` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `paramsCount_single` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `paramsCount_two` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
 - `parentVal_solIter_eq` -> `Chain`, `Relation`, `apply`, `at`, `blocks`, `le`
 - `parent_index_lt` -> `Chain`, `Relation`, `apply`, `at`, `blocks`, `le`
 - `paretoDominates_irrefl` -> `e2`, `le_trans`
@@ -8168,16 +8172,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `policy_gradient_vector_directional` -> `E`, `apply`
 - `policy_value_differentiable` -> `E`, `apply`, `const_add`
 - `polyApprox_eps_to` -> `PolyApproxOn`
-- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `trans`
-- `polyChainAct_eval` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `single`, `trans`
-- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `trans`
-- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `trans`
-- `polyChain_output_full` -> `MLayer`, `at`, `d`, `eval`, `single`
-- `polyChain_output_width_one` -> `MLayer`, `at`, `eval`, `single`
+- `polyChainAct_cons` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
+- `polyChainAct_eval` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `single`, `slotOf`, `trans`
+- `polyChainAct_idf` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `slotOf`, `trans`
+- `polyChainAct_totalDegree_le` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
+- `polyChain_output_full` -> `MLayer`, `at`, `d`, `eval`, `single`, `slotOf`
+- `polyChain_output_width_one` -> `MLayer`, `at`, `eval`, `single`, `slotOf`
 - `polyKernel_one_eq_featScore` -> `apply`, `at`, `d`, `featScore`, `softmax`
 - `polyKernel_one_gram_psd` -> `apply`, `at`, `d`, `softmax`
-- `polyLayerStep_eval` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `trans`
-- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `trans`
+- `polyLayerStep_eval` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
+- `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `slotOf`, `trans`
 - `poly_decay_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `posMask_row_is_dummy` -> `maskedSoftmax`
 - `posWeight_eq_of_le` -> `at`, `d`
@@ -8581,12 +8585,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `readOf_fillWith` -> `IRSkeleton`, `Tensor`, `TensorShape`
 - `readOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
 - `readOf_zero_data` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `split`, `subst`
-- `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `readSlot_linear` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`
-- `readSlot_slotMap_bias` -> `Chain`, `W`, `at`, `g`, `induction`, `zero`
-- `readSlot_slotMap_weight` -> `Chain`, `W`, `e2`, `g`, `induction`, `zero`
+- `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `readSlot_linear` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
+- `readSlot_slotMap_bias` -> `Chain`, `W`, `at`, `g`, `induction`, `slotOf`, `zero`
+- `readSlot_slotMap_weight` -> `Chain`, `W`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `readoutInvariantOfLayerStackProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
 - `readoutInvariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
 - `readout_invariant` -> `E`, `W`, `apply`, `at`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -9648,16 +9652,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOfIndex_injective` -> `Arch`, `ArchIndex`, `Slot`, `at`, `col`, `depth`, `subst`, `trivial`, `width`
 - `slotOfIndex_layer` -> `Arch`, `ArchIndex`, `Slot`, `at`, `col`, `depth`, `subst`, `trivial`, `width`
 - `slotOfIndex_reachable` -> `Arch`, `ArchIndex`, `Slot`, `depth`, `trivial`, `width`
-- `slotOf_inj_col` -> `at`, `comp`, `d`, `g`
-- `slotOf_lt_bound` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `trans`
-- `slotOf_row_add` -> `comp`, `d`, `g`
-- `slotOf_succ_col` -> `at`, `comp`, `d`, `g`
-- `slotOf_succ_row` -> `at`, `comp`, `d`, `g`
-- `slotOf_weight_lt` -> `MLayer`, `apply`, `single`
-- `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
-- `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
-- `slotOf_zero_row` -> `at`, `d`, `g`
-- `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`
+- `slotOf_inj_col` -> `at`, `comp`, `d`, `g`, `slotOf`
+- `slotOf_injective_pair` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
+- `slotOf_lt_bound` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
+- `slotOf_pos` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
+- `slotOf_row_add` -> `comp`, `d`, `g`, `slotOf`
+- `slotOf_succ_col` -> `at`, `comp`, `d`, `g`, `slotOf`
+- `slotOf_succ_row` -> `at`, `comp`, `d`, `g`, `slotOf`
+- `slotOf_weight_lt` -> `MLayer`, `apply`, `single`, `slotOf`
+- `slotOf_width_one_bias` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `slotOf_width_one_weight` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `slotOf_zero_row` -> `at`, `d`, `g`, `slotOf`
+- `slotStep_eq_layerParamCount` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `slotWeightLtBiasProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `slotOf`, `slotOf_lt_bound`, `slotOf_weight_lt`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `slotWithinBlockProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `slotOf`, `slotOf_lt_bound`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
 - `slotZeroDeadPastTwoProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
@@ -9958,7 +9964,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `stepNat_snd_degree_pos` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`
 - `stepNat_snd_ne_zero` -> `at`, `eval`, `eval_add`, `eval_mul`, `g`, `length`, `length_cons`
 - `stepNat_snd_totalDegree` -> `at`, `eval`, `eval_add`, `eval_mul`, `g`, `length`, `length_cons`
-- `stepNat_totalDegree_zero` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`
+- `stepNat_totalDegree_zero` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`, `slotOf`
 - `stepQuant_local_zero_at_quarter` -> `at`
 - `stepSound_hypothesis_false` -> `apply`, `step`
 - `stepWeightReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
@@ -10387,10 +10393,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
 - `theorema_egregium_riemann` -> `E`, `S2`, `split`
-- `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`
+- `thirdOffset_gt` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `threeLayerAxis_not_affine` -> `at`, `eval`, `eval_add`, `eval_mul`, `g`
 - `threeLayerAxis_t3` -> `at`, `eval`, `eval_add`, `eval_mul`, `g`
-- `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
+- `threeLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `threeLayerCoeffs_at_axis` -> `at`, `g`, `induction`, `zero`
 - `threeLayer_fourth_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `threeLayer_no_quadfit` -> `Chain`, `MLayer`, `at`, `g`, `induction`, `zero`
@@ -10524,7 +10530,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `torsion_neg_mem` -> `at`
 - `torsion_smul_mem` -> `at`
 - `torsion_submodule_axioms` -> `at`
-- `totalDegree_C_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`
+- `totalDegree_C_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`, `slotOf`
 - `totalDegree_X_mul_C_add_X_ge` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
 - `totalDegree_X_mul_C_add_X_zero_nat` -> `apply`, `at`, `d`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
 - `totalDegree_X_mul_C_le` -> `Chain`
@@ -10533,7 +10539,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalDegree_X_mul_eq` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
 - `totalDegree_X_mul_eq_nat` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`, `single`
 - `totalDegree_X_zero_nat` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
-- `totalDegree_finset_sum_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`
+- `totalDegree_finset_sum_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `slotOf`
 - `totalEnv_ne_empty` -> `Step`, `Term`, `at`, `no_step_var`
 - `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
@@ -10617,16 +10623,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tv_eq_sum_abs` -> `apply`, `at`, `fDivergence`, `tv`
 - `tv_nonneg` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
 - `twoHopMsg_bound` -> `apply`, `le_trans`
-- `twoLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
-- `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`
+- `twoLayerChain_explicit` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `twoLayerChain_linear_in_g2` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `twoLayerParamPoly_degree_le` -> `Chain`
 - `twoLayerParamPoly_eval` -> `Chain`, `eval`, `eval_add`, `eval_mul`, `g`
 - `twoLayer_act` -> `Ladder`, `affineAct`, `ladder_forward`, `netAct`
-- `twoLayer_affine_eval` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `twoLayer_convex_eval` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`
-- `twoLayer_gA_eval` -> `Chain`, `MLayer`, `W`, `at`, `g`, `layerParamCount`
-- `twoLayer_gB_eval` -> `Chain`, `MLayer`, `W`, `at`, `e2`, `g`, `layerParamCount`
-- `twoLayer_no_affine_fit` -> `Chain`, `MLayer`, `W`, `at`, `e2`, `g`, `layerParamCount`
+- `twoLayer_affine_eval` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `twoLayer_convex_eval` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
+- `twoLayer_gA_eval` -> `Chain`, `MLayer`, `W`, `at`, `g`, `layerParamCount`, `slotOf`
+- `twoLayer_gB_eval` -> `Chain`, `MLayer`, `W`, `at`, `e2`, `g`, `layerParamCount`, `slotOf`
+- `twoLayer_no_affine_fit` -> `Chain`, `MLayer`, `W`, `at`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `twoLayer_param_cubic` -> `at`, `g`, `induction`, `zero`
 - `twoLayer_third_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
@@ -10939,10 +10945,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `whileStep_body` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `whileStep_exit` -> `Compiler`, `State`, `apply`, `invariant_preserves_iteration`, `iterate`
 - `while_never_exits_wpT_false` -> `AExp`, `Denotes`, `State`, `StmtT`, `at`, `evalA`, `execF`, `induction`, `trivial`, `wp`, `wpT`, `zero`
-- `wideChain2_explicit_one` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `zero`
-- `wideChain2_explicit_zero` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `zero`
-- `wideChain_explicit_one` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `zero`
-- `wideChain_explicit_zero` -> `Chain`, `W`, `e2`, `g`, `layerParamCount`
+- `wideChain2_explicit_one` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `slotOf`, `zero`
+- `wideChain2_explicit_zero` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `slotOf`, `zero`
+- `wideChain_explicit_one` -> `Chain`, `W`, `e2`, `g`, `induction`, `layerParamCount`, `slotOf`, `zero`
+- `wideChain_explicit_zero` -> `Chain`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `wigner_first_moment_zero` -> `apply`, `at`, `card_fin`, `subst`
 - `wigner_fourth_moment_leading_lower` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `wigner_second_moment` -> `HasRealEigenvalue`, `apply`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
