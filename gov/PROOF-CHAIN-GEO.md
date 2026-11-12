@@ -17,29 +17,21 @@
 | `AutoDiffTheory` | 360 | 12 | — |
 | `AxiomDiscoveryTheory` | 643 | 11 | — |
 | `BDDEncoding` | 553 | 9 | — |
-| `Basic` | 4 | 0 | — |
-| `Betweenness` | 4 | 0 | — |
 | `CSGGeometryTheory` | 413 | 9 | — |
 | `CacheCoherenceTheory` | 754 | 19 | — |
 | `CompilerTooling` | 1 | 0 | — |
-| `Congruence` | 4 | 0 | — |
-| `Consistency` | 4 | 0 | — |
 | `ConstraintPropagation` | 66 | 5 | — |
 | `ConstraintSoundness` | 140 | 6 | — |
 | `ContextInvariantsTheory` | 884 | 62 | — |
-| `Continuity` | 4 | 0 | — |
 | `ConvenienceAPIsTheory` | 807 | 33 | — |
 | `CryptoHashTheory` | 853 | 39 | — |
 | `Cv00Lang` | 281 | 6 | — |
 | `Defs` | 4 | 0 | — |
 | `DifferentialGeometry` | 588 | 16 | — |
 | `EntryPointTheory` | 902 | 37 | — |
-| `Equivalence` | 4 | 0 | — |
-| `EuclideanPlane` | 4 | 0 | — |
 | `ExactArithmeticTheory` | 98 | 9 | — |
 | `Expr` | 136 | 1 | — |
 | `ExpressionCanonicalizationTheory` | 379 | 8 | — |
-| `FFI` | 4 | 0 | — |
 | `Flatten` | 11 | 0 | — |
 | `FormulaSemantics` | 182 | 5 | — |
 | `FuncBlockTheory` | 357 | 11 | — |
@@ -55,10 +47,7 @@
 | `Graph` | 4 | 0 | — |
 | `GroebnerTheory` | 828 | 28 | — |
 | `GroupTheoryFoundation` | 1013 | 34 | — |
-| `HilbertAxioms` | 4 | 0 | — |
 | `IR` | 188 | 4 | — |
-| `Incidence` | 4 | 0 | — |
-| `Instances` | 4 | 0 | — |
 | `InteropSoundness` | 71 | 5 | — |
 | `IntervalArithmeticTheory` | 946 | 28 | — |
 | `KernelInvariants` | 46 | 3 | — |
@@ -82,16 +71,11 @@
 | `ODESolver` | 100 | 8 | — |
 | `ODESolverDefs` | 157 | 6 | — |
 | `OrchestrationSoundness` | 74 | 4 | — |
-| `Order` | 4 | 0 | — |
-| `PackageValidation` | 4 | 0 | — |
-| `Parallel` | 4 | 0 | — |
 | `PenaltyLoss` | 11 | 0 | — |
 | `PluginSystemTheory` | 518 | 17 | — |
-| `Primitive` | 4 | 0 | — |
 | `ProofCompilerTheory` | 153 | 10 | — |
 | `ResourceManagement` | 435 | 26 | — |
 | `RewriteProperties` | 280 | 7 | — |
-| `RuleTemplate` | 4 | 0 | — |
 | `SATEncoding` | 266 | 6 | — |
 | `SMTTheory` | 208 | 10 | — |
 | `SeqRepresentation` | 11 | 0 | — |
@@ -110,7 +94,6 @@
 | `VisualRuntimeTheory` | 931 | 20 | — |
 | `check_temp` | 6 | 0 | — |
 | `lvLang` | 224 | 10 | — |
-| `lvMeta` | 4 | 0 | — |
 
 ### L1 —— 距离与线性化
 
