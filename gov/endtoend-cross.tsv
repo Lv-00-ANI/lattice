@@ -2761,9 +2761,11 @@ Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Registry.lean	allMandatoryKindsCovered_nil_fails
 Plugins/Architectures/CarrierAdditions.lean	archCarrierAdditions_holds
 Plugins/Architectures/Attention/Manifest.lean	manifest_nonempty
+Plugins/Architectures/Attention/Plugin.lean	attentionWeightsNonnegativeProp_holds
 Plugins/Architectures/Attention/Plugin.lean	proof_holds
 Plugins/Architectures/Attention/Plugin.lean	verified_manifest
 Plugins/Architectures/Attention/Plugin.lean	verified_obligations
+Plugins/Architectures/Attention/Proofs.lean	softmaxWeight_nonneg
 Plugins/Architectures/Conv/Manifest.lean	conv_props_hold
 Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds

@@ -31,6 +31,22 @@ namespace Lattice.Plugins.Architectures.Attention
 
 open Lattice.Plugins
 
+/-- **`laws` 槽位：注意力权重**非负**。**
+
+**=> 这是一条**代数律**（softmax 的基本性质），与 `soundness`
+（权重之和为 `1`）**独立**：和为 `1` 不推出逐项非负
+（类似 `1/2 + 1/2 + (-1) + 1 = 1`）。**
+
+**=> 第 866 轮把它从 `True` 换成真内容；底层已有
+`softmax_nonneg`，本条只是把它提到插件层。** -/
+def AttentionWeightsNonnegativeProp : Prop :=
+  ∀ (ι : Type) [Fintype ι] [Nonempty ι] (s : ι → ℝ) (i : ι), 0 ≤ softmaxWeight s i
+
+/-- **`AttentionWeightsNonnegativeProp` holds** -- by `softmax_nonneg`. -/
+theorem attentionWeightsNonnegativeProp_holds : AttentionWeightsNonnegativeProp := by
+  intro ι _ _ s i
+  exact softmaxWeight_nonneg (ι := ι) s i
+
 /-- **Equivariance: permuting the keys changes nothing.** -/
 def AttentionPermEquivarianceProp : Prop :=
   ∀ {ι : Type} [Fintype ι] [Nonempty ι] (s v : ι → ℝ) (σ : ι ≃ ι),
@@ -65,7 +81,7 @@ theorem attentionMaskExcludesProp_holds : AttentionMaskExcludesProp := by
 **`equivariance` filled here -- the second non-`True` equivariance in the tree.** -/
 def proof : PluginProof where
   soundness := AttentionRowStochasticProp
-  laws := True
+  laws := AttentionWeightsNonnegativeProp
   exactness := AttentionMaskExcludesProp
   approximation := True
   recovery := True
@@ -81,7 +97,7 @@ def proof : PluginProof where
 theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨attentionRowStochasticProp_holds,
-         True.intro,
+         attentionWeightsNonnegativeProp_holds,
          attentionMaskExcludesProp_holds,
          True.intro, True.intro, True.intro, True.intro,
          attentionPermEquivarianceProp_holds,

@@ -1862,8 +1862,8 @@
 | `Lattice.Plugins` | 55 | 9 |
 | `Lattice.Plugins.Architectures` | 0 | 0 |
 | `Lattice.Plugins.Architectures.Attention.Manifest` | 2 | 4 |
-| `Lattice.Plugins.Architectures.Attention.Plugin` | 6 | 5 |
-| `Lattice.Plugins.Architectures.Attention.Proofs` | 6 | 4 |
+| `Lattice.Plugins.Architectures.Attention.Plugin` | 7 | 6 |
+| `Lattice.Plugins.Architectures.Attention.Proofs` | 7 | 4 |
 | `Lattice.Plugins.Architectures.CarrierAdditions` | 1 | 4 |
 | `Lattice.Plugins.Architectures.Conv.Manifest` | 2 | 4 |
 | `Lattice.Plugins.Architectures.Conv.Plugin` | 6 | 5 |
@@ -2646,6 +2646,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `attentionPermEquivarianceProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `attention_masked_excludes`, `attention_perm_equivariant`, `completeness`, `length`, `manifest`, `maskedWeight`, `softmaxWeight`, `softmax_row_stochastic`, `soundness`
 - `attentionProofs_under_dir` -> `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `StringPrefix`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
 - `attentionRowStochasticProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `attention_masked_excludes`, `completeness`, `length`, `manifest`, `maskedWeight`, `softmax_row_stochastic`, `soundness`
+- `attentionWeightsNonnegativeProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `attention`, `attention_masked_excludes`, `attention_perm_equivariant`, `completeness`, `length`, `manifest`, `maskedWeight`, `softmaxWeight`, `softmaxWeight_nonneg`, `softmax_row_stochastic`, `soundness`
 - `attention_lipschitz_numeric` -> `E`, `LinfNorm`, `RMSNormOp`, `RMSNormOp_eq_rmsNormE`, `W`, `bddAbove_abs`, `le_trans`, `linear_map_lipschitz`, `linfNorm_eq_norm`, `rmsNormE_sqrt_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_lipschitz_weighted` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `convComb_lipschitz_prob`, `le_trans`, `linfNorm_eq_norm`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `attention_migrated` -> `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
@@ -9729,6 +9730,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `softmaxAttnOp_value_bound` -> `SoftmaxAttnOp`, `at`, `attention_output_bound`, `convComb`, `single`, `softmax`, `softmax_sum_one`
 - `softmaxAttnOp_zero` -> `SoftmaxAttnOp`, `W`, `apply`, `at`, `softmaxAttnOp_norm_le`, `softmax_sum_one`
 - `softmaxBlock_attn` -> `SubLayer`, `W`, `apply`, `convComb`, `softmax`
+- `softmaxDenom_pos` -> `le`
+- `softmaxWeight_nonneg` -> `le`
 - `softmax_attention_eq_nwWeights` -> `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_is_nw` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `softmax_attention_nw_is_prob` -> `apply`, `at`, `d`, `softmax`, `softmax_nonneg`, `softmax_sum_one`

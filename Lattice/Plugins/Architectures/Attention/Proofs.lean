@@ -85,6 +85,20 @@ theorem softmaxDenom_pos {ι : Type} [Fintype ι] [Nonempty ι] (s : ι → ℝ)
   unfold softmaxDenom
   exact Finset.sum_pos (fun i _ => Real.exp_pos _) Finset.univ_nonempty
 
+/-- **每个注意力权重**非负**。**
+
+**=> `exp (s i) / softmaxDenom s`。分子**恒正**（`Real.exp_pos`），
+分母**恒正**（`softmaxDenom_pos`），故商非负。**
+
+**=> 这是一条**代数律**，与「权重之和为 `1`」**独立**：
+和为 `1` 不推出逐项非负（如 `1/2 + 1/2 + (-1) + 1 = 1`）。
+第 866 轮用它把 `Attention` 插件的 `laws` 槽位从 `True` 换成真内容。** -/
+theorem softmaxWeight_nonneg {ι : Type} [Fintype ι] [Nonempty ι] (s : ι → ℝ) (i : ι) :
+    0 ≤ softmaxWeight s i := by
+  unfold softmaxWeight
+  exact div_nonneg (Real.exp_pos _).le (softmaxDenom_pos s).le
+
+
 /-! ## Row stochasticity -/
 
 /-- **THE WEIGHTS SUM TO ONE: attention is row-stochastic.**
