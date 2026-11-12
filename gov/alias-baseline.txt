@@ -851,3 +851,5 @@ forward	Core/CIC/SubstBounded.lean	subst_bounded_ignores
 forward	Core/CIC/ShiftSubstJointBounded.lean	shift_subst_joint_bounded_one
 forward	Lib/Quantization/RealCompressionStepDischarged.lean	step_contraction_of_subgradient
 forward	Lib/Editing/RealOperatorSplit.lean	t3_name_irrelevant
+forward	Runtime/VecCarrierCensus.lean	truncated_iff_indexed
+forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form
