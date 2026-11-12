@@ -856,3 +856,5 @@ forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form
 forward	Core/IR/CertSnapshot.lean	cert_matches_at_issue
 copy	Core/IR/DeactivateGate.lean	canDeactivate_not_required_by_active
 copy	Core/IR/Lifecycle.lean	canActivate_needs_requires
+forward	Core/IR/CoverageMonotone.lean	covered_typable
+forward	Core/IR/SpecUniqueness.lean	finalSpec_determines_effect

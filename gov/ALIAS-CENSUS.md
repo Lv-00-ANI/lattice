@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 694 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 696 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 162 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -62,11 +62,13 @@
 | `Core/Data/Models.lean` | `data_models` |
 | `Core/Data/Models.lean` | `data_models_shape` |
 | `Core/IR/CertSnapshot.lean` | `cert_matches_at_issue` |
+| `Core/IR/CoverageMonotone.lean` | `covered_typable` |
 | `Core/IR/Extract.lean` | `loop_preserves_others` |
 | `Core/IR/Semantics.lean` | `agrees_not_subsumes_covered` |
 | `Core/IR/Semantics.lean` | `parse_models` |
 | `Core/IR/Semantics.lean` | `parse_models_extract` |
 | `Core/IR/Semantics.lean` | `parse_models_full` |
+| `Core/IR/SpecUniqueness.lean` | `finalSpec_determines_effect` |
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Evidence/MultiComposition.lean` | `chain_single` |

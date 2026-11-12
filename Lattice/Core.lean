@@ -1,3 +1,5 @@
+import Lattice.Core.IR.SpecUniqueness
+import Lattice.Core.IR.CoverageMonotone
 import Lattice.Core.IR.DeactivateGate
 import Lattice.Core.IR.FinalSpec
 import Lattice.Core.IR.CertSnapshot

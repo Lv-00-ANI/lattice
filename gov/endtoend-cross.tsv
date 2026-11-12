@@ -500,6 +500,7 @@ Core/IR/Confluence.lean	run_congr_of_agree
 Core/IR/Confluence.lean	run_ignores_initial_of_edits
 Core/IR/Confluence.lean	lattice_confluence
 Core/IR/Confluence.lean	lattice_confluence_zero
+Core/IR/CoverageMonotone.lean	covered_typable
 Core/IR/DeactivateGate.lean	canDeactivate_iff
 Core/IR/DeactivateGate.lean	canDeactivate_not_required_by_active
 Core/IR/DeactivateGate.lean	deactivate_preserves_ordering
@@ -638,6 +639,9 @@ Core/IR/Skeleton.lean	roundtrip_determines_skeleton
 Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape
 Core/IR/SlotBridge.lean	extractWith_eq_slotOf
 Core/IR/SlotBridge.lean	compileWith_slotOf
+Core/IR/SpecUniqueness.lean	construct_active_const
+Core/IR/SpecUniqueness.lean	finalSpec_determines_effect
+Core/IR/SpecUniqueness.lean	finalSpec_not_determine_active
 Core/IR/T4Repair.lean	repair_progress
 Core/IR/T4Repair.lean	conj_loop_fixed_point
 Core/IR/T4Repair.lean	loop_fixed_point_with_roundtrip
