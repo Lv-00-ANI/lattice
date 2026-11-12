@@ -1,3 +1,4 @@
+import Lattice.Core.IR.FinSupport
 import Lattice.Core.CIC.ShiftSubstOffset
 import Lattice.Core.CIC.ShiftSubstOffsetProbe
 import Lattice.Core.CIC.ParRedVShiftBeta
