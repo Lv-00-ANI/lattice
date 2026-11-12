@@ -278,6 +278,7 @@ CHECKS = [
     # `Lattice/Slots/` was empty, so a file-enumerating scan skipped that whole layer and reported
     # zero unreachable modules for a tree it had not fully examined.
     ("meta: layer reachability", "check_layer_reachability.py"),
+    ("meta: layer registry is single-sourced", "check_layer_registry.py"),
     ("meta: layer reachability self-test", "check_layer_reachability.py --self-test"),
     # Round 45. The third variant of the same question: rounds 43 and 44 asked WHICH modules a
     # build reaches; this asks whether a module entered a build at all. It also records the

@@ -189,8 +189,8 @@
 | `Evidence/CompositionClass.lean:130` | `bridged_needs_bridge` | 0 | 证明是 `BridgedComposition.bridge_is_necessary`：一字不改地引用另一条定理，零新增信息。 |
 | `Evidence/MultiComposition.lean:123` | `chain_single` | 0 | 归约后是 `h x hx`：只应用了一次假设，零信息量。 |
 | `Evidence/MultiComposition.lean:128` | `chain_nil_identity` | 0 | `compose_chain (Chain.nil P) x hx` 归约后就是 `hx`：只复述假设。 |
-| `Evidence/ObligationIndependence.lean:95` | `destructiveFix_atomic` | 0 | `fun _ hn => hn`：`n = 0 → n = 0` 是重言，且与同文件 :144 `ascendingFix_atomic` 的陈述逐字相同（两条一模一样的定理名）。 |
-| `Evidence/ObligationIndependence.lean:144` | `ascendingFix_atomic` | 0 | `fun _ hn => hn`：重言；且与 :95 `destructiveFix_atomic` 的陈述逐字相同——同一文件里两条同名实不同名的重言。 |
+| `Evidence/ObligationIndependence.lean:96` | `destructiveFix_atomic` | 0 | `fun _ hn => hn`：`n = 0 → n = 0` 是重言，且与同文件 :144 `ascendingFix_atomic` 的陈述逐字相同（两条一模一样的定理名）。 |
+| `Evidence/ObligationIndependence.lean:144` | `ascendingFix_atomic` | 0 | `fun _ hn => hn`：重言；且与 :96 `destructiveFix_atomic` 的陈述逐字相同——同一文件里两条同名实不同名的重言。 |
 | `Evidence/PredicateWitnesses.lean:69` | `isRedundant_true` | 0 | `rfl`：陈述是 `true = true`，重言（a=a），零信息量。 |
 | `Lib/Architectures/RealOperatorNorm.lean:54` | `add_norm_bound` | 0 | 与 norm_add_le 逐字同义，零信息 |
 | `Lib/Attention/RealTemporalLayer.lean:275` | `element_iff_no_upper` | 0 | Iff.rfl：isElementUnderUpGaze := ¬ hasUpper，命题即 P↔P。 |
@@ -224,12 +224,12 @@
 | `Lib/Optim/RealSGDStochastic.lean:202` | `sgd_expected_gap_sum_seq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:130` | `strong_convex_gap_le_grad_sq` | 1 | 强度够（对唯一用户足够） |
 | `Lib/Optim/RealStrongConvex.lean:168` | `strong_convex_contraction` | 1 | 强度够（对唯一用户足够） |
-| `Reference/Geometry/Geometry/FormDeriv.lean:142` | `derivExpr_ofLinearForm_ne_zero` | 1 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
+| `Reference/Geometry/Geometry/FormDeriv.lean:144` | `derivExpr_ofLinearForm_ne_zero` | 1 | 强度不足:只在一个基点 w = 0 陈述 HasNonzeroDeriv;用处是支撑 Unconditional 的无条件版本,而那里 x = 0 是特殊点(evalPts = c.b),结论退化为常数项为零。 |
 | `Runtime/EndToEndApproximation.lean:155` | `loss_le_sq_of_resid_le` | 1 | 用途（Geo/ApproxEmbedding、Geo/PartialReinjection）要的是「残差界 ⟹ 惩罚/EpsSat 界」；现状给 loss ≤ ε²，但按 loss = resid² ≥ 0 能给的更强是 `EpsSat E p (ε^2) x`。 |
 | `Runtime/GeoSampledBound.lean:72` | `residual_le_of_zero_on_dense_of_d` | 1 | 结论强度足够：`\|r x\| ≤ L*δ` 已是该假设下的精确形式（无 slack、无额外常数）。问题在前件一侧：多了一条没被用到的假设，使调用点平白多背一个义务。 |
 | `Runtime/StackCodegen.lean:194` | `compileProg_correct` | 1 | 结论已是最强：`runProg (compileProg e) [seed] = some (evalStack cfg e :: [seed])`，连 `seed` 被原样保留都证了。要动的是**前件**，不是结论。 |
 | `Evidence/ChainTransitivity.lean:140` | `iterate_from_fold` | 0 | 强度不足：doc 说「两种形状等价：`foldl` 版本不更强，也不更弱」，但本条只把 `replicate n f` 的 fold 单向送到 `P`——既没给等式也没给反方向，「等价」无从谈起。 |
-| `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:95` | `modalLogic_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 5` 是超集大小：1 个已在模板表内（second_order_logic），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
+| `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:96` | `modalLogic_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 5` 是超集大小：1 个已在模板表内（second_order_logic），实际缺口 4。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:85` | `probabilityTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 4` 是超集大小：2 个已在模板表内（axiom_of_choice, computational_complexity_theory），实际缺口 2。若用途是「补名修复的缺口/成本」，强度不足。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/C.lean:119` | `informationTheory_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 12` 是超集大小：11 个已在模板表内（adversary_model, channel_model, channel_model_specification, channel_models, cryptographic_protocol, distortion_measure, network_topology, program_termination, received_signal, source_distr… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean:87` | `projectiveGeometry_false_but_repairable` | 0 | 三合取仍真，但第三项 `extra.length = 11` 是超集大小：10 个已在模板表内（alternative_division_ring, bruck_ryser_chowla_theorem, combinatorial_design_theory, computational_search, coordinate_field_construction, desargues_theorem_failure, finite_field_theory, non_… |
@@ -360,7 +360,7 @@
 | `Lib/Optim/RealSGDStochastic.lean` | `sgd_rate_bound` | 处理完成（**doc 修正**，不是证明修正）：原 doc 的假设清单只列 `D > 0`、`G > 0`、`T > 0`，**漏掉了真正承重的 `hstep`**。现在清单补齐并给出每条的作用。**并且写清了为什么 `hstep` 不是可补的缺口**：接口里有 `Subgradient f (x t) (Expect p (g t))`，而 `x : ℕ → Ω → ℝ` 是**随机过程**，两者**类型上就对不齐**（`PROOF-DEBT` 里那条 `B_missing` 写的 `Subgradient f (x t) (…)` 本身就是病式）；逐路径要求 `Subgradient f (x t ω) (g t ω)` 等于说**每个采样都是真次梯度**，噪声就没了。**标准证明靠条件期望 `E[g_t \| x_t] = ∇f(x_t)`，而本形式化只有 `Expect p Y = ∑ ω, p ω · Y ω`，没有 σ-代数与滤流。**能推出的是**确定性 `x` 的单步**，即 `sgd_expectation_contraction`。 |
 | `Lib/Chain/RealEndToEnd.lean` | `e2e_vacuous_composition` | 处理完成（**补上正面对照**）：原条目只报了**反例**（结论可以不带 `ts`），而 `B_missing` 要的是一条**真正用上 L1⇄L2 一跳**的语义结论。新增 **`e2e_contribution_of_L1L2`**（三段）：① `(toSegs ts).map mkConstraint = cs`（`ts` 的**段结构**恰好给出 `cs`）；② `∀ cs', Extract ts cs' → cs' = cs`（`ts` 的**读法唯一**）；③ `cs` 决定权重行为。另单独成条 **`extract_functional`**：`Extract` 是**部分函数**。**关键认识：「去掉 `ts` 结论不变」与「`ts` 无所贡献」不是同一件事**——`ts` 的全部贡献**已经在 `cs` 里用尽**，那是信息单向流动 `ts → cs → 权重` 的貌似。一处修正：`Option.some.injEq` 的方向需 `.symm`。 |
 | `Evidence/StructureCensus.lean` | `census_length` | 处理完成：本轮发现清册里有一行**数字是错的**——`Representation` 写 `fields := 8`，而 `Runtime/Extraction.lean:58` 的结构只有 **7** 个字段（`inputP`/`inputW`/`encode`/`decode`/`compile`/`extract`/`roundtrip`），**8 不符合任何一种口径**（连把类型参数算进去也是 9）。已改为 7（清册行、§2.2 标题、汇总表三处，密度 12.5% → 14.3%）。**关键：三条 `decide` 定理照旧为真**——它们核对的是**表内算术**，不是**表与库的一致性**。已在 `census` 的 doc 里写明这一点，并列出本轮找到的错行。真正锁住它需要**反射取字段数**（Lean 元编程），不是 `decide`；在那之前这些数字只能按「人工录入」读。 |
-| `Semantics/Annotations.lean` | `holdsSet_member` | 处理完成：它与 `Reference/Geometry/Constraints/ConstraintSet.holdsSet_mem` **同一条定理**，只差参数顺序，而两份**都各自做了归纳**。已改为**一行转发**（`holdsSet_mem hmem pts h`），保留本地名字是因为 `edit_frame_holds`使用这个参数顺序。**判定里「唯一跨文件引用 `Semantics/Merge.lean:142`」已经不成立**——那一行现在是 `merge_parts`，而 `Merge.lean` 既没 import 本文件也没 open 本 namespace。 |
+| `Semantics/Annotations.lean` | `holdsSet_member` | 处理完成：它与 `Reference/Geometry/Constraints/ConstraintSet.holdsSet_mem` **同一条定理**，只差参数顺序，而两份**都各自做了归纳**。已改为**一行转发**（`holdsSet_mem hmem pts h`），保留本地名字是因为 `edit_frame_holds`使用这个参数顺序。**判定里「唯一跨文件引用 `Semantics/Merge.lean:144`」已经不成立**——那一行现在是 `merge_parts`，而 `Merge.lean` 既没 import 本文件也没 open 本 namespace。 |
 | `Runtime/CompilerScheme.lean` | `scheme_covers_all` | 处理完成（**doc / 状态修正**）：`Slots.lean` 的 `lift.compile.single_item_sound` 把它当作`.discharged` 的凭证，而它是 `⟨rfl, rfl, rfl⟩`——**字段自等**。已把 note 改为「**CLOSED — STRUCTURALLY ONLY**」，并写明**本条证的是「一个方案适用于所有后端」的结构事实，不证任何语义声称性**，并指出真正的声称性证明在 `Geo/Compile.geoCompiler.sound`（`unfold loss; rw [hx]; ring`）。 |
 | `Runtime/CompilerScheme.lean` | `backend_sound` | 同上同一处修正：`every_backend_sound` 是 `Compiler.sound` 的**字段投影**，它给出 `sound` 是因为 `sound` 是结构的**假设**，sound 并非白得。note 现已写明这一点，并且指向一个真实的逐实例证明。 |
 | `Evidence/Hypotheses.lean` | `chainAudit_length` | 处理完成（**doc 修正**）：三处写「**七**条」（§1 标题、§二 标题、本定理 doc），而 `chainAudit` 实际是 **10 行**。清单从 7 扩到 10 时 doc 没跟上。**关键：`decide` 只核对表内算术，所以三处「七」与一条 `= 10` 可以同时为「绿」。**已把三处改为 10，并在三处各写一句说明这个机械局限。 |
@@ -382,7 +382,7 @@
 **76% 的误判率**，原因高度集中：
 
 1. **删除会让构建断裂。** 多条「空定理」被同文件后面的定理当作 `atomic` 义务的实参
-   （`ObligationIndependence:95`/`:144` 就是 `absorbs_not_derivable`/`decreases_not_derivable` 的实参），
+   （`ObligationIndependence:96`/`:144` 就是 `absorbs_not_derivable`/`decreases_not_derivable` 的实参），
    还有的被 `#print axioms` 审计行点名——而 `#print axioms` 对不存在的名字是**硬错误**。
    第一审只看了 `proof` 与同名重复，没看后文调用点。
 2. **「重复」常常是删错了对象。** `softThresh_le_of_is_min` 是已授权改名后的成果，
