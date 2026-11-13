@@ -88,9 +88,8 @@ import Lattice.Reference.Geometry.Geometry.Reinjection
 import Lattice.Reference.Geometry.Geometry.Synthesis
 import Lattice.Runtime.ChainComposition
 import Lattice.Runtime.WeightLadder
-import Lattice.Core.RepairMultistep
-import Lattice.Core.RepairConvergence
-
+import Lattice.Plugins.Core.Repair.RepairMultistep
+import Lattice.Plugins.Core.Repair.RepairConvergence
 open scoped BigOperators
 
 namespace Lattice.Geo

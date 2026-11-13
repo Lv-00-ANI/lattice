@@ -1,8 +1,7 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Core.Logic
-
+import Lattice.Plugins.Core.Constraint.Proofs
 /-!
 # `Lattice.Lift.PenaltyEmbedding` -- T2: constraint embedding is sound
 

@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Compose.Primitive
-import Lattice.Compose.Combinators
-
+import Lattice.Plugins.Compose.Combinators
 /-!
 # 组合律：能证到哪一层，以及整结构为什么停在这里
 

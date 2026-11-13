@@ -2,7 +2,7 @@ import Lattice.Lib.Architectures.RealActClass
 import Lattice.Lib.Architectures.RealActComplete
 import Lattice.Lib.Architectures.RealActDerivatives
 import Lattice.Lib.Architectures.RealBatchNorm
-import Lattice.Lib.Architectures.RealBatchNormConsistency
+import Lattice.Plugins.Architectures.Norm.Proofs
 import Lattice.Lib.Architectures.RealBlock
 import Lattice.Lib.Architectures.RealBlockConstants
 import Lattice.Lib.Architectures.RealBlockInstance
@@ -13,7 +13,7 @@ import Lattice.Lib.Architectures.RealEmbedding
 import Lattice.Lib.Architectures.RealFFN
 import Lattice.Lib.Architectures.RealGLUVariants
 import Lattice.Lib.Architectures.RealGNN
-import Lattice.Lib.Architectures.RealGNNEquivariance
+import Lattice.Plugins.Architectures.GNN.Proofs
 import Lattice.Lib.Architectures.RealGatingGeneral
 import Lattice.Lib.Architectures.RealGeluDerivBound
 import Lattice.Lib.Architectures.RealGeluExact

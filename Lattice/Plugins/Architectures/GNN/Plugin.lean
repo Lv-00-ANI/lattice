@@ -20,8 +20,7 @@ sit in the same manifest.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Architectures.GNN.Manifest
-import Lattice.Lib.Architectures.RealGNNEquivariance
-
+import Lattice.Plugins.Architectures.GNN.Proofs
 namespace Lattice.Plugins.Architectures.GNN
 
 open Lattice.Plugins

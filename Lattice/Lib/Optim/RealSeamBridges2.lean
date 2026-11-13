@@ -12,7 +12,7 @@ import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.Optim.RealListFinBridge
 import Lattice.Lib.LearningTheory.RealDecisionTheory
 import Lattice.Lib.LearningTheory.RealBayesOptimality
-import Lattice.Lib.Architectures.RealBatchNormConsistency
+import Lattice.Plugins.Architectures.Norm.Proofs
 import Lattice.Lib.Chain.RealCrossUniverseConsumer
 import Lattice.Lib.Optim.RealCrossUniverseBridge
 import Lattice.Lib.Editing.RealExtractCanonical

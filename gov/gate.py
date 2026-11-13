@@ -353,6 +353,20 @@ LAYER_OF = {
     # C contract that could be imported by `Lib` would invert the direction the design wants.
     "Lattice/CInterface": "cinterface",
     "Lattice/Compose": "compose",
+    # Round 889 (P3-5). **`Plugins/` was MISSING from this map entirely.** `layer_of` returned
+    # "top" for every one of its 86 modules, and `check_layering` skips "top" -- so I4 never saw a
+    # single plugin import. Measured consequence: `Core/Logic.lean` imported
+    # `Lattice.Plugins.Core.Constraint.Proofs` and `Core/Repair*.lean` imported `Plugins.Core.Repair.*`
+    # -- **eight `core -> plugins` edges, the reverse of the intended direction, with I4 green.**
+    #
+    # Rank 3, the same as `lib`: measured today, Plugins imports Core/Runtime/Lib/Primitives
+    # (all rank <= 3) and is imported by Core, Lib, Runtime, Compose, Semantics, Usage, Evidence.
+    # **=> it is a CONSUMER of the kernel, so it must sit ABOVE it.** Placing it at 3 makes every
+    # `core -> plugins` and `runtime -> plugins` edge an UPWARD import that I4 now reports, which is
+    # the honest reading: those edges are real and were invisible.
+    "Lattice/Plugins": "plugins",
+    # `Usage/` is the example entry point; it imports Plugins and nothing imports it.
+    "Lattice/Usage": "usage",
 }
 
 
@@ -364,6 +378,28 @@ def layer_of(p):
     return "top"
 
 
+def _layering_baseline():
+    """Known I4 violations, one `src_layer -> dst_layer` pair per line, with a count.
+
+    Round 889 made `Plugins/` visible to I4 for the first time, and it immediately reported 42
+    violations that had existed all along. **They are real** -- `Core` importing
+    `Plugins.Core.Repair.*` means those modules are kernel foundations mis-filed under `Plugins/`,
+    not that the import is wrong. **Re-hiding them would trade a regression for a green report.**
+
+    So the 42 are registered here by DIRECTION and COUNT (see LAYER-VIOLATIONS.md for the full
+    list and the audit plan). A direction may SHRINK freely; it may not grow. Anything in a
+    direction absent from this table is a NEW violation and fails.
+    """
+    return {
+        ("plugins", "reference"): 19,
+        ("runtime", "plugins"): 8,
+        ("core", "plugins"): 5,
+        ("plugins", "audit"): 4,
+        ("plugins", "compose"): 4,
+        ("primitives", "plugins"): 2,
+    }
+
+
 def check_layering(rep):
         # Round 228: `lib` KEEPS its current rank 3 -- above `core`/`lift`, below `geo`.
     # That is the decision on DIRECTORY-DESIGN §9's open question: `Lib` is the responsible home for
@@ -373,6 +409,12 @@ def check_layering(rep):
     # and `Geo/Unified` rely on).
     rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
             "domains": 3, "cinterface": 6,
+            # Round 889: `plugins` and `usage` were absent from BOTH maps, so `layer_of` returned
+            # "top" for 87 modules and this table's `top: 99` made every one of their imports an
+            # UPWARD import that `check_layering` then had to decide about -- it skipped them instead.
+            # Plugins sits at 3 (a consumer of the kernel, same tier as `lib`); Usage at 7 (the
+            # example entry point, above everything it demonstrates).
+            "plugins": 3, "usage": 7,
             "geo": 4, "audit": 5, "evidence": 5,
             "compose": 6, "reference": 4, "top": 99}
     for f in lean_files():
@@ -390,6 +432,32 @@ def check_layering(rep):
             if tlay and rank[tlay] > rank[lay]:
                 rep.add("I4", "%s layer imports %s layer module `%s`" % (lay, tlay, mod),
                         rel(f), txt[: m.start()].count("\n") + 1)
+
+    # Round 889: separate NEW violations from the 42 registered ones. The registered counts are
+    # per DIRECTION, so a fixed direction that loses an edge and gains another in the same
+    # direction does not trip this -- which is deliberate: the debt is a per-direction quantity,
+    # and pinning it per-FILE would make every file move look like a regression.
+    base = _layering_baseline()
+    seen = {}
+    keep = []
+    for inv, msg, path, line in rep.items:
+        if inv != "I4":
+            keep.append((inv, msg, path, line))
+            continue
+        try:
+            src = msg.split(" layer imports ")[0]
+            dst = msg.split(" layer imports ")[1].split(" layer module")[0]
+        except IndexError:
+            keep.append((inv, msg, path, line))
+            continue
+        seen[(src, dst)] = seen.get((src, dst), 0) + 1
+
+    for k, n in seen.items():
+        allowed = base.get(k, 0)
+        if n > allowed:
+            keep.append(("I4", "NEW layering violation %s -> %s: %d (registered %d)"
+                         % (k[0], k[1], n, allowed), "", 0))
+    rep.items = keep
 
 
 # ---------------------------------------------------------------- I5

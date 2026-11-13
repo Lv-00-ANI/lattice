@@ -10,8 +10,8 @@ import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
 import Lattice.Runtime.EndToEnd
 import Lattice.Runtime.CompilerScheme
-import Lattice.Core.Repair
-import Lattice.Core.RepairConvergence
+import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Plugins.Core.Repair.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck

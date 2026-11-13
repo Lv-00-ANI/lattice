@@ -8,14 +8,14 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 164 | no imports from lift/lib |
+| core | 157 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 627 | instantiated library, may import core only |
+| lib | 625 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 230 | aggregator at `Lattice/`, re-exports only |
+| root | 227 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -162,35 +162,27 @@
 - `Lattice.Core.IR.Unique` <- `Lattice.Core.IR.Chain`
 - `Lattice.Core.IR.UnloadEffect` <- `Lattice.Core.IR.Lifecycle`
 - `Lattice.Core.Idempotent` 
-- `Lattice.Core.Invariant` <- `Lattice.Core.Repair`
-- `Lattice.Core.Logic` <- `Lattice.Plugins.Core.Constraint.Proofs`
+- `Lattice.Core.Invariant` <- `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Core.ModelArtifact` <- `Lattice.Core.VariableNet`
 - `Lattice.Core.ModelArtifactInstances` <- `Lattice.Core.ModelArtifact`
 - `Lattice.Core.Net` <- `Lattice.Core.Semantics`, `Lattice.Core.Weight`
 - `Lattice.Core.NonlinearLayer` <- `Lattice.Core.Net`
-- `Lattice.Core.OneStepBridge` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`
+- `Lattice.Core.OneStepBridge` <- `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`
 - `Lattice.Core.PluginComplete` <- `Lattice.Plugins`
-- `Lattice.Core.Repair` <- `Lattice.Plugins.Core.Repair.Repair`
-- `Lattice.Core.RepairAtomicity` <- `Lattice.Plugins.Core.Repair.RepairAtomicity`
-- `Lattice.Core.RepairConvergence` <- `Lattice.Plugins.Core.Repair.RepairConvergence`
-- `Lattice.Core.RepairMultistep` <- `Lattice.Plugins.Core.Repair.RepairMultistep`
-- `Lattice.Core.RepairWF` <- `Lattice.Plugins.Core.Repair.RepairWF`
 - `Lattice.Core.Semantics` <- `Lattice.Core.Syntax`
 - `Lattice.Core.Simulation` 
 - `Lattice.Core.StackDerivative` <- `Lattice.Core.Net`
 - `Lattice.Core.StackParams` <- `Lattice.Core.Net`
 - `Lattice.Core.Syntax` 
 - `Lattice.Core.VariableActLayer` <- `Lattice.Core.VariableNet`
-- `Lattice.Core.VariableDerivative` <- `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
 - `Lattice.Core.VariableNet` <- `Lattice.Core.Weight`
 - `Lattice.Core.Weight` <- `Lattice.Core.Semantics`
 - `Lattice.Core.WeightNet` <- `Lattice.Core.Semantics`, `Lattice.Core.Net`
-- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`, `Lattice.Lib.Architectures.SoftmaxSubLayer`, `Lattice.Lib.Architectures.TinyTransformer`
+- `Lattice.Lib.Architectures` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Plugins.Architectures.Norm.Proofs`, `Lattice.Lib.Architectures.RealBlock`, `Lattice.Lib.Architectures.RealBlockConstants`, `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Architectures.RealBlockLipschitz`, `Lattice.Lib.Architectures.RealComplexNorm`, `Lattice.Lib.Architectures.RealCrosstalkGeneral`, `Lattice.Lib.Architectures.RealEmbedding`, `Lattice.Lib.Architectures.RealFFN`, `Lattice.Lib.Architectures.RealGLUVariants`, `Lattice.Lib.Architectures.RealGNN`, `Lattice.Plugins.Architectures.GNN.Proofs`, `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealGeluDerivBound`, `Lattice.Lib.Architectures.RealGeluExact`, `Lattice.Lib.Architectures.RealGeneralNormalEquation`, `Lattice.Lib.Architectures.RealGraphExpressivity`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealLayerNormComplete`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Architectures.RealLayerScale`, `Lattice.Lib.Architectures.RealLayerScaleDepth`, `Lattice.Lib.Architectures.RealLayerwiseStability`, `Lattice.Lib.Architectures.RealLoop`, `Lattice.Lib.Architectures.RealLoopFixedPointExistence`, `Lattice.Lib.Architectures.RealLoopModel`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Architectures.RealMoE`, `Lattice.Lib.Architectures.RealMoELoadBalance`, `Lattice.Lib.Architectures.RealMoERouteCapacity`, `Lattice.Lib.Architectures.RealModReLU`, `Lattice.Lib.Architectures.RealModReLULipschitz`, `Lattice.Lib.Architectures.RealNormFamily`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealNormStability`, `Lattice.Lib.Architectures.RealNormalEquation`, `Lattice.Lib.Architectures.RealNormalEquationScalar`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealOverSmoothingSharp`, `Lattice.Lib.Architectures.RealPAdicNorm`, `Lattice.Lib.Architectures.RealRMSNorm`, `Lattice.Lib.Architectures.RealRMSNormGeneral`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealReLULayer`, `Lattice.Lib.Architectures.RealReLUStationarity`, `Lattice.Lib.Architectures.RealResidual`, `Lattice.Lib.Architectures.RealSSDBridge`, `Lattice.Lib.Architectures.RealSSM`, `Lattice.Lib.Architectures.RealSSMContinuous`, `Lattice.Lib.Architectures.RealSSMDiscretization`, `Lattice.Lib.Architectures.RealScalarResidual`, `Lattice.Lib.Architectures.RealSelectiveSSM`, `Lattice.Lib.Architectures.RealSiluQuant`, `Lattice.Lib.Architectures.RealSiluRemainder`, `Lattice.Lib.Architectures.RealSiluSplit`, `Lattice.Lib.Architectures.RealSparseCodingNorms`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealTensorNorm`, `Lattice.Lib.Architectures.RealTensorNormN`, `Lattice.Lib.Architectures.RealWLRefinement`, `Lattice.Lib.Architectures.SoftmaxSubLayer`, `Lattice.Lib.Architectures.TinyTransformer`
 - `Lattice.Lib.Architectures.RealActClass` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealActComplete` <- `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealActDerivatives` <- `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`
 - `Lattice.Lib.Architectures.RealBatchNorm` 
-- `Lattice.Lib.Architectures.RealBatchNormConsistency` <- `Lattice.Plugins.Architectures.Norm.Proofs`
 - `Lattice.Lib.Architectures.RealBlock` <- `Lattice.Runtime.RealVerifierReliable`
 - `Lattice.Lib.Architectures.RealBlockConstants` <- `Lattice.Lib.Architectures.RealBlockInstance`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Optim.RealValueIteration`, `Lattice.Lib.LinearAlgebra.RealBanach`
 - `Lattice.Lib.Architectures.RealBlockInstance` <- `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Architectures.RealOperatorNorm`, `Lattice.Lib.Architectures.RealBlockLipschitz`
@@ -201,7 +193,6 @@
 - `Lattice.Lib.Architectures.RealFFN` <- `Lattice.Runtime.RealNonlinear`
 - `Lattice.Lib.Architectures.RealGLUVariants` <- `Lattice.Lib.Architectures.RealGatingGeneral`, `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealSwiGLU`
 - `Lattice.Lib.Architectures.RealGNN` 
-- `Lattice.Lib.Architectures.RealGNNEquivariance` <- `Lattice.Plugins.Architectures.GNN.Proofs`
 - `Lattice.Lib.Architectures.RealGatingGeneral` <- `Lattice.Lib.Architectures.RealActComplete`, `Lattice.Lib.Architectures.RealSwiGLU`, `Lattice.Lib.Architectures.RealActClass`
 - `Lattice.Lib.Architectures.RealGeluDerivBound` <- `Lattice.Lib.Architectures.RealActDerivatives`, `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealActComplete`
 - `Lattice.Lib.Architectures.RealGeluExact` <- `Lattice.Lib.Chain.RealErf`, `Lattice.Lib.Architectures.RealActClass`, `Lattice.Lib.Architectures.RealGatingGeneral`
@@ -252,7 +243,7 @@
 - `Lattice.Lib.Architectures.RealTensorNorm` 
 - `Lattice.Lib.Architectures.RealTensorNormN` <- `Lattice.Lib.Architectures.RealTensorNorm`
 - `Lattice.Lib.Architectures.RealTransformerEval` <- `Lattice.Core.Net`
-- `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Lib.Architectures.RealGNNEquivariance`
+- `Lattice.Lib.Architectures.RealWLRefinement` <- `Lattice.Lib.Architectures.RealGNN`, `Lattice.Plugins.Architectures.GNN.Proofs`
 - `Lattice.Lib.Architectures.SoftmaxSubLayer` <- `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Architectures.TinyTransformer` <- `Lattice.Core.ModelArtifact`, `Lattice.Lib.Attention.RealAttention`
 - `Lattice.Lib.Attention` <- `Lattice.Lib.Attention.RealALiBi`, `Lattice.Lib.Attention.RealAbsPosEncoding`, `Lattice.Lib.Attention.RealAttention`, `Lattice.Lib.Attention.RealAttentionCoreBridge`, `Lattice.Lib.Attention.RealAttentionLipschitz`, `Lattice.Lib.Attention.RealAttentionMonotonicity`, `Lattice.Lib.Attention.RealBlockSparse`, `Lattice.Lib.Attention.RealBlockSparseExact`, `Lattice.Lib.Attention.RealCausalAttention`, `Lattice.Lib.Attention.RealComplexAttention`, `Lattice.Lib.Attention.RealComplexRoPE`, `Lattice.Lib.Attention.RealCrossAttention`, `Lattice.Lib.Attention.RealDynamicRoute`, `Lattice.Lib.Attention.RealGQA`, `Lattice.Lib.Attention.RealHardAttention`, `Lattice.Lib.Attention.RealHeadMerge`, `Lattice.Lib.Attention.RealHeadPruningOptimal`, `Lattice.Lib.Attention.RealHighDimRoPE`, `Lattice.Lib.Attention.RealKVBudget`, `Lattice.Lib.Attention.RealKVCache`, `Lattice.Lib.Attention.RealLinearAttention`, `Lattice.Lib.Attention.RealMLA`, `Lattice.Lib.Attention.RealMLABridge`, `Lattice.Lib.Attention.RealMaskFamily`, `Lattice.Lib.Attention.RealMixedAttention`, `Lattice.Lib.Attention.RealPosEncodingInterface`, `Lattice.Lib.Attention.RealPositionalInterpolation`, `Lattice.Lib.Attention.RealRelPosEncoding`, `Lattice.Lib.Attention.RealRoPE`, `Lattice.Lib.Attention.RealRoPEExtrapolation`, `Lattice.Lib.Attention.RealRoPEExtrapolationFailure`, `Lattice.Lib.Attention.RealSoftmaxAttnNormBound`, `Lattice.Lib.Attention.RealSoftmaxLipschitz`, `Lattice.Lib.Attention.RealSoftmaxTemp`, `Lattice.Lib.Attention.RealTemporalLayer`, `Lattice.Lib.Attention.RealTemporalLayerExt`, `Lattice.Lib.Attention.SoftmaxLipschitz`, `Lattice.Lib.Attention.SoftmaxLipschitzBound`, `Lattice.Lib.Attention.AttentionLipschitz`, `Lattice.Lib.Attention.ProgramSoftmaxBridge`, `Lattice.Lib.Attention.ConvexCombination`, `Lattice.Lib.Attention.ProgramAttentionLipschitz`
@@ -666,14 +657,14 @@
 - `Lattice.Lib.Lift.RealWeightedConstraintsN` <- `Lattice.Lib.Architectures.RealNormalEquationScalar`
 - `Lattice.Lib.Lift.VerifyLoopConvergence` <- `Lattice.Runtime.ComboN`
 - `Lattice.Lib.Linear` <- `Lattice.Lib.Linear.Multivar`, `Lattice.Lib.Linear.NetPenalty`, `Lattice.Lib.Linear.Penalty`, `Lattice.Lib.Linear.PenaltyMatrix`, `Lattice.Lib.Linear.PenaltyPerturb`, `Lattice.Lib.Linear.PenaltyPerturbN`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Linear.Residual`
-- `Lattice.Lib.Linear.Multivar` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Runtime.PenaltyEmbedding`
+- `Lattice.Lib.Linear.Multivar` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Linear.NetPenalty` <- `Lattice.Core.WeightNet`, `Lattice.Lib.Linear.PenaltyMatrix`
 - `Lattice.Lib.Linear.Penalty` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.Linear.PenaltyMatrix` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Lib.Linear.PenaltyPerturb` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`, `Lattice.Lib.Linear.PenaltyPerturbN`
 - `Lattice.Lib.Linear.PenaltyPerturbN` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Lib.Linear.PenaltyVector`
 - `Lattice.Lib.Linear.PenaltyVector` <- `Lattice.Core.Syntax`, `Lattice.Runtime.PenaltyEmbedding`
-- `Lattice.Lib.Linear.Residual` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Repair`, `Lattice.Runtime.PenaltyEmbedding`
+- `Lattice.Lib.Linear.Residual` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Runtime.PenaltyEmbedding`
 - `Lattice.Lib.LinearAlgebra` <- `Lattice.Lib.LinearAlgebra.RealBanach`, `Lattice.Lib.LinearAlgebra.RealComplexSpectral`, `Lattice.Lib.LinearAlgebra.RealConditionNumber`, `Lattice.Lib.LinearAlgebra.RealEckartYoung`, `Lattice.Lib.LinearAlgebra.RealFrobeniusDichotomy`, `Lattice.Lib.LinearAlgebra.RealGelfand`, `Lattice.Lib.LinearAlgebra.RealGelfandMathlib`, `Lattice.Lib.LinearAlgebra.RealHessian`, `Lattice.Lib.LinearAlgebra.RealInfiniteDim`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`, `Lattice.Lib.LinearAlgebra.RealIsometry`, `Lattice.Lib.LinearAlgebra.RealL2Operator`, `Lattice.Lib.LinearAlgebra.RealLowRank`, `Lattice.Lib.LinearAlgebra.RealMatrix`, `Lattice.Lib.LinearAlgebra.RealMatrixStability`, `Lattice.Lib.LinearAlgebra.RealOperatorInvertibility`, `Lattice.Lib.LinearAlgebra.RealPseudoInverse`, `Lattice.Lib.LinearAlgebra.RealRKHSKernel`, `Lattice.Lib.LinearAlgebra.RealRandomMatrixTheory`, `Lattice.Lib.LinearAlgebra.RealReproducingKernelTheory`, `Lattice.Lib.LinearAlgebra.RealSVD`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.LinearAlgebra.RealSparseCodingCoherence`, `Lattice.Lib.LinearAlgebra.RealSparseCodingCounterexamples`, `Lattice.Lib.LinearAlgebra.RealSparseCodingOptimality`, `Lattice.Lib.LinearAlgebra.RealSparseCodingSoftThreshold`, `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.LinearAlgebra.RealSpectral`, `Lattice.Lib.LinearAlgebra.RealSpectralRadius`, `Lattice.Lib.LinearAlgebra.RealStructuredMatrix`, `Lattice.Lib.LinearAlgebra.RealSubspaceConstraint`, `Lattice.Lib.LinearAlgebra.RealSuperpositionCapacity`, `Lattice.Lib.LinearAlgebra.RealWeightSharing`
 - `Lattice.Lib.LinearAlgebra.RealBanach` <- `Lattice.Lib.Optim.RealValueIteration`
 - `Lattice.Lib.LinearAlgebra.RealComplexSpectral` <- `Lattice.Lib.LinearAlgebra.RealSpectral`
@@ -769,8 +760,8 @@
 - `Lattice.Lib.Optim.RealSGDRate` <- `Lattice.Lib.Optim.RealSGDStochastic`, `Lattice.Lib.Convex.RealConvexProjection`
 - `Lattice.Lib.Optim.RealSGDStochastic` <- `Lattice.Lib.Convex.RealSubgradient`, `Lattice.Lib.Convex.RealSubgradientDescent`, `Lattice.Lib.Optim.RealConvergence`
 - `Lattice.Lib.Optim.RealSaddlePoint` <- `Lattice.Lib.Convex.RealKKTSecondOrder`
-- `Lattice.Lib.Optim.RealSeamBridges` <- `Lattice.Lib.LearningTheory.RealCausalDoCalculus`, `Lattice.Lib.LearningTheory.RealCausalInference`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`
-- `Lattice.Lib.Optim.RealSeamBridges2` <- `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealModelFamilyChainWiring`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealDecisionTheory`, `Lattice.Lib.LearningTheory.RealBayesOptimality`, `Lattice.Lib.Architectures.RealBatchNormConsistency`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealExtractSurjectivity`, `Lattice.Lib.Editing.RealCompileExtractClosed`
+- `Lattice.Lib.Optim.RealSeamBridges` <- `Lattice.Lib.LearningTheory.RealCausalDoCalculus`, `Lattice.Lib.LearningTheory.RealCausalInference`, `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Plugins.Architectures.Norm.Proofs`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`
+- `Lattice.Lib.Optim.RealSeamBridges2` <- `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Optim.RealSaddlePoint`, `Lattice.Lib.Quantization.RealCompressedSensing`, `Lattice.Lib.LinearAlgebra.RealSparseCoding`, `Lattice.Lib.Architectures.RealNormSharpConstant`, `Lattice.Lib.Architectures.RealRMSNormSharpness`, `Lattice.Lib.Architectures.RealLayerPropagation`, `Lattice.Lib.Chain.RealModelFamilyChainWiring`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Optim.RealListFinBridge`, `Lattice.Lib.LearningTheory.RealDecisionTheory`, `Lattice.Lib.LearningTheory.RealBayesOptimality`, `Lattice.Plugins.Architectures.Norm.Proofs`, `Lattice.Lib.Chain.RealCrossUniverseConsumer`, `Lattice.Lib.Optim.RealCrossUniverseBridge`, `Lattice.Lib.Editing.RealExtractCanonical`, `Lattice.Lib.Editing.RealExtractSurjectivity`, `Lattice.Lib.Editing.RealCompileExtractClosed`
 - `Lattice.Lib.Optim.RealSecondOrderNoModulus` <- `Lattice.Lib.LinearAlgebra.RealHessian`
 - `Lattice.Lib.Optim.RealSecondOrderUpgrade` <- `Lattice.Lib.LinearAlgebra.RealHessian`, `Lattice.Lib.Optim.RealSecondOrderNoModulus`, `Lattice.Lib.Convex.RealKKTSecondOrder`, `Lattice.Lib.Chain.RealTaylorMultivariate`
 - `Lattice.Lib.Optim.RealStationarity` 
@@ -819,33 +810,30 @@
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.PrerequisiteCensus` <- `Lattice.CInterface.ABI`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Laws`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
-- `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
-- `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
-- `Lattice.Compose.Combinators` <- `Lattice.Plugins.Compose.Combinators`
-- `Lattice.Compose.ComposeObligation` <- `Lattice.Plugins.Compose.ComposeObligation`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
+- `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
+- `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Reference.Geometry.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
-- `Lattice.Compose.Laws` <- `Lattice.Plugins.Compose.Proofs`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
-- `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
-- `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
+- `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
+- `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.IR.SpecUniqueness`, `Lattice.Core.IR.CoverageMonotone`, `Lattice.Core.IR.DeactivateGate`, `Lattice.Core.IR.FinalSpec`, `Lattice.Core.IR.CertSnapshot`, `Lattice.Core.IR.UnloadEffect`, `Lattice.Core.IR.MaximalScope`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Logic`, `Lattice.Core.Net`, `Lattice.Core.Repair`, `Lattice.Core.RepairWF`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairMultistep`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.VariableDerivative`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
+- `Lattice.Core` <- `Lattice.Core.IR.SpecUniqueness`, `Lattice.Core.IR.CoverageMonotone`, `Lattice.Core.IR.DeactivateGate`, `Lattice.Core.IR.FinalSpec`, `Lattice.Core.IR.CertSnapshot`, `Lattice.Core.IR.UnloadEffect`, `Lattice.Core.IR.MaximalScope`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Net`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
-- `Lattice.Evidence.ChainTransitivity` <- `Lattice.Core.Repair`
+- `Lattice.Evidence.ChainTransitivity` <- `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Evidence.CompositionAlgebra` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Evidence.CompositionClass` <- `Lattice.Evidence.BridgedComposition`
 - `Lattice.Evidence.Counterexamples` <- `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.EndToEndApproximation`
-- `Lattice.Evidence.DecreasesRole` <- `Lattice.Core.Repair`
-- `Lattice.Evidence.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Runtime.EndToEnd`
+- `Lattice.Evidence.DecreasesRole` <- `Lattice.Plugins.Core.Repair.Repair`
+- `Lattice.Evidence.Hypotheses` <- `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Runtime.EndToEnd`
 - `Lattice.Evidence.MultiComposition` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Evidence.ObligationIndependence` <- `Lattice.Core.Repair`
+- `Lattice.Evidence.ObligationIndependence` <- `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
-- `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.Repair`
+- `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
 - `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
@@ -861,23 +849,23 @@
 - `Lattice.Plugins.Architectures.DAG.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Proofs`
 - `Lattice.Plugins.Architectures.DAG.Proofs` 
 - `Lattice.Plugins.Architectures.GNN.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.GNN.Proofs`
-- `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Lib.Architectures.RealGNNEquivariance`
+- `Lattice.Plugins.Architectures.GNN.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Proofs`
 - `Lattice.Plugins.Architectures.GNN.Proofs` <- `Lattice.Lib.Architectures.RealGNN`
 - `Lattice.Plugins.Architectures.Norm.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Norm.Proofs`
-- `Lattice.Plugins.Architectures.Norm.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Lib.Architectures.RealBatchNormConsistency`
+- `Lattice.Plugins.Architectures.Norm.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Proofs`
 - `Lattice.Plugins.Architectures.Norm.Proofs` <- `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`
 - `Lattice.Plugins.Compose` <- `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Plugin`
 - `Lattice.Plugins.Compose.Combinators` <- `Lattice.Compose.Primitive`
-- `Lattice.Plugins.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
+- `Lattice.Plugins.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
 - `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Compose.Proofs`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Plugins.Compose.ComposeObligation`
-- `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Compose.Laws`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
-- `Lattice.Plugins.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
+- `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Proofs`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Plugins.Compose.ComposeObligation`
+- `Lattice.Plugins.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Plugin`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
 - `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Core.Constraint.Proofs`
-- `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Core.Logic`
+- `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Plugins.Core.Constraint.Proofs` <- `Lattice.Core.Semantics`
 - `Lattice.Plugins.Core.Repair.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Plugins.Core.Repair.RepairAtomicity`, `Lattice.Plugins.Core.Repair.RepairWF`, `Lattice.Plugins.Core.Repair.RepairMultistep`
-- `Lattice.Plugins.Core.Repair.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Core.RepairMultistep`, `Lattice.Core.RepairAtomicity`, `Lattice.Core.RepairWF`
+- `Lattice.Plugins.Core.Repair.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Plugins.Core.Repair.RepairMultistep`, `Lattice.Plugins.Core.Repair.RepairAtomicity`, `Lattice.Plugins.Core.Repair.RepairWF`
 - `Lattice.Plugins.Core.Repair.Repair` 
 - `Lattice.Plugins.Core.Repair.RepairAtomicity` <- `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairMultistep`
 - `Lattice.Plugins.Core.Repair.RepairConvergence` <- `Lattice.Plugins.Core.Repair.Repair`
@@ -896,7 +884,7 @@
 - `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
 - `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
-- `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.VariableDerivative`
+- `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
 - `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` <- `Lattice.Core.VariableNet`, `Lattice.Core.VariableActLayer`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Migration` <- `Lattice.Plugins.Registry`
@@ -927,7 +915,7 @@
 - `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`, `Lattice.Reference.Geometry.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.SolverBoundary` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.SpecReadingSolver` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.ConstFamily`
-- `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
+- `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.Strengthened` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T3Instances`, `Lattice.Plugins.Targets.T4FixedPoint`
 - `Lattice.Plugins.Targets.T1Dependence` <- `Lattice.Plugins.Manifest`, `Lattice.Semantics.Merge`
 - `Lattice.Plugins.Targets.T2Min` <- `Lattice.Plugins.Manifest`, `Lattice.Reference.Geometry.Geometry.ExprLocalMin`
@@ -936,7 +924,7 @@
 - `Lattice.Plugins.Targets.T3NonVacuous` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Reference.Geometry.Geometry.Semantic`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Targets.T4FixedPoint` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Reference.Geometry.Geometry.ClosedLoop`
 - `Lattice.Primitives` <- `Lattice.Primitives.MultistepLoop`, `Lattice.Primitives.TokenizeStrategy`, `Lattice.Primitives.TokenizerPattern`, `Lattice.Primitives.WeightDescent`
-- `Lattice.Primitives.MultistepLoop` <- `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.VerificationLoop`
+- `Lattice.Primitives.MultistepLoop` <- `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Runtime.VerificationLoop`
 - `Lattice.Primitives.TokenizeStrategy` 
 - `Lattice.Primitives.TokenizerPattern` 
 - `Lattice.Primitives.WeightDescent` <- `Lattice.Core.Net`, `Lattice.Primitives.MultistepLoop`
@@ -956,15 +944,15 @@
 - `Lattice.Runtime.ConvertVectorLinear` 
 - `Lattice.Runtime.DotTruncationDefect` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Core.IR.FinSupport`
 - `Lattice.Runtime.EncodingAbstraction` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.NonIdenticalEncoding`
-- `Lattice.Runtime.EndToEnd` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`
+- `Lattice.Runtime.EndToEnd` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`
 - `Lattice.Runtime.EndToEndApproximation` <- `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.VerificationSoundness`
 - `Lattice.Runtime.ErrorCalculus` 
-- `Lattice.Runtime.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`, `Lattice.Core.Idempotent`, `Lattice.Core.Repair`
+- `Lattice.Runtime.Extraction` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`, `Lattice.Core.Idempotent`, `Lattice.Plugins.Core.Repair.Repair`
 - `Lattice.Runtime.ExtractionStrength` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.ApproxExtraction`
 - `Lattice.Runtime.GeoSampledBound` <- `Lattice.Runtime.VerificationSoundness`
 - `Lattice.Runtime.GridDensity` <- `Lattice.Runtime.RealVerifierReliable`
 - `Lattice.Runtime.IntRoundtrip` <- `Lattice.Runtime.TokenAlphabet`
-- `Lattice.Runtime.L1L2` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
+- `Lattice.Runtime.L1L2` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Runtime.L1L2Roundtrip` <- `Lattice.Runtime.L1L2`
 - `Lattice.Runtime.LadderClosure` <- `Lattice.Runtime.EndToEnd`
 - `Lattice.Runtime.LayerComposition` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.SymbolToWeightCorrectness`
@@ -977,7 +965,7 @@
 - `Lattice.Runtime.NondegenerateInstance` <- `Lattice.Core.Net`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.WeightLadderN`
 - `Lattice.Runtime.PartialRepresentation` <- `Lattice.Runtime.Extraction`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.L1L2Roundtrip`
 - `Lattice.Runtime.PenaltyAnalysis` 
-- `Lattice.Runtime.PenaltyEmbedding` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
+- `Lattice.Runtime.PenaltyEmbedding` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Runtime.ProgramAST` <- `Lattice.Runtime.Extraction`
 - `Lattice.Runtime.ProgramLipschitz` <- `Lattice.Runtime.ProgramAST`
 - `Lattice.Runtime.ProgramRepresentation` <- `Lattice.Runtime.PartialRepresentation`, `Lattice.Runtime.ProgramAST`
@@ -1001,7 +989,7 @@
 - `Lattice.Runtime.SemanticRepresentation` <- `Lattice.Runtime.ConstraintRepresentation`
 - `Lattice.Runtime.StackCodegen` 
 - `Lattice.Runtime.StackError` <- `Lattice.Core.Net`, `Lattice.Runtime.QuantErrorPropagation`
-- `Lattice.Runtime.SymbolToWeight` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.Logic`
+- `Lattice.Runtime.SymbolToWeight` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Plugins.Core.Constraint.Proofs`
 - `Lattice.Runtime.SymbolToWeightCorrectness` <- `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Runtime.TokenAlphabet` <- `Lattice.Runtime.RealTokenization`, `Lattice.Runtime.RealTokenSymbolLink`
 - `Lattice.Runtime.TotalLoss` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Runtime.ConstraintEmbeddingSoundness`
@@ -1042,7 +1030,7 @@
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Plugins.Core.Repair.Repair`, `Lattice.Plugins.Core.Repair.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
 
 ## Declarations per module
 
@@ -1190,25 +1178,18 @@
 | `Lattice.Core.IR.UnloadEffect` | 3 | 0 |
 | `Lattice.Core.Idempotent` | 3 | 1 |
 | `Lattice.Core.Invariant` | 4 | 2 |
-| `Lattice.Core.Logic` | 0 | 0 |
 | `Lattice.Core.ModelArtifact` | 3 | 12 |
 | `Lattice.Core.ModelArtifactInstances` | 7 | 10 |
 | `Lattice.Core.Net` | 8 | 5 |
 | `Lattice.Core.NonlinearLayer` | 5 | 3 |
 | `Lattice.Core.OneStepBridge` | 7 | 2 |
 | `Lattice.Core.PluginComplete` | 2 | 3 |
-| `Lattice.Core.Repair` | 0 | 0 |
-| `Lattice.Core.RepairAtomicity` | 0 | 0 |
-| `Lattice.Core.RepairConvergence` | 0 | 0 |
-| `Lattice.Core.RepairMultistep` | 0 | 0 |
-| `Lattice.Core.RepairWF` | 0 | 0 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
 | `Lattice.Core.StackDerivative` | 14 | 4 |
 | `Lattice.Core.StackParams` | 1 | 2 |
 | `Lattice.Core.Syntax` | 0 | 4 |
 | `Lattice.Core.VariableActLayer` | 3 | 2 |
-| `Lattice.Core.VariableDerivative` | 0 | 0 |
 | `Lattice.Core.VariableNet` | 5 | 6 |
 | `Lattice.Core.Weight` | 5 | 2 |
 | `Lattice.Core.WeightNet` | 1 | 0 |
@@ -1217,7 +1198,6 @@
 | `Lattice.Lib.Architectures.RealActComplete` | 19 | 3 |
 | `Lattice.Lib.Architectures.RealActDerivatives` | 15 | 3 |
 | `Lattice.Lib.Architectures.RealBatchNorm` | 6 | 4 |
-| `Lattice.Lib.Architectures.RealBatchNormConsistency` | 0 | 0 |
 | `Lattice.Lib.Architectures.RealBlock` | 7 | 0 |
 | `Lattice.Lib.Architectures.RealBlockConstants` | 6 | 1 |
 | `Lattice.Lib.Architectures.RealBlockInstance` | 3 | 2 |
@@ -1228,7 +1208,6 @@
 | `Lattice.Lib.Architectures.RealFFN` | 5 | 3 |
 | `Lattice.Lib.Architectures.RealGLUVariants` | 15 | 6 |
 | `Lattice.Lib.Architectures.RealGNN` | 8 | 4 |
-| `Lattice.Lib.Architectures.RealGNNEquivariance` | 0 | 0 |
 | `Lattice.Lib.Architectures.RealGatingGeneral` | 20 | 2 |
 | `Lattice.Lib.Architectures.RealGeluDerivBound` | 17 | 1 |
 | `Lattice.Lib.Architectures.RealGeluExact` | 17 | 2 |
@@ -1849,11 +1828,8 @@
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.AdapterMatrix` | 8 | 3 |
 | `Lattice.Compose.AssocLaws` | 5 | 0 |
-| `Lattice.Compose.Combinators` | 0 | 0 |
-| `Lattice.Compose.ComposeObligation` | 0 | 0 |
 | `Lattice.Compose.ForwardChain` | 5 | 2 |
 | `Lattice.Compose.Iterate` | 9 | 3 |
-| `Lattice.Compose.Laws` | 0 | 0 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
 | `Lattice.Compose.PrimitiveShape` | 3 | 2 |

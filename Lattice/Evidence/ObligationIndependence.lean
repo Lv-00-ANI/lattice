@@ -71,8 +71,7 @@ fix n   = n - 1      （n > 0）
   所以任何只由前两条组成的公理系统都推不出 `decreases`。
 -/
 import Mathlib
-import Lattice.Core.Repair
-
+import Lattice.Plugins.Core.Repair.Repair
 namespace Lattice.Audit
 
 open Lattice.Core

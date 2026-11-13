@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Lib.Architectures.RealGNN
-import Lattice.Lib.Architectures.RealGNNEquivariance
+import Lattice.Plugins.Architectures.GNN.Proofs
 /-!
 # LATTICE: 1-WL 颜色精化的完整等价定理——GNN 表达力的上界与可达性
 

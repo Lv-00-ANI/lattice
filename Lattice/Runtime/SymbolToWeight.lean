@@ -1,8 +1,7 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Core.Logic
-
+import Lattice.Plugins.Core.Constraint.Proofs
 /-!
 # `Lattice.Lift.SymbolToWeight` -- T1: compilation preserves meaning
 

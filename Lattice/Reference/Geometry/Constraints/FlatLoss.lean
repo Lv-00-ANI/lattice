@@ -23,7 +23,7 @@ Copyright: LATTICE
 **而这里的网络是【任意深度、宽度可变】的扁平参数栈。**
 -/
 import Mathlib
-import Lattice.Core.VariableDerivative
+import Lattice.Plugins.Extractors.ChainSlot.VariableDerivative
 import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
 open Lattice.Core
 

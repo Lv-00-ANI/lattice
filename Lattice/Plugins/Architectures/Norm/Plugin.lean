@@ -21,8 +21,7 @@ operationally.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Architectures.Norm.Manifest
-import Lattice.Lib.Architectures.RealBatchNormConsistency
-
+import Lattice.Plugins.Architectures.Norm.Proofs
 namespace Lattice.Plugins.Architectures.Norm
 
 open Lattice.Plugins

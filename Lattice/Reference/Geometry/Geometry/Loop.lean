@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Core.Repair
+import Lattice.Plugins.Core.Repair.Repair
 import Lattice.Reference.Geometry.Constraints.Constraint
 import Lattice.Reference.Geometry.Geometry.Engine
 

@@ -96,7 +96,7 @@ import Mathlib
 import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
-import Lattice.Core.RepairConvergence
+import Lattice.Plugins.Core.Repair.RepairConvergence
 import Lattice.Runtime.VerificationSoundness
 import Lattice.Reference.Geometry.Geometry.Reinjection
 import Lattice.Runtime.EndToEnd

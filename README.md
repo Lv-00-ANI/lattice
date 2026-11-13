@@ -39,9 +39,9 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1022 | `audit_counts.py` |
+> | Lean 模块 | 1010 | `audit_counts.py` |
 > | 定理 / 引理 | 9689 | `audit_counts.py` |
-> | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 627 | `audit_counts.py` |
+> | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
@@ -162,14 +162,14 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/       164       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
+│   ├── Core/       157       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
 │   ├── Domains/     0         # 第 265 轮整层归档至 Reference/Geometry/（后者不参与主构建）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
-│   ├── Lib/        627       # 应用库，按主题（建立在链路层之上）
+│   ├── Lib/        625       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26
@@ -461,7 +461,7 @@ cd gov && python verify_all.py
 > 旧库的 roots 曾被写成 238/344/412/411/467/479/548/576 八个值，无一正确。
 
 `lakefile.toml` 的 `packagesDir` 指向 `../lattice/lean/.lake/packages`，复用第一代已编译的
-mathlib（5,387 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新拉取编译需要数小时，
+mathlib（5,385 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新拉取编译需要数小时，
 且两份缓存会各自老化。代价是 CI 必须把同一 revision 物化到同一路径 —— workflow 里显式做了这件事。
 
 **全新机器怎么做（这一步必须写明，否则「指向仓库外」就是一个陷阱）。**
@@ -586,7 +586,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 
 ### 5.1 为什么 CORRECTIONS 冻结而不重编号
 
-`B<n>` 编号被引用 **4,855 处**（文档）与 **627 处**（`lean/*.lean` 的 docstring）。
+`B<n>` 编号被引用 **4,855 处**（文档）与 **625 处**（`lean/*.lean` 的 docstring）。
 重新编号会让这些引用同时失去指代对象。所以本库把整份登记**原样**搬入 `archive/`，
 逐字节校验一致（SHA256 比对通过）。
 

@@ -57,9 +57,8 @@ fix      := 闭式修复
 - 本节**不改** `Core/Repair.lean`，只加一条构造路径。
 -/
 import Mathlib
-import Lattice.Core.Repair
-import Lattice.Core.RepairConvergence
-
+import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Plugins.Core.Repair.RepairConvergence
 namespace Lattice.Core
 
 namespace OneStepBridge

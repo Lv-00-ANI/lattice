@@ -1,6 +1,5 @@
 import Mathlib
-import Lattice.Core.Repair
-
+import Lattice.Plugins.Core.Repair.Repair
 /-!
 # `Lattice.Core.Invariant` -- what a repair preserves, stated without a carrier-specific structure
 

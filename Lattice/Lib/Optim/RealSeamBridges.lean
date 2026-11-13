@@ -3,7 +3,7 @@ import Lattice.Lib.LearningTheory.RealCausalDoCalculus
 import Lattice.Lib.LearningTheory.RealCausalInference
 import Lattice.Lib.Architectures.RealBatchNorm
 import Lattice.Lib.Architectures.RealLayerNorm
-import Lattice.Lib.Architectures.RealBatchNormConsistency
+import Lattice.Plugins.Architectures.Norm.Proofs
 import Lattice.Runtime.RealLV
 import Lattice.Runtime.RealLinear
 /-!

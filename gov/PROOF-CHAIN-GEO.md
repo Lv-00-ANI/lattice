@@ -49,7 +49,7 @@
 | `CIC` | 231 | 9 | Constraint |
 | `CodegenLadder` | 110 | 3 | CExprCodegen |
 | `ConstraintSet` | 175 | 7 | Constraint |
-| `Engine` | 290 | 14 | Constraint |
+| `Engine` | 289 | 14 | Constraint |
 | `Eval` | 98 | 3 | Constraint, Dist |
 | `ExecutableCheck` | 189 | 4 | Constraint, ComputableExpr |
 | `Invariant` | 189 | 12 | Constraint |
@@ -71,7 +71,7 @@
 | `Extract` | 101 | 2 | Constraint, Loss, Perturb |
 | `Initialise` | 125 | 9 | Constraint, Invariant |
 | `Loop` | 209 | 10 | Constraint, Engine |
-| `LoopPerp` | 170 | 7 | RepairPerp |
+| `LoopPerp` | 169 | 7 | RepairPerp |
 | `MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
 | `NetLoss` | 267 | 7 | ConstraintSet |
 | `Pipeline` | 169 | 7 | Constraint, Expr, Loss |
@@ -86,7 +86,7 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `ConjRepair` | 157 | 3 | Loop, LoopPerp, RepairPerp |
+| `ConjRepair` | 156 | 3 | Loop, LoopPerp, RepairPerp |
 | `ConstraintDescent` | 524 | 21 | Constraint, NetLoss |
 | `Derivative` | 94 | 3 | Pipeline |
 | `EqConstraintTokens` | 141 | 4 | EqConstraintToken |
@@ -130,7 +130,7 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
+| `ClauseComposition` | 170 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
 | `ConstraintsRoot` | 45 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, FlattenAgreement, Lipschitz, Loss, NetLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, DistDerivative, ExprDerivative, PenaltyLossDerivative, FlatLoss |
 | `GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
 | `LayerExact` | 127 | 3 | Plucker |
@@ -194,7 +194,7 @@
 | 文件 | 声明 |
 |:--|:--|
 | `Lattice/Geo/Repair.lean` | `no_identity_repair` **（缺失）** |
-| `Lattice/Core/Repair.lean` | `progress` |
+| `Lattice/Core/Repair.lean` | `progress` **（缺失）** |
 
 ## 三、一条贯穿的读法
 

@@ -1,8 +1,8 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Core.Logic
-import Lattice.Core.Repair
+import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Plugins.Core.Repair.Repair
 import Lattice.Runtime.PenaltyEmbedding
 /-!
 # `Lattice.Lib.Linear.Residual` -- the first real instance of the repair framework

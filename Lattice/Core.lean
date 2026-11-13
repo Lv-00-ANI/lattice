@@ -82,19 +82,13 @@ import Lattice.Core.Data
 import Lattice.Core.Check
 import Lattice.Core.Idempotent
 import Lattice.Core.Invariant
-import Lattice.Core.Logic
 import Lattice.Core.Net
-import Lattice.Core.Repair
-import Lattice.Core.RepairWF
 import Lattice.Core.Semantics
 import Lattice.Core.Simulation
 import Lattice.Core.Syntax
 import Lattice.Core.VariableNet
 import Lattice.Core.Weight
 import Lattice.Core.WeightNet
-import Lattice.Core.RepairConvergence
-import Lattice.Core.RepairAtomicity
-import Lattice.Core.RepairMultistep
 import Lattice.Core.OneStepBridge
 import Lattice.Core.Activation
 import Lattice.Core.StackParams
@@ -102,7 +96,6 @@ import Lattice.Core.StackDerivative
 import Lattice.Core.AnalysisHelper
 import Lattice.Core.NonlinearLayer
 import Lattice.Core.VariableActLayer
-import Lattice.Core.VariableDerivative
 import Lattice.Core.ModelArtifact
 import Lattice.Core.ModelArtifactInstances
 import Lattice.Core.CIC.Syntax
