@@ -3485,6 +3485,12 @@ Runtime/ConvertVectorLinear.lean	scaleVec_preserves
 Runtime/ConvertVectorLinear.lean	sat_of_list_sat
 Runtime/ConvertVectorLinear.lean	list_sat_of_sat_of_length
 Runtime/ConvertVectorLinear.lean	sat_iff_list_sat
+Runtime/DataToConstraint.lean	corpusConstraints_nil
+Runtime/DataToConstraint.lean	corpusConstraints_cons
+Runtime/DataToConstraint.lean	corpusConstraints_length
+Runtime/DataToConstraint.lean	corpusConstraints_all_translatable
+Runtime/DataToConstraint.lean	coversCorpus_not_implies_zero_width
+Runtime/DataToConstraint.lean	data_reaches_weight_of_zero_width
 Runtime/DotTruncationDefect.lean	dot_nil
 Runtime/DotTruncationDefect.lean	dot_replicate_zero
 Runtime/DotTruncationDefect.lean	dot_not_injective
