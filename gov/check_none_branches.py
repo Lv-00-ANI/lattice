@@ -57,6 +57,13 @@ COVERED = {
         "takes the `some` arm** -- so on the encoding's image the `none` arms are unreachable. "
         "Off the image they are reachable BY DESIGN: the CIC term space is larger than the data "
         "space, and `decode` is a partial function, not a total one."),
+    "Runtime/CICToConstraintSet.lean": (
+        "partial decoder by design",
+        "`cicCtxToConstraintSet` is `List.filterMap cicToConstraint`, so its wildcard is the SAME arm as "
+        "`CICToConstraint`'s: `lam`/`pi`/`sort`/`letE` are not linear constraints. "
+        "**The list-level arm is bound by `mem_cicCtxToConstraintSet_iff`: `v` is in the result iff some "
+        "`t \u2208 ctx` maps to `v`** -- so a dropped term is a term that produced NO constraint, not a lost one. "
+        "`cic_loop_reaches_weight` then proves the whole chain reaches the weight side."),
     "Runtime/CICToConstraint.lean": (
         "partial decoder by design",
         "`cicToConstraint` maps a CIC `Term` to a LINEAR constraint, and the CIC term space is "

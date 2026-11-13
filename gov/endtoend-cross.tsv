@@ -3457,6 +3457,11 @@ Runtime/CICToConstraint.lean	cicToConstraint_lam
 Runtime/CICToConstraint.lean	cicToConstraint_pi
 Runtime/CICToConstraint.lean	cicToConstraint_sort
 Runtime/CICToConstraint.lean	cicToConstraint_isSome_iff
+Runtime/CICToConstraintSet.lean	cicCtxToConstraintSet_nil
+Runtime/CICToConstraintSet.lean	cicCtxToConstraintSet_eq_filterMap
+Runtime/CICToConstraintSet.lean	mem_cicCtxToConstraintSet_iff
+Runtime/CICToConstraintSet.lean	cicCtxToConstraintSet_sat_iff
+Runtime/CICToConstraintSet.lean	cic_loop_reaches_weight
 Runtime/ChainComposition.lean	compatible_roundtrip
 Runtime/ComboN.lean	sumEven_eq_zero_iff
 Runtime/ComboN.lean	comboN_preserves
