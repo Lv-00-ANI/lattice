@@ -43,9 +43,9 @@ is reachable; the counterexample beside it is not.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Compose.Manifest
-import Lattice.Plugins.Compose.Proofs
-import Lattice.Plugins.Compose.Combinators
-import Lattice.Plugins.Compose.ComposeObligation
+import Lattice.Compose.Proofs
+import Lattice.Compose.Combinators
+import Lattice.Compose.ComposeObligation
 namespace Lattice.Plugins.Compose
 
 open Lattice.Plugins

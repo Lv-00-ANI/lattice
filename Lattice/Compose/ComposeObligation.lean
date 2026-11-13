@@ -10,7 +10,7 @@ The old path is now a facade that imports this file and contains no proof.
 
 import Mathlib
 import Lattice.Compose.Primitive
-import Lattice.Plugins.Compose.Combinators
+import Lattice.Compose.Combinators
 /-!
 # L1-2：`compose` 的 `h` 义务——**不可导出**，而且是构造性证明的
 

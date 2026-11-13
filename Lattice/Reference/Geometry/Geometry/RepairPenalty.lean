@@ -6,8 +6,7 @@ import Lattice.Reference.Geometry.Geometry.ParallelRepair
 import Mathlib
 import Lattice.Reference.Geometry.Geometry.Loop
 import Lattice.Reference.Geometry.Constraints.Loss
-import Lattice.Reference.Geometry.Geometry.RepairBridge
-
+import Lattice.Core.RepairModule.RepairBridge
 /-!
 # `Lattice.Geo.RepairPenalty` -- the loop's criterion *is* a penalty's zero set
 

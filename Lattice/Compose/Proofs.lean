@@ -68,7 +68,7 @@ compose (choice f g sel) h   ≡   choice (compose f h) (compose g h) sel     �
   没有共同的类型去陈述交换。**这不是没做，是没有这条定律。** -/
 import Mathlib
 import Lattice.Compose.Primitive
-import Lattice.Plugins.Compose.Combinators
+import Lattice.Compose.Combinators
 import Lattice.Compose.More
 
 namespace Lattice.Compose

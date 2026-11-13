@@ -7,6 +7,9 @@ import Lattice.Compose.Steps
 import Lattice.Compose.PrimitiveShape
 import Lattice.Compose.AssocLaws
 import Lattice.Compose.AdapterMatrix
+import Lattice.Compose.Combinators
+import Lattice.Compose.ComposeObligation
+import Lattice.Compose.Proofs
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）

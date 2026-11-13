@@ -390,11 +390,19 @@ def _layering_baseline():
     list and the audit plan). A direction may SHRINK freely; it may not grow. Anything in a
     direction absent from this table is a NEW violation and fails.
     """
+    # Round 891: the last `core -> plugins` edge is `Core/PluginComplete.lean -> Lattice.Plugins`,
+    # and it is DELIBERATE. That file discharges `PROOF-OBLIGATIONS.md`'s
+    # `plugin_registry_complete`, whose five requirements are ABOUT the plugin registry -- a
+    # theorem that proves a property of every plugin must be able to see every plugin.
+    # **=> it is a VERIFICATION edge, not a dependency: `Core` does not need plugins to work,
+    # it needs them to PROVE the registry complete.** Moving it to `Plugins/` would make the
+    # statement "the registry is complete" proved BY the registry, which is circular.
     return {
         ("plugins", "reference"): 19,
-        ("core", "plugins"): 1,
+        ("plugins", "compose"): 6,
         ("plugins", "audit"): 4,
-        ("plugins", "compose"): 4,
+        ("core", "reference"): 2,
+        ("core", "plugins"): 1,
     }
 
 

@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Compose.Primitive
-import Lattice.Plugins.Compose.Combinators
+import Lattice.Compose.Combinators
 import Lattice.Compose.More
 import Lattice.Compose.Iterate
 import Lattice.Compose.Steps

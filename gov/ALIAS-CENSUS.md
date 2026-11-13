@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 696 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 697 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 162 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -72,6 +72,7 @@
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Core/RepairModule/Repair.lean` | `parity_terminates` |
+| `Core/RepairModule/RepairBridge.lean` | `converges` |
 | `Evidence/MultiComposition.lean` | `chain_single` |
 | `Evidence/MultiComposition.lean` | `chain_two` |
 | `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
@@ -752,6 +753,8 @@
 | `Core/IR/Skeleton.lean` | `find_id_eq_some_of_nodup_shape` |
 | `Core/RepairModule/Repair.lean` | `preserves` |
 | `Core/RepairModule/RepairWF.lean` | `preserves_of_sat` |
+| `Core/RepairModule/VariableDerivative.lean` | `lowDeg_affine` |
+| `Core/RepairModule/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_left` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
@@ -881,8 +884,6 @@
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_perpendicular` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_rightAngle` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_sqDistEq` |
-| `Plugins/Extractors/ChainSlot/VariableDerivative.lean` | `lowDeg_affine` |
-| `Plugins/Extractors/ChainSlot/VariableDerivative.lean` | `lowDeg_zero_of_const` |
 | `Plugins/Targets/Statements.lean` | `t4_loop_converges_holds` |
 | `Plugins/Targets/Statements.lean` | `t4_repair_progress_holds` |
 | `Runtime/ConvertVectorLinear.lean` | `foldl_init_add` |

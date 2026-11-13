@@ -16,10 +16,10 @@
 | `Runtime` | 11 | 3.2% |
 | `Domains` | **0** | 1.9% |
 | `Evidence` | 8 | 2.7% |
-| `Core` | 52 | 5.7% |
+| `Core` | 57 | 5.7% |
 | `Geo` | 0 | 0.0% |
-| `Compose` | 0 | 0.0% |
-| `Plugins` | 28 | 9.2% |
+| `Compose` | 1 | 0.0% |
+| `Plugins` | 22 | 9.2% |
 | `Semantics` | 7 | 2.2% |
 | `(root)` | 2 | 0.6% |
 
@@ -227,11 +227,11 @@
 | `Evidence` | `delta_is_input` | `¬ (∀ L δ : ℝ, 0 ≤ L → 0 ≤ δ → L * 0 = L * δ)` |
 | `Evidence` | `destructiveFix_not_absorbs` | `¬ (∀ n : ℕ, n = 0 → destructiveFix n = n)` |
 | `Evidence` | `absorbs_not_derivable` | `¬ (∀ (Sat : ℕ → Prop) (fix : ℕ → ℕ) (μ : ℕ → ℕ), (∀ n, ¬ Sat n → μ (fix n) < μ n) → (∀ n, μ n = 0 → Sat n` |
-| `Core` | 52 | `¬ Function.Injective relu` |
-| `Core` | 52 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
-| `Core` | 52 | `¬ countdown.Sat (countdown.iterate n k)` |
-| `Core` | 52 | `¬ BehaviourallyEquivalent p q` |
-| `Core` | 52 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
+| `Core` | 57 | `¬ Function.Injective relu` |
+| `Core` | 57 | `¬ Function.Injective (fun x : Fin 1 → ℝ => reluVec (netAct [] x))` |
+| `Core` | 57 | `¬ countdown.Sat (countdown.iterate n k)` |
+| `Core` | 57 | `¬ BehaviourallyEquivalent p q` |
+| `Core` | 57 | `(∃ p q : LayerParams (Fin 1) (Fin 1), p ≠ q ∧ BehaviourallyEquivalent p q) → False` |
 | `Geo` | `no_rules_no_steps` | `¬ ∃ r ∈ ([] : List (Rule n)), c = r.concl ∧ ∀ d ∈ r.prems, EntailsGeo G d` |
 | `Geo` | `not_eventually_zero_of_small_counterexample` | `False` |
 | `Geo` | `sqDist_samePoint_not_localMin` | `¬ IsLocalMin (fun x : ℕ → Pt n => (sqDist (n` |

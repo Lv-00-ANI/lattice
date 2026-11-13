@@ -37,10 +37,9 @@ project has already REFUTED (`no_extractor_preserves_both`).**
 -/
 
 import Lattice.Plugins.Manifest
-import Lattice.Plugins.Compose.Proofs
-import Lattice.Plugins.Compose.Combinators
-import Lattice.Plugins.Compose.ComposeObligation
-
+import Lattice.Compose.Proofs
+import Lattice.Compose.Combinators
+import Lattice.Compose.ComposeObligation
 namespace Lattice.Plugins.Compose
 
 open Lattice.Plugins

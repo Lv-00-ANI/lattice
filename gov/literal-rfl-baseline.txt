@@ -1,5 +1,9 @@
 Lattice/Core/ModelArtifactInstances.lean	affineTwoLayer_depth
 Lattice/Core/ModelArtifactInstances.lean	affineUnit_depth
+Lattice/Core/RepairModule/VariableDerivative.lean	layerParamCount_width_one
+Lattice/Core/RepairModule/VariableDerivative.lean	paramsCountExact_example
+Lattice/Core/RepairModule/VariableDerivative.lean	paramsCountExact_nil
+Lattice/Core/RepairModule/VariableDerivative.lean	paramsCount_nil
 Lattice/Evidence/CompositionAlgebra.lean	bridgedCount_empty
 Lattice/Lib/Architectures/TinyTransformer.lean	arch_depth
 Lattice/Lib/Architectures/TinyTransformer.lean	artifact_layer_count
@@ -74,10 +78,6 @@ Lattice/Plugins/Compose/Manifest.lean	manifest_claims_confluence
 Lattice/Plugins/Compose/Manifest.lean	manifest_claims_recovery
 Lattice/Plugins/Compose/Manifest.lean	manifest_claims_spatial
 Lattice/Plugins/Core/Repair/Manifest.lean	manifest_claims_completeness
-Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean	layerParamCount_width_one
-Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean	paramsCountExact_example
-Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean	paramsCountExact_nil
-Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean	paramsCount_nil
 Lattice/Plugins/Targets/Statements.lean	open_targets_register
 Lattice/Plugins/Targets/Statements.lean	t2_relaxed_count
 Lattice/Plugins/Targets/Statements.lean	target_ledger_total

@@ -23,7 +23,7 @@ directions: the slot is readable, and the WRONG slot is not.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Extractors.ChainSlot.Manifest
-import Lattice.Plugins.Extractors.ChainSlot.VariableDerivative
+import Lattice.Core.RepairModule.VariableDerivative
 namespace Lattice.Plugins.Extractors.ChainSlot
 
 open Lattice.Plugins

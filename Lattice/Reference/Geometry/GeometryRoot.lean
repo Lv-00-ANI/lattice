@@ -51,7 +51,7 @@ import Lattice.Reference.Geometry.Geometry.QualityBridge
 import Lattice.Reference.Geometry.Geometry.Reinjection
 import Lattice.Reference.Geometry.Geometry.ReinjectionGeneral
 import Lattice.Reference.Geometry.Geometry.Repair
-import Lattice.Reference.Geometry.Geometry.RepairBridge
+import Lattice.Core.RepairModule.RepairBridge
 import Lattice.Reference.Geometry.Geometry.RepairCoverage
 import Lattice.Reference.Geometry.Geometry.RepairPenalty
 import Lattice.Reference.Geometry.Geometry.RepairPerp

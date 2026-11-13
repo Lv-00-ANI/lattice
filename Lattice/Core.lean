@@ -155,6 +155,8 @@ import Lattice.Core.RepairModule.RepairAtomicity
 import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Core.RepairModule.RepairMultistep
 import Lattice.Core.RepairModule.RepairWF
+import Lattice.Core.RepairModule.RepairBridge
+import Lattice.Core.RepairModule.VariableDerivative
 
 
 /-!

@@ -8,14 +8,14 @@
 
 | layer | modules | rule |
 |:--|--:|:--|
-| core | 163 | no imports from lift/lib |
+| core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
 | lib | 625 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 221 | aggregator at `Lattice/`, re-exports only |
+| root | 220 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -172,9 +172,11 @@
 - `Lattice.Core.RepairModule.ConstraintProofs` <- `Lattice.Core.Semantics`
 - `Lattice.Core.RepairModule.Repair` 
 - `Lattice.Core.RepairModule.RepairAtomicity` <- `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairMultistep`
+- `Lattice.Core.RepairModule.RepairBridge` <- `Lattice.Core.RepairModule.Repair`, `Lattice.Core.Invariant`, `Lattice.Core.Simulation`, `Lattice.Core.Idempotent`, `Lattice.Reference.Geometry.Geometry.Loop`, `Lattice.Reference.Geometry.Constraints.Loss`
 - `Lattice.Core.RepairModule.RepairConvergence` <- `Lattice.Core.RepairModule.Repair`
 - `Lattice.Core.RepairModule.RepairMultistep` <- `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`
 - `Lattice.Core.RepairModule.RepairWF` <- `Lattice.Core.RepairModule.Repair`
+- `Lattice.Core.RepairModule.VariableDerivative` <- `Lattice.Core.VariableNet`, `Lattice.Core.VariableActLayer`, `Lattice.Core.AnalysisHelper`
 - `Lattice.Core.Semantics` <- `Lattice.Core.Syntax`
 - `Lattice.Core.Simulation` 
 - `Lattice.Core.StackDerivative` <- `Lattice.Core.Net`
@@ -816,17 +818,20 @@
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.PrerequisiteCensus` <- `Lattice.CInterface.ABI`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`
-- `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
-- `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.Proofs`
+- `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
+- `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
+- `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
+- `Lattice.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Reference.Geometry.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.More` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.Primitive` 
-- `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
-- `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
+- `Lattice.Compose.PrimitiveShape` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
+- `Lattice.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`
+- `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
-- `Lattice.Core` <- `Lattice.Core.IR.SpecUniqueness`, `Lattice.Core.IR.CoverageMonotone`, `Lattice.Core.IR.DeactivateGate`, `Lattice.Core.IR.FinalSpec`, `Lattice.Core.IR.CertSnapshot`, `Lattice.Core.IR.UnloadEffect`, `Lattice.Core.IR.MaximalScope`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Net`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`, `Lattice.Core.RepairModule.ConstraintProofs`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairAtomicity`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Core.RepairModule.RepairMultistep`, `Lattice.Core.RepairModule.RepairWF`
+- `Lattice.Core` <- `Lattice.Core.IR.SpecUniqueness`, `Lattice.Core.IR.CoverageMonotone`, `Lattice.Core.IR.DeactivateGate`, `Lattice.Core.IR.FinalSpec`, `Lattice.Core.IR.CertSnapshot`, `Lattice.Core.IR.UnloadEffect`, `Lattice.Core.IR.MaximalScope`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`, `Lattice.Core.CIC.ShiftSubstOffset`, `Lattice.Core.CIC.ShiftSubstOffsetProbe`, `Lattice.Core.CIC.ParRedVShiftBeta`, `Lattice.Core.CIC.ParSubstOneDim`, `Lattice.Core.CIC.ShiftSubstJointBounded`, `Lattice.Core.CIC.BoundedShift`, `Lattice.Core.CIC.SubstBounded`, `Lattice.Core.CIC.SubstAvoids`, `Lattice.Core.CIC.ShiftSubstJointVar`, `Lattice.Core.CIC.ShiftSubstJoint`, `Lattice.Core.CIC.ShiftSubstFalse`, `Lattice.Core.CIC.ShiftSubstFull`, `Lattice.Core.CIC.ShiftSubstTotal`, `Lattice.Core.CIC.ShiftSubstComplete`, `Lattice.Core.CIC.ShiftSubstAbove`, `Lattice.Core.CIC.ShiftSubstBinder`, `Lattice.Core.CIC.ShiftSubstStable`, `Lattice.Core.CIC.ShiftShiftMixed`, `Lattice.Core.CIC.ShiftSubstAssembly`, `Lattice.Core.CIC.ShiftSubstBoundary`, `Lattice.Core.CIC.ShiftSubstLaw`, `Lattice.Core.CIC.ShiftSubstCutoff`, `Lattice.Core.CIC.ShiftSubstCommute`, `Lattice.Core.CIC.ParallelReductionVarying`, `Lattice.Core.CIC.ParSubstLemma`, `Lattice.Core.CIC.TakahashiDev`, `Lattice.Core.CIC.ParRedUEquivalence`, `Lattice.Core.CIC.ParallelReductionComplete`, `Lattice.Core.CIC.ParallelReductionZero`, `Lattice.Core.CIC.ParRedSBridge`, `Lattice.Core.CIC.ParallelReductionAligned`, `Lattice.Core.CIC.ReducesCongruence`, `Lattice.Core.CIC.ParallelReduction`, `Lattice.Core.CIC.TypeUniqProof`, `Lattice.Core.CIC.TypeUniqPrereq`, `Lattice.Core.CIC.TypeUniqueness`, `Lattice.Core.CIC.HasTypeW`, `Lattice.Core.CIC.Conversion`, `Lattice.Core.CIC.PiShapeBridge`, `Lattice.Core.CIC.PiShapeRDomain`, `Lattice.Core.CIC.PiShapeRDirection`, `Lattice.Core.CIC.PiShapeR`, `Lattice.Core.CIC.ProgressComplete`, `Lattice.Core.CIC.PiShape`, `Lattice.Core.CIC.ProgressNoConsts`, `Lattice.Core.CIC.ProgressEnv`, `Lattice.Core.CIC.Progress`, `Lattice.Core.CIC.CanonicalForm`, `Lattice.Core.CIC.HasTypeHeadForm`, `Lattice.Core.CIC.HeadForm`, `Lattice.Core.CIC.Spine`, `Lattice.Core.CIC.NeutralClosed`, `Lattice.Core.CIC.HasType`, `Lattice.Core.CIC.Neutrality`, `Lattice.Core.CIC.ProgressFalse`, `Lattice.Core.CIC.ValueTriviality`, `Lattice.Core.CIC.InstLiftShiftGeneral`, `Lattice.Core.CIC.ShiftAsInst`, `Lattice.Core.CIC.InstShiftZero`, `Lattice.Core.CIC.RouteCObstruction`, `Lattice.Core.CIC.SubstSizeBound`, `Lattice.Core.CIC.NormalizationAssembly`, `Lattice.Core.CIC.NormalFormWF`, `Lattice.Core.CIC.NormalFormFailure`, `Lattice.Core.CIC.TermSize`, `Lattice.Core.CIC.InstLiftSixOfSeven`, `Lattice.Core.CIC.InstLiftCutoff`, `Lattice.Core.CIC.InstShiftObstruction`, `Lattice.Core.CIC.SubstCompParallel`, `Lattice.Core.CIC.BinderCommutationFalse`, `Lattice.Core.CIC.ShiftCommGeneral`, `Lattice.Core.Data`, `Lattice.Core.Check`, `Lattice.Core.Idempotent`, `Lattice.Core.Invariant`, `Lattice.Core.Net`, `Lattice.Core.Semantics`, `Lattice.Core.Simulation`, `Lattice.Core.Syntax`, `Lattice.Core.VariableNet`, `Lattice.Core.Weight`, `Lattice.Core.WeightNet`, `Lattice.Core.OneStepBridge`, `Lattice.Core.Activation`, `Lattice.Core.StackParams`, `Lattice.Core.StackDerivative`, `Lattice.Core.AnalysisHelper`, `Lattice.Core.NonlinearLayer`, `Lattice.Core.VariableActLayer`, `Lattice.Core.ModelArtifact`, `Lattice.Core.ModelArtifactInstances`, `Lattice.Core.CIC.Syntax`, `Lattice.Core.CIC.Typing`, `Lattice.Core.CIC.Substitution`, `Lattice.Core.CIC.Reduction`, `Lattice.Core.ArchParams`, `Lattice.Core.ArchWeights`, `Lattice.Core.ArchAssemble`, `Lattice.Core.ArchChain`, `Lattice.Core.ArchChainEval`, `Lattice.Core.CastLemmas`, `Lattice.Core.ChainCastAct`, `Lattice.Core.ChainEvalFinal`, `Lattice.Core.CIC.SubstitutionShift`, `Lattice.Core.CIC.ShiftComm`, `Lattice.Core.CIC.ReductionOriented`, `Lattice.Core.CIC.Normalization`, `Lattice.Core.CIC.ShiftNonComm`, `Lattice.Core.CIC.SubstTable`, `Lattice.Core.CIC.SubstComp`, `Lattice.Core.CIC.ParallelSubst`, `Lattice.Core.CIC.SubstBridge`, `Lattice.Core.CIC.ParallelSubstCutoff`, `Lattice.Core.CIC.LiftAtCutoff`, `Lattice.Core.CIC.LiftShiftTotal`, `Lattice.Core.CIC.Value`, `Lattice.Core.CIC.Compile`, `Lattice.Core.CIC.PairBounds`, `Lattice.Core.IR.Basic`, `Lattice.Core.IR.Relations`, `Lattice.Core.IR.Compile`, `Lattice.Core.IR.Skeleton`, `Lattice.Core.IR.Parse`, `Lattice.Core.IR.Depends`, `Lattice.Core.IR.Chain`, `Lattice.Core.IR.Unique`, `Lattice.Core.IR.Obligations`, `Lattice.Core.IR.T4Repair`, `Lattice.Core.IR.Modulus`, `Lattice.Core.IR.ArchGraph`, `Lattice.Core.IR.Lifecycle`, `Lattice.Core.IR.Confluence`, `Lattice.Core.PluginComplete`, `Lattice.Core.CIC.SubstShiftAnalysis`, `Lattice.Core.IR.Materialize`, `Lattice.Core.IR.IsIR`, `Lattice.Core.IR.Canonical`, `Lattice.Core.IR.Penalty`, `Lattice.Core.IR.Semantics`, `Lattice.Core.IR.Decode`, `Lattice.Core.IR.DecodeRelations`, `Lattice.Core.IR.Extract`, `Lattice.Core.RepairModule.ConstraintProofs`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairAtomicity`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Core.RepairModule.RepairMultistep`, `Lattice.Core.RepairModule.RepairWF`, `Lattice.Core.RepairModule.RepairBridge`, `Lattice.Core.RepairModule.VariableDerivative`
 - `Lattice.Domains` <- `Lattice.Reference.Geometry.ConstraintsRoot`, `Lattice.Reference.Geometry.GeometryRoot`, `Lattice.Reference.Geometry.Geometry.Encode.CIC`, `Lattice.Reference.Geometry.Geometry.Encode.Tags`
 - `Lattice.Evidence` <- `Lattice.Evidence.Hypotheses`, `Lattice.Evidence.Counterexamples`, `Lattice.Evidence.ObligationIndependence`, `Lattice.Evidence.DecreasesRole`, `Lattice.Evidence.StructureCensus`, `Lattice.Evidence.ChainTransitivity`, `Lattice.Evidence.BridgedComposition`, `Lattice.Evidence.CompositionClass`, `Lattice.Evidence.MultiComposition`, `Lattice.Evidence.CompositionAlgebra`, `Lattice.Evidence.VerdictLattice`, `Lattice.Evidence.PredicateWitnesses`
 - `Lattice.Evidence.BridgedComposition` 
@@ -861,11 +866,8 @@
 - `Lattice.Plugins.Architectures.Norm.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Proofs`
 - `Lattice.Plugins.Architectures.Norm.Proofs` <- `Lattice.Lib.Architectures.RealBatchNorm`, `Lattice.Lib.Architectures.RealLayerNorm`, `Lattice.Lib.Architectures.RealGroupNorm`, `Lattice.Lib.Architectures.RealNormLipschitz`, `Lattice.Lib.Architectures.RealNormSharpConstant`
 - `Lattice.Plugins.Compose` <- `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Plugin`
-- `Lattice.Plugins.Compose.Combinators` <- `Lattice.Compose.Primitive`
-- `Lattice.Plugins.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`
-- `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Compose.Proofs`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Plugins.Compose.ComposeObligation`
-- `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Plugins.Compose.Proofs`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Plugins.Compose.ComposeObligation`
-- `Lattice.Plugins.Compose.Proofs` <- `Lattice.Compose.Primitive`, `Lattice.Plugins.Compose.Combinators`, `Lattice.Compose.More`
+- `Lattice.Plugins.Compose.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Compose.Proofs`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
+- `Lattice.Plugins.Compose.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Compose.Manifest`, `Lattice.Compose.Proofs`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`
 - `Lattice.Plugins.Core` <- `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Plugins.Core.Constraint.Plugin`, `Lattice.Plugins.Core.Repair.Manifest`, `Lattice.Plugins.Core.Repair.Plugin`
 - `Lattice.Plugins.Core.Constraint.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Core.RepairModule.ConstraintProofs`
 - `Lattice.Plugins.Core.Constraint.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Core.Constraint.Manifest`, `Lattice.Core.RepairModule.ConstraintProofs`
@@ -883,9 +885,8 @@
 - `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`, `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`
 - `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
-- `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
-- `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
-- `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` <- `Lattice.Core.VariableNet`, `Lattice.Core.VariableActLayer`, `Lattice.Core.AnalysisHelper`
+- `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Core.RepairModule.VariableDerivative`
+- `Lattice.Plugins.Extractors.ChainSlot.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Core.RepairModule.VariableDerivative`
 - `Lattice.Plugins.Manifest` 
 - `Lattice.Plugins.Migration` <- `Lattice.Plugins.Registry`
 - `Lattice.Plugins.ProofSlotCensus` <- `Lattice.Plugins.Registry`
@@ -1187,9 +1188,11 @@
 | `Lattice.Core.RepairModule.ConstraintProofs` | 4 | 6 |
 | `Lattice.Core.RepairModule.Repair` | 9 | 5 |
 | `Lattice.Core.RepairModule.RepairAtomicity` | 4 | 1 |
+| `Lattice.Core.RepairModule.RepairBridge` | 14 | 0 |
 | `Lattice.Core.RepairModule.RepairConvergence` | 3 | 0 |
 | `Lattice.Core.RepairModule.RepairMultistep` | 5 | 1 |
 | `Lattice.Core.RepairModule.RepairWF` | 4 | 3 |
+| `Lattice.Core.RepairModule.VariableDerivative` | 206 | 69 |
 | `Lattice.Core.Semantics` | 0 | 4 |
 | `Lattice.Core.Simulation` | 6 | 4 |
 | `Lattice.Core.StackDerivative` | 14 | 4 |
@@ -1834,11 +1837,14 @@
 | `Lattice.Compose` | 0 | 0 |
 | `Lattice.Compose.AdapterMatrix` | 8 | 3 |
 | `Lattice.Compose.AssocLaws` | 5 | 0 |
+| `Lattice.Compose.Combinators` | 8 | 3 |
+| `Lattice.Compose.ComposeObligation` | 7 | 3 |
 | `Lattice.Compose.ForwardChain` | 5 | 2 |
 | `Lattice.Compose.Iterate` | 9 | 3 |
 | `Lattice.Compose.More` | 8 | 3 |
 | `Lattice.Compose.Primitive` | 6 | 8 |
 | `Lattice.Compose.PrimitiveShape` | 3 | 2 |
+| `Lattice.Compose.Proofs` | 9 | 0 |
 | `Lattice.Compose.Registry` | 3 | 6 |
 | `Lattice.Compose.Steps` | 4 | 4 |
 | `Lattice.Core` | 0 | 0 |
@@ -1876,11 +1882,8 @@
 | `Lattice.Plugins.Architectures.Norm.Plugin` | 10 | 9 |
 | `Lattice.Plugins.Architectures.Norm.Proofs` | 22 | 11 |
 | `Lattice.Plugins.Compose` | 0 | 0 |
-| `Lattice.Plugins.Compose.Combinators` | 8 | 3 |
-| `Lattice.Plugins.Compose.ComposeObligation` | 7 | 3 |
 | `Lattice.Plugins.Compose.Manifest` | 15 | 11 |
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
-| `Lattice.Plugins.Compose.Proofs` | 9 | 0 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 7 | 6 |
@@ -1900,7 +1903,6 @@
 | `Lattice.Plugins.Extractors` | 0 | 0 |
 | `Lattice.Plugins.Extractors.ChainSlot.Manifest` | 15 | 13 |
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
-| `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative` | 206 | 69 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
 | `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
@@ -2272,6 +2274,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Reaches.meas_add_le` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `RealConstraintSatRel_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`
 - `RealDot_sub` -> `RealDot`, `apply`, `subst`
+- `Repair.absorbs_is_idempotentOn` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`
+- `Repair.iterate_fix_of_sat_via_idempotent` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`
 - `RoundMode.isDirected_iff` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`, `toFun`
 - `RoundMode.nearestEven_isNearest` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`, `toFun`
 - `RoundMode.nearestEven_not_directed` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`, `toFun`
@@ -2851,7 +2855,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bfgs_secant` -> `at`, `mulVec`
 - `biasOffset_align` -> `AffineLayer`, `FloatFormat`, `apply`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `biasSlotIsRowAProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `bias_slot_eq_slotOf`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `chainNatPoly_single_coeff_weight`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `oneLayerPolyNat`, `oneLayerPolyNat_coeff_weight`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_bias`, `stepNat_coeff_other_slot`, `stepNat_coeff_weight`, `stepNat_coeff_zero_irrelevant`, `verified`, `verified_manifest`, `verified_obligations`
-- `bias_compose` -> `W`, `apply`, `induction`
+- `bias_compose` -> `W`, `apply`, `compose`, `induction`
 - `bias_slot_eq_slotOf` -> `MLayer`, `apply`, `single`, `slotOf`
 - `bias_variance_decomposition` -> `E`, `at`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `biased_compression_penalty_irreducible` -> `E`, `at`, `card_fin`, `eps`, `geom_sum_mul`, `induction`, `zero`
@@ -3622,13 +3626,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `composeHOfPreTrueProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeSoundProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeStrengthProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `composeWith_run` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
-- `composeWith_sound` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
-- `compose_act` -> `W`, `induction`
+- `composeWith_run` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
+- `composeWith_sound` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
+- `compose_act` -> `W`, `compose`, `induction`
 - `compose_bridged` -> `Audit`, `g`
 - `compose_chain` -> `Audit`, `Chain`
 - `compose_choice_distrib_run` -> `Primitive`, `choice`, `compose`, `g`, `run`
-- `compose_coverage` -> `Primitive`, `compose`, `g`, `inter`, `run`, `sound`
+- `compose_coverage` -> `Primitive`, `g`, `inter`, `run`, `sound`
 - `compose_error_propagation` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`, `le_refl`, `trivial`, `verifier_reliable_clean`
 - `compose_h_not_derivable` -> `Primitive`, `compose`, `g`, `identity`, `run`
 - `compose_h_of_pre_true` -> `Primitive`, `compose`, `g`, `run`
@@ -3637,11 +3641,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compose_post_assoc_iff` -> `Primitive`, `compose`, `g`
 - `compose_pre_assoc` -> `Primitive`, `compose`, `g`
 - `compose_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `claims`, `compose`, `compose_coverage`, `compose_h_of_pre_true`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `identity_compose_run`, `layer`, `length`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires`, `parallel`, `parallel_comm_run`, `parallel_identity_run`, `parallel_run`, `requires`, `soundness`, `verifiedObligation`
-- `compose_run` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
-- `compose_run_assoc` -> `Primitive`, `compose`, `g`, `run`, `sound`
+- `compose_run` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
+- `compose_run_assoc` -> `Primitive`, `g`, `run`, `sound`
 - `compose_sequential` -> `Audit`, `g`
-- `compose_sound` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
-- `compose_strength` -> `Primitive`, `compose`, `g`, `inter`, `min`, `run`, `sound`
+- `compose_sound` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
+- `compose_strength` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
 - `compose_strength_coverage_assoc` -> `Primitive`, `compose`, `g`
 - `compose_three_with_bridges` -> `Audit`, `at`, `g`
 - `compose_via_calculus` -> `ErrorBound`, `at`, `bounded`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
@@ -3885,6 +3889,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conv_trans` -> `DefEnv`, `E`, `Reduces`, `Step`, `Term`, `step`, `trans`
 - `conv_translation_equivariant` -> `Conv`, `shift`
 - `conv_window_determines_output` -> `Conv`
+- `converges` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `convergesWithinProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `convergesWithinTightProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `converges_within` -> `Repair`, `Sat`, `induction`, `iterate`, `iterate_succ`, `zero`
@@ -5960,7 +5965,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identitySemantic_sound` -> `W`, `decode`, `encode`
-- `identity_compose_run` -> `Primitive`, `compose`, `run`
+- `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `at`, `l0Norm`, `sqNorm`
 - `identity_post` -> `Primitive`, `compose`, `g`, `identity`, `run`
 - `identity_pre` -> `Primitive`, `compose`, `g`, `identity`, `run`
@@ -6269,16 +6274,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `iterateStep_tendsto_fixedPoint` -> `at`, `complete`, `iterateStep`
 - `iterateStep_zero` -> `E`, `apply`, `eps`, `induction`, `op_apply_le`, `prod_one_add_le_exp`, `zero`
 - `iterateSuccProp_holds` -> `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `completeness`, `iterate_succ`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `iterate_comm` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `trans`, `zero`
 - `iterate_comp_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
+- `iterate_fix_of_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `iterate_fixed_point` -> `W`, `at`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `zero`
 - `iterate_from_fold` -> `Audit`, `Repair`, `Sat`, `g`, `iterate`
 - `iterate_id_apply` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `iterate_lipschitz` -> `W`, `at`, `contraction_converges`, `induction`, `iterate`, `iterate_step_swap`, `zero`
+- `iterate_sat_of_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `iterate_shift` -> `Repair`, `Sat`, `apply`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `preserves_of_sat`, `zero`
 - `iterate_sound` -> `Primitive`, `dec`, `run`, `sound`
 - `iterate_step_swap` -> `g`, `induction`, `iterate`, `repair`, `zero`
 - `iterate_strength` -> `Primitive`, `dec`
 - `iterate_succ` -> `Repair`, `Sat`, `apply`, `at`, `dec`, `induction`, `iterate`, `lt`, `preserves_of_sat`, `zero`
+- `iterate_to_starAny` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `zero`
 - `ito_discrete_pointwise` -> `apply`, `at`, `g`, `induction`, `path`, `quadForm`, `second_order_taylor`, `zero`
 - `ito_discrete_sum` -> `apply`, `at`, `g`, `induction`, `path`, `quadForm`, `second_order_taylor`, `zero`
 - `ito_expected_increment` -> `quadForm`
@@ -6784,6 +6793,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_mono` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
 - `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
@@ -7059,6 +7069,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `measureTheory_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `length`, `measureTheoryPackage`
 - `measureTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `length`, `mkTemplates`
 - `measureTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
+- `measure_iterate_le` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
+- `measure_step` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `measure_unbounded` -> `Sat`, `iterate`
 - `median_minimizes_abs_risk_gen` -> `apply`, `le`, `le_trans`
 - `median_minimizes_abs_risk_left_support` -> `at`, `le`, `le_refl`, `le_trans`
@@ -8874,6 +8886,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repairTo_lands` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_moves` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_preserves` -> `ConstraintSat`, `iterate_succ`, `preserves`
+- `repair_as_self_simulation` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
 - `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
 - `repair_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `Conv`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
@@ -8881,6 +8894,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `repair_progress` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `iterate`, `progress`, `skeletonCode`
 - `repair_props_hold` -> `PluginLayer`, `PluginManifest`, `Repair`, `RepairWF`, `at`, `atomic_of_zero_iff`, `claims`, `completeness`, `converges_within`, `converges_within_is_tight`, `iterate_succ`, `layer`, `length`, `loop`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `preserves`, `progress`, `progress_on_wf`, `repair`, `repair_preserves`, `repair_progress`, `requires`, `soundness`, `stable`, `verifiedObligation`
+- `repair_run_preserved` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `iterate`, `progress`, `runs_preserved`, `sim_id`
+- `repair_success_is_penalty_zero` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`, `progress`
 - `replayGradientBudget_eq` -> `at`
 - `replay_bound` -> `at`
 - `replay_forgetting_unbounded` -> `at`
@@ -9295,6 +9310,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sat_monotone` -> `Program`
 - `sat_not` -> `all`, `at`, `bvar`, `induction`
 - `sat_of_list_sat` -> `at`, `length`, `subst`
+- `sat_of_measure_zero` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `sat_ragged_false_positive` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `satisfaction_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `satisfaction_loop_invariant` -> `g`, `iterate`, `repair`
@@ -10981,7 +10997,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weighted_avg_ge_min` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `weighted_avg_le_max` -> `ProbVec`
 - `weighted_cauchy_schwarz` -> `at`, `card_fin`, `g`
-- `weighted_compose` -> `W`, `apply`, `induction`
+- `weighted_compose` -> `W`, `apply`, `compose`, `induction`
 - `weighted_hoeffding_lemma` -> `apply`, `d`, `g`
 - `weighted_minimizer_set_convex` -> `e2`
 - `weighted_optimal_is_pareto` -> `e2`

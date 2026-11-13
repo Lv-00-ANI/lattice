@@ -95,7 +95,6 @@
 | `Exterior` | 110 | 5 | Constraint, Square |
 | `LoopRate` | 89 | 3 | Loop |
 | `PolyAssemble` | 128 | 4 | Lipschitz, DistLipschitz, PolyLipschitz, Loss |
-| `RepairBridge` | 247 | 14 | Loop, Loss |
 | `RepairCoverage` | 142 | 4 | LoopPerp, Constraint, Dist, RepairPerp |
 | `RepairQuality` | 151 | 9 | Loop, LoopPerp |
 | `Semantic` | 179 | 7 | Invariant, Extract |
@@ -148,7 +147,7 @@
 |:--|--:|--:|:--|
 | `IRBridge` | 307 | 13 | LayerExact, Loss |
 | `PathContinuity` | 245 | 12 | DistContinuous, PolyNondegenerate |
-| `RepairPenalty` | 239 | 10 | PartialReinjection, MissingRepairs, RepairCoverage, ParallelRepair, Loop, Loss, RepairBridge |
+| `RepairPenalty` | 238 | 10 | PartialReinjection, MissingRepairs, RepairCoverage, ParallelRepair, Loop, Loss |
 | `WeightSideLadder` | 298 | 9 | Constraint, GeoLadder |
 
 ### L9 —— 
@@ -162,7 +161,7 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `GeometryRoot` | 85 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairBridge, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder, AffineClass |
+| `GeometryRoot` | 85 | 0 | ApproxEmbedding, CExprCodegen, ClauseComposition, ClosedLoop, CodegenLadder, Compile, ConjRepair, ConstraintDescent, Derivative, Derive, Engine, EqualLengthRepair, Exact, Exec, ExecutableCheck, ExecutableGeoCheck, ExprLocalMin, Exterior, ExteriorSmooth, Extract, Finite, FormDeriv, GeoLadder, GeoSampledBound, IRBridge, IRRepair, Initialise, Invariant, LadderInstance, LayerExact, Loop, LoopPerp, LoopRate, MissingRepairs, MultiSeedCoverage, Nondegenerate, NondegenerateInstance, ParallelRepair, PartialReinjection, PathContinuity, PenaltySmooth, Plucker, PolyAssemble, PolyConstants, PolyLipschitz, PolyNondegenerate, PolyRepair, PolySpecificRepair, QualityBridge, Reinjection, ReinjectionGeneral, Repair, RepairCoverage, RepairPenalty, RepairPerp, RepairQuality, RhoMetric, Rules, Semantic, Shape, Square, Synthesis, SynthesisConnection, SynthesisCoverage, SynthesisMulti, Unconditional, Unified, WeightSideLadder, AffineClass |
 
 ## 二、四条靶定理在几何层中的落点
 

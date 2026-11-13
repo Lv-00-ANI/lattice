@@ -44,7 +44,7 @@ structure MatrixRow where
 - **不检查名字是否描述了它做的事**——那要读语义。 -/
 import Mathlib
 import Lattice.Compose.Primitive
-import Lattice.Plugins.Compose.Combinators
+import Lattice.Compose.Combinators
 namespace Lattice.Compose
 
 /-! ## 一、矩阵的一行 -/
