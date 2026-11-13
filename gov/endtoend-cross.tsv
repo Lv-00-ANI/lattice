@@ -3436,6 +3436,7 @@ Primitives/WeightDescent.lean	totalResidual_wStep
 Primitives/WeightDescent.lean	all_residuals_zero_at_newton
 Primitives/WeightDescent.lean	bidir_step_is_strict_descent
 Primitives/WeightDescent.lean	bidir_terminates_in_abs_steps
+Runtime/AcceptanceLayer.lean	coversCorpus_acceptance_layers
 Runtime/ActivationLadder.lean	actStackEval_append
 Runtime/ActivationLadder.lean	activationLadder_forward
 Runtime/ActivationLadder.lean	activationLadder_l2l3_is_a_split

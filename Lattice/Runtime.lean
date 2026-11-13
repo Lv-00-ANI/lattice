@@ -77,6 +77,7 @@ import Lattice.Runtime.VerificationLoop
 import Lattice.Runtime.CICToConstraint
 import Lattice.Runtime.CICToConstraintSet
 import Lattice.Runtime.DataToConstraint
+import Lattice.Runtime.AcceptanceLayer
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
