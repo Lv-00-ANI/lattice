@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Reference.Geometry.Constraints.Expr
-import Lattice.Reference.Geometry.Constraints.Flatten
-
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
 /-!
 # `Lattice.Geo.Finite` -- evaluating an expression in a configuration of known size
 

@@ -31,7 +31,7 @@ definitions, `T1`'s general form, `T2`'s modulus, `T5`–`T8`).
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Targets.Expressible
 import Lattice.Reference.Geometry.Constraints.ConstraintSet
-import Lattice.Reference.Geometry.Constraints.NetLossDerivative
+import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
 import Lattice.Core.Repair
 import Lattice.Core.RepairConvergence
 import Lattice.Runtime.Extraction

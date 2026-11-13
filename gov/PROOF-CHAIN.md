@@ -888,11 +888,11 @@
 - `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`
 - `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative` <- `Lattice.Reference.Geometry.Constraints.PenaltyLossDerivative`, `Lattice.Reference.Geometry.Constraints.NetLoss`, `Lattice.Core.StackDerivative`, `Lattice.Core.Net`
 - `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss` <- `Lattice.Reference.Geometry.Constraints.Constraint`, `Lattice.Reference.Geometry.Constraints.Dist`, `Lattice.Reference.Geometry.Constraints.Lipschitz`, `Lattice.Reference.Geometry.Constraints.DistLipschitz`, `Lattice.Reference.Geometry.Geometry.PolyLipschitz`, `Lattice.Lib.Penalty.BilinearLocallyLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
-- `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Reference.Geometry.Constraints.NetLossDerivative`, `Lattice.Reference.Geometry.Constraints.PenaltyLoss`
+- `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Penalty.Manifest`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
-- `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` <- `Lattice.Reference.Geometry.Constraints.PenaltyLoss`
+- `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` <- `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`
 - `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`
-- `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Reference.Geometry.Constraints.Flatten`, `Lattice.Reference.Geometry.Constraints.SeqRepresentation`, `Lattice.Reference.Geometry.Constraints.LossExtraction`
+- `Lattice.Plugins.Domains.Constraints.Tokens.Plugin` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Domains.Constraints.Tokens.Manifest`, `Lattice.Plugins.Domains.Constraints.Tokens.Flatten`, `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation`, `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction`
 - `Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation` <- `Lattice.Reference.Geometry.Constraints.Expr`, `Lattice.Runtime.Extraction`
 - `Lattice.Plugins.Extractors` <- `Lattice.Plugins.Extractors.ChainSlot.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.Plugin`
 - `Lattice.Plugins.Extractors.ChainSlot.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Extractors.ChainSlot.VariableDerivative`
@@ -924,10 +924,10 @@
 - `Lattice.Plugins.Targets.MultiSolver` <- `Lattice.Plugins.Targets.Solver`
 - `Lattice.Plugins.Targets.Nondegenerate` <- `Lattice.Plugins.Targets.DegenerateSolver`
 - `Lattice.Plugins.Targets.SemanticRep` <- `Lattice.Plugins.Manifest`, `Lattice.Runtime.Extraction`
-- `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Reference.Geometry.Constraints.PenaltyLoss`, `Lattice.Reference.Geometry.Constraints.Dist`, `Lattice.Semantics.CompileSound`
+- `Lattice.Plugins.Targets.Solver` <- `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss`, `Lattice.Reference.Geometry.Constraints.Dist`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.SolverBoundary` <- `Lattice.Plugins.Targets.MultiSolver`
 - `Lattice.Plugins.Targets.SpecReadingSolver` <- `Lattice.Plugins.Targets.ConstructArtifact`, `Lattice.Plugins.Targets.DegenerateSolver`, `Lattice.Plugins.Targets.ConstFamily`
-- `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Reference.Geometry.Constraints.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
+- `Lattice.Plugins.Targets.Statements` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Targets.Expressible`, `Lattice.Reference.Geometry.Constraints.ConstraintSet`, `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative`, `Lattice.Core.Repair`, `Lattice.Core.RepairConvergence`, `Lattice.Runtime.Extraction`, `Lattice.Semantics.CompileSound`
 - `Lattice.Plugins.Targets.Strengthened` <- `Lattice.Plugins.Targets.Statements`, `Lattice.Plugins.Targets.FullAnchorSolver`, `Lattice.Plugins.Targets.T3Instances`, `Lattice.Plugins.Targets.T4FixedPoint`
 - `Lattice.Plugins.Targets.T1Dependence` <- `Lattice.Plugins.Manifest`, `Lattice.Semantics.Merge`
 - `Lattice.Plugins.Targets.T2Min` <- `Lattice.Plugins.Manifest`, `Lattice.Reference.Geometry.Geometry.ExprLocalMin`

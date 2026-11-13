@@ -13,11 +13,9 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `Expr` | 136 | 1 | — |
-| `Flatten` | 11 | 0 | — |
-| `LossExtraction` | 11 | 0 | — |
-| `NetLossDerivative` | 11 | 0 | — |
-| `PenaltyLoss` | 11 | 0 | — |
-| `SeqRepresentation` | 11 | 0 | — |
+| `FlatLoss` | 526 | 19 | — |
+| `FlattenAgreement` | 66 | 4 | — |
+| `Perturb` | 125 | 8 | — |
 
 ### L1 —— 距离与线性化
 
@@ -27,12 +25,9 @@
 | `ConstraintTokenizer` | 420 | 12 | Expr |
 | `Dist` | 135 | 9 | Expr |
 | `ExprDerivative` | 229 | 8 | Expr |
-| `Finite` | 106 | 1 | Expr, Flatten |
-| `FlatLoss` | 527 | 19 | NetLossDerivative |
-| `FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
+| `Finite` | 105 | 1 | Expr |
 | `LadderInstance` | 130 | 2 | Expr |
 | `Lipschitz` | 260 | 11 | Expr |
-| `Perturb` | 126 | 8 | Flatten |
 | `RealToken` | 217 | 5 | Expr |
 
 ### L2 —— 约束与扰动代数
@@ -59,7 +54,7 @@
 | `ExecutableCheck` | 189 | 4 | Constraint, ComputableExpr |
 | `Invariant` | 189 | 12 | Constraint |
 | `Loss` | 199 | 10 | Expr, Dist, Constraint |
-| `PenaltyLossDerivative` | 1288 | 44 | PenaltyLoss, DistDerivative, ExprDerivative |
+| `PenaltyLossDerivative` | 1288 | 44 | DistDerivative, ExprDerivative |
 | `RepairPerp` | 193 | 6 | Constraint |
 
 ### L4 —— 微分与提取
@@ -69,16 +64,16 @@
 | `ApproxEmbedding` | 106 | 1 | Loss |
 | `Compile` | 98 | 2 | Loss, Constraint |
 | `Derive` | 71 | 2 | Engine |
-| `Differentiable` | 131 | 9 | Constraint, Flatten, Loss |
+| `Differentiable` | 131 | 9 | Constraint, Loss |
 | `EqConstraintToken` | 275 | 8 | RealTokenRoundtrip, Loss |
 | `EqConstraintTokenizer` | 211 | 4 | ConstraintTokenizer, Loss |
 | `ExecutableGeoCheck` | 237 | 7 | ExecutableCheck |
-| `Extract` | 101 | 2 | Flatten, Constraint, Loss, Perturb |
+| `Extract` | 101 | 2 | Constraint, Loss, Perturb |
 | `Initialise` | 125 | 9 | Constraint, Invariant |
 | `Loop` | 209 | 10 | Constraint, Engine |
 | `LoopPerp` | 170 | 7 | RepairPerp |
 | `MissingRepairs` | 145 | 4 | RepairPerp, Constraint |
-| `NetLoss` | 268 | 7 | ConstraintSet, PenaltyLoss |
+| `NetLoss` | 267 | 7 | ConstraintSet |
 | `Pipeline` | 169 | 7 | Constraint, Expr, Loss |
 | `PolyLipschitz` | 150 | 2 | Lipschitz, DistLipschitz, Loss |
 | `PolySpecificRepair` | 216 | 7 | Loss, Constraint |
@@ -92,7 +87,7 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `ConjRepair` | 157 | 3 | Loop, LoopPerp, RepairPerp |
-| `ConstraintDescent` | 524 | 21 | Constraint, PenaltyLoss, NetLoss |
+| `ConstraintDescent` | 524 | 21 | Constraint, NetLoss |
 | `Derivative` | 94 | 3 | Pipeline |
 | `EqConstraintTokens` | 141 | 4 | EqConstraintToken |
 | `Exact` | 91 | 4 | Differentiable, Loss |
@@ -112,7 +107,7 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `ClosedLoop` | 203 | 10 | Loop, SeqRepresentation, ConjRepair, Flatten |
+| `ClosedLoop` | 203 | 10 | Loop, ConjRepair |
 | `EqConstraintListTokens` | 199 | 7 | EqConstraintTokens |
 | `EqualLengthRepair` | 113 | 3 | RepairCoverage, Constraint |
 | `Exec` | 132 | 6 | Shape, Derive |
@@ -136,7 +131,7 @@
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `ClauseComposition` | 171 | 6 | GeoSampledBound, RhoMetric, Reinjection, Synthesis |
-| `ConstraintsRoot` | 46 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, Flatten, FlattenAgreement, Lipschitz, Loss, NetLoss, PenaltyLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, SeqRepresentation, DistDerivative, ExprDerivative, PenaltyLossDerivative, NetLossDerivative, FlatLoss, LossExtraction |
+| `ConstraintsRoot` | 45 | 0 | ComputableExpr, Constraint, ConstraintSet, ConstraintTokenizer, Differentiable, Dist, DistContinuous, DistLipschitz, EqConstraintListTokens, EqConstraintToken, EqConstraintTokenizer, EqConstraintTokens, Eval, Expr, ExprDeriv, FlattenAgreement, Lipschitz, Loss, NetLoss, Perturb, Pipeline, RealToken, RealTokenRoundtrip, DistDerivative, ExprDerivative, PenaltyLossDerivative, FlatLoss |
 | `GeoLadder` | 199 | 4 | Loss, EqConstraintTokens, EqConstraintListTokens |
 | `LayerExact` | 127 | 3 | Plucker |
 | `MultiSeedCoverage` | 165 | 5 | SynthesisCoverage, SynthesisMulti, Synthesis |

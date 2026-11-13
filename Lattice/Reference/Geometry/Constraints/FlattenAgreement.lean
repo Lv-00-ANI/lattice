@@ -1,7 +1,6 @@
 import Mathlib
-import Lattice.Reference.Geometry.Constraints.Flatten
-import Lattice.Reference.Geometry.Constraints.SeqRepresentation
-
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation
 /-!
 # `Lattice.Geo.FlattenAgreement` -- the finite and infinite flattenings agree on a shared slot
 

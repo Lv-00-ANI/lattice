@@ -29,7 +29,7 @@ closed form, and it validates the interface by actually inhabiting it.**
 
 import Lattice.Plugins.Targets.Expressible
 import Lattice.Reference.Geometry.Constraints.ConstraintSet
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 import Lattice.Reference.Geometry.Constraints.Dist
 import Lattice.Semantics.CompileSound
 

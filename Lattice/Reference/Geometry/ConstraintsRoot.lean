@@ -13,26 +13,25 @@ import Lattice.Reference.Geometry.Constraints.EqConstraintTokens
 import Lattice.Reference.Geometry.Constraints.Eval
 import Lattice.Reference.Geometry.Constraints.Expr
 import Lattice.Reference.Geometry.Constraints.ExprDeriv
-import Lattice.Reference.Geometry.Constraints.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
 import Lattice.Reference.Geometry.Constraints.FlattenAgreement
 import Lattice.Reference.Geometry.Constraints.Lipschitz
 import Lattice.Reference.Geometry.Constraints.Loss
 import Lattice.Reference.Geometry.Constraints.NetLoss
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 import Lattice.Reference.Geometry.Constraints.Perturb
 import Lattice.Reference.Geometry.Constraints.Pipeline
 import Lattice.Reference.Geometry.Constraints.RealToken
 import Lattice.Reference.Geometry.Constraints.RealTokenRoundtrip
-import Lattice.Reference.Geometry.Constraints.SeqRepresentation
+import Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation
 import Lattice.Primitives.TokenizeStrategy
 import Lattice.Primitives.TokenizerPattern
 import Lattice.Reference.Geometry.Constraints.DistDerivative
 import Lattice.Reference.Geometry.Constraints.ExprDerivative
 import Lattice.Reference.Geometry.Constraints.PenaltyLossDerivative
-import Lattice.Reference.Geometry.Constraints.NetLossDerivative
+import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
 import Lattice.Reference.Geometry.Constraints.FlatLoss
-import Lattice.Reference.Geometry.Constraints.LossExtraction
-
+import Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction
 /-!
 # `Lattice.Domains.Constraints`
 

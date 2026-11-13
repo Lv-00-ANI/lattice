@@ -85,7 +85,7 @@ step η β := β - η * (2 * (β + c))
 import Mathlib
 import Lattice.Core.Net
 import Lattice.Reference.Geometry.Constraints.Constraint
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 import Lattice.Reference.Geometry.Constraints.NetLoss
 import Lattice.Primitives.WeightDescent
 

@@ -24,8 +24,7 @@ Copyright: LATTICE
 -/
 import Mathlib
 import Lattice.Core.VariableDerivative
-import Lattice.Reference.Geometry.Constraints.NetLossDerivative
-
+import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
 open Lattice.Core
 
 namespace Lattice.Geo

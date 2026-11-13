@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Reference.Geometry.Constraints.Constraint
-import Lattice.Reference.Geometry.Constraints.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
 import Lattice.Reference.Geometry.Constraints.Loss
 
 /-!

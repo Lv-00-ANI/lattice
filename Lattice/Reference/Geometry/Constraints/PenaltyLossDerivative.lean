@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 import Lattice.Reference.Geometry.Constraints.DistDerivative
 import Lattice.Reference.Geometry.Constraints.ExprDerivative
 

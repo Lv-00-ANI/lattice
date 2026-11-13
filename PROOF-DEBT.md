@@ -64,8 +64,8 @@
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
 | 定理 + 引理 | 9498 | 1308 | 13.8% |
-| **入度 ≥ 1（承重集）** | **991** | **991** | **100.0%** |
-| **入度 = 0** | **8507** | **388** | **4.6%** |
+| **入度 ≥ 1（承重集）** | **992** | **992** | **100.0%** |
+| **入度 = 0** | **8506** | **387** | **4.5%** |
 
 **两个方向都要读；只读一个是误导。**
 
@@ -73,11 +73,11 @@
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
-- **零入度只有 4.5%**：8507 条入度为 0 的定理里审了 382 条。**这才是「样本」真正指的东西。**
+- **零入度只有 4.5%**：8506 条入度为 0 的定理里审了 382 条。**这才是「样本」真正指的东西。**
 
 ### 承重集**已全部审阅**
 
-| **入度 ≥ 1（承重集）** | **991** | **991** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **992** | **992** | **100.0%** |
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -87,7 +87,7 @@
 
 ### 零入度的抽样协议（第 27 轮写下）
 
-**8507 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
+**8506 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
 
 **抽样的依据**：过去的审阅按「旧的有缺陷的入度」选第一层，因此其中约三百多条
 实际入度为 0——**它们不是为「零入度」抽的样，而是为「高价值」抽的样，事后发现落在零入度里。**
@@ -160,8 +160,8 @@
 > **本段此前写死了四个数字（1,360 / 839 / 521 / 7,587），而它们早已与树脱节。**
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
-| **入度 ≥ 1（承重集）** | **991** | **991** | **100.0%** |
-> **零入度：8507 条，已抽审 382 条。**
+| **入度 ≥ 1（承重集）** | **992** | **992** | **100.0%** |
+> **零入度：8506 条，已抽审 382 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
 ## 一、`delete`：陈述无信息量
@@ -182,7 +182,7 @@
 | `Reference/Geometry/Geometry/RepairCoverage.lean:84` | `sqDist_nonneg` | 1 | 逐字重复（同陈述、同 4 行证明），位于 `Lattice.Geo.RepairCoverage` 命名空间下。 |
 | `Runtime/WeightToSymbolEquivalence.lean:72` | `extract_is_valid` | 1 | 展开后是 `∀ x, l.w * x + l.b = 0 ↔ l.w * x + l.b = 0`，证明 `rfl`——即 `P ↔ P`，零信息量。 |
 | `Evidence/ChainTransitivity.lean:111` | `preserves_one` | 0 | 证明 `hf x hx`：陈述是假设的直接实例化（`P x → P (f x)` 前件即 `hf`），零信息量。 |
-| `Evidence/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
+| `Evidence/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:101` 逐字相同，零新增信息。 |
 | `Evidence/CompositionAlgebra.lean:191` | `verdict_monoid_instance_agrees` | 0 | `⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。 |
 | `Evidence/CompositionClass.lean:117` | `evidence_kinds_differ` | 0 | `⟨rfl, rfl⟩`：两个合取项都是定义性自等（`Evidence .sequential P Q` 归约到 `True`，`Evidence .bridged P Q` 归约到 `∀ x, P x → Q x`），零信息量。 |
 | `Evidence/CompositionClass.lean:124` | `sequential_evidence_trivial` | 0 | 陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。 |
@@ -282,18 +282,18 @@
 | `Lib/Attention/RealTemporalLayer.lean:243` | `split_exposes_parts_to_upward_gaze` | 0 | 同文件同陈述两个名字（:203 / :243），下游按 :243 引用。登记为重复命名债，合并时改调用点；不直接删是因为 Ext 的叙述依赖此名。 |
 | `Lib/Chain/RealChainAxioms3.lean:148` | `b194_anchor_consumer` | 0 | doc 自认「不证明任何新数学——它把锚点取用一次」，作用只是编译期依赖锚点（防整节被删），且拦不住两处同删。作为「定理」零内容；登记 PROOF-DEBT，建议与 _holds 合并或换成真正的消费证明。 |
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:104` | `dependenciesClosed_of_subset` | 0 | 登记理由同 :91：与 RealLv00AxiomPackages:240 及 RealN2AxiomDischargeJia:786 是平行实现的三份副本之一，应统一或补桥。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:88` | `computabilityTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（55）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:88` | `computabilityTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（55）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:129` | `modalLogic_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 28、Jia 27（本文件多 1 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 27 条」，与定理值 28 及 Jia 的 27 三者不一致。登记：doc 改为「27 上游 + 1 注入」，并补分解/对齐断言或删除一侧副本。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:174` | `zfcSetTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（29）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:174` | `zfcSetTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（29）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:240` | `graphTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 71、Jia 70（本文件多 1 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 70 条」，与定理值 71 及 Jia 的 70 三者不一致。登记：doc 改为「70 上游 + 1 注入」，并补分解/对齐断言或删除一侧副本。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:292` | `measureTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（66）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:333` | `functionalAnalysis_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（37）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:292` | `measureTheory_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（66）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:333` | `functionalAnalysis_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（37）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:392` | `probabilityTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 89、Jia 87（本文件多 2 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 87 条」，与定理值 89 及 Jia 的 87 三者不一致。登记：doc 改为「87 上游 + 2 注入」，并补分解/对齐断言或删除一侧副本。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:465` | `informationTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 117、Jia 106（本文件多 11 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 106 条」，与定理值 117 及 Jia 的 106 三者不一致。登记：doc 改为「106 上游 + 11 注入」，并补分解/对齐断言或删除一侧副本。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:521` | `linearAlgebra_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（90）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:465` | `informationTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 117、Jia 101（本文件多 11 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 101 条」，与定理值 117 及 Jia 的 101 三者不一致。登记：doc 改为「101 上游 + 11 注入」，并补分解/对齐断言或删除一侧副本。 |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:521` | `linearAlgebra_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（90）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:574` | `projectiveGeometry_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 48、Jia 38（本文件多 10 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 38 条」，与定理值 48 及 Jia 的 38 三者不一致。登记：doc 改为「38 上游 + 10 注入」，并补分解/对齐断言或删除一侧副本。 |
 | `Lib/Chain/RealLv00AxiomDischargeInstances.lean:622` | `orderTheory_templateNames_length` | 0 | 【实测，锚点为假 + 数值分叉】`in_degree` 指向 Jia 同名副本（不 import 本文件，只自行重声明）；本文件 37、Jia 32（本文件多 5 个 EXEC-Y1 外名）。def 上方的 docstring 仍写「上游 32 条」，与定理值 37 及 Jia 的 32 三者不一致。登记：doc 改为「32 上游 + 5 注入」，并补分解/对齐断言或删除一侧副本。 |
-| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:667` | `affineGeometry_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（56）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 106/117、projective 38/48、order 32/37）；本条不在分… |
+| `Lib/Chain/RealLv00AxiomDischargeInstances.lean:667` | `affineGeometry_templateNames_length` | 0 | 【实测，锚点为假】`in_degree` 指向 `RealN2AxiomDischargeJia.lean` 的同名副本，但该文件不 import 本文件，只自行重声明同名定理（`Lattice...Jia` 命名空间），数一致（56）但仍是两份数据源。12 个包里 6 个分叉（modal 27/28、graph 70/71、probability 87/89、information 101/117、projective 38/48、order 32/37）；本条不在分… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/A.lean:76` | `modalLogic_extra_length` | 0 | 【实测】本侧（Instances/PerPackage）的 `modalLogicTemplateNames` 已由 EXEC-Y1 追加外名，`modalLogicExtra` 没同步清理，1/5 个 extra 名已在模板表内；实际缺口 = classical_propositional_logic, modal_logic, modal_satisfiability_K, modal_satisfiability_S4（4 名）。`in_degree` 指向 Ji… |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean:65` | `graphTheory_extra_length` | 0 | 【实测】本侧（Instances/PerPackage）的 graphTheory 模板表已含 `three_colorability`（71），故 `graphTheoryExtra` 是 100% 冗余；Jia 侧（70 模板）里 extra 才等于缺失集，那里 keep 是对的。本条是「数据已补、extra 未清」的残迹；登记，不要当成「graph_theory 需要额外名才闭合」的证据。 |
 | `Lib/Chain/RealLv00AxiomDischargePerPackage_parts/B.lean:91` | `graphTheory_orig_true` | 0 | 【实测，锚点即分叉】本批最危险的一条：同一 `graphTheoryPackage` 名在 `Lattice...AxiomDischargeJia`（70 模板）被 `not_graphTheory_orig` 证为假，在 `Lattice...AxiomDischarge`（71 模板）被本条证为真；两条都 0 sorry。`in_degree=1` 指向的正是那个旧副本，等于把分叉当引用。登记：按数据版本重命名/合并，并在`all_twelve_discharge… |
@@ -400,7 +400,7 @@
 于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。
 实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。
 
-| **入度 ≥ 1（承重集）** | **991** | **991** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **992** | **992** | **100.0%** |
 `roundtrip_extractVec` 升到首位（18）。
 
 **这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。

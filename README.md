@@ -177,8 +177,8 @@ lattice-new/
 │   │   ├── Optim          60    Quantization    18    Linear         8
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
-│       └── LvFormal/  106  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
-├── gov/                    # 门禁与审计（8 条不变量 + 97 项检查 + 反应性自检）
+│       └── LvFormal/  101  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
+├── gov/                    # 门禁与审计（8 条不变量 + 98 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -444,11 +444,11 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 97 项检查 + 反应性自检（逐项打印耗时）
+# 全套 98 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
-> 当前 `verify_all.py` 注册 **97 项**检查（含门禁与报告器；报告器退出码不是判决）。
+> 当前 `verify_all.py` 注册 **98 项**检查（含门禁与报告器；报告器退出码不是判决）。
 > 活树 `gate.py` 可以绿；**干净 checkout 的 I7 仍可能红**（无 `.olean`）。
 > 仓库无 remote，CI 仍未真实运行。
 
@@ -556,7 +556,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P6。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **97 项**检查：**76 项**能失败的**门禁**，22 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **98 项**检查：**77 项**能失败的**门禁**，22 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 

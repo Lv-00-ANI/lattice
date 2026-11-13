@@ -74,8 +74,7 @@ lift layer imports geo layer module `Lattice.Geo.PenaltyLoss`   Lattice/Lift/Net
 import Mathlib
 import Lattice.Core.Net
 import Lattice.Reference.Geometry.Constraints.ConstraintSet
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
-
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 namespace Lattice.Geo.NetLoss
 
 open Lattice.Core Lattice.Geo Lattice.Geo.ConstraintSet

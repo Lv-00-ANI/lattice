@@ -36,8 +36,7 @@ Copyright: LATTICE
 它必须建立在别的对象上（例如：从损失值恢复【可行配置集合】，而不是约束本身）。**
 -/
 import Mathlib
-import Lattice.Reference.Geometry.Constraints.PenaltyLoss
-
+import Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss
 open Lattice.Core
 
 namespace Lattice.Geo

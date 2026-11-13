@@ -23,10 +23,9 @@ misread as a contradiction.**
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Domains.Constraints.Tokens.Manifest
-import Lattice.Reference.Geometry.Constraints.Flatten
-import Lattice.Reference.Geometry.Constraints.SeqRepresentation
-import Lattice.Reference.Geometry.Constraints.LossExtraction
-
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation
+import Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction
 namespace Lattice.Plugins.Domains.Constraints.Tokens
 
 open Lattice.Plugins

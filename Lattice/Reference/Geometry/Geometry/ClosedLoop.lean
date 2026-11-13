@@ -1,8 +1,8 @@
 import Mathlib
 import Lattice.Reference.Geometry.Geometry.Loop
-import Lattice.Reference.Geometry.Constraints.SeqRepresentation
+import Lattice.Plugins.Domains.Constraints.Tokens.SeqRepresentation
 import Lattice.Reference.Geometry.Geometry.ConjRepair
-import Lattice.Reference.Geometry.Constraints.Flatten
+import Lattice.Plugins.Domains.Constraints.Tokens.Flatten
 import Lattice.Runtime.Extraction
 /-!
 # `Lattice.Geo.ClosedLoop` -- the verification loop closed on a concrete geometric object
