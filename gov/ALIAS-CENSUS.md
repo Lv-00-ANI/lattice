@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 697 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 699 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 162 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -696,6 +696,8 @@
 | `Runtime/Extraction.lean` | `extract_compile` |
 | `Runtime/Extraction.lean` | `roundtrip_idempotentOn` |
 | `Runtime/Extraction.lean` | `roundtrip_iterate` |
+| `Runtime/ExtractionClosure.lean` | `extract_sound` |
+| `Runtime/ExtractionClosure.lean` | `inject_extract_closed` |
 | `Runtime/ExtractionStrength.lean` | `ofApprox_semEq` |
 | `Runtime/GeoSampledBound.lean` | `residual_le_of_zero_on_dense_from_generic` |
 | `Runtime/L1L2Roundtrip.lean` | `decodeConst_encodeForm` |

@@ -3528,6 +3528,8 @@ Runtime/Extraction.lean	loop_fixed_point
 Runtime/Extraction.lean	loop_fixed_point_stable
 Runtime/Extraction.lean	ofEquiv_roundtrip
 Runtime/Extraction.lean	ofEquiv_compile_extract
+Runtime/ExtractionClosure.lean	extract_sound
+Runtime/ExtractionClosure.lean	extract_reinject_loop
 Runtime/ExtractionStrength.lean	ofApprox_compile
 Runtime/ExtractionStrength.lean	ofApprox_extract
 Runtime/ExtractionStrength.lean	ofApprox_semEq

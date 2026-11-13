@@ -79,6 +79,7 @@ import Lattice.Runtime.CICToConstraintSet
 import Lattice.Runtime.DataToConstraint
 import Lattice.Runtime.AcceptanceLayer
 import Lattice.Runtime.EndToEndComposite
+import Lattice.Runtime.ExtractionClosure
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

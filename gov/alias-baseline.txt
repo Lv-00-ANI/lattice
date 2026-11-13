@@ -826,6 +826,8 @@ forward	Runtime/ErrorCalculus.lean	mono
 forward	Runtime/Extraction.lean	extract_compile
 forward	Runtime/Extraction.lean	roundtrip_idempotentOn
 forward	Runtime/Extraction.lean	roundtrip_iterate
+forward	Runtime/ExtractionClosure.lean	extract_sound
+forward	Runtime/ExtractionClosure.lean	inject_extract_closed
 forward	Runtime/ExtractionStrength.lean	ofApprox_semEq
 forward	Runtime/GeoSampledBound.lean	residual_le_of_zero_on_dense_from_generic
 forward	Runtime/L1L2Roundtrip.lean	decodeConst_encodeForm
