@@ -1,5 +1,5 @@
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 import Lattice.Core.Invariant
 import Lattice.Core.Simulation
 import Lattice.Core.Idempotent

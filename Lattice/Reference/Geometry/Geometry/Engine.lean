@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Reference.Geometry.Constraints.Constraint
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 /-!
 # `Lattice.Geo.Engine` -- a symbolic engine over geometric constraints
 

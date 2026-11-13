@@ -42,8 +42,8 @@ question, and for a spec with no model no instance can terminate successfully.**
 -/
 
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.Extraction
 import Lattice.Runtime.VerificationSoundness
 

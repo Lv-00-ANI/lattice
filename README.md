@@ -162,7 +162,7 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/       157       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
+│   ├── Core/       163       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
@@ -461,7 +461,7 @@ cd gov && python verify_all.py
 > 旧库的 roots 曾被写成 238/344/412/411/467/479/548/576 八个值，无一正确。
 
 `lakefile.toml` 的 `packagesDir` 指向 `../lattice/lean/.lake/packages`，复用第一代已编译的
-mathlib（5,385 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新拉取编译需要数小时，
+mathlib（5,384 个 olean，rev `4bbdccd9…`）。**这是刻意的**：重新拉取编译需要数小时，
 且两份缓存会各自老化。代价是 CI 必须把同一 revision 物化到同一路径 —— workflow 里显式做了这件事。
 
 **全新机器怎么做（这一步必须写明，否则「指向仓库外」就是一个陷阱）。**

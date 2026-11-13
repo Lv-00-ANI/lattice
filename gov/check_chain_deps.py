@@ -40,7 +40,7 @@ _RAW_EXPECTED = {
     "extract_compile": ("Lift/Extraction.lean", 0),
     # Round 92: `RepairConvergence.lean` MOVED into the `Core.Repair` plugin's directory, so the
     # chain table must name its current home. The theorem is the same theorem; only the path moved.
-    "converges_within": ("Plugins/Core/Repair/RepairConvergence.lean", 1),
+    "converges_within": ("Core/RepairModule/RepairConvergence.lean", 1),
     "loss_eq_zero_of_poly_eq_zero": ("Reference/Geometry/Geometry/Reinjection.lean", 1),
     "residual_le_of_zero_on_dense": ("Lift/VerificationSoundness.lean", 1),
     "ladder_forward": ("Lift/EndToEnd.lean", 0),

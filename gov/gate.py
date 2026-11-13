@@ -392,11 +392,9 @@ def _layering_baseline():
     """
     return {
         ("plugins", "reference"): 19,
-        ("runtime", "plugins"): 8,
-        ("core", "plugins"): 5,
+        ("core", "plugins"): 1,
         ("plugins", "audit"): 4,
         ("plugins", "compose"): 4,
-        ("primitives", "plugins"): 2,
     }
 
 

@@ -1,6 +1,6 @@
 import Mathlib
 import Lattice.Reference.Geometry.Geometry.RepairPerp
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 /-!
 # `Lattice.Geo.LoopPerp` -- the verification loop for perpendicularity
 

@@ -2,7 +2,7 @@ import Mathlib
 import Lattice.Reference.Geometry.Geometry.Loop
 import Lattice.Reference.Geometry.Geometry.LoopPerp
 import Lattice.Reference.Geometry.Geometry.RepairPerp
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 /-!
 # `Lattice.Geo.ConjRepair` -- repairing two constraints of different kinds at once
 

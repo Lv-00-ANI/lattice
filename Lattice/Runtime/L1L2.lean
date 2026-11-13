@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 /-!
 # `Lattice.Lift.L1L2` -- token <-> symbol, with the arity carried in the token stream
 

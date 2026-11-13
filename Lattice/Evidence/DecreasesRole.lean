@@ -96,7 +96,7 @@ fix n  := min n 1                  -- 一步到 {0,1}
 本节证明它。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 namespace Lattice.Audit
 
 open Lattice.Core

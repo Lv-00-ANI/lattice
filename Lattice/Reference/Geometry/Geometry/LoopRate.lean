@@ -36,7 +36,7 @@
   （如「需要修几条约束」），界相应变大——这正是 `μ x` 该有的行为。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.RepairConvergence
+import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Reference.Geometry.Geometry.Loop
 
 open scoped BigOperators

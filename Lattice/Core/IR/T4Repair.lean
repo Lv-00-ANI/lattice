@@ -1,7 +1,6 @@
 import Mathlib
 import Lattice.Core.IR.Obligations
-import Lattice.Plugins.Core.Repair.Repair
-
+import Lattice.Core.RepairModule.Repair
 /-!
 # Core/IR/T4Repair.lean -- T4 over the IR: progress, convergence, fixed point (round 187)
 

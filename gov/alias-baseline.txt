@@ -131,8 +131,8 @@ copy	Lib/Optim/RealStrongConvex.lean	strong_convex_gap_nonneg
 copy	Lib/Optim/RealStrongConvex.lean	strong_convex_minimizer
 copy	Plugins/Core/Repair/Plugin.lean	convergesWithinProp_holds
 copy	Plugins/Core/Repair/Plugin.lean	progressProp_holds
-copy	Plugins/Core/Repair/Repair.lean	preserves
-copy	Plugins/Core/Repair/RepairWF.lean	preserves_of_sat
+copy	Core/RepairModule/Repair.lean	preserves
+copy	Core/RepairModule/RepairWF.lean	preserves_of_sat
 copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_eqZero
 copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_equalLength
 copy	Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean	penaltyLoss_eq_zero_perpendicular
@@ -752,7 +752,7 @@ forward	Plugins/Architectures/Norm/Proofs.lean	gnorm_scale_invariant_reuse
 forward	Plugins/Architectures/Norm/Proofs.lean	normalize_scale_invariant_reuse
 forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz
 forward	Plugins/Architectures/Norm/Proofs.lean	varNormalize_unit_lipschitz_sharp
-forward	Plugins/Core/Repair/Repair.lean	parity_terminates
+forward	Core/RepairModule/Repair.lean	parity_terminates
 forward	Plugins/Domains/Constraints/Tokens/Flatten.lean	flattenRepresentation_compile_extract
 forward	Plugins/Domains/Constraints/Tokens/Flatten.lean	flattenRepresentation_roundtrip
 forward	Plugins/Migration.lean	stringPrefix_self

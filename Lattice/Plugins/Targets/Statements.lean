@@ -32,8 +32,8 @@ import Lattice.Plugins.Manifest
 import Lattice.Plugins.Targets.Expressible
 import Lattice.Reference.Geometry.Constraints.ConstraintSet
 import Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.Extraction
 import Lattice.Semantics.CompileSound
 

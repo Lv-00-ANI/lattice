@@ -26,7 +26,7 @@ satisfiability, never the reverse.**
 -/
 
 import Lattice.Plugins.Manifest
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 open Lattice.Core
 
 namespace Lattice.Plugins.Core.Constraint

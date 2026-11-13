@@ -74,7 +74,7 @@ preserves_foldl :
   `Ladder` 仍是一步到位的结构。本节说的是「若把链路拆成段，段可串」。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 namespace Lattice.Audit
 
 namespace ChainTransitivity

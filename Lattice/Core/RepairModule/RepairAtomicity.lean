@@ -67,9 +67,8 @@ Sat x ↔ μ x = 0
   正是 `ROADMAP-v5 §1` 要的那个对照。本节不改变它。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairMultistep
-
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairMultistep
 namespace Lattice.Core
 
 namespace RepairAtomicity

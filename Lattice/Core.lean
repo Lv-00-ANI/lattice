@@ -149,6 +149,12 @@ import Lattice.Core.IR.Semantics
 import Lattice.Core.IR.Decode
 import Lattice.Core.IR.DecodeRelations
 import Lattice.Core.IR.Extract
+import Lattice.Core.RepairModule.ConstraintProofs
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairAtomicity
+import Lattice.Core.RepairModule.RepairConvergence
+import Lattice.Core.RepairModule.RepairMultistep
+import Lattice.Core.RepairModule.RepairWF
 
 
 /-!

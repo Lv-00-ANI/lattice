@@ -71,6 +71,7 @@
 | `Core/IR/SpecUniqueness.lean` | `finalSpec_determines_effect` |
 | `Core/OneStepBridge.lean` | `natCountdownAsRepair_converges` |
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
+| `Core/RepairModule/Repair.lean` | `parity_terminates` |
 | `Evidence/MultiComposition.lean` | `chain_single` |
 | `Evidence/MultiComposition.lean` | `chain_two` |
 | `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
@@ -660,7 +661,6 @@
 | `Plugins/Architectures/Norm/Proofs.lean` | `normalize_scale_invariant_reuse` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz` |
 | `Plugins/Architectures/Norm/Proofs.lean` | `varNormalize_unit_lipschitz_sharp` |
-| `Plugins/Core/Repair/Repair.lean` | `parity_terminates` |
 | `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_compile_extract` |
 | `Plugins/Domains/Constraints/Tokens/Flatten.lean` | `flattenRepresentation_roundtrip` |
 | `Plugins/Migration.lean` | `stringPrefix_self` |
@@ -750,6 +750,8 @@
 | `Core/IR/Semantics.lean` | `parse_var_relations_nil` |
 | `Core/IR/Semantics.lean` | `parse_var_tensors_length` |
 | `Core/IR/Skeleton.lean` | `find_id_eq_some_of_nodup_shape` |
+| `Core/RepairModule/Repair.lean` | `preserves` |
+| `Core/RepairModule/RepairWF.lean` | `preserves_of_sat` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_left` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
@@ -874,8 +876,6 @@
 | `Lib/Optim/RealStrongConvex.lean` | `strong_convex_minimizer` |
 | `Plugins/Core/Repair/Plugin.lean` | `convergesWithinProp_holds` |
 | `Plugins/Core/Repair/Plugin.lean` | `progressProp_holds` |
-| `Plugins/Core/Repair/Repair.lean` | `preserves` |
-| `Plugins/Core/Repair/RepairWF.lean` | `preserves_of_sat` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_eqZero` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_equalLength` |
 | `Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean` | `penaltyLoss_eq_zero_perpendicular` |

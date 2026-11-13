@@ -32,11 +32,11 @@ terminates, and the `μ`-decrease hypothesis is not removable.
 -/
 
 import Lattice.Plugins.Manifest
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
-import Lattice.Plugins.Core.Repair.RepairAtomicity
-import Lattice.Plugins.Core.Repair.RepairWF
-import Lattice.Plugins.Core.Repair.RepairMultistep
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
+import Lattice.Core.RepairModule.RepairAtomicity
+import Lattice.Core.RepairModule.RepairWF
+import Lattice.Core.RepairModule.RepairMultistep
 open Lattice.Core
 
 namespace Lattice.Plugins.Core.Repair

@@ -15,7 +15,7 @@ and stating them that way keeps the plugin honest about what it is receiving).
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Core.Constraint.Manifest
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 namespace Lattice.Plugins.Core.Constraint
 
 open Lattice.Plugins

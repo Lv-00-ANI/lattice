@@ -22,11 +22,11 @@ step-by-step, and it is the algebraic content behind "the loop is a fold".
 import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Core.Repair.Manifest
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
-import Lattice.Plugins.Core.Repair.RepairMultistep
-import Lattice.Plugins.Core.Repair.RepairAtomicity
-import Lattice.Plugins.Core.Repair.RepairWF
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
+import Lattice.Core.RepairModule.RepairMultistep
+import Lattice.Core.RepairModule.RepairAtomicity
+import Lattice.Core.RepairModule.RepairWF
 namespace Lattice.Plugins.Core.Repair
 
 open Lattice.Plugins

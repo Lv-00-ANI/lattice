@@ -51,8 +51,8 @@ satisfies `perpendicular` AND is fixed by `conjRepair` AND round-trips through `
 
 import Mathlib
 import Lattice.Plugins.Targets.Statements
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Reference.Geometry.Geometry.ClosedLoop
 
 /-! **[待移除] 几何载体靶定理。**

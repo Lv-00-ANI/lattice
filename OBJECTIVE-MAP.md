@@ -36,7 +36,7 @@
 | 3.3 inverse: repair | `midpointFix` | **未找到** | — | — | — |
 | 3.4 inverse: re-injection | `reinject_loss_eq_zero` | **未找到** | — | — | — |
 | 3.4 inverse: re-injection | `partial_reinject_bound` | **未找到** | — | — | — |
-| 4 loop | `converges_within` | `Plugins/Core/Repair/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
+| 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
 | 5 symbolic engine | `evalPts` | **未找到** | — | — | — |
 | 5 symbolic engine | `derivation_sound` | **未找到** | — | — | — |

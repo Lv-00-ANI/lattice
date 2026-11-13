@@ -75,8 +75,7 @@ The old path is now a facade that imports this file and contains no proof.
   那是 `decreases` 已经隐含的，但把它写成数值需要在结构里加字段。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-
+import Lattice.Core.RepairModule.Repair
 namespace Lattice.Core
 
 namespace RepairConvergence

@@ -72,8 +72,8 @@
   不是 `Repair` 的反例。**两者的区别重要。**
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.VerificationLoop
 
 namespace Lattice.Geo

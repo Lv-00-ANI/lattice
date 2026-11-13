@@ -100,7 +100,7 @@ import Mathlib
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction
 import Lattice.Runtime.EndToEnd
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 namespace Lattice.Audit
 
 /-! ## 一、字段性质的分类本身写成数据 -/

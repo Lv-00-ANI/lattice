@@ -1,9 +1,9 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 import Lattice.Core.Idempotent
-import Lattice.Plugins.Core.Repair.Repair
+import Lattice.Core.RepairModule.Repair
 /-!
 # `Lattice.Lift.Extraction` -- T3: extraction equivalence, and the reversibility boundary
 

@@ -1,7 +1,7 @@
 import Mathlib
 import Lattice.Core.Syntax
 import Lattice.Core.Semantics
-import Lattice.Plugins.Core.Constraint.Proofs
+import Lattice.Core.RepairModule.ConstraintProofs
 import Lattice.Runtime.L1L2
 import Lattice.Runtime.SymbolToWeight
 import Lattice.Runtime.Extraction

@@ -67,9 +67,8 @@ The old path is now a facade that imports this file and contains no proof.
   （`ℤ` 上的减一满足 `absorbs` + `decreases` 却永不收敛）。
 -/
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-import Lattice.Plugins.Core.Repair.RepairConvergence
-
+import Lattice.Core.RepairModule.Repair
+import Lattice.Core.RepairModule.RepairConvergence
 namespace Lattice.Core
 
 namespace Multistep

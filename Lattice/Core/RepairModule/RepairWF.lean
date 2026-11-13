@@ -9,8 +9,7 @@ The old path is now a facade that imports this file and contains no proof.
 -/
 
 import Mathlib
-import Lattice.Plugins.Core.Repair.Repair
-
+import Lattice.Core.RepairModule.Repair
 /-!
 # `Lattice.Core.RepairWF` -- T4 with an arbitrary well-founded measure
 
