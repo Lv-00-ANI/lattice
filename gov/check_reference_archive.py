@@ -1,33 +1,34 @@
 # -*- coding: utf-8 -*-
-"""Check that the ARCHIVED part of `Reference/` stays out of the build (stage C, P3-3).
+"""Check that the fully-ARCHIVED LvFormal geometry tree stays out of the build (stage C, P3-3).
 
-## The structure, measured rather than assumed
+## The decision, and the measurement behind it
 
-**`Lattice/Reference/` is NOT one thing. It has two parts with opposite standing:**
+**Round 186 read `check_layer_reachability`'s skip of `Reference/` as a bug and tried to wire all 209 modules
+into the build. That was wrong.**
 
-| part | status | who imports it |
-|:--|:--|:--|
-| **`Geometry/Constraints`, `Geometry/Geometry`, `Geometry/ConstraintsRoot`, `Geometry/GeometryRoot`** | **LIVE** -- builds clean (`ConstraintsRoot` = BUILD 0), and **28 live modules across `Domains`, `Plugins`, `Semantics`, `Usage`, `Compose`, `Evidence` import it** | **real consumers** |
-| **`Geometry/LvFormal/`** | **ARCHIVED** -- early reference formalisations; **50 of its 93 `Theory/` files do not compile, 17 contain `sorry`/`axiom`** | **nothing in the pipeline** |
+**Round 187 measured again and the user ruled on the content:**
 
-**=> "treat Reference as archive" and "treat Reference as live" are BOTH wrong.**
-**Round 186 tried the first and started building 209 files; the plan's P3-3 implied the second. Neither is the
-tree.**
+- **`Lattice/Reference/Geometry/LvFormal/` had 103 modules and ~3110 declarations, and NOTHING in `Lattice/`
+  imported it** -- dead code with no consumers;
+- **the geometry content is OBSOLETE** (the user's words: "都是几何相关的用不到了");
+- **therefore it was MOVED OUT of `Lattice/` entirely, to `archive/LvFormal/`.**
+
+**=> this is a FULL archive, not a "keep it nearby and don't build it" arrangement. The directory is no longer
+under `Lattice/`, so no Lean build, no layer aggregator, and no `gov/` measurement can reach it by accident.**
+
+## What is NOT archived
+
+**`Lattice/Reference/Geometry/Constraints`, `Geometry/Geometry`, `ConstraintsRoot`, `GeometryRoot` remain LIVE:**
+**`ConstraintsRoot` builds clean and 28 modules across `Domains`, `Plugins`, `Semantics`, `Usage`, `Compose`,
+`Evidence` import them.** **=> "Reference is an archive" is false; only the `LvFormal` subtree was.**
 
 ## What this check enforces
 
-**The archive is `Lattice/Reference/Geometry/LvFormal/`. The boundary is around THAT, not around
-`Reference/`.**
-
-1. **No aggregator may exist for the archived subtree** (`Lattice/Reference/Geometry/LvFormal.lean` must not
-   exist) -- an aggregator there means the archive was wired into `lake build`;
-2. **No module OUTSIDE the archived subtree may import a `Lattice.Reference.Geometry.LvFormal.` module** --
-   otherwise the archive becomes a build dependency of the live tree;
-3. **`Lattice/Reference/Geometry/LvFormal/README.md` must exist and label the subtree as an archive** -- a
-   boundary nobody writes down gets re-crossed, which is exactly how round 186 happened.
-
-**The LIVE part is deliberately NOT restricted: `check_layer_reachability` skips it, but that is a
-measurement choice about the layer's index, not an archive claim, and the 28 real importers prove it.**
+1. **`Lattice/Reference/Geometry/LvFormal/` must NOT exist** -- if it comes back, the archive was re-wired;
+2. **no module under `Lattice/` may import `Lattice.Reference.Geometry.LvFormal.*`** -- importing a module that
+   no longer exists would break the build, and importing a re-added one would silently re-enter the archive;
+3. **`_archive/LvFormal/README.md` must exist and must label the directory as archived** -- an archive with no
+   recorded reason gets re-crossed, which is exactly how round 186 happened.
 
 Usage:
     python check_reference_archive.py            # report
@@ -42,11 +43,15 @@ import sys
 ZERO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LATTICE = os.path.join(ZERO, "Lattice")
 
-# The ARCHIVED subtree -- measured: it does not compile, nothing live depends on it.
-ARCHIVE = os.path.join(LATTICE, "Reference", "Geometry", "LvFormal")
-ARCHIVE_PREFIX = "Lattice.Reference.Geometry.LvFormal."
+# Where the archive USED to live; it must not come back.
+OLD_ARCHIVE = os.path.join(LATTICE, "Reference", "Geometry", "LvFormal")
 
-IMPORT_RE = re.compile(r"(?m)^import\s+(Lattice\.Reference\.Geometry\.LvFormal\.[A-Za-z0-9_.]+)\s*$")
+# Where it lives now.
+ARCHIVE = os.path.join(ZERO, "archive", "LvFormal")
+
+ARCHIVE_IMPORT_RE = re.compile(
+    r"(?m)^import\s+(Lattice\.Reference\.Geometry\.LvFormal\.[A-Za-z0-9_.]+)\s*$"
+)
 
 
 def lean_files(root):
@@ -57,92 +62,78 @@ def lean_files(root):
                 yield os.path.join(dirpath, name)
 
 
-def is_inside_archive(path):
-    return os.path.abspath(path).startswith(os.path.abspath(ARCHIVE) + os.sep)
-
-
 def main(argv):
     strict = "--strict" in argv
     findings = []
 
-    # 1. no aggregator for the archived subtree
-    agg = os.path.join(LATTICE, "Reference", "Geometry", "LvFormal.lean")
-    if os.path.exists(agg):
+    # 1. the old location must be empty
+    if os.path.exists(OLD_ARCHIVE):
         findings.append(
-            "WIRED IN: Lattice/Reference/Geometry/LvFormal.lean exists -- the archive has a build aggregator"
+            "RE-ADDED: Lattice/Reference/Geometry/LvFormal exists again -- the archive was moved back into the build tree"
         )
 
-    # 2. no live module imports the archive
+    # 2. nothing under Lattice/ may import it
     for path in lean_files(LATTICE):
-        if is_inside_archive(path):
-            continue
         text = io.open(path, encoding="utf-8", errors="replace").read()
-        hit = IMPORT_RE.search(text)
+        hit = ARCHIVE_IMPORT_RE.search(text)
         if hit:
             rel = os.path.relpath(path, LATTICE).replace("\\", "/")
-            findings.append(
-                "WIRED IN: %s imports %s" % (rel, hit.group(1).rstrip())
-            )
+            findings.append("WIRED IN: %s imports %s" % (rel, hit.group(1).rstrip()))
 
-    # 3. the boundary must be documented
+    # 3. the archive must be documented where it now lives
     readme = os.path.join(ARCHIVE, "README.md")
     if not os.path.exists(readme):
         findings.append(
-            "UNDOCUMENTED: Lattice/Reference/Geometry/LvFormal/README.md is missing"
+            "UNDOCUMENTED: _archive/LvFormal/README.md is missing -- the archive has no recorded reason"
         )
     else:
         text = io.open(readme, encoding="utf-8", errors="replace").read()
         if "归档" not in text and "archive" not in text.lower():
             findings.append(
-                "UNDOCUMENTED: the LvFormal README does not label the subtree as an archive"
+                "UNDOCUMENTED: _archive/LvFormal/README.md does not label the directory as archived"
             )
 
-    n_arch = sum(1 for _ in lean_files(ARCHIVE))
-    n_live = len(set(os.path.dirname(p) for p in lean_files(os.path.join(LATTICE, "Reference")) if not is_inside_archive(p)))
+    n_arch = sum(1 for _ in lean_files(ARCHIVE)) if os.path.isdir(ARCHIVE) else 0
 
-    print("REFERENCE ARCHIVE BOUNDARY")
-    print("  archived subtree      : Lattice/Reference/Geometry/LvFormal")
+    print("ARCHIVED LvFormal BOUNDARY")
+    print("  archive location      : archive/LvFormal")
     print("  archived modules      : %d" % n_arch)
-    print("  live Reference dirs   : %d" % n_live)
-    print("  aggregator present    : %s" % ("YES (bad)" if os.path.exists(agg) else "no (correct)"))
+    print("  old location present  : %s" % ("YES (bad)" if os.path.exists(OLD_ARCHIVE) else "no (correct)"))
     print("  documented            : %s" % ("yes" if os.path.exists(readme) else "NO"))
 
     if findings:
         print()
         for f in findings:
             print("  FINDING %s" % f)
-        print("\nREFERENCE ARCHIVE: %d finding(s)" % len(findings))
+        print("\nARCHIVED LvFormal: %d finding(s)" % len(findings))
         return 1 if strict else 0
 
-    print("\nREFERENCE ARCHIVE: correctly isolated -- %d archived module(s) outside the build"
+    print("\nARCHIVED LvFormal: fully archived -- %d module(s) outside Lattice/, zero importers"
           % n_arch)
     return 0
 
 
 def self_test():
-    """Demonstrate the check fires on a wired-in archive."""
+    """Demonstrate each failure mode fires, without touching the tree."""
     ok = True
 
-    if not IMPORT_RE.search("import Lattice.Reference.Geometry.LvFormal.Theory.CacheCoherenceTheory\n"):
-        print("  self-test FAILED: the import regex does not match a real archive import")
+    if not ARCHIVE_IMPORT_RE.search(
+        "import Lattice.Reference.Geometry.LvFormal.Theory.CacheCoherenceTheory\n"
+    ):
+        print("  self-test FAILED: the archive import regex does not match a real archive import")
         ok = False
 
-    if IMPORT_RE.search("import Lattice.Reference.Geometry.ConstraintsRoot\n"):
-        print("  self-test FAILED: the import regex matched a LIVE module (it must not)")
+    if ARCHIVE_IMPORT_RE.search("import Lattice.Reference.Geometry.ConstraintsRoot\n"):
+        print("  self-test FAILED: the regex matched a LIVE module (it must not)")
         ok = False
 
-    inside = os.path.join(ARCHIVE, "Theory", "X.lean")
-    if not is_inside_archive(inside):
-        print("  self-test FAILED: an archive path was not recognised")
-        ok = False
-    live = os.path.join(LATTICE, "Lib", "X.lean")
-    if is_inside_archive(live):
-        print("  self-test FAILED: a live path was classified as archive")
-        ok = False
-
-    undoc = "notes"
+    undoc = "notes about files"
     if "归档" in undoc or "archive" in undoc.lower():
-        print("  self-test FAILED: the documentation test is vacuous")
+        print("  self-test FAILED: the documentation check is vacuous")
+        ok = False
+
+    if os.path.abspath(LATTICE).startswith(os.path.abspath(ARCHIVE)):
+        print("  self-test FAILED: the archive contains Lattice/")
         ok = False
 
     print("  self-test: %s" % ("all four failure modes fire" if ok else "SOME MODE DID NOT FIRE"))

@@ -12,133 +12,38 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `ATPBackendTheory` | 516 | 9 | — |
-| `ApplicationLayer` | 212 | 11 | — |
-| `AutoDiffTheory` | 360 | 12 | — |
-| `AxiomDiscoveryTheory` | 643 | 11 | — |
-| `BDDEncoding` | 553 | 9 | — |
-| `CSGGeometryTheory` | 413 | 9 | — |
-| `CacheCoherenceTheory` | 754 | 19 | — |
-| `CompilerTooling` | 1 | 0 | — |
-| `ConstraintPropagation` | 66 | 5 | — |
-| `ConstraintSoundness` | 140 | 6 | — |
-| `ContextInvariantsTheory` | 884 | 62 | — |
-| `ConvenienceAPIsTheory` | 807 | 33 | — |
-| `CryptoHashTheory` | 853 | 39 | — |
-| `Cv00Lang` | 281 | 6 | — |
-| `Defs` | 4 | 0 | — |
-| `DifferentialGeometry` | 588 | 16 | — |
-| `EntryPointTheory` | 902 | 37 | — |
-| `ExactArithmeticTheory` | 98 | 9 | — |
 | `Expr` | 136 | 1 | — |
-| `ExpressionCanonicalizationTheory` | 379 | 8 | — |
 | `Flatten` | 11 | 0 | — |
-| `FormulaSemantics` | 182 | 5 | — |
-| `FuncBlockTheory` | 357 | 11 | — |
-| `GeometricAlgebra` | 110 | 9 | — |
-| `GeometricAlgebraDefs` | 144 | 7 | — |
-| `GeometryCompressionTheory` | 688 | 17 | — |
-| `GeometryInfrastructure` | 351 | 12 | — |
-| `GeometryPresetDefs` | 223 | 3 | — |
-| `GeometryPresets` | 44 | 3 | — |
-| `GeometrySymbolicsTheory` | 226 | 11 | — |
-| `GeometryTopologyTheory` | 988 | 52 | — |
-| `GlobalStateInvariantsTheory` | 959 | 35 | — |
-| `Graph` | 4 | 0 | — |
-| `GroebnerTheory` | 828 | 28 | — |
-| `GroupTheoryFoundation` | 1013 | 34 | — |
-| `IR` | 188 | 4 | — |
-| `InteropSoundness` | 71 | 5 | — |
-| `IntervalArithmeticTheory` | 946 | 28 | — |
-| `KernelInvariants` | 46 | 3 | — |
-| `LinearAlgebraFoundation` | 906 | 78 | — |
-| `LogicalFramework` | 480 | 2 | — |
 | `LossExtraction` | 11 | 0 | — |
-| `LvDSL` | 1616 | 5 | — |
-| `LvDSL_tmp` | 535 | 5 | — |
-| `MagicConstantsTheory` | 731 | 27 | — |
-| `MathPresetSoundness` | 31 | 5 | — |
-| `MemorySafetyTheory` | 1467 | 42 | — |
-| `MetaProofTheory` | 117 | 7 | — |
-| `ModuleSystemTheory` | 521 | 12 | — |
-| `NDimGeometry` | 79 | 4 | — |
 | `NetLossDerivative` | 11 | 0 | — |
-| `Normalization` | 4 | 0 | — |
-| `NormalizationProperties` | 109 | 7 | — |
-| `NumberTheoryFoundation` | 1091 | 76 | — |
-| `Numeric` | 40 | 4 | — |
-| `NumericDefs` | 40 | 0 | — |
-| `ODESolver` | 100 | 8 | — |
-| `ODESolverDefs` | 157 | 6 | — |
-| `OrchestrationSoundness` | 74 | 4 | — |
 | `PenaltyLoss` | 11 | 0 | — |
-| `PluginSystemTheory` | 518 | 17 | — |
-| `ProofCompilerTheory` | 153 | 10 | — |
-| `ResourceManagement` | 435 | 26 | — |
-| `RewriteProperties` | 280 | 7 | — |
-| `SATEncoding` | 266 | 6 | — |
-| `SMTTheory` | 208 | 10 | — |
 | `SeqRepresentation` | 11 | 0 | — |
-| `SolverInfrastructure` | 367 | 24 | — |
-| `SolverModelTheory` | 382 | 9 | — |
-| `Soundness` | 4 | 0 | — |
-| `SparseLinearAlgebraTheory` | 950 | 54 | — |
-| `StreamInvariants` | 70 | 4 | — |
-| `StreamingTheory` | 69 | 5 | — |
-| `TikZExportTheory` | 112 | 6 | — |
-| `Trace` | 4 | 0 | — |
-| `TypeLogicTheory` | 327 | 17 | — |
-| `UnificationTheory` | 366 | 7 | — |
-| `VisualBlockTheory` | 1007 | 26 | — |
-| `VisualLayerSoundness` | 71 | 4 | — |
-| `VisualRuntimeTheory` | 931 | 20 | — |
-| `check_temp` | 6 | 0 | — |
-| `lvLang` | 224 | 10 | — |
 
 ### L1 —— 距离与线性化
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `BootstrapDefs` | 36 | 0 | lvLang |
-| `Codegen` | 234 | 6 | IR, Cv00Lang |
-| `Compiler` | 188 | 5 | lvLang, IR |
 | `ComputableExpr` | 249 | 7 | Expr |
-| `ConstraintModelTheory` | 1211 | 7 | LogicalFramework, IR |
 | `ConstraintTokenizer` | 420 | 12 | Expr |
-| `Cv00Memory` | 174 | 11 | Cv00Lang, lvLang |
-| `DSLWrappersSoundness` | 58 | 3 | IR |
 | `Dist` | 135 | 9 | Expr |
-| `Evidence` | 534 | 10 | IR |
 | `ExprDerivative` | 229 | 8 | Expr |
 | `Finite` | 106 | 1 | Expr, Flatten |
 | `FlatLoss` | 527 | 19 | NetLossDerivative |
 | `FlattenAgreement` | 67 | 4 | Flatten, SeqRepresentation |
-| `GeomPresetSoundness` | 45 | 3 | IR |
-| `InteractiveGeoSoundness` | 120 | 2 | IR |
 | `LadderInstance` | 130 | 2 | Expr |
 | `Lipschitz` | 260 | 11 | Expr |
 | `Perturb` | 126 | 8 | Flatten |
-| `PresetGeometry` | 62 | 3 | IR |
-| `PresetGeometryDefs` | 231 | 8 | GeometryPresetDefs |
-| `ProofEngineSoundness` | 74 | 4 | lvLang, IR |
 | `RealToken` | 217 | 5 | Expr |
-| `SolverCorrectness` | 64 | 3 | lvLang, IR |
 
 ### L2 —— 约束与扰动代数
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
 | `CExprCodegen` | 136 | 5 | ComputableExpr |
-| `CodegenCorrectness` | 216 | 8 | IR, Cv00Lang, Codegen, Cv00Memory, Compiler |
-| `CompilerCorrectness` | 751 | 8 | lvLang, IR, Compiler |
 | `Constraint` | 161 | 4 | Expr, Dist |
 | `DistContinuous` | 47 | 1 | Dist |
 | `DistDerivative` | 119 | 5 | Dist |
 | `DistLipschitz` | 182 | 4 | Lipschitz, Dist |
-| `InteropCorrectness` | 238 | 18 | IR, Evidence |
-| `LvSemantics` | 564 | 6 | LvDSL, IR, Evidence, LogicalFramework |
-| `MetaVerificationTheory` | 132 | 8 | IR, Evidence |
-| `ProofStrategy` | 566 | 13 | Evidence, IR, AxiomDiscoveryTheory |
 | `RealTokenRoundtrip` | 243 | 7 | RealToken |
 | `RhoMetric` | 120 | 5 | Lipschitz |
 
@@ -146,20 +51,16 @@
 
 | 模块 | 行数 | 定理 | 依赖 |
 |:--|--:|--:|:--|
-| `BootstrapCorrectness` | 71 | 6 | lvLang, IR, Compiler, CompilerCorrectness |
 | `CIC` | 231 | 9 | Constraint |
 | `CodegenLadder` | 110 | 3 | CExprCodegen |
 | `ConstraintSet` | 175 | 7 | Constraint |
-| `EndToEndCorrectness` | 73 | 7 | lvLang, IR, Compiler, CompilerCorrectness, Codegen, Cv00Lang, Cv00Memory, Evidence |
 | `Engine` | 290 | 14 | Constraint |
-| `EngineInvariants` | 129 | 7 | lvLang, IR, Compiler, Codegen, CodegenCorrectness, CompilerCorrectness, Evidence |
 | `Eval` | 98 | 3 | Constraint, Dist |
 | `ExecutableCheck` | 189 | 4 | Constraint, ComputableExpr |
 | `Invariant` | 189 | 12 | Constraint |
 | `Loss` | 199 | 10 | Expr, Dist, Constraint |
 | `PenaltyLossDerivative` | 1288 | 44 | PenaltyLoss, DistDerivative, ExprDerivative |
 | `RepairPerp` | 193 | 6 | Constraint |
-| `UndefinedBehavior` | 111 | 7 | IR, Cv00Lang, Codegen, CodegenCorrectness |
 
 ### L4 —— 微分与提取
 

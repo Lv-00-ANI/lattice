@@ -26,7 +26,14 @@ DOC_DOC_RE = re.compile(r"/--.*?/--")
 def lean_files():
     out = [os.path.join(ZERO, "Lattice.lean")]
     for base, _d, fs in os.walk(ZERO):
-        if ".lake" in base.split(os.sep) or "gov" in base.split(os.sep):
+        parts = base.split(os.sep)
+        # `_archive/` holds the fully-archived LvFormal geometry tree (round 187). It is outside
+        # `Lattice/` and outside every build, and three of its files have unbalanced comments in the
+        # source itself -- scanning it would keep I8 red forever while describing nothing about the
+        # live tree. Same reasoning as the `Reference/` skip just below, and the same directory name
+        # the main gate's exclusion list already uses.
+        if (".lake" in parts or "gov" in parts or "_archive" in parts
+                or "archive" in parts or "agent-tmp" in parts):
             continue
         for f in sorted(fs):
             if not f.endswith(".lean"):

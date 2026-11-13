@@ -91,7 +91,12 @@ def lean_files(root=ZERO, scope=None):
         # a file nobody meant to ship. Excluding the directory rather than pattern-matching `*Probe.lean`
         # is deliberate: `Lattice/Core/CIC/ShiftSubstOffsetProbe` is a REAL submitted module with a real
         # docstring and a real importer, and a `*Probe.lean` glob would silently drop it.
-        if ".lake" in parts or "gov" in parts or "_archive" in parts or "agent-tmp" in parts:
+        # `archive` is the repository's ARCHIVE directory (ROADMAP-v3..v11, CORRECTIONS, STYLE, and now the
+        # fully-archived LvFormal geometry tree). Its contents are historical records, not part of the
+        # tree the invariants describe: `LvFormal` alone would contribute 68 I2 findings and 103 I7 ones
+        # for files that no build reaches. Excluding the directory, not pattern-matching files.
+        if (".lake" in parts or "gov" in parts or "_archive" in parts
+                or "archive" in parts or "agent-tmp" in parts):
             continue
         for n in names:
             if not n.endswith(".lean"):

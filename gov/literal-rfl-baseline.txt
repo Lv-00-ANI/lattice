@@ -55,6 +55,7 @@ Lattice/Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean	projectiveGeomet
 Lattice/Lib/Chain/RealLv00AxiomPackages.lean	canonicalKinds_length
 Lattice/Lib/Chain/RealLv00LinearAlgebra.lean	lv00_toNat_clamps_negative
 Lattice/Lib/Chain/RealLv00Solver.lean	atpBackendEntry_default_available
+Lattice/Lib/Chain/RealLv00Solver.lean	totient_one
 Lattice/Lib/Compiler/RealMutualRecursion_parts/C.lean	eval_lit_zero
 Lattice/Lib/Editing/RealEditLocality.lean	rowEditCexX_zero_apply
 Lattice/Lib/Editing/RealRoundTripVacuity.lean	factorsThrough_alone_does_not_suffice
