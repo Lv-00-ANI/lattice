@@ -3556,6 +3556,11 @@ Runtime/LayerNormSemantics.lean	applyInstr_layernorm_mean_zero
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum_mono
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
+Runtime/LoopClosure.lean	compile_extract_layer
+Runtime/LoopClosure.lean	extract_compile_constraints
+Runtime/LoopClosure.lean	compile_extract_bijective
+Runtime/LoopClosure.lean	verify_iff_recompile
+Runtime/LoopClosure.lean	loop_is_criterion_not_repair
 Runtime/LossyRepresentation.lean	ofRepresentation_roundtrip
 Runtime/LossyRepresentation.lean	lossy_weaker
 Runtime/MultiLayerLadder.lean	netSym_satW
