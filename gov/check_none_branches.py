@@ -57,6 +57,14 @@ COVERED = {
         "takes the `some` arm** -- so on the encoding's image the `none` arms are unreachable. "
         "Off the image they are reachable BY DESIGN: the CIC term space is larger than the data "
         "space, and `decode` is a partial function, not a total one."),
+    "Runtime/CICToConstraint.lean": (
+        "partial decoder by design",
+        "`cicToConstraint` maps a CIC `Term` to a LINEAR constraint, and the CIC term space is "
+        "strictly larger: `sort`, `lam`, `pi` and `letE` are not linear constraints at all. "
+        "**=> the wildcard arm is the honest-degradation arm, not an unreachable one: `lam A b` and "
+        "`pi A B` take it for EVERY value.** "
+        "Four named theorems (`cicToConstraint_lam`, `_pi`, `_sort`, and `cicToConstraint_isSome_iff`) "
+        "pin exactly which terms take the `some` arm, so the arm's boundary is proved rather than assumed."),
     "Core/IR/DecodeRelations.lean": (
         "covered by round-trip",
         "`partOfCode`'s wildcard is the tag-above-3 arm, and `partOfCode_partCode` proves the "

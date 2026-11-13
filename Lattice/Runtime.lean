@@ -74,6 +74,7 @@ import Lattice.Runtime.WeightSymbolRepresentation
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Runtime.LadderClosure
 import Lattice.Runtime.VerificationLoop
+import Lattice.Runtime.CICToConstraint
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

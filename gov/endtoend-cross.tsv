@@ -3452,6 +3452,11 @@ Runtime/ApproxLadder.lean	approx_ladder_forward
 Runtime/ApproxLadder.lean	approx_ladder_bound_mono
 Runtime/ApproxLadder.lean	roundingLadder_forward
 Runtime/ApproxLadder.lean	roundingLadder_eps
+Runtime/CICToConstraint.lean	cicToConstraint_const
+Runtime/CICToConstraint.lean	cicToConstraint_lam
+Runtime/CICToConstraint.lean	cicToConstraint_pi
+Runtime/CICToConstraint.lean	cicToConstraint_sort
+Runtime/CICToConstraint.lean	cicToConstraint_isSome_iff
 Runtime/ChainComposition.lean	compatible_roundtrip
 Runtime/ComboN.lean	sumEven_eq_zero_iff
 Runtime/ComboN.lean	comboN_preserves
