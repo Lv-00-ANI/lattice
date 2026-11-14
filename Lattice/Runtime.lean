@@ -83,6 +83,7 @@ import Lattice.Runtime.ExtractionClosure
 import Lattice.Runtime.LoopClosure
 import Lattice.Runtime.Faithfulness
 import Lattice.Runtime.SemanticFaithfulness
+import Lattice.Runtime.RepairClosure
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

@@ -3657,6 +3657,10 @@ Runtime/RectangularWeightEncoding.lean	layerOfListRect_b
 Runtime/RectangularWeightEncoding.lean	listOfLayerRect_length
 Runtime/RectangularWeightEncoding.lean	roundtrip_rect
 Runtime/RectangularWeightEncoding.lean	layerOfListRect_eq_full_width
+Runtime/RepairClosure.lean	repair_preserves_verdict
+Runtime/RepairClosure.lean	repair_makes_progress
+Runtime/RepairClosure.lean	repair_terminates_at_sat
+Runtime/RepairClosure.lean	extract_after_repair
 Runtime/RepresentationFamilies.lean	toParams_ofParams
 Runtime/RepresentationFamilies.lean	ofParams_toParams
 Runtime/RepresentationFamilies.lean	toParams_injective
