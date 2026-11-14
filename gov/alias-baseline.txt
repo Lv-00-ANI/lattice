@@ -414,6 +414,8 @@ forward	Lib/Chain/RealReedSolomon.lean	rs_decoding_unique_plus_reconstruction
 forward	Lib/Chain/RealScalarField.lean	edit_verify_tolerance_scalar
 forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeval
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
+forward	Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
+forward	Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
 forward	Lib/Compiler/ModConstraint.lean	dvd_sub_int
 forward	Lib/Compiler/RealAbstractInterpretation.lean	bestAbstract_le_of_sound
 forward	Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le_of_fixed

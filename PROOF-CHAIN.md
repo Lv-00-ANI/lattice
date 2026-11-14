@@ -24,10 +24,11 @@
 | 再注入 | `extract_after_repair` | `Lattice/Runtime/RepairClosure.lean` | 修复到测度为零后，提取出的符号满足原约束 | 2 |
 | 端到端：数据 → 权重 | `data_to_weight_iff` | `Lattice/Runtime/EndToEndComposite.lean` | 数据的约束全部成立 ⟺ 权重层输出全为零 | 5 |
 | 回路闭合（既有） | `verification_loop_closes_holds` | `Lattice/Runtime/VerificationLoop.lean` | 修复回路闭合 | 3 |
+| 表达力：线性严格弱于非线性 | `linear_strictly_weaker_than_relu` ⚠ | `Lattice/Lib/Compiler/Expressiveness.lean` | 线性载体覆盖等式子类；relu 侧的非等式解确实存在 | 0 |
 
 ## 状态
 
-**全部 11 条定理就位，且都被引用至少一次。**
+**⚠ 链条有断点：`linear_strictly_weaker_than_relu`**
 
 ## 诚实边界
 

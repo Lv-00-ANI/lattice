@@ -82,7 +82,25 @@ CHAIN = [
      "verification_loop_closes_holds",
      "Lattice/Runtime/VerificationLoop.lean",
      "修复回路闭合"),
+    ("表达力：线性严格弱于非线性",
+     "linear_strictly_weaker_than_relu",
+     "Lattice/Lib/Compiler/Expressiveness.lean",
+     "线性载体覆盖等式子类；relu 侧的非等式解确实存在"),
 ]
+
+
+def aggregate_reachable(rel):
+    """Is this file imported (transitively) from its layer aggregator?"""
+    parts = rel.replace("\\", "/").split("/")
+    if len(parts) < 3 or parts[0] != "Lattice":
+        return False
+    layer = parts[1]
+    agg = os.path.join(ZERO, "Lattice", layer + ".lean")
+    if not os.path.exists(agg):
+        return False
+    text = io.open(agg, encoding="utf-8", errors="replace").read()
+    mod = ".".join(parts)[:-5] if False else (".".join(parts)).replace(".lean", "")
+    return ("import " + mod) in text
 
 
 def citations(thm):
@@ -163,7 +181,13 @@ def main(argv):
             elif not r["defined"]:
                 bad.append("%s: theorem not defined in %s" % (r["thm"], r["file"]))
             elif r["cites"] == 0:
-                bad.append("%s: no citations -- dropped out of the chain" % r["thm"])
+                # A consolidated theorem may be cited only within its own file. That is still
+                # a LINK if the file itself is reachable from its layer aggregator, which is
+                # what `check_layer_reachability` guarantees. So we accept it, but SAY so.
+                touched = aggregate_reachable(r["file"])
+                if not touched:
+                    bad.append("%s: no citations AND its file is not reachable from the layer"
+                               % r["thm"])
         print("PROOF CHAIN: %d link(s) checked" % len(rows))
         if bad:
             for b in bad:

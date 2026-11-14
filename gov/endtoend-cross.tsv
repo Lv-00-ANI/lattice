@@ -1433,6 +1433,8 @@ Lib/Compiler/CombinatorsXorNot.lean	notC_eq_xorC_zero
 Lib/Compiler/CombinatorsXorNot.lean	notC_zero_iff_xorC_zero_zero
 Lib/Compiler/Disjunction.lean	prod_eq_zero_iff_exists
 Lib/Compiler/Disjunction.lean	disjN_preserves
+Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
+Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_real
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_float
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_ops

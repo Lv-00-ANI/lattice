@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 625 | instantiated library, may import core only |
+| lib | 626 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -379,6 +379,7 @@
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.CombinatorsXorNot` <- `Lattice.Lib.Compiler.Combinators`
 - `Lattice.Lib.Compiler.Disjunction` <- `Lattice.Runtime.ConvertLinear`
+- `Lattice.Lib.Compiler.Expressiveness` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Lib.Compiler.FloatMulBoundDischarged` <- `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.LvDSLPartial` 
@@ -846,7 +847,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1405,6 +1406,7 @@
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
 | `Lattice.Lib.Compiler.CombinatorsXorNot` | 17 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
+| `Lattice.Lib.Compiler.Expressiveness` | 5 | 0 |
 | `Lattice.Lib.Compiler.FloatMulBoundDischarged` | 8 | 1 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
@@ -5009,6 +5011,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `expo_var` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le_trans`, `lit`, `mul`, `tiny`
 - `exponential_chebyshev_identity` -> `card_fin`, `uniformExpectation`
 - `expressible_of_degenerateOK` -> `IsExpressible`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
+- `expressiveness_strictly_wider` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`
 - `extendAt_comm` -> `add`, `at`, `induction`, `lit`, `subst`, `trans`
 - `extendAt_extendAt_same` -> `add`, `at`, `induction`, `subst`
 - `extent2_iUnion` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
@@ -6731,12 +6734,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linear_attn_weights_pmf` -> `convComb_norm_bound`, `d`, `softmax`
 - `linear_attn_weights_sum_one` -> `convComb_norm_bound`, `d`, `softmax`
 - `linear_conjugate_at_slope` -> `at`, `le_refl`
+- `linear_constraint_is_equality` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `reluCompile`, `reluCompile_preserves`
 - `linear_converges` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linear_converges_in_one` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `residual`
 - `linear_interpolation_bound` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `linear_lr_not_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `linear_lr_one_not_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `linear_map_lipschitz` -> `E`, `W`
+- `linear_side_reaches_tautology` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`
+- `linear_strictly_weaker_than_relu` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`
 - `linear_system_solution_affine` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_system_solution_structure` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_term_forces_zero` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `d`, `mem_orthogonal_range_scalar`
@@ -8885,6 +8891,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_eq_self_of_nonneg` -> `apply`, `relu`
 - `relu_eq_zero_iff` -> `at`, `induction`, `relu`, `sign`
 - `relu_eq_zero_of_nonpos` -> `apply`, `relu`
+- `relu_expresses_inequality` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `reluCompile`, `reluCompile_preserves`
 - `relu_extract_on_positive` -> `g`, `relu`
 - `relu_extract_recovery` -> `g`, `relu`
 - `relu_gated_bound` -> `hardSigmoid_bounds`, `hardSwish`, `relu`, `reluSoftMask`, `sigmoid_bounds`, `silu`
