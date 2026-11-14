@@ -5,7 +5,7 @@
 > **本文定位**：插件系统**是证明的一部分**，不是证明之外的框架。它同时被 Lean 证明与 C 实现，两侧共用同一份声明
 > **本文不回答**：现状实测数据（见 SURVEY）、迁移执行进度（见 PLAN）、被否决候选的理由（见 DECISIONS）
 > **读者**：实现者、评审者、接手维护者
-> **修订说明**：本轮补充三处——① 能力暴露分层（第 3.5 节）；② C 侧运行时校验范围（第 10.8 节）；③ 归档层切断顺序（附录 G.7）。并新增附录 I（自举）、附录 J（整理路线图）与附录 K（自由组合层）
+> **修订说明**：本轮补充三处——① 能力暴露分层（第 3.5 节）；② C 侧运行时校验范围（第 10.8 节）；③ 归档层切断顺序（附录 G.7）。并新增附录 I（自举）、附录 J（整理路线图）、附录 K（自由组合层）与附录 L（端到端定位）
 > **整理阶段定位**：本文描述的是**目标形态**。当前仓库处于**粗整理**状态；当 LATTICE 证明层正式初步完成、进入 C 实现前，须按本文第 5 章（下层/上层插件划分）与第 3.5 节（暴露最大化 + 语义化）**做一次全量重构**。路线见附录 J
 
 ---
@@ -38,6 +38,7 @@
   I  自举：装载器自身的证明与实现
   J  整理路线图：从粗整理到语义化重构
   K  自由组合层：现状、缺口与补齐
+  L  端到端：默认编排，不是一层
 ```
 
 ---
@@ -2845,6 +2846,230 @@ def Chain.toPrimitive (c : Chain) (h : chainCompatible c) : Primitive ... := ...
 | C ABI | 11 条无实现者的表 | **去掉** | S |
 
 **⟹ 第一阶段（K1–K13）全部是证明，S 级为主；第二阶段是接线，在语义重构时做。**
+
+---
+
+## 附录 L · 端到端：默认编排，不是一层
+
+### L.1 这一节要回答的问题
+
+“端到端”（L7）在本文附录 A 被列为第八层。**但如果端到端只是一条组合，它就不是一层。**
+
+| 问题 | 若不回答 |
+|:--|:--|
+| 端到端是一层还是一份编排？ | 它会被当作独立层，从而吸收本属其他层的定理 |
+| 默认链路由谁提供？ | 用户每次都要自己拼 |
+| 端到端里能放什么？ | 什么都往里放，包括工具与否定结果 |
+| 为一条组合新建插件是否合法？ | 会被当作重复 |
+
+**这一节的回答：端到端是一份默认编排，由组合层表达，不是一层。**
+
+### L.2 定位：端到端是默认编排
+
+| 项 | 内容 |
+|:--|:--|
+| 端到端是什么 | **一条预先组合好的链**，使用方默认可用 |
+| 端到端不是什么 | 不是层、不是命名空间、不是定理的归属地 |
+| 它提供什么 | 一条已验证的默认链路（“把数据变成权重”） |
+| 它允许什么 | 用户替换其中任意一段、跳过任意一段、插入自己的段 |
+
+**⟹ 端到端 = 组合层的一个**实例**，不是一个**层**。**
+
+### L.3 默认链路必须完整提供
+
+**用户不应被要求自己拼出默认链路。** 系统必须提供至少一条完整的、已证的、可直接使用的链。
+
+| 要求 | 内容 |
+|:--|:--|
+| **完整** | 从 L0 输入到 L3 输出，中间不缺段 |
+| **已证** | 整条链的 `sound` 是一个定理（由 `compose_sound` 逐层给出） |
+| **可替换** | 任一段可被用户自己的实现替换，替换后的链仍需可组合 |
+| **可拆开** | 用户可只用前 N 段，或只用后 N 段 |
+
+**这条要求与第 3.5 节的“暴露最大化”一致**：默认链路是**协议层**的默认胜者；它的每一段是**实现层**可见的候选。
+
+### L.4 端到端里只应该有组合
+
+#### L.4.1 判据
+
+**一条定理若能在不引用整条链的情况下陈述，它就不属于端到端。**
+
+| 判据 | 归属 |
+|:--|:--|
+| 陈述中只出现一段的输入输出 | 该段所在的层 |
+| 陈述中出现跨两段的性质 | 可能属于组合层（若它讲的是组合律） |
+| 陈述中出现**整条链**的输入输出 | 端到端 |
+| 陈述是**否定**（某性质不成立） | **否定层**，不属于任何链 |
+
+#### L.4.2 实测：`RealEndToEnd.lean` 的 31 条定理拆分
+
+| 类别 | 数量 | 定理 | 本应归属 |
+|:--|--:|:--|:--|
+| **真端到端**（组合） | **4** | `e2e_sound`、`e2e_path_exists`、`pipeline`、`l0_loss_survives_pipeline` | **端到端编排** |
+| L2↔L3 工具 | **8** | `unconvertVec`、`convertVec_unconvertVec`、`compileToLayer_injective`、`allSatisfied_singleton`、`semantic_not_injective`、`recover_readback`、`recover_is_load_bearing`、`e2e_loss_at_L2L3` | `Runtime/SymbolToWeightCorrectness` |
+| L1 桥 | **6** | `L1Bridge`、`L1Bridge_length`、`L1Bridge_cons`、`L1BridgeNoSep`、`L1BridgeNoSep_cons`、`e2e_bridge_sep_is_load_bearing` | `Runtime/RealTokenSymbolLink` |
+| 字符编码 | **3** | `charCode_separates_constructors`、`charCode_single_injective`、`charCode_not_injective` | `Runtime/RealTokenization` |
+| 否定结果 | **4** | `e2e_not_injective`、`e2e_no_left_inverse`、`e2e_loss_at_L0L1`、`e2e_scaleQuotient_cannot_fix_L0` | **否定层** |
+| 空壳（应删） | **3** | `e2e_vacuous_composition`、`e2e_extract_hypothesis_is_not_load_bearing`、`e2e_sound_shape_premise_independent` | **删除** |
+| 其他 | 3 | `extract_to_weights`（引言代码块）、`extract_functional`、`e2e_contribution_of_L1L2` | 分散 |
+
+**⟹ 31 条中只有 **4 条**真正属于端到端；**27 条（87%）** 属于其他层或被删除。**
+
+#### L.4.3 五个端到端文件的完整分配
+
+| 文件 | 定理 | 真端到端 | 其他层 | 否定 | 空壳 |
+|:--|--:|--:|--:|--:|--:|
+| `RealEndToEnd.lean` | 31 | 4 | 20 | 4 | 3 |
+| `RealEndToEndNontrivial.lean` | 25 | 6 | 14 | 5 | 0 |
+| `RealEndToEndStrict.lean` | 14 | 3 | 8 | 3 | 0 |
+| `RealE2EComposite.lean` | 11 | 2 | 7 | 2 | 0 |
+| `RealChainEntryOOV.lean` | 15 | 2 | 9 | 4 | 0 |
+| **合计** | **96** | **17** | **58** | **18** | **3** |
+
+**⟹ 端到端族共 96 条，真正属于端到端的 **17 条（18%）**；58 条属于其他层，18 条属于否定层，3 条是空壳。**
+
+### L.5 端到端应当转换到使用组合
+
+#### L.5.1 目标形态
+
+```lean
+-- 端到端 = 一条 compose 链，不是手写 Option.bind
+def defaultPipeline : Primitive (List Char) Layer :=
+  compose tokenizePrim
+    (compose bridgePrim
+      (compose decodePrim compilePrim))
+
+-- 它的 sound 由 compose_sound 逐层给出，不需要新证明
+theorem defaultPipeline_sound : ... :=
+  compose_sound (compose_sound (compose_sound tokenizePrim.sound ...) ...) ...
+```
+
+| 项 | 现状 | 目标 |
+|:--|:--|:--|
+| `pipeline` | 手写 `Option.bind`（`RealEndToEnd.lean:802`） | `compose` 链 |
+| 链的 `sound` | 需逐条证明 | **`compose_sound` 自动给出** |
+| 重排 | 需重证 | **`compose_run_assoc` 免费** |
+| 替换一段 | 重写整个 `pipeline` | 只换一个 `Primitive` 参数 |
+
+#### L.5.2 转换的前置条件
+
+| # | 前置 | 来自 |
+|--:|:--|:--|
+| 1 | 7 个链路跳是 `Primitive` 实例 | 附录 K.9 的 K1–K7 |
+| 2 | `h` 义务平凡 | 附录 K.9 的 K8 |
+| 3 | `pipeline` 与新链的等价定理 | 附录 K.9 的 K9 |
+
+**⟹ 端到端转换到组合的**证明**前置，正是附录 K 第一阶段清单。二者是同一件事的两面。**
+
+### L.6 为一条组合新建插件是正常的
+
+#### L.6.1 判据
+
+**若一条组合会被复用两次以上，它就应成为一个插件。**
+
+| 情形 | 处置 |
+|:--|:--|
+| 一条组合只在端到端里出现一次 | **可以是 `def`**，不必成插件 |
+| 一条组合被两个以上上层 `requires` | **应当成为插件** |
+| 一条组合是某个算法的固定结构（如“注意力核心”） | **应当成为插件** |
+| 一条组合是用户的临时拼接 | **不必成插件** |
+
+#### L.6.2 为何是正常的
+
+**这不是“重复”，是“抽象化”。**
+
+| 若不成插件 | 若成插件 |
+|:--|:--|
+| 每个用户自己拼一次 | 拼一次，所有人用 |
+| 拼法可能在细节上不同 | 唯一拼法，可检索 |
+| 无法按“我想要那条链”检索 | 可以按协议检索到它 |
+| 无法声明它的前置条件 | `pre`/`post` 是一等声明 |
+
+**⟹ 为一条组合新建插件，是把“拼法”从**隐式知识**变成**显式声明**。**
+
+#### L.6.3 一个实例
+
+```
+attention-core/          （插件）
+  plugin.yml:
+    implements: ["attention.core@1.0"]
+    requires: ["softmax.lipschitz@1.0", "attention.mask@1.0", "softmax.normalize@1.0"]
+    entry: "attention_core_sound"
+  Proofs.lean:
+    def attentionCore := compose softmaxLipschitz (compose attentionMask softmaxNormalize)
+    theorem attention_core_sound : ... := compose_sound ... 
+```
+
+**这个插件的内容只有一条 `compose` 调用与一条 `compose_sound` 应用。它是“为一条组合新建的插件”，且完全正常。**
+
+### L.7 端到端在编排中的位置
+
+| 项 | 内容 |
+|:--|:--|
+| 层级 | **上层**（`requires ≠ []`） |
+| 组合比 | **应接近 ∞**（证明体几乎全是 `compose_sound` 的应用） |
+| `integration` | `linked`（被 `Usage` 或用户的装配根使用） |
+| 暴露层 | **协议层**（默认可用） |
+| in-degree | 可高可低，不影响层级 |
+
+**组合比的意义**：端到端是“组合比最高”的插件——若它有大量手写推理，说明它在重复底层已证的东西。
+
+### L.8 三阶段落地
+
+#### L.8.1 第一阶段：只证（现在）
+
+| # | 要证的 | 来源 |
+|--:|:--|:--|
+| 1 | K1–K13（附录 K.9） | 组合层补齐 |
+| 2 | `defaultPipeline_sound` | `compose_sound` 的应用 |
+| 3 | `defaultPipeline.run = pipeline` | 展开 4 层 `bind` |
+
+**不改动任何现有文件。**
+
+#### L.8.2 第二阶段：拆分归属（结构整理时）
+
+| # | 动作 | 判据 |
+|--:|:--|:--|
+| 1 | 把 8 条 L2↔L3 工具移到 `Runtime/SymbolToWeightCorrectness` | 该文件定理数 +8 |
+| 2 | 把 6 条 L1 桥移到 `Runtime/RealTokenSymbolLink` | 该文件定理数 +6 |
+| 3 | 把 3 条字符编码移到 `Runtime/RealTokenization` | 该文件定理数 +3 |
+| 4 | 把 4 条否定结果移入否定层 | 建立否定层命名空间 |
+| 5 | 删除 3 条空壳 | 编译通过且定理数 -3 |
+
+**这一步只移动，不改证明。**
+
+#### L.8.3 第三阶段：转换到组合（语义重构时）
+
+| # | 动作 | 判据 |
+|--:|:--|:--|
+| 1 | `pipeline` 改为 `defaultPipeline` 的派生 | `pipeline` 成为 `defaultPipeline.run` 的包装 |
+| 2 | 端到端插件只保留 17 条组合定理 | 端到端文件定理数 = 17 |
+| 3 | 端到端插件 `plugin.yml` 的 `requires` 列出 4 个跳 | `requires` 非空 |
+| 4 | 端到端组合比 ≥ 3 | 证明体以 `compose_sound` 为主 |
+
+### L.9 与本文其他章节的关系
+
+| 关系 | 内容 |
+|:--|:--|
+| 与附录 A（L0–L7） | **L7 从“层”变为“默认编排”**；层清单从 8 减为 7 |
+| 与第 3.5 节（暴露模型） | 默认链路是**协议层**的默认胜者；各段在**实现层**可见 |
+| 与第 5 章（两层结构） | 端到端是**上层**，组合比要求 ≥ 1（实际应远高） |
+| 与附录 K（组合层） | 端到端是组合层的**实例**；K1–K13 是它的证明前置 |
+| 与附录 F（否定结果） | 端到端里的 18 条否定结果**移出**，进否定层 |
+
+### L.10 这一节的小结
+
+| 项 | 现状 | 目标 | 成本 |
+|:--|:--|:--|:--:|
+| 端到端的定位 | 被当作 L7 一层 | **默认编排** | — |
+| `RealEndToEnd.lean` 的归属 | 31 条全在一处 | **4 条真端到端 + 27 条移出** | M |
+| 端到端族总量 | 96 条 | **17 条真端到端** | M |
+| `pipeline` | 手写 `Option.bind` | **`compose` 链** | M |
+| 链的 `sound` | 逐条证明 | **`compose_sound` 自动** | — |
+| 重排等价 | 需重证 | **`compose_run_assoc` 免费** | — |
+| 为组合新建插件 | 未明确合法 | **明确合法（L.6）** | S |
+
+**⟹ 第一阶段只证（L.8.1），第二阶段拆归属（L.8.2），第三阶段转换到组合（L.8.3）。**
 
 ---
 
