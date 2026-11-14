@@ -829,6 +829,7 @@ forward	Runtime/Extraction.lean	roundtrip_iterate
 forward	Runtime/ExtractionClosure.lean	extract_sound
 forward	Runtime/ExtractionClosure.lean	inject_extract_closed
 forward	Runtime/ExtractionStrength.lean	ofApprox_semEq
+forward	Runtime/Faithfulness.lean	faithful_iff_extract_eq
 forward	Runtime/GeoSampledBound.lean	residual_le_of_zero_on_dense_from_generic
 forward	Runtime/L1L2Roundtrip.lean	decodeConst_encodeForm
 forward	Runtime/LossyRepresentation.lean	lossy_weaker

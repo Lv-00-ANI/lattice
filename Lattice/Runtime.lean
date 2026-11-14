@@ -81,6 +81,7 @@ import Lattice.Runtime.AcceptanceLayer
 import Lattice.Runtime.EndToEndComposite
 import Lattice.Runtime.ExtractionClosure
 import Lattice.Runtime.LoopClosure
+import Lattice.Runtime.Faithfulness
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

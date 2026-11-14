@@ -3533,6 +3533,9 @@ Runtime/ExtractionClosure.lean	extract_reinject_loop
 Runtime/ExtractionStrength.lean	ofApprox_compile
 Runtime/ExtractionStrength.lean	ofApprox_extract
 Runtime/ExtractionStrength.lean	ofApprox_semEq
+Runtime/Faithfulness.lean	corpusToLayer_eq
+Runtime/Faithfulness.lean	faithful_iff_extract_eq
+Runtime/Faithfulness.lean	unfaithful_iff_extract_ne
 Runtime/GeoSampledBound.lean	residual_le_of_zero_on_dense_from_generic
 Runtime/IntRoundtrip.lean	IntRoundtripExists_holds
 Runtime/L1L2Roundtrip.lean	filterMap_sym_append
