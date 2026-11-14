@@ -3667,6 +3667,9 @@ Runtime/RepresentationFamilies.lean	three_families_connected
 Runtime/SaturationQuantization.lean	clamp_eq_self
 Runtime/SaturationQuantization.lean	clamp_error
 Runtime/SaturationQuantization.lean	satQuant_saturation
+Runtime/SemanticFaithfulness.lean	faithful_semantics
+Runtime/SemanticFaithfulness.lean	satisfies_iff_extractLayer
+Runtime/SemanticFaithfulness.lean	satisfies_extractLayer_iff_self
 Runtime/SemanticRepresentation.lean	semantic_roundtrip_compiles_agree
 Runtime/SemanticRepresentation.lean	semantic_of_extract
 Runtime/StackCodegen.lean	runProg_append

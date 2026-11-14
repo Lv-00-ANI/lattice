@@ -844,6 +844,7 @@ forward	Runtime/RealTokenization.lean	foldBlanks_idem
 forward	Runtime/RealTokenization.lean	foldBlanks_length_le
 forward	Runtime/RealTokenization.lean	tokenize_detok
 forward	Runtime/SaturationQuantization.lean	satQuant_saturation
+forward	Runtime/SemanticFaithfulness.lean	satisfies_iff_extractLayer
 forward	Runtime/StackCodegen.lean	stackDepth_left
 forward	Runtime/StackCodegen.lean	stackDepth_right
 forward	Runtime/StackError.lean	gain_nonneg

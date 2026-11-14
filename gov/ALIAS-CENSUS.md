@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 700 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 701 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 162 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -714,6 +714,7 @@
 | `Runtime/RealTokenization.lean` | `foldBlanks_length_le` |
 | `Runtime/RealTokenization.lean` | `tokenize_detok` |
 | `Runtime/SaturationQuantization.lean` | `satQuant_saturation` |
+| `Runtime/SemanticFaithfulness.lean` | `satisfies_iff_extractLayer` |
 | `Runtime/StackCodegen.lean` | `stackDepth_left` |
 | `Runtime/StackCodegen.lean` | `stackDepth_right` |
 | `Runtime/StackError.lean` | `gain_nonneg` |
