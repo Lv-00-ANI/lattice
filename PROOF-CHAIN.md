@@ -22,7 +22,7 @@
 | 修正：严格进展 | `repair_makes_progress` | `Lattice/Runtime/RepairClosure.lean` | 判据为假 ⟹ 测度严格下降 | 2 |
 | 修正：终止即满足 | `repair_terminates_at_sat` | `Lattice/Runtime/RepairClosure.lean` | 测度为零 ⟹ 判据为真 | 6 |
 | 再注入 | `extract_after_repair` | `Lattice/Runtime/RepairClosure.lean` | 修复到测度为零后，提取出的符号满足原约束 | 2 |
-| 端到端：数据 → 权重 | `data_to_weight_iff` | `Lattice/Runtime/EndToEndComposite.lean` | 数据的约束全部成立 ⟺ 权重层输出全为零 | 5 |
+| 端到端：数据 → 权重 | `data_to_weight_iff` | `Lattice/Runtime/EndToEndComposite.lean` | 数据的约束全部成立 ⟺ 权重层输出全为零 | 9 |
 | 回路闭合（既有） | `verification_loop_closes_holds` | `Lattice/Runtime/VerificationLoop.lean` | 修复回路闭合 | 3 |
 | 表达力：线性严格弱于非线性 | `linear_strictly_weaker_than_relu` | `Lattice/Lib/Compiler/Expressiveness.lean` | 线性载体覆盖等式子类；relu 侧的非等式解确实存在 | 1 |
 | 抽象：载体无关的判据 | `criterion` | `Lattice/Lib/Compiler/CarrierClosure.lean` | 任何载体上：约束成立 ⟺ 编译输出为零（两条义务的合取） | 65 |

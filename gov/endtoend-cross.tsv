@@ -3535,6 +3535,9 @@ Runtime/EndToEndComposite.lean	corpusToConstraintSet_eq_comp
 Runtime/EndToEndComposite.lean	corpusToLayer_eq_comp
 Runtime/EndToEndComposite.lean	data_to_weight_iff
 Runtime/EndToEndComposite.lean	data_to_weight_honest
+Runtime/EngineFirst.lean	reduction_preserves_constraint
+Runtime/EngineFirst.lean	engine_runs_before_weights
+Runtime/EngineFirst.lean	closed_loop_engine_form
 Runtime/ErrorCalculus.lean	abs_bound_inst
 Runtime/Extraction.lean	extract_compile
 Runtime/Extraction.lean	compile_injective
