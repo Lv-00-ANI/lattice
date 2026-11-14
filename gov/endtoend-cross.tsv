@@ -3708,6 +3708,8 @@ Runtime/RepresentationFamilies.lean	three_families_connected
 Runtime/SaturationQuantization.lean	clamp_eq_self
 Runtime/SaturationQuantization.lean	clamp_error
 Runtime/SaturationQuantization.lean	satQuant_saturation
+Runtime/ScopeBoundary.lean	chain_does_not_imply_engine
+Runtime/ScopeBoundary.lean	engine_needs_its_own_types
 Runtime/SemanticFaithfulness.lean	faithful_semantics
 Runtime/SemanticFaithfulness.lean	satisfies_iff_extractLayer
 Runtime/SemanticFaithfulness.lean	satisfies_extractLayer_iff_self

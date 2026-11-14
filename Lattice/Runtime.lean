@@ -88,6 +88,7 @@ import Lattice.Runtime.TypedNumericAlignment
 import Lattice.Runtime.EngineFirst
 import Lattice.Runtime.EngineSemantics
 import Lattice.Runtime.EngineReduces
+import Lattice.Runtime.ScopeBoundary
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
