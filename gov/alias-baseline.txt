@@ -855,6 +855,7 @@ forward	Runtime/SemanticFaithfulness.lean	satisfies_iff_extractLayer
 forward	Runtime/StackCodegen.lean	stackDepth_left
 forward	Runtime/StackCodegen.lean	stackDepth_right
 forward	Runtime/StackError.lean	gain_nonneg
+forward	Runtime/StructuredInit.lean	structuredInit_minimal_training
 forward	Runtime/TokenAlphabet.lean	alphabet_classifiable
 forward	Runtime/TypedNumericAlignment.lean	covers_gives_typed_encoding
 forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form

@@ -3737,6 +3737,10 @@ Runtime/StackError.lean	netAct_lipschitz_replicate
 Runtime/StackError.lean	prod_gain_nonneg
 Runtime/StackError.lean	devB_nonneg
 Runtime/StackError.lean	netAct_deviation_le_devB
+Runtime/StructuredInit.lean	structuredInit_satisfies
+Runtime/StructuredInit.lean	structuredInit_is_exact
+Runtime/StructuredInit.lean	structuredInit_minimal_training
+Runtime/StructuredInit.lean	structured_init_complete
 Runtime/SymbolToWeight.lean	compileProgram_sound
 Runtime/SymbolToWeight.lean	compileProgram_models
 Runtime/SymbolToWeight.lean	compileProgram_append
