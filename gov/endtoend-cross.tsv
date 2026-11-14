@@ -3538,6 +3538,13 @@ Runtime/EndToEndComposite.lean	data_to_weight_honest
 Runtime/EngineFirst.lean	reduction_preserves_constraint
 Runtime/EngineFirst.lean	engine_runs_before_weights
 Runtime/EngineFirst.lean	closed_loop_engine_form
+Runtime/EngineSemantics.lean	app_not_compilable
+Runtime/EngineSemantics.lean	lam_not_compilable
+Runtime/EngineSemantics.lean	pi_not_compilable
+Runtime/EngineSemantics.lean	letE_not_compilable
+Runtime/EngineSemantics.lean	structural_step_both_uncompilable
+Runtime/EngineSemantics.lean	delta_is_the_only_compilable_step
+Runtime/EngineSemantics.lean	engine_and_compiler_meet_only_at_delta
 Runtime/ErrorCalculus.lean	abs_bound_inst
 Runtime/Extraction.lean	extract_compile
 Runtime/Extraction.lean	compile_injective
