@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 628 | instantiated library, may import core only |
+| lib | 629 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -377,6 +377,7 @@
 - `Lattice.Lib.Chain.RealZMod` 
 - `Lattice.Lib.Compiler` <- `Lattice.Lib.Compiler.Combinators`, `Lattice.Lib.Compiler.CombinatorsXorNot`, `Lattice.Lib.Compiler.Disjunction`, `Lattice.Lib.Compiler.Inequality`, `Lattice.Lib.Compiler.LvDSLPartial`, `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Lib.Compiler.RealAbstractInterpretation`, `Lattice.Lib.Compiler.RealBetaConfluence`, `Lattice.Lib.Compiler.RealBetaReduction`, `Lattice.Lib.Compiler.RealBigStepSmallStep`, `Lattice.Lib.Compiler.RealBoolCompleteness`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`, `Lattice.Lib.Compiler.RealCompilerCorrectness`, `Lattice.Lib.Compiler.RealCompilerOpt`, `Lattice.Lib.Compiler.RealConcurrentSemantics`, `Lattice.Lib.Compiler.RealConstraintSat`, `Lattice.Lib.Compiler.RealContinuationEquivalence`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Compiler.RealFirstOrderLogic`, `Lattice.Lib.Compiler.RealGlobalConfluence`, `Lattice.Lib.Compiler.RealLambdaCalculus`, `Lattice.Lib.Compiler.RealLv00Compiler`, `Lattice.Lib.Compiler.RealLv00CompilerCodegen`, `Lattice.Lib.Compiler.RealLv00CompilerHonesty`, `Lattice.Lib.Compiler.RealLv00CompilerIR`, `Lattice.Lib.Compiler.RealLv00CompilerLanguage`, `Lattice.Lib.Compiler.RealLv00CompilerReal`, `Lattice.Lib.Compiler.RealLv00CompilerSat`, `Lattice.Lib.Compiler.RealLv00CompilerSpec`, `Lattice.Lib.Compiler.RealMutualRecursion`, `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Compiler.RealRecursiveSemantics`, `Lattice.Lib.Compiler.RealRefinementCalculus`, `Lattice.Lib.Compiler.RealRegisterAllocation`, `Lattice.Lib.Compiler.RealSatComplete`, `Lattice.Lib.Compiler.RealSemanticsPreservation`, `Lattice.Lib.Compiler.RealTreeDecidable`, `Lattice.Lib.Compiler.RealTreeRecursion`, `Lattice.Lib.Compiler.RealTypeSoundness`, `Lattice.Lib.Compiler.RealTypeSoundnessSTLC`, `Lattice.Lib.Compiler.RealTypeSystemExt`, `Lattice.Lib.Compiler.RealWP`, `Lattice.Lib.Compiler.RealWPWhile`, `Lattice.Lib.Compiler.RealWhileTotalCorrectness`
 - `Lattice.Lib.Compiler.CarrierClosure` <- `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Runtime.SymbolToWeightCorrectness`
+- `Lattice.Lib.Compiler.CarrierCoverage` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.CombinatorsXorNot` <- `Lattice.Lib.Compiler.Combinators`
 - `Lattice.Lib.Compiler.Disjunction` <- `Lattice.Runtime.ConvertLinear`
@@ -849,7 +850,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1406,6 +1407,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
+| `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
 | `Lattice.Lib.Compiler.CombinatorsXorNot` | 17 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
@@ -2080,7 +2082,7 @@
 An edge `A -> B` means the body of `A` mentions declaration `B` from another
 module. These are the edges that make the chain a chain rather than a list.
 
-- `ArchGraph.mem_nodes_of_edge` -> `IRSkeleton`, `RelKind`, `TensorId`, `at`, `d`, `dependsHolds`, `subst`
+- `ArchGraph.mem_nodes_of_edge` -> `IRSkeleton`, `RelKind`, `TensorId`, `at`, `d`, `dependsHolds`, `map`, `subst`
 - `B275_2_and_LoadBearing_independent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `BDD.eval_ff` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `length`, `min`, `trans`, `value`
 - `BDD.eval_ite` -> `apply`, `at`, `children`, `eval`, `induction`, `min`, `trans`, `value`
@@ -2096,8 +2098,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `C6_twoK3_partition_eq` -> `nbhdSum`
 - `C6_twoK3_same_card` -> `E`, `nbhdSet`, `nbhdSum`
 - `C_ne_zero_of_ne_zero` -> `MLayer`, `apply`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `layerParamCount`, `le_trans`, `length`, `slotOf`
-- `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
-- `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `Chain.actWith_cons` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
+- `Chain.actWith_idf` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
 - `ChainFwd_comp` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `chain_split_at`, `d`, `induction`, `zero`
 - `ChainFwd_const_add` -> `ChainFwd`, `ChainTail`, `W`, `at`, `edit_seq_bound`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `Complex.normSq_eq_abs_sq` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
@@ -2107,20 +2109,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Coverage.union_none_left` -> `run`, `sound`
 - `D1_compile_ignores_constraint_name` -> `Compiler`, `VarName`, `angle`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D1_compile_loses_distance_value` -> `Compiler`, `VarName`, `angle`, `at`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `d`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`, `sqrt_one`
-- `D22_canonical_content_one` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `canonical`, `canonical_eq_none_of_not_contentOk`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `listGcdNat`, `roundtrip_extractVec`, `scaleClassPlus_equivalence`, `scaleVec`, `scaleVec_preserves`, `trans`
-- `D22_canonical_layerAB_ne` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
+- `D22_canonical_content_one` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `canonical`, `canonical_eq_none_of_not_contentOk`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `listGcdNat`, `map`, `roundtrip_extractVec`, `scaleClassPlus_equivalence`, `scaleVec`, `scaleVec_preserves`, `trans`
+- `D22_canonical_layerAB_ne` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_canonical_layer_wellDefined_false` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize_respects_scaleClassPlus`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_canonical_layer_wellDefined_positional` -> `Layer`, `LayerContentOk`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize_respects_scaleClassPlus`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
-- `D22_canonical_range_sufficient` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `compileToLayer`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClassPlus_equivalence`, `scaleVec`, `scaleVec_preserves`, `trans`
+- `D22_canonical_range_sufficient` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `compileToLayer`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `roundtrip_extractVec`, `scaleClassPlus_equivalence`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `D22_dot_nil_zero` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `dot`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_dot_singleton_zero` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `dot`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_foldl_zero_mul` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `dot`, `induction`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
-- `D22_mem_extractLayer_iff` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
-- `D22_mem_layerAB_layerBA` -> `Layer`, `LayerContentOk`, `LinearLayer`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
+- `D22_mem_extractLayer_iff` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
+- `D22_mem_layerAB_layerBA` -> `Layer`, `LayerContentOk`, `LinearLayer`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_not_scaleClass_witness` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `at`, `cNegVec`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
-- `D22_preimageSet_equivalence` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
-- `D22_preimageSet_extractLayer` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
-- `D22_scaleClass_imp_semEq` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `scaleVec_preserves`, `trans`
+- `D22_preimageSet_equivalence` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
+- `D22_preimageSet_extractLayer` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `trans`
+- `D22_scaleClass_imp_semEq` -> `ConstraintSet`, `Layer`, `LayerContentOk`, `LinearLayer`, `PreimageSet`, `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `cNegVec`, `canonical`, `canonicalize`, `canonicalize_respects_scaleClassPlus`, `constraintContent`, `convertVec`, `dot`, `extractLayer`, `extractVec`, `induction`, `layerAB`, `layerBA`, `layerContentOk_layerAB`, `layerContentOk_layerBA`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClassPlus_equivalence`, `scaleClass_cNegVec_neg`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `D22_scaleClass_not_imp_scaleClassPlus` -> `ScaleClass`, `ScaleClassPlus`, `VectorConstraint`, `cNegVec`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_scaleClass_strictly_finer` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `cNegVec`, `scaleClass_cNegVec_neg`, `scaleVec`
 - `D22_semEqC_witness` -> `ScaleClass`, `ScaleClassPlus`, `SemEqC`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `length`, `length_cons`, `scaleClass_cNegVec_neg`, `scaleVec`
@@ -2137,24 +2139,24 @@ module. These are the edges that make the chain a chain rather than a list.
 - `E1Bridge_cons` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `E1Bridge_length` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `E7_honesty_register` -> `ConstraintSet`, `VectorConstraintSat`
-- `E8_L1L2_ring_is_lossless` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `tokenize`
-- `E8_e2e_kernel_inert` -> `ConstraintSet`, `SameTokens`, `compileToLayer`, `tokenize`
-- `E8_injective_map_is_second_source_free` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `tokenize`
-- `E8_later_ring_inert` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `tokenize`
-- `E8_load_bearing_summary` -> `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `tokenize`
-- `E8_merge_at_L0L1_witness` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `tokenize`
+- `E8_L1L2_ring_is_lossless` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `map`, `tokenize`
+- `E8_e2e_kernel_inert` -> `ConstraintSet`, `SameTokens`, `compileToLayer`, `map`, `tokenize`
+- `E8_injective_map_is_second_source_free` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `map`, `tokenize`
+- `E8_later_ring_inert` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `map`, `tokenize`
+- `E8_load_bearing_summary` -> `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `map`, `tokenize`
+- `E8_merge_at_L0L1_witness` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `map`, `tokenize`
 - `E8_merges_aligns_with_SameTokens` -> `SameTokens`, `tokenize`
-- `E8_merges_iff_not_injective` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `apply`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `tokenize`
-- `E8_merges_is_nonvacuous` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `tokenize`
-- `E8_nonInjective_map_merges` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `tokenize`
-- `E8_null_source_control` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `tokenize`
-- `E8_source_at_L0L1_exists` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `tokenize`
-- `E8_source_count_exactly_one` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `tokenize`
+- `E8_merges_iff_not_injective` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `apply`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `map`, `tokenize`
+- `E8_merges_is_nonvacuous` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `map`, `tokenize`
+- `E8_nonInjective_map_merges` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `map`, `tokenize`
+- `E8_null_source_control` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `encode_injective`, `map`, `tokenize`
+- `E8_source_at_L0L1_exists` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `at`, `compileToLayer`, `compileToLayer_injective`, `encode`, `encode_injective`, `length`, `length_cons`, `map`, `tokenize`
+- `E8_source_count_exactly_one` -> `CharToken`, `ConstraintSet`, `Layer`, `SameTokens`, `SymToken`, `compileToLayer`, `encode`, `map`, `tokenize`
 - `EGraph.find` -> `addConstraint`, `at`, `encode`, `g`, `le_trans`, `length`, `length_cons`, `output`, `point`, `split`, `splitOn`
-- `EditLayer_ORIGINAL_delta_not_pinned_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
-- `EditLayer_ORIGINAL_is_too_weak_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `subst`, `symVec`
-- `EditLayer_consequence` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
-- `EditLayer_delta_not_unique` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `subst`
+- `EditLayer_ORIGINAL_delta_not_pinned_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
+- `EditLayer_ORIGINAL_is_too_weak_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `subst`, `symVec`
+- `EditLayer_consequence` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`, `subst`
+- `EditLayer_delta_not_unique` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `map`, `subst`
 - `ExpDist_const` -> `Subgradient`, `at`, `g`
 - `ExpDist_nonneg` -> `Subgradient`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `ExpGap_const` -> `Subgradient`, `at`, `g`
@@ -2172,7 +2174,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `FFN_linear_on_fixed_mask` -> `W`, `apply`, `at`, `relu`, `relu_eq_zero_iff`
 - `FOTraj_quad_exact` -> `apply`, `at`, `induction`, `le_refl`, `zero`
 - `FOTraj_succ` -> `apply`, `at`, `g`, `induction`, `le_refl`, `zero`
-- `FamilySolver.holdsSet_all` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `FamilySolver.holdsSet_all` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `map`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `FinSupport.ofFun_toFun` -> `IRWeights`, `W`, `at`
 - `FinSupport.toFun_apply` -> `IRWeights`, `W`, `at`
 - `FinSupport.toFun_apply_out` -> `IRWeights`, `W`, `at`
@@ -2210,11 +2212,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `IsKSparse_iff_l0Norm_le` -> `ConstraintSet`, `IsKSparse`, `Layer`, `VectorConstraint`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `coreVecToReal`, `ctr`, `extractLayer`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `l0Norm`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `toRealVec`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `IsStrictLocalMax.toIsLocalMax` -> `IsStrictLocalMin`, `at`, `exists_box_of_continuousAt_neg`, `g`, `mono`, `second_order_sufficient`, `strict_local_min_of_deriv_sign`, `toIsLocalMin`
 - `IsStrictLocalMin.toIsLocalMin` -> `at`, `g`, `le_trans`, `min`, `mono`, `subst`
-- `L1BridgeNoSep_cons` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
+- `L1BridgeNoSep_cons` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
 - `L1Bridge_append` -> `Chain`, `CharToken`, `L1Bridge`, `L1Bridge_cons`, `append_assoc`, `d41_toSegs_L1Bridge`, `induction`, `length`, `nil_append`, `toSegs`
 - `L1Bridge_append_length` -> `Chain`, `CharToken`, `L1Bridge`, `d41_toSegs_L1Bridge`, `length`, `toSegs`
-- `L1Bridge_cons` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
-- `L1Bridge_length` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `L1Bridge_cons` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
+- `L1Bridge_length` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
 - `LoRAEdit_add_apply` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`
 - `LvMagicTable.findByName_name` -> `apply`, `at`, `find`
 - `MExpr.decEq_eq_iff_decide` -> `Flat`, `MExpr`
@@ -2245,10 +2247,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `MStmt.size_seq_right_lt` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MStmt.size_skip` -> `induction`, `lit`, `size`, `size_pos`, `subst`
 - `MatLayerOut_eq_matvecE` -> `W`, `apply`, `at`, `matvecE`, `matvecE_sub`, `single`, `trivial`
-- `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `at`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
+- `MatrixRow.strength_eq` -> `Primitive`, `Strength`, `at`, `le_antisymm`, `le_trans`, `map`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `Model.eval_lipschitz` -> `apply`, `blocks`
 - `Model.eval_nil` -> `apply`, `blocks`, `induction`
-- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `requires`, `semantics`, `soundness`
+- `ObligationKind.all_length` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `map`, `proof`, `requires`, `semantics`, `soundness`
 - `Omega_not_normalForm` -> `BetaStar`, `Compiler`, `Term`, `at`, `betaSubst`, `lift`, `redI`
 - `P0_normal_equation` -> `E`, `at`, `trans`
 - `P0_normal_equation_scalar` -> `E`, `at`
@@ -2264,7 +2266,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `PMix_stationarity_characterization` -> `at`
 - `PMix_stationarity_implies_satisfied` -> `add`, `at`
 - `P_ne_L` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `nil_append`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `proof`, `requires`, `semantics`, `soundness`
+- `PluginLayer.card_eq_eight` -> `completeness`, `compose`, `empty`, `layer`, `length`, `lt`, `map`, `proof`, `requires`, `semantics`, `soundness`
 - `PluginManifest.empty_claims_false` -> `completeness`, `empty`, `layer`, `soundness`
 - `PluginManifest.empty_never_covers` -> `empty`, `layer`
 - `PluginProof.trivial_fields` -> `Holds`, `PluginLayer`, `PluginManifest`, `PluginName`, `at`, `claims`, `completeness`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `proof`, `soundness`
@@ -2277,16 +2279,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `QuadGrad_eq` -> `Subgradient`, `at`
 - `QuadIter_exact` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `strong_convex_gap_bound`, `zero`
 - `QuadStep_eq` -> `Smooth`, `StrongConvex`, `Subgradient`, `at`, `induction`, `strong_convex_gap_bound`, `zero`
-- `R02_canonical_single_valued` -> `ConstraintSet`, `canonicalize`, `compileToLayer`, `convertVec`
-- `R02_canonical_well_defined_on_image` -> `ConstraintSet`, `canonicalize`, `compileToLayer`, `convertVec`, `extractVec`, `roundtrip_extractVec`
-- `R02_canonicalize_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_preserves_sat`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `R02_correctness_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `canonicalize`, `canonicalize_preserves_sat`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `R02_layer_canonical_not_unique_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `subst`
-- `R02_layer_canonical_not_unique_perm` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `R02_layer_canonical_not_unique_scale` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `R02_preimage_definitions_not_equivalent` -> `ConstraintSet`, `Layer`, `LinearLayer`, `at`, `canonicalize`, `compileToLayer`, `convertVec`, `extractVec`, `roundtrip_extractVec`
-- `R02_sign_obstruction_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `R02_uniqueness_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_canonical_single_valued` -> `ConstraintSet`, `canonicalize`, `compileToLayer`, `convertVec`, `map`
+- `R02_canonical_well_defined_on_image` -> `ConstraintSet`, `canonicalize`, `compileToLayer`, `convertVec`, `extractVec`, `map`, `roundtrip_extractVec`
+- `R02_canonicalize_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_preserves_sat`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_correctness_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cNegVec`, `canonicalize`, `canonicalize_preserves_sat`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_layer_canonical_not_unique_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `roundtrip_extractVec`, `subst`
+- `R02_layer_canonical_not_unique_perm` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_layer_canonical_not_unique_scale` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_preimage_definitions_not_equivalent` -> `ConstraintSet`, `Layer`, `LinearLayer`, `at`, `canonicalize`, `compileToLayer`, `convertVec`, `extractVec`, `map`, `roundtrip_extractVec`
+- `R02_sign_obstruction_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `R02_uniqueness_already_exists` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_scaleVec_neg_cNegVec`, `canonicalize_section_pos`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `RMSNormOp_eq_rmsNormE` -> `W`, `convComb_lipschitz_prob`, `linear_map_lipschitz`, `lipschitz_add`, `rmsNormE`, `rmsNormE_sqrt_lipschitz`
 - `ROBDD.isOrdered_of_lt` -> `at`, `children`, `e2`, `eval`, `induction`, `min`, `value`
 - `ROME_pointwise_edit` -> `E`, `W`
@@ -2321,7 +2323,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `Text.ofList_encode` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `Text_encode_ab` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `TwoK3Edges_two_regular` -> `E`, `nbhdSet`, `nbhdSum`
-- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `proof`, `requires`, `soundness`
+- `Version.not_lt_self` -> `completeness`, `empty`, `layer`, `lt`, `map`, `proof`, `requires`, `soundness`
 - `W1_bddBelow` -> `IsTransportPlan`, `le_antisymm`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `W1_comm` -> `IsOneLipschitz`, `IsTransportPlan`, `le_trans`, `sInf`, `step`, `transportCost`
 - `W1_image_comm` -> `IsTransportPlan`, `le_antisymm`, `sInf`, `transportCost`
@@ -2335,13 +2337,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `aabb_contains_union_left` -> `Geometry`, `at`, `le_trans`
 - `aabb_union_pMax_ge` -> `Geometry`, `at`, `le_trans`
 - `aabb_union_pMin_le` -> `Geometry`, `at`, `le_trans`
-- `abiTable_certificate` -> `CFunction`, `CType`, `abiTable`, `abiTable_errors_wellFormed`, `abiTable_length`, `abiTable_names_nodup`, `abiTable_returns_a_value`, `errorsWellFormed`, `length`
-- `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
-- `abiTable_errors_wellFormed` -> `at`, `primitiveNames`
-- `abiTable_length` -> `at`, `length`, `primitiveNames`
-- `abiTable_names_eq_verified` -> `primitiveNames`
-- `abiTable_names_nodup` -> `at`, `primitiveNames`
-- `abiTable_returns_a_value` -> `at`, `primitiveNames`
+- `abiTable_certificate` -> `CFunction`, `CType`, `abiTable`, `abiTable_errors_wellFormed`, `abiTable_length`, `abiTable_names_nodup`, `abiTable_returns_a_value`, `errorsWellFormed`, `length`, `map`
+- `abiTable_compose_args` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `map`, `optional`, `parallel`
+- `abiTable_errors_wellFormed` -> `at`, `map`, `primitiveNames`
+- `abiTable_length` -> `at`, `length`, `map`, `primitiveNames`
+- `abiTable_names_eq_verified` -> `map`, `primitiveNames`
+- `abiTable_names_nodup` -> `at`, `map`, `primitiveNames`
+- `abiTable_returns_a_value` -> `at`, `map`, `primitiveNames`
 - `abiTable_signature_only` -> `abiTable`
 - `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
@@ -2415,10 +2417,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `actLayerAct_cubic` -> `W`
 - `actLayerAct_cubic_zero` -> `W`
 - `actLayerAct_zero_cubic` -> `W`
-- `actStackEval_append` -> `AffineLayer`, `Ladder`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `decode`, `encode`, `g`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `roundtrip`, `satSym`, `satW`
-- `actStackEval_nil` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
-- `actStackEval_of_no_activation` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
-- `actStackSingle_affine` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `netAct`, `relu`
+- `actStackEval_append` -> `AffineLayer`, `Ladder`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `decode`, `encode`, `g`, `identityTokenizer`, `ladder_forward`, `length`, `map`, `netAct`, `roundtrip`, `satSym`, `satW`
+- `actStackEval_nil` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `map`, `netAct`, `relu`
+- `actStackEval_of_no_activation` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `map`, `netAct`, `relu`
+- `actStackSingle_affine` -> `Activation`, `AffineLayer`, `affineAct`, `at`, `induction`, `le_refl`, `map`, `netAct`, `relu`
 - `act_append` -> `induction`
 - `act_apply` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `apply`, `at`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
 - `act_cast_fst` -> `Chain`, `act`, `subst`
@@ -2436,14 +2438,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `act_zero_apply` -> `AffineLayer`, `Ladder`, `W`, `act_zero_eq_zero_iff`, `affineAct`, `at`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`
 - `act_zero_eq_zero_iff` -> `AffineLayer`, `Ladder`, `W`, `affineAct`, `at`, `compileToLayer`, `decode`, `encode`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `roundtrip`, `satSym`, `satW`
 - `act_zero_of_all_zero` -> `AffineLayer`, `Ladder`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `satSym`, `satW`
-- `act_zero_of_all_zero_full` -> `AffineLayer`, `Ladder`, `W`, `act_zero_apply`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `layerOfListFull`, `length`, `listOfLayer`, `netAct`, `roundtrip`, `satSym`, `satW`
-- `activated_closure_iff_zeroFixing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
-- `activated_extract_cannot_repair` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
-- `activated_loop_breaks` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `extractVec`, `g`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
-- `activationLadder_forward` -> `AffineLayer`, `Ladder`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `g`, `ladder_forward`, `length`, `netAct`, `satSym`, `satW`
-- `activationLadder_l2l3_is_a_split` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `g`, `length`, `netAct`
-- `activationLadder_requires_activation` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `netAct`
-- `activation_strictly_stronger` -> `Activation`, `AffineLayer`, `netAct`, `relu`
+- `act_zero_of_all_zero_full` -> `AffineLayer`, `Ladder`, `W`, `act_zero_apply`, `affineAct`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `layerOfListFull`, `length`, `listOfLayer`, `map`, `netAct`, `roundtrip`, `satSym`, `satW`
+- `activated_closure_iff_zeroFixing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
+- `activated_extract_cannot_repair` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
+- `activated_loop_breaks` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `extractVec`, `g`, `length`, `linearization_global_fails`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `toVec`, `trans`
+- `activationLadder_forward` -> `AffineLayer`, `Ladder`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `g`, `ladder_forward`, `length`, `map`, `netAct`, `satSym`, `satW`
+- `activationLadder_l2l3_is_a_split` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `g`, `length`, `map`, `netAct`
+- `activationLadder_requires_activation` -> `AffineLayer`, `StackLayer`, `actStackEval`, `actStackEval_of_no_activation`, `map`, `netAct`
+- `activation_strictly_stronger` -> `Activation`, `AffineLayer`, `map`, `netAct`, `relu`
 - `activeSet_card_le` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `activeSet_subset` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `active_choice_passive_content` -> `Gaze`, `g`, `up`
@@ -2467,8 +2469,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `additive_relpos_scoreDist_lipschitz` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `additive_relpos_score_lipschitz` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `adjoint_holds` -> `extent`, `galois_connection`, `intent`
-- `adjunction_triangle_idem` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
-- `adjunction_triangle_object` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
+- `adjunction_triangle_idem` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `trans`
+- `adjunction_triangle_object` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `trans`
 - `admissible_iff_no_strict_improvement` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `admissible_iff_not_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `admissible_iff_not_dominated_qualified` -> `Admissible`, `DecisionRule`, `Dominated`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compiledToCLM`, `layerToCLM`, `unique_bayes_admissible`
@@ -2494,9 +2496,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `admm_x_stationarity` -> `at`, `contraction_converges`
 - `admm_z_minimizer` -> `add`, `at`
 - `aestronglyMeasurable_of_measurable` -> `apply`, `mono`
-- `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `affineAct_abs_le` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_eq_affineCLM_add` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `affineAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
 - `affineAct_segment` -> `W`
@@ -2527,10 +2529,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `affine_second_difference` -> `W`
 - `agreement_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `agreement_convertVec_bijective` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `agreement_gap_shape` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
-- `agrees_not_subsumes_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `agrees_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
+- `agrees_not_subsumes_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `alibi_attention_output_bound` -> `at`, `attention_output_bound`, `convComb`, `dist`, `softmax`, `softmax_monotone`
 - `alibi_bias_lipschitz` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `alibi_bias_monotone` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
@@ -2543,9 +2545,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `alibi_score_is_bounded_perturbation` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `alibi_softmax_close_to_standard` -> `LinfNorm`, `apply`, `at`, `attention_output_bound`, `convComb`, `dist`, `le_trans`, `softmax`, `softmax_lipschitz_coord`, `softmax_monotone`
 - `allMandatoryKindsCovered_nil_fails` -> `at`, `mandatoryKinds`, `soundness`
-- `allSatisfied_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `decode`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
-- `allZeroOutputs_append` -> `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
-- `all_contains_of_subset` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
+- `allSatisfied_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `decode`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `allZeroOutputs_append` -> `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `map`, `nil_append`, `residual`, `scaleVec`
+- `all_contains_of_subset` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
 - `all_deviations_tail` -> `at`, `card_fin`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_deviations_tail_classic` -> `apply`, `at`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `all_indices_bound_too_strong` -> `Term`, `countVar`
@@ -2565,26 +2567,26 @@ module. These are the edges that make the chain a chain rather than a list.
 - `andC_pos_of_ne` -> `at`, `subst`
 - `and_or_not_complete` -> `Compiler`
 - `annotation_realizes` -> `Edit`, `Holds`, `Pt`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
-- `anyEditLayer_always` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `anyEditLayer_iff_true` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `any_compile_side_path_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
+- `anyEditLayer_always` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `anyEditLayer_iff_true` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
+- `any_compile_side_path_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `any_edit_relation_gives_symbol_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `any_geluTanhDerivBound_ge_half` -> `at`, `geluTanhDeriv`
 - `any_shape_is_exactly_representable` -> `LayerParams`, `Representation`, `compile`, `extract`, `layerOfListRect`, `length`
-- `app_indexed_covered_nonzero` -> `Names`, `Term`, `arch`, `at`, `covered`, `fillWith`, `readOf`, `shapesOf`
+- `app_indexed_covered_nonzero` -> `Names`, `Term`, `arch`, `at`, `covered`, `fillWith`, `map`, `readOf`, `shapesOf`
 - `app_typed_noConsts` -> `CICCtx`, `HasType`, `Term`, `noConsts`
 - `append_assoc` -> `Audit`, `induction`, `mul`, `one`
-- `append_eq_zipWith_add_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_eq_zipWith_add_iff_length_necessary` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_is_not_truncating` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
-- `append_ne_zipWith_add_witness` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
+- `append_eq_zipWith_add_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `totalLoss`
+- `append_eq_zipWith_add_iff_length_necessary` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `totalLoss`
+- `append_is_not_truncating` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
+- `append_ne_zipWith_add_witness` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `totalLoss`
+- `append_ne_zipWith_of_cons` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`, `nil_append`
 - `append_nil` -> `Audit`, `induction`, `mul`, `one`
 - `application_outputs_absorbable` -> `at`, `layer`, `length`
 - `applyCorrect_tt_const` -> `all`, `apply`, `at`, `children`, `d`, `eval`, `induction`, `length`, `min`, `trans`, `value`
 - `applyEdit_at_orthogonal_key` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `induction`, `key_norm_sq_ne_zero`
-- `applyEdit_other` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
-- `applyEdit_self` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `applyEdit_other` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
+- `applyEdit_self` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
 - `applyEdit_writes_fact` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `applyInstr_attention_between` -> `Instr`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `le`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_attention_lipschitz` -> `Instr`, `W`, `applyInstr`, `attention`, `finNonempty`, `le`, `le_trans`, `rowDot_lipschitz`, `softmax_lipschitz`, `softmax_sum_one`, `sum_exp_pos`, `weighted_average_lipschitz`, `weighted_average_weights_lipschitz`
@@ -2599,14 +2601,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `applyInstr_softmax_nonneg` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `eval_append`, `le`, `softmax`, `softmax_lipschitz`, `softmax_nonneg`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_softmax_pos` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `eval_append`, `le`, `softmax`, `softmax_lipschitz`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
 - `applyInstr_softmax_sum_one` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `eval_append`, `le`, `softmax`, `softmax_lipschitz`, `softmax_pos`, `softmax_sum_one`, `sum_exp_pos`
-- `applyMomentum_velocity` -> `Primitive`, `g`, `run`, `sound`
+- `applyMomentum_velocity` -> `Primitive`, `g`, `map`, `run`, `sound`
 - `applySeq_swap` -> `Effect`, `RState`, `apply`, `applySeq`, `undoSeq`, `undo_apply`
-- `applySgd_contracts` -> `Primitive`, `apply`, `g`, `run`, `sound`
-- `applySgd_run` -> `Primitive`, `apply`, `g`, `run`, `sound`
-- `applySymEdit_getD` -> `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `subst`, `zero`
-- `applySymEdit_getElem` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `subst`, `zero`
-- `applySymEdit_length` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `subst`, `zero`
-- `applySymEdit_off_support_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `applySgd_contracts` -> `Primitive`, `apply`, `g`, `map`, `run`, `sound`
+- `applySgd_run` -> `Primitive`, `apply`, `g`, `map`, `run`, `sound`
+- `applySymEdit_getD` -> `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `map`, `subst`, `zero`
+- `applySymEdit_getElem` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `map`, `subst`, `zero`
+- `applySymEdit_length` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `dot`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `map`, `subst`, `zero`
+- `applySymEdit_off_support_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraintSat`, `append_nil`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `apply_comm` -> `Effect`, `RState`, `apply`, `applySeq`, `subst`, `undoSeq`, `undo_apply`
 - `approxOn_mono_domain` -> `g`, `le_trans`
 - `approxOn_trans` -> `g`, `le_trans`, `min`
@@ -2795,7 +2797,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `be_trans` -> `BehaviourallyEquivalent`, `trans`
 - `beh_coarser_than_recover` -> `Layer`, `SymToken`, `g`
 - `beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
-- `behavior_ignores_active` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `behavior_ignores_active` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
 - `behavior_token_independent` -> `Carrier`, `Geometry`, `Inherits`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `behaviouralFibre_card_ge_two` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
@@ -2852,10 +2854,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bestAbstract_sound` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `bestAbstract_unique_least` -> `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `zero`
 - `bestApprox_self` -> `frobeniusNorm`
-- `bestPrefixV_VAll_eq` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `bestPrefixV_VAll_eq` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
 - `bestPrefixV_Vzz_in` -> `CharToken`, `at`, `bestPrefix`
 - `bestPrefixV_Vzz_oov` -> `CharToken`, `at`, `bestPrefix`
-- `bestPrefixV_Vzz_zz` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `bestPrefixV_Vzz_zz` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
 - `bestPrefixV_empty` -> `CharToken`, `at`
 - `bestPrefix_degenerate_succeeds` -> `CharToken`, `at`, `bestPrefix`
 - `bestPrefix_eq_max_intent` -> `CharToken`, `at`, `bestPrefix`, `length`, `lookupTok_ne_none`, `pieceOf`
@@ -2937,7 +2939,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `binderCommutation_counterexample` -> `Subst`, `Term`, `inst`, `lift`, `shift`, `sid`
 - `binderCommutation_false` -> `Subst`, `Term`, `inst`, `lift`, `shift`, `sid`
 - `binderCommutation_needs_identity_at_zero_false` -> `Subst`, `Term`, `inst`, `lift`, `shift`, `sid`
-- `bl_getD` -> `AffineLayer`, `W`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `bl_getD` -> `AffineLayer`, `W`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
 - `blockDot_period_invariance` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `blockSparseSoftmax_eq_masked` -> `E`, `card_fin`, `causalDenom`, `causalMask`, `convComb`, `convComb_lipschitz_prob`, `full_mask_eq_softmax`, `maskedDenom`, `maskedDenom_pos`, `maskedSoftmax`, `maskedSoftmax_nonneg`, `maskedSoftmax_sum_one`, `masked_attention_output_bound`, `softmax`, `split`
 - `block_causal_lipschitz` -> `E`
@@ -3005,7 +3007,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bregman_nonneg` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
 - `bregman_strong_lower` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
 - `bregman_three_point` -> `StrongConvex`, `at`, `sum_range_sub_telescoping`
-- `bridge_empty` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `empty`, `length`
+- `bridge_empty` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `empty`, `length`, `map`
 - `bridge_exists` -> `Pt`, `Repair`, `Sat`, `constraintDomain`, `iterate`, `programDomain`
 - `bridge_is_necessary` -> `Audit`, `at`, `g`
 - `bridgedCount_append` -> `Audit`, `induction`, `mul`, `one`
@@ -3034,8 +3036,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bytesPerWord_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `bf16`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `c1_solve_reads_spec_holds` -> `Pt`, `Representation`, `compile`, `extract`, `fullFamilySolver`, `instances_at_different_carriers`, `t4_loop_fixed_point`, `t4_loop_fixed_point_holds`
 - `c4_roundtrip_instances_holds` -> `instances_at_different_carriers`, `t4_loop_fixed_point`, `t4_loop_fixed_point_holds`
-- `cEx_actAllZero_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
-- `cEx_not_allSatisfied_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `cEx_actAllZero_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `cEx_not_allSatisfied_neg5` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
 - `cInner_add_left` -> `at`, `g`, `le_trans`, `normSq`
 - `cInner_comm` -> `at`, `g`, `le_trans`, `normSq`, `normSq_nonneg`
 - `cInner_eq_re_mul_conj` -> `at`, `g`, `le_trans`, `normSq`, `normSq_nonneg`
@@ -3068,47 +3070,47 @@ module. These are the edges that make the chain a chain rather than a list.
 - `canonicalKinds_length` -> `length`
 - `canonical_abs` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `canonical_const` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Neutral`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
-- `canonical_eq_none_of_not_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `canonical_form_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
+- `canonical_eq_none_of_not_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `canonical_form_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
 - `canonical_forms_bool` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
 - `canonical_forms_ext_bool` -> `add`, `e2`, `induction`, `step`
 - `canonical_forms_ext_int` -> `add`, `e2`, `induction`, `step`
 - `canonical_forms_ext_real` -> `add`, `e2`, `induction`, `step`
 - `canonical_forms_int` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
 - `canonical_forms_real` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
-- `canonical_isSome_of_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `canonical_isSome_of_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `canonical_lam` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Neutral`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
 - `canonical_no_need_to_step_sort` -> `CICCtx`, `Canonical`, `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `length`
 - `canonical_not_app` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Level`, `Neutral`, `SortKind`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
 - `canonical_not_letE` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Level`, `Neutral`, `SortKind`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
-- `canonical_not_refl_for_arbitrary` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `canonical_not_refl_for_arbitrary` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
 - `canonical_pi` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Neutral`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
-- `canonical_representative_gives_quotient_inverse` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `canonical_representative_gives_quotient_inverse` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `canonical_representative_needed` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `canonical_sort` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Level`, `Neutral`, `SortKind`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
 - `canonical_var` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Neutral`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
-- `canonicalization_not_free` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `canonicalization_not_free` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `canonicalizeOnPlusQuotient_mk` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `lift`, `sound`, `tokenize`
-- `canonicalizeThenCompile_eq_iff` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
-- `canonicalize_absorbs_scale_pos` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
+- `canonicalizeThenCompile_eq_iff` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `canonicalize_absorbs_scale_pos` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `canonicalize_cCommVec` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `canonicalize_cNegVec` -> `VectorConstraint`, `apply`, `at`, `g`, `scaleVec`, `sign`
-- `canonicalize_comm_scaleVec_iff` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
+- `canonicalize_cNegVec` -> `VectorConstraint`, `apply`, `at`, `g`, `map`, `scaleVec`, `sign`
+- `canonicalize_comm_scaleVec_iff` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `canonicalize_comm_scaleVec_pm_one` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `scaleVec`, `scaleVec_one`, `sign`
 - `canonicalize_compile_comm_fails` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `canonicalize_editConstraint_not_commute` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `canonicalize_editConstraint_not_commute_witness_content_eq` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `canonicalize_idempotent` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
-- `canonicalize_iff_content_one` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
-- `canonicalize_injective_on_quotient_boundary` -> `VectorConstraint`, `apply`, `at`, `g`, `scaleVec`, `sign`
+- `canonicalize_editConstraint_not_commute` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `canonicalize_editConstraint_not_commute_witness_content_eq` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `canonicalize_idempotent` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `canonicalize_iff_content_one` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `canonicalize_injective_on_quotient_boundary` -> `VectorConstraint`, `apply`, `at`, `g`, `map`, `scaleVec`, `sign`
 - `canonicalize_nontrivial_on_proper_subset` -> `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`
-- `canonicalize_of_content_one` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
-- `canonicalize_preserves_sat` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `canonicalize_of_content_one` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `canonicalize_preserves_sat` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
 - `canonicalize_respects_scaleClassPlus` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `lift`, `sound`, `tokenize`
-- `canonicalize_scaleVec_neg_cNegVec` -> `VectorConstraint`, `apply`, `at`, `g`, `scaleVec`, `sign`
-- `canonicalize_scaleVec_sign` -> `VectorConstraint`, `apply`, `scaleVec`, `sign`
-- `canonicalize_scaleVec_sign_law` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
-- `canonicalize_section_pos` -> `VectorConstraint`, `apply`, `g`, `scaleVec`, `sign`
+- `canonicalize_scaleVec_neg_cNegVec` -> `VectorConstraint`, `apply`, `at`, `g`, `map`, `scaleVec`, `sign`
+- `canonicalize_scaleVec_sign` -> `VectorConstraint`, `apply`, `map`, `scaleVec`, `sign`
+- `canonicalize_scaleVec_sign_law` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `canonicalize_section_pos` -> `VectorConstraint`, `apply`, `g`, `map`, `scaleVec`, `sign`
 - `canonicalize_subset_is_proper` -> `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`
 - `capacity_bound_degenerate` -> `card_fin`
 - `capacity_bound_eq_top` -> `card_fin`
@@ -3118,7 +3120,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cardLE_refl` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `card_fin` -> `all`, `at`, `bvar`, `induction`
 - `card_mul_condExpFiber` -> `apply`, `at`, `d`, `g`
-- `carrier_length_laws` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `carrier_length_laws` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `castConstraint_b_eq_convertVec_b` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `ProbVec`, `VectorConstraint`, `at`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `cast_cast` -> `subst`, `trans`
 - `cauchy_schwarz_eq_imp_proportional` -> `at`
@@ -3181,8 +3183,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ce_sum_neg` -> `apply`, `at`, `softmax`
 - `cellEdit_delta_closed_form` -> `W`, `apply`
 - `cellEdit_depends_only` -> `W`, `apply`
-- `census_env_agrees` -> `Audit`, `size`
-- `census_length` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `length`, `size`
+- `census_env_agrees` -> `Audit`, `map`, `size`
+- `census_length` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `length`, `map`, `size`
 - `centerSq_add_const` -> `apply`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_nonneg` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
 - `centerSq_scale` -> `apply`
@@ -3290,7 +3292,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chainOne_output_degree` -> `MLayer`, `at`, `d`, `eval`, `g`, `single`
 - `chainOne_output_eval` -> `MLayer`, `apply`, `at`, `d`, `eval`, `g`, `le_antisymm`, `single`
 - `chainOne_output_poly_exists` -> `MLayer`, `apply`, `at`, `d`, `eval`, `g`, `le_antisymm`, `single`
-- `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `chainParams_idf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
 - `chainPoly_degree_le` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainPoly_idf` -> `Chain`, `MLayer`, `at`, `le_trans`
 - `chainQuad_m_zero` -> `apply`, `at`, `le_refl`
@@ -3324,9 +3326,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `channelPush_zero_col` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
 - `channel_op_bound` -> `d`, `frobeniusNorm`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
 - `channel_pruning_bound` -> `d`, `frobeniusNorm`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `opNorm_le_frobenius`, `prune_chain_error`, `quantFwd`
-- `charCode_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
-- `charCode_separates_constructors` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `foldBlanks`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `recover`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
-- `charCode_single_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `charCode_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `charCode_separates_constructors` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `foldBlanks`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `recover`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `charCode_single_injective` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
 - `charP_natCast_eq_zero` -> `Surjective`, `at`, `subst`
 - `charP_of_injective` -> `Surjective`, `at`, `subst`
 - `charP_surjective_not_preserved` -> `Surjective`, `at`, `subst`
@@ -3407,9 +3409,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `clm_apply_sum_smul_single` -> `add`, `at`, `comp`, `path`, `quadForm`, `second_order_taylor`, `single`
 - `closed_head_lt` -> `CICCtx`, `Closed`, `Neutral`, `Term`, `at`, `induction`, `length`
 - `closed_lift` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
-- `closed_loop_adds_nothing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
-- `closed_loop_dot_representation_unambiguous` -> `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `toVec`
-- `closed_loop_idempotent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `closed_loop_adds_nothing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `closed_loop_dot_representation_unambiguous` -> `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `map`, `toVec`
+- `closed_loop_idempotent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `closed_nil_iff` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `d`, `templateNames`
 - `closed_ren` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
 - `closed_subst_eq` -> `Term`, `induction`, `subst`
@@ -3436,8 +3438,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `codomains_differ_at_d` -> `d`
 - `coeff_C_of_ne_zero` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `coherence_le_mutualCoherence` -> `at`, `l0Norm`, `le_trans`, `sqrt_one`
-- `colMag_le_layerMag` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `colMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `colMag_le_layerMag` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `colMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `colMin_eq_pairing_dirac` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `colMin_le_pairing` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `col_norm_le_opNorm` -> `apply`, `at`, `card_fin`, `single`
@@ -3470,27 +3472,27 @@ module. These are the edges that make the chain a chain rather than a list.
 - `comm_honesty_register` -> `VectorConstraint`, `canonicalize`, `constraintContent`, `scaleVec`, `sign`
 - `comm_scaleVec_fails_of_ne_pm_one` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
 - `commutativeBlock_trivial` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`, `trivial`
-- `commute_comp_right` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
+- `commute_comp_right` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
 - `commute_iff_on_generators` -> `Compiler`, `at`, `comp`, `g`
-- `commute_of_commute_fn` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
-- `commute_of_disjoint` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
-- `commute_refl` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
-- `commute_symm` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
+- `commute_of_commute_fn` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
+- `commute_of_disjoint` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
+- `commute_refl` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
+- `commute_symm` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
 - `commute_with_list` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
 - `commute_with_list_via` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
-- `commute_write_write` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
+- `commute_write_write` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
 - `compBound_le_of_le` -> `E`, `apply`, `le_trans`
 - `compBound_monotone` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_nonneg` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compBound_succ` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `compSubst_apply` -> `Subst`, `Term`, `at`, `induction`, `inst`, `lift`, `zero`
 - `comp_apply_strictMono` -> `at`, `comp`, `g`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
-- `comp_assoc_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `g`, `induction`, `scaleVec`
+- `comp_assoc_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `g`, `induction`, `map`, `scaleVec`
 - `comp_candidate_false` -> `Term`, `at`, `subst`, `subst_var_eq`, `subst_var_gt`
 - `comp_eq` -> `Term`, `subst`, `subst_var_eq`, `subst_var_gt`
 - `comp_gt_eq` -> `Term`, `subst`, `subst_var_eq`, `subst_var_gt`
 - `comp_gt_succ` -> `Term`, `subst`, `subst_var_eq`, `subst_var_gt`
-- `comp_id_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
+- `comp_id_lemma` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
 - `comp_lt` -> `Term`, `subst`, `subst_var_eq`, `subst_var_gt`, `subst_var_lt`
 - `comp_norm_bound` -> `E`, `W`
 - `comp_row_eq_agrees` -> `Term`, `at`, `comp_eq`, `subst`, `subst_var_eq`, `subst_var_gt`
@@ -3501,8 +3503,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileAcc_correct` -> `add`, `induction`, `length`, `length_cons`, `lit`, `mul`
 - `compileFailed_not_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `compileFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
-- `compileIR_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`
-- `compileImage_syntacticFunctor_eq_weightFunctor` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `compileIR_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`, `map`
+- `compileImage_syntacticFunctor_eq_weightFunctor` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compileObs_closure_trivial` -> `VectorConstraint`, `at`, `obs`
 - `compileObs_injective` -> `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `obs`
 - `compileProg_correct` -> `add`, `length`, `lit`, `mul`
@@ -3512,30 +3514,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileReachable_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `compileSkel_injective` -> `Term`, `at`, `parse`, `skeletonCode`, `skeletonCode_injective`
 - `compileSkel_parse_congr` -> `Term`, `parse`
-- `compileThenCanonicalize_apply` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
-- `compileThenCanonicalize_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
-- `compileToLayer_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
+- `compileThenCanonicalize_apply` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `compileThenCanonicalize_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `compileToLayer_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `map`, `nil_append`, `residual`, `scaleVec`
 - `compileToLayer_append_assoc` -> `ConstraintSet`, `append_assoc`, `compileToLayer`
 - `compileToLayer_append_assoc_layer` -> `ConstraintSet`, `append_assoc`, `compileToLayer`
-- `compileToLayer_bijective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
-- `compileToLayer_extractLayer` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `induction`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
-- `compileToLayer_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `compileToLayer_bijective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `compileToLayer_extractLayer` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `induction`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `compileToLayer_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `compileToLayer_nil_s01` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot`, `nil_append`, `residual`
 - `compileToLayer_perturbation` -> `VectorConstraint`, `convertVec`, `extractVec`
-- `compileToLayer_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
-- `compileToLayer_scaleLayerFun` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
+- `compileToLayer_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
+- `compileToLayer_scaleLayerFun` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `compileToLayer_sound` -> `AffineLayer`, `Ladder`, `compileToLayer`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `netAct`, `roundtrip`, `satSym`, `satW`
-- `compileWith_code` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
-- `compileWith_read` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `weightCodeIR`
-- `compileWith_roundtrip` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `compileWith_slotOf` -> `IRSkeleton`, `TensorShape`, `at`, `compileWith`, `extractWith_compileWith`
-- `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`
-- `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `Tensor`, `TensorShape`, `W`, `apply`, `at`, `find`
+- `compileWith_code` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `weightCodeIR`
+- `compileWith_read` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `weightCodeIR`
+- `compileWith_roundtrip` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `map`, `skeletonCode`, `weightCodeIR`
+- `compileWith_slotOf` -> `IRSkeleton`, `TensorShape`, `at`, `compileWith`, `extractWith_compileWith`, `map`
+- `compileWith_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `map`
+- `compileWith_zero_snd` -> `IRSkeleton`, `IRWeights`, `Tensor`, `TensorShape`, `W`, `apply`, `at`, `find`, `map`
 - `compileZ_not_injective` -> `LossyRep`, `at`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `compile_append_satisfiable` -> `Compiler`, `at`, `compile_program`, `compile_program_append`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_apply` -> `Representation`, `compile`, `compile_injective`, `extract`, `extract_compile`, `roundtrip`
 - `compile_bridge_sem` -> `Compiler`, `IRConstraint`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `compile_program`, `compile_program_contains_compiled_constraints`, `eval_program`, `graph_satisfiable`, `initialState`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `satisfiable`
-- `compile_commutes_symEdit_iff_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`
+- `compile_commutes_symEdit_iff_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `compileToLayer`, `convertVec`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `map`
 - `compile_compatible_with_itself` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `compile_constraint_degenerately_satisfied` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ir_sem`, `lvConstraint`, `parallel`, `subst`
 - `compile_constraint_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
@@ -3546,19 +3548,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_error_bound_mul_discharged` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `at`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `mag`, `numOps`, `tiny`
 - `compile_error_bound_pure` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `lit`, `mul`, `tiny`
 - `compile_exact_of_zero_ops` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `lit`, `mul`
-- `compile_extract_adjunction_iso` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `toFun`, `trans`
+- `compile_extract_adjunction_iso` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `toFun`, `trans`
 - `compile_extract_bijective` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `append_assoc`, `compileToLayer`, `compileToLayer_bijective`, `extractLayer`
-- `compile_extract_end_to_end` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `compile_extract_end_to_end` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
 - `compile_extract_invertible_pair` -> `ConstraintSet`, `append_assoc`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `compile_extract_layer` -> `Layer`, `VectorConstraint`, `compileToLayer`, `compile_extract_bijective`, `extractLayer`, `induction`, `inject_extract_closed`, `reinject_roundtrip`
 - `compile_extract_mutually_refines` -> `ConstraintSet`, `Layer`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
-- `compile_extract_semantics_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
-- `compile_extract_weight_side` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `subst`, `symbolToWeight_correct`, `trans`
-- `compile_galoisCoinsertion` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `compile_galoisConnection` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `toFun`, `trans`
-- `compile_galoisConnection_galois` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `toFun`, `trans`
-- `compile_galoisConnection_is_general_instance` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `compile_galoisInsertion` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `compile_extract_semantics_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `compile_extract_weight_side` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `subst`, `symbolToWeight_correct`, `trans`
+- `compile_galoisCoinsertion` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `compile_galoisConnection` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `toFun`, `trans`
+- `compile_galoisConnection_galois` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `toFun`, `trans`
+- `compile_galoisConnection_is_general_instance` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `compile_galoisInsertion` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compile_injective` -> `CICCtx`, `ConstSet`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Representation`, `Sat`, `SemEq`, `Term`, `Typable`, `W`, `at`, `compile`, `decode`, `denote`, `encode`, `extract`, `extract_compile`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `compile_is_loss` -> `E`, `PenaltyEmbedding`, `apply`, `compile`, `encode`, `loss`, `satW`
 - `compile_not_identity` -> `Compiler`, `add`, `at`, `compile`, `induction`, `length`, `lit`, `mul`
@@ -3575,7 +3577,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_program_vars_subset` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvProgram`
 - `compile_sound` -> `CICCtx`, `ConstSet`, `HoldsSet`, `IRSkeleton`, `MergeRecord`, `MergeSound`, `Pt`, `Term`, `Typable`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `merge_sound`, `merged`, `parse`, `satW`, `skeletonCode`, `skeletonCode_injective`, `subst`
 - `compile_sound_as_special` -> `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`, `satW`
-- `compile_sound_content` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `materialize_covered`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `compile_sound_content` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `materialize_covered`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `compile_sound_general` -> `ConstraintSet`, `Holds`, `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `W`, `collinear`, `compile`, `decode`, `encode`, `extract`, `holdsSet_mem`, `merge_sound`, `merged`, `parallel`, `preserves`, `roundtrip`, `satW`, `subst`, `trans`, `trivial`
 - `compile_sound_mentions_R` -> `MergeRecord`, `MergeSound`, `Pt`, `compile_sound_general`, `merged`
 - `compile_sound_midpoint` -> `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `merge_sound`, `merged`, `satW`
@@ -3583,7 +3585,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_sound_n_is_pointwise` -> `SymN`, `affineAct`, `compileToLayerN`, `getD_eq_getElem`, `length`, `resid`, `satSym`, `weightLadderN`
 - `compile_sound_n_zero` -> `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `length`, `resid`, `satSym`, `weightLadderN`
 - `compile_stmt_ps_irrelevant` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
-- `compile_strength_iff` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `compile_strength_iff` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `compiledIndistinct_equivalence` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
 - `compiledIndistinct_iff_eq` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
 - `compiledToCLM_apply_convertVec` -> `LayerOut`, `LinearLayer`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `linFunc`, `residual`, `sat_iff_residual`, `symVec`, `symW`
@@ -3655,18 +3657,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_rope_score_phase_relation` -> `complexRotate`, `complex_rope_phase_shift`, `softmax`
 - `complex_score_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `complies_and_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `complies_and_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `component_abs_le_of_totalLoss_le` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `realTotalLoss_zero_iff_all_outputs`
 - `component_eq_zero_of_totalLoss_eq_zero` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `realTotalLoss_zero_iff_all_outputs`
 - `compose2_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `compose2_differentiableAt_params` -> `Chain`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `compose3_differentiableAt_joint` -> `Chain`, `MLayer`, `comp`, `d`, `g`, `layerParamCount`, `slotOf`
-- `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `at`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `optional`, `parallel`
-- `composeAssocProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `composeCoverageProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose_coverage`, `g`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `composeHOfPreTrueProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `composeSoundProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `composeStrengthProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeArgs_has_no_data_parameter` -> `CFunction`, `CType`, `ErrorCode`, `Ownership`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `at`, `choice`, `compose`, `composeWith`, `conformance`, `identity`, `iterate`, `length`, `map`, `optional`, `parallel`
+- `composeAssocProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeCoverageProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose_coverage`, `g`, `identity`, `length`, `manifest`, `map`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeHOfPreTrueProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeSoundProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `composeStrengthProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `map`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `composeWith_run` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
 - `composeWith_sound` -> `Primitive`, `g`, `inter`, `min`, `run`, `sound`
 - `compose_act` -> `W`, `compose`, `induction`
@@ -3767,7 +3769,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conflict_resolve_fixed_point` -> `all`, `apply`, `at`, `children`, `d`, `induction`, `length`, `min`, `trans`, `value`
 - `conflicts_not_automatic` -> `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `confluence_of_commuting` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
-- `confluence_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
+- `confluence_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`
 - `confluent_normalForm_unique` -> `Relation`, `at`, `d`, `induction`, `subst`, `trans`
 - `confluent_of_wf` -> `Relation`, `at`, `d`, `induction`, `subst`, `trans`
 - `conformal_conditional_false` -> `alpha`, `at`
@@ -3780,10 +3782,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conformal_quantile_ge` -> `alpha`, `at`
 - `conformal_quantile_minimal` -> `alpha`, `at`
 - `conformal_validity_le_one` -> `alpha`, `at`
-- `conformance_iff_abi` -> `CFunction`, `abiTable`, `length`
-- `conformance_length` -> `CFunction`, `abiTable`, `length`
-- `conformance_names_dedup_length` -> `CFunction`, `abiTable`, `length`
-- `conformance_names_eq_abi` -> `CFunction`, `abiTable`, `length`
+- `conformance_iff_abi` -> `CFunction`, `abiTable`, `length`, `map`
+- `conformance_length` -> `CFunction`, `abiTable`, `length`, `map`
+- `conformance_names_dedup_length` -> `CFunction`, `abiTable`, `length`, `map`
+- `conformance_names_eq_abi` -> `CFunction`, `abiTable`, `length`, `map`
 - `congruentInt_iff_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `congruentInt_to_modEq` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `congruent_add` -> `at`
@@ -3805,9 +3807,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `const_app_cannot_step` -> `Step`, `no_step_var`
 - `const_family_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
 - `const_family_never_content` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
-- `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
-- `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
-- `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `const_levelA` -> `Sat`, `at`, `loss`, `trivial`
 - `const_no_step_empty` -> `Step`, `Term`, `at`, `no_step_var`
 - `const_not_levelB` -> `Sat`, `loss`, `trivial`
@@ -3816,8 +3818,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constant_changes_semantics` -> `LinearForm`, `SatisfiesEq`, `Token`, `denote`, `length`
 - `constant_label_blocks_complete` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`
 - `constant_lr_converges` -> `apply`, `at`, `contraction_converges`, `le_trans`, `subst`
-- `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `constrainedDenom_nonneg` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedDenom_pos` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedSoftmax_eq_zero_of_not_allowed` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
@@ -3856,12 +3858,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `construct_approx_holds` -> `FamilySolver`, `HoldsSet`, `Pt`, `construct_sound`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_artifact_depth` -> `AffineLayer`, `depth`, `layers`, `length`, `weights`
 - `construct_artifact_layers_nonempty` -> `AffineLayer`, `layers`, `length`, `weights`
-- `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `construct_eq_run_zero` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `value`
-- `construct_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `construct_canonical_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `map`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `construct_complete_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `map`, `penaltyLoss`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `construct_eq_run_zero` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `value`
+- `construct_single` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
 - `construct_sound` -> `IRSkeleton`, `Term`, `WellFormed`, `compileSkel`, `parse`, `subst`
-- `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `construct_sound_holds` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `degenerateSolver`, `map`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `construct_sound_wf` -> `IRSkeleton`, `Term`, `WellFormed`, `compileSkel`, `parse`, `subst`
 - `constructsFor_of_familySolver` -> `FamilySolver`, `HoldsSet`, `Pt`, `degenerateSolver`, `samePointFamilySolver`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `contDiff_pathMap` -> `add`, `at`, `comp`, `smul`
@@ -3869,20 +3871,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `contLinMap_prod_coords` -> `at`, `g`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
 - `containment_add` -> `at`, `empty`, `find`, `subst`, `value`
 - `containment_mul_nonneg` -> `at`, `empty`, `find`, `subst`, `value`
-- `contains_true_mem` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `contentOk_of_canonical_ne_none` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `contains_true_mem` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `contentOk_of_canonical_ne_none` -> `ConstraintSet`, `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `content_cCommVec` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `content_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `content_cShortZeroVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_equivalence`, `scaleVec`
-- `content_cZeroVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_equivalence`, `scaleVec`
-- `content_canonicalize` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`
-- `content_dvd_a` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `scaleVec`, `scaleVec_preserves`
-- `content_dvd_b` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `scaleVec`, `scaleVec_preserves`
-- `content_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `scaleVec`, `scaleVec_preserves`
-- `content_ne_cast` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `content_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `content_cShortZeroVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_equivalence`, `scaleVec`
+- `content_cZeroVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_equivalence`, `scaleVec`
+- `content_canonicalize` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`
+- `content_dvd_a` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`
+- `content_dvd_b` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`
+- `content_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`
+- `content_ne_cast` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
 - `content_one_does_not_force_head_nonzero` -> `VectorConstraint`, `constraintContent`, `listGcdNat`
-- `content_scaleVec` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
-- `content_scaleVec_neg_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `content_scaleVec` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `content_scaleVec_neg_cNegVec_ne_zero` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
 - `contextual_behavior_depends` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `contextual_inherits_is_nondegenerate` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `contextual_sound_no_longer_forces_independence` -> `SemanticDomain`, `Weights`, `behavior`, `embed`, `sound`
@@ -3942,24 +3944,24 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convertRealVec_preserves` -> `apply`
 - `convertReal_injective` -> `LayerOut`, `LinearLayer`, `RealConstraint`, `RealNeuron`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertReal`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
 - `convertReal_preserves` -> `apply`
-- `convertVecQ_preserves_semantics` -> `at`, `induction`
+- `convertVecQ_preserves_semantics` -> `at`, `induction`, `map`
 - `convertVec_bias_eq_convertRealVec_bias` -> `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `dot`
-- `convertVec_domain_is_single_constraint` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
-- `convertVec_extractVec_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `extractVec_convertVec_rfl`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_one`, `sign`
-- `convertVec_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Edit`, `Layer`, `LayerOut`, `LinearLayer`, `RealConstraint`, `RealNeuron`, `Representation`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `coeffDist`, `compile`, `compileToLayer`, `convertReal`, `convertVec`, `convertVec_preserves_semantics`, `decode`, `dot`, `encode`, `extract`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `fiber`, `induction`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `roundTrip_perturbation_id`, `roundtrip`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `trans`, `trivial`
-- `convertVec_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
+- `convertVec_domain_is_single_constraint` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `map`, `roundtrip_extractVec`, `toFun`
+- `convertVec_extractVec_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `extractVec_convertVec_rfl`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_one`, `sign`
+- `convertVec_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Edit`, `Layer`, `LayerOut`, `LinearLayer`, `RealConstraint`, `RealNeuron`, `Representation`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `coeffDist`, `compile`, `compileToLayer`, `convertReal`, `convertVec`, `convertVec_preserves_semantics`, `decode`, `dot`, `encode`, `extract`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `fiber`, `induction`, `map`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `roundTrip_perturbation_id`, `roundtrip`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `trans`, `trivial`
+- `convertVec_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`, `roundtrip_extractVec`
 - `convertVec_mem_fiber` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
-- `convertVec_preserves_semantics` -> `at`, `dot`, `induction`, `length`, `subst`
-- `convertVec_preserves_semantics_blind_to_arity` -> `at`, `dot`, `induction`, `length`, `subst`
-- `convertVec_preserves_semantics_rfl` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `convertVec_preserves_solution_set` -> `at`, `dot`, `induction`, `length`, `subst`
+- `convertVec_preserves_semantics` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
+- `convertVec_preserves_semantics_blind_to_arity` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
+- `convertVec_preserves_semantics_rfl` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `convertVec_preserves_solution_set` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
 - `convertVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `convertVec_scaleVec_comm` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
 - `convertVec_scale_ne` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `convertVec_surjective` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
-- `convertVec_unconvertVec` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `convertVec_unconvertVec` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `convertVec_weight_eq_convertRealVec_weight` -> `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `dot`
-- `convert_extract_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
+- `convert_extract_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
 - `convert_injective` -> `LayerOut`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `RealConstraint`, `RealNeuron`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convert`, `convertReal`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
 - `convert_preserves_semantics` -> `EvenOut`, `EvenSat`, `at`, `out`, `preserves`
 - `convert_preserves_solution_set` -> `EvenOut`, `EvenSat`, `at`, `out`, `preserves`
@@ -4016,7 +4018,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `coverage_inter_assoc` -> `Coverage`, `Primitive`, `compose`, `g`, `inter`
 - `covered_empty_iff` -> `ConstSet`, `Data`, `at`, `empty`
 - `covered_mono` -> `CICCtx`, `ConstSet`, `Covered`, `CoversCorpus`, `Data`, `Sample`, `Typable`, `d`, `encodeCorpus`, `typable_encodeCorpus`
-- `covered_of_vanishing` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `covered_of_vanishing` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `covered_typable` -> `CICCtx`, `ConstSet`, `CoversCorpus`, `Sample`, `Typable`, `encodeCorpus`, `typable_encodeCorpus`
 - `coversCorpus_acceptance_layers` -> `ConstSet`, `CoversCorpus`, `LayerOut`, `Sample`
 - `coversCorpus_mono` -> `CICCtx`, `ConstSet`, `Covered`, `CoversCorpus`, `CoversIndices`, `Data`, `Index`, `Sample`, `Typable`, `d`, `encodeCorpus`, `length`, `offset`, `typable_encodeCorpus`, `width`
@@ -4028,6 +4030,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cps_id_is_eval` -> `Compiler`, `at`, `lit`
 - `cps_tail_compose` -> `Compiler`, `at`, `lit`
 - `criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
+- `criterion_transfers` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`, `trans`
 - `crossAttn_weights_nonneg` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossAttn_weights_pmf` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `d`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossAttn_weights_sum_one` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
@@ -4043,24 +4046,24 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cross_logit_scale_bound` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `sqrt_d_scale_bound`, `weight_l1_diff_bound`
 - `cross_translate` -> `d`
 - `csSup_sub_le_of_bddAbove` -> `at`, `fenchelConjAll`, `mono`
-- `cse_duplicate_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
-- `cse_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `cse_duplicate_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `cse_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `cseq_cauchy_schwarz` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
-- `cspec_charpoly_map_eq` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_conj_isRoot_of_isRoot` -> `at`
-- `cspec_det_sub_smul_eq_zero` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_eigenvalue_isRoot_charpoly` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_eval_map_star` -> `at`, `eval`, `g`, `induction`
-- `cspec_exists_eigenpair` -> `at`, `eval`, `g`, `induction`, `subst`
+- `cspec_charpoly_map_eq` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_conj_isRoot_of_isRoot` -> `at`, `map`
+- `cspec_det_sub_smul_eq_zero` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_eigenvalue_isRoot_charpoly` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_eval_map_star` -> `at`, `eval`, `g`, `induction`, `map`
+- `cspec_exists_eigenpair` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_hermitian_eigenpair_root_and_star_self` -> `at`
-- `cspec_hermitian_eigenpair_star_self` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_hermitian_eigenvalue_im` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_hermitian_eigenvalue_im_zero` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_hermitian_eigenvalue_real` -> `at`, `eval`, `g`, `induction`, `subst`
-- `cspec_nonreal_eigenvalue_conj_pair` -> `at`
-- `cspec_nonreal_root_pair_card_two` -> `at`
+- `cspec_hermitian_eigenpair_star_self` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_im` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_im_zero` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_real` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_nonreal_eigenvalue_conj_pair` -> `at`, `map`
+- `cspec_nonreal_root_pair_card_two` -> `at`, `map`
 - `cspec_root_eigenvalue_bridge_direction_only` -> `at`
-- `cspec_spectral_radius_le_opNorm` -> `at`, `eval`, `g`, `induction`, `subst`
+- `cspec_spectral_radius_le_opNorm` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
 - `ctr_eq` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `ctr_fixes` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_idempotent` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
@@ -4096,14 +4099,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cvecNormSq_smul` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
 - `cvecNormSq_zero_iff` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
 - `cylinder_gaussian_curvature_zero_degenerate` -> `E`, `Geometry`, `S2`
-- `d12_canon` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_content` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_edited` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_edited_content` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_left` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_right` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_vals_ne` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `d12_zero_delta_commutes` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_canon` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_content` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_edited` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_edited_content` -> `LayerDelta`, `VectorConstraint`, `VectorConstraintSat`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_left` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_right` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_vals_ne` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `d12_zero_delta_commutes` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
 - `d21_dot_neg_witness` -> `LayerOut`, `SemEqL`, `at`, `dot`
 - `d21_dot_witness_eq` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `d21_not_sameLayer_neg_witness` -> `at`
@@ -4142,17 +4145,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `d32_allZero_imp_row` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`
 - `d32_all_rows_agree_imp_single_realizable` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`
 - `d32_dot_form_ablation_any_tail_is_false` -> `AllZeroOutputs`, `LinearLayer`, `at`, `dot`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`
-- `d32_dot_tail_cross_term` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
+- `d32_dot_tail_cross_term` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `map`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
 - `d32_row_zero_does_not_imply_all_zero` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`
-- `d32_s02_characterization_is_false` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `length_cons`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`
+- `d32_s02_characterization_is_false` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `length_cons`, `map`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`
 - `d32_single_realizable_but_not_hyperplane` -> `AllZeroOutputs`, `LinearLayer`
-- `d32_threeCoeffLayer_semantics` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
-- `d32_threeCoeff_realizes` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
+- `d32_threeCoeffLayer_semantics` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `map`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
+- `d32_threeCoeff_realizes` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `length`, `length_cons`, `map`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`, `subst`
 - `d32_twoAxisLayer_unproportional` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Realizes`, `VectorConstraint`, `at`, `dot`, `length`, `length_cons`, `s02_dot_cons_cons`, `s02_dot_nil`, `s02_dot_nil_left`, `s02_dot_two_cons`, `s02_twoAxisLayer`
 - `d41_L1Bridge_not_injective` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `encode`, `encode_injective`, `foldBlanks`, `foldGo`, `induction`, `isBlank`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_T2_shell_hypothesis_free` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `compileToLayer`, `decode`, `symbolToWeight_correct`
 - `d41_bridge_payload_lost` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `encode`, `encode_injective`, `foldBlanks`, `foldGo`, `induction`, `isBlank`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
-- `d41_decode_L1Bridge` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `dot`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `mkConstraint`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `d41_decode_L1Bridge` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `dot`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `map`, `mkConstraint`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_decode_L1Bridge_not_injective` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `foldGo`, `induction`, `isBlank`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_detokenize_length_ge` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `decode_encode`, `detokenize`, `dot`, `editConstraint`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `le_trans`, `length`, `length_cons`, `min`, `pieceOf`, `pieceOf_ne_nil`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_dot_natAbs_le` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `deltaOf`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `symbolToWeight_correct`, `tokenize`
@@ -4163,14 +4166,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `d41_e2e_semantic_soundness_at_data_level_shell` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `compileToLayer`, `decode`, `symbolToWeight_correct`, `tokenize`
 - `d41_foldBlanks_witness` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `foldGo`, `induction`, `isBlank`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_loss_locality` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `deltaOf`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `symbolToWeight_correct`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
-- `d41_mkConstraint_singleton` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `d41_mkConstraint_singleton` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `map`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_radius_bounds_are_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `compileToLayer`, `convertVec`, `decode`, `dot`, `editConstraint`, `editLayer`, `length`, `min`, `symbolToWeight_correct`, `tokenize`
 - `d41_radius_h_not_load_bearing_witness` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `compileToLayer`, `convertVec`, `decode`, `dot`, `editConstraint`, `editLayer`, `length`, `min`, `symbolToWeight_correct`, `tokenize`
 - `d41_radius_tight_le_coarse` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `compileToLayer`, `convertVec`, `decode`, `dot`, `editConstraint`, `editLayer`, `le_trans`, `length`, `min`, `symbolToWeight_correct`, `tokenize`
 - `d41_stability_radius` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `L1Bridge`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `compileToLayer`, `convertVec`, `decode`, `deltaOf`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `le_trans`, `length`, `min`, `symbolToWeight_correct`, `tokenize`
-- `d41_toSegs_L1Bridge` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`
-- `d41_toSegs_L1Bridge_length` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `d41_toSegs_sym_sep_cons` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `detokenize`, `encode`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`
+- `d41_toSegs_L1Bridge` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `map`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`
+- `d41_toSegs_L1Bridge_length` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `detokenize`, `encode`, `encode_injective`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `map`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `d41_toSegs_sym_sep_cons` -> `CharToken`, `ConstraintSet`, `L1Bridge`, `L1Bridge_cons`, `L1Bridge_length`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `detokenize`, `encode`, `foldBlanks`, `foldBlanks_length_le`, `foldGo`, `induction`, `isBlank`, `length`, `length_cons`, `map`, `mkConstraint`, `mkConstraint_append_singleton`, `pieceOf`, `pieceOf_ne_nil`, `toSegs`, `tokenize`, `tokenize_detok`
 - `d41_tokenLoss_witness` -> `CharToken`, `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_two_scale_loss_coexist` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `decode_encode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `d41_two_scale_loss_not_absorbable` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `L1Bridge`, `LayerDelta`, `LayerOut`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `decode`, `deltaOf`, `detokenize`, `dot`, `editConstraint`, `editConstraint_preserves_delta`, `editLayer`, `encode`, `encode_injective`, `foldBlanks`, `induction`, `le_trans`, `length`, `length_cons`, `min`, `symbolToWeight_correct`, `tokenize`, `tokenize_collision`, `tokenize_detok`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
@@ -4199,7 +4202,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dataEquiv_refl` -> `Data`, `at`, `d`, `trans`
 - `dataEquiv_symm` -> `Data`, `at`, `d`, `trans`
 - `dataEquiv_trans` -> `Data`, `at`, `d`, `trans`
-- `dataValid_empty` -> `at`, `empty`, `length`, `output`
+- `dataValid_empty` -> `at`, `empty`, `length`, `map`, `output`
 - `data_models` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `compileWith`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `models`, `models_compileWith`, `nodup_shapesOfCorpus`, `tokenize`, `tokenizeSample`, `width`
 - `data_models_shape` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `tokenize`, `tokenizeSample`, `width`
 - `data_reaches_weight_of_zero_width` -> `AllZeroOutputs`, `ConstSet`, `Sample`, `VectorConstraintSat`, `at`, `cicCtxToConstraintSet`, `cicToConstraint`, `cic_loop_reaches_weight`, `compileToLayer`, `dot`, `width`
@@ -4210,8 +4213,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dbSat_liftBvar` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `deactivate_before_unload` -> `Reaches`, `at`, `canDeactivate`
 - `deactivate_preserves_ordering` -> `LifeState`, `Plugin`, `at`
-- `dead_constraint_elim_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
-- `decEqVecB_iff` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
+- `dead_constraint_elim_preserves` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `decEqVecB_iff` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
 - `decEq_dite` -> `Compiler`, `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `decEq_eq` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `decEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
@@ -4231,25 +4234,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decidable_zeroFixing_siluZ_via_kernel` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSwish`, `relu`, `reluZ`, `reluZ_not_zeroFixing`, `sigmoid`, `silu`, `softplus`, `subst`, `tanh_pos_of_pos`, `trans`, `zeroFixingZ_of_strictMono`, `zeroFixing_false_of_witness`, `zeroFixing_of_bounded_no_witness`
 - `decide_aux` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `decide_eq_iff_decEq` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `decodeArgsAux_code` -> `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `zero`
-- `decodeArgs_code` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
-- `decodeArgs_ge_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
+- `decide_scaleClass_witness` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `decodeArgsAux_code` -> `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `map`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `zero`
+- `decodeArgs_code` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `map`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
+- `decodeArgs_ge_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `argsCode`, `at`, `decodeTensorList`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `map`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
 - `decodeCoeffs_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `decodeConst_encodeForm` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
-- `decodeCorpusList_encodeCorpus` -> `Data`, `Sample`, `Term`, `at`, `d`, `encode`, `encodeCorpus`, `encodeNat`, `encodeWidth`, `induction`, `length`, `width`
-- `decodeInstr_encode_affine` -> `Instr`, `W`, `attention`, `induction`, `length`, `length_cons`, `relu`, `softmax`
+- `decodeCorpusList_encodeCorpus` -> `Data`, `Sample`, `Term`, `at`, `d`, `encode`, `encodeCorpus`, `encodeNat`, `encodeWidth`, `induction`, `length`, `map`, `width`
+- `decodeInstr_encode_affine` -> `Instr`, `W`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`
 - `decodeInstr_encode_attention` -> `Instr`, `W`, `attention`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `softmax`
-- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `attention`, `decode`, `length`, `length_cons`, `relu`, `softmax`
+- `decodeInstr_encode_layernorm` -> `Instr`, `W`, `attention`, `decode`, `length`, `length_cons`, `map`, `relu`, `softmax`
 - `decodeInstr_encode_relu` -> `Instr`, `W`, `attention`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `softmax`
-- `decodeInstr_encode_scale` -> `Instr`, `W`, `attention`, `length`, `length_cons`, `relu`, `softmax`
+- `decodeInstr_encode_scale` -> `Instr`, `W`, `attention`, `length`, `length_cons`, `map`, `relu`, `softmax`
 - `decodeInstr_encode_softmax` -> `Instr`, `W`, `attention`, `getD_eq_getElem`, `length`, `length_cons`, `relu`, `softmax`
 - `decodeListAux_code` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `outer`, `shapesCode`, `tensorShapeCode`, `zero`
 - `decodeList_code` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `outer`, `shapesCode`, `tensorShapeCode`, `zero`
 - `decodePayload_encodeForm` -> `LinearForm`, `decodePayload`, `encodeForm`, `payload`
-- `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `relu`, `softmax`, `zero`
-- `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `relu`, `softmax`, `zero`
-- `decodeProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
+- `decodeProgramGo_cons` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `map`, `relu`, `softmax`, `zero`
+- `decodeProgramGo_encodeProgram` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `map`, `relu`, `softmax`, `zero`
+- `decodeProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `map`, `softmax`
 - `decodeRelListAux_code` -> `IRSkeleton`, `RelationShape`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
 - `decodeRelList_code` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `outer`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `decodeRelationShape_code` -> `IRSkeleton`, `RelationShape`, `argsCode`, `at`, `decodeTensorList`, `decodeTensorList_code`, `induction`, `kindCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`, `zero`
@@ -4259,13 +4262,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `decodeTensorShape_code` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `shapesCode`, `tensorShapeCode`, `zero`
 - `decodeTotal_satisfies_discriminant` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decode_deterministic` -> `Data`, `Term`, `at`, `d`
-- `decode_drops_trailing_partial` -> `decode`
-- `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `Data`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `roundtrip`, `satSym`, `satW`
-- `decode_encode_sat_iff` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`
-- `decode_encode_shape` -> `Data`, `Sample`, `Term`, `at`, `d`, `encode`, `encodeCorpus`, `length`, `width`
+- `decode_drops_trailing_partial` -> `decode`, `map`
+- `decode_encode` -> `AllSatisfied`, `ConstraintSet`, `Data`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `map`, `roundtrip`, `satSym`, `satW`
+- `decode_encode_sat_iff` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `map`
+- `decode_encode_shape` -> `Data`, `Sample`, `Term`, `at`, `d`, `encode`, `encodeCorpus`, `length`, `map`, `width`
 - `decode_eq_some_decodeTotal` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `decode_is_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
-- `decode_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `decode_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `decode_shape_roundtrip` -> `Data`, `Models`, `d`, `decode`, `decode_encode_shape`, `encode`, `length`
 - `decorative_iff_agree_everywhere` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `rank`, `scaleVec`, `trivial`
 - `decreases_not_derivable` -> `Audit`
@@ -4295,10 +4298,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `degree_two_nbhd` -> `E`, `nbhdSet`, `nbhdSum`
 - `delay_zero_recovers_sync` -> `at`, `d`, `g`, `induction`, `le`, `zero`
 - `deltaFromPruning_nonneg` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `le_trans`
-- `deltaOf_ne_zero_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `deltaOf_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`
+- `deltaOf_ne_zero_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `deltaOf_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`
 - `delta_is_input` -> `Audit`, `at`
-- `delta_not_determined_by_base_only` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
+- `delta_not_determined_by_base_only` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
 - `den_positive` -> `Representation`, `compile`, `compile_injective`, `extract`, `extract_compile`, `roundtrip`
 - `denote_neg_core` -> `BehaviourallyEquivalent`, `LinearForm`, `Point`, `WeightSemantics`, `d`, `denote`, `trans`
 - `denote_scale` -> `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `decode`, `denote`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
@@ -4311,15 +4314,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dependsHolds_nil` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsHolds_refl` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
 - `dependsHolds_weaken` -> `RelKind`, `TensorId`, `equalHolds`, `out`, `zero`, `zeroHolds`
-- `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
-- `dependsShape_args_empty` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `dependsShape_names_nothing` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `dependsShape_args` -> `TensorId`, `TensorShape`, `Term`, `aa`, `at`, `induction`, `map`, `subst`
+- `dependsShape_args_empty` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `dependsShape_names_nothing` -> `IRSkeleton`, `Names`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `depthList_cons` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depthList_le_sizeList_of_tree` -> `Compiler`, `add`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depthList_nil` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depth_child_lt` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`, `size_pos`
-- `depth_growth` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `depth_growth_at_least_two_pow` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `depth_growth` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `depth_growth_at_least_two_pow` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `depth_le_depthList` -> `Compiler`, `add`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depth_le_size` -> `Compiler`, `add`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `depth_lt_of_mem` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
@@ -4360,7 +4363,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `detokenize_left_inverse_on_quotient` -> `at`, `tokenize`
 - `detokenize_singleton` -> `append_assoc`, `apply`, `at`, `induction`, `length`, `length_cons`, `split`, `subst`, `tokenize`, `zero`
 - `detokenize_tokenize_on_quotient` -> `tokenize`
-- `devB_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
+- `devB_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `map`, `netAct`
 - `dev_lam` -> `DefEnv`, `E`, `Term`
 - `dev_pi` -> `DefEnv`, `E`, `Term`
 - `dev_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`
@@ -4379,30 +4382,30 @@ module. These are the edges that make the chain a chain rather than a list.
 - `diamond_lam` -> `Compiler`, `Term`, `app_r`, `at`
 - `diamond_property` -> `d`, `size`, `step`
 - `dichotomy_fails_without_mono` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `rank`, `scaleVec`, `trivial`
-- `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `diff_described_fully_erased` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `diff_described_vacuously` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `differentiableAt_affineAct_joint` -> `AffineLayer`, `W`, `affineAct`, `comp`
 - `differentiableAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
-- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
-- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
-- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `differentiableAt_chainAct` -> `Chain`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct_joint` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
+- `differentiableAt_mlayerAct_params` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
 - `differentiableAt_netActN` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
 - `differentiableAt_netActN_joint` -> `AffineLayer`, `affineAct`, `comp`
-- `differentiableAt_netActN_jointAt` -> `Pt`, `add`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `differentiableAt_netActN_paramsAt` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `singleParams`
+- `differentiableAt_netActN_jointAt` -> `Pt`, `add`, `comp`, `d`, `differentiableAt_netActN_joint`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `differentiableAt_netActN_paramsAt` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
 - `differentiableAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
-- `differentiableAt_penaltyLoss_family` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `differentiableAt_pointwiseNetActN` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `differentiableAt_pointwiseNetActN_joint` -> `Pt`, `add`, `comp`, `d`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `differentiableAt_pointwiseNetActN_params` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `singleParams`
+- `differentiableAt_penaltyLoss_family` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `differentiableAt_pointwiseNetActN` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `differentiableAt_pointwiseNetActN_joint` -> `Pt`, `add`, `comp`, `d`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `differentiableAt_pointwiseNetActN_params` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
 - `differentialEntropy_le_crossEntropyMeasure` -> `g`, `subst`
 - `diracVec_apply` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `diracVec_probVec` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `direction_bound` -> `Subgradient`, `apply`, `at`, `d`, `g`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
 - `discrete_vs_dense_dichotomy` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
-- `disjN_preserves` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `out`
-- `disj_embedding` -> `ConstraintSat`, `LinearConstraint`, `LinearNeuron`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `out`
+- `disjN_preserves` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `map`, `out`
+- `disj_embedding` -> `ConstraintSat`, `LinearConstraint`, `LinearNeuron`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `map`, `out`
 - `distBias_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `distSqR_eq_zero_iff` -> `at`, `d`
 - `distSqR_translate` -> `d`
@@ -4429,8 +4432,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `div_abs_self_eq_pm_one` -> `absPosDenom`, `absPosDenom_pos`, `absPosEnc`, `abs_cos_sub_cos_le`, `abs_sin_sub_sin_le`, `d`, `fin_two_mul_add_one_not_mod`, `le_trans`
 - `div_mod_unique` -> `d`, `depth`, `eval`, `g`, `induction`, `size`, `step`
 - `div_mul_add_mod` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
-- `div_scaleVec_pos` -> `VectorConstraint`, `apply`, `g`, `scaleVec`, `sign`
-- `div_scaleVec_sign` -> `VectorConstraint`, `apply`, `g`, `scaleVec`, `sign`
+- `div_scaleVec_pos` -> `VectorConstraint`, `apply`, `g`, `map`, `scaleVec`, `sign`
+- `div_scaleVec_sign` -> `VectorConstraint`, `apply`, `g`, `map`, `scaleVec`, `sign`
 - `divisible_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `doC_normalized` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
 - `doD_normalized` -> `BinSCM`, `apply`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`
@@ -4456,10 +4459,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `doob_maximal_azuma_max` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
 - `doob_maximal_ineq` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
 - `doob_maximal_ineq_real` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
-- `dotL_eq_dot` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `dotL_eq_dot` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dotProduct_sum_range` -> `g`, `induction`, `insert`, `selProd`, `selProd_concat`, `selProd_eq_from`, `selProd_succ`, `selState`, `selState_explicit`, `zero`
-- `dotQ_eq_dot_cast` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
-- `dotQ_map_mul` -> `at`, `induction`
+- `dotQ_eq_dot_cast` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
+- `dotQ_map_mul` -> `at`, `induction`, `map`
 - `dotV_add_left` -> `at`, `d`, `dotV`, `g`, `le`, `smul`
 - `dotV_add_right` -> `at`, `d`, `dotV`, `g`, `le`, `smul`
 - `dotV_add_smul_strict` -> `MFCQ`, `at`, `d`, `dotV`
@@ -4472,58 +4475,58 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dotV_smul_left` -> `at`, `d`, `dotV`, `g`, `le`, `smul`
 - `dotV_smul_right` -> `at`, `d`, `dotV`, `g`, `le`, `smul`
 - `dotV_sum_smul_left` -> `at`, `d`, `dotV`, `g`, `le`, `smul`
-- `dot_append_additive_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
+- `dot_append_additive_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
 - `dot_append_degenerate` -> `dot`, `nil_append`
-- `dot_append_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`
-- `dot_append_of_length_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_map_mul`, `dot_zipWith_add_of_length`, `foldl_init_add`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `residual`, `scaleVec`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `dot_append_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`
+- `dot_append_of_length_eq` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_map_mul`, `dot_zipWith_add_of_length`, `foldl_init_add`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `dot_append_replicate_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `append_assoc`, `at`, `dot`, `induction`, `zero`
-- `dot_append_right_of_le` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `dot_append_sub` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_zipWith_add_of_length`, `extractVec`, `g`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `sqSum`, `sqSum_eq_zero_iff`, `subst`, `symbolToWeight_correct`, `totalLoss`
+- `dot_append_right_of_le` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `dot_append_sub` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_zipWith_add_of_length`, `extractVec`, `g`, `getD_eq_getElem`, `induction`, `length`, `length_cons`, `map`, `roundtrip_extractVec`, `sqSum`, `sqSum_eq_zero_iff`, `subst`, `symbolToWeight_correct`, `totalLoss`
 - `dot_append_tail_eq` -> `length`
-- `dot_append_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
+- `dot_append_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `dot_append_zero_left_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `append_assoc`, `at`, `dot`, `induction`, `zero`
 - `dot_audit_counterexample_axis` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_audit_padding_truncation_agree` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`
-- `dot_cast_eq_foldl_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `dot_cast_eq_foldl_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dot_cons` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
-- `dot_cons_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
-- `dot_delta_not_always_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
+- `dot_cons_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
+- `dot_delta_not_always_zero` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
 - `dot_empty_left_ignores_x` -> `at`, `induction`, `length`, `length_cons`
-- `dot_eq_dotL` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `dot_eq_dotL` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dot_eq_dotProduct` -> `apply`, `at`, `dot`, `length`
 - `dot_eq_dotProduct_of_length` -> `apply`, `at`, `dot`, `length`
 - `dot_eq_fin_sum` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
-- `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`
+- `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`
 - `dot_ignores_missing_assignments` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_ignores_ragged_assignment` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
-- `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `subst`
+- `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
 - `dot_nil` -> `at`, `dot`, `induction`, `length`, `length_cons`
-- `dot_nil_left_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `dot_nil_right` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
-- `dot_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
-- `dot_nil_right_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `dot_nil_left_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `dot_nil_right` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
+- `dot_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
+- `dot_nil_right_s01` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `dot_not_faithful` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_not_injective` -> `at`, `dot`, `length`
 - `dot_not_injective_concrete` -> `length`
 - `dot_not_injective_witness` -> `length`
 - `dot_of_append_zeros_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `at`, `dot`
-- `dot_replicate_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `at`, `compileToLayer`, `dot`, `dot_replicate_zero_any`, `induction`, `length`, `length_cons`, `symbolToWeight_correct`, `zero`
-- `dot_replicate_zero_any` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_replicate_zero`, `extractVec`, `induction`, `length`, `length_cons`, `subst`, `symbolToWeight_correct`, `zero`
-- `dot_representation_agreement` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `dot_replicate_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `at`, `compileToLayer`, `dot`, `dot_replicate_zero_any`, `induction`, `length`, `length_cons`, `map`, `symbolToWeight_correct`, `zero`
+- `dot_replicate_zero_any` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_replicate_zero`, `extractVec`, `induction`, `length`, `length_cons`, `map`, `subst`, `symbolToWeight_correct`, `zero`
+- `dot_representation_agreement` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dot_representation_agreement_bridge` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_same_length_ok` -> `at`, `induction`, `length`, `length_cons`
 - `dot_self_eq_zero_iff` -> `RealDot`, `trans`
 - `dot_truncates_a` -> `at`, `induction`, `length`, `length_cons`
 - `dot_truncates_x` -> `at`, `induction`, `length`, `length_cons`
-- `dot_zipWith_add` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `subst`
-- `dot_zipWith_add_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `dot_zipWith_add_ORIGINAL_is_false_nonnil_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `dot_zipWith_add_aux` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `dot`, `induction`, `length`, `subst`
-- `dot_zipWith_add_aux_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `dot_zipWith_add_hlen_violated_on_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
-- `dot_zipWith_add_of_length` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `subst`
-- `dot_zip_length` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `double_vacuity` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `dot_zipWith_add` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `map`, `subst`
+- `dot_zipWith_add_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `dot_zipWith_add_ORIGINAL_is_false_nonnil_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `dot_zipWith_add_aux` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `dot`, `induction`, `length`, `map`, `subst`
+- `dot_zipWith_add_aux_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `dot_zipWith_add_hlen_violated_on_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
+- `dot_zipWith_add_of_length` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `map`, `subst`
+- `dot_zip_length` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `double_vacuity` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `downGaze_opens_new_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
 - `down_absorbs` -> `induction`, `iterate`, `zero`
 - `down_decreases` -> `induction`, `iterate`, `zero`
@@ -4542,9 +4545,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dp_strict_of_collapse` -> `channelPush`, `kl`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
 - `dp_zero_column_term` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
 - `dpllLikeSearchZ_iff` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
-- `dpllLikeSearch_iff` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
-- `dpllSearch_iff` -> `QProgram`, `ZProgram`, `at`, `g`, `induction`, `qSatAllB`, `qSatAllB_iff`, `subst`
-- `dpllSearch_map` -> `QProgram`, `ZProgram`, `g`, `qSatAllB`, `qSatAllB_iff`
+- `dpllLikeSearch_iff` -> `QProgram`, `ZProgram`, `map`, `qSatAllB`, `qSatAllB_iff`
+- `dpllSearch_iff` -> `QProgram`, `ZProgram`, `at`, `g`, `induction`, `map`, `qSatAllB`, `qSatAllB_iff`, `subst`
+- `dpllSearch_map` -> `QProgram`, `ZProgram`, `g`, `map`, `qSatAllB`, `qSatAllB_iff`
 - `dpo_Z_cancels` -> `induction`, `zero`
 - `dpo_Z_cancels_any` -> `induction`, `zero`
 - `dpo_log_ratio` -> `le`
@@ -4561,12 +4564,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `drift_bound_of_step` -> `at`, `induction`, `zero`
 - `drift_contributes_second_order` -> `apply`, `g`, `quadForm`
 - `dropDB_liftDB` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
-- `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
-- `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
-- `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `dot`, `flatten`, `length`
+- `dropHead_preimage_not_unique` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `map`, `roundtrip_extractVec`
+- `dropHead_surjective` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `map`, `roundtrip_extractVec`
+- `drop_b_changes_semantics` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `dot`, `flatten`, `length`, `map`
 - `drop_lower_bound` -> `apply`
 - `drop_of_total_exceeds_capacity` -> `apply`
-- `drop_one_cons` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`
+- `drop_one_cons` -> `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `map`, `roundtrip_extractVec`
 - `droppedAt_eq_zero_iff` -> `apply`
 - `droppedCount_eq_zero_iff` -> `apply`
 - `droppedMass_eq_zero_iff` -> `at`
@@ -4580,43 +4583,43 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dual_weak_optimal` -> `g`, `le_antisymm`, `mul`, `sInf`
 - `duplicate_card_lt` -> `apply`, `at`, `card_fin`, `subst`, `uniformProb`, `union_prob_le_sum`
 - `dvd_add_int` -> `at`
-- `dvd_listGcdNat` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
-- `dvd_listGcdNat_of_mem` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
+- `dvd_listGcdNat` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`
+- `dvd_listGcdNat_of_mem` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`
 - `dvd_neg_int` -> `at`
 - `dvd_sub_int` -> `at`
 - `dvd_zero_int` -> `at`
 - `dynamic_route_error` -> `IsArgMax`, `apply`, `argmax_unique`, `at`, `subst`
 - `e2_ne` -> `at`, `dist`, `exists_decrease`, `min`, `not_localMin_of_resid_ne_zero`
 - `e2_self` -> `at`, `dist`, `exists_decrease`, `min`, `not_localMin_of_resid_ne_zero`
-- `e2eF_collision` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
-- `e2eF_congr` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
-- `e2eF_eq_some` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `mkConstraint`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
-- `e2eF_not_injective` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
-- `e2eF_total_of_tokenize` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `mkConstraint`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
+- `e2eF_collision` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `map`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
+- `e2eF_congr` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `map`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
+- `e2eF_eq_some` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `map`, `mkConstraint`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
+- `e2eF_not_injective` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `map`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
+- `e2eF_total_of_tokenize` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `Layer`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `map`, `mkConstraint`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `e2e_L0L1_loss_exists` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `single`, `toSegs`, `tokenize_collision`
 - `e2e_L0L1_loss_lands_in_L2L3` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `e2e_L0L1_loss_lands_in_L2L3_sat` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `e2e_L1L2_cannot_absorb_L2L3_loss` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `single`, `toSegs`, `tokenize_collision`
-- `e2e_L1L2_is_lossless` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`
+- `e2e_L1L2_is_lossless` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`
 - `e2e_L2L3_loss_witness` -> `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize_collision`, `trans`
 - `e2e_allSatisfied_singleton` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize_collision`, `trans`
-- `e2e_bridge_sep_is_load_bearing` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
-- `e2e_contribution_of_L1L2` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
-- `e2e_extract_hypothesis_is_not_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
-- `e2e_loss_at_L0L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
-- `e2e_loss_at_L2L3` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
-- `e2e_loss_compound` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
+- `e2e_bridge_sep_is_load_bearing` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
+- `e2e_contribution_of_L1L2` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
+- `e2e_extract_hypothesis_is_not_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
+- `e2e_loss_at_L0L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
+- `e2e_loss_at_L2L3` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
+- `e2e_loss_compound` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
 - `e2e_loss_strictly_compounds` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `single`, `toSegs`, `tokenize_collision`
-- `e2e_no_left_inverse` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
-- `e2e_not_injective` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
-- `e2e_path_exists` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
-- `e2e_path_exists_str` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
+- `e2e_no_left_inverse` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
+- `e2e_not_injective` -> `AllSatisfied`, `Chain`, `CharToken`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`, `tokenize_not_injective`
+- `e2e_path_exists` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `e2e_path_exists_str` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
 - `e2e_path_nonempty` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `e2e_sameLayer_comp_is_wellTyped` -> `ConstraintSet`, `decode`, `decode_encode`, `encode`
-- `e2e_scaleQuotient_cannot_fix_L0` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`
-- `e2e_sound` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
-- `e2e_sound_shape_premise_independent` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
-- `e2e_vacuous_composition` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
+- `e2e_scaleQuotient_cannot_fix_L0` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`
+- `e2e_sound` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `e2e_sound_shape_premise_independent` -> `AllSatisfied`, `AllZeroOutputs`, `Chain`, `CharToken`, `ConstraintSet`, `Extract`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `g`, `length`, `map`, `mkConstraint`, `recover`, `recover_compileToLayer`, `single`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`
+- `e2e_vacuous_composition` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `extract_sound`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
 - `earlyStopping_from_contraction` -> `contraction_converges`
 - `earlyStopping_gap_high_probability` -> `at`, `uniformExpectation`, `uniformProb`
 - `earlyStopping_iterate_bound` -> `at`, `contraction_converges`, `induction`, `zero`
@@ -4636,25 +4639,25 @@ module. These are the edges that make the chain a chain rather than a list.
 - `edit2_orthogonal_preserves_first` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `edit2_same_key_overwrites` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
 - `edit2_writes_first` -> `E`, `W`, `key_norm_sq_ne_zero`, `subst`
-- `editConstraint_eq_self_of_zero` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `editConstraint_eq_self_of_zero` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `canonicalize`, `constraintContent`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
 - `editConstraint_image_not_surjective_on_length` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `subst`
-- `editConstraint_preserves_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `editConstraint_preserves_delta_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
+- `editConstraint_preserves_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `editConstraint_preserves_delta_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
 - `editConstraint_reachable_iff_length` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `subst`
-- `editConstraint_semantic_pointwise` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
-- `editLayerList_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
-- `editLayerList_delta_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayerList_delta_ORIGINAL_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayerList_outputs_eq_iff` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
-- `editLayerList_outputs_eq_iff_ORIGINAL_bwd_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayerList_outputs_eq_iff_ORIGINAL_fwd_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayer_delta_closed_form` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `subst`
-- `editLayer_delta_closed_form_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayer_delta_closed_form_ORIGINAL_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `subst`
-- `editLayer_delta_closed_form_hlen_violated_on_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
-- `editLayer_nil_dw_clears` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `editLayer_nil_dw_not_identity` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `editLayer_zero_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`
+- `editConstraint_semantic_pointwise` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
+- `editLayerList_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`, `subst`
+- `editLayerList_delta_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayerList_delta_ORIGINAL_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayerList_outputs_eq_iff` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`, `subst`
+- `editLayerList_outputs_eq_iff_ORIGINAL_bwd_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayerList_outputs_eq_iff_ORIGINAL_fwd_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayer_delta_closed_form` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`, `subst`
+- `editLayer_delta_closed_form_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayer_delta_closed_form_ORIGINAL_witness` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
+- `editLayer_delta_closed_form_hlen_violated_on_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
+- `editLayer_nil_dw_clears` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `editLayer_nil_dw_not_identity` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `editLayer_zero_delta` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `induction`, `length`, `map`
 - `editSemantics_layer_bridge` -> `LayerOut`, `LinearLayer`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `editSemantics_layer_zero_iff` -> `LayerOut`, `LinearLayer`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
 - `editSeq_append` -> `E`, `g`, `induction`
@@ -4664,22 +4667,22 @@ module. These are the edges that make the chain a chain rather than a list.
 - `editSeq_singleton` -> `E`, `g`, `induction`
 - `edit_apply_idempotent_of_no_add` -> `Edit`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
 - `edit_apply_not_idempotent_of_add` -> `Edit`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
-- `edit_blind_to_semantics_witness` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
-- `edit_breaks_zeroing_generically` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `nil_append`, `sqSum`, `totalLoss`
-- `edit_carriers_diverge_on_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `totalLoss`
-- `edit_commutes_with_convert` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `edit_compiles_to_weight_side` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
-- `edit_constraint_semantics_bridge` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `subst`
-- `edit_constraint_semantics_bridge_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `symVec`
-- `edit_delta_not_recoverable_from_outputs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
-- `edit_diff_not_representative` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `edit_diff_scale_sensitive` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `edit_blind_to_semantics_witness` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `edit_breaks_zeroing_generically` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `dot`, `map`, `nil_append`, `sqSum`, `totalLoss`
+- `edit_carriers_diverge_on_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `totalLoss`
+- `edit_commutes_with_convert` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `edit_compiles_to_weight_side` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `edit_constraint_semantics_bridge` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `length`, `map`, `subst`
+- `edit_constraint_semantics_bridge_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
+- `edit_delta_not_recoverable_from_outputs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `edit_diff_not_representative` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `edit_diff_scale_sensitive` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `edit_frame` -> `Edit`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `holdsSet_mem`, `length`, `nil_append`, `undo`
 - `edit_frame_holds` -> `Edit`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
 - `edit_hypothesis_is_ghost` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `edit_identity_affine_preserves` -> `E`, `W`
 - `edit_identity_preserves` -> `E`, `W`
-- `edit_invisible_on_short_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `edit_invisible_on_short_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `edit_lipschitz_bound_attained` -> `E`, `W`
 - `edit_lipschitz_constant_quantitative` -> `E`, `W`
 - `edit_nonzero_fails_without_delta_zero` -> `E`, `W`
@@ -4694,17 +4697,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `edit_preserves_constraint_approx` -> `E`, `W`, `le_trans`
 - `edit_preserves_constraint_scalar` -> `E`, `W`, `le_trans`
 - `edit_preserves_nonzero_of_delta_zero` -> `E`, `W`, `apply`, `at`, `trans`
-- `edit_preserves_witness_if_untouched` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`
-- `edit_preserves_zeroing_iff_at_solution` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_preserves_witness_if_untouched` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `compileToLayer`, `convertVec`, `map`
+- `edit_preserves_zeroing_iff_at_solution` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `edit_realizes` -> `Edit`, `Holds`, `Pt`, `add`, `append_nil`, `apply`, `at`, `length`, `nil_append`, `undo`
-- `edit_regime_agree_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_agree_of_dot_zero` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_disagree_witness` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_gap_exact` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `edit_regime_short_input_report_false` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_agree_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_agree_of_dot_zero` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_disagree_witness` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_gap_exact` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `length`, `map`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `edit_regime_short_input_report_false` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `edit_rollback_with_lora` -> `E`, `LoRAEdit`, `W`
 - `edit_roundtrip_through_weights` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `extractVec`, `roundtrip_extractVec`, `symbolToWeight_correct`
-- `edit_scaling_witness_family` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `scaleVec`, `scaleVec_preserves`, `subst`
+- `edit_scaling_witness_family` -> `LayerDelta`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `editConstraint`, `induction`, `length`, `length_cons`, `map`, `scaleVec`, `scaleVec_preserves`, `subst`
 - `edit_seq_bound` -> `E`, `W`, `induction`, `le_trans`, `zero`
 - `edit_seq_comm` -> `ApplyEdit`, `ApplyEdits2`, `E`, `applyEdit_writes_fact`, `d`, `editSeq`, `induction`, `key_norm_sq_ne_zero`, `rankOneEdit`
 - `edit_seq_nonuniform` -> `E`, `W`, `edit_two_step`, `induction`, `zero`
@@ -4725,7 +4728,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `edit_verify_tolerance` -> `E`, `W`, `le_trans`
 - `edit_verify_tolerance_scalar` -> `E`, `W`, `le_trans`
 - `edit_verify_tolerance_scalar_affine` -> `E`, `W`, `le_trans`
-- `edited_activated_zero_iff_residual` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `apply`, `applySymEdit`, `compileToLayer`, `convertVec`
+- `edited_activated_zero_iff_residual` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `apply`, `applySymEdit`, `compileToLayer`, `convertVec`, `map`
 - `edited_closure_interface` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraintSat`, `compileToLayer`, `symbolToWeight_correct`
 - `efErrorSeq_succ` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `efErrorSeq_zero` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
@@ -4753,10 +4756,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `elbo_monotone_converges_to_log_marginal` -> `contraction_converges`, `elbo`, `elbo_le_log_marginal`
 - `elbo_strict_concave` -> `at`, `contraction_converges`, `elbo`, `elbo_eq_sum_log_p_add_entropy`, `elbo_le_log_marginal`, `em_posterior_optimal`, `entropy`, `entropy_concavity_eq_iff`, `entropy_concavity_strict`, `mix`, `posterior`, `subst`
 - `elbo_tight_iff` -> `apply`, `entropy`, `kl_eq_zero_of_eq`, `kl_zero_iff_eq`
-- `elementFiber_nonempty_iff` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `scaleVec`, `trans`
-- `elementFiber_rel_of_mem` -> `VectorConstraint`, `apply`, `at`, `g`, `induction`, `scaleVec`, `trans`
-- `elementFiber_self` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `scaleVec`, `trans`
-- `elementFiber_subset_gazeUp` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `scaleVec`, `trans`
+- `elementFiber_nonempty_iff` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `map`, `scaleVec`, `trans`
+- `elementFiber_rel_of_mem` -> `VectorConstraint`, `apply`, `at`, `g`, `induction`, `map`, `scaleVec`, `trans`
+- `elementFiber_self` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `map`, `scaleVec`, `trans`
+- `elementFiber_subset_gazeUp` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `map`, `scaleVec`, `trans`
 - `element_concept_complement` -> `at`, `extent`, `g`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
 - `element_iff_no_upper` -> `at`, `extent`, `g`
 - `element_or_concept` -> `at`, `extent`, `g`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`
@@ -4778,28 +4781,28 @@ module. These are the edges that make the chain a chain rather than a list.
 - `embedding_sound_at_minimiser` -> `E`, `Sat`, `at`, `loss`, `trivial`
 - `embedding_soundness` -> `ConstraintSat`, `LinearConstraint`, `convert_preserves_semantics`
 - `empty_allowed_row_sum_ne_one` -> `at`, `card_fin`, `maskedSoftmax`
-- `empty_graph_depends_false` -> `IRSkeleton`, `RelKind`, `TensorId`, `at`, `d`, `dependsHolds`, `subst`
+- `empty_graph_depends_false` -> `IRSkeleton`, `RelKind`, `TensorId`, `at`, `d`, `dependsHolds`, `map`, `subst`
 - `empty_graph_satisfiable` -> `Compiler`, `at`
 - `empty_plugin_is_vacuous` -> `PluginLayer`, `PluginName`, `at`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
 - `empty_program_no_constraints` -> `Theory`, `length`
 - `empty_program_no_prove` -> `Theory`, `length`
 - `empty_table_unique` -> `apply`, `at`, `empty`, `find`, `value`
-- `empty_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `empty`, `layers`, `length`, `subst`, `weights`
+- `empty_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `empty`, `layers`, `length`, `map`, `subst`, `weights`
 - `encodeForm_arity` -> `LinearForm`, `SatisfiesEq`, `Token`, `denote`, `length`
 - `encodeForm_length` -> `LinearForm`, `SatisfiesEq`, `Token`, `denote`, `length`
-- `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
+- `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `map`, `payload`
 - `encodeForm_payload_length` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
-- `encodeInstr_length_ofTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `relu`, `softmax`, `zero`
+- `encodeInstr_length_ofTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
 - `encodeProgram_append_length` -> `Instr`, `append_nil`, `length`, `softmax`
 - `encodeProgram_append_softmax_length` -> `Instr`, `length`, `softmax`
 - `encodeProgram_singleton_softmax_length` -> `Instr`, `length`, `softmax`
 - `encode_comm_shapes` -> `Data`, `d`, `length`
-- `encode_cons_eq` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
-- `encode_drop_b_roundtrip_fails` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `dot`, `flatten`, `length`
-- `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `Data`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `roundtrip`, `satSym`, `satW`
+- `encode_cons_eq` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `map`, `nil_append`
+- `encode_drop_b_roundtrip_fails` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `dot`, `flatten`, `length`, `map`
+- `encode_injective` -> `AllSatisfied`, `ConstraintSet`, `Data`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `d`, `decode`, `decode_encode`, `dot`, `encode`, `flatten`, `length`, `map`, `roundtrip`, `satSym`, `satW`
 - `encode_is_section_of_decodeTotal` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode_encode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `encode`, `lift`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
 - `encode_necessary` -> `at`
-- `encode_no_sep_roundtrip_fails` -> `ConstraintSet`, `at`, `decode`, `flatten`, `length`
+- `encode_no_sep_roundtrip_fails` -> `ConstraintSet`, `at`, `decode`, `flatten`, `length`, `map`
 - `encode_sound` -> `CICCtx`, `ConstSet`, `Data`, `Typable`, `at`, `d`, `empty`
 - `encoded_layer_size` -> `AffineLayer`, `FloatFormat`, `layerWords`, `length`
 - `encoder_decoder_block_bound` -> `E`, `block_lipschitz_bound`, `dec`, `lipschitz_add`, `lipschitz_comp`
@@ -4870,9 +4873,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `euler_divergence_witness` -> `at`
 - `euler_step_loss_bound` -> `E`, `at`, `le_trans`
 - `euler_strict_descent` -> `E`, `at`
-- `evalClause_finMinterm` -> `Compiler`, `at`, `d`, `induction`
-- `evalClause_minterm` -> `at`, `d`, `induction`, `trans`
-- `evalDNF_iff` -> `at`, `d`, `induction`, `trans`
+- `evalClause_finMinterm` -> `Compiler`, `at`, `d`, `induction`, `map`
+- `evalClause_minterm` -> `at`, `d`, `induction`, `map`, `trans`
+- `evalDNF_iff` -> `at`, `d`, `induction`, `map`, `trans`
 - `evalDNF_truthTable` -> `Compiler`, `at`, `d`, `induction`
 - `evalFloat_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
 - `evalLinearMap_apply` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
@@ -4881,31 +4884,31 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_append_softmax` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `eval_append`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
 - `evalProgram_append_softmax_nonneg` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
 - `evalProgram_append_softmax_sum_one` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `attention`, `convex_combination_between`, `evalProgram`, `le`, `softmax`, `softmax_sum_one`, `sum_exp_pos`
-- `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `softmax`
+- `evalProgram_encodeProgram` -> `Instr`, `append_nil`, `length`, `map`, `softmax`
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`
-- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`
+- `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`
 - `evalReal_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
 - `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_append` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
-- `eval_congr` -> `all`, `at`, `d`, `induction`, `trans`
+- `eval_congr` -> `all`, `at`, `d`, `induction`, `map`, `trans`
 - `eval_const` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_const_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
-- `eval_eq_true_iff` -> `at`, `d`, `induction`, `trans`
+- `eval_eq_true_iff` -> `at`, `d`, `induction`, `map`, `trans`
 - `eval_expr_depends_on_vars` -> `IRConstraint`, `IRExpr`, `add`, `angle`, `at`, `collinear`, `compile_constraint`, `compile_program_go`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvConstraint`, `lvPoint`, `lvProgram`, `mul`, `normalize`, `parallel`, `point`
-- `eval_falsity` -> `Compiler`, `at`, `d`, `induction`
-- `eval_lit` -> `Compiler`, `at`, `d`, `induction`
+- `eval_falsity` -> `Compiler`, `at`, `d`, `induction`, `map`
+- `eval_lit` -> `Compiler`, `at`, `d`, `induction`, `map`
 - `eval_lit_zero` -> `Flat`, `MExpr`, `MStmt`, `decEq_eq_true_iff`, `eval`, `flatMeasure`, `flatRun`, `flatSize`, `flatVal`, `induction`, `lit`, `run`, `size`, `size_neg`, `size_seq`, `toFun`
 - `eval_mul` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_mul_binary` -> `Compiler`, `eval`, `mul`, `size`, `size_pos`
 - `eval_nil` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
 - `eval_node` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
-- `eval_ofClause` -> `Compiler`, `at`, `d`, `induction`
-- `eval_ofDNF` -> `Compiler`, `at`, `d`, `induction`
+- `eval_ofClause` -> `Compiler`, `at`, `d`, `induction`, `map`
+- `eval_ofDNF` -> `Compiler`, `at`, `d`, `induction`, `map`
 - `eval_recursion_decreasing` -> `Compiler`, `size`, `size_pos`
 - `eval_recursion_decreasing_size` -> `Compiler`, `size`, `size_pos`
 - `eval_size_pos` -> `Compiler`, `size`, `size_pos`
-- `eval_truth` -> `Compiler`, `at`, `d`, `induction`
+- `eval_truth` -> `Compiler`, `at`, `d`, `induction`, `map`
 - `eval_var` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_var_leaf` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `even_combo_preserves` -> `EvenOut`, `EvenSat`, `at`
@@ -4914,12 +4917,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `even_loop_fixpoint` -> `EvenSat`
 - `even_loop_stays` -> `EvenSat`, `induction`, `zero`
 - `every_backend_sound` -> `W`, `compile`, `encode`, `satW`
-- `every_function_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `every_function_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `every_judgement_carries_a_reason` -> `Audit`, `at`
-- `every_primitive_has_boundary` -> `CFunction`, `abiTable`, `length`
-- `evidenceCheckWitness_spec` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `step`, `subst`
+- `every_primitive_has_boundary` -> `CFunction`, `abiTable`, `length`, `map`
+- `evidenceCheckWitness_spec` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `map`, `step`, `subst`
 - `evidenceCheck_accepts_unsatisfiable` -> `apply`, `at`, `eval`, `g`, `induction`, `step`
-- `evidenceCheck_no_qed_fails` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `step`
+- `evidenceCheck_no_qed_fails` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `map`, `step`
 - `evidenceCheck_sound_of_sound` -> `apply`, `at`, `g`, `step`
 - `evidenceCheck_unsound_exists` -> `apply`, `at`, `g`, `induction`, `step`
 - `evidenceCheck_unsound_unless_hypothesis_free` -> `step`
@@ -4968,7 +4971,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_max_coord` -> `apply`, `at`, `frobeniusNorm`, `induction`, `le_antisymm`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`, `zero`
 - `exists_modulus_of_posDef` -> `PosDefQ`, `at`, `d`, `le`, `normSq`, `quadForm`, `second_order_sufficient_multidim`, `sphere`, `sym2`, `two_dim_posdef_iff`
 - `exists_ne_same_rotateR` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `exists_ne_zero_of_listGcdNat_ne_zero` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
+- `exists_ne_zero_of_listGcdNat_ne_zero` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `exists_norm_eq` -> `at`, `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
 - `exists_norm_eq_general` -> `E`, `at`, `exists_norm_eq`, `rmsNormE`
 - `exists_optimal_plan` -> `g`, `le_antisymm`, `mul`, `sInf`
@@ -5040,39 +5043,39 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractLayer_alt_leftInverse` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `unique_bayes_admissible`
 - `extractLayer_alt_rightInverse` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_eq_extractLayer`, `layerToCLM`, `unique_bayes_admissible`
 - `extractLayer_alt_surjective` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `unique_bayes_admissible`
-- `extractLayer_candidates_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
-- `extractLayer_compileToLayer` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `Representation`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compile`, `compileToLayer`, `convertVec`, `decode`, `dot`, `encode`, `extract`, `extractLayer`, `extractVec`, `induction`, `reluZ`, `reluZ_counterexample`, `roundtrip`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`, `trans`
-- `extractLayer_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `Representation`, `VectorConstraint`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `decode`, `encode`, `extract`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `roundtrip`, `symbolToWeight_correct`
-- `extractLayer_eq_extractLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
-- `extractLayer_leftInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `extractLayer_candidates_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `extractLayer_compileToLayer` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `Representation`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compile`, `compileToLayer`, `convertVec`, `decode`, `dot`, `encode`, `extract`, `extractLayer`, `extractVec`, `induction`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`, `trans`
+- `extractLayer_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `Representation`, `VectorConstraint`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `decode`, `encode`, `extract`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `roundtrip`, `symbolToWeight_correct`
+- `extractLayer_eq_extractLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
+- `extractLayer_leftInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
 - `extractLayer_range_and_roundtrip` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `bayesRisk`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `extractLayer_alt`, `extractLayer_eq_extractLayer`, `layerToCLM`, `unique_bayes_admissible`
-- `extractLayer_rightInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
-- `extractLayer_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
-- `extractRaw_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
+- `extractLayer_rightInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `subst`, `symbolToWeight_correct`, `trans`
+- `extractLayer_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
+- `extractRaw_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`, `roundtrip_extractVec`
 - `extractVec_blind_to_scale` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extractVec_convertVec_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `convertVec_extractVec_rfl`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_one`, `sign`
-- `extractVec_exists_preimage` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_convertVec_rfl`, `roundtrip_extractVec`, `trans`
+- `extractVec_convertVec_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `convertVec_extractVec_rfl`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_one`, `sign`
+- `extractVec_exists_preimage` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_convertVec_rfl`, `roundtrip_extractVec`, `trans`
 - `extractVec_injective` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
-- `extractVec_injective_layer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_convertVec_rfl`, `roundtrip_extractVec`, `trans`
+- `extractVec_injective_layer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_convertVec_rfl`, `roundtrip_extractVec`, `trans`
 - `extractVec_injective_recover` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `VectorConstraint`, `apply`, `at`, `dot`, `encode_injective`, `extractLayer`, `extractVec`, `g`, `length`
-- `extractVec_is_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `extract_sound`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `extractVec_is_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `extract_sound`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `extractVec_mem_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
-- `extractVec_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
+- `extractVec_range_eq_univ` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
 - `extractVec_respects_semEq` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `lift`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `extractVec_scaleLayerVec` -> `LinearLayer`, `ScaleClass`, `extractVec`, `scaleVec`
 - `extractVec_surjective` -> `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `find`
-- `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
-- `extractWith_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `skeletonCode`, `weightCodeIR`
-- `extractWith_eq_slotOf` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
-- `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
-- `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
-- `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
-- `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`
+- `extractWith_absent` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `find`, `map`
+- `extractWith_collision` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
+- `extractWith_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `compileSkel`, `find`, `map`, `skeletonCode`, `weightCodeIR`
+- `extractWith_eq_slotOf` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`, `map`
+- `extractWith_overwrite` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
+- `extractWith_overwrite_footprint` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
+- `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
+- `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
 - `extract_after_repair` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
-- `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `apply`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
-- `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
-- `extract_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `apply`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `map`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
+- `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`, `map`
+- `extract_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `extract_compile_constraints` -> `Layer`, `VectorConstraint`, `compileToLayer`, `compile_extract_bijective`, `extractLayer`, `induction`, `inject_extract_closed`
 - `extract_compile_identity` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
 - `extract_compile_identity_int` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
@@ -5080,31 +5083,31 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extract_compile_iff` -> `IRSkeleton`, `Term`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `parse`, `skeletonCode_injective`, `subst`
 - `extract_compile_semantically_equal` -> `AllSatisfied`, `ConstraintSet`, `compile`, `extract`, `roundtrip`
 - `extract_compile_skel` -> `IRSkeleton`, `Term`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `parse`, `skeletonCode`, `skeletonCode_injective`, `subst`
-- `extract_convert_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
-- `extract_drops_unterminated` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `extract_convert_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
+- `extract_drops_unterminated` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `extract_fixpoints_many` -> `PiecewiseConstraint`, `at`, `closureOperator`, `extent`, `intent`, `piecewiseCompile`, `reluInv`, `trans`
-- `extract_functional` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
+- `extract_functional` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
 - `extract_idempotent` -> `IsFormalConcept`, `at`, `closure_idempotent`, `extent_antitone`, `g`, `intent_antitone`, `relu`, `subset_extent_intent`
-- `extract_injective_on_compiled` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
+- `extract_injective_on_compiled` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
 - `extract_is_valid` -> `ConstraintSat`, `LinearNeuron`, `NeuronOut`, `extract`
 - `extract_lipschitz_one` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
-- `extract_lossy_of_no_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `extract_lossy_of_no_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `extract_normalize_bounded` -> `E`, `le_trans`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
 - `extract_normalize_lipschitz` -> `E`, `le_trans`, `safeNormalize`, `safe_normalize_lipschitz_on`
 - `extract_operator_is_identity` -> `E`, `RealNeuron`, `extractReal`, `le_trans`, `safeNormalize`, `safe_normalize_bound`, `safe_normalize_lipschitz_on`
 - `extract_perturbation_bound` -> `E`, `le_trans`
 - `extract_preserves_fixpoint` -> `IsFormalConcept`, `at`, `g`, `relu`
 - `extract_reinject_loop` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractVec`, `extractVec_is_valid`, `roundtrip_extractVec`
-- `extract_render_left_inverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
-- `extract_sound` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `ExtractionValidVec`, `LinearLayer`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `extractVec`, `extractVec_is_valid`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `roundtrip_extractVec`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
-- `extract_sound_setSat` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
+- `extract_render_left_inverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
+- `extract_sound` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `ExtractionValidVec`, `LinearLayer`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `extractVec`, `extractVec_is_valid`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `roundtrip_extractVec`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
+- `extract_sound_setSat` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
 - `extract_stability` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `extract_stability_isometry` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `extract_to_weights` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `compileToLayer`, `symbolToWeight_correct`
 - `extractionValid_iff_convertVec_eq` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `extractVec`, `scaleVec`, `scaleVec_preserves`
-- `extraction_completeness_counterexample` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
-- `extraction_completeness_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
-- `extraction_not_unique` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
+- `extraction_completeness_counterexample` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `extraction_completeness_false` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `extraction_not_unique` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
 - `extrapolation_angle_shift` -> `Point2R`, `apply`, `at`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `extrapolation_angle_unbounded` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `extrapolation_blind_forall` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
@@ -5126,8 +5129,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `factors_id` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `factors_project` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `fail_leaves_state` -> `Effect`, `RState`, `Step`, `apply`, `run`
-- `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
-- `failure_no_cert` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
+- `failure_identifiable_with_id_norm` -> `CharToken`, `IsFormalConcept`, `SameTokens`, `Surjective`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `map`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `failure_no_cert` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`
 - `faithful_iff_extract_eq` -> `Layer`, `Sample`, `compileToLayer`, `corpusToConstraintSet`, `extractLayer`, `verify_iff_recompile`
 - `faithful_semantics` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `Sample`, `compileToLayer`, `compile_extract_layer`, `corpusToConstraintSet`, `corpusToLayer`, `extractLayer`, `symbolToWeight_correct`
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -5153,13 +5156,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fcaClosure_mono` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`
 - `fca_antitone_adjoint` -> `IsFormalConcept`, `apply`, `extent`, `extent_antitone`, `extent_intent_extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`
 - `fca_closure_fixpoint_iff_mem_range` -> `extent`, `extent_intent_extent`, `fcaClosure`, `intent`
-- `fca_closure_gives_no_surjectivity` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `listGcdNat`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `fca_closure_gives_no_surjectivity` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fca_closure_isClosureOp` -> `closure_idempotent`, `extent`, `extent_antitone`, `extent_intent_extent`, `fcaClosure`, `intent`, `intent_antitone`, `le`, `mono`, `subset_extent_intent`
-- `fca_closure_is_idempotent_extensive` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
+- `fca_closure_is_idempotent_extensive` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `map`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `fca_closure_subset_iff_fixpoint` -> `extent`, `extent_intent_extent`, `fcaClosure`, `intent`, `le`, `subset_extent_intent`
 - `fca_extent_eq_transpose_intent` -> `E`, `extent`, `intent`
 - `fca_intent_singleton_eq_class` -> `E`, `at`, `extent`, `intent`
-- `fca_norm_gives_witness_shape` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `listGcdNat`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `fca_norm_gives_witness_shape` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fderiv_apply_direction` -> `E`, `at`, `const_add`, `g`, `trans`
 - `fderiv_apply_direction_fin` -> `apply`, `comp`, `const_add`, `mul`, `softmax`, `softmax_denom_pos`, `softmax_pos`
 - `fderiv_apply_direction_scalar` -> `E`, `apply`, `at`, `const_add`, `g`
@@ -5282,9 +5285,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `field_smul_injective` -> `at`
 - `field_strictly_beats_ring_on_scaling` -> `QConstraint`, `QSat`, `at`
 - `file_under_dir` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `strPrefix_append_right`, `subst`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
-- `fillWith_zero` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `subst`
-- `filterMap_comp_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
-- `filterMap_sym_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `payload`
+- `fillWith_zero` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `map`, `subst`
+- `filterMap_comp_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `map`, `payload`
+- `filterMap_sym_append` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `induction`, `length`, `map`, `payload`
 - `filter_filter_fiber` -> `apply`, `at`, `d`, `g`
 - `filter_length_eq_zero_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `finExpect_add` -> `apply`, `g`, `quadForm`
@@ -5305,9 +5308,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `finalSpec_nil` -> `Edit`, `Plugin`, `construct`
 - `finalSpec_not_determine_active` -> `Edit`, `Plugin`, `construct`
 - `finalSpec_of_run` -> `Edit`, `Plugin`, `ResultEquiv`, `behavior`, `construct`
-- `find_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `subst`
-- `find_id_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `induction`
-- `find_id_eq_some_of_nodup_shape` -> `at`, `find`, `induction`
+- `find_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `map`, `subst`
+- `find_id_eq_some_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `induction`, `map`
+- `find_id_eq_some_of_nodup_shape` -> `at`, `find`, `induction`, `map`
 - `finite_card_identities` -> `constraintDomain`, `d`, `programDomain`
 - `finite_domain_compactness_fails` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `finite_domain_compactness_hypothesis_false` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -5389,11 +5392,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `flatParamAct_differentiableAt_activation` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `flatParamAct_differentiableAt_joint` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
 - `flatParamAct_differentiableAt_params` -> `comp`, `d`, `g`, `layerParamCount`, `slotOf`
-- `flatParams_differentiableAt_apply` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `flatParams_differentiableAt_linear` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `flatParams_differentiableAt_linear_vec` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `flatParams_normedAddCommGroup` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `flatParams_normedSpace` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `flatParams_differentiableAt_apply` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `flatParams_differentiableAt_linear` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `flatParams_differentiableAt_linear_vec` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `flatParams_normedAddCommGroup` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `flatParams_normedSpace` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
 - `flatRun_inl` -> `MExpr`, `MStmt`
 - `flatRun_inr_guard` -> `MExpr`
 - `flatRun_inr_seq` -> `MExpr`, `MStmt`
@@ -5444,40 +5447,40 @@ module. These are the edges that make the chain a chain rather than a list.
 - `floatWeight_roundtrip_relative` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`, `toFun`
 - `floatWeights_dot_error` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`, `toFun`
 - `floatWeights_dot_error_uniform` -> `FloatFormat`, `RoundOp`, `W`, `le_trans`, `subst`, `toFun`
-- `float_stack_refinement` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `netAct`, `netAct_deviation_le_devB`, `tiny`
+- `float_stack_refinement` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `map`, `netAct`, `netAct_deviation_le_devB`, `tiny`
 - `float_zero_criterion_needs_axiom` -> `FloatFormat`, `RoundOp`, `eps`, `tiny`, `toFun`
 - `floor_neg_scale` -> `at`, `min`, `subst`, `width`
 - `foldBlanks_idem` -> `append_assoc`, `apply`, `at`, `induction`, `length`, `single`, `split`, `subst`, `tokenize`, `zero`
 - `foldBlanks_length_le` -> `at`, `length`, `tokenize`, `trans`
 - `foldGo_idem` -> `append_assoc`, `at`, `induction`, `length`, `single`, `split`, `subst`, `tokenize`, `zero`
 - `foldGo_length_le` -> `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`
-- `foldProgram_preserves` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `foldProgram_preserves` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `foldStrength_le_of_mem` -> `Strength`, `at`, `le_antisymm`, `le_trans`, `min`, `min_rank_le_left`, `min_rank_le_right`, `rank`
 - `fold_weights_sum` -> `card_fin`
-- `foldlQ_init_add` -> `at`, `induction`
+- `foldlQ_init_add` -> `at`, `induction`, `map`
 - `foldlSlotZeroPreservedProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `foldl_coeff_zero_irrelevant`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
-- `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
-- `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `dot`, `induction`, `length`, `subst`
-- `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `toVec`, `toVec_not_injective_without_length`
+- `foldl_add_general` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `induction`, `length`, `length_cons`, `map`, `roundtrip_extractVec`, `subst`, `symbolToWeight_correct`
+- `foldl_add_shift` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `dot`, `induction`, `length`, `map`, `subst`
+- `foldl_cast_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `foldl_coeff_zero_irrelevant` -> `MLayer`, `apply`, `induction`, `single`, `subst`
 - `foldl_eval_act` -> `apply`, `at`, `eval`, `g`, `le_antisymm`, `length`, `length_cons`, `single`
 - `foldl_eval_lipschitz` -> `apply`, `blocks`, `induction`
-- `foldl_init_add` -> `at`, `dot`, `induction`, `length`, `subst`
-- `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
+- `foldl_init_add` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
+- `foldl_init_eq_of_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `foldl_step_totalDegree` -> `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`
 - `foldl_step_totalDegree_any` -> `MLayer`, `at`, `d`, `eval`, `layerParamCount`, `le_trans`, `length`, `length_cons`, `slotOf`
 - `foldl_zip_add` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `fomaml_grad_eq_maml_zero_hessian` -> `at`, `g`
-- `forall` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `induction`, `netAct`, `netAct_deviation_le_devB`, `tiny`
+- `forall` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `induction`, `map`, `netAct`, `netAct_deviation_le_devB`, `tiny`
 - `forall_constraint_verify` -> `out`
-- `forall_mem_map_iff` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `length`
-- `forall_mem_map_iff_ablation` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
-- `forall_mem_map_iff_ablation_lhs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `forall_mem_map_iff` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `length`, `map`
+- `forall_mem_map_iff_ablation` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `forall_mem_map_iff_ablation_lhs` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `forall_proper_subset_roundtrip_is_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
 - `forgetting_bound` -> `at`, `d`, `induction`, `zero`
 - `forgetting_bound_of_drift` -> `at`, `d`, `induction`, `zero`
 - `forgetting_self` -> `at`, `d`, `induction`, `zero`
-- `formal_concept_extent_is_norm_fixed` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `formal_concept_extent_is_norm_fixed` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `at`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `intent`, `isBlank`, `map`, `mkConstraint`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `formal_concept_iff_closure` -> `apply`, `at`
 - `format_add_error` -> `at`, `eps`, `g`, `induction`, `le_trans`, `tiny`, `zero`
 - `format_error_bound` -> `at`, `eps`, `g`, `induction`, `le_trans`, `tiny`, `zero`
@@ -5545,15 +5548,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `frobenius_sq_eq_sum_col` -> `apply`, `card_fin`, `single`
 - `frobenius_sq_eq_sum_singularValueSq` -> `at`, `frob_add_le`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `sum_sq_eq_trace_transpose_mul`, `symmetric_trace_eq_sum_eigenvalues`
 - `fst_mem_reachL` -> `at`, `dist`, `induction`, `zero`
-- `ft2L0L1Norm_some` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L0L1_failure_identifiable` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L0L1_quot_is_SameTokens` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L0L1_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L2L3Norm_idem_apply` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L2L3_failure_identifiable` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L2L3_norm_idempotent` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L0L1Norm_some` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L0L1_failure_identifiable` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L0L1_quot_is_SameTokens` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L0L1_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L2L3Norm_idem_apply` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L2L3_failure_identifiable` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L2L3_norm_idempotent` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_idempotent`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fullAnchor_separates` -> `at`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
 - `fullCompile_sound` -> `AffineLayer`, `Ladder`, `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
 - `fullFamilySolver_anchor` -> `ExpressibleSpec`
@@ -5571,7 +5574,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `g02_criteria` -> `g`, `lt`
 - `g_nonneg` -> `violation`, `violation_nonneg`
 - `g_sq` -> `violation`, `violation_nonneg`
-- `gain_nonneg` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `gain_nonneg` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `galoisConnection_chainLift` -> `compose`, `induction`, `trans`, `zero`
 - `galoisConnection_interval_pointwise` -> `at`, `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
 - `galoisConnection_of_pointwise` -> `at`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le_trans`, `zero`
@@ -5746,7 +5749,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gibbs_optimal_value` -> `kl`, `kl_eq_zero_of_eq`, `kl_nonneg`, `kl_zero_iff_eq`, `le`
 - `gibbs_optimal_value_attained` -> `kl`, `kl_eq_zero_of_eq`, `kl_zero_iff_eq`, `le`
 - `gibbs_term` -> `apply`, `gibbs_ineq`
-- `global_linearization_fails` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
+- `global_linearization_fails` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `linearization_global_fails`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `glu_bound` -> `SoftMasked`, `W`, `act`, `apply`, `gated_abs_le`, `gelu_is_soft_masked`, `relu_is_soft_masked`, `silu_is_soft_masked`
 - `glu_ffn_effective` -> `SoftMasked`, `W`, `act`, `apply`
 - `glu_ffn_effective_gated` -> `SoftMasked`, `W`, `act`, `apply`
@@ -5771,17 +5774,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gnorm_scale_invariant` -> `rms`, `rmsNorm`
 - `gnorm_scale_invariant_reuse` -> `gnorm`, `gnorm_scale_invariant`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`
 - `gnorm_univ_eq_rmsNorm` -> `rmsNorm`
-- `go_all_proved_if_qed_last` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `step`, `subst`
-- `go_append` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `go_cons` -> `all`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `go_hypotheses_eq` -> `apply`, `at`, `eval`, `g`, `induction`, `step`
-- `go_hypotheses_pushes` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `step`
-- `go_hypotheses_pushes_aux` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `step`
-- `go_nil` -> `all`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `go_qed_some` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `step`, `subst`
-- `go_qed_some_iff` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `step`, `subst`
-- `go_some_eq_trace_fold` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `go_trans_compose` -> `append_assoc`, `at`, `eval`, `g`, `induction`, `step`
+- `go_all_proved_if_qed_last` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `map`, `step`, `subst`
+- `go_append` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `go_cons` -> `all`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `go_hypotheses_eq` -> `apply`, `at`, `eval`, `g`, `induction`, `map`, `step`
+- `go_hypotheses_pushes` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `map`, `step`
+- `go_hypotheses_pushes_aux` -> `append_assoc`, `apply`, `at`, `eval`, `g`, `induction`, `map`, `step`
+- `go_nil` -> `all`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `go_qed_some` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `map`, `step`, `subst`
+- `go_qed_some_iff` -> `all`, `append_assoc`, `at`, `contains`, `eval`, `g`, `induction`, `map`, `step`, `subst`
+- `go_some_eq_trace_fold` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `go_trans_compose` -> `append_assoc`, `at`, `eval`, `g`, `induction`, `map`, `step`
 - `good_event_prob` -> `apply`, `card_fin`, `g`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `good_event_prob_two` -> `card_fin`, `g`, `uniformExpectation`, `uniformProb`
 - `good_lam_exponent` -> `apply`, `at`, `card_fin`, `sum_eq_card_mul_mean`, `uniformExpectation`, `uniformProb`
@@ -5822,7 +5825,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `graphTheory_repaired` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
 - `graphTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `length`, `mkTemplates`
 - `graphTheory_validB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
-- `graph_ext` -> `IRSkeleton`, `RelKind`, `at`, `d`, `subst`
+- `graph_ext` -> `IRSkeleton`, `RelKind`, `at`, `d`, `map`, `subst`
 - `greedy_is_optimal` -> `at`
 - `grid_delta_dense` -> `DeltaDense`, `at`, `le_trans`, `trivial`
 - `grid_dense_le` -> `DeltaDense`, `le_trans`
@@ -5835,7 +5838,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `group_axioms_implies_mul_one` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `group_axioms_of_group` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `grouped_output_bound` -> `E`, `convComb_norm_bound`, `d`, `g`, `softmax`
-- `grow_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `weights`
+- `grow_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `map`, `weights`
 - `gtZero_lipschitz` -> `Pt`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `hDone_apply` -> `Relation`, `at`, `compile`, `step`, `trivial`
 - `hG_is_substantive` -> `at`, `dist`, `induction`, `zero`
@@ -5868,11 +5871,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hasFDerivAt_affineAct_params` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `hasFDerivAt_dot` -> `RealDot`, `mul`, `trans`
 - `hasFDerivAt_fderiv_of_contDiffAt` -> `IsSymmMat`, `add`, `at`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
-- `hasFDerivAt_lossOfActivations` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `hasFDerivAt_lossOfActivations` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `hasFDerivAt_netActN_params` -> `comp`
 - `hasFDerivAt_netAct_ofFn` -> `AffineLayer`, `W`, `affineAct`, `comp`, `netAct`
-- `hasFDerivAt_penaltyLoss_family` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `hasFDerivAt_pointwiseNetActN` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `hasFDerivAt_penaltyLoss_family` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `hasFDerivAt_pointwiseNetActN` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `hasFDerivAt_sq` -> `E`, `at`, `comp`, `convert`, `d`, `mul`, `sq_eq_zero_of_localMin`, `sq_localMin_dichotomy`
 - `hasFDerivAt_sq_comp` -> `E`, `comp`, `convert`, `d`
 - `hasModel_iff` -> `all`, `at`, `bvar`, `induction`
@@ -5970,11 +5973,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holdsSet_member` -> `Edit`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `holdsSet_mem`, `length`, `nil_append`, `undo`
 - `holdsSet_midpoint_single` -> `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `compile_sound`, `merge_sound`, `merged`, `satW`, `trivial`
 - `holdsSet_nil` -> `Pt`, `Sat`, `at`, `d`, `induction`, `nil_append`, `trivial`
-- `holdsSet_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `holdsSet_of_forall` -> `ExpressibleSpec`, `FamilySolver`, `Holds`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `d`, `degenerateSolver`, `induction`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
+- `holdsSet_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
+- `holdsSet_of_forall` -> `ExpressibleSpec`, `FamilySolver`, `Holds`, `HoldsSet`, `Pt`, `canonical`, `construct_sound`, `d`, `degenerateSolver`, `induction`, `map`, `penaltyLoss`, `samePointFamilySolver`, `sound`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `holdsSet_of_sublist` -> `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
 - `holdsSet_samePoint01_const` -> `ContextualInherits`, `Holds`, `HoldsSet`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_nil`, `holdsSet_singleton`, `sound`
-- `holdsSet_samePoint_all` -> `ExpressibleSpec`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
+- `holdsSet_samePoint_all` -> `ExpressibleSpec`, `HoldsSet`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_samePoint_const`, `induction`, `map`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `holdsSet_samePoint_single` -> `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `compile_sound`, `merge_sound`, `merged`, `satW`, `trivial`
 - `holdsSet_singleton` -> `Pt`, `Sat`, `at`, `d`, `induction`, `nil_append`, `trivial`
 - `holds_eqZero_const_iff` -> `DegenerateOK`, `Holds`, `Pt`, `holds_of_degenerateOK`
@@ -5990,7 +5993,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holds_samePoint_const` -> `ConstraintSet`, `Holds`, `HoldsSet`, `Pt`, `holdsSet_samePoint_single`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `holds_soundness` -> `Holds`, `PluginProof`, `soundness`, `subst`, `trivial`, `trivial_holds`
 - `holds_sqDistEq_const_of_eval_zero` -> `DegenerateOK`, `Holds`, `Pt`, `d`, `holds_of_degenerateOK`
-- `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `g`, `length`, `reluZ`, `toVec`
+- `honesty_register` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `g`, `length`, `map`, `reluZ`, `toVec`
 - `hreach_of_uniform_gap` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `SoftmaxAttnOp`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`, `residual_lower_bound_positive`
 - `hreach_positivity_obstruction` -> `SoftmaxAttnOp`, `W`, `at`, `le_trans`, `one_add_lower_bound`, `softmaxAttnOp_norm_le`
 - `hreach_unconditional_false` -> `SoftmaxAttnOp`, `at`, `softmax_sum_one`
@@ -6022,15 +6025,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `idempotent_alone_does_not_suffice` -> `g`
 - `identityInherits_complete` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
 - `identityInherits_sound` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `trivial`
-- `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identitySemantic_sound` -> `W`, `decode`, `encode`
 - `identity_compose_run` -> `Primitive`, `run`
 - `identity_isRIP` -> `apply`, `at`, `l0Norm`, `sqNorm`
 - `identity_post` -> `Primitive`, `compose`, `g`, `identity`, `run`
 - `identity_pre` -> `Primitive`, `compose`, `g`, `identity`, `run`
-- `idxB_lt` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
-- `idxW_lt` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `idxB_lt` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
+- `idxW_lt` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
 - `ieeeAccN_error` -> `FPAdder`, `FloatFormat`, `IEEERound`, `RoundMode`, `at`, `clampTo`, `clampTo_abs_le`, `clampTo_eq_self`, `clampTo_error_le`, `clampTo_idem`, `clampTo_mono`, `clampTo_ne_self_of_overflow`, `clampTo_no_overflow`, `eps`, `fp16Max`, `fp16Overflow`, `fp16Underflow`, `fp16_round_abs_bound`, `fpOverflow`, `geom_sum_mul`, `ieeeToRoundOp`, `induction`, `roundToFormat`, `tiny`, `toFun`, `zero`
 - `ieeeAccN_growth` -> `at`, `eps`, `induction`, `le_trans`, `zero`
 - `ieeeAccN_growth_error` -> `at`, `eps`, `induction`, `le_trans`, `zero`
@@ -6086,8 +6089,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `iid_mean_sq_dev_le_diag` -> `apply`, `at`, `card_fin`, `le`, `subst`
 - `image_card_eq_domain_card_of_injective` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `image_card_le_domain_card` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
-- `image_galoisConnection_general` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `image_preimage_eq_univ_only_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `image_galoisConnection_general` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `image_preimage_eq_univ_only_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `image_subset_soundAbstract` -> `at`, `clampTo`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `zero`
 - `image_swap_swap` -> `at`, `trans`
 - `imbalance_forces_drop` -> `apply`
@@ -6096,7 +6099,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `implClosure_least` -> `extent`, `subset_extent_intent`
 - `implClosure_monotone` -> `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`
 - `impl_antisymm_iff_extent_eq` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le`, `subset_extent_intent`, `subset_intent_extent`
-- `impl_expressible` -> `all`, `at`, `d`, `induction`, `trans`
+- `impl_expressible` -> `all`, `at`, `d`, `induction`, `map`, `trans`
 - `impl_iff_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `impl_inter_right` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`, `subset_intent_extent`
 - `impl_of_subset` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`, `subset_intent_extent`
@@ -6105,8 +6108,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `impl_union_left` -> `at`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `subset_extent_intent`, `subset_intent_extent`
 - `impl_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `implication_penalty` -> `le_antisymm`, `out`, `relu`, `relu_eq_zero_iff`
-- `implication_sum_zero_iff` -> `SumRelu`, `relu`, `sumRelu_eq_zero_iff_each`
-- `implication_transitive` -> `SumRelu`, `le_trans`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
+- `implication_sum_zero_iff` -> `SumRelu`, `map`, `relu`, `sumRelu_eq_zero_iff_each`
+- `implication_transitive` -> `SumRelu`, `le_trans`, `map`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
 - `inNormalRange_iff` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`, `toFun`
 - `indep_mgf_sum` -> `apply`, `g`, `mono`
 - `indep_pair` -> `apply`, `g`, `mono`
@@ -6115,8 +6118,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `indicator_permActEdge` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`
 - `indicator_sum` -> `abs_mean_le_one`, `uniformExpectation`, `uniformProb`
 - `indicesOf_midpoint` -> `ExpressibleSpec`, `FamilySolver`, `HoldsSet`, `Pt`, `canonical`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `indicesOf`, `indicesOf_nil`, `kindSum`, `kindTag`, `maxIndex`, `maxIndex_samePoint_3_7`, `penaltySum_of_degenerate`, `sound`, `trivial`
-- `indicesOf_nil` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
-- `indicesOf_samePoint` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `indicesOf_nil` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `indicesOf_samePoint` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `induction` -> `add`, `apply`, `at`, `d`, `depth`, `eval`, `mul`, `size`, `size_pos`
 - `infConv_eq_of_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
 - `infConv_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `subgradient_iff_fenchelConj_eq`
@@ -6153,7 +6156,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `injection_is_load_bearing` -> `Beh`, `Layer`, `SymToken`, `g`, `recover`
 - `injective_not_complete_behavioral_invariant` -> `Layer`, `SymToken`, `at`, `g`
 - `injective_of_zeroFixing_sufficient` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`, `tanh_pos_of_pos`, `trans`
-- `injectivity_needs_the_inverse` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
+- `injectivity_needs_the_inverse` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
 - `innerUpdate_eq_subgradient_step` -> `at`, `g`, `subgradient_descent_step`
 - `inner_ctr_constOne` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
 - `inner_le_sqrt_normsq` -> `apply`, `at`, `d`
@@ -6196,9 +6199,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `int_roundtrip_neg` -> `IntRoundtripExists`, `toNat`
 - `int_roundtrip_nonneg` -> `IntRoundtripExists`, `toNat`
 - `int_self_not_isTorsion` -> `at`
-- `int_sign_eq_self_iff` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_one`, `sign`
+- `int_sign_eq_self_iff` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `int_sq_eq_zero_iff` -> `ConstraintSat`, `LinearConstraint`, `convert_preserves_semantics`
-- `int_sq_nonneg` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `le_total`, `symbolToWeight_correct`, `trans`
+- `int_sq_nonneg` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `le_total`, `map`, `symbolToWeight_correct`, `trans`
 - `integrableOn_exp_neg_sq_Ioi` -> `at`, `le`
 - `integrable_exp_of_ae_bound` -> `apply`, `mono`
 - `integrable_of_ae_bound` -> `apply`, `mono`
@@ -6255,6 +6258,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isCompact_setOf_isTransportPlan` -> `e2`, `g`, `mul`, `sInf`
 - `isFCAClosed_iff` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
 - `isFCAClosed_iff_isFormalConcept_extent` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
+- `isFiniteMeasure_map` -> `map`
 - `isIntegral_iff_minpoly_ne_zero` -> `at`, `eval`, `min`, `subst`
 - `isKSparse_sub` -> `apply`, `at`, `l0Norm`, `le_antisymm`, `sqNorm`
 - `isLam_app` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`, `subst`
@@ -6279,6 +6283,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isPrefixRel_refl` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
 - `isPrefixRel_trans` -> `CharToken`, `IsFormalConcept`, `append_assoc`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `subst`, `trans`
 - `isPrincipalIdealRing_polynomial` -> `d`, `depth`, `induction`, `size`, `step`
+- `isProbabilityMeasure_map` -> `map`
 - `isRIP_iff_two_sided` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_lower_bound` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
 - `isRIP_mono` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `le_trans`, `sqNorm`, `subst`
@@ -6395,7 +6400,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kernelMul_psd_of_psd` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `kernelMul_symm` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `at`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `kernelQuadForm_eq_kernelGramQuadForm` -> `apply`, `at`
-- `kernelQuot_rel` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `kernelQuot_rel` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `kernelSMul_psd` -> `IsPSDKernel`, `IsPosDefKernel`, `IsSymmKernel`, `at`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`
 - `kernel_diag_nonneg` -> `apply`, `at`
 - `kernel_eq_of_compatible` -> `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_bijective`, `convertVec`, `dot`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundTrip`, `roundTrip_eq_self`, `roundtrip_extractVec`, `trans`
@@ -6507,7 +6512,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l0_le_ceil_l1_false_counterexample` -> `at`
 - `l0_le_l1_false_counterexample` -> `apply`, `at`
 - `l0_le_l1_of_one_le` -> `apply`, `at`
-- `l0_loss_survives_pipeline` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
+- `l0_loss_survives_pipeline` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
 - `l0_two_spike_eq_two` -> `at`, `l0Norm`, `l1Norm`, `sqNorm`, `subst`, `trans`
 - `l0l1_foldBlanks_single_char` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l0l1_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `g`, `listGcdNat`, `no_left_inverse_at_all`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
@@ -6520,11 +6525,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l1_le_l0_sqrt` -> `at`
 - `l1_sq_le_l0_mul_l2sq` -> `apply`, `at`
 - `l1l2_constant_norm_trivial` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `single`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
-- `l1l2_empty_vs_residual_collapse` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
+- `l1l2_empty_vs_residual_collapse` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_identifiable_implies_trivial_quotient` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `single`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_identifiable_norm_collapses` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `no_left_inverse_at_all`, `single`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `l1l2_only_one_direction` -> `ConstraintSet`, `SymToken`, `decode`, `g`, `no_left_inverse_at_all`
-- `l2_loss_visible_at_L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
+- `l2_loss_visible_at_L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `g`, `listGcdNat`, `no_left_inverse_at_all`
 - `labelAt_depends_on_carrier` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_nil`, `holdsSet_singleton`, `sound`
 - `labelAt_depends_on_context` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_singleton`, `sound`
@@ -6548,35 +6553,36 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lam_typed_noConsts` -> `CICCtx`, `HasType`, `Term`, `noConsts`
 - `lastBias_fits` -> `AffineLayer`, `FloatFormat`, `encode`, `layerWords`, `layerWords_length`, `length`, `size`
 - `lastWord_fits` -> `AffineLayer`, `FloatFormat`, `encode`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
-- `lattice_confluence` -> `LifeState`
-- `lattice_failure_isolated` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
+- `lattice_confluence` -> `LifeState`, `map`
+- `lattice_confluence_zero` -> `map`
+- `lattice_failure_isolated` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`
 - `lattice_holds_per_segment_not_per_sequence` -> `Audit`, `CompositionKind`
 - `lattice_ordering` -> `at`
 - `layerBytes_eq` -> `AffineLayer`, `FloatFormat`, `apply`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `layerBytes_fp16` -> `AffineLayer`, `FloatFormat`, `apply`, `encode`, `fp16`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
 - `layerBytes_fp32` -> `AffineLayer`, `FloatFormat`, `apply`, `encode`, `fp32`, `idxW_lt`, `layerWords`, `layerWords_length`, `length`, `size`
-- `layerContentOk_layerAB` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `layerContentOk_layerBA` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
-- `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
-- `layerMag_can_exceed_one` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `layerContentOk_layerAB` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `layerContentOk_layerBA` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `layerContentOk_layerNeg` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `layerContentOk_layerNegScaled` -> `ConstraintSet`, `Layer`, `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `roundtrip_extractVec`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
+- `layerFwd_allzero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero_any`, `length`, `map`, `symbolToWeight_correct`
+- `layerMag_can_exceed_one` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `layerMag_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `layerNorm_in_family` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
 - `layerOfListFull_W` -> `AffineLayer`, `W`, `layerOfList`
 - `layerOfListFull_b` -> `AffineLayer`, `W`, `layerOfList`
 - `layerOfListRect_W` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_b` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
 - `layerOfListRect_eq_full_width` -> `W`, `layerOfListFull`
-- `layerOffsets_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `layerOffsets_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `layerOffsets_single` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `layerOffsets_two` -> `at`, `d`, `g`, `layerParamCount`, `slotOf`
-- `layerOut_applySymEdit` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `layerOffsets_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `layerOffsets_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `layerOffsets_single` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `layerOffsets_two` -> `at`, `d`, `g`, `layerParamCount`, `map`, `slotOf`
+- `layerOut_applySymEdit` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_sub`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `layerOut_beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `g`, `length`
 - `layerOut_cast_eq_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
 - `layerOut_cast_eq_clm_zero_dim_false` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`
-- `layerOut_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `layerOut_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `layerOut_lipschitz_sharp_specialization` -> `VectorConstraint`, `convertVec`, `extractVec`
 - `layerOut_lipschitz_specialization` -> `VectorConstraint`, `convertVec`, `extractVec`
 - `layerOut_nil_ne_zeroLayer` -> `AllZeroOutputs`, `Layer`, `SymToken`, `at`, `g`, `length`
@@ -6584,9 +6590,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerOut_perturbation_bound` -> `VectorConstraint`, `convertVec`, `extractVec`
 - `layerOut_scaleLinearLayer` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`
 - `layerOut_zero_iff_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
-- `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero`, `dot_replicate_zero_any`, `length`, `symbolToWeight_correct`
+- `layerOut_zero_input` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `compileToLayer`, `dot_replicate_zero`, `dot_replicate_zero_any`, `length`, `map`, `symbolToWeight_correct`
 - `layerParamCount_eq` -> `Activation`, `Arch`
-- `layerParamCount_pos` -> `Activation`, `Arch`, `at`, `d`, `g`, `layerParamCount`, `slotOf`
+- `layerParamCount_pos` -> `Activation`, `Arch`, `at`, `d`, `g`, `layerParamCount`, `map`, `slotOf`
 - `layerParamCount_width_one` -> `Chain`, `MLayer`, `W`, `e2`, `g`, `layerParamCount`, `slotOf`
 - `layerQuantizationB_one_bits` -> `IntLayer`, `quant`
 - `layerQuantization_nontrivial` -> `at`, `compileZ`
@@ -6608,10 +6614,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerStackEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
 - `layerStack_equivariant` -> `E`, `W`, `apply`, `at`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `layerToCLM_apply` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
-- `layerWords_getD_W` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `layerWords_getD_W` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
 - `layerWords_getD_b` -> `AffineLayer`, `W`, `at`, `getD_append_right`
 - `layerWords_injective` -> `AffineLayer`, `at`
-- `layerWords_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
+- `layerWords_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
 - `layerWords_zero` -> `AffineLayer`
 - `layer_act_injective` -> `BehaviourallyEquivalent`, `W`, `at`
 - `layer_approx_on` -> `g`, `le_trans`, `min`
@@ -6621,7 +6627,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layer_distill_bound_delta` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `layer_out_error_bound` -> `g`, `le_trans`, `min`
 - `layer_penalty_exact` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `apply`, `d`, `lossM`, `residM`, `sq_penalty_exact_matrix`
-- `layer_ragged_also_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `layer_ragged_also_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `layer_weight_ext` -> `BehaviourallyEquivalent`, `W`, `at`
 - `layernorm_translation_invariant` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
 - `layers_conflict` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
@@ -6668,12 +6674,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `length_cons` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_generalization` -> `E`, `le_trans`
 - `length_generalization_hetero` -> `E`, `le_trans`
-- `length_le_encodeProgram` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `length_cons`, `relu`, `softmax`, `zero`
+- `length_le_encodeProgram` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
 - `length_le_of_prefix` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_nil_le` -> `le_trans`, `length`, `length_le`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
-- `length_relationsOfIndices` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `length`
-- `length_shapesOfCorpus` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `length`
-- `length_tensors_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
+- `length_relationsOfIndices` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `length`, `map`
+- `length_shapesOfCorpus` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `length`, `map`
+- `length_tensors_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
 - `length_tokenizeSample` -> `Data`, `Sample`, `at`, `length`, `width`
 - `letE_steps` -> `CICCtx`, `DefEnv`, `E`, `Step`, `Term`, `length`
 - `levelCode_injective` -> `Level`, `at`, `induction`, `zero`
@@ -6717,7 +6723,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linInterp_left` -> `min`
 - `linInterp_right` -> `min`
 - `linInterp_slope_form` -> `min`
-- `linResidual_applySgd` -> `Primitive`, `apply`, `g`, `run`, `sound`
+- `linResidual_applySgd` -> `Primitive`, `apply`, `g`, `map`, `run`, `sound`
 - `linearAlgebra_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `linearAlgebraPackage`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`
 - `linearAlgebra_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `linearAlgebraPackage`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`
 - `linearAlgebra_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `linearAlgebraPackage`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`
@@ -6753,7 +6759,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linear_system_solution_affine` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_system_solution_structure` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_term_forces_zero` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `d`, `mem_orthogonal_range_scalar`
-- `linearization_collapses_models` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
+- `linearization_collapses_models` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `linfNorm_abs` -> `ChainFwd`, `apply`, `geom_contraction_eventually`, `induction`, `le_trans`, `zero`
 - `linfNorm_eq_norm` -> `BellmanOp`, `LinfNorm`, `W`, `apply`, `bddAbove_abs`, `bellman_contraction`, `le_antisymm`, `linfNorm_abs`, `linfNorm_nonneg`
 - `linfNorm_nonneg` -> `ChainFwd`, `apply`, `geom_contraction_eventually`, `induction`, `le_trans`, `zero`
@@ -6773,11 +6779,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listDecEq_nil_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listDomain_symmetric` -> `Carrier`, `ContextualGeometry`, `ContextualInherits`, `Symmetric`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
 - `listDomain_transitive` -> `Carrier`, `ContextualGeometry`, `ContextualInherits`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
-- `listGcdNat_cons` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
-- `listGcdNat_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
-- `listGcdNat_eq_zero_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `listGcdNat_map_div` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
-- `listGcdNat_map_mul` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
+- `listGcdNat_cons` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`
+- `listGcdNat_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `map`, `scaleVec`, `scaleVec_preserves`
+- `listGcdNat_eq_zero_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
+- `listGcdNat_map_div` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `map`, `scaleVec`, `scaleVec_preserves`
+- `listGcdNat_map_mul` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `map`, `scaleVec`, `scaleVec_preserves`
 - `listLoss_compile_iff` -> `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `realTotalLoss_soundness`
 - `listLoss_zero_iff` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`
 - `listOfLayerRect_length` -> `LayerParams`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `length`
@@ -6785,10 +6791,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listOfLayer_b` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `listOfLayer_length` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `list_eq_of_all_zero_of_length_eq` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `list_getD_map_range` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `list_getD_map_range` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `list_sat_of_sat_of_length` -> `at`, `length`, `subst`
-- `list_sq_sum_nonneg` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`
-- `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `list_sq_sum_nonneg` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`
+- `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `listing_as_prop_is_trivial` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
 - `listing_is_contentful_iff_not_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
 - `lit_onlyAndOrNot` -> `Compiler`, `d`, `induction`
@@ -6858,10 +6864,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_model_contraction` -> `W`, `at`, `contraction_converges`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `loop_mono` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_preserves` -> `Audit`, `Repair`, `Sat`, `iterate`
-- `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `loop_preserves_others` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `loop_preserves_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
-- `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
 - `loop_witness` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
@@ -6880,9 +6886,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lossN_perturb` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `lossN_perturb_lt` -> `apply`, `at`, `d`, `dist`, `isLocalMin_of_forall_le`, `localMin_iff_feasible`, `localMin_of_feasible`, `min`, `not_localMin_of_resid_ne_zero`
 - `lossNotInjectiveProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `extract`, `length`, `manifest`, `no_loss_to_constraint_section`, `penaltyLoss`, `penaltyLoss_not_injective`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `lossOfActivations_differentiableAt` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `lossOfActivations_differentiableAt` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `lossOfActivations_differentiableAt_nonKink` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `lossOfActivations_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `forall_mem_map_iff`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `lossOfActivations_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `forall_mem_map_iff`, `map`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `loss_bound_gives_resid_bound` -> `E`, `EpsSat`, `ResidualEmbedding`, `abs_resid_le_of_loss_le_sq`, `at`, `le_trans`, `loss`, `resid`
 - `loss_controls_violation` -> `E`, `ResidualEmbedding`, `loss`, `resid`
 - `loss_differentiable` -> `E`, `at`, `const_add`, `g`, `trans`
@@ -6989,17 +6995,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `manifest_provides` -> `Constraint`, `Repair`, `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loop`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_requires_nothing`, `models`, `normalize`, `parallel`, `repair`, `requires`, `soundness`, `weights`
 - `manifest_requires` -> `arch`, `claims`, `completeness`, `compose`, `extract`, `flatten`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `normalize`, `parallel`, `requires`, `soundness`, `weights`
 - `manifest_requires_nothing` -> `Constraint`, `Repair`, `claims`, `completeness`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_confluence`, `manifest_no_equivariance`, `manifest_no_exactness`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_provides`, `models`, `requires`, `soundness`
-- `map_comp_measure` -> `g`
-- `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
-- `map_eq_of_eq` -> `g`
-- `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
-- `map_extractVec_compileToLayer_rfl` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
-- `map_inj_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`
-- `map_mono_measure` -> `g`
-- `map_mul_eq_at` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
-- `map_mul_eq_self_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `margin_implication_penalty` -> `SumRelu`, `le_trans`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
-- `margin_implication_satisfied` -> `SumRelu`, `le_trans`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
+- `map_comp_measure` -> `g`, `map`
+- `map_eq_map_iff_forall_mem` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `map`
+- `map_eq_of_eq` -> `g`, `map`
+- `map_extractVec_compileToLayer_eq_self` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `map`, `roundtrip_extractVec`, `toFun`
+- `map_extractVec_compileToLayer_rfl` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `map`, `roundtrip_extractVec`, `toFun`
+- `map_inj_of_nodup` -> `IRSkeleton`, `Tensor`, `TensorShape`, `at`, `find`, `g`, `induction`, `map`
+- `map_mono_measure` -> `g`, `map`
+- `map_mul_eq_at` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_one`, `sign`
+- `map_mul_eq_self_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `map`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
+- `map_univ_eq` -> `map`
+- `margin_implication_penalty` -> `SumRelu`, `le_trans`, `map`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
+- `margin_implication_satisfied` -> `SumRelu`, `le_trans`, `map`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
 - `marginalCol_nonneg` -> `apply`
 - `marginalLikelihood_pos` -> `at`, `le_refl`
 - `marginalRow_nonneg` -> `apply`
@@ -7042,10 +7049,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matQuad_bfgs_psd` -> `mulVec`
 - `matQuad_symm` -> `mulVec`
 - `materialize_covered` -> `IRSkeleton`, `RelKind`, `RelationShape`, `Tensor`, `TensorId`, `arch`, `at`, `covered`, `fillZeros`, `find`, `materialize`, `maximal`, `readOf`, `readOf_zero_data`, `subst`
-- `materialize_empty` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
-- `materialize_exists` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
+- `materialize_empty` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `subst`
+- `materialize_exists` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `subst`
 - `materialize_isIR` -> `IRSkeleton`, `RelKind`, `RelationShape`, `TensorId`, `materialize`, `materialize_covered`, `maximal_nil`, `trans`
-- `materialize_tensors_length` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
+- `materialize_tensors_length` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `subst`
 - `matrixExpectation_apply` -> `at`, `card_fin`, `subst`
 - `matrixExpectation_eq_zero` -> `apply`, `at`, `card_fin`, `subst`
 - `matrixExpectation_trace` -> `apply`, `at`, `card_fin`, `subst`
@@ -7071,7 +7078,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `matvec_add` -> `W`, `apply`, `toFun`
 - `matvec_add_matrix` -> `W`, `apply`, `toFun`
 - `matvec_smul` -> `W`, `apply`, `toFun`
-- `matw_roundtrip` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
+- `matw_roundtrip` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
 - `maxConst_app` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `selfLoopEnv`, `subst`, `trivial`
 - `maxConst_beta_after` -> `Term`, `maxConst`, `size`, `subst`
 - `maxConst_beta_before` -> `Term`, `maxConst`, `size`, `subst`
@@ -7084,11 +7091,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `maxConst_step_nonincreasing_beta` -> `DefEnv`, `E`, `Term`, `subst`, `trivial`
 - `maxConst_var` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `selfLoopEnv`, `subst`, `trivial`
 - `maxEntropy_with_moment_constraint` -> `at`, `ce_ge_entropy`, `entropy`, `g`
-- `maxIndex_differs` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
-- `maxIndex_samePoint_0_0` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
-- `maxIndex_samePoint_3_7` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `maxIndex_differs` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `maxIndex_samePoint_0_0` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `maxIndex_samePoint_3_7` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `Pt`, `at`, `degenerateFamily`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `maxZero_lipschitz` -> `Pt`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `penaltyLoss`, `sq_lipschitz_on_bounded`
-- `max_zero_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `at`, `bilinear_sub_le`, `card_fin`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `le_trans`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sq_lipschitz_on_bounded`
+- `max_zero_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `at`, `bilinear_sub_le`, `card_fin`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `le_trans`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`, `sq_lipschitz_on_bounded`
 - `max_zero_sq_sub_le` -> `Pt`, `card_fin`, `collinear`, `d`, `le_trans`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `max_zero_sub_le` -> `Pt`, `card_fin`, `collinear`, `d`, `le_trans`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `maximal_closure_scope` -> `PartKind`, `RelKind`, `RelationShape`, `TensorId`, `at`, `maximal`
@@ -7149,10 +7156,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mem_cicCtxToConstraintSet_iff` -> `AllZeroOutputs`, `CICCtx`, `VectorConstraint`, `VectorConstraintSat`, `cicToConstraint`, `compileToLayer`, `symbolToWeight_correct`
 - `mem_constraintExtent_iff` -> `IsFormalConcept`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`
 - `mem_constraintFiber_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
-- `mem_cse` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
-- `mem_deadElim` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `mem_cse` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `mem_deadElim` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `mem_dedup_of_mem` -> `at`, `induction`, `layer`, `length`, `subst`, `trans`
-- `mem_elementFiber_iff` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `scaleVec`, `trans`
+- `mem_elementFiber_iff` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `map`, `scaleVec`, `trans`
 - `mem_expressible` -> `Layer`, `at`, `collinear`, `d`, `layer`, `parallel`
 - `mem_fiber` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `mem_gamma_alpha` -> `at`, `contains`, `induction`, `kleeneChain`, `kleeneLimit`, `kleeneStabIndex`, `le`, `le_antisymm`, `le_refl`, `le_trans`, `point`, `zero`
@@ -7229,7 +7236,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `minimality_uniqueness_iff` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `minimax_ge_bayes` -> `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `minimizer_of_proxN_self` -> `at`
-- `minorDefect_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
+- `minorDefect_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `minorDefect_eq_zero_of_parallel` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDefect_lipschitz` -> `Pt`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
 - `minorDefect_nonneg` -> `Pt`, `bilinear_sub_le`, `card_fin`, `le_trans`, `sq_lipschitz_on_bounded`
@@ -7271,7 +7278,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mixing_time_bound` -> `at`, `geom_contraction_eventually`, `induction`, `mul`, `zero`
 - `mixing_time_log_bound_two` -> `at`, `geom_contraction_eventually`, `induction`, `mul`, `zero`
 - `mixing_time_log_bound_zero` -> `at`, `geom_contraction_eventually`, `induction`, `mul`, `zero`
-- `mkConstraint_append_singleton` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
+- `mkConstraint_append_singleton` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `map`, `nil_append`
 - `mkWithAtomic_Sat` -> `Sat`
 - `mla_absorb_all_tokens` -> `E`, `apply`, `at`
 - `mla_absorb_exists_operator` -> `E`, `at`
@@ -7285,8 +7292,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mla_score_eq_absorbedMap` -> `E`, `g`, `gqaLogits`, `mlaScoreAbsorbed`, `mla_absorb_query`, `sqrt_one`
 - `mla_score_eq_gqa_logits_id` -> `E`, `g`, `gqaLogits`, `sqrt_one`
 - `mla_score_eq_plain_inner` -> `E`, `g`, `gqaLogits`, `mlaScoreAbsorbed`, `sqrt_one`
-- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
-- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `mlayerAct`, `slotOf`
+- `mlayerAct_apply` -> `Chain`, `MLayer`, `W`, `act`, `act_idf`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
+- `mlayerOf_mlayerParamsOf` -> `Chain`, `MLayer`, `act`, `act_idf`, `at`, `comp`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `mlayerAct`, `slotOf`
 - `modEq_to_congruent` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `modEq_to_congruentInt` -> `Congruent`, `CongruentInt`, `Divisible`, `ModOut`, `at`
 - `modReLU_bounded` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
@@ -7324,12 +7331,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `model_chain_numeric_bound` -> `ChainFwd`, `ChainTail`, `SoftmaxAttnOp`, `W`, `at`, `le_trans`
 - `model_chain_numeric_bound_wired` -> `ChainFwd`, `ChainTail`, `ModelBlock`, `W`, `le_trans`, `modelBlockLb`, `model_chain_edit_locality_numeric`, `model_chain_numeric_bound`
 - `model_chain_numeric_expanded` -> `ChainFwd`, `SoftmaxAttnOp`, `W`
-- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `modelsIRS_implies_modelsIR` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `modelsOfMemProp_holds` -> `Constraint`, `Holds`, `Models`, `PluginProof`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfSubsetProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
+- `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `map`
 - `models_data` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
-- `models_of_covered_data` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `models_of_covered_data` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `models_of_mem` -> `Constraint`, `d`
 - `models_of_subset` -> `Constraint`, `d`
 - `models_structure` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
@@ -7440,7 +7447,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `naive_multisite_sum_bound_is_false` -> `ChainFwd`, `ChainTail`, `at`, `chain_edit_locality`, `d`, `subst`
 - `naive_multisite_sum_bound_true_of_nonneg` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `naive_single_product_bound_fails_two_site` -> `ChainFwd`, `ChainTail`, `apply`, `chain_edit_locality`, `d`, `subst`
-- `namedFirstData_zero_or` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `readOf`, `shapesOf`, `split`
+- `namedFirstData_zero_or` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `map`, `readOf`, `shapesOf`, `split`
 - `natAbs_step_lt` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `natCountdownAsRepair_converges` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `natDegree_minpoly_pos` -> `at`, `eval`, `min`, `subst`
@@ -7473,9 +7480,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `natToReal_not_surjective` -> `Surjective`, `at`, `intToReal`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `ratToReal`, `subst`
 - `natToReal_refl_lt` -> `at`, `le_antisymm`
 - `natToReal_strictMono` -> `at`, `le_antisymm`
-- `natTransform_compile` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `extractLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
-- `natTransform_equiv` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `induction`, `length`, `scaleVec`, `trans`
-- `natTransform_extract` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `extractLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `trans`
+- `natTransform_compile` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `extractLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `trans`
+- `natTransform_equiv` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `induction`, `length`, `map`, `scaleVec`, `trans`
+- `natTransform_extract` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `extractLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `trans`
 - `nat_absorb_inf_sup` -> `at`, `gcd_comm`, `subst`
 - `nat_absorb_sup_inf` -> `at`, `gcd_comm`, `subst`
 - `nat_catalan_three` -> `HasRealEigenvalue`, `card_fin`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
@@ -7483,7 +7490,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nat_div_two_truncates` -> `card_fin`, `g`
 - `nat_dvd_antisymmetric` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `nat_dvd_bot_is_one` -> `at`, `gcd_comm`, `subst`
-- `nat_dvd_natAbs_of_dvd` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
+- `nat_dvd_natAbs_of_dvd` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `map`, `scaleVec`, `scaleVec_preserves`
 - `nat_dvd_not_complete_lattice` -> `at`, `subst`
 - `nat_dvd_top_is_zero` -> `at`, `gcd_comm`, `subst`
 - `nat_inf_assoc` -> `apply`, `at`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
@@ -7555,33 +7562,33 @@ module. These are the edges that make the chain a chain rather than a list.
 - `netActN_eq_netAct` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netActN_succ` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
 - `netActN_zero` -> `AffineLayer`, `W`, `affineAct`, `comp`, `induction`, `netAct`, `zero`
-- `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `netAct_abs_le` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `netAct_append` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `at`, `layer_act_injective`
-- `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
-- `netAct_deviation_step` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`
-- `netAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `netAct_lipschitz_replicate` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`
+- `netAct_deviation_le_devB` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `map`, `netAct`
+- `netAct_deviation_step` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`
+- `netAct_lipschitz` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `netAct_lipschitz_replicate` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`
 - `netAct_nil` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `at`, `layer_act_injective`
-- `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `netLossFDerivRec_apply` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossFDerivRec_cons` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossFDerivRec_eq` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossFDerivRec_nil` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossFDeriv_apply` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossFDeriv_nil` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossOn_differentiableAt` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `singleParams`
-- `netLossOn_differentiableAt_joint` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netAct_two_perturbation` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `netLossFDerivRec_apply` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossFDerivRec_cons` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossFDerivRec_eq` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossFDerivRec_nil` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossFDeriv_apply` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossFDeriv_nil` -> `AffineLayer`, `Pt`, `add`, `d`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netLossOn_differentiableAt` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
+- `netLossOn_differentiableAt_joint` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `netLossOn_differentiableAt_joint_nonKink` -> `AffineLayer`, `Holds`, `Pt`, `at`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `netLossOn_differentiableAt_nonKink` -> `AffineLayer`, `Holds`, `Pt`, `at`, `comp`, `d`, `g`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossOn_differentiableAt_params` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `singleParams`
+- `netLossOn_differentiableAt_params` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
 - `netLossOn_differentiableAt_params_nonKink` -> `AffineLayer`, `Holds`, `Pt`, `at`, `comp`, `d`, `g`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
-- `netLossOn_eq_comp` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `singleParams`
-- `netLossOn_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `forall_mem_map_iff`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `netLossOn_eq_comp` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
+- `netLossOn_eq_zero_iff` -> `AffineLayer`, `Holds`, `Pt`, `forall_mem_map_iff`, `map`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `netLossOn_fderiv_apply` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `netLossOn_fderiv_apply_nonKink` -> `AffineLayer`, `Holds`, `Pt`, `at`, `collinear`, `d`, `g`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`
 - `netLossOn_fderiv_apply_params` -> `AffineLayer`, `Pt`, `add`, `comp`, `d`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `netLossOn_fderiv_apply_params_nonKink` -> `Holds`, `Pt`, `at`, `collinear`, `d`, `g`, `induction`, `netActN`, `packLayers`, `parallel`, `penaltyLoss`, `singleParams`
-- `netPoints_eq_trunc` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
+- `netPoints_eq_trunc` -> `AffineLayer`, `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `netRelu_not_injective` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `at`, `layer_act_injective`
 - `netSym_satW` -> `AffineLayer`, `Ladder`, `affineAct`, `at`, `decode`, `encode`, `identityTokenizer`, `ladder_forward`, `layers`, `netAct`, `roundtrip`
 - `net_behaviourallyEquivalent_iff` -> `AffineLayer`, `BehaviourallyEquivalent`, `netAct`
@@ -7627,9 +7634,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_fiber_of_extractVec_has_two_points` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `no_finite_model_for_all` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `no_function_recovers_do` -> `BinSCM`, `apply`, `at`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`, `trans`
-- `no_functor_refutes_general_galois` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `no_functor_refutes_general_galois` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `no_left_inverse_at_all` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `symbolToWeight_correct`
-- `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
+- `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `no_lift_betaSubst_law` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
 - `no_loop_fixes_unsatisfiable` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
 - `no_loss_to_constraint_section` -> `Pt`, `at`, `extract`, `penaltyLoss`
@@ -7650,14 +7657,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
 - `no_uniform_step_size` -> `apply`, `at`, `le_refl`
-- `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `no_universal_constructor` -> `FamilySolver`, `HoldsSet`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
 - `no_upper_iff_no_split` -> `at`, `extent`, `g`
 - `no_weight_solution_of_input_zero` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
-- `no_zero_obligation_in_census_table` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
+- `no_zero_obligation_in_census_table` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `map`, `size`
 - `node_inj` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
-- `nodup_shapesOfCorpus` -> `Data`, `Sample`, `TensorShape`, `d`, `length`
+- `nodup_shapesOfCorpus` -> `Data`, `Sample`, `TensorShape`, `d`, `length`, `map`
 - `noiseMatrix_apply` -> `at`, `mulVec`
 - `noiseMatrix_inv_commute` -> `at`
 - `noiseMatrix_mulVec_alpha` -> `at`, `mulVec`
@@ -7718,7 +7725,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `normal_equation_iff_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `normal_equation_of_pseudoInverse` -> `at`, `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
 - `normal_equation_unique` -> `at`, `matvecE`, `matvecE_adjoint_eq`, `matvecE_mul`
-- `normal_form_equiv` -> `Compiler`, `at`, `d`, `induction`, `trans`
+- `normal_form_equiv` -> `Compiler`, `at`, `d`, `induction`, `map`, `trans`
 - `normalised_sq_mono` -> `Instr`, `applyInstr`, `mean`
 - `normalize_centerSq_eq_one` -> `apply`, `at`, `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
 - `normalize_id_on_unit_sphere` -> `at`, `center`, `centerSq`, `mean`, `normalize`, `sqrt_one`
@@ -7751,7 +7758,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `notC_zero_iff_xorC_zero_zero` -> `andC`, `orC`, `subst`
 - `not_admissible_iff_dominated` -> `Admissible`, `DecisionRule`, `Loss`, `MinimaxLowerBound`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `not_affineGeometry_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
-- `not_agrees_of_disagreement` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `not_agrees_of_disagreement` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `not_allowed_contribution_zero` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrainedSoftmax_nonneg`, `constrainedSoftmax_sum_one`, `constrained_agrees_with_constraint_set`, `trans`
 - `not_andC_zero_iff` -> `at`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
 - `not_bddAbove_range_id` -> `fenchelConjAll`
@@ -7798,7 +7805,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_probabilityTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `not_projectiveGeometry_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`
 - `not_pulled_under_good_event` -> `apply`, `card_fin`, `g`, `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
-- `not_quiescent_of_unmet` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `requires`, `subst`, `value`
+- `not_quiescent_of_unmet` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `requires`, `subst`, `value`
 - `not_sim_of_obs_mismatch` -> `Compiler`, `ForwardSim`, `at`
 - `not_stepSound_of_unsat` -> `apply`, `step`
 - `not_step_lam_var` -> `Compiler`, `Term`, `app_r`, `at`
@@ -7866,7 +7873,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ofParams_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `ofRepresentation_roundtrip` -> `LinearForm`, `Representation`, `SemEq`, `W`, `ZB`, `compile`, `decode`, `encode`, `extract`, `obs`, `roundtrip`, `semantic_not_injective`
 - `ofTruthTable_spec` -> `Compiler`, `d`, `induction`
-- `offSupport_is_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `offSupport_is_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `ogd_regret_bound` -> `at`
 - `old_not_injective` -> `AffineLayer`, `layerOfList`
 - `old_rank_one_at_two` -> `AffineLayer`, `W`, `layerOfList`
@@ -7902,10 +7909,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_dim_lower_witness_bounded` -> `apply`, `at`, `le_refl`
 - `one_dim_lower_witness_core` -> `apply`, `at`, `le_refl`
 - `one_le_ceMag` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
-- `one_le_encodeInstr_length` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `length_cons`, `relu`, `softmax`, `zero`
+- `one_le_encodeInstr_length` -> `Instr`, `W`, `append_nil`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
 - `one_le_filter_length_of_mem` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
-- `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
-- `one_le_instrLengthOfTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `relu`, `softmax`, `zero`
+- `one_le_gain` -> `AffineLayer`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
+- `one_le_instrLengthOfTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
 - `one_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
 - `one_le_prod_one_add` -> `at`, `eps`, `induction`, `le_trans`, `zero`
 - `one_mem_Subdiff_max_not_mem` -> `apply`, `at`, `g`, `le_refl`, `relu`, `relu_eq_self_of_nonneg`, `relu_eq_zero_of_nonpos`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
@@ -7918,7 +7925,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_sub_tanh_sq_le_exp` -> `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `one_sub_tanh_sq_sharp_le_coarse` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
 - `one_sub_tanh_sq_sharp_strict_at_zero` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
-- `one_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `weights`
+- `one_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `map`, `weights`
 - `one_witness_refutes_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
 - `only_counterexample_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `opNorm_diagonal` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
@@ -7952,10 +7959,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `optConstant_lower_bound` -> `at`
 - `optConstant_self` -> `at`
 - `opt_loss_invariant` -> `RealTotalLoss`, `compileFin`, `realTotalLoss_soundness`
-- `opt_preserves_program_sat` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
+- `opt_preserves_program_sat` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `opt_preserves_realTotalLoss` -> `RealTotalLoss`, `compileFin`, `realTotalLoss_soundness`
-- `opt_preserves_semantics` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`, `trans`
-- `opt_preserves_solution_set` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `realTotalLoss_soundness`
+- `opt_preserves_semantics` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
+- `opt_preserves_solution_set` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`
 - `optimal_error_bound` -> `at`
 - `optimal_lambda_algebra_at_correct_lambda` -> `at`, `convert`, `kl`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
 - `optimal_lambda_algebra_at_correct_lambda_sq` -> `at`, `convert`, `kl`, `loss`, `pacBayesPosteriorEmpRisk`, `pacBayesPosteriorRisk`, `pacBayes_bound`, `pacBayes_risk_bound_of_exponent`, `sqrt_one`, `uniformProb`
@@ -7997,7 +8004,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `out_determined_by_construction` -> `Audit`, `Chain`
 - `outer_lipschitz_amplifies` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
 - `outer_rank_one` -> `apply`, `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `g`, `le_trans`
-- `output` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
+- `output` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `subst`
 - `outward_rounding_safe` -> `at`, `subst`, `value`, `width`
 - `overSmoothing_M_zero_not_tight` -> `E`, `nbhdSet`, `nbhdSum`
 - `overSmoothing_bound` -> `E`, `le_trans`, `nbhdSet`, `nbhdSum`
@@ -8038,7 +8045,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pairReach_singleton_eq` -> `induction`, `zero`
 - `pairRep_roundtrip` -> `Representation`, `at`, `compile`, `decode`, `encode`, `extract`, `roundtrip`
 - `pair_gt_snd` -> `RelKind`, `TensorShape`, `at`, `induction`, `kindCode`, `length`, `length_cons`, `listCode`, `outer`, `shapesCode`, `tensorShapeCode`, `zero`
-- `pair_succ_pos_ne_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
+- `pair_succ_pos_ne_zero` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
 - `pair_tag_diff` -> `Level`, `SortKind`, `Term`, `at`, `d`, `induction`, `zero`
 - `pairing_dirac_col` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `pairing_dirac_row` -> `ProbVec`, `le_antisymm`, `le_trans`
@@ -8078,14 +8085,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `par_diamond_critical_pair` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
 - `par_diamond_true_but_step_diamond_false` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `diamond_fails`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
 - `par_stronger_than_step_on_T` -> `BetaStar`, `Compiler`, `RedStep`, `Term`, `at`, `betaSubst`, `betaSubst_self`, `induction`, `lift`, `not_step_redB`, `redB`, `redI`, `redT`, `redU`, `redV`, `redZ`, `redZZ`, `star_refl`, `step_Iz`, `step_T_U`, `step_T_V`, `step_app_inv`, `step_lam_inv`
-- `parallelCommProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_comm_run`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `parallelCommProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_run_assoc`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_comm_run`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallelIdentityProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `parallel_identity_run`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `parallelRunProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `g`, `identity`, `length`, `manifest`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `parallel_comm_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `parallel`, `run`
+- `parallel_comm_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `map`, `optional`, `parallel`, `run`
 - `parallel_coverage` -> `Primitive`, `at`, `dec`, `g`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_identity_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `parallel`, `run`
 - `parallel_not_expressible` -> `Layer`, `d`, `layer`, `parallel`
-- `parallel_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `parallel`, `run`
+- `parallel_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `map`, `optional`, `parallel`, `run`
 - `parallel_sound` -> `Primitive`, `at`, `dec`, `g`, `inter`, `min`, `run`, `sound`, `union`
 - `parallel_strength` -> `Primitive`, `at`, `dec`, `g`, `inter`, `min`, `run`, `sound`, `union`
 - `paramLoss_forall_p_false` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
@@ -8095,11 +8102,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `paramLoss_symParam_zero_iff` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_all_outputs` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
 - `paramLoss_zero_iff_pConstraint` -> `LinearLayer`, `RealConstraint`, `RealDot`, `at`, `symW`
-- `paramsCountExact_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `paramsCountExact_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `paramsCount_nil` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `paramsCount_single` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
-- `paramsCount_two` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `slotOf`
+- `paramsCountExact_example` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `paramsCountExact_nil` -> `at`, `d`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `paramsCount_nil` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `paramsCount_single` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
+- `paramsCount_two` -> `at`, `g`, `layerParamCount`, `layerParamCount_pos`, `map`, `slotOf`
 - `parentVal_solIter_eq` -> `Chain`, `Relation`, `apply`, `at`, `blocks`, `le`
 - `parent_index_lt` -> `Chain`, `Relation`, `apply`, `at`, `blocks`, `le`
 - `paretoDominates_irrefl` -> `e2`, `le_trans`
@@ -8109,29 +8116,29 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pareto_optimal_iff` -> `e2`
 - `pareto_optimal_of_scalarization` -> `e2`
 - `parity_terminates` -> `Sat`, `induction`, `iterate`, `zero`
-- `parseIndexed_app_ids` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `readOf`, `shapesOf`, `split`
-- `parseIndexed_covered_zero` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `readOf`, `shapesOf`, `split`
-- `parseIndexed_nodup` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walk_nodup`
-- `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `parseIndexed_app_ids` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `map`, `readOf`, `shapesOf`, `split`
+- `parseIndexed_covered_zero` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `map`, `readOf`, `shapesOf`, `split`
+- `parseIndexed_nodup` -> `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walk_nodup`
+- `parseSkeleton_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
 - `parseWithRelations_eq` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `parseWithRelations_has_tensor` -> `Term`, `at`
-- `parseWithRelations_wellFormed` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
-- `parse_chain` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_chain_summary` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
-- `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileSkel`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_models_extract` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_models_full` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parseWithRelations_wellFormed` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `parse_chain` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_chain_summary` -> `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `induction`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`
+- `parse_eq_parseSkeleton` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `parse_has_tensor` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `parse_loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `at`, `children`, `compileSkel`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_models_extract` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_models_full` -> `IRSkeleton`, `IRWeights`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `parse_szs_status_theorem_prefix` -> `addConstraint`, `le_trans`, `length`, `length_cons`, `output`, `split`
-- `parse_tensors_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `parse_var_not_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_var_relations_nil` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
-- `parse_var_tensors_length` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_tensors_length` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `parse_total` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `parse_var_not_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_var_relations_nil` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
+- `parse_var_tensors_length` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `covered`, `dependsShape`, `fillWith`, `induction`, `length`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
 - `partCode_injective` -> `TensorId`, `at`, `induction`, `subst`
-- `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `vocab`, `zero`
+- `partOfCode_partCode` -> `PartKind`, `RelationShape`, `TensorId`, `arch`, `argsCode`, `at`, `decodeList`, `decodeList_code`, `induction`, `kindCode`, `kindOfCode`, `kindOfCode_kindCode`, `length`, `length_cons`, `listCode`, `map`, `mid`, `outer`, `pair_gt_snd`, `partCode`, `relationShapeCode`, `shapesCode`, `vocab`, `zero`
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `partial_sum_monotone` -> `E`, `apply`, `le_trans`
@@ -8154,16 +8161,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLipschitz_rightAngle` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
 - `penaltyLipschitz_samePoint` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `penaltyLoss`
 - `penaltyLipschitz_sqDistEq` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
-- `penaltyLoss_comp_funext` -> `AffineLayer`, `E`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `netActN`, `packLayers`, `penaltyLoss`, `single`, `singleParams`
-- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `netActN`, `parallel`, `penaltyLoss`
+- `penaltyLoss_comp_funext` -> `AffineLayer`, `E`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `single`, `singleParams`
+- `penaltyLoss_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `netActN`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_eqZero` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_equalLength` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_gtZero` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
-- `penaltyLoss_eq_zero_iff_holds_leZero` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `penaltyLoss_eq_zero_iff_holds_midpoint` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `penaltyLoss_eq_zero_iff_holds_of_safe` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `penaltyLoss_eq_zero_iff_holds_samePoint` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `penaltyLoss_eq_zero_iff_holds_sq` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `penaltyLoss_eq_zero_iff_holds_leZero` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `penaltyLoss_eq_zero_iff_holds_midpoint` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `penaltyLoss_eq_zero_iff_holds_of_safe` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `penaltyLoss_eq_zero_iff_holds_samePoint` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `penaltyLoss_eq_zero_iff_holds_sq` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `penaltyLoss_eq_zero_leZero` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_midpoint` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
 - `penaltyLoss_eq_zero_of_holds` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
@@ -8173,14 +8180,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `Pt`, `collinear`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `Pt`, `at`, `extract`, `penaltyLoss`
-- `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
+- `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
 - `penalty_exact` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `out`, `zeroHolds`
 - `penalty_inexact_witness` -> `RelKind`
 - `penalty_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `Conv`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `penalty_props_hold` -> `PluginLayer`, `PluginManifest`, `at`, `claims`, `completeness`, `eqZero_lipschitz`, `equalLength_lipschitz`, `gtZero_lipschitz`, `layer`, `length`, `loss`, `manifest`, `manifest_claims_approximation`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_confluence`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_refinement`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `max_zero_eq_zero_iff`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `requires`, `soundness`, `verifiedObligation`
-- `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `HoldsSet`, `Pt`, `at`, `canonical`, `holds_samePoint_const`, `induction`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
+- `penalty_samePoint_all_zero` -> `ExpressibleSpec`, `HoldsSet`, `Pt`, `at`, `canonical`, `holds_samePoint_const`, `induction`, `map`, `penaltyLoss`, `penalty_samePoint_const`, `samePoint_expressible`, `sound`
 - `penalty_samePoint_const` -> `Holds`, `Pt`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`
 - `penalty_zero` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
 - `perSlotExtractionSoundProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `stepNat_coeff_other_slot`, `verified`, `verified_manifest`, `verified_obligations`
@@ -8244,7 +8251,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pi_typed_shape` -> `CICCtx`, `HasType`, `Level`, `SortKind`, `Term`, `at`, `g`, `noConsts`, `subst`
 - `pieceOf_ne_nil` -> `append_assoc`, `apply`, `at`, `induction`, `length`, `single`, `split`, `subst`, `tokenize`, `zero`
 - `pieceOf_nonempty` -> `CharToken`, `at`, `dec`, `pieceOf`, `single`, `split`
-- `pieceOf_ofChars` -> `CharToken`, `at`, `dec`, `pieceOf`, `single`, `split`
+- `pieceOf_ofChars` -> `CharToken`, `at`, `dec`, `map`, `pieceOf`, `single`, `split`
 - `piecewiseCompile_jump` -> `PiecewiseConstraint`, `piecewiseCompile`, `reluInv`
 - `piecewiseCompile_lipschitz_left` -> `PiecewiseConstraint`, `piecewiseCompile`, `reluInv`
 - `piecewiseCompile_lipschitz_right` -> `PiecewiseConstraint`, `piecewiseCompile`, `reluInv`
@@ -8284,9 +8291,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pluginRegistryComplete_holds` -> `Constraint`, `Conv`, `Migrated`, `ObligationOwnedBy`, `Repair`, `StringPrefix`, `at`, `manifest`, `verified`
 - `plugin_registry_complete` -> `PluginRegistryComplete`, `census`, `length`, `manifest`, `proofRegistry`
 - `plugins_not_prefix_lib` -> `Obligation`, `PluginManifest`, `VerifiedPlugin`, `at`, `d`, `induction`, `manifest`, `subst`, `varOf_iterate_varNormalize_le_one`
-- `pointSkeleton_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walk_nodup`
-- `pointSkeleton_nodup` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walk_nodup`
-- `pointSkeleton_wrong_relation_not_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walkWithRelations`, `walk_nodup`
+- `pointSkeleton_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walk_nodup`
+- `pointSkeleton_nodup` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walk_nodup`
+- `pointSkeleton_wrong_relation_not_models` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `subst`, `walkWithRelations`, `walk_nodup`
 - `pointTensors_covered` -> `Tensor`, `arch`, `at`, `covered`, `find`, `readOf`, `subst`
 - `pointTensors_not_covered` -> `Tensor`, `arch`, `at`, `covered`, `find`, `readOf`, `subst`
 - `point_contains` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
@@ -8348,8 +8355,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prefixScores_of_le` -> `apply`, `at`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `prefixScores_of_not_le` -> `apply`, `at`, `causalDenom`, `causalSoftmax`, `causalSoftmax_eq_zero_of_gt`, `causal_attention_output_bound`, `convComb`, `le_trans`
 - `preimage_eq_extractVec` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trivial`
-- `preimage_image_subset_iff_injective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `preimage_image_subset_univ_only_injective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `preimage_image_subset_iff_injective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `preimage_image_subset_univ_only_injective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `preimage_subsingleton` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
 - `preservation` -> `Compiler`, `HasType`, `Relation`, `Step`, `Ty`, `Value`, `add`, `induction`, `progress`, `step`
 - `preservation_ext` -> `induction`, `step`
@@ -8364,9 +8371,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `preserves_of_sat` -> `Repair`, `Sat`, `apply`, `at`, `dec`, `induction`, `iterate`, `iterate_succ`, `lt`, `zero`
 - `preserves_three` -> `Audit`, `Repair`, `Sat`, `g`, `induction`, `iterate`, `zero`
 - `preserves_two` -> `Audit`, `Repair`, `Sat`, `g`, `induction`, `iterate`, `zero`
-- `primitiveFieldNames_length` -> `Primitive`, `length`
-- `primitiveNames_length` -> `Primitive`, `length`
-- `primitiveNames_nodup` -> `Primitive`, `length`
+- `primitiveFieldNames_length` -> `Primitive`, `length`, `map`
+- `primitiveNames_length` -> `Primitive`, `length`, `map`
+- `primitiveNames_nodup` -> `Primitive`, `length`, `map`
 - `principal_curvatures_product_eq_gaussian` -> `E`, `S2`
 - `prob_iff_univ` -> `apply`, `g`, `mono`
 - `prob_isFinite` -> `apply`, `g`, `mono`
@@ -8383,8 +8390,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `prodZero_compile` -> `ApproxOn`, `at`, `le_antisymm`
 - `prodZero_iff` -> `ApproxOn`, `at`, `le_antisymm`
 - `prod_const_one_add` -> `at`, `eps`, `induction`, `le_trans`, `zero`
-- `prod_eq_zero_iff_exists` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `out`
-- `prod_gain_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `netAct`
+- `prod_eq_zero_iff_exists` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `map`, `out`
+- `prod_gain_nonneg` -> `AffineLayer`, `W`, `affineAct`, `affineAct_perturbation`, `apply`, `induction`, `le_trans`, `map`, `netAct`
 - `prod_nonneg_of_forall` -> `apply`, `blocks`, `induction`
 - `prod_one_add_le_exp` -> `at`, `eps`
 - `prod_sum_factor` -> `at`, `card_fin`, `convert`, `le`
@@ -8598,13 +8605,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quantized_two_layer_error` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `linear_map_lipschitz`, `zero`
 - `quantized_two_layer_error_add` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `le_trans`, `zero`
 - `quantized_uniform_error` -> `E`, `W`, `d`, `le_trans`
-- `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `value`
-- `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
-- `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
+- `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `value`
+- `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
+- `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
 - `quotient_norm_scale_invariant` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
 - `quotient_reversibility_final_register` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `canonicalize`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `sound`, `tokenize`
-- `quotient_reversibility_is_restatement` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `quotient_reversible_image_eq_range` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `quotient_reversibility_is_restatement` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `quotient_reversible_image_eq_range` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `r03_claim_is_false` -> `LinearLayer`, `extractVec`
 - `r04_convertVec_semEq_scaled` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
 - `r04_scale_ne_self` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
@@ -8648,7 +8655,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `random_delay_neighborhood_split` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
 - `random_delay_recovers_bounded` -> `at`, `d`, `g`, `le_trans`
 - `randomization_not_better` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
-- `range_map_get_eq_image` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `range_map_get_eq_image` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `range_roundTrip_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `range_roundTrip_k_idem` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`, `trivial`
 - `rankOf_le` -> `alpha`, `at`
@@ -8660,7 +8667,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
 - `ratRoundtrip_fixed_not_discriminating` -> `QConstraint`, `QSat`, `at`
-- `ratRoundtrip_preserves_semantics` -> `at`, `induction`
+- `ratRoundtrip_preserves_semantics` -> `at`, `induction`, `map`
 - `ratSemanticallyParallel_iff_scaleVecQ` -> `QConstraint`, `QSat`, `at`
 - `ratSemanticallyParallel_of_scaleVecQ` -> `QConstraint`, `QSat`, `at`
 - `ratSemanticallyParallel_scaleVecQ_iff` -> `QConstraint`, `QSat`, `at`
@@ -8708,10 +8715,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reachL_nested` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `reachL_singleton_eq_chainFwd` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `reaches_self` -> `Reaches`
-- `readLength_determinate_of_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
-- `readOf_fillWith` -> `IRSkeleton`, `Tensor`, `TensorShape`
-- `readOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
-- `readOf_zero_data` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `split`, `subst`
+- `readLength_determinate_of_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `readOf_fillWith` -> `IRSkeleton`, `Tensor`, `TensorShape`, `map`
+- `readOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
+- `readOf_zero_data` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `split`, `subst`
 - `readSlot_differentiableAt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
 - `readSlot_linear` -> `Chain`, `MLayer`, `at`, `g`, `layerParamCount`, `slotOf`
 - `readSlot_of_ge` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
@@ -8786,8 +8793,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `recover_not_behavior_injective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
 - `recover_not_complete_behavioral_invariant` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`
 - `recover_not_factor_through_behavior` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`
-- `recover_readback` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `extractLayer`, `extractLayer_compileToLayer`, `recover`, `recover_compileToLayer`
-- `recover_then_behavior_preserved` -> `AllZeroOutputs`, `Beh`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `compileToLayer`, `decode`, `decode_encode`, `dot`, `g`, `length`, `recover`, `recover_compileToLayer`, `recover_injective`, `zeroLayer_out`
+- `recover_readback` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `recover`, `recover_compileToLayer`
+- `recover_then_behavior_preserved` -> `AllZeroOutputs`, `Beh`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `compileToLayer`, `decode`, `decode_encode`, `dot`, `g`, `length`, `map`, `recover`, `recover_compileToLayer`, `recover_injective`, `zeroLayer_out`
 - `recovery_exact` -> `at`, `subst`
 - `rectangularRep_bias` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
 - `rectangularRep_coeff` -> `LayerParams`, `Representation`, `W`, `compile`, `extract`, `layerOfListFull`, `layerOfListRect`, `layerOfListRect_W`, `layerOfListRect_b`, `layerOfListRect_eq_full_width`, `length`, `weightSymbolRep`
@@ -8869,13 +8876,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `regret_eq_sum_pull_gaps` -> `apply`, `card_fin`, `g`, `hoeffding_two_sided`, `le_trans`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `regret_le_total_pulls` -> `g`
 - `regular_uniform_aggregate_eq` -> `E`, `nbhdSet`, `nbhdSum`
-- `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
-- `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`
+- `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
+- `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `reinject_roundtrip` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractVec`, `extractVec_is_valid`, `roundtrip_extractVec`
 - `rejectSet_antitone` -> `alpha`, `at`, `le_trans`
 - `rejected_absent` -> `Holds`, `HoldsSet`, `Pt`, `at`, `trivial`
 - `relPhaseAbs_translation_equivariant` -> `Point2R`, `alibiBias`, `rdot`, `rotateR`
-- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `partCode`, `partCode_injective`, `toNat`
+- `relationShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `map`, `partCode`, `partCode_injective`, `toNat`
 - `relative_perturbation_bound` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relative_perturbation_bound_div` -> `E`, `apply`, `comp`, `d`, `trans`
 - `relax` -> `at`, `d`, `g`
@@ -8898,7 +8905,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_add_complement_const` -> `apply`, `relu`
 - `relu_closure` -> `Compiler`, `ReluConstrSat`, `reluCompile`
 - `relu_eq_self_of_nonneg` -> `apply`, `relu`
-- `relu_eq_zero_iff` -> `at`, `induction`, `relu`, `sign`
+- `relu_eq_zero_iff` -> `at`, `induction`, `map`, `relu`, `sign`
 - `relu_eq_zero_of_nonpos` -> `apply`, `relu`
 - `relu_expresses_inequality` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `reluCompile`, `reluCompile_preserves`
 - `relu_extract_on_positive` -> `g`, `relu`
@@ -8909,18 +8916,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_isLipschitz` -> `Instr`, `W`, `applyInstr`, `le_trans`, `relu`
 - `relu_is_gated` -> `E`, `SoftMasked`, `W`, `apply`, `g`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid_bounds`, `hardSwish`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `swiglu`
 - `relu_is_soft_masked` -> `W`, `apply`, `relu`
-- `relu_key_values` -> `Activation`, `AffineLayer`, `at`, `le_refl`, `netAct`, `relu`
+- `relu_key_values` -> `Activation`, `AffineLayer`, `at`, `le_refl`, `map`, `netAct`, `relu`
 - `relu_le_abs` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`
-- `relu_lipschitz` -> `SumRelu`, `le_trans`, `relu`, `sumRelu_eq_zero_iff_each`
+- `relu_lipschitz` -> `SumRelu`, `le_trans`, `map`, `relu`, `sumRelu_eq_zero_iff_each`
 - `relu_mask_decomposition` -> `W`, `apply`, `at`, `relu`, `relu_eq_zero_iff`
 - `relu_minimum_at_zero` -> `relu`, `relu_eq_zero_of_nonpos`
 - `relu_neg_eq_relu_zero` -> `apply`, `at`, `g`, `le_trans`, `subst`
-- `relu_nonneg` -> `at`, `induction`, `relu`, `sign`
-- `relu_not_affine` -> `Activation`, `AffineLayer`, `at`, `le_refl`, `netAct`, `relu`
+- `relu_nonneg` -> `at`, `induction`, `map`, `relu`, `sign`
+- `relu_not_affine` -> `Activation`, `AffineLayer`, `at`, `le_refl`, `map`, `netAct`, `relu`
 - `relu_not_injOn_nonpos` -> `apply`, `at`, `g`, `le_trans`, `subst`
 - `relu_not_injective` -> `BehaviourallyEquivalent`, `Compiler`, `LayerOut`, `LayerParams`, `LinearLayer`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `layer_act_injective`, `relu`, `reluCompile`, `reluCompile_preserves`, `reluInv`, `relu_neg_eq_relu_zero`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `relu_of_nonneg` -> `modReLU`, `modReLU_magnitude`, `modReLU_phase_preserved`, `modReLU_zero`, `relu`, `subst`
-- `relu_preserves` -> `at`, `induction`, `relu`, `sign`
+- `relu_preserves` -> `at`, `induction`, `map`, `relu`, `sign`
 - `relu_propagation` -> `RealLayerOut`, `RealLinearLayer`, `RealNeuronOut`, `RealVectorConstraint`, `RealVectorSat`, `at`, `compileRealVecSeq`, `convertReal`, `realLayer_allSatisfied_iff_zero_output`, `relu`, `relu_eq_zero_iff`
 - `relu_repair_preserves_sat` -> `Compiler`, `ReluConstrSat`, `reluCompile`
 - `relu_solution_is_ray` -> `Compiler`, `ReluConstrSat`, `reluCompile`
@@ -8943,7 +8950,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ren_id` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `ren_ren` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `ren_subst` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
-- `renderSurjective_holds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
+- `renderSurjective_holds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
 - `renorm_diff` -> `apply`, `at`
 - `renyiDP_compose` -> `E`, `at`, `le`, `le_trans`
 - `renyiDivergence_prodPmf_additive` -> `E`, `apply`, `at`, `ex`, `le`, `le_trans`
@@ -8962,7 +8969,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repairTo_preserves` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repair_as_self_simulation` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `repair_fixpoint_iff_stationary` -> `LinearConstraint`, `induction`, `zero`
-- `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
+- `repair_is_densest` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `map`, `size`
 - `repair_makes_progress` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
 - `repair_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `Conv`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified`, `verified_manifest`
 - `repair_preserves` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
@@ -8977,8 +8984,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `replayGradientBudget_eq` -> `at`
 - `replay_bound` -> `at`
 - `replay_forgetting_unbounded` -> `at`
-- `representative_exists` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
-- `representative_forced` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `representative_exists` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
+- `representative_forced` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `reproducingPairing_eq_of_same_kernel` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`
 - `reproducingPairing_eq_sum` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
 - `reproducing_linearity` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`, `toFun`
@@ -8999,10 +9006,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residualMass_nonneg` -> `g`, `min`
 - `residual_bound_of_sampled_tolerance` -> `DeltaDense`, `LipschitzOn`
 - `residual_cast_eq_clm` -> `LayerOut`, `LinearLayer`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `linFunc`, `residual`, `sat_iff_residual`, `symDot_eq_realDot`, `symVec`, `symW`
-- `residual_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `residual_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `residual_edit_constraint` -> `E`, `W`
 - `residual_edit_constraint_scalar` -> `E`, `W`
-- `residual_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `residual_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
 - `residual_edit_local` -> `E`, `W`, `edit_output_bound`
 - `residual_edit_local_scalar` -> `E`, `W`, `edit_output_bound_scalar`
 - `residual_eq_denote` -> `LinearForm`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `at`, `denote`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
@@ -9034,9 +9041,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `residue_bound_of_finite_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `resid`
 - `residue_bound_of_zero_sample` -> `E`, `Embedding`, `ResidualEmbedding`, `dist`, `loss`, `resid`
 - `resolution_limited_rate_shape` -> `d`
-- `resultEquiv_refl` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
-- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `ex`, `induction`, `requires`, `subst`, `trans`, `value`
-- `resultEquiv_trans` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_refl` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_symm` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `ex`, `induction`, `map`, `requires`, `subst`, `trans`, `value`
+- `resultEquiv_trans` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `trans`, `value`
 - `retainedMass_add_droppedMass` -> `at`
 - `retainedMass_le_topSum` -> `at`, `topK_sum_max`
 - `retainedMass_mono_budget` -> `at`
@@ -9177,7 +9184,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundDownSharp_endpoint_bounds` -> `roundDownN`, `roundDownN_le`, `toNat`
 - `roundDownSharp_identity_not_sound` -> `at`, `roundDownN`, `roundDownN_le`, `toNat`
 - `roundDownSharp_sound` -> `at`, `le_trans`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
-- `roundLayer_rel` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `ieee_error_bound_of_le`, `induction`, `netAct`, `netAct_deviation_le_devB`, `tiny`
+- `roundLayer_rel` -> `AffineLayer`, `FloatFormat`, `IEEERound`, `RoundMode`, `W`, `devB`, `eps`, `gain`, `ieee_error_bound_of_le`, `induction`, `map`, `netAct`, `netAct_deviation_le_devB`, `tiny`
 - `roundTripAddsNothing_of_factorsThrough` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
 - `roundTripAddsNothing_of_factorsThrough_of_fiberPreds` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
 - `roundTripAddsNothing_of_leftInverse` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
@@ -9197,7 +9204,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundTrip_mono_iff_of_section` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_mono_of_id_mono` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_net_perturbation_zero` -> `VectorConstraint`, `convertVec`, `extractVec`
-- `roundTrip_perturbation_id` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `roundtrip_extractVec`
+- `roundTrip_perturbation_id` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`, `roundtrip_extractVec`
 - `roundTrip_preserves_order_iff` -> `ConstraintSet`, `Layer`, `Rel`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`
 - `roundTrip_range_eq_fixedPoints` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `roundUpN_mono` -> `at`, `empty`, `find`, `subst`, `value`, `width`
@@ -9211,12 +9218,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundtrip` -> `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `roundtripCP_ops` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `induction`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
 - `roundtripNeuron_self` -> `LinearConstraint`, `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `VectorConstraint`, `convert`, `convertReal`, `convertVec`, `extract`, `extractVec`, `layer_out_error_bound`, `le_trans`, `roundtrip_extract`, `roundtrip_extractVec`
-- `roundtrip_apply` -> `Encoded`, `LinearForm`, `W`, `at`, `compile`, `decodePayload`, `decodePayload_encodeForm`, `encodeForm`, `encodeForm_arity`, `extract`, `payload`, `roundtrip`, `subst`
+- `roundtrip_apply` -> `Encoded`, `LinearForm`, `W`, `at`, `compile`, `decodePayload`, `decodePayload_encodeForm`, `encodeForm`, `encodeForm_arity`, `extract`, `map`, `payload`, `roundtrip`, `subst`
 - `roundtrip_behavior` -> `ConstraintSat`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `NeuronOut`, `VectorConstraint`, `convert`, `convertVec`, `convert_preserves_semantics`, `extract`
 - `roundtrip_bijective` -> `g`
-- `roundtrip_convertVecQ` -> `at`, `induction`
+- `roundtrip_convertVecQ` -> `at`, `induction`, `map`
 - `roundtrip_convertVec_rfl` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
-- `roundtrip_determines_skeleton` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`
+- `roundtrip_determines_skeleton` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`, `map`
 - `roundtrip_error_amplification` -> `FloatFormat`, `RoundOp`, `at`, `eps`, `le_trans`, `tiny`, `toFun`
 - `roundtrip_error_bound` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `convertReal`, `layer_out_error_bound`, `le_trans`
 - `roundtrip_error_bound_exact` -> `RealConstraint`, `RealNeuron`, `RealNeuronOut`, `convertReal`, `le_trans`
@@ -9225,9 +9232,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `roundtrip_error_le_one` -> `LossyRep`, `compile`, `decode`, `encode`, `extract`, `obs`
 - `roundtrip_extract` -> `ConstraintSat`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `NeuronOut`, `VectorConstraint`, `convert`, `convertVec`, `convert_preserves_semantics`, `extract`
 - `roundtrip_extractVec` -> `ConstraintSat`, `LinearConstraint`, `LinearNeuron`, `NeuronOut`, `VectorConstraint`, `convertVec`, `extract`
-- `roundtrip_extractVecQ` -> `at`, `induction`
+- `roundtrip_extractVecQ` -> `at`, `induction`, `map`
 - `roundtrip_extractVec_rfl` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
-- `roundtrip_field_rename_only` -> `at`, `induction`
+- `roundtrip_field_rename_only` -> `at`, `induction`, `map`
 - `roundtrip_idempotentOn` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
 - `roundtrip_is_rfl_because_equiv` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`
 - `roundtrip_iterate` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
@@ -9305,17 +9312,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `runSeq_all_succeed` -> `RState`, `Step`, `apply`, `run`
 - `runSeq_head_fails` -> `Effect`, `RState`, `Step`, `apply`, `run`
 - `run_append` -> `Compiler`, `E`, `add`, `append_assoc`, `at`, `compile`, `edit_seq_comm`, `g`, `induction`, `length`, `lit`, `mul`, `nil_append`, `rankOneEdit`, `run`, `run_cons`, `subst`
-- `run_congr_of_agree` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`
-- `run_cons` -> `E`, `LifeState`, `Plugin`, `apply`, `at`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `subst`
+- `run_congr_of_agree` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`
+- `run_cons` -> `E`, `LifeState`, `Plugin`, `apply`, `at`, `edit_seq_comm`, `g`, `induction`, `length`, `map`, `rankOneEdit`, `run`, `run_append`, `subst`
 - `run_eq` -> `Data`, `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_ignores_initial_of_edits` -> `LifeState`, `Plugin`, `at`, `induction`, `subst`
+- `run_ignores_initial_of_edits` -> `LifeState`, `Plugin`, `at`, `induction`, `map`, `subst`
 - `run_nil` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_append`, `run_cons`
 - `run_not_reversible_of_collision` -> `Data`, `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
 - `run_preserved` -> `Relation`, `induction`
 - `run_reaches_symbol` -> `Data`, `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_single_effect` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `run_single_effect` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
 - `run_sound` -> `Data`, `Ladder`, `W`, `apply`, `at`, `d`, `decode`, `encode`, `run`, `satSym`, `satW`
-- `run_untouched` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
+- `run_untouched` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `map`, `subst`, `value`
 - `runs_preserved` -> `induction`
 - `s02_convertVec_extractVec_eta` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `length`, `subst`, `symbolToWeight_correct`, `trans`
 - `s02_dot_cons_cons` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `d`, `dot`, `extractLayer`, `extractVec`, `foldl_init_add`, `subst`, `symbolToWeight_correct`, `trans`
@@ -9349,7 +9356,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `safe_normalize_zero` -> `E`, `le`
 - `sameCompileFibre_iff_eq` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `sameFibre_card_le_one` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
-- `sameLayer_imp_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
+- `sameLayer_imp_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `sameLayer_strictly_finer_than_semEqL_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_respects_semEq`, `induction`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `samePointArch_wf` -> `AffineLayer`, `Arch`, `ModelArtifact`, `Weights`, `WellFormed`, `arch`, `count`, `depth`, `identity`, `layers`, `length`, `one_wellFormed`, `weights`
 - `samePointArtifact_arch` -> `Arch`, `arch`, `identity`, `one`
@@ -9361,7 +9368,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sameTokens_equivalence` -> `at`, `tokenize`, `trans`
 - `sameTokens_equivalence_recovered` -> `CharToken`, `SameTokens`, `detokenize`, `detokenize_left_inverse_on_quotient`, `sound`, `tokenize`
 - `same_concept_iff_same_constraintFiber` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
-- `same_concept_iff_same_elementFiber` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `scaleVec`, `trans`
+- `same_concept_iff_same_elementFiber` -> `VectorConstraint`, `apply`, `at`, `g`, `gazeUp`, `induction`, `map`, `scaleVec`, `trans`
 - `same_degree_noniso_witness` -> `E`, `nbhdSet`, `nbhdSum`
 - `same_row_orthogonal_keys_commute` -> `ApplyEdit`, `E`, `d`, `order_dependence_general`
 - `sampleCovariance_trace` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
@@ -9383,13 +9390,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sat_iff_list_sat` -> `length`
 - `sat_iff_loss_zero` -> `Program`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
 - `sat_iff_realTotalLoss_zero` -> `Program`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `realTotalLoss_soundness`
-- `sat_iff_residual` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `sat_iff_residual` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `sat_imp` -> `all`, `at`, `bvar`
 - `sat_monotone` -> `Program`
 - `sat_not` -> `all`, `at`, `bvar`, `induction`
 - `sat_of_list_sat` -> `at`, `length`, `subst`
 - `sat_of_measure_zero` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
-- `sat_ragged_false_positive` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `sat_ragged_false_positive` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `satisfaction_global_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `satisfaction_loop_invariant` -> `g`, `iterate`, `repair`
 - `satisfiable_cons_iff` -> `Program`, `ProgramSat`, `RealConstraint`, `RealConstraintSat`, `RealTotalLoss`, `all`, `at`, `compileFin`, `compileNeurons`, `d`, `listLoss`, `listLoss_compile_iff`, `realTotalLoss_soundness`
@@ -9408,64 +9415,64 @@ module. These are the edges that make the chain a chain rather than a list.
 - `scalar_momentum_converges` -> `min`
 - `scalar_momentum_converges_sq` -> `min`
 - `scalar_second_order_converges` -> `W`, `contraction_converges`, `min`
-- `scaleClassB_iff` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `content_scaleVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClassB_length_branch_needed` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClassB_not_naive_canonicalize` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClassB_zero_true` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `convertVec`, `extractVec`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClassHoldsBounded_iff` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `convertVec`, `extractVec`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClassHoldsBounded_zero_box_fails` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `convertVec`, `extractVec`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassB_iff` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `content_scaleVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassB_length_branch_needed` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `map`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassB_not_naive_canonicalize` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassB_zero_true` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `convertVec`, `extractVec`, `map`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassHoldsBounded_iff` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `convertVec`, `extractVec`, `map`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClassHoldsBounded_zero_box_fails` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `convertVec`, `extractVec`, `map`, `scaleClass_equivalence`, `scaleVec`
 - `scaleClassLayerB_iff` -> `LinearLayer`, `ScaleClass`, `extractVec`
 - `scaleClassLayer_extractVec` -> `LinearLayer`, `ScaleClass`, `extractVec`
 - `scaleClassPlusSetoid_rel` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `lift`, `sound`, `tokenize`, `trans`
 - `scaleClassPlusSubtypeSetoid_rel` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `lift`, `sound`, `tokenize`
 - `scaleClassPlus_equivalence` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `detokenize`, `detokenize_left_inverse_on_quotient`, `lift`, `scaleVec_scaleVec`, `sound`, `tokenize`, `trans`
-- `scaleClass_but_canonicalize_ne` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
-- `scaleClass_cNegVec_neg` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
+- `scaleClass_but_canonicalize_ne` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `canonicalize_cNegVec`, `canonicalize_scaleVec_neg_cNegVec`, `constraintContent`, `convertVec`, `extractVec`, `length`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClass_cNegVec_neg` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`
 - `scaleClass_convertVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `convertVec`, `extractVec`, `scaleVec`
-- `scaleClass_equivalence` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`, `trans`
+- `scaleClass_equivalence` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`, `trans`
 - `scaleClass_iff_canonicalize_eq_or_neg` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_ne_cast`, `content_scaleVec`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`
 - `scaleClass_iff_of_content_eq_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `scaleClass_of_bounded` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `convertVec`, `extractVec`, `scaleClass_equivalence`, `scaleVec`
+- `scaleClass_of_bounded` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `cNegVec`, `convertVec`, `extractVec`, `map`, `scaleClass_equivalence`, `scaleVec`
 - `scaleEdit_lipschitz_exact` -> `E`, `W`, `apply`, `at`, `trans`
 - `scaleEdit_no_uniform_lipschitz` -> `E`, `W`, `apply`, `at`, `trans`
 - `scaleFunctor_not_iso` -> `VectorConstraint`, `at`, `cUnit`, `length`, `scaleVec`, `trans`
 - `scaleLayerVec_convertVec` -> `LinearLayer`, `ScaleClass`, `VectorConstraint`, `convertVec`, `extractVec`, `scaleVec`
-- `scaleLayer_comp_assoc` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
-- `scaleLayer_inverse_iff` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_invertible_cases` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_invertible_iff` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_mul` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `induction`, `length`, `scaleVec`, `trans`
-- `scaleLayer_neg_one` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_neg_one_involutive` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_not_surjective_of_two` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`
-- `scaleLayer_one` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `induction`, `length`, `scaleVec`, `trans`
-- `scaleLayer_one_is_identity` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
-- `scaleLayer_zero_is_const` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
+- `scaleLayer_comp_assoc` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
+- `scaleLayer_inverse_iff` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_invertible_cases` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_invertible_iff` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_mul` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `induction`, `length`, `map`, `scaleVec`, `trans`
+- `scaleLayer_neg_one` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_neg_one_involutive` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_not_surjective_of_two` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `map`, `scaleVec`
+- `scaleLayer_one` -> `ConstraintSet`, `VectorConstraint`, `apply`, `at`, `cUnit`, `induction`, `length`, `map`, `scaleVec`, `trans`
+- `scaleLayer_one_is_identity` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
+- `scaleLayer_zero_is_const` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
 - `scaleOffset_ne_id` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
 - `scaleOffset_step_comm` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
-- `scaleOrbitRel_not_symmetric` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
-- `scaleVecQ_preserves_semantics` -> `at`
+- `scaleOrbitRel_not_symmetric` -> `VectorConstraint`, `at`, `g`, `induction`, `map`, `scaleVec`
+- `scaleVecQ_preserves_semantics` -> `at`, `map`
 - `scaleVecQ_zero_breaks_semantics` -> `QConstraint`, `QSat`, `at`
 - `scaleVecQ_zero_breaks_semantics_exists` -> `QConstraint`, `QSat`, `at`
 - `scaleVecQ_zero_witness` -> `QConstraint`, `QSat`, `at`
-- `scaleVec_a_component` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
-- `scaleVec_cZeroVec` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
-- `scaleVec_canonicalize_eq_self` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `scaleVec`, `scaleVec_preserves`, `sign`
-- `scaleVec_eq_self_of_content_eq_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
+- `scaleVec_a_component` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
+- `scaleVec_cZeroVec` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
+- `scaleVec_canonicalize_eq_self` -> `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `g`, `map`, `scaleVec`, `scaleVec_preserves`, `sign`
+- `scaleVec_eq_self_of_content_eq_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `map`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
 - `scaleVec_equivalence_one_direction_only` -> `VectorConstraint`, `VectorConstraintSat`, `scaleVec`, `scaleVec_preserves`
-- `scaleVec_mul_param` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
+- `scaleVec_mul_param` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
 - `scaleVec_ne_self_two` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `extractVec`, `fiber`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
 - `scaleVec_neg_one_injective` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_ne_cast`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`
 - `scaleVec_neg_one_involutive` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_ne_cast`, `content_scaleVec`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`
-- `scaleVec_one` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
+- `scaleVec_one` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
 - `scaleVec_one_semantically_equal` -> `VectorConstraint`, `VectorConstraintSat`, `scaleVec`, `scaleVec_preserves`
-- `scaleVec_preserves` -> `at`, `dot`, `length`, `subst`
-- `scaleVec_scaleVec` -> `VectorConstraint`, `apply`, `at`, `g`, `induction`, `scaleVec`, `trans`
+- `scaleVec_preserves` -> `at`, `dot`, `length`, `map`, `subst`
+- `scaleVec_scaleVec` -> `VectorConstraint`, `apply`, `at`, `g`, `induction`, `map`, `scaleVec`, `trans`
 - `scaleVec_semantically_equal` -> `VectorConstraint`, `VectorConstraintSat`, `scaleVec`, `scaleVec_preserves`
 - `scaleVec_two_semantically_equal` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
-- `scaleVec_zero` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `scaleVec`
+- `scaleVec_zero` -> `ConstraintSet`, `VectorConstraint`, `append_assoc`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `extractLayer`, `extractLayer_compileToLayer`, `induction`, `map`, `scaleVec`
 - `scale_isLipschitz` -> `Instr`, `W`, `applyInstr`
-- `scale_orbit_behaviorally_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
+- `scale_orbit_behaviorally_valid` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `scaled_semEq_unit` -> `IdempotentOn`, `LinearForm`, `Repair`, `Sat`, `SemEq`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`, `semantic_not_injective`
 - `scaling_law_variance_limited` -> `d`, `uniformExpectation`
 - `scaling_law_variance_limited_holder` -> `d`, `uniformExpectation`
@@ -9475,9 +9482,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `score_lin_lipschitz` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
 - `score_lin_lipschitz_qk` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
 - `score_log_derivative` -> `apply`, `at`, `g`, `log_derivative_identity`
-- `search_complete` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
+- `search_complete` -> `QProgram`, `ZProgram`, `map`, `qSatAllB`, `qSatAllB_iff`
 - `search_complete_z` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
-- `search_sound` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
+- `search_sound` -> `QProgram`, `ZProgram`, `map`, `qSatAllB`, `qSatAllB_iff`
 - `search_sound_z` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
 - `search_terminates` -> `QProgram`, `ZProgram`, `qSatAllB`, `qSatAllB_iff`
 - `second_deriv_zero_undetermined` -> `IsStrictLocalMin`, `at`, `comp`, `const_add`, `g`
@@ -9493,35 +9500,35 @@ module. These are the edges that make the chain a chain rather than a list.
 - `second_order_taylor` -> `add`, `at`, `comp`, `normSq`, `quadForm`, `smul`
 - `second_order_taylor_unconditional` -> `IsSymmMat`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
 - `second_substantive_instance` -> `E`, `PenaltyEmbedding`, `compile`, `encode`, `loss`, `satW`
-- `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
-- `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `seg_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
+- `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `map`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
+- `seg_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `seg_const_zero` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
-- `selProd_concat` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
+- `selProd_concat` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selProd_const` -> `at`, `div_const`, `induction`, `mul`, `zero`
-- `selProd_eq_from` -> `apply`, `at`, `induction`, `le_trans`, `trans`, `zero`
-- `selProd_pred` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
-- `selProd_self` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
-- `selProd_succ` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
+- `selProd_eq_from` -> `apply`, `at`, `induction`, `le_trans`, `map`, `trans`, `zero`
+- `selProd_pred` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
+- `selProd_self` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
+- `selProd_succ` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selStateGated_explicit` -> `g`, `selProd`, `selState`, `selState_explicit`, `selState_norm_bound_contracting`, `selState_succ`, `trans`
 - `selStateGated_norm_bound` -> `g`, `selState`, `selState_norm_bound_contracting`, `selState_succ`, `trans`
 - `selState_absorb_one` -> `at`, `div_const`, `induction`, `mul`, `zero`
-- `selState_eq_of_eq` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
-- `selState_explicit` -> `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
+- `selState_eq_of_eq` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
+- `selState_explicit` -> `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selState_gate_perturbation_norm_le` -> `g`, `selState`, `selState_norm_bound_contracting`, `trans`
 - `selState_gate_perturbation_step` -> `g`, `selState`, `selState_norm_bound_contracting`, `selState_succ`, `trans`
 - `selState_norm_bound` -> `at`, `div_const`, `induction`, `mul`, `subst`, `trans`, `zero`
 - `selState_norm_bound_contracting` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `selState_norm_le_sum` -> `at`, `induction`, `subst`, `trans`, `zero`
 - `selState_norm_succ` -> `at`, `induction`, `subst`, `trans`, `zero`
-- `selState_one` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
-- `selState_succ` -> `apply`, `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
+- `selState_one` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
+- `selState_succ` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selState_window` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `sel_LTI_eq_ssmState` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `sel_LTI_norm_bound` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `sel_LTI_zoh_spectral_criterion` -> `selState`, `selState_norm_bound_contracting`
 - `sel_is_LTI_special` -> `at`, `div_const`, `induction`, `mul`, `zero`
-- `sel_norm_prod_le` -> `at`, `induction`, `le_trans`, `subst`, `trans`, `zero`
+- `sel_norm_prod_le` -> `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `sel_spectral_eigen_criterion` -> `selState`, `selState_norm_bound_contracting`
 - `sel_spectral_norm_criterion` -> `selState`, `selState_norm_bound_contracting`
 - `sel_tight_asymptotic` -> `at`, `div_const`, `mul`
@@ -9558,10 +9565,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `semantic_fiber_has_two_points` -> `LinearLayer`, `apply`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `scaleVec`, `scaleVec_preserves`, `trans`
 - `semantic_layer_not_injective` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_preserves_semantics`, `scaleVec`, `trans`
 - `semantic_loss_is_not_structural` -> `AllSatisfied`, `ConstraintSet`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `semantic_not_injective`, `tokenize`
-- `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `extract`, `extractVec`, `fiber`, `g`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `semantic_not_injective` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `IdempotentOn`, `LinearForm`, `LinearLayer`, `Repair`, `Sat`, `SemEq`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `compile`, `compileToLayer`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `decode`, `encode`, `extract`, `extractVec`, `fiber`, `g`, `idempotentOn_of_leftInverse`, `induction`, `iterate_comp_of_leftInverse`, `length`, `map`, `mkConstraint`, `ofNat`, `progress`, `roundtrip`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `semantic_of_extract` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
 - `semantic_roundtrip_compiles_agree` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `SemanticRepresentation`, `W`, `compile`, `constraintRepresentation`, `extract`, `roundtrip`, `symbolToWeight_correct`
-- `semanticsOf_nil` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
+- `semanticsOf_nil` -> `IRSkeleton`, `IRWeights`, `LatticeIR`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `WellFormed`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walkWithRelations`, `walk_nodup`, `walk_rel_args`
 - `sep_absent_gives_zero_segments` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `L1BridgeNoSep_cons`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_changes_the_reading` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `L1Bridge`, `L1BridgeNoSep`, `at`, `compileToLayer`, `compileToLayer_injective`, `decode`, `decode_encode`, `encode`, `length`, `semantic_not_injective`, `single`, `toSegs`, `tokenize`
 - `sep_chars_distinct` -> `CharToken`, `at`, `dec`, `pieceOf`
@@ -9602,10 +9609,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sgd_variance_nonneg` -> `Subgradient`, `exists_le_sum_mul`, `g`, `subgradient_step_decrease`, `sum_range_sub_telescoping`
 - `shape4_of_headShape` -> `CICCtx`, `ConstSet`, `HasType`, `HeadShape`, `Term`, `canonical`, `hasType_headShape`, `induction`, `trivial`
 - `shape4_redex_not_canonical` -> `Term`, `trivial`
-- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `subst`, `toNat`
+- `shapesCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `map`, `partCode`, `partCode_injective`, `subst`, `toNat`
 - `shapesCode_rel_ge_length` -> `IRSkeleton`, `RelationShape`, `decodeTensorList`, `decodeTensorList_code`, `length`, `length_cons`, `outer`, `pair_gt_snd`, `relationShapeCode`, `shapesCode`, `skeletonCode`, `tensorShapeCode`
 - `shapesCode_tensor_ge_length` -> `TensorShape`, `length`, `length_cons`, `shapesCode`, `tensorShapeCode`
-- `shapesOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
+- `shapesOf_materializeWith` -> `IRSkeleton`, `IRWeights`, `Names`, `Relation`, `RelationShape`, `Tensor`, `TensorShape`, `Term`, `W`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `length`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `trivial`, `walk_nodup`
 - `sharedChain_eq_iterate` -> `ChainFwd`, `ChainTail`, `apply`, `at`, `chainN_identical_blocks_bound`, `chain_edit_locality`, `g`, `induction`, `iterate`, `iterate_step_swap`, `zero`
 - `shared_chain_edit_locality` -> `ChainTail`, `apply`, `at`, `chain_edit_locality`, `g`
 - `shared_chain_edit_verdict` -> `ChainFwd`, `ChainTail`, `W`, `at`, `edit_seq_bound`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`
@@ -9692,7 +9699,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `signCompile_preserves` -> `ApproxOn`, `at`, `le_antisymm`, `relu`, `relu_eq_zero_iff`, `sign`
 - `signCompile_solution_set` -> `ApproxOn`, `at`, `le_antisymm`, `relu`, `relu_eq_zero_iff`, `sign`
 - `sign_eq_one_or_neg_one` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_ne_cast`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`
-- `sign_preserves` -> `at`, `induction`, `relu`, `sign`
+- `sign_preserves` -> `at`, `induction`, `map`, `relu`, `sign`
 - `sign_unconditional_version_is_false` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `listGcdNat`, `scaleVec`, `scaleVec_one`, `sign`
 - `signature_bridged` -> `Audit`
 - `signature_sequential` -> `Audit`
@@ -9770,8 +9777,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `size_step_piCod` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_step_piDom` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
 - `size_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `zero`
-- `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`, `toNat`
-- `skeleton_of_fillZeros` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `subst`
+- `skeletonCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `at`, `find`, `induction`, `map`, `toNat`
+- `skeleton_of_fillZeros` -> `IRSkeleton`, `LatticeIR`, `RelKind`, `Tensor`, `TensorId`, `TensorShape`, `at`, `find`, `g`, `induction`, `length`, `map`, `subst`
 - `skeleton_unique_from_weights` -> `IRSkeleton`, `IRWeights`, `Term`, `W`, `compileSkel`, `compileSkel_injective`, `parse`, `trans`
 - `skip_no_step` -> `Compiler`, `Relation`, `at`, `induction`, `single`, `subst`, `trans`
 - `slaterCounterF_neg_one` -> `Lagrangian`, `at`, `dualValue`, `le_antisymm`
@@ -9797,9 +9804,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `slotOfIndex_layer` -> `Arch`, `ArchIndex`, `Slot`, `at`, `col`, `depth`, `subst`, `trivial`, `width`
 - `slotOfIndex_reachable` -> `Arch`, `ArchIndex`, `Slot`, `depth`, `trivial`, `width`
 - `slotOf_inj_col` -> `at`, `comp`, `d`, `g`, `slotOf`
-- `slotOf_injective_pair` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
+- `slotOf_injective_pair` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`, `map`
 - `slotOf_lt_bound` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
-- `slotOf_pos` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`
+- `slotOf_pos` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `compileWith`, `extractWith`, `extractWith_compileWith`, `map`
 - `slotOf_row_add` -> `comp`, `d`, `g`, `slotOf`
 - `slotOf_succ_col` -> `at`, `comp`, `d`, `g`, `slotOf`
 - `slotOf_succ_row` -> `at`, `comp`, `d`, `g`, `slotOf`
@@ -9932,15 +9939,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sparse_edit_zero_outside` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `prune_magnitude_bound`
 - `sparse_uniqueness_of_nullspace` -> `at`, `l0Norm`
 - `sparse_uniqueness_trivial` -> `at`
-- `specAnchoredSolve_anchor` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
-- `specAnchoredSolve_canonical` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
-- `specAnchoredSolve_complete` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
-- `specAnchoredSolve_cost_zero` -> `ExpressibleSpec`, `IsExpressible`, `at`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
-- `specAnchoredSolve_sound` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `specAnchoredSolve_anchor` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
+- `specAnchoredSolve_canonical` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_complete` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_cost_zero` -> `ExpressibleSpec`, `IsExpressible`, `at`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`
+- `specAnchoredSolve_sound` -> `ExpressibleSpec`, `HoldsSet`, `IsExpressible`, `at`, `holdsSet_mem`, `holdsSet_of_degenerate`, `map`, `penaltyLoss`, `penaltySum_of_degenerate`, `samePoint_expressible`, `trivial`
 - `spec_pmf` -> `min`
-- `spec_retract_minimal` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `g`, `intent`, `isBlank`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
-- `spec_retract_of_failure_identifiable` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
-- `spec_retract_without_rep` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `foldBlanks`, `foldGo`, `g`, `intent`, `isBlank`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `spec_retract_minimal` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `e2`, `extent`, `foldBlanks`, `foldGo`, `g`, `intent`, `isBlank`, `map`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
+- `spec_retract_of_failure_identifiable` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `map`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `spec_retract_without_rep` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `foldBlanks`, `foldGo`, `g`, `intent`, `isBlank`, `map`, `mkConstraint`, `single`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `spectral_concentration_around_expectation` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `spectral_concentration_of_markov` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `markov_counting`, `matCLME`, `spectral_radius_le_opNorm`, `uniformExpectation`, `uniformProb`
 - `spectral_radius_concentration_transfer` -> `HasRealEigenvalue`, `gelfandRadius`, `gelfand_radius_le_opNorm`, `matCLME`, `spectral_radius_le_opNorm`
@@ -9968,7 +9975,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `spine_app` -> `Neutral`, `Step`, `Term`, `induction`, `nil_append`, `no_step_var`
 - `spine_two_apps` -> `Neutral`, `Step`, `Term`, `induction`, `nil_append`, `no_step_var`
 - `spine_var` -> `Neutral`, `Step`, `Term`, `induction`, `nil_append`, `no_step_var`
-- `splitLast_append_singleton` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
+- `splitLast_append_singleton` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `map`, `nil_append`
 - `split_confers_part_identity_immediately` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `trivial`, `up`, `withGaze`
 - `split_error_bound` -> `behavior`, `col`, `d`
 - `split_exposes_parts_to_upward_gaze` -> `at`, `extent`, `g`
@@ -9976,7 +9983,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `split_immediately_confers_concept` -> `at`, `extent`, `g`
 - `sqDistEq_expressible` -> `d`
 - `sqDistEq_lipschitz` -> `Pt`, `d`, `le_trans`, `penaltyLoss`, `sq_lipschitz_on_bounded`
-- `sqDist_congr` -> `AffineLayer`, `E`, `Pt`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
+- `sqDist_congr` -> `AffineLayer`, `E`, `Pt`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `sqDist_equivalence_requires_nonneg` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`
 - `sqDist_le_sq_iff_sqrt_le` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`
 - `sqDist_self` -> `DegenerateOK`, `Holds`, `Pt`, `d`, `holds_of_degenerateOK`
@@ -9986,12 +9993,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqPenalty_levelA` -> `PenaltyExact`, `PenaltySound`, `exact_implies_sound`
 - `sqPenalty_nonneg` -> `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `loss`
 - `sqPenalty_zero_iff` -> `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `loss`
-- `sqSum_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `symbolToWeight_correct`, `trans`
-- `sqSum_nonneg` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `le_total`, `symbolToWeight_correct`, `trans`
+- `sqSum_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `map`, `symbolToWeight_correct`, `trans`
+- `sqSum_nonneg` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `at`, `compileToLayer`, `induction`, `int_sq_eq_zero_iff`, `le_antisymm`, `le_total`, `map`, `symbolToWeight_correct`, `trans`
 - `sq_add_le_two_mul_sq_add_sq` -> `at`, `card_fin`, `g`
 - `sq_add_two_le` -> `card_fin`, `g`
 - `sq_dist_eq_of_dist_eq` -> `E`, `Geometry`, `at`
-- `sq_eq_zero_iff_real` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
+- `sq_eq_zero_iff_real` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `sq_eq_zero_of_localMin` -> `E`, `sq_localMin_dichotomy`
 - `sq_le_needs_nonneg` -> `Audit`, `at`
 - `sq_le_sq_iff_abs_le` -> `ContextualInherits`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`
@@ -10236,7 +10243,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subset_fcaClosure` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `closure_idempotent`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `subset_extent_intent`
 - `subset_gazeDown_gazeUp` -> `at`, `extent`, `g`, `subset_extent_intent`, `subset_intent_extent`
 - `subset_gazeUp_gazeDown` -> `at`, `extent`, `g`, `subset_intent_extent`
-- `subset_image_preimage_iff_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `subset_image_preimage_iff_surjective` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `subset_intent_extent` -> `apply`, `at`
 - `subspaceConstraint_bot` -> `E`, `card_fin`
 - `subspaceConstraint_top` -> `E`, `card_fin`
@@ -10275,11 +10282,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_zero_var_zero` -> `Term`, `d`, `shift`, `subst`
 - `substantive_representation_instance` -> `Representation`, `compile`, `compile_injective`, `extract`, `extract_compile`, `roundtrip`
 - `substitution_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
-- `sumEven_eq_zero_iff` -> `at`, `induction`
-- `sumRelu_all_constraints` -> `at`, `induction`, `relu`
-- `sumRelu_eq_zero_iff_each` -> `at`, `induction`, `relu`
-- `sumRelu_nonneg` -> `at`, `induction`, `relu`
-- `sumRelu_pos_of_unsatisfied` -> `at`, `induction`, `relu`
+- `sumEven_eq_zero_iff` -> `at`, `induction`, `map`
+- `sumRelu_all_constraints` -> `at`, `induction`, `map`, `relu`
+- `sumRelu_eq_zero_iff_each` -> `at`, `induction`, `map`, `relu`
+- `sumRelu_nonneg` -> `at`, `induction`, `map`, `relu`
+- `sumRelu_pos_of_unsatisfied` -> `at`, `induction`, `map`, `relu`
 - `sum_abs_rowDot_le` -> `Instr`, `W`, `applyInstr`, `attention`, `le_trans`
 - `sum_bool_binInd_eq_one` -> `at`, `obs`
 - `sum_bool_binInd_mul` -> `at`, `obs`
@@ -10354,7 +10361,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `supporting_hyperplane_of_not_mem_interior` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_hyperplane_real` -> `E`, `apply`, `d`, `dotV`
 - `supporting_hyperplane_strict_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
-- `surjectivity_not_load_bearing` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
+- `surjectivity_not_load_bearing` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `roundtrip_extractVec`, `trans`
 - `suspend_after_withGaze` -> `g`
 - `suspend_dissolves_identity` -> `g`
 - `suspend_is_not_forgetting` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `trivial`, `up`, `withGaze`
@@ -10391,10 +10398,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sym2_01` -> `add`, `at`, `d`
 - `sym2_10` -> `add`, `at`, `d`
 - `sym2_11` -> `add`, `at`, `d`
-- `symDelta_independent_of_base` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `roundtrip_extractVec`, `symbolToWeight_correct`
+- `symDelta_independent_of_base` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `symDot_eq_realDot` -> `LayerOut`, `LinearLayer`, `RealDot`, `apply`, `at`, `dot`, `dot_eq_dotProduct`, `length`, `toFun`, `toVec`
-- `symEditSet_pointwise_iff` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`
-- `symEdit_a_length_law` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`
+- `symEditSet_pointwise_iff` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `map`
+- `symEdit_a_length_law` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`
 - `symEdit_delta_via_append` -> `LayerDelta`, `LayerOut`, `VectorConstraint`, `append_nil`, `convertVec`, `deltaOf`, `editLayer`, `editLayer_delta_closed_form`
 - `symTwoPoint_log_sup_exact` -> `uniformExpectation`
 - `symTwoPoint_mean` -> `card_fin`, `uniformExpectation`
@@ -10402,14 +10409,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symTwoPoint_sum_zero` -> `card_fin`, `uniformExpectation`
 - `symVec_one_not_injective` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`
 - `sym_all_implies_indexed` -> `getD_eq_getElem`, `length`, `satSym`, `weightLadderN`
-- `symbolToWeight_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `nil_append`, `residual`, `scaleVec`
+- `symbolToWeight_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `map`, `nil_append`, `residual`, `scaleVec`
 - `symbolToWeight_correct` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `convertVec_preserves_semantics`, `length`
 - `symbolToWeight_correct_blind_to_arity` -> `LayerOut`, `VectorConstraintSat`, `convertVec`, `length`
-- `symbolToWeight_correct_via_residual` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `symbolToWeight_correct_via_residual` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `symbolToWeight_nonlinear_correct` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `act`, `at`, `convertVec`, `convertVec_preserves_semantics`
-- `symbolToWeight_residual_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
+- `symbolToWeight_residual_iff` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `forall_mem_map_iff`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `symbolToWeight_scale_invariant` -> `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `nil_append`, `residual`
-- `symbol_preimage_unique` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `roundtrip_extractVec`, `trans`
+- `symbol_preimage_unique` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `map`, `roundtrip_extractVec`, `trans`
 - `symm_comp_self_eq_id` -> `E`, `apply`, `comp`, `d`, `trans`
 - `symmetric_det_eq_prod_eigenvalues` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_eigenpair` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
@@ -10426,9 +10433,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `symmetric_two_two_det` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `symmetric_two_two_trace` -> `apply`, `at`, `frobeniusNorm`, `mulVec`
 - `sync_recovers_fedavg` -> `at`, `d`, `g`, `induction`, `le`, `le_trans`, `zero`
-- `syntacticFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `toFun`, `trans`
-- `syntacticFunctor_not_faithful` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `syntacticFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `toFun`, `trans`
+- `syntacticFunctor_not_faithful` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `syntacticFunctor_not_injective_of_dup` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
 - `syntax_differs_semantics_same` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `system_covers_all_kinds` -> `length`
 - `system_rules_length` -> `length`
@@ -10490,7 +10497,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tanh_strictMonoOn_Ici_zero_fid` -> `ZeroFixing`, `ZeroFixingR`, `act`, `act_geluTanhR`, `act_geluZ`, `act_hswishZ`, `act_leakyReluZ`, `act_mreluZ`, `act_reluZ`, `act_sigmoidZ`, `act_siluZ`, `act_softplusZ`, `apply`, `decidable_zeroFixing_geluZ`, `decidable_zeroFixing_leakyReluZ`, `decidable_zeroFixing_siluZ`, `eval`, `geluGateFid`, `le_trans`, `neg_zeroFixing_hswishZ`, `neg_zeroFixing_mreluZ`, `neg_zeroFixing_reluZ`, `neg_zeroFixing_sigmoidZ`, `neg_zeroFixing_softplusZ`, `reluZ`, `subst`, `zeroFixingHoldsBounded`
 - `target_ledger_total` -> `length`
 - `targets_complete` -> `length`
-- `task_section_shape_is_rfl` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
+- `task_section_shape_is_rfl` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `map`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `taylor_denom_bridge` -> `subst`
 - `taylor_denom_correction` -> `subst`
 - `taylor_denom_ratio` -> `subst`
@@ -10519,7 +10526,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `td_fixed_point_is_value` -> `at`
 - `td_operator_affine` -> `ChainFwd`, `LinfNorm`, `W`, `at`, `contraction_converges`, `le`, `linfNorm_eq_norm`, `linfNorm_nonneg`
 - `tendsto_Zpow_fact` -> `PolyApproxOn`, `comp`
-- `tensorCount_pos` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `tensorCount_pos` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
 - `tensorFrobSq_cons_decomp` -> `apply`
 - `tensorFrobSq_inner_sq_le` -> `apply`, `induction`, `toFun`, `zero`
 - `tensorFrobSq_le_card_mul` -> `apply`, `induction`, `toFun`, `zero`
@@ -10529,12 +10536,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrobSq_zero_iff` -> `apply`, `induction`, `toFun`, `zero`
 - `tensorFrob_nonneg` -> `apply`, `induction`, `toFun`, `zero`
 - `tensorFrob_smul` -> `apply`, `induction`, `toFun`, `zero`
-- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `partCode`, `partCode_injective`, `toNat`
-- `tensors_materializeWith_zero` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
+- `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `map`, `partCode`, `partCode_injective`, `toNat`
+- `tensors_materializeWith_zero` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
 - `termCode_injective` -> `at`, `induction`
-- `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `termTensors_ne_nil` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
-- `termTensors_nodup` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`
+- `termTensors_id_lt` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `termTensors_ne_nil` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
+- `termTensors_nodup` -> `IRSkeleton`, `RelationShape`, `TensorId`, `TensorShape`, `Term`, `arch`, `at`, `children`, `induction`, `length`, `length_cons`, `map`
 - `testFun_isOneLipschitz` -> `IsOneLipschitz`, `IsTransportPlan`, `absCost`, `at`, `le_antisymm`, `transportCost`
 - `test_roc_trajectory_mono` -> `alpha`
 - `theorema_egregium_degenerate` -> `Geometry`, `S2`
@@ -10549,6 +10556,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `threeLayer_param_expand` -> `at`, `g`, `induction`, `zero`
 - `threeLayer_param_quartic` -> `at`, `g`, `induction`, `zero`
 - `three_architectures` -> `Arch`, `at`, `depth`, `one`
+- `three_carriers_share_loop` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`
 - `three_families_connected` -> `AffineLayer`, `LayerParams`, `MLayer`
 - `three_primitives_have_too_few_f64_slots` -> `CFunction`, `CType`, `abiTable`, `all`, `applyAdam`, `applyMomentum`, `applySgd`, `conformance`, `length`
 - `three_rings_quotient_dichotomy` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `decode`, `g`, `no_left_inverse_at_all`
@@ -10599,9 +10607,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `toParams_injective` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `toParams_ofParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `toSegs_L1Bridge_append` -> `Chain`, `CharToken`, `L1Bridge`, `d41_toSegs_L1Bridge`, `toSegs`
-- `toSegs_append_sep_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
-- `toSegs_length_le_sep_count` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `mkConstraint`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
-- `toSegs_map_sym_append_sep` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `nil_append`
+- `toSegs_append_sep_singleton` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
+- `toSegs_length_le_sep_count` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `count`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `length`, `map`, `mkConstraint`, `split`, `symbolToWeight_correct`, `toSegs`, `toSegs_map_sym_append_sep`
+- `toSegs_map_sym_append_sep` -> `AllSatisfied`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `append_assoc`, `at`, `decode`, `decode_encode`, `dot`, `encode`, `encode_injective`, `flatten`, `induction`, `length`, `map`, `nil_append`
 - `toSymbol_coeffDist_zero` -> `VectorConstraint`, `VectorConstraintSat`, `coeffDist`, `convertVec`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `toSymbol_convertVec_bijective` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
 - `toSymbol_editLayer_always` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `trans`, `trivial`
@@ -10616,11 +10624,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `toeplitz_row_sum_le_band` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `g`, `trans`
 - `toeplitz_symmetric` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `g`, `trans`
 - `toeplitz_transpose` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `g`, `trans`
-- `tokAuxV_VAll_eq` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
-- `tokAuxV_cons` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
-- `tokAuxV_nil` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
-- `tokAuxV_succ` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
-- `tokAuxV_zero` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `tokAuxV_VAll_eq` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `tokAuxV_cons` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `tokAuxV_nil` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `tokAuxV_succ` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
+- `tokAuxV_zero` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `OOVVocab`, `Vzz`, `append_nil`, `apply`, `at`, `bestPrefix`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `induction`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `pieceOf`, `symbolToWeight_correct`, `toSegs`, `tokAux`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`, `zero`
 - `tokAux_detok` -> `append_assoc`, `apply`, `at`, `induction`, `length`, `length_cons`, `split`, `subst`, `tokenize`, `trans`, `zero`
 - `tokAux_ne_none` -> `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `token_count` -> `Data`, `Models`, `Sample`, `Token`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_tokenizeSample`, `tokenize`, `tokenizeSample`, `width`
@@ -10632,11 +10640,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokenizeStr_encode_content` -> `L1Bridge`, `Layer`, `Vzz`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`
 - `tokenizeStr_eq_tokenize` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize`, `tokenize_detok`, `tokenize_never_none`
 - `tokenizeStr_never_none` -> `CharToken`, `at`, `bestPrefix`, `detokenize`, `encode`, `foldBlanks`, `lookupTok`, `tokenize_detok`, `tokenize_never_none`
-- `tokenizeV_VAll_accepts_where_Vzz_blocks` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
-- `tokenizeV_VAll_eq_tokenizeRaw` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
-- `tokenizeV_Vzz_blocks` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
-- `tokenizeV_Vzz_in` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
-- `tokenizeV_can_fail` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `tokenizeV_VAll_accepts_where_Vzz_blocks` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `tokenizeV_VAll_eq_tokenizeRaw` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `tokenizeV_Vzz_blocks` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `tokenizeV_Vzz_in` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `append_nil`, `at`, `bestPrefixV_Vzz_oov`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `length_cons`, `map`, `mkConstraint`, `nil_append`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
+- `tokenizeV_can_fail` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeRaw`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`, `tokenize_never_none`
 - `tokenize_collision` -> `apply`, `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `tokenize_cons` -> `Data`, `Sample`, `at`, `length`, `width`
 - `tokenize_detok` -> `apply`, `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
@@ -10645,7 +10653,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tokenize_kernel_is_SameTokens` -> `CharToken`, `SameTokens`, `detokenize`, `detokenize_left_inverse_on_quotient`, `sound`, `tokenize`
 - `tokenize_never_none` -> `at`, `length`, `tokenize`, `trans`
 - `tokenize_never_none_fails_for_Vzz` -> `CharToken`, `at`
-- `tokenize_never_none_fails_for_tokenizeV` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
+- `tokenize_never_none_fails_for_tokenizeV` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `L1Bridge`, `Layer`, `Vzz`, `at`, `compileToLayer`, `decode`, `encode`, `eval`, `length`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`, `tokenize`, `tokenizeStr`, `tokenizeStr_eq_tokenize`, `tokenizeStr_never_none`
 - `tokenize_nil` -> `Data`, `Sample`, `at`, `length`, `width`
 - `tokenize_not_injective` -> `apply`, `at`, `induction`, `length`, `length_cons`, `tokenize`, `trans`, `zero`
 - `tokens_migrated` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `Conv`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified_manifest`
@@ -10687,20 +10695,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `totalDegree_X_zero_nat` -> `apply`, `at`, `eval`, `le_antisymm`, `length`, `length_cons`, `single`, `subst`
 - `totalDegree_finset_sum_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `slotOf`
 - `totalEnv_ne_empty` -> `Step`, `Term`, `at`, `no_step_var`
-- `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
-- `totalLoss_eq_zero_iff_allSatisfied` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `compileToLayer`, `symbolToWeight_correct`, `trans`
+- `totalLoss_edit_eq` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `totalLoss_edit_eq_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `totalLoss_edit_exact_quadratic` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `dot`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `totalLoss_eq_zero_iff_allSatisfied` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `compileToLayer`, `map`, `symbolToWeight_correct`, `trans`
 - `totalLoss_verify` -> `AllSatisfied`, `ConstraintSet`
 - `totalResidual_wStep` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `step`
-- `total_obligations` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `size`
+- `total_obligations` -> `Audit`, `Compiler`, `Ladder`, `Repair`, `Representation`, `Tokenizer`, `at`, `map`, `size`
 - `totient_one` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `tower_hoeffding_transfer` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `g`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`
 - `tower_property` -> `at`, `d`, `g`
 - `tower_property_div` -> `at`, `d`, `g`
 - `tpr_mono` -> `E`, `apply`, `at`, `le_trans`
-- `traceFold_cons` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
-- `traceFold_nil` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `step`, `subst`
+- `traceFold_cons` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
+- `traceFold_nil` -> `all`, `append_assoc`, `at`, `contains`, `g`, `induction`, `map`, `step`, `subst`
 - `trace_eq_sum_diag` -> `at`, `card_fin`, `subst`
 - `trace_mul_self_conj` -> `apply`
 - `trace_mul_self_conj_of_decomp` -> `apply`
@@ -10751,9 +10759,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `triple_while_approx_bound` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `triple_while_iff_wpT_while` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `triple_iff_wpT`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
 - `triple_while_yields_approx` -> `AExp`, `Denotes`, `State`, `Stmt`, `StmtT`, `Triple`, `at`, `embed`, `embed_denotes_iff`, `evalA`, `exec`, `execF`, `induction`, `trivial`, `whileF`, `wp`, `wpT`, `zero`
-- `trivialProofTrace_passes` -> `apply`, `at`, `eval`, `g`, `induction`, `step`
+- `trivialProofTrace_passes` -> `apply`, `at`, `eval`, `g`, `induction`, `map`, `step`
 - `trivial_holds_iff` -> `Holds`, `PluginProof`, `subst`, `trivial`, `trivial_holds`
-- `trivial_sat` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `realTotalLoss_soundness`, `trans`
+- `trivial_sat` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `trueGrad_eq_zero_of_eventuallyConst` -> `at`, `dist`
 - `truncDiag_rank_le` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `truncated_iff_indexed` -> `VecConstraint`, `VectorConstraint`, `VectorConstraintSat`, `length`, `sat_iff`, `sat_iff_list_sat`, `toFinVec`, `vecDot`, `vecSat`
@@ -10791,14 +10799,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_domains_exist` -> `SemanticDomain`, `constraintDomain`, `d`, `trivial`
 - `two_hop_msg` -> `apply`, `le_trans`
 - `two_layer_block_edit_bound` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `le_refl`, `trivial`, `verifier_reliable_clean`
-- `two_layer_descent_can_stall` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `netAct`, `netAct_append`, `netAct_nil`
+- `two_layer_descent_can_stall` -> `AffineLayer`, `W`, `affineAct`, `apply`, `at`, `induction`, `le_trans`, `map`, `netAct`, `netAct_append`, `netAct_nil`
 - `two_layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_layer_distill_bound_closed` -> `ChainFwd`, `E`, `apply`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_uniform_error`, `zero`
 - `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_mul_geluInner_abs` -> `at`, `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `two_mul_ne_zero` -> `apply`
-- `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
-- `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`, `nil_append`
+- `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`, `nil_append`
+- `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`, `nil_append`
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `typable_const` -> `Level`, `SortKind`, `Term`, `induction`
@@ -10831,7 +10839,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `unbiased_iff_pure_variance` -> `E`, `at`, `eps`, `geom_sum_mul`, `induction`, `zero`
 - `unbounded_delay_finite_mean_ok` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
 - `unbounded_variance_weaker_than_uniform` -> `ExpDist`, `ExpGap`, `Expect`, `Expect_add`, `Expect_const`, `Expect_const_mul`, `Expect_sub`, `at`, `empty`, `g`, `induction`, `insert`, `sgd_expected_avg_gap`, `sgd_rate_bound`
-- `unconvertVec_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
+- `unconvertVec_convertVec` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `g`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `tokenize_not_injective`, `trans`
 - `undeterminedByWill_not_vacuous` -> `Gaze`, `at`, `extent`, `g`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
 - `undoSeq_apply` -> `Effect`, `RState`, `apply`, `induction`, `undo_apply`
 - `undoSeq_apply_pair` -> `Effect`, `RState`, `apply`, `applySeq`, `undoSeq`, `undo_apply`
@@ -10923,7 +10931,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `up_isIdBelow` -> `Term`, `induction`, `lift`, `subst`, `zero`
 - `up_var` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `update_sub_ne_zero` -> `at`, `ctr`, `ctr_lipschitz`, `e2`, `rmsNormE`, `rmsNormE_antipodal_norm`, `unit_normalize_lipschitz_sharp`
-- `update_swap` -> `Compiler`, `at`, `comp`, `g`, `induction`, `subst`, `trans`
+- `update_swap` -> `Compiler`, `at`, `comp`, `g`, `induction`, `map`, `subst`, `trans`
 - `update_update_same` -> `Compiler`, `at`, `comp`, `g`, `subst`
 - `update_zero_ne_zero` -> `at`, `ctr`, `ctr_lipschitz`, `e2`, `rmsNormE`, `rmsNormE_antipodal_norm`, `unit_normalize_lipschitz_sharp`
 - `upper_left_adjoint_lower` -> `E`
@@ -10943,7 +10951,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `valid_eq_refl` -> `all`, `at`, `bvar`, `induction`
 - `validation_gap_budget` -> `at`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
 - `validation_gap_tail` -> `hoeffding_two_sided`, `uniformExpectation`, `uniformProb`, `union_bound_finite`
-- `validity_does_not_determine_syntax` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`
+- `validity_does_not_determine_syntax` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`
 - `valueOf_total` -> `CICCtx`, `ConstSet`, `Term`, `Typable`, `at`
 - `valuePrimitives_length` -> `length`
 - `value_exists_unconditionally` -> `IsValueOf`, `Term`, `Value`, `valueOf`
@@ -10981,9 +10989,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `vec2_ne_zero_of_second` -> `add`, `at`, `d`
 - `vec2_one` -> `add`, `at`, `d`
 - `vec2_zero` -> `add`, `at`, `d`
-- `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
+- `vecConstraint_append_eq_zipWith_iff` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`
 - `vecDot_is_sum_not_zip` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
-- `vecDot_toFinVec_eq_dot` -> `at`, `dot`, `induction`, `length`, `subst`
+- `vecDot_toFinVec_eq_dot` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
 - `vecGdSeq_succ` -> `at`, `eps`, `g`, `induction`, `le_trans`, `loss`, `normSq`, `normSq_nonneg`, `zero`
 - `vecMulVec_mulVec` -> `at`, `mulVec`
 - `vecNorm_nonneg` -> `apply`, `at`, `frob`, `frobSq`, `frobSq_inner_sq_le`, `frobSq_nonneg`, `frob_nonneg`, `g`, `le_trans`
@@ -11000,15 +11008,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
-- `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `proof`, `requires`, `soundness`
+- `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `map`, `proof`, `requires`, `soundness`
 - `verified_manifest` -> `Constraint`, `Conv`, `Repair`, `length`, `manifest`, `verified`, `verified_obligations`
 - `verified_obligations` -> `Constraint`, `Conv`, `Repair`, `length`, `manifest`, `verified`
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`, `le`, `le_trans`, `verifier_reliable_clean`
 - `verifier_error_vanishes` -> `at`, `g`
 - `verifier_reliable_clean` -> `at`, `g`
 - `verify_iff_recompile` -> `Layer`, `VectorConstraint`, `compileToLayer`, `extractLayer`
-- `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
-- `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
 - `verify_sound` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
 - `verify_stable` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `viaRoundTrip_iff_plain` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
@@ -11023,18 +11031,18 @@ module. These are the edges that make the chain a chain rather than a list.
 - `w3_layerOut_convertVec` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_layerOut_unfold` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `modSinLoss_zero_iff_congruent`, `symDot_eq_realDot`, `symVec`, `symW`
 - `w3_mod_ne_zero` -> `CongruentInt`, `LayerOut`, `LinearLayer`, `ModSinLoss`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerToCLM`, `length`, `linFunc`, `modSinLoss_zero_iff_congruent`, `symVec`, `symW`
-- `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`
-- `walkIndexed_count` -> `IRSkeleton`, `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walkWithRelations`, `walk_nodup`
-- `walkIndexed_tensors` -> `IRSkeleton`, `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `induction`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walkWithRelations`, `walk_nodup`
+- `wPart_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
+- `walkIndexed_count` -> `IRSkeleton`, `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `induction`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walkWithRelations`, `walk_nodup`
+- `walkIndexed_tensors` -> `IRSkeleton`, `Names`, `TensorShape`, `Term`, `arch`, `at`, `covered`, `fillWith`, `induction`, `map`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `split`, `walkWithRelations`, `walk_nodup`
 - `walkWithRelations_relations_are_depends` -> `RelKind`, `Term`, `at`, `induction`
-- `walk_count` -> `TensorId`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
-- `walk_increasing` -> `RelKind`, `TensorShape`, `Term`, `at`, `induction`, `subst`
+- `walk_count` -> `TensorId`, `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `map`, `subst`
+- `walk_increasing` -> `RelKind`, `TensorShape`, `Term`, `at`, `induction`, `map`, `subst`
 - `walk_length_indep` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
 - `walk_mono` -> `Term`, `at`, `induction`, `le_refl`, `le_trans`, `length`, `length_cons`, `subst`
-- `walk_nodup` -> `RelKind`, `Term`, `at`, `induction`
-- `walk_own_id_mem` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
-- `walk_range` -> `TensorId`, `Term`, `aa`, `at`, `induction`, `le_refl`, `le_trans`, `subst`
-- `walk_rel_args` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `subst`
+- `walk_nodup` -> `RelKind`, `Term`, `at`, `induction`, `map`
+- `walk_own_id_mem` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `map`, `subst`
+- `walk_range` -> `TensorId`, `Term`, `aa`, `at`, `induction`, `le_refl`, `le_trans`, `map`, `subst`
+- `walk_rel_args` -> `TensorShape`, `Term`, `aa`, `at`, `induction`, `map`, `subst`
 - `weakAlt_overreports` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `weakSim_comp` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
 - `weakSim_of_sim` -> `Compiler`, `ForwardSim`, `Relation`, `Star`, `at`, `induction`, `obs`, `single`, `trans`
@@ -11046,13 +11054,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weak_pareto_optimal_of_scalarization` -> `e2`
 - `weakening_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
 - `weierstrass_prod_le` -> `E`, `at`, `empty`, `induction`, `le_trans`
-- `weightCodeIR_compileSkel` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `decodeSkeleton_code`, `find`, `find_id_eq_some_of_nodup_shape`, `skeletonCode`, `split`, `weightCodeIR`
+- `weightCodeIR_compileSkel` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `decodeSkeleton_code`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
 - `weightCount_cons` -> `Activation`, `Arch`
-- `weightFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `scaleVec`, `toFun`, `trans`
-- `weightFunctor_compileToLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
-- `weightLadderNFullWidth_forward` -> `W`, `ladder_forward`, `layerOfListFull`, `length`, `listOfLayer`, `roundtrip`, `satSym`, `satW`
-- `weightLadderNFullWidth_has_inverse` -> `W`, `layerOfListFull`, `length`, `listOfLayer`, `roundtrip`
-- `weightLadderNFullWidth_l2l3_reads` -> `W`
+- `weightFunctor_append` -> `ConstraintSet`, `Layer`, `VectorConstraint`, `apply`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `induction`, `length`, `map`, `scaleVec`, `toFun`, `trans`
+- `weightFunctor_compileToLayer` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `convertVec`, `induction`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `weightLadderNFullWidth_forward` -> `W`, `ladder_forward`, `layerOfListFull`, `length`, `listOfLayer`, `map`, `roundtrip`, `satSym`, `satW`
+- `weightLadderNFullWidth_has_inverse` -> `W`, `layerOfListFull`, `length`, `listOfLayer`, `map`, `roundtrip`
+- `weightLadderNFullWidth_l2l3_reads` -> `W`, `map`
 - `weightLadderN_forward` -> `ladder_forward`, `satSym`, `satW`
 - `weightLadderN_satSym_implies_nondeg` -> `satSym`, `weightLadderN`
 - `weightLadderNondeg_forward` -> `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `ladder_forward`, `length`, `resid`, `satSym`, `satW`, `weightLadderN`
@@ -11253,11 +11261,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zfcSetTheory_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `zfcSetTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `length`, `mkTemplates`, `path`
 - `zfcSetTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
-- `zipWith_add_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `min`, `sqSum`, `totalLoss`
-- `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `min`
+- `zipWith_add_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `min`, `sqSum`, `totalLoss`
+- `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `zip_append_right` -> `at`, `induction`, `length`, `length_cons`
 - `zip_append_tail_eq` -> `at`, `induction`, `length`, `length_cons`
-- `zip_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
+- `zip_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
 - `zmod_constraint_preserves` -> `apply`
 - `zmod_eq_iff_modEq` -> `apply`
 - `zmod_field_iff_solution` -> `at`

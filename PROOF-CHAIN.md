@@ -13,12 +13,12 @@
 
 | 子句 | 定理 | 位置 | 内容 | 引用 |
 |:--|:--|:--|:--|--:|
-| 正向：符号知识 → 权重 | `symbolToWeight_correct` | `Lattice/Runtime/SymbolToWeightCorrectness.lean` | 符号约束全部成立 ⟺ 编译出的权重层输出全为零 | 105 |
+| 正向：符号知识 → 权重 | `symbolToWeight_correct` | `Lattice/Runtime/SymbolToWeightCorrectness.lean` | 符号约束全部成立 ⟺ 编译出的权重层输出全为零 | 109 |
 | 逆向：权重 → 符号 | `extract_compile_constraints` | `Lattice/Runtime/LoopClosure.lean` | 先编译再提取，回到原约束集 | 4 |
 | 闭环：回路是双射 | `compile_extract_bijective` | `Lattice/Runtime/LoopClosure.lean` | `extractLayer` 与 `compileToLayer` 互为左右逆 | 2 |
 | 验证：语法判据 | `faithful_iff_extract_eq` | `Lattice/Runtime/Faithfulness.lean` | 层忠于数据 ⟺ 提取结果等于数据的约束集 | 8 |
 | 验证：语义判据 | `satisfies_extractLayer_iff_self` | `Lattice/Runtime/SemanticFaithfulness.lean` | 提取出的符号成立 ⟺ 该层输出为零 | 4 |
-| 修正：吸收性 | `repair_preserves_verdict` | `Lattice/Runtime/RepairClosure.lean` | 判据为真 ⟹ 修复不动它 | 3 |
+| 修正：吸收性 | `repair_preserves_verdict` | `Lattice/Runtime/RepairClosure.lean` | 判据为真 ⟹ 修复不动它 | 4 |
 | 修正：严格进展 | `repair_makes_progress` | `Lattice/Runtime/RepairClosure.lean` | 判据为假 ⟹ 测度严格下降 | 2 |
 | 修正：终止即满足 | `repair_terminates_at_sat` | `Lattice/Runtime/RepairClosure.lean` | 测度为零 ⟹ 判据为真 | 3 |
 | 再注入 | `extract_after_repair` | `Lattice/Runtime/RepairClosure.lean` | 修复到测度为零后，提取出的符号满足原约束 | 2 |
