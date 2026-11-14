@@ -417,6 +417,8 @@ forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
 forward	Lib/Compiler/CarrierClosure.lean	repair_stable
+forward	Lib/Compiler/CarrierInstantiation.lean	linear_conj_with_itself
+forward	Lib/Compiler/CarrierInstantiation.lean	linear_verify_by_extract
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify

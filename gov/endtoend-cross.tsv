@@ -1458,6 +1458,9 @@ Lib/Compiler/CarrierClosure.lean	closure
 Lib/Compiler/CarrierClosure.lean	both_carriers_share_criterion
 Lib/Compiler/CarrierCoverage.lean	criterion_transfers
 Lib/Compiler/CarrierCoverage.lean	three_carriers_share_loop
+Lib/Compiler/CarrierInstantiation.lean	linear_verify_by_extract
+Lib/Compiler/CarrierInstantiation.lean	linear_closure_inhabited
+Lib/Compiler/CarrierInstantiation.lean	linear_conj_with_itself
 Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
 Lib/Compiler/CarrierReproduction.lean	carrierFrom_criterion
 Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify

@@ -32,6 +32,7 @@ import Lattice.Lib.Compiler.CarrierReproduction
 import Lattice.Lib.Compiler.DataSynthesis
 import Lattice.Lib.Compiler.CarrierAlgebra
 import Lattice.Lib.Compiler.CarrierReversible
+import Lattice.Lib.Compiler.CarrierInstantiation
 /-!
 # Lattice.Lib -- harvested instances
 

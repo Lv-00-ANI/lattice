@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 633 | instantiated library, may import core only |
+| lib | 634 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -379,6 +379,7 @@
 - `Lattice.Lib.Compiler.CarrierAlgebra` <- `Lattice.Lib.Compiler.CarrierCoverage`
 - `Lattice.Lib.Compiler.CarrierClosure` <- `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Runtime.SymbolToWeightCorrectness`
 - `Lattice.Lib.Compiler.CarrierCoverage` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.Expressiveness`
+- `Lattice.Lib.Compiler.CarrierInstantiation` <- `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.SymbolToWeightCorrectness`
 - `Lattice.Lib.Compiler.CarrierReproduction` <- `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.Faithfulness`, `Lattice.Runtime.RepairClosure`
 - `Lattice.Lib.Compiler.CarrierReversible` <- `Lattice.Lib.Compiler.CarrierAlgebra`
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
@@ -854,7 +855,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1419,6 +1420,7 @@
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
+| `Lattice.Lib.Compiler.CarrierInstantiation` | 3 | 1 |
 | `Lattice.Lib.Compiler.CarrierReproduction` | 5 | 1 |
 | `Lattice.Lib.Compiler.CarrierReversible` | 5 | 2 |
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
@@ -6798,6 +6800,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linear_attn_weights_nonneg` -> `convComb_norm_bound`, `d`, `softmax`
 - `linear_attn_weights_pmf` -> `convComb_norm_bound`, `d`, `softmax`
 - `linear_attn_weights_sum_one` -> `convComb_norm_bound`, `d`, `softmax`
+- `linear_closure_inhabited` -> `Compiler`, `ReversibleCarrier`, `Sat`, `VectorConstraint`, `compile`, `conj`, `criterion`, `out`
+- `linear_conj_with_itself` -> `Compiler`, `ReversibleCarrier`, `Sat`, `VectorConstraint`, `compile`, `conj`, `criterion`, `out`
 - `linear_conjugate_at_slope` -> `at`, `le_refl`
 - `linear_constraint_is_equality` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `reluCompile`, `reluCompile_preserves`
 - `linear_converges` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
@@ -6811,6 +6815,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linear_system_solution_affine` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_system_solution_structure` -> `W`, `apply`, `at`, `zmod_homogeneous_structure`
 - `linear_term_forces_zero` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `at`, `d`, `mem_orthogonal_range_scalar`
+- `linear_verify_by_extract` -> `Compiler`, `Layer`, `ReversibleCarrier`, `Sat`, `VectorConstraint`, `compile`, `conj`, `criterion`, `extract`, `out`, `verify_by_extract`
 - `linearization_collapses_models` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `linfNorm_abs` -> `ChainFwd`, `apply`, `geom_contraction_eventually`, `induction`, `le_trans`, `zero`
 - `linfNorm_eq_norm` -> `BellmanOp`, `LinfNorm`, `W`, `apply`, `bddAbove_abs`, `bellman_contraction`, `le_antisymm`, `linfNorm_abs`, `linfNorm_nonneg`
