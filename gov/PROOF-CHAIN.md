@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 632 | instantiated library, may import core only |
+| lib | 633 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -380,6 +380,7 @@
 - `Lattice.Lib.Compiler.CarrierClosure` <- `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Runtime.SymbolToWeightCorrectness`
 - `Lattice.Lib.Compiler.CarrierCoverage` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Compiler.CarrierReproduction` <- `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.Faithfulness`, `Lattice.Runtime.RepairClosure`
+- `Lattice.Lib.Compiler.CarrierReversible` <- `Lattice.Lib.Compiler.CarrierAlgebra`
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.CombinatorsXorNot` <- `Lattice.Lib.Compiler.Combinators`
 - `Lattice.Lib.Compiler.DataSynthesis` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.LoopClosure`
@@ -853,7 +854,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1419,6 +1420,7 @@
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
 | `Lattice.Lib.Compiler.CarrierReproduction` | 5 | 1 |
+| `Lattice.Lib.Compiler.CarrierReversible` | 5 | 2 |
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
 | `Lattice.Lib.Compiler.CombinatorsXorNot` | 17 | 2 |
 | `Lattice.Lib.Compiler.DataSynthesis` | 4 | 2 |
@@ -3455,6 +3457,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closureOperator_extensive` -> `IsFormalConcept`, `at`, `extent_antitone`, `g`, `intent_antitone`, `relu`, `subset_extent_intent`
 - `closureOperator_isClosureOperator` -> `PiecewiseConstraint`, `at`, `closureOperator`, `closureOperator_extensive`, `closureOperator_monotone`, `extent`, `extract_idempotent`, `intent`, `mono`, `piecewiseCompile`, `reluInv`, `trans`
 - `closureOperator_monotone` -> `IsFormalConcept`, `at`, `extent_antitone`, `g`, `intent_antitone`, `relu`
+- `closure_complete` -> `Compiler`, `Sat`, `compile`, `criterion`, `extract`, `out`
 - `closure_fixedPoints_eq_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
 - `closure_fixed_iff_mem_range` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
 - `closure_fixed_inter` -> `ConstraintSet`, `IsClosureOp`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `mono`, `obs`, `trans`, `trivial`
@@ -3645,49 +3648,57 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complex_GD_matches_real_fst` -> `cgd`, `cgd_im`, `cgd_re`, `g`
 - `complex_GD_matches_real_snd` -> `cgd`, `cgd_im`, `g`
 - `complex_GD_sq_contraction_step` -> `E`, `GDError`, `GDUpdate`, `GD_converges`, `GD_iterate_contraction`, `GD_sq_contraction_step`, `d`
-- `complex_P0_normal_equation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `d`
+- `complex_P0_normal_equation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `conj`, `d`
 - `complex_abs_attention_bound` -> `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_abs_score_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
-- `complex_affine_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`
+- `complex_affine_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_verify_tolerance_scalar_affine`
 - `complex_attention_bound` -> `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_attention_bound_expanded` -> `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_attention_eq_real` -> `softmax`
 - `complex_attention_eq_real_family` -> `softmax`
 - `complex_attention_eq_real_weights` -> `softmax`
-- `complex_conj_inner_self` -> `E`, `NormSqLossScalar`, `W`, `apply`, `d`
+- `complex_conj_exp` -> `conj`
+- `complex_conj_exp_mul_I` -> `conj`
+- `complex_conj_inner_self` -> `E`, `NormSqLossScalar`, `W`, `apply`, `conj`, `d`
 - `complex_cr_iff_wirtinger_zbar_eq_zero` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
 - `complex_differentiable_fderiv_apply` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
 - `complex_differentiable_of_wirtinger_zbar_eq_zero` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `complex_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_preserves_constraint` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_verify_tolerance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_edit_verify_tolerance_affine` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`
-- `complex_eq_smul_one_add_smul_I` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
+- `complex_edit_output_bound` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_preserves_constraint` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_verify_tolerance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_edit_verify_tolerance_affine` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `W`, `apply`, `conj`, `d`, `edit_verify_tolerance_scalar_affine`
+- `complex_eq_smul_one_add_smul_I` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `complex_euclid_GD_converges` -> `GDError`, `GDUpdate`, `d`
 - `complex_euclid_GD_error_identity` -> `GDUpdate`, `d`
-- `complex_euclid_edit_output_bound` -> `NormSqLossScalar`, `W`, `d`
-- `complex_euclid_inner_conj_symm` -> `NormSqLossScalar`, `d`
-- `complex_euclid_inner_self_norm_sq` -> `NormSqLossScalar`, `d`
-- `complex_euclid_isometry_preserves_norm` -> `NormSqLossScalar`, `d`
+- `complex_euclid_edit_output_bound` -> `NormSqLossScalar`, `W`, `conj`, `d`
+- `complex_euclid_inner_conj_symm` -> `NormSqLossScalar`, `conj`, `d`
+- `complex_euclid_inner_self_norm_sq` -> `NormSqLossScalar`, `conj`, `d`
+- `complex_euclid_isometry_preserves_norm` -> `NormSqLossScalar`, `conj`, `d`
 - `complex_euclid_normal_equation` -> `NormSqLossScalar`, `d`
-- `complex_im_eq_RCLike_im` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_conj_symm` -> `E`, `NormSqLossScalar`, `W`, `apply`, `d`
-- `complex_inner_self_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_self_norm_sq_instance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_inner_self_re_nonneg` -> `E`, `NormSqLossScalar`, `W`, `d`
-- `complex_isometry_preserves_norm` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_isometry_scalar_compose` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_mul_conj_eq_normSq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_normSq_eq_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_normSq_nonneg` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_norm_sq_eq_mul_conj` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_re_eq_RCLike_re` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
-- `complex_residual_edit_local` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`
-- `complex_residual_error_isolation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_im_eq_RCLike_im` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_apply` -> `conj`
+- `complex_inner_conj_symm` -> `E`, `NormSqLossScalar`, `W`, `apply`, `conj`, `d`
+- `complex_inner_self_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_self_norm_sq_instance` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_inner_self_re_nonneg` -> `E`, `NormSqLossScalar`, `W`, `conj`, `d`
+- `complex_isometry_preserves_norm` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_isometry_scalar_compose` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `isometry_scalar_compose`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_mul_conj_eq_normSq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_normSq_eq_norm_sq` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_normSq_nonneg` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_norm_sq_eq_mul_conj` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_phase_abs_one` -> `conj`
+- `complex_phase_sum` -> `conj`
+- `complex_re_eq_RCLike_re` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_output_bound_scalar`, `edit_preserves_constraint_scalar`, `edit_verify_tolerance_scalar`, `edit_verify_tolerance_scalar_affine`, `inner_self_norm_sq_scalar`, `isometry_preserves_norm_scalar`, `isometry_scalar_compose`, `normSq`, `normSq_eq_norm_sq`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
+- `complex_residual_edit_local` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`
+- `complex_residual_error_isolation` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `ResidualS`, `W`, `affine_edit_output_bound_scalar`, `apply`, `conj`, `d`, `edit_verify_tolerance_scalar_affine`, `residual_edit_local_scalar`, `residual_error_isolation_scalar`
 - `complex_rope_abs_score_family_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_rope_attention_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `convComb`, `softmax`
 - `complex_rope_attention_output_invariant` -> `complexRotate`, `complex_rope_phase_shift`, `convComb`, `softmax`
+- `complex_rope_phase_shift` -> `conj`
 - `complex_rope_score_phase_relation` -> `complexRotate`, `complex_rope_phase_shift`, `softmax`
+- `complex_rotation_compose` -> `conj`
+- `complex_rotation_preserves_abs` -> `conj`
 - `complex_score_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `softmax`
 - `complex_softmax_pmf` -> `ProbDist`, `attention_output_bound`, `complexRotate`, `complex_rope_phase_shift`, `complex_rope_relative_abs`, `convComb`, `score`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `complies_and_covered` -> `IRSkeleton`, `Names`, `RelationShape`, `Tensor`, `TensorId`, `TensorShape`, `Term`, `agrees`, `agrees_compileWith`, `arch`, `at`, `children`, `compileWith`, `covered`, `dependsShape`, `extract`, `fillWith`, `length`, `map`, `models`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
@@ -3834,7 +3845,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `congruent_trans` -> `at`
 - `conj_loop_fixed_point` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `iterate`, `progress`, `skeletonCode`
 - `conj_loop_is_fixed_point_shape` -> `Pt`, `conj_loop_fixed_point`
-- `conj_real_smul_c` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
+- `conj_real_smul_c` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `consistent_stationarity_iff_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `constOn_zero_of_comp` -> `E`, `at`, `g`
 - `const_app_cannot_step` -> `Step`, `no_step_var`
@@ -4063,7 +4074,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cps_correct` -> `Compiler`, `add`, `at`, `induction`, `lit`
 - `cps_id_is_eval` -> `Compiler`, `at`, `lit`
 - `cps_tail_compose` -> `Compiler`, `at`, `lit`
-- `criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
+- `criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `carrierConj`, `compile`, `compileToLayer`, `complete`, `extract`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
 - `criterion_transfers` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`, `trans`
 - `crossAttn_weights_nonneg` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossAttn_weights_pmf` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `d`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
@@ -4085,19 +4096,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cseq_cauchy_schwarz` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`
 - `cspec_charpoly_map_eq` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_conj_isRoot_of_isRoot` -> `at`, `map`
-- `cspec_det_sub_smul_eq_zero` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_det_sub_smul_eq_zero` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_eigenvalue_isRoot_charpoly` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_eval_map_star` -> `at`, `eval`, `g`, `induction`, `map`
-- `cspec_exists_eigenpair` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_exists_eigenpair` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_hermitian_eigenpair_root_and_star_self` -> `at`
 - `cspec_hermitian_eigenpair_star_self` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
-- `cspec_hermitian_eigenvalue_im` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
-- `cspec_hermitian_eigenvalue_im_zero` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
-- `cspec_hermitian_eigenvalue_real` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_im` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_im_zero` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_hermitian_eigenvalue_real` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
 - `cspec_nonreal_eigenvalue_conj_pair` -> `at`, `map`
 - `cspec_nonreal_root_pair_card_two` -> `at`, `map`
 - `cspec_root_eigenvalue_bridge_direction_only` -> `at`
-- `cspec_spectral_radius_le_opNorm` -> `at`, `eval`, `g`, `induction`, `map`, `subst`
+- `cspec_spectral_radius_le_opNorm` -> `at`, `conj`, `eval`, `g`, `induction`, `map`, `subst`
 - `ctr_eq` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `ctr_fixes` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_idempotent` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
@@ -8812,7 +8823,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `real_or_assoc_preserves` -> `at`, `subst`
 - `real_or_comm_preserves` -> `at`, `subst`
 - `real_scale_preserves` -> `apply`
-- `real_smul_complex_eq_mul` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
+- `real_smul_complex_eq_mul` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `real_sq_sum_zero_iff` -> `apply`
 - `real_xorC_eq_zero_iff` -> `at`, `subst`
 - `real_xorC_eq_zero_iff_on_domain` -> `at`, `subst`
@@ -8865,6 +8876,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reduces_pi_domain` -> `DefEnv`, `E`, `Reduces`, `Step`, `Term`, `induction`, `step`
 - `reduces_trans` -> `E`, `Term`, `induction`, `step`, `subst`
 - `reduction_preserves_constraint` -> `DefEnv`, `E`, `Reduces`, `Term`, `VectorConstraint`, `at`, `cicToConstraint`, `subst`
+- `reextract_eq` -> `Compiler`, `Sat`, `carrierConj`, `compile`, `criterion`, `extract`, `out`
 - `refPackage_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
 - `refPackage_false_but_repairable` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `at`, `induction`, `layer`, `length`, `length_cons`, `subst`, `trans`
 - `refPackage_uncs` -> `AxiomPackageInstance`, `PackageDependenciesClosed`, `PackageDependenciesValid`, `TemplateNameAvailable`, `UnconstructibleProblem`, `at`, `d`, `dependenciesClosed_of_subset`, `induction`, `layer`, `length`, `length_cons`, `not_forall_packageDependenciesValid`, `subst`, `templateNames`, `trans`
@@ -8921,6 +8933,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `regret_eq_sum_pull_gaps` -> `apply`, `card_fin`, `g`, `hoeffding_two_sided`, `le_trans`, `uniformExpectation`, `uniformProb`, `union_prob_le_sum`
 - `regret_le_total_pulls` -> `g`
 - `regular_uniform_aggregate_eq` -> `E`, `nbhdSet`, `nbhdSum`
+- `reinject_eq` -> `Compiler`, `Sat`, `carrierConj`, `compile`, `criterion`, `extract`, `out`
 - `reinject_fixes` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `reinject_restores` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `reinject_roundtrip` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `convertVec`, `extractVec`, `extractVec_is_valid`, `roundtrip_extractVec`
@@ -11069,6 +11082,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verifier_eps_achievable` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`, `le`, `le_trans`, `verifier_reliable_clean`
 - `verifier_error_vanishes` -> `at`, `g`
 - `verifier_reliable_clean` -> `at`, `g`
+- `verify_by_extract` -> `Compiler`, `Sat`, `carrierConj`, `compile`, `criterion`, `extract`, `out`
 - `verify_iff_recompile` -> `Layer`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
@@ -11192,13 +11206,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `windowRowCount_rampup` -> `apply`, `at`
 - `windowRowCount_zero` -> `at`, `insert`, `min`
 - `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_decomposition_apply_one` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_decomposition_pair` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_z_add_zbar` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
-- `wirtinger_z_sub_zbar` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `g`
+- `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_decomposition_apply_one` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_decomposition_pair` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_z_add_zbar` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
+- `wirtinger_z_sub_zbar` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_zbar_eq_zero_of_complex_differentiable` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `g`
 - `withGaze_base_eq_self` -> `at`, `extent`, `g`, `galois_connection`, `intent`, `subset_extent_intent`, `subset_intent_extent`, `up`
 - `with_encode` -> `at`
