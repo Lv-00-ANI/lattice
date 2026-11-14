@@ -1446,6 +1446,10 @@ Lib/Compiler/CombinatorsXorNot.lean	xorC_eq_zero_iff_pair
 Lib/Compiler/CombinatorsXorNot.lean	xorC_zero_set_is_isolated
 Lib/Compiler/CombinatorsXorNot.lean	notC_eq_xorC_zero
 Lib/Compiler/CombinatorsXorNot.lean	notC_zero_iff_xorC_zero_zero
+Lib/Compiler/DataSynthesis.lean	samples_sound
+Lib/Compiler/DataSynthesis.lean	synthesize_from_satisfying
+Lib/Compiler/DataSynthesis.lean	synthesis_is_nonvacuous
+Lib/Compiler/DataSynthesis.lean	synthesis_complete
 Lib/Compiler/Disjunction.lean	prod_eq_zero_iff_exists
 Lib/Compiler/Disjunction.lean	disjN_preserves
 Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
