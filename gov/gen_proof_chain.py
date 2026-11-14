@@ -86,6 +86,18 @@ CHAIN = [
      "linear_strictly_weaker_than_relu",
      "Lattice/Lib/Compiler/Expressiveness.lean",
      "线性载体覆盖等式子类；relu 侧的非等式解确实存在"),
+    ("抽象：载体无关的判据",
+     "criterion",
+     "Lattice/Lib/Compiler/CarrierClosure.lean",
+     "任何载体上：约束成立 ⟺ 编译输出为零（两条义务的合取）"),
+    ("抽象：三个独立载体共享闭环",
+     "three_carriers_share_loop",
+     "Lattice/Lib/Compiler/CarrierCoverage.lean",
+     "线性（列表+层）、relu（实数）、sign（实数）三个独立载体共用同一判据"),
+    ("抽象覆盖全链",
+     "carrier_covers_whole_chain",
+     "Lattice/Lib/Compiler/CarrierReproduction.lean",
+     "编译、验证、修正三段都是 Carrier 的形状或其特化"),
 ]
 
 
@@ -163,6 +175,23 @@ def render(rows):
     else:
         bad = [r["thm"] for r in rows if not (r["exists"] and r["defined"] and r["cites"] > 0)]
         lines.append("**⚠ 链条有断点：%s**\n" % ", ".join("`%s`" % b for b in bad))
+    lines.append("\n## 链的**形状**\n\n")
+    lines.append(
+        "**上表十五条不是十五个相干事实，而是同一个形状的实例。那个形状是 `Carrier`：**\n\n")
+    lines.append("```lean\n")
+    lines.append("structure Carrier where\n")
+    lines.append("  Symbol   : Type\n")
+    lines.append("  Weight   : Type\n")
+    lines.append("  Sat      : Symbol → Prop\n")
+    lines.append("  out      : Weight → Prop\n")
+    lines.append("  compile  : Symbol → Weight\n")
+    lines.append("  sound    : ∀ s, Sat s → out (compile s)\n")
+    lines.append("  complete : ∀ s, out (compile s) → Sat s\n")
+    lines.append("```\n\n")
+    lines.append(
+        "**两条义务（可靠性 + 完备性），闭环随之而来：`Carrier.criterion : Sat s ↔ out (compile s)`。**\n"
+        "**于是上表里的每一条，要么是该形状的实例，要么是它在某个载体上的特化。**\n"
+        "**新增一个载体的代价是**履行两条义务**，其余部分免费。**\n")
     lines.append("\n## 诚实边界\n\n")
     lines.append(
         "**这些定理合起来说明「表示链与验证回路在**这条线性/约束表示**上是闭合的」，"

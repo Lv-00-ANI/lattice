@@ -240,7 +240,7 @@
 | 检查器注册数 | `README` | `audit_counts.py`（门禁） | ✅ |
 | A/B/C 三类文件数与声明数 | `REPAIR-CENSUS` | `check_repair_census.py`（门禁） | ✅ |
 | 否证总数与层分布 | `REFUTATION-CENSUS` | `check_refutation_census.py`（门禁） | ✅ |
-| 12 条链层定理的引用数 | `ROADMAP-v9 §1`、`USAGE §1` | `check_chain_deps.py`（门禁） | ✅ |
+| 15 条链层定理的引用数 | `ROADMAP-v9 §1`、`USAGE §1` | `check_chain_deps.py`（门禁） | ✅ |
 | 欠账数 | `Slots.fullRegistry` | `example … := by decide` | ✅ |
 | 证明链实例普查 | `PROOF-CHAIN-RUNG` | `check_proof_chain_rung.py` | ✅ |
 
