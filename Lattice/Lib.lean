@@ -25,6 +25,7 @@ import Lattice.Lib.Architectures.RealTransformerEval
 import Lattice.Lib.Penalty.QuadraticNotLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 import Lattice.Lib.Compiler.Expressiveness
+import Lattice.Lib.Compiler.ReluClosure
 /-!
 # Lattice.Lib -- harvested instances
 

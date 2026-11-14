@@ -452,6 +452,7 @@ forward	Lib/Compiler/RealWPWhile.lean	triple_while_iff_wpT_while
 forward	Lib/Compiler/RealWPWhile.lean	wpT_while_isFixpoint
 forward	Lib/Compiler/RealWPWhile.lean	wpT_while_least_agrees
 forward	Lib/Compiler/RealWPWhile.lean	wp_skip_true
+forward	Lib/Compiler/ReluClosure.lean	relu_verify_criterion
 forward	Lib/Concentration/RealBernsteinCondition.lean	bernstein_moment_recurrence
 forward	Lib/Concentration/RealEYM.lean	eym_dimension_crossing
 forward	Lib/Concentration/RealEYM.lean	eym_general_via_gram
