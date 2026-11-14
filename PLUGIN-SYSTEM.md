@@ -5,7 +5,7 @@
 > **本文定位**：插件系统**是证明的一部分**，不是证明之外的框架。它同时被 Lean 证明与 C 实现，两侧共用同一份声明
 > **本文不回答**：现状实测数据（见 SURVEY）、迁移执行进度（见 PLAN）、被否决候选的理由（见 DECISIONS）
 > **读者**：实现者、评审者、接手维护者
-> **修订说明**：本轮补充三处——① 能力暴露分层（第 3.5 节）；② C 侧运行时校验范围（第 10.8 节）；③ 归档层切断顺序（附录 G.7）。并新增附录 I（自举）与附录 J（整理路线图）
+> **修订说明**：本轮补充三处——① 能力暴露分层（第 3.5 节）；② C 侧运行时校验范围（第 10.8 节）；③ 归档层切断顺序（附录 G.7）。并新增附录 I（自举）、附录 J（整理路线图）与附录 K（自由组合层）
 > **整理阶段定位**：本文描述的是**目标形态**。当前仓库处于**粗整理**状态；当 LATTICE 证明层正式初步完成、进入 C 实现前，须按本文第 5 章（下层/上层插件划分）与第 3.5 节（暴露最大化 + 语义化）**做一次全量重构**。路线见附录 J
 
 ---
@@ -37,6 +37,7 @@
   H  未决项
   I  自举：装载器自身的证明与实现
   J  整理路线图：从粗整理到语义化重构
+  K  自由组合层：现状、缺口与补齐
 ```
 
 ---
@@ -2491,6 +2492,359 @@ lattice_state_t *lattice_load_all(lattice_state_t *s, const manifest_t **ms, siz
 | 粗整理 | 12 条 S 级缺陷修复 | 门禁能红、能只读、rank 唯一 |
 | 结构整理 | 全部插件有 `plugin.yml` | `integration` 报告 + `plugin.yml` 全量 |
 | 语义重构 | 三层暴露 + 无 `Real*` + 无归档层 | 检索返回唯一答案 |
+
+---
+
+## 附录 K · 自由组合层：现状、缺口与补齐
+
+### K.1 这一节要回答的问题
+
+第 5 章说“上下两层、上层组合下层”。但**“组合”本身需要一个载体**：
+
+| 问题 | 若不回答 |
+|:--|:--|
+| 两个插件如何被拼成一条链？ | 端到端链路只能手写函数组合 |
+| 拼起来的链能否重排？ | 重排需要重新证明等价 |
+| 用户能否只用底层、也能只用上层？ | 暴露面只有一种 |
+| n 个插件能否串起来？ | 只能二元组合 |
+
+**这一节描述这个载体：自由组合层。**
+
+### K.2 定位：组合层与插件层的关系
+
+**组合层是插件层的代数基础设施，不是插件层的第十三层。**
+
+| 关系 | 内容 |
+|:--|:--|
+| 插件**实现**协议 | 组合层的每个组合子**本身也是一个插件**（`implements orchestration.compose@1.0` 等） |
+| 插件**被组合** | 组合层提供组合它们的算子 |
+| 层 | 组合子内部的法则属于**底层**，组合子实例属于**上层**（附录 D.3） |
+
+**⟹ 组合层既产出协议（供 `requires`），又消费插件（作为组合的操作数）。**
+
+### K.3 现状实测：代数很厚，实例很薄
+
+#### K.3.1 组合代数：74 条定理
+
+`Compose/` 共 **12 文件 / 74 条定理**。按文件分：
+
+| 文件 | 定理数 | 主要内容 |
+|:--|--:|:--|
+| `Combinators.lean` | 9 | `compose` 的 6 字段 + `compose_run_assoc` + `identity_compose_run` |
+| `More.lean` | 9 | `parallel`/`choice`/`optional` 的字段 |
+| `Iterate.lean` | 9 | `loop_*` + `iterate_sound`/`iterate_strength` |
+| **`Proofs.lean`** | **9** | **组合律的主体（见 K.3.2）** |
+| `Primitive.lean` | 7 | `Strength`/`Coverage` 的格律 |
+| `ForwardChain.lean` | 6 | `descentStep*` 实例 + capstone |
+| `AssocLaws.lean` | 5 | `pre`/`post`/`strength`/`coverage` 的结合律 |
+| `ComposeObligation.lean` | 5 | `h` 义务不可导出（反例 + 正例） |
+| `Steps.lean` | 4 | `applySgd`/`applyMomentum` 实例 |
+| `Registry.lean` | 3 | 登记表的 `foldStrength` |
+| `PrimitiveShape.lean` | 3 | 字段名核对的 `decide` |
+| `AdapterMatrix.lean` | 8 | 适配器矩阵的算术 |
+
+**⟹ 74 条中，组合律（不含字段投影与实例）约 30 条。**
+
+#### K.3.2 `Proofs.lean` 的 9 条组合律
+
+这是组合代数的**代数骨架**，此前各份报告都未统计：
+
+| 定理 | 内容 | 代数地位 |
+|:--|:--|:--|
+| `compose_run_assoc`（`Combinators:178`） | `(f∘g)∘h` 与 `f∘(g∘h)` 的运行等价 | **结合律** |
+| `identity_compose_run`（`Combinators:205`） | `id∘f = f` 的运行 | **左单位** |
+| `compose_identity_right`（`Proofs:121`） | `f∘id = f` 的运行 | **右单位** |
+| `parallel_comm_run`（`Proofs:88`） | `parallel f g` 与 `parallel g f` 的运行等价 | **交换律（平行）** |
+| `parallel_identity_run`（`Proofs:95`） | 平行的单位元 | 平行幺元 |
+| `choice_self_run`（`Proofs:102`） | 两支相同时的 `choice` | **幂等（选择）** |
+| `optional_true_run` / `optional_false_run`（`Proofs:107/112`） | `optional` 两分支 | 分支语义 |
+| `bind_ite`（`Proofs:131`） | `Option.bind` 与 `if` 的分配 | **分配律（bind）** |
+| `compose_choice_distrib_run`（`Proofs:142`） | `choice` 对 `compose` 的分配 | **分配律（选择）** |
+
+**⟹ 结合律 + 左右单位 = 幺半群；平行交换 = 交换；两个分配律 = 分配结构。**
+
+**这是一个完整的组合代数，不是零散的引理。**
+
+#### K.3.3 组合实例：只有 7 个，且全是数值原语
+
+| 实例 | 位置 | 载体 |
+|:--|:--|:--|
+| `identity` | `Combinators:192` | `α` |
+| `applySgd` | `Steps:65` | `ℝ` |
+| `applyMomentum` | `Steps:121` | `ℝ × ℝ` |
+| `applyAdam` | `Steps:150` | `ℝ × ℝ × ℝ` |
+| `descentStep` | `ForwardChain:70` | `ℝ` |
+| `descentStepCol` | `ForwardChain:110` | `Fin n → ℝ` |
+| `blocked`（`private`） | `ComposeObligation:49` | `α`（空真夹具） |
+
+**⟹ 7 个实例中 5 个是标量，2 个是向量；没有一个是链路的跳。**
+
+#### K.3.4 上层组合实例：**0 个**
+
+| 候选 | 位置 | 为什么不算 |
+|:--|:--|:--|
+| `forward_chain_capstone_n` | `ForwardChain:143` | **是定理**，不是 `Primitive` 值 |
+| `forward_chain_capstone` | `ForwardChain:170` | 同上 |
+| `forward_chain_at_solution` | `ForwardChain:196` | 同上 |
+
+**⟹ “使用已有的上层组合”目前没有载体——`capstone` 是命题，不是可以被 `compose` 的对象。**
+
+#### K.3.5 端到端链路：不使用组合层
+
+| 事实 | 证据 |
+|:--|:--|
+| `pipeline` 是手写 `Option.bind` 链 | `RealEndToEnd.lean:802` |
+| `RealEndToEnd.lean` 里 `Compose` 出现 **0 次** | 全文 grep |
+| `Lib/` 对 `Compose` 的 import | **0 条**（不是被禁止——层级规则允许 `Lib(3) → Compose(6)`） |
+| `Runtime/`、`Core/IR/`、`Core/CIC/` 对 `Compose` 的 import | **0 条** |
+
+**⟹ 组合层存在、可证明、代数完整，但**没有任何链路使用它**。**
+
+### K.4 三个具体缺口
+
+#### K.4.1 缺口一：n 元组合写不出来
+
+**现象**：`compose f g` 是二元的。拼 A→B→C 需要 `compose (compose f g) h`。
+
+**根因**（`Registry.lean:7-18` 已记录）：
+
+> 「一个「混合的 primitive 列表」因此不能直接写成 `List Primitive`」
+> 「**这是类型系统要求我付的价，不是设计缺陷**」
+
+**为何是“价”**：第 232 轮把 `Input`/`Output` 从字段改为参数后，`Primitive I O` 的类型含 `I`/`O`，因此不同类型的 `Primitive` **不能放进同一个 `List`**。
+
+| 版本 | 能否写 `List Primitive` | 能否写 `choice` |
+|:--|:--:|:--:|
+| 字段版（`Input`/`Output` 是字段） | ✅ | ❌（`Eq.rec` 卡住） |
+| **参数版（当前）** | ❌ | ✅ |
+
+**⟹ 二者不可兼得。当前选了参数版，因此放弃了 `List`。**
+
+#### K.4.2 缺口二：接缝义务不可自动导出
+
+**现象**：`compose f g` 需要一个 `h : ∀ x y, f.post x y → g.pre y`。
+
+**`ComposeObligation.lean:79 compose_h_not_derivable` 已证**：这个 `h` **不能**从 `f`/`g` 的 `sound` 自动推出。
+
+**例子**：`f.post` 说“输出满足 P”，`g.pre` 说“输入满足 Q”；P 与 Q 无关，`h` 不成立。
+
+**⟹ 每个组合接缝都需要人工给 `h`。这是 `compose` 的**正确性**来源，也是它的**使用成本**。**
+
+#### K.4.3 缺口三：跨路径等价无通用定理
+
+| 重排类型 | 是否有定理 |
+|:--|:--:|
+| 同链的括号重排 | ✅ `compose_run_assoc` |
+| 插入/删除单位元 | ✅ `identity_compose_run` / `compose_identity_right` |
+| 平行交换 | ✅ `parallel_comm_run` |
+| 选择对组合的分配 | ✅ `compose_choice_distrib_run` |
+| **两条不同路径等价**（如 `f∘g` vs `g'∘f'`） | ❌ **无通用定理** |
+
+**⟹ 幺半群代数覆盖“同一条链的重排”，不覆盖“换一条链”。**
+
+### K.5 补齐方案
+
+#### K.5.1 补齐一：为 L0–L7 的跳建立 `Primitive` 实例
+
+**目标**：让每一跳成为一个 `Primitive`，从而可被组合。
+
+| 跳 | 类型 | 是否全函数 | `sound` 可从哪拿 |
+|:--|:--|:--:|:--|
+| `tokenize` | `List Char → Option (List CharToken)` | 否 | `RealTokenization.lean:352 tokenize_detok` |
+| `L1Bridge` | `List CharToken → List SymToken` | **是** | `RealTokenSymbolLink.lean:231 encode_injective` |
+| `decode` | `List SymToken → Option ConstraintSet` | 否 | `RealTokenSymbolLink.lean:208 decode_encode` |
+| `compileToLayer` | `ConstraintSet → Layer` | **是** | `SymbolToWeightCorrectness.lean:78 symbolToWeight_correct` |
+| `parse` | `Term → Option IRSkeleton` | 否 | `Core/IR/Semantics.lean parse_models_full` |
+| `extract` | `IRWeights → Option IRSkeleton` | 否 | `Core/IR/Extract.lean:80 extract_compile` |
+| `compileWith` | `IRSkeleton → IRWeights` | 是 | `Core/IR/Extract.lean:139` |
+
+**两个全函数跳需要 `some ∘ f` 包裹。**
+
+| 步骤 | 内容 | 成本 |
+|:--|:--|:--:|
+| 1 | 每跳写一个 `where` 块（7 个字段） | S（每个） |
+| 2 | `sound` 字段用已有定理填 | S（每个） |
+| 3 | `pre := fun _ => True`、`post := fun x y => y = f x`（全函数）或 `run x = some y`（`Option` 值） | S |
+
+**⟹ 7 个实例合计 S 级。**
+
+**但一个前置条件**：`Lib/`、`Runtime/` 需要 import `Lattice.Compose`。实测**当前 0 条 import**——不是被禁止（层级规则允许 `Lib(3) → Compose(6)`），而是**从未尝试**。
+
+#### K.5.2 补齐二：把 `pipeline` 重写成 `compose` 链
+
+**目标**：让端到端链路使用组合层，从而“任意重排等价”免费。
+
+**难点**：`h` 义务。
+
+**可行的简化**：**若所有跳的 `pre := fun _ => True`，则 `h` 全部平凡可给**：
+
+```lean
+-- compose f g 需要: h : ∀ x y, f.post x y → g.pre y
+-- 当 g.pre := True 时:
+theorem h_trivial (f : Primitive I M) (g : Primitive M O) :
+  ∀ x y, f.post x y → (fun _ => True) y := fun _ _ _ => trivial
+```
+
+| 步骤 | 内容 | 成本 |
+|:--|:--|:--:|
+| 1 | `pipeline_shallow := compose P_tokenize (compose P_L1Bridge (compose P_decode P_compileToLayer))` | S |
+| 2 | 证明 `pipeline_shallow.run s = pipeline s` | M（须展开 4 层 `bind`） |
+| 3 | 用 `compose_run_assoc` 得到“重排等价” | **免费** |
+
+**⟹ S + M + 免费。**
+
+#### K.5.3 补齐三：n 元组合的 `Sigma` 包装
+
+**目标**：让“一串跳”成为一个对象。
+
+**方案**（`Registry.MatrixRow` 已有雏形）：
+
+```lean
+-- 第 1 层：可存在异型 Primitive 的包装
+inductive Step where
+  | mk (I O : Type) (p : Primitive I O) : Step
+
+-- 第 2 层：链 = List Step + 相邻兼容性证明
+structure Chain where
+  steps : List Step
+  -- 相邻步的类型匹配：由 Composed.toPrimitive 逐对给出
+
+-- 第 3 层：链的执行 = 逐对 compose 的折叠
+def Chain.toPrimitive (c : Chain) (h : chainCompatible c) : Primitive ... := ...
+```
+
+**代价**：类型安全从编译期移到证明期。
+
+| 方案 | 类型安全 | n 元 | 成本 |
+|:--|:--:|:--:|:--:|
+| 当前（参数版） | 编译期 | ❌ | — |
+| `Sigma` 包装 | 证明期 | ✅ | M–L |
+| 回到字段版 | ❌ | ✅ | L（且丢失 `choice`） |
+
+**⟹ `Sigma` 包装是唯一能同时保住 `choice` 与 n 元组合的路径，代价是把一部分类型检查变成证明义务。**
+
+#### K.5.4 补齐四：跨路径等价
+
+**目标**：证明“两条不同的链等价”。
+
+**这不是一个通用定理**——它需要对每条具体路径证明。但可以给出一套**组合方法**：
+
+| 方法 | 内容 |
+|:--|:--|
+| 括号归一 | 用 `compose_run_assoc` 把所有括号移到右边 |
+| 单位元消去 | 用 `identity_compose_run` 删掉 `identity` |
+| 局部替换 | 若 `f.run = f'.run`（已有定理），则 `compose f g` 与 `compose f' g` 等价 |
+| 平行交换 | 用 `parallel_comm_run` |
+
+**⟹ 这些方法的组合覆盖大多数实际重排；剩余的需要个案证明。**
+
+### K.6 与暴露模型（第 3.5 节）的关系
+
+**组合层是“暴露最大化”的**技术前提**。**
+
+| 目标 | 组合层如何支持 |
+|:--|:--|
+| 用户只用底层 | 直接 `compose` 两个底层 `Primitive` |
+| 用户只用上层 | `requires` 一个上层插件，它内部已组合好 |
+| 用户混用 | 把上层插件当作 `Primitive I O` 与其他组件 `compose` |
+| 用户重排 | 幺半群代数保证等价 |
+
+**⟹ 只有“每个插件都是 `Primitive`”时，这三种用法才能统一。当前只有 7 个实例，因此三种用法只对数值层可用。**
+
+### K.7 与层架构的关系
+
+**组合层的 rank 实测是全树最底部（0 条向下依赖、1 条向上到 `Reference`）。**
+
+| 项 | 内容 |
+|:--|:--|
+| 编制的数值 rank | 6 |
+| 实测依赖位置 | 最底层 |
+| 正确的处理 | 层判定由 `requires` 给出，不由数值 rank 给出（附录 C.4） |
+
+**⟹ 组合层在插件系统里是“底层插件”（法则）与“上层插件”（实例）的混合体，但物理位置在最底层。这不矛盾——因为层由 `requires` 判定，不由目录位置判定。**
+
+### K.8 排序：先证条件，后做语义化
+
+**本节描述的补齐工作**分两个阶段**落地。**
+
+| 阶段 | 做什么 | 为什么在这个阶段 |
+|:--|:--|:--|
+| **第一阶段（现在）** | **只证需要的定理**：7 个 `Primitive` 实例、`h` 义务的平凡化、`Sigma` 包装的结构定义与基础引理、`pipeline` 与 `compose` 链的等价 | 这些是**证明**，不改动任何现有代码；证完之后语义化时有依据 |
+| **第二阶段（语义重构时）** | 把每跳**实际**包成插件、`pipeline` **实际**改写成 `compose` 链、`plugin.yml` 引用这 7 个实例 | 这需要改代码与改声明，属于附录 J 第三层 |
+
+**⟹ 第一阶段的产物是“证明”，第二阶段的产物是“接线”。二者不可合并。**
+
+### K.9 第一阶段的具体清单
+
+**只证、不接线。** 每项给：要证什么、`sound` 从哪拿、判据。
+
+| # | 要证的 | 类型签名 | `sound` 来源 | 判据 |
+|--:|:--|:--|:--|:--|
+| **K1** | `tokenizePrim` | `Primitive (List Char) (List CharToken)` | `tokenize_detok` | 编译通过 |
+| **K2** | `bridgePrim` | `Primitive (List CharToken) (List SymToken)` | `encode_injective` | 编译通过 |
+| **K3** | `decodePrim` | `Primitive (List SymToken) ConstraintSet` | `decode_encode` | 编译通过 |
+| **K4** | `compilePrim` | `Primitive ConstraintSet Layer` | `symbolToWeight_correct` | 编译通过 |
+| **K5** | `parsePrim` | `Primitive Term IRSkeleton` | `parse_models_full` | 编译通过 |
+| **K6** | `extractPrim` | `Primitive IRWeights IRSkeleton` | `extract_compile` | 编译通过 |
+| **K7** | `compileWithPrim` | `Primitive IRSkeleton IRWeights` | `compileWith_code` | 编译通过 |
+| **K8** | `h_trivial` | `∀ f g, ∀ x y, f.post x y → (fun _ => True) y` | `fun _ _ _ => trivial` | 编译通过 |
+| **K9** | `pipeline_as_compose` | `pipeline_shallow.run s = pipeline s` | 展开 4 层 `bind` | 编译通过 |
+| **K10** | `Step` / `Chain` 结构 | `inductive`/`structure` | — | 编译通过 |
+| **K11** | `chainCompatible` | `Chain → Prop` | — | 编译通过 |
+| **K12** | `Chain.toPrimitive` | `Chain → Primitive` | 折叠 `compose` | 编译通过 |
+| **K13** | `chain_assoc` | 链的括号无关 | `compose_run_assoc` | 编译通过 |
+
+**13 项，全部是**新增证明**，不改动任何现有文件。**
+
+#### K.9.1 为何先证条件
+
+| 理由 |
+|:--|
+| 证明不改变现有代码，因此不影响当前的粗整理状态 |
+| 证明完成后，语义重构时“接线”只是把已有定理搬进 `plugin.yml` 的槽 |
+| 若先接线再证明，接线会因证明失败而返工 |
+| `h_trivial`（K8）一旦证出，`compose` 的使用成本从“每个接缝人工给 `h`”降到“`pre := True` 即可” |
+
+#### K.9.2 一个必须先决定的问题
+
+**7 个实例的 `pre` 是否都取 `True`？**
+
+| 选择 | 后果 |
+|:--|:--|
+| `pre := True` | `h` 平凡（K8 可用）；但 `pre` 不承载任何信息，`compose` 的前置条件链变空 |
+| `pre := 具体谓词` | `h` 需逐个人工证明；但前置条件链有信息量 |
+
+**⟹ 推荐 `pre := True` 用于 K1–K7，并把“真正的输入约束”放进 `post`。** 理由：跳的输入几乎总是“合法输入”，而“合法”的定义已经由类型给出（`List Char` 等）。
+
+### K.10 与 C 实现的关系
+
+**C ABI 那一层可以去掉，组合层不依赖它。**
+
+| 层 | 处置 | 理由 |
+|:--|:--|:--|
+| 11 个 primitive 的 ABI 表（`ABI.lean`） | **可以去掉** | 与 `plugin.yml` 的 `implements` 重复声明 |
+| `LayoutBytes.lean` | **保留** | C 侧需要“权重怎么排字节”，与插件无关 |
+| `Serialization.lean` | **保留** | 层编解码 |
+| `ContractBoundary.lean` | **保留** | 它是负结果（10/11 不可桥接），结论仍有效 |
+| `Conformance.lean` | **改为插件自测** | 22 条手写对照应移到每个插件的 `plugin.yml` |
+
+**理由**：C 实现的目标是“按插件装载并执行”。若每个插件自己 `implements` 一个协议，C 侧只需按协议分派——**不需要一张额外的 ABI 表来重新描述同一件事**。
+
+**⟹ 组合层的 C 侧语义（附录 D.5）已足够；ABI 表是重复层。**
+
+### K.11 这一节的小结
+
+| 项 | 现状 | 目标 | 成本 |
+|:--|:--|:--|:--:|
+| 组合代数 | **74 条**（含幺半群+交换+分配） | 保持 | — |
+| 可组合实例 | **7 个**（全数值） | **14 个**（+7 个链路跳） | S（K1–K7） |
+| `h` 义务 | 每个接缝人工 | **平凡化**（`pre := True`） | S（K8） |
+| n 元组合 | **写不出来** | `Sigma` 包装 | M（K10–K12） |
+| 端到端用组合层 | **否**（手写 `Option.bind`） | **是**（`compose` 链） | M（K9） |
+| 跨路径等价 | 无 | 归一方法（非通用定理） | S（K13 + 方法） |
+| C ABI | 11 条无实现者的表 | **去掉** | S |
+
+**⟹ 第一阶段（K1–K13）全部是证明，S 级为主；第二阶段是接线，在语义重构时做。**
 
 ---
 
