@@ -3538,6 +3538,9 @@ Runtime/EndToEndComposite.lean	data_to_weight_honest
 Runtime/EngineFirst.lean	reduction_preserves_constraint
 Runtime/EngineFirst.lean	engine_runs_before_weights
 Runtime/EngineFirst.lean	closed_loop_engine_form
+Runtime/EngineReduces.lean	compilable_var_is_normal
+Runtime/EngineReduces.lean	reduces_from_compilable_is_delta
+Runtime/EngineReduces.lean	engine_reduces_only_constants
 Runtime/EngineSemantics.lean	app_not_compilable
 Runtime/EngineSemantics.lean	lam_not_compilable
 Runtime/EngineSemantics.lean	pi_not_compilable

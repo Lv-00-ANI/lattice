@@ -87,6 +87,7 @@ import Lattice.Runtime.RepairClosure
 import Lattice.Runtime.TypedNumericAlignment
 import Lattice.Runtime.EngineFirst
 import Lattice.Runtime.EngineSemantics
+import Lattice.Runtime.EngineReduces
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
