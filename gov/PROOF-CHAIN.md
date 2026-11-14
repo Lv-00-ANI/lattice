@@ -1415,7 +1415,7 @@
 | `Lattice.Lib.Chain.RealTorsionSubmoduleBasic` | 16 | 0 |
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
-| `Lattice.Lib.Compiler.CarrierAlgebra` | 2 | 1 |
+| `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
 | `Lattice.Lib.Compiler.CarrierReproduction` | 5 | 1 |
@@ -3140,9 +3140,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cardLE_refl` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_bijective`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `length`, `scaleVec`, `scaleVec_preserves`
 - `card_fin` -> `all`, `at`, `bvar`, `induction`
 - `card_mul_condExpFiber` -> `apply`, `at`, `d`, `g`
-- `carrierConj_criterion` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`, `trivial`
+- `carrierConj_criterion` -> `Carrier`, `Compiler`, `Sat`, `compile`, `complete`, `criterion`, `out`, `sound`, `trivial`
+- `carrierDisj_criterion` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`
 - `carrierFrom_criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `extractLayer`, `out`, `repair_terminates_at_sat`, `verify_iff_recompile`
-- `carrier_closed_under_conj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`, `trivial`
+- `carrier_boolean_algebra` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
+- `carrier_closed_under_conj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `complete`, `criterion`, `out`, `sound`, `trivial`
+- `carrier_closed_under_disj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
 - `carrier_covers_whole_chain` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `carrier_implies_repair` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`, `repair_terminates_at_sat`
 - `carrier_implies_symbolToWeight` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `criterion`, `extractLayer`, `linearCarrierAt`, `out`, `repair_terminates_at_sat`, `sound`, `verify_iff_recompile`

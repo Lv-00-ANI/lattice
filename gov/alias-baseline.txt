@@ -415,6 +415,7 @@ forward	Lib/Chain/RealScalarField.lean	edit_verify_tolerance_scalar
 forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeval
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
+forward	Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
 forward	Lib/Compiler/CarrierClosure.lean	repair_stable
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight

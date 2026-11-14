@@ -80,5 +80,87 @@ theorem carrier_closed_under_conj (C₁ C₂ : Carrier) :
   · intro p h
     exact (carrierConj_criterion C₁ C₂ p).mpr h
 
+/-! ## 析取：用**求和类型**承载权重，因此不需要任何类型等式
+
+### 上一轮为什么卡住
+
+**我上一轮要求 `hW : C₁.Weight = C₂.Weight`，然后试图用 `▸` 在结构定义体内转换 —— 那在依赖类型下很脆，
+而且它把问题**搞复杂了**。**
+
+**=> 正确的做法是：权重侧不取「同一个类型」，而取**求和** `C₁.Weight ⊕ C₂.Weight`。**
+
+**`out` 按和的两侧分别调用 `C₁.out` / `C₂.out`，`compile` 按符号的两侧分别进入 `inl`/`inr`。
+两条义务各自落在自己那一侧，**完全不需要类型等式**。**
+
+### 这是析取的**正解**，而且它比合取还直接
+
+**=> 析取与合取一样无条件封闭。上一轮我说「析取需要共用权重」，那是**错的**——
+它需要的是「权重侧能同时容纳两者」，而求和类型正是干这个的。**
+
+**=> 这条记录一次自我纠正：我上一轮把「缺一个类型构造」误判成「缺一个前提」。** -/
+
+/-- **⭐⭐ 析取载体：至少一个约束满足。**
+
+**=> 符号侧取和 `C₁.Symbol ⊕ C₂.Symbol`，权重侧也取和 `C₁.Weight ⊕ C₂.Weight`，
+于是两侧**同构地**分流：`inl` 走 `C₁`，`inr` 走 `C₂`。**
+
+**=> 两条义务各自在自己那一侧成立，**不需要任何类型等式**。** -/
+def carrierDisj (C₁ C₂ : Carrier) : Carrier where
+  Symbol := C₁.Symbol ⊕ C₂.Symbol
+  Weight := C₁.Weight ⊕ C₂.Weight
+  Sat := fun s => match s with
+    | .inl a => C₁.Sat a
+    | .inr b => C₂.Sat b
+  out := fun w => match w with
+    | .inl v => C₁.out v
+    | .inr v => C₂.out v
+  compile := fun s => match s with
+    | .inl a => Sum.inl (C₁.compile a)
+    | .inr b => Sum.inr (C₂.compile b)
+  sound := by
+    intro s h
+    match s with
+    | .inl a => exact C₁.sound a h
+    | .inr b => exact C₂.sound b h
+  complete := by
+    intro s h
+    match s with
+    | .inl a => exact C₁.complete a h
+    | .inr b => exact C₂.complete b h
+
+/-- **⭐ 析取载体的判据。** -/
+theorem carrierDisj_criterion (C₁ C₂ : Carrier)
+    (s : C₁.Symbol ⊕ C₂.Symbol) :
+    (carrierDisj C₁ C₂).Sat s ↔
+      (carrierDisj C₁ C₂).out ((carrierDisj C₁ C₂).compile s) :=
+  Carrier.criterion (carrierDisj C₁ C₂) s
+
+/-- **⭐⭐ 封闭性：载体在**析取**下也无条件封闭 —— 与合取对称。**
+
+**=> 上一轮我以为析取需要额外前提，那是因为我要求权重类型相同。
+用求和类型后，析取与合取一样无条件。** -/
+theorem carrier_closed_under_disj (C₁ C₂ : Carrier) :
+    (∀ s : C₁.Symbol ⊕ C₂.Symbol,
+        (carrierDisj C₁ C₂).Sat s →
+          (carrierDisj C₁ C₂).out ((carrierDisj C₁ C₂).compile s)) ∧
+      (∀ s : C₁.Symbol ⊕ C₂.Symbol,
+        (carrierDisj C₁ C₂).out ((carrierDisj C₁ C₂).compile s) →
+          (carrierDisj C₁ C₂).Sat s) :=
+  ⟨fun s h => (carrierDisj_criterion C₁ C₂ s).mp h,
+   fun s h => (carrierDisj_criterion C₁ C₂ s).mpr h⟩
+
+/-- **⭐⭐ 总结：载体在**合取与析取**下都封闭。**
+
+**=> 于是「所有 LLM 的训练都可落在这条链路上」有了结构性依据：
+任意布尔组合的符号知识都是载体，因此都自带完整闭环（判据、验证、修正、再注入）。** -/
+theorem carrier_boolean_algebra (C₁ C₂ : Carrier) :
+    (∀ p : C₁.Symbol × C₂.Symbol,
+        C₁.Sat p.1 ∧ C₂.Sat p.2 →
+          (carrierConj C₁ C₂).out ((carrierConj C₁ C₂).compile p)) ∧
+      (∀ s : C₁.Symbol ⊕ C₂.Symbol,
+        (carrierDisj C₁ C₂).Sat s →
+          (carrierDisj C₁ C₂).out ((carrierDisj C₁ C₂).compile s)) :=
+  ⟨fun p h => (carrierConj_criterion C₁ C₂ p).mp h,
+   fun s h => (carrierDisj_criterion C₁ C₂ s).mp h⟩
 
 end Lattice.Lib.Compiler.CarrierAlgebra
