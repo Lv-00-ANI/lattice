@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 627 | instantiated library, may import core only |
+| lib | 628 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -376,6 +376,7 @@
 - `Lattice.Lib.Chain.RealTorsionSubmoduleBasic` 
 - `Lattice.Lib.Chain.RealZMod` 
 - `Lattice.Lib.Compiler` <- `Lattice.Lib.Compiler.Combinators`, `Lattice.Lib.Compiler.CombinatorsXorNot`, `Lattice.Lib.Compiler.Disjunction`, `Lattice.Lib.Compiler.Inequality`, `Lattice.Lib.Compiler.LvDSLPartial`, `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Lib.Compiler.RealAbstractInterpretation`, `Lattice.Lib.Compiler.RealBetaConfluence`, `Lattice.Lib.Compiler.RealBetaReduction`, `Lattice.Lib.Compiler.RealBigStepSmallStep`, `Lattice.Lib.Compiler.RealBoolCompleteness`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`, `Lattice.Lib.Compiler.RealCompilerCorrectness`, `Lattice.Lib.Compiler.RealCompilerOpt`, `Lattice.Lib.Compiler.RealConcurrentSemantics`, `Lattice.Lib.Compiler.RealConstraintSat`, `Lattice.Lib.Compiler.RealContinuationEquivalence`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Compiler.RealFirstOrderLogic`, `Lattice.Lib.Compiler.RealGlobalConfluence`, `Lattice.Lib.Compiler.RealLambdaCalculus`, `Lattice.Lib.Compiler.RealLv00Compiler`, `Lattice.Lib.Compiler.RealLv00CompilerCodegen`, `Lattice.Lib.Compiler.RealLv00CompilerHonesty`, `Lattice.Lib.Compiler.RealLv00CompilerIR`, `Lattice.Lib.Compiler.RealLv00CompilerLanguage`, `Lattice.Lib.Compiler.RealLv00CompilerReal`, `Lattice.Lib.Compiler.RealLv00CompilerSat`, `Lattice.Lib.Compiler.RealLv00CompilerSpec`, `Lattice.Lib.Compiler.RealMutualRecursion`, `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Compiler.RealRecursiveSemantics`, `Lattice.Lib.Compiler.RealRefinementCalculus`, `Lattice.Lib.Compiler.RealRegisterAllocation`, `Lattice.Lib.Compiler.RealSatComplete`, `Lattice.Lib.Compiler.RealSemanticsPreservation`, `Lattice.Lib.Compiler.RealTreeDecidable`, `Lattice.Lib.Compiler.RealTreeRecursion`, `Lattice.Lib.Compiler.RealTypeSoundness`, `Lattice.Lib.Compiler.RealTypeSoundnessSTLC`, `Lattice.Lib.Compiler.RealTypeSystemExt`, `Lattice.Lib.Compiler.RealWP`, `Lattice.Lib.Compiler.RealWPWhile`, `Lattice.Lib.Compiler.RealWhileTotalCorrectness`
+- `Lattice.Lib.Compiler.CarrierClosure` <- `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Runtime.SymbolToWeightCorrectness`
 - `Lattice.Lib.Compiler.Combinators` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.CombinatorsXorNot` <- `Lattice.Lib.Compiler.Combinators`
 - `Lattice.Lib.Compiler.Disjunction` <- `Lattice.Runtime.ConvertLinear`
@@ -848,7 +849,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1404,6 +1405,7 @@
 | `Lattice.Lib.Chain.RealTorsionSubmoduleBasic` | 16 | 0 |
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
+| `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.Combinators` | 7 | 2 |
 | `Lattice.Lib.Compiler.CombinatorsXorNot` | 17 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
@@ -2794,7 +2796,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `beh_coarser_than_recover` -> `Layer`, `SymToken`, `g`
 - `beh_nil_eq_beh_zero` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`, `recover`, `recover_injective`, `zeroLayer_out`
 - `behavior_ignores_active` -> `LifeState`, `Plugin`, `apply`, `at`, `induction`, `subst`, `value`
-- `behavior_token_independent` -> `Geometry`, `Inherits`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
+- `behavior_token_independent` -> `Carrier`, `Geometry`, `Inherits`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `behaviouralFibre_card_ge_two` -> `VectorConstraint`, `VectorConstraintSat`, `cUnit`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralFibre_not_singleton` -> `ConstraintSet`, `Layer`, `Rel`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `d`, `extractLayer`, `extractLayer_compileToLayer`, `scaleVec`, `scaleVec_preserves`
 - `behaviouralIndistinct_equivalence` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
@@ -2983,6 +2985,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `borelSpace_real` -> `apply`, `g`, `mono`
 - `borel_le_of_isOpen_le` -> `apply`, `g`, `mono`
 - `borel_of_topology` -> `apply`, `g`, `mono`
+- `both_carriers_share_criterion` -> `Compiler`, `Sat`, `compile`, `out`
 - `both_implies_marginal` -> `alpha`
 - `both_roundtrips_rfl` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractVec`, `extractVec_convertVec_rfl`
 - `bound_embedding_chain` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
@@ -3411,6 +3414,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closed_ren` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
 - `closed_subst_eq` -> `Term`, `induction`, `subst`
 - `closed_var_lt` -> `CICCtx`, `length`
+- `closure` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `symbolToWeight_correct`
 - `closureOp_fixedPoints_many` -> `at`
 - `closureOp_inf` -> `closure_idempotent`, `extent`, `extent_antitone`, `extent_intent_extent`, `fcaClosure`, `intent`, `intent_antitone`, `le`, `le_antisymm`, `mono`, `subset_extent_intent`, `trans`
 - `closureOp_le_iff` -> `closure_idempotent`, `extent`, `extent_antitone`, `extent_intent_extent`, `fcaClosure`, `intent`, `intent_antitone`, `le`, `le_antisymm`, `mono`, `subset_extent_intent`, `trans`
@@ -3590,7 +3594,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compiled_roundTrip_fixed` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `compiled_roundTrip_fixed_iff` -> `ExtractionValidVec`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `complementary_slackness_of_zero_gap` -> `g`
-- `complete_on` -> `Domain`, `Weights`, `behavior`, `embed`, `sound`
+- `complete_on` -> `Carrier`, `Domain`, `Weights`, `behavior`, `embed`, `sound`
 - `completeness` -> `Compiler`, `d`, `induction`
 - `completenessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `completion_endo_unique` -> `comp`, `min`
@@ -3810,7 +3814,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `const_zero_conj_unbounded` -> `at`, `fenchelConjAll`, `mono`
 - `constant_carried` -> `LinearForm`, `SatisfiesEq`, `Token`, `denote`, `length`
 - `constant_changes_semantics` -> `LinearForm`, `SatisfiesEq`, `Token`, `denote`, `length`
-- `constant_label_blocks_complete` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`
+- `constant_label_blocks_complete` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`
 - `constant_lr_converges` -> `apply`, `at`, `contraction_converges`, `le_trans`, `subst`
 - `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
@@ -3824,13 +3828,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constrained_agrees_with_constraint_set` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `maskedSoftmax`
 - `constrained_sum_one_via_realMaskFamily` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrained_via_maskedSoftmax` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
-- `constraintDomain_symmetric` -> `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`, `trans`
-- `constraintDomain_transitive` -> `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`, `trans`
+- `constraintDomain_symmetric` -> `Carrier`, `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`, `trans`
+- `constraintDomain_transitive` -> `Carrier`, `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`, `trans`
 - `constraintFiber_nonempty_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `constraintFiber_self` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `constraintSatRel_iff` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `gazeUp`, `intent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `trans`, `up_gaze_element_or_concept`
 - `constraintSet_is_list_of_constraints` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `symbolToWeight_correct`
-- `constraintVocab_denote_sound` -> `Domain`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `sound`
+- `constraintVocab_denote_sound` -> `Carrier`, `Domain`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `sound`
 - `constraint_args_mem_vars` -> `Compiler`, `IRConstraint`, `at`, `compile_program`, `compile_program_append`, `compile_program_contains_compiled_constraints`, `constraints_of_program`, `graph_satisfiable`, `ir_sem_depends_on_vars`, `ir_vars`, `lvConstraint`, `lvProgram`, `normalize`, `point`, `subst`
 - `constraint_element_iff_no_split` -> `IsElement`, `RealConstraint`, `Temporal`, `extent`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`
 - `constraint_element_iff_no_upper` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`
@@ -3882,7 +3886,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `contextual_behavior_depends` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `contextual_inherits_is_nondegenerate` -> `behavior`, `no_token_dependent_inherits`, `tokenDependentBehaviorExists`
 - `contextual_sound_no_longer_forces_independence` -> `SemanticDomain`, `Weights`, `behavior`, `embed`, `sound`
-- `continuousLinearMap_eq_dotV_finStdBasis` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `continuousLinearMap_eq_dotV_finStdBasis` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `continuous_apply` -> `comp`, `e2`, `g`, `inter`, `mul`
 - `continuous_exp_neg_sq` -> `at`, `comp`, `le`
 - `continuous_fenchelConjAllEReal_term` -> `fenchelConjAll`, `mul`
@@ -4023,6 +4027,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `cps_correct` -> `Compiler`, `add`, `at`, `induction`, `lit`
 - `cps_id_is_eval` -> `Compiler`, `at`, `lit`
 - `cps_tail_compose` -> `Compiler`, `at`, `lit`
+- `criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
 - `crossAttn_weights_nonneg` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossAttn_weights_pmf` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `block_lipschitz_bound`, `convComb_norm_bound`, `d`, `le_trans`, `lipschitz_add`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
 - `crossAttn_weights_sum_one` -> `E`, `LinfNorm`, `ProbDist`, `apply`, `convComb_norm_bound`, `d`, `le_trans`, `score_lin_lipschitz`, `softmax`, `softmax_nonneg`, `softmax_sum_one`, `weight_l1_diff_bound`
@@ -5957,10 +5962,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `holds3_unhandled` -> `RelKind`, `TensorId`, `zero`
 - `holds3_zero` -> `RelKind`, `TensorId`, `zero`, `zeroHolds`
 - `holdsSet_append` -> `Pt`, `Sat`, `at`, `d`, `induction`, `nil_append`
-- `holdsSet_equiv_append_left` -> `Domain`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
+- `holdsSet_equiv_append_left` -> `Carrier`, `Domain`, `Holds`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_flatMap_experts` -> `Holds`, `HoldsSet`, `Pt`, `at`, `holdsSet_append`, `induction`, `trivial`
 - `holdsSet_flatten` -> `ContextualInherits`, `HoldsSet`, `Pt`, `Weights`, `apply`, `behavior`, `constraintDomain`, `embed`, `g`, `holdsSet_append`, `induction`, `sound`
-- `holdsSet_meaning_equiv` -> `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
+- `holdsSet_meaning_equiv` -> `Carrier`, `Domain`, `Holds`, `HoldsSet`, `Pt`, `Token`, `Weights`, `behavior`, `denote`, `embed`, `holdsSet_append`, `sound`
 - `holdsSet_mem` -> `Pt`, `Sat`, `at`, `d`, `induction`
 - `holdsSet_member` -> `Edit`, `Holds`, `HoldsSet`, `Pt`, `add`, `append_nil`, `apply`, `at`, `holdsSet_mem`, `length`, `nil_append`, `undo`
 - `holdsSet_midpoint_single` -> `HoldsSet`, `MergeRecord`, `MergeSound`, `Pt`, `at`, `compile_sound`, `merge_sound`, `merged`, `satW`, `trivial`
@@ -6015,8 +6020,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `id_strictMono` -> `at`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
 - `idempotent_alone_does_not_suffice` -> `g`
-- `identityInherits_complete` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
-- `identityInherits_sound` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `trivial`
+- `identityInherits_complete` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
+- `identityInherits_sound` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `trivial`
 - `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identityRightUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `inter`, `length`, `manifest`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `identitySemantic_sound` -> `W`, `decode`, `encode`
@@ -6139,8 +6144,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `informationTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `cross_ratio`, `length`, `mkTemplates`
 - `informationTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
 - `inherits_behavior_ext` -> `Weights`, `behavior`, `embed`, `sound`
-- `inherits_is_inhabited` -> `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
-- `inherits_sound` -> `Domain`, `Weights`, `behavior`, `embed`, `sound`
+- `inherits_is_inhabited` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
+- `inherits_sound` -> `Carrier`, `Domain`, `Weights`, `behavior`, `embed`, `sound`
 - `initVerifier_satisfiable` -> `apply`, `at`, `g`, `step`
 - `inits_reverse_getElem` -> `CharToken`, `at`, `bestPrefix`, `bestPrefix_spec`, `intent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `inject_extract_closed` -> `VectorConstraint`, `convertVec`, `extractVec`, `roundtrip_extractVec`
@@ -6766,8 +6771,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listDecEq_eq_true_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
 - `listDecEq_nil` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
 - `listDecEq_nil_cons` -> `Tree`, `at`, `d`, `induction`, `size`, `sizeList`, `sizeList_cons`, `size_le_sizeList`, `size_lt_of_mem`, `size_node`, `trivial`
-- `listDomain_symmetric` -> `ContextualGeometry`, `ContextualInherits`, `Symmetric`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
-- `listDomain_transitive` -> `ContextualGeometry`, `ContextualInherits`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
+- `listDomain_symmetric` -> `Carrier`, `ContextualGeometry`, `ContextualInherits`, `Symmetric`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
+- `listDomain_transitive` -> `Carrier`, `ContextualGeometry`, `ContextualInherits`, `Transitive`, `Weights`, `behavior`, `embed`, `no_token_dependent_inherits`, `sound`, `tokenDependentBehaviorExists`, `trans`
 - `listGcdNat_cons` -> `VectorConstraint`, `at`, `g`, `induction`, `scaleVec`
 - `listGcdNat_eq_zero_iff` -> `VectorConstraint`, `VectorConstraintSat`, `at`, `g`, `induction`, `scaleVec`, `scaleVec_preserves`
 - `listGcdNat_eq_zero_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
@@ -7641,7 +7646,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_step_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_step_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_stuck_well_typed_literals` -> `Compiler`, `HasType`, `Step`, `Value`
-- `no_token_dependent_inherits` -> `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
+- `no_token_dependent_inherits` -> `Carrier`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
 - `no_uniform_step_size` -> `apply`, `at`, `le_refl`
@@ -8964,8 +8969,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repair_preserves_is_identity_statement` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `repair_preserves_verdict` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
 - `repair_progress` -> `IRSkeleton`, `Repair`, `Sat`, `compileSkel`, `extractSkel`, `extract_compile_skel`, `iterate`, `progress`, `skeletonCode`
-- `repair_props_hold` -> `PluginLayer`, `PluginManifest`, `Repair`, `RepairWF`, `at`, `atomic_of_zero_iff`, `claims`, `completeness`, `converges_within`, `converges_within_is_tight`, `iterate_succ`, `layer`, `length`, `loop`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `preserves`, `progress`, `progress_on_wf`, `repair`, `repair_preserves`, `repair_progress`, `requires`, `soundness`, `stable`, `verifiedObligation`
+- `repair_props_hold` -> `PluginLayer`, `PluginManifest`, `Repair`, `RepairWF`, `at`, `atomic_of_zero_iff`, `claims`, `completeness`, `converges_within`, `converges_within_is_tight`, `iterate_succ`, `layer`, `length`, `loop`, `manifest`, `manifest_claims_exactness`, `manifest_layer`, `manifest_no_equivariance`, `manifest_no_idempotence`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `manifest_requires_nothing`, `preserves`, `progress`, `progress_on_wf`, `repair`, `repair_preserves`, `repair_progress`, `repair_stable`, `requires`, `soundness`, `stable`, `verifiedObligation`
 - `repair_run_preserved` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `iterate`, `progress`, `runs_preserved`, `sim_id`
+- `repair_stable` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `symbolToWeight_correct`
 - `repair_success_is_penalty_zero` -> `IdempotentOn`, `Repair`, `Sat`, `iterate`, `progress`
 - `repair_terminates_at_sat` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
 - `replayGradientBudget_eq` -> `at`
@@ -10293,7 +10299,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sum_fiber_comm` -> `apply`, `d`, `g`
 - `sum_fiber_eq` -> `apply`, `d`, `g`
 - `sum_fiber_eq_row` -> `apply`, `d`, `g`
-- `sum_finStdBasisVec_smul` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `sum_finStdBasisVec_smul` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `sum_iclReadout_mul` -> `apply`, `at`, `d`
 - `sum_ite_mem` -> `apply`, `frobeniusNorm`, `frobeniusNorm_nonneg`, `frobeniusNorm_sq`, `frobenius_bound`, `g`, `le_trans`, `matCLME`, `matCLME_apply`, `matvecE`, `opNorm_le_frobenius`
 - `sum_le_of_dominated_in` -> `at`, `dec`
@@ -10340,12 +10346,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `superposition_capacity_bound` -> `E`, `at`
 - `superposition_capacity_bound_unit` -> `E`, `at`
 - `support_from_decoded_constraints` -> `ConstraintSet`, `FeasibleMask`, `SymToken`, `allowedByConstraints`, `at`, `constrainedSoftmax`, `constrainedSoftmax_eq_zero_of_not_allowed`, `constrained_agrees_with_constraint_set`
-- `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_functional_closure_of_not_mem_interior` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_functional_of_not_mem_interior` -> `E`, `aa`, `at`, `bb`, `dist`, `g`, `le`
 - `supporting_hyperplane_fin` -> `E`, `apply`, `d`, `dotV`
 - `supporting_hyperplane_of_boundary_point` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_hyperplane_of_finite_convexHull` -> `E`
-- `supporting_hyperplane_of_not_mem_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
+- `supporting_hyperplane_of_not_mem_interior` -> `E`, `apply`, `closure`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `supporting_hyperplane_real` -> `E`, `apply`, `d`, `dotV`
 - `supporting_hyperplane_strict_interior` -> `E`, `apply`, `d`, `dotV`, `supporting_functional_of_not_mem_interior`
 - `surjectivity_not_load_bearing` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundtrip_extractVec`, `trans`
@@ -11003,6 +11009,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verify_iff_recompile` -> `Layer`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `verify_sound` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
 - `verify_stable` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `viaRoundTrip_iff_plain` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
 - `vocab_compat_permutation` -> `E`, `apply`, `behavior`, `col`, `d`

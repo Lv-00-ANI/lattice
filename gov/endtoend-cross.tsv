@@ -1103,6 +1103,7 @@ Lib/Chain/RealAbstractionRegistry.lean	reg_inst_ite_alibi
 Lib/Chain/RealAbstractionRegistry.lean	reg_inst_ite_distBias
 Lib/Chain/RealAbstractionRegistry.lean	reg_compressor_coverage_errorFeedback
 Lib/Chain/RealAbstractionRegistry.lean	reg_compressor_half_residual_bound
+Lib/Chain/RealAbstractionRegistry.lean	reg_support_coverage
 Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot
 Lib/Chain/RealAdjoinRootCard.lean	arc_adjoin_root_two_le_card
 Lib/Chain/RealAdjoinRootCard.lean	arc_card_adjoinRoot_pos
@@ -1258,6 +1259,8 @@ Lib/Chain/RealLv00GeometryAnalytic.lean	collinear_of_between
 Lib/Chain/RealLv00GeometryAnalytic.lean	sq_dist_eq_of_dist_eq
 Lib/Chain/RealLv00GeometryAnalytic.lean	circle_inj_implies_noncollinear
 Lib/Chain/RealLv00GeometryCSG.lean	classify_point_trichotomy
+Lib/Chain/RealLv00GeometryCSG.lean	aabb_contains_union_left
+Lib/Chain/RealLv00GeometryDifferential.lean	plane_principal_curvatures_zero
 Lib/Chain/RealLv00GeometryHilbert.lean	triangle_inequality
 Lib/Chain/RealLv00GeometryHilbert.lean	dist_zero_iff_eq
 Lib/Chain/RealLv00GeometryHilbert.lean	dist_symm
@@ -1420,6 +1423,11 @@ Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean	affineGeometry_false_but
 Lib/Chain/RealNumericChainOrder_parts/A.lean	natToReal_eq_zero_of_le_zero
 Lib/Chain/RealNumericChainOrder_parts/B.lean	natToReal_not_surjective
 Lib/Chain/RealNumericChainOrder_parts/C.lean	lt_of_apply_eq_of_strictMono
+Lib/Compiler/CarrierClosure.lean	criterion
+Lib/Compiler/CarrierClosure.lean	verify_sound
+Lib/Compiler/CarrierClosure.lean	repair_stable
+Lib/Compiler/CarrierClosure.lean	closure
+Lib/Compiler/CarrierClosure.lean	both_carriers_share_criterion
 Lib/Compiler/Combinators.lean	andC_eq_zero_iff
 Lib/Compiler/Combinators.lean	and_comm_preserves
 Lib/Compiler/Combinators.lean	dist_preserves
@@ -1989,6 +1997,8 @@ Lib/Convex/RealSubgradientDescent.lean	relu_subgradient_descent_gap_sum
 Lib/Convex/RealSubgradientExistence.lean	subgradient_exists_of_convex
 Lib/Convex/RealSubgradientExistence.lean	subdifferential_nonempty
 Lib/Convex/RealSubgradientExistence.lean	convexOn_iff_subgradient_support
+Lib/Convex/RealSupportingHyperplane.lean	supporting_functional_closure_of_not_mem_interior
+Lib/Convex/RealSupportingHyperplane.lean	supporting_hyperplane_of_boundary_point
 Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_iff_content_one
 Lib/Editing/RealCanonicalCompileComm.lean	canonicalizeThenCompile_eq_iff
 Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_scaleVec_sign_law

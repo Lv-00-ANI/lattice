@@ -26,6 +26,7 @@ import Lattice.Lib.Penalty.QuadraticNotLipschitz
 import Lattice.Lib.Penalty.QuadraticLocallyLipschitz
 import Lattice.Lib.Compiler.Expressiveness
 import Lattice.Lib.Compiler.ReluClosure
+import Lattice.Lib.Compiler.CarrierClosure
 /-!
 # Lattice.Lib -- harvested instances
 
