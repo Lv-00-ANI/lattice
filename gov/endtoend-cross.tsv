@@ -1430,6 +1430,11 @@ Lib/Compiler/CarrierClosure.lean	closure
 Lib/Compiler/CarrierClosure.lean	both_carriers_share_criterion
 Lib/Compiler/CarrierCoverage.lean	criterion_transfers
 Lib/Compiler/CarrierCoverage.lean	three_carriers_share_loop
+Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
+Lib/Compiler/CarrierReproduction.lean	carrierFrom_criterion
+Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify
+Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
+Lib/Compiler/CarrierReproduction.lean	carrier_covers_whole_chain
 Lib/Compiler/Combinators.lean	andC_eq_zero_iff
 Lib/Compiler/Combinators.lean	and_comm_preserves
 Lib/Compiler/Combinators.lean	dist_preserves

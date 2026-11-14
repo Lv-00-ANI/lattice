@@ -13,7 +13,7 @@
 
 | 子句 | 定理 | 位置 | 内容 | 引用 |
 |:--|:--|:--|:--|--:|
-| 正向：符号知识 → 权重 | `symbolToWeight_correct` | `Lattice/Runtime/SymbolToWeightCorrectness.lean` | 符号约束全部成立 ⟺ 编译出的权重层输出全为零 | 109 |
+| 正向：符号知识 → 权重 | `symbolToWeight_correct` | `Lattice/Runtime/SymbolToWeightCorrectness.lean` | 符号约束全部成立 ⟺ 编译出的权重层输出全为零 | 112 |
 | 逆向：权重 → 符号 | `extract_compile_constraints` | `Lattice/Runtime/LoopClosure.lean` | 先编译再提取，回到原约束集 | 4 |
 | 闭环：回路是双射 | `compile_extract_bijective` | `Lattice/Runtime/LoopClosure.lean` | `extractLayer` 与 `compileToLayer` 互为左右逆 | 2 |
 | 验证：语法判据 | `faithful_iff_extract_eq` | `Lattice/Runtime/Faithfulness.lean` | 层忠于数据 ⟺ 提取结果等于数据的约束集 | 8 |

@@ -28,6 +28,7 @@ import Lattice.Lib.Compiler.Expressiveness
 import Lattice.Lib.Compiler.ReluClosure
 import Lattice.Lib.Compiler.CarrierClosure
 import Lattice.Lib.Compiler.CarrierCoverage
+import Lattice.Lib.Compiler.CarrierReproduction
 /-!
 # Lattice.Lib -- harvested instances
 

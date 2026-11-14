@@ -415,6 +415,9 @@ forward	Lib/Chain/RealScalarField.lean	edit_verify_tolerance_scalar
 forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeval
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
 forward	Lib/Compiler/CarrierClosure.lean	repair_stable
+forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
+forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
+forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify
 forward	Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
 forward	Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
 forward	Lib/Compiler/ModConstraint.lean	dvd_sub_int
