@@ -30,6 +30,7 @@ import Lattice.Lib.Compiler.CarrierClosure
 import Lattice.Lib.Compiler.CarrierCoverage
 import Lattice.Lib.Compiler.CarrierReproduction
 import Lattice.Lib.Compiler.DataSynthesis
+import Lattice.Lib.Compiler.CarrierAlgebra
 /-!
 # Lattice.Lib -- harvested instances
 

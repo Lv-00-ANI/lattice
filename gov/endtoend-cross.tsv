@@ -1423,6 +1423,8 @@ Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean	affineGeometry_false_but
 Lib/Chain/RealNumericChainOrder_parts/A.lean	natToReal_eq_zero_of_le_zero
 Lib/Chain/RealNumericChainOrder_parts/B.lean	natToReal_not_surjective
 Lib/Chain/RealNumericChainOrder_parts/C.lean	lt_of_apply_eq_of_strictMono
+Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
+Lib/Compiler/CarrierAlgebra.lean	carrier_closed_under_conj
 Lib/Compiler/CarrierClosure.lean	criterion
 Lib/Compiler/CarrierClosure.lean	verify_sound
 Lib/Compiler/CarrierClosure.lean	repair_stable
