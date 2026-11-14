@@ -250,6 +250,7 @@ CHECKS = [
     ("meta: layer cycle does not grow", "check_layer_cycle.py"),
     ("meta: layer health invariants hold", "check_layer_health.py"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
+    ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
     ("meta: every gate can demonstrate its own failure", "check_selftest_coverage.py"),
     # Round 176. `check_usage_claims` guards 14 counts; these nine were guarded by NOBODY:
