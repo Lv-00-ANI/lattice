@@ -4596,13 +4596,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_self_eq_zero_iff` -> `RealDot`, `trans`
 - `dot_truncates_a` -> `at`, `induction`, `length`, `length_cons`
 - `dot_truncates_x` -> `at`, `induction`, `length`, `length_cons`
-- `dot_zipWith_add` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `dot_as_sum`, `foldl_init_add`, `induction`, `length`, `map`, `subst`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
+- `dot_zipWith_add` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `map`, `subst`
 - `dot_zipWith_add_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
 - `dot_zipWith_add_ORIGINAL_is_false_nonnil_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
 - `dot_zipWith_add_aux` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `W`, `at`, `convertVec`, `dot`, `induction`, `length`, `map`, `subst`
 - `dot_zipWith_add_aux_ORIGINAL_is_false_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `length`, `map`, `subst`
 - `dot_zipWith_add_hlen_violated_on_ce` -> `Layer`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerOut_zero_iff_clm`, `layerToCLM`, `length`, `map`, `symVec`
 - `dot_zipWith_add_of_length` -> `Layer`, `LayerOut`, `LinearLayer`, `W`, `at`, `dot`, `foldl_init_add`, `induction`, `length`, `map`, `subst`
+- `dot_zipWith_add_via_sum` -> `dot`, `dot_as_sum`, `length`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
 - `dot_zip_length` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `min`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `double_vacuity` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`
 - `downGaze_opens_new_space` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeDown`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `subset_gazeDown_gazeUp`, `subst`, `suspend`, `suspend_not_decomposition`, `suspend_preserves_base`, `up`, `withGaze`
@@ -11390,12 +11391,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zipWith_add_split` -> `at`, `induction`, `length`, `map`
 - `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `zipWith_length` -> `at`, `induction`, `length`, `length_cons`, `map`, `min`
-- `zipWith_snd_swap` -> `at`, `dot`, `dot_as_sum`, `dot_zipWith_add`, `induction`, `length`, `map`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
+- `zipWith_snd_swap` -> `at`, `dot`, `dot_as_sum`, `induction`, `length`, `map`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
 - `zipWith_zip_assoc` -> `at`, `length`
 - `zip_append_right` -> `at`, `induction`, `length`, `length_cons`
 - `zip_append_tail_eq` -> `at`, `induction`, `length`, `length_cons`
 - `zip_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
-- `zip_snd_align` -> `at`, `dot`, `dot_as_sum`, `dot_zipWith_add`, `induction`, `length`, `map`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
+- `zip_snd_align` -> `at`, `dot`, `dot_as_sum`, `induction`, `length`, `map`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
 - `zmod_constraint_preserves` -> `apply`
 - `zmod_eq_iff_modEq` -> `apply`
 - `zmod_field_iff_solution` -> `at`
