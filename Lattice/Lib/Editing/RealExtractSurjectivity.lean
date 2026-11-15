@@ -5,6 +5,7 @@ import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Editing.RealEditToSymbol
 import Lattice.Lib.Chain.RealEndToEnd
+import Lattice.Runtime.ExtractionClosure
 /-!
 # S-03：权重 → 符号的**存在性** —— ⚠ **目标平凡，真实缺口在「哪个映射」**
 
@@ -350,8 +351,7 @@ theorem dropHead_preimage_not_unique :
 ⭐ **这就是「平凡」的机器定义**：`extractVec` 是 `convertVec` 的**右逆**，
 而 `convertVec` 是字段拷贝 ⟹ 「找原像」= **读两个字段**，**没有任何计算**。 -/
 theorem convertVec_extractVec_rfl (l : LinearLayer) : convertVec (extractVec l) = l := by
-  cases l with
-  | mk w b => rfl
+  exact Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
 
 /-- ⭐⭐ **`extractVec ∘ convertVec = id`**（回收既有 `roundtrip_extractVec`，**非新证**）。
 

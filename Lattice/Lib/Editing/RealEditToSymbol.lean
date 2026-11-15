@@ -2,6 +2,7 @@ import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealConversionRobustness
+import Lattice.Runtime.ExtractionClosure
 /-!
 # LATTICE E-02: 编辑 → 符号更新的存在性（`RealEditToSymbol`）
 
@@ -111,8 +112,7 @@ theorem roundtrip_extractVec_rfl (c : VectorConstraint) : extractVec (convertVec
 
 ⚠ `convertVec`/`extractVec` 是 `def`（不透明），故需 `cases` 展开记录后 `rfl`。 -/
 theorem roundtrip_convertVec_rfl (l : LinearLayer) : convertVec (extractVec l) = l := by
-  cases l with
-  | mk _ _ => rfl
+  exact Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
 
 /-- **③ `convertVec` 是满射**（逐字重建记录：`LinearLayer` 的唯一构造子是 `mk w b`）。 -/
 theorem convertVec_surjective : Function.Surjective convertVec :=

@@ -37,6 +37,10 @@ ZERO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LATTICE = os.path.join(ZERO, "Lattice")
 RECORD = os.path.join(ZERO, "gov", "theorem-duplication.txt")
 
+# Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
+# Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
+BASELINE = 143
+
 # A statement spans the `theorem name ... :` line plus following indented lines up to `:=` or `by`.
 THEOREM = re.compile(r"^\s*(?:private\s+|protected\s+|noncomputable\s+)*(theorem|lemma)\s+"
                      r"([A-Za-z_\u00c0-\uffff][\w\u00c0-\uffff']*)")
@@ -99,6 +103,15 @@ def scan():
 def main(argv):
     dups = scan()
     total = sum(len(v) - 1 for v in dups.values())
+    check = "--check" in argv
+    print("THEOREM DUPLICATION: %d candidate statement group(s), %d extra site(s)"
+          % (len(dups), total))
+    if check:
+        if total > BASELINE:
+            print("  %d > baseline %d -- a new duplicated statement appeared" % (total, BASELINE))
+            return 1
+        print("  %d <= baseline %d" % (total, BASELINE))
+        return 0
     print("THEOREM DUPLICATION: %d candidate statement group(s), %d extra site(s)" % (len(dups), total))
     for key, sites in sorted(dups.items(), key=lambda kv: -len(kv[1]))[:10]:
         print("  %d sites:" % len(sites))
