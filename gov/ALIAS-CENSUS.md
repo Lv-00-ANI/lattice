@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 718 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 719 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -487,6 +487,7 @@
 | `Lib/Editing/RealRoundtripNontrivial.lean` | `roundTripNeedsProof_is_false` |
 | `Lib/Editing/RealRoundtripRat.lean` | `ratSemanticallyParallel_scaleVecQ_iff` |
 | `Lib/Editing/RealSparseEdit.lean` | `sparse_edit_op_bound` |
+| `Lib/Editing/RealSymbolCompleteness.lean` | `s02_convertVec_extractVec_eta` |
 | `Lib/Editing/RealSymbolDomainWidening.lean` | `d31_dot_additive_iff_no_truncation` |
 | `Lib/Editing/RealTwoSidedEditEquiv.lean` | `E8_e2e_kernel_inert` |
 | `Lib/FCA/RealFCAAbstractionSoundness.lean` | `fcaClosure_idempotent` |

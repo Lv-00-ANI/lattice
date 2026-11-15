@@ -65,7 +65,7 @@ theorem convertVec_preserves_semantics (c : VectorConstraint) (x : List Int) :
 def extractVec (l : LinearLayer) : VectorConstraint := { a := l.w, b := l.b }
 -- WeightToSymbolEquivalence.lean:60-62
 theorem roundtrip_extractVec (c : VectorConstraint) :
-    extractVec (convertVec c) = c := by cases c <;> rfl      -- 注意：证明体 `cases c <;> rfl`
+    extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 -- RealCanonicalCompileComm.lean:146   ⭐ 裸 `rfl`（定义相等，不只是可证）
 theorem extractVec_convertVec_rfl (c : VectorConstraint) :

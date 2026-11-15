@@ -3,6 +3,7 @@ import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
+import Lattice.Runtime.ExtractionClosure
 /-!
 # LATTICE S-02: 符号→权重的**完备性**（`RealSymbolicRealization`）
 
@@ -188,9 +189,8 @@ lemma s02_dot_two_special (a : List Int) :
 （`_E-02` 是并行代理的产物，依赖它会引入**脆弱的跨文件耦合**）。
 ⚠ 内容与 `_E-02.roundtrip_convertVec_rfl` **逐字相同** —— 本文件**不声称**它是新结果。
 ⚠ `convertVec` / `extractVec` 是 `def`（不透明），故须 `cases` 展开记录后 `rfl`。 -/
-lemma s02_convertVec_extractVec_eta (l : LinearLayer) : convertVec (extractVec l) = l := by
-  cases l with
-  | mk w b => rfl
+lemma s02_convertVec_extractVec_eta (l : LinearLayer) : convertVec (extractVec l) = l :=
+  Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
 
 /-! ## 三、符号/权重两侧的"语义实现"（本文件唯一新增的定义） -/
 

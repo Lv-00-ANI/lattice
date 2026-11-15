@@ -105,8 +105,7 @@ theorem toSymbol_editLayer_always (W W' : LinearLayer) : ToSymbolEditLayer W W' 
 
 ⚠ **逐字对照**：`WeightToSymbolEquivalence.roundtrip_extractVec` 的证明体是
 `cases c <;> rfl` —— 本文件在此**显式登记它的定义性**（判据 3 的"非平凡内容"不在此）。 -/
-theorem roundtrip_extractVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c :=
-  roundtrip_extractVec c
+theorem roundtrip_extractVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-- **② 编译-往返是结构 eta（裸 `rfl`）**：`convertVec (extractVec l) = l`。
 

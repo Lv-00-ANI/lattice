@@ -37,6 +37,12 @@ ZERO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LATTICE = os.path.join(ZERO, "Lattice")
 RECORD = os.path.join(ZERO, "gov", "theorem-duplication.txt")
 
+# EXEMPT families (skill 1.1: pseudoisomorphic -- same SHAPE, different SEMANTIC object).
+# `manifest_no_<claim>` in every Plugin/*/Manifest.lean asserts a DIFFERENT `manifest`. Merging them would make
+# one plugin prove another plugin's manifest -- a semantic error, not a consolidation. Recorded, not silently
+# dropped: they still show in the report so a future round can re-decide.
+EXEMPT_NAME_PREFIX = ("manifest_no_",)
+
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
 # Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
 BASELINE = 143
@@ -94,8 +100,17 @@ def scan():
                 if ":" in stmt:
                     stmt = stmt.split(":", 1)[1]
                 key = normalise(stmt)
+                # classify the PROOF: an alias delegates, an independent proof does the work again
+                body = " ".join(lines[j:min(j + 8, len(lines))])
+                # an ALIAS delegates: `:= exact Some.Namespaced.name ...` (possibly after `by`)
+                if re.search(r"exact\s+Lattice\.[\w.]+\.\w+", body):
+                    kind = "alias"
+                elif re.search(r"by\s*cases\b.*rfl", body) or re.search(r"by\s*rfl", body):
+                    kind = "rfl"          # definitional roundtrip, no shared authority
+                else:
+                    kind = "independent"
                 if len(key) > 40:  # ignore trivialities
-                    where[key].append((rel, name))
+                    where[key].append((rel, name, kind))
                 i = j + 1
     return {k: v for k, v in where.items() if len(v) > 1}
 
@@ -113,11 +128,22 @@ def main(argv):
         print("  %d <= baseline %d" % (total, BASELINE))
         return 0
     print("THEOREM DUPLICATION: %d candidate statement group(s), %d extra site(s)" % (len(dups), total))
-    for key, sites in sorted(dups.items(), key=lambda kv: -len(kv[1]))[:10]:
-        print("  %d sites:" % len(sites))
-        for f, n in sites:
-            print("      %-46s %s" % (n, f))
-        print("      stmt: %s..." % key[:110])
+    indep = 0
+    exempt = 0
+    for key, sites in dups.items():
+        if all(n.startswith(EXEMPT_NAME_PREFIX) for (_f, n, _k) in sites):
+            exempt += 1
+            continue
+        kinds = set(k for (_f, _n, k) in sites)
+        if "independent" in kinds:
+            indep += 1
+    print("  of which have at least one INDEPENDENT proof (the real signal): %d group(s)" % indep)
+    print("  exempt as pseudoisomorphic (different `manifest` object): %d group(s)" % exempt)
+    for key, sites in sorted(dups.items(), key=lambda kv: -len(kv[1]))[:6]:
+        kinds = collections.Counter(k for (_f, _n, k) in sites)
+        print("  %d sites  %s" % (len(sites), dict(kinds)))
+        for f, n, k in sites:
+            print("      [%-11s] %-40s %s" % (k, n, f))
     return 0
 
 
@@ -133,7 +159,7 @@ def self_test():
         print("  self-test FAILED: only %d sites -- the scanner is not reading statements" % sites)
         ok = False
     # a KNOWN family: the `convertVec (extractVec l) = l` roundtrips exist in several files
-    joined = " ".join(" ".join(n for _f, n in v) for v in dups.values())
+    joined = " ".join(" ".join(n for _f, n, _k in v) for v in dups.values())
     if "roundtrip" not in joined and "convert" not in joined:
         print("  self-test FAILED: the known roundtrip family did not surface")
         ok = False
