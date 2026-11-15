@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 636 | instantiated library, may import core only |
+| lib | 637 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -391,6 +391,7 @@
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
 - `Lattice.Lib.Compiler.LvDSLPartial` 
 - `Lattice.Lib.Compiler.ModConstraint` 
+- `Lattice.Lib.Compiler.NoIntermediateLayer` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Runtime.ExtractionClosure`
 - `Lattice.Lib.Compiler.RealAbstractInterpretation` <- `Lattice.Lib.InfoTheory.RealKleeneFixedPoint`, `Lattice.Lib.Quantization.RealIEEE754`
 - `Lattice.Lib.Compiler.RealBetaConfluence` <- `Lattice.Lib.Compiler.RealLambdaCalculus`, `Lattice.Lib.Compiler.RealBetaReduction`
 - `Lattice.Lib.Compiler.RealBetaReduction` <- `Lattice.Lib.Compiler.RealLambdaCalculus`
@@ -857,7 +858,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1434,6 +1435,7 @@
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
 | `Lattice.Lib.Compiler.ModConstraint` | 13 | 3 |
+| `Lattice.Lib.Compiler.NoIntermediateLayer` | 4 | 0 |
 | `Lattice.Lib.Compiler.RealAbstractInterpretation` | 41 | 12 |
 | `Lattice.Lib.Compiler.RealBetaConfluence` | 28 | 6 |
 | `Lattice.Lib.Compiler.RealBetaReduction` | 26 | 10 |
@@ -3893,6 +3895,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constraint_element_or_concept` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `constraint_entailment_closure` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
 - `constraint_implication_via_alignment` -> `RealConstraint`, `RealConstraintSat`, `RealNeuronOut`, `at`, `convertReal`, `convertReal_preserves`, `le_antisymm`, `out`, `real_andC`, `real_andC_eq_zero_iff`, `real_orC`, `real_orC_eq_zero_iff`, `relu`, `relu_eq_zero_iff`
+- `constraint_is_weight_spelling` -> `Compiler`, `VectorConstraint`, `convertVec`, `extractVec`, `inject_extract_closed`
 - `constraint_migrated` -> `Constraint`, `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `manifest`, `verified`
 - `constraint_on_subspace_preserved` -> `E`, `W`, `card_fin`, `rankOneFun`
 - `constraint_props_hold` -> `Constraint`, `PluginLayer`, `PluginManifest`, `at`, `claims`, `completeness`, `entails_cons`, `entails_mono`, `layer`, `length`, `manifest`, `manifest_claims_laws`, `manifest_claims_soundness`, `manifest_layer`, `manifest_no_approximation`, `manifest_no_completeness`, `manifest_no_exactness`, `manifest_no_recovery`, `manifest_no_spatial`, `manifest_nonempty`, `manifest_obligation_count`, `manifest_provides`, `models`, `models_of_mem`, `models_of_subset`, `requires`, `soundness`, `verifiedObligation`
@@ -3996,8 +3999,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `convertReal_preserves` -> `apply`
 - `convertVecQ_preserves_semantics` -> `at`, `induction`, `map`
 - `convertVec_bias_eq_convertRealVec_bias` -> `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertVec`, `dot`
+- `convertVec_bijective` -> `Compiler`, `VectorConstraint`, `at`, `convertVec`, `extractVec`, `inject_extract_closed`, `reinject_roundtrip`, `roundtrip_extractVec`
 - `convertVec_domain_is_single_constraint` -> `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `compileToLayer`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `map`, `roundtrip_extractVec`, `toFun`
 - `convertVec_extractVec_rfl` -> `LinearLayer`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `extractVec_convertVec_rfl`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_one`, `sign`
+- `convertVec_field_types_match` -> `Compiler`, `VectorConstraint`, `convertVec`, `extractVec`, `inject_extract_closed`
 - `convertVec_injective` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Edit`, `Layer`, `LayerOut`, `LinearLayer`, `RealConstraint`, `RealNeuron`, `Representation`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `apply`, `at`, `coeffDist`, `compile`, `compileToLayer`, `convertReal`, `convertVec`, `convertVec_preserves_semantics`, `decode`, `dot`, `encode`, `extract`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `fiber`, `induction`, `map`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `roundTrip_perturbation_id`, `roundtrip`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `semantic_not_injective`, `symbolToWeight_correct`, `trans`, `trivial`
 - `convertVec_lipschitz` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`, `roundtrip_extractVec`
 - `convertVec_mem_fiber` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `apply`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extractVec`, `fiber`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `semantic_not_injective`, `trans`
@@ -7696,6 +7701,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_finite_model_for_all` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `no_function_recovers_do` -> `BinSCM`, `apply`, `at`, `backdoor_adjustment`, `condYZ`, `doY`, `obs`, `obsXZ`, `pZobs_eq_sum_sum_obs`, `trans`
 - `no_functor_refutes_general_galois` -> `ConstraintSet`, `Layer`, `LinearLayer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileImage`, `compilePreimage`, `compileToLayer`, `compileToLayer_bijective`, `compile_galoisConnection_galois`, `convertVec`, `induction`, `length`, `map`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`, `weightFunctor`
+- `no_information_in_transit` -> `Compiler`, `VectorConstraint`, `convertVec`, `extractVec`, `inject_extract_closed`
 - `no_left_inverse_at_all` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `symbolToWeight_correct`
 - `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `no_lift_betaSubst_law` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
