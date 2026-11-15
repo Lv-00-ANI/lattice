@@ -39,7 +39,47 @@
   J  整理路线图：从粗整理到语义化重构
   K  自由组合层：现状、缺口与补齐
   L  端到端：默认编排，不是一层
+  M  官方组合展品清单（2026-11-15）
+  N  架构校准记录（2026-11-15）
 ```
+
+---
+
+## 0.0 本项目的扩展模型（2026-11-15 校准）
+
+本节是**读法**，不是规格。§7 以下的全部规格仍然成立；本节说明它们**在这个项目里怎么被使用**。
+
+### 0.0.1 三层定位
+
+| 层 | 是什么 | 谁往里放东西 |
+|:--|:--|:--|
+| **能力** | 每个插件提供的 `Primitive`、`Obligation`、`capabilities` | 本仓库的源码 |
+| **索引** | `plugin.yml`——声明能力，供人读、供编排器读、供 `run_cmd` 核对 | 与源码同一次提交 |
+| **装载** | `LoaderState` / `loadAll` / `bootstrap_*`（§9 Q4/Q7、附录 I） | **内部构造语言**（CIC 内核的 C 实现） |
+
+**关键：Lean 这一层不存在“外部插件装载”。** 新能力只能通过**直接增改源码**进入本仓库。`plugin.yml` 不是装载清单，它的第一作用是**能力索引**——附带一条机器核对（`lean:` 字段的全限定名必须在环境里存在）。
+
+### 0.0.2 三个不能混的读者
+
+- **人**：读 `plugin.yml` 的 `provides` / `capabilities`，一眼看出这个插件能做什么。
+- **编排器**：按 `capabilities` 组装。它不需要 `LoaderState`，只需要“谁提供什么”。
+- **C 实现**：读 §9 Q4/Q7 的装载器规格与附录 I 的自举链。这是唯一需要装载状态机的读者。
+
+### 0.0.3 执行体在哪里
+
+**Lean 侧不是执行体。** `Runtime/` 是**运行语义层**（描述“如果执行会怎样”），不是执行器。执行体是 C。当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。
+
+这解释了一件事：`SEMANTICS-MAINLINE.md §7.1` 的 12 个 `lattice_*` 在 Lean 树里 **0/12 存在**，并不是缺陷——它们是**标准 C 的命名约定**，而项目走的是内部构造语言路线。`abiTable`（`CInterface/ABI.lean:117-129`）的 11 个 primitive 才是**内部语言的内置函数表**。
+
+### 0.0.4 组合在哪里
+
+`Compose/` 是**官方组合的展示厅**，不是“组合的唯一合法场所”。
+
+- **官方组合**（README §1 链路图里的那些）住在 `Compose/`，并在 `Compose/Showcase/` 里有端到端默认演示。
+- **插件可以自带组合**——组合是能力的一部分，不需要绕道 `Compose/`。
+- 因此 `README §3.5` 的“组合子只在 `Compose`”应当读作“**官方组合**只在 `Compose`”。
+
+详见附录 M（官方组合展品清单）与附录 N（校准记录）。
 
 ---
 
@@ -687,6 +727,14 @@ attention/
 
 ## 7 清单规格
 
+> **§7 的读法（2026-11-15 校准）**：本节规格描述的是**一个插件的完整形状**——7 个文件、17 个键、5 字段参数、23 个违反码。这套规格在当前阶段**主要被当作能力索引使用**：
+>
+> - `id` / `layer` / `provides` / `capabilities` 是**索引字段**，直接服务于“一眼看出能做什么”。
+> - `requires` / `integration` / `slots` 是**装载字段**，服务于 §9 Q4/Q7 的装载路径——那条路径的消费者是内部构造语言，不是 Lean 侧。
+> - 17 键**全部保留**。没有任何一个键被降级为“可选”，因为在内部构造语言侧它们仍然全部需要。
+>
+> 也就是说：**规格不变，只是当前的主要用途是其中的索引子集。** 这不是删减，是分层。
+
 ### 7.1 协议标识的形态
 
 ```
@@ -993,6 +1041,16 @@ theorem integration_not_tier :
 ---
 
 ## 9 编排层要证明的性质
+
+> **Q4 / Q7 的限定（2026-11-15 校准）**：Q4（清单加载）与 Q7（参数解析）里的 `LoaderState` / `loadAll` / `allok`，**其消费者是内部构造语言（CIC 内核的 C 实现）的加载器**，不是 Lean 侧的插件加载器。
+>
+> 具体地：
+>
+> - Lean 侧**不存在**运行时插件装载——新能力只能通过增改源码进入仓库（见 §0.0.1）。
+> - 内部构造语言侧**需要**一个加载器：它要读清单、校验依赖、建立参数表、并在加载失败时给出可观测的失败状态。
+> - 所以 Q4/Q7 的设计目标不是“让 Lean 能热插拔”，而是“**给 C 侧一个可被证明的加载语义**”。
+>
+> 附录 I 的自举链正是这条路径的证明骨架；它的 `loaderPrim.sound` 是对 C 侧 `lattice_load_all` 的规格。
 
 ### 9.1 编排的定义
 
@@ -2192,6 +2250,16 @@ plugin:
 
 ## 附录 I · 自举：装载器自身的证明与实现
 
+> **附录 I 的定位（2026-11-15 校准）**：本附录的自举链服务于**内部构造语言（CIC 内核的 C 实现）**，不是外部 Lean 插件装载。
+>
+> 这意味着三件事：
+>
+> 1. **`loaderPrim` 的 `sound` 是 C 侧加载器的规格**，不是 Lean 侧的运行时。它要陈述的正是“C 的 `lattice_load_all` 在什么条件下返回什么”。
+> 2. **自举是有意义的**：内部构造语言需要能加载自己的清单，而这个加载器本身必须是可证明正确的。这就是“自举”在这里的全部内容。
+> 3. **I.9 六项验收的归属**：其中 3 项可纯 Lean 机器化（1/2/3）、1 项半可（4）、2 项必须由内部语言侧提供证据（5/6）。
+>
+> **I.5 的证明草图已知有类型错误**（`loadAll (loadAll ms)` 不成立，须补 `reify : LoaderState → List Manifest`）。修法见附录 N §N.3。
+
 ### I.1 为什么需要自举
 
 **如果没有自举，装载器就是证明之外的信任基点。**
@@ -2497,6 +2565,16 @@ lattice_state_t *lattice_load_all(lattice_state_t *s, const manifest_t **ms, siz
 ---
 
 ## 附录 K · 自由组合层：现状、缺口与补齐
+
+> **附录 K 的定位（2026-11-15 校准）**：`Compose/` 是**官方组合的展示厅**，不是“组合的唯一合法场所”。
+>
+> 三层理解：
+>
+> 1. **`Compose/` 放什么**：README §1 链路图里的官方组合，以及它们的端到端默认演示（`Compose/Showcase/`）。这是**权威展示**——官方认可的每一条链路，都在这里有一条对应的组合定理。
+> 2. **插件可以自带组合**：组合是能力的一部分。一个插件需要把三个自己的 `Primitive` 串起来，就在自己的目录里串，不需要绕道 `Compose/`。
+> 3. **K.9 十三项的性质**：它们不是“已证清单”，是**待办清单**（全仓 `grep` 命中 0）。其中五项对应附录 M 的五个展品；另几项被 README 明确排除（常规预训练、`Import`/`PostTrain`/`Merge`/`semanticEdit`、四跳 G1、`lvLang→IR→Cv00`、T2 精确嵌入、C 实现）。
+>
+> **当前 `Plugins/Compose/Manifest.lean` 有 9 条 `file` 指向不存在的文件**（`Lattice/Plugins/Compose/{Proofs,Combinators,ComposeObligation}.lean`）。这不是“展品没做”，是**路径登记错误**——正确路径是 `Lattice/Compose/{Proofs,Combinators,ComposeObligation}.lean`。详见附录 N §N.4。
 
 ### K.1 这一节要回答的问题
 
@@ -3099,4 +3177,137 @@ attention-core/          （插件）
 >
 > **三层顺序不可颠倒：先结构整理得到 `plugin.yml`，才能判定“哪些是同一协议”；先填全义务，才能判定“谁是胜者”。**
 >
-> **而第一层的第一步不是写 `plugin.yml`，而是修复 12 条 S 级缺陷——因为 `verify_all` 在重写自己的输入、两个 `--self-test` 是空壳、三份 rank 互相矛盾。**门禁不可信时，任何结构整理都无法验收**。**
+> **而第一层的第一步不是写 `plugin.yml`，而是修复 12 条 S 级缺陷——因为 `verify_all` 在重写自己的输入、两个 `--self-test` 是空壳、三份 rank 互相矛盾。**门禁不可信时，任何结构整理都无法
+
+---
+
+## 附录 M · 官方组合展品清单（2026-11-15 新增）
+
+本附录列出 `Compose/Showcase/` 应当承载的**官方组合展品**。展品清单唯一的来源是 `README.md §1` 的链路图（`:106-125`）。
+
+### M.1 链路图（逐字引自 `README.md:108-120`）
+
+```
+                    ┌────────── 神经管线（常规，可绕过符号）──────────┐
+                    ▼                                             │
+  L0 数据 ────────► L1 token ────────► L3 权重（模型）
+  原始语料/知识/     文本离散化          神经网络参数
+  程序/传感器流        │                  ▲     │
+                      │  L1⇄L2          │     │ L3⇄L2（转换层）★ 难点
+                      ▼                  │     ▼
+                  L2 符号模型（CIC.Term ──parse──► IR：Tensor + Relation）
+                       ▲    实现在 Lattice/Core/CIC 上
+                       │
+                  符号引擎（约束 / 表达式 / 惩罚嵌入 / 修复回路）
+```
+
+`README:124-125` 给出三条路径：**神经捷径**（数据→token→权重）、**符号捷径**（知识→符号模型）、**完整链路**（数据→token→符号→权重）。
+
+### M.2 五个展品
+
+| # | 展品 | 链路 | 现状 | 依赖 |
+|--:|:--|:--|:--|:--|
+| **M-1** | **完整链路** | L0→L1→L2→L3（`tokenize → L1Bridge → decode → compileToLayer`） | `pipeline`（`Lib/Chain/RealEndToEnd.lean:802`）已存在，**但手写 2 层 `bind` + 1 个 `map`，未用 `Compose`** | — |
+| **M-2** | **神经捷径** | L0→L1→L3（绕过符号层） | **不存在**——README 标为“常规，可绕过符号”，未形式化 | — |
+| **M-3** | **符号捷径** | 知识→L2（`parse` 到 IR） | **部分存在**：`parse_models_full`（`Core/IR/Semantics.lean:437`），**无 `Primitive` 包装** | — |
+| **M-4** | **L1⇄L2** | `decode ∘ L1Bridge` | `decode_encode`（`Lib/Chain/RealEndToEnd.lean:208`）有真内容 | — |
+| **M-5** | **L3⇄L2（★ 难点）** | `extract ∘ compile` | `extract_compile`（`Core/IR/Extract.lean:80`）**是唯一真 T3**；反向 `compile_sound`（`Core/IR/Obligations.lean:86`）**是重言** | — |
+
+### M.3 被明确排除的展品（不进展示厅）
+
+| 排除项 | README 依据 |
+|:--|:--|
+| 常规预训练 | `:109` “神经管线（**常规**，可绕过符号）” |
+| `Import` / `PostTrain` / `Merge` / `semanticEdit` | `:343` “库只提供基础 `Primitive`，**不提供**…这类打包能力” |
+| 四跳链路 G1（`token_to_weight`） | `:618` “⚠️ **过度声称，已降级**”；`:628-638` 的 `_hdec` 是死假设 |
+| `lvLang→IR→Cv00→权重` G7 | `:624` “⚠️ **原文路线断**；IR→权重路线通” |
+| T2「精确嵌入」 | `:625` “**已证否**，改走逼近精确” |
+| C 实现 | `:387` “C 在新架构中是**后续系统插件**，位于 `systemRegistry`，**不进入 `ProofComplete`**” |
+
+### M.4 落地依赖：K 编号与展品的对应
+
+| 展品 | 需要的 K 项 | 状态 |
+|:--|:--|:--|
+| M-4（L1⇄L2） | K1 `tokenizePrim`、K3 `decodePrim` | 来源均存在（`RealTokenization.lean:352`、`RealTokenSymbolLink.lean:208`） |
+| M-5（L3⇄L2） | K6 `extractPrim`、K4 `compilePrim` | K6 是**最好的一个**（需实质 `pre`）；K4 的 `sound` 只需 `rfl` |
+| M-1（完整链路） | K9 `pipeline_as_compose` | 需精确展开 `pipeline` 的 2 层 `bind` + 1 个 `map` |
+| M-3（符号捷径） | K5 `parsePrim` | ⚠ `parse` 是全函数 `Term → IRSkeleton`，**不是 `Option`**——K 文档写错了 |
+| M-2（神经捷径） | —— | **无对应 K 项**，需从头设计 |
+| M-1 需要 K2 `bridgePrim` | K2 | ❌ **`encode_injective` 是错配**：它证的是 `ConstraintSet → List SymToken`，而 `bridgePrim` 是 `List CharToken → List SymToken`——**两个不同的函数** |
+
+### M.5 展示厅的判据
+
+**展品合格的判据是三条，全部机器可验：**
+
+1. **有一条 `Compose` 链**，链的每个环节都是一个具名 `Primitive`（不是手写 `bind`）。
+2. **链的 `sound` 是真推导**——不是 `:= h`、不是 `:= rfl`、不是 `fun _ => …`。
+3. **在 `plugin.yml` 里有对应条目**，`lean:` 字段指向该定理的完整限定名。
+
+**当前五个展品里，0 个同时满足三条。** 这是 `Compose/Showcase/` 需要从零建立的原因。
+
+---
+
+## 附录 N · 架构校准记录（2026-11-15）
+
+本附录记录本项目在 2026-11-15 的五项架构校准。**每一项都是“补充”，不是“推翻”**——旧说法在它自己的层里仍然成立。
+
+### N.1 ADR-001 · `plugin.yml` 的第一作用是能力索引
+
+| 项 | 内容 |
+|:--|:--|
+| **决定** | `plugin.yml` 的第一作用是**能力索引**：声明这个插件提供什么，供人读、供编排器读、供 `run_cmd` 核对。 |
+| **补充了什么** | §7 的 17 键规格**全部保留**。新增的是“用途层次”——`id`/`layer`/`provides`/`capabilities` 是索引字段；`requires`/`integration`/`slots` 是装载字段。 |
+| **旧说法仍成立的部分** | §7 的完整规格、§7.6 的 23 个违反码、§7.3 的 5 字段参数——一条不改。若将来实现外部装载，全部原样可用。 |
+| **影响** | §7 开头新增一段“读法”（见 §0.0.1 与 §7 插入段）。 |
+| **日期** | 2026-11-15 |
+
+### N.2 ADR-002 · 装载器的消费者是内部构造语言
+
+| 项 | 内容 |
+|:--|:--|
+| **决定** | `LoaderState` / `loadAll` / `allok`（§9 Q4/Q7）的消费者是**内部构造语言（CIC 内核的 C 实现）的加载器**，不是 Lean 侧的插件加载器。 |
+| **补充了什么** | Lean 侧**不存在**运行时插件装载——新能力只能通过增改源码进入仓库。 |
+| **旧说法仍成立的部分** | Q4/Q7 的全部规格、`LoaderState` 的状态机、`allok` 的可观测性——一条不改。它们的**消费者**被明确为 C 侧。 |
+| **影响** | §9 Q4/Q7 开头新增限定段。 |
+| **日期** | 2026-11-15 |
+
+### N.3 ADR-003 · 自举链服务于 CIC 内核的 C 实现
+
+| 项 | 内容 |
+|:--|:--|
+| **决定** | 附录 I 的自举链**是需要的**，它的消费者是内部构造语言，不是外部 Lean 插件。 |
+| **补充了什么** | ① 自举有意义：内部语言需要能加载自己的清单，且这个加载器必须可证明正确。② I.9 六项验收的归属：3 项纯 Lean 可机（1/2/3）、1 项半可（4）、2 项必须内部语言侧（5/6）。 |
+| **旧说法仍成立的部分** | 附录 I 的全部设计、`bootstrap_converges` / `bootstrap_observable_eq` 的陈述、I.9 六项验收——一条不改。 |
+| **已知缺陷** | **I.5 的证明草图有类型错误**：`loadAll : List Manifest → LoaderState` 之后，`loadAll (loadAll ms)` 不成立。修法：补 `reify : LoaderState → List Manifest`，并把第二轮的输入改成 `reify (loadAll ms)`。 |
+| **日期** | 2026-11-15 |
+
+### N.4 ADR-004 · `Compose/` 是官方组合展示厅
+
+| 项 | 内容 |
+|:--|:--|
+| **决定** | `Compose/` 是**官方组合的展示厅**；插件可以自带组合。 |
+| **补充了什么** | ① README §1 链路图的每一条官方链路，在 `Compose/Showcase/` 里有一条对应的组合定理与端到端默认演示（清单见附录 M）。② “所有组合都必须在 `Compose/`”这个更强的读法被放宽——组合是插件能力的一部分。 |
+| **旧说法仍成立的部分** | `README §3.5` 的“组合子只在 `Compose`”**在“官方组合”意义上仍成立**；`Compose/` 的 12 个文件、74 条定理全部保留；六条代数律（`compose_run_assoc` / `identity_compose_run` / `parallel_comm_run` / `choice_self_run` / `optional_true_run` / `compose_choice_distrib_run`）保留。 |
+| **已知缺陷** | `Plugins/Compose/Manifest.lean` 的 **9 条 `file` 指向不存在的文件**（`Lattice/Plugins/Compose/{Proofs,Combinators,ComposeObligation}.lean`）。正确路径是 `Lattice/Compose/{Proofs,Combinators,ComposeObligation}.lean`。**`compose_migrated` 现在是靠字符串前缀伪造通过的。** |
+| **日期** | 2026-11-15 |
+
+### N.5 ADR-005 · 执行体在 C，Lean 侧是语义
+
+| 项 | 内容 |
+|:--|:--|
+| **决定** | Lean 侧**不是执行体**。`Runtime/` 是运行**语义**层（描述“如果执行会怎样”），不是执行器。执行体是 C。 |
+| **补充了什么** | 当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。 |
+| **旧说法仍成立的部分** | `Runtime/` 66 模块、`Lattice/EndToEnd.lean` 的 `Ladder`、`ProgramAST`、`Instr`——全部保留。它们的角色从“运行时”被明确为“运行语义”。 |
+| **影响** | 解释了一件此前被当缺陷的事：`SEMANTICS-MAINLINE §7.1` 的 12 个 `lattice_*` 在 Lean 树里 **0/12 存在**——它们是**标准 C 命名**，而项目走内部语言路线。`abiTable` 的 11 个 primitive 才是内部语言的内置函数表。 |
+| **日期** | 2026-11-15 |
+
+### N.6 与既有文档的一致性
+
+本附录的五项决定与以下文档一致：
+
+| 文档 | 一致之处 |
+|:--|:--|
+| `README.md §3.7`（`:373-387`） | “C 接口现在，C 实现最后”；“C 在新架构中是后续系统插件，不进入 `ProofComplete`” |
+| `README.md §3.8`（`:389-400`） | “Lean 只处理抽象对象…不处理 `Format`、`ByteArray`、文件系统、C、conformance” |
+| `README.md:137-139` | “LATTICE 只提供底层…surface syntax、编辑器、以及 `VocabEdit`/`SemanticEdit`/`Import`/`PostTrain` 这类打包能力，由用户在本库之上实现” |
+| `PLUGIN-SYSTEM.md §11.5.1` | “The plugin system is part of the proof, not a coat of paint” |

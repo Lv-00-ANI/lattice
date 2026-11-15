@@ -1,4 +1,4 @@
-﻿# LATTICE
+# LATTICE
 
 **Representation Lattice for Symbolic↔Weight Training**（表示谱系格）
 符号 ⇄ 权重的**带证明转换层**：正向编译符号知识到权重，逆向把权重行为提取回符号，并对违反做验证与修复。
@@ -39,8 +39,8 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1036 | `audit_counts.py` |
-> | 定理 / 引理 | 9811 | `audit_counts.py` |
+> | Lean 模块 | 1038 | `audit_counts.py` |
+> | 定理 / 引理 | 9821 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | 67（门禁 + 报告器） | `audit_counts.py` |
@@ -152,6 +152,24 @@ L1 token 也以 term 表达，`L1⇄L2` 是 term 内部操作。
 反例：`revC` 与 `scaleVec revC 2`（整数缩放）逐点语义等价、参数不同。
 完整审计见 [`archive/REVERSIBILITY.md`](archive/REVERSIBILITY.md)。
 
+### 1.2 扩展模型与执行体（2026-11-15 补充）
+
+#### 1.2.1 扩展方式是源码级
+
+本库**不做运行时插件装载**。新能力通过**直接增改源码**进入仓库。`plugin.yml` 不是装载清单，它的第一作用是**能力索引**——声明一个插件提供哪些 `Primitive`、哪些 `Obligation`、哪些 `capabilities`，供人读、供编排器读，并由 `run_cmd` 核对声明的全限定名是否真的在环境里存在。
+
+规格见 [`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md)；读法与校准记录见其 §0.0 与附录 N。
+
+#### 1.2.2 执行体
+
+**Lean 侧不是执行体。** `Runtime/` 是运行**语义**层（描述“如果执行会怎样”），不是执行器。执行体是 C。
+
+当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。这解释了为什么 `SEMANTICS-MAINLINE.md §7.1` 的 12 个 `lattice_*` 在 Lean 树里 **0/12 存在**——它们是标准 C 命名，而项目走内部语言路线。
+
+#### 1.2.3 组合在哪里
+
+`Compose/` 是**官方组合的展示厅**，不是“组合的唯一合法场所”。官方组合（§1 链路图里的那些）住在 `Compose/`，并在 `Compose/Showcase/` 里有端到端默认演示。插件可以自带组合——组合是能力的一部分。
+
 ---
 
 ## 2. 目录结构
@@ -169,7 +187,7 @@ lattice-new/
 │   ├── Domains/     0         # 第 265 轮整层归档至 Reference/Geometry/（后者不参与主构建）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
-│   ├── Lib/        634       # 应用库，按主题（建立在链路层之上）
+│   ├── Lib/        636       # 应用库，按主题（建立在链路层之上）
 │   │   ├── Architectures  66    Attention       36    Chain         69
 │   │   ├── Compiler       45    Concentration   37    Convex        25
 │   │   ├── Editing        69    FCA             15    InfoTheory    26
@@ -351,6 +369,8 @@ lattice-new/
 
 目标目录与迁移方案见 [`DIRECTORY-DESIGN.md`](DIRECTORY-DESIGN.md)。
 
+> **补充（2026-11-15）**：“组合子只在 `Compose`”指**官方组合**。插件可以自带组合——组合是能力的一部分，不需要绕道 `Compose/`。`Compose/` 的价值是**官方认可的每一条链路都在那里有一条对应的组合定理**，以及端到端默认演示的所在地。详见 [`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md) 附录 M。
+
 ### 3.6 证明强度：有定理 ≠ 证明完成
 
 Lean 只检查“定理是真的”，不检查“它有多强”。本项目把强度单独登记：
@@ -385,6 +405,10 @@ C 不是不做，是**最后做**。
 最后写：`C/` 实现（ABI、序列化、conformance、runtime、trainer、性能/部署）。在 `Primitive` / `Sound` / `Compose` / `CInterface` 稳定前，C 是信任边界。
 
 C 在新架构中是**后续系统插件**，位于 `systemRegistry`，不进入 `ProofComplete`；若将来要进入证明，必须先补 C 形式语义。
+
+> **补充（2026-11-15）**：当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。因此 `SEMANTICS-MAINLINE.md §7.1` 的 12 个 `lattice_*`（标准 C 命名）在 Lean 树里 **0/12 存在**并非缺陷，是路线选择的结果。`CInterface/ABI.lean:117-129` 的 `abiTable` 的 11 个 primitive 才是内部语言的内置函数表。
+>
+> 另：自举链（[`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md) 附录 I）服务于内部构造语言，不是外部 Lean 插件装载——见其附录 N §N.3。
 
 ### 3.8 证明与工程的边界
 
@@ -661,6 +685,26 @@ theorem token_to_weight (c : LinearForm ℝ n) (pts : ℕ → Pt n) (rs : List �
 **（二）证明的承重性重审。** 按靶定理逐条审（`rfl` 级证明、前提不承重、结论退化）
 只做到四条靶定理为止。I5 只保证「名字与所触及的层相符」，不保证数学内容有实质。
 扫描器与实测数字见 §7.1 与 `agent-tmp`（未入库）。
+
+### 7.3 架构校准（2026-11-15）
+
+本库在 2026-11-15 完成五项架构校准，全部是**补充**（旧说法在它自己的层里仍成立），不是推翻：
+
+| # | 决定 | 见 |
+|--:|:--|:--|
+| ADR-001 | `plugin.yml` 的第一作用是能力索引 | [`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md) 附录 N §N.1 |
+| ADR-002 | 装载器的消费者是内部构造语言，不是 Lean 侧插件 | 附录 N §N.2 |
+| ADR-003 | 自举链服务于 CIC 内核的 C 实现 | 附录 N §N.3 |
+| ADR-004 | `Compose/` 是官方组合展示厅；插件可自带组合 | 附录 N §N.4 |
+| ADR-005 | 执行体在 C；`Runtime/` 是语义层不是执行层 | 附录 N §N.5 |
+
+**这三条最容易被误读，所以在此单列：**
+
+1. **“组合子只在 `Compose`”** 读作“**官方组合**只在 `Compose`”。插件可自带组合。
+2. **“自举是有意义的”** —— 消费者是内部构造语言，不是外部 Lean 插件。
+3. **“12 个 `lattice_*` 不存在”** —— 它们是标准 C 命名，与内部构造语言路线无关。
+
+完整 ADR 记录见 [`ARCHITECTURE-DECISIONS.md`](ARCHITECTURE-DECISIONS.md)。
 
 ---
 
