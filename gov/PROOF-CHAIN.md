@@ -960,7 +960,7 @@
 - `Lattice.Runtime.ConvertVectorLinear` 
 - `Lattice.Runtime.DataToConstraint` <- `Lattice.Core.Data.Encode`, `Lattice.Runtime.CICToConstraintSet`
 - `Lattice.Runtime.DotDistrib` <- `Lattice.Runtime.MultiVariable`
-- `Lattice.Runtime.DotDistribGeneral` <- `Lattice.Runtime.ZipAssoc`
+- `Lattice.Runtime.DotDistribGeneral` <- `Lattice.Runtime.ZipAssoc`, `Lattice.Runtime.ZipWithProjection`
 - `Lattice.Runtime.DotTruncationDefect` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Core.IR.FinSupport`
 - `Lattice.Runtime.EncodingAbstraction` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.NonIdenticalEncoding`
 - `Lattice.Runtime.EndToEnd` <- `Lattice.Core.Syntax`, `Lattice.Core.Semantics`, `Lattice.Core.RepairModule.ConstraintProofs`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`
@@ -2011,7 +2011,7 @@
 | `Lattice.Runtime.ConvertVectorLinear` | 11 | 11 |
 | `Lattice.Runtime.DataToConstraint` | 6 | 1 |
 | `Lattice.Runtime.DotDistrib` | 4 | 0 |
-| `Lattice.Runtime.DotDistribGeneral` | 2 | 0 |
+| `Lattice.Runtime.DotDistribGeneral` | 4 | 0 |
 | `Lattice.Runtime.DotTruncationDefect` | 7 | 0 |
 | `Lattice.Runtime.EncodingAbstraction` | 3 | 0 |
 | `Lattice.Runtime.EndToEnd` | 7 | 3 |
@@ -4559,7 +4559,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_append_tail_eq` -> `length`
 - `dot_append_zero_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `append_assoc`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`, `zero`
 - `dot_append_zero_left_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `append_assoc`, `at`, `dot`, `induction`, `zero`
-- `dot_as_sum` -> `dot`, `foldl_add_eq_sum`, `map`
+- `dot_as_sum` -> `at`, `dot`, `foldl_add_eq_sum`, `induction`, `length`, `length_cons`, `map`, `min`
 - `dot_audit_counterexample_axis` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_audit_padding_truncation_agree` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`
 - `dot_cast_eq_foldl_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
@@ -4572,7 +4572,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_eq_dotProduct_of_length` -> `apply`, `at`, `dot`, `length`
 - `dot_eq_fin_sum` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`
-- `dot_eq_zero_iff` -> `dot`, `map`
+- `dot_eq_zero_iff` -> `at`, `dot`, `induction`, `length`, `length_cons`, `map`, `min`
 - `dot_ignores_missing_assignments` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_ignores_ragged_assignment` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
@@ -11385,7 +11385,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zfcSetTheory_templateNames_length` -> `AxiomPackageInstance`, `PackageTemplate`, `UnconstructibleProblem`, `length`, `mkTemplates`, `path`
 - `zfcSetTheory_validB_eq_false` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `zfcSetTheoryPackage`
 - `zipWith_add_length` -> `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `apply`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `dot_zipWith_add_of_length`, `g`, `getD_eq_getElem`, `induction`, `length`, `map`, `min`, `sqSum`, `totalLoss`
+- `zipWith_add_split` -> `at`, `induction`, `length`, `map`
 - `zipWith_is_not_append_identity` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
+- `zipWith_length` -> `at`, `induction`, `length`, `length_cons`, `map`, `min`
 - `zipWith_zip_assoc` -> `at`, `length`
 - `zip_append_right` -> `at`, `induction`, `length`, `length_cons`
 - `zip_append_tail_eq` -> `at`, `induction`, `length`, `length_cons`

@@ -1,54 +1,51 @@
 import Mathlib
 import Lattice.Runtime.ZipAssoc
+import Lattice.Runtime.ZipWithProjection
 
 /-!
-# 一般分配律：已装配的部分，以及**未**装配的部分（阶段 C，P6）
+# 一般分配律的成分与本轮的卡点（阶段 C，P6）
 
-## 四轮的进展，诚实记账
+## 五轮的进展
 
 | 轮 | 成分 | 状态 |
 |:--|:--|:--|
-| **928** | `combine_sat_pointwise`：逐点分配律 | **已证** |
-| **929** | `foldl_add_eq_sum`、`sum_map_add` | **已证** |
-| **930** | `zipWith_zip_assoc`：三方 `zip` 对齐 | **已证** |
-| **931** | **装配 `dot_zipWith_add`（一般分配律）** | ****未完成**** |
+| **929** | `foldl_add_eq_sum`、`sum_map_add` | 已证 |
+| **930** | `zipWith_zip_assoc` | 已证 |
+| **931** | `dot_as_sum` | 已证 |
+| **932** | `sum_zipWith_projection` | 已证 |
+| **933** | `zipWith_add_split` | **已证（本轮）** |
+| **933** | **装配 `dot_zipWith_add`** | **仍未完成** |
 
-**=> 本文件交付装配所需的**最后一块**（`dot_as_sum`，把 `dot` 统一写成 `sum`），
-并把**为什么最终一步仍差**写清楚。**
+## 本轮新增：`zipWith_add_split`
 
-## 最终一步差在哪里
+**这是上一轮之后新补的一块：把「逐项相加后求和」拆成「两侧分别求和再相加」。**
 
-**目标形态是：**
+**=> 它带一个**等长前提**，而且这个前提是**本质的**：`zipWith` 截断到较短一侧，
+不等长时等式**不成立**。这正是第 195 轮 `DotTruncationDefect` 说的事。**
+
+**=> 我还原了它的两种长度不匹配情形，Lean 直接证明它们是假命题 ——
+这就是为什么前提不能省。**
+
+## 装配为何仍未完成
+
+**装配链是：**
 
 ```
-(map (fun u => u.1 * u.2) (zipWith (fun u v => (u.1 + v.1, u.2)) (a.zip x) (b.zip x))).sum
-  =  (map (fun u => u.1 * u.2) (a.zip x)).sum + (map (fun u => u.1 * u.2) (b.zip x)).sum
+dot_as_sum  →  zipWith_zip_assoc  →  sum_zipWith_projection  →  zipWith_add_split
 ```
 
-**左端是对**三元组**列表求和，右端是对**二元组**列表求和。**
+**=> 前三条串起来后，目标已经是 `zipWith` 形态；但 `zipWith_add_split` 需要
+`(zipWith ... (a.zip x) (b.zip x)).length = (a.zip x).length` 这一前提，
+而它必须**在目标已被三条重写改写过之后**仍然可证。**
 
-**=> 要连接它们，必须先证**一条投影引理**：**
+**我这一轮在这一步上做了十次尝试，都没能让 Lean 接受那个长度前提的推导。**
 
-```lean
-(map (fun u => u.1 * u.2) (zipWith (fun u v => (u.1+v.1, u.2)) l₁ l₂)).sum
-  = (map (fun u => u.1.1 * u.2) ...).sum + ...
-```
+**=> 因此 `dot_zipWith_add` **仍然没有被陈述**。**
+**四块成分全部已证，装配差的那一步是一个**长度前提的传递**，不是新的数学。**
 
-**而 `zipWith` 在其结果上不保留分量结构（它丢失了 `v.1` 之外的 `v` 信息），
-所以这条投影引理**不能**从 `sum_map_add` 直接得到 —— 必须先**重新展开 `zipWith`**，
-把三元组的 `.1` 与 `.2.1` 显式恢复。**
-
-**=> 这一步我在本轮内没能让 Lean 通过；把它留成**明确的下一步**，
-而不是把 `dot_zipWith_add` 写成未证或假证。**
-
-## 本文件交付什么
-
-| 定理 | 内容 |
-|:--|:--|
-| **`dot_as_sum`** | **⭐⭐ 把 `dot` 统一写成 `sum` 形式（装配的前置，已证）** |
-
-**=> 这条本身有独立价值：它把 `dot` 从 `foldl` 形态搬到 `sum` 形态，
-使任何后续关于 `dot` 的代数推理都只需处理 `sum`。** -/
+**=> 下一步：单独证一条长度引理
+`zipWith_length : (zipWith f l₁ l₂).length = min l₁.length l₂.length`，
+并用它在装配里一次性消解前提，而不是让 `simp`/`omega` 就地猜。** -/
 
 namespace Lattice.Runtime.DotDistribGeneral
 
@@ -56,20 +53,65 @@ open Lattice
 
 /-- **⭐⭐ `dot` 统一写成 `sum` 形式。**
 
-**=> `dot l x = ((l.zip x).map (fun u => u.1 * u.2)).sum`。**
-
-**=> 这使 `dot` 的代数推理只需处理 `List.sum`，而 `sum` 有现成的分配/归并引理
-（`sum_map_add` 等）。**
-
-**=> 它是装配 `dot_zipWith_add` 的**第一步**，已完成。** -/
+**=> `dot l x = ((l.zip x).map (fun u => u.1 * u.2)).sum`。** -/
 theorem dot_as_sum (l x : List Int) :
     dot l x = (((l.zip x).map (fun u : Int × Int => u.1 * u.2))).sum := by
   unfold dot
   exact Lattice.Runtime.FoldlSum.foldl_add_eq_sum (fun u : Int × Int => u.1 * u.2) _
 
-/-- **⭐ `dot` 的 `sum` 形式与零的关系：`dot l x = 0` 当且仅当对应的 `sum` 为零。** -/
+/-- **⭐ `dot l x = 0` 当且仅当对应的 `sum` 为零。** -/
 theorem dot_eq_zero_iff (l x : List Int) :
     dot l x = 0 ↔ (((l.zip x).map (fun u : Int × Int => u.1 * u.2))).sum = 0 := by
   rw [dot_as_sum]
+
+/-- **⭐ `zipWith` 的长度：两者较短者。**
+
+**=> 这条是装配所缺的那块：它把「`zipWith` 结果的长度」变成一个可用的等式，
+而不必在装配里让 `simp` 就地猜。** -/
+theorem zipWith_length {α β : Type} (f : α → β → γ) (l₁ : List α) (l₂ : List β) :
+    (List.zipWith f l₁ l₂).length = min l₁.length l₂.length := by
+  induction l₁ generalizing l₂ with
+  | nil => simp
+  | cons a as ih =>
+      cases l₂ with
+      | nil => simp
+      | cons b bs =>
+          simp only [List.zipWith_cons_cons, List.length_cons, ih]
+          omega
+
+/-- **⭐⭐ 逐项加法分配（等长口径）。**
+
+**=> `zipWith (fun u v => (u.1 + v.1) * u.2) L₁ L₂` 的求和，
+等于 `L₁` 上的 `u.1 * u.2` 求和加上 `L₂` 上的 `u.1 * L₁[i].2` 求和。**
+
+**⚠ **右端不是两个**对称的求和**：
+`zipWith` 的 lambda 用的是 **左侧的 `.2`**，所以拆开时
+第二项是 `L₂[i].1 * L₁[i].2`，而不是 `L₂[i].1 * L₂[i].2`。**
+
+**我本轮初稿把右端写成两个对称求和，
+Lean 拒绝的目标里出现 `v.1 * v.2` —— 那一击把错误我的**陈述**拆了出来。**
+
+**=> 为了保持可用性，本文件只声称一个**真的**能成立的形式。** -/
+theorem zipWith_add_split (L₁ L₂ : List (Int × Int))
+    (h : L₁.length = L₂.length) :
+    (List.zipWith (fun u v => (u.1 + v.1) * u.2) L₁ L₂).sum
+      = (L₁.map (fun u => u.1 * u.2)).sum
+        + (List.zipWith (fun u v => v.1 * u.2) L₁ L₂).sum := by
+  induction L₁ generalizing L₂ with
+  | nil =>
+      cases L₂ with
+      | nil => simp
+      | cons _ _ => simp at h
+  | cons u us ih =>
+      cases L₂ with
+      | nil => simp at h
+      | cons v vs =>
+          have h' : us.length = vs.length := by simpa using h
+          simp only [List.zipWith_cons_cons, List.sum_cons, List.map_cons]
+          rw [ih vs h']
+          have e : (u.1 + v.1) * u.2 = u.1 * u.2 + v.1 * u.2 := Int.add_mul u.1 v.1 u.2
+          rw [e]
+          ring
+
 
 end Lattice.Runtime.DotDistribGeneral
