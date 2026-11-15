@@ -95,6 +95,7 @@ import Lattice.Runtime.MultiVariable
 import Lattice.Runtime.DotDistrib
 import Lattice.Runtime.FoldlSum
 import Lattice.Runtime.ZipAssoc
+import Lattice.Runtime.DotDistribGeneral
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
