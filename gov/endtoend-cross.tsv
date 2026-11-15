@@ -1882,6 +1882,16 @@ Lib/Compiler/ReluClosure.lean	reluInv_not_left_inverse
 Lib/Compiler/ReluClosure.lean	relu_verify_criterion
 Lib/Compiler/ReluClosure.lean	relu_repair_preserves_sat
 Lib/Compiler/ReluClosure.lean	relu_closure
+Lib/Compiler/ReluLemmas.lean	relu_eq_max
+Lib/Compiler/ReluLemmas.lean	relu_of_nonpos
+Lib/Compiler/ReluLemmas.lean	relu_of_nonneg
+Lib/Compiler/ReluLemmas.lean	reluCompile_of_nonpos
+Lib/Compiler/ReluLemmas.lean	reluCompile_zero_neg
+Lib/Compiler/ReluLemmas.lean	reluCompile_zero_zero
+Lib/Compiler/ReluLemmas.lean	reluCompile_zero_neg_of_nonneg
+Lib/Compiler/ReluLemmas.lean	reluCompile_collapses
+Lib/Compiler/ReluLemmas.lean	reluCompile_collapses_ne
+Lib/Compiler/ReversibilityLimit.lean	relu_not_reversible
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_neg
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_iff

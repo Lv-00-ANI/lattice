@@ -17,7 +17,7 @@
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 50 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 1 | 1 | `Runtime/NondegenerateInstance.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 41 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 42 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 0 *(仅本文件)* | 12 | — |
 | 2.2 forward: data synthesis | `synth_coverage` | **未找到** | — | — | — |

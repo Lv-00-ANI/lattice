@@ -33,6 +33,8 @@ import Lattice.Lib.Compiler.DataSynthesis
 import Lattice.Lib.Compiler.CarrierAlgebra
 import Lattice.Lib.Compiler.CarrierReversible
 import Lattice.Lib.Compiler.CarrierInstantiation
+import Lattice.Lib.Compiler.ReluLemmas
+import Lattice.Lib.Compiler.ReversibilityLimit
 /-!
 # Lattice.Lib -- harvested instances
 
