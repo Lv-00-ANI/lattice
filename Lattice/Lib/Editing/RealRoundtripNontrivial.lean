@@ -62,7 +62,7 @@ abbrev ConstraintSet := List VectorConstraint
 且已被 `RealCanonicalCompileComm.lean:146` **独立登记为裸 `rfl`**：
 
 ```lean
-theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := rfl
+theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 ```
 
 ## 3. 诚实边界（**不许省**）

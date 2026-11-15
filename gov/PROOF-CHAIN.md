@@ -2389,7 +2389,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `abiTable_names_nodup` -> `at`, `map`, `primitiveNames`
 - `abiTable_returns_a_value` -> `at`, `map`, `primitiveNames`
 - `abiTable_signature_only` -> `abiTable`
-- `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
+- `ablation_eq_contentLevel` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `absPosDenom_eq_of_div2_eq` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absPosDenom_one_le` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
 - `absPosDenom_pair` -> `IsTranslationEquivariant`, `Point2R`, `alibiBias`, `alibi_bias_translation_equivariant`, `apply`, `d`, `le_trans`, `rdot`, `rope_relative_preserves_dot`, `rotateR`
@@ -3876,8 +3876,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `consistent_stationarity_iff_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
 - `constOn_zero_of_comp` -> `E`, `at`, `g`
 - `const_app_cannot_step` -> `Step`, `no_step_var`
-- `const_family_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
-- `const_family_never_content` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
+- `const_family_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
+- `const_family_never_content` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `const_fold_const_independent` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `const_fold_preserves` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
 - `const_fold_preserves_solution_set` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `at`, `compileFin`, `convertReal`, `convertReal_preserves`, `d`, `induction`, `map`, `realTotalLoss_soundness`, `trans`
@@ -6262,7 +6262,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `inst_sort` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
 - `inst_var` -> `Level`, `SortKind`, `Term`, `induction`, `shift`, `shift_var_ge`, `shift_var_lt`, `subst`
 - `instanceA_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`
-- `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
+- `instanceA_rfl_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `instanceC_content_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`
 - `instanceC_is_content` -> `LayerOut`, `LinearLayer`
 - `instances_at_different_carriers` -> `Pt`, `Representation`, `compile`, `extract`, `flattenRepresentation`, `seqRepresentation`, `t3_parameter_roundtrip_holds`
@@ -6313,9 +6313,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intent_isPrefixRel` -> `CharToken`, `IsFormalConcept`, `apply`, `at`, `bestPrefix`, `closure_idempotent`, `extent`, `galois_connection`, `intent`, `intent_antitone`, `intent_closure_idempotent`, `le_refl`, `length`, `length_cons`, `length_le`, `lookupTok`, `lookupTok_eq_some`, `lookupTok_ne_none`, `pieceOf`, `pieceOf_ne_nil`, `subst`, `trans`
 - `intent_sInf_subset` -> `at`, `extent`, `intent`
 - `intent_sSup` -> `at`, `extent`, `intent`
-- `interface_iff_no_witness` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
-- `interface_implies_no_new_semantics` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
-- `interface_or_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
+- `interface_iff_no_witness` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`
+- `interface_implies_no_new_semantics` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`
+- `interface_or_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`
 - `interior_improvingSet_nonempty` -> `aa`, `apply`, `at`, `bb`, `dist`, `g`, `le`, `le_antisymm`, `mono`
 - `interior_length` -> `length`
 - `interior_multImprovingSet_nonempty` -> `at`, `dist`, `eps`, `g`, `single`, `subst`, `supporting_functional_of_not_mem_interior`
@@ -6620,7 +6620,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `g`, `listGcdNat`, `no_left_inverse_at_all`
 - `labelAt_depends_on_carrier` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_nil`, `holdsSet_singleton`, `sound`
 - `labelAt_depends_on_context` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_singleton`, `sound`
-- `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
+- `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`, `trivial`
 - `ladder_compose_roundtrip` -> `Data`, `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_compose_soundness` -> `Data`, `d`, `decode`, `encode`, `roundtrip`, `satSym`, `satW`
 - `ladder_end_to_end_holds` -> `Data`, `W`, `at`, `d`
@@ -6887,8 +6887,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `list_sat_of_sat_of_length` -> `at`, `length`, `subst`
 - `list_sq_sum_nonneg` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`
 - `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
-- `listing_as_prop_is_trivial` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
-- `listing_is_contentful_iff_not_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`, `trivial`
+- `listing_as_prop_is_trivial` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`, `trivial`
+- `listing_is_contentful_iff_not_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`, `trivial`
 - `lit_onlyAndOrNot` -> `Compiler`, `d`, `induction`
 - `literalFold_eval` -> `Compiler`, `add`, `compile`, `induction`, `length`, `lit`, `mul`
 - `lnAffine_scale_invariant` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `sqrt_one`
@@ -7876,8 +7876,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_injective_of_ignored_argument` -> `LinearLayer`, `extractVec`
 - `not_injective_of_lt` -> `all`, `at`, `bvar`, `induction`, `subst`
 - `not_injective_of_witness` -> `LayerOut`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `RealConstraint`, `RealNeuron`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convert`, `convertReal`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
-- `not_interface_and_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
-- `not_interface_of_ablation` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`
+- `not_interface_and_content` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`
+- `not_interface_of_ablation` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
 - `not_is_prime_one` -> `apply`, `at`, `children`, `g`, `le_trans`, `satisfiable`
 - `not_linearAlgebra_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `linearAlgebraPackage`, `orderTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `projectiveGeometryPackage`
 - `not_loadBearing_and_decorative` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `rank`, `scaleVec`, `trivial`
@@ -8021,7 +8021,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `one_sub_tanh_sq_sharp_le_coarse` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
 - `one_sub_tanh_sq_sharp_strict_at_zero` -> `at`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`
 - `one_wellFormed` -> `MLayer`, `Weights`, `WellFormed`, `act`, `arch`, `at`, `count`, `layers`, `length`, `map`, `weights`
-- `one_witness_refutes_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `roundTripAddsNothing_of_factorsThrough`, `trans`
+- `one_witness_refutes_all` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`
 - `only_counterexample_refutes` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `opNorm_diagonal` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
 - `opNorm_diagonal_le` -> `apply`, `at`, `d`, `euclid_norm_sq_eq`, `le_antisymm`, `matCLME`, `matCLME_apply`, `matvecE`, `single`
@@ -9179,7 +9179,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rfdiff_eq_zero_step` -> `Chain`, `MLayer`, `at`, `eval`, `eval_add`, `eval_mul`, `g`
 - `rfdiff_mul` -> `Chain`, `eval`, `eval_add`, `eval_mul`, `g`
 - `rfl_restricts_to_any_subset` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `g`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
-- `rfl_roundtrip_forces_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
+- `rfl_roundtrip_forces_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `rg_exists_nnnorm_eq_spectralRadius` -> `E`
 - `rg_gelfand_formula` -> `E`
 - `rg_gelfand_formula_norm` -> `E`
@@ -10887,7 +10887,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `trueGrad_eq_zero_of_eventuallyConst` -> `at`, `dist`
 - `truncDiag_rank_le` -> `E`, `at`, `card_fin`, `d`, `gramIsHermitian`, `rank`, `real_conjTranspose_eq_transpose`, `singularValueSq`
 - `truncated_iff_indexed` -> `VecConstraint`, `VectorConstraint`, `VectorConstraintSat`, `length`, `sat_iff`, `sat_iff_list_sat`, `toFinVec`, `vecDot`, `vecSat`
-- `truth_equality_forces_same_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `extractVec_convertVec_rfl`, `trans`
+- `truth_equality_forces_same_level` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`, `trans`
 - `tsum_le_of_uniform_finset_bound` -> `infinite_sum_bound`
 - `tsum_mul_one_sub` -> `E`, `iterateStep`, `iterateStep_norm_le`, `le_trans`
 - `tsum_mul_sq_le_sq_mul_tsum` -> `apply`, `g`, `infinite_sum_bound`

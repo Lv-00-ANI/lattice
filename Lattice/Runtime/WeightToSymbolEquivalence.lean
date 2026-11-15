@@ -85,8 +85,7 @@ def extractVec (l : LinearLayer) : VectorConstraint :=
 /-! ## 定理三：向量版编译-提取往返恒等 -/
 
 theorem roundtrip_extractVec (c : VectorConstraint) :
-    extractVec (convertVec c) = c := by
-  cases c <;> rfl
+    extractVec (convertVec c) = c := rfl
 
 /-! ## 定理四：提取候选的有效性判定
 提取候选若通过行为等价验证（输出零化 ⟺ 候选满足），则该候选是原权重的有效符号表示。

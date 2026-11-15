@@ -357,8 +357,7 @@ theorem convertVec_extractVec_rfl (l : LinearLayer) : convertVec (extractVec l) 
 
 ⚠ 该既有定理的证明体是 `cases c <;> rfl`（`WeightToSymbolEquivalence.lean:60-62`），
 ⭐ **逐字对照**：这证明**任务书的目标是一条 `rfl`**。 -/
-theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c :=
-  roundtrip_extractVec c
+theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-- ⭐⭐ **任务书目标的「平凡性」判定（形式化）**：
 

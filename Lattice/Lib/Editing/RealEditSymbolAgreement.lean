@@ -139,8 +139,7 @@ theorem convert_extract_id (l : LinearLayer) : convertVec (extractVec l) = l := 
 
 /-- **② 提取-往返是裸 `rfl`**：`extractVec (convertVec c) = c`。
 逐字引用既有 `roundtrip_extractVec`（证明体为 `cases c <;> rfl`）。 -/
-theorem extract_convert_id (c : VectorConstraint) : extractVec (convertVec c) = c :=
-  roundtrip_extractVec c
+theorem extract_convert_id (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-- ⭐⭐ **主机制：`convertVec : VectorConstraint → LinearLayer` 是双射。**
 

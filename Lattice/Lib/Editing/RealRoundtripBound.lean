@@ -71,8 +71,7 @@ theorem extract_compile_identity_int (c : LinearConstraint) :
 
 /-- 回收向量版 `WeightToSymbolEquivalence.roundtrip_extractVec`。 -/
 theorem extract_compile_identity_vec (c : VectorConstraint) :
-    extractVec (convertVec c) = c :=
-  roundtrip_extractVec c
+    extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-! ## 二、近似往返的误差界 -/
 

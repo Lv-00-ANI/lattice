@@ -45,7 +45,7 @@ EXEMPT_NAME_PREFIX = ("manifest_no_",)
 
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
 # Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
-BASELINE = 143
+BASELINE = 143   # round 938: 143 sites, but INDEPENDENT groups 116 -> 107
 
 # A statement spans the `theorem name ... :` line plus following indented lines up to `:=` or `by`.
 THEOREM = re.compile(r"^\s*(?:private\s+|protected\s+|noncomputable\s+)*(theorem|lemma)\s+"

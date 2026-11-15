@@ -146,7 +146,7 @@ namespace Lattice
 注意 **`WeightToSymbolEquivalence.roundtrip_extractVec` 已证此式**（其证明体是 `cases c <;> rfl`）；
 要点 **本文件在此显式登记它的【定义性】**（区别于"需要证明"的定理）——
 因为**这是 §二 空洞性诊断的全部依据**。 -/
-theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := rfl
+theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-- **编译-往返（`rfl` 级）**：`convertVec (extractVec l) = l`（结构 eta）。
 

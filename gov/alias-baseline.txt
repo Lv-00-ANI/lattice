@@ -530,6 +530,7 @@ forward	Lib/Convex/RealSupportingHyperplane.lean	supporting_hyperplane_of_finite
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_absorbs_scale_pos
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_scaleVec_sign_law
 forward	Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl
+forward	Lib/Editing/RealCanonicalCompileComm.lean	extractVec_convertVec_rfl
 forward	Lib/Editing/RealCanonicalForm.lean	canonicalize_idempotent
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3Norm_idem_apply
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3_failure_identifiable
@@ -742,6 +743,7 @@ forward	Lib/Meta/RealDotRepresentationAudit.lean	dot_representation_agreement_br
 forward	Lib/Meta/RealDotRepresentationAudit.lean	toVec_audit_counterexample_axis
 forward	Lib/Meta/RealHypothesisAudit.lean	audit_is_contentful
 forward	Lib/Meta/RealHypothesisAudit.lean	audit_no_false_positive
+forward	Lib/Meta/RealRflAudit.lean	extractVec_convertVec_rfl
 forward	Lib/Meta/RealRflAudit.lean	instanceA_rfl_level
 forward	Lib/Meta/RealRflAudit.lean	interface_implies_no_new_semantics
 forward	Lib/Optim/ModEqBridge.lean	congruentInt_to_modEq

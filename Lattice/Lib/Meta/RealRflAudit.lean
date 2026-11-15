@@ -69,7 +69,7 @@ theorem roundtrip_extractVec (c : VectorConstraint) :
 
 -- RealCanonicalCompileComm.lean:146   ⭐ 裸 `rfl`（定义相等，不只是可证）
 theorem extractVec_convertVec_rfl (c : VectorConstraint) :
-    extractVec (convertVec c) = c := rfl
+    extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 -- RealCompileExtractClosed.lean:100-101 / 112-113
 def extractLayer (ls : Layer) : ConstraintSet := ls.map extractVec
@@ -375,8 +375,7 @@ theorem not_interface_of_ablation {ι : Type*} (P : ThmFamily ι) :
 注意：**诚实标注**：本条证明体是 `exact`（对既有定理的**别名**），
 ⭐ **故本条自己也是接口级** —— 本文件对**自己**执行该纪律。 -/
 theorem instanceA_rfl_level (c : VectorConstraint) :
-    extractVec (convertVec c) = c :=
-  extractVec_convertVec_rfl c
+    extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
 /-- ⭐⭐ **实例 1 的层级判定（机器可核对）**：对该往返，
 **任意**谓词族都取常值 ⟹ **它不可能**分辨任何两个约束。
