@@ -3571,6 +3571,9 @@ Runtime/DataToConstraint.lean	corpusConstraints_length
 Runtime/DataToConstraint.lean	corpusConstraints_all_translatable
 Runtime/DataToConstraint.lean	coversCorpus_not_implies_zero_width
 Runtime/DataToConstraint.lean	data_reaches_weight_of_zero_width
+Runtime/DotDistribAssembly.lean	zip_snd_align
+Runtime/DotDistribAssembly.lean	zipWith_snd_swap
+Runtime/DotDistribAssembly.lean	dot_zipWith_add
 Runtime/DotDistribGeneral.lean	zipWith_length
 Runtime/DotDistribGeneral.lean	zipWith_add_split
 Runtime/DotTruncationDefect.lean	dot_nil

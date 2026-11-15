@@ -63,8 +63,8 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9650 | 1348 | 13.9% |
-| **入度 ≥ 1（承重集）** | **1016** | **1016** | **100.0%** |
+| 定理 + 引理 | 9652 | 1349 | 13.9% |
+| **入度 ≥ 1（承重集）** | **1018** | **1018** | **100.0%** |
 | **入度 = 0** | **8634** | **388** | **4.5%** |
 
 **两个方向都要读；只读一个是误导。**
@@ -77,7 +77,7 @@
 
 ### 承重集**已全部审阅**
 
-| **入度 ≥ 1（承重集）** | **1016** | **1016** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **1018** | **1018** | **100.0%** |
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -160,7 +160,7 @@
 > **本段此前写死了四个数字（1,360 / 839 / 521 / 7,587），而它们早已与树脱节。**
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
-| **入度 ≥ 1（承重集）** | **1016** | **1016** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **1018** | **1018** | **100.0%** |
 > **零入度：8634 条，已抽审 382 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
@@ -263,7 +263,7 @@
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:91` | `dependenciesClosed_mono` | 1 | 登记理由：同名同义的定理在 Lattice.Lv00.AxiomDischarge / AxiomPackages / AxiomDischargeJia 三个命名空间各有一份，且各自定义了自己的 AxiomPackageInstance / PackageDependenciesClosed；三处签名已漂移（`∀ n, n ∈ extra → …` vs `∀ n ∈ extra, …`）。这是「同一语义多处实现」的典型，登记待收敛。 |
 | `Lib/Compiler/RealWhileTotalCorrectness.lean:215` | `triple_iff_wpT` | 1 | register：定义展开冒充定理。建议标为 @[simp] 展开引理或直接内联到 RealWPWhile；不要把它当作『Hoare 三元组与 wp 等价』的独立证据（真正的证据是 180/226/263）。 |
 | `Lib/Editing/RealConversionCategorical.lean:150` | `compile_galoisConnection_galois` | 1 | 定理真且被真实使用（RealConversionCategoryNew.lean:298、333 作为 `GaloisConnection.toGaloisInsertion / toGaloisCoinsertion` 的输入），但 doc 的『须满射 / 等价于满射』是错误归因，正是本库『叙述强度 > 陈述强度』的老毛病。建议改 doc 为『像-原像对任意函数成伴随，故不携带编译信息』，并以 `GaloisInsertion`（真需要满射）为主交付；因不影响证明，登… |
-| `Lib/Editing/RealEditSemantics.lean:1046` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
+| `Lib/Editing/RealEditSemantics.lean:1047` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:229` | `constrained_sum_one_via_realMaskFamily` | 1 | 本文件已有 constrainedSoftmax_sum_one；本条是同一命题的第二次证明，以并列定理身份进入 API 会让「本文件定理数」虚高，且两条日后可能漂移。保留「复用确认」的意图可以理解，但应按 alias 登记而非计入定理数。verdict=register。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:85` | `allowed_is_convex_weights` | 1 | 合取包不是数学内容，调用点写 `⟨nonneg, sum_one⟩` 等价。doc 自称「可复用的假设包」，但以定理身份计数会虚高。verdict=register：删除或标为 convenience alias。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:100` | `support_from_decoded_constraints` | 1 | 与 constrained_agrees_with_constraint_set 同义同型，属别名转发。若下游只要短名字，建议 `alias` 或 @[simp] 转发并注明来源，不应作为并列定理计数。verdict=register。 |
@@ -400,7 +400,7 @@
 于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。
 实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。
 
-| **入度 ≥ 1（承重集）** | **1016** | **1016** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **1018** | **1018** | **100.0%** |
 `roundtrip_extractVec` 升到首位（18）。
 
 **这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。
