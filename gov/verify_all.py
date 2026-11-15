@@ -249,6 +249,7 @@ CHECKS = [
     # in `check_selftest_coverage.EXEMPT` with the reason it is verified some other way -- and that
     ("meta: layer cycle does not grow", "check_layer_cycle.py"),
     ("meta: layer health invariants hold", "check_layer_health.py"),
+    ("audit: duplicate short names bounded", "audit_duplicate_names.py --check"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
