@@ -9,8 +9,8 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 714 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 162 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 718 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -395,6 +395,7 @@
 | `Lib/Convex/RealSupportingHyperplane.lean` | `supporting_hyperplane_of_finite_convexHull` |
 | `Lib/Editing/RealCanonicalCompileComm.lean` | `canonicalize_absorbs_scale_pos` |
 | `Lib/Editing/RealCanonicalCompileComm.lean` | `canonicalize_scaleVec_sign_law` |
+| `Lib/Editing/RealCanonicalCompileComm.lean` | `convertVec_extractVec_rfl` |
 | `Lib/Editing/RealCanonicalForm.lean` | `canonicalize_idempotent` |
 | `Lib/Editing/RealClosureReversibility.lean` | `ft2L2L3Norm_idem_apply` |
 | `Lib/Editing/RealClosureReversibility.lean` | `ft2L2L3_failure_identifiable` |
@@ -432,10 +433,12 @@
 | `Lib/Editing/RealEditSemantics.lean` | `editSemantics_layer_bridge` |
 | `Lib/Editing/RealEditSemantics.lean` | `editSemantics_layer_zero_iff` |
 | `Lib/Editing/RealEditSymbolAgreement.lean` | `agreement_coeffDist_zero` |
+| `Lib/Editing/RealEditSymbolAgreement.lean` | `convert_extract_id` |
 | `Lib/Editing/RealEditSymbolAgreement.lean` | `extract_convert_id` |
 | `Lib/Editing/RealEditToSymbol.lean` | `extractVec_blind_to_scale` |
 | `Lib/Editing/RealEditToSymbol.lean` | `extractVec_mem_preimage` |
 | `Lib/Editing/RealEditToSymbol.lean` | `preimage_eq_extractVec` |
+| `Lib/Editing/RealEditToSymbol.lean` | `roundtrip_convertVec_rfl` |
 | `Lib/Editing/RealEditToSymbol.lean` | `roundtrip_extractVec_rfl` |
 | `Lib/Editing/RealEditToSymbol.lean` | `toSymbol_coeffDist_zero` |
 | `Lib/Editing/RealEditVerdict.lean` | `edit_verdict_pass` |
@@ -449,6 +452,7 @@
 | `Lib/Editing/RealExtractInvertibility.lean` | `geluTanh_injOn_of_strictMono` |
 | `Lib/Editing/RealExtractNonInjective.lean` | `convertVec_mem_fiber` |
 | `Lib/Editing/RealExtractNonInjective.lean` | `r03_claim_is_false` |
+| `Lib/Editing/RealExtractSurjectivity.lean` | `convertVec_extractVec_rfl` |
 | `Lib/Editing/RealExtractSurjectivity.lean` | `extractVec_convertVec_rfl` |
 | `Lib/Editing/RealExtractSurjectivity.lean` | `symbol_preimage_unique` |
 | `Lib/Editing/RealExtractionDirection.lean` | `extract_drops_unterminated` |
@@ -852,14 +856,18 @@
 | `Lib/Convex/RealFarkas.lean` | `dotV_smul_right` |
 | `Lib/Convex/RealStrictConvexEquality.lean` | `eq_of_strictConcaveOn_combo_eq` |
 | `Lib/Convex/RealStrictConvexEquality.lean` | `eq_of_strictConvexOn_combo_eq` |
+| `Lib/Editing/RealCanonicalCompileComm.lean` | `convertVec_extractVec_rfl` |
 | `Lib/Editing/RealConversionCategorical.lean` | `natTransform_compile` |
 | `Lib/Editing/RealConversionQuotient.lean` | `compiledIndistinct_equivalence` |
 | `Lib/Editing/RealConversionQuotient.lean` | `kernel_equivalence` |
 | `Lib/Editing/RealEditCommute.lean` | `rowEdit_commute_of_orthogonal_support` |
 | `Lib/Editing/RealEditCommute.lean` | `same_row_orthogonal_keys_commute` |
+| `Lib/Editing/RealEditSymbolAgreement.lean` | `convert_extract_id` |
 | `Lib/Editing/RealEditToSymbol.lean` | `exists_symbol_same_function` |
 | `Lib/Editing/RealEditToSymbol.lean` | `exists_symbol_semantically_equivalent` |
+| `Lib/Editing/RealEditToSymbol.lean` | `roundtrip_convertVec_rfl` |
 | `Lib/Editing/RealExtractInvertibility.lean` | `tanh_strictMonoOn_Ici_zero` |
+| `Lib/Editing/RealExtractSurjectivity.lean` | `convertVec_extractVec_rfl` |
 | `Lib/Editing/RealRecoverBehavior.lean` | `recover_then_behavior_preserved` |
 | `Lib/Editing/RealRoundtripRat.lean` | `foldlQ_init_add` |
 | `Lib/Editing/RealSymbolToWeightWidened.lean` | `compileToLayer_append` |

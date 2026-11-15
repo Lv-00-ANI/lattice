@@ -4,6 +4,7 @@ import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Editing.RealCanonicalForm
+import Lattice.Runtime.ExtractionClosure
 /-!
 # LATTICE: 规范形与编译的「交换律」（缺口 B）—— 陈述的诊断与判定
 
@@ -152,8 +153,7 @@ theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVe
 注意 **两侧都只是字段重命名** ⟹ 往返在两个方向上**都是**定义恒等，
 故权重侧与符号侧在**对象层**上是**同一个记录类型换了字段名**。 -/
 theorem convertVec_extractVec_rfl (l : LinearLayer) : convertVec (extractVec l) = l := by
-  cases l with
-  | mk w b => rfl
+  exact Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
 
 /-! ## 二、注意 两条路径：定义 + 空洞性诊断（本文件的第一项交付） -/
 

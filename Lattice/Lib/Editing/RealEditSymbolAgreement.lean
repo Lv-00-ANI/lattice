@@ -3,6 +3,7 @@ import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.WeightToSymbolEquivalence
 import Lattice.Lib.Editing.RealConversionRobustness
+import Lattice.Runtime.ExtractionClosure
 /-!
 # LATTICE E-06：编辑与符号约束的**一致性**
 
@@ -134,8 +135,7 @@ theorem anyEditLayer_iff_true (W W' : LinearLayer) : AnyEditLayer W W' ↔ True 
 本文件**重新给出**是因为**不 import `_E-02`**（sibling 之间不互相 import，
 避免给 coordinator 的 roots 注册制造耦合）。 -/
 theorem convert_extract_id (l : LinearLayer) : convertVec (extractVec l) = l := by
-  cases l with
-  | mk w b => rfl
+  exact Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
 
 /-- **② 提取-往返是裸 `rfl`**：`extractVec (convertVec c) = c`。
 逐字引用既有 `roundtrip_extractVec`（证明体为 `cases c <;> rfl`）。 -/

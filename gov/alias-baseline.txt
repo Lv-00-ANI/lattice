@@ -101,14 +101,18 @@ copy	Lib/Convex/RealFarkas.lean	dotV_smul_left
 copy	Lib/Convex/RealFarkas.lean	dotV_smul_right
 copy	Lib/Convex/RealStrictConvexEquality.lean	eq_of_strictConcaveOn_combo_eq
 copy	Lib/Convex/RealStrictConvexEquality.lean	eq_of_strictConvexOn_combo_eq
+copy	Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl
 copy	Lib/Editing/RealConversionCategorical.lean	natTransform_compile
 copy	Lib/Editing/RealConversionQuotient.lean	compiledIndistinct_equivalence
 copy	Lib/Editing/RealConversionQuotient.lean	kernel_equivalence
 copy	Lib/Editing/RealEditCommute.lean	rowEdit_commute_of_orthogonal_support
 copy	Lib/Editing/RealEditCommute.lean	same_row_orthogonal_keys_commute
+copy	Lib/Editing/RealEditSymbolAgreement.lean	convert_extract_id
 copy	Lib/Editing/RealEditToSymbol.lean	exists_symbol_same_function
 copy	Lib/Editing/RealEditToSymbol.lean	exists_symbol_semantically_equivalent
+copy	Lib/Editing/RealEditToSymbol.lean	roundtrip_convertVec_rfl
 copy	Lib/Editing/RealExtractInvertibility.lean	tanh_strictMonoOn_Ici_zero
+copy	Lib/Editing/RealExtractSurjectivity.lean	convertVec_extractVec_rfl
 copy	Lib/Editing/RealRecoverBehavior.lean	recover_then_behavior_preserved
 copy	Lib/Editing/RealRoundtripRat.lean	foldlQ_init_add
 copy	Lib/Editing/RealSymbolToWeightWidened.lean	compileToLayer_append
@@ -525,6 +529,7 @@ forward	Lib/Convex/RealSubgradientExistence.lean	subdifferential_nonempty
 forward	Lib/Convex/RealSupportingHyperplane.lean	supporting_hyperplane_of_finite_convexHull
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_absorbs_scale_pos
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_scaleVec_sign_law
+forward	Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl
 forward	Lib/Editing/RealCanonicalForm.lean	canonicalize_idempotent
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3Norm_idem_apply
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3_failure_identifiable
@@ -562,10 +567,12 @@ forward	Lib/Editing/RealEditSemantics.lean	dot_zipWith_add
 forward	Lib/Editing/RealEditSemantics.lean	editSemantics_layer_bridge
 forward	Lib/Editing/RealEditSemantics.lean	editSemantics_layer_zero_iff
 forward	Lib/Editing/RealEditSymbolAgreement.lean	agreement_coeffDist_zero
+forward	Lib/Editing/RealEditSymbolAgreement.lean	convert_extract_id
 forward	Lib/Editing/RealEditSymbolAgreement.lean	extract_convert_id
 forward	Lib/Editing/RealEditToSymbol.lean	extractVec_blind_to_scale
 forward	Lib/Editing/RealEditToSymbol.lean	extractVec_mem_preimage
 forward	Lib/Editing/RealEditToSymbol.lean	preimage_eq_extractVec
+forward	Lib/Editing/RealEditToSymbol.lean	roundtrip_convertVec_rfl
 forward	Lib/Editing/RealEditToSymbol.lean	roundtrip_extractVec_rfl
 forward	Lib/Editing/RealEditToSymbol.lean	toSymbol_coeffDist_zero
 forward	Lib/Editing/RealEditVerdict.lean	edit_verdict_pass
@@ -579,6 +586,7 @@ forward	Lib/Editing/RealExtractInvertibility.lean	geluTanh_injOn_of_analytic
 forward	Lib/Editing/RealExtractInvertibility.lean	geluTanh_injOn_of_strictMono
 forward	Lib/Editing/RealExtractNonInjective.lean	convertVec_mem_fiber
 forward	Lib/Editing/RealExtractNonInjective.lean	r03_claim_is_false
+forward	Lib/Editing/RealExtractSurjectivity.lean	convertVec_extractVec_rfl
 forward	Lib/Editing/RealExtractSurjectivity.lean	extractVec_convertVec_rfl
 forward	Lib/Editing/RealExtractSurjectivity.lean	symbol_preimage_unique
 forward	Lib/Editing/RealExtractionDirection.lean	extract_drops_unterminated
