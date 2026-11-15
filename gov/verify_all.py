@@ -250,6 +250,7 @@ CHECKS = [
     ("meta: layer cycle does not grow", "check_layer_cycle.py"),
     ("meta: layer health invariants hold", "check_layer_health.py"),
     ("audit: duplicate short names bounded", "audit_duplicate_names.py --check"),
+    ("audit: no new duplicated STATEMENTS (not just names)", "audit_theorem_duplication.py --self-test"),
     ("audit: duplicate names classified, none accidental", "check_duplicate_classes.py --check"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
