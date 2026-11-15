@@ -64,6 +64,14 @@ COVERED = {
         "**The list-level arm is bound by `mem_cicCtxToConstraintSet_iff`: `v` is in the result iff some "
         "`t \u2208 ctx` maps to `v`** -- so a dropped term is a term that produced NO constraint, not a lost one. "
         "`cic_loop_reaches_weight` then proves the whole chain reaches the weight side."),
+    "Runtime/HopExpressiveness.lean": (
+        "partial decoder by design",
+        "`cicToLinear` translates a CIC term to a LINEAR constraint and adds two branches over "
+        "`cicToConstraint`: `app (.const k) (.var n)` becomes the coefficient vector `k \u00b7 e_n`, and "
+        "`letE` is transparent. **The wildcard arm is the honest-degradation arm.** It is PINNED by "
+        "`expressiveness_strictly_grows`, which exhibits a term the extension accepts and the original "
+        "rejects, and by `cicToLinear_extends`, which shows every old case is byte-identical. So the "
+        "boundary of the arm is a theorem, not an assumption."),
     "Runtime/CICToConstraint.lean": (
         "partial decoder by design",
         "`cicToConstraint` maps a CIC `Term` to a LINEAR constraint, and the CIC term space is "
