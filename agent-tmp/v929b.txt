@@ -1,0 +1,15 @@
+﻿  [ 1/103] gate                           ok         53.1s
+  [ 2/103] gate --selftest                ok          0.2s
+  [ 3/103] comments                       ok          3.7s
+  [ 4/103] registry                       ok          0.2s
+  [ 5/103] reactivity: gate               ok        283.3s
+  [ 6/103] reactivity: layering           ok        113.5s
+  [ 7/103] chain dependencies             ok          0.5s
+  [ 8/103] repair census                  ok          0.5s
+  [ 9/103] refutation census              ok          1.7s
+  [10/103] chain table                    ok          0.7s
+  [11/103] reactivity: slots              ok         13.8s
+  [12/103] reactivity: comments           ok         13.8s
+  [13/103] reactivity: I8 gate            ok        270.0s
+  [14/103] reactivity: registry           ok          0.9s
+  [15/103] reactivity: registry-gate      ok        143.5s

@@ -93,6 +93,7 @@ import Lattice.Runtime.StructuredInit
 import Lattice.Runtime.HopExpressiveness
 import Lattice.Runtime.MultiVariable
 import Lattice.Runtime.DotDistrib
+import Lattice.Runtime.FoldlSum
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）
