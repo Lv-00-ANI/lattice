@@ -40,6 +40,7 @@ import Lattice.Lib.Compiler.ReversibilityCriterion
 import Lattice.Lib.Compiler.ReversibilityInstances
 import Lattice.Lib.Compiler.LowerBound
 import Lattice.Lib.Compiler.LowerBoundGeneral
+import Lattice.Lib.Compiler.PolynomialLowerBound
 /-!
 # Lattice.Lib -- harvested instances
 
