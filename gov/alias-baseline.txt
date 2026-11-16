@@ -210,6 +210,7 @@ forward	Core/RepairModule/RepairBridge.lean	converges
 forward	Evidence/MultiComposition.lean	chain_single
 forward	Evidence/MultiComposition.lean	chain_two
 forward	Evidence/PredicateWitnesses.lean	isometryScalar_id
+forward	G4Probe.lean	probe_downstream
 forward	Lib/Architectures/RealBatchNorm.lean	infer_bn_slope_intercept
 forward	Lib/Architectures/RealComplexNorm.lean	complexNormSq_nonneg
 forward	Lib/Architectures/RealEmbedding.lean	oneHot_represents_token

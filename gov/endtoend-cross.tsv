@@ -1,4 +1,6 @@
 # theorems touching >= 2 layers BY CONTENT -- written by check_endtoend_content.py
+G4Probe.lean	probeEmbedding_exact
+G4Probe.lean	probe_downstream
 Plugins.lean	proofRegistry_penalty_mem
 Plugins.lean	proofRegistry_repair_mem
 Plugins.lean	proofRegistry_tokens_mem
@@ -1912,6 +1914,8 @@ Lib/Compiler/ReversibilityInstances.lean	relu_not_injective
 Lib/Compiler/ReversibilityInstances.lean	relu_irreversible_by_criterion
 Lib/Compiler/ReversibilityInstances.lean	one_criterion_two_outcomes
 Lib/Compiler/ReversibilityLimit.lean	relu_not_reversible
+Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
+Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_neg
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_iff
