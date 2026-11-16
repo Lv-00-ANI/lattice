@@ -6,7 +6,6 @@
 #       corrected earlier and is recorded in RealActClass.lean:83-85 and RealSwiGLU.lean:30-32.
 #          accidental (a defect) -- none recorded.
 # Generated at round 924 from a measurement of the tree.
-
 AllSatisfied	intended	recurs in 2 file(s) across 2 directory(ies)
 AllZeroOutputs	intended	recurs in 2 file(s) across 2 directory(ies)
 Arch	intended	recurs in 2 file(s) across 1 directory(ies)
@@ -316,3 +315,4 @@ vecSat	intended	recurs in 2 file(s) across 1 directory(ies)
 verified	intended	recurs in 11 file(s) across 11 directory(ies)
 verified_manifest	intended	recurs in 11 file(s) across 11 directory(ies)
 verified_obligations	intended	recurs in 11 file(s) across 11 directory(ies)
+reversibility_criterion	intended	ONE definition at Lib/Compiler/ReversibilityCriterion.lean:95; the second occurrence is the documentation table inside the same file naming the theorem it documents

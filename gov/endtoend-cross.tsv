@@ -1896,6 +1896,11 @@ Lib/Compiler/ReversibilityCriterion.lean	reversible_needs_injective
 Lib/Compiler/ReversibilityCriterion.lean	injective_gives_extract
 Lib/Compiler/ReversibilityCriterion.lean	reversibility_criterion
 Lib/Compiler/ReversibilityCriterion.lean	not_injective_gives_no_extract
+Lib/Compiler/ReversibilityInstances.lean	linear_injective
+Lib/Compiler/ReversibilityInstances.lean	linear_reversible_by_criterion
+Lib/Compiler/ReversibilityInstances.lean	relu_not_injective
+Lib/Compiler/ReversibilityInstances.lean	relu_irreversible_by_criterion
+Lib/Compiler/ReversibilityInstances.lean	one_criterion_two_outcomes
 Lib/Compiler/ReversibilityLimit.lean	relu_not_reversible
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_neg
