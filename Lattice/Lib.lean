@@ -38,6 +38,7 @@ import Lattice.Lib.Compiler.ReversibilityLimit
 import Lattice.Lib.Compiler.NoIntermediateLayer
 import Lattice.Lib.Compiler.ReversibilityCriterion
 import Lattice.Lib.Compiler.ReversibilityInstances
+import Lattice.Lib.Compiler.LowerBound
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -428,6 +428,7 @@ forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify
 forward	Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
 forward	Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
+forward	Lib/Compiler/LowerBound.lean	target_not_attainable
 forward	Lib/Compiler/ModConstraint.lean	dvd_sub_int
 forward	Lib/Compiler/RealAbstractInterpretation.lean	bestAbstract_le_of_sound
 forward	Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le_of_fixed

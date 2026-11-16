@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 722 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 723 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -294,6 +294,7 @@
 | `Lib/Compiler/CarrierReproduction.lean` | `carrier_implies_verify` |
 | `Lib/Compiler/Expressiveness.lean` | `linear_strictly_weaker_than_relu` |
 | `Lib/Compiler/Expressiveness.lean` | `relu_expresses_inequality` |
+| `Lib/Compiler/LowerBound.lean` | `target_not_attainable` |
 | `Lib/Compiler/ModConstraint.lean` | `dvd_sub_int` |
 | `Lib/Compiler/RealAbstractInterpretation.lean` | `bestAbstract_le_of_sound` |
 | `Lib/Compiler/RealAbstractInterpretation.lean` | `fixpoint_transfer_le_of_fixed` |
