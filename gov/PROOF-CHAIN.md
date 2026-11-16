@@ -1454,7 +1454,7 @@
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
 | `Lattice.Lib.Compiler.ModConstraint` | 13 | 3 |
 | `Lattice.Lib.Compiler.NoIntermediateLayer` | 4 | 0 |
-| `Lattice.Lib.Compiler.NonlinearApproximation` | 4 | 0 |
+| `Lattice.Lib.Compiler.NonlinearApproximation` | 6 | 0 |
 | `Lattice.Lib.Compiler.PolynomialLowerBound` | 3 | 0 |
 | `Lattice.Lib.Compiler.RealAbstractInterpretation` | 41 | 12 |
 | `Lattice.Lib.Compiler.RealBetaConfluence` | 28 | 6 |
@@ -3428,8 +3428,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `choice_sound` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
 - `choice_strength` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
 - `chord_bound_symm_measure` -> `at`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `mono`, `trans`
-- `chord_deviation` -> `Compiler`, `target_not_attainable`
-- `chord_error_bound` -> `Compiler`, `target_not_attainable`
+- `chord_deviation` -> `Compiler`, `at`, `target_not_attainable`
+- `chord_error_bound` -> `Compiler`, `at`, `target_not_attainable`
 - `chord_exp_le_cosh_sinh` -> `apply`, `at`, `card_fin`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `chord_hull` -> `add`, `at`, `div_const`, `le`, `mono`, `trans`
 - `chord_hull_abs` -> `add`, `at`, `div_const`, `le`, `mono`, `trans`
@@ -6862,7 +6862,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `linear_constraint_is_equality` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`, `reluCompile`, `reluCompile_preserves`
 - `linear_converges` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Repair`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `progress`, `residual`
 - `linear_converges_in_one` -> `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `exact_implies_sound`, `iterate`, `loss`, `residual`
-- `linear_floor_vs_chord_scaling` -> `Compiler`, `target_not_attainable`
+- `linear_floor_vs_chord_scaling` -> `Compiler`, `at`, `target_not_attainable`
 - `linear_injective` -> `Compiler`, `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_bijective`, `extract`, `not_injective_gives_no_extract`, `reluCompile`, `reluCompile_collapses_ne`, `relu_not_injective`, `reversibility_criterion`
 - `linear_interpolation_bound` -> `Point2R`, `apply`, `blockDot`, `blockRotate`, `block_rope_relative_preserves_dot`, `d`, `le_trans`, `rdot`, `rotateR`
 - `linear_lr_not_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
@@ -7802,6 +7802,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nonlinear_layer_zero_iff` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `act`, `at`, `convertVec`, `convertVec_preserves_semantics`
 - `nonlinear_soundness_local` -> `ApproxOn`, `le_antisymm`
 - `nonlinear_soundness_local_exact` -> `ApproxOn`, `le_antisymm`
+- `nonlinear_strictly_better` -> `Compiler`, `target_not_attainable`
 - `nonneg_is_square` -> `at`, `eval`, `le`, `trans`
 - `nonothing_open` -> `length`
 - `nonpos_set_never_empty` -> `at`, `d`, `dotV`, `le`, `smul`
@@ -8735,6 +8736,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quantized_two_layer_error` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `linear_map_lipschitz`, `zero`
 - `quantized_two_layer_error_add` -> `ChainFwd`, `E`, `W`, `apply`, `d`, `induction`, `insert`, `le_trans`, `zero`
 - `quantized_uniform_error` -> `E`, `W`, `d`, `le_trans`
+- `quarter_inv_sq_tends_to_zero` -> `Compiler`, `at`, `target_not_attainable`
 - `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `value`
 - `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
 - `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
@@ -9058,7 +9060,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `relu_irreversible_by_criterion` -> `Compiler`, `LinearLayer`, `VectorConstraint`, `convertVec`, `extract`, `not_injective_gives_no_extract`, `reluCompile`, `relu_not_injective`
 - `relu_isLipschitz` -> `Instr`, `W`, `applyInstr`, `le_trans`, `relu`
 - `relu_is_gated` -> `E`, `SoftMasked`, `W`, `apply`, `g`, `geluSoftMask`, `geluTanh`, `gelu_is_soft_masked`, `hardSigmoid_bounds`, `hardSwish`, `relu`, `reluSoftMask`, `relu_is_soft_masked`, `sigmoid`, `sigmoid_bounds`, `silu`, `swiglu`
-- `relu_is_max` -> `Compiler`, `relu`, `target_not_attainable`
+- `relu_is_max` -> `Compiler`, `at`, `relu`, `target_not_attainable`
 - `relu_is_soft_masked` -> `W`, `apply`, `relu`
 - `relu_key_values` -> `Activation`, `AffineLayer`, `at`, `le_refl`, `map`, `netAct`, `relu`
 - `relu_le_abs` -> `Subgradient`, `relu`, `relu_subgradient_positive`, `subst`

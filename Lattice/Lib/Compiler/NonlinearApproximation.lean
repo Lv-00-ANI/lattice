@@ -91,4 +91,40 @@ theorem linear_floor_vs_chord_scaling :
         |x ^ 2 - (a * x + (a + h) * x - a * (a + h))| ≤ h ^ 2 / 4) :=
   ⟨Lattice.Lib.Compiler.LowerBound.target_not_attainable, chord_error_bound⟩
 
+/-- **⭐⭐⭐ `1/(4n²)` 可任意小。**
+
+**=> 对任意 `ε > 0`，存在 `n ≥ 1` 使 `1/(4n²) ≤ ε`。**
+
+**=> 证明先证**乘法形式** `1 ≤ ε·(4n²)`，再用 `div_le_iff₀` 的 `mpr` 方向收尾。
+关键是 `push_cast`（第 948 轮在这里失败六次）。** -/
+theorem quarter_inv_sq_tends_to_zero :
+    ∀ ε > 0, ∃ n : ℕ, 1 ≤ n ∧ (1 : ℝ) / (4 * (n : ℝ) ^ 2) ≤ ε := by
+  intro ε hε
+  obtain ⟨m, hm⟩ := exists_nat_gt (1 / (4 * ε))
+  refine ⟨m + 1, by omega, ?_⟩
+  have h4 : (0 : ℝ) < 4 * ε := by positivity
+  have hm1 : (0 : ℝ) < (m : ℝ) + 1 := by positivity
+  have hlt : 1 / (4 * ε) < (m : ℝ) + 1 := by linarith [hm]
+  have hcross : (1 : ℝ) < 4 * ε * ((m : ℝ) + 1) := by
+    have h := hlt
+    rw [div_lt_iff₀ h4] at h
+    linarith
+  have hsqq : ((m : ℝ) + 1) ≤ (((m : ℝ) + 1)) ^ 2 := by nlinarith
+  have hfin : 4 * ε * ((m : ℝ) + 1) ≤ 4 * ε * (((m : ℝ) + 1)) ^ 2 := by
+    have hnn : (0 : ℝ) ≤ 4 * ε := le_of_lt h4
+    nlinarith [hsqq]
+  have hgoal : (1 : ℝ) ≤ ε * (4 * (((m : ℝ) + 1)) ^ 2) := by linarith
+  have hpos : (0 : ℝ) < 4 * (((m : ℝ) + 1)) ^ 2 := by positivity
+  push_cast at hgoal ⊢
+  exact (div_le_iff₀ hpos).mpr hgoal
+
+/-- **⭐⭐⭐ 非线性严格更强（完整形式）。**
+
+**=> 合取：线性族有 `1/8` 地板，而分段线性族的误差 `1/(4n²)` 可任意小。** -/
+theorem nonlinear_strictly_better :
+    (∀ a b : ℝ, ∃ x ∈ Set.Icc (0 : ℝ) 1, 1 / 8 ≤ |x ^ 2 - (a * x + b)|) ∧
+      (∀ ε > 0, ∃ n : ℕ, 1 ≤ n ∧ (1 : ℝ) / (4 * (n : ℝ) ^ 2) ≤ ε) :=
+  ⟨Lattice.Lib.Compiler.LowerBound.target_not_attainable, quarter_inv_sq_tends_to_zero⟩
+
 end Lattice.Lib.Compiler.NonlinearApproximation
+
