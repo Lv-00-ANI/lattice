@@ -41,11 +41,24 @@ RECORD = os.path.join(ZERO, "gov", "theorem-duplication.txt")
 # `manifest_no_<claim>` in every Plugin/*/Manifest.lean asserts a DIFFERENT `manifest`. Merging them would make
 # one plugin prove another plugin's manifest -- a semantic error, not a consolidation. Recorded, not silently
 # dropped: they still show in the report so a future round can re-decide.
+# Statements whose CONCLUSION repeats but whose PROOF PATH carries independent content: the proof goes THROUGH an
+# abstraction (e.g. `Carrier.criterion`) and thereby establishes that the abstraction is complete. Replacing it by
+# `exact <concrete>` would keep the conclusion and LOSE the structural fact. Classified `bridge`, not merged.
+BRIDGE_MARKERS = ("Carrier.criterion", "Carrier.", "criterion ")
+
 EXEMPT_NAME_PREFIX = (
     "manifest_no_",
     # `verified.manifest.obligations.length = N` -- N differs per plugin (3,4,6,7,7,8,10,11,12) and `verified`
     # is a DIFFERENT object in each. Constant difference AND semantic difference => pseudoisomorphic.
     "verified_obligations",
+    # `fderiv_apply_direction` / `_scalar` / `_vector` / `_fin`: the SAME lemma instantiated at DIFFERENT spaces
+    # (general `E`, `E = ℝ`, `Fin k → ℝ`). The binder TYPE differs, which the normalisation erases. Kept separate
+    # because each instantiation is a different theorem about a different space.
+    "fderiv_apply_direction",
+    # `hoeffding_*`: the SAME concentration bound with DIFFERENT HYPOTHESIS SETS -- `hbdd + hmean` at the
+    # concrete layer vs `hcoord` (the mgf bound) at the intermediate layer. The CONCLUSION is identical, the
+    # PREMISES are not. These are two abstractions of one result, not duplication.
+    "hoeffding_",
 )
 
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
@@ -122,6 +135,8 @@ def scan():
                     kind = "alias"   # `:= someExistingTheorem args` with no tactic block
                 elif re.search(r"by\s*cases\b.*rfl", body) or re.search(r"by\s*rfl", body):
                     kind = "rfl"          # definitional roundtrip, no shared authority
+                elif any(m in body for m in BRIDGE_MARKERS):
+                    kind = "bridge"      # proves through an abstraction; the path IS the content
                 else:
                     kind = "independent"
                 if len(key) > 40:  # ignore trivialities
@@ -144,6 +159,7 @@ def main(argv):
         return 0
     print("THEOREM DUPLICATION: %d candidate statement group(s), %d extra site(s)" % (len(dups), total))
     indep = 0
+    bridges = 0
     exempt = 0
     for key, sites in dups.items():
         if all(n.startswith(EXEMPT_NAME_PREFIX) for (_f, n, _k) in sites):
@@ -152,8 +168,11 @@ def main(argv):
         kinds = set(k for (_f, _n, k) in sites)
         if "independent" in kinds:
             indep += 1
+        elif "bridge" in kinds:
+            bridges += 1
     print("  of which have at least one INDEPENDENT proof (the real signal): %d group(s)" % indep)
     print("  exempt as pseudoisomorphic (different `manifest` object): %d group(s)" % exempt)
+    print("  bridge groups (same conclusion, proof path is the content): %d group(s)" % bridges)
     for key, sites in sorted(dups.items(), key=lambda kv: -len(kv[1]))[:6]:
         kinds = collections.Counter(k for (_f, _n, k) in sites)
         print("  %d sites  %s" % (len(sites), dict(kinds)))
