@@ -50,7 +50,9 @@ EXEMPT_NAME_PREFIX = (
 
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
 # Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
-BASELINE = 143   # round 938: 143 sites, but INDEPENDENT groups 116 -> 107
+BASELINE = 192   # sites; INDEPENDENT-proof groups: 119 after round 940's classifier fixes   # round 940: the conclusion extraction was TRUNCATED at the binder group's first ':'
+#               so multi-line statements were compared only on their LEFT half. Fixing it raised the true
+#               count from 143 to 192 -- the earlier numbers were UNDER-measurements, not improvements.
 
 # A statement spans the `theorem name ... :` line plus following indented lines up to `:=` or `by`.
 THEOREM = re.compile(r"^\s*(?:private\s+|protected\s+|noncomputable\s+)*(theorem|lemma)\s+"
@@ -94,15 +96,20 @@ def scan():
                 # collect the statement until a line containing ':=' or 'by' at depth 0
                 chunk = []
                 j = i
-                while j < len(lines) and j < i + 25:
+                while j < len(lines) and j < i + 30:
                     chunk.append(lines[j])
                     s = lines[j]
-                    if ":=" in s or re.search(r"\bby\b", s):
+                    # stop only at the PROOF INTRODUCER, never at a bare '='
+                    if ":=" in s or s.rstrip().endswith(" by") or s.strip() == "by":
                         break
                     j += 1
                 stmt = " ".join(chunk)
-                # take the part after the last ':' that starts the conclusion
-                if ":" in stmt:
+                # drop only the DECLARATION HEADER: `theorem <name>` plus its binder group.
+                # The conclusion is what follows the binder group's closing `) :`, NOT the first ':'.
+                mm = re.match(r".*?\)\s*:", stmt, re.S)
+                if mm:
+                    stmt = stmt[mm.end():]
+                elif ":" in stmt:
                     stmt = stmt.split(":", 1)[1]
                 key = normalise(stmt)
                 # classify the PROOF: an alias delegates, an independent proof does the work again
@@ -110,6 +117,9 @@ def scan():
                 # an ALIAS delegates: `:= exact Some.Namespaced.name ...` (possibly after `by`)
                 if re.search(r"Lattice\.[\w.]*\w+\s+\w", body) or re.search(r"exact\s+Lattice\.", body):
                     kind = "alias"
+                elif "by" not in body and "rfl" not in body and re.search(
+                        r":=\s*\n?\s*[a-z_][\w.]*\s", body):
+                    kind = "alias"   # `:= someExistingTheorem args` with no tactic block
                 elif re.search(r"by\s*cases\b.*rfl", body) or re.search(r"by\s*rfl", body):
                     kind = "rfl"          # definitional roundtrip, no shared authority
                 else:
