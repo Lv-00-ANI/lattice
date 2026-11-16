@@ -46,6 +46,7 @@ import Lattice.Lib.Compiler.NonlinearApproximation
 import Lattice.Lib.Compiler.HopVerdict
 import Lattice.Lib.Compiler.ConvergenceForm
 import Lattice.Lib.Compiler.WeightSequence
+import Lattice.Lib.Compiler.ConstraintSatisfaction
 /-!
 # Lattice.Lib -- harvested instances
 

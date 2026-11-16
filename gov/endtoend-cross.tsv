@@ -1483,6 +1483,8 @@ Lib/Compiler/CombinatorsXorNot.lean	xorC_eq_zero_iff_pair
 Lib/Compiler/CombinatorsXorNot.lean	xorC_zero_set_is_isolated
 Lib/Compiler/CombinatorsXorNot.lean	notC_eq_xorC_zero
 Lib/Compiler/CombinatorsXorNot.lean	notC_zero_iff_xorC_zero_zero
+Lib/Compiler/ConstraintSatisfaction.lean	R3_is_reachability
+Lib/Compiler/ConstraintSatisfaction.lean	four_readings_resolved
 Lib/Compiler/ConvergenceForm.lean	r1_fails_r2_holds
 Lib/Compiler/DataSynthesis.lean	samples_sound
 Lib/Compiler/DataSynthesis.lean	synthesize_from_satisfying
