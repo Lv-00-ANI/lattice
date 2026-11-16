@@ -44,6 +44,7 @@ import Lattice.Lib.Compiler.PolynomialLowerBound
 import Lattice.Lib.Compiler.CarrierApproximation
 import Lattice.Lib.Compiler.NonlinearApproximation
 import Lattice.Lib.Compiler.HopVerdict
+import Lattice.Lib.Compiler.ConvergenceForm
 /-!
 # Lattice.Lib -- harvested instances
 

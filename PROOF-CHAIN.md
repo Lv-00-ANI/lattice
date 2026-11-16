@@ -25,7 +25,7 @@
 | 端到端：数据 → 权重 | `data_to_weight_iff` | `Lattice/Runtime/EndToEndComposite.lean` | 数据的约束全部成立 ⟺ 权重层输出全为零 | 9 |
 | 回路闭合（既有） | `verification_loop_closes_holds` | `Lattice/Runtime/VerificationLoop.lean` | 修复回路闭合 | 3 |
 | 表达力：线性严格弱于非线性 | `linear_strictly_weaker_than_relu` | `Lattice/Lib/Compiler/Expressiveness.lean` | 线性载体覆盖等式子类；relu 侧的非等式解确实存在 | 1 |
-| 抽象：载体无关的判据 | `criterion` | `Lattice/Lib/Compiler/CarrierClosure.lean` | 任何载体上：约束成立 ⟺ 编译输出为零（两条义务的合取） | 100 |
+| 抽象：载体无关的判据 | `criterion` | `Lattice/Lib/Compiler/CarrierClosure.lean` | 任何载体上：约束成立 ⟺ 编译输出为零（两条义务的合取） | 102 |
 | 抽象：三个独立载体共享闭环 | `three_carriers_share_loop` | `Lattice/Lib/Compiler/CarrierCoverage.lean` | 线性（列表+层）、relu（实数）、sign（实数）三个独立载体共用同一判据 | 1 |
 | 抽象覆盖全链 | `carrier_covers_whole_chain` | `Lattice/Lib/Compiler/CarrierReproduction.lean` | 编译、验证、修正三段都是 Carrier 的形状或其特化 | 1 |
 
