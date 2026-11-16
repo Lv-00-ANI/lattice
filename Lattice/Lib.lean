@@ -36,6 +36,7 @@ import Lattice.Lib.Compiler.CarrierInstantiation
 import Lattice.Lib.Compiler.ReluLemmas
 import Lattice.Lib.Compiler.ReversibilityLimit
 import Lattice.Lib.Compiler.NoIntermediateLayer
+import Lattice.Lib.Compiler.ReversibilityCriterion
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 637 | instantiated library, may import core only |
+| lib | 638 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -436,6 +436,7 @@
 - `Lattice.Lib.Compiler.RealWhileTotalCorrectness` <- `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Compiler.RealWP`
 - `Lattice.Lib.Compiler.ReluClosure` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Compiler.ReluLemmas` <- `Lattice.Lib.Compiler.RealNonlinearCompile`
+- `Lattice.Lib.Compiler.ReversibilityCriterion` <- `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.ReversibilityLimit`
 - `Lattice.Lib.Compiler.ReversibilityLimit` <- `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Concentration` <- `Lattice.Lib.Concentration.RealAzuma`, `Lattice.Lib.Concentration.RealAzumaMartingale`, `Lattice.Lib.Concentration.RealBennett`, `Lattice.Lib.Concentration.RealBernstein`, `Lattice.Lib.Concentration.RealBernsteinCondition`, `Lattice.Lib.Concentration.RealChernoff`, `Lattice.Lib.Concentration.RealConcentrationDuality`, `Lattice.Lib.Concentration.RealDataProcessingMeasure`, `Lattice.Lib.Concentration.RealDoobInequality`, `Lattice.Lib.Concentration.RealEYM`, `Lattice.Lib.Concentration.RealEditOrder`, `Lattice.Lib.Concentration.RealEfronStein`, `Lattice.Lib.Concentration.RealFiltrationIteration`, `Lattice.Lib.Concentration.RealHoeffding`, `Lattice.Lib.Concentration.RealHoeffdingInequality`, `Lattice.Lib.Concentration.RealHoeffdingLemmaMeasure`, `Lattice.Lib.Concentration.RealHoeffdingMeasure`, `Lattice.Lib.Concentration.RealHoeffdingMeasureGeneral`, `Lattice.Lib.Concentration.RealItoCalculus`, `Lattice.Lib.Concentration.RealJensenGeneral`, `Lattice.Lib.Concentration.RealMarkovChainMixing`, `Lattice.Lib.Concentration.RealMartingaleChain`, `Lattice.Lib.Concentration.RealMartingaleConcentration`, `Lattice.Lib.Concentration.RealMartingaleOptionalStopping`, `Lattice.Lib.Concentration.RealMcDiarmid`, `Lattice.Lib.Concentration.RealMcDiarmidMeasure`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Concentration.RealMeasureTheoryBase`, `Lattice.Lib.Concentration.RealOptionalStopping`, `Lattice.Lib.Concentration.RealRademacher`, `Lattice.Lib.Concentration.RealSDE`, `Lattice.Lib.Concentration.RealStochasticControl`, `Lattice.Lib.Concentration.RealStochasticProcess`, `Lattice.Lib.Concentration.RealSubExponentialTail`, `Lattice.Lib.Concentration.RealTalagrandConcentration`, `Lattice.Lib.Concentration.RealUnionBound`, `Lattice.Lib.Concentration.RealUnionBoundTightness`
 - `Lattice.Lib.Concentration.RealAzuma` <- `Lattice.Lib.Concentration.RealHoeffding`
@@ -858,7 +859,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1488,6 +1489,7 @@
 | `Lattice.Lib.Compiler.RealWhileTotalCorrectness` | 14 | 8 |
 | `Lattice.Lib.Compiler.ReluClosure` | 6 | 0 |
 | `Lattice.Lib.Compiler.ReluLemmas` | 9 | 0 |
+| `Lattice.Lib.Compiler.ReversibilityCriterion` | 4 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityLimit` | 1 | 0 |
 | `Lattice.Lib.Concentration` | 0 | 0 |
 | `Lattice.Lib.Concentration.RealAzuma` | 7 | 1 |
@@ -6241,6 +6243,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `inject_extract_closed` -> `VectorConstraint`, `convertVec`, `extractVec`, `roundtrip_extractVec`
 - `inject_then_verify` -> `ExtractionValidVec`, `VectorConstraint`, `at`, `convertVec`, `extractVec`, `extractVec_is_valid`, `roundtrip_extractVec`
 - `injection_is_load_bearing` -> `Beh`, `Layer`, `SymToken`, `g`, `recover`
+- `injective_gives_extract` -> `Compiler`, `W`, `compile`, `extract`
 - `injective_not_complete_behavioral_invariant` -> `Layer`, `SymToken`, `at`, `g`
 - `injective_of_zeroFixing_sufficient` -> `ZeroFixing`, `ZeroFixingR`, `act`, `at`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`, `tanh_pos_of_pos`, `trans`
 - `injectivity_needs_the_inverse` -> `ConstraintSet`, `Layer`, `LinearLayer`, `VectorConstraint`, `at`, `compileToLayer`, `compileToLayer_injective`, `convertVec`, `convertVec_extractVec_rfl`, `extractLayer`, `extractVec`, `extractVec_convertVec_rfl`, `g`, `map`, `reinject_roundtrip`, `roundtrip_extractVec`, `trans`
@@ -7873,6 +7876,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `not_holds_eqZero_const_one` -> `ConstraintSet`, `ExpressibleSpec`, `FamilySolver`, `Holds`, `HoldsSet`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `not_holds_gtZero_const_of_eval_zero` -> `DegenerateOK`, `Holds`, `Pt`, `holds_of_degenerateOK`
 - `not_informationTheory_orig` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
+- `not_injective_gives_no_extract` -> `Compiler`, `W`, `compile`, `extract`
 - `not_injective_of_ignored_argument` -> `LinearLayer`, `extractVec`
 - `not_injective_of_lt` -> `all`, `at`, `bvar`, `induction`, `subst`
 - `not_injective_of_witness` -> `LayerOut`, `LinearConstraint`, `LinearLayer`, `LinearNeuron`, `RealConstraint`, `RealNeuron`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convert`, `convertReal`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `relu`, `relu_neg_eq_relu_zero`, `relu_not_injective`, `scaleVec`, `scaleVec_ne_self_two`, `scaleVec_preserves`, `trans`
@@ -9161,9 +9165,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `retainedSum_eq_card_mul_slotCount` -> `trans`
 - `retainedSum_eq_sum_slotCount` -> `trans`
 - `reversibility_boundary` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
+- `reversibility_criterion` -> `Compiler`, `W`, `compile`, `extract`
 - `reversibility_depends_on_representation` -> `BehaviourallyEquivalent`
 - `reversibility_is_layered` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `at`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
 - `reversibility_spectrum` -> `BehaviourallyEquivalent`, `LayerParams`, `W`, `layer_act_injective`
+- `reversible_needs_injective` -> `Compiler`, `W`, `at`, `compile`, `extract`
 - `reward_diff_equiv_iff_sub_const` -> `induction`, `zero`
 - `reward_diff_equiv_of_add_const` -> `induction`, `zero`
 - `rewritable_lam` -> `Level`, `SortKind`, `Term`
