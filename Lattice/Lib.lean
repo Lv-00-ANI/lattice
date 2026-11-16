@@ -42,6 +42,7 @@ import Lattice.Lib.Compiler.LowerBound
 import Lattice.Lib.Compiler.LowerBoundGeneral
 import Lattice.Lib.Compiler.PolynomialLowerBound
 import Lattice.Lib.Compiler.CarrierApproximation
+import Lattice.Lib.Compiler.NonlinearApproximation
 /-!
 # Lattice.Lib -- harvested instances
 

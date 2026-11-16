@@ -1500,6 +1500,8 @@ Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
 Lib/Compiler/NoIntermediateLayer.lean	constraint_is_weight_spelling
+Lib/Compiler/NonlinearApproximation.lean	relu_is_max
+Lib/Compiler/NonlinearApproximation.lean	linear_floor_vs_chord_scaling
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le_of_fixed
