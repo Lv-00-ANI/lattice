@@ -7,11 +7,11 @@
 
 ## 1. 数量与分布
 
-**357 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
+**358 条**否定结论：`theorem`/`lemma` 级，且**结论类型**以 `¬` / `not` / `→ False` 开头。（第 265 轮几何层归档后由 342 降至 336：归档的 6 条反例移出主线统计。）
 
 | 层 | 条数 | 占比 |
 |:--|--:|--:|
-| `Lib` | 247 | 85.3% |
+| `Lib` | 248 | 85.3% |
 | `Lift` | 0 | 0.0% |
 | `Runtime` | 13 | 3.2% |
 | `Domains` | **0** | 1.9% |
@@ -296,13 +296,13 @@
 
 **第 802 轮**：新增 2 条（`canonical_not_app`、`canonical_not_letE`），故 `Core` 由 38 升为 40、总数由 350 升为 352。
 
-**第 804 轮**：新增 3 条（`totalEnv_ne_empty`、`const_no_step_empty`、`const_app_cannot_step`），故 `Core` 由 40 升为 43、总数由 352 升为 357。
+**第 804 轮**：新增 3 条（`totalEnv_ne_empty`、`const_no_step_empty`、`const_app_cannot_step`），故 `Core` 由 40 升为 43、总数由 352 升为 358。
 
-**第 805 轮**：新增 1 条（`no_const_typed`），故 `Core` 由 43 升为 44、总数由 357 升为 357。
+**第 805 轮**：新增 1 条（`no_const_typed`），故 `Core` 由 43 升为 44、总数由 358 升为 358。
 
-**第 807 轮**：新增 1 条（`var_does_not_step`），故 `Core` 由 44 升为 45、总数由 357 升为 357。
+**第 807 轮**：新增 1 条（`var_does_not_step`），故 `Core` 由 44 升为 45、总数由 358 升为 358。
 
-**第 810 轮**：新增 1 条（`piShapeR_sort_false`），故 `Core` 由 45 升为 46、总数由 357 升为 358。
+**第 810 轮**：新增 1 条（`piShapeR_sort_false`），故 `Core` 由 45 升为 46、总数由 358 升为 358。
 
 **第 814 轮**：新增 1 条（`hasTypeW_no_const`），故 `Core` 由 46 升为 47、总数由 358 升为 359。
 

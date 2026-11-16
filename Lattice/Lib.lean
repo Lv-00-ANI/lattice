@@ -48,6 +48,7 @@ import Lattice.Lib.Compiler.ConvergenceForm
 import Lattice.Lib.Compiler.WeightSequence
 import Lattice.Lib.Compiler.ConstraintSatisfaction
 import Lattice.Lib.Compiler.PiecewiseWeights
+import Lattice.Lib.Compiler.R3Triviality
 /-!
 # Lattice.Lib -- harvested instances
 
