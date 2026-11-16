@@ -63,21 +63,21 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9682 | 1359 | 14.0% |
-| **入度 ≥ 1（承重集）** | **1021** | **1021** | **100.0%** |
-| **入度 = 0** | **8661** | **391** | **4.5%** |
+| 定理 + 引理 | 9684 | 1361 | 14.1% |
+| **入度 ≥ 1（承重集）** | **1023** | **1023** | **100.0%** |
+| **入度 = 0** | **8661** | **392** | **4.5%** |
 
 **两个方向都要读；只读一个是误导。**
 
-- **承重集 100.0% 覆盖**：974 条被下游真正消费的定理里审了 974 条。
+- **承重集 100.0% 覆盖**：1023 条被下游真正消费的定理里审了 1023 条。
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
-- **零入度只有 4.5%**：8644 条入度为 0 的定理里审了 382 条。**这才是「样本」真正指的东西。**
+- **零入度只有 4.5%**：8661 条入度为 0 的定理里审了 392 条。**这才是「样本」真正指的东西。**
 
 ### 承重集**已全部审阅**
 
-| **入度 ≥ 1（承重集）** | **1021** | **1021** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **1023** | **1023** | **100.0%** |
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -87,7 +87,7 @@
 
 ### 零入度的抽样协议（第 27 轮写下）
 
-**8644 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
+**8661 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
 
 **抽样的依据**：过去的审阅按「旧的有缺陷的入度」选第一层，因此其中约三百多条
 实际入度为 0——**它们不是为「零入度」抽的样，而是为「高价值」抽的样，事后发现落在零入度里。**
@@ -160,8 +160,8 @@
 > **本段此前写死了四个数字（1,360 / 839 / 521 / 7,587），而它们早已与树脱节。**
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
-| **入度 ≥ 1（承重集）** | **1021** | **1021** | **100.0%** |
-> **零入度：8644 条，已抽审 382 条。**
+| **入度 ≥ 1（承重集）** | **1023** | **1023** | **100.0%** |
+> **零入度：8645 条，已抽审 382 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
 ## 一、`delete`：陈述无信息量
@@ -263,7 +263,7 @@
 | `Lib/Chain/RealLv00AxiomDischargeClosure.lean:91` | `dependenciesClosed_mono` | 1 | 登记理由：同名同义的定理在 Lattice.Lv00.AxiomDischarge / AxiomPackages / AxiomDischargeJia 三个命名空间各有一份，且各自定义了自己的 AxiomPackageInstance / PackageDependenciesClosed；三处签名已漂移（`∀ n, n ∈ extra → …` vs `∀ n ∈ extra, …`）。这是「同一语义多处实现」的典型，登记待收敛。 |
 | `Lib/Compiler/RealWhileTotalCorrectness.lean:215` | `triple_iff_wpT` | 1 | register：定义展开冒充定理。建议标为 @[simp] 展开引理或直接内联到 RealWPWhile；不要把它当作『Hoare 三元组与 wp 等价』的独立证据（真正的证据是 180/226/263）。 |
 | `Lib/Editing/RealConversionCategorical.lean:150` | `compile_galoisConnection_galois` | 1 | 定理真且被真实使用（RealConversionCategoryNew.lean:298、333 作为 `GaloisConnection.toGaloisInsertion / toGaloisCoinsertion` 的输入），但 doc 的『须满射 / 等价于满射』是错误归因，正是本库『叙述强度 > 陈述强度』的老毛病。建议改 doc 为『像-原像对任意函数成伴随，故不携带编译信息』，并以 `GaloisInsertion`（真需要满射）为主交付；因不影响证明，登… |
-| `Lib/Editing/RealEditSemantics.lean:1054` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
+| `Lib/Editing/RealEditSemantics.lean:1055` | `b194_counterexamples_intact_holds` | 1 | register（不是 delete，也不是 keep）。它不是「有名字 0 sorry 就算完成」的受害者——doc 明说自己是锚点；但它正是**该被排除在成果计数之外**的那一类：删掉这个名字不损失任何数学，保留它只为编译器回归。同族先例：`Audit/CompositionAlgebra.verdict_monoid`（纯合取打包）判 register。建议登记 PROOF-DEBT：「B194 锚点为回归设施，非数学结果」，并在 `RealChainAxioms… |
 | `Lib/LearningTheory/RealConstrainedDecoding.lean:229` | `constrained_sum_one_via_realMaskFamily` | 1 | 本文件已有 constrainedSoftmax_sum_one；本条是同一命题的第二次证明，以并列定理身份进入 API 会让「本文件定理数」虚高，且两条日后可能漂移。保留「复用确认」的意图可以理解，但应按 alias 登记而非计入定理数。verdict=register。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:85` | `allowed_is_convex_weights` | 1 | 合取包不是数学内容，调用点写 `⟨nonneg, sum_one⟩` 等价。doc 自称「可复用的假设包」，但以定理身份计数会虚高。verdict=register：删除或标为 convenience alias。 |
 | `Lib/LearningTheory/RealConstrainedDecodingVerify.lean:100` | `support_from_decoded_constraints` | 1 | 与 constrained_agrees_with_constraint_set 同义同型，属别名转发。若下游只要短名字，建议 `alias` 或 @[simp] 转发并注明来源，不应作为并列定理计数。verdict=register。 |
@@ -306,7 +306,7 @@
 | `Lib/Compiler/RealCompileFloatCorrectness.lean:471` | `compile_error_bound` | 0 | register：hMul 等于把 mul 分支的目标原样作为前提（自指式降级），且 hcontract 可从 eps/tiny 非负内部推出。登记 PROOF-DEBT：补 mul_error_bound 并删去 hMul/hcontract；在此之前任何把本条当『全语言浮点正确性』的引用都过强。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:119` | `compile_constraint_degenerately_satisfied` | 0 | register：doc 已诚实标 (B/空洞)，但下游 RealLv00CompilerSat 仍可能把它当编译正确性引用。登记 PROOF-DEBT：补任意 env 的 sound/complete，退化版降为示例。 |
 | `Lib/Compiler/RealLv00CompilerSpec.lean:311` | `compile_bridge_sem` | 0 | register：与 119 条同一债务。名字 compile_bridge_sem 容易让下游误以为完成了编译语义桥接，实际只是退化模型特化；登记 PROOF-DEBT 并考虑改名。 |
-| `Lib/Editing/RealCanonicalForm.lean:644` | `canonicalize_injective_on_quotient_boundary` | 0 | 数学上没问题（本库少见的真否定结论），问题只在名字与 doc 首句『性质③（商上单射）』同陈述（全称否定）不一致。建议改名 `canonicalize_not_constant_on_scaleClass`；改名会波及 RealExtractDecidability.lean:557 的文档引用，故登记而非现在改。 |
+| `Lib/Editing/RealCanonicalForm.lean:645` | `canonicalize_injective_on_quotient_boundary` | 0 | 数学上没问题（本库少见的真否定结论），问题只在名字与 doc 首句『性质③（商上单射）』同陈述（全称否定）不一致。建议改名 `canonicalize_not_constant_on_scaleClass`；改名会波及 RealExtractDecidability.lean:557 的文档引用，故登记而非现在改。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:185` | `dot_append_sub` | 0 | 库内同陈述两处具名（本文件 :185 与 RealConstraintEdit:236）。doc 已登记为已知重复，风险是将来一处改动另一处漂移、下游按命名空间挑到哪条不确定。建议登记 PROOF-DEBT：删本副本改直接引用；现在不值得为它改动引理链。 |
 | `Lib/Editing/RealEditInvariantCatalog.lean:221` | `dot_append_of_length_eq` | 0 | 与 Lib/Editing/RealSymbolToWeightWidened.lean:304 同名同义重复；两文件互不 import，文件内也没有证明使用（in_degree=1 是同名声明碰撞而非语义引用）。doc 把它当「承重件」，实际是死件 + 双副本：登记 PROOF-DEBT，建议收敛为一份并接上消费者。 |
 | `Lib/Editing/RealExtractNonInjective.lean:137` | `convertVec_injective` | 0 | 同一声明在库内至少三份（另见 RealEditToSymbol:122、RealReversibilityBoundary:85）。doc 已诚实标注为「本文件内导出」，但正是这种自包含再导出在积累漂移面。建议登记 PROOF-DEBT：统一引用一处；当前不影响正确性。 |
@@ -400,7 +400,7 @@
 于是 `L.ladder_forward` 扫成单个 token，`ladder_forward` 永远匹配不到。
 实测 `ladder_forward` 有 **15 处调用、13 个文件**，`in_degree` 报 **1**。
 
-| **入度 ≥ 1（承重集）** | **1021** | **1021** | **100.0%** |
+| **入度 ≥ 1（承重集）** | **1023** | **1023** | **100.0%** |
 `roundtrip_extractVec` 升到首位（18）。
 
 **这是本轮第二次「尺子错了，不是库错了」**——第一次是 docstring 被当成声明。

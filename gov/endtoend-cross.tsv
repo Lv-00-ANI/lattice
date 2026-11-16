@@ -1496,6 +1496,8 @@ Lib/Compiler/FloatMulBoundDischarged.lean	toCP_float
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_ops
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_mag
 Lib/Compiler/FloatMulBoundDischarged.lean	compile_error_bound_mul_discharged
+Lib/Compiler/HopVerdict.lean	hop_verdict
+Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
