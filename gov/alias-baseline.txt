@@ -420,6 +420,7 @@ forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeva
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
+forward	Lib/Compiler/CarrierApproximation.lean	list_int_error_quantized
 forward	Lib/Compiler/CarrierClosure.lean	repair_stable
 forward	Lib/Compiler/CarrierInstantiation.lean	linear_conj_with_itself
 forward	Lib/Compiler/CarrierInstantiation.lean	linear_verify_by_extract

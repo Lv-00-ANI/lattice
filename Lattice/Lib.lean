@@ -41,6 +41,7 @@ import Lattice.Lib.Compiler.ReversibilityInstances
 import Lattice.Lib.Compiler.LowerBound
 import Lattice.Lib.Compiler.LowerBoundGeneral
 import Lattice.Lib.Compiler.PolynomialLowerBound
+import Lattice.Lib.Compiler.CarrierApproximation
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 642 | instantiated library, may import core only |
+| lib | 643 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -377,6 +377,7 @@
 - `Lattice.Lib.Chain.RealZMod` 
 - `Lattice.Lib.Compiler` <- `Lattice.Lib.Compiler.Combinators`, `Lattice.Lib.Compiler.CombinatorsXorNot`, `Lattice.Lib.Compiler.Disjunction`, `Lattice.Lib.Compiler.Inequality`, `Lattice.Lib.Compiler.LvDSLPartial`, `Lattice.Lib.Compiler.ModConstraint`, `Lattice.Lib.Compiler.RealAbstractInterpretation`, `Lattice.Lib.Compiler.RealBetaConfluence`, `Lattice.Lib.Compiler.RealBetaReduction`, `Lattice.Lib.Compiler.RealBigStepSmallStep`, `Lattice.Lib.Compiler.RealBoolCompleteness`, `Lattice.Lib.Compiler.RealCombinators`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`, `Lattice.Lib.Compiler.RealCompilerCorrectness`, `Lattice.Lib.Compiler.RealCompilerOpt`, `Lattice.Lib.Compiler.RealConcurrentSemantics`, `Lattice.Lib.Compiler.RealConstraintSat`, `Lattice.Lib.Compiler.RealContinuationEquivalence`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Compiler.RealFirstOrderLogic`, `Lattice.Lib.Compiler.RealGlobalConfluence`, `Lattice.Lib.Compiler.RealLambdaCalculus`, `Lattice.Lib.Compiler.RealLv00Compiler`, `Lattice.Lib.Compiler.RealLv00CompilerCodegen`, `Lattice.Lib.Compiler.RealLv00CompilerHonesty`, `Lattice.Lib.Compiler.RealLv00CompilerIR`, `Lattice.Lib.Compiler.RealLv00CompilerLanguage`, `Lattice.Lib.Compiler.RealLv00CompilerReal`, `Lattice.Lib.Compiler.RealLv00CompilerSat`, `Lattice.Lib.Compiler.RealLv00CompilerSpec`, `Lattice.Lib.Compiler.RealMutualRecursion`, `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Compiler.RealRecursiveSemantics`, `Lattice.Lib.Compiler.RealRefinementCalculus`, `Lattice.Lib.Compiler.RealRegisterAllocation`, `Lattice.Lib.Compiler.RealSatComplete`, `Lattice.Lib.Compiler.RealSemanticsPreservation`, `Lattice.Lib.Compiler.RealTreeDecidable`, `Lattice.Lib.Compiler.RealTreeRecursion`, `Lattice.Lib.Compiler.RealTypeSoundness`, `Lattice.Lib.Compiler.RealTypeSoundnessSTLC`, `Lattice.Lib.Compiler.RealTypeSystemExt`, `Lattice.Lib.Compiler.RealWP`, `Lattice.Lib.Compiler.RealWPWhile`, `Lattice.Lib.Compiler.RealWhileTotalCorrectness`
 - `Lattice.Lib.Compiler.CarrierAlgebra` <- `Lattice.Lib.Compiler.CarrierCoverage`
+- `Lattice.Lib.Compiler.CarrierApproximation` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`
 - `Lattice.Lib.Compiler.CarrierClosure` <- `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Runtime.SymbolToWeightCorrectness`
 - `Lattice.Lib.Compiler.CarrierCoverage` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Compiler.CarrierInstantiation` <- `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.SymbolToWeightCorrectness`
@@ -863,7 +864,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1434,6 +1435,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
+| `Lattice.Lib.Compiler.CarrierApproximation` | 5 | 0 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
 | `Lattice.Lib.Compiler.CarrierInstantiation` | 3 | 1 |
@@ -4491,6 +4493,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `diracVec_apply` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `diracVec_probVec` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `direction_bound` -> `Subgradient`, `apply`, `at`, `d`, `g`, `induction`, `subgradient_descent_norm_decrease`, `subgradient_descent_step`, `zero`
+- `discrete_approx_is_equality` -> `Compiler`, `d`, `target_not_attainable`
 - `discrete_vs_dense_dichotomy` -> `natToReal`, `natToReal_eq_zero_of_lt_one`, `rat_exists_between_zero_one`, `real_dense_between`
 - `disjN_preserves` -> `ConstraintSat`, `LinearConstraint`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `map`, `out`
 - `disj_embedding` -> `ConstraintSat`, `LinearConstraint`, `LinearNeuron`, `NeuronOut`, `apply`, `at`, `convert`, `convert_preserves_semantics`, `induction`, `map`, `out`
@@ -6289,6 +6292,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intToRat_strictMono` -> `at`, `le_antisymm`
 - `intToReal_not_surjective` -> `Surjective`, `intToReal`, `ratToReal`
 - `intToReal_strictMono` -> `at`, `le_antisymm`
+- `int_distinct_at_least_one` -> `Compiler`, `at`, `d`, `target_not_attainable`
 - `int_dvd_antisymm_left` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `int_dvd_antisymm_right` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
 - `int_dvd_not_antisymmetric` -> `apply`, `at`, `d`, `gcd_assoc`, `gcd_comm`, `subst`, `trans`
@@ -6899,6 +6903,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `listOfLayer_length` -> `AffineLayer`, `W`, `apply`, `getD_eq_getElem`, `layerOfListFull`, `layerOfListFull_W`, `layerOfListFull_b`, `length`
 - `list_eq_of_all_zero_of_length_eq` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
 - `list_getD_map_range` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `SymEdit`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `actAllZero`, `actLayerOut`, `append_nil`, `apply`, `applySymEdit`, `applySymEdit_getD`, `applySymEdit_off_support_eq`, `at`, `compileToLayer`, `convertVec`, `d`, `dot`, `dot_append_sub`, `g`, `getD_eq_getElem`, `length`, `map`, `nil_append`, `sqSum`, `sqSum_eq_zero_iff`, `totalLoss`, `totalLoss_eq_zero_iff_allSatisfied`
+- `list_int_error_quantized` -> `Compiler`, `d`, `target_not_attainable`
 - `list_sat_of_sat_of_length` -> `at`, `length`, `subst`
 - `list_sq_sum_nonneg` -> `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `compileFin`, `convertReal`, `convertReal_preserves`, `induction`, `map`, `realTotalLoss_soundness`
 - `list_sum_eq_zero_of_nonneg` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
@@ -7727,6 +7732,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `nlayerAct_id_eq_mlayerAct` -> `MLayer`, `W`, `compose`, `mlayerAct`
 - `nlayer_width_forced` -> `MLayer`, `compose`
 - `noSectionProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `no_loss_to_constraint_section`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `no_arbitrary_precision_on_discrete_carrier` -> `Compiler`, `d`, `target_not_attainable`
 - `no_artifact_extractor_recovers_both` -> `ModelArtifact`, `W`, `arch`, `compile`, `depth`, `extract`, `length`, `no_extractor_both_layers`
 - `no_behavior_recovery_for_noninjective` -> `AllZeroOutputs`, `Beh`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `at`, `dot`, `g`, `recover`
 - `no_better_than_geometric` -> `Subgradient`, `at`
@@ -10961,6 +10967,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `two_site_operator_edit_not_additive` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
 - `two_var_constraint` -> `Term`, `cicToConstraint`
+- `two_walls` -> `Compiler`, `d`, `target_not_attainable`
 - `typable_const` -> `Level`, `SortKind`, `Term`, `induction`
 - `typable_const_zero` -> `CICCtx`, `ConstSet`, `Data`, `Index`, `Level`, `Sample`, `SortKind`, `Term`, `Typable`, `at`, `d`, `empty`, `induction`, `length`, `offset`, `width`, `zero`
 - `typable_encodeCorpus` -> `CICCtx`, `ConstSet`, `Data`, `Index`, `Level`, `Sample`, `SortKind`, `Term`, `Typable`, `at`, `d`, `empty`, `induction`, `length`, `offset`, `width`, `zero`

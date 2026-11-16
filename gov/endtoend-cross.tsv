@@ -1451,6 +1451,7 @@ Lib/Compiler/CarrierAlgebra.lean	carrier_closed_under_conj
 Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
 Lib/Compiler/CarrierAlgebra.lean	carrier_closed_under_disj
 Lib/Compiler/CarrierAlgebra.lean	carrier_boolean_algebra
+Lib/Compiler/CarrierApproximation.lean	two_walls
 Lib/Compiler/CarrierClosure.lean	criterion
 Lib/Compiler/CarrierClosure.lean	verify_sound
 Lib/Compiler/CarrierClosure.lean	repair_stable

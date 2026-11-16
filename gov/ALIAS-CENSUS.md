@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 723 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 724 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -286,6 +286,7 @@
 | `Lib/Chain/RealTaylorMultivariate.lean` | `contDiff_pathMap` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierConj_criterion` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierDisj_criterion` |
+| `Lib/Compiler/CarrierApproximation.lean` | `list_int_error_quantized` |
 | `Lib/Compiler/CarrierClosure.lean` | `repair_stable` |
 | `Lib/Compiler/CarrierInstantiation.lean` | `linear_conj_with_itself` |
 | `Lib/Compiler/CarrierInstantiation.lean` | `linear_verify_by_extract` |
