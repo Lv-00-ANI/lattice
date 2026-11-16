@@ -41,7 +41,12 @@ RECORD = os.path.join(ZERO, "gov", "theorem-duplication.txt")
 # `manifest_no_<claim>` in every Plugin/*/Manifest.lean asserts a DIFFERENT `manifest`. Merging them would make
 # one plugin prove another plugin's manifest -- a semantic error, not a consolidation. Recorded, not silently
 # dropped: they still show in the report so a future round can re-decide.
-EXEMPT_NAME_PREFIX = ("manifest_no_",)
+EXEMPT_NAME_PREFIX = (
+    "manifest_no_",
+    # `verified.manifest.obligations.length = N` -- N differs per plugin (3,4,6,7,7,8,10,11,12) and `verified`
+    # is a DIFFERENT object in each. Constant difference AND semantic difference => pseudoisomorphic.
+    "verified_obligations",
+)
 
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
 # Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
@@ -103,7 +108,7 @@ def scan():
                 # classify the PROOF: an alias delegates, an independent proof does the work again
                 body = " ".join(lines[j:min(j + 8, len(lines))])
                 # an ALIAS delegates: `:= exact Some.Namespaced.name ...` (possibly after `by`)
-                if re.search(r"exact\s+Lattice\.[\w.]+\.\w+", body):
+                if re.search(r"Lattice\.[\w.]*\w+\s+\w", body) or re.search(r"exact\s+Lattice\.", body):
                     kind = "alias"
                 elif re.search(r"by\s*cases\b.*rfl", body) or re.search(r"by\s*rfl", body):
                     kind = "rfl"          # definitional roundtrip, no shared authority
