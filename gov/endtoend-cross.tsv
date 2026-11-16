@@ -1,6 +1,4 @@
 # theorems touching >= 2 layers BY CONTENT -- written by check_endtoend_content.py
-G4Probe.lean	probeEmbedding_exact
-G4Probe.lean	probe_downstream
 Plugins.lean	proofRegistry_penalty_mem
 Plugins.lean	proofRegistry_repair_mem
 Plugins.lean	proofRegistry_tokens_mem
