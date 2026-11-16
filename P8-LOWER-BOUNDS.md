@@ -178,23 +178,25 @@ theorem hop_verdict :
 
 ---
 
-## 9. 文件索引（32 条定理）
+## 9. 文件索引（13 个文件，48 条定理）
 
 | 文件 | 定理数 | 内容 |
 |:--|--:|:--|
-| `Lib/Compiler/LowerBound.lean` | 4 | `1/8` 地板 |
-| `Lib/Compiler/LowerBoundGeneral.lean` | 3 | 三点 `1/6` |
-| `Lib/Compiler/PolynomialLowerBound.lean` | 3 | 一般 `N` 维数计数 |
-| `Lib/Compiler/CarrierApproximation.lean` | 5 | 接入载体，两道墙 |
-| `Lib/Compiler/NonlinearApproximation.lean` | 6 | 二阶差分机制 |
-| `Lib/Compiler/ConvergenceForm.lean` | 3 | R2 序列 |
-| `Lib/Compiler/WeightSequence.lean` | 3 | 权重族 |
-| `Lib/Compiler/HopVerdict.lean` | 2 | 四步判决 |
-| `Lib/Compiler/ConstraintSatisfaction.lean` | 3 | R3 ≡ R4 |
-| `Lib/Compiler/ReversibilityCriterion.lean` | 4 | 可逆性判据 |
-| `Lib/Compiler/ReversibilityInstances.lean` | 6 | 判据的两个实例 |
+| `Lib/Compiler/LowerBound.lean` | 4 | `1/8` floor |
+| `Lib/Compiler/LowerBoundGeneral.lean` | 3 | three points, `1/6` |
+| `Lib/Compiler/PolynomialLowerBound.lean` | 3 | general-`N` dimension counting |
+| `Lib/Compiler/CarrierApproximation.lean` | 5 | wired to the carrier, two walls |
+| `Lib/Compiler/NonlinearApproximation.lean` | 6 | second-difference mechanism |
+| `Lib/Compiler/ConvergenceForm.lean` | 3 | R2 sequence |
+| `Lib/Compiler/WeightSequence.lean` | 3 | per-piece weight family |
+| `Lib/Compiler/HopVerdict.lean` | 2 | the four-step verdict |
+| `Lib/Compiler/ConstraintSatisfaction.lean` | 3 | R3 = R4 for `ε < 1` |
+| `Lib/Compiler/R3Triviality.lean` | 3 | **`ε ≥ 1` is NOT trivial** (disproof) |
+| `Lib/Compiler/PiecewiseWeights.lean` | 3 | **the family as ONE function** |
+| `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
+| `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> 合计 42 条（含 docstring 中命名的辅助定理）。全部 `sorry`-free、`axiom`-free。**
+**=> **13 files, 48 theorems**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -216,4 +218,4 @@ theorem hop_verdict :
 
 ---
 
-**生成于第 954 轮。**
+**生成于第 954 轮；第 956 轮更新至精确状态。**
