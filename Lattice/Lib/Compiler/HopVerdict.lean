@@ -6,6 +6,7 @@ import Lattice.Lib.Compiler.CarrierApproximation
 import Lattice.Lib.Compiler.NonlinearApproximation
 import Lattice.Lib.Compiler.ReversibilityCriterion
 import Lattice.Lib.Compiler.ReversibilityInstances
+import Lattice.Lib.Compiler.ModulusAbstract
 
 /-!
 # P8 的统一入口：**「符号 ⇄ 权重」这一跳的全部判决**（阶段 C，P8）
@@ -88,5 +89,30 @@ theorem hop_closes_only_nonlinearity :
   ⟨Lattice.Lib.Compiler.LowerBound.target_not_attainable,
     Lattice.Lib.Compiler.CarrierApproximation.discrete_approx_is_equality,
     Lattice.Lib.Compiler.NonlinearApproximation.quarter_inv_sq_tends_to_zero⟩
+
+/-- **⭐⭐⭐ 判决（含**模数**）：闭环只在非线性解释下可能，且误差刻度是 `√δ`。**
+
+**=> 在 `hop_verdict` 的四项之外，加第五项：**
+
+5. **存在通用模数 `sqrtModulus`，使「平方级惩罚 `≤ δ`」⟹「误差 `≤ √δ`」，
+   且该界在每个 `δ ≥ 0` 处被**达到**（故不可改进）。**
+
+**=> 这一项的作用：把 P8 此前的**常数**（`1/8`、`1/(4n²)`）
+与几何层的 `T2Modulus.g = √δ` 放进同一判决。**
+**=> 审计曾说 P8 与 T2「互不相连」；本项即是那道连接。** -/
+theorem hop_verdict_with_modulus :
+    (∀ (S W : Type) [Inhabited S] (compile : S → W),
+        Function.Injective compile ↔ ∃ extract : W → S, ∀ s, extract (compile s) = s) ∧
+      (∀ a b : ℝ, ∃ x ∈ Set.Icc (0 : ℝ) 1, 1 / 8 ≤ |x ^ 2 - (a * x + b)|) ∧
+      (∀ (a b : ℤ) (ε : ℝ), ε < 1 → |((a : ℤ) : ℝ) - ((b : ℤ) : ℝ)| ≤ ε → a = b) ∧
+      (∀ ε > 0, ∃ n : ℕ, 1 ≤ n ∧ (1 : ℝ) / (4 * (n : ℝ) ^ 2) ≤ ε) ∧
+      (∃ m : Lattice.Lib.Compiler.ModulusAbstract.Modulus,
+          (∀ (e δ : ℝ), 0 ≤ δ → 0 ≤ e → e ^ 2 ≤ δ → e ≤ m.toFun δ) ∧
+          (∀ δ : ℝ, 0 ≤ δ → (m.toFun δ) ^ 2 = δ)) := by
+  obtain ⟨c1, c2, c3, c4⟩ := hop_verdict
+  refine ⟨c1, c2, c3, c4, ?_⟩
+  obtain ⟨hsq, ht⟩ := Lattice.Lib.Compiler.ModulusAbstract.modulus_verdict
+  obtain ⟨m, hm⟩ := hsq
+  exact ⟨m, hm, fun δ hδ => ht m δ hδ⟩
 
 end Lattice.Lib.Compiler.HopVerdict

@@ -178,7 +178,7 @@ theorem hop_verdict :
 
 ---
 
-## 9. 文件索引（13 个文件，48 条定理）
+## 9. 文件索引（14 个文件，55 条定理）
 
 | 文件 | 定理数 | 内容 |
 |:--|--:|:--|
@@ -188,15 +188,16 @@ theorem hop_verdict :
 | `Lib/Compiler/CarrierApproximation.lean` | 5 | wired to the carrier, two walls |
 | `Lib/Compiler/NonlinearApproximation.lean` | 6 | second-difference mechanism |
 | `Lib/Compiler/ConvergenceForm.lean` | 3 | R2 sequence |
-| `Lib/Compiler/WeightSequence.lean` | 3 | per-piece weight family |
-| `Lib/Compiler/HopVerdict.lean` | 2 | the four-step verdict |
+| `Lib/Compiler/WeightSequence.lean` | 6 | per-piece weight family |
+| `Lib/Compiler/HopVerdict.lean` | 3 | the four-step verdict |
 | `Lib/Compiler/ConstraintSatisfaction.lean` | 3 | R3 = R4 for `ε < 1` |
 | `Lib/Compiler/R3Triviality.lean` | 3 | **`ε ≥ 1` is NOT trivial** (disproof) |
-| `Lib/Compiler/PiecewiseWeights.lean` | 3 | **the family as ONE function** |
+| `Lib/Compiler/PiecewiseWeights.lean` | 5 | **the family as ONE function** |
+| `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **13 files, 48 theorems**. All `sorry`-free, `axiom`-free.**
+**=> **14 files, 64 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -211,11 +212,57 @@ theorem hop_verdict :
    **R3 在 `ε ≥ 1` 时**仍是实质命题**，随 `ε` 变化。**
    **参见 `Lib/Compiler/R3Triviality.lean` 的 `R3_boundary_corrected`。**
 3. **分段线性族的完整表达定理**（堆叠/组合构造）——只证明了误差界与其可任意小；
-4. **R2 的权重序列是 `ℕ → Weights` 的完整打包**——`WeightSequence` 给出逐片的
-   `Segment` 与界，未声明整族是单一函数。
+4. ~~**R2 的权重序列是 `ℕ → Weights` 的完整打包**——未声明整族是单一函数。~~**
+   **✅ **第 955 轮已闭合**：`PiecewiseWeights.piecewiseWeights : ℕ → ℝ → ℝ`
+   就是那个单一函数，且 `piecewiseWeights_error` 直接关于它陈述尹差界。**
+
+### 四条边界的**实测状态**（第 957 轮核实）
+
+| # | 原表述 | 状态 | 依据 |
+|--:|:--|:--|:--|
+| 1 | `IRWeights` 侧无实现 | **仍开放** | `git grep IRWeights Lattice/Lib/Compiler/*` 为空 |
+| 2 | `ε ≥ 1` 平凡 | **已推翻** | `R3Triviality.R3_boundary_corrected`（反例 `0,5,1`） |
+| 3 | 缺完整表达定理 | **仍开放** | 无 `compose`/`stack` 形式的分段构造 |
+| 4 | R2 未包成单一函数 | **已闭合** | `PiecewiseWeights.piecewiseWeights`（`fe54eb8d`） |
+
+**=> 四条中**两条已处理、两条开放**。**
+
+---
+
+## 10b. 模数：把 `T2Modulus` 的 `√δ` 抽象到 `Lib` 层（第 957 轮）
+
+**审计的另一条判决：**
+
+> **`T2Modulus` 的 `g = √δ` 是**全库唯一真逼近内容**，但它活在 `GeoExpr` 上。**
+
+**=> 若它随几何层归档而消失，全库就没有逼近模数了。**
+
+**`Lib/Compiler/ModulusAbstract.lean` 把它抽象成与载体无关的结构：**
+
+```lean
+structure Modulus where
+  toFun   : ℝ → ℝ
+  eq_sqrt : ∀ δ, 0 ≤ δ → toFun δ = Real.sqrt δ
+```
+
+**为什么必须带 `eq_sqrt`（而不是只带 `nonneg`/`at_zero`/`mono`）：**
+**`Lattice/Probe/ModulusShape` 证明了只凭那三条**推不出** `bound`（反例 `toFun ≡ 0`）。**
+
+| 定理 | 内容 |
+|:--|:--|
+| `Modulus.bound` | **`0 ≤ δ → 0 ≤ e → e² ≤ δ → e ≤ toFun δ`（载体无关）** |
+| `Modulus.bound_tight` | **`(toFun δ)² = δ`（界被达到，不可改进）** |
+| `modulus_verdict` | **上两者的合取** |
+| `T2Modulus.g_eq_sqrtModulus_toFun` | **几何层的 `g` 逐字等于抽象的 `toFun`** |
+| `T2Modulus.approx_min_violation_bound_via_abstract` | **用抽象**重推**既有的 `approx_min_violation_bound`** |
+
+**=> 方向合法：`Plugins`（rank 3）→ `Lib`（rank 3）同层横向，I4 通过。**
+
+**另：`hop_verdict_with_modulus` 把模数作为第五合取项接入 `hop_verdict`，
+使审计所言「P8 与 T2 互不相连」成为定理级连接。**
 
 **=> 这四条是明确的下一步，不是遗漏。**
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）。**

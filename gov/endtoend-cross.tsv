@@ -1501,9 +1501,11 @@ Lib/Compiler/FloatMulBoundDischarged.lean	toCP_mag
 Lib/Compiler/FloatMulBoundDischarged.lean	compile_error_bound_mul_discharged
 Lib/Compiler/HopVerdict.lean	hop_verdict
 Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
+Lib/Compiler/HopVerdict.lean	hop_verdict_with_modulus
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
+Lib/Compiler/ModulusAbstract.lean	modulus_verdict
 Lib/Compiler/NoIntermediateLayer.lean	constraint_is_weight_spelling
 Lib/Compiler/NonlinearApproximation.lean	relu_is_max
 Lib/Compiler/NonlinearApproximation.lean	linear_floor_vs_chord_scaling
@@ -3498,6 +3500,8 @@ Plugins/Targets/T1Dependence.lean	not_mem_merged_of_rejected
 Plugins/Targets/T1Dependence.lean	merge_sound_unrejected
 Plugins/Targets/T1Dependence.lean	mem_merged_iff
 Plugins/Targets/T1Dependence.lean	t1_merge_sound_unrejected_holds
+Plugins/Targets/T2Modulus.lean	g_eq_sqrtModulus_toFun
+Plugins/Targets/T2Modulus.lean	approx_min_violation_bound_via_abstract
 Plugins/Targets/T3Instances.lean	seqRepresentation_meets_t3
 Plugins/Targets/T3Instances.lean	flattenRepresentation_meets_t3
 Plugins/Targets/T3Instances.lean	instances_at_different_carriers

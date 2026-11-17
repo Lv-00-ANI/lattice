@@ -47,6 +47,7 @@ remain a separate obligation rather than being silently folded in.**
 
 import Mathlib
 import Lattice.Plugins.Targets.T2Min
+import Lattice.Lib.Compiler.ModulusAbstract
 
 /-! **[待移除] 几何载体靶定理。**
 
@@ -149,5 +150,41 @@ name.** -/
 theorem g_is_inverse (δ : ℝ) (hδ : 0 ≤ δ) : Real.sqrt ((g δ) ^ 2) = g δ := by
   rw [g_sq δ hδ]
   rfl
+
+/-! ## 阶段 D：`T2Modulus` 作为**通用模数**的居民
+
+**审计指出：`g = √δ` 是「全库唯一真逼近内容」，但它活在 `GeoExpr` 上。
+`Lib/Compiler/ModulusAbstract.lean` 把「模数」抽象到 `Lib` 层，与载体无关。**
+
+**=> 本节证明 `g` **就是**那个抽象的一个居民，
+于是「T2 的模数」不再是一个孤立事实，而是通用结构的一个实例。**
+
+**=> 方向合法性：`Plugins`（rank 3）→ `Lib`（rank 3）同层横向引用，I4 允许。** -/
+
+/-- **⭐⭐ `g` 是通用模数 `sqrtModulus` 的 `toFun`。**
+
+**=> 这把几何层里的 `g` 与 `Lib` 层的抽象**逐字对上**。** -/
+theorem g_eq_sqrtModulus_toFun :
+    (fun δ : ℝ => g δ) = Lattice.Lib.Compiler.ModulusAbstract.sqrtModulus.toFun := by
+  funext δ
+  rfl
+
+/-- **⭐⭐⭐ 几何层的模数取自通用抽象：`g` 满足 `Lib` 层的 `Modulus.bound`。**
+
+**=> 陈述：`e² ≤ δ` 且 `e ≥ 0` ⟹ `e ≤ g δ`。**
+
+**=> 证明**完全走 `Modulus.bound`**，不重复 `sqrt` 的单调性论证。
+=> 这是「抽象确实蕴含具体」的机器证据。** -/
+theorem approx_min_violation_bound_via_abstract {n : ℕ} (e : GeoExpr n) (k : ℕ)
+    (w : Fin (k * n) → ℝ) (δ : ℝ) (hδ : 0 ≤ δ)
+    (hpen : (e.evalPts (toNatConfig w)) ^ 2 ≤ δ) :
+    violation e k w ≤ g δ := by
+  have hsq : (violation e k w) ^ 2 ≤ δ := by
+    rw [← eqZero_penalty_eq_violation_sq]
+    exact hpen
+  have hnn : 0 ≤ violation e k w := violation_nonneg e k w
+  have hbound := Lattice.Lib.Compiler.ModulusAbstract.Modulus.bound
+    Lattice.Lib.Compiler.ModulusAbstract.sqrtModulus (violation e k w) δ hδ hnn hsq
+  rwa [show Lattice.Lib.Compiler.ModulusAbstract.sqrtModulus.toFun δ = g δ from rfl] at hbound
 
 end Lattice.Plugins.Targets

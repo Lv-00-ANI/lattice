@@ -49,6 +49,7 @@ import Lattice.Lib.Compiler.WeightSequence
 import Lattice.Lib.Compiler.ConstraintSatisfaction
 import Lattice.Lib.Compiler.PiecewiseWeights
 import Lattice.Lib.Compiler.R3Triviality
+import Lattice.Lib.Compiler.ModulusAbstract
 /-!
 # Lattice.Lib -- harvested instances
 
