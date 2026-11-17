@@ -121,6 +121,40 @@ theorem r1_false_linear_true_piecewise :
 
 ---
 
+## 3c. 一般弦：把 `chordSegment` 从 `x²` 泛化（第 960 轮）
+
+**`WeightSequence.chordSegment a b = ⟨a+b, -(a·b)⟩` 是**过 `(a,a²)` 与 `(b,b²)` 的割线**——
+**它把 `f = ·²` 写死进了定义。**
+
+**`Lib/Compiler/ChordGeneral.lean` 把割线定义为**从函数值出发**的一般构造：**
+
+```lean
+def chordSlope (f : ℝ → ℝ) (a b : ℝ) : ℝ := (f b - f a) / (b - a)
+def chordOf (f : ℝ → ℝ) (a b : ℝ) : Segment :=
+  ⟨chordSlope f a b, f a - chordSlope f a b * a⟩
+
+theorem chordOf_sq (a b) (h : a ≠ b) :
+    chordOf (fun x => x^2) a b = chordSegment a b          -- 旧定义是特例
+theorem chordOf_affine (c d a b) (h : a ≠ b) :
+    chordOf (fun x => c*x + d) a b = ⟨c, d⟩              -- 仿射的弦就是它自己
+theorem piecewiseInterp_affine_exact (c d n) (hn) (x) :
+    piecewiseInterp (fun t => c*t + d) n x = c*x + d      -- 误差为 0
+```
+
+**两个关键点：**
+
+1. **`chordOf_sq`**证明旧定义被**包含**，故第 948–959 轮的全部结果**不作废**；
+2. **`piecewiseInterp_affine_exact`**给出表达力：**分段线性族**包含**仿射族**，且误差恰为 `0`。**
+
+**=> 这就是「线性族为什么有 `1/8` 地板」的**结构性解释**：**
+**分段线性族能精确表示仿射族能表示的一切，而 `x²` 不在仿射族内，
+所以仿射族对 `x²` 的失败是**必然**的，不是一个偶然的常数。**
+
+**⚠ 本节**不**声称完整表达定理（堆叠/组合构造仍开放）；
+它只闭合了**包含关系 + 精确表示**这一层。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -228,11 +262,12 @@ theorem hop_verdict :
 | `Lib/Compiler/R3Triviality.lean` | 3 | **`ε ≥ 1` is NOT trivial** (disproof) |
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
+| `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
 | `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **15 files, 68 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **16 files, 82 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -257,7 +292,7 @@ theorem hop_verdict :
 |--:|:--|:--|:--|
 | 1 | `IRWeights` 侧无实现 | **仍开放** | `git grep IRWeights Lattice/Lib/Compiler/*` 为空 |
 | 2 | `ε ≥ 1` 平凡 | **已推翻** | `R3Triviality.R3_boundary_corrected`（反例 `0,5,1`） |
-| 3 | 缺完整表达定理 | **仍开放** | 无 `compose`/`stack` 形式的分段构造 |
+| 3 | 缺完整表达定理 | **部分闭合** | `ChordGeneral`：一般弦 + 仿射精确；**堆叠构造仍开放** |
 | 4 | R2 未包成单一函数 | **已闭合** | `PiecewiseWeights.piecewiseWeights`（`fe54eb8d`） |
 
 **=> 四条中**两条已处理、两条开放**。**
@@ -300,4 +335,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960 轮新增 §3c（一般弦）。**

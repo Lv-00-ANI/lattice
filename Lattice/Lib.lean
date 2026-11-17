@@ -51,6 +51,7 @@ import Lattice.Lib.Compiler.PiecewiseWeights
 import Lattice.Lib.Compiler.R3Triviality
 import Lattice.Lib.Compiler.ModulusAbstract
 import Lattice.Lib.Compiler.PiecewiseUniform
+import Lattice.Lib.Compiler.ChordGeneral
 /-!
 # Lattice.Lib -- harvested instances
 
