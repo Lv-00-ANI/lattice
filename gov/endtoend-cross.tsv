@@ -1510,7 +1510,10 @@ Lib/Compiler/NoIntermediateLayer.lean	constraint_is_weight_spelling
 Lib/Compiler/NonlinearApproximation.lean	relu_is_max
 Lib/Compiler/NonlinearApproximation.lean	linear_floor_vs_chord_scaling
 Lib/Compiler/NonlinearApproximation.lean	nonlinear_strictly_better
-Lib/Compiler/PiecewiseWeights.lean	piecewiseWeights_error
+Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_at_one
+Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_error_at_one
+Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_error_closed
+Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_uniform_tendsto
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
 Lib/Compiler/R3Triviality.lean	R3_dichotomy
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le

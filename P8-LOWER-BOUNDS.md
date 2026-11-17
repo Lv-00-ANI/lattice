@@ -87,6 +87,40 @@ theorem weight_sequence_exists : (∃ eps, Tendsto eps …) ∧ (每片误差 �
 
 ---
 
+## 3b. R2 可以加强成 **R1**，只要族是非线性的（第 959 轮）
+
+**R2 是**逐点/序列**形式的：存在一列界趋于零。**
+**=> 第 959 轮把它加强成**一致**形式，即 R1 的形状。**
+
+**`Lib/Compiler/PiecewiseUniform.lean`：**
+
+```lean
+theorem piecewiseWeights_at_one (n) (hn) : piecewiseWeights n 1 = 1
+
+theorem piecewiseWeights_error_closed (n) (hn) (x) (hx : x ∈ Icc 0 1) :
+    |x ^ 2 - piecewiseWeights n x| ≤ (1 / n) ^ 2 / 4
+
+theorem piecewiseWeights_uniform_tendsto :
+    ∀ ε > 0, ∃ n : ℕ, 1 ≤ n ∧ ∀ x ∈ Icc (0:ℝ) 1, |x ^ 2 - piecewiseWeights n x| ≤ ε
+
+theorem r1_false_linear_true_piecewise :
+    (∀ a b : ℝ, ∃ x ∈ Icc 0 1, 1/8 ≤ |x^2 - (a*x + b)|) ∧   -- 线性：假
+    (∀ ε > 0, ∃ n ≥ 1, ∀ x ∈ Icc 0 1, |x^2 - ws n x| ≤ ε)      -- 分段线性：真
+```
+
+**修掉的具体缺陷：** 第 955 轮的界只对 `x < 1` 成立，
+因为 `segmentIndex n 1 = n` 越界而 `piecewiseFamily_error` 要求 `k < n`。
+**=> 但端点上函数值**恰好精确**（`piecewiseWeights n 1 = 1 = 1²`），只是那条路径覆盖不到。**
+**=> 本文件补上端点，界遂在**闭区间**上成立。**
+
+**=> 结论：`∀ f ∀ ε > 0 ∃ w` 这个**形状**本身并没有错——**
+**它只是对**线性族**为假，对**分段线性族**为真，而且在后者上是**一致**为真。**
+
+**=> 审计所说「目标被设成了数学上不成立的形式」，精确的说法应当是：
+「目标的作用域被设得太宽（含线性族）」，而不是「形式本身不可满足」。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -192,12 +226,13 @@ theorem hop_verdict :
 | `Lib/Compiler/HopVerdict.lean` | 3 | the four-step verdict |
 | `Lib/Compiler/ConstraintSatisfaction.lean` | 3 | R3 = R4 for `ε < 1` |
 | `Lib/Compiler/R3Triviality.lean` | 3 | **`ε ≥ 1` is NOT trivial** (disproof) |
-| `Lib/Compiler/PiecewiseWeights.lean` | 5 | **the family as ONE function** |
+| `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
+| `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **14 files, 64 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **15 files, 68 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -265,4 +300,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）。**

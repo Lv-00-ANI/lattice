@@ -14,15 +14,26 @@ import Lattice.Lib.Compiler.WeightSequence
 **=> 本文件把它包成单一函数。**
 **=> 分段索引用 `Nat.floor (n·x)`，其形态经 `Lattice/Probe/PieceIndex.lean` 试验确定后移入此处。**
 
+## 误差界住在哪里
+
+**⚠ 本文件**不再**陈述误差界。**
+
+**第 959 轮把界统一到 `Lib/Compiler/PiecewiseUniform.lean` 的
+`piecewiseWeights_error_closed`，它在**闭区间** `[0,1]` 上成立（严格强于此前的半开区间版本）。**
+
+**=> 理由是唯一权威：同一结论只需一条定理。
+若两处并存（半开 + 闭），`audit_theorem_duplication` 会正确地把它们记为重复站点。**
+
+**=> 本文件只负责**索引与求值**，界在 `PiecewiseUniform`。**
+
 ## 交付什么
 
 | 定理 | 内容 |
 |:--|:--|
-| **`pieceOf`** | **⭐⭐ 分段索引 `k = ⌊n·x⌋₊`** |
+| **`segmentIndex`** | **⭐⭐ 分段索引 `k = ⌊n·x⌋₊`** |
 | **`segmentIndex_lt`** | **⭐ `x < 1` 时 `k < n`** |
 | **`segmentIndex_mem`** | **⭐⭐ `x` 落在第 `k` 段的交叉相乘形式** |
-| **`piecewiseWeights`** | **⭐⭐⭐ 单一函数 `ws : ℕ → ℝ → ℝ`（`n` 段分段线性）** |
-| **`piecewiseWeights_error`** | **⭐⭐⭐ 该函数的误差 `≤ (1/n)²/4`（`x < 1` 时）** | -/
+| **`piecewiseWeights`** | **⭐⭐⭐ 单一函数 `ws : ℕ → ℝ → ℝ`（`n` 段分段线性）** | -/
 
 namespace Lattice.Lib.Compiler.PiecewiseWeights
 
@@ -58,35 +69,11 @@ theorem segmentIndex_mem (n : ℕ) (x : ℝ) (hx0 : 0 ≤ x) :
 /-- **⭐⭐⭐ 单一函数：`n` 段分段线性权重。**
 
 **=> `ws n x` 取 `x` 所在段的割线值。
-在 `x ∈ [0,1)` 上这是 `n` 段分段线性函数，全部由 `pieceOf` 决定。** -/
+在 `x ∈ [0,1)` 上这是 `n` 段分段线性函数，全部由 `segmentIndex` 决定。**
+
+**=> 其误差界见 `PiecewiseUniform.piecewiseWeights_error_closed`（闭区间，唯一权威）。** -/
 noncomputable def piecewiseWeights (n : ℕ) (x : ℝ) : ℝ :=
   (Lattice.Lib.Compiler.WeightSequence.chordSegment
     ((segmentIndex n x : ℝ) / n) (((segmentIndex n x : ℝ) + 1) / n)).eval x
-
-/-- **⭐⭐⭐ 该单一函数的误差 `≤ (1/n)²/4`。**
-
-**=> 在 `x ∈ [0,1)` 上，`piecewiseWeights n x` 正是第 `k` 段的割线，
-故由 `WeightSequence.piecewiseFamily_error` 直接给出误差界。**
-
-**=> 这就是 §10 第 4 项的闭合：**权重族现在是**单一函数** `ℕ → ℝ → ℝ`，
-而不再只是逐片 `Segment` 的集合。** -/
-theorem piecewiseWeights_error (n : ℕ) (hn : 0 < n) (x : ℝ)
-    (hx0 : 0 ≤ x) (hx1 : x < 1) :
-    |x ^ 2 - piecewiseWeights n x| ≤ (1 / (n : ℝ)) ^ 2 / 4 := by
-  have hk : segmentIndex n x < n := segmentIndex_lt n hn x hx0 hx1
-  -- the cross-multiplied membership, converted to the [k/n, (k+1)/n] form
-  have hmem := segmentIndex_mem n x hx0
-  have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
-  have hxI : x ∈ Icc (((segmentIndex n x : ℝ)) / n) ((((segmentIndex n x : ℝ)) + 1) / n) := by
-    constructor
-    · show ((segmentIndex n x : ℝ)) / n ≤ x
-      rw [div_le_iff₀ hn']; linarith [hmem.1]
-    · show x ≤ (((segmentIndex n x : ℝ)) + 1) / n
-      rw [le_div_iff₀ hn']; linarith [hmem.2]
-  have hb := Lattice.Lib.Compiler.WeightSequence.piecewiseFamily_error
-    n hn (segmentIndex n x) hk x hxI
-  -- the packed function IS the chord segment, so the bound applies directly
-  unfold piecewiseWeights
-  exact hb
 
 end Lattice.Lib.Compiler.PiecewiseWeights
