@@ -52,6 +52,7 @@ import Lattice.Lib.Compiler.R3Triviality
 import Lattice.Lib.Compiler.ModulusAbstract
 import Lattice.Lib.Compiler.PiecewiseUniform
 import Lattice.Lib.Compiler.ChordGeneral
+import Lattice.Lib.Compiler.ChordErrorGeneral
 /-!
 # Lattice.Lib -- harvested instances
 

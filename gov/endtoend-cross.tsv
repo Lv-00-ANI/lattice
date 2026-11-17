@@ -1472,6 +1472,7 @@ Lib/Compiler/CarrierReversible.lean	reinject_eq
 Lib/Compiler/CarrierReversible.lean	reextract_eq
 Lib/Compiler/CarrierReversible.lean	verify_by_extract
 Lib/Compiler/CarrierReversible.lean	closure_complete
+Lib/Compiler/ChordErrorGeneral.lean	chord_error_sq_rederived
 Lib/Compiler/ChordGeneral.lean	piecewiseInterp_sq
 Lib/Compiler/ChordGeneral.lean	piecewiseInterp_affine_exact
 Lib/Compiler/Combinators.lean	andC_eq_zero_iff

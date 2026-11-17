@@ -155,6 +155,43 @@ theorem piecewiseInterp_affine_exact (c d n) (hn) (x) :
 
 ---
 
+## 3d. 一般误差界：把 `h²/4` 从 `x²` 泛化到满足帐篷界的一切函数（第 961 轮）
+
+**第 948 轮的 `chord_error_bound` 依赖一个**仅对二次函数成立**的因式分解：
+`x² - 割线 = (x-a)(x-b)`。=> 对一般 `f` 没有对应物。**
+
+**`Lib/Compiler/ChordErrorGeneral.lean` 把那个因式分解**当成假设**：**
+
+```lean
+theorem tent_le_quarter (a b x M) (hab : a <= b) (hx) (hM : 0 <= M) :
+    M * ((x - a) * (b - x)) <= M * ((b - a) ^ 2 / 4)          -- AM-GM, no calculus
+
+theorem chord_error_of_tent_bound (f : R -> R) (a b M) (hab : a < b) (hM : 0 <= M)
+    (htent : forall x in Icc a b, |f x - chord.eval x| <= M * ((x - a) * (b - x))) :
+    forall x in Icc a b, |f x - chord.eval x| <= M * ((b - a) ^ 2 / 4)
+
+theorem sq_chord_error_eq_tent (a b x) (hab) (hx) :
+    |x^2 - chord.eval x| = (x - a) * (b - x)                   -- the tent bound HOLDS with M = 1
+
+theorem chord_error_sq_rederived (a b x) (hab) (hx) :
+    |x^2 - chord.eval x| <= (b - a) ^ 2 / 4                    -- old bound, RE-DERIVED
+```
+
+**两个要点：**
+
+1. **`chord_error_of_tent_bound` 对**任意 `f`**成立，不需可微性、不需中值定理；
+   它把「二阶曲率」的作用**完全封装**进帐篷假设。**
+2. **`chord_error_sq_rederived` 证明旧界是新定理的**实例**——
+   若没有这一条，所谓泛化就只是另起一套。**
+
+**=> 于是第 948–959 轮的 `1/(4n²)`、`quarter_inv_sq_tends_to_zero`、
+一致逼近，全部**原样成立**，且现在对**一般 `f`** 有了推广。**
+
+**⚠ 本节不声称**从 `|f''| <= M` 推出帐篷界**：那需要 Taylor/MVT，仍开放。
+本节只把帐篷假设**当作输入**，并证明它足以推出误差界。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -263,11 +300,12 @@ theorem hop_verdict :
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
+| `Lib/Compiler/ChordErrorGeneral.lean` | 5 | **the GENERAL error bound: tent hypothesis => `M(b-a)²/4`** |
 | `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **16 files, 82 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **17 files, 87 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -335,4 +373,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960 轮新增 §3c（一般弦）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–961 轮新增 §3c–§3d（一般弦与一般误差界）。**
