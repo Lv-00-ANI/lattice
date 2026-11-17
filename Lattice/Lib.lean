@@ -53,6 +53,7 @@ import Lattice.Lib.Compiler.ModulusAbstract
 import Lattice.Lib.Compiler.PiecewiseUniform
 import Lattice.Lib.Compiler.ChordGeneral
 import Lattice.Lib.Compiler.ChordErrorGeneral
+import Lattice.Lib.Compiler.ConvexityChord
 /-!
 # Lattice.Lib -- harvested instances
 

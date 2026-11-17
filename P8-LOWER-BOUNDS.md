@@ -192,6 +192,51 @@ theorem chord_error_sq_rederived (a b x) (hab) (hx) :
 
 ---
 
+## 3e. 从**凸性**推出帐篷界，从而得到经典界 `M(b-a)²/8`（第 962 轮）
+
+**第 961 轮记下：帐篷假设从何而来？本节给出答案的**第一层**。**
+
+**教科书路线是 Rolle 连用两次（`φ(t) = f t - p t - K(t-a)(t-b)` 三个零点）。
+本项目用**等价的半凸性**路线，只需 Mathlib 已有的一个引理。**
+
+**`Lib/Compiler/ConvexityChord.lean`：**
+
+```lean
+theorem chord_eval_eq_div (g) (a b x) (hab : a < b) :
+    (chordOf g a b).eval x = (g b * (x - a) + g a * (b - x)) / (b - a)
+
+theorem convex_le_chord (f) (a b x) (hab : a < b)
+    (hconv : ConvexOn R (Icc a b) f) (hx : x in Icc a b) :
+    f x <= (chordOf f a b).eval x                       -- 凸 => 图像在弦下
+
+theorem tent_of_semiconvex (f) (a b M x) (hab) (hM)
+    (h1 : ConvexOn R (Icc a b) (fun t => f t + (M/2) * t^2))
+    (h2 : ConvexOn R (Icc a b) (fun t => -(f t) + (M/2) * t^2))
+    (hx : x in Icc a b) :
+    |f x - chord.eval x| <= (M/2) * ((x - a) * (b - x))  -- 双侧帐篷界
+
+theorem chord_error_of_semiconvex (f) (a b M x) (hab) (hM) (h1) (h2) (hx) :
+    |f x - chord.eval x| <= M * (b - a)^2 / 8            -- 经典界
+```
+
+**关键点：**
+
+1. **`convex_le_chord` 由 `ConvexOn.slope_mono_adjacent` 交叉相乘得到——
+   **不经过任何 Lagrange 余项构造**；
+2. **对 `F t = f t + (M/2)t²` 与 `G t = -f t + (M/2)t²` 各用一次就得**双侧**帐篷界；
+3. **接上 §3d 的 `chord_error_of_tent_bound`，帐篷常数 `M/2` 给出 `M(b-a)²/8`。**
+
+**=> 这正是文献中的线性插值误差界 `(x₁-x₀)²/8 · max|f''|`。**
+
+**⚠ 剩下**一层**：从 `|f''| ≤ M` 到 `h1`/`h2`。**
+**配方已写在文件 §5：用 `convexOn_of_deriv2_nonneg`
+（`Analysis/Convex/Deriv.lean:212`），只需迭代导数恒等式
+`deriv^[2] (fun t => f t + c·t²) = deriv^[2] f + 2c`。**
+
+**=> 于是「`|f''| ≤ M` ⇒ 弦误差 `≤ M(b-a)²/8`」只差一条**机械导数恒等式**。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -300,12 +345,13 @@ theorem hop_verdict :
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
+| `Lib/Compiler/ConvexityChord.lean` | 5 | **convexity => tent => `M(b-a)²/8` (stage G)** |
 | `Lib/Compiler/ChordErrorGeneral.lean` | 5 | **the GENERAL error bound: tent hypothesis => `M(b-a)²/4`** |
 | `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **17 files, 87 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **18 files, 92 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -373,4 +419,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–961 轮新增 §3c–§3d（一般弦与一般误差界）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–962 轮新增 §3c–§3e（一般弦、一般误差界、凸性路线）。**

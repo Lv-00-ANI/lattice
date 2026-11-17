@@ -1489,6 +1489,7 @@ Lib/Compiler/CombinatorsXorNot.lean	notC_zero_iff_xorC_zero_zero
 Lib/Compiler/ConstraintSatisfaction.lean	R3_is_reachability
 Lib/Compiler/ConstraintSatisfaction.lean	four_readings_resolved
 Lib/Compiler/ConvergenceForm.lean	r1_fails_r2_holds
+Lib/Compiler/ConvexityChord.lean	chord_error_of_semiconvex
 Lib/Compiler/DataSynthesis.lean	samples_sound
 Lib/Compiler/DataSynthesis.lean	synthesize_from_satisfying
 Lib/Compiler/DataSynthesis.lean	synthesis_is_nonvacuous
