@@ -54,6 +54,7 @@ import Lattice.Lib.Compiler.PiecewiseUniform
 import Lattice.Lib.Compiler.ChordGeneral
 import Lattice.Lib.Compiler.ChordErrorGeneral
 import Lattice.Lib.Compiler.ConvexityChord
+import Lattice.Lib.Compiler.SecondDerivBound
 /-!
 # Lattice.Lib -- harvested instances
 

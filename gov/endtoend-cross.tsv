@@ -1925,6 +1925,7 @@ Lib/Compiler/ReversibilityInstances.lean	relu_not_injective
 Lib/Compiler/ReversibilityInstances.lean	relu_irreversible_by_criterion
 Lib/Compiler/ReversibilityInstances.lean	one_criterion_two_outcomes
 Lib/Compiler/ReversibilityLimit.lean	relu_not_reversible
+Lib/Compiler/SecondDerivBound.lean	chord_error_of_second_deriv_bound
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit

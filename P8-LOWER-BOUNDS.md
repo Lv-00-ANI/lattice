@@ -237,6 +237,54 @@ theorem chord_error_of_semiconvex (f) (a b M x) (hab) (hM) (h1) (h2) (hx) :
 
 ---
 
+## 3f. 链条闭合：`|f''| <= M` 推出 `M(b-a)^2/8`（第 963 轮）
+
+**§3e 记下「剩下一层：从 `|f''| <= M` 到 `h1`/`h2`」。**本节把它闭合。
+
+**`Lib/Compiler/SecondDerivBound.lean`（6 项声明）：**
+
+```lean
+theorem deriv_shift_eq (f) (c) (hf : Differentiable R f) :
+    deriv (fun t => f t + c * t^2) = fun y => deriv f y + 2 * c * y
+
+theorem iter_deriv_shift_eq (f) (c) (x) (hf) (hf') :
+    deriv^[2] (fun t => f t + c * t^2) x = deriv^[2] f x + 2 * c
+
+theorem deriv_neg_eq      (f) (hf)       : deriv (fun t => -(f t)) = fun y => -(deriv f y)
+theorem iter_deriv_neg_eq (f) (x) (hf) (hf') : deriv^[2] (fun t => -(f t)) x = -(deriv^[2] f x)
+
+theorem convex_shift_of_lower (a b M) (hab) (hM) (g) (hg) (hg')
+    (hge : forall x in interior (Icc a b), -M <= deriv^[2] g x) :
+    ConvexOn R (Icc a b) (fun t => g t + (M/2) * t^2)
+
+theorem chord_error_of_second_deriv_bound (f) (a b M) (hab) (hM)
+    (hf : Differentiable R f)
+    (hf' : DifferentiableOn R (deriv f) (interior (Icc a b)))
+    (hM2 : forall x in interior (Icc a b), |deriv^[2] f x| <= M) :
+    forall x in Icc a b, |f x - chord.eval x| <= M * (b - a)^2 / 8
+```
+
+**于是整条链闭合：**
+
+```
+|f''| <= M  --(convex_shift_of_lower 用两次: g = f, 再 g = -f)-->  半凸对 h1, h2
+           --(tent_of_semiconvex)-->  帐篷界 (M/2)(x-a)(b-x)
+           --(chord_error_of_tent_bound)-->  M(b-a)^2 / 8
+```
+
+**三个技术障碍（已写入文件文档，供后续复用）：**
+
+1. **`rw` 无法穿透 `deriv^[2]` 展开后的 lambda => 先用 `funext` 写成**函数等式**；**
+2. **`deriv^[2]` 是 `iteratedDeriv` 记号，`simp` 展不开 => 用 `show` 强制写成 `deriv (deriv _) _`；**
+3. **`deriv_neg` 是「取负**函数自身**」的导数（`deriv Neg.neg x = -1`），不是所要的
+   => 用 `HasDerivAt.neg`。**
+
+**另记签名陷阱：`deriv_const_mul` 的第一个参数是常数 `c`，证明在其后**（不是证明在前的常见形状）。
+
+**=> P8 的「一般误差界」链条至此**不再有未证的一层**。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -328,7 +376,7 @@ theorem hop_verdict :
 
 ---
 
-## 9. 文件索引（14 个文件，55 条定理）
+## 9. 文件索引（19 个文件，98 项声明）
 
 | 文件 | 定理数 | 内容 |
 |:--|--:|:--|
@@ -345,13 +393,14 @@ theorem hop_verdict :
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
+| `Lib/Compiler/SecondDerivBound.lean` | 6 | **`\|f''\| <= M` => `M(b-a)^2/8` (stage H, chain CLOSED)** |
 | `Lib/Compiler/ConvexityChord.lean` | 5 | **convexity => tent => `M(b-a)²/8` (stage G)** |
 | `Lib/Compiler/ChordErrorGeneral.lean` | 5 | **the GENERAL error bound: tent hypothesis => `M(b-a)²/4`** |
 | `Lib/Compiler/ModulusAbstract.lean` | 10 | **the generic modulus `√δ` (stage D)** |
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **18 files, 92 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **19 files, 98 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -376,7 +425,7 @@ theorem hop_verdict :
 |--:|:--|:--|:--|
 | 1 | `IRWeights` 侧无实现 | **仍开放** | `git grep IRWeights Lattice/Lib/Compiler/*` 为空 |
 | 2 | `ε ≥ 1` 平凡 | **已推翻** | `R3Triviality.R3_boundary_corrected`（反例 `0,5,1`） |
-| 3 | 缺完整表达定理 | **部分闭合** | `ChordGeneral`：一般弦 + 仿射精确；**堆叠构造仍开放** |
+| 3 | 缺完整表达定理 | **近乎闭合** | `ChordGeneral` + `ChordErrorGeneral` + `ConvexityChord` + `SecondDerivBound`：包含关系、精确表示、一般误差界、`\|f''\| <= M => M(b-a)^2/8` 均已证；**仅堆叠构造开放** |
 | 4 | R2 未包成单一函数 | **已闭合** | `PiecewiseWeights.piecewiseWeights`（`fe54eb8d`） |
 
 **=> 四条中**两条已处理、两条开放**。**
@@ -419,4 +468,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–962 轮新增 §3c–§3e（一般弦、一般误差界、凸性路线）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–963 轮新增 §3c–§3f（一般弦、一般误差界、凸性路线、二阶导数界）。**
