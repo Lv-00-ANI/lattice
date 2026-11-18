@@ -52,52 +52,8 @@ ALLOWED = {
 }
 
 
-def strip_comments(src):
-    """Remove `--` line comments and nested `/- ... -/` blocks. Docstrings are block comments.
-
-    **Round 967: this was MISSING, and it produced a false positive that was believed for three rounds.**
-
-    `FinSupport.lean` quotes the weight type's signature inside its module docstring:
-
-        abbrev IRWeights : Type := ℕ → ℝ
-
-    The line starts with `abbrev`, so the line-based DECL regex counted it as a DEFINITION in that file.
-    => the audit then reported the type as "defined in two files", which is false: it is declared exactly
-    once, in `Compile.lean:74`.
-
-    The same false positive also fired on a file this session wrote (`IRWeightsBridge.lean`) when its
-    docstring quoted `abbrev <short name>` -- which is what exposed the defect.
-
-    The fix is the one every other measuring script in `gov/` already uses: strip comments and docstrings
-    BEFORE matching, so a quoted signature is prose rather than a declaration.
-    """
-    out = []
-    i, n = 0, len(src)
-    depth = 0
-    while i < n:
-        two = src[i:i + 2]
-        if depth > 0:
-            if two == "/-":
-                depth += 1
-                i += 2
-                continue
-            if two == "-/":
-                depth -= 1
-                i += 2
-                continue
-            i += 1
-            continue
-        if two == "/-":
-            depth = 1
-            i += 2
-            continue
-        if two == "--":
-            j = src.find("\n", i)
-            i = n if j < 0 else j
-            continue
-        out.append(src[i])
-        i += 1
-    return "".join(out)
+from tools.lean_source import strip_comments  # noqa: E402  (round 968: one authority;
+        # this file's copy was measured byte-identical on 1,169 Lean files)
 
 
 def scan():

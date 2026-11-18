@@ -354,6 +354,11 @@ CHECKS = [
     # nothing about the twenty-one P8 files. The generator now refuses to run if any cited
     # identifier is not a declaration, and this self-test proves that refusal can actually fire.
     ("docs: objective audit citations exist (self-test)", "gen_objective_audit.py --self-test"),
+    # Round 968: twenty-one copies of `strip_comments` had accumulated. Nine were measured
+    # BYTE-IDENTICAL on 1,169 Lean files; five of those now import one authority, and this pins that
+    # authority's contract -- in particular that NESTED block comments are handled, which no consumer
+    # exercises on its own.
+    ("meta: comment stripper contract", "tools/lean_source.py --self-test"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.

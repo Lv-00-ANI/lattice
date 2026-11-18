@@ -49,37 +49,9 @@ DECL = re.compile(
 IMPORT = re.compile(r"(?m)^import\s+(Lattice\.[A-Za-z0-9_.]+)")
 TOKEN = re.compile(r"[A-Za-z0-9_']+")
 
-
-def strip_comments(src):
-    """Remove `--` line comments and nested `/- ... -/` blocks. Docstrings are block comments."""
-    out = []
-    i, n = 0, len(src)
-    depth = 0
-    while i < n:
-        two = src[i:i + 2]
-        if depth > 0:
-            if two == "/-":
-                depth += 1
-                i += 2
-                continue
-            if two == "-/":
-                depth -= 1
-                i += 2
-                continue
-            i += 1
-            continue
-        if two == "/-":
-            depth = 1
-            i += 2
-            continue
-        if two == "--":
-            j = src.find("\n", i)
-            i = n if j < 0 else j
-            continue
-        out.append(src[i])
-        i += 1
-    return "".join(out)
-
+# Round 968: this file's local copy was one of NINE implementations measured byte-identical on
+# 1,169 Lean files; they are now one authority. See gov/tools/lean_source.py for the measurement.
+from tools.lean_source import strip_comments  # noqa: E402
 
 def measure():
     """Return a dict of the four numbers plus the audited-but-stale count."""

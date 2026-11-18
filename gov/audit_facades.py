@@ -54,30 +54,8 @@ DECL_RE = re.compile(
 )
 
 
-def strip_comments(text):
-    """Remove Lean block comments `/- ... -/` and line comments, keeping code lines."""
-    out = []
-    i = 0
-    depth = 0
-    while i < len(text):
-        if text.startswith("/-", i):
-            depth += 1
-            i += 2
-            continue
-        if depth and text.startswith("-/", i):
-            depth -= 1
-            i += 2
-            continue
-        if depth:
-            i += 1
-            continue
-        if text.startswith("--", i):
-            while i < len(text) and text[i] != "\n":
-                i += 1
-            continue
-        out.append(text[i])
-        i += 1
-    return "".join(out)
+from tools.lean_source import strip_comments  # noqa: E402  (round 968: one authority;
+        # this file's copy was measured byte-identical on 1,169 Lean files)
 
 
 def classify(path, rel):
