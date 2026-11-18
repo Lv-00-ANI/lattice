@@ -11,7 +11,7 @@
 | core | 165 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 658 | instantiated library, may import core only |
+| lib | 659 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -453,6 +453,7 @@
 - `Lattice.Lib.Compiler.RealWhileTotalCorrectness` <- `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Compiler.RealWP`
 - `Lattice.Lib.Compiler.ReluClosure` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Lib.Editing.RealNonlinearExtract`, `Lattice.Lib.Compiler.Expressiveness`
 - `Lattice.Lib.Compiler.ReluLemmas` <- `Lattice.Lib.Compiler.RealNonlinearCompile`
+- `Lattice.Lib.Compiler.ReversibilityChain` <- `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.IRWeightsBridge`
 - `Lattice.Lib.Compiler.ReversibilityCriterion` <- `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.ReversibilityLimit`
 - `Lattice.Lib.Compiler.ReversibilityInstances` <- `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Lib.Compiler.ReversibilityLimit` <- `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.Expressiveness`
@@ -879,7 +880,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.ReversibilityChain`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1526,6 +1527,7 @@
 | `Lattice.Lib.Compiler.RealWhileTotalCorrectness` | 14 | 8 |
 | `Lattice.Lib.Compiler.ReluClosure` | 6 | 0 |
 | `Lattice.Lib.Compiler.ReluLemmas` | 9 | 0 |
+| `Lattice.Lib.Compiler.ReversibilityChain` | 5 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityCriterion` | 4 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityInstances` | 5 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityLimit` | 1 | 0 |
@@ -4947,8 +4949,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encodeForm_payload` -> `Encoded`, `LinearForm`, `Token`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `map`, `payload`
 - `encodeForm_payload_length` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `length`, `payload`
 - `encodeGrid_even` -> `Compiler`, `IRWeights`, `Segment`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
+- `encodeGrid_has_extract` -> `Compiler`, `IRWeights`, `Segment`, `apply`, `at`, `decodeGrid`, `decodeGrid_encodeGrid`, `encodeGrid`, `encodeGrid_injective`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `reversibility_criterion`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `encodeGrid_injective` -> `Compiler`, `IRWeights`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
 - `encodeGrid_odd` -> `Compiler`, `IRWeights`, `Segment`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
+- `encodeGrid_reversible_by_criterion` -> `Compiler`, `IRWeights`, `Segment`, `apply`, `at`, `encodeGrid`, `encodeGrid_injective`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `reversibility_criterion`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `encodeInstr_length_ofTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
 - `encodeProgram_append_length` -> `Instr`, `append_nil`, `length`, `softmax`
 - `encodeProgram_append_softmax_length` -> `Instr`, `length`, `softmax`
@@ -5998,6 +6002,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gridEval_affine` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_neg` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_smul` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
+- `gridEval_unit_not_injective` -> `Compiler`, `Segment`, `apply`, `at`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `segmentIndex`
+- `gridWeights_not_extractable` -> `Compiler`, `Segment`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`
 - `grid_delta_dense` -> `DeltaDense`, `at`, `le_trans`, `trivial`
 - `grid_dense_le` -> `DeltaDense`, `le_trans`
 - `grid_mem_iff` -> `DeltaDense`, `at`, `le_trans`, `trivial`
@@ -9746,6 +9752,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seg_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `seg_const_zero` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `segmentIndex_at_one` -> `Compiler`, `chordSegment_eval`, `le_trans`, `piecewiseFamily_error`, `piecewiseWeights`, `quarter_inv_sq_tends_to_zero`, `segmentIndex`, `segmentIndex_lt`, `segmentIndex_mem`, `subst`
+- `segmentIndex_le_on_unit` -> `Compiler`, `Segment`, `apply`, `at`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `segmentIndex_lt` -> `Compiler`, `chordSegment`, `eval`
 - `segmentIndex_mem` -> `Compiler`, `chordSegment`, `eval`
 - `selProd_concat` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
