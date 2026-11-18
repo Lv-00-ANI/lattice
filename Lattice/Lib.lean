@@ -57,6 +57,7 @@ import Lattice.Lib.Compiler.ConvexityChord
 import Lattice.Lib.Compiler.SecondDerivBound
 import Lattice.Lib.Compiler.GridAlgebra
 import Lattice.Lib.Compiler.IRWeightsBridge
+import Lattice.Lib.Compiler.ReversibilityChain
 /-!
 # Lattice.Lib -- harvested instances
 

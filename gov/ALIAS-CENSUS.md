@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 724 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 725 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -333,6 +333,7 @@
 | `Lib/Compiler/RealWPWhile.lean` | `wpT_while_least_agrees` |
 | `Lib/Compiler/RealWPWhile.lean` | `wp_skip_true` |
 | `Lib/Compiler/ReluClosure.lean` | `relu_verify_criterion` |
+| `Lib/Compiler/ReversibilityChain.lean` | `gridWeights_not_extractable` |
 | `Lib/Compiler/ReversibilityInstances.lean` | `relu_irreversible_by_criterion` |
 | `Lib/Concentration/RealBernsteinCondition.lean` | `bernstein_moment_recurrence` |
 | `Lib/Concentration/RealEYM.lean` | `eym_dimension_crossing` |
