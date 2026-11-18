@@ -23,15 +23,18 @@ import Lattice.Lib.Compiler.PiecewiseUniform
 
 **=> 于是**交织编码**就够：偶数位放斜率、奇数位放截距。**
 
-## 命名说明（为什么本文件用全限定名）
+## 命名说明（一条被纠正的误判，留作记录）
 
-**`audit_duplicate_names` 以**短名**计站点，而 IR 权重类型的短名在 `Core/IR` 里已出现两处
-（`Compile.lean` 与 `FinSupport.lean`，分属不同命名空间）。**
+**第 965 轮本文件用**全限定名**写 `IRWeights`，理由是我以为该短名在 `Core/IR` 里被
+定义了两处（`Compile.lean` 与 `FinSupport.lean`）。**
 
-**=> 本文件若再用短名，会使该计数超过基线。
-=> 故本文件一律写**全限定名**，并在散文中称其为「IR 权重类型」。**
+**=> 第 967 轮查明：这是 `audit_duplicate_names` 的**假阳性**。
+`FinSupport.lean` 那一处位于**模块 docstring 的代码块**里（它引用该签名来解释有限支撑），
+并不是定义。全库真实定义只有 `Compile.lean:74` 一处。**
 
-**=> 这本身也记录了 `Core/IR` 里那处**既有的**短名重复（两处同名 `abbrev`），留待后续收敛。**
+**=> 审计已修（现在先剥注释与 docstring 再匹配），本文件遂改回**短名**。**
+
+**=> 教训：一个「测量结果」在写进文档前，必须先核对被测对象本身。**
 
 ## 交付什么
 
@@ -50,17 +53,18 @@ import Lattice.Lib.Compiler.PiecewiseUniform
 namespace Lattice.Lib.Compiler.IRWeightsBridge
 
 open Set
+open Lattice.Core.IR
 open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.PiecewiseWeights
 open Lattice.Lib.Compiler.PiecewiseUniform
 open Lattice.Lib.Compiler.GridAlgebra
 
 /-- **⭐⭐ 把网格函数编码成 IR 权重向量：偶数位斜率，奇数位截距。** -/
-noncomputable def encodeGrid (g : ℕ → Segment) : Lattice.Core.IR.IRWeights :=
+noncomputable def encodeGrid (g : ℕ → Segment) : IRWeights :=
   fun i => if i % 2 = 0 then (g (i / 2)).m else (g (i / 2)).c
 
 /-- **⭐⭐ 解码：从权重向量取回网格函数。** -/
-noncomputable def decodeGrid (w : Lattice.Core.IR.IRWeights) : ℕ → Segment :=
+noncomputable def decodeGrid (w : IRWeights) : ℕ → Segment :=
   fun k => ⟨w (2 * k), w (2 * k + 1)⟩
 
 /-- **⭐ 偶数位的取值是斜率。** -/
@@ -93,7 +97,7 @@ theorem encodeGrid_injective : Function.Injective encodeGrid := by
 /-- **⭐⭐⭐ `n` 段分段线性族的**权重向量**（真实载体）。
 
 **=> 偶数位是第 `k` 片的斜率 `k/n + (k+1)/n`，奇数位是截距 `-(k/n)·((k+1)/n)`。** -/
-noncomputable def piecewiseIRWeights (n : ℕ) : Lattice.Core.IR.IRWeights :=
+noncomputable def piecewiseIRWeights (n : ℕ) : IRWeights :=
   encodeGrid (fun k => chordSegment ((k : ℝ) / n) (((k : ℝ) + 1) / n))
 
 /-- **⭐⭐ `piecewiseIRWeights` 的偶数位显式形式。** -/
