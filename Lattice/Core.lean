@@ -149,6 +149,7 @@ import Lattice.Core.IR.Semantics
 import Lattice.Core.IR.Decode
 import Lattice.Core.IR.DecodeFaithful
 import Lattice.Core.IR.DecodeSpec
+import Lattice.Core.IR.DecodeStrict
 import Lattice.Core.IR.DecodeRelations
 import Lattice.Core.IR.Extract
 import Lattice.Core.RepairModule.ConstraintProofs

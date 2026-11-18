@@ -197,6 +197,8 @@ forward	Core/Data/Models.lean	data_models
 forward	Core/Data/Models.lean	data_models_shape
 forward	Core/IR/CertSnapshot.lean	cert_matches_at_issue
 forward	Core/IR/CoverageMonotone.lean	covered_typable
+forward	Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_code
+forward	Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_faithful
 forward	Core/IR/Extract.lean	loop_preserves_others
 forward	Core/IR/Semantics.lean	agrees_not_subsumes_covered
 forward	Core/IR/Semantics.lean	parse_models
