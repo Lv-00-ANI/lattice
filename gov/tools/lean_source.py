@@ -40,7 +40,39 @@ behaviour is TESTABLE, so this is a fact-isomorphic merge rather than a guess.
 | `audit_reach` | a different algorithm (9 vs 23 lines of output on the same input); genuinely a second skeleton. |
 | `check_prop_def_strength`, `gen_review_inventory` | they deliberately KEEP docstrings. A `keep_docs` parameter would be a mode branch inside one body, which is the "body-branch" veto: keep them separate. |
 | `audit_duplicate_statements` | the definition is nested inside a function, so it is not isolatable; needs manual inspection. |
-| `plugin_inventory`, `tools/sorry_axiom_census` | they reference module-level regex objects, so their bodies are not self-contained. `audit_counts` already imports `sorry_axiom_census`'s version. |
+| `audit_duplicate_statements` | its definition is nested inside a function; not isolatable, needs manual inspection. |
+| `plugin_inventory` | it references module-level regex objects, so its body is not self-contained. |
+| **`tools/sorry_axiom_census`** | **NOT a duplicate at all -- it is a STRONGER implementation, and this was measured, not assumed.** |
+
+## The correction: `sorry_axiom_census` is not a weaker copy
+
+**Round 968's first draft of this docstring said that module was left alone because "its body is not
+self-contained". That was wrong, and measuring it showed why.**
+
+**Its `strip_comments` PRESERVES NEWLINES INSIDE BLOCK COMMENTS:**
+
+```python
+else:
+    if src[i] == "\n":
+        out.append("\n")     # <-- the authority DROPS this newline
+    i += 1
+```
+
+**=> compared against this module on 1,171 inputs it differs on 1,152 of them -- every file with a multi-line
+block comment.**
+
+**=> and the newline-preserving behaviour is BETTER: a scanner that reports line numbers stays aligned with
+the original file, whereas this module's output shifts every line after a block comment.**
+
+**=> so the direction of convergence would have had to be the OPPOSITE one, and switching the gate onto this
+module would have been a REGRESSION.**
+
+**It is also memoised on the source text, because `gate.py` calls it once per (invariant x file) -- the
+docstring there records a cold run of 14,580 calls at ~146 s under cProfile. Losing that cache would slow the
+hottest check in the suite.**
+
+**=> `gate.py` and `audit_counts` therefore keep using `sorry_axiom_census`, and the self-test below PINS the
+difference so nobody "converges" them by accident.**
 
 ## Contract card
 
@@ -92,6 +124,10 @@ CASES = [
     ("/- o /- i -/ still -/y", "y", "NESTED block comment: the inner `-/` must not close the outer"),
     ("/- open\nrest", "", "unclosed block removes the remainder"),
     ("x = 1\n", "x = 1\n", "plain code passes through unchanged"),
+    # PINS THE DIFFERENCE with tools/sorry_axiom_census: that module keeps these newlines so that a
+    # diagnostic's line number still points at the right line. This module does not. If someone ever
+    # \"converges\" the two, exactly one of these two cases must change.
+    ("/- a\nb\nc -/x", "x", "newlines INSIDE a block comment are DROPPED here (sorry_axiom_census keeps them)"),
 ]
 
 
