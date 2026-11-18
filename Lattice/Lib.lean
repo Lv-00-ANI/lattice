@@ -56,6 +56,7 @@ import Lattice.Lib.Compiler.ChordErrorGeneral
 import Lattice.Lib.Compiler.ConvexityChord
 import Lattice.Lib.Compiler.SecondDerivBound
 import Lattice.Lib.Compiler.GridAlgebra
+import Lattice.Lib.Compiler.IRWeightsBridge
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -1507,6 +1507,15 @@ Lib/Compiler/GridAlgebra.lean	stacked_error_bound
 Lib/Compiler/HopVerdict.lean	hop_verdict
 Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
 Lib/Compiler/HopVerdict.lean	hop_verdict_with_modulus
+Lib/Compiler/IRWeightsBridge.lean	encodeGrid_even
+Lib/Compiler/IRWeightsBridge.lean	encodeGrid_odd
+Lib/Compiler/IRWeightsBridge.lean	decodeGrid_encodeGrid
+Lib/Compiler/IRWeightsBridge.lean	encodeGrid_injective
+Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_even
+Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_odd
+Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_represents
+Lib/Compiler/IRWeightsBridge.lean	irWeights_error_bound
+Lib/Compiler/IRWeightsBridge.lean	irWeights_uniform_tendsto
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg

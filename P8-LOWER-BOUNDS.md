@@ -329,6 +329,57 @@ theorem stacked_error_bound (f g) (hs) (n) (e1 e2)
 
 ---
 
+## 3h. 边界 1 闭合：P8 落到**真实载体**上（第 965 轮）
+
+**§10 边界 1 原文：「任何 LATTICE 的 IR 权重类型侧实现——`hop_verdict` 全部用 `ℝ` 与 `ℤ` 陈述。」**
+
+**=> 即：P8 的全部结果从未接触过 LATTICE 自己的权重类型。本节闭合它。**
+
+**载体（`Core/IR/Compile.lean:74`）：IR 权重类型 = `ℕ → ℝ`，即一条实数序列。**
+**而第 964 轮的网格函数是 `ℕ → Segment`，`Segment = <m, c>` 是**两个**实数。**
+
+**=> 于是**交织编码**就够：偶数位放斜率、奇数位放截距。**
+
+**`Lib/Compiler/IRWeightsBridge.lean`（12 项声明）：**
+
+```lean
+def encodeGrid (g : Nat -> Segment) : IRW := fun i => if i % 2 = 0 then (g (i / 2)).m else (g (i / 2)).c
+def decodeGrid (w : IRW) : Nat -> Segment := fun k => <w (2 * k), w (2 * k + 1)>
+
+theorem encodeGrid_even (g) (k) : encodeGrid g (2 * k) = (g k).m
+theorem encodeGrid_odd  (g) (k) : encodeGrid g (2 * k + 1) = (g k).c
+theorem decodeGrid_encodeGrid (g) : decodeGrid (encodeGrid g) = g     -- 往返恒等
+theorem encodeGrid_injective : Function.Injective encodeGrid           -- 编码无损
+
+def piecewiseIRWeights (n : Nat) : IRW := encodeGrid (fun k => chordSegment (k/n) ((k+1)/n))
+theorem piecewiseIRWeights_represents (n) (x) :
+    gridEval (decodeGrid (piecewiseIRWeights n)) n x = piecewiseWeights n x
+
+theorem irWeights_error_bound (n) (hn) (x) (hx : x in Icc 0 1) :
+    |x^2 - gridEval (decodeGrid (piecewiseIRWeights n)) n x| <= (1/n)^2 / 4
+
+theorem irWeights_uniform_tendsto :
+    forall eps > 0, exists n >= 1, forall x in Icc 0 1,
+      |x^2 - gridEval (decodeGrid (piecewiseIRWeights n)) n x| <= eps
+```
+
+**四个要点：**
+
+1. **编码是**单射**（`encodeGrid_injective`）：不同的分段族给出不同的权重向量，故表示无损；**
+2. **`piecewiseIRWeights_represents` 是对接证据：该权重向量解码后**正是**分段族；**
+3. **`irWeights_error_bound` 是边界 1 的主定理：误差界现在说的是**权重向量**；**
+4. **`irWeights_uniform_tendsto` 把 R1 的**一致**形状搬到真实载体上。**
+
+**=> 于是「符号 ⇄ 权重」这一跳在本项目的**真实权重类型**上有了定量保证，
+而不再只活在 `ℝ` 的抽象函数里。**
+
+**方向合法性：`Lib`（rank 3）→ `Core`（rank 0）向下引用，I4 通过。**
+
+**★ 命名记录：`audit_duplicate_names` 以**短名**计站点，且它**也扫描注释里的代码块**——
+在 docstring 中引用 `abbrev <短名>` 会被计为一次定义。故本文件散文里不引用该短名。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -420,7 +471,7 @@ theorem hop_verdict :
 
 ---
 
-## 9. 文件索引（20 个文件，114 项声明）
+## 9. 文件索引（21 个文件，126 项声明）
 
 | 文件 | 定理数 | 内容 |
 |:--|--:|:--|
@@ -437,6 +488,7 @@ theorem hop_verdict :
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
+| `Lib/Compiler/IRWeightsBridge.lean` | 12 | **ON THE REAL CARRIER: `IRWeights` encoding + error bound (stage J, boundary 1 CLOSED)** |
 | `Lib/Compiler/GridAlgebra.lean` | 16 | **grid algebra: vector-space closure + STACKING budget law (stage I)** |
 | `Lib/Compiler/SecondDerivBound.lean` | 6 | **`\|f''\| <= M` => `M(b-a)^2/8` (stage H, chain CLOSED)** |
 | `Lib/Compiler/ConvexityChord.lean` | 5 | **convexity => tent => `M(b-a)²/8` (stage G)** |
@@ -445,7 +497,7 @@ theorem hop_verdict :
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **20 files, 114 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **21 files, 126 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -468,7 +520,7 @@ theorem hop_verdict :
 
 | # | 原表述 | 状态 | 依据 |
 |--:|:--|:--|:--|
-| 1 | `IRWeights` 侧无实现 | **仍开放** | `git grep IRWeights Lattice/Lib/Compiler/*` 为空 |
+| 1 | IR 权重类型侧无实现 | **已闭合** | `IRWeightsBridge`：交织编码 `ℕ → Segment ↪ (ℕ → ℝ)`，往返恒等 + 单射 + 误差界 + 一致逼近均已在真实载体上成立 |
 | 2 | `ε ≥ 1` 平凡 | **已推翻** | `R3Triviality.R3_boundary_corrected`（反例 `0,5,1`） |
 | 3 | 缺完整表达定理 | **已闭合** | `ChordGeneral` + `ChordErrorGeneral` + `ConvexityChord` + `SecondDerivBound` + `GridAlgebra`：包含关系、精确表示、一般误差界、`\|f''\| <= M => M(b-a)^2/8`、向量空间封闭、堆叠误差律均已证 |
 | 4 | R2 未包成单一函数 | **已闭合** | `PiecewiseWeights.piecewiseWeights`（`fe54eb8d`） |
@@ -513,4 +565,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–964 轮新增 §3c–§3g（一般弦、一般误差界、凸性路线、二阶导数界、网格代数）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–965 轮新增 §3c–§3h（一般弦、一般误差界、凸性路线、二阶导数界、网格代数、真实载体）。**
