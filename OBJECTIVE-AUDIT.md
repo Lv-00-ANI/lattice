@@ -26,7 +26,7 @@
 | 逆向把权重行为提取回符号，用于验证、修正、再注入 | **theorem** | `extract` / `EpsSat` / `sqDistFix` / `reinject_loss_eq_zero` | 四个逆向用途各有一个载体 |
 | 闭环就是验证回路 | **theorem** | `loop_fixed_point`（满足 ∧ 修正稳定 ∧ 往返固定，同一点） |  |
 | 符号模型直接跑在符号引擎上，不另设中间层 | **theorem** | `evalPts` / `derivation_sound` | 符号侧不经过 token 或权重即可求值与推导 |
-| 真正的难点只有 符号⇄权重 这一跳 | **theorem** | `no_extractor_both_layers` / `Extraction.layers_conflict` | 「难」的形式化内容是：不可能有一个提取器同时对参数层与语义层忠实 |
+| 真正的难点只有 符号⇄权重 这一跳 | **theorem** | `no_extractor_both_layers` / `Extraction.layers_conflict`；**P8 判决（第 944–965 轮，21 文件 / 126 声明）**：`hop_verdict`（四步合一）、`target_not_attainable`（线性族 `1/8` 地板）、`r2_holds_for_piecewise`（收敛序列存在）、`piecewiseWeights_uniform_tendsto`（分段族一致逼近）、`irWeights_error_bound`（真实载体 `IRWeights`） | 「难」的形式化内容是：不可能有一个提取器同时对参数层与语义层忠实；**而定量内容是：线性族有正地板、分段族无地板，且后者已在真实权重载体上证明** |
 | 不绑定任何厂商或框架 | **check** | `check_objective_coverage.py` 规则 C（外部 vendor import 数为 0） | 「不 import」可机器检查 |
 | 不实现引擎、模型和训练框架 | **check** | `check_scope_boundary.py`（无训练循环 / 优化器结构 / Module 式 forward） | 「不写训练循环」可机器检查；第 158 轮补上 |
 | 正确性由 Lean 4 形式化保证 | **theorem** | 全库 9,951 条定理，`gate.py` 的 I1（无 axiom）/ I2（无 sorry） | 「保证」的含义是：无 axiom、无 sorry、内核检查通过 |

@@ -58,8 +58,6 @@ EXEMPT = {
     "gen_objective_map.py":
         "a generator: `--check` regenerates and compares against the tree, so it is red whenever the "
         "tree moves. Planting a defect would mean mutating the tree it measures.",
-    "gen_objective_audit.py":
-        "same shape as gen_objective_map.py: `--check` compares its output against a fresh run.",
     "escape_baseline.py":
         "a baseline comparison: it fails when the tree's escape count differs from the recorded "
         "baseline, which is already the defect it looks for.",

@@ -24,6 +24,67 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LAT = os.path.abspath(os.path.join(HERE, "..", "Lattice"))
 OUT = os.path.abspath(os.path.join(HERE, "..", "OBJECTIVE-AUDIT.md"))
 
+#: A declaration line. This is the SAME shape as `audit_duplicate_names.py`'s DECL, so the
+#: citation check and the duplicate check agree on what counts as a declaration.
+DECL = re.compile(
+    r"^\s*(?:private\s+|protected\s+|noncomputable\s+|partial\s+)*"
+    r"(def|theorem|lemma|structure|inductive|abbrev|instance)\s+"
+    r"([A-Za-z_\u00c0-\uffff][\w\u00c0-\uffff']*)"
+)
+
+#: A backticked SINGLE identifier: `name`. Tokens containing a dot (`gate.py`,
+#: `Extraction.layers_conflict`) are paths or qualified names and do not match.
+#: A general "every backticked token must be a declaration" check was measured at
+#: 13,689 false positives (see `check_doc_names.py`'s docstring), so this stays narrow:
+#: it checks only the CURATED set of names this file itself cites.
+CITED = re.compile(r"`([A-Za-z_][\w']*)`")
+
+
+def declared_names():
+    """Every short declaration name in the tree."""
+    names = set()
+    for dirpath, _dirs, files in os.walk(LAT):
+        for fn in files:
+            if not fn.endswith(".lean"):
+                continue
+            for line in io.open(os.path.join(dirpath, fn), encoding="utf-8"):
+                m = DECL.match(line)
+                if m:
+                    names.add(m.group(2))
+    return names
+
+
+def cited_names():
+    """Every single-identifier backtick citation in SENTENCES."""
+    out = set()
+    for _s, _k, ev, note in SENTENCES:
+        for t in (ev, note):
+            out.update(CITED.findall(t))
+    return out
+
+
+def check_citations():
+    """**The guard this file was missing.**
+
+    The evidence column is a curated list of declaration names. Nothing checked that those
+    names still exist, so the table could silently cite a phantom -- and it DID: after rounds
+    944-965 the "symbol <-> weight" row still cited only the pre-P8 declarations and knew
+    nothing about the twenty-one P8 files.
+
+    => this fails the generator (and therefore `verify_all`'s `--check` step) if any cited
+    identifier is not a declaration in the tree.
+
+    Measured on the tree at round 966: 24 cited identifiers, 24 declared, **zero exemptions**.
+    The check therefore carries no allow-list -- which is what makes it a guard rather than a
+    formality.
+    """
+    have = declared_names()
+    missing = sorted(cited_names() - have)
+    if missing:
+        print("OBJECTIVE-AUDIT: cited but NOT declared: " + ", ".join(missing))
+        return False
+    return True
+
 #: sentence -> (kind, evidence, note)
 #:   kind = "theorem"      a Lean declaration states it
 #:          "check"        a script in gov/ enforces it
@@ -43,8 +104,13 @@ SENTENCES = [
      "theorem", "`evalPts` / `derivation_sound`",
      "符号侧不经过 token 或权重即可求值与推导"),
     ("真正的难点只有 符号⇄权重 这一跳",
-     "theorem", "`no_extractor_both_layers` / `Extraction.layers_conflict`",
-     "「难」的形式化内容是：不可能有一个提取器同时对参数层与语义层忠实"),
+     "theorem",
+     "`no_extractor_both_layers` / `Extraction.layers_conflict`；"
+     "**P8 判决（第 944–965 轮，21 文件 / 126 声明）**：`hop_verdict`（四步合一）、"
+     "`target_not_attainable`（线性族 `1/8` 地板）、`r2_holds_for_piecewise`（收敛序列存在）、"
+     "`piecewiseWeights_uniform_tendsto`（分段族一致逼近）、`irWeights_error_bound`（真实载体 `IRWeights`）",
+     "「难」的形式化内容是：不可能有一个提取器同时对参数层与语义层忠实；"
+     "**而定量内容是：线性族有正地板、分段族无地板，且后者已在真实权重载体上证明**"),
     ("不绑定任何厂商或框架",
      "check", "`check_objective_coverage.py` 规则 C（外部 vendor import 数为 0）",
      "「不 import」可机器检查"),
@@ -123,7 +189,47 @@ def render():
     return "\n".join(L) + "\n"
 
 
+def self_test():
+    """**A guard that cannot fail is not a guard.**
+
+    Two directions:
+      1. the REAL citation set must pass (otherwise the table is broken);
+      2. a FABRICATED phantom citation must be caught (otherwise the check is vacuous).
+    """
+    ok = True
+
+    have = declared_names()
+    real = cited_names()
+    if not real:
+        print("  self-test FAILED: no citations were extracted -- the regex is not reading them")
+        return False
+    print("  real citations        : %d, all declared: %s"
+          % (len(real), sorted(real - have) == []))
+    if real - have:
+        print("  real citations missing: " + ", ".join(sorted(real - have)))
+        ok = False
+
+    # a name that is deliberately not in the tree
+    phantom = "thisDeclarationDoesNotExist_966"
+    if phantom in have:
+        print("  self-test FAILED: the phantom is somehow declared")
+        return False
+    detected = sorted((real | {phantom}) - have)
+    if detected != [phantom]:
+        print("  self-test FAILED: the phantom was NOT detected (got %r)" % (detected,))
+        ok = False
+    else:
+        print("  phantom detected      : %s" % phantom)
+    return ok
+
+
 def main(argv):
+    if "--self-test" in argv:
+        ok = self_test()
+        print("  self-test: %s" % ("PASS" if ok else "FAIL"))
+        return 0 if ok else 1
+    if not check_citations():
+        return 1
     text = render()
     if "--check" in argv:
         if not os.path.exists(OUT):

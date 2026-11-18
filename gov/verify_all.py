@@ -348,6 +348,12 @@ CHECKS = [
     # positioning. The last category is the point: some sentences are claims about the world, and
     # writing them as Lean theorems would be false.
     ("docs: objective audit up to date", "gen_objective_audit.py --check"),
+    # Round 966: the audit table's evidence column is a CURATED list of declaration names, and
+    # nothing checked that those names still exist. It had silently gone stale -- after rounds
+    # 944-965 the "symbol <-> weight" row still cited only the pre-P8 declarations and knew
+    # nothing about the twenty-one P8 files. The generator now refuses to run if any cited
+    # identifier is not a declaration, and this self-test proves that refusal can actually fire.
+    ("docs: objective audit citations exist (self-test)", "gen_objective_audit.py --self-test"),
     # Four rounds in a row (73, 81, 82, 84) asserted how much of the objective was covered and were
     # refuted by a fresh enumeration -- every time a throwaway regex, never a work error. The
     # enumeration is now fixed once, with the criteria written down next to the code.
