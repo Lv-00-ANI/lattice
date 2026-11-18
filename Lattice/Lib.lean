@@ -55,6 +55,7 @@ import Lattice.Lib.Compiler.ChordGeneral
 import Lattice.Lib.Compiler.ChordErrorGeneral
 import Lattice.Lib.Compiler.ConvexityChord
 import Lattice.Lib.Compiler.SecondDerivBound
+import Lattice.Lib.Compiler.GridAlgebra
 /-!
 # Lattice.Lib -- harvested instances
 

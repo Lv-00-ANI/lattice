@@ -285,6 +285,50 @@ theorem chord_error_of_second_deriv_bound (f) (a b M) (hab) (hM)
 
 ---
 
+## 3g. 网格代数：边界 3 的最后一环——**堆叠与组合**（第 964 轮）
+
+**§10 边界 3 的原表述是「缺完整表达定理（**堆叠/组合构造**）」。**本节补齐它。
+
+**`Lib/Compiler/GridAlgebra.lean`（16 项声明）把「`n` 段分段线性函数」建成**代数对象**：**
+
+```lean
+def gridEval (g : Nat -> Segment) (n : Nat) (x : Real) : Real := (g (segmentIndex n x)).eval x
+def gridAdd  (g h : Nat -> Segment) : Nat -> Segment := fun k => <(g k).m + (h k).m, (g k).c + (h k).c>
+def gridNeg  (g : Nat -> Segment)   : Nat -> Segment := fun k => <-(g k).m, -(g k).c>
+def gridSmul (a : Real) (g : Nat -> Segment) : Nat -> Segment := fun k => <a * (g k).m, a * (g k).c>
+
+theorem gridEval_add  : gridEval (gridAdd g h) n x = gridEval g n x + gridEval h n x
+theorem gridEval_neg  : gridEval (gridNeg g) n x = -(gridEval g n x)
+theorem gridEval_smul : gridEval (gridSmul a g) n x = a * gridEval g n x
+
+theorem gridEval_affine (c d) : gridEval (affineGrid c d) n x = c * x + d
+theorem affine_in_grid  (c d) : exists g, forall x, gridEval g n x = c * x + d
+theorem interp_is_grid  (f)   : piecewiseInterp f n x = gridEval (fun k => chordOf f (k/n) ((k+1)/n)) n x
+
+theorem stacked_error_bound (f g) (hs) (n) (e1 e2)
+    (h1 : forall x in Icc 0 1, |f x - g x| <= e1)
+    (h2 : forall x in Icc 0 1, |g x - gridEval hs n x| <= e2) :
+    forall x in Icc 0 1, |f x - gridEval hs n x| <= e1 + e2
+```
+
+**三个要点：**
+
+1. **组合有了精确含义**：加法/取负/数乘**逐段**进行，且求值与它们**交换**
+   => 网格函数族是**向量空间**，仿射函数是它的**子空间**（`affine_in_grid`）；
+2. **`interp_is_grid` 是对接证据**：第 960 轮的分段插值族**就是**网格函数，
+   所以网格代数不是另起一套，而是同一对象的代数化表述；
+3. **`stacked_error_bound` 是**堆叠律**：两级逼近复合，端到端误差 `<= e1 + e2`。**
+
+**为什么堆叠律是边界 3 的正确收尾：**
+**真实流水线是多级的（符号 -> 中间表示 -> 权重），每一跳引入误差。**
+**=> 若第一跳 `<= e1`、第二跳 `<= e2`，则端到端 `<= e1 + e2`——这是**误差预算律**，
+且它是纯三角不等式，与载体无关。**
+
+**=> 于是边界 3 闭合：表达力（包含关系、精确表示）、定量（一般误差界、`M(b-a)^2/8`）、
+代数（向量空间封闭）、复合（堆叠律）四层俱全。**
+
+---
+
 ## 4. R3 为什么不是独立缺口
 
 **`ConstraintSatisfaction.lean`：**
@@ -376,7 +420,7 @@ theorem hop_verdict :
 
 ---
 
-## 9. 文件索引（19 个文件，98 项声明）
+## 9. 文件索引（20 个文件，114 项声明）
 
 | 文件 | 定理数 | 内容 |
 |:--|--:|:--|
@@ -393,6 +437,7 @@ theorem hop_verdict :
 | `Lib/Compiler/PiecewiseWeights.lean` | 4 | **the family as ONE function** |
 | `Lib/Compiler/PiecewiseUniform.lean` | 5 | **UNIFORM on the closed interval: R1 true for piecewise** |
 | `Lib/Compiler/ChordGeneral.lean` | 14 | **the GENERAL chord: `chordOf f a b`, and affine is exact (stage F)** |
+| `Lib/Compiler/GridAlgebra.lean` | 16 | **grid algebra: vector-space closure + STACKING budget law (stage I)** |
 | `Lib/Compiler/SecondDerivBound.lean` | 6 | **`\|f''\| <= M` => `M(b-a)^2/8` (stage H, chain CLOSED)** |
 | `Lib/Compiler/ConvexityChord.lean` | 5 | **convexity => tent => `M(b-a)²/8` (stage G)** |
 | `Lib/Compiler/ChordErrorGeneral.lean` | 5 | **the GENERAL error bound: tent hypothesis => `M(b-a)²/4`** |
@@ -400,7 +445,7 @@ theorem hop_verdict :
 | `Lib/Compiler/ReversibilityCriterion.lean` | 4 | reversibility criterion |
 | `Lib/Compiler/ReversibilityInstances.lean` | 6 | the criterion's two instances |
 
-**=> **19 files, 98 declarations**. All `sorry`-free, `axiom`-free.**
+**=> **20 files, 114 declarations**. All `sorry`-free, `axiom`-free.**
 
 ---
 
@@ -425,7 +470,7 @@ theorem hop_verdict :
 |--:|:--|:--|:--|
 | 1 | `IRWeights` 侧无实现 | **仍开放** | `git grep IRWeights Lattice/Lib/Compiler/*` 为空 |
 | 2 | `ε ≥ 1` 平凡 | **已推翻** | `R3Triviality.R3_boundary_corrected`（反例 `0,5,1`） |
-| 3 | 缺完整表达定理 | **近乎闭合** | `ChordGeneral` + `ChordErrorGeneral` + `ConvexityChord` + `SecondDerivBound`：包含关系、精确表示、一般误差界、`\|f''\| <= M => M(b-a)^2/8` 均已证；**仅堆叠构造开放** |
+| 3 | 缺完整表达定理 | **已闭合** | `ChordGeneral` + `ChordErrorGeneral` + `ConvexityChord` + `SecondDerivBound` + `GridAlgebra`：包含关系、精确表示、一般误差界、`\|f''\| <= M => M(b-a)^2/8`、向量空间封闭、堆叠误差律均已证 |
 | 4 | R2 未包成单一函数 | **已闭合** | `PiecewiseWeights.piecewiseWeights`（`fe54eb8d`） |
 
 **=> 四条中**两条已处理、两条开放**。**
@@ -468,4 +513,4 @@ structure Modulus where
 
 ---
 
-**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–963 轮新增 §3c–§3f（一般弦、一般误差界、凸性路线、二阶导数界）。**
+**生成于第 954 轮；第 956 轮更新至精确状态；第 957 轮新增 §10b（模数）；第 959 轮新增 §3b（一致逼近）；第 960–964 轮新增 §3c–§3g（一般弦、一般误差界、凸性路线、二阶导数界、网格代数）。**
