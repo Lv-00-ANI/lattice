@@ -535,6 +535,13 @@ Core/IR/DecodeRelations.lean	decodeRelListAux_code
 Core/IR/DecodeRelations.lean	shapesCode_rel_ge_length
 Core/IR/DecodeRelations.lean	decodeRelList_code
 Core/IR/DecodeRelations.lean	decodeSkeleton_code
+Core/IR/DecodeSpec.lean	decodeSpec_none_of_not_code
+Core/IR/DecodeSpec.lean	decodeSpec_some_code
+Core/IR/DecodeSpec.lean	decodeSpec_eq_some_iff
+Core/IR/DecodeSpec.lean	decodeSpecOfWeights_of_code
+Core/IR/DecodeStrict.lean	strictly_faithful
+Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_code
+Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_faithful
 Core/IR/Extract.lean	weightCodeIR_compileSkel
 Core/IR/Extract.lean	extract_compile
 Core/IR/Extract.lean	extract_injective_on_compiled
