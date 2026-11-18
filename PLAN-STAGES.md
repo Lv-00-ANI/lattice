@@ -40,7 +40,8 @@
 | **P22 判据上真实链路** | `ReversibilityChain`：编码**可逆**（正）、行为**不可提取权重**（负） | **完成** | `1076bfaa` |
 | **P23 信息锐化** | `ReversibilitySharpness`：可恢复集**恰为 `{0,…,n−1}`**（行为依赖 `{0..n}`，但 `g n` 只给 `m_n+c_n`） | **完成** | 第 971 轮 |
 | **P24 台账纠错** | O-2 的真实含义（P1-8 是**一个函数**）；记录一次破坏性覆盖险情 | **完成** | `c4b50b8b` |
-| **P25 P1-8 反向证否** | `DecodeFaithful`：`decodeTensorShape` **不忠实**（只看第一分量） | **完成** | 第 973 轮 |
+| **P25 P1-8 反向证否** | `DecodeFaithful`：`decodeTensorShape` **不忠实**（只看第一分量） | **完成** | `c7c76c0b` |
+| **P26 P1-8 规格层交付** | `DecodeSpec`：`decodeSpec`（`Classical.choose`）**逐字满足**审计要求；算法层明确留作方案 A | **完成** | 第 974 轮 |
 
 **=> P8 的 §10 四条边界：1 已闭合（P16）、2 已证否并修正、3 已闭合（P11–P15）、4 已闭合（P8 单一函数）。**
 
@@ -51,7 +52,7 @@
 | # | 项 | 为什么没做 | 下一步形态 |
 |--:|:--|:--|:--|
 | **O-1** | ~~`Core/IR` 里 IR 权重类型的短名**重复定义**~~ | **已闭合（第 967 轮）——**这是误判** | 查明：`FinSupport.lean` 那处位于**模块 docstring 的代码块**，不是定义；全库真实定义只有 `Compile.lean:74` 一处。根因是 `audit_duplicate_names` **未剥注释**。已修（先剥注释与 docstring 再匹配），基线从 541 重测为 **367**（即旧基线中 174 个、32% 是 docstring 假阳性） |
-| **O-2** | ~~P1-8 迁移（约 38 个文件 / 217 处）~~**——**该描述是错的**。P1-8 是**一件事**：`decode : ℕ → Option IRSkeleton`，对非骨架码返回 `none` | **正向已交付，反向已被**证否**（第 972–973 轮）** | 实测：`Core/IR/Decode.lean`（317 行，第 206 轮）给出**可计算**燃料式解码链；`DecodeRelations.lean:320` 的 `decodeSkeleton` 是审计要的函数，`:343` 的 `decodeSkeleton_code : decodeSkeleton (skeletonCode k) = some k` 已证。**⇒ 但第 973 轮证明**反向不成立**：`Core/IR/DecodeFaithful.lean` 的 `decodeTensorShape_not_faithful` 给出反例——`decodeTensorShape` 只看 `code ≠ 0` 与 `unpair code).1 ≠ 0`，**不检查第二分量**，而 `tensorShapeCode t = pair (…+1) 0` 的第二分量恒为 `0`。**⇒ 现有解码器是**宽松**的。O-2 真正剩余的是「把解码器改严」或「接受非可计算解码器」** |
+| **O-2** | ~~P1-8 迁移（约 38 个文件 / 217 处）~~**——**该描述是错的**。P1-8 是**一件事**：`decode : ℕ → Option IRSkeleton`，对非骨架码返回 `none` | **规格层已交付；算法层开放且已具名（第 972–974 轮）** | 正向：`decodeSkeleton_code`（已证）。反向：`Core/IR/DecodeFaithful.lean` 的 `decodeTensorShape_not_faithful` **证否**了现有解码器的忠实性（它只看码的第一分量，而码的第二分量恒为 0）。**规格层：`Core/IR/DecodeSpec.lean` 的 `decodeSpec`（`Classical.choose` 于 `skeletonCode_injective`）**逐字满足**审计要求，`decodeSpec_none_of_not_code` 即「像外返 none」。**⇒ 唯一开放的是「该函数**可计算**」，即 `T3-DECODE-DESIGN.md` 十二轮所打的方案 A** |
 | **O-3** | P6 剩余（可逆性判据的更多实例） | **实质推进（第 970–971 轮）** | 已为**真实链路**补实例：编码可逆（正）、`[0,1]` 上行为不决定权重（负）、**可恢复集恰为 `{0,…,n−1}`（锐化）**。剩余：其它载体的同类陈述 |
 | **O-5** | **`gov/` 里 **21 份** `strip_comments`（含 1 份 `strip_comments_keep_docs`）** | **部分闭合（第 968–969 轮）** | 实测：21 份 → **8 种不同行为**（1169 真实 Lean 文件 + 2 边界用例）。最大簇 **9 站点逐字节相同**。已建权威 `gov/tools/lean_source.py`，切换其中 **5 个**非 `repro` 站点（21 → 16）。**第 969 轮查明 `tools/sorry_axiom_census` 那份不是重复而是**更强**实现**（块注释内**保留换行**，故诊断行号不漂移；并与本权威在 1152/1171 输入上不同），**且它被记忆化供热路径 `gate.py` 使用** ⇒ **明确决定不收敛**，并把该差异钉进 `lean_source.py --self-test`（防止后人误合并）。余下站点均有记录理由 |
 | **O-4** | 会话早期规划的 P0 组（7 项中完成 6 项，剩余 1 项未在文件中具名） | **已闭合（第 966 轮）** | 该项已失传，故按「不可恢复即不可悬挂」处理：改为一个**可导出**的等价项——**审计表对 P8 过时**。`gen_objective_audit.py` 的「符号⇄权重」一行原本只引 P8 之前的声明；现已补入 P8 判决，并给生成器加了**引用必须存在**的自检（`--self-test`，双向：真实引用全命中 + 伪造引用被抓） |
