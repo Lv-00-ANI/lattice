@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 739 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 740 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -33,6 +33,7 @@
 | 文件 | 定理 |
 |:--|:--|
 | `Compose/Showcase/L1L2.lean` | `l1l2Roundtrip_sound` |
+| `Compose/Showcase/SymbolShortcut.lean` | `symbolShortcut_sound` |
 | `Core/CIC/CanonicalForm.lean` | `hasType_shape4` |
 | `Core/CIC/Conversion.lean` | `conv_trans` |
 | `Core/CIC/HeadForm.lean` | `headForm_value_not_neutral` |
