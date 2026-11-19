@@ -3091,6 +3091,7 @@ Plugins/Architectures/Attention/Plugin.lean	attentionInvariantsProp_holds
 Plugins/Architectures/Attention/Plugin.lean	attentionRecoveryProp_holds
 Plugins/Architectures/Attention/Plugin.lean	attentionConfluenceProp_holds
 Plugins/Architectures/Attention/Plugin.lean	attentionIdempotenceProp_holds
+Plugins/Architectures/Attention/Plugin.lean	attentionCompletenessProp_holds
 Plugins/Architectures/Attention/Plugin.lean	proof_holds
 Plugins/Architectures/Attention/Plugin.lean	verified_manifest
 Plugins/Architectures/Attention/Plugin.lean	verified_obligations
