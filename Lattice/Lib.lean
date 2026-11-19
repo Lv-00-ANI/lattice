@@ -62,6 +62,7 @@ import Lattice.Lib.Compiler.ReversibilitySharpness
 import Lattice.Lib.Compiler.ExecutableBoundary
 import Lattice.Lib.Compiler.ExecutableWeights
 import Lattice.Lib.Compiler.ModelsBehavior
+import Lattice.Lib.Attention.RealMaskAlgebra
 /-!
 # Lattice.Lib -- harvested instances
 

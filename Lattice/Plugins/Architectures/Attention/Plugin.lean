@@ -27,6 +27,7 @@ import Lattice.Plugins.Registry
 import Lattice.Plugins.Architectures.Attention.Manifest
 import Lattice.Plugins.Architectures.Attention.Proofs
 import Lattice.Lib.Attention.RealMaskFamily
+import Lattice.Lib.Attention.RealMaskAlgebra
 
 namespace Lattice.Plugins.Architectures.Attention
 
@@ -139,6 +140,39 @@ theorem attentionInvariantsProp_holds : AttentionInvariantsProp := by
   intro n mask _ hrefl s i
   exact refl_mask_sum_one mask hrefl s i
 
+/-- **`AttentionRecoveryProp`：宽松阶段是单位。**
+
+**⇒ `True ∧ m = m`：加上一个不加限制的阶段之后，原行为被**恢复**。
+由 `mask_and_true`。** -/
+def AttentionRecoveryProp : Prop :=
+  ∀ {n : ℕ} (m : Fin n → Fin n → Prop), (fun i j => True ∧ m i j) = m
+
+/-- **`AttentionRecoveryProp` holds** — 由 `mask_and_true`。 -/
+theorem attentionRecoveryProp_holds : AttentionRecoveryProp :=
+  fun m => mask_and_true m
+
+/-- **`AttentionConfluenceProp`：独立掩码的合取与顺序无关。**
+
+**⇒ `m₁ ∧ m₂ = m₂ ∧ m₁`：两处独立效应无论先后，结果相同。
+由 `mask_and_comm`。** -/
+def AttentionConfluenceProp : Prop :=
+  ∀ {n : ℕ} (m₁ m₂ : Fin n → Fin n → Prop),
+    (fun i j => m₁ i j ∧ m₂ i j) = (fun i j => m₂ i j ∧ m₁ i j)
+
+/-- **`AttentionConfluenceProp` holds** — 由 `mask_and_comm`。 -/
+theorem attentionConfluenceProp_holds : AttentionConfluenceProp :=
+  fun m₁ m₂ => mask_and_comm m₁ m₂
+
+/-- **`AttentionIdempotenceProp`：重复施加同一限制是惰性的。**
+
+**⇒ `m ∧ m = m`。由 `mask_and_self`；输出层推论见 `maskedSoftmax_and_self`。** -/
+def AttentionIdempotenceProp : Prop :=
+  ∀ {n : ℕ} (m : Fin n → Fin n → Prop), (fun i j => m i j ∧ m i j) = m
+
+/-- **`AttentionIdempotenceProp` holds** — 由 `mask_and_self`。 -/
+theorem attentionIdempotenceProp_holds : AttentionIdempotenceProp :=
+  fun m => mask_and_self m
+
 /-- **The attention carrier's proof bundle.**
 
 **`equivariance` filled here -- the second non-`True` equivariance in the tree.** -/
@@ -147,11 +181,11 @@ def proof : PluginProof where
   laws := AttentionWeightsNonnegativeProp
   exactness := AttentionMaskExcludesProp
   approximation := AttentionApproximationProp
-  recovery := True
+  recovery := AttentionRecoveryProp
   spatial := AttentionSpatialProp
-  confluence := True
+  confluence := AttentionConfluenceProp
   equivariance := AttentionPermEquivarianceProp
-  idempotence := True
+  idempotence := AttentionIdempotenceProp
   invariants := AttentionInvariantsProp
   completeness := True
   refinement := AttentionRefinementProp
@@ -162,9 +196,11 @@ theorem proof_holds : proof.Holds := by
   exact ⟨attentionRowStochasticProp_holds,
          attentionWeightsNonnegativeProp_holds,
          attentionMaskExcludesProp_holds,
-         attentionApproximationProp_holds, True.intro, attentionSpatialProp_holds, True.intro,
+         attentionApproximationProp_holds, attentionRecoveryProp_holds,
+         attentionSpatialProp_holds, attentionConfluenceProp_holds,
          attentionPermEquivarianceProp_holds,
-         True.intro, attentionInvariantsProp_holds, True.intro, attentionRefinementProp_holds⟩
+         attentionIdempotenceProp_holds, attentionInvariantsProp_holds,
+         True.intro, attentionRefinementProp_holds⟩
 
 /-- **The verified attention carrier.** -/
 def verified : VerifiedPlugin where
