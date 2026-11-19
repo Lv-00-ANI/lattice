@@ -1,0 +1,47 @@
+# Compose -- capability index, checked against Lattice/Plugins/Compose/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Compose
+module: Lattice.Plugins.Compose.Manifest
+layer: Compose
+obligations:
+  - name: parallel_comm
+    kind: spatial
+    theorem: parallel_comm_run
+    file: Lattice/Compose/Proofs.lean
+  - name: compose_assoc
+    kind: confluence
+    theorem: compose_run_assoc
+    file: Lattice/Compose/Combinators.lean
+  - name: identity_left_unit
+    kind: recovery
+    theorem: identity_compose_run
+    file: Lattice/Compose/Combinators.lean
+  - name: identity_right_unit
+    kind: recovery
+    theorem: compose_identity_right
+    file: Lattice/Compose/Proofs.lean
+  - name: compose_sound
+    kind: soundness
+    theorem: compose_sound
+    file: Lattice/Compose/Combinators.lean
+  - name: compose_strength
+    kind: laws
+    theorem: compose_strength
+    file: Lattice/Compose/Combinators.lean
+  - name: compose_coverage
+    kind: laws
+    theorem: compose_coverage
+    file: Lattice/Compose/Combinators.lean
+  - name: parallel_run
+    kind: laws
+    theorem: parallel_run
+    file: Lattice/Compose/Proofs.lean
+  - name: parallel_identity
+    kind: laws
+    theorem: parallel_identity_run
+    file: Lattice/Compose/Proofs.lean
+  - name: compose_h_of_pre_true
+    kind: soundness
+    theorem: compose_h_of_pre_true
+    file: Lattice/Compose/ComposeObligation.lean

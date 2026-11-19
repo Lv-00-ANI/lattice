@@ -1,0 +1,31 @@
+# Architectures.Norm -- capability index, checked against Lattice/Plugins/Architectures/Norm/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Architectures.Norm
+module: Lattice.Plugins.Architectures.Norm.Manifest
+layer: Architectures
+obligations:
+  - name: norm_iterate_variance_le_one
+    kind: idempotence
+    theorem: varOf_iterate_varNormalize_le_one
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean
+  - name: norm_variance_eq_one
+    kind: exactness
+    theorem: varOf_varNormalize_eq_one
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean
+  - name: norm_train_infer_agree
+    kind: soundness
+    theorem: bn_train_eq_infer
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean
+  - name: norm_lipschitz_sharp
+    kind: approximation
+    theorem: varNormalize_unit_lipschitz_sharp
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean
+  - name: norm_lipschitz
+    kind: approximation
+    theorem: varNormalize_unit_lipschitz
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean
+  - name: norm_variance_nonneg
+    kind: soundness
+    theorem: varOf_nonneg
+    file: Lattice/Plugins/Architectures/Norm/Proofs.lean

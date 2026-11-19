@@ -1,0 +1,35 @@
+# Domains.Constraints.Tokens -- capability index, checked against Lattice/Plugins/Domains/Constraints/Tokens/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Domains.Constraints.Tokens
+module: Lattice.Plugins.Domains.Constraints.Tokens.Manifest
+layer: Domains
+obligations:
+  - name: flatten_injective
+    kind: exactness
+    theorem: flatten_injective
+    file: Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean
+  - name: flatten_surjective
+    kind: completeness
+    theorem: flatten_surjective
+    file: Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean
+  - name: flatten_roundtrip
+    kind: laws
+    theorem: flattenRepresentation_roundtrip
+    file: Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean
+  - name: seq_decode_encode
+    kind: laws
+    theorem: seqDecode_encode
+    file: Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean
+  - name: seq_encode_decode
+    kind: laws
+    theorem: seqEncode_decode
+    file: Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean
+  - name: penalty_loss_not_injective
+    kind: soundness
+    theorem: penaltyLoss_not_injective
+    file: Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean
+  - name: no_loss_to_constraint_section
+    kind: soundness
+    theorem: no_loss_to_constraint_section
+    file: Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean

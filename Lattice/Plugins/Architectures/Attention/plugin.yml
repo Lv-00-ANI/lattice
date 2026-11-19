@@ -1,0 +1,19 @@
+# Architectures.Attention -- capability index, checked against Lattice/Plugins/Architectures/Attention/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Architectures.Attention
+module: Lattice.Plugins.Architectures.Attention.Manifest
+layer: Architectures
+obligations:
+  - name: attention_perm_equivariant
+    kind: equivariance
+    theorem: attention_perm_equivariant
+    file: Lattice/Plugins/Architectures/Attention/Proofs.lean
+  - name: attention_row_stochastic
+    kind: soundness
+    theorem: softmax_row_stochastic
+    file: Lattice/Plugins/Architectures/Attention/Proofs.lean
+  - name: attention_mask_excludes
+    kind: exactness
+    theorem: attention_masked_excludes
+    file: Lattice/Plugins/Architectures/Attention/Proofs.lean

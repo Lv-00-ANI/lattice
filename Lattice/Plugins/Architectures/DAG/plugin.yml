@@ -1,0 +1,19 @@
+# Architectures.DAG -- capability index, checked against Lattice/Plugins/Architectures/DAG/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Architectures.DAG
+module: Lattice.Plugins.Architectures.DAG.Manifest
+layer: Architectures
+obligations:
+  - name: dag_confluence
+    kind: confluence
+    theorem: dag_confluence
+    file: Lattice/Plugins/Architectures/DAG/Proofs.lean
+  - name: dag_denote_seq
+    kind: soundness
+    theorem: dag_denote_seq
+    file: Lattice/Plugins/Architectures/DAG/Proofs.lean
+  - name: dag_denote_par
+    kind: exactness
+    theorem: dag_denote_par
+    file: Lattice/Plugins/Architectures/DAG/Proofs.lean

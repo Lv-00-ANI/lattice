@@ -1,0 +1,55 @@
+# Extractors.ChainSlot -- capability index, checked against Lattice/Plugins/Extractors/ChainSlot/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Extractors.ChainSlot
+module: Lattice.Plugins.Extractors.ChainSlot.Manifest
+layer: Extractors
+obligations:
+  - name: slot_weight_lt_bias
+    kind: exactness
+    theorem: slotOf_weight_lt
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: slot_within_block
+    kind: exactness
+    theorem: slotOf_lt_bound
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: bias_slot_is_row_a
+    kind: laws
+    theorem: bias_slot_eq_slotOf
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: one_layer_weight_readable
+    kind: exactness
+    theorem: oneLayerPolyNat_coeff_weight
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: step_weight_readable
+    kind: exactness
+    theorem: stepNat_coeff_weight
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: step_bias_positional
+    kind: soundness
+    theorem: stepNat_coeff_bias
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: single_chain_weight_readable
+    kind: exactness
+    theorem: chainNatPoly_single_coeff_weight
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: slot_zero_dead_past_two
+    kind: soundness
+    theorem: stepNat_coeff_zero_irrelevant
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: foldl_slot_zero_preserved
+    kind: soundness
+    theorem: foldl_coeff_zero_irrelevant
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: per_slot_extraction_sound
+    kind: soundness
+    theorem: stepNat_coeff_other_slot
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: intermediate_poly_readable
+    kind: exactness
+    theorem: chainNatPolyAfter_one_coeff
+    file: Lattice/Core/RepairModule/VariableDerivative.lean
+  - name: deep_chain_final_slot_dead
+    kind: soundness
+    theorem: chainNatPoly_deep_coeff_zero
+    file: Lattice/Core/RepairModule/VariableDerivative.lean

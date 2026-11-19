@@ -1,0 +1,51 @@
+# Architectures.GNN -- capability index, checked against Lattice/Plugins/Architectures/GNN/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Architectures.GNN
+module: Lattice.Plugins.Architectures.GNN.Manifest
+layer: Architectures
+obligations:
+  - name: msgpass_equivariant
+    kind: equivariance
+    theorem: msgPass_equivariant
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: gnn_layer_equivariant
+    kind: equivariance
+    theorem: gnnLayer_equivariant
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: layer_stack_equivariant
+    kind: equivariance
+    theorem: layerStack_equivariant
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: perm_act_feat_mul
+    kind: laws
+    theorem: permActFeat_mul
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: perm_act_feat_one
+    kind: laws
+    theorem: permActFeat_one
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: perm_act_adj_mul
+    kind: laws
+    theorem: permActAdj_mul
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: perm_act_adj_one
+    kind: laws
+    theorem: permActAdj_one
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: readout_invariant
+    kind: invariants
+    theorem: readout_invariant
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: readout_invariant_of_layer_stack
+    kind: invariants
+    theorem: readout_invariant_of_layerStack
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: sparse_agrees_dense
+    kind: soundness
+    theorem: sparseMsgPass_eq_msgPass
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean
+  - name: msgpass_bound
+    kind: approximation
+    theorem: msgPass_bound_perm
+    file: Lattice/Plugins/Architectures/GNN/Proofs.lean

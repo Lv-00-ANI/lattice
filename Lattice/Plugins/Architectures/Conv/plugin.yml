@@ -1,0 +1,19 @@
+# Architectures.Conv -- capability index, checked against Lattice/Plugins/Architectures/Conv/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Architectures.Conv
+module: Lattice.Plugins.Architectures.Conv.Manifest
+layer: Architectures
+obligations:
+  - name: conv_translation_equivariant
+    kind: equivariance
+    theorem: conv_translation_equivariant
+    file: Lattice/Plugins/Architectures/Conv/Proofs.lean
+  - name: conv_weight_sharing
+    kind: soundness
+    theorem: conv_eq_shared_filter
+    file: Lattice/Plugins/Architectures/Conv/Proofs.lean
+  - name: conv_window_determines_output
+    kind: exactness
+    theorem: conv_window_determines_output
+    file: Lattice/Plugins/Architectures/Conv/Proofs.lean

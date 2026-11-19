@@ -1,0 +1,39 @@
+# Core.Repair -- capability index, checked against Lattice/Plugins/Core/Repair/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Core.Repair
+module: Lattice.Plugins.Core.Repair.Manifest
+layer: Core
+obligations:
+  - name: repair_progress
+    kind: completeness
+    theorem: progress
+    file: Lattice/Core/RepairModule/Repair.lean
+  - name: repair_progress_on_wf
+    kind: completeness
+    theorem: progress_on_wf
+    file: Lattice/Core/RepairModule/RepairWF.lean
+  - name: repair_converges_within
+    kind: approximation
+    theorem: converges_within
+    file: Lattice/Core/RepairModule/RepairConvergence.lean
+  - name: repair_converges_within_is_tight
+    kind: exactness
+    theorem: converges_within_is_tight
+    file: Lattice/Core/RepairModule/RepairMultistep.lean
+  - name: repair_atomic_of_zero_iff
+    kind: exactness
+    theorem: atomic_of_zero_iff
+    file: Lattice/Core/RepairModule/RepairAtomicity.lean
+  - name: repair_stable
+    kind: soundness
+    theorem: stable
+    file: Lattice/Core/RepairModule/Repair.lean
+  - name: repair_preserves
+    kind: soundness
+    theorem: preserves
+    file: Lattice/Core/RepairModule/Repair.lean
+  - name: repair_iterate_succ
+    kind: laws
+    theorem: iterate_succ
+    file: Lattice/Core/RepairModule/Repair.lean

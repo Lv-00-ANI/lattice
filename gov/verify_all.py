@@ -326,6 +326,12 @@ CHECKS = [
     # `dag_denote_seq`, `dag_denote_par`). `Obligation.proof : Option Prop` now carries the
     # proposition; this check counts the migration and catches ghost names and missing files.
     ("report: obligations carry their proofs", "check_obligation_proofs.py"),
+    # Round 982: `PLUGIN-SYSTEM.md` specifies a `plugin.yml` capability index and the tree had ZERO.
+    # Eleven now exist, and this check is the only reason they are worth having: it requires each index to
+    # agree field-for-field with its Lean manifest, and each named theorem to be DECLARED IN the file it
+    # names. `--self-test` pins the parser and both rejections so the gate cannot pass by parsing nothing.
+    ("plugins: capability index agrees with the Lean manifests", "check_plugin_yml.py"),
+    ("meta: plugin index checker self-test", "check_plugin_yml.py --self-test"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
     # `linter.unusedVariables`. 139 such binders existed; this gate makes them enumerable. One was

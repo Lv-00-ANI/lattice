@@ -1,0 +1,23 @@
+# Core.Constraint -- capability index, checked against Lattice/Plugins/Core/Constraint/Manifest.lean
+# Every obligation below is duplicated from the Lean manifest ON PURPOSE: the gate
+# `gov/check_plugin_yml.py` fails if the two descriptions differ in any field.
+id: Core.Constraint
+module: Lattice.Plugins.Core.Constraint.Manifest
+layer: Core
+obligations:
+  - name: entails_cons
+    kind: laws
+    theorem: entails_cons
+    file: Lattice/Core/RepairModule/ConstraintProofs.lean
+  - name: entails_mono
+    kind: laws
+    theorem: entails_mono
+    file: Lattice/Core/RepairModule/ConstraintProofs.lean
+  - name: models_of_mem
+    kind: soundness
+    theorem: models_of_mem
+    file: Lattice/Core/RepairModule/ConstraintProofs.lean
+  - name: models_of_subset
+    kind: soundness
+    theorem: models_of_subset
+    file: Lattice/Core/RepairModule/ConstraintProofs.lean
