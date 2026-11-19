@@ -3238,6 +3238,8 @@ Plugins/Core/Constraint/Plugin.lean	entailsConsProp_holds
 Plugins/Core/Constraint/Plugin.lean	entailsMonoProp_holds
 Plugins/Core/Constraint/Plugin.lean	modelsOfMemProp_holds
 Plugins/Core/Constraint/Plugin.lean	modelsOfSubsetProp_holds
+Plugins/Core/Constraint/Plugin.lean	entailsAppendProp_holds
+Plugins/Core/Constraint/Plugin.lean	entailsSingletonProp_holds
 Plugins/Core/Constraint/Plugin.lean	proof_holds
 Plugins/Core/Constraint/Plugin.lean	verified_manifest
 Plugins/Core/Constraint/Plugin.lean	verified_obligations
