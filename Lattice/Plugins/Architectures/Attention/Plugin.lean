@@ -26,6 +26,7 @@ import Lattice.Plugins.Manifest
 import Lattice.Plugins.Registry
 import Lattice.Plugins.Architectures.Attention.Manifest
 import Lattice.Plugins.Architectures.Attention.Proofs
+import Lattice.Lib.Attention.RealMaskFamily
 
 namespace Lattice.Plugins.Architectures.Attention
 
@@ -76,6 +77,24 @@ theorem attentionMaskExcludesProp_holds : AttentionMaskExcludesProp := by
   intro ι _ M s v i h
   exact attention_masked_excludes M s v i h
 
+/-- **`AttentionSpatialProp`：掩蔽的**局部性**——被排除的位置不贡献任何权重。**
+
+**⇒ 这是 `spatial`（空间可组合性）在注意力上的真内容：一个被 mask 排除的位置，
+它对输出的贡献**恰好为 `0`**——而不是「它可能很小」。**
+
+**⇒ 据 `audit_plugin_slots.py` 的判据，填槽必须同时满足：值不是 `True`，
+且它命名的命题有一条 `_holds` 定理。后者就是库里已有的
+`maskedSoftmax_eq_zero_of_not_mask`。** -/
+def AttentionSpatialProp : Prop :=
+  ∀ {n : ℕ} (mask : Fin n → Fin n → Prop) [DecidableRel mask]
+    (s : Fin n → ℝ) (i j : Fin n), ¬ mask i j → maskedSoftmax mask s i j = 0
+
+/-- **`AttentionSpatialProp` holds** — 由 `maskedSoftmax_eq_zero_of_not_mask`，
+后者对 `maskedSoftmax` 的定义展开并用 mask 假设消掉那一项。** -/
+theorem attentionSpatialProp_holds : AttentionSpatialProp := by
+  intro n mask _ s i j hij
+  exact maskedSoftmax_eq_zero_of_not_mask mask s i j hij
+
 /-- **The attention carrier's proof bundle.**
 
 **`equivariance` filled here -- the second non-`True` equivariance in the tree.** -/
@@ -85,7 +104,7 @@ def proof : PluginProof where
   exactness := AttentionMaskExcludesProp
   approximation := True
   recovery := True
-  spatial := True
+  spatial := AttentionSpatialProp
   confluence := True
   equivariance := AttentionPermEquivarianceProp
   idempotence := True
@@ -99,7 +118,7 @@ theorem proof_holds : proof.Holds := by
   exact ⟨attentionRowStochasticProp_holds,
          attentionWeightsNonnegativeProp_holds,
          attentionMaskExcludesProp_holds,
-         True.intro, True.intro, True.intro, True.intro,
+         True.intro, True.intro, attentionSpatialProp_holds, True.intro,
          attentionPermEquivarianceProp_holds,
          True.intro, True.intro, True.intro, True.intro⟩
 
