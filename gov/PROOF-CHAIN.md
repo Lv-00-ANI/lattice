@@ -5769,8 +5769,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ft2L2L3_quotient_reversible` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `ft2_quotients_are_norm_fibers` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `detokenize`, `e2`, `foldBlanks`, `foldGo`, `g`, `isBlank`, `listGcdNat`, `map`, `mkConstraint`, `no_left_inverse_at_all`, `single`, `toSegs`, `tokenize`, `tokenize_detok`, `tokenize_never_none`, `trans`
 - `fullAnchor_separates` -> `at`, `maxIndex_samePoint_0_0`, `maxIndex_samePoint_3_7`
-- `fullChain_run` -> `Chain`, `L1Bridge`, `OOVVocab`, `compose`, `map`, `run`, `sound`, `tokenizeV`
-- `fullChain_sound` -> `OOVVocab`, `run`, `sound`
+- `fullChainPrim_run` -> `Chain`, `L1Bridge`, `OOVVocab`, `compose`, `map`, `run`, `sound`, `tokenizeV`
+- `fullChainPrim_sound` -> `OOVVocab`, `run`, `sound`
 - `fullCompile_sound` -> `AffineLayer`, `Ladder`, `SymN`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
 - `fullFamilySolver_anchor` -> `ExpressibleSpec`
 - `fullRegistry_wellFormed` -> `length`
