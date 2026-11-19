@@ -108,28 +108,28 @@ def manifest : PluginManifest where
     -- **Round 769: all eight go through `verifiedObligation`, so each CARRIES its proposition.**
     -- Before this the manifest named a theorem as a `String`; a wrong name was undetectable.
     verifiedObligation "repair_progress" .completeness
-      "Lattice/Plugins/Core/Repair/Repair.lean"
+      "Lattice/Core/RepairModule/Repair.lean"
       "progress" progressProp,
     verifiedObligation "repair_progress_on_wf" .completeness
-      "Lattice/Plugins/Core/Repair/RepairWF.lean"
+      "Lattice/Core/RepairModule/RepairWF.lean"
       "progress_on_wf" progress_on_wfProp,
     verifiedObligation "repair_converges_within" .approximation
-      "Lattice/Plugins/Core/Repair/RepairConvergence.lean"
+      "Lattice/Core/RepairModule/RepairConvergence.lean"
       "converges_within" converges_withinProp,
     verifiedObligation "repair_converges_within_is_tight" .exactness
-      "Lattice/Plugins/Core/Repair/RepairMultistep.lean"
+      "Lattice/Core/RepairModule/RepairMultistep.lean"
       "converges_within_is_tight" converges_within_is_tightProp,
     verifiedObligation "repair_atomic_of_zero_iff" .exactness
-      "Lattice/Plugins/Core/Repair/RepairAtomicity.lean"
+      "Lattice/Core/RepairModule/RepairAtomicity.lean"
       "atomic_of_zero_iff" atomic_of_zero_iffProp,
     verifiedObligation "repair_stable" .soundness
-      "Lattice/Plugins/Core/Repair/Repair.lean"
+      "Lattice/Core/RepairModule/Repair.lean"
       "stable" stableProp,
     verifiedObligation "repair_preserves" .soundness
-      "Lattice/Plugins/Core/Repair/Repair.lean"
+      "Lattice/Core/RepairModule/Repair.lean"
       "preserves" preservesProp,
     verifiedObligation "repair_iterate_succ" .laws
-      "Lattice/Plugins/Core/Repair/Repair.lean"
+      "Lattice/Core/RepairModule/Repair.lean"
       "iterate_succ" iterate_succProp
   ]
   version := ⟨1, 0, 0⟩

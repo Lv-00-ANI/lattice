@@ -128,34 +128,34 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 771: all ten go through `verifiedObligation`, so each CARRIES its proposition.**
     verifiedObligation "parallel_comm" .spatial
-      "Lattice/Plugins/Compose/Proofs.lean"
+      "Lattice/Compose/Proofs.lean"
       "parallel_comm_run" parallel_comm_runProp,
     verifiedObligation "compose_assoc" .confluence
-      "Lattice/Plugins/Compose/Combinators.lean"
+      "Lattice/Compose/Combinators.lean"
       "compose_run_assoc" compose_run_assocProp,
     verifiedObligation "identity_left_unit" .recovery
-      "Lattice/Plugins/Compose/Combinators.lean"
+      "Lattice/Compose/Combinators.lean"
       "identity_compose_run" identity_compose_runProp,
     verifiedObligation "identity_right_unit" .recovery
-      "Lattice/Plugins/Compose/Proofs.lean"
+      "Lattice/Compose/Proofs.lean"
       "compose_identity_right" compose_identity_rightProp,
     verifiedObligation "compose_sound" .soundness
-      "Lattice/Plugins/Compose/Combinators.lean"
+      "Lattice/Compose/Combinators.lean"
       "compose_sound" compose_soundProp,
     verifiedObligation "compose_strength" .laws
-      "Lattice/Plugins/Compose/Combinators.lean"
+      "Lattice/Compose/Combinators.lean"
       "compose_strength" compose_strengthProp,
     verifiedObligation "compose_coverage" .laws
-      "Lattice/Plugins/Compose/Combinators.lean"
+      "Lattice/Compose/Combinators.lean"
       "compose_coverage" compose_coverageProp,
     verifiedObligation "parallel_run" .laws
-      "Lattice/Plugins/Compose/Proofs.lean"
+      "Lattice/Compose/Proofs.lean"
       "parallel_run" parallel_runProp,
     verifiedObligation "parallel_identity" .laws
-      "Lattice/Plugins/Compose/Proofs.lean"
+      "Lattice/Compose/Proofs.lean"
       "parallel_identity_run" parallel_identity_runProp,
     verifiedObligation "compose_h_of_pre_true" .soundness
-      "Lattice/Plugins/Compose/ComposeObligation.lean"
+      "Lattice/Compose/ComposeObligation.lean"
       "compose_h_of_pre_true" compose_h_of_pre_trueProp
   ]
   version := ⟨1, 0, 0⟩

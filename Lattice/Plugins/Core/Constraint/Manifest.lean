@@ -80,16 +80,16 @@ def manifest : PluginManifest where
     -- proposition.** Before this, the manifest named a theorem as a `String`; a manifest could name
     -- a theorem that did not exist and nothing in the tree could tell.
     verifiedObligation "entails_cons" .laws
-      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "Lattice/Core/RepairModule/ConstraintProofs.lean"
       "entails_cons" entails_consProp,
     verifiedObligation "entails_mono" .laws
-      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "Lattice/Core/RepairModule/ConstraintProofs.lean"
       "entails_mono" entails_monoProp,
     verifiedObligation "models_of_mem" .soundness
-      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "Lattice/Core/RepairModule/ConstraintProofs.lean"
       "models_of_mem" models_of_memProp,
     verifiedObligation "models_of_subset" .soundness
-      "Lattice/Plugins/Core/Constraint/Proofs.lean"
+      "Lattice/Core/RepairModule/ConstraintProofs.lean"
       "models_of_subset" models_of_subsetProp
   ]
   version := ⟨1, 0, 0⟩

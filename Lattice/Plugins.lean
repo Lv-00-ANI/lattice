@@ -267,14 +267,14 @@ consumes it.**
 sustaining it.**
 **That is the property a check must have: it must be possible for it to fail.** -/
 def pluginDirOf (p : VerifiedPlugin) : Option String :=
-  if p.manifest.name = "Core.Constraint" then some "Lattice/Plugins/Core/Constraint/"
-  else if p.manifest.name = "Core.Repair" then some "Lattice/Plugins/Core/Repair/"
+  if p.manifest.name = "Core.Constraint" then some "Lattice/Core/RepairModule/"
+  else if p.manifest.name = "Core.Repair" then some "Lattice/Core/RepairModule/"
   else if p.manifest.name = "Domains.Constraints.Penalty" then
     some "Lattice/Plugins/Domains/Constraints/Penalty/"
   else if p.manifest.name = "Domains.Constraints.Tokens" then
     some "Lattice/Plugins/Domains/Constraints/Tokens/"
-  else if p.manifest.name = "Compose" then some "Lattice/Plugins/Compose/"
-  else if p.manifest.name = "Extractors.ChainSlot" then some "Lattice/Plugins/Extractors/ChainSlot/"
+  else if p.manifest.name = "Compose" then some "Lattice/Compose/"
+  else if p.manifest.name = "Extractors.ChainSlot" then some "Lattice/Core/RepairModule/"
   else if p.manifest.name = "Architectures.GNN" then some "Lattice/Plugins/Architectures/GNN/"
   else if p.manifest.name = "Architectures.Norm" then some "Lattice/Plugins/Architectures/Norm/"
   else if p.manifest.name = "Architectures.Conv" then some "Lattice/Plugins/Architectures/Conv/"
@@ -291,7 +291,7 @@ prefix test.**
 **`pluginDirOf_coreConstraint` is the branch the migration proof consumes.** -/
 theorem pluginDirOf_coreConstraint :
     pluginDirOf Lattice.Plugins.Core.Constraint.verified
-      = some "Lattice/Plugins/Core/Constraint/" := by
+      = some "Lattice/Core/RepairModule/" := by
   unfold pluginDirOf
   simp [Lattice.Plugins.Core.Constraint.verified, Lattice.Plugins.Core.Constraint.manifest]
 
@@ -436,16 +436,24 @@ theorem tokens_migrated :
     rw [h] <;>
     exact file_under_dir _ _
 
-/-- **`Core.Repair`'s obligations are its own, because FIVE files MOVED.**
+/-- **`Core.Repair`'s obligations point at `Lattice/Core/RepairModule/` — and that is the HONEST location.**
 
-**`Repair.lean`, `RepairAtomicity.lean`, `RepairConvergence.lean`, `RepairMultistep.lean` and
-`RepairWF.lean` all live under the plugin's directory now.**
+**Round 980 corrected this. The docstring used to claim that `Repair.lean`, `RepairAtomicity.lean`,
+`RepairConvergence.lean`, `RepairMultistep.lean` and `RepairWF.lean` "all live under the plugin's directory
+now". They do not: they live in `Lattice/Core/RepairModule/`, and they always did.**
 
-**This is the first migration where the moved files IMPORTED EACH OTHER.**
-**Those internal edges were repointed to the new module names rather than left to round-trip through the
-facades** -- **correct either way, but the dependency graph should report where the code lives.** -/
+**Why the claim survived: `Migrated dir m` only compares STRINGS (`StringPrefix dir o.file`). It never touches
+the filesystem, so a manifest naming a directory that does not exist still satisfied the theorem. The
+`file` fields were the pre-migration paths, and `gov/check_obligation_proofs.py` counted
+`verifiedObligation` entries without validating them, so nothing compared the strings to the tree.**
+
+**Why the files are NOT moved now: `Lattice/Core/RepairModule/*` is imported by `Core.lean`,
+`Core/IR/T4Repair.lean`, `Core/Invariant.lean` and `Core/OneStepBridge.lean`, all at layer rank 0.
+`Plugins/` is rank 3, so moving the implementation there would make four rank-0 modules import a rank-3 one
+— an I4 upward edge. The move is blocked by the layering, not by laziness.**
+**=> so the registry records where the code IS.** -/
 theorem repair_migrated :
-    Lattice.Plugins.Migrated "Lattice/Plugins/Core/Repair/"
+    Lattice.Plugins.Migrated "Lattice/Core/RepairModule/"
       Lattice.Plugins.Core.Repair.manifest := by
   intro o ho
   simp only [Lattice.Plugins.Core.Repair.manifest, List.mem_cons,
@@ -625,7 +633,7 @@ theorem pluginRegistryComplete_holds : PluginRegistryComplete :=
 
 /-- **`chainSlot_migrated`** -- `VariableDerivative.lean` moved into the plugin directory. -/
 theorem chainSlot_migrated :
-    Lattice.Plugins.Migrated "Lattice/Plugins/Extractors/ChainSlot/"
+    Lattice.Plugins.Migrated "Lattice/Core/RepairModule/"
       Lattice.Plugins.Extractors.ChainSlot.manifest := by
   intro o ho
   simp only [Lattice.Plugins.Extractors.ChainSlot.manifest, List.mem_cons,
@@ -637,7 +645,7 @@ theorem chainSlot_migrated :
 
 /-- **`constraint_migrated`** -- `Core/Logic.lean` moved into the plugin directory. -/
 theorem constraint_migrated :
-    Lattice.Plugins.Migrated "Lattice/Plugins/Core/Constraint/"
+    Lattice.Plugins.Migrated "Lattice/Core/RepairModule/"
       Lattice.Plugins.Core.Constraint.manifest := by
   intro o ho
   simp only [Lattice.Plugins.Core.Constraint.manifest, List.mem_cons,
@@ -647,7 +655,7 @@ theorem constraint_migrated :
 
 /-- **`compose_migrated`** -- three `Compose` files moved into the plugin directory. -/
 theorem compose_migrated :
-    Lattice.Plugins.Migrated "Lattice/Plugins/Compose/"
+    Lattice.Plugins.Migrated "Lattice/Compose/"
       Lattice.Plugins.Compose.manifest := by
   intro o ho
   simp only [Lattice.Plugins.Compose.manifest, List.mem_cons,
@@ -660,7 +668,7 @@ theorem compose_migrated :
 /-- **`pluginDirOf` at each registry entry.** -/
 theorem pluginDirOf_coreRepair :
     pluginDirOf Lattice.Plugins.Core.Repair.verified
-      = some "Lattice/Plugins/Core/Repair/" := by
+      = some "Lattice/Core/RepairModule/" := by
   unfold pluginDirOf
   simp [Lattice.Plugins.Core.Repair.verified, Lattice.Plugins.Core.Repair.manifest]
 
@@ -680,13 +688,13 @@ theorem pluginDirOf_tokens :
 
 theorem pluginDirOf_compose :
     pluginDirOf Lattice.Plugins.Compose.verified
-      = some "Lattice/Plugins/Compose/" := by
+      = some "Lattice/Compose/" := by
   unfold pluginDirOf
   simp [Lattice.Plugins.Compose.verified, Lattice.Plugins.Compose.manifest]
 
 theorem pluginDirOf_chainSlot :
     pluginDirOf Lattice.Plugins.Extractors.ChainSlot.verified
-      = some "Lattice/Plugins/Extractors/ChainSlot/" := by
+      = some "Lattice/Core/RepairModule/" := by
   unfold pluginDirOf
   simp [Lattice.Plugins.Extractors.ChainSlot.verified,
         Lattice.Plugins.Extractors.ChainSlot.manifest]
