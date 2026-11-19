@@ -84,3 +84,5 @@ Plugins/Architectures/Attention/Plugin.lean	AttentionInvariantsProp	unused: n	# 
 Plugins/Architectures/Attention/Plugin.lean	AttentionRecoveryProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
 Plugins/Architectures/Attention/Plugin.lean	AttentionConfluenceProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
 Plugins/Architectures/Attention/Plugin.lean	AttentionIdempotenceProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
+Plugins/Architectures/Attention/Plugin.lean	AttentionCompletenessProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
+Plugins/Architectures/Norm/Plugin.lean	NormCompletenessProp	unused: ι	# ι is used THROUGH A TYPE: x : ι → ℝ mentions it, but ι never occurs in a term.

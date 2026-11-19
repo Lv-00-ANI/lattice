@@ -173,6 +173,20 @@ def AttentionIdempotenceProp : Prop :=
 theorem attentionIdempotenceProp_holds : AttentionIdempotenceProp :=
   fun m => mask_and_self m
 
+/-- **`AttentionCompletenessProp`：自反掩码下**每一行都非空**。**
+
+**⇒ `completeness`：没有任何一个查询位置是无键可看的。
+若某行为空，`maskedSoftmax` 的分母为 0、输出无意义——
+所以这不是一句顺口的补充，而是定义成立的前提。
+由 `masked_row_nonempty_of_refl`。** -/
+def AttentionCompletenessProp : Prop :=
+  ∀ {n : ℕ} (mask : Fin n → Fin n → Prop) [DecidableRel mask],
+    (∀ i, mask i i) → ∀ i, ∃ j, mask i j
+
+/-- **`AttentionCompletenessProp` holds** — 由 `masked_row_nonempty_of_refl`。 -/
+theorem attentionCompletenessProp_holds : AttentionCompletenessProp :=
+  fun mask _ hrefl i => masked_row_nonempty_of_refl mask hrefl i
+
 /-- **The attention carrier's proof bundle.**
 
 **`equivariance` filled here -- the second non-`True` equivariance in the tree.** -/
@@ -187,7 +201,7 @@ def proof : PluginProof where
   equivariance := AttentionPermEquivarianceProp
   idempotence := AttentionIdempotenceProp
   invariants := AttentionInvariantsProp
-  completeness := True
+  completeness := AttentionCompletenessProp
   refinement := AttentionRefinementProp
 
 /-- **Every claimed obligation of the attention carrier is discharged.** -/
@@ -200,7 +214,7 @@ theorem proof_holds : proof.Holds := by
          attentionSpatialProp_holds, attentionConfluenceProp_holds,
          attentionPermEquivarianceProp_holds,
          attentionIdempotenceProp_holds, attentionInvariantsProp_holds,
-         True.intro, attentionRefinementProp_holds⟩
+         attentionCompletenessProp_holds, attentionRefinementProp_holds⟩
 
 /-- **The verified attention carrier.** -/
 def verified : VerifiedPlugin where

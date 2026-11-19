@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	72
+vacuous_total	70
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -34,3 +34,16 @@ vacuous_total	72
 # plus `mask_and_assoc` and `maskedSoftmax_and_self` (the output-level corollary that stops these
 # four from being merely statements about boolean functions).
 # Attention now has 11 of 12 slots carrying proved content; only `completeness` remains `True`.
+#
+# Round 999 drained two `completeness` slots:
+#   Attention.completeness := AttentionCompletenessProp  (masked_row_nonempty_of_refl: under a
+#     reflexive mask every row is non-empty, which is the precondition maskedSoftmax needs -- a zero
+#     denominator would make the output meaningless)
+#   Norm.completeness      := NormCompletenessProp       (varOf_varNormalize_eq_one: nonzero variance
+#     is normalised to variance EXACTLY 1 -- an equality, not a probability claim)
+# Attention is now 12 of 12. Norm has 4 named of 12.
+#
+# NOT filled, and why: Norm's `refinement` candidate was `varNormalize_eq_rmsNorm`, which is `rfl` --
+# the two names denote the same term, so quoting it would be the `na` substitution the audit warned
+# about (a true statement that says only that two spellings agree). The slot stays `True` until a
+# real refinement fact exists.

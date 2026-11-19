@@ -97,6 +97,18 @@ theorem normVarianceNonnegProp_holds : NormVarianceNonnegProp := by
   intro ι _ x
   exact varOf_nonneg x
 
+/-- **`NormCompletenessProp`：**方差非零的输入一定被规范化到方差 1**。**
+
+**⇒ `completeness`：它不说「大多数输入能被处理」，而是说「只要方差非零，
+输出的方差**恰好为 1**」——一条等式，不是一个概率声明；
+且「方差非零」这个前提是必要的（否则除以 0）。由 `varOf_varNormalize_eq_one`。** -/
+def NormCompletenessProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (x : ι → ℝ), varOf x ≠ 0 → varOf (varNormalize x) = 1
+
+/-- **`NormCompletenessProp` holds** — 由 `varOf_varNormalize_eq_one`。 -/
+theorem normCompletenessProp_holds : NormCompletenessProp :=
+  fun x h => varOf_varNormalize_eq_one x h
+
 /-- **The normalisation carrier's proof bundle.**
 
 Six claimed obligations, including the registry's FIRST `idempotence` witness.
@@ -112,7 +124,7 @@ def proof : PluginProof where
   equivariance := True
   idempotence := NormIterateVarianceLeOneProp
   invariants := True
-  completeness := True
+  completeness := NormCompletenessProp
   refinement := True
 
 /-- **Every claimed obligation of the normalisation carrier is discharged.** -/
@@ -124,7 +136,7 @@ theorem proof_holds : proof.Holds := by
          ⟨normLipschitzSharpProp_holds, normLipschitzProp_holds⟩,
          True.intro, True.intro, True.intro, True.intro,
          normIterateVarianceLeOneProp_holds,
-         True.intro, True.intro, True.intro⟩
+         True.intro, normCompletenessProp_holds, True.intro⟩
 
 /-- **The verified normalisation carrier.** -/
 def verified : VerifiedPlugin where
