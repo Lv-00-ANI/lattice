@@ -156,6 +156,8 @@ Compose/Steps.lean	applySgd_run
 Compose/Steps.lean	applyMomentum_velocity
 Compose/Showcase/FullChain.lean	fullChain_run
 Compose/Showcase/FullChain.lean	fullChain_sound
+Compose/Showcase/L1L2.lean	l1l2Roundtrip_run
+Compose/Showcase/L1L2.lean	l1l2Roundtrip_sound
 Core/Activation.lean	actStackEval_nil
 Core/Activation.lean	actStackSingle_affine
 Core/Activation.lean	actStackEval_of_no_activation

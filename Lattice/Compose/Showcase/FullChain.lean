@@ -40,7 +40,7 @@ import Lattice.Lib.Chain.RealChainEntryOOV
 |:--|:--|
 | **`tokenizePrim`** | **⭐⭐ L0 → L1 的 `Primitive`，`pre` 是「分词成功」** |
 | **`bridgePrim`** | **⭐⭐ L1 → L2 的 `Primitive`，全函数** |
-| **`fullChain`** | **⭐⭐⭐ 用 `compose` 合成的整条链** |
+| **`fullChainPrim`** | **⭐⭐⭐ 用 `compose` 合成的整条链** |
 | **`fullChain_run`** | **⭐⭐⭐ 合成的 `run` 等于手写管线 `map L1Bridge ∘ tokenizeV`** |
 | **`fullChain_sound`** | **⭐⭐ 合成的 `sound`（`compose` 的真推导的直接消费）** | -/
 
@@ -81,28 +81,28 @@ def bridgePrim : Primitive (List CharToken) (List SymToken) where
 /-- **⭐⭐⭐ 整条链：用 `compose` 合成，而**不是**手写 `bind`。**
 
 **合成条件是「第一跳的后置蕴含第二跳的前置」——第二跳的 `pre` 是 `True`，故平凡成立。** -/
-def fullChain (V : OOVVocab) : Primitive (List Char) (List SymToken) :=
+def fullChainPrim (V : OOVVocab) : Primitive (List Char) (List SymToken) :=
   compose (tokenizePrim V) bridgePrim (by
     intro s y _
     trivial)
 
 /-- **⭐⭐⭐ 展品的核心：合成的 `run` **就是**手写管线。**
 
-**=> `(fullChain V).run s = (tokenizeV V s).map L1Bridge`。**
+**=> `(fullChainPrim V).run s = (tokenizeV V s).map L1Bridge`。**
 
 **这条把「用 `Compose` 组合」与「手写管线」**证明地**等同起来——
 没有它，展品只是一个新定义，不是一条关于既有管线的定理。** -/
-theorem fullChain_run (V : OOVVocab) (s : List Char) :
-    (fullChain V).run s = (tokenizeV V s).map Lattice.Lib.Chain.RealEndToEnd.L1Bridge := by
+theorem fullChainPrim_run (V : OOVVocab) (s : List Char) :
+    (fullChainPrim V).run s = (tokenizeV V s).map Lattice.Lib.Chain.RealEndToEnd.L1Bridge := by
   cases h : tokenizeV V s with
-  | none => simp [fullChain, compose, tokenizePrim, bridgePrim, h]
-  | some y => simp [fullChain, compose, tokenizePrim, bridgePrim, h]
+  | none => simp [fullChainPrim, compose, tokenizePrim, bridgePrim, h]
+  | some y => simp [fullChainPrim, compose, tokenizePrim, bridgePrim, h]
 
 /-- **⭐⭐ 合成链的 `sound`：只要分词这一步能成功，链就产出 `SymToken` 列表且后置成立。**
 
 **=> 这是 `Primitive.sound` 的直接消费，其内容是 `compose` 的真推导。** -/
-theorem fullChain_sound (V : OOVVocab) (s : List Char) (hs : (fullChain V).pre s) :
-    ∃ z, (fullChain V).run s = some z ∧ (fullChain V).post s z :=
-  (fullChain V).sound s hs
+theorem fullChainPrim_sound (V : OOVVocab) (s : List Char) (hs : (fullChainPrim V).pre s) :
+    ∃ z, (fullChainPrim V).run s = some z ∧ (fullChainPrim V).post s z :=
+  (fullChainPrim V).sound s hs
 
 end Lattice.Compose.Showcase.FullChain
