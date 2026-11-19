@@ -33,6 +33,10 @@ structure Primitive (I O : Type) where
   frame : I → O → Prop
 ```
 
+**第 981 轮又删掉了 `frame`**：它没有自己的定理（唯一可能的定律与 `post` 逐字同形，第 39 轮那条被别名普查判为 `copy`），
+11 个 primitive 里 10 个填字面 `True`，全树零消费者，13 个构造点全部只是把子 primitive 的 `frame` 再包一层。
+**⇒ 上面的代码块是第 232 轮的**历史**形状；现在的结构是**六字段**，理由见 `AssocLaws.lean` 里那段 `⚠` 记录。**
+
 **收益是决定性的**：
 
 | 组合子 | 字段版 | 参数版 |
@@ -174,8 +178,6 @@ structure Primitive (I O : Type) where
   strength : Strength
   /-- 它真正处理了哪些情形。 -/
   coverage : Coverage
-  /-- 帧条件：它不改变什么。内容因 primitive 而异。 -/
-  frame : I → O → Prop
 
 /-- **收窄覆盖**：把一个 `Primitive` 的覆盖声明改成给定的集合。
 

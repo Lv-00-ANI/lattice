@@ -70,7 +70,6 @@ def parallel {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primiti
     exact ⟨(y, z), by simp only [Option.bind, hy, hz, Option.map], hpy, hpz⟩
   strength := f.strength.min g.strength
   coverage := f.coverage.inter g.coverage
-  frame := fun p q => f.frame p.1 q.1 ∧ g.frame p.2 q.2
 
 /-- **并行保持正确性。** -/
 theorem parallel_sound {I₁ O₁ I₂ O₂ : Type} (f : Primitive I₁ O₁) (g : Primitive I₂ O₂)
@@ -118,7 +117,6 @@ def choice {I O : Type} (f g : Primitive I O) (sel : I → Bool) : Primitive I O
       · intro _; exact hpz
   strength := f.strength.min g.strength
   coverage := f.coverage.union g.coverage
-  frame := fun x z => (sel x = true → f.frame x z) ∧ (sel x = false → g.frame x z)
 
 /-- **二选一保持正确性。** -/
 theorem choice_sound {I O : Type} (f g : Primitive I O) (sel : I → Bool) (x : I)
@@ -167,7 +165,6 @@ def optional {I : Type} (p : Primitive I I) (dec : I → Bool) : Primitive I I w
       · intro _; rfl
   strength := p.strength
   coverage := p.coverage
-  frame := fun _ _ => True
 
 /-- **条件跳过保持正确性。** -/
 theorem optional_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (x : I)

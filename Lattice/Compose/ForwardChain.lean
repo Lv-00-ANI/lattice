@@ -85,7 +85,6 @@ noncomputable def descentStep (c : ℝ) (pts : ℕ → Pt 1) : Primitive ℝ ℝ
     · exact netLoss_step_half c β pts
   strength := .exact
   coverage := some ({"constraint.eqZero"} : Finset String)
-  frame := fun _ _ => True
 
 /-- **`descentStep` 的 `sound`**：可直接引用的一条。 -/
 theorem descentStep_sound (c β : ℝ) (hβ : β + c ≠ 0) (pts : ℕ → Pt 1) :
@@ -121,7 +120,6 @@ noncomputable def descentStepCol {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : �
       WeightDescent.residual_rowStep_abs_le η u (pts 0) b c h0 hS h2⟩
   strength := .exact
   coverage := some ({"constraint.eqZero"} : Finset String)
-  frame := fun _ _ => True
 
 /-- **`descentStepCol` 的 `sound`**：可直接引用的一条。 -/
 theorem descentStepCol_sound {n : ℕ} (hn : 0 < n) (η b c : ℝ) (pts : ℕ → Pt n)
