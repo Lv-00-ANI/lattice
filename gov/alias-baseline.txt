@@ -166,6 +166,7 @@ copy	Runtime/VerificationSoundness.lean	residual_le_of_zero_on_dense
 copy	Semantics/CompileSound.lean	holdsSet_midpoint_single
 copy	Semantics/CompileSound.lean	holdsSet_samePoint_single
 copy	Semantics/ConstraintCore.lean	holdsSet_singleton
+forward	Compose/Showcase/L1L2.lean	l1l2Roundtrip_sound
 forward	Core/CIC/CanonicalForm.lean	hasType_shape4
 forward	Core/CIC/Conversion.lean	conv_trans
 forward	Core/CIC/HeadForm.lean	headForm_value_not_neutral

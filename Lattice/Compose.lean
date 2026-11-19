@@ -11,6 +11,7 @@ import Lattice.Compose.Combinators
 import Lattice.Compose.ComposeObligation
 import Lattice.Compose.Proofs
 import Lattice.Compose.Showcase.FullChain
+import Lattice.Compose.Showcase.L1L2
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）
