@@ -150,6 +150,7 @@ CHECKS = [
     ("audit: alias census", "audit_aliases.py"),
     ("audit: alias self-test", "audit_aliases.py --self-test"),
     ("report: prop-def binder strength", "check_prop_def_strength.py --check"),
+    ("meta: prop-def strength self-test", "check_prop_def_strength.py --self-test"),
     # Round 14. A splice ate a file's final end Lattice and lake build still passed.
     ("audit: namespace closure", "check_namespace_balance.py"),
     ("audit: namespace self-test", "check_namespace_balance.py --self-test"),

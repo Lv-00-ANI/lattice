@@ -11,50 +11,6 @@
 #    silent pass, and a human decides which are real.
 #
 # Format: reason<TAB>name
-scan	ApproximationEqZeroProp	approximationEqZeroProp_holds	e
-scan	AtomicOfZeroIffProp	atomicOfZeroIffProp_holds	α
-scan	ComposeHOfPreTrueProp	composeHOfPreTrueProp_holds	f, g
-scan	ConvergesWithinProp	convergesWithinProp_holds	α
-scan	EntailsConsProp	entailsConsProp_holds	R, n
-scan	EntailsMonoProp	entailsMonoProp_holds	R, n
-scan	ExactnessInequalityProp	exactnessInequalityProp_holds	n
-scan	ExactnessProp	exactnessProp_holds	d, e, n
-scan	GnnLayerEquivariantProp	gnnLayerEquivariantProp_holds	ι
-scan	IterateSuccProp	iterateSuccProp_holds	α
-scan	LayerStackEquivariantProp	layerStackEquivariantProp_holds	ι
-scan	LossNotInjectiveProp	lossNotInjectiveProp_holds	n
-scan	ModelsOfMemProp	modelsOfMemProp_holds	R, n
-scan	ModelsOfSubsetProp	modelsOfSubsetProp_holds	R, n
-scan	MsgPassBoundProp	msgPassBoundProp_holds	ι
-scan	MsgPassEquivariantProp	msgPassEquivariantProp_holds	ι
-scan	NoSectionProp	noSectionProp_holds	n
-scan	NormIterateVarianceLeOneProp	normIterateVarianceLeOneProp_holds	ι
-scan	NormLipschitzProp	normLipschitzProp_holds	n
-scan	NormLipschitzSharpProp	normLipschitzSharpProp_holds	n
-scan	NormTrainInferAgreeProp	normTrainInferAgreeProp_holds	ι
-scan	NormVarianceEqOneProp	normVarianceEqOneProp_holds	ι
-scan	NormVarianceNonnegProp	normVarianceNonnegProp_holds	ι
-scan	PermActAdjMulProp	permActAdjMulProp_holds	ι
-scan	PermActAdjOneProp	permActAdjOneProp_holds	ι
-scan	PermActFeatMulProp	permActFeatMulProp_holds	ι
-scan	PermActFeatOneProp	permActFeatOneProp_holds	ι
-scan	PreservesProp	preservesProp_holds	α
-scan	ProgressProp	progressProp_holds	α
-scan	ReadoutInvariantOfLayerStackProp	readoutInvariantOfLayerStackProp_holds	ι
-scan	ReadoutInvariantProp	readoutInvariantProp_holds	ι
-scan	SeqDecodeEncodeProp	seqDecodeEncodeProp_holds	n
-scan	SeqEncodeDecodeProp	seqEncodeDecodeProp_holds	n
-scan	SoundnessProp	soundnessProp_holds	n
-scan	SparseAgreesDenseProp	sparseAgreesDenseProp_holds	ι
-scan	StableProp	stableProp_holds	α
-scan	t1_compile_sound_general	t1_compile_sound_general_holds	sem
-scan	t1_merge_sound_unrejected	t1_merge_sound_unrejected_holds	n
-scan	t2_penalty_modulus	t2_penalty_modulus_holds	n
-scan	t4_loop_converges	t4_loop_converges_holds	α
-scan	t5_recovery_single	t5_recovery_single_holds	K
-scan	t6_spatial_nonvacuous	t6_spatial_nonvacuous_holds	Name
-scan	t7_confluence_seq	t7_confluence_seq_holds	K
-scan	t8_head_fails	t8_head_fails_holds	K
 # Round 127. The three `Attention` propositions quantify over an IMPLICIT TYPE parameter `ι`:
 #     ∀ {ι : Type} [Fintype ι] [Nonempty ι] (s : ι → ℝ), ∑ i, softmaxWeight s i = 1
 # The `intro` line binds `ι`, and the scanner sees no further mention of it because every later use is
@@ -63,28 +19,21 @@ scan	t8_head_fails	t8_head_fails_holds	K
 # `Nonempty`. So the finding is a scanner blind spot, not a discarded hypothesis.
 # Registered rather than silenced: a future scanner that understands implicit type parameters should drop
 # these three lines.
-Plugins/Architectures/Attention/Plugin.lean	AttentionPermEquivarianceProp
-Plugins/Architectures/Attention/Plugin.lean	AttentionRowStochasticProp
-Plugins/Architectures/Attention/Plugin.lean	AttentionMaskExcludesProp
 # Round 128. The same scanner blind spot as the three `Attention` entries above: the `DAG` propositions
 # quantify over an IMPLICIT TYPE parameter `α`, and every later use sits inside the type `DagProgram α`,
 # which the binder-mention test does not reach. The proofs genuinely depend on `α`: the list and its
 # evaluation are both indexed by it.
-Plugins/Architectures/DAG/Plugin.lean	DAGConfluenceProp
-Plugins/Architectures/DAG/Plugin.lean	DAGDenoteSeqProp
-Plugins/Architectures/DAG/Plugin.lean	DAGDenoteParProp
-Plugins/Targets/IRCarrier.lean	ir_data_models
-Plugins/Targets/IRCarrier.lean	ir_parse_models
-Plugins/Targets/IRCarrier.lean	ir_chain_closes
 Plugins/Targets/IRCarrier.lean	ir_encode_sound
-Plugins/Architectures/Attention/Plugin.lean	AttentionSpatialProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
-Plugins/Architectures/Attention/Plugin.lean	AttentionApproximationProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
-Plugins/Architectures/Attention/Plugin.lean	AttentionRefinementProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
-Plugins/Architectures/Attention/Plugin.lean	AttentionInvariantsProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
-Plugins/Architectures/Attention/Plugin.lean	AttentionRecoveryProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
-Plugins/Architectures/Attention/Plugin.lean	AttentionConfluenceProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
-Plugins/Architectures/Attention/Plugin.lean	AttentionIdempotenceProp	unused: n	# n is a DEPENDENT binder: m : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
-Plugins/Architectures/Attention/Plugin.lean	AttentionCompletenessProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so n must be bound even though it never appears in a term.
-Plugins/Architectures/Norm/Plugin.lean	NormCompletenessProp	unused: ι	# ι is used THROUGH A TYPE: x : ι → ℝ mentions it, but ι never occurs in a term.
-Plugins/Core/Constraint/Plugin.lean	EntailsAppendProp	unused: R, n	# R and n are DEPENDENT binders: cs : List (Constraint R n) needs both before it can be introduced, so they must be bound even though no term mentions them.
-Plugins/Core/Constraint/Plugin.lean	EntailsSingletonProp	unused: R, n	# R and n are DEPENDENT binders: cs : List (Constraint R n) needs both before it can be introduced, so they must be bound even though no term mentions them.
+#
+# Round 1001: this register held 65 entries, 61 of them FALSE POSITIVES of one class -- a binder
+# used only through another binder's TYPE (`ι` in `s : ι → ℝ`, `n` in `mask : Fin n → Fin n → Prop`).
+# `check_prop_def_strength.py` now recognises that class, so the register keeps only the genuine ones.
+# Measured before the change: of 73 reported binder occurrences, 67 were that class.
+#
+# The three below are the remainder. They are NOT the binder-in-a-type class: the binder never appears
+# in the declaration at all, which is the shape of a genuinely discarded hypothesis. They are registered
+# rather than fixed because fixing them means changing the propositions, which is a separate judgement.
+Plugins/Compose/Plugin.lean	ComposeHOfPreTrueProp
+Plugins/Domains/Constraints/Penalty/Plugin.lean	ExactnessProp
+Plugins/Domains/Constraints/Penalty/Plugin.lean	ApproximationEqZeroProp
+
