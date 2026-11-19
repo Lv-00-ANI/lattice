@@ -1,0 +1,132 @@
+﻿  [ 1/115] gate                           ok         24.8s
+  [ 2/115] gate --selftest                ok          0.2s
+  [ 3/115] comments                       ok          2.1s
+  [ 4/115] registry                       ok          0.2s
+  [ 5/115] reactivity: gate               ok        134.6s
+  [ 6/115] reactivity: layering           ok         98.0s
+  [ 7/115] chain dependencies             ok          0.4s
+  [ 8/115] repair census                  ok          0.4s
+  [ 9/115] refutation census              ok          1.7s
+  [10/115] chain table                    ok          0.3s
+  [11/115] reactivity: slots              ok          9.1s
+  [12/115] reactivity: comments           ok          7.9s
+  [13/115] reactivity: I8 gate            ok        117.5s
+  [14/115] reactivity: registry           ok          0.7s
+  [15/115] reactivity: registry-gate      ok         72.2s
+  [16/115] reactivity: G4                 ok        274.2s
+  [17/115] reverify: requirements         reported    4.7s
+  [18/115] reverify: chain                reported    2.6s
+  [19/115] reverify: islands              reported    2.5s
+  [20/115] audit: duplicates              reported    3.2s
+  [21/115] audit: bodies                  reported    2.0s
+  [22/115] audit: geo structure           ok          0.3s
+  [23/115] audit: geo self-test           ok          0.2s
+  [24/115] audit: docs vs code            reported    2.6s
+  [25/115] audit: reachable               reported   72.8s
+  [26/115] audit: claims                  reported    0.5s
+  [27/115] audit: liveness                reported    2.0s
+  [28/115] audit: region                  reported    0.4s
+  [29/115] audit: tables                  ok          0.5s
+  [30/115] reactivity: tables             ok          2.5s
+  [31/115] audit: counts                  ok          2.9s
+  [32/115] reactivity: counts             ok         16.1s
+  [33/115] audit: G7 breakpoints          ok          0.1s
+  [34/115] audit: proof chain rung        ok          1.3s
+  [35/115] ci: workflow refers to this repo ok          0.1s
+  [36/115] reactivity: ci workflow        ok          0.8s
+  [37/115] audit: abstraction             reported    2.2s
+  [38/115] audit: islands                 reported   63.3s
+  [39/115] audit: duplicate statements    reported    2.3s
+  [40/115] audit: untracked work          reported    0.2s
+  [41/115] obligations doc: sections name their carriers ok          0.5s
+  [42/115] gen: proof chain (geo)         reported    0.1s
+  [43/115] debt: no orphaned verdicts     ok          2.1s
+  [44/115] audit: alias census            ok          0.8s
+  [45/115] audit: alias self-test         ok          0.1s
+  [46/115] report: prop-def binder strength FAIL(1)     3.4s
+  [47/115] audit: namespace closure       ok          0.5s
+  [48/115] audit: namespace self-test     ok          0.1s
+  [49/115] audit: C ABI matches primitives ok          0.1s
+  [50/115] audit: C ABI self-test         ok          0.1s
+  [51/115] census: cross-layer floor      ok         10.6s
+  [52/115] census: cross-layer floor self-test ok          0.1s
+  [53/115] debt: coverage table equals the measurement ok          2.8s
+  [54/115] debt: coverage claim self-test ok          0.1s
+  [55/115] debt: verdict freshness        ok          1.6s
+  [56/115] debt: verdict freshness self-test ok          0.2s
+  [57/115] census: end-to-end by content  reported   11.6s
+  [58/115] gen: primitive matrix          reported    0.2s
+  [59/115] gen: proof chain (kernel)      reported    3.1s
+  [60/115] scope: escape baseline         ok          2.0s
+  [61/115] consistency: docs agree with themselves ok          1.0s
+  [62/115] docs: no docstring cites a stale declaration name ok          0.6s
+  [63/115] docs: no batch-replacement damage ok          0.1s
+  [64/115] ci: job 1 runs locally, job 2 audited ok         29.6s
+  [65/115] docs: completion claims paired with open work ok          0.1s
+  [66/115] stubs: every placeholder definition is labelled ok          0.7s
+  [67/115] literals: free-floating `rfl` theorems are registered ok          1.3s
+  [68/115] plugin map: every theorem has exactly one plugin ok          0.6s
+  [69/115] ladder: every l1l2 rung classified ok          0.7s
+  [70/115] positioning: no engine/model/training framework ok          1.5s
+  [71/115] structure: every clause reachable ok          0.5s
+  [72/115] meta: layer cycle does not grow ok          0.4s
+  [73/115] meta: layer health invariants hold ok          0.8s
+  [74/115] audit: duplicate short names bounded ok          2.0s
+  [75/115] audit: no new duplicated STATEMENTS (not just names) ok          0.8s
+  [76/115] audit: theorem duplication self-test ok          0.8s
+  [77/115] audit: duplicate names classified, none accidental ok          2.4s
+  [78/115] meta: five pipeline stages present ok          0.5s
+  [79/115] meta: proof chain links present and cited ok          1.7s
+  [80/115] meta: every gate can demonstrate its own failure ok          0.6s
+  [81/115] docs: freshness of the tree's own figures ok          1.8s
+  [82/115] packaging: licence file exists, outside paths documented ok          0.1s
+  [83/115] meta: root closure (every layer reachable) ok          0.1s
+  [84/115] meta: root closure self-test   ok          0.1s
+  [85/115] meta: layer reachability       ok          0.4s
+  [86/115] meta: layer registry is single-sourced ok          0.8s
+  [87/115] meta: archived LvFormal stays out of the build ok          0.4s
+  [88/115] meta: layer reachability self-test ok          0.1s
+  [89/115] meta: olean presence (non-Reference) ok          0.2s
+  [90/115] meta: olean presence self-test ok          0.1s
+  [91/115] report: comment shadow declarations reported    1.4s
+  [92/115] report: comment shadow self-test ok          0.1s
+  [93/115] meta: no nominally-complete proof shapes ok          5.5s
+  [94/115] meta: no vacuously true hypothesis ok          1.6s
+  [95/115] docs: carrier claims match the tree ok          0.1s
+  [96/115] report: parameterization audit is live ok          0.1s
+  [97/115] report: obligations carry their proofs ok          0.5s
+  [98/115] plugins: capability index agrees with the Lean manifests ok          0.3s
+  [99/115] audit: configured types have one real definition ok          2.1s
+  [100/115] meta: type duplication audit self-test ok          0.1s
+  [101/115] audit: plugin slots, named propositions are proved ok          2.0s
+  [102/115] meta: plugin slot audit self-test ok          0.1s
+  [103/115] meta: plugin index checker self-test ok          0.2s
+  [104/115] meta: no underscore-prefixed hypothesis ok          1.5s
+  [105/115] scope: every wildcard none branch has a reason ok          0.3s
+  [106/115] usage: skeleton main theorems  reported    9.2s
+  [107/115] docs: objective map up to date ok          8.5s
+  [108/115] docs: objective audit up to date ok          2.2s
+  [109/115] docs: objective audit citations exist (self-test) ok          0.5s
+  [110/115] docs: reversibility map citations exist ok          2.1s
+  [111/115] meta: reversibility classifier self-test ok          0.1s
+  [112/115] meta: comment stripper contract ok          0.1s
+  [113/115] objective coverage: clauses x carriers, naming, vendor imports ok         45.2s
+  [114/115] usage claims: every measurable number in USAGE.md matches the tree ok         11.9s
+  [115/115] archive: corrections count     ok          1.2s
+============================================================
+
+--- report: prop-def binder strength (exit 1) ---
+prop-def strength: a `def X : Prop` whose proof discards its binders
+  seeded findings : 57
+  registered      : 54
+  NEW Plugins/Architectures/Attention/Plugin.lean AttentionSpatialProp (proved by attentionSpatialProp_holds; unused: n)
+  NEW Plugins/Architectures/Attention/Plugin.lean AttentionApproximationProp (proved by attentionApproximationProp_holds; unused: n)
+  NEW Plugins/Architectures/Attention/Plugin.lean AttentionRefinementProp (proved by attentionRefinementProp_holds; unused: n)
+  NEW Plugins/Architectures/Attention/Plugin.lean AttentionInvariantsProp (proved by attentionInvariantsProp_holds; unused: n)
+
+PROP DEF STRENGTH: 4 unregistered prop-def finding(s)
+  either make the proof use the binders, or register the entry WITH A REASON in
+  gov/prop-def-baseline.txt
+VERIFY ALL [full]: 1 FAILURE(S)  (1118.3s total)
+  gating checks passed : 94  (these CAN fail)
+  report-only checks   : 21  (these print findings; exit code is not a verdict)

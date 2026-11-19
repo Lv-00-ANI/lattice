@@ -77,3 +77,7 @@ Plugins/Targets/IRCarrier.lean	ir_data_models
 Plugins/Targets/IRCarrier.lean	ir_parse_models
 Plugins/Targets/IRCarrier.lean	ir_chain_closes
 Plugins/Targets/IRCarrier.lean	ir_encode_sound
+Plugins/Architectures/Attention/Plugin.lean	AttentionSpatialProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
+Plugins/Architectures/Attention/Plugin.lean	AttentionApproximationProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
+Plugins/Architectures/Attention/Plugin.lean	AttentionRefinementProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
+Plugins/Architectures/Attention/Plugin.lean	AttentionInvariantsProp	unused: n	# n is a DEPENDENT binder: mask : Fin n → Fin n → Prop cannot be introduced before n, so `intro n` is forced even though n never appears in a term. Removing it fails to elaborate.
