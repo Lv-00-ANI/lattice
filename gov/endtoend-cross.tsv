@@ -158,6 +158,8 @@ Compose/Showcase/FullChain.lean	fullChainPrim_run
 Compose/Showcase/FullChain.lean	fullChainPrim_sound
 Compose/Showcase/L1L2.lean	l1l2Roundtrip_run
 Compose/Showcase/L1L2.lean	l1l2Roundtrip_sound
+Compose/Showcase/L3L2.lean	l3l2Roundtrip_run
+Compose/Showcase/L3L2.lean	l3l2Roundtrip_post_nondegenerate
 Compose/Showcase/NeuralShortcut.lean	neuralShortcut_run
 Compose/Showcase/NeuralShortcut.lean	tokenShapeVector_no_identity
 Compose/Showcase/NeuralShortcut.lean	neuralShortcut_sound

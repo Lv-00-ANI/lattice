@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 248 | aggregator at `Lattice/`, re-exports only |
+| root | 249 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -861,7 +861,7 @@
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.PrerequisiteCensus` <- `Lattice.CInterface.ABI`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.Proofs`, `Lattice.Compose.Showcase.FullChain`, `Lattice.Compose.Showcase.L1L2`, `Lattice.Compose.Showcase.SymbolShortcut`, `Lattice.Compose.Showcase.NeuralShortcut`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.Proofs`, `Lattice.Compose.Showcase.FullChain`, `Lattice.Compose.Showcase.L1L2`, `Lattice.Compose.Showcase.SymbolShortcut`, `Lattice.Compose.Showcase.NeuralShortcut`, `Lattice.Compose.Showcase.L3L2`
 - `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
@@ -875,6 +875,7 @@
 - `Lattice.Compose.Registry` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Showcase.FullChain` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Lib.Chain.RealEndToEnd`, `Lattice.Lib.Chain.RealChainEntryOOV`
 - `Lattice.Compose.Showcase.L1L2` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Runtime.RealTokenSymbolLink`, `Lattice.Runtime.SymbolToWeightCorrectness`
+- `Lattice.Compose.Showcase.L3L2` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Lib.Compiler.ModelsBehavior`
 - `Lattice.Compose.Showcase.NeuralShortcut` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.Showcase.FullChain`, `Lattice.Core.IR.Chain`
 - `Lattice.Compose.Showcase.SymbolShortcut` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Core.IR.Chain`
 - `Lattice.Compose.Steps` <- `Lattice.Compose.Primitive`
@@ -1962,6 +1963,7 @@
 | `Lattice.Compose.Registry` | 3 | 6 |
 | `Lattice.Compose.Showcase.FullChain` | 2 | 3 |
 | `Lattice.Compose.Showcase.L1L2` | 2 | 3 |
+| `Lattice.Compose.Showcase.L3L2` | 2 | 3 |
 | `Lattice.Compose.Showcase.NeuralShortcut` | 3 | 3 |
 | `Lattice.Compose.Showcase.SymbolShortcut` | 2 | 3 |
 | `Lattice.Compose.Steps` | 4 | 4 |
@@ -6782,6 +6784,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `l1l2_only_one_direction` -> `ConstraintSet`, `SymToken`, `decode`, `g`, `no_left_inverse_at_all`
 - `l2_loss_visible_at_L1` -> `AllSatisfied`, `Chain`, `ConstraintSet`, `SymToken`, `compileToLayer`, `decode`, `decode_encode`, `encode`, `encode_injective`, `extractLayer`, `extractLayer_compileToLayer`, `foldBlanks`, `map`, `recover`, `recover_compileToLayer`, `tokenize`, `tokenize_collision`
 - `l2l3_quotient_is_nontrivial` -> `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize_of_content_one`, `constraintContent`, `decode`, `g`, `listGcdNat`, `no_left_inverse_at_all`
+- `l3l2Roundtrip_post_nondegenerate` -> `Segment`, `decodeGrid`, `decodeGrid_encodeGrid`, `encodeGrid`, `g`, `gridEval`
+- `l3l2Roundtrip_run` -> `Segment`, `decodeGrid`, `decodeGrid_encodeGrid`, `encodeGrid`, `g`, `gridEval`, `run`
 - `labelAt_depends_on_carrier` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_nil`, `holdsSet_singleton`, `sound`
 - `labelAt_depends_on_context` -> `ContextualInherits`, `Pt`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `holdsSet_singleton`, `sound`
 - `labels_can_be_separate` -> `FactorsThrough`, `FiberStable`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `g`, `roundTripAddsNothing_of_factorsThrough`, `roundtrip_extractVec`, `trans`, `trivial`
