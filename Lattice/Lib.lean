@@ -59,6 +59,7 @@ import Lattice.Lib.Compiler.GridAlgebra
 import Lattice.Lib.Compiler.IRWeightsBridge
 import Lattice.Lib.Compiler.ReversibilityChain
 import Lattice.Lib.Compiler.ReversibilitySharpness
+import Lattice.Lib.Compiler.ExecutableBoundary
 /-!
 # Lattice.Lib -- harvested instances
 
