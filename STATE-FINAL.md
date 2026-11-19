@@ -10,7 +10,7 @@
 
 **这个库能自己做完的部分已经做完了。**
 
-847 个模块、9,987 条定理、**10 个守卫全部 green**。
+847 个模块、9,990 条定理、**10 个守卫全部 green**。
 目标原文的**14 条可检验条款全部有具体载体**——而且这一点**不再是一句话，
 是由 `gov/check_objective_coverage.py` 强制检查的**。
 剩余的缺口（可执行边界、实证基准）**都不在本库能做事的范围内**，
@@ -55,10 +55,10 @@
 
 | 指标 | 值 |
 |:--|--:|
-| 源模块（不含 `Reference/`） | **1075** |
+| 源模块（不含 `Reference/`） | **1076** |
 | └ Core / Lift / Domains / Geo / Lib / Evidence / Usage / 根 | 23 / 0 / 4 / 66 / 99 / 625 |
-| 声明总数 | **13437** |
-| 定理 / 引理（官方口径） | **9,987** |
+| 声明总数 | **13443** |
+| 定理 / 引理（官方口径） | **9,990** |
 | 代码行 | **204,800**（含注释与空行） |
 | 内核逃逸（`axiom`/`opaque`/`sorry`/`admit`） | **0** |
 | 检查器注册项 | **46（30 门禁 + 16 报告器）** |
@@ -146,9 +146,16 @@
 | 段 | `Segment` | `SegmentRat` | `SegmentRat.evalRat_coe` |
 | 分段索引 | `segmentIndex` | `segmentIndexRat` | `segmentIndexRat_coe` |
 | 网格求值 | `gridEval` | `gridEvalRat` | `gridEvalRat_coe` |
-| **数值见证** | — | **`gridEvalRat_witness`** | **`norm_num` 直接算出，非「存在」** |
+| **权重载体** | **`IRWeights = ℕ → ℝ`** | **`IRWeightsRat = ℕ → ℚ`** | **`encodeGridRat_coe`**（逐位） |
+| **符号 → 权重** | **`encodeGrid`** | **`encodeGridRat`** | **同上** |
+| **权重 → 符号** | **`decodeGrid`** | **`decodeGridRat`** | **`decodeGridRat_encodeGridRat`** |
+| **数值见证** | — | **`gridEvalRat_witness`** / **`endToEndRat_witness`** | **由 `norm_num` 算出，非「存在」** |
 
-**位置：`Lattice/Lib/Compiler/ExecutableBoundary.lean`。**
+**位置：`Lattice/Lib/Compiler/ExecutableBoundary.lean`（求值层）与
+`Lattice/Lib/Compiler/ExecutableWeights.lean`（权重层与整链）。**
+
+**⇒ 四步（符号 → 段 → 权重 → 解码 → 求值）**全部**有 `ℚ` 对应，
+且**全部**与 `ℝ` 模型一致。`endToEndRat_witness` 让整条链跑一遍并算出具体数值。**
 
 **为什么它不违反这里的三条代价：**
 
