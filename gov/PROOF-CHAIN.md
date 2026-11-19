@@ -11,7 +11,7 @@
 | core | 169 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 660 | instantiated library, may import core only |
+| lib | 661 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -396,6 +396,7 @@
 - `Lattice.Lib.Compiler.ConvexityChord` <- `Lattice.Lib.Compiler.ChordErrorGeneral`
 - `Lattice.Lib.Compiler.DataSynthesis` <- `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Runtime.LoopClosure`
 - `Lattice.Lib.Compiler.Disjunction` <- `Lattice.Runtime.ConvertLinear`
+- `Lattice.Lib.Compiler.ExecutableBoundary` <- `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.GridAlgebra`
 - `Lattice.Lib.Compiler.Expressiveness` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Lib.Compiler.FloatMulBoundDischarged` <- `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`
 - `Lattice.Lib.Compiler.GridAlgebra` <- `Lattice.Lib.Compiler.ChordGeneral`
@@ -885,7 +886,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.ReversibilityChain`, `Lattice.Lib.Compiler.ReversibilitySharpness`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.ReversibilityChain`, `Lattice.Lib.Compiler.ReversibilitySharpness`, `Lattice.Lib.Compiler.ExecutableBoundary`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1475,6 +1476,7 @@
 | `Lattice.Lib.Compiler.ConvexityChord` | 5 | 0 |
 | `Lattice.Lib.Compiler.DataSynthesis` | 4 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
+| `Lattice.Lib.Compiler.ExecutableBoundary` | 4 | 5 |
 | `Lattice.Lib.Compiler.Expressiveness` | 5 | 0 |
 | `Lattice.Lib.Compiler.FloatMulBoundDischarged` | 8 | 1 |
 | `Lattice.Lib.Compiler.GridAlgebra` | 7 | 5 |
@@ -2416,6 +2418,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `RoundMode.nearestEven_not_directed` -> `FloatFormat`, `eps`, `le_antisymm`, `le_trans`, `tiny`, `toFun`
 - `S2_all_atom_false` -> `all`, `at`, `bvar`, `induction`
 - `S2_ex_atom_true` -> `all`, `at`, `bvar`, `induction`
+- `SegmentRat.evalRat_coe` -> `Compiler`, `Segment`, `eval`, `g`, `gridEval`, `segmentIndex`, `toNat`
 - `Slot.reachable_of_eq` -> `Arch`, `ArchIndex`, `Slot`, `depth`, `subst`, `trivial`, `width`
 - `Strength.min_rank_le_left` -> `le_refl`, `run`, `sound`
 - `Strength.min_rank_le_right` -> `le_refl`, `run`, `sound`
@@ -2843,7 +2846,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `azuma_diff_bound` -> `S2`, `apply`, `at`, `card_fin`, `d`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `azuma_difference_nonvacuous` -> `g`
 - `azuma_examples` -> `d`, `le_trans`, `uniformProb`
-- `azuma_max_tail_of_cond_mgf` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
+- `azuma_max_tail_of_cond_mgf` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `toReal`
 - `azuma_tail` -> `S2`, `at`, `card_fin`, `d`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `azuma_tail_martingale` -> `CondZeroMean`, `d`, `fiber`, `uniformProb`
 - `azuma_tail_of_mgf` -> `CondZeroMean`, `d`, `fiber`, `le`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
@@ -3098,9 +3101,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `boost_product_count` -> `card_fin`
 - `boost_product_event` -> `card_fin`
 - `boost_uniform_prob_all_miss` -> `card_fin`
-- `borelSpace_real` -> `apply`, `g`, `mono`
-- `borel_le_of_isOpen_le` -> `apply`, `g`, `mono`
-- `borel_of_topology` -> `apply`, `g`, `mono`
+- `borelSpace_real` -> `apply`, `g`, `mono`, `toReal`
+- `borel_le_of_isOpen_le` -> `apply`, `g`, `mono`, `toReal`
+- `borel_of_topology` -> `apply`, `g`, `mono`, `toReal`
 - `both_carriers_share_criterion` -> `Compiler`, `Sat`, `compile`, `out`
 - `both_implies_marginal` -> `alpha`
 - `both_roundtrips_rfl` -> `LinearLayer`, `VectorConstraint`, `convertVec`, `convertVec_extractVec_rfl`, `extractVec`, `extractVec_convertVec_rfl`
@@ -3461,8 +3464,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `charZero_add_pow_ne` -> `Surjective`, `at`, `subst`
 - `charZero_natCast_ne_zero` -> `Surjective`, `at`, `subst`
 - `charsToNat_natToChars` -> `IntRoundtripExists`, `count`, `toNat`
-- `chebyshev_bound` -> `apply`
-- `chernoff_bridge_measure` -> `le`, `prob_isFinite`
+- `chebyshev_bound` -> `apply`, `toReal`
+- `chernoff_bridge_measure` -> `le`, `prob_isFinite`, `toReal`
 - `chernoff_log_lower` -> `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `chernoff_log_upper` -> `at`, `comp`, `convert`, `div_const`, `markov_exp_tail`, `subst`, `uniformExpectation`, `uniformProb`
 - `chernoff_lower_tail` -> `at`, `trans`, `uniformExpectation`, `uniformProb`
@@ -3882,7 +3885,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `condExpFiber_const` -> `apply`, `at`, `d`, `g`
 - `condExpFiber_eq_uniformExpectation` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `g`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `condExpFiber_hoeffding` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `g`, `hoeffding_lemma_scaled`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
-- `condExpFiber_le_of_fibreBound` -> `at`, `condExpFiber`
+- `condExpFiber_le_of_fibreBound` -> `at`, `condExpFiber`, `toReal`
 - `condExpFiber_mul_of_adapted` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_mul_of_adapted_at` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
 - `condExpFiber_mul_of_adapted_mem` -> `AdaptedTo`, `FibreBound`, `condExpFiber`, `condExpFiber_const`, `condExpFiber_self_of_adapted`, `fiber`, `fiber_sum_eq`, `induction`, `le`, `sum_card_mul_condExpFiber`, `uniformExpectation`, `zero`
@@ -3901,13 +3904,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `condZeroMean_iff_condExpFiber_eq_zero` -> `at`, `d`
 - `condexp_add` -> `apply`, `g`, `mono`
 - `condexp_bot` -> `apply`, `mono`
-- `condexp_condexp_filtration` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `mono`, `trans`
+- `condexp_condexp_filtration` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `mono`, `toReal`, `trans`
 - `condexp_congr_ae` -> `apply`, `g`, `mono`
 - `condexp_const` -> `apply`, `g`, `mono`
 - `condexp_exp_le_cosh` -> `at`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `mono`, `trans`
 - `condexp_exp_submartingale` -> `condexp_of_stronglyMeasurable`, `le`
-- `condexp_hoeffding` -> `at`, `condExpFiber`, `integral_condexp`
-- `condexp_le_of_ae_le` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `integral_condexp`
+- `condexp_hoeffding` -> `at`, `condExpFiber`, `integral_condexp`, `toReal`
+- `condexp_le_of_ae_le` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `integral_condexp`, `toReal`
 - `condexp_mono` -> `apply`, `g`, `mono`
 - `condexp_nonneg` -> `apply`, `g`, `mono`
 - `condexp_of_stronglyMeasurable` -> `apply`, `g`, `mono`
@@ -4579,7 +4582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `differentiableAt_pointwiseNetActN` -> `AffineLayer`, `Pt`, `add`, `comp`, `differentiableAt_netActN`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `differentiableAt_pointwiseNetActN_joint` -> `Pt`, `add`, `comp`, `d`, `induction`, `map`, `netActN`, `packLayers`, `penaltyLoss`, `singleParams`
 - `differentiableAt_pointwiseNetActN_params` -> `Pt`, `comp`, `d`, `differentiableAt_netActN_joint`, `g`, `induction`, `map`, `netActN`, `packLayers`, `singleParams`
-- `differentialEntropy_le_crossEntropyMeasure` -> `g`, `subst`
+- `differentialEntropy_le_crossEntropyMeasure` -> `g`, `subst`, `toReal`
 - `dimension_counting` -> `Compiler`, `eval`
 - `diracVec_apply` -> `ProbVec`, `le_antisymm`, `le_trans`
 - `diracVec_probVec` -> `ProbVec`, `le_antisymm`, `le_trans`
@@ -4638,9 +4641,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `domain_selection_determines_identity` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
 - `domain_selection_is_internal` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
 - `domain_selection_preserves_relation` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `split_iff_all`, `split_immediately_confers_concept`, `trivial`, `up`
-- `doob_maximal_azuma_max` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
-- `doob_maximal_ineq` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
-- `doob_maximal_ineq_real` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`
+- `doob_maximal_azuma_max` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`, `toReal`
+- `doob_maximal_ineq` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`, `toReal`
+- `doob_maximal_ineq_real` -> `at`, `condexp_of_stronglyMeasurable`, `le`, `le_trans`, `toReal`
 - `dotL_eq_dot` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dotProduct_sum_range` -> `g`, `induction`, `insert`, `selProd`, `selProd_concat`, `selProd_eq_from`, `selProd_succ`, `selState`, `selState_explicit`, `zero`
 - `dotQ_eq_dot_cast` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
@@ -5204,7 +5207,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exp_smul_sub_one_eq_tsum` -> `apply`, `g`, `selProd`, `selState`, `selState_explicit`, `selState_norm_bound_contracting`, `selState_succ`, `sel_is_LTI_special`, `zohStep`
 - `exp_sub_le_of_le` -> `ProbDist`, `at`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
 - `exp_sub_one_le` -> `ProbDist`, `at`, `le_total`, `softmax`, `softmax_nonneg`, `softmax_sum_one`
-- `exp_submartingale_of_cond` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
+- `exp_submartingale_of_cond` -> `doob_maximal_azuma_max`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `toReal`
 - `expected_output_at_zero` -> `at`, `min`
 - `expected_output_geometric` -> `at`, `geom_sum_eq`, `min`
 - `expected_output_mono` -> `at`, `min`
@@ -5405,17 +5408,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fedsgd_rate` -> `at`, `induction`, `le`, `zero`
 - `fedsgd_rate_fraction` -> `at`, `induction`, `le`, `zero`
 - `fedsgd_rate_simple` -> `at`, `induction`, `le`, `zero`
-- `fenchelConjAllEReal_add_le_split` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`
-- `fenchelConjAllEReal_convex` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
-- `fenchelConjAllEReal_eq_iSup` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
-- `fenchelConjAllEReal_eq_top_iff` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
-- `fenchelConjAllEReal_le` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
-- `fenchelConjAllEReal_le_of_bddAbove` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
+- `fenchelConjAllEReal_add_le_split` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`, `toReal`
+- `fenchelConjAllEReal_convex` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
+- `fenchelConjAllEReal_eq_iSup` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
+- `fenchelConjAllEReal_eq_top_iff` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
+- `fenchelConjAllEReal_le` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
+- `fenchelConjAllEReal_le_of_bddAbove` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
 - `fenchelConjAllEReal_lowerSemicontinuous` -> `fenchelConjAll`
-- `fenchelConjAllEReal_scaling_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`
-- `fenchelConjAllEReal_shift` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`
-- `fenchelConjAllEReal_toReal` -> `apply`, `at`, `fenchelConjAll`, `le_antisymm`, `mul`
-- `fenchelConjAllEReal_toReal_of_bddAbove` -> `fenchelConjAll`, `mul`
+- `fenchelConjAllEReal_scaling_le` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`, `toReal`
+- `fenchelConjAllEReal_shift` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`, `toReal`
+- `fenchelConjAllEReal_toReal` -> `apply`, `at`, `fenchelConjAll`, `le_antisymm`, `mul`, `toReal`
+- `fenchelConjAllEReal_toReal_of_bddAbove` -> `fenchelConjAll`, `mul`, `toReal`
 - `fenchelConjAll_add_le_split` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `le_fenchelConjAll`, `subgradient_iff_fenchelConj_eq`
 - `fenchelConjAll_argmax` -> `Subgradient`, `at`, `fenchelConjAll`, `g`, `subgradient_iff_fenchelConj_eq`
 - `fenchelConjAll_convex` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `fenchelConjAll_le`, `g`, `le_antisymm`, `le_fenchelConjAll`
@@ -5438,7 +5441,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fenchel_biconjugate_le` -> `E`, `apply`, `at`, `fDivergence`, `g`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`, `tv`, `tv_eq_sum_abs`
 - `fenchel_dual_lower_bound` -> `E`, `apply`, `at`, `fDivergence`, `g`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`, `tv`, `tv_eq_sum_abs`
 - `fenchel_ineq_all` -> `Subgradient`, `apply`, `at`, `fenchelConjugate`, `fenchelConjugate_le`, `g`, `le_antisymm`, `subgradient_exists_of_convex`
-- `fenchel_ineq_all_ereal` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
+- `fenchel_ineq_all_ereal` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
 - `fenchel_inequality` -> `E`, `apply`, `at`, `fDivergence`, `g`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`, `tv`, `tv_eq_sum_abs`
 - `fiberCard_sum_eq` -> `CondZeroMean`, `card_mul_condExpFiber`, `condExpFiber`, `d`, `fiber`, `fiber_sum_eq`, `fiber_sum_eq_filtered_fiber_sum`, `g`, `le`, `markov_exp_tail`, `tower_property`, `uniformExpectation`, `uniformProb`, `weightedCondExp`
 - `fiberPred_factorsThrough` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
@@ -6028,6 +6031,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `graphTheory_validB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `graphTheoryPackage`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
 - `graph_ext` -> `IRSkeleton`, `RelKind`, `at`, `d`, `map`, `subst`
 - `greedy_is_optimal` -> `at`
+- `gridEvalRat_coe` -> `Compiler`, `g`, `gridEval`
+- `gridEvalRat_witness` -> `Compiler`
 - `gridEval_add` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_affine` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_congr_on_prefix` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
@@ -6148,12 +6153,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `high_conf_error_bound` -> `apply`, `le`
 - `high_dim_failure_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rotateR`
 - `high_dim_subblock_failure` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `hoeffding_inequality_measure` -> `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
-- `hoeffding_inequality_measure_const_bound` -> `at`
-- `hoeffding_inequality_measure_interval` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `integral_condexp`, `mgf_bound_of_coordinate_bounds`, `mono`
-- `hoeffding_inequality_measure_sq` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `integral_condexp`, `mgf_bound_of_coordinate_bounds`, `mono`
-- `hoeffding_inequality_measure_symmetric_interval` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `integral_condexp`, `mono`
-- `hoeffding_inequality_measure_uniform` -> `at`
+- `hoeffding_inequality_measure` -> `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
+- `hoeffding_inequality_measure_const_bound` -> `at`, `toReal`
+- `hoeffding_inequality_measure_interval` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `integral_condexp`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
+- `hoeffding_inequality_measure_sq` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `integral_condexp`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
+- `hoeffding_inequality_measure_symmetric_interval` -> `at`, `condExpFiber`, `condexp_mono`, `g`, `integral_condexp`, `mono`, `toReal`
+- `hoeffding_inequality_measure_uniform` -> `at`, `toReal`
 - `hoeffding_lemma` -> `apply`, `convert`, `trans`, `uniformProb`
 - `hoeffding_lemma_bounded` -> `apply`, `at`, `convert`, `trans`, `uniformProb`
 - `hoeffding_lemma_measure` -> `add`, `at`, `div_const`, `le`, `mono`, `trans`
@@ -6163,12 +6168,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hoeffding_lemma_measure_symmetric_interval` -> `at`, `le`, `mono`
 - `hoeffding_lemma_scaled` -> `S2`, `apply`, `at`, `card_fin`, `d`, `hoeffding_lemma`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `hoeffding_lemma_shifted` -> `apply`, `at`, `card_fin`, `trans`, `uniformProb`
-- `hoeffding_measure_independent_general` -> `prob_isFinite`
+- `hoeffding_measure_independent_general` -> `prob_isFinite`, `toReal`
 - `hoeffding_tail` -> `apply`, `card_fin`, `uniformProb`
 - `hoeffding_tail_bounded` -> `apply`, `card_fin`, `uniformProb`
 - `hoeffding_tail_classic` -> `apply`, `card_fin`, `le`, `uniformExpectation`, `uniformProb`
 - `hoeffding_tail_classic_aux` -> `apply`, `card_fin`, `le`, `uniformExpectation`, `uniformProb`
-- `hoeffding_tail_of_mgf_bound` -> `le`
+- `hoeffding_tail_independent_measure` -> `toReal`
+- `hoeffding_tail_of_mgf_bound` -> `le`, `toReal`
 - `hoeffding_two_sided` -> `apply`, `card_fin`, `uniformProb`, `zero`
 - `holder_two_is_cauchy` -> `card_fin`, `g`
 - `holds3_depends` -> `RelKind`, `TensorId`, `zero`
@@ -6492,7 +6498,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isLocalMin_of_forall_le` -> `E`, `Sat`, `apply`, `at`, `loss`, `trivial`
 - `isOneLipschitz_add_const` -> `IsOneLipschitz`, `IsTransportPlan`, `dual_weak`, `le_trans`, `productPlan_isPlan`, `sInf`, `transportCost`
 - `isOneLipschitz_neg` -> `IsOneLipschitz`, `IsTransportPlan`, `dual_weak`, `le_trans`, `productPlan_isPlan`, `sInf`, `transportCost`
-- `isOpen_measurableSet` -> `apply`, `g`, `mono`
+- `isOpen_measurableSet` -> `apply`, `g`, `mono`, `toReal`
 - `isOptimalPolicy_zero` -> `BellmanOp`, `ProbVec`, `le_trans`, `split`, `step`
 - `isOrdered_not_downward` -> `at`, `bound`, `children`, `e2`, `eval`, `induction`, `min`, `value`
 - `isPSDKernel_of_featureMap` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
@@ -6659,15 +6665,15 @@ module. These are the edges that make the chain a chain rather than a list.
 - `kkt_deriv_quadratic` -> `add`, `at`, `d`, `subst`
 - `kkt_one_dim_complete` -> `at`, `comp`, `d`, `g`
 - `kkt_one_dim_inactive_stationary` -> `at`, `comp`, `d`, `g`, `mono`
-- `klDensity_eq_ce_sub_entropy_measure` -> `g`, `subst`
-- `klDensity_eq_sub_entropies` -> `g`, `subst`
-- `klDensity_eq_zero_of_eq` -> `g`, `subst`
-- `klDensity_nonneg` -> `g`, `subst`
-- `klDensity_self` -> `g`, `subst`
+- `klDensity_eq_ce_sub_entropy_measure` -> `g`, `subst`, `toReal`
+- `klDensity_eq_sub_entropies` -> `g`, `subst`, `toReal`
+- `klDensity_eq_zero_of_eq` -> `g`, `subst`, `toReal`
+- `klDensity_nonneg` -> `g`, `subst`, `toReal`
+- `klDensity_self` -> `g`, `subst`, `toReal`
 - `klJoint_nonneg` -> `apply`, `marginalCol`, `marginalRow`, `mutualInformation`, `prodDist`, `prodDist_pos`, `sub_le_mul_log_div`
 - `klMeasure_eq_zero_of_eq` -> `subst`
-- `klMeasure_nonpos` -> `klMeasure`, `sub_le_mul_log_div`
-- `klMeasure_self` -> `subst`
+- `klMeasure_nonpos` -> `klMeasure`, `sub_le_mul_log_div`, `toReal`
+- `klMeasure_self` -> `subst`, `toReal`
 - `klPartition_pos` -> `apply`, `kl`, `kl_as_sum_log_sub_log`, `kl_eq_zero_of_eq`, `kl_nonneg`
 - `klRegularizedObjective_eq_logPartition_sub_kl` -> `apply`, `kl`, `kl_as_sum_log_sub_log`, `kl_eq_zero_of_eq`, `kl_nonneg`, `kl_zero_iff_eq`
 - `kl_as_fdiv` -> `apply`, `kl`, `kl_as_sum_log_ratio`, `kl_nonneg`
@@ -6873,7 +6879,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `le_clamp` -> `apply`, `at`, `clampTo`, `le_antisymm`, `le_refl`, `le_trans`, `min`, `quant_error_lt_two_pow`
 - `le_exp_of_le_sq` -> `at`, `le_trans`, `uniformProb`
 - `le_fenchelConjAll` -> `Subgradient`, `apply`, `at`, `fenchelConjugate`, `fenchelConjugate_le`, `g`, `le_antisymm`, `subgradient_exists_of_convex`
-- `le_fenchelConjAllEReal` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`
+- `le_fenchelConjAllEReal` -> `Subgradient`, `apply`, `at`, `e2`, `fenchelConjAll`, `g`, `le_antisymm`, `toReal`
 - `le_fenchelConjugate` -> `E`, `apply`, `at`, `fDivergence`, `g`, `kl`, `kl_as_fdiv`, `kl_as_sum_log_ratio`, `le_antisymm`, `mul_div_self`
 - `le_ge_iff_sq_zero` -> `int_sq_eq_zero_iff`, `int_sq_nonneg`
 - `le_iff_sub_is_square` -> `at`, `eval`, `le`, `trans`
@@ -7244,20 +7250,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `marginalLikelihood_pos` -> `at`, `le_refl`
 - `marginalRow_nonneg` -> `apply`
 - `marginal_does_not_imply_conditional` -> `alpha`, `at`
-- `markov_bound` -> `apply`
+- `markov_bound` -> `apply`, `toReal`
 - `markov_counting` -> `apply`, `at`, `card_fin`, `trans`, `uniformProb`
 - `markov_exp_tail` -> `apply`, `at`, `card_fin`, `uniformProb`
 - `markov_exp_tail_neg` -> `at`, `comp`, `const_add`, `convert`, `div_const`, `markov_counting`, `subst`, `uniformExpectation`, `uniformProb`
 - `markov_inequality` -> `Expect`, `Subgradient`, `SubgradientGap`, `apply`, `at`, `d`, `g`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `markov_row_sum` -> `apply`, `at`, `entropy`, `fDivergence`, `kl`, `kl_as_sum_log_ratio`, `tv`
 - `markov_subset_count` -> `trans`
-- `martingale_condexp_tower` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `trans`
+- `martingale_condexp_tower` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `toReal`, `trans`
 - `martingale_def_equiv` -> `d`
 - `martingale_expected_stoppedValue_eq` -> `at`, `le_antisymm`, `le_refl`, `min`
 - `martingale_expected_stoppedValue_eq_last` -> `le_refl`, `min`
 - `martingale_expected_stoppedValue_eq_of_le` -> `at`, `le_antisymm`, `le_refl`, `min`
 - `martingale_expected_stoppedValue_min_eq` -> `min`
-- `martingale_tower_property` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `trans`
+- `martingale_tower_property` -> `condexp_congr_ae`, `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `toReal`, `trans`
 - `maskCount_add_compl_eq_total` -> `at`, `induction`, `insert`, `min`, `zero`
 - `maskCount_le_total` -> `at`, `induction`, `min`, `zero`
 - `maskCount_le_total_nb` -> `apply`, `min`
@@ -7342,7 +7348,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mcdiarmid_additive_tail` -> `apply`, `at`, `card_fin`, `g`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `mcdiarmid_additive_two_sided` -> `apply`, `at`, `card_fin`, `g`, `uniformExpectation`, `uniformProb`
 - `mcdiarmid_example` -> `uniformProb`
-- `mcdiarmid_measure_of_differences` -> `at`
+- `mcdiarmid_measure_of_differences` -> `at`, `toReal`
 - `mcdiarmid_range_le` -> `apply`, `at`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `mcdiarmid_range_le_measure` -> `Surjective`, `at`, `comp`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `le`, `mono`
 - `mcdiarmid_tail_of_mgf` -> `apply`, `at`, `g`, `markov_exp_tail`, `sum_eq_zero_of_uniformExpectation_eq_zero`, `uniformExpectation`, `uniformProb`
@@ -7368,7 +7374,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mean_dev_linear_rate_false` -> `apply`, `at`, `card_fin`, `gnorm`, `gnorm_scale_invariant`, `induction`, `le`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`, `zero`
 - `mean_dev_sqrt_bound` -> `apply`, `at`, `card_fin`, `gnorm`, `gnorm_scale_invariant`, `induction`, `le`, `normalize`, `normalize_scale_invariant`, `unit_normalize_lipschitz`, `unit_normalize_lipschitz_sharp`, `zero`
 - `mean_scale` -> `apply`
-- `measurableSpace_eq_borel` -> `apply`, `g`, `mono`
+- `measurableSpace_eq_borel` -> `apply`, `g`, `mono`, `toReal`
 - `measureTheory_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
 - `measureTheory_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
 - `measureTheory_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `length`, `measureTheoryPackage`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
@@ -7445,19 +7451,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mfcq_single_iff` -> `LICQOneDim`, `at`, `d`, `e2`, `g`, `le_refl`, `subst`
 - `mfcq_strict_separation` -> `MFCQ`, `at`, `d`, `dotV`
 - `mfcq_strict_separation_literal_false` -> `MFCQ`, `at`, `dotV`
-- `mgf_bound_of_bounded_zero_mean` -> `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
-- `mgf_bound_of_coordinate_bounds` -> `le`
-- `mgf_coord_bound_of_bounded_mean_zero` -> `hoeffding_lemma_measure`, `indep_mgf_sum`, `le`, `prob_isFinite`
+- `mgf_bound_of_bounded_zero_mean` -> `condexp_mono`, `g`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
+- `mgf_bound_of_coordinate_bounds` -> `le`, `toReal`
+- `mgf_coord_bound_of_bounded_mean_zero` -> `hoeffding_lemma_measure`, `indep_mgf_sum`, `le`, `prob_isFinite`, `toReal`
 - `mgf_count_le_exp_half_sq` -> `apply`, `at`, `card_fin`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
-- `mgf_factor_measure` -> `le`
-- `mgf_factor_sum` -> `indep_mgf_sum`, `le`, `prob_isFinite`
-- `mgf_le_of_bounded_zero_mean` -> `hoeffding_lemma_measure`, `hoeffding_lemma_measure_interval`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
+- `mgf_factor_measure` -> `le`, `toReal`
+- `mgf_factor_sum` -> `indep_mgf_sum`, `le`, `prob_isFinite`, `toReal`
+- `mgf_le_of_bounded_zero_mean` -> `hoeffding_lemma_measure`, `hoeffding_lemma_measure_interval`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
 - `mgf_le_of_cond_mgf_filtration` -> `le_refl`, `mgf_le_of_condexp_le`
-- `mgf_le_of_condexp_le` -> `at`, `condExpFiber`, `integral_condexp`
-- `mgf_le_of_interval_zero_mean` -> `condexp_mono`, `g`, `hoeffding_lemma_measure_interval`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`
+- `mgf_le_of_condexp_le` -> `at`, `condExpFiber`, `integral_condexp`, `toReal`
+- `mgf_le_of_interval_zero_mean` -> `condexp_mono`, `g`, `hoeffding_lemma_measure_interval`, `hoeffding_tail_of_mgf_bound`, `mgf_bound_of_coordinate_bounds`, `mono`, `toReal`
 - `mgf_pos_of_tail_bound` -> `apply`, `at`, `card_fin`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
-- `mgf_sum_bound_of_coord_bounds` -> `le`, `prob_isFinite`
-- `mgf_sum_pair` -> `le`
+- `mgf_sum_bound_of_coord_bounds` -> `le`, `prob_isFinite`, `toReal`
+- `mgf_sum_pair` -> `le`, `toReal`
 - `mi_as_sum_log_ratio` -> `apply`
 - `mi_eq_zero_of_independent` -> `apply`
 - `midpointTerm_diff_le` -> `Pt`, `card_fin`, `collinear`, `d`, `le_trans`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
@@ -8198,7 +8204,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `op_norm_zero` -> `E`, `comp`
 - `op_pow_tendsto_zero` -> `E`, `iterateStep`, `iterateStep_norm_le`, `le_trans`
 - `open_targets_register` -> `ExpressibleSpec`, `length`, `trivial`
-- `opensMeasurable_of_borel` -> `apply`, `g`, `mono`
+- `opensMeasurable_of_borel` -> `apply`, `g`, `mono`, `toReal`
 - `optConstant_eq_of_witness` -> `at`
 - `optConstant_lower_bound` -> `at`
 - `optConstant_self` -> `at`
@@ -8633,10 +8639,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `primitiveNames_length` -> `Primitive`, `length`, `map`
 - `primitiveNames_nodup` -> `Primitive`, `length`, `map`
 - `principal_curvatures_product_eq_gaussian` -> `E`, `S2`
-- `prob_iff_univ` -> `apply`, `g`, `mono`
-- `prob_isFinite` -> `apply`, `g`, `mono`
-- `prob_toReal_univ` -> `apply`, `g`, `mono`
-- `prob_univ` -> `apply`, `g`, `mono`
+- `prob_iff_univ` -> `apply`, `g`, `mono`, `toReal`
+- `prob_isFinite` -> `apply`, `g`, `mono`, `toReal`
+- `prob_toReal_univ` -> `apply`, `g`, `mono`, `toReal`
+- `prob_univ` -> `apply`, `g`, `mono`, `toReal`
 - `probabilityTheory_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `probabilityTheory_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
 - `probabilityTheory_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `informationTheoryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`, `probabilityTheoryPackage`
@@ -9351,8 +9357,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rg_exists_nnnorm_eq_spectralRadius` -> `E`
 - `rg_gelfand_formula` -> `E`
 - `rg_gelfand_formula_norm` -> `E`
-- `rg_spectralRadius_le_nnnorm` -> `E`
-- `rg_spectralRadius_toReal_le_norm` -> `E`
+- `rg_spectralRadius_le_nnnorm` -> `E`, `toReal`
+- `rg_spectralRadius_toReal_le_norm` -> `E`, `toReal`
 - `rg_spectrum_nonempty` -> `E`
 - `rhs_eq_fin_sum` -> `apply`, `at`, `dot`, `length`
 - `richardsonIterate_error` -> `E`, `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `d`, `matCLME`, `matCLME_apply`, `matvecE`, `matvecE_mul`, `mulVec`
@@ -9414,8 +9420,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rmsNorm_two_sqrt_not_attained` -> `at`, `card_fin`, `center_lipschitz`, `center_norm_le`, `constOne`, `subst`
 - `rms_is_homogeneous` -> `rms`, `rms_scale`
 - `rms_scale` -> `apply`
-- `rnDerivLog_integral_nonpos` -> `klMeasure`, `sub_le_mul_log_div`
-- `rnDeriv_gibbs` -> `sub_le_mul_log_div`
+- `rnDerivLog_integral_nonpos` -> `klMeasure`, `sub_le_mul_log_div`, `toReal`
+- `rnDeriv_gibbs` -> `sub_le_mul_log_div`, `toReal`
 - `rnnState_eq_of_eq_prefix` -> `W`, `at`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `rnn_forget_bound` -> `W`, `at`, `g`, `induction`, `iterate`, `iterate_step_swap`, `le_antisymm`, `zero`
 - `rnn_hidden_contraction` -> `W`, `at`, `geom_sum_eq`, `induction`, `trans`, `zero`
@@ -9784,6 +9790,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `seg_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `seg_const_zero` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
+- `segmentIndexRat_coe` -> `Compiler`, `g`, `gridEval`, `segmentIndex`, `toNat`
 - `segmentIndex_at_one` -> `Compiler`, `chordSegment_eval`, `le_trans`, `piecewiseFamily_error`, `piecewiseWeights`, `quarter_inv_sq_tends_to_zero`, `segmentIndex`, `segmentIndex_lt`, `segmentIndex_mem`, `subst`
 - `segmentIndex_le_on_unit` -> `Compiler`, `Segment`, `apply`, `at`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `segmentIndex_lt` -> `Compiler`, `chordSegment`, `eval`
@@ -10506,7 +10513,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subGaussianTail_of_subExponential_tail` -> `apply`, `at`, `le_trans`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `subGaussian_strictly_weaker_than_subExponential_at_small_t` -> `apply`, `at`, `markov_exp_tail`, `uniformExpectation`, `uniformProb`
 - `sub_eq_mul_log_iff` -> `at`
-- `sub_le_mul_log_div` -> `at`, `g`, `le`, `subst`
+- `sub_le_mul_log_div` -> `at`, `g`, `le`, `subst`, `toReal`
 - `subconcept_trans` -> `apply`, `at`
 - `subdiffN_affine_precomp` -> `apply`, `at`, `g`, `le_refl`, `relu`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
 - `subdiffN_affine_precomp_id` -> `at`, `g`, `le_refl`, `relu`, `relu_subgradient_zero_iff`, `subgradient_step_decrease`
@@ -10530,12 +10537,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subgradient_descent_norm_decrease_seq` -> `Subgradient`, `at`, `g`
 - `subgradient_descent_rate_bound` -> `Subgradient`, `g`, `relu`, `relu_subgradient_positive`
 - `subgradient_exists_of_convex` -> `Subgradient`, `apply`, `at`, `g`, `subst`
-- `subgradient_iff_fenchelConjAllEReal_eq` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`
+- `subgradient_iff_fenchelConjAllEReal_eq` -> `Subgradient`, `apply`, `at`, `fenchelConjAll`, `g`, `le_antisymm`, `mul`, `toReal`
 - `subgradient_iff_fenchelConj_eq` -> `Subgradient`, `apply`, `at`, `fenchelConjugate`, `fenchelConjugate_le`, `g`, `le_antisymm`, `subgradient_exists_of_convex`
 - `subgradient_minimum_criterion` -> `relu`, `relu_eq_zero_of_nonpos`
 - `subgradient_monotone` -> `Subgradient`, `g`
 - `subgradient_step_decrease` -> `Subgradient`, `at`, `g`
-- `submartingale_of_condexp_le` -> `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`
+- `submartingale_of_condexp_le` -> `condexp_of_stronglyMeasurable`, `doob_maximal_azuma_max`, `le`, `le_refl`, `martingale_expected_stoppedValue_eq`, `martingale_expected_stoppedValue_eq_last`, `martingale_expected_stoppedValue_eq_of_le`, `martingale_expected_stoppedValue_min_eq`, `martingale_stoppedValue_bound`, `mgf_le_of_condexp_le`, `min`, `toReal`
 - `subset_extent_intent` -> `apply`, `at`
 - `subset_fcaClosure` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `closure_idempotent`, `extent`, `extent_antitone`, `intent`, `intent_antitone`, `subset_extent_intent`
 - `subset_gazeDown_gazeUp` -> `at`, `extent`, `g`, `subset_extent_intent`, `subset_intent_extent`
@@ -11026,7 +11033,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `trace_sq_eq_sum_eigSq` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`, `symmetric_frobenius_eq_sum_eigenvalues_sq`, `trans`
 - `trace_sq_symm` -> `apply`, `at`
 - `trace_sub` -> `at`, `card_fin`, `d`, `gramIsHermitian`, `le`, `rank`, `real_isHermitian_iff_transpose`, `singularValueSq`
-- `train_verify_protocol` -> `E`, `GDError`, `GDIterate`, `GD_converges`, `verify_probability_guarantee`
+- `train_verify_protocol` -> `E`, `GDError`, `GDIterate`, `GD_converges`, `toReal`, `verify_probability_guarantee`
 - `transfer_of_sound_abstraction` -> `at`, `clampTo`, `contains`, `le`, `le_antisymm`, `le_refl`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
 - `transformer_block_closed` -> `W`, `convComb_lipschitz_prob`, `linear_map_lipschitz`, `lipschitz_add`, `rmsNormE_sqrt_lipschitz`
 - `transformer_block_closed_relaxed` -> `W`
@@ -11329,6 +11336,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verify_iff_recompile` -> `Layer`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `verify_loop_closed_agreement` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `verify_loop_stable_on_image` -> `AllSatisfied`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `subst`, `trans`
+- `verify_probability_guarantee` -> `toReal`
 - `verify_sound` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `ReluConstrSat`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `out`, `reluCompile`, `reluCompile_preserves`, `sound`, `subst`, `symbolToWeight_correct`
 - `verify_stable` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `viaRoundTrip_iff_plain` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `at`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
