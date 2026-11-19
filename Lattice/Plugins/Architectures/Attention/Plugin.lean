@@ -95,6 +95,50 @@ theorem attentionSpatialProp_holds : AttentionSpatialProp := by
   intro n mask _ s i j hij
   exact maskedSoftmax_eq_zero_of_not_mask mask s i j hij
 
+/-- **`AttentionApproximationProp`：输出被输入的上界所控。**
+
+**⇒ 卷积组合 `convComb` 的范数不超过 `‖V j‖` 的最大值——
+这是 `approximation` 该有的定量内容，不是「近似地成立」一句话。
+由 `masked_attention_output_bound`。** -/
+def AttentionApproximationProp : Prop :=
+  ∀ {n : ℕ} (mask : Fin n → Fin n → Prop) [DecidableRel mask]
+    (s : Fin n → ℝ) (i : Fin n) (hne : ∃ j, mask i j)
+    {F : Type} [NormedAddCommGroup F] [NormedSpace ℝ F]
+    (V : Fin n → F) (M : ℝ), (∀ j, ‖V j‖ ≤ M) →
+    ‖convComb (maskedSoftmax mask s i) V‖ ≤ M
+
+/-- **`AttentionApproximationProp` holds** — 由 `masked_attention_output_bound`。 -/
+theorem attentionApproximationProp_holds : AttentionApproximationProp := by
+  intro n mask _ s i hne F _ _ V M hV
+  exact masked_attention_output_bound mask s i hne V M hV
+
+/-- **`AttentionRefinementProp`：全掩码退化回具体的 `softmax`。**
+
+**⇒ 这就是 `refinement`：抽象在特例上**与已有模型一致**。
+若抽象与其特例不一致，它就不是那个东西的抽象。由 `full_mask_eq_softmax`。** -/
+def AttentionRefinementProp : Prop :=
+  ∀ {n : ℕ} (s : Fin (n + 1) → ℝ) (i : Fin (n + 1)),
+    maskedSoftmax (fun _ _ : Fin (n + 1) => True) s i = softmax s
+
+/-- **`AttentionRefinementProp` holds** — 由 `full_mask_eq_softmax`。 -/
+theorem attentionRefinementProp_holds : AttentionRefinementProp := by
+  intro n s i
+  exact full_mask_eq_softmax s i
+
+/-- **`AttentionInvariantsProp`：自反掩码保持行随机性。**
+
+**⇒ 不是「某个矩阵行和为 1」（那是 `laws`），而是
+**在一类掩码下该性质被保持**——这才是不变量。由 `refl_mask_sum_one`。** -/
+def AttentionInvariantsProp : Prop :=
+  ∀ {n : ℕ} (mask : Fin n → Fin n → Prop) [DecidableRel mask]
+    (hrefl : ∀ i, mask i i) (s : Fin n → ℝ) (i : Fin n),
+    ∑ j, maskedSoftmax mask s i j = 1
+
+/-- **`AttentionInvariantsProp` holds** — 由 `refl_mask_sum_one`。 -/
+theorem attentionInvariantsProp_holds : AttentionInvariantsProp := by
+  intro n mask _ hrefl s i
+  exact refl_mask_sum_one mask hrefl s i
+
 /-- **The attention carrier's proof bundle.**
 
 **`equivariance` filled here -- the second non-`True` equivariance in the tree.** -/
@@ -102,15 +146,15 @@ def proof : PluginProof where
   soundness := AttentionRowStochasticProp
   laws := AttentionWeightsNonnegativeProp
   exactness := AttentionMaskExcludesProp
-  approximation := True
+  approximation := AttentionApproximationProp
   recovery := True
   spatial := AttentionSpatialProp
   confluence := True
   equivariance := AttentionPermEquivarianceProp
   idempotence := True
-  invariants := True
+  invariants := AttentionInvariantsProp
   completeness := True
-  refinement := True
+  refinement := AttentionRefinementProp
 
 /-- **Every claimed obligation of the attention carrier is discharged.** -/
 theorem proof_holds : proof.Holds := by
@@ -118,9 +162,9 @@ theorem proof_holds : proof.Holds := by
   exact ⟨attentionRowStochasticProp_holds,
          attentionWeightsNonnegativeProp_holds,
          attentionMaskExcludesProp_holds,
-         True.intro, True.intro, attentionSpatialProp_holds, True.intro,
+         attentionApproximationProp_holds, True.intro, attentionSpatialProp_holds, True.intro,
          attentionPermEquivarianceProp_holds,
-         True.intro, True.intro, True.intro, True.intro⟩
+         True.intro, attentionInvariantsProp_holds, True.intro, attentionRefinementProp_holds⟩
 
 /-- **The verified attention carrier.** -/
 def verified : VerifiedPlugin where
