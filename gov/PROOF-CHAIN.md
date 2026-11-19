@@ -2016,7 +2016,7 @@
 | `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 13 | 8 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative` | 45 | 9 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss` | 36 | 3 |
-| `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 8 | 7 |
+| `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 11 | 10 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` | 6 | 5 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` | 4 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 13 | 8 |
@@ -8458,6 +8458,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `path_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
 - `payload_getElem` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `pdl_telescoping` -> `induction`, `zero`
+- `penaltyClampIdempotentProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltyExact_of_epsSat_zero` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `penaltyLipschitz_eqZero` -> `Pt`, `d`, `max_zero_eq_zero_iff`, `penaltyLoss`
 - `penaltyLipschitz_equalLength` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
@@ -8486,7 +8487,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `Pt`, `collinear`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `Pt`, `at`, `extract`, `penaltyLoss`
+- `penaltyNonnegProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
+- `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
 - `penalty_exact` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `out`, `zeroHolds`
