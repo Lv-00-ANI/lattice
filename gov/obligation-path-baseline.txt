@@ -1,0 +1,41 @@
+# Obligation `file` fields that point at a path that does not exist.
+# SHRINK-ONLY: `check_obligation_proofs.py` fails if any NEW missing path appears.
+# Reason these exist: the implementation moved (Core/RepairModule/, Compose/) while the
+# manifests still name the pre-migration location under Plugins/. `Plugins.lean`'s
+# `*_migrated` theorems assert the OLD prefix with `file_under_dir`, so changing the strings
+# alone makes the Lean build fail -- the false claim is in a theorem, not only in a string.
+# Fixing this properly means either moving the files back or rewriting those theorems.
+Lattice/Plugins/Compose/Manifest.lean	compose_assoc	Lattice/Plugins/Compose/Combinators.lean
+Lattice/Plugins/Compose/Manifest.lean	compose_coverage	Lattice/Plugins/Compose/Combinators.lean
+Lattice/Plugins/Compose/Manifest.lean	compose_h_of_pre_true	Lattice/Plugins/Compose/ComposeObligation.lean
+Lattice/Plugins/Compose/Manifest.lean	compose_sound	Lattice/Plugins/Compose/Combinators.lean
+Lattice/Plugins/Compose/Manifest.lean	compose_strength	Lattice/Plugins/Compose/Combinators.lean
+Lattice/Plugins/Compose/Manifest.lean	identity_left_unit	Lattice/Plugins/Compose/Combinators.lean
+Lattice/Plugins/Compose/Manifest.lean	identity_right_unit	Lattice/Plugins/Compose/Proofs.lean
+Lattice/Plugins/Compose/Manifest.lean	parallel_comm	Lattice/Plugins/Compose/Proofs.lean
+Lattice/Plugins/Compose/Manifest.lean	parallel_identity	Lattice/Plugins/Compose/Proofs.lean
+Lattice/Plugins/Compose/Manifest.lean	parallel_run	Lattice/Plugins/Compose/Proofs.lean
+Lattice/Plugins/Core/Constraint/Manifest.lean	entails_cons	Lattice/Plugins/Core/Constraint/Proofs.lean
+Lattice/Plugins/Core/Constraint/Manifest.lean	entails_mono	Lattice/Plugins/Core/Constraint/Proofs.lean
+Lattice/Plugins/Core/Constraint/Manifest.lean	models_of_mem	Lattice/Plugins/Core/Constraint/Proofs.lean
+Lattice/Plugins/Core/Constraint/Manifest.lean	models_of_subset	Lattice/Plugins/Core/Constraint/Proofs.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_atomic_of_zero_iff	Lattice/Plugins/Core/Repair/RepairAtomicity.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_converges_within	Lattice/Plugins/Core/Repair/RepairConvergence.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_converges_within_is_tight	Lattice/Plugins/Core/Repair/RepairMultistep.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_iterate_succ	Lattice/Plugins/Core/Repair/Repair.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_preserves	Lattice/Plugins/Core/Repair/Repair.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_progress	Lattice/Plugins/Core/Repair/Repair.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_progress_on_wf	Lattice/Plugins/Core/Repair/RepairWF.lean
+Lattice/Plugins/Core/Repair/Manifest.lean	repair_stable	Lattice/Plugins/Core/Repair/Repair.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	bias_slot_is_row_a	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	deep_chain_final_slot_dead	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	foldl_slot_zero_preserved	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	intermediate_poly_readable	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	one_layer_weight_readable	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	per_slot_extraction_sound	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	single_chain_weight_readable	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	slot_weight_lt_bias	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	slot_within_block	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	slot_zero_dead_past_two	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	step_bias_positional	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean
+Lattice/Plugins/Extractors/ChainSlot/Manifest.lean	step_weight_readable	Lattice/Plugins/Extractors/ChainSlot/VariableDerivative.lean

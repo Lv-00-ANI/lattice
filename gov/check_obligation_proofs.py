@@ -92,6 +92,17 @@ def main():
         v = VERIFIED.findall(text)
         verified += len(v)
 
+        # Round 980: the `verifiedObligation` entries were COUNTED here and never VALIDATED. Since all 74
+        # obligations now go through `verifiedObligation` (literals = 0), the loop below ran over an empty
+        # list and the two detectors were dead: `file` fields pointing at nonexistent paths passed silently.
+        # An obligation carries its proposition, not its provenance -- the file and the theorem name are
+        # still strings, and a string can be wrong no matter how the obligation is built.
+        for name, fil, thm in v:
+            if thm not in declared:
+                ghosts.append((rel, name, thm))
+            if fil and not os.path.isfile(os.path.join(REPO, fil)):
+                missing_files.append((rel, name, fil))
+
         for name, thm, fil in LITERAL.findall(text):
             # Skip any literal that sits INSIDE a `verifiedObligation` call: the regex is greedy enough
             # to see one, and double-counting would break the totals.
@@ -110,6 +121,29 @@ def main():
         print("  GHOST NAME %s :: %s -> `%s` is declared nowhere under Lattice/" % (rel, name, thm))
     for rel, name, fil in missing_files:
         print("  MISSING FILE %s :: %s -> `%s` does not exist" % (rel, name, fil))
+
+    # SHRINK-ONLY baseline: the 34 entries recorded when this detector first went live are a known,
+    # registered migration debt -- the implementation moved while the manifests still name the old
+    # location, and `Plugins.lean`'s `*_migrated` theorems assert that old prefix with `file_under_dir`,
+    # so the strings cannot be corrected without changing those theorems. What must NOT happen is a NEW
+    # one: that would be a fresh false provenance claim slipping in unnoticed.
+    baseline_path = os.path.join(HERE, "obligation-path-baseline.txt")
+    baseline = set()
+    if os.path.isfile(baseline_path):
+        for line in io.open(baseline_path, encoding="utf-8").read().split("\n"):
+            if line.strip() and not line.startswith("#"):
+                parts = line.split("\t")
+                if len(parts) == 3:
+                    baseline.add((parts[0], parts[1], parts[2]))
+    current = {(rel, name, fil) for rel, name, fil in missing_files}
+    new_bad = current - baseline
+    shrunk = baseline - current
+    if baseline:
+        print("  baseline: %d registered, %d current, %d new, %d already fixed"
+              % (len(baseline), len(current), len(new_bad), len(shrunk)))
+        for rel, name, fil in sorted(new_bad):
+            print("  NEW MISSING FILE %s :: %s -> `%s`" % (rel, name, fil))
+        missing_files = sorted(new_bad)
 
     bad = len(ghosts) + len(missing_files)
     if bad:
@@ -141,7 +175,35 @@ def _self_test():
         print("  SELF-TEST FAIL: no manifests found")
         ok = False
 
-    print("OBLIGATION PROOFS SELF-TEST: %s" % ("all three classes behave" if ok else "FAILED"))
+    # Round 980: the detectors must fire on a `verifiedObligation` entry, not only on a bare literal.
+    # Before this round the `verifiedObligation` matches were COUNTED and never validated, so both
+    # detectors were dead on the only shape the tree actually uses (74 verified / 0 literal).
+    synthetic = ('verifiedObligation "probe_ob" .soundness '
+                 '"Lattice/definitely/not/here.lean" "probe_theorem_absent" (True)')
+    hits = VERIFIED.findall(synthetic)
+    if len(hits) != 1:
+        print("  SELF-TEST FAIL: the VERIFIED pattern does not see a one-line verifiedObligation")
+        ok = False
+    else:
+        _n, _f, _t = hits[0]
+        if _t in names:
+            print("  SELF-TEST FAIL: an impossible theorem name was found")
+            ok = False
+        if os.path.isfile(os.path.join(REPO, _f)):
+            print("  SELF-TEST FAIL: an impossible file path exists")
+            ok = False
+
+    # The tree must actually reach the validated branch, or the new check cannot fire at all.
+    real = 0
+    for path in manifests():
+        text = io.open(path, encoding="utf-8").read()
+        blocks = "\n".join(re.findall(r"obligations\s*:=\s*\[(.*?)\]", text, re.S))
+        real += len(VERIFIED.findall(blocks))
+    if real == 0:
+        print("  SELF-TEST FAIL: no verifiedObligation entries, so the new check cannot fire")
+        ok = False
+
+    print("OBLIGATION PROOFS SELF-TEST: %s" % ("declaration scan, both detectors and the verified path all behave" if ok else "FAILED"))
     return 0 if ok else 1
 
 
