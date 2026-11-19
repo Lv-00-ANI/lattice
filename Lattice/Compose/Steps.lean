@@ -69,7 +69,6 @@ def applySgd (η : ℝ) (grad : ℝ → ℝ) : Primitive ℝ ℝ where
   sound := fun β _ => ⟨β - η * grad β, rfl, rfl⟩
   strength := .exact
   coverage := none
-  frame := fun _ _ => True
 
 /-- **`applySgd` 的更新就是那条公式**——可直接引用。 -/
 theorem applySgd_run (η : ℝ) (grad : ℝ → ℝ) (β : ℝ) :
@@ -125,7 +124,6 @@ def applyMomentum (η μ : ℝ) (grad : ℝ → ℝ) : Primitive (ℝ × ℝ) (�
   sound := fun p _ => ⟨_, rfl, rfl, rfl⟩
   strength := .exact
   coverage := none
-  frame := fun _ _ => True
 
 /-- **动量状态里的第一个分量是速度**——可直接引用。 -/
 theorem applyMomentum_velocity (η μ : ℝ) (grad : ℝ → ℝ) (β v : ℝ) :
@@ -162,6 +160,5 @@ noncomputable def applyAdam (η β₁ β₂ ε : ℝ) (grad : ℝ → ℝ) : Pri
   sound := fun s _ => ⟨_, rfl, rfl, rfl, rfl⟩
   strength := .exact
   coverage := none
-  frame := fun _ _ => True
 
 end Lattice.Compose

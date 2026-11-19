@@ -77,20 +77,29 @@ theorem compose_post_assoc_iff {I M N O : Type} (f : Primitive I M) (g : Primiti
   · rintro ⟨m, hfm, y, hgm, hky⟩
     exact ⟨y, ⟨m, hfm, hgm⟩, hky⟩
 
-/-! ⚠ **`frame` 层没有单独的定理，这是有意的。**
+/-! ⚠ **`frame` 字段已在第 981 轮删除，本段记录删除的理由。**
 
-`frame` 的展开式与 `post` **同形**——都是「∃ 的嵌套换序」：
+**删除前它是一个 `Primitive` 的第 7 个字段 `frame : I → O → Prop`，实测四点：**
 
-    post  (compose (compose f g h₁) k h₂) x z = ∃ y, (∃ m, f.post  x m ∧ g.post  m y) ∧ k.post  y z
-    frame (compose (compose f g h₁) k h₂) x z = ∃ y, (∃ m, f.frame x m ∧ g.frame m y) ∧ k.frame y z
+| 事实 | 证据 |
+|:--|:--|
+| **它没有自己的定理** | 唯一可能的定律是「`frame` 的结合律」，而其展开式与 `post` 逐字同形；第 39 轮写过，被别名普查判为 `copy`（同一份证明体） |
+| **11 个 primitive 里 10 个填字面 `True`** | 组合子的 4 处非 `True` 代入后退化为 `Nonempty`，与 `x`、`z` 完全无关 |
+| **零消费者** | 全树没有任何定理以 `.frame` 作前提或结论 |
+| **它只传播自己** | 13 个构造点全部是「把子 primitive 的 `frame` 或其合取再包一层」 |
 
-**所以 `compose_post_assoc_iff` 的证明原样适用于 `frame`**，只差把四个谓词名换掉。
-第 39 轮先写了第二条定理，**别名普查把它判成 `copy`（同一份证明体）**——它是对的：
-两份逐字相同的证明是重复，不是一个字段一条定理。
+**=> 一个无自身定律、九成是 `True`、无人消费、且唯一内容与 `post` 重复的字段，
+只会让 `Primitive` 看起来记录了一条帧条件而实际没有。**
 
-**决定**：只留 `post` 那条（结合律需要它），`frame` 由本段说明覆盖。
-**若将来要 `frame` 的具名定理**，正确做法是先把 `∃`-换序抽成一条通用引理，再让两条都指向它——
-那样两条都是 `forward`（指向同一个权威），而不是两份相同证明。 -/
+**这与本项目已有的两次同类判断一致：**
+`Slots.lean` 第 170 轮删掉恒 `True` 的 `stmt` 字段、第 168 轮删掉 5 条 `theorem … : True`，
+`FloatStackRefinement.lean` 删掉 `trust_boundary`。理由都是**「一个永远为真、没人读的字段
+比没有这个字段更糟」**。
+
+**=> 若将来真要帧推理，正确做法是先给状态加分离结构（当前 `I → O → Prop` 只能表达
+输入输出之间的关系，写不出分离逻辑的 frame axiom），再一次性引入——
+而不是先留一个填 `True` 的槽。** -/
+
 
 /-- **`strength` 与 `coverage` 也结合**——于是整条组合在**除 `sound` 外的每个字段**上都结合。
 

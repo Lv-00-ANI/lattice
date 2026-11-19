@@ -53,7 +53,6 @@ private def blocked (α : Type) : Primitive α α where
   sound := fun _ hx => absurd hx (by simp)
   strength := .exact
   coverage := some ∅
-  frame := fun _ _ => True
 
 /-- **`blocked.pre` 恒假**。 -/
 private theorem blocked_pre (α : Type) (y : α) : (blocked α).pre y = False := rfl

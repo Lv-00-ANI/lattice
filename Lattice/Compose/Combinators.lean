@@ -111,7 +111,6 @@ def compose {I M O : Type} (f : Primitive I M) (g : Primitive M O)
     exact ⟨z, by simp only [Option.bind, hfy, hgz], y, hfpost, hgpost⟩
   strength := f.strength.min g.strength
   coverage := f.coverage.inter g.coverage
-  frame := fun x z => ∃ y, f.frame x y ∧ g.frame y z
 
 /-! ## 二、串联（中间类型不同，带适配器） -/
 
@@ -131,7 +130,6 @@ def composeWith {I A B O : Type} (adapt : A → B) (f : Primitive I A) (g : Prim
     exact ⟨z, by simp only [Option.bind, hfy, hgz], y, hfpost, hgpost⟩
   strength := f.strength.min g.strength
   coverage := f.coverage.inter g.coverage
-  frame := fun x z => ∃ y, f.frame x y ∧ g.frame (adapt y) z
 
 /-! ## 三、定律 -/
 
@@ -196,7 +194,6 @@ def identity (α : Type) : Primitive α α where
   sound := fun x _ => ⟨x, rfl, rfl⟩
   strength := .exact
   coverage := none
-  frame := fun _ _ => True
 
 /-- **左单位**：`compose (identity I) f` 的 `run` 就是 `f` 的 `run`。
 

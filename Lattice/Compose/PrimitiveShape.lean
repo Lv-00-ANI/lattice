@@ -55,9 +55,9 @@ namespace Lattice.Compose
 
 open Lean Elab Command
 
-/-- **七字段的名字与顺序**。改这里而不改结构体会构建失败，反之亦然。 -/
+/-- **六字段的名字与顺序**。改这里而不改结构体会构建失败，反之亦然。 -/
 def primitiveFieldNames : List String :=
-  ["pre", "post", "run", "sound", "strength", "coverage", "frame"]
+  ["pre", "post", "run", "sound", "strength", "coverage"]
 
 /-- **11 个 primitive 的短名**。 -/
 def primitiveNames : List String :=
@@ -65,7 +65,7 @@ def primitiveNames : List String :=
    "parallel", "choice", "optional", "applySgd", "applyMomentum", "applyAdam"]
 
 /-- 两条清单的长度是冻结的常数（`decide`）。 -/
-theorem primitiveFieldNames_length : primitiveFieldNames.length = 7 := by decide
+theorem primitiveFieldNames_length : primitiveFieldNames.length = 6 := by decide
 
 /-- **11 个 primitive**。 -/
 theorem primitiveNames_length : primitiveNames.length = 11 := by decide

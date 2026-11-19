@@ -318,7 +318,6 @@ def iterate {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ)
       exact ⟨k, hR⟩
   strength := p.strength
   coverage := p.coverage
-  frame := fun _ _ => True
 
 /-- **`iterate` 的 `sound`**：可直接引用的一条。 -/
 theorem iterate_sound {I : Type} (p : Primitive I I) (dec : I → Bool) (meas : I → ℕ)
