@@ -10,6 +10,7 @@ import Lattice.Compose.AdapterMatrix
 import Lattice.Compose.Combinators
 import Lattice.Compose.ComposeObligation
 import Lattice.Compose.Proofs
+import Lattice.Compose.Showcase.FullChain
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）
