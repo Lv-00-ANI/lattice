@@ -34,7 +34,7 @@
 
 **逐项单独运行时，gate 与 14 个审计脚本全部返回 0**（gate / counts / aliases / usage / coverage / doc / refutation / repair / carrier / parameterization / obligation / scope / vacuous / propdef / verify_all）。
 
-**`verify_all [full]: PASS`，111 项检查，90 门禁。**
+**`verify_all [full]: PASS`，113 项检查，92 门禁。**
 
 ### 1.3 树中登记的未证义务（全树只有 2 条）
 

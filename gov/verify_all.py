@@ -331,6 +331,12 @@ CHECKS = [
     # agree field-for-field with its Lean manifest, and each named theorem to be DECLARED IN the file it
     # names. `--self-test` pins the parser and both rejections so the gate cannot pass by parsing nothing.
     ("plugins: capability index agrees with the Lean manifests", "check_plugin_yml.py"),
+    # Round 994: the audit claimed `ConstraintSet` had 4, `VectorConstraint` 8 and `IRWeights` 3 real
+    # definitions. Measured with comment stripping, each has exactly ONE -- the other occurrences are
+    # quotations inside docstrings. This keeps the measured count from growing, and its self-test proves
+    # the stripper is what decides (a docstring copy must NOT count).
+    ("audit: configured types have one real definition", "audit_type_duplication.py"),
+    ("meta: type duplication audit self-test", "audit_type_duplication.py --self-test"),
     ("meta: plugin index checker self-test", "check_plugin_yml.py --self-test"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own

@@ -35,7 +35,7 @@ l1l2Roundtrip.run cs = some cs
 **⇒ 与 M-1 的 `tokenizePrim` 形成对照：那里 `tokenizeV` 返回 `Option` 且**可能为 `none`**，
 所以它的 `pre` 必须是 `(tokenizeV V s).isSome`。**「前置条件恰好是这一跳的成功条件」是同一原则的两种形态。**
 
-## 一个被这次展品**撞出来**的事实：`ConstraintSet` 有两份在真实代码里相遇
+## 一个被这次展品撞出来、但我一开始诊断错了的事实
 
 **第一次编译失败，错误是：**
 
@@ -48,16 +48,22 @@ but is expected to have type
   Lift.SymbolToWeightCorrectness.ConstraintSet : Type
 ```
 
-**=> 我从 `Lib/Editing/RealExtractCanonical.lean` 引入的 `ConstraintSet` 与 `encode` 接受的那个
-**不是同一个类型**。审计记过「`ConstraintSet` 有 4 份定义」（`ConvertVectorLinear`、`RealExtractCanonical` 等），
-**而这里是其中两份第一次被放进同一个文件、并被编译器当面拒绝。**
+**我当时把它读成「审计说的 `ConstraintSet` 有 4 份，这是其中两份相遇」。**
 
-**本文件的处理是**明确写出 `encode` 接受的那一份**（`Lift.SymbolToWeightCorrectness.ConstraintSet`），
-而不是靠 `open` 让某一份胜出——**展品必须指向真实的那一个，否则它证明的是关于另一个类型的命题。**
+**第 994 轮实测发现那个读法是**错**的：**
 
-**=> 这是一个**立即可见**的收敛点：若把 `ConstraintSet` 收到唯一权威，本文件的那三处限定词就可以删掉。**
-**在那之前，写明具体是哪一份是唯一诚实的写法。** -/
+- **`#check @Lattice.ConstraintSet` 报 `unknown constant`，而 `#check @Lattice.Lift.SymbolToWeightCorrectness.ConstraintSet` 能解析**
+  ⇒ **只有一份**；
+- **`gov/audit_type_duplication.py` 在剥注释后对 `VectorConstraint` / `ConstraintSet` / `IRWeights` 各只找到 1 处真实定义**；
+  审计的 4 / 8 / 3 三个数字**把 docstring 里的引用当成了定义**——
+  各文件为了说明自己在谈什么，会在 ````lean```` 代码块里**引用**那个唯一的定义。
 
+**⇒ 所以本文件三处 `Lattice.Lift.SymbolToWeightCorrectness.ConstraintSet` 限定词**不是为了区分两份类型**，
+而是因为它在一个不引入该命名空间的地方。它们可以被删掉（改成 `open`），
+**但那是风格问题，不是正确性问题**——本文件保留限定写法以本身作为命名空间的诊断记录。
+
+**⇒ 而这次纠正本身也是一个教训：
+「两个名字不同」不等于「两份定义」，**而数文档里的引用需要剥注释**。** -/
 namespace Lattice.Compose.Showcase.L1L2
 
 open Lattice.Compose

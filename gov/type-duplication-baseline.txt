@@ -1,0 +1,14 @@
+# Real (non-docstring) definition count per configured type.
+# SHRINK-ONLY: `audit_type_duplication.py` fails if any type grows past its count.
+#
+# Round 994 measured these with comment stripping and found ONE real definition each.
+# The external audit's figures (ConstraintSet 4, VectorConstraint 8, IRWeights 3) counted
+# occurrences INSIDE DOCSTRINGS -- files quote the canonical definition in a ```lean block to
+# explain what they are talking about, and a raw grep cannot tell a quotation from a definition.
+#
+# A Lean probe settled it independently: `#check @Lattice.ConstraintSet` reports
+# `unknown constant`, while `#check @Lattice.Lift.SymbolToWeightCorrectness.ConstraintSet`
+# resolves -- so there is exactly one.
+VectorConstraint	1
+ConstraintSet	1
+IRWeights	1
