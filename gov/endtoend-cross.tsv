@@ -609,6 +609,11 @@ Core/IR/Materialize.lean	readOf_fillWith
 Core/IR/MaximalScope.lean	maximal_closure_scope
 Core/IR/MaximalScope.lean	maximal_singleton_false
 Core/IR/MaximalScope.lean	maximal_nil_is_closure
+Core/IR/ModelsIRScope.lean	modelsIR_iff
+Core/IR/ModelsIRScope.lean	modelsIR_slot_zero
+Core/IR/ModelsIRScope.lean	modelsIR_off_zero
+Core/IR/ModelsIRScope.lean	modelsIR_factors_through_code
+Core/IR/ModelsIRScope.lean	compile_sound_hypothesis_unused
 Core/IR/Modulus.lean	size_nonneg
 Core/IR/Modulus.lean	modulus_tends_to_zero
 Core/IR/Modulus.lean	modulus_mono_in_eps
