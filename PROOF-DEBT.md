@@ -1,4 +1,4 @@
-﻿# PROOF-DEBT：证明强度的诚实登记
+# PROOF-DEBT：证明强度的诚实登记
 
 > **本文件由 `gov/gen_proof_debt.py` 生成，勿手改。**
 
