@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 727 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 738 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -65,6 +65,17 @@
 | `Core/IR/CoverageMonotone.lean` | `covered_typable` |
 | `Core/IR/DecodeStrict.lean` | `decodeTensorShapeStrict_code` |
 | `Core/IR/DecodeStrict.lean` | `decodeTensorShapeStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeArgsStrict_code` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeArgsStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeRelListStrict_code` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeRelListStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeRelationShapeStrict_code` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeRelationShapeStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeSkeletonStrict_code` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeSkeletonStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeTensorListStrict_code` |
+| `Core/IR/DecodeStrictAll.lean` | `decodeTensorListStrict_faithful` |
+| `Core/IR/DecodeStrictAll.lean` | `strictly_of_code` |
 | `Core/IR/Extract.lean` | `loop_preserves_others` |
 | `Core/IR/Semantics.lean` | `agrees_not_subsumes_covered` |
 | `Core/IR/Semantics.lean` | `parse_models` |

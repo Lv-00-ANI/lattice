@@ -199,6 +199,17 @@ forward	Core/IR/CertSnapshot.lean	cert_matches_at_issue
 forward	Core/IR/CoverageMonotone.lean	covered_typable
 forward	Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_code
 forward	Core/IR/DecodeStrict.lean	decodeTensorShapeStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	decodeArgsStrict_code
+forward	Core/IR/DecodeStrictAll.lean	decodeArgsStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	decodeRelListStrict_code
+forward	Core/IR/DecodeStrictAll.lean	decodeRelListStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	decodeRelationShapeStrict_code
+forward	Core/IR/DecodeStrictAll.lean	decodeRelationShapeStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	decodeSkeletonStrict_code
+forward	Core/IR/DecodeStrictAll.lean	decodeSkeletonStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	decodeTensorListStrict_code
+forward	Core/IR/DecodeStrictAll.lean	decodeTensorListStrict_faithful
+forward	Core/IR/DecodeStrictAll.lean	strictly_of_code
 forward	Core/IR/Extract.lean	loop_preserves_others
 forward	Core/IR/Semantics.lean	agrees_not_subsumes_covered
 forward	Core/IR/Semantics.lean	parse_models
