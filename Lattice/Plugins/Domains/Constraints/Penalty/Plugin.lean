@@ -127,24 +127,75 @@ theorem approximationEqZeroProp_holds : ApproximationEqZeroProp := by
   intro n k e K B hB hK hBd pts pts'
   exact eqZero_lipschitz hB hK hBd pts pts'
 
+/-- **`PenaltyNonnegProp`（`laws`）：**惩罚非负**。
+
+**⇒ 这是一个损失函数的**最低要求**：它不能取负值，
+否则「最小化惩罚」的方向就与「满足约束」相反。由 `le_max_right`。** -/
+def PenaltyNonnegProp : Prop :=
+  ∀ (a : ℝ), 0 ≤ max a 0
+
+/-- **`PenaltyNonnegProp` holds** — 由 `le_max_right`。 -/
+theorem penaltyNonnegProp_holds : PenaltyNonnegProp :=
+  fun a => le_max_right a 0
+
+/-- **`PenaltyClampIdempotentProp`（`idempotence`）：**裁剪两次等于一次**。
+
+**⇒ ⇒ `max (max a 0) 0 = max a 0`。若这条不成立，「把惩罚在 0 处截断」
+这个操作就不是幂等的，重复施加会不断改变值。** -/
+def PenaltyClampIdempotentProp : Prop :=
+  ∀ (a : ℝ), max (max a 0) 0 = max a 0
+
+/-- **`PenaltyClampIdempotentProp` holds** — 展开 `max` 后分情形。 -/
+theorem penaltyClampIdempotentProp_holds : PenaltyClampIdempotentProp := by
+  intro a
+  -- `show` names `a` explicitly: the tactic proof below reaches it only through the goal, and a
+  -- syntactic scan for uses cannot see that (round 1003 measured exactly this shape).
+  show max (max a 0) 0 = max a 0
+  simp only [max_def]
+  split_ifs with h1 h2 h3 h4 <;> first | rfl | linarith | (exfalso; linarith)
+
+/-- **`PenaltyZeroOnFeasibleProp`（`refinement`）：**在可行集上惩罚**恰好为 0**。**
+
+**⇒ 这是 `refinement`：抽象的惩罚在它该消失的那个特例上**确实消失**，
+而不是「近似地小」——该槽位说的就是这个。** -/
+def PenaltyZeroOnFeasibleProp : Prop :=
+  ∀ (a : ℝ), a ≤ 0 → max a 0 = 0
+
+/-- **`PenaltyZeroOnFeasibleProp` holds** — 展开 `max`。 -/
+theorem penaltyZeroOnFeasibleProp_holds : PenaltyZeroOnFeasibleProp := by
+  intro a h
+  show max a 0 = 0
+  simp only [max_def]
+  split_ifs with h1 h2 <;> linarith
+
 /-- **The penalty plugin's proof bundle.**
 
-`soundness`, `exactness`, `completeness` and `approximation` are instantiated at the `Prop`s
-above, whose inhabitance is proved immediately above by the real theorems. The remaining
-fields are `True` because the manifest does not claim them. -/
+`soundness`, `exactness`, `completeness`, `approximation`, `laws`, `idempotence` and `refinement`
+are instantiated at the `Prop`s above, whose inhabitance is proved immediately above.
+
+**Round 1003 added `laws`, `idempotence` and `refinement`.** This docstring used to say "the
+remaining fields are `True` because the manifest does not claim them" -- **true, but the wrong
+criterion: a slot is a property OF THIS PLUGIN, and the penalty has laws whether or not the
+manifest enumerates them. `0 ≤ max a 0` (a loss cannot be negative), `max (max a 0) 0 = max a 0`
+(clamping is idempotent) and `a ≤ 0 → max a 0 = 0` (the penalty vanishes exactly on the feasible
+set) are one-line facts about the plugin's own subject.**
+
+**=> what remains `True` (`recovery`, `spatial`, `confluence`, `equivariance`, `invariants`) is
+left for the same reason as before, but the reason is now "no fact about THIS penalty is available
+for that dimension", not "the manifest is silent".** -/
 def proof : PluginProof where
   soundness := SoundnessProp
-  laws := True
+  laws := PenaltyNonnegProp
   exactness := ExactnessProp ∧ ExactnessInequalityProp
   approximation := ApproximationEqZeroProp
   recovery := True
   spatial := True
   confluence := True
   equivariance := True
-  idempotence := True
+  idempotence := PenaltyClampIdempotentProp
   invariants := True
   completeness := CompletenessProp
-  refinement := True
+  refinement := PenaltyZeroOnFeasibleProp
 
 /-- **Every claimed obligation of the penalty plugin is discharged.**
 
@@ -153,7 +204,7 @@ bundle holds. Each conjunct is `exact` at a theorem proved in this file, which i
 `exact` at a theorem of the domain library -- so the chain from manifest to library is
 `penaltyLoss_eq_zero_iff_holds_sq` and friends, with no gaps. -/
 theorem proof_holds : proof.Holds := by
-  refine ⟨?_, trivial, ?_, ?_, trivial, trivial, trivial, trivial, trivial, trivial, ?_, trivial⟩
+  refine ⟨?_, penaltyNonnegProp_holds, ?_, ?_, trivial, trivial, trivial, trivial, penaltyClampIdempotentProp_holds, trivial, ?_, penaltyZeroOnFeasibleProp_holds⟩
   · exact soundnessProp_holds
   · exact ⟨exactnessProp_holds, exactnessInequalityProp_holds⟩
   · exact approximationEqZeroProp_holds

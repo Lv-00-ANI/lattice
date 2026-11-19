@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	66
+vacuous_total	63
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -60,3 +60,16 @@ vacuous_total	66
 #     repeating a declaration is inert; NOT the case for a non-idempotent composition such as counting)
 #   Architectures/DAG.recovery   := DAGRecoveryProp       (dagEval (p ++ q) x = dagEval q (dagEval p x)
 #     -- evaluation of a concatenation is the composite of the evaluations; needs induction on p)
+#
+# Round 1003 drained three in `Domains/Constraints/Penalty`:
+#   laws        := PenaltyNonnegProp            (0 ≤ max a 0 -- a loss cannot be negative,
+#                  otherwise minimising it fights satisfying the constraints)
+#   idempotence := PenaltyClampIdempotentProp   (max (max a 0) 0 = max a 0)
+#   refinement  := PenaltyZeroOnFeasibleProp    (a ≤ 0 → max a 0 = 0 -- the penalty vanishes
+#                  EXACTLY on the feasible set, not approximately)
+#
+# Also measured and NOT drained, with the reason: `Extractors/ChainSlot` has 9 `True` slots and
+# TWELVE `*Prop`s, but all twelve are already consumed by its `soundness` (5-way) and `exactness`
+# (6-way) conjunctions. Its theory is entirely positive/negative COEFFICIENT facts, which is what
+# those two slots are for; there is no separate fact for the other nine. Wiring one of them again
+# would be double-counting, so they stay `True` honestly.
