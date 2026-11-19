@@ -63,19 +63,19 @@ def manifest : PluginManifest where
     -- the manifest means, not a pointer to a name that might not exist.
     verifiedObligation "dag_confluence" .confluence
       "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_confluence"
-      (∀ (α : Type) (fs : DagProgram α),
+      (∀ {α : Type} (fs : DagProgram α),
         (∀ f ∈ fs, ∀ g ∈ fs, DagCommute f g) →
-        ∀ x : α, dagEval fs x = dagEval fs.reverse x),
+        ∀ x : α, dagEval fs x = dagEval fs.reverse x) (by exact dag_confluence),
     -- SOUNDNESS: evaluation of a concatenation is the composition of evaluations.
     verifiedObligation "dag_denote_seq" .soundness
       "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_denote_seq"
-      (∀ (α : Type) (p q : DagProgram α) (x : α),
-        dagEval (dagSeq p q) x = dagEval q (dagEval p x)),
+      (∀ {α : Type} (p q : DagProgram α) (x : α),
+        dagEval (dagSeq p q) x = dagEval q (dagEval p x)) (by exact dag_denote_seq),
     -- EXACTNESS: parallel composition denotes the same as concatenation.
     verifiedObligation "dag_denote_par" .exactness
       "Lattice/Plugins/Architectures/DAG/Proofs.lean" "dag_denote_par"
-      (∀ (α : Type) (p q : DagProgram α) (x : α),
-        dagEval (dagPar p q) x = dagEval q (dagEval p x))
+      (∀ {α : Type} (p q : DagProgram α) (x : α),
+        dagEval (dagPar p q) x = dagEval q (dagEval p x)) (by exact dag_denote_par)
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.** -/

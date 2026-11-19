@@ -129,38 +129,38 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 772: all eleven go through `verifiedObligation`, so each CARRIES its proposition.**
     verifiedObligation "msgpass_equivariant" .equivariance
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "msgPass_equivariant" msgPass_equivariantProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "msgPass_equivariant" msgPass_equivariantProp (by exact msgPass_equivariant),
     verifiedObligation "gnn_layer_equivariant" .equivariance
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "gnnLayer_equivariant" gnnLayer_equivariantProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "gnnLayer_equivariant" gnnLayer_equivariantProp (by exact gnnLayer_equivariant),
     verifiedObligation "layer_stack_equivariant" .equivariance
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "layerStack_equivariant" layerStack_equivariantProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "layerStack_equivariant" layerStack_equivariantProp (by exact layerStack_equivariant),
     verifiedObligation "perm_act_feat_mul" .laws
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "permActFeat_mul" permActFeat_mulProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "permActFeat_mul" permActFeat_mulProp (by exact permActFeat_mul),
     verifiedObligation "perm_act_feat_one" .laws
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "permActFeat_one" permActFeat_oneProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "permActFeat_one" permActFeat_oneProp (by exact permActFeat_one),
     verifiedObligation "perm_act_adj_mul" .laws
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "permActAdj_mul" permActAdj_mulProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "permActAdj_mul" permActAdj_mulProp (by exact permActAdj_mul),
     verifiedObligation "perm_act_adj_one" .laws
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "permActAdj_one" permActAdj_oneProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "permActAdj_one" permActAdj_oneProp (by exact permActAdj_one),
     verifiedObligation "readout_invariant" .invariants
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "readout_invariant" readout_invariantProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "readout_invariant" readout_invariantProp (by exact readout_invariant),
     verifiedObligation "readout_invariant_of_layer_stack" .invariants
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "readout_invariant_of_layerStack" readout_invariant_of_layerStackProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "readout_invariant_of_layerStack" readout_invariant_of_layerStackProp (by exact readout_invariant_of_layerStack),
     verifiedObligation "sparse_agrees_dense" .soundness
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "sparseMsgPass_eq_msgPass" sparseMsgPass_eq_msgPassProp,
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "sparseMsgPass_eq_msgPass" sparseMsgPass_eq_msgPassProp (by exact sparseMsgPass_eq_msgPass),
     verifiedObligation "msgpass_bound" .approximation
-      "Lattice/Plugins/Architectures/GNN/Proofs.lean"
-      "msgPass_bound_perm" msgPass_bound_permProp
+        "Lattice/Plugins/Architectures/GNN/Proofs.lean"
+        "msgPass_bound_perm" msgPass_bound_permProp (by exact msgPass_bound_perm)
   ]
   version := ⟨1, 0, 0⟩
 

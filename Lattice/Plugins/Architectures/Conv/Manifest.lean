@@ -78,14 +78,14 @@ def manifest : PluginManifest where
   provides := ["arch.convolve"]
   obligations := [
     verifiedObligation "conv_translation_equivariant" .equivariance
-      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
-      "conv_translation_equivariant" conv_translation_equivariantProp,
+        "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+        "conv_translation_equivariant" conv_translation_equivariantProp (by exact conv_translation_equivariant),
     verifiedObligation "conv_weight_sharing" .soundness
-      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
-      "conv_eq_shared_filter" conv_weight_sharingProp,
+        "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+        "conv_eq_shared_filter" conv_weight_sharingProp (by exact conv_eq_shared_filter),
     verifiedObligation "conv_window_determines_output" .exactness
-      "Lattice/Plugins/Architectures/Conv/Proofs.lean"
-      "conv_window_determines_output" conv_window_determines_outputProp
+        "Lattice/Plugins/Architectures/Conv/Proofs.lean"
+        "conv_window_determines_output" conv_window_determines_outputProp (by exact conv_window_determines_output)
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.**

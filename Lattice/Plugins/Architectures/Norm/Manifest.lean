@@ -94,28 +94,28 @@ def manifest : PluginManifest where
     -- proposition.** The proposition is the named `_Prop` def above, which `norm_props_hold`
     -- proves equal to the theorem's own type -- so a rename breaks compilation.
     verifiedObligation "norm_iterate_variance_le_one" .idempotence
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "varOf_iterate_varNormalize_le_one" varOf_iterate_varNormalize_le_oneProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "varOf_iterate_varNormalize_le_one" varOf_iterate_varNormalize_le_oneProp (by exact varOf_iterate_varNormalize_le_one)
 ,
     verifiedObligation "norm_variance_eq_one" .exactness
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "varOf_varNormalize_eq_one" varOf_varNormalize_eq_oneProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "varOf_varNormalize_eq_one" varOf_varNormalize_eq_oneProp (by exact varOf_varNormalize_eq_one)
 ,
     verifiedObligation "norm_train_infer_agree" .soundness
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "bn_train_eq_infer" bn_train_eq_inferProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "bn_train_eq_infer" bn_train_eq_inferProp (by exact bn_train_eq_infer)
 ,
     verifiedObligation "norm_lipschitz_sharp" .approximation
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "varNormalize_unit_lipschitz_sharp" varNormalize_unit_lipschitz_sharpProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "varNormalize_unit_lipschitz_sharp" varNormalize_unit_lipschitz_sharpProp (by exact varNormalize_unit_lipschitz_sharp)
 ,
     verifiedObligation "norm_lipschitz" .approximation
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "varNormalize_unit_lipschitz" varNormalize_unit_lipschitzProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "varNormalize_unit_lipschitz" varNormalize_unit_lipschitzProp (by exact varNormalize_unit_lipschitz)
 ,
     verifiedObligation "norm_variance_nonneg" .soundness
-      "Lattice/Plugins/Architectures/Norm/Proofs.lean"
-      "varOf_nonneg" varOf_nonnegProp
+        "Lattice/Plugins/Architectures/Norm/Proofs.lean"
+        "varOf_nonneg" varOf_nonnegProp (by exact varOf_nonneg)
   ]
   version := ⟨1, 0, 0⟩
 
