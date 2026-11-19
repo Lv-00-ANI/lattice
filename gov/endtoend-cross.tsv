@@ -158,6 +158,8 @@ Compose/Showcase/FullChain.lean	fullChainPrim_run
 Compose/Showcase/FullChain.lean	fullChainPrim_sound
 Compose/Showcase/L1L2.lean	l1l2Roundtrip_run
 Compose/Showcase/L1L2.lean	l1l2Roundtrip_sound
+Compose/Showcase/SymbolShortcut.lean	symbolShortcut_run
+Compose/Showcase/SymbolShortcut.lean	symbolShortcut_sound
 Core/Activation.lean	actStackEval_nil
 Core/Activation.lean	actStackSingle_affine
 Core/Activation.lean	actStackEval_of_no_activation
