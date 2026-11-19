@@ -3100,6 +3100,7 @@ Plugins/Architectures/Conv/Manifest.lean	conv_props_hold
 Plugins/Architectures/Conv/Manifest.lean	manifest_nonempty
 Plugins/Architectures/Conv/Plugin.lean	convEquivarianceProp_holds
 Plugins/Architectures/Conv/Plugin.lean	convWindowDeterminesOutputProp_holds
+Plugins/Architectures/Conv/Plugin.lean	convShiftComposeProp_holds
 Plugins/Architectures/Conv/Plugin.lean	proof_holds
 Plugins/Architectures/Conv/Plugin.lean	verified_manifest
 Plugins/Architectures/Conv/Plugin.lean	verified_obligations
