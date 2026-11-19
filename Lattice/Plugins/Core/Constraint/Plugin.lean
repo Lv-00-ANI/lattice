@@ -111,6 +111,20 @@ theorem entailsSingletonProp_holds : EntailsSingletonProp := by
     subst hd
     exact h
 
+/-- **`EntailsIdempotentProp`：**重复同一个约束集不改变蕴含**。**
+
+**⇒ `idempotence`：`Entails (cs ++ cs) x ↔ Entails cs x`。
+这不是从 `EntailsAppendProp` 抓来的便宜，而是一条**单独有意义**的事实：
+约束作为一种宣告，重复宣告是惰性的——而在一个**非**幂等的组合下（例如“计数”）它就不成立。** -/
+def EntailsIdempotentProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    (cs : List (Constraint R n)) (x : Point R n),
+    Entails (cs ++ cs) x ↔ Entails cs x
+
+/-- **`EntailsIdempotentProp` holds** — 由 `EntailsAppendProp` 与 `∧` 的幂等律。 -/
+theorem entailsIdempotentProp_holds : EntailsIdempotentProp :=
+  fun cs x => (entailsAppendProp_holds cs cs x).trans ⟨fun h => h.1, fun h => ⟨h, h⟩⟩
+
 /-- **The constraint-logic plugin's proof bundle.**
 
 Four claimed obligations. `exactness`, `approximation`, `recovery`, `spatial`, `confluence`,
@@ -126,7 +140,7 @@ def proof : PluginProof where
   spatial := True
   confluence := True
   equivariance := True
-  idempotence := True
+  idempotence := EntailsIdempotentProp
   invariants := True
   completeness := True
   refinement := EntailsSingletonProp
@@ -137,7 +151,7 @@ theorem proof_holds : proof.Holds := by
   exact ⟨⟨modelsOfMemProp_holds, modelsOfSubsetProp_holds⟩,
          ⟨entailsConsProp_holds, entailsMonoProp_holds⟩,
          True.intro, True.intro, entailsAppendProp_holds, True.intro, True.intro, True.intro,
-         True.intro, True.intro, True.intro, entailsSingletonProp_holds⟩
+         entailsIdempotentProp_holds, True.intro, True.intro, entailsSingletonProp_holds⟩
 
 /-- **The verified constraint-logic plugin.** -/
 def verified : VerifiedPlugin where

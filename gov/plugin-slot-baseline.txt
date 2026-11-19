@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	68
+vacuous_total	66
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -54,3 +54,9 @@ vacuous_total	68
 #   refinement := EntailsSingletonProp  (Entails [c] x ↔ Satisfies c x: the smallest
 #                 non-trivial case agrees with concrete satisfaction)
 # Both were NEW theorems, proved by unfolding `Entails` and splitting membership.
+#
+# Round 1002 drained two `recovery`/`idempotence` slots in different layers:
+#   Core/Constraint.idempotence := EntailsIdempotentProp  (Entails (cs ++ cs) x ↔ Entails cs x --
+#     repeating a declaration is inert; NOT the case for a non-idempotent composition such as counting)
+#   Architectures/DAG.recovery   := DAGRecoveryProp       (dagEval (p ++ q) x = dagEval q (dagEval p x)
+#     -- evaluation of a concatenation is the composite of the evaluations; needs induction on p)

@@ -74,6 +74,19 @@ theorem dagDenoteParProp_holds : DAGDenoteParProp := by
   intro α p q x
   exact dag_denote_par p q x
 
+/-- **`DAGRecoveryProp`：**评估在连接下恰好复合**。**
+
+**⇒ `recovery`（时间可组合性）：`dagEval (p ++ q) x = dagEval q (dagEval p x)`——
+两段程序连接后的评估就是两次评估的复合。
+**由 `dagEval_append`，它需要对 `p` 做归纳，不是 `rfl`。** -/
+def DAGRecoveryProp : Prop :=
+  ∀ {α : Type} (p q : DagProgram α) (x : α),
+    dagEval (p ++ q) x = dagEval q (dagEval p x)
+
+/-- **`DAGRecoveryProp` holds** — 由 `dagEval_append`。 -/
+theorem dagRecoveryProp_holds : DAGRecoveryProp :=
+  fun p q x => dagEval_append p q x
+
 /-- **The computation-graph carrier's proof bundle.**
 
 **`confluence` filled here -- the first non-`True` confluence in an architecture plugin.** -/
@@ -82,7 +95,7 @@ def proof : PluginProof where
   laws := DAGEvalMonoidActionProp
   exactness := DAGDenoteParProp
   approximation := True
-  recovery := True
+  recovery := DAGRecoveryProp
   spatial := True
   confluence := DAGConfluenceProp
   equivariance := True
@@ -97,7 +110,7 @@ theorem proof_holds : proof.Holds := by
   exact ⟨dagDenoteSeqProp_holds,
          dagEvalMonoidActionProp_holds,
          dagDenoteParProp_holds,
-         True.intro, True.intro, True.intro,
+         True.intro, dagRecoveryProp_holds, True.intro,
          dagConfluenceProp_holds,
          True.intro, True.intro, True.intro, True.intro, True.intro⟩
 
