@@ -21,16 +21,16 @@
 | # | 名称 | 位置 | `Input` | `Output` | 强度 | 覆盖 |
 |--:|:--|:--|:--|:--|:--|:--|
 | 1 | `compose` | `Lattice/Compose/Combinators.lean:101` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 2 | `composeWith` | `Lattice/Compose/Combinators.lean:121` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 3 | `identity` | `Lattice/Compose/Combinators.lean:192` | `α` | `α` | `.exact` | `none` |
+| 2 | `composeWith` | `Lattice/Compose/Combinators.lean:120` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
+| 3 | `identity` | `Lattice/Compose/Combinators.lean:190` | `α` | `α` | `.exact` | `none` |
 | 4 | `descentStep` | `Lattice/Compose/ForwardChain.lean:70` | `ℝ` | `ℝ` | `.exact` | `some ({"constraint.eqZero"} : Finset String)` |
 | 5 | `iterate` | `Lattice/Compose/Iterate.lean:304` | `I` | `I` | `p.strength` | `p.coverage` |
 | 6 | `parallel` | `Lattice/Compose/More.lean:61` | `(I₁ × I₂)` | `(O₁ × O₂)` | `f.strength.min g.strength` | `f.coverage.inter g.coverage` |
-| 7 | `choice` | `Lattice/Compose/More.lean:96` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
-| 8 | `optional` | `Lattice/Compose/More.lean:147` | `I` | `I` | `p.strength` | `p.coverage` |
+| 7 | `choice` | `Lattice/Compose/More.lean:95` | `I` | `O` | `f.strength.min g.strength` | `f.coverage.union g.coverage` |
+| 8 | `optional` | `Lattice/Compose/More.lean:145` | `I` | `I` | `p.strength` | `p.coverage` |
 | 9 | `applySgd` | `Lattice/Compose/Steps.lean:65` | `ℝ` | `ℝ` | `.exact` | `none` |
-| 10 | `applyMomentum` | `Lattice/Compose/Steps.lean:121` | `(ℝ × ℝ)` | `(ℝ × ℝ)` | `.exact` | `none` |
-| 11 | `applyAdam` | `Lattice/Compose/Steps.lean:150` | `(ℝ × ℝ × ℝ)` | `(ℝ × ℝ × ℝ)` | `.exact` | `none` |
+| 10 | `applyMomentum` | `Lattice/Compose/Steps.lean:120` | `(ℝ × ℝ)` | `(ℝ × ℝ)` | `.exact` | `none` |
+| 11 | `applyAdam` | `Lattice/Compose/Steps.lean:148` | `(ℝ × ℝ × ℝ)` | `(ℝ × ℝ × ℝ)` | `.exact` | `none` |
 
 ## 二、适配器矩阵
 
