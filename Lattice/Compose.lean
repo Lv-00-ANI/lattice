@@ -14,6 +14,7 @@ import Lattice.Compose.Showcase.FullChain
 import Lattice.Compose.Showcase.L1L2
 import Lattice.Compose.Showcase.SymbolShortcut
 import Lattice.Compose.Showcase.NeuralShortcut
+import Lattice.Compose.Showcase.L3L2
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）
