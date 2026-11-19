@@ -354,6 +354,10 @@ CHECKS = [
     # nothing about the twenty-one P8 files. The generator now refuses to run if any cited
     # identifier is not a declaration, and this self-test proves that refusal can actually fire.
     ("docs: objective audit citations exist (self-test)", "gen_objective_audit.py --self-test"),
+    # Round 977: REVERSIBILITY-MAP.md names theorems; this guards that every named theorem exists, and
+    # `--self-test` pins the classifier so the guard cannot silently pass by classifying nothing.
+    ("docs: reversibility map citations exist", "audit_reversibility_coverage.py"),
+    ("meta: reversibility classifier self-test", "audit_reversibility_coverage.py --self-test"),
     # Round 968: twenty-one copies of `strip_comments` had accumulated. Nine were measured
     # BYTE-IDENTICAL on 1,169 Lean files; five of those now import one authority, and this pins that
     # authority's contract -- in particular that NESTED block comments are handled, which no consumer

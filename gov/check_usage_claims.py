@@ -144,11 +144,16 @@ DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[
 
 def measure_theorems():
     n = 0
+    # Round 977: exclude the reactivity checks' throwaway modules here too. `measure_modules` already did,
+    # but the two declaration counters did NOT, so a killed `verify_all` that left `Lattice/G4Probe.lean`
+    # behind inflated the documented theorem and declaration counts by exactly its contents (2 and 3).
+    # An instrument must not read differently depending on whether a check was mid-flight.
+    from audit_counts import is_generated_probe
     for root, _, fs in os.walk(LAT):
         if "Reference" in root:
             continue
         for f in fs:
-            if f.endswith(".lean"):
+            if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)):
                 src = _read(os.path.join(root, f))
                 n += len(THM.findall(_strip_comments(src)))
     return n
@@ -156,11 +161,12 @@ def measure_theorems():
 
 def measure_decls():
     n = 0
+    from audit_counts import is_generated_probe   # see measure_theorems for why
     for root, _, fs in os.walk(LAT):
         if "Reference" in root:
             continue
         for f in fs:
-            if f.endswith(".lean"):
+            if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)):
                 src = _read(os.path.join(root, f))
                 n += len(DECL.findall(_strip_comments(src)))
     return n
