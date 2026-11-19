@@ -1995,7 +1995,7 @@
 | `Lattice.Plugins.Architectures.Conv.Plugin` | 7 | 6 |
 | `Lattice.Plugins.Architectures.Conv.Proofs` | 6 | 2 |
 | `Lattice.Plugins.Architectures.DAG.Manifest` | 1 | 1 |
-| `Lattice.Plugins.Architectures.DAG.Plugin` | 7 | 6 |
+| `Lattice.Plugins.Architectures.DAG.Plugin` | 8 | 7 |
 | `Lattice.Plugins.Architectures.DAG.Proofs` | 9 | 7 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 16 | 12 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
@@ -2008,7 +2008,7 @@
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
-| `Lattice.Plugins.Core.Constraint.Plugin` | 9 | 8 |
+| `Lattice.Plugins.Core.Constraint.Plugin` | 10 | 9 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 13 | 9 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
 | `Lattice.Plugins.Domains` | 0 | 0 |
@@ -4370,15 +4370,16 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dSeparated_blocked` -> `Relation`, `blocks`
 - `dSeparated_mono` -> `Relation`, `blocks`
 - `d_pos` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `length`, `paramCount`, `relu`
-- `dagConfluenceProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `dagDenoteParProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dag_denote_par`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `dagDenoteSeqProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagPar`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagConfluenceProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagDenoteParProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dag_denote_par`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagDenoteSeqProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagPar`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `dagEvalMonoidActionProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_append_assoc`, `dagEval_nil`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `dagEval_append` -> `append_assoc`, `at`, `g`, `induction`
 - `dagEval_append_assoc` -> `append_assoc`, `at`, `g`, `induction`
 - `dagEval_commute_past` -> `at`, `g`, `induction`
 - `dagEval_nil` -> `append_assoc`, `at`, `g`, `induction`
 - `dagProofs_under_dir` -> `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `StringPrefix`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
+- `dagRecoveryProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval_append`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `dag_confluence` -> `at`, `g`, `induction`
 - `dag_denote_par` -> `at`, `g`, `induction`
 - `dag_denote_resid` -> `at`, `g`, `induction`
@@ -5038,10 +5039,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entailmentSet_eq_closure` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailmentSet_scaled_eq` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailment_closure_idempotent` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
-- `entailsAppendProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsConsProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_cons`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsMonoProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsSingletonProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsAppendProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsConsProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_cons`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsIdempotentProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsMonoProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsSingletonProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
 - `entails_cons` -> `Constraint`, `Point`, `d`
 - `entails_mono` -> `Constraint`, `Point`, `d`
 - `entails_nil` -> `all`, `at`, `bvar`, `induction`
@@ -7621,8 +7623,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `modelsIR_iff` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
 - `modelsIR_off_zero` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
 - `modelsIR_slot_zero` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
-- `modelsOfMemProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
-- `modelsOfSubsetProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `verified`, `verified_manifest`, `verified_obligations`
+- `modelsOfMemProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `modelsOfSubsetProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
 - `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `map`
 - `models_data` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `models_of_covered_data` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`

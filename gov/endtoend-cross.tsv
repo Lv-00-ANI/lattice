@@ -3111,6 +3111,7 @@ Plugins/Architectures/DAG/Plugin.lean	dagEvalMonoidActionProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteParProp_holds
+Plugins/Architectures/DAG/Plugin.lean	dagRecoveryProp_holds
 Plugins/Architectures/DAG/Plugin.lean	proof_holds
 Plugins/Architectures/DAG/Plugin.lean	verified_manifest
 Plugins/Architectures/DAG/Plugin.lean	verified_obligations
@@ -3240,6 +3241,7 @@ Plugins/Core/Constraint/Plugin.lean	modelsOfMemProp_holds
 Plugins/Core/Constraint/Plugin.lean	modelsOfSubsetProp_holds
 Plugins/Core/Constraint/Plugin.lean	entailsAppendProp_holds
 Plugins/Core/Constraint/Plugin.lean	entailsSingletonProp_holds
+Plugins/Core/Constraint/Plugin.lean	entailsIdempotentProp_holds
 Plugins/Core/Constraint/Plugin.lean	proof_holds
 Plugins/Core/Constraint/Plugin.lean	verified_manifest
 Plugins/Core/Constraint/Plugin.lean	verified_obligations
