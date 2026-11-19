@@ -1555,6 +1555,9 @@ Lib/Compiler/IRWeightsBridge.lean	irWeights_uniform_tendsto
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
+Lib/Compiler/ModelsBehavior.lean	modelsBehavior_encodeGrid
+Lib/Compiler/ModelsBehavior.lean	modelsBehavior_iff
+Lib/Compiler/ModelsBehavior.lean	modelsIR_forbids_nontrivial_payload
 Lib/Compiler/ModulusAbstract.lean	modulus_verdict
 Lib/Compiler/NoIntermediateLayer.lean	constraint_is_weight_spelling
 Lib/Compiler/NonlinearApproximation.lean	relu_is_max
