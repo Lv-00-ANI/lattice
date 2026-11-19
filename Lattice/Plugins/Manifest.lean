@@ -193,15 +193,15 @@ instance : Repr Obligation where
 **`verifiedObligation name kind file thmName h` stores the proposition `h` itself, so the manifest holds a
 `Prop` rather than a pointer to one.** -/
 def verifiedObligation (name : String) (kind : ObligationKind) (file : String)
-    (thmName : String) (h : Prop) : Obligation :=
+    (thmName : String) (h : Prop) (_proof : h) : Obligation :=
   { name := name, kind := kind, theoremName := thmName, file := file, proof := some h }
 
 /-- **An obligation built by `verifiedObligation` carries its proof.**
 
 **=> the constructor's contract, stated so a caller cites it rather than unfolds the definition.** -/
 theorem verifiedObligation_proof (name : String) (kind : ObligationKind) (file : String)
-    (thmName : String) (h : Prop) :
-    (verifiedObligation name kind file thmName h).proof = some h :=
+    (thmName : String) (h : Prop) (proof : h) :
+    (verifiedObligation name kind file thmName h proof).proof = some h :=
   rfl
 
 /-- **The invariant an obligation satisfies: it carries a proof, or it names one.**

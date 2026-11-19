@@ -83,16 +83,16 @@ def manifest : PluginManifest where
     -- proposition.** Before this round the manifest named a theorem as a `String`, and a manifest
     -- could name a theorem that did not exist without anything in the tree noticing.
     verifiedObligation "attention_perm_equivariant" .equivariance
-      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
-      "attention_perm_equivariant" attention_perm_equivariantProp,
+        "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+        "attention_perm_equivariant" attention_perm_equivariantProp (by exact attention_perm_equivariant),
     -- SOUNDNESS: the weights are row-stochastic.
     verifiedObligation "attention_row_stochastic" .soundness
-      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
-      "softmax_row_stochastic" attention_row_stochasticProp,
+        "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+        "softmax_row_stochastic" attention_row_stochasticProp (by exact softmax_row_stochastic),
     -- EXACTNESS: a masked-out index contributes exactly zero.
     verifiedObligation "attention_mask_excludes" .exactness
-      "Lattice/Plugins/Architectures/Attention/Proofs.lean"
-      "attention_masked_excludes" attention_mask_excludesProp
+        "Lattice/Plugins/Architectures/Attention/Proofs.lean"
+        "attention_masked_excludes" attention_mask_excludesProp (by exact attention_masked_excludes)
   ]
 
 /-- **The carrier claims three obligations, so its obligation list is not empty.** -/

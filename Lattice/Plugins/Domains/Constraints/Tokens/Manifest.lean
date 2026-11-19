@@ -104,26 +104,26 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 769: all seven go through `verifiedObligation`, so each CARRIES its proposition.**
     verifiedObligation "flatten_injective" .exactness
-      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
-      "flatten_injective" flatten_injectiveProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+        "flatten_injective" flatten_injectiveProp (by intro k n; exact flatten_injective),
     verifiedObligation "flatten_surjective" .completeness
-      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
-      "flatten_surjective" flatten_surjectiveProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+        "flatten_surjective" flatten_surjectiveProp (by exact flatten_surjective),
     verifiedObligation "flatten_roundtrip" .laws
-      "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
-      "flattenRepresentation_roundtrip" flattenRepresentation_roundtripProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/Flatten.lean"
+        "flattenRepresentation_roundtrip" flattenRepresentation_roundtripProp (by exact flattenRepresentation_roundtrip),
     verifiedObligation "seq_decode_encode" .laws
-      "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
-      "seqDecode_encode" seqDecode_encodeProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
+        "seqDecode_encode" seqDecode_encodeProp (by exact seqDecode_encode),
     verifiedObligation "seq_encode_decode" .laws
-      "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
-      "seqEncode_decode" seqEncode_decodeProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean"
+        "seqEncode_decode" seqEncode_decodeProp (by exact seqEncode_decode),
     verifiedObligation "penalty_loss_not_injective" .soundness
-      "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
-      "penaltyLoss_not_injective" penaltyLoss_not_injectiveProp,
+        "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
+        "penaltyLoss_not_injective" penaltyLoss_not_injectiveProp (by exact penaltyLoss_not_injective),
     verifiedObligation "no_loss_to_constraint_section" .soundness
-      "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
-      "no_loss_to_constraint_section" no_loss_to_constraint_sectionProp
+        "Lattice/Plugins/Domains/Constraints/Tokens/LossExtraction.lean"
+        "no_loss_to_constraint_section" no_loss_to_constraint_sectionProp (by exact no_loss_to_constraint_section)
   ]
   version := ⟨1, 0, 0⟩
 

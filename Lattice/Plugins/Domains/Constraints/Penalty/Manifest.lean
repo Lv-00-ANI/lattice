@@ -127,26 +127,26 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 770: all seven go through `verifiedObligation`, so each CARRIES a proposition.**
     verifiedObligation "penalty_loss_zero_iff_holds_sq" .exactness
-      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
-      "penaltyLoss_eq_zero_iff_holds_sq" penaltyLoss_eq_zero_iff_holds_sqProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+        "penaltyLoss_eq_zero_iff_holds_sq" penaltyLoss_eq_zero_iff_holds_sqProp (by exact penaltyLoss_eq_zero_iff_holds_sq),
     verifiedObligation "penalty_loss_zero_iff_holds_leZero" .exactness
-      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
-      "penaltyLoss_eq_zero_iff_holds_leZero" penaltyLoss_eq_zero_iff_holds_leZeroProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+        "penaltyLoss_eq_zero_iff_holds_leZero" penaltyLoss_eq_zero_iff_holds_leZeroProp (by exact penaltyLoss_eq_zero_iff_holds_leZero),
     verifiedObligation "penalty_loss_congr_of_indicesBelow" .soundness
-      "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
-      "penaltyLoss_congr_of_indicesBelow" penaltyLoss_congr_of_indicesBelowProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean"
+        "penaltyLoss_congr_of_indicesBelow" penaltyLoss_congr_of_indicesBelowProp (by exact penaltyLoss_congr_of_indicesBelow),
     verifiedObligation "penalty_loss_lipschitz_eqZero" .approximation
-      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
-      "eqZero_lipschitz" eqZero_lipschitzProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+        "eqZero_lipschitz" eqZero_lipschitzProp (by exact eqZero_lipschitz),
     verifiedObligation "penalty_loss_lipschitz_gtZero" .approximation
-      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
-      "gtZero_lipschitz" gtZero_lipschitzProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+        "gtZero_lipschitz" gtZero_lipschitzProp (by exact gtZero_lipschitz),
     verifiedObligation "penalty_loss_lipschitz_equalLength" .approximation
-      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
-      "equalLength_lipschitz" equalLength_lipschitzProp,
+        "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+        "equalLength_lipschitz" equalLength_lipschitzProp (by exact equalLength_lipschitz),
     verifiedObligation "penalty_max_zero_eq_zero_iff" .completeness
-      "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
-      "max_zero_eq_zero_iff" max_zero_eq_zero_iffProp
+        "Lattice/Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean"
+        "max_zero_eq_zero_iff" max_zero_eq_zero_iffProp (by exact PenaltyLoss.max_zero_eq_zero_iff)
   ]
   version := ⟨1, 0, 0⟩
 

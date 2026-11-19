@@ -128,35 +128,35 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 771: all ten go through `verifiedObligation`, so each CARRIES its proposition.**
     verifiedObligation "parallel_comm" .spatial
-      "Lattice/Compose/Proofs.lean"
-      "parallel_comm_run" parallel_comm_runProp,
+        "Lattice/Compose/Proofs.lean"
+        "parallel_comm_run" parallel_comm_runProp (by exact parallel_comm_run),
     verifiedObligation "compose_assoc" .confluence
-      "Lattice/Compose/Combinators.lean"
-      "compose_run_assoc" compose_run_assocProp,
+        "Lattice/Compose/Combinators.lean"
+        "compose_run_assoc" compose_run_assocProp (by exact compose_run_assoc),
     verifiedObligation "identity_left_unit" .recovery
-      "Lattice/Compose/Combinators.lean"
-      "identity_compose_run" identity_compose_runProp,
+        "Lattice/Compose/Combinators.lean"
+        "identity_compose_run" identity_compose_runProp (by exact identity_compose_run),
     verifiedObligation "identity_right_unit" .recovery
-      "Lattice/Compose/Proofs.lean"
-      "compose_identity_right" compose_identity_rightProp,
+        "Lattice/Compose/Proofs.lean"
+        "compose_identity_right" compose_identity_rightProp (by exact compose_identity_right),
     verifiedObligation "compose_sound" .soundness
-      "Lattice/Compose/Combinators.lean"
-      "compose_sound" compose_soundProp,
+        "Lattice/Compose/Combinators.lean"
+        "compose_sound" compose_soundProp (by exact compose_sound),
     verifiedObligation "compose_strength" .laws
-      "Lattice/Compose/Combinators.lean"
-      "compose_strength" compose_strengthProp,
+        "Lattice/Compose/Combinators.lean"
+        "compose_strength" compose_strengthProp (by exact compose_strength),
     verifiedObligation "compose_coverage" .laws
-      "Lattice/Compose/Combinators.lean"
-      "compose_coverage" compose_coverageProp,
+        "Lattice/Compose/Combinators.lean"
+        "compose_coverage" compose_coverageProp (by exact compose_coverage),
     verifiedObligation "parallel_run" .laws
-      "Lattice/Compose/Proofs.lean"
-      "parallel_run" parallel_runProp,
+        "Lattice/Compose/Proofs.lean"
+        "parallel_run" parallel_runProp (by exact parallel_run),
     verifiedObligation "parallel_identity" .laws
-      "Lattice/Compose/Proofs.lean"
-      "parallel_identity_run" parallel_identity_runProp,
+        "Lattice/Compose/Proofs.lean"
+        "parallel_identity_run" parallel_identity_runProp (by exact parallel_identity_run),
     verifiedObligation "compose_h_of_pre_true" .soundness
-      "Lattice/Compose/ComposeObligation.lean"
-      "compose_h_of_pre_true" compose_h_of_pre_trueProp
+        "Lattice/Compose/ComposeObligation.lean"
+        "compose_h_of_pre_true" compose_h_of_pre_trueProp (by exact compose_h_of_pre_true)
   ]
   version := ⟨1, 0, 0⟩
 

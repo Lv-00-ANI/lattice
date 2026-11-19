@@ -108,29 +108,29 @@ def manifest : PluginManifest where
     -- **Round 769: all eight go through `verifiedObligation`, so each CARRIES its proposition.**
     -- Before this the manifest named a theorem as a `String`; a wrong name was undetectable.
     verifiedObligation "repair_progress" .completeness
-      "Lattice/Core/RepairModule/Repair.lean"
-      "progress" progressProp,
+        "Lattice/Core/RepairModule/Repair.lean"
+        "progress" progressProp (by exact Core.Repair.progress),
     verifiedObligation "repair_progress_on_wf" .completeness
-      "Lattice/Core/RepairModule/RepairWF.lean"
-      "progress_on_wf" progress_on_wfProp,
+        "Lattice/Core/RepairModule/RepairWF.lean"
+        "progress_on_wf" progress_on_wfProp (by exact Core.RepairWF.progress_on_wf),
     verifiedObligation "repair_converges_within" .approximation
-      "Lattice/Core/RepairModule/RepairConvergence.lean"
-      "converges_within" converges_withinProp,
+        "Lattice/Core/RepairModule/RepairConvergence.lean"
+        "converges_within" converges_withinProp (by exact Core.RepairConvergence.converges_within),
     verifiedObligation "repair_converges_within_is_tight" .exactness
-      "Lattice/Core/RepairModule/RepairMultistep.lean"
-      "converges_within_is_tight" converges_within_is_tightProp,
+        "Lattice/Core/RepairModule/RepairMultistep.lean"
+        "converges_within_is_tight" converges_within_is_tightProp (by exact Core.Multistep.converges_within_is_tight),
     verifiedObligation "repair_atomic_of_zero_iff" .exactness
-      "Lattice/Core/RepairModule/RepairAtomicity.lean"
-      "atomic_of_zero_iff" atomic_of_zero_iffProp,
+        "Lattice/Core/RepairModule/RepairAtomicity.lean"
+        "atomic_of_zero_iff" atomic_of_zero_iffProp (by exact Core.RepairAtomicity.atomic_of_zero_iff),
     verifiedObligation "repair_stable" .soundness
-      "Lattice/Core/RepairModule/Repair.lean"
-      "stable" stableProp,
+        "Lattice/Core/RepairModule/Repair.lean"
+        "stable" stableProp (by exact Core.Repair.stable),
     verifiedObligation "repair_preserves" .soundness
-      "Lattice/Core/RepairModule/Repair.lean"
-      "preserves" preservesProp,
+        "Lattice/Core/RepairModule/Repair.lean"
+        "preserves" preservesProp (by exact Core.Repair.preserves),
     verifiedObligation "repair_iterate_succ" .laws
-      "Lattice/Core/RepairModule/Repair.lean"
-      "iterate_succ" iterate_succProp
+        "Lattice/Core/RepairModule/Repair.lean"
+        "iterate_succ" iterate_succProp (by exact Core.Repair.iterate_succ)
   ]
   version := ⟨1, 0, 0⟩
 
