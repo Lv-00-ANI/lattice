@@ -1,0 +1,12 @@
+# `PluginProof` vacuous (literal `True`) slot count.
+# SHRINK-ONLY: `audit_plugin_slots.py` fails if the total grows.
+#
+# Round 995 measured 10 plugins x 12 slots = 120 slots, of which 79 hold the literal `True`.
+# `ProofSlotCensus.lean` records 87 by a different method (it counts `True.intro` AND `trivial`
+# CLOSURES in the `proof_holds` term, and includes one more plugin file); this file counts VALUES.
+# Both numbers are correct for their own question -- this one answers "how many slots SAY nothing".
+#
+# Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
+# theorem. That is checked on every run, and it is the property that keeps a future
+# `recovery := SomeMadeUpProp` from passing.
+vacuous_total	79

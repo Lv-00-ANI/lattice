@@ -337,6 +337,11 @@ CHECKS = [
     # the stripper is what decides (a docstring copy must NOT count).
     ("audit: configured types have one real definition", "audit_type_duplication.py"),
     ("meta: type duplication audit self-test", "audit_type_duplication.py --self-test"),
+    # Round 995: before filling `PluginProof`'s vacuous slots, answer the question that HAS a mechanical
+    # answer -- is every NAMED slot proposition backed by a `<prop>_holds` theorem? Filling a slot with an
+    # arbitrary true statement would be the substitution the audit warned about (`na` becomes the new `True`).
+    ("audit: plugin slots, named propositions are proved", "audit_plugin_slots.py"),
+    ("meta: plugin slot audit self-test", "audit_plugin_slots.py --self-test"),
     ("meta: plugin index checker self-test", "check_plugin_yml.py --self-test"),
     # Round 210. An underscore-prefixed NAMED binder (`_hrest`, not the bare `_` wildcard) is the
     # author declaring a hypothesis unused -- and that prefix is exactly what silences Lean's own
