@@ -154,6 +154,8 @@ Compose/Registry.lean	foldStrength_le_of_mem
 Compose/Registry.lean	exact_of_foldStrength_exact
 Compose/Steps.lean	applySgd_run
 Compose/Steps.lean	applyMomentum_velocity
+Compose/Showcase/FullChain.lean	fullChain_run
+Compose/Showcase/FullChain.lean	fullChain_sound
 Core/Activation.lean	actStackEval_nil
 Core/Activation.lean	actStackSingle_affine
 Core/Activation.lean	actStackEval_of_no_activation

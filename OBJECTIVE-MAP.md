@@ -12,8 +12,8 @@
 | 条款 | 载体 | 定义于 | 跨文件 | 同文件 | 例 |
 |:--|:--|:--|--:|--:|:--|
 | 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
-| 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 13 | 23 | `Lib/Chain/L1BridgeHomomorphism.lean`, `Lib/Chain/RealChainEntryOOV.lean` |
-| 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 12 | 27 | `Lib/Chain/RealChainRun.lean`, `Lib/Chain/RealEndToEnd.lean` |
+| 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 14 | 23 | `Compose/Showcase/FullChain.lean`, `Lib/Chain/L1BridgeHomomorphism.lean` |
+| 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 13 | 27 | `Compose/Showcase/FullChain.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 50 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 1 | 1 | `Runtime/NondegenerateInstance.lean` |
