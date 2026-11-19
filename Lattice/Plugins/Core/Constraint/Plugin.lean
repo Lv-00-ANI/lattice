@@ -66,6 +66,51 @@ theorem modelsOfSubsetProp_holds : ModelsOfSubsetProp := by
   intro R _ _ n H K c hsub h
   exact models_of_subset hsub h
 
+/-- **`EntailsAppendProp`：**两个约束集拼接后的蕴含拆成两半**。**
+
+**⇒ `recovery`（时间可组合性）：拼接的蕴含恰好是两段蕴含的**合取**——
+这是约束作为组合机制的核心事实，而不是「长一点的集合也能推导」。
+由 `Entails` 的展开与 `List.mem_append`。** -/
+def EntailsAppendProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    (cs ds : List (Constraint R n)) (x : Point R n),
+    Entails (cs ++ ds) x ↔ Entails cs x ∧ Entails ds x
+
+/-- **`EntailsAppendProp` holds** — 展开 `Entails`，两个方向各用一次 `List.mem_append`。 -/
+theorem entailsAppendProp_holds : EntailsAppendProp := by
+  intro R _ _ n cs ds x
+  unfold Entails
+  constructor
+  · intro h
+    exact ⟨fun c hc => h c (List.mem_append_left _ hc),
+           fun c hc => h c (List.mem_append_right _ hc)⟩
+  · intro ⟨h1, h2⟩ c hc
+    rcases List.mem_append.mp hc with h | h
+    · exact h1 c h
+    · exact h2 c h
+
+/-- **`EntailsSingletonProp`：**单元素约束集的蕴含退化为满足性**。**
+
+**⇒ `refinement`：抽象的「蕴含」在最小非平凡的情形上**与具体的 `Satisfies` 一致**——
+若二者在这里不一致，那么「蕴含」就不是满足性的推导。
+由 `Entails` 的展开与 `List.mem_singleton`。** -/
+def EntailsSingletonProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    (c : Constraint R n) (x : Point R n),
+    Entails [c] x ↔ Satisfies c x
+
+/-- **`EntailsSingletonProp` holds** — 两个方向各用一次 `List.mem_singleton`。 -/
+theorem entailsSingletonProp_holds : EntailsSingletonProp := by
+  intro R _ _ n c x
+  unfold Entails
+  constructor
+  · intro h
+    exact h c (List.mem_singleton.mpr rfl)
+  · intro h d hd
+    rw [List.mem_singleton] at hd
+    subst hd
+    exact h
+
 /-- **The constraint-logic plugin's proof bundle.**
 
 Four claimed obligations. `exactness`, `approximation`, `recovery`, `spatial`, `confluence`,
@@ -77,22 +122,22 @@ def proof : PluginProof where
   laws := EntailsConsProp ∧ EntailsMonoProp
   exactness := True
   approximation := True
-  recovery := True
+  recovery := EntailsAppendProp
   spatial := True
   confluence := True
   equivariance := True
   idempotence := True
   invariants := True
   completeness := True
-  refinement := True
+  refinement := EntailsSingletonProp
 
 /-- **Every claimed obligation of the constraint-logic plugin is discharged.** -/
 theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨⟨modelsOfMemProp_holds, modelsOfSubsetProp_holds⟩,
          ⟨entailsConsProp_holds, entailsMonoProp_holds⟩,
-         True.intro, True.intro, True.intro, True.intro, True.intro, True.intro,
-         True.intro, True.intro, True.intro, True.intro⟩
+         True.intro, True.intro, entailsAppendProp_holds, True.intro, True.intro, True.intro,
+         True.intro, True.intro, True.intro, entailsSingletonProp_holds⟩
 
 /-- **The verified constraint-logic plugin.** -/
 def verified : VerifiedPlugin where
