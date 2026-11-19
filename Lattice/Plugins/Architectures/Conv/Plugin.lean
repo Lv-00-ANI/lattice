@@ -77,6 +77,35 @@ theorem convWindowDeterminesOutputProp_holds : ConvWindowDeterminesOutputProp :=
   intro k f x y j₀ h
   exact conv_window_determines_output k f x y 0 j₀ h
 
+/-- **`ConvShiftComposeProp`（`recovery`）：两次平移等于一次求和的平移。**
+
+**⇒ 卷积对平移是**等变**的（那是 `equivariance` 槽），而本条说的是另一件事：
+平移本身作为一种时间操作是**可组合**的——先移 `s` 再移 `t`，等于一次移 `t + s`。
+这是时间可组合性的最小非平凡实例。** -/
+def ConvShiftComposeProp : Prop :=
+  ∀ (t s : ℕ) (x : ℕ → ℝ), shift t (shift s x) = shift (t + s) x
+
+/-- **`ConvShiftComposeProp` holds** — 展开 `shift` 后用 `Nat.add_assoc`。 -/
+theorem convShiftComposeProp_holds : ConvShiftComposeProp := by
+  intro t s x
+  funext i
+  show x (i + t + s) = x (i + (t + s))
+  rw [Nat.add_assoc]
+
+/-- **`ConvOneTapProp`（`refinement`）：单抽头卷积退化为逐点乘。**
+
+**⇒ 抽头长度 1 时，`convApply` 的求和只剩一项，于是 `f 0 * x i`——
+抽象的卷积在这个特例上与最素朴的逐点缩放一致。** -/
+def ConvOneTapProp : Prop :=
+  ∀ (f : Fin 1 → ℝ) (x : ℕ → ℝ) (i : ℕ), convApply 1 f x i = f 0 * x i
+
+/-- **`ConvOneTapProp` holds** — 展开 `convApply`，用 `Fin.sum_univ_one`。 -/
+theorem convOneTapProp_holds : ConvOneTapProp := by
+  intro f x i
+  show (∑ j : Fin 1, f j * x (i + j)) = f 0 * x i
+  rw [Fin.sum_univ_one]
+  simp
+
 /-- **The convolution carrier's proof bundle.**
 
 **`equivariance` is the slot filled here -- the first non-`True` equivariance in an architecture plugin.**
@@ -86,14 +115,14 @@ def proof : PluginProof where
   laws := ConvLinearityProp
   exactness := ConvWindowDeterminesOutputProp
   approximation := True
-  recovery := True
+  recovery := ConvShiftComposeProp
   spatial := True
   confluence := True
   equivariance := ConvEquivarianceProp
   idempotence := True
   invariants := True
   completeness := True
-  refinement := True
+  refinement := ConvOneTapProp
 
 /-- **Every claimed obligation of the convolution carrier is discharged.** -/
 theorem proof_holds : proof.Holds := by
@@ -101,9 +130,9 @@ theorem proof_holds : proof.Holds := by
   exact ⟨convWeightSharingProp_holds,
          convLinearityProp_holds,
          convWindowDeterminesOutputProp_holds,
-         True.intro, True.intro, True.intro, True.intro,
+         True.intro, convShiftComposeProp_holds, True.intro, True.intro,
          convEquivarianceProp_holds,
-         True.intro, True.intro, True.intro, True.intro⟩
+         True.intro, True.intro, True.intro, convOneTapProp_holds⟩
 
 /-- **The verified convolution carrier.** -/
 def verified : VerifiedPlugin where

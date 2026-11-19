@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	63
+vacuous_total	61
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -73,3 +73,11 @@ vacuous_total	63
 # (6-way) conjunctions. Its theory is entirely positive/negative COEFFICIENT facts, which is what
 # those two slots are for; there is no separate fact for the other nine. Wiring one of them again
 # would be double-counting, so they stay `True` honestly.
+#
+# Round 1004 drained two in `Architectures/Conv`:
+#   recovery    := ConvShiftComposeProp  (shift t (shift s x) = shift (t + s) x -- shifting is
+#                  itself a composable TIME operation, which is what the recovery slot is about;
+#                  the equivariance slot already says convolution commutes with a shift)
+#   refinement  := ConvOneTapProp        (convApply 1 f x i = f 0 * x i -- a one-tap filter
+#                  degenerates to pointwise scaling)
+# Conv measured first: its four `*Prop`s are all consumed, so both needed NEW theorems.
