@@ -121,6 +121,47 @@ theorem iterateSuccProp_holds : IterateSuccProp := by
   intro α R n x
   exact Lattice.Core.Repair.iterate_succ R n x
 
+/-- **`RepairIterateAddProp`（`recovery`）：迭代是可组合的。**
+
+**⇒ `R.iterate (m + n) x = R.iterate m (R.iterate n x)`：先修 `n` 步再修 `m` 步，
+与一次修 `m + n` 步相同。**
+**这是「修复循环」作为时间操作的可组合性，也正是 `recovery` 该说的东西——而它**不是**
+`laws` 里那条 `iterate_succ` 的重复：后者只走一步，本条把任意两段拼接起来。** -/
+def RepairIterateAddProp : Prop :=
+  ∀ {α : Type} (R : Repair α) (m n : Nat) (x : α),
+    R.iterate (m + n) x = R.iterate m (R.iterate n x)
+
+/-- **`RepairIterateAddProp` holds** — 展开 `Repair.iterate` 后用 `Function.iterate_add_apply`。 -/
+theorem repairIterateAddProp_holds : RepairIterateAddProp := by
+  intro α R m n x
+  show Nat.iterate R.fix (m + n) x = Nat.iterate R.fix m (Nat.iterate R.fix n x)
+  rw [Function.iterate_add_apply]
+
+/-- **`RepairMeasureNonIncreasingProp`（`invariants`）：度量沿迭代**从不增加**。**
+
+**⇒ `R.μ (R.iterate n x) ≤ R.μ x`。**
+**这**不是** `soundness` 里 `preserves`（满足性被保持）的重复：
+本条说的是**终止性度量**这一侧的不变量——**通过的点被 `absorbs` 保持不变，
+失败的点被 `decreases` 严格减小，两条合起来给出「不会变大」。**
+**⇒ 它是 `progress`（必然终止）之所以可能的那个不变量。** -/
+def RepairMeasureNonIncreasingProp : Prop :=
+  ∀ {α : Type} (R : Repair α) (n : Nat) (x : α), R.μ (R.iterate n x) ≤ R.μ x
+
+/-- **`RepairMeasureNonIncreasingProp` holds** — 对 `n` 归纳；每步由 `absorbs`/`decreases` 分情形。 -/
+theorem repairMeasureNonIncreasingProp_holds : RepairMeasureNonIncreasingProp := by
+  intro α R n x
+  induction n with
+  | zero => exact Nat.le_refl _
+  | succ k ih =>
+    have hstep : R.μ (R.fix (R.iterate k x)) ≤ R.μ (R.iterate k x) := by
+      by_cases h : R.Sat (R.iterate k x)
+      · rw [R.absorbs _ h]
+      · exact Nat.le_of_lt (R.decreases _ h)
+    calc R.μ (R.iterate (k + 1) x)
+        = R.μ (R.fix (R.iterate k x)) := by rw [Repair.iterate_succ]
+      _ ≤ R.μ (R.iterate k x) := hstep
+      _ ≤ R.μ x := ih
+
 /-- **The repair plugin's proof bundle.**
 
 Eight claimed obligations, all discharged above. The unclaimed fields are `True`, matching
@@ -131,12 +172,12 @@ def proof : PluginProof where
   laws := IterateSuccProp
   exactness := ConvergesWithinTightProp ∧ AtomicOfZeroIffProp
   approximation := ConvergesWithinProp
-  recovery := True
+  recovery := RepairIterateAddProp
   spatial := True
   confluence := True
   equivariance := True
   idempotence := True
-  invariants := True
+  invariants := RepairMeasureNonIncreasingProp
   completeness := ProgressProp ∧ ProgressOnWFProp
   refinement := True
 
@@ -146,7 +187,8 @@ The twelve-tuple is written out field by field so that adding an obligation to t
 without adding a conjunct here becomes a type error, not a silent gap.
 -/
 theorem proof_holds : proof.Holds := by
-  refine ⟨?_, ?_, ?_, ?_, trivial, trivial, trivial, trivial, trivial, trivial, ?_, trivial⟩
+  refine ⟨?_, ?_, ?_, ?_, repairIterateAddProp_holds, trivial, trivial, trivial, trivial,
+          repairMeasureNonIncreasingProp_holds, ?_, trivial⟩
   · exact ⟨stableProp_holds, preservesProp_holds⟩
   · exact iterateSuccProp_holds
   · exact ⟨convergesWithinTightProp_holds, atomicOfZeroIffProp_holds⟩
