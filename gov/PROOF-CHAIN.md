@@ -2008,7 +2008,7 @@
 | `Lattice.Plugins.Compose.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Core` | 0 | 0 |
 | `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
-| `Lattice.Plugins.Core.Constraint.Plugin` | 10 | 9 |
+| `Lattice.Plugins.Core.Constraint.Plugin` | 12 | 11 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 13 | 9 |
 | `Lattice.Plugins.Core.Repair.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Domains` | 0 | 0 |
@@ -5041,11 +5041,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entailmentSet_eq_closure` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `constraint_entailment_closure`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `real_scale_preserves`, `subst`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailmentSet_scaled_eq` -> `IsElement`, `RealConstraint`, `RealConstraintSat`, `Temporal`, `at`, `extent`, `isConceptUnderUpGaze`, `isElementUnderUpGaze`, `no_upper_iff_no_split`, `suspend`, `suspend_dissolves_identity`, `suspend_idempotent`, `suspend_preserves_base`, `up_gaze_element_or_concept`
 - `entailment_closure_idempotent` -> `RealConstraint`, `RealConstraintSat`, `extent`, `intent`, `intent_closure_idempotent`
-- `entailsAppendProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsAppendProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
 - `entailsConsProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_cons`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsIdempotentProp_holds` -> `Constraint`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsIdempotentProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
 - `entailsMonoProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `entails_mono`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
-- `entailsSingletonProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `entailsSingletonProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
 - `entails_cons` -> `Constraint`, `Point`, `d`
 - `entails_mono` -> `Constraint`, `Point`, `d`
 - `entails_nil` -> `all`, `at`, `bvar`, `induction`
@@ -7629,8 +7629,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `modelsIR_iff` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
 - `modelsIR_off_zero` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
 - `modelsIR_slot_zero` -> `IRSkeleton`, `IRWeights`, `ModelsIR`, `W`, `at`, `compileSkel`, `semantics`, `skeletonCode`, `subst`
+- `modelsNilProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `modelsOfMemProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_mem`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
-- `modelsOfSubsetProp_holds` -> `Constraint`, `Entails`, `Holds`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `modelsOfSubsetProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `at`, `completeness`, `d`, `length`, `manifest`, `models_of_subset`, `proof`, `proof_holds`, `soundness`, `subst`, `trans`, `verified`, `verified_manifest`, `verified_obligations`
+- `modelsReverseProp_holds` -> `Constraint`, `Entails`, `Holds`, `Models`, `PluginProof`, `Point`, `Satisfies`, `VerifiedPlugin`, `completeness`, `d`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `models_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `map`
 - `models_data` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`
 - `models_of_covered_data` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `length`, `map`, `models`, `models_compileWith`, `parseSkeletonWithRelations`, `parseWithRelations`, `readOf`, `shapesOf`, `termShape`, `walkWithRelations`, `walk_nodup`
