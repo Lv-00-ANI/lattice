@@ -33,6 +33,7 @@ MODES
 import argparse
 import io
 import os
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -49,6 +50,34 @@ def module_path(artifact):
         if rel.endswith(suf):
             return rel[: -len(suf)] + ".lean"
     return None
+
+
+def untracked_probe_sources():
+    """`*Probe*.lean` under Lattice/ that git does not track.
+
+    **Round 1012: this is the THIRD kind of debris, and the one that broke a verify.** A killed
+    `check_comments_reactivity.py` left `Lattice/Core/Probe.lean` behind with a mutated comment
+    (an unmatched `-/`), so gate.py's **I8** failed with exit 9 while I7 was green and this tool
+    reported "no orphan".**
+
+    **=> the rule: the probes are designed to be GITIGNORED. A probe source that git does not track is
+    therefore debris by definition, and one that git DOES track is a real file. That distinction needs
+    no memory of probe names.**
+    """
+    if not os.path.isdir(LATTICE):
+        return []
+    out = []
+    for root, _dirs, files in os.walk(LATTICE):
+        for f in sorted(files):
+            if not f.endswith(".lean") or "Probe" not in f:
+                continue
+            p = os.path.join(root, f)
+            rel = os.path.relpath(p, REPO).replace(os.sep, "/")
+            r = subprocess.run(["git", "-C", REPO, "ls-files", "--error-unmatch", rel],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if r.returncode != 0:
+                out.append(rel)
+    return out
 
 
 def scan():
@@ -110,6 +139,26 @@ def main(argv):
 
     if args.check:
         return 1 if orphans else 0
+
+    probes = untracked_probe_sources()
+    print("  untracked probe sources : %d" % len(probes))
+    for rel in probes:
+        print("    %s" % rel)
+
+    if args.check:
+        return 1 if (orphans or probes) else 0
+
+    if args.clean and probes:
+        for rel in probes:
+            p = os.path.join(REPO, rel)
+            if os.path.isfile(p):
+                os.remove(p)
+        for rel in probes:
+            art = os.path.join(ARTIFACT_ROOT, rel[:-len(".lean")] + ".olean")
+            for q in siblings(art):
+                if os.path.isfile(q):
+                    os.remove(q)
+        print("  removed %d untracked probe source(s) and their artifacts" % len(probes))
 
     if args.clean and orphans:
         removed = 0

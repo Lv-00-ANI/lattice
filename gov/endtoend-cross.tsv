@@ -3113,6 +3113,7 @@ Plugins/Architectures/DAG/Plugin.lean	dagConfluenceProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteSeqProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagDenoteParProp_holds
 Plugins/Architectures/DAG/Plugin.lean	dagRecoveryProp_holds
+Plugins/Architectures/DAG/Plugin.lean	dagEquivarianceProp_holds
 Plugins/Architectures/DAG/Plugin.lean	proof_holds
 Plugins/Architectures/DAG/Plugin.lean	verified_manifest
 Plugins/Architectures/DAG/Plugin.lean	verified_obligations

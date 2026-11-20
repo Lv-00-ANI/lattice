@@ -1995,7 +1995,7 @@
 | `Lattice.Plugins.Architectures.Conv.Plugin` | 9 | 8 |
 | `Lattice.Plugins.Architectures.Conv.Proofs` | 6 | 2 |
 | `Lattice.Plugins.Architectures.DAG.Manifest` | 1 | 1 |
-| `Lattice.Plugins.Architectures.DAG.Plugin` | 8 | 7 |
+| `Lattice.Plugins.Architectures.DAG.Plugin` | 9 | 8 |
 | `Lattice.Plugins.Architectures.DAG.Proofs` | 9 | 7 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 16 | 12 |
 | `Lattice.Plugins.Architectures.GNN.Plugin` | 18 | 15 |
@@ -4372,16 +4372,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dSeparated_blocked` -> `Relation`, `blocks`
 - `dSeparated_mono` -> `Relation`, `blocks`
 - `d_pos` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `at`, `count`, `depth`, `length`, `paramCount`, `relu`
-- `dagConfluenceProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `dagDenoteParProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dag_denote_par`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `dagDenoteSeqProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagPar`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `dagEvalMonoidActionProp_holds` -> `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_append_assoc`, `dagEval_nil`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagConfluenceProp_holds` -> `DagCommute`, `DagNode`, `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_commute_past`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagDenoteParProp_holds` -> `DagCommute`, `DagNode`, `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_commute_past`, `dag_denote_par`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagDenoteSeqProp_holds` -> `DagCommute`, `DagNode`, `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_commute_past`, `dagPar`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagEquivarianceProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval_commute_past`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagEvalMonoidActionProp_holds` -> `DagCommute`, `DagNode`, `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_append_assoc`, `dagEval_commute_past`, `dagEval_nil`, `dagPar`, `dagSeq`, `dag_confluence`, `dag_denote_par`, `dag_denote_seq`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `dagEval_append` -> `append_assoc`, `at`, `g`, `induction`
 - `dagEval_append_assoc` -> `append_assoc`, `at`, `g`, `induction`
 - `dagEval_commute_past` -> `at`, `g`, `induction`
 - `dagEval_nil` -> `append_assoc`, `at`, `g`, `induction`
 - `dagProofs_under_dir` -> `Conv`, `Migrated`, `ObligationOwnedBy`, `RegistryMigratedFor`, `StringPrefix`, `archCarrierAdditions_holds`, `at`, `cPhaseAdditions_holds`, `dPhaseAdditions_holds`, `irCarrierAdditions_holds`, `ladder_end_to_end_holds`, `manifest`, `open_target_count`, `proved_target_count`, `t1_compile_sound_general_holds`, `t1_compile_sound_instance_holds`, `t1_merge_sound_unrejected_holds`, `t2_penalty_exact_holds`, `t2_penalty_modulus_holds`, `t3_compile_injective_holds`, `t3_no_faithful_extractor_holds`, `t3_parameter_roundtrip_holds`, `t3_semantic_not_injective_holds`, `t4_loop_converges_holds`, `t4_repair_progress_holds`, `t5_recovery_holds`, `t6_spatial_holds`, `t7_confluence_holds`, `t8_failure_isolation_holds`, `verification_loop_closes_holds`, `verified`
-- `dagRecoveryProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval_append`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `dagRecoveryProp_holds` -> `DagCommute`, `DagNode`, `DagProgram`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `dagEval`, `dagEval_append`, `dagEval_commute_past`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `dag_confluence` -> `at`, `g`, `induction`
 - `dag_denote_par` -> `at`, `g`, `induction`
 - `dag_denote_resid` -> `at`, `g`, `induction`
