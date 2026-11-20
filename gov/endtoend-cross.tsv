@@ -4063,3 +4063,4 @@ Semantics/VocabEdit.lean	merge_not_exact
 Semantics/VocabEdit.lean	split_error_bound
 Usage/Examples.lean	penaltyToLoss_interface
 Usage/Examples.lean	data_synthesis_covered
+Usage/Examples.lean	structured_init_zero_iff

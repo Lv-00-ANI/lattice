@@ -15,6 +15,7 @@ import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.ConstraintToLoss
 import Lattice.Core.IR.Semantics
+import Lattice.Runtime.WeightLadderN
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -292,5 +293,33 @@ theorem data_synthesis_covered (k : IRSkeleton)
     covered (materializeWith k f).tensors (shapesOf (materializeWith k f))
       ∧ ModelsIRSWith (compileSkel k) k f :=
   ⟨covered_of_vanishing k f hnd hzero, models_of_covered_data k hnd f hzero⟩
+
+
+/-! ## `compile_sound_n`：**结构化初始化**把零点固定住（Q-3 的消费者）
+
+**目标原话的正向编译第三个括号是「结构化初始化」。树里对应的载体是 `compile_sound_n`
+（`Runtime/WeightLadderN.lean`），它在 `OBJECTIVE-MAP.md` 里的跨文件引用数是 **1**，
+且**同文件引用为 0**——即它只被一个实例偶然带出，不是一个可引用的结论。**
+
+**⇒ 本节把单向前提升级为**双向刻画**：编译出的仿射层固定零点，**当且仅当**符号内容的残差处处为零。**
+**⇒ 这比单向前提更强，因为反向给出了失败条件：残差若有非零，初始化就**不**固定零点，
+于是「结构化初始化是否有效」变成一个可判定的等式。** -/
+
+/-- **结构化初始化：`compileToLayerN s` 固定零点 ⟺ `s` 的残差处处为零。**
+
+**⇒ 反向（`←`）是 `compile_sound_n`；正向是 `act_zero_eq_zero_iff` 加上「偏置为零」与
+「残差为零」是同一件事（`SymN.resid` 就是常数分量）。**
+**⇒ 于是 2.3 的载体不再只在一个实例里出现，而是成为一条**可被引用的判定**。** -/
+theorem structured_init_zero_iff {n : ℕ} (s : Lattice.Lift.WeightLadderN.SymN n) :
+    Lattice.Core.affineAct (Lattice.Lift.WeightLadderN.compileToLayerN s)
+        (fun _ => (0 : ℝ)) = (fun _ => (0 : ℝ))
+      ↔ (∀ j, Lattice.Lift.WeightLadderN.SymN.resid s j = 0) := by
+  constructor
+  · intro h j
+    have hb : (Lattice.Lift.WeightLadderN.compileToLayerN s).b = 0 :=
+      (Lattice.Lift.WeightLadderN.act_zero_eq_zero_iff _).mp h
+    exact congrFun hb j
+  · intro h
+    exact Lattice.Lift.WeightLadderN.compile_sound_n s h
 
 end Lattice.Usage
