@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	53
+vacuous_total	51
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -135,3 +135,11 @@ vacuous_total	53
 # `rw [List.append_assoc]`, i.e. defeq-level; `dag_denote_resid` states the SAME equation as the
 # already-used `dagEval_append` (dagSeq and dagResid are both `p ++ q`), so wiring it into another
 # slot would be double-counting one fact.
+#
+# Round 1014 drained two in `Domains/Constraints/Penalty`:
+#   spatial    := PenaltySubadditiveProp  (max (a+b) 0 <= max a 0 + max b 0 -- the property that
+#                 makes a penalty method sound: two violations stacked cost no more than the sum,
+#                 so minimising the joint penalty cannot reward splitting one large violation into
+#                 many small ones)
+#   invariants := PenaltyMonotoneProp     (a <= b -> max a 0 <= max b 0 -- the order is preserved,
+#                 so `lower the penalty` and `get closer to feasible` are the same direction)
