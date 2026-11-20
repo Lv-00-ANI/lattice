@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	57
+vacuous_total	56
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -108,3 +108,9 @@ vacuous_total	57
 # `recovery`, `spatial` and `confluence`. Quoting an `rfl` proposition would be the substitution
 # this register exists to prevent, so the seven stay `True` -- honestly, not for lack of trying.
 # => `Compose` joins `ChainSlot` in the measured-honest-empty group (9 + 7 = 16 of the remaining).
+#
+# Round 1009 drained one in `Architectures/Norm`:
+#   invariants := NormBiasOrderedProp  (batchVar X <= batchVarUnbiased X for card >= 2 -- an ORDER
+#                 invariant between the two estimators, obtained from the exact identity
+#                 batchVarUnbiased - batchVar = S/(m(m-1)) >= 0. It rules out the possibility that
+#                 unbiasing LOWERS the estimate, which is the direction `batchVar_bias_le` needs.)

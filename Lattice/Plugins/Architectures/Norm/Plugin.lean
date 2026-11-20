@@ -109,6 +109,35 @@ def NormCompletenessProp : Prop :=
 theorem normCompletenessProp_holds : NormCompletenessProp :=
   fun x h => varOf_varNormalize_eq_one x h
 
+/-- **`NormBiasOrderedProp`（`invariants`）：有偏样本方差**从不超过**无偏样本方差。**
+
+**⇒ `batchVar X ≤ batchVarUnbiased X`（`card ≥ 2`）。**
+**这不是一个不等式技巧，而是一个**次序不变量**：两个估计量在同一批数据上永远保持这个次序，
+且由 `batchVarUnbiased_sub_batchVar` 的精确恒等式可知，差距恰是 `S/(m(m−1)) ≥ 0`。**
+**⇒ 它排除了「无偏化会把估计压低」这一可能，而这正是 `batchVar_bias_le` 那条
+`O(1/m)` 界能成立的方向前提。** -/
+def NormBiasOrderedProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (X : ι → ℝ), 2 ≤ Fintype.card ι →
+    batchVar X ≤ batchVarUnbiased X
+
+/-- **`NormBiasOrderedProp` holds** — 由精确偏差恒等式与 `S/(m(m−1)) ≥ 0`。 -/
+theorem normBiasOrderedProp_holds : NormBiasOrderedProp := by
+  intro ι _ X hm
+  have hcard : (0 : ℝ) < (Fintype.card ι : ℝ) := by
+    exact_mod_cast (by omega : 0 < Fintype.card ι)
+  have hcard1 : (0 : ℝ) < (Fintype.card ι : ℝ) - 1 := by
+    have h2 : (2 : ℝ) ≤ (Fintype.card ι : ℝ) := by exact_mod_cast hm
+    linarith
+  have hid := batchVarUnbiased_sub_batchVar X (ne_of_gt hcard) (ne_of_gt hcard1)
+  have hS : (0 : ℝ) ≤ ∑ i, (X i - batchMean X) ^ 2 :=
+    Finset.sum_nonneg (fun i _ => sq_nonneg (X i - batchMean X))
+  have hden : (0 : ℝ) ≤ (Fintype.card ι : ℝ) * ((Fintype.card ι : ℝ) - 1) :=
+    le_of_lt (mul_pos hcard hcard1)
+  have hgap : (0 : ℝ)
+      ≤ (∑ i, (X i - batchMean X) ^ 2)
+        / ((Fintype.card ι : ℝ) * ((Fintype.card ι : ℝ) - 1)) := div_nonneg hS hden
+  linarith
+
 /-- **The normalisation carrier's proof bundle.**
 
 Six claimed obligations, including the registry's FIRST `idempotence` witness.
@@ -123,7 +152,7 @@ def proof : PluginProof where
   confluence := True
   equivariance := True
   idempotence := NormIterateVarianceLeOneProp
-  invariants := True
+  invariants := NormBiasOrderedProp
   completeness := NormCompletenessProp
   refinement := True
 
@@ -136,7 +165,7 @@ theorem proof_holds : proof.Holds := by
          ⟨normLipschitzSharpProp_holds, normLipschitzProp_holds⟩,
          True.intro, True.intro, True.intro, True.intro,
          normIterateVarianceLeOneProp_holds,
-         True.intro, normCompletenessProp_holds, True.intro⟩
+         normBiasOrderedProp_holds, normCompletenessProp_holds, True.intro⟩
 
 /-- **The verified normalisation carrier.** -/
 def verified : VerifiedPlugin where
