@@ -27,7 +27,7 @@
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 1 | 5 | `Runtime/ApproximationBridge.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 2 | 5 | `Runtime/ApproximationBridge.lean`, `Usage/Examples.lean` |
 | 3.2 inverse: verification | `geo_sampled_bound` | **未找到** | — | — | — |
 | 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |

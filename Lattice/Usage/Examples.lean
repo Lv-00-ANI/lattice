@@ -17,6 +17,7 @@ import Lattice.Runtime.ConstraintToLoss
 import Lattice.Core.IR.Semantics
 import Lattice.Runtime.WeightLadderN
 import Lattice.Runtime.RatRepresentation
+import Lattice.Runtime.ApproxExact
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -356,5 +357,37 @@ theorem rational_representation_roundtrip :
   ⟨Lattice.Lift.RatRepresentation.compile_apply,
    Lattice.Lift.RatRepresentation.rat_extract_compile,
    Lattice.Lift.RatRepresentation.rat_compile_injective_via_abstract⟩
+
+
+/-! ## `EpsSat`：**逆向验证**的阶梯（Q-5 的消费者）
+
+**目标原话的逆向是「把权重行为提取回符号，用于**验证**、修正、再注入」。**
+**「验证」在真实权重上不可能要求精确满足，故树里用 `EpsSat E p ε x := |E.loss p x| ≤ ε` 表述
+「ε-近似满足」。它在 `OBJECTIVE-MAP.md` 里的跨文件引用数是 **1**。**
+
+**⇒ 本节把验证的两级并置成一条可引用的断言：**
+
+| 级 | 定理 | 内容 |
+|:--|:--|:--|
+| **退化到精确** | `epsSat_zero_iff` | `EpsSat E p 0 x ↔ E.loss p x = 0` |
+| **极小点 + 可靠性 ⟹ 精确** | `penaltyExact_of_epsSat_zero` | 若每个局部极小点都 `0`-满足，且嵌入可靠，则 `PenaltyExact E` |
+
+**⇒ 第二级的关键在于 `hsound` **不可省**：`EpsSat · 0` 只谈损失，与 `Sat` 无关。
+去掉可靠性前提，命题**不可证**——不是难证，是**缺一块**。这正是「验证」不是「自证」的形式化体现。** -/
+
+/-- **验证阶梯：0-近似满足就是损失为零；极小点处 0-近似加上可靠性给出精确性。**
+
+**⇒ 两个合取项分别对应「验证在 ε=0 处退化为等式」与「验证在极小点处升级为精确性」。
+**⇒ 后者的 `hsound` 前提是**实质**的：没有它，`EpsSat` 与 `Sat` 之间没有任何桥，
+而「验证」按定义就是要把二者连起来。** -/
+theorem verification_ladder {P X : Type} [TopologicalSpace X]
+    (E : Lattice.Lift.PenaltyEmbedding P X) :
+    (∀ (p : P) (x : X), Lattice.Lift.EpsSat E p 0 x ↔ E.loss p x = 0)
+      ∧ (Lattice.Lift.PenaltySound E →
+          (∀ (p : P) (x : X),
+            IsLocalMin (E.loss p) x → Lattice.Lift.EpsSat E p 0 x) →
+          Lattice.Lift.PenaltyExact E) :=
+  ⟨Lattice.Lift.epsSat_zero_iff E,
+   fun hsound h => Lattice.Lift.penaltyExact_of_epsSat_zero hsound h⟩
 
 end Lattice.Usage
