@@ -1104,7 +1104,7 @@
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Core.IR.Semantics`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.ApproxExact`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Core.IR.Semantics`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.VerificationLoop`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
 
 ## Declarations per module
 
@@ -2155,7 +2155,7 @@
 | `Lattice.Runtime.TotalLoss` | 5 | 2 |
 | `Lattice.Runtime.TypedNumericAlignment` | 3 | 0 |
 | `Lattice.Runtime.VecCarrierCensus` | 2 | 0 |
-| `Lattice.Runtime.VerificationLoop` | 8 | 4 |
+| `Lattice.Runtime.VerificationLoop` | 10 | 4 |
 | `Lattice.Runtime.VerificationSoundness` | 5 | 0 |
 | `Lattice.Runtime.VerifierRate` | 5 | 0 |
 | `Lattice.Runtime.VerifyLoopProgress` | 5 | 2 |
@@ -2193,7 +2193,7 @@
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
 | `Lattice.Usage` | 0 | 0 |
-| `Lattice.Usage.Examples` | 5 | 8 |
+| `Lattice.Usage.Examples` | 6 | 8 |
 
 ## Cross-module uses of theorem/lemma declarations
 
@@ -3579,8 +3579,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closed_lift` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
 - `closed_loop_adds_nothing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
 - `closed_loop_dot_representation_unambiguous` -> `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `length`, `map`, `toVec`
+- `closed_loop_ends_verified_and_zero` -> `Sat`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `loop_end_sat`, `repair`, `run`
 - `closed_loop_engine_form` -> `DefEnv`, `E`, `Reduces`, `Term`, `VectorConstraint`, `at`, `cicToConstraint`
 - `closed_loop_idempotent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
+- `closed_loop_partial_reinject` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
+- `closed_loop_reinject_vanishes` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `closed_nil_iff` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `d`, `templateNames`
 - `closed_ren` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
 - `closed_subst_eq` -> `Term`, `induction`, `subst`
@@ -4398,7 +4401,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `data_models` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `compileWith`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `models`, `models_compileWith`, `nodup_shapesOfCorpus`, `tokenize`, `tokenizeSample`, `width`
 - `data_models_shape` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `tokenize`, `tokenizeSample`, `width`
 - `data_reaches_weight_of_zero_width` -> `AllZeroOutputs`, `ConstSet`, `Sample`, `VectorConstraintSat`, `at`, `cicCtxToConstraintSet`, `cicToConstraint`, `cic_loop_reaches_weight`, `compileToLayer`, `dot`, `width`
-- `data_synthesis_covered` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
+- `data_synthesis_covered` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `SymN`, `TensorShape`, `VerificationLoop`, `act_zero_eq_zero_iff`, `affineAct`, `closed_loop_reinject_vanishes`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loop_end_sat`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `repair`, `resid`, `run`, `shapesOf`
 - `data_to_weight_honest` -> `AllZeroOutputs`, `ConstSet`, `CoversCorpus`, `Sample`, `VectorConstraintSat`, `at`, `cicToConstraint`, `cic_loop_reaches_weight`, `corpusConstraints`, `dot`, `width`
 - `data_to_weight_iff` -> `AllZeroOutputs`, `ConstSet`, `CoversCorpus`, `Sample`, `VectorConstraintSat`, `at`, `cicCtxToConstraintSet`, `cicCtxToConstraintSet_sat_iff`, `cicToConstraint`, `cic_loop_reaches_weight`, `compileToLayer`, `corpusConstraints`, `dot`, `trans`, `width`
 - `dbSat_allDB` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -7130,12 +7133,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lookup_by_name_sound` -> `apply`, `at`, `find`
 - `lookup_lt` -> `CICCtx`, `Canonical`, `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `at`, `induction`, `length`, `length_cons`, `zero`
 - `loopStepMap_contracting` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `op_norm_pow_apply_le`, `zero`
-- `loop_absorbs` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
+- `loop_absorbs` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `loop_converges_to_fixed_point` -> `W`, `at`, `contraction_converges`, `iterate`, `iterate_step_swap`
-- `loop_decreases` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
+- `loop_decreases` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `loop_done` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
-- `loop_end_atomic` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
-- `loop_end_sat` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
+- `loop_end_atomic` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
+- `loop_end_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `loop_exit_wp` -> `Compiler`, `State`, `iterate`
 - `loop_fixed_point` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `progress`, `roundtrip`
 - `loop_fixed_point_exists` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
@@ -7156,7 +7159,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
-- `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
+- `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `loop_witness` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_zero_none` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `lora_edit_additive` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`
@@ -7946,7 +7949,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_left_inverse_at_all` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `symbolToWeight_correct`
 - `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `no_lift_betaSubst_law` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
-- `no_loop_fixes_unsatisfiable` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `run`
+- `no_loop_fixes_unsatisfiable` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`
 - `no_loss_to_constraint_section` -> `Pt`, `at`, `extract`, `penaltyLoss`
 - `no_nontrivial_roundtrip_subset` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
 - `no_object_level_gap` -> `LinearLayer`, `extractVec`
@@ -8506,7 +8509,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyPosHomogeneousProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySubadditiveProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `penaltyToLoss_interface` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_is_loss`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `penaltyToLoss`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
+- `penaltyToLoss_interface` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `SymN`, `TensorShape`, `VerificationLoop`, `act_zero_eq_zero_iff`, `affineAct`, `closed_loop_reinject_vanishes`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_is_loss`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loop_end_sat`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `penaltyToLoss`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `repair`, `resid`, `run`, `shapesOf`
 - `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
@@ -9037,7 +9040,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rat_linear_root_unique` -> `QConstraint`, `QSat`, `at`
 - `rat_zero_is_top` -> `at`
 - `ratioConstant_iff_ratioFactorized` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
-- `rational_representation_roundtrip` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `compile`, `compile_apply`, `epsSat_zero_iff`, `extract`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`
+- `rational_representation_roundtrip` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `compile`, `compile_apply`, `epsSat_zero_iff`, `extract`, `loop_end_sat`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `repair`, `run`
 - `rc_one_is_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
 - `rc_zero_not_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
 - `rcq_kkt_multiplier_not_unique` -> `d`, `le_refl`
@@ -10574,7 +10577,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `structured_error_norm` -> `at`, `d`, `frobeniusNorm`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_chain_error`, `quantFwd`
 - `structured_frobenius_error` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_sub_eq_error`
 - `structured_init_complete` -> `AllSatisfied`, `AllZeroOutputs`, `VectorConstraint`, `extractLayer`
-- `structured_init_zero_iff` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `epsSat_zero_iff`, `extract`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`
+- `structured_init_zero_iff` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `SymN`, `VerificationLoop`, `act_zero_eq_zero_iff`, `affineAct`, `closed_loop_reinject_vanishes`, `compile`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `epsSat_zero_iff`, `extract`, `loop_end_sat`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `repair`, `resid`, `run`
 - `structured_op_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`
 - `structured_output_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `quantFwd`
 - `structured_pruning_error` -> `at`, `frobeniusNorm`, `frobenius_bound`, `g`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
@@ -11407,7 +11410,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_no_sup` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `chain_edit_locality`, `d`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
-- `verification_ladder` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `epsSat_zero_iff`, `loss`, `penaltyExact_of_epsSat_zero`
+- `verification_ladder` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `epsSat_zero_iff`, `loop_end_sat`, `loss`, `penaltyExact_of_epsSat_zero`, `repair`, `run`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `map`, `proof`, `requires`, `soundness`

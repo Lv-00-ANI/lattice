@@ -85,7 +85,10 @@ CLAUSES = {
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
     "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound", "models", "agrees"],
     "3.3 inverse: repair": ["sqDistFix", "parallelFix", "midpointFix"],
-    "3.4 inverse: re-injection": ["reinject_loss_eq_zero", "partial_reinject_bound"],
+    # Round 1025: the clause used to name two theorems that exist ONLY in the archived geometry layer,
+    # so rule A passed while the mainline had no carrier at all. These are the mainline names, and
+    # round 65's measurement is what forced the change.
+    "3.4 inverse: re-injection": ["closed_loop_reinject_vanishes", "closed_loop_partial_reinject"],
     "4 loop": ["converges_within", "bidirRepair"],
     "5 symbolic engine": ["evalPts", "derivation_sound"],
     "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm"],

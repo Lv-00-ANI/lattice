@@ -155,7 +155,7 @@ theorem loop_end_atomic (x : α) :
 **⇒ 所以本条不是新发现而是重建：`VerificationLoop` 结构里本就有
 `objective : α → ℝ`（其 docstring 就写着「The re-injection: what the corrected value is measured
 against」），差的只是把「终点目标为零」命名出来。** -/
-theorem reinject_loss_eq_zero (x : α)
+theorem closed_loop_reinject_vanishes (x : α)
     (hobj : ∀ y, V.repair.Sat y → V.objective y = 0) :
     V.objective (V.run (V.repair.μ x) x) = 0 :=
   hobj _ (V.loop_end_sat x)
@@ -165,7 +165,7 @@ theorem reinject_loss_eq_zero (x : α)
 **⇒ `g (V.run 1 x) = g (V.repair.fix x)`——因为 `run` 委派给 `Repair.iterate`，故 `run 1` 恰好是一步 `fix`。**
 
 **⇒ 这是对归档层 `partial_reinject_bound` 的主树对应物。** -/
-theorem partial_reinject_bound (g : α → ℝ) (x : α) :
+theorem closed_loop_partial_reinject (g : α → ℝ) (x : α) :
     g (V.run 1 x) = g (V.repair.fix x) := by
   show g (V.repair.iterate 1 x) = g (V.repair.fix x)
   rw [Lattice.Core.Repair.iterate_succ]

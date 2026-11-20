@@ -405,10 +405,11 @@ theorem verification_ladder {P X : Type} [TopologicalSpace X]
 **⇒ 这是对「修正不是循环的目的，验证才是」这句话的形式化：**
 **循环可以停下来的位置，恰好是目标为零的位置。**
 **⇒ 前提 `hobj`（「目标在 `Sat` 处为零」）不可省：它正是「再注入就是把符号要求度量回来」的定义。** -/
-theorem closed_loop_ends_at_zero_objective {α : Type}
+theorem closed_loop_ends_verified_and_zero {α : Type}
     (V : Lattice.Runtime.VerificationLoop α) (x : α)
     (hobj : ∀ y, V.repair.Sat y → V.objective y = 0) :
-    V.objective (V.run (V.repair.μ x) x) = 0 :=
-  V.reinject_loss_eq_zero x hobj
+    V.repair.Sat (V.run (V.repair.μ x) x)
+      ∧ V.objective (V.run (V.repair.μ x) x) = 0 :=
+  ⟨V.loop_end_sat x, V.closed_loop_reinject_vanishes x hobj⟩
 
 end Lattice.Usage

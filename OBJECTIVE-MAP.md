@@ -34,8 +34,8 @@
 | 3.3 inverse: repair | `sqDistFix` | **未找到** | — | — | — |
 | 3.3 inverse: repair | `parallelFix` | **未找到** | — | — | — |
 | 3.3 inverse: repair | `midpointFix` | **未找到** | — | — | — |
-| 3.4 inverse: re-injection | `reinject_loss_eq_zero` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 3.4 inverse: re-injection | `partial_reinject_bound` | `Runtime/VerificationLoop.lean` | 0 **← 死代码** | 0 | — |
+| 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
+| 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
 | 5 symbolic engine | `evalPts` | **未找到** | — | — | — |
