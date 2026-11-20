@@ -3267,6 +3267,8 @@ Plugins/Core/Repair/Plugin.lean	atomicOfZeroIffProp_holds
 Plugins/Core/Repair/Plugin.lean	stableProp_holds
 Plugins/Core/Repair/Plugin.lean	preservesProp_holds
 Plugins/Core/Repair/Plugin.lean	iterateSuccProp_holds
+Plugins/Core/Repair/Plugin.lean	repairIterateAddProp_holds
+Plugins/Core/Repair/Plugin.lean	repairMeasureNonIncreasingProp_holds
 Plugins/Core/Repair/Plugin.lean	proof_holds
 Plugins/Core/Repair/Plugin.lean	verified_manifest
 Plugins/Core/Repair/Plugin.lean	verified_obligations

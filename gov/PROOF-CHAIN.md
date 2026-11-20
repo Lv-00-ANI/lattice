@@ -2010,7 +2010,7 @@
 | `Lattice.Plugins.Core.Constraint.Manifest` | 13 | 5 |
 | `Lattice.Plugins.Core.Constraint.Plugin` | 10 | 9 |
 | `Lattice.Plugins.Core.Repair.Manifest` | 13 | 9 |
-| `Lattice.Plugins.Core.Repair.Plugin` | 11 | 10 |
+| `Lattice.Plugins.Core.Repair.Plugin` | 13 | 12 |
 | `Lattice.Plugins.Domains` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints` | 0 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 13 | 8 |
@@ -2792,7 +2792,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `async_delay_step` -> `induction`, `le`, `zero`
 - `async_random_delay_converges` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
 - `async_random_delay_step` -> `at`, `d`, `g`, `induction`, `le_trans`, `zero`
-- `atomicOfZeroIffProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `atomicOfZeroIffProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `atomic_is_the_base_case` -> `Repair`, `Sat`
 - `atomic_of_binary` -> `Repair`, `Sat`
 - `atomic_of_zero_iff` -> `Repair`, `Sat`
@@ -4117,8 +4117,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conv_translation_equivariant` -> `Conv`, `shift`
 - `conv_window_determines_output` -> `Conv`
 - `converges` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
-- `convergesWithinProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `convergesWithinTightProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `convergesWithinProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `convergesWithinTightProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `converges_within` -> `Repair`, `Sat`, `induction`, `iterate`, `iterate_succ`, `zero`
 - `converges_within_is_tight` -> `Sat`, `iterate`
 - `converges_within_steps` -> `Repair`, `Sat`, `iterate`
@@ -6607,7 +6607,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `iterateStep_succ` -> `E`, `apply`, `eps`, `induction`, `op_apply_le`, `prod_one_add_le_exp`, `zero`
 - `iterateStep_tendsto_fixedPoint` -> `at`, `complete`, `iterateStep`
 - `iterateStep_zero` -> `E`, `apply`, `eps`, `induction`, `op_apply_le`, `prod_one_add_le_exp`, `zero`
-- `iterateSuccProp_holds` -> `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `completeness`, `iterate_succ`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `iterateSuccProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `iterate_comm` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `progress`, `runs_preserved`, `sim_id`, `trans`, `zero`
 - `iterate_comp_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
 - `iterate_fix_of_sat` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
@@ -8688,7 +8688,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `preservation_multistep_ext` -> `induction`, `step`
 - `preservation_needs_a_projection_law` -> `ConstraintSat`, `LinearConstraint`, `at`, `induction`, `iterate_succ`, `preserves`, `zero`
 - `preserves` -> `Sat`, `at`, `induction`, `iterate`, `zero`
-- `preservesProp_holds` -> `Holds`, `PluginProof`, `Repair`, `VerifiedPlugin`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `preservesProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `preserves_foldl` -> `Audit`, `Repair`, `Sat`, `apply`, `g`, `induction`, `iterate`, `zero`
 - `preserves_free` -> `Repair`, `Sat`, `at`
 - `preserves_iterate` -> `Audit`, `Repair`, `Sat`, `g`, `induction`, `iterate`, `zero`
@@ -8729,8 +8729,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `programLoss_lipschitz` -> `IsLipschitzInstr`, `LayerProgram`, `card_fin`, `evalProgram`, `evalProgram_lipschitz`, `g`, `length`, `sum_sq_lipschitz_on_bounded`
 - `program_sound_at_minimiser` -> `E`, `Sat`, `at`, `loss`, `trivial`
 - `progress` -> `Compiler`, `HasType`, `Relation`, `Sat`, `Step`, `Ty`, `Value`, `add`, `at`, `e2`, `induction`, `iterate`, `preservation`, `step`, `zero`
-- `progressOnWFProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `progressProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `progress`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `progressOnWFProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `progressProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `progress`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `progress_aux` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
 - `progress_ext` -> `add`, `e2`, `induction`, `step`
 - `progress_is_false` -> `Step`, `Term`, `Typable`
@@ -9305,6 +9305,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repLo_mem` -> `at`, `clampTo`, `contains`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
 - `repairEven_odd_to_even` -> `EvenSat`, `at`, `induction`, `zero`
 - `repairEven_preserves` -> `EvenSat`, `induction`, `zero`
+- `repairIterateAddProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `repairMeasureNonIncreasingProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `repairTo_converges` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_is_a_repair` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_lands` -> `ConstraintSat`, `iterate_succ`, `preserves`
@@ -10421,7 +10423,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ssm_state_compose` -> `E`, `apply`, `induction`, `rnnState`, `zero`
 - `ssm_state_growth_bound` -> `E`, `apply`
 - `stable` -> `Sat`, `at`, `induction`, `iterate`, `zero`
-- `stableProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `iterate`, `iterate_succ`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `stableProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `stackChain_zero` -> `Arch`, `Chain`, `Weights`, `act`, `act_cast_snd`, `act_cons`, `act_idf`, `depth`, `induction`, `mlayerAct`, `toLayer`, `width`, `zero`
 - `stackDepth_eq_one` -> `add`, `induction`, `length`, `lit`, `mul`
 - `stackDepth_left` -> `add`, `at`, `induction`, `le_trans`, `length`, `length_cons`, `lit`, `mid`, `mul`, `nil_append`, `split`
