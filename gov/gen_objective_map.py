@@ -83,8 +83,19 @@ def render(C):
                 if rel.startswith("Reference/"):
                     continue
                 m = DECL.search(src)
-                if re.search(r"(?m)^(?:noncomputable\s+)?(?:private\s+)?(?:def|theorem|abbrev|structure|inductive)\s+%s\b"
-                             % re.escape(name), src):
+                # **Round 1023: this pattern was TOO NARROW and produced eight false "not found"
+                # entries -- including every carrier of clause 3.3 (repair), clause 3.4 (re-injection)
+                # and clause 5 (the symbolic engine), i.e. two steps the objective names explicitly.
+                # The names all exist in the tree; they are written with attributes (`@[simp]`), with
+                # `lemma`, or with modifiers in an order the old alternation rejected.
+                # **`check_objective_coverage.py` had been passing the whole time, and that
+                # disagreement is what exposed this: the weak reader and the strong reader disagreed,
+                # and the WEAK one was right.**
+                if re.search(
+                        r"(?m)^\s*(?:@\[[^\]]*\]\s*)*"
+                        r"(?:(?:noncomputable|private|protected|partial|unsafe)\s+)*"
+                        r"(?:def|theorem|lemma|abbrev|structure|inductive)\s+%s\b"
+                        % re.escape(name), src):
                     where = rel
                     break
             # users: files (other than the definer's) that mention the name
