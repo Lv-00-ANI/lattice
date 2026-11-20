@@ -98,3 +98,13 @@ vacuous_total	57
 # Both needed a helper proved here first (`gnnLayerStack_eq_iterate`, `gnnLayerStack_add`), because
 # `layerStack` is defined by recursion on the COUNT and the library had no algebra of it.
 # GNN's eleven `*Prop`s were all consumed.
+#
+# Round 1008 measured `Plugins/Compose` and drained NOTHING, deliberately. Its seven `True` slots are
+# `exactness`, `approximation`, `equivariance`, `idempotence`, `invariants`, `completeness` and
+# `refinement`. The only candidates its current theory offers are `rfl`-level:
+#   refinement  would be  composeWith id f g = compose f g      (id adaptation; defeq)
+#   invariants  would be  (compose f g h).strength = f.strength (the field is set by rfl)
+# and the genuine laws it HAS (associativity, parallel commutation, identity units) are already in
+# `recovery`, `spatial` and `confluence`. Quoting an `rfl` proposition would be the substitution
+# this register exists to prevent, so the seven stay `True` -- honestly, not for lack of trying.
+# => `Compose` joins `ChainSlot` in the measured-honest-empty group (9 + 7 = 16 of the remaining).
