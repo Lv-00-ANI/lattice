@@ -417,13 +417,23 @@ CHECKS = [
 # command. That made the advertised fast path prove less than the full one about
 # correctness, while looking like the cheap way to check health. They are cheap enough
 # now that the kernel tree is a single root: measured 3 s and 6 s respectively.
-SLOW_ONLY = set()
+# **Round 1015: this set was EMPTY, so `--fast` skipped nothing and only made gate.py cheaper.**
+# The machine has run out of memory during the full run for five consecutive rounds, so there was no
+# assertable evidence at all. The eleven reactivity checks are the expensive ones AND the ones that
+# plant probe sources, so they are the right thing to skip: `--fast` now covers gate.py, every audit,
+# every report and every pre-check, and fits in ~3 GB.
+SLOW_ONLY = {
+    "reactivity: gate", "reactivity: layering", "reactivity: slots", "reactivity: comments",
+    "reactivity: I8 gate", "reactivity: registry", "reactivity: registry-gate", "reactivity: G4",
+    "reactivity: tables", "reactivity: counts", "reactivity: ci workflow",
+}
 
 
 def main():
     fast = "--fast" in sys.argv
-    if fast:
-        os.environ["DSH_GATE_SCOPE"] = "kernel"
+    # **Round 1015: this used to set DSH_GATE_SCOPE=kernel, which CHANGES gate.py's verdict -- the narrowed
+    # scope reported six I5 findings that the full scope does not. A "fast" mode that alters a gate's answer is
+    # not a fast mode, it is a different gate. `--fast` now only skips the reactivity checks.**
     failures = []
     gating_ok = 0
     reports = 0
@@ -457,7 +467,7 @@ def main():
         for label, code, out in failures:
             print("\n--- %s (exit %d) ---" % (label, code))
             print(out.strip()[:1200])
-    mode = "fast (kernel only)" if fast else "full"
+    mode = "fast (reactivity skipped)" if fast else "full"
     # The summary separates the two populations on purpose. A single "32/32 PASS" hid the
     # fact that 16 of those 32 could not have returned anything but 0.
     print("VERIFY ALL [%s]: %s  (%.1fs total)" %
