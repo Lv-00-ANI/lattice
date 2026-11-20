@@ -721,6 +721,8 @@ Core/RepairModule/RepairWF.lean	iterate_succ
 Core/RepairModule/RepairWF.lean	iterate_shift
 Core/RepairModule/RepairWF.lean	progress_on_wf
 Core/RepairModule/RepairWF.lean	preserves_of_sat
+Core/RepairModule/SqDistRepair.lean	sqDistHalving_terminates
+Core/RepairModule/SqDistRepair.lean	sqDistHalving_terminates_and_stabilises
 Core/RepairModule/VariableDerivative.lean	differentiableAt_mlayerAct_params
 Core/RepairModule/VariableDerivative.lean	chainParams_idf
 Core/RepairModule/VariableDerivative.lean	Chain.actWith_cons
@@ -4069,3 +4071,4 @@ Usage/Examples.lean	structured_init_zero_iff
 Usage/Examples.lean	rational_representation_roundtrip
 Usage/Examples.lean	verification_ladder
 Usage/Examples.lean	closed_loop_ends_verified_and_zero
+Usage/Examples.lean	repair_reaches_and_stabilises
