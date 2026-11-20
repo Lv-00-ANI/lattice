@@ -106,6 +106,31 @@ theorem convOneTapProp_holds : ConvOneTapProp := by
   rw [Fin.sum_univ_one]
   simp
 
+/-- **`ConvBoundProp`（`approximation`）：卷积输出的绝对值被**滤波器绝对和**与**输入上界**之积所控。**
+
+**⇒ `|convApply k f x i| ≤ (∑ j, |f j|) · M`，只要窗口内 `|x (i+j)| ≤ M` 且 `M ≥ 0`。**
+**这条不是三角不等式的机械应用：它把「卷积能放大多少」变成一个**可算的量**——
+放大率恰是滤波器的 `ℓ¹` 范数。**⇒ 于是「卷积不会失控」不再是一句经验判断，
+而是关于 `f` 的一个数值条件。**
+**也正因为它，`approximation` 这个槽在这里有内容：输出近似输入，误差由 `∑|f j|` 度量。** -/
+def ConvBoundProp : Prop :=
+  ∀ (k : ℕ) (f : Fin k → ℝ) (x : ℕ → ℝ) (i : ℕ) (M : ℝ),
+    0 ≤ M → (∀ j : Fin k, |x (i + j)| ≤ M) →
+    |convApply k f x i| ≤ (∑ j : Fin k, |f j|) * M
+
+/-- **`ConvBoundProp` holds** — 三角不等式 + 逐项放缩 + 提取公因子 `M`。 -/
+theorem convBoundProp_holds : ConvBoundProp := by
+  intro k f x i M hM hx
+  show |∑ j : Fin k, f j * x (i + j)| ≤ (∑ j : Fin k, |f j|) * M
+  calc |∑ j : Fin k, f j * x (i + j)|
+      ≤ ∑ j : Fin k, |f j * x (i + j)| := Finset.abs_sum_le_sum_abs _ _
+    _ = ∑ j : Fin k, |f j| * |x (i + j)| := by
+          exact Finset.sum_congr rfl (fun j _ => abs_mul _ _)
+    _ ≤ ∑ j : Fin k, |f j| * M := by
+          exact Finset.sum_le_sum (fun j _ =>
+            mul_le_mul_of_nonneg_left (hx j) (abs_nonneg _))
+    _ = (∑ j : Fin k, |f j|) * M := by rw [Finset.sum_mul]
+
 /-- **The convolution carrier's proof bundle.**
 
 **`equivariance` is the slot filled here -- the first non-`True` equivariance in an architecture plugin.**
@@ -114,7 +139,7 @@ def proof : PluginProof where
   soundness := ConvWeightSharingProp
   laws := ConvLinearityProp
   exactness := ConvWindowDeterminesOutputProp
-  approximation := True
+  approximation := ConvBoundProp
   recovery := ConvShiftComposeProp
   spatial := True
   confluence := True
@@ -130,7 +155,7 @@ theorem proof_holds : proof.Holds := by
   exact ⟨convWeightSharingProp_holds,
          convLinearityProp_holds,
          convWindowDeterminesOutputProp_holds,
-         True.intro, convShiftComposeProp_holds, True.intro, True.intro,
+         convBoundProp_holds, convShiftComposeProp_holds, True.intro, True.intro,
          convEquivarianceProp_holds,
          True.intro, True.intro, True.intro, convOneTapProp_holds⟩
 
