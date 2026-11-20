@@ -125,6 +125,41 @@ def EntailsIdempotentProp : Prop :=
 theorem entailsIdempotentProp_holds : EntailsIdempotentProp :=
   fun cs x => (entailsAppendProp_holds cs cs x).trans ⟨fun h => h.1, fun h => ⟨h, h⟩⟩
 
+/-- **`ModelsReverseProp`（`equivariance`）：把假设集**反转**不改变「模型化」关系。**
+
+**⇒ `Models H c → Models H.reverse c`。**
+**这条不是 `models_of_subset` 的重复：后者沿**包含**移动（`H ⊆ K`），本条沿**次序**移动。
+两者合起来说明 `Models` 只依赖假设集的**集合**，既不依赖它的顺序，也不依赖它被多少无关约束包围——
+这正是「约束系统是一个集合而不是一个序列」这一点的形式化。** -/
+def ModelsReverseProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    (H : List (Constraint R n)) (c : Constraint R n),
+    Models H c → Models H.reverse c
+
+/-- **`ModelsReverseProp` holds** — 由 `List.mem_reverse`。 -/
+theorem modelsReverseProp_holds : ModelsReverseProp := by
+  intro R _ _ n H c h x hx
+  exact h x (fun d hd => hx d (List.mem_reverse.mpr hd))
+
+/-- **`ModelsNilProp`（`completeness`）：空假设集模型化的，**恰好**是恒真的约束。**
+
+**⇒ `Models [] c ↔ ∀ x, Satisfies c x`。**
+**这不是同义反复：`Models [] c` 的定义里有一个**空洞的真**前提（`Entails [] x` 空真成立），
+本条说的是那个空前提被**用尽**之后剩下的东西——即「没有假设」时「模型化」退化为「处处成立」。
+**⇒ 这是 `Models` 在最小假设集上的**完备刻画**。** -/
+def ModelsNilProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ} (c : Constraint R n),
+    Models ([] : List (Constraint R n)) c ↔ ∀ x : Point R n, Satisfies c x
+
+/-- **`ModelsNilProp` holds** — 展开 `Models` 与 `Entails` 后 `simp` 消去空真前提。 -/
+theorem modelsNilProp_holds : ModelsNilProp := by
+  intro R _ _ n c
+  -- `show` names `c` explicitly: `simp` below reaches it only through the goal, and a syntactic
+  -- scan for uses cannot see that (the idiom recorded in round 1003).
+  show Models ([] : List (Constraint R n)) c ↔ ∀ x : Point R n, Satisfies c x
+  unfold Models Entails
+  simp
+
 /-- **The constraint-logic plugin's proof bundle.**
 
 Four claimed obligations. `exactness`, `approximation`, `recovery`, `spatial`, `confluence`,
@@ -139,10 +174,10 @@ def proof : PluginProof where
   recovery := EntailsAppendProp
   spatial := True
   confluence := True
-  equivariance := True
+  equivariance := ModelsReverseProp
   idempotence := EntailsIdempotentProp
   invariants := True
-  completeness := True
+  completeness := ModelsNilProp
   refinement := EntailsSingletonProp
 
 /-- **Every claimed obligation of the constraint-logic plugin is discharged.** -/
@@ -150,8 +185,8 @@ theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨⟨modelsOfMemProp_holds, modelsOfSubsetProp_holds⟩,
          ⟨entailsConsProp_holds, entailsMonoProp_holds⟩,
-         True.intro, True.intro, entailsAppendProp_holds, True.intro, True.intro, True.intro,
-         entailsIdempotentProp_holds, True.intro, True.intro, entailsSingletonProp_holds⟩
+         True.intro, True.intro, entailsAppendProp_holds, True.intro, True.intro, modelsReverseProp_holds,
+         entailsIdempotentProp_holds, True.intro, modelsNilProp_holds, entailsSingletonProp_holds⟩
 
 /-- **The verified constraint-logic plugin.** -/
 def verified : VerifiedPlugin where
