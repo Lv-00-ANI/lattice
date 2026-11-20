@@ -151,6 +151,12 @@ CHECKS = [
     ("audit: alias self-test", "audit_aliases.py --self-test"),
     ("report: prop-def binder strength", "check_prop_def_strength.py --check"),
     ("meta: prop-def strength self-test", "check_prop_def_strength.py --self-test"),
+    # Round 1007: a verify run killed mid-flight leaves probe debris, and my recovery procedure was a
+    # HARD-CODED list of three probe names while `verify_all` runs ELEVEN reactivity probes. Three rounds
+    # in a row a killed run left a probe the list did not name, and the next gate.py failed with exit 8.
+    # => the answer is now derived: an ARTIFACT with no SOURCE is debris by definition.
+    ("meta: no artifact without a source", "clean_probes.py --check"),
+    ("meta: probe cleaner self-test", "clean_probes.py --self-test"),
     # Round 14. A splice ate a file's final end Lattice and lake build still passed.
     ("audit: namespace closure", "check_namespace_balance.py"),
     ("audit: namespace self-test", "check_namespace_balance.py --self-test"),
