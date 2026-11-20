@@ -19,6 +19,7 @@ import Lattice.Runtime.WeightLadderN
 import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.ApproxExact
 import Lattice.Runtime.VerificationLoop
+import Lattice.Core.RepairModule.SqDistRepair
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -411,5 +412,27 @@ theorem closed_loop_ends_verified_and_zero {α : Type}
     V.repair.Sat (V.run (V.repair.μ x) x)
       ∧ V.objective (V.run (V.repair.μ x) x) = 0 :=
   ⟨V.loop_end_sat x, V.closed_loop_reinject_vanishes x hobj⟩
+
+
+/-! ## 修正（`sqDistHalvingRepair`）：闭环的第二步在主树里有了实例
+
+**条款 3.3 曾是 14 条目标断言中**唯一**在主树里完全没有载体的那一条：**
+**它引的 `sqDistFix`/`parallelFix`/`midpointFix` 只存在于已归档的几何层。**
+
+**⇒ 主树现在有一个**同形状的 `Repair` 实例**：`sqDistHalvingRepair`，
+平方距离每轮减半。本节是它的第一个跨文件读者。** -/
+
+/-- **修正既到达通过状态，又在到达后停下。**
+
+**⇒ 两个合取项分别是「存在某一轮平方距离归零」与「那一轮之后再修正不改变值」。**
+**⇒ 只有前一半的修正会继续拍打一个已通过的点；只有后一半的修正从来不会到达。**
+**⇒ 两半合起来才是「闭环的修正」。** -/
+theorem repair_reaches_and_stabilises (n : ℕ) :
+    ∃ k : ℕ, Lattice.Core.sqDistHalvingRepair.Sat
+        (Lattice.Core.sqDistHalvingRepair.iterate k n)
+      ∧ Lattice.Core.sqDistHalvingRepair.fix
+          (Lattice.Core.sqDistHalvingRepair.iterate k n)
+        = Lattice.Core.sqDistHalvingRepair.iterate k n :=
+  Lattice.Core.sqDistHalving_terminates_and_stabilises n
 
 end Lattice.Usage

@@ -84,7 +84,13 @@ CLAUSES = {
     "2.3 forward: structured init": ["weightLadderN", "compile_sound_n", "compileWith"],
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
     "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound", "models", "agrees"],
-    "3.3 inverse: repair": ["sqDistFix", "parallelFix", "midpointFix"],
+    # Round 1027: these three existed ONLY in the archived geometry layer, so clause 3.3 was the last
+    # clause with no mainline carrier. Round 1025 proved that re-declaring the ARCHIVE names collides
+    # with them (duplicate names AND duplicate statements both fired), so the mainline carrier is a
+    # REPAIR INSTANCE of the same shape -- a geometric defect whose squared distance halves each round
+    # -- declared under a fresh name in `Core/RepairModule/SqDistRepair.lean`, next to the existing
+    # `parityRepair` and `downFix` instances.
+    "3.3 inverse: repair": ["sqDistHalvingRepair"],
     # Round 1025: the clause used to name two theorems that exist ONLY in the archived geometry layer,
     # so rule A passed while the mainline had no carrier at all. These are the mainline names, and
     # round 65's measurement is what forced the change.

@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 740 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 742 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 166 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -88,6 +88,7 @@
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Core/RepairModule/Repair.lean` | `parity_terminates` |
 | `Core/RepairModule/RepairBridge.lean` | `converges` |
+| `Core/RepairModule/SqDistRepair.lean` | `sqDistHalving_terminates` |
 | `Evidence/MultiComposition.lean` | `chain_single` |
 | `Evidence/MultiComposition.lean` | `chain_two` |
 | `Evidence/PredicateWitnesses.lean` | `isometryScalar_id` |
@@ -772,6 +773,7 @@
 | `Semantics/Stage1.lean` | `inherits_sound` |
 | `Semantics/VocabEdit.lean` | `split_error_bound` |
 | `Semantics/VocabEdit.lean` | `vocab_compat_permutation` |
+| `Usage/Examples.lean` | `repair_reaches_and_stabilises` |
 
 ## copy
 

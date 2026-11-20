@@ -161,6 +161,7 @@ import Lattice.Core.RepairModule.RepairMultistep
 import Lattice.Core.RepairModule.RepairWF
 import Lattice.Core.RepairModule.RepairBridge
 import Lattice.Core.RepairModule.VariableDerivative
+import Lattice.Core.RepairModule.SqDistRepair
 
 
 /-!
