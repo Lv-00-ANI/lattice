@@ -144,6 +144,33 @@ theorem loop_end_atomic (x : α) :
     V.repair.μ (V.run (V.repair.μ x) x) = 0 → V.repair.Sat (V.run (V.repair.μ x) x) :=
   fun h => V.repair.atomic _ h
 
+/-- **再注入：在循环的终点，目标函数恰好为零。**
+
+**⇒ `V.objective (V.run (V.repair.μ x) x) = 0`，只需「目标在 `Sat` 处为零」这一个前提。**
+
+**⇒ 这条在第 1024 轮之前不存在于主树：`OBJECTIVE-MAP.md` 的 3.4 条款引的
+`reinject_loss_eq_zero` 只存在于已归档的几何层，
+而主树的 `VerificationLoop.lean:17` 只是一行 docstring 指向它。**
+
+**⇒ 所以本条不是新发现而是重建：`VerificationLoop` 结构里本就有
+`objective : α → ℝ`（其 docstring 就写着「The re-injection: what the corrected value is measured
+against」），差的只是把「终点目标为零」命名出来。** -/
+theorem reinject_loss_eq_zero (x : α)
+    (hobj : ∀ y, V.repair.Sat y → V.objective y = 0) :
+    V.objective (V.run (V.repair.μ x) x) = 0 :=
+  hobj _ (V.loop_end_sat x)
+
+/-- **局部再注入的界：一轮修正之后，任意目标不变。**
+
+**⇒ `g (V.run 1 x) = g (V.repair.fix x)`——因为 `run` 委派给 `Repair.iterate`，故 `run 1` 恰好是一步 `fix`。**
+
+**⇒ 这是对归档层 `partial_reinject_bound` 的主树对应物。** -/
+theorem partial_reinject_bound (g : α → ℝ) (x : α) :
+    g (V.run 1 x) = g (V.repair.fix x) := by
+  show g (V.repair.iterate 1 x) = g (V.repair.fix x)
+  rw [Lattice.Core.Repair.iterate_succ]
+  rfl
+
 end VerificationLoop
 
 /-! ## The named closed-loop proposition -/

@@ -18,6 +18,7 @@ import Lattice.Core.IR.Semantics
 import Lattice.Runtime.WeightLadderN
 import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.ApproxExact
+import Lattice.Runtime.VerificationLoop
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -389,5 +390,25 @@ theorem verification_ladder {P X : Type} [TopologicalSpace X]
           Lattice.Lift.PenaltyExact E) :=
   ⟨Lattice.Lift.epsSat_zero_iff E,
    fun hsound h => Lattice.Lift.penaltyExact_of_epsSat_zero hsound h⟩
+
+
+/-! ## 再注入（`reinject_loss_eq_zero`）：闭环的第三步在主树里有了读者
+
+**目标原话的闭环是「验证 → 修正 → 再注入」。第 1024 轮发现：**
+**`OBJECTIVE-MAP.md` 的 3.4 条款引的 `reinject_loss_eq_zero` 与 `partial_reinject_bound`**
+**只存在于已归档的几何层。本轮在主树 `Runtime/VerificationLoop.lean` 里重建了它们。**
+
+**⇒ 但重建之后它们的跨文件引用数仍是 **0**——即「找到但死代码」。本节是它们的第一个读者。** -/
+
+/-- **闭环的终点上，再注入的目标恰好为零。**
+
+**⇒ 这是对「修正不是循环的目的，验证才是」这句话的形式化：**
+**循环可以停下来的位置，恰好是目标为零的位置。**
+**⇒ 前提 `hobj`（「目标在 `Sat` 处为零」）不可省：它正是「再注入就是把符号要求度量回来」的定义。** -/
+theorem closed_loop_ends_at_zero_objective {α : Type}
+    (V : Lattice.Runtime.VerificationLoop α) (x : α)
+    (hobj : ∀ y, V.repair.Sat y → V.objective y = 0) :
+    V.objective (V.run (V.repair.μ x) x) = 0 :=
+  V.reinject_loss_eq_zero x hobj
 
 end Lattice.Usage
