@@ -168,6 +168,38 @@ theorem penaltyZeroOnFeasibleProp_holds : PenaltyZeroOnFeasibleProp := by
   simp only [max_def]
   split_ifs with h1 h2 <;> linarith
 
+/-- **`PenaltySubadditiveProp`（`spatial`）：铰链惩罚**次可加**。**
+
+**⇒ `max (a + b) 0 ≤ max a 0 + max b 0`。**
+**这不是一个不等式技巧，而是**惩罚方法为什么成立**的那条性质：两处违反叠在一起，
+总惩罚不会超过两处各自惩罚之和——于是最小化联合惩罚不会被「制造更多小违反」所欺骗。
+**若它反向（超可加），惩罚方法就会奖励把违反拆散，那是另一套理论。** -/
+def PenaltySubadditiveProp : Prop :=
+  ∀ (a b : ℝ), max (a + b) 0 ≤ max a 0 + max b 0
+
+/-- **`PenaltySubadditiveProp` holds** — 展开 `max` 后分情形，每种情形 `linarith`。 -/
+theorem penaltySubadditiveProp_holds : PenaltySubadditiveProp := by
+  intro a b
+  show max (a + b) 0 ≤ max a 0 + max b 0
+  simp only [max_def]
+  split_ifs <;> linarith
+
+/-- **`PenaltyMonotoneProp`（`invariants`）：惩罚**保持次序**。**
+
+**⇒ `a ≤ b → max a 0 ≤ max b 0`。**
+**⇒ 这是 `invariants` 该说的东西：把输入按可行度排序，输出的惩罚**保持同一个次序**——
+于是「降低惩罚」与「更接近可行」是同一个方向。
+**若二者方向相反，整个约束损失的设计就失去意义。** -/
+def PenaltyMonotoneProp : Prop :=
+  ∀ (a b : ℝ), a ≤ b → max a 0 ≤ max b 0
+
+/-- **`PenaltyMonotoneProp` holds** — 展开 `max` 后分情形，每种情形 `linarith`。 -/
+theorem penaltyMonotoneProp_holds : PenaltyMonotoneProp := by
+  intro a b h
+  show max a 0 ≤ max b 0
+  simp only [max_def]
+  split_ifs <;> linarith
+
 /-- **The penalty plugin's proof bundle.**
 
 `soundness`, `exactness`, `completeness`, `approximation`, `laws`, `idempotence` and `refinement`
@@ -189,11 +221,11 @@ def proof : PluginProof where
   exactness := ExactnessProp ∧ ExactnessInequalityProp
   approximation := ApproximationEqZeroProp
   recovery := True
-  spatial := True
+  spatial := PenaltySubadditiveProp
   confluence := True
   equivariance := True
   idempotence := PenaltyClampIdempotentProp
-  invariants := True
+  invariants := PenaltyMonotoneProp
   completeness := CompletenessProp
   refinement := PenaltyZeroOnFeasibleProp
 
@@ -204,7 +236,7 @@ bundle holds. Each conjunct is `exact` at a theorem proved in this file, which i
 `exact` at a theorem of the domain library -- so the chain from manifest to library is
 `penaltyLoss_eq_zero_iff_holds_sq` and friends, with no gaps. -/
 theorem proof_holds : proof.Holds := by
-  refine ⟨?_, penaltyNonnegProp_holds, ?_, ?_, trivial, trivial, trivial, trivial, penaltyClampIdempotentProp_holds, trivial, ?_, penaltyZeroOnFeasibleProp_holds⟩
+  refine ⟨?_, penaltyNonnegProp_holds, ?_, ?_, trivial, penaltySubadditiveProp_holds, trivial, trivial, penaltyClampIdempotentProp_holds, penaltyMonotoneProp_holds, ?_, penaltyZeroOnFeasibleProp_holds⟩
   · exact soundnessProp_holds
   · exact ⟨exactnessProp_holds, exactnessInequalityProp_holds⟩
   · exact approximationEqZeroProp_holds
