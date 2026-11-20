@@ -157,6 +157,11 @@ CHECKS = [
     # => the answer is now derived: an ARTIFACT with no SOURCE is debris by definition.
     ("meta: no artifact without a source", "clean_probes.py --check"),
     ("meta: probe cleaner self-test", "clean_probes.py --self-test"),
+    # Round 1013: the count sync was the last hand-driven step, and round 1012 recorded its cost -- two
+    # numbers typed one off, caught by a checker rather than by me. `sync_counts.py` takes both the old and
+    # the new value from the CHECKERS, so it cannot invent a number. Only its self-test is a gate: the
+    # checkers themselves already gate the documents.
+    ("meta: count sync self-test", "sync_counts.py --self-test"),
     # Round 14. A splice ate a file's final end Lattice and lake build still passed.
     ("audit: namespace closure", "check_namespace_balance.py"),
     ("audit: namespace self-test", "check_namespace_balance.py --self-test"),
