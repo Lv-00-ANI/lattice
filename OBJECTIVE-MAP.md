@@ -21,7 +21,7 @@
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `synth_coverage` | **未找到** | — | — | — |
-| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 0 *(仅本文件)* | 2 | — |
+| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 1 | 0 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
@@ -48,7 +48,7 @@
 - 条款数：14
 - 载体总数：31
 - **死代码载体（同文件也不用）：9**
-- 仅同文件使用的载体：1
+- 仅同文件使用的载体：0
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

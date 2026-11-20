@@ -14,6 +14,7 @@ import Lattice.Core.RepairModule.Repair
 import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.ConstraintToLoss
+import Lattice.Core.IR.Semantics
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -262,5 +263,34 @@ theorem penaltyToLoss_interface {P X : Type} [TopologicalSpace X]
       (∀ x : X,
         (Lattice.Lift.PenaltyToLossCompiler.penaltyToLoss E).satP p x ↔ E.loss p x ≤ 0) :=
   ⟨Lattice.Lift.PenaltyToLossCompiler.compile_is_loss E p, fun _ => Iff.rfl⟩
+
+
+/-! ## `covered_of_vanishing`：**数据合成**的覆盖半（Q-2 的第一个跨文件消费者）
+
+**目标原话的正向编译第二个括号是「数据合成」。树里对应的载体是 `covered_of_vanishing`，
+它在 `OBJECTIVE-MAP.md` 里的跨文件引用数是 **0**。**
+
+**该定理自己的 docstring 已经说明了它的地位：**
+「这是 `covered` 在**非零数据**上唯一被真正**建立**的地方——树里其余关于 `covered` 的不是空（零数据）
+就是反例」。
+
+**⇒ 所以它不需要更多定理，需要**一个读者**。本节把它的两半写在一处：
+`covered_of_vanishing` 给出**覆盖**，`models_of_covered_data` 给出**整个 `ModelsIRSWith`**，
+而后者正是「合成的数据是一个模型」这句话的形式化。** -/
+
+open Lattice.Core.IR in
+/-- **数据合成：一个「在关系不看的地方取零」的 `f` 物化出**被覆盖**的结构，且该结构**模型化**骨架。**
+
+**⇒ 两个合取项分别来自 `covered_of_vanishing` 与 `models_of_covered_data`；
+本节的意义是把它们**并置**，使「覆盖」不再是一个孤立条件，而是 `ModelsIRSWith` 的一个合取项。
+**⇒ 这正是「数据合成」作为一种编译机制的内容：不是生成任意数据，而是生成**满足覆盖条件**的数据。** -/
+theorem data_synthesis_covered (k : IRSkeleton)
+    (f : (s : TensorShape) → Fin s.shape.prod → ℝ)
+    (hnd : (k.tensors.map (·.id)).Nodup)
+    (hzero : ∀ (st : TensorShape) (_ : st ∈ k.tensors) (i : ℕ) (hi : i < st.shape.prod),
+        (∀ r ∈ k.relations, ¬ Names r st.id [i]) → f st ⟨i, hi⟩ = 0) :
+    covered (materializeWith k f).tensors (shapesOf (materializeWith k f))
+      ∧ ModelsIRSWith (compileSkel k) k f :=
+  ⟨covered_of_vanishing k f hnd hzero, models_of_covered_data k hnd f hzero⟩
 
 end Lattice.Usage

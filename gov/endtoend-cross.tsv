@@ -4062,3 +4062,4 @@ Semantics/VocabEdit.lean	merge_error_bound
 Semantics/VocabEdit.lean	merge_not_exact
 Semantics/VocabEdit.lean	split_error_bound
 Usage/Examples.lean	penaltyToLoss_interface
+Usage/Examples.lean	data_synthesis_covered
