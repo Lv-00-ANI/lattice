@@ -87,6 +87,21 @@ def DAGRecoveryProp : Prop :=
 theorem dagRecoveryProp_holds : DAGRecoveryProp :=
   fun p q x => dagEval_append p q x
 
+/-- **`DAGEquivarianceProp`（`equivariance`）：与全程序交换的节点可以**自由穿过程序**。**
+
+**⇒ 若 `f` 与 `rs` 中每个节点交换，则 `dagEval rs (f x) = f (dagEval rs x)`。**
+**这不是 `dagEval_append` 的重复：后者讲**拼接**，本条讲**单个节点穿过整个列表**，
+其证明需要对 `rs` 做归纳，而不是展开 `append`。**
+**⇒ 它正是等变性的内容：把 `f` 放在程序之前还是之后，结果相同——
+而这**只在 `f` 与每个节点交换时**成立（`noncommuting_counterexample` 证明去掉该前提后为假）。** -/
+def DAGEquivarianceProp : Prop :=
+  ∀ {α : Type} (f : DagNode α) (rs : DagProgram α),
+    (∀ r ∈ rs, DagCommute f r) → ∀ x : α, dagEval rs (f x) = f (dagEval rs x)
+
+/-- **`DAGEquivarianceProp` holds** — 由 `dagEval_commute_past`（对 `rs` 归纳）。 -/
+theorem dagEquivarianceProp_holds : DAGEquivarianceProp :=
+  fun f rs h x => dagEval_commute_past f rs h x
+
 /-- **The computation-graph carrier's proof bundle.**
 
 **`confluence` filled here -- the first non-`True` confluence in an architecture plugin.** -/
@@ -98,7 +113,7 @@ def proof : PluginProof where
   recovery := DAGRecoveryProp
   spatial := True
   confluence := DAGConfluenceProp
-  equivariance := True
+  equivariance := DAGEquivarianceProp
   idempotence := True
   invariants := True
   completeness := True
@@ -111,8 +126,7 @@ theorem proof_holds : proof.Holds := by
          dagEvalMonoidActionProp_holds,
          dagDenoteParProp_holds,
          True.intro, dagRecoveryProp_holds, True.intro,
-         dagConfluenceProp_holds,
-         True.intro, True.intro, True.intro, True.intro, True.intro⟩
+         dagConfluenceProp_holds, dagEquivarianceProp_holds, True.intro, True.intro, True.intro, True.intro⟩
 
 /-- **The verified computation-graph carrier.** -/
 def verified : VerifiedPlugin where
