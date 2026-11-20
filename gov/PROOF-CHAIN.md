@@ -1998,7 +1998,7 @@
 | `Lattice.Plugins.Architectures.DAG.Plugin` | 8 | 7 |
 | `Lattice.Plugins.Architectures.DAG.Proofs` | 9 | 7 |
 | `Lattice.Plugins.Architectures.GNN.Manifest` | 16 | 12 |
-| `Lattice.Plugins.Architectures.GNN.Plugin` | 14 | 13 |
+| `Lattice.Plugins.Architectures.GNN.Plugin` | 18 | 15 |
 | `Lattice.Plugins.Architectures.GNN.Proofs` | 30 | 10 |
 | `Lattice.Plugins.Architectures.Norm.Manifest` | 15 | 7 |
 | `Lattice.Plugins.Architectures.Norm.Plugin` | 11 | 10 |
@@ -6007,7 +6007,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gnnFeat_zero` -> `E`, `at`, `g`, `induction`, `zero`
 - `gnnFeat_zero_apply` -> `E`, `at`, `g`
 - `gnnFeat_zero_comp_eq` -> `E`, `at`, `g`
-- `gnnLayerEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer_equivariant`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `gnnLayerEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `gnnLayer_equivariant`, `indicator`, `induction`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `gnnLayerStackComposeProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `layerStack`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `gnnLayerStackIsIterateProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `gnnLayerStack_add` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `layerStack`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `gnnLayerStack_eq_iterate` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `induction`, `layerStack`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `gnnLayer_equivariant` -> `E`, `W`, `apply`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `gnnLayer_lipschitz` -> `W`, `apply`, `le_trans`
 - `gnnProofs_under_dir` -> `AllMandatoryKindsCoveredFor`, `ArchCarrierAdditions`, `CPhaseAdditions`, `Constraint`, `Conv`, `DPhaseAdditions`, `Migrated`, `NonVacuousFor`, `ObligationOwnedBy`, `RegistryMigratedFor`, `Repair`, `StringPrefix`, `at`, `irCarrierAdditions`, `ladder_end_to_end`, `length`, `mandatoryKinds`, `manifest`, `manifest_nonempty`, `t1_compile_sound_general`, `t1_compile_sound_instance`, `t1_merge_sound_unrejected`, `t2_penalty_exact`, `t2_penalty_modulus`, `t3_compile_injective`, `t3_no_faithful_extractor`, `t3_parameter_roundtrip`, `t3_semantic_not_injective`, `t4_loop_converges`, `t4_repair_progress`, `t5_recovery`, `t6_spatial`, `t7_confluence`, `t8_failure_isolation`, `verification_loop_closes`, `verified_manifest`
@@ -6883,7 +6887,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerScaleN_succ` -> `apply`, `at`, `induction`, `layerScale`, `layerscale_lipschitz`, `le_refl`, `le_trans`, `trans`, `zero`
 - `layerScaleN_zero` -> `apply`, `at`, `induction`, `layerScale`, `layerscale_lipschitz`, `le_refl`, `le_trans`, `trans`, `zero`
 - `layerSeq_three` -> `Layer`
-- `layerStackEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `layerStackEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `layerStack_equivariant` -> `E`, `W`, `apply`, `at`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `layerToCLM_apply` -> `LayerOut`, `LinearLayer`, `RealDot`, `at`, `dot`, `length`
 - `layerWords_getD_W` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
@@ -7671,9 +7675,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `moreau_decomposition_linear_isprox` -> `IsProx`, `at`, `le_refl`, `prox_linear`
 - `mqa_grouping_constant` -> `E`, `d`, `g`
 - `mqa_is_gqa_extreme` -> `E`, `d`, `g`
-- `msgPassBoundProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `msgPass_bound_perm`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
+- `msgPassBoundProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `induction`, `layerStack`, `length`, `manifest`, `msgPass_bound_perm`, `proof`, `proof_holds`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `msgPassChan_equivariant` -> `apply`
-- `msgPassEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `gnnLayer_equivariant`, `indicator`, `layerStack`, `layerStack_equivariant`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `msgPass_equivariant`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `msgPassEquivariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `gnnLayer_equivariant`, `indicator`, `induction`, `layerStack`, `layerStack_equivariant`, `manifest`, `msgPass`, `msgPass_bound_perm`, `msgPass_equivariant`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `zero`
 - `msgPass_apply_perm_of_invariant` -> `E`, `W`, `apply`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `msgPass_bound` -> `W`, `apply`, `le_trans`
 - `msgPass_bound_perm` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -8510,8 +8514,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `perceptron_progress_iter` -> `E`, `induction`, `le`, `le_trans`, `subst`, `zero`
 - `perfect_separation_auroc_one` -> `apply`, `at`
 - `period_multiple_witness` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `permActAdjMulProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
-- `permActAdjOneProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_one`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `permActAdjMulProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `permActAdjOneProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_one`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `permActAdj_mul` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `permActAdj_one` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `permActChan_mul` -> `apply`
@@ -8519,8 +8523,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `permActEdge_card` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`
 - `permActEdge_mul` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`
 - `permActEdge_one` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`
-- `permActFeatMulProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
-- `permActFeatOneProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `permActFeatMulProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_mul`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `permActFeatOneProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActAdj_mul`, `permActAdj_one`, `permActFeat`, `permActFeat_one`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `permActFeat_eq_iff` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `permActFeat_faithful` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
 - `permActFeat_mul` -> `E`, `W`, `at`, `gnnLayer`, `induction`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`, `zero`
@@ -9053,8 +9057,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `readSlot_of_lt` -> `Chain`, `MLayer`, `comp`, `g`, `layerParamCount`, `slotOf`
 - `readSlot_slotMap_bias` -> `Chain`, `W`, `at`, `g`, `induction`, `slotOf`, `zero`
 - `readSlot_slotMap_weight` -> `Chain`, `W`, `e2`, `g`, `induction`, `slotOf`, `zero`
-- `readoutInvariantOfLayerStackProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
-- `readoutInvariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `indicator`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `readoutInvariantOfLayerStackProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
+- `readoutInvariantProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `indicator`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `readout_invariant`, `readout_invariant_of_layerStack`, `soundness`, `sparseMsgPass`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `readout_invariant` -> `E`, `W`, `apply`, `at`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_mul` -> `E`, `W`, `apply`, `at`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
 - `readout_invariant_of_layerStack` -> `E`, `W`, `apply`, `at`, `msgPass`, `msgPass_bound`, `msgPass_lipschitz`
@@ -10274,7 +10278,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sound_via_scheme` -> `Compiler`, `W`, `compile`, `encode`, `satW`
 - `soundness` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `progress`
 - `soundnessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `d`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `sparseAgreesDenseProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `soundness`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`
+- `sparseAgreesDenseProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `soundness`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `sparseDelta_eq_pruneError` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`
 - `sparseEdit_sub_eq_delta` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`
 - `sparseMsgPass_apply` -> `E`, `apply`, `at`, `msgPass`, `msgPass_bound`

@@ -3144,6 +3144,10 @@ Plugins/Architectures/GNN/Plugin.lean	layerStackEquivariantProp_holds
 Plugins/Architectures/GNN/Plugin.lean	readoutInvariantOfLayerStackProp_holds
 Plugins/Architectures/GNN/Plugin.lean	sparseAgreesDenseProp_holds
 Plugins/Architectures/GNN/Plugin.lean	msgPassBoundProp_holds
+Plugins/Architectures/GNN/Plugin.lean	gnnLayerStack_eq_iterate
+Plugins/Architectures/GNN/Plugin.lean	gnnLayerStack_add
+Plugins/Architectures/GNN/Plugin.lean	gnnLayerStackComposeProp_holds
+Plugins/Architectures/GNN/Plugin.lean	gnnLayerStackIsIterateProp_holds
 Plugins/Architectures/GNN/Plugin.lean	proof_holds
 Plugins/Architectures/GNN/Plugin.lean	verified_manifest
 Plugins/Architectures/GNN/Plugin.lean	verified_obligations
