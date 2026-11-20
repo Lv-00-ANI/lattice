@@ -90,7 +90,18 @@ CLAUSES = {
     # round 65's measurement is what forced the change.
     "3.4 inverse: re-injection": ["closed_loop_reinject_vanishes", "closed_loop_partial_reinject"],
     "4 loop": ["converges_within", "bidirRepair"],
-    "5 symbolic engine": ["evalPts", "derivation_sound"],
+    # Round 1026: **the engine is CIC** (the user's directive: "for the current design the
+    # conforming engine IS cic"). The clause used to name `evalPts` and `derivation_sound`, both of
+    # which live ONLY in the archived geometry layer -- so this clause had no mainline carrier at all.
+    # These two are mainline: `HasType` is the typing judgement (17 files mention it) and
+    # `hasType_to_hasTypeW` proves HasTypeW is a STRICT WEAKENING of HasType by induction on the
+    # derivation, i.e. the engine has one type theory with a relaxation, not two theories -- which is
+    # exactly what "no intermediate layer" asks for.
+    #
+    # **NOT used, and why: `Core/CIC/Compile.lean`'s `compile_sound` is `have := h; exact rfl`, the
+    # same tautology shape the IR layer had at `ModelsIR`. Quoting it here would repeat that defect
+    # one layer down.**
+    "5 symbolic engine": ["HasType", "hasType_to_hasTypeW"],
     "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm"],
 }
 

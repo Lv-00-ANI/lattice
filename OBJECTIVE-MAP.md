@@ -38,8 +38,8 @@
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
-| 5 symbolic engine | `evalPts` | **未找到** | — | — | — |
-| 5 symbolic engine | `derivation_sound` | **未找到** | — | — | — |
+| 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 13 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
+| 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 0 **← 死代码** | 0 | — |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
 
@@ -47,7 +47,7 @@
 
 - 条款数：14
 - 载体总数：31
-- **死代码载体（同文件也不用）：8**
+- **死代码载体（同文件也不用）：7**
 - 仅同文件使用的载体：0
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
