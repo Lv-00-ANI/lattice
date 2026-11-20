@@ -16,6 +16,7 @@ import Lattice.Runtime.L1L2Roundtrip
 import Lattice.Runtime.ConstraintToLoss
 import Lattice.Core.IR.Semantics
 import Lattice.Runtime.WeightLadderN
+import Lattice.Runtime.RatRepresentation
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -321,5 +322,39 @@ theorem structured_init_zero_iff {n : ℕ} (s : Lattice.Lift.WeightLadderN.SymN 
     exact congrFun hb j
   · intro h
     exact Lattice.Lift.WeightLadderN.compile_sound_n s h
+
+
+/-! ## `ratRepresentation`：**逆向**（提取）的第一个实质实例（Q-4 的消费者）
+
+**目标原话的逆向是「把权重行为提取回符号，用于验证、修正、再注入」。**
+**树里符号⇄权重那一跳的抽象接口是 `Representation`，而 `ratRepresentation` 是它在 `ℚ` 上的
+一个**实质**实例——但它在 `OBJECTIVE-MAP.md` 里的跨文件引用数是 **1**。**
+
+**⇒ 本节的判据不是「再多一条定理」，而是把**三件事**并置成一条可引用的断言：**
+
+| 面 | 定理 | 内容 |
+|:--|:--|:--|
+| 编译 | `compile_apply` | `compile q = (q.num, q.den)` |
+| **提取是左逆** | `rat_extract_compile` | **`extract (compile q) = q`** |
+| 单射 | `rat_compile_injective_via_abstract` | 由**抽象路径**得出（另有算术路径，两条互证） |
+
+**⇒ 合起来说的是：「提取」这一跳在一个具体载体上**闭合**，且闭合性有两条独立来源。
+这正是逆向方向的「验证」半所需的第一个落点。** -/
+
+/-- **逆向的实质实例：`ℚ` 上编译/提取构成一个闭合的、单射的表示。**
+
+**⇒ 三个合取项分别是「编译的形式」「提取是左逆（往返闭合）」「编译单射」。
+它们是 `Representation` 接口在具体载体上被**兑现**的三条内容。**
+**⇒ 第三条尤其值得注意：它来自 `Representation.compile_injective`，而同一文件另有一条**算术**证明
+（由分子分母相等推出有理数相等）。**两条路径互证，不只是同一命题的两种写法。** -/
+theorem rational_representation_roundtrip :
+    (∀ q : ℚ, Lattice.Lift.RatRepresentation.ratRepresentation.compile q = (q.num, q.den))
+      ∧ (∀ q : ℚ,
+          Lattice.Lift.RatRepresentation.ratRepresentation.extract
+            (Lattice.Lift.RatRepresentation.ratRepresentation.compile q) = q)
+      ∧ Function.Injective Lattice.Lift.RatRepresentation.ratRepresentation.compile :=
+  ⟨Lattice.Lift.RatRepresentation.compile_apply,
+   Lattice.Lift.RatRepresentation.rat_extract_compile,
+   Lattice.Lift.RatRepresentation.rat_compile_injective_via_abstract⟩
 
 end Lattice.Usage
