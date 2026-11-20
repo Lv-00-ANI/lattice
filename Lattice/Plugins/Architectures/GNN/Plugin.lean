@@ -150,6 +150,54 @@ theorem msgPassBoundProp_holds : MsgPassBoundProp := by
   intro ι _ _ π A h M hM i
   exact msgPass_bound_perm π A h M hM i
 
+/-- **堆叠恰好就是迭代**：`layerStack A W σ k h = (gnnLayer A W σ)^[k] h`。
+
+**⇒ 这条排除了「堆叠里还藏着别的操作」这一可能：`layerStack` 由计数递归定义，
+而递归的每一步都只是再套一层 `gnnLayer`，所以它**别无非是**那个函数的 `k` 次迭代。** -/
+theorem gnnLayerStack_eq_iterate {ι : Type} [Fintype ι] [DecidableEq ι]
+    (A : ι → ι → ℝ) (W : ℝ) (σ : ℝ → ℝ) (k : ℕ) (h : ι → ℝ) :
+    layerStack A W σ k h = (gnnLayer A W σ)^[k] h := by
+  induction k generalizing h with
+  | zero => rfl
+  | succ k ih =>
+    show layerStack A W σ k (gnnLayer A W σ h) = (gnnLayer A W σ)^[k + 1] h
+    rw [ih]
+    simp only [Function.iterate_succ_apply, Function.iterate_succ_apply']
+
+/-- **两段堆叠拼接**：`layerStack (m + n) h = layerStack m (layerStack n h)`。 -/
+theorem gnnLayerStack_add {ι : Type} [Fintype ι] [DecidableEq ι]
+    (A : ι → ι → ℝ) (W : ℝ) (σ : ℝ → ℝ) (m n : ℕ) (h : ι → ℝ) :
+    layerStack A W σ (m + n) h = layerStack A W σ m (layerStack A W σ n h) := by
+  simp only [gnnLayerStack_eq_iterate, Function.iterate_add_apply]
+
+/-- **`GNNLayerStackComposeProp`（`recovery`）：堆叠是可组合的。**
+
+**⇒ 先堆 `n` 层再堆 `m` 层，与一次堆 `m + n` 层相同。**
+**这是「层堆叠」作为时间操作的可组合性——与 `equivariance` 槽说的（置换与堆叠可交换）
+是两件不同的事。** -/
+def GNNLayerStackComposeProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] [DecidableEq ι] (A : ι → ι → ℝ) (W : ℝ) (σ : ℝ → ℝ)
+    (m n : ℕ) (h : ι → ℝ),
+    layerStack A W σ (m + n) h = layerStack A W σ m (layerStack A W σ n h)
+
+/-- **`GNNLayerStackComposeProp` holds** — 由 `gnnLayerStack_add`。 -/
+theorem gnnLayerStackComposeProp_holds : GNNLayerStackComposeProp :=
+  fun A W σ m n h => gnnLayerStack_add A W σ m n h
+
+/-- **`GNNLayerStackIsIterateProp`（`completeness`）：堆叠**恰好**是迭代，别无他物。**
+
+**⇒ 任何 `k` 层堆叠都等于 `gnnLayer` 的 `k` 次迭代。**
+**这不是一句同义反复：`layerStack` 由**计数递归**定义，本条说的是
+「递归的每一步都只是再套一层，没有隐藏的额外操作」——也就是这个表示的**完备性**。** -/
+def GNNLayerStackIsIterateProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] [DecidableEq ι] (A : ι → ι → ℝ) (W : ℝ) (σ : ℝ → ℝ)
+    (k : ℕ) (h : ι → ℝ),
+    layerStack A W σ k h = (gnnLayer A W σ)^[k] h
+
+/-- **`GNNLayerStackIsIterateProp` holds** — 由 `gnnLayerStack_eq_iterate`。 -/
+theorem gnnLayerStackIsIterateProp_holds : GNNLayerStackIsIterateProp :=
+  fun A W σ k h => gnnLayerStack_eq_iterate A W σ k h
+
 /-- **The graph-network carrier's proof bundle.**
 
 Eleven claimed obligations, including the registry's FIRST `equivariance` and FIRST `invariants`
@@ -160,13 +208,13 @@ def proof : PluginProof where
   laws := PermActFeatMulProp ∧ PermActFeatOneProp ∧ PermActAdjMulProp ∧ PermActAdjOneProp
   exactness := True
   approximation := MsgPassBoundProp
-  recovery := True
+  recovery := GNNLayerStackComposeProp
   spatial := True
   confluence := True
   equivariance := MsgPassEquivariantProp ∧ GnnLayerEquivariantProp ∧ LayerStackEquivariantProp
   idempotence := True
   invariants := ReadoutInvariantProp ∧ ReadoutInvariantOfLayerStackProp
-  completeness := True
+  completeness := GNNLayerStackIsIterateProp
   refinement := True
 
 /-- **Every claimed obligation of the graph-network carrier is discharged.** -/
@@ -177,12 +225,12 @@ theorem proof_holds : proof.Holds := by
           permActAdjMulProp_holds, permActAdjOneProp_holds⟩,
          True.intro,
          msgPassBoundProp_holds,
-         True.intro, True.intro, True.intro,
+         gnnLayerStackComposeProp_holds, True.intro, True.intro,
          ⟨msgPassEquivariantProp_holds, gnnLayerEquivariantProp_holds,
           layerStackEquivariantProp_holds⟩,
          True.intro,
          ⟨readoutInvariantProp_holds, readoutInvariantOfLayerStackProp_holds⟩,
-         True.intro, True.intro⟩
+         gnnLayerStackIsIterateProp_holds, True.intro⟩
 
 /-- **The verified graph-network carrier.** -/
 def verified : VerifiedPlugin where

@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	59
+vacuous_total	57
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -90,3 +90,11 @@ vacuous_total	59
 #                 never grows. `absorbs` keeps passing points fixed, `decreases` shrinks failing
 #                 ones; this is the invariant that makes `progress` possible)
 # Repair's eight `*Prop`s were all consumed, so both needed NEW theorems.
+#
+# Round 1006 drained two in `Architectures/GNN`:
+#   recovery     := GNNLayerStackComposeProp     (layerStack (m+n) h = layerStack m (layerStack n h))
+#   completeness := GNNLayerStackIsIterateProp    (layerStack k h = gnnLayer^[k] h -- the stack is
+#                   EXACTLY the iterate, nothing else is hiding in the representation)
+# Both needed a helper proved here first (`gnnLayerStack_eq_iterate`, `gnnLayerStack_add`), because
+# `layerStack` is defined by recursion on the COUNT and the library had no algebra of it.
+# GNN's eleven `*Prop`s were all consumed.
