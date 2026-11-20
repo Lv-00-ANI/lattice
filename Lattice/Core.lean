@@ -8,7 +8,6 @@ import Lattice.Core.IR.MaximalScope
 import Lattice.Core.IR.SlotBridge
 import Lattice.Core.IR.FinSupport
 import Lattice.Core.CIC.ShiftSubstOffset
-import Lattice.Core.CIC.ShiftSubstOffsetProbe
 import Lattice.Core.CIC.ParRedVShiftBeta
 import Lattice.Core.CIC.ParSubstOneDim
 import Lattice.Core.CIC.ShiftSubstJointBounded

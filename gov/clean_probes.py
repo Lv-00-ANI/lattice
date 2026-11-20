@@ -60,9 +60,13 @@ def untracked_probe_sources():
     (an unmatched `-/`), so gate.py's **I8** failed with exit 9 while I7 was green and this tool
     reported "no orphan".**
 
-    **=> the rule: the probes are designed to be GITIGNORED. A probe source that git does not track is
-    therefore debris by definition, and one that git DOES track is a real file. That distinction needs
-    no memory of probe names.**
+    **=> ROUND 1013 REFUTED MY FIRST RULE. I wrote "an untracked `*Probe*.lean` is debris by definition",
+    deleted `Lattice/Core/CIC/ShiftSubstOffsetProbe.lean`, and BROKE THE BUILD: `Lattice/Core.lean` and
+    `Lattice/Core/CIC/ShiftSubstOffset.lean` both imported it. `.gitignore` has `*Probe.lean`, so being
+    untracked says nothing at all about being debris -- REAL probe modules are gitignored too.**
+
+    **=> the rule that survives: a probe source is debris only if it is untracked AND no tracked file
+    imports it. Imported-ness is the property that matters, and `git grep` answers it.**
     """
     if not os.path.isdir(LATTICE):
         return []
@@ -73,10 +77,18 @@ def untracked_probe_sources():
                 continue
             p = os.path.join(root, f)
             rel = os.path.relpath(p, REPO).replace(os.sep, "/")
-            r = subprocess.run(["git", "-C", REPO, "ls-files", "--error-unmatch", rel],
-                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if r.returncode != 0:
-                out.append(rel)
+            tracked = subprocess.run(["git", "-C", REPO, "ls-files", "--error-unmatch", rel],
+                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if tracked.returncode == 0:
+                continue
+            module = rel[:-len(".lean")].replace("/", ".")
+            imported = subprocess.run(["git", "-C", REPO, "grep", "-l", "-F", "import " + module],
+                                      stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            # **A TRACKED FILE THAT IMPORTS IT MAKES IT REAL, whatever gitignore says. This is the
+            # condition round 1013 was missing, and its absence broke the build.**
+            if imported.returncode == 0 and (imported.stdout or b"").strip():
+                continue
+            out.append(rel)
     return out
 
 

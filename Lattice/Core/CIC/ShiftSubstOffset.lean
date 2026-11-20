@@ -1,5 +1,4 @@
 import Mathlib
-import Lattice.Core.CIC.ShiftSubstOffsetProbe
 import Lattice.Core.CIC.SubstBounded
 
 /-!
