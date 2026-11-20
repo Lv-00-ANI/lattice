@@ -138,6 +138,38 @@ theorem normBiasOrderedProp_holds : NormBiasOrderedProp := by
         / ((Fintype.card ι : ℝ) * ((Fintype.card ι : ℝ) - 1)) := div_nonneg hS hden
   linarith
 
+/-- **`NormShiftInvariantProp`（`equivariance`）：批方差对**平移**不变。**
+
+**⇒ `batchVar (fun i => X i + c) = batchVar X`。**
+**这条不是 `laws` 或 `completeness` 的重复：前者讲非负性，后者讲规范化后的方差恰为 1，
+本条讲**原始统计量本身**在平移下的不变性——而这正是「方差」区别于「二阶矩」的定义性性质。**
+**⇒ 它排除了「平移会污染方差估计」这一可能，而 BatchNorm 之所有能在每批上重算均值而不改变
+弥散度，依据就是它。（注意 `varOf`/`rms` 线**没有**这个性质——它们度量的正是二阶矩。）** -/
+def NormShiftInvariantProp : Prop :=
+  ∀ {ι : Type} [Fintype ι] (X : ι → ℝ) (c : ℝ), 0 < Fintype.card ι →
+    batchVar (fun i => X i + c) = batchVar X
+
+/-- **`NormShiftInvariantProp` holds** — 先证 `batchMean (X + c) = batchMean X + c`，再逐项消去 `c`。 -/
+theorem normShiftInvariantProp_holds : NormShiftInvariantProp := by
+  intro ι _ X c hcard
+  show batchVar (fun i => X i + c) = batchVar X
+  unfold batchVar
+  have hm : batchMean (fun i => X i + c) = batchMean X + c := by
+    unfold batchMean
+    rw [Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+    have hc : (Fintype.card ι : ℝ) ≠ 0 := by
+      have : (0 : ℝ) < (Fintype.card ι : ℝ) := by exact_mod_cast hcard
+      exact ne_of_gt this
+    field_simp
+    ring
+  rw [hm]
+  have hsum : (∑ i, (X i + c - (batchMean X + c)) ^ 2)
+      = (∑ i, (X i - batchMean X) ^ 2) := by
+    apply Finset.sum_congr rfl
+    intro i _
+    rw [show X i + c - (batchMean X + c) = X i - batchMean X by ring]
+  rw [hsum]
+
 /-- **The normalisation carrier's proof bundle.**
 
 Six claimed obligations, including the registry's FIRST `idempotence` witness.
@@ -150,7 +182,7 @@ def proof : PluginProof where
   recovery := True
   spatial := True
   confluence := True
-  equivariance := True
+  equivariance := NormShiftInvariantProp
   idempotence := NormIterateVarianceLeOneProp
   invariants := NormBiasOrderedProp
   completeness := NormCompletenessProp
@@ -163,7 +195,7 @@ theorem proof_holds : proof.Holds := by
          normVarianceLawsProp_holds,
          normVarianceEqOneProp_holds,
          ⟨normLipschitzSharpProp_holds, normLipschitzProp_holds⟩,
-         True.intro, True.intro, True.intro, True.intro,
+         True.intro, True.intro, True.intro, normShiftInvariantProp_holds,
          normIterateVarianceLeOneProp_holds,
          normBiasOrderedProp_holds, normCompletenessProp_holds, True.intro⟩
 

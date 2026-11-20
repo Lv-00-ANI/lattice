@@ -35,6 +35,7 @@ import io
 import os
 import subprocess
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -158,7 +159,22 @@ def main(argv):
         print("    %s" % rel)
 
     if args.check:
-        return 1 if (orphans or probes) else 0
+        # **Round 1019: this check failed spuriously twice, right after `lake build`. An artifact whose
+        # source disappears mid-build looks exactly like debris for a moment, so a gate on the raw count
+        # is racy -- and a gate that fails on transient state teaches its reader to ignore it.
+        # The rule: `--check` ignores artifacts touched in the last 120 s (possibly mid-build);
+        # `--clean` still deletes everything, because that is an explicit act.**
+        now = time.time()
+        def fresh(p):
+            try:
+                return (now - os.path.getmtime(p)) < 120
+            except OSError:
+                return False
+        settled = {k: v for k, v in orphans.items() if not fresh(v)}
+        fresh_n = len(orphans) - len(settled)
+        if fresh_n:
+            print("  ignored %d artifact(s) touched in the last 120 s (a build may be in flight)" % fresh_n)
+        return 1 if (settled or probes) else 0
 
     if args.clean and probes:
         for rel in probes:
