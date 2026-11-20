@@ -1104,7 +1104,7 @@
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
 
 ## Declarations per module
 
@@ -2193,7 +2193,7 @@
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
 | `Lattice.Usage` | 0 | 0 |
-| `Lattice.Usage.Examples` | 0 | 8 |
+| `Lattice.Usage.Examples` | 1 | 8 |
 
 ## Cross-module uses of theorem/lemma declarations
 
@@ -8505,6 +8505,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyPosHomogeneousProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySubadditiveProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
+- `penaltyToLoss_interface` -> `E`, `PenaltyEmbedding`, `compile`, `compile_is_loss`, `loss`, `penaltyToLoss`
 - `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`

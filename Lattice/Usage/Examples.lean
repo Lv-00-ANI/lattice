@@ -13,6 +13,7 @@ import Lattice.Runtime.CompilerScheme
 import Lattice.Core.RepairModule.Repair
 import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.L1L2Roundtrip
+import Lattice.Runtime.ConstraintToLoss
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -239,6 +240,27 @@ example {n : ℕ} (c : GeoConstraint n)
 example {n : ℕ} (e : GeoExpr n) :
     exprBound e = exprBound e := rfl
 
+/-! ## `penaltyToLoss`：**约束损失**作为一条编译路径（Q-1 的第一个跨文件消费者）
+
+**目标原话的正向编译列出三种机制：约束损失、数据合成、结构化初始化。
+`penaltyToLoss` 构造出其中第一种——一个 `Compiler`，其 `compile` 就是惩罚嵌入的损失函数。
+但它在 `OBJECTIVE-MAP.md` 里的跨文件引用数是 **0**，而该文件的判据正是
+「跨文件引用数为 0 的载体是一个名字，不是一次交付」。**
+
+**⇒ 本节是它的第一个消费者。这里陈述的不是新定理，而是**两半的接口**：
+`compile` 确实是损失，`satP` 确实是「损失 ≤ 0」，且 `sound` 义务已被 `sound_holds` 兑现。
+把它写在一处，是为了让「约束损失是一条编译路径」这句话有一个可引用的落点。** -/
+
+/-- **`penaltyToLoss` 的两半接口：编译产物是损失，可行性谓词是「损失 ≤ 0」。**
+
+**⇒ 与 `sound_holds` 合起来读：可行 ⟹ 编译后的模型满足 `satW`。
+这就是「约束损失」作为一种编译机制的全部内容——**它不是一个新的训练算法，
+而是一个把「满足约束」翻译成「损失 ≤ 0」的编译器**。** -/
+theorem penaltyToLoss_interface {P X : Type} [TopologicalSpace X]
+    (E : Lattice.Lift.PenaltyEmbedding P X) (p : P) :
+    (Lattice.Lift.PenaltyToLossCompiler.penaltyToLoss E).compile p = (fun x => E.loss p x) ∧
+      (∀ x : X,
+        (Lattice.Lift.PenaltyToLossCompiler.penaltyToLoss E).satP p x ↔ E.loss p x ≤ 0) :=
+  ⟨Lattice.Lift.PenaltyToLossCompiler.compile_is_loss E p, fun _ => Iff.rfl⟩
+
 end Lattice.Usage
-
-

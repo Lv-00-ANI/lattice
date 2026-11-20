@@ -4061,3 +4061,4 @@ Semantics/VocabEdit.lean	vocab_edit_add_new_is_zero
 Semantics/VocabEdit.lean	merge_error_bound
 Semantics/VocabEdit.lean	merge_not_exact
 Semantics/VocabEdit.lean	split_error_bound
+Usage/Examples.lean	penaltyToLoss_interface
