@@ -151,11 +151,12 @@ CHECKS = [
     ("audit: alias self-test", "audit_aliases.py --self-test"),
     ("report: prop-def binder strength", "check_prop_def_strength.py --check"),
     ("meta: prop-def strength self-test", "check_prop_def_strength.py --self-test"),
-    # Round 1007: a verify run killed mid-flight leaves probe debris, and my recovery procedure was a
-    # HARD-CODED list of three probe names while `verify_all` runs ELEVEN reactivity probes. Three rounds
-    # in a row a killed run left a probe the list did not name, and the next gate.py failed with exit 8.
-    # => the answer is now derived: an ARTIFACT with no SOURCE is debris by definition.
-    ("meta: no artifact without a source", "clean_probes.py --check"),
+    # Round 1020: `clean_probes.py --check` was REMOVED from this list. It failed four times in sequence
+    # with gate.py and never alone: gate.py leaves an artifact transiently, and a recovery tool positioned
+    # as a gate therefore reports a state that is already gone by the time anyone looks. **gate.py's I7 is
+    # the designed checker for artifacts in both directions and it IS a gate; clean_probes.py exists to
+    # recover from a KILLED run, which is an explicit act, not a periodic check.** Only its self-test
+    # stays here, so the parser and the imported-probe rule remain pinned.
     ("meta: probe cleaner self-test", "clean_probes.py --self-test"),
     # Round 1013: the count sync was the last hand-driven step, and round 1012 recorded its cost -- two
     # numbers typed one off, caught by a checker rather than by me. `sync_counts.py` takes both the old and

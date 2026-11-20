@@ -2016,7 +2016,7 @@
 | `Lattice.Plugins.Domains.Constraints.Penalty.Manifest` | 13 | 8 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.NetLossDerivative` | 45 | 9 |
 | `Lattice.Plugins.Domains.Constraints.Penalty.PenaltyLoss` | 36 | 3 |
-| `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 13 | 12 |
+| `Lattice.Plugins.Domains.Constraints.Penalty.Plugin` | 14 | 13 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Flatten` | 6 | 5 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.LossExtraction` | 4 | 0 |
 | `Lattice.Plugins.Domains.Constraints.Tokens.Manifest` | 13 | 8 |
@@ -2757,7 +2757,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `approx_satisfies` -> `E`, `EpsSat`, `ResidualEmbedding`, `at`, `le_trans`, `loss`, `resid`
 - `approx_to_approxOn` -> `g`, `le_trans`
 - `approx_trans` -> `g`, `le_trans`, `min`
-- `approximationEqZeroProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `approximationEqZeroProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `arc_adjoin_root_two_le_card` -> `inst`
 - `arc_card_adjoinRoot` -> `inst`, `out`
 - `arc_card_adjoinRoot_X` -> `inst`
@@ -3771,7 +3771,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `complementary_slackness_of_zero_gap` -> `g`
 - `complete_on` -> `Carrier`, `Domain`, `Weights`, `behavior`, `embed`, `sound`
 - `completeness` -> `Compiler`, `d`, `induction`
-- `completenessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `completenessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `le_total`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `completion_endo_unique` -> `comp`, `min`
 - `completion_map_unique` -> `comp`, `g`, `min`
 - `complexNormSq_mul` -> `apply`, `le_trans`, `normSq`, `normSq_eq_norm_sq`, `normSq_nonneg`
@@ -5172,8 +5172,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ewc_psd_counterexample` -> `apply`, `d`, `ewcPenalty`, `fisherInfo`, `score`, `subst`
 - `exact_implies_sound` -> `E`, `Sat`, `at`, `loss`, `trivial`
 - `exact_of_foldStrength_exact` -> `Strength`, `at`, `le_antisymm`, `rank`
-- `exactnessInequalityProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `exactnessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `exactnessInequalityProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `le_total`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `exactnessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `eqZero_lipschitz`, `le_total`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `exampleFloat_compiles` -> `length`
 - `exampleInt_runs` -> `add`, `length`, `lit`, `mul`
 - `exampleNat_runs` -> `add`, `length`, `lit`, `mul`
@@ -8471,7 +8471,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `path_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
 - `payload_getElem` -> `LinearForm`, `decodeCoeffs`, `decodeConst`, `decodePayload`, `encodeForm`, `getD_eq_getElem`, `payload`
 - `pdl_telescoping` -> `induction`, `zero`
-- `penaltyClampIdempotentProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltyClampIdempotentProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltyExact_of_epsSat_zero` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `penaltyLipschitz_eqZero` -> `Pt`, `d`, `max_zero_eq_zero_iff`, `penaltyLoss`
 - `penaltyLipschitz_equalLength` -> `Holds`, `Pt`, `collinear`, `d`, `max_zero_eq_zero_iff`, `parallel`, `penaltyLoss`
@@ -8500,11 +8500,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyLoss_leZero_eq_ltZero` -> `Pt`, `at`, `extract`, `penaltyLoss`
 - `penaltyLoss_nonneg` -> `Pt`, `collinear`, `d`, `le_refl`, `le_trans`, `neg_sub_neg`, `parallel`, `penaltyLoss`, `sq_lipschitz_on_bounded`
 - `penaltyLoss_not_injective` -> `Pt`, `at`, `extract`, `penaltyLoss`
-- `penaltyMonotoneProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `penaltyNonnegProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
-- `penaltySubadditiveProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltyMonotoneProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltyNonnegProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltyPosHomogeneousProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltySubadditiveProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
 - `penalty_exact` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `out`, `zeroHolds`
@@ -10286,7 +10287,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sound_of_factors` -> `encode`, `project`, `projectCompiler`, `satByProjection`, `satW`
 - `sound_via_scheme` -> `Compiler`, `W`, `compile`, `encode`, `satW`
 - `soundness` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `progress`
-- `soundnessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `d`, `eqZero_lipschitz`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
+- `soundnessProp_holds` -> `Holds`, `PluginProof`, `Pt`, `VerifiedPlugin`, `completeness`, `d`, `eqZero_lipschitz`, `le_total`, `length`, `manifest`, `max_zero_eq_zero_iff`, `penaltyLoss`, `penaltyLoss_congr_of_indicesBelow`, `penaltyLoss_eq_zero_iff_holds_leZero`, `penaltyLoss_eq_zero_iff_holds_sq`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `sparseAgreesDenseProp_holds` -> `E`, `Holds`, `PluginProof`, `VerifiedPlugin`, `W`, `completeness`, `gnnLayer`, `induction`, `layerStack`, `length`, `manifest`, `msgPass`, `msgPass_bound_perm`, `permActAdj`, `permActFeat`, `proof`, `proof_holds`, `soundness`, `sparseMsgPass_eq_msgPass`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `sparseDelta_eq_pruneError` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`
 - `sparseEdit_sub_eq_delta` -> `frobeniusNorm`, `frobenius_bound`, `le_trans`, `matCLME`, `matvecE`, `matvecE_sub`, `opNorm_le_frobenius`, `pruneError`, `prune_magnitude_bound`

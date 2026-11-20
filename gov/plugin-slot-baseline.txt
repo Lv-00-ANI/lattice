@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	48
+vacuous_total	47
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -182,3 +182,14 @@ vacuous_total	48
 #
 # Measured and declined elsewhere this round: GNN's `layerStack 1 h = gnnLayer h` and
 # `layerStack 0 (layerStack k h) = layerStack k h` are both `rfl` given layerStack's recursion.
+#
+# Round 1019 drained one in `Domains/Constraints/Penalty`:
+#   equivariance := PenaltyPosHomogeneousProp  (0 <= c -> max (c*a) 0 = c * max a 0 -- the hinge is
+#                    POSITIVELY HOMOGENEOUS of degree 1, so the penalty's unit matches the violation's
+#                    unit and the ratio does not drift with scale. NEGATIVE c does NOT satisfy it:
+#                    max folds for c < 0 and a penalty must not fold, which is why c >= 0 is in the
+#                    statement.)
+#
+# REFUTED BEFORE WRITING (this round's `recovery` candidate): `max (a+b) 0 = max (max a 0 + b) 0` is
+# FALSE at a = -5, b = 3 (0 vs 3). Checked by substitution before proving anything, which is why it
+# was never claimed. `confluence` would be `add_comm` on the two hinge values -- trivial.

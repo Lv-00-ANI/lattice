@@ -3371,6 +3371,7 @@ Plugins/Domains/Constraints/Penalty/Plugin.lean	soundnessProp_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	exactnessProp_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	exactnessInequalityProp_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	approximationEqZeroProp_holds
+Plugins/Domains/Constraints/Penalty/Plugin.lean	penaltyPosHomogeneousProp_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	proof_holds
 Plugins/Domains/Constraints/Penalty/Plugin.lean	verified_manifest
 Plugins/Domains/Constraints/Penalty/Plugin.lean	verified_obligations

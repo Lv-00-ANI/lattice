@@ -200,6 +200,26 @@ theorem penaltyMonotoneProp_holds : PenaltyMonotoneProp := by
   simp only [max_def]
   split_ifs <;> linarith
 
+/-- **`PenaltyPosHomogeneousProp`（`equivariance`）：铰链惩罚对**正**伸缩是等变的。**
+
+**⇒ `0 ≤ c → max (c * a) 0 = c * max a 0`。**
+**⇒ 这是**一次齐次性**：把违约量放大 `c` 倍，惩罚就放大 `c` 倍——于是惩罚的**单位**与违约量的
+单位一致，比例不随尺度漂移。**
+**⇒ 这正是 `equivariance` 该说的：`ℝ≥0` 通过乘法作用在 `ℝ` 上，而惩罚**与这个作用交换**。
+（负的 `c` **不**满足它——那时 `max` 会翻折，而惩罚不该翻折；这是本命题只对 `c ≥ 0` 陈述的理由。）** -/
+def PenaltyPosHomogeneousProp : Prop :=
+  ∀ (c a : ℝ), 0 ≤ c → max (c * a) 0 = c * max a 0
+
+/-- **`PenaltyPosHomogeneousProp` holds** — 按 `a` 的符号分情形，用 `mul_nonneg`/`mul_nonpos_of_nonneg_of_nonpos`。 -/
+theorem penaltyPosHomogeneousProp_holds : PenaltyPosHomogeneousProp := by
+  intro c a hc
+  show max (c * a) 0 = c * max a 0
+  rcases le_total a 0 with h | h
+  · have hca : c * a ≤ 0 := mul_nonpos_of_nonneg_of_nonpos hc h
+    rw [max_eq_right hca, max_eq_right h, mul_zero]
+  · have hca : (0 : ℝ) ≤ c * a := mul_nonneg hc h
+    rw [max_eq_left hca, max_eq_left h]
+
 /-- **The penalty plugin's proof bundle.**
 
 `soundness`, `exactness`, `completeness`, `approximation`, `laws`, `idempotence` and `refinement`
@@ -223,7 +243,7 @@ def proof : PluginProof where
   recovery := True
   spatial := PenaltySubadditiveProp
   confluence := True
-  equivariance := True
+  equivariance := PenaltyPosHomogeneousProp
   idempotence := PenaltyClampIdempotentProp
   invariants := PenaltyMonotoneProp
   completeness := CompletenessProp
@@ -236,7 +256,7 @@ bundle holds. Each conjunct is `exact` at a theorem proved in this file, which i
 `exact` at a theorem of the domain library -- so the chain from manifest to library is
 `penaltyLoss_eq_zero_iff_holds_sq` and friends, with no gaps. -/
 theorem proof_holds : proof.Holds := by
-  refine ⟨?_, penaltyNonnegProp_holds, ?_, ?_, trivial, penaltySubadditiveProp_holds, trivial, trivial, penaltyClampIdempotentProp_holds, penaltyMonotoneProp_holds, ?_, penaltyZeroOnFeasibleProp_holds⟩
+  refine ⟨?_, penaltyNonnegProp_holds, ?_, ?_, trivial, penaltySubadditiveProp_holds, trivial, penaltyPosHomogeneousProp_holds, penaltyClampIdempotentProp_holds, penaltyMonotoneProp_holds, ?_, penaltyZeroOnFeasibleProp_holds⟩
   · exact soundnessProp_holds
   · exact ⟨exactnessProp_holds, exactnessInequalityProp_holds⟩
   · exact approximationEqZeroProp_holds
