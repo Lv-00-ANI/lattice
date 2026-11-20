@@ -1104,7 +1104,7 @@
 - `Lattice.Semantics.VocabEdit` 
 - `Lattice.Slots` 
 - `Lattice.Usage` <- `Lattice.Usage.Examples`
-- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Core.IR.Semantics`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.RatRepresentation`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
+- `Lattice.Usage.Examples` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.CompilerScheme`, `Lattice.Core.RepairModule.Repair`, `Lattice.Core.RepairModule.RepairConvergence`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Core.IR.Semantics`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.ApproxExact`, `Lattice.Reference.Geometry.Constraints.ComputableExpr`, `Lattice.Reference.Geometry.Geometry.ExecutableCheck`, `Lattice.Reference.Geometry.Geometry.GeoSampledBound`, `Lattice.Reference.Geometry.Geometry.Reinjection`, `Lattice.Reference.Geometry.Geometry.Synthesis`, `Lattice.Reference.Geometry.Geometry.PolyConstants`
 
 ## Declarations per module
 
@@ -2193,7 +2193,7 @@
 | `Lattice.Semantics.VocabEdit` | 9 | 10 |
 | `Lattice.Slots` | 1 | 21 |
 | `Lattice.Usage` | 0 | 0 |
-| `Lattice.Usage.Examples` | 4 | 8 |
+| `Lattice.Usage.Examples` | 5 | 8 |
 
 ## Cross-module uses of theorem/lemma declarations
 
@@ -4398,7 +4398,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `data_models` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `compileWith`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `models`, `models_compileWith`, `nodup_shapesOfCorpus`, `tokenize`, `tokenizeSample`, `width`
 - `data_models_shape` -> `Data`, `Models`, `Sample`, `TensorShape`, `Token`, `bridge`, `d`, `decode`, `decode_encode_shape`, `encode`, `induction`, `length`, `length_shapesOfCorpus`, `length_tokenizeSample`, `tokenize`, `tokenizeSample`, `width`
 - `data_reaches_weight_of_zero_width` -> `AllZeroOutputs`, `ConstSet`, `Sample`, `VectorConstraintSat`, `at`, `cicCtxToConstraintSet`, `cicToConstraint`, `cic_loop_reaches_weight`, `compileToLayer`, `dot`, `width`
-- `data_synthesis_covered` -> `IRSkeleton`, `ModelsIRSWith`, `Names`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `extract`, `map`, `materializeWith`, `models_of_covered_data`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
+- `data_synthesis_covered` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
 - `data_to_weight_honest` -> `AllZeroOutputs`, `ConstSet`, `CoversCorpus`, `Sample`, `VectorConstraintSat`, `at`, `cicToConstraint`, `cic_loop_reaches_weight`, `corpusConstraints`, `dot`, `width`
 - `data_to_weight_iff` -> `AllZeroOutputs`, `ConstSet`, `CoversCorpus`, `Sample`, `VectorConstraintSat`, `at`, `cicCtxToConstraintSet`, `cicCtxToConstraintSet_sat_iff`, `cicToConstraint`, `cic_loop_reaches_weight`, `compileToLayer`, `corpusConstraints`, `dot`, `trans`, `width`
 - `dbSat_allDB` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
@@ -8506,7 +8506,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `penaltyPosHomogeneousProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySubadditiveProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penaltySum_of_degenerate` -> `DegenerateOK`, `FamilySolver`, `Pt`, `at`, `canonical`, `holdsSet_nil`, `holds_of_degenerateOK`, `induction`, `map`, `penaltyLoss`, `penaltyLoss_eq_zero_of_holds`, `samePointSpec`, `sound`, `subst`
-- `penaltyToLoss_interface` -> `E`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_is_loss`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `extract`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyToLoss`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
+- `penaltyToLoss_interface` -> `E`, `EpsSat`, `IRSkeleton`, `ModelsIRSWith`, `Names`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `TensorShape`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileSkel`, `compileToLayerN`, `compile_apply`, `compile_is_loss`, `compile_sound_n`, `covered`, `covered_of_vanishing`, `epsSat_zero_iff`, `extract`, `loss`, `map`, `materializeWith`, `models_of_covered_data`, `penaltyExact_of_epsSat_zero`, `penaltyToLoss`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`, `shapesOf`
 - `penaltyZeroOnFeasibleProp_holds` -> `Holds`, `PluginProof`, `VerifiedPlugin`, `completeness`, `le_total`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`
 - `penalty_depends` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zeroHolds`
 - `penalty_equal` -> `RelKind`, `TensorId`, `at`, `dependsHolds`, `equalHolds`, `holds3`, `length`, `out`, `zero`, `zeroHolds`
@@ -9037,7 +9037,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rat_linear_root_unique` -> `QConstraint`, `QSat`, `at`
 - `rat_zero_is_top` -> `at`
 - `ratioConstant_iff_ratioFactorized` -> `apply`, `at`, `channelPush`, `dp_inequality`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_pos_of_ne`
-- `rational_representation_roundtrip` -> `compile`, `compile_apply`, `extract`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`
+- `rational_representation_roundtrip` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `compile`, `compile_apply`, `epsSat_zero_iff`, `extract`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`
 - `rc_one_is_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
 - `rc_zero_not_solution` -> `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `intent`
 - `rcq_kkt_multiplier_not_unique` -> `d`, `le_refl`
@@ -10574,7 +10574,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `structured_error_norm` -> `at`, `d`, `frobeniusNorm`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_chain_error`, `quantFwd`
 - `structured_frobenius_error` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_sub_eq_error`
 - `structured_init_complete` -> `AllSatisfied`, `AllZeroOutputs`, `VectorConstraint`, `extractLayer`
-- `structured_init_zero_iff` -> `SymN`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `extract`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`
+- `structured_init_zero_iff` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `SymN`, `act_zero_eq_zero_iff`, `affineAct`, `compile`, `compileToLayerN`, `compile_apply`, `compile_sound_n`, `epsSat_zero_iff`, `extract`, `loss`, `penaltyExact_of_epsSat_zero`, `ratRepresentation`, `rat_compile_injective_via_abstract`, `rat_extract_compile`, `resid`
 - `structured_op_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`
 - `structured_output_bound` -> `at`, `d`, `frobeniusNorm`, `frobenius_bound`, `g`, `head_pruning_bound`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `quantFwd`
 - `structured_pruning_error` -> `at`, `frobeniusNorm`, `frobenius_bound`, `g`, `le_trans`, `matCLME`, `matCLME_neg`, `matCLME_sub`, `matvecE`, `opNorm_le_frobenius`, `pruneMatrix_sub_eq_neg`, `prune_magnitude_bound`, `prune_sub_eq_error`
@@ -11407,6 +11407,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_no_sup` -> `Audit`, `CompositionKind`, `at`, `induction`, `length`, `length_cons`
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `chain_edit_locality`, `d`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
+- `verification_ladder` -> `E`, `EpsSat`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `epsSat_zero_iff`, `loss`, `penaltyExact_of_epsSat_zero`
 - `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`
 - `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `map`, `proof`, `requires`, `soundness`
