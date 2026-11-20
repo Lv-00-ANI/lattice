@@ -9,7 +9,7 @@
 # Also measured: every slot whose value is a NAMED proposition is backed by a `<prop>_holds`
 # theorem. That is checked on every run, and it is the property that keeps a future
 # `recovery := SomeMadeUpProp` from passing.
-vacuous_total	50
+vacuous_total	49
 #
 # Round 996 drained one: `Architectures/Attention`'s `spatial` was `True` and is now
 # `AttentionSpatialProp`, proved by `maskedSoftmax_eq_zero_of_not_mask` (a real unfolding of
@@ -157,3 +157,18 @@ vacuous_total	50
 #   confluence   `iterate` is deterministic, so there is nothing to conflate.
 #   refinement   would restate `stable`, which is already in the `soundness` conjunction.
 # => Repair joins ChainSlot and Compose in the measured-honest-empty group (9 + 7 + 5 = 21).
+#
+# Round 1017 drained one in `Core/Constraint`:
+#   confluence := ModelsCutProp  (Models H c -> Models (c :: K) d -> Models (H ++ K) d -- the CUT
+#                 rule: a model of `c` from H, composed with a model of `d` from `c` plus K, yields a
+#                 model of `d` from H ++ K. It CONSUMES an intermediate conclusion rather than moving
+#                 along a single hypothesis set, which is what makes it new rather than an instance of
+#                 models_of_subset.)
+#
+# MEASURED and left True in the same plugin:
+#   exactness     would be `Models H c <-> forall x, Entails H x -> Satisfies c x`, which is `Iff.rfl`
+#                 -- the definition itself.
+#   approximation  a constraint system here has no metric structure to approximate with.
+#   spatial /      both are DERIVED instances of `entails_mono`
+#   invariants     (`(forall c in cs, c in ds) -> Entails ds x -> Entails cs x`), so wiring them would
+#                  count one fact twice -- the same refusal as DAG's dag_denote_resid.

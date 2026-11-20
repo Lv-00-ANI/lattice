@@ -160,6 +160,28 @@ theorem modelsNilProp_holds : ModelsNilProp := by
   unfold Models Entails
   simp
 
+/-- **`ModelsCutProp`（`confluence`）：模型化关系的**割规则**。**
+
+**⇒ `Models H c → Models (c :: K) d → Models (H ++ K) d`。**
+**读法：若 `c` 由 `H` 推出，且 `d` 由「`c` 加上 `K`」推出，则 `d` 由 `H ++ K` 推出。**
+**⇒ 这不是 `models_of_mem`/`models_of_subset` 的实例：那两条沿**单个**假设集移动，
+本条**消费**一个中间结论 `c` 并把它**消去**——于是两个独立的模型化事实**合流**成第三个。
+**这正是 `confluence` 该说的东西：两处推导在中间命题上接得上，就能接成一条。** -/
+def ModelsCutProp : Prop :=
+  ∀ {R : Type} [CommSemiring R] [LinearOrder R] {n : ℕ}
+    (H K : List (Constraint R n)) (c d : Constraint R n),
+    Models H c → Models (c :: K) d → Models (H ++ K) d
+
+/-- **`ModelsCutProp` holds** — 把 `Entails (H ++ K) x` 拆给 `H` 与 `K`，中间用 `Models H c` 得 `c`。 -/
+theorem modelsCutProp_holds : ModelsCutProp := by
+  intro R _ _ n H K c d hH hcK x hx
+  show Satisfies d x
+  apply hcK x
+  intro e he
+  rcases List.mem_cons.mp he with rfl | hK
+  · exact hH x (fun f hf => hx f (List.mem_append_left _ hf))
+  · exact hx e (List.mem_append_right _ hK)
+
 /-- **The constraint-logic plugin's proof bundle.**
 
 Four claimed obligations. `exactness`, `approximation`, `recovery`, `spatial`, `confluence`,
@@ -173,7 +195,7 @@ def proof : PluginProof where
   approximation := True
   recovery := EntailsAppendProp
   spatial := True
-  confluence := True
+  confluence := ModelsCutProp
   equivariance := ModelsReverseProp
   idempotence := EntailsIdempotentProp
   invariants := True
@@ -185,7 +207,7 @@ theorem proof_holds : proof.Holds := by
   simp only [PluginProof.Holds, proof]
   exact ⟨⟨modelsOfMemProp_holds, modelsOfSubsetProp_holds⟩,
          ⟨entailsConsProp_holds, entailsMonoProp_holds⟩,
-         True.intro, True.intro, entailsAppendProp_holds, True.intro, True.intro, modelsReverseProp_holds,
+         True.intro, True.intro, entailsAppendProp_holds, True.intro, modelsCutProp_holds, modelsReverseProp_holds,
          entailsIdempotentProp_holds, True.intro, modelsNilProp_holds, entailsSingletonProp_holds⟩
 
 /-- **The verified constraint-logic plugin.** -/

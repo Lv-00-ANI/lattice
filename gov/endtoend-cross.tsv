@@ -3247,6 +3247,7 @@ Plugins/Core/Constraint/Plugin.lean	entailsSingletonProp_holds
 Plugins/Core/Constraint/Plugin.lean	entailsIdempotentProp_holds
 Plugins/Core/Constraint/Plugin.lean	modelsReverseProp_holds
 Plugins/Core/Constraint/Plugin.lean	modelsNilProp_holds
+Plugins/Core/Constraint/Plugin.lean	modelsCutProp_holds
 Plugins/Core/Constraint/Plugin.lean	proof_holds
 Plugins/Core/Constraint/Plugin.lean	verified_manifest
 Plugins/Core/Constraint/Plugin.lean	verified_obligations
