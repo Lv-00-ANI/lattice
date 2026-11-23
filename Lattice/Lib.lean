@@ -68,6 +68,7 @@ import Lattice.Lib.Compiler.Samples
 import Lattice.Lib.Compiler.SymbolicEntry
 import Lattice.Lib.Compiler.WriteBack
 import Lattice.Lib.Compiler.Chain
+import Lattice.Lib.Compiler.Capability
 /-!
 # Lattice.Lib -- harvested instances
 

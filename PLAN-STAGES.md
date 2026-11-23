@@ -663,3 +663,32 @@ olean 存在性不行，而它恰好是唯一一个**本来就该**关于产物�
 
 **⇒ 门禁：`--check` 在「声称 source 但代码读产物」或「声称 artifact 但代码不读」时失败——
 即我这条分类**自己也会过期**，过期就会被抓住。已接入 `verify_all`（124 → **126** 项，门禁 103 → **105**）。**
+### 3.16 **第 1051 轮（规划 P2）：能力选择规则——「选哪一族」被地板逼出来，而不是偏好**
+
+**文件：`Lattice/Lib/Compiler/Capability.lean`。规划 §1.6 要求「能力选择必须有规则：
+在给定目标与精度下，应当选可越过地板的族。该判据不是能力上限」。**
+
+**⇒ 两条定理，第一条是**排除**、第二条是**可达**：**
+
+```lean
+theorem affine_target_cannot_meet (hε : ε < 1/8) :
+    ¬ (∀ x ∈ [0,1], ∃ v, (产物 .affine a b).evalAt x = some v ∧ |x² − v| ≤ ε)
+
+theorem grid_target_meets_of_budget (hbudget : 1/(4ε) ≤ n²) :
+    ∃ v, (产物 .squareApprox r.n r.hn).evalAt x = some v ∧ |x² − v| ≤ ε
+```
+
+**⇒ 合起来（`capability_rule`）：`ε < 1/8` 时仿射族**被排除**，而预算满足时离散化族**可达**。
+**⇒ 其中 `1/8` 不是本轮给的，是 `LowerBound.target_not_attainable` 早就算出的；
+本轮做的只是把它**接到产物层**（经 `evalAt_ofSegments` 一次往返）。**
+
+**⇒ 为什么这算「复用契约」（规划 P2 的验收）：本文件**没有**修改
+`Target`（未加构造子）、`EvaluatedArtifact`（未加字段）、`evalAt`（未改定义）、`writeBack`、`official_chain_recipe`。
+新增的只有**关于已有构造子的判定定理**。于是「第二个族」不是平行实现，而是同一 `Target` 里的另一格。**
+
+**⇒ 明确不声称：「离散化族是唯一可行的」。**那会是一个未被证明、也不该假定的断言
+（未来的非线性族可能更好）。文件把这句话写在定理注释里，而不是留给读者猜。**
+
+**⇒ 两处机械性后果，都按流程处理：**
+- `affine_target_cannot_meet` 是 `¬` 定理 ⇒ 否证普查 `362 → 363`（`Lib` 250 → 251）、`USAGE.md` 同步；
+- `no_uniform_linear_approximation` 因被本轮消费而**首次成为承重**，已登记 verdict。

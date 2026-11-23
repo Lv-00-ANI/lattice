@@ -63,21 +63,26 @@
 
 | 总体 | 条数 | 已审 | 覆盖 |
 |:--|--:|--:|--:|
-| 定理 + 引理 | 9907 | 1479 | 14.9% |
-| **入度 ≥ 1（承重集）** | **1085** | **1085** | **100.0%** |
-| **入度 = 0** | **8822** | **394** | **4.5%** |
+| 定理 + 引理 | 9910 | 1479 | 14.9% |
+| **入度 ≥ 1（承重集）** | **1086** | **1086** | **99.9%** |
+| **入度 = 0** | **8824** | **394** | **4.5%** |
 
 **两个方向都要读；只读一个是误导。**
 
-- **承重集 100.0% 覆盖**：1085 条被下游真正消费的定理里审了 1085 条。
+- **承重集 99.9% 覆盖**：1086 条被下游真正消费的定理里审了 1086 条。
   ⚠ **第 27 轮修正**：此前这里写的是「**100% 覆盖**」，而它上面的表格写的是 78.2%——
   **同一页三个数字**（表格 78.2%、正文 100%、更正段说集合算错、正确值是 839）。
   三个都来自**手写或过期的入度**，没有一个来自能复算的仪器。**现在只有一个数字，来自一个函数。**
-- **零入度只有 4.5%**：8822 条入度为 0 的定理里审了 394 条。**这才是「样本」真正指的东西。**
+- **零入度只有 4.5%**：8824 条入度为 0 的定理里审了 394 条。**这才是「样本」真正指的东西。**
 
-### 承重集**已全部审阅**
+### 承重集里**尚未审阅**的 1 条（逐条列出，不做汇总）
 
-入度 ≥ 1 的定理全部有判定。这不是声称，是 `check_coverage_claim.py` 每次重新算出来的。
+**这是本轮唯一还没做到的百分之几。** 它们入度 ≥ 1、被下游引用、但还没有判定：
+
+- `no_uniform_linear_approximation`
+
+**为什么列出来而不是抹平**：把这 1 条补审之后，承重集才能真的说 100%。
+在此之前它说 **99.9%**，并且**说得出缺的是哪些**——这比一个漂亮的整数有用。
 
 ### 零入度未审**不等于**已审，也不等于无害
 
@@ -87,7 +92,7 @@
 
 ### 零入度的抽样协议（第 27 轮写下）
 
-**8822 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
+**8824 条零入度定理不逐条语义审阅，这是显式取舍，不是遗漏。**
 
 **抽样的依据**：过去的审阅按「旧的有缺陷的入度」选第一层，因此其中约三百多条
 实际入度为 0——**它们不是为「零入度」抽的样，而是为「高价值」抽的样，事后发现落在零入度里。**
@@ -139,8 +144,8 @@
 > **本段此前写死了四个数字（1,360 / 839 / 521 / 7,587），而它们早已与树脱节。**
 > **→ 第 777 轮改为插值：可算的数字不得被打字进生成器。**
 >
-> **承重集（修正入度 ≥ 1）：1085 条，其中已审 1085 条。**
-> **零入度：8822 条，已抽审 394 条。**
+> **承重集（修正入度 ≥ 1）：1086 条，其中已审 1086 条。**
+> **零入度：8824 条，已抽审 394 条。**
 > **六维度的判定本身不依赖入度**，因此不受修正影响。
 
 ## 一、`delete`：陈述无信息量
@@ -166,7 +171,7 @@
 | `Evidence/ChainTransitivity.lean:153` | `loop_preserves` | 0 | 证明 `preserves_iterate R.Sat R.fix (fun y hy => by rw [R.absorbs y hy]; exact hy) n x hx`：内容与 `Core/Repair.preserves:106` 逐字相同，零新增信息。 |
 | `Evidence/CompositionAlgebra.lean:191` | `verdict_monoid_instance_agrees` | 0 | `⟨fun _ _ => rfl, rfl⟩`：两个等式都是定义性相等（实例取 `mul := (· ++ ·)`、`one := emptyVerdict`），恒真、不可能失败，零信息量。 |
 | `Evidence/CompositionClass.lean:117` | `evidence_kinds_differ` | 0 | `⟨rfl, rfl⟩`：两个合取项都是定义性自等（`Evidence .sequential P Q` 归约到 `True`，`Evidence .bridged P Q` 归约到 `∀ x, P x → Q x`），零信息量。 |
-| `Evidence/CompositionClass.lean:126` | `sequential_evidence_trivial` | 0 | 陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。 |
+| `Evidence/CompositionClass.lean:124` | `sequential_evidence_trivial` | 0 | 陈述定义展开后就是 `True`，证明 `trivial`：纯占位，零信息量（本批最纯的一条）。 |
 | `Evidence/CompositionClass.lean:130` | `bridged_needs_bridge` | 0 | 证明是 `BridgedComposition.bridge_is_necessary`：一字不改地引用另一条定理，零新增信息。 |
 | `Evidence/MultiComposition.lean:123` | `chain_single` | 0 | 归约后是 `h x hx`：只应用了一次假设，零信息量。 |
 | `Evidence/MultiComposition.lean:128` | `chain_nil_identity` | 0 | `compose_chain (Chain.nil P) x hx` 归约后就是 `hx`：只复述假设。 |
@@ -227,7 +232,7 @@
 |:--|:--|--:|:--|
 | `Lib/Architectures/RealBlockConstants.lean:324` | `transformer_block_numeric` | 2 | 登记理由：定理本体可交付，但 doc 与 stmt 已不同步，且 doc 的「不可满足」结论对本条不成立。修法：把 B53/B60/B357 的历史段移入 CORRECTIONS，只保留与本陈述匹配的契约说明，再计入成果。 |
 | `Lib/Attention/RealAttention.lean:69` | `sqrt_d_scale_bound` | 2 | 登记理由：装饰性前件 hd（唯一用处是一个未再使用的 hd'）。删掉它对调用方是净收益，属清理级。 |
-| `Lib/Attention/RealSoftmaxLipschitz.lean:126` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
+| `Lib/Attention/RealSoftmaxLipschitz.lean:124` | `softmax_lipschitz_coord` | 2 | 登记理由：仅 hM 冗余（可从 hx 推出）。属清理级问题，不阻塞 BlockConstants 的常数使用。 |
 | `Lib/Attention/RealTemporalLayer.lean:335` | `suspend_preserves_base` | 2 | 登记理由：rfl 级定义事实被当作法则级成果引用，且同文件已有一条逐字重复的定理。建议：要么删掉（下游写 rfl），要么保留但改 doc 为「定义即得」，并把法则 5 的承载放到真正的语义定理上。 |
 | `Reference/Geometry/Geometry/GeoSampledBound.lean:57` | `geo_sampled_bound` | 2 | 登记理由：真定理，但「验证回路最终形式」的标题超出陈述。修法有二：补有限采样版本（首选），或把 docstring 改成「若零点集在 rho 下 δ-稠密则误差 ≤ Lδ」并与文件头 §3 对齐。 |
 | `Runtime/EndToEnd.lean:60` | `decode_encode` | 2 | doc 本身是诚实的（"named lemma so that downstream can cite it by name"），故不删；但必须登记：L0⇄L1 这一跳是 assume 的，唯一见证是 identity（rfl）。下游 RealChainAxioms2 / RealEndToEnd 不得据此称「分词无损已证」。 |
