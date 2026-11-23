@@ -16,13 +16,13 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 触及的其他层数 | 定理数 | 占比 |
 |--:|--:|--:|
 | 0 | 4436 | 43.9% |
-| 1 | 1563 | 15.5% |
+| 1 | 1566 | 15.5% |
 | 2 | 1125 | 11.1% |
 | 3 | 253 | 2.5% |
 | 4 | 159 | 1.6% |
 | 5 | 2117 | 20.9% |
-| 6 | 454 | 4.5% |
-| **合计** | **10107** | |
+| 6 | 456 | 4.5% |
+| **合计** | **10112** | |
 
 ## 跨 ≥ 2 层（按层数降序，最多 60 条）
 
@@ -33,6 +33,8 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `abiTable_errors_wellFormed` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `abiTable_returns_a_value` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `abiTable_names_eq_verified` (`CInterface/ABI.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `loadAll_preserves_observe_of_forall_mem` (`CInterface/Bootstrap.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
+| 6 | `loadAll_reify_idempotent` (`CInterface/Bootstrap.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `conformance_length` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `conformance_names_dedup_length` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `conformance_names_eq_abi` (`CInterface/Conformance.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
@@ -86,8 +88,6 @@ I5 **已经**做内容分析（传递解析短名到层），**但它只对名�
 | 6 | `proof_holds` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `verified_manifest` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 | 6 | `verified_obligations` (`Plugins/Architectures/DAG/Plugin.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `dagEval_append` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
-| 6 | `dag_denote_seq` (`Plugins/Architectures/DAG/Proofs.lean`) | Compose, Core, Lib, Runtime, Semantics, root |
 
 ## ⚠ 层数高**不等于**更端到端
 

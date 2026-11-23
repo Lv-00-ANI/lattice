@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 250 | aggregator at `Lattice/`, re-exports only |
+| root | 251 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -863,8 +863,9 @@
 - `Lattice.Lib.Quantization.RealQuantizedError` <- `Lattice.Lib.Chain.RealChain`, `Lattice.Lib.Architectures.RealOperatorNorm`
 - `Lattice.Lib.Quantization.RealSTEError` <- `Lattice.Lib.Quantization.RealQAT`
 - `Lattice.Lib.Quantization.RealStructuredPruning` <- `Lattice.Lib.LinearAlgebra.RealSparsity`, `Lattice.Lib.Architectures.RealMatrixNorm`, `Lattice.Lib.Quantization.RealQuantizedError`, `Lattice.Lib.Quantization.RealCompressionJoint`
-- `Lattice.CInterface` <- `Lattice.CInterface.PrerequisiteCensus`, `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`
+- `Lattice.CInterface` <- `Lattice.CInterface.PrerequisiteCensus`, `Lattice.CInterface.ABI`, `Lattice.CInterface.ContractBoundary`, `Lattice.CInterface.Conformance`, `Lattice.CInterface.LayoutBytes`, `Lattice.CInterface.Serialization`, `Lattice.CInterface.Bootstrap`
 - `Lattice.CInterface.ABI` <- `Lattice.Compose.PrimitiveShape`
+- `Lattice.CInterface.Bootstrap` 
 - `Lattice.CInterface.Conformance` <- `Lattice.CInterface.ABI`
 - `Lattice.CInterface.ContractBoundary` <- `Lattice.CInterface.ABI`, `Lattice.CInterface.Conformance`
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
@@ -1963,6 +1964,7 @@
 | `Lattice.Lib.Quantization.RealStructuredPruning` | 19 | 5 |
 | `Lattice.CInterface` | 0 | 0 |
 | `Lattice.CInterface.ABI` | 5 | 6 |
+| `Lattice.CInterface.Bootstrap` | 5 | 6 |
 | `Lattice.CInterface.Conformance` | 7 | 18 |
 | `Lattice.CInterface.ContractBoundary` | 6 | 2 |
 | `Lattice.CInterface.LayoutBytes` | 13 | 5 |
@@ -6470,6 +6472,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `inner_ctr_constOne` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
 - `inner_le_sqrt_normsq` -> `apply`, `at`, `d`
 - `inner_self_norm_sq_scalar` -> `E`
+- `insertManifest_new_changes` -> `apply`, `induction`
+- `insertManifest_noop_of_mem` -> `apply`, `induction`
 - `insert_is_backward_compatible` -> `apply`, `at`, `find`
 - `insert_preserves_uniqueness` -> `apply`, `at`, `find`, `value`
 - `instDecidableEqTree_eq_iff` -> `Tree`, `d`, `induction`, `size`, `sizeList`, `size_lt_of_mem`, `size_node`, `trans`, `trivial`
@@ -7143,6 +7147,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lnE_sharp_pair_exists` -> `at`, `ctr`, `ctr_fixes`, `rmsNormE`
 - `lnE_two_sqrt_not_attained` -> `ctr`, `rmsNormE`
 - `ln_rms_relation` -> `apply`, `at`, `center`, `centerSq`, `mean`, `mean_scale`, `normalize`, `rms`, `rmsNorm`, `sqrt_one`
+- `loadAll_preserves_observe_of_forall_mem` -> `induction`
 - `loadBearing_exists` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `loadBearing_or_decorative` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `rank`, `scaleVec`, `trivial`
 - `localMin_iff_feasible` -> `localMin_of_feasible`, `not_localMin_of_resid_ne_zero`, `residN`
