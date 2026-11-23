@@ -3226,9 +3226,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `canonical_eq_none_of_not_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `length`, `length_cons`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
 - `canonical_form_closed` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `compileToLayer`, `convertVec`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `toVec`
 - `canonical_forms_bool` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
-- `canonical_forms_ext_bool` -> `add`, `e2`, `induction`, `step`
-- `canonical_forms_ext_int` -> `add`, `e2`, `induction`, `step`
-- `canonical_forms_ext_real` -> `add`, `e2`, `induction`, `step`
+- `canonical_forms_ext_bool` -> `add`, `e2`, `induction`, `mul`, `step`
+- `canonical_forms_ext_int` -> `add`, `e2`, `induction`, `mul`, `step`
+- `canonical_forms_ext_real` -> `add`, `e2`, `induction`, `mul`, `step`
 - `canonical_forms_int` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
 - `canonical_forms_real` -> `Compiler`, `HasType`, `Step`, `Value`, `add`, `e2`, `induction`, `progress`, `step`
 - `canonical_isSome_of_contentOk` -> `Layer`, `ScaleClass`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `convertVec`, `extractVec`, `listGcdNat`, `map`, `scaleClass_cNegVec_neg`, `scaleVec`, `subst`
@@ -5279,8 +5279,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `expressible_of_degenerateOK` -> `IsExpressible`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `expressiveness_strictly_grows` -> `Term`, `cicToConstraint`
 - `expressiveness_strictly_wider` -> `Compiler`, `ReluConstrSat`, `VectorConstraint`, `VectorConstraintSat`, `dot`
-- `extendAt_comm` -> `add`, `at`, `induction`, `lit`, `subst`, `trans`
-- `extendAt_extendAt_same` -> `add`, `at`, `induction`, `subst`
+- `extendAt_comm` -> `add`, `induction`, `mul`, `subst`, `trans`
+- `extendAt_extendAt_same` -> `add`, `at`, `induction`, `mul`, `subst`
 - `extent2_iUnion` -> `IsFormalConcept`, `IsTriConcept`, `extent2`, `extent_intent_extent`, `intent2`, `modus2`, `subset_extent_intent`
 - `extent_antitone` -> `apply`, `at`
 - `extent_antitone_here` -> `extent`, `extent_antitone`, `galois_connection`, `intent`, `intent_antitone`
@@ -8779,7 +8779,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `progressOnWFProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `progressProp_holds` -> `Holds`, `PluginProof`, `Repair`, `RepairWF`, `Sat`, `VerifiedPlugin`, `atomic_of_zero_iff`, `completeness`, `converges_within`, `countdown`, `countdown_converges_in`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `preserves`, `progress`, `progress_on_wf`, `proof`, `proof_holds`, `soundness`, `stable`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `progress_aux` -> `HasType`, `Relation`, `Step`, `Ty`, `Value`, `at`, `induction`, `preservation`, `progress`
-- `progress_ext` -> `add`, `e2`, `induction`, `step`
+- `progress_ext` -> `add`, `e2`, `induction`, `mul`, `step`
 - `progress_is_false` -> `Step`, `Term`, `Typable`
 - `progress_needs_closed` -> `HasType`, `Step`, `Value`
 - `progress_of_rate` -> `Repair`, `Sat`, `iterate`
@@ -10702,7 +10702,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_var_self` -> `Term`, `d`, `shift`, `subst`
 - `subst_zero_var_zero` -> `Term`, `d`, `shift`, `subst`
 - `substantive_representation_instance` -> `Representation`, `compile`, `compile_injective`, `extract`, `extract_compile`, `roundtrip`
-- `substitution_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
+- `substitution_ext` -> `add`, `at`, `e2`, `induction`, `mul`, `step`, `subst`
 - `sumEven_eq_zero_iff` -> `at`, `induction`, `map`
 - `sumRelu_all_constraints` -> `at`, `induction`, `map`, `relu`
 - `sumRelu_eq_zero_iff_each` -> `at`, `induction`, `map`, `relu`
@@ -11399,7 +11399,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `value_not_app` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `shift`, `subst`, `zero`
 - `value_not_var` -> `HasType`, `Step`, `Ty`, `Value`, `at`, `induction`, `length`, `length_cons`, `nil_append`, `shift`, `subst`, `zero`
 - `value_spaces_differ` -> `d`
-- `value_weakening` -> `add`, `at`, `induction`, `step`, `subst`
+- `value_weakening` -> `add`, `at`, `induction`, `mul`, `step`, `subst`
 - `varLengthChain_succ` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `varLengthChain_zero` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `varLength_error_bound` -> `E`, `apply`, `induction`, `le_trans`, `zero`
@@ -11494,7 +11494,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `weak_grades_do_not_refute` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `dot`, `g`, `lt`, `scaleVec`, `trivial`
 - `weak_pareto_optimal_of_scalarization` -> `e2`
 - `weakened_system_is_conservative` -> `CICCtx`, `ConstSet`, `DefEnv`, `E`, `HasType`, `HasTypeW`, `Sat`, `Term`, `VerificationLoop`, `closed_loop_partial_reinject`, `conv_refl`, `g`, `hasTypeW_app_pi`, `hasType_to_hasTypeW`, `repair`, `run`
-- `weakening_ext` -> `add`, `at`, `e2`, `induction`, `step`, `subst`
+- `weakening_ext` -> `add`, `at`, `induction`, `mul`, `step`, `subst`
 - `weierstrass_prod_le` -> `E`, `at`, `empty`, `induction`, `le_trans`
 - `weightCodeIR_compileSkel` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `decodeSkeleton_code`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
 - `weightCount_cons` -> `Activation`, `Arch`
