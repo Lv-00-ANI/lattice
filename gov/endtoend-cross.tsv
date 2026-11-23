@@ -225,6 +225,8 @@ Core/PartialSection.lean	extract_eq_some_of_compile_eq
 Core/PartialSection.lean	compile_eq_of_mem_range
 Core/PartialSection.lean	extract_isSome
 Core/PartialSection.lean	isIso_iff_image_total
+Core/PartialSection.lean	of_injective_extract_none_iff
+Core/PartialSection.lean	of_injective_surjective_iff_never_none
 Core/PluginComplete.lean	plugin_registry_complete
 Core/PluginComplete.lean	proofRegistry_nonempty
 Core/Simulation.lean	run_preserved

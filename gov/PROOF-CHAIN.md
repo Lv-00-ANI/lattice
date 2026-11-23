@@ -1267,7 +1267,7 @@
 | `Lattice.Core.Net` | 8 | 5 |
 | `Lattice.Core.NonlinearLayer` | 5 | 3 |
 | `Lattice.Core.OneStepBridge` | 7 | 2 |
-| `Lattice.Core.PartialSection` | 6 | 3 |
+| `Lattice.Core.PartialSection` | 8 | 4 |
 | `Lattice.Core.PluginComplete` | 2 | 3 |
 | `Lattice.Core.RepairModule.ConstraintProofs` | 4 | 6 |
 | `Lattice.Core.RepairModule.Repair` | 9 | 5 |
@@ -3727,7 +3727,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_correct` -> `Compiler`, `add`, `append_assoc`, `at`, `compile`, `induction`, `length`, `lit`, `mul`, `run`
 - `compile_correct_empty` -> `Compiler`, `add`, `at`, `compile`, `induction`, `length`, `lit`, `mul`, `run`
 - `compile_empty` -> `CompilerConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
-- `compile_eq_of_mem_range` -> `W`, `at`, `compile`, `compile_injective`, `extract`
+- `compile_eq_of_mem_range` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le_trans`, `lit`, `tiny`, `toFun`
 - `compile_error_bound_mul_discharged` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `at`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `mag`, `numOps`, `tiny`
 - `compile_error_bound_pure` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `lit`, `mul`, `tiny`
@@ -5337,12 +5337,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extract_compile_skel` -> `IRSkeleton`, `Term`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `parse`, `skeletonCode`, `skeletonCode_injective`, `subst`
 - `extract_convert_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
 - `extract_drops_unterminated` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
-- `extract_eq_some_of_compile_eq` -> `W`, `at`, `compile`, `compile_injective`, `extract`
+- `extract_eq_some_of_compile_eq` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `extract_fixpoints_many` -> `PiecewiseConstraint`, `at`, `closureOperator`, `extent`, `intent`, `piecewiseCompile`, `reluInv`, `trans`
 - `extract_functional` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
 - `extract_idempotent` -> `IsFormalConcept`, `at`, `closure_idempotent`, `extent_antitone`, `g`, `intent_antitone`, `relu`, `subset_extent_intent`
 - `extract_injective_on_compiled` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
-- `extract_isSome` -> `W`, `at`, `compile`, `extract`
+- `extract_isSome` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `extract_is_valid` -> `ConstraintSat`, `LinearNeuron`, `NeuronOut`, `extract`
 - `extract_lipschitz_one` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `extract_lossy_of_no_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
@@ -6550,7 +6550,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isFCAClosed_iff_isFormalConcept_extent` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
 - `isFiniteMeasure_map` -> `map`
 - `isIntegral_iff_minpoly_ne_zero` -> `at`, `eval`, `min`, `subst`
-- `isIso_iff_image_total` -> `W`, `at`, `compile`, `extract`
+- `isIso_iff_image_total` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `isKSparse_sub` -> `apply`, `at`, `l0Norm`, `le_antisymm`, `sqNorm`
 - `isLam_app` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`, `subst`
 - `isLam_const` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`, `subst`
@@ -6582,7 +6582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isRIP_zero` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `sqNorm`, `subst`
 - `isRedundant_nonempty` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsRedundant`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`, `trivial`
 - `isSaddle_cube` -> `at`, `comp`, `const_add`, `g`
-- `isSome_retract` -> `W`, `at`, `compile`, `compile_injective`, `extract`
+- `isSome_retract` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `isStrictLocalMax_eq_neg_isStrictLocalMin` -> `ConstraintSet`, `IsKSparse`, `IsSparse`, `IsStrictLocalMax`, `IsStrictLocalMin`, `Layer`, `VectorConstraint`, `apply`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compile`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `coreVecToReal`, `ctr`, `extractLayer_alt`, `extractLayer_eq_extractLayer`, `l0Norm`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `toIsLocalMax`, `toRealVec`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `isStrictLocalMax_iff_neg` -> `IsStrictLocalMin`, `at`, `exists_box_of_continuousAt_neg`, `g`, `mono`, `second_order_sufficient`, `strict_local_min_of_deriv_sign`, `toIsLocalMin`
 - `isStrictLocalMax_neg_pow4` -> `IsStrictLocalMin`, `at`, `comp`, `const_add`, `g`
@@ -8211,6 +8211,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ofParams_toParams` -> `AffineLayer`, `LayerParams`, `MLayer`, `W`, `affineAct`
 - `ofRepresentation_roundtrip` -> `LinearForm`, `Representation`, `SemEq`, `W`, `ZB`, `compile`, `decode`, `encode`, `extract`, `obs`, `roundtrip`, `semantic_not_injective`
 - `ofTruthTable_spec` -> `Compiler`, `d`, `induction`
+- `of_injective_extract_none_iff` -> `Surjective`, `W`, `at`, `extract`
+- `of_injective_surjective_iff_never_none` -> `Surjective`, `W`, `extract`
 - `offSupport_is_load_bearing` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `extractVec`, `length`, `map`, `roundtrip_extractVec`, `symbolToWeight_correct`
 - `ogd_regret_bound` -> `at`
 - `old_capabilities_retained` -> `cicToConstraint`
@@ -9435,7 +9437,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `retainedMass_mono_budget` -> `at`
 - `retainedSum_eq_card_mul_slotCount` -> `trans`
 - `retainedSum_eq_sum_slotCount` -> `trans`
-- `retract_some` -> `W`, `at`, `compile`, `compile_injective`, `extract`
+- `retract_some` -> `Surjective`, `W`, `at`, `compile`, `compile_injective`, `extract`
 - `reversibility_boundary` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `reversibility_criterion` -> `Compiler`, `W`, `compile`, `extract`
 - `reversibility_depends_on_representation` -> `BehaviourallyEquivalent`

@@ -283,6 +283,13 @@ CHECKS = [
     # What can be enforced is that the layer stops GROWING: this gate bounds its importer set.**
     ("frozen: geometry layer importers bounded", "check_frozen_reference.py --check"),
     ("frozen: geometry baseline self-test", "check_frozen_reference.py --self-test"),
+    # **Round 1039: does every ADJACENT link of the objective's chain have a theorem whose STATEMENT
+    # mentions both stages? Three consecutive rounds I guessed at a missing connector and found it
+    # already built (LoopClosure, decodeSpec_none_of_not_code, extract_after_repair). Guessing is
+    # the unreliable method; this gate enumerates. It cannot demand a COUNT -- one connecting
+    # theorem is enough for a link to exist -- only that no adjacent link goes EMPTY.**
+    ("chain: every adjacent link has a connecting theorem", "chain_connectors.py --check"),
+    ("chain: connector marker matching self-test", "chain_connectors.py --self-test"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
