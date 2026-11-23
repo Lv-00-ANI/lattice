@@ -23,6 +23,7 @@ open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.IRWeightsBridge
 open Lattice.Lib.Compiler.ChordGeneral
 open Lattice.Lib.Compiler
+open Lattice.Lib.Compiler.Samples
 open Lattice.Lib.Compiler.SymbolicEntry
 
 /-- **相邻端点不同**：`n > 0` 时 `k/n ≠ (k+1)/n`。
@@ -82,5 +83,57 @@ theorem interpFamily_sq_error (n : ℕ) (hn : 0 < n) (x : ℝ) (hx : x ∈ Set.I
       ≤ (1 / (n : ℝ)) ^ 2 / 4 := by
   rw [interpFamily_sq n hn]
   exact irWeights_error_bound n hn x hx
+
+/-- **⭐⭐⭐ 二次项的**整域误差界**：`|x² + p·x + q − 插值| ≤ (1/n)²/4`。**
+
+**⇒ 装配是三步，每一步都引用本文件或既有定理：**
+1. `interpFamily_add` 把二次项拆成「`x·x` 部分」与「仿射部分」；
+2. `interpFamily_affine` + `gridEval_affineFamily` 说仿射部分插值**精确**（误差零）；
+3. `interpFamily_sq_error` 给剩下那支的界。
+
+**⇒ 于是总误差**正好退化**为 `x²` 的界——不是「小于两项之和」这种弱说法。
+
+**⇒ 这就是规划 §3.1 A.5 要的那一步：对一**类**（二次 + 仿射）给出整域界，
+而不是对 `x²` 一个特例。** -/
+theorem interpFamily_quad_error (p q : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ)
+    (hx : x ∈ Set.Icc (0 : ℝ) 1) :
+    |(x * x + (p * x + q)) - gridEval (interpFamily n (fun y : ℝ => y * y + (p * y + q))) n x|
+      ≤ (1 / (n : ℝ)) ^ 2 / 4 := by
+  -- **`x · x` 与 `x ^ 2` 通过 `pow_two` 对齐；不把两者当同一个东西。**
+  have hfun : (fun y : ℝ => y * y) = (fun y : ℝ => y ^ 2) := by
+    funext y
+    rw [pow_two]
+  -- **第一步：拆成两支。**
+  have hsplit : interpFamily n (fun y : ℝ => y * y + (p * y + q))
+      = gridAdd (interpFamily n (fun y : ℝ => y * y)) (interpFamily n (fun y : ℝ => p * y + q)) :=
+    interpFamily_add n hn _ _
+  rw [hsplit, gridEval_add]
+  -- **第二步：仿射那支插值精确。**
+  have haff : interpFamily n (fun y : ℝ => p * y + q) = affineFamily p q :=
+    interpFamily_affine n hn p q
+  rw [haff, gridEval_affineFamily]
+  -- **第三步：剩下的差异只剩 `x·x` 那一项。**
+  have hdiff : (x * x + (p * x + q))
+        - (gridEval (interpFamily n (fun y : ℝ => y * y)) n x + (p * x + q))
+      = x * x - gridEval (interpFamily n (fun y : ℝ => y * y)) n x := by
+    ring
+  rw [hdiff, hfun]
+  -- **`x · x` 在左侧也要变成 `x ^ 2`：`hfun` 只改写了**函数**的位置。**
+  rw [← pow_two x]
+  exact interpFamily_sq_error n hn x hx
+
+/-- **⭐⭐⭐ 二次项的**产物层**整域界。**
+
+**⇒ 与族层那条相比，本条多的只有**一次产物往返**（`evalAt_ofSegments`）。**
+**⇒ 它是可用形式：调用者拿到的是产物的 `evalAt`，而不是一个族的网格求值。** -/
+theorem quad_artifact_bound (p q : ℝ) (r : CompileRecipe)
+    (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) :
+    ∃ v : ℝ,
+      (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
+          (Target.family r (.interp (fun y : ℝ => y * y + (p * y + q)))) dom r).evalAt x = some v
+        ∧ |(x * x + (p * x + q)) - v| ≤ (1 / (r.n : ℝ)) ^ 2 / 4 := by
+  refine ⟨gridEval (interpFamily r.n (fun y : ℝ => y * y + (p * y + q))) r.n x, ?_, ?_⟩
+  · exact Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments _ dom r x
+  · exact interpFamily_quad_error p q r.n r.hn x hx
 
 end Lattice.Lib.Compiler.InterpAlgebra

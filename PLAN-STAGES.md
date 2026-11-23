@@ -726,3 +726,32 @@ theorem grid_target_meets_of_budget (hbudget : 1/(4ε) ≤ n²) :
 路线有两条：(a) 对 `deriv^[2]` 实例化 `chord_error_of_second_deriv_bound`（需算导数）；
 (b) 用 `interpFamily_add` + `gridEval_add` + `pow_two` 把误差拆成「x² 部分 + 仿射部分（零）」。
 **（b）更短且已有一半零件**，但本轮**未做**，故不作声称。**
+### 3.18 **第 1054 轮（规划 §3.1 A.5）：从「一个样例」到「一类」——二次项的整域界**
+
+**规划 A.5 的原话是「对具有二阶导上界的函数族，复用弦误差引理」。
+本轮走**最短路线**完成这一步：不实例化 `chord_error_of_second_deriv_bound` 的可微假设（那要算导数），
+而是用**可加性 + 既有 `x²` 界**。**
+
+**两条新定理：**
+
+```lean
+interpFamily_quad_error (0 < n) (x ∈ [0,1]) :
+    |(x·x + (p·x+q)) − gridEval (interpFamily n (fun y => y·y + (p·y+q))) n x| ≤ (1/n)²/4
+
+quad_artifact_bound :
+    ∃ v, 产物.evalAt x = some v ∧ |(x·x + (p·x+q)) − v| ≤ (1/n)²/4
+```
+
+**⇒ 装配是三步**引用**，没有一步是新的分析：**
+1. `interpFamily_add`——把二次项拆成「`x·x` 部分」与「仿射部分」；
+2. `interpFamily_affine` + `gridEval_affineFamily`——**仿射部分插值精确，误差为零**；
+3. `interpFamily_sq_error`——剩下那支的界。
+
+**⇒ 于是总误差**正好退化**为 `x²` 的界；这**不是**「至多两项误差之和」那种弱说法，因为仿射项贡献为零。**
+
+**⇒ 第二条是可用形式：它落在产物的 `evalAt` 上，消费者不必自己重建「是哪个族的网格求值」。**
+
+**⇒ 两处 `x·x` 与 `x^2` 的对齐**（`pow_two` 用了两次：一次改函数参数，一次改左侧标量）。
+第一次尝试失败正是因为**只改了函数位置**——编译器的类型不符直接指出了这点。**
+
+**⇒ 一处 import 遗漏**：`affineFamily` / `gridEval_affineFamily` 在 `Samples` 命名空间，`InterpAlgebra` 未 `open`。**
