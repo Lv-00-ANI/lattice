@@ -95,7 +95,15 @@ CLAUSES = {
     # so rule A passed while the mainline had no carrier at all. These are the mainline names, and
     # round 65's measurement is what forced the change.
     "3.4 inverse: re-injection": ["closed_loop_reinject_vanishes", "closed_loop_partial_reinject"],
-    "4 loop": ["converges_within", "bidirRepair"],
+    # Round 1029: this clause is "the closed loop IS the verification loop", and its carriers were
+    # `converges_within` and `bidirRepair` -- neither of which lives in `Runtime/LoopClosure.lean`,
+    # the file that IS the loop. Measured: `extractLayer` is referenced by 31 files, and
+    # `compile_extract_layer` states the CLOSURE (extract a layer to constraints, compile them
+    # back, get the layer) -- that is the loop being closed, not a loop being iterated.
+    # `loop_is_criterion_not_repair` is kept as the clause's honest boundary: the loop is a
+    # CRITERION, not a repair tool.
+    "4 loop": ["converges_within", "bidirRepair", "compile_extract_layer",
+               "loop_is_criterion_not_repair"],
     # Round 1026: **the engine is CIC** (the user's directive: "for the current design the
     # conforming engine IS cic"). The clause used to name `evalPts` and `derivation_sound`, both of
     # which live ONLY in the archived geometry layer -- so this clause had no mainline carrier at all.

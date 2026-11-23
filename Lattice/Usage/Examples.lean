@@ -20,6 +20,7 @@ import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.ApproxExact
 import Lattice.Runtime.VerificationLoop
 import Lattice.Core.RepairModule.SqDistRepair
+import Lattice.Runtime.LoopClosure
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
 import Lattice.Reference.Geometry.Geometry.GeoSampledBound
@@ -434,5 +435,31 @@ theorem repair_reaches_and_stabilises (n : ℕ) :
           (Lattice.Core.sqDistHalvingRepair.iterate k n)
         = Lattice.Core.sqDistHalvingRepair.iterate k n :=
   Lattice.Core.sqDistHalving_terminates_and_stabilises n
+
+
+/-! ## 闭环的**两分**：判据不动，修正才动
+
+**`Runtime/LoopClosure.lean` 就是闭环（`extractLayer` 被 31 个文件引用），**
+**但它的 `loop_is_criterion_not_repair` 说的是一件**反向**的事：**
+**回路连跑两遍仍得同一个 `ls`——**回路是判据，不是修复**。**
+
+**⇒ 它的 docstring 明写：「修正必须来自回路之外（`Repair` 的 `run`），
+这一点由 `VerificationLoop.lean` 承担」。本节把**两件事并置**。** -/
+
+/-- **闭环的两半：判据对每个层都不改变任何东西，而修正对每个缺陷都终将到达通过。**
+
+**⇒ 两个合取项都是 `∀` 形式，故本条**不是**任一边的逐字转发：它说的是「实验两半分开存在」。**
+**⇒ 这正是目标原话「闭环就是验证回路」需要的那句补充：回路负责**验证**，**
+**而「修正」另有一个载体。把二者混为一谈会把闭环读成「自动修好」，那是错的。** -/
+theorem criterion_static_repair_progresses :
+    (∀ ls,
+        Lattice.Lift.SymbolToWeightCorrectness.compileToLayer
+          (Lattice.Runtime.LoopClosure.extractLayer
+            (Lattice.Lift.SymbolToWeightCorrectness.compileToLayer
+              (Lattice.Runtime.LoopClosure.extractLayer ls))) = ls)
+      ∧ (∀ n : ℕ, ∃ k : ℕ, Lattice.Core.sqDistHalvingRepair.Sat
+          (Lattice.Core.sqDistHalvingRepair.iterate k n)) :=
+  ⟨Lattice.Runtime.LoopClosure.loop_is_criterion_not_repair,
+   Lattice.Core.sqDistHalving_terminates⟩
 
 end Lattice.Usage
