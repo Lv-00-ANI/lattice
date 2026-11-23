@@ -15,7 +15,7 @@
 > **A 组的 `23` 条里有两条位于 `Usage/Examples.lean`（`natRepair` 实例本身，及 `repair_reaches_and_stabilises`、`criterion_static_repair_progresses` 两条**组合述诰**）。
 > 它们名字含 `repair`，故按本表的判据归入修正词汇，但**它们不是新实例**——实例仍为 9 个文件。
 | B. 使用 `Repair` 结构 | 出现 `Repair` 但无实例定义 | 18 | **50** |
-| C. 字面命中 | 有 fix 命名声明，但文件里没有 `Repair` | 59 | **241** |
+| C. 字面命中 | 有 fix 命名声明，但文件里没有 `Repair` | 60 | **242** |
 
 **口径说明**：上表按文件累加得 334，而 `ROADMAP-v4 §0` 的 278 是
 **去重后的声明名数**（一次正则扫全库）。两者差 56，因为同一名字可能在

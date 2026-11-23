@@ -569,3 +569,38 @@ theorem write_back_verifies_and_changes ... :
 2. `rw [if_pos h]` 在条件**定义等价但非同形**时失败 ⇒ 改 `exact if_pos h`；
 3. `simp` 会把 `if` 的条件化约成 `True` 却**不化约 `if` 本身**，于是任何手写 `show` 都不匹配
    ⇒ 改为**先算两条求值等式**（`e1`、`e2`）再比较实数，把工作留给 `linarith` 而不是留给我猜形状。
+### 3.13 **第 1048 轮（规划 P1-a）：官方配方的单一陈述，且新增了**提取接缝**这一条真定理**
+
+**文件：`Lattice/Lib/Compiler/Chain.lean`。规划 §5.2 要求「手工列出配方、机器检查每一步」。**
+**本文件的每个接缝都是既有定理，新增的只有**接缝本身**与顶层陈述。**
+
+| 节点 | 提供方 | 目标 |
+|:--|:--|:--|
+| 源语义 | `evalSym_squareTerm` | `evalSym x squareTerm = some (x·x)` |
+| 编译 | `compileTarget_squareTerm` | `= some (.squareApprox r.n r.hn)` |
+| 构造 | `ofSegments` + `Target.family` | 产物 |
+| 求值 | `evalAt_ofSegments` | `evalAt x = some (gridEval …)` |
+| 保证 | `irWeights_error_bound` | `\|x² − v\| ≤ (1/n)²/4` |
+| **提取** | **`decodedFamily_ofSegments`**（新） | **提取回的族就是被证明有界的那个族** |
+| 修复 | `slopeRepair` | 三条义务 |
+| 写回 | `writeBack` + `writeBack_evalAt` | 重新编码进权重 |
+| 重验 | `write_back_verifies_and_changes` | 判据成立 ∧ 可观察值改变 |
+
+**⇒ 唯一的新定理是提取接缝：`decodedFamily_ofSegments g dom r : (ofSegments g dom r).decodedFamily = some g`，
+由 `gridLayout.retract` 得出。**
+
+**⇒ 它补的是一个**实质缺口**：此前 `square_path_bound` 只说「产物求值有界」，
+**没有说「提取回的东西就是那个有界的族」**。而没有后一句，「提取 → 验证」在产物层其实没接上——
+读者得自己相信「产物里的载荷就是那个族」。**
+
+**⇒ 顶层定理 `official_chain_recipe` 把 A 段（源语义 + 编译 + 整域界 + 提取接缝）与
+C 段（修复 + 写回 + 重验 + 可观察变化）并置为一条可引用陈述。**
+
+**⇒ 明确**不**承诺：本定理不声称「修复后的产物仍满足 `x²` 的误差界」——修复改变斜率，
+那条界**确实不再成立**。分开陈述正是为了避免这种误读。**
+
+**⇒ 三处我造成的错误，都被门禁或类型系统抓到：**
+1. verdict JSON 里写了 `\|`——**JSON 非法转义**，`check_coverage_claim` 直接报 `Invalid \escape`；
+2. verdict 把 `square_path_bound` 指到 `Samples.lean`，而它在 `SymbolicEntry.lean`
+   ——`check_verdict_freshness` 判为 **NEW STALE**；
+3. `repair_chain` 是转发 ⇒ 别名普查报 NEW forward（已按「有意转发」登记）。
