@@ -48,7 +48,7 @@ theorem affine_target_cannot_meet (dom : Lattice.Lib.Compiler.SemDomain)
     ¬ (∀ x ∈ Set.Icc (0 : ℝ) 1,
         ∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-              (Target.family (.affine a b)) dom r).evalAt x = some v
+              (Target.family r (.affine a b)) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ eps) := by
   intro hall
   apply Lattice.Lib.Compiler.LowerBound.no_uniform_linear_approximation eps heps
@@ -56,7 +56,7 @@ theorem affine_target_cannot_meet (dom : Lattice.Lib.Compiler.SemDomain)
   obtain ⟨v, hv, hb⟩ := hall x hx
   -- **产物求值 = `a·x + b`（产物契约 + 常族求值），故 `v` 就是那个仿射值。**
   have hv' : (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-      (Target.family (.affine a b)) dom r).evalAt x = some (a * x + b) := by
+      (Target.family r (.affine a b)) dom r).evalAt x = some (a * x + b) := by
     rw [Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments]
     show some (gridEval (affineFamily a b) r.n x) = some (a * x + b)
     rw [gridEval_affineFamily]
@@ -76,7 +76,7 @@ theorem grid_target_meets_of_budget (dom : Lattice.Lib.Compiler.SemDomain)
     (eps : ℝ) (heps : 0 < eps) (hbudget : 1 / (4 * eps) ≤ (r.n : ℝ) ^ 2) :
     ∃ v : ℝ,
       (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-          (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+          (Target.family r .squareApprox) dom r).evalAt x = some v
         ∧ |x ^ 2 - v| ≤ eps := by
   obtain ⟨v, hv, hb⟩ := (square_path_bound r dom x hx).2
   exact ⟨v, hv, le_trans hb (budget_of_sq r.n r.hn eps heps hbudget)⟩
@@ -95,11 +95,11 @@ theorem capability_rule (dom : Lattice.Lib.Compiler.SemDomain)
     (¬ (∀ x ∈ Set.Icc (0 : ℝ) 1,
           ∃ v : ℝ,
             (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-                (Target.family (.affine a b)) dom r).evalAt x = some v
+                (Target.family r (.affine a b)) dom r).evalAt x = some v
               ∧ |x ^ 2 - v| ≤ eps))
       ∧ (∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-              (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+              (Target.family r .squareApprox) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ eps') :=
   ⟨affine_target_cannot_meet dom r a b eps heps_lt,
    grid_target_meets_of_budget dom r x hx eps' heps' hbudget⟩

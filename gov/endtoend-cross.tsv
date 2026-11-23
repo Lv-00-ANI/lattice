@@ -2012,6 +2012,8 @@ Lib/Compiler/SymbolicEntry.lean	affine_path_exact
 Lib/Compiler/SymbolicEntry.lean	square_path_bound
 Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
 Lib/Compiler/SymbolicEntry.lean	square_end_to_end
+Lib/Compiler/SymbolicEntry.lean	interp_realises_affine
+Lib/Compiler/SymbolicEntry.lean	interp_affine_artifact_exact
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/WriteBack.lean	writeBack_evalAt
