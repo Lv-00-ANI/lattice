@@ -1573,6 +1573,8 @@ Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_odd
 Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_represents
 Lib/Compiler/IRWeightsBridge.lean	irWeights_error_bound
 Lib/Compiler/IRWeightsBridge.lean	irWeights_uniform_tendsto
+Lib/Compiler/InterpAlgebra.lean	interpFamily_sq
+Lib/Compiler/InterpAlgebra.lean	interpFamily_sq_error
 Lib/Compiler/Layout.lean	evalAt_ofSegments
 Lib/Compiler/Layout.lean	evalAt_isSome_iff_decoded_isSome
 Lib/Compiler/Layout.lean	evalAt_congr_of_decoded_eq
@@ -2014,6 +2016,7 @@ Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
 Lib/Compiler/SymbolicEntry.lean	square_end_to_end
 Lib/Compiler/SymbolicEntry.lean	interp_realises_affine
 Lib/Compiler/SymbolicEntry.lean	interp_affine_artifact_exact
+Lib/Compiler/SymbolicEntry.lean	compileTarget_quadTerm
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/WriteBack.lean	writeBack_evalAt

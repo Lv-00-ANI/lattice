@@ -11,7 +11,7 @@
 | core | 173 | no imports from lift/lib |
 | lift | 0 | may import core only |
 | slots | 0 | metadata, imports nothing |
-| lib | 670 | instantiated library, may import core only |
+| lib | 671 | instantiated library, may import core only |
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
@@ -411,6 +411,7 @@
 - `Lattice.Lib.Compiler.HopVerdict` <- `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.ModulusAbstract`
 - `Lattice.Lib.Compiler.IRWeightsBridge` <- `Lattice.Core.IR.Compile`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.PiecewiseUniform`
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
+- `Lattice.Lib.Compiler.InterpAlgebra` <- `Lattice.Lib.Compiler.SymbolicEntry`, `Lattice.Lib.Compiler.SecondDerivBound`
 - `Lattice.Lib.Compiler.Layout` <- `Lattice.Core.PartialSection`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.GridAlgebra`
 - `Lattice.Lib.Compiler.LowerBound` 
 - `Lattice.Lib.Compiler.LowerBoundGeneral` <- `Lattice.Lib.Compiler.LowerBound`
@@ -905,7 +906,7 @@
 - `Lattice.Evidence.PredicateWitnesses` <- `Lattice.Evidence.Hypotheses`, `Lattice.Lib.Compiler.RealEffectOrdering`, `Lattice.Lib.Concentration.RealMeasurePD`, `Lattice.Lib.Editing.RealEditCommute`, `Lattice.Lib.LinearAlgebra.RealInnerScalar`
 - `Lattice.Evidence.StructureCensus` <- `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Core.RepairModule.Repair`
 - `Lattice.Evidence.VerdictLattice` <- `Lattice.Evidence.CompositionClass`
-- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.ReversibilityChain`, `Lattice.Lib.Compiler.ReversibilitySharpness`, `Lattice.Lib.Compiler.ExecutableBoundary`, `Lattice.Lib.Compiler.ExecutableWeights`, `Lattice.Lib.Compiler.ModelsBehavior`, `Lattice.Lib.Attention.RealMaskAlgebra`, `Lattice.Lib.Compiler.Layout`, `Lattice.Lib.Compiler.Samples`, `Lattice.Lib.Compiler.SymbolicEntry`, `Lattice.Lib.Compiler.WriteBack`, `Lattice.Lib.Compiler.Chain`, `Lattice.Lib.Compiler.Capability`
+- `Lattice.Lib` <- `Lattice.Lib.Fiber.FiberBridge`, `Lattice.Lib.Chain.RealLv00SolverConflictDetection`, `Lattice.Lib.Chain.L1BridgeHomomorphism`, `Lattice.Lib.Quantization.RealCompressionStepDischarged`, `Lattice.Lib.Compiler.FloatMulBoundDischarged`, `Lattice.Lib.Architectures`, `Lattice.Lib.Attention`, `Lattice.Lib.Chain`, `Lattice.Lib.Compiler`, `Lattice.Lib.Concentration`, `Lattice.Lib.Convex`, `Lattice.Lib.Editing`, `Lattice.Lib.FCA`, `Lattice.Lib.InfoTheory`, `Lattice.Lib.LearningTheory`, `Lattice.Lib.Lift`, `Lattice.Lib.Linear`, `Lattice.Lib.LinearAlgebra`, `Lattice.Lib.Meta`, `Lattice.Lib.Optim`, `Lattice.Lib.Penalty`, `Lattice.Lib.Quantization`, `Lattice.Lib.FloatStackRefinement`, `Lattice.Lib.Architectures.RealTransformerEval`, `Lattice.Lib.Penalty.QuadraticNotLipschitz`, `Lattice.Lib.Penalty.QuadraticLocallyLipschitz`, `Lattice.Lib.Compiler.Expressiveness`, `Lattice.Lib.Compiler.ReluClosure`, `Lattice.Lib.Compiler.CarrierClosure`, `Lattice.Lib.Compiler.CarrierCoverage`, `Lattice.Lib.Compiler.CarrierReproduction`, `Lattice.Lib.Compiler.DataSynthesis`, `Lattice.Lib.Compiler.CarrierAlgebra`, `Lattice.Lib.Compiler.CarrierReversible`, `Lattice.Lib.Compiler.CarrierInstantiation`, `Lattice.Lib.Compiler.ReluLemmas`, `Lattice.Lib.Compiler.ReversibilityLimit`, `Lattice.Lib.Compiler.NoIntermediateLayer`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.HopVerdict`, `Lattice.Lib.Compiler.ConvergenceForm`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.ConstraintSatisfaction`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.R3Triviality`, `Lattice.Lib.Compiler.ModulusAbstract`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordGeneral`, `Lattice.Lib.Compiler.ChordErrorGeneral`, `Lattice.Lib.Compiler.ConvexityChord`, `Lattice.Lib.Compiler.SecondDerivBound`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.ReversibilityChain`, `Lattice.Lib.Compiler.ReversibilitySharpness`, `Lattice.Lib.Compiler.ExecutableBoundary`, `Lattice.Lib.Compiler.ExecutableWeights`, `Lattice.Lib.Compiler.ModelsBehavior`, `Lattice.Lib.Attention.RealMaskAlgebra`, `Lattice.Lib.Compiler.Layout`, `Lattice.Lib.Compiler.Samples`, `Lattice.Lib.Compiler.SymbolicEntry`, `Lattice.Lib.Compiler.WriteBack`, `Lattice.Lib.Compiler.Chain`, `Lattice.Lib.Compiler.Capability`, `Lattice.Lib.Compiler.InterpAlgebra`
 - `Lattice.Plugins` <- `Lattice.Plugins.ProofSlotCensus`, `Lattice.Runtime`, `Lattice.Plugins.Manifest`, `Lattice.Plugins.Registry`, `Lattice.Plugins.Migration`, `Lattice.Plugins.Targets`, `Lattice.Plugins.Runtime.RTargets`, `Lattice.Plugins.Core`, `Lattice.Plugins.Domains`, `Lattice.Plugins.Compose`, `Lattice.Plugins.Extractors`, `Lattice.Plugins.Architectures`, `Lattice.Semantics.DPhaseAdditions`, `Lattice.Plugins.Architectures.Conv.Proofs`, `Lattice.Plugins.Architectures.Conv.Manifest`, `Lattice.Plugins.Architectures.Conv.Plugin`, `Lattice.Plugins.Architectures.Attention.Proofs`, `Lattice.Plugins.Architectures.Attention.Manifest`, `Lattice.Plugins.Architectures.Attention.Plugin`, `Lattice.Plugins.Architectures.DAG.Proofs`, `Lattice.Plugins.Architectures.DAG.Manifest`, `Lattice.Plugins.Architectures.DAG.Plugin`, `Lattice.Plugins.Architectures.CarrierAdditions`, `Lattice.Plugins.Targets.IRCarrier`
 - `Lattice.Plugins.Architectures` <- `Lattice.Plugins.Architectures.GNN.Manifest`, `Lattice.Plugins.Architectures.GNN.Plugin`, `Lattice.Plugins.Architectures.Norm.Manifest`, `Lattice.Plugins.Architectures.Norm.Plugin`
 - `Lattice.Plugins.Architectures.Attention.Manifest` <- `Lattice.Plugins.Manifest`, `Lattice.Plugins.Architectures.Attention.Proofs`
@@ -1511,6 +1512,7 @@
 | `Lattice.Lib.Compiler.HopVerdict` | 3 | 0 |
 | `Lattice.Lib.Compiler.IRWeightsBridge` | 9 | 3 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
+| `Lattice.Lib.Compiler.InterpAlgebra` | 5 | 0 |
 | `Lattice.Lib.Compiler.Layout` | 5 | 10 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
@@ -1575,7 +1577,7 @@
 | `Lattice.Lib.Compiler.ReversibilitySharpness` | 4 | 0 |
 | `Lattice.Lib.Compiler.Samples` | 5 | 1 |
 | `Lattice.Lib.Compiler.SecondDerivBound` | 6 | 0 |
-| `Lattice.Lib.Compiler.SymbolicEntry` | 11 | 7 |
+| `Lattice.Lib.Compiler.SymbolicEntry` | 13 | 8 |
 | `Lattice.Lib.Compiler.WeightSequence` | 3 | 3 |
 | `Lattice.Lib.Compiler.WriteBack` | 6 | 6 |
 | `Lattice.Lib.Concentration` | 0 | 0 |
@@ -2671,7 +2673,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineUnit_depth` -> `Arch`, `MLayer`, `ModelArtifact`, `W`, `Weights`, `WellFormed`, `arch`, `at`, `count`, `depth`, `identity`, `layers`, `one`, `paramCount`, `relu`, `weights`
 - `affine_edit_output_bound` -> `E`, `W`, `le_trans`
 - `affine_edit_output_bound_scalar` -> `E`, `W`, `edit_output_bound_scalar`, `le_trans`, `nonneg`
-- `affine_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `ofSegments`
+- `affine_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
 - `affine_exactly_representable` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `affine_fixed_point_exists` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_existsUnique` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
@@ -2683,7 +2685,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_iterate_eq_geometric` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `affine_midpoint` -> `Compiler`, `e2`, `le_trans`
-- `affine_path_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
+- `affine_path_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `affine_second_difference` -> `W`
 - `affine_target_cannot_meet` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `apply`, `at`, `budget_of_sq`, `eps`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `gridEval_affineFamily`, `le_trans`, `no_uniform_linear_approximation`, `ofSegments`, `square_path_bound`
 - `affine_within_any_eps` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
@@ -3537,6 +3539,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `choice_self_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `run`
 - `choice_sound` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
 - `choice_strength` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
+- `chordOf_add` -> `Compiler`, `Segment`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
 - `chordOf_affine` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_left` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_right` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
@@ -3717,8 +3720,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compileReachable_iff` -> `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
 - `compileSkel_injective` -> `Term`, `at`, `parse`, `skeletonCode`, `skeletonCode_injective`
 - `compileSkel_parse_congr` -> `Term`, `parse`
-- `compileTarget_affineTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
-- `compileTarget_squareTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
+- `compileTarget_affineTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
+- `compileTarget_quadTerm` -> `CompileRecipe`, `Compiler`
+- `compileTarget_squareTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `compileThenCanonicalize_apply` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `compileThenCanonicalize_eq_canonicalize` -> `VectorConstraint`, `at`, `canonicalize`, `canonicalize_of_content_one`, `canonicalize_scaleVec_sign`, `canonicalize_section_pos`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `induction`, `listGcdNat`, `listGcdNat_eq_zero_iff`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `compileToLayer_append` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `compileToLayer`, `convertVec`, `dot`, `dot_map_mul`, `map`, `nil_append`, `residual`, `scaleVec`
@@ -5074,6 +5078,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `lipschitz_comp`
 - `encoders_differ` -> `AffineLayer`, `W`, `layerOfList`
 - `endToEndRat_witness` -> `Compiler`, `SegmentRat`, `evalRat`, `gridEvalRat`, `segmentIndexRat`
+- `endpoints_ne` -> `Compiler`, `Segment`, `at`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
 - `engine_and_compiler_meet_only_at_delta` -> `DefEnv`, `E`, `Step`, `Term`, `cicToConstraint`
 - `engine_needs_its_own_types` -> `compile`, `extract`, `roundtrip`, `trivial`
 - `engine_reduces_only_constants` -> `DefEnv`, `E`, `Reduces`, `Term`, `cicToConstraint`
@@ -5165,8 +5170,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `evalProgram_lipschitz` -> `Instr`, `LayerProgram`, `W`, `applyInstr`, `evalProgram`, `le_trans`, `length`, `length_cons`, `relu`
 - `evalPts_congr_of_indicesBelow` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `mul`, `netActN`, `parallel`, `penaltyLoss`
 - `evalReal_abs_le_mag` -> `FloatFormat`, `RoundOp`, `add`, `eps`, `le`, `le_trans`, `lit`, `mul`, `tiny`, `toFun`
-- `evalSym_affineTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
-- `evalSym_squareTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
+- `evalSym_affineTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
+- `evalSym_quadTerm` -> `CompileRecipe`, `Compiler`
+- `evalSym_squareTerm` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `eval_add` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_add_binary` -> `Compiler`, `add`, `eval`, `mul`, `size`, `size_pos`
 - `eval_append` -> `Instr`, `W`, `apply`, `at`, `attention`, `d`, `getD_eq_getElem`, `length`, `relu`, `softmax`
@@ -6554,11 +6560,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
 - `interleaving_length` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_cons`
 - `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `interpFamily_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `ofSegments`
-- `interp_affine_artifact_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `affineFamily`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `ofSegments`
+- `interpFamily_add` -> `Compiler`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
+- `interpFamily_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
+- `interpFamily_sq` -> `Compiler`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
+- `interpFamily_sq_error` -> `Compiler`, `gridEval`, `interpFamily`, `irWeights_error_bound`
+- `interp_affine_artifact_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `SemDomain`, `add`, `affineFamily`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
 - `interp_extrapolation_bound` -> `absPosEnc`, `d`, `le_trans`
 - `interp_is_grid` -> `Compiler`, `Segment`, `chordOf`, `g`, `le_trans`, `piecewiseInterp`
-- `interp_realises_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `affineFamily`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `ofSegments`
+- `interp_realises_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `SemDomain`, `add`, `affineFamily`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
 - `interval_expansive` -> `at`, `clampTo`, `le_antisymm`, `le_total`, `le_trans`, `min`, `point`, `roundDownN`, `roundDownN_le`, `roundDownN_mono`, `toNat`
 - `inv_sub_inv_eq` -> `E`, `le`
 - `inv_succ_tendsto` -> `Compiler`, `eps`, `target_not_attainable`
@@ -10469,8 +10478,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqrt_two_mul_exp_neg_half_sq_le_inv` -> `le_trans`
 - `sqrt_two_pos` -> `Gated`, `SoftMasked`, `erf`, `erf_abs_le_one`, `erf_strictMono`, `gated_abs_le`, `geluSoftMask`, `geluTanh`, `gelu_soft_mask_bounds`, `le_trans`, `softMasked_is_gated`
 - `square_chain` -> `Chain`, `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `compileTarget`, `compileTarget_squareTerm`, `constFamily`, `decodeGrid`, `decodedFamily`, `evalAt`, `evalSym`, `evalSym_squareTerm`, `family`, `ofSegments`, `piecewiseIRWeights`, `segmentIndex`, `slopeFix`, `slopeSat`, `squareTerm`, `square_path_bound`, `writeBack`, `write_back_verifies_and_changes`
-- `square_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `ofSegments`
-- `square_path_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
+- `square_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
+- `square_path_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `squaredRisk_eq_variance_add` -> `at`, `le_refl`, `le_trans`
 - `ssdEntryMasked_eq_of_lt` -> `induction`, `insert`, `selState`, `zero`
 - `ssdEntryMasked_eq_zero` -> `induction`, `insert`, `selProd`, `selProd_concat`, `selProd_eq_from`, `selProd_succ`, `selState`, `selState_explicit`, `zero`
