@@ -1503,7 +1503,7 @@
 | `Lattice.Lib.Compiler.HopVerdict` | 3 | 0 |
 | `Lattice.Lib.Compiler.IRWeightsBridge` | 9 | 3 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
-| `Lattice.Lib.Compiler.Layout` | 3 | 7 |
+| `Lattice.Lib.Compiler.Layout` | 5 | 10 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
@@ -5126,9 +5126,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `euler_divergence_witness` -> `at`
 - `euler_step_loss_bound` -> `E`, `at`, `le_trans`
 - `euler_strict_descent` -> `E`, `at`
-- `evalAt_congr_of_decoded_eq` -> `Compiler`, `g`, `gridEval`, `map`
-- `evalAt_isSome_iff_decoded_isSome` -> `Compiler`, `g`, `gridEval`, `map`
-- `evalAt_ofSegments` -> `Compiler`, `Segment`, `compile`, `extract`, `g`, `gridEval`, `map`
+- `evalAt_congr_of_decoded_eq` -> `Compiler`, `PartialSection`, `Segment`, `W`, `at`, `decodeGrid`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_injective`, `extract`, `extract_eq_some_of_compile_eq`, `g`, `gridEval`, `map`, `of_injective`
+- `evalAt_isSome_iff_decoded_isSome` -> `Compiler`, `PartialSection`, `Segment`, `W`, `at`, `decodeGrid`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_injective`, `extract`, `extract_eq_some_of_compile_eq`, `g`, `gridEval`, `map`, `of_injective`
+- `evalAt_ofSegments` -> `Compiler`, `PartialSection`, `Segment`, `W`, `at`, `compile`, `decodeGrid`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_injective`, `extract`, `extract_eq_some_of_compile_eq`, `g`, `gridEval`, `map`, `of_injective`
 - `evalClause_finMinterm` -> `Compiler`, `at`, `d`, `induction`, `map`
 - `evalClause_minterm` -> `at`, `d`, `induction`, `map`, `trans`
 - `evalDNF_iff` -> `at`, `d`, `induction`, `map`, `trans`
@@ -6946,6 +6946,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerscale_lipschitz` -> `g`
 - `layerscale_sub` -> `g`
 - `layerscale_zero` -> `g`
+- `layouts_disagree_on_shared_weights` -> `Compiler`, `PartialSection`, `Segment`, `W`, `at`, `decodeGrid`, `encodeGrid`, `encodeGrid_even`, `extract`, `extract_eq_some_of_compile_eq`
 - `lcm_assoc` -> `all`, `apply`, `at`, `d`, `le_trans`, `length`, `satisfiable`, `trans`
 - `lcm_gcd_distrib_dvd` -> `all`, `apply`, `at`, `children`, `d`, `g`, `le_trans`, `length`, `satisfiable`, `trans`
 - `leZero_ne_ltZero` -> `Pt`, `at`, `extract`, `penaltyLoss`
@@ -10031,6 +10032,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sharpness_witness_const_weights` -> `at`
 - `sharpness_witness_two_nonzero` -> `at`
 - `sharpness_witness_uniform` -> `at`
+- `shiftEncode_injective` -> `Compiler`, `PartialSection`, `Segment`, `W`, `at`, `decodeGrid`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_injective`, `extract`, `extract_eq_some_of_compile_eq`, `g`, `of_injective`
 - `shiftLayer_step_at_solution` -> `Holds`, `HoldsSet`, `Pt`, `at`, `netAct`, `step`
 - `shift_above_cutoff_var` -> `Term`, `d`, `shift`, `subst`
 - `shift_apply_above` -> `Term`, `shift`
