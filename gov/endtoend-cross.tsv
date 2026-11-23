@@ -1564,6 +1564,9 @@ Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_odd
 Lib/Compiler/IRWeightsBridge.lean	piecewiseIRWeights_represents
 Lib/Compiler/IRWeightsBridge.lean	irWeights_error_bound
 Lib/Compiler/IRWeightsBridge.lean	irWeights_uniform_tendsto
+Lib/Compiler/Layout.lean	evalAt_ofSegments
+Lib/Compiler/Layout.lean	evalAt_isSome_iff_decoded_isSome
+Lib/Compiler/Layout.lean	evalAt_congr_of_decoded_eq
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
