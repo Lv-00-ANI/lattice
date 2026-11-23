@@ -15,9 +15,9 @@
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 15 | 23 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/NeuralShortcut.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 14 | 27 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/L1L2.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 51 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 52 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 48 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 49 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
@@ -37,7 +37,7 @@
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
-| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 2 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Runtime/SemanticFaithfulness.lean` |
+| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 3 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Runtime/LayerSection.lean` |
 | 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
 | 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 | 0 | `Usage/Examples.lean` |
