@@ -477,3 +477,32 @@ theorem evalAt_isSome_iff_payload_isSome : (A.evalAt x).isSome ↔ A.payload.isS
 **⇒ P0-a 尚缺（记入下一轮）：**「两个不同布局不能混用」的**具体反例**——即存在同一 `weights`
 在两个合法布局下得到不同 `payload`。现在结构上已保证「必须携带布局」，但**还没有一条定理**给出
 混用会改变行为的见证。
+### 3.10 **第 1044 轮：P0-a 收尾——同一权重在两个**合法**布局下解出不同载荷（见证）**
+
+**§3.9 记录的唯一缺口是「结构强制携带布局，但**没有定理**说明换布局会改变载荷」。本轮给出见证。**
+
+**做法（复用第 1036 轮的抽象，不新造语义）：**
+
+1. `shiftOffset : ℕ → ℝ := fun i => if i = 0 then 1 else 0`——**只在位置 0 加 1**。
+   选它是因为 `decodeGrid w k = ⟨w (2k), w (2k+1)⟩`，位置 0 恰是第 0 段的**斜率**，
+   故它**只影响一个可观察分量**。
+2. `shiftEncode g := fun i => encodeGrid g i + shiftOffset i`，并证明它**仍单射**
+   （逐点消去偏移，再用 `encodeGrid_injective`）。
+3. `shiftLayout := PartialSection.of_injective shiftEncode shiftEncode_injective`
+   ——**与 `gridLayout` 同类型、同四条义务**的第二个合法布局。
+
+**⇒ 见证定理：**
+
+```lean
+theorem layouts_disagree_on_shared_weights :
+    ∃ W : ℕ → ℝ, gridLayout.extract W ≠ shiftLayout.extract W
+```
+
+**取 `W := shiftEncode z`（`z` 是常零分段族）：**
+- 按 `shiftLayout`：`W` 正是 `z` 的编码 ⇒ 解码回 `z`（用 `extract_eq_some_of_compile_eq`）；
+- 按 `gridLayout`：`decodeGrid W` 第 0 段斜率 = `W 0 = 0 + 1 = 1`，而 `z` 第 0 段斜率 = `0`。
+
+**⇒ 两条解码结果不同（`Segment.m` 分量差 1）。**
+
+**⇒ 这条不是「某个实现有 bug」，而是规划 D1 的必要性证据：同一串数在两个**都满足 `PartialSection` 义务**的
+布局下**确实**指向不同分段族。所以「解释必须随产物携带」不是形式要求，而是**语义要求**。**

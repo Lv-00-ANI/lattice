@@ -171,4 +171,73 @@ theorem evalAt_congr_of_decoded_eq (A B : EvaluatedArtifact)
 
 end EvaluatedArtifact
 
+
+/-! ## 二、**第二个合法布局**，以及「同一权重、不同解释、不同载荷」的见证
+
+规划 D1 要求「同一底层类型承载不同的解释」，并要求消费者必须携带解码函数。
+**结构上已经强制了这一点**（`EvaluatedArtifact.layout` 是必需字段），
+但**结构强制不等于有证据**：还需要一个**具体见证**说明换一个合法布局，同一 `weights` 会解出**不同**的载荷。
+
+**⇒ 本节给出该见证。** 做法：把 `encodeGrid` 逐点平移一个固定偏移，得到**仍然是单射**的编码；
+再用 `PartialSection.of_injective` 把它变成**合法的** `PartialSection`。
+于是两个布局都在第 1036 轮那个抽象内，差别只在解释。
+-/
+
+/-- **平移偏移**：只在位置 0 加 1，其余为 0。
+
+**⇒ 选这个偏移是因为 `decodeGrid w k = ⟨w (2k), w (2k+1)⟩`，位置 0 是第 0 段的斜率，
+所以它能**只影响一个可观察分量**（第 0 段的 `m`），便于给出最小的反例。** -/
+noncomputable def shiftOffset : ℕ → ℝ := fun i => if i = 0 then 1 else 0
+
+/-- **平移后的编码**：`g ↦ encodeGrid g + shiftOffset`。 -/
+noncomputable def shiftEncode (g : ℕ → Segment) : ℕ → ℝ :=
+  fun i => encodeGrid g i + shiftOffset i
+
+/-- **平移后的编码仍是单射**（平移可消去，再用 `encodeGrid` 的单射性）。 -/
+theorem shiftEncode_injective : Function.Injective shiftEncode := by
+  intro g₁ g₂ h
+  have hpt : ∀ i, encodeGrid g₁ i + shiftOffset i = encodeGrid g₂ i + shiftOffset i :=
+    fun i => congrFun h i
+  have heq : ∀ i, encodeGrid g₁ i = encodeGrid g₂ i := by
+    intro i
+    have hi := hpt i
+    linarith
+  exact encodeGrid_injective (funext heq)
+
+/-- **第二个**合法**布局**：与 `gridLayout` 同类型、同义务，只是解释不同。 -/
+noncomputable def shiftLayout : PartialSection (ℕ → Segment) (ℕ → ℝ) :=
+  PartialSection.of_injective shiftEncode shiftEncode_injective
+
+/-- **⭐⭐ 同一权重在两个合法布局下解出不同载荷。**
+
+**⇒ 见证：取 `W := shiftEncode z`（`z` 是常零分段族）。**
+- 按 `shiftLayout` 解释：`W` 正是 `z` 的编码，故解码回到 `z`；
+- 按 `gridLayout` 解释：`decodeGrid W` 的第 0 段斜率是 `W 0 = 0 + 1 = 1`，而 `z` 的第 0 段斜率是 `0`。
+
+**⇒ 于是两个解码结果不同。这条**不是**「某个实现有 bug」，而是「解释必须在产物里携带」的必要性：
+同一串数在两个都满足 `PartialSection` 义务的布局下**确实**指向不同分段族。** -/
+theorem layouts_disagree_on_shared_weights :
+    ∃ W : ℕ → ℝ, gridLayout.extract W ≠ shiftLayout.extract W := by
+  classical
+  let z : ℕ → Segment := fun _ => ⟨0, 0⟩
+  refine ⟨shiftEncode z, ?_⟩
+  have hgrid : gridLayout.extract (shiftEncode z) = some (decodeGrid (shiftEncode z)) := rfl
+  have hshift : shiftLayout.extract (shiftEncode z) = some z :=
+    PartialSection.extract_eq_some_of_compile_eq shiftLayout (s := z) (w := shiftEncode z) rfl
+  rw [hgrid, hshift]
+  intro h
+  have hfam : decodeGrid (shiftEncode z) = z := Option.some.inj h
+  have h0 : (decodeGrid (shiftEncode z) 0).m = (z 0).m := by rw [hfam]
+  have hz : encodeGrid z 0 = 0 := by
+    have h := encodeGrid_even z 0
+    simpa using h
+  have hleft : (decodeGrid (shiftEncode z) 0).m = 1 := by
+    show shiftEncode z 0 = 1
+    show encodeGrid z 0 + shiftOffset 0 = 1
+    rw [hz]
+    simp [shiftOffset]
+  have hright : (z 0).m = 0 := by simp [z]
+  rw [hleft, hright] at h0
+  norm_num at h0
+
 end Lattice.Lib.Compiler
