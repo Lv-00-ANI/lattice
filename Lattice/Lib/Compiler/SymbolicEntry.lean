@@ -60,6 +60,13 @@ def evalSym (x : ℝ) : ExprExt → Option ℝ
 noncomputable def interpFamily (n : ℕ) (f : ℝ → ℝ) : ℕ → Segment :=
   fun k => chordOf f ((k : ℝ) / n) (((k : ℝ) + 1) / n)
 
+/-- **一般二次函数**：`a·x·x + (p·x + q)`。
+
+**⇒ 定义在这里而不是 `InterpAlgebra`：后者导入本文件，
+故反向引用会形成环；另外 `compileTarget` 要用它，故必须在 `Target` 之前。** -/
+noncomputable def quadFun (a p q : ℝ) : ℝ → ℝ :=
+  fun x => a * (x * x) + (p * x + q)
+
 /-- **编译目标**：两种精度语义。
 
 **⇒ `affine a b` 承诺**精确**表示 `x ↦ a·x + b`；`squareApprox n hn` 承诺**近似**表示 `x²`，
@@ -114,6 +121,11 @@ noncomputable def compileTarget (r : CompileRecipe) : ExprExt → Option Target
       | some .squareApprox => none
       | some (.interp _) => none
       | none => none
+  -- **一般二次项（带系数 `a`）：`a·(x·x) + 仿射`。**
+  | .add (.mul (.litReal a) (.mul (.var 0) (.var 0))) e =>
+      match compileTarget r e with
+      | some (.affine p q) => some (.interp (quadFun a p q))
+      | _ => none
   -- **二次项独立处理：`x·x + 仿射` 落到**一般插值族**。**
   -- **⇒ 这是第 1053 轮让编译器**真正用上**新族的地方：在此之前 `interp` 只能被手工构造。**
   | .add (.mul (.var 0) (.var 0)) e =>
@@ -278,4 +290,18 @@ theorem compileTarget_quadTerm (r : CompileRecipe) (p q : ℝ) :
       = some (.interp (fun x : ℝ => x * x + (p * x + q))) := by
   simp [quadTerm, affineTerm, compileTarget, compileTarget_affineTerm]
 
+
+/-- **一般二次项的语法形状**：`a·(x·x) + (p·x + q)`。 -/
+def quadCoefTerm (a p q : ℝ) : ExprExt :=
+  .add (.mul (.litReal a) (.mul (.var 0) (.var 0))) (affineTerm p q)
+
+/-- **一般二次项的源语义**。 -/
+theorem evalSym_quadCoefTerm (a p q x : ℝ) :
+    evalSym x (quadCoefTerm a p q) = some (a * (x * x) + (p * x + q)) := by
+  simp [quadCoefTerm, affineTerm, evalSym]
+
+/-- **⭐⭐ 一般二次项编译到一般插值族。** -/
+theorem compileTarget_quadCoefTerm (r : CompileRecipe) (a p q : ℝ) :
+    compileTarget r (quadCoefTerm a p q) = some (.interp (quadFun a p q)) := by
+  simp [quadCoefTerm, affineTerm, compileTarget, compileTarget_affineTerm, quadFun]
 end Lattice.Lib.Compiler.SymbolicEntry

@@ -136,4 +136,72 @@ theorem quad_artifact_bound (p q : ℝ) (r : CompileRecipe)
   · exact Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments _ dom r x
   · exact interpFamily_quad_error p q r.n r.hn x hx
 
+
+/-- **⭐⭐ 弦对**数乘**线性（与 `chordOf_add` 合起来，弦是**仿射映射**）。** -/
+theorem chordOf_smul (k : ℝ) (f : ℝ → ℝ) (a b : ℝ) (h : a ≠ b) :
+    chordOf (fun x => k * f x) a b
+      = (⟨k * (chordOf f a b).m, k * (chordOf f a b).c⟩ : Segment) := by
+  have hne : b - a ≠ 0 := sub_ne_zero.mpr (Ne.symm h)
+  simp only [chordOf, chordSlope]
+  congr 1
+  · field_simp
+    ring
+  · field_simp
+    ring
+
+/-- **⭐⭐ 插值族对数乘线性**（与既有 `gridEval_smul` 配对）。 -/
+theorem interpFamily_smul (n : ℕ) (hn : 0 < n) (k : ℝ) (f : ℝ → ℝ) :
+    interpFamily n (fun x => k * f x) = gridSmul k (interpFamily n f) := by
+  funext j
+  exact chordOf_smul k f _ _ (endpoints_ne n hn j)
+
+/-- **⭐⭐ 一般二次项的插值族拆成两支之和。** -/
+theorem interpFamily_quadFun (n : ℕ) (hn : 0 < n) (a p q : ℝ) :
+    interpFamily n (quadFun a p q)
+      = gridAdd (gridSmul a (interpFamily n (fun y : ℝ => y * y)))
+          (interpFamily n (fun y : ℝ => p * y + q)) := by
+  have hsplit : quadFun a p q = fun y : ℝ => a * (y * y) + (p * y + q) := rfl
+  rw [hsplit, interpFamily_add n hn (fun y : ℝ => a * (y * y)) (fun y : ℝ => p * y + q)]
+  rw [interpFamily_smul n hn a (fun y : ℝ => y * y)]
+
+/-- **⭐⭐⭐ 一般二次项的整域界：误差按 `|a|` **缩放**。**
+
+**⇒ `|a·x·x + (p·x+q) − 插值| ≤ |a| · (1/n)²/4`。**
+
+**⇒ 为何是 `|a|` 而不是 `a`：`a < 0` 时误差不变号，故界必须取绝对值——
+这也是三角不等式无法直接应用、而必须用 `abs_mul` 的原因。** -/
+theorem interpFamily_quadFun_error (a p q : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ)
+    (hx : x ∈ Set.Icc (0 : ℝ) 1) :
+    |quadFun a p q x - gridEval (interpFamily n (quadFun a p q)) n x|
+      ≤ |a| * ((1 / (n : ℝ)) ^ 2 / 4) := by
+  rw [interpFamily_quadFun n hn a p q, gridEval_add, gridEval_smul]
+  have haff : interpFamily n (fun y : ℝ => p * y + q) = affineFamily p q :=
+    interpFamily_affine n hn p q
+  rw [haff, gridEval_affineFamily]
+  have hdiff : quadFun a p q x
+        - (a * gridEval (interpFamily n (fun y : ℝ => y * y)) n x + (p * x + q))
+      = a * (x * x - gridEval (interpFamily n (fun y : ℝ => y * y)) n x) := by
+    show a * (x * x) + (p * x + q)
+        - (a * gridEval (interpFamily n (fun y : ℝ => y * y)) n x + (p * x + q))
+      = a * (x * x - gridEval (interpFamily n (fun y : ℝ => y * y)) n x)
+    ring
+  rw [hdiff, abs_mul]
+  apply mul_le_mul_of_nonneg_left _ (abs_nonneg a)
+  have hfun : (fun y : ℝ => y * y) = (fun y : ℝ => y ^ 2) := by
+    funext y
+    rw [pow_two]
+  rw [hfun, ← pow_two x]
+  exact interpFamily_sq_error n hn x hx
+
+/-- **⭐⭐⭐ 一般二次项的**产物层**界。** -/
+theorem quadFun_artifact_bound (a p q : ℝ) (r : CompileRecipe)
+    (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) :
+    ∃ v : ℝ,
+      (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
+          (Target.family r (.interp (quadFun a p q))) dom r).evalAt x = some v
+        ∧ |quadFun a p q x - v| ≤ |a| * ((1 / (r.n : ℝ)) ^ 2 / 4) := by
+  refine ⟨gridEval (interpFamily r.n (quadFun a p q)) r.n x, ?_, ?_⟩
+  · exact Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments _ dom r x
+  · exact interpFamily_quadFun_error a p q r.n r.hn x hx
+
 end Lattice.Lib.Compiler.InterpAlgebra
