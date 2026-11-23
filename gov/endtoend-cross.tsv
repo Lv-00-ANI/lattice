@@ -4073,3 +4073,5 @@ Usage/Examples.lean	verification_ladder
 Usage/Examples.lean	closed_loop_ends_verified_and_zero
 Usage/Examples.lean	repair_reaches_and_stabilises
 Usage/Examples.lean	criterion_static_repair_progresses
+Usage/Examples.lean	weakened_system_is_conservative
+Usage/Examples.lean	one_round_is_one_repair_step

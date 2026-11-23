@@ -10,7 +10,7 @@
 
 | 类 | 判据 | 文件数 | fix 命名声明数（按文件计） |
 |:--|:--|--:|--:|
-| **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **9** | **23** |
+| **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **9** | **24** |
 
 > **A 组的 `23` 条里有两条位于 `Usage/Examples.lean`（`natRepair` 实例本身，及 `repair_reaches_and_stabilises`、`criterion_static_repair_progresses` 两条**组合述诰**）。
 > 它们名字含 `repair`，故按本表的判据归入修正词汇，但**它们不是新实例**——实例仍为 9 个文件。

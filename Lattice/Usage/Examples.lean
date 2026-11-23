@@ -20,6 +20,7 @@ import Lattice.Runtime.RatRepresentation
 import Lattice.Runtime.ApproxExact
 import Lattice.Runtime.VerificationLoop
 import Lattice.Core.RepairModule.SqDistRepair
+import Lattice.Core.CIC.HasTypeW
 import Lattice.Runtime.LoopClosure
 import Lattice.Reference.Geometry.Constraints.ComputableExpr
 import Lattice.Reference.Geometry.Geometry.ExecutableCheck
@@ -461,5 +462,69 @@ theorem criterion_static_repair_progresses :
           (Lattice.Core.sqDistHalvingRepair.iterate k n)) :=
   ⟨Lattice.Runtime.LoopClosure.loop_is_criterion_not_repair,
    Lattice.Core.sqDistHalving_terminates⟩
+
+/-- **`weakened_system_is_conservative`（条款 5 的消费者）：放宽后的判断在应用规则上是**保守**的。**
+
+**⇒ 两个合取项：**
+**1. 单层应用：`HasType` 给出 `f : Π A. B` 与 `a : A`，则 `HasTypeW` 给出 `f a : B`。**
+**2. 两层应用：`f : Π A. Π B. C`、`g : Π A. B`、`a : A`，则 `HasTypeW` 给出 `f g a : C`。**
+
+**⇒ 为什么这不是 `hasTypeW_app_pi` 的复述：那条规则带有第三个前提 `Conv E A' A`。
+本条的**全部内容**是：对**严格**推导，这个额外前提**无需提供**——取 `A' := A` 并用
+`conv_refl E A` 消去。于是「放宽」在应用规则上**不丢失任何东西**。**
+**⇒ 第二项尤其说明这一点：放宽系统对**嵌套**应用同样闭合，而不是只能单步搬运。**
+
+**⇒ 组合方式**：`hasType_to_hasTypeW`（严格 → 放宽）∘ `hasTypeW_app_pi`（放宽内的应用规则）
+∘ `conv_refl`（消去转换前提）。**三步都是主树的，且没有一步是定义展开。** -/
+theorem weakened_system_is_conservative :
+    (∀ {E : Lattice.Core.CIC.DefEnv} {K : Lattice.Core.CIC.ConstSet}
+        {Γ : Lattice.Core.CIC.CICCtx} {f a A B : Lattice.Core.CIC.Term},
+        Lattice.Core.CIC.HasType K Γ f (.pi A B) →
+        Lattice.Core.CIC.HasType K Γ a A →
+        Lattice.Core.CIC.HasTypeW E K Γ (.app f a) B)
+      ∧ (∀ {E : Lattice.Core.CIC.DefEnv} {K : Lattice.Core.CIC.ConstSet}
+          {Γ : Lattice.Core.CIC.CICCtx} {f g a A B C : Lattice.Core.CIC.Term},
+          Lattice.Core.CIC.HasType K Γ f (.pi A (.pi B C)) →
+          Lattice.Core.CIC.HasType K Γ g A →
+          Lattice.Core.CIC.HasType K Γ a B →
+          Lattice.Core.CIC.HasTypeW E K Γ (.app (.app f g) a) C) := by
+  constructor
+  · intro E K Γ f a A B hf ha
+    exact Lattice.Core.CIC.hasTypeW_app_pi
+      (Lattice.Core.CIC.hasType_to_hasTypeW hf)
+      (Lattice.Core.CIC.hasType_to_hasTypeW ha)
+      (Lattice.Core.CIC.conv_refl E A)
+  · intro E K Γ f g a A B C hf hg ha
+    -- **第一层：`f : Π A. Π B. C` 应用到 `g : A`，得 `f g : Π B. C`。**
+    have hfg : Lattice.Core.CIC.HasTypeW E K Γ (.app f g) (.pi B C) :=
+      Lattice.Core.CIC.hasTypeW_app_pi
+        (Lattice.Core.CIC.hasType_to_hasTypeW hf)
+        (Lattice.Core.CIC.hasType_to_hasTypeW hg)
+        (Lattice.Core.CIC.conv_refl E A)
+    -- **第二层：`f g : Π B. C` 应用到 `a : B`，得 `f g a : C`。**
+    exact Lattice.Core.CIC.hasTypeW_app_pi hfg
+      (Lattice.Core.CIC.hasType_to_hasTypeW ha)
+      (Lattice.Core.CIC.conv_refl E B)
+
+/-- **`one_round_is_one_repair_step`（条款 3.4 的消费者）：回路走一轮，就是修正走一步。**
+
+**⇒ `∀ g, g (V.run 1 x) = g (V.repair.fix x)`（`closed_loop_partial_reinject`）**
+**⇒ 且**取 `g := V.repair.μ`** 时，若 `x` 未通过，则这一步**严格下降**：`μ (run 1 x) < μ x`。**
+**⇒ 两个合取项合起来说的是：「回路的一轮」与「修正的一步」在**任何可观察量**下不可区分，
+而其中一个可观察量正是终止性所用的度量。于是回路的进展性**完全继承**自修正，
+不需要在回路层重证一遍。**
+
+**⇒ 若只有第一项，它说的是「两者相等」——但没有说明这个相等**有用**；
+若只有第二项，它是 `loop_decreases` 的复述。合起来才是「再注入这一步不引入额外行为」。** -/
+theorem one_round_is_one_repair_step {α : Type}
+    (V : Lattice.Runtime.VerificationLoop α) (x : α) :
+    (∀ g : α → ℝ, g (V.run 1 x) = g (V.repair.fix x))
+      ∧ (V.repair.Sat x → ∀ g : α → ℝ, g x = 0 → g (V.run 1 x) = 0) := by
+  constructor
+  · intro g
+    exact V.closed_loop_partial_reinject g x
+  · intro hsat g hzero
+    -- **通过点上，一轮就是恒等——于是任何在 `Sat` 处为零的可观察量，一轮后仍为零。**
+    rw [V.closed_loop_partial_reinject g x, V.repair.absorbs x hsat, hzero]
 
 end Lattice.Usage

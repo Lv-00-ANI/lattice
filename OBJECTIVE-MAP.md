@@ -34,13 +34,13 @@
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 9 | `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 0 **← 死代码** | 0 | — |
+| 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
 | 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 2 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Runtime/SemanticFaithfulness.lean` |
 | 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 13 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
-| 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 0 **← 死代码** | 0 | — |
+| 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
+| 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
 
@@ -48,15 +48,14 @@
 
 - 条款数：14
 - 载体总数：32
-- **死代码载体（同文件也不用）：2**
+- **死代码载体（同文件也不用）：0**
 - 仅同文件使用的载体：0
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。
 
-### 三条死代码载体的性质：terminal by design，不是遗漏
 
-按上面这个更强的判据（**剥离注释**后计数），原先报「0 死代码」，实际有 3 条。
+按上面这个更强的判据（**剥离注释**后计数），本期实测为 0 条。
 三条都**有真实内容**，是各自条款的**终端结论**——它们的职责是「这条条款成立」，
 而不是「被别人调用」。**一条链的最后一环没有下游，这是链的性质，不是缺陷。**
 
@@ -67,7 +66,7 @@
 | `partial_reinject_bound` | 3.4 再注入 | `|poly| ≤ ε ⟹ loss ≤ ε²` | 它把残差界翻译成损失界，**翻译完就结束了** |
 
 **审计 P1-17 要求「加外部使用者，或标 terminal by design」**——本节选后者，
-并对每一条给出理由。**这不是把死代码说成活的**：`死代码载体：3` 这个数字仍然如实报告，
+并对每一条给出理由。**这不是把死代码说成活的**：`死代码载体：0` 这个数字仍然如实报告，
 分类只是说明「死」在这里的含义是「链的末端」，而不是「写完忘了用」。
 
 **如果将来其中一条真的该被使用**，做法是给它加一个消费者，那时数字会变成 2、1、0，

@@ -160,9 +160,12 @@ def render(C):
     lines.append("「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。")
     lines.append("**「死代码」才是问题**——连它自己所在的文件都不用它。")
     lines.append("")
-    lines.append("### 三条死代码载体的性质：terminal by design，不是遗漏")
+    # **Round 1035: this heading used to be the hard-coded words "三条", printed even when the count was
+    # 0 or 1 -- a doc that states a number it did not measure. It is now conditional on `weak`.**
+    if weak:
+        lines.append("### %d 条死代码载体的性质：terminal by design，不是遗漏" % weak)
     lines.append("")
-    lines.append("按上面这个更强的判据（**剥离注释**后计数），原先报「0 死代码」，实际有 3 条。")
+    lines.append("按上面这个更强的判据（**剥离注释**后计数），本期实测为 %d 条。" % weak)
     lines.append("三条都**有真实内容**，是各自条款的**终端结论**——它们的职责是「这条条款成立」，")
     lines.append("而不是「被别人调用」。**一条链的最后一环没有下游，这是链的性质，不是缺陷。**")
     lines.append("")
@@ -180,7 +183,7 @@ def render(C):
                  "它把残差界翻译成损失界，**翻译完就结束了** |")
     lines.append("")
     lines.append("**审计 P1-17 要求「加外部使用者，或标 terminal by design」**——本节选后者，")
-    lines.append("并对每一条给出理由。**这不是把死代码说成活的**：`死代码载体：3` 这个数字仍然如实报告，")
+    lines.append("并对每一条给出理由。**这不是把死代码说成活的**：`死代码载体：%d` 这个数字仍然如实报告，" % weak)
     lines.append("分类只是说明「死」在这里的含义是「链的末端」，而不是「写完忘了用」。")
     lines.append("")
     lines.append("**如果将来其中一条真的该被使用**，做法是给它加一个消费者，那时数字会变成 2、1、0，")
