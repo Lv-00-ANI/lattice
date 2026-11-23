@@ -2163,7 +2163,7 @@
 | `Lattice.Runtime.TotalLoss` | 5 | 2 |
 | `Lattice.Runtime.TypedNumericAlignment` | 3 | 0 |
 | `Lattice.Runtime.VecCarrierCensus` | 2 | 0 |
-| `Lattice.Runtime.VerificationLoop` | 10 | 4 |
+| `Lattice.Runtime.VerificationLoop` | 11 | 4 |
 | `Lattice.Runtime.VerificationSoundness` | 5 | 0 |
 | `Lattice.Runtime.VerifierRate` | 5 | 0 |
 | `Lattice.Runtime.VerifyLoopProgress` | 5 | 2 |
@@ -10534,6 +10534,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_changes_off_solution` -> `at`, `step`
 - `step_contraction_of_subgradient` -> `Expect`, `Subgradient`, `g`, `sgd_expectation_contraction`, `sgd_update`
 - `step_descent_lemma` -> `E`, `at`, `g`, `induction`, `le_trans`, `zero`
+- `step_fixed_of_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `step`
 - `step_lam_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `step_neg` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `step_pos` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`

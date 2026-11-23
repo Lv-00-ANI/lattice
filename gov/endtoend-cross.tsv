@@ -3949,6 +3949,7 @@ Runtime/TypedNumericAlignment.lean	covers_gives_typed_encoding
 Runtime/TypedNumericAlignment.lean	typed_and_numeric_coexist
 Runtime/TypedNumericAlignment.lean	acceptance_does_not_disturb_numeric
 Runtime/VecCarrierCensus.lean	truncated_iff_indexed
+Runtime/VerificationLoop.lean	step_fixed_of_sat
 Runtime/VerificationLoop.lean	loop_terminates_sat
 Runtime/VerificationLoop.lean	loop_absorbs
 Runtime/VerificationLoop.lean	loop_decreases

@@ -436,3 +436,44 @@ theorem step_fixed_of_sat (h : V.repair.Sat x) : V.step x = (x, V.objective x)
 
 **⇒ 另修工具一处误分类：**未提交行**的 blame 是全零 sha，原先被归为 `old`——于是**正在被审的工作把自己算作自己的支撑**。
 现在单独归为 `pending`。**
+### 3.9 **第 1043 轮（规划 P0-a）：产物契约落地——布局就是截面，求值是派生的且**部分**的**
+
+**规划 §4.1 要求产物携带 `layout` / `weights` / `domain` / `eval` / `recipe`，并规定
+「`eval` 必须与 `layout` 一致；只有 `weights` 而缺 `layout` 与 `recipe` 的产物不得进入行为级定理」。**
+
+**⇒ 实现于 `Lattice/Lib/Compiler/Layout.lean`（不是 `Core/`，见下）：**
+
+| 契约项 | 实现 | 关键点 |
+|:--|:--|:--|
+| `layout` | `gridLayout : PartialSection (ℕ → Segment) (ℕ → ℝ)` | **布局 = 第 1036 轮那个抽象的一个实例**：编码全（`encodeGrid`）、解码部分（包装成 `some`）、像上往返（`decodeGrid_encodeGrid`）、编码单射（`encodeGrid_injective`） |
+| `weights` | `weights : ℕ → ℝ` | 未解释的数值载荷 |
+| `domain` | `SemDomain`（`lo ≤ hi`） | 只承诺比较范围 |
+| **`eval`** | **派生 `evalAt : Option ℝ`** | **不是字段**——由 `layout.extract` 与 `recipe.n` 算出 |
+| `recipe` | `CompileRecipe`（`n` + `0 < n` 证据） | 边界条件写进产物，不留给调用者 |
+
+**⇒ 两条实质性定理：**
+
+```lean
+theorem evalAt_ofSegments : (ofSegments g dom r).evalAt x = some (gridEval g r.n x)
+theorem evalAt_isSome_iff_payload_isSome : (A.evalAt x).isSome ↔ A.payload.isSome
+```
+
+**⇒ 第二条是规划 §4.2「失败语义」的答案：`evalAt = none` 的**唯一**解释是
+「按该产物自己的布局，其权重解不出分段族」；域外、参数非法、实现未完成都不可能造成失败
+（`n > 0` 由 `recipe.hn` 保证，域不限制求值）。**
+
+**⇒ 为什么把 `eval` 写成派生而**不是字段**：`Runtime/VerificationLoop.objective` 曾是自由字段，
+于是「再注入」在 508 次提交里是一个没人用的定义（§3.8 实测）。派生写法让同一错误**在类型层不可重复**。**
+
+**⇒ 两处被门禁抓到并修正（都是我造成的）：**
+
+1. **I3「定义唯一」**：`eval` 与既有定义同名 3 次 ⇒ 改名 `evalAt`（约定：带点的求值）。
+2. **I4「分层」**：文件原放在 `Core/`，而它依赖 `Lib.Compiler.*`——**分层方向是 Lib → Core**，
+   故 `Core` 不得导入 `Lib`。⇒ 文件移到 `Lattice/Lib/Compiler/Layout.lean`，命名空间相应为
+   `Lattice.Lib.Compiler`。
+3. 移动后 I7 报**旧构建产物**（`Lattice.Core.Layout` 的 `.olean` 源已不在）；用
+   `clean_probes.py --clean` 按其设计用途清掉 5 个文件。
+
+**⇒ P0-a 尚缺（记入下一轮）：**「两个不同布局不能混用」的**具体反例**——即存在同一 `weights`
+在两个合法布局下得到不同 `payload`。现在结构上已保证「必须携带布局」，但**还没有一条定理**给出
+混用会改变行为的见证。
