@@ -1512,7 +1512,7 @@
 | `Lattice.Lib.Compiler.HopVerdict` | 3 | 0 |
 | `Lattice.Lib.Compiler.IRWeightsBridge` | 9 | 3 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
-| `Lattice.Lib.Compiler.InterpAlgebra` | 5 | 0 |
+| `Lattice.Lib.Compiler.InterpAlgebra` | 7 | 0 |
 | `Lattice.Lib.Compiler.Layout` | 5 | 10 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
@@ -3539,7 +3539,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `choice_self_run` -> `Primitive`, `choice`, `compose`, `g`, `identity`, `optional`, `run`
 - `choice_sound` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
 - `choice_strength` -> `Primitive`, `at`, `dec`, `g`, `min`, `run`, `sound`, `union`
-- `chordOf_add` -> `Compiler`, `Segment`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
+- `chordOf_add` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
 - `chordOf_affine` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_left` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_right` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
@@ -5078,7 +5078,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `lipschitz_comp`
 - `encoders_differ` -> `AffineLayer`, `W`, `layerOfList`
 - `endToEndRat_witness` -> `Compiler`, `SegmentRat`, `evalRat`, `gridEvalRat`, `segmentIndexRat`
-- `endpoints_ne` -> `Compiler`, `Segment`, `at`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
+- `endpoints_ne` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `at`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
 - `engine_and_compiler_meet_only_at_delta` -> `DefEnv`, `E`, `Step`, `Term`, `cicToConstraint`
 - `engine_needs_its_own_types` -> `compile`, `extract`, `roundtrip`, `trivial`
 - `engine_reduces_only_constants` -> `DefEnv`, `E`, `Reduces`, `Term`, `cicToConstraint`
@@ -6560,10 +6560,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `interleaving_equiv_sequential` -> `E`, `edit_seq_comm`, `g`, `induction`, `rankOneEdit`, `run`, `run_cons`
 - `interleaving_length` -> `E`, `edit_seq_comm`, `g`, `induction`, `length`, `rankOneEdit`, `run`, `run_cons`
 - `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
-- `interpFamily_add` -> `Compiler`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `g`, `gridAdd`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
+- `interpFamily_add` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
 - `interpFamily_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
-- `interpFamily_sq` -> `Compiler`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `gridEval`, `interpFamily`, `irWeights_error_bound`, `piecewiseIRWeights`
-- `interpFamily_sq_error` -> `Compiler`, `gridEval`, `interpFamily`, `irWeights_error_bound`
+- `interpFamily_quad_error` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `ofSegments`
+- `interpFamily_sq` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `chordOf`, `chordOf_sq`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
+- `interpFamily_sq_error` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`
 - `interp_affine_artifact_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `SemDomain`, `add`, `affineFamily`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
 - `interp_extrapolation_bound` -> `absPosEnc`, `d`, `le_trans`
 - `interp_is_grid` -> `Compiler`, `Segment`, `chordOf`, `g`, `le_trans`, `piecewiseInterp`
@@ -8980,6 +8981,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quadForm_sym2_expanded` -> `add`, `at`, `d`
 - `quadForm_symm_part` -> `add`, `at`, `d`
 - `quadForm_transpose` -> `add`, `at`, `d`
+- `quad_artifact_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `interpFamily`, `ofSegments`
 - `quad_at_naturalGradient` -> `apply`, `at`, `g`
 - `quad_complete_square` -> `apply`, `at`, `g`
 - `quad_gd_contraction` -> `at`, `d`, `g`, `le_trans`, `subst`

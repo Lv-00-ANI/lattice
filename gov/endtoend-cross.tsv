@@ -1575,6 +1575,8 @@ Lib/Compiler/IRWeightsBridge.lean	irWeights_error_bound
 Lib/Compiler/IRWeightsBridge.lean	irWeights_uniform_tendsto
 Lib/Compiler/InterpAlgebra.lean	interpFamily_sq
 Lib/Compiler/InterpAlgebra.lean	interpFamily_sq_error
+Lib/Compiler/InterpAlgebra.lean	interpFamily_quad_error
+Lib/Compiler/InterpAlgebra.lean	quad_artifact_bound
 Lib/Compiler/Layout.lean	evalAt_ofSegments
 Lib/Compiler/Layout.lean	evalAt_isSome_iff_decoded_isSome
 Lib/Compiler/Layout.lean	evalAt_congr_of_decoded_eq
