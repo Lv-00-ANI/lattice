@@ -1,5 +1,6 @@
 import Lattice.Lib.Compiler.Layout
 import Lattice.Lib.Compiler.Samples
+import Lattice.Lib.Compiler.ChordGeneral
 import Lattice.Lib.Compiler.RealTypeSystemExt
 import Lattice.Lib.Compiler.IRWeightsBridge
 
@@ -35,6 +36,7 @@ namespace Lattice.Lib.Compiler.SymbolicEntry
 
 open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.GridAlgebra
+open Lattice.Lib.Compiler.ChordGeneral
 open Lattice.Lib.Compiler.IRWeightsBridge
 open Lattice.Lib.Compiler
 open Lattice.Lib.Compiler.Samples
@@ -54,6 +56,10 @@ def evalSym (x : ℝ) : ExprExt → Option ℝ
   | .cmp _ _ => none
   | .letIn _ _ _ => none
 
+/-- **一般插值族**：把函数 `f` 在 `n` 个等分段上取弦。 -/
+noncomputable def interpFamily (n : ℕ) (f : ℝ → ℝ) : ℕ → Segment :=
+  fun k => chordOf f ((k : ℝ) / n) (((k : ℝ) + 1) / n)
+
 /-- **编译目标**：两种精度语义。
 
 **⇒ `affine a b` 承诺**精确**表示 `x ↦ a·x + b`；`squareApprox n hn` 承诺**近似**表示 `x²`，
@@ -61,15 +67,27 @@ def evalSym (x : ℝ) : ExprExt → Option ℝ
 inductive Target where
   /-- **精确**：该项就是一个仿射函数。 -/
   | affine (a b : ℝ) : Target
-  /-- **近似**：该项按 `n` 段离散化，误差由网格界给出。 -/
-  | squareApprox (n : ℕ) (hn : 0 < n) : Target
+  /-- **近似**：该项被离散化，段数由**配方**给出。 -/
+  | squareApprox : Target
+  /-- **一般插值**：任意实函数的分段弦插值。
+
+  **⇒ 这是**第二族**：`affine` 与 `squareApprox` 都是它的特例（见
+  `interpFamily_affine` 与 `chordOf_sq`）。⇒ 于是「能力」从**两个特例**
+  变成**一个族**。** -/
+  | interp (f : ℝ → ℝ) : Target
 
 namespace Target
 
-/-- **目标对应的分段族。** -/
-noncomputable def family : Target → ℕ → Segment
+/-- **目标对应的分段族（取**配方**的段数）。**
+
+**⇒ 第 1052 轮修正：段数只有**一个来源**——`recipe.n`。
+此前 `Target` 自带一个 `n`，而 `evalAt` 用 `recipe.n` 做段索引，
+**于是一个产物可以用 `n₁` 的族却用 `n₂` 的格子求值**，
+而误差界要求两者相同。**把段数移到配方里，这个不一致在**类型上不可表达**。** -/
+noncomputable def family (r : CompileRecipe) : Target → ℕ → Segment
   | .affine a b => affineFamily a b
-  | .squareApprox n _ => decodeGrid (piecewiseIRWeights n)
+  | .squareApprox => decodeGrid (piecewiseIRWeights r.n)
+  | .interp f => interpFamily r.n f
 
 end Target
 
@@ -89,11 +107,12 @@ noncomputable def compileTarget (r : CompileRecipe) : ExprExt → Option Target
   | .litInt n => some (.affine 0 (n : ℝ))
   | .var 0 => some (.affine 1 0)
   -- **`x²` 单独处理：它是本片段里唯一需要离散化的项。**
-  | .mul (.var 0) (.var 0) => some (.squareApprox r.n r.hn)
+  | .mul (.var 0) (.var 0) => some (.squareApprox)
   | .mul (.litReal k) e =>
       match compileTarget r e with
       | some (.affine a b) => some (.affine (k * a) (k * b))
-      | some (.squareApprox _ _) => none
+      | some .squareApprox => none
+      | some (.interp _) => none
       | none => none
   | .add e₁ e₂ =>
       match compileTarget r e₁, compileTarget r e₂ with
@@ -127,7 +146,7 @@ theorem compileTarget_affineTerm (r : CompileRecipe) (a b : ℝ) :
 
 /-- **`x²` 项编译到离散化目标。** -/
 theorem compileTarget_squareTerm (r : CompileRecipe) :
-    compileTarget r squareTerm = some (.squareApprox r.n r.hn) := by
+    compileTarget r squareTerm = some (.squareApprox) := by
   simp [squareTerm, compileTarget]
 
 /-! ## 三、端到端：符号项 → 产物 → 整域保证 -/
@@ -140,11 +159,11 @@ theorem compileTarget_squareTerm (r : CompileRecipe) :
 theorem affine_path_exact (r : CompileRecipe) (a b : ℝ)
     (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) :
     compileTarget r (affineTerm a b) = some (.affine a b)
-      ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments (Target.family (.affine a b)) dom r).evalAt x
+      ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments (Target.family r (.affine a b)) dom r).evalAt x
           = some (a * x + b) := by
   refine ⟨compileTarget_affineTerm r a b, ?_⟩
   rw [Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments]
-  -- **`Target.family (.affine a b)` 就是 `affineFamily a b`，故折叠后再用求值引理。**
+  -- **`Target.family r (.affine a b)` 就是 `affineFamily a b`，故折叠后再用求值引理。**
   show some (gridEval (affineFamily a b) r.n x) = some (a * x + b)
   rw [gridEval_affineFamily]
 
@@ -155,10 +174,10 @@ theorem affine_path_exact (r : CompileRecipe) (a b : ℝ)
 这一步不能省：把它们当作同一个东西正是「比较不同对象」的那类错误。** -/
 theorem square_path_bound (r : CompileRecipe) (dom : Lattice.Lib.Compiler.SemDomain)
     (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) :
-    compileTarget r squareTerm = some (.squareApprox r.n r.hn)
+    compileTarget r squareTerm = some (.squareApprox)
       ∧ ∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-            (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+            (Target.family r (.squareApprox)) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ (1 / (r.n : ℝ)) ^ 2 / 4 := by
   refine ⟨compileTarget_squareTerm r, ?_⟩
   refine ⟨gridEval (decodeGrid (piecewiseIRWeights r.n)) r.n x, ?_, ?_⟩
@@ -177,7 +196,7 @@ theorem affine_end_to_end (r : CompileRecipe) (a b : ℝ)
     (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) :
     evalSym x (affineTerm a b) = some (a * x + b)
       ∧ compileTarget r (affineTerm a b) = some (.affine a b)
-      ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments (Target.family (.affine a b)) dom r).evalAt x
+      ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments (Target.family r (.affine a b)) dom r).evalAt x
           = some (a * x + b) :=
   ⟨evalSym_affineTerm a b x, affine_path_exact r a b dom x⟩
 
@@ -190,8 +209,49 @@ theorem square_end_to_end (r : CompileRecipe) (dom : Lattice.Lib.Compiler.SemDom
     evalSym x squareTerm = some (x * x)
       ∧ ∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-            (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+            (Target.family r (.squareApprox)) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ (1 / (r.n : ℝ)) ^ 2 / 4 :=
   ⟨evalSym_squareTerm x, (square_path_bound r dom x hx).2⟩
+
+/-! ## 四、第二族：一般插值**包含**仿射族 -/
+
+/-- **⭐⭐ 仿射函数的插值族**就是**常分段族。**
+
+**⇒ 逐段用 `chordOf_affine`：仿射函数在任意两点上的弦恰好是那个仿射函数本身。**
+**⇒ 于是新族在这一类上**退化**为旧族，而不是与它并列——这就是「包含」的可计算形式。** -/
+theorem interpFamily_affine (n : ℕ) (hn : 0 < n) (c d : ℝ) :
+    interpFamily n (fun x : ℝ => c * x + d) = affineFamily c d := by
+  funext k
+  show chordOf (fun x : ℝ => c * x + d) ((k : ℝ) / n) (((k : ℝ) + 1) / n)
+      = (⟨c, d⟩ : Segment)
+  apply chordOf_affine
+  -- **端点不同：`n > 0` 时 `k/n < (k+1)/n`。**
+  intro h
+  have hnR : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  -- **两边同乘 `n ≠ 0` 后 `h` 变成 `k = k + 1`；`field_simp` 自己就把目标关掉了。**
+  field_simp at h
+
+/-- **⭐⭐ 一般插值目标在仿射函数上与仿射目标**给出同一个族**。** -/
+theorem interp_realises_affine (r : CompileRecipe) (c d : ℝ) :
+    Target.family r (.interp (fun x : ℝ => c * x + d))
+      = Target.family r (.affine c d) := by
+  show interpFamily r.n (fun x : ℝ => c * x + d) = affineFamily c d
+  exact interpFamily_affine r.n r.hn c d
+
+/-- **⭐⭐⭐ 第二族的产物在仿射目标上**逐点精确**。**
+
+**⇒ 这把 `interpFamily_affine` 从族层面推到**产物层面**：
+产物契约（`evalAt_ofSegments`）+ 族相等 + 常族求值（`gridEval_affineFamily`）。**
+**⇒ 于是「新族能做旧族能做的事」是一条定理，
+而不是「我们保留了旧族所以它也能」这种推理。** -/
+theorem interp_affine_artifact_exact (r : CompileRecipe) (c d : ℝ)
+    (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) :
+    (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
+        (Target.family r (.interp (fun x : ℝ => c * x + d))) dom r).evalAt x
+      = some (c * x + d) := by
+  rw [interp_realises_affine]
+  rw [Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments]
+  show some (gridEval (affineFamily c d) r.n x) = some (c * x + d)
+  rw [gridEval_affineFamily]
 
 end Lattice.Lib.Compiler.SymbolicEntry

@@ -20,7 +20,7 @@ import Lattice.Lib.Compiler.WriteBack
 | 节点 | 提供方 | 目标命题 |
 |:--|:--|:--|
 | 源语义 | `evalSym` | `evalSym x squareTerm = some (x · x)` |
-| 编译 | `compileTarget` | `= some (.squareApprox r.n r.hn)` |
+| 编译 | `compileTarget` | `= some (.squareApprox)` |
 | 构造 | `EvaluatedArtifact.ofSegments` + `Target.family` | 产物 |
 | 求值 | `evalAt_ofSegments` | `evalAt x = some (gridEval …)` |
 | 保证 | `irWeights_error_bound` | `\|x² − v\| ≤ (1/n)²/4` |
@@ -65,13 +65,13 @@ theorem decodedFamily_ofSegments (g : ℕ → Segment) (dom : Lattice.Lib.Compil
 theorem square_chain (r : Lattice.Lib.Compiler.CompileRecipe)
     (dom : Lattice.Lib.Compiler.SemDomain) (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) :
     evalSym x squareTerm = some (x * x)
-      ∧ compileTarget r squareTerm = some (.squareApprox r.n r.hn)
+      ∧ compileTarget r squareTerm = some (.squareApprox)
       ∧ (∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-              (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+              (Target.family r .squareApprox) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ (1 / (r.n : ℝ)) ^ 2 / 4)
       ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-            (Target.family (.squareApprox r.n r.hn)) dom r).decodedFamily
+            (Target.family r .squareApprox) dom r).decodedFamily
           = some (decodeGrid (piecewiseIRWeights r.n)) := by
   refine ⟨evalSym_squareTerm x, compileTarget_squareTerm r, ?_, ?_⟩
   · exact (square_path_bound r dom x hx).2
@@ -106,13 +106,13 @@ theorem official_chain_recipe (a b c : ℝ) (hba : b ≠ a)
     (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) (hx0 : x ≠ 0) (hidx : segmentIndex r.n x = 0) :
     -- **A 段：符号 → 产物 → 整域保证 → 提取接缝**
     (evalSym x squareTerm = some (x * x)
-      ∧ compileTarget r squareTerm = some (.squareApprox r.n r.hn)
+      ∧ compileTarget r squareTerm = some (.squareApprox)
       ∧ (∃ v : ℝ,
           (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-              (Target.family (.squareApprox r.n r.hn)) dom r).evalAt x = some v
+              (Target.family r .squareApprox) dom r).evalAt x = some v
             ∧ |x ^ 2 - v| ≤ (1 / (r.n : ℝ)) ^ 2 / 4)
       ∧ (Lattice.Lib.Compiler.EvaluatedArtifact.ofSegments
-            (Target.family (.squareApprox r.n r.hn)) dom r).decodedFamily
+            (Target.family r .squareApprox) dom r).decodedFamily
           = some (decodeGrid (piecewiseIRWeights r.n)))
       -- **C 段：修复 → 写回 → 重验 + 可观察变化**
       ∧ (slopeSat a (slopeFix a (constFamily b c))
