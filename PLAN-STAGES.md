@@ -604,3 +604,34 @@ C 段（修复 + 写回 + 重验 + 可观察变化）并置为一条可引用陈
 2. verdict 把 `square_path_bound` 指到 `Samples.lean`，而它在 `SymbolicEntry.lean`
    ——`check_verdict_freshness` 判为 **NEW STALE**；
 3. `repair_chain` 是转发 ⇒ 别名普查报 NEW forward（已按「有意转发」登记）。
+### 3.14 **第 1049 轮（规划 P1-b）：自举装载规格——重复装载**观察保持**
+
+**背景测量：`loadAll` / `LoaderState` / `Manifest` 在整个仓库里**0 个定义**（文档自己承认），
+故规划 §6.1 的自举是**真正的空白**，不是「已做待整理」。**
+
+**文件：`Lattice/CInterface/Bootstrap.lean`。三个建模判断都写进了文件头，理由如下：**
+
+| 判断 | 理由 |
+|:--|:--|
+| **必须有 `LoaderState`** | 「重复装载」只有在**状态**里才能定义；若 `loadAll : List → List`，「重复」无从表述——这正是原规格 `loadAll (loadAll ms)` 写错的根源 |
+| **重复判定用**名字**，不用结构相等** | 同名不同版在真实装载器里是同一个条目，故 `insertManifest` 用 `x.name = m.name`；**这使「已在表中」与「同名已在表中」成为两个不同条件**，文件把它们分开陈述 |
+| **观察只含 `loaded`，不含 `rounds`** | 规划要求「定义『同一观察』包含哪些状态；不是全部内部状态相等」；把 `rounds` 放进结构、排除在观察外，使这个差别**可见** |
+
+**⇒ 四条定理：**
+
+```lean
+insertManifest_noop_of_mem      m ∈ loaded → insertManifest m s = s      （状态全等）
+insertManifest_new_changes      名字皆不同 → observe 变成 m :: loaded
+loadAll_reify_idempotent        observe (loadAll s (reifyLoader s)) = observe s   ← 规格
+load_changes_observe_of_new     装载**新**清单确实改变观察              ← 使「保持」非空
+```
+
+**⇒ 第三条是原规格的**正确形式**：结论只能是**观察**相等，不是状态相等；
+第四条与之配对，界定「保持」只在重复时成立。**
+
+**⇒ 明确不做：**「实际执行对应」（真实 C 加载器与规格的关系、失败与部分成功如何呈现）
+**不在本文件**——它需要 CIC 内核的 C 实现，而规划 §6.1 把它列为**独立交付物**。**
+**⇒ 本文件只交付前两项，并把第三项**显式留空**，而不是用一条形式化的 `allok : Bool` 假装它已被覆盖。**
+
+**⇒ 三处我造成的错误：`List.exists_mem_of_mem` 不存在（改用 `any_eq_true` 的直接见证）、
+`any_eq_false` 期望 `≠ true` 而非 `= false`、以及把判据误当清单相等（`x.name = m.name` 与 `x = m` 不同）。**
