@@ -70,6 +70,7 @@ import Lattice.Lib.Compiler.WriteBack
 import Lattice.Lib.Compiler.Chain
 import Lattice.Lib.Compiler.Capability
 import Lattice.Lib.Compiler.InterpAlgebra
+import Lattice.Lib.Compiler.LinearComb
 /-!
 # Lattice.Lib -- harvested instances
 
