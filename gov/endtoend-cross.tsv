@@ -1517,6 +1517,10 @@ Lib/Compiler/CarrierReversible.lean	reinject_eq
 Lib/Compiler/CarrierReversible.lean	reextract_eq
 Lib/Compiler/CarrierReversible.lean	verify_by_extract
 Lib/Compiler/CarrierReversible.lean	closure_complete
+Lib/Compiler/Chain.lean	decodedFamily_ofSegments
+Lib/Compiler/Chain.lean	square_chain
+Lib/Compiler/Chain.lean	repair_chain
+Lib/Compiler/Chain.lean	official_chain_recipe
 Lib/Compiler/ChordErrorGeneral.lean	chord_error_sq_rederived
 Lib/Compiler/ChordGeneral.lean	piecewiseInterp_sq
 Lib/Compiler/ChordGeneral.lean	piecewiseInterp_affine_exact
