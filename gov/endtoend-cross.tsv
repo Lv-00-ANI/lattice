@@ -2005,6 +2005,8 @@ Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
 Lib/Compiler/SymbolicEntry.lean	square_end_to_end
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
+Lib/Compiler/WriteBack.lean	writeBack_evalAt
+Lib/Compiler/WriteBack.lean	write_back_verifies_and_changes
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_neg
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_iff
