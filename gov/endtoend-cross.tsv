@@ -1999,6 +1999,10 @@ Lib/Compiler/Samples.lean	affineSample_exact
 Lib/Compiler/Samples.lean	xSquaredSample_bound
 Lib/Compiler/Samples.lean	exists_grid_for_eps
 Lib/Compiler/SecondDerivBound.lean	chord_error_of_second_deriv_bound
+Lib/Compiler/SymbolicEntry.lean	affine_path_exact
+Lib/Compiler/SymbolicEntry.lean	square_path_bound
+Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
+Lib/Compiler/SymbolicEntry.lean	square_end_to_end
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/RealMutualRecursion_parts/A.lean	MExpr.size_lit
