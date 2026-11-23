@@ -275,6 +275,14 @@ CHECKS = [
      "audit_definitional_proofs.py --check"),
     ("audit: definitional proof detector self-test",
      "audit_definitional_proofs.py --self-test"),
+    # **Round 1034: the geometry layer is FROZEN. It is an EXAMPLE domain, not part of the chain
+    # (data <-> token <-> symbol <-> weight). Measured before obeying the archive instruction: 100
+    # modules, ~17.8k lines, 26 direct importers, 43 users of `Lattice.Geo.*`, and the transitive
+    # closure of those imports is ALL 100 -- so a physical archive would delete real mainline code.
+    # A partial archive (68 of 100) was attempted and failed to build; it is in the branch history.
+    # What can be enforced is that the layer stops GROWING: this gate bounds its importer set.**
+    ("frozen: geometry layer importers bounded", "check_frozen_reference.py --check"),
+    ("frozen: geometry baseline self-test", "check_frozen_reference.py --self-test"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.

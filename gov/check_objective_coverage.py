@@ -90,10 +90,15 @@ CLAUSES = {
     # SINGLE carrier. `models_of_covered_data` is the COMPLETE conclusion for the clause -- coverage is
     # only its second conjunct -- so naming both halves is what makes the clause read as data synthesis
     # rather than as a covering condition.
-    "2.2 forward: data synthesis": ["synth_coverage", "covered_of_vanishing", "models_of_covered_data"],
+    # Round 1034: `synth_coverage` was REMOVED from this list. It exists only in the FROZEN geometry
+    # layer, and keeping a name that no mainline file declares made this clause look uncarried while
+    # the gate passed -- the exact defect round 65 measured for 3.3/3.4/5. The clause has two live
+    # mainline carriers and does not need a third that lives in an example domain.
+    "2.2 forward: data synthesis": ["covered_of_vanishing", "models_of_covered_data"],
     "2.3 forward: structured init": ["weightLadderN", "compile_sound_n", "compileWith"],
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
-    "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound", "models", "agrees"],
+    # Round 1034: `geo_sampled_bound` removed for the same reason as `synth_coverage` above.
+    "3.2 inverse: verification": ["EpsSat", "models", "agrees"],
     # Round 1027: these three existed ONLY in the archived geometry layer, so clause 3.3 was the last
     # clause with no mainline carrier. Round 1025 proved that re-declaring the ARCHIVE names collides
     # with them (duplicate names AND duplicate statements both fired), so the mainline carrier is a

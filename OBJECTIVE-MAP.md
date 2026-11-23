@@ -21,7 +21,6 @@
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 4 | 3 | `Plugins/Targets/Statements.lean`, `Runtime/Extraction.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
-| 2.2 forward: data synthesis | `synth_coverage` | **未找到** | — | — | — |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
@@ -30,7 +29,6 @@
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 2 | 5 | `Runtime/ApproximationBridge.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `geo_sampled_bound` | **未找到** | — | — | — |
 | 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 9 | `Usage/Examples.lean` |
@@ -49,8 +47,8 @@
 ## 汇总
 
 - 条款数：14
-- 载体总数：34
-- **死代码载体（同文件也不用）：4**
+- 载体总数：32
+- **死代码载体（同文件也不用）：2**
 - 仅同文件使用的载体：0
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。

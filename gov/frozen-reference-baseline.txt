@@ -1,0 +1,36 @@
+# gov/check_frozen_reference.py -- mainline modules importing the FROZEN geometry layer
+#
+# `Lattice/Reference/Geometry/` is an EXAMPLE domain, not part of the objective's chain.
+# Measured: 100 modules, ~17.8k lines, 26 direct importers, 43 users of `Lattice.Geo.*`, and the
+# transitive closure is all 100 -- so it cannot be archived without deleting real mainline code.
+# The decision taken instead is to FREEZE it: this list may only SHRINK.
+#
+# A new entry means some mainline module started depending on the example domain; that needs a
+# deliberate `--write` and a reason, because geometry work is time not spent on the chain.
+
+Compose/ForwardChain.lean
+Core/RepairModule/RepairBridge.lean
+Domains.lean
+Evidence/Hypotheses.lean
+Plugins/Domains/Constraints/Penalty/NetLossDerivative.lean
+Plugins/Domains/Constraints/Penalty/PenaltyLoss.lean
+Plugins/Domains/Constraints/Tokens/Flatten.lean
+Plugins/Domains/Constraints/Tokens/SeqRepresentation.lean
+Plugins/Targets/ArtifactLadder.lean
+Plugins/Targets/ConstructArtifact.lean
+Plugins/Targets/ConstructArtifactBridge.lean
+Plugins/Targets/Expressible.lean
+Plugins/Targets/Solver.lean
+Plugins/Targets/Statements.lean
+Plugins/Targets/T2Min.lean
+Plugins/Targets/T3NonVacuous.lean
+Plugins/Targets/T4FixedPoint.lean
+Semantics/Annotations.lean
+Semantics/CompilationInherits.lean
+Semantics/CompileSound.lean
+Semantics/CompileSoundGeneral.lean
+Semantics/GeometricThresholdInherits.lean
+Semantics/Merge.lean
+Semantics/PostTrain.lean
+Semantics/Stage1.lean
+Usage/Examples.lean
