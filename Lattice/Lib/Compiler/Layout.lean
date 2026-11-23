@@ -87,7 +87,7 @@ noncomputable def gridLayout : PartialSection (ℕ → Segment) (ℕ → ℝ) wh
 
 /-- **被求值的产物。**
 
-**⇒ 五个契约项里 `eval` **不在字段中**：它是派生的（见 `payload` 与 `eval`）。
+**⇒ 五个契约项里 `eval` **不在字段中**：它是派生的（见 `decodedFamily` 与 `eval`）。
 所以「只带权重、解释不明」的产物**无法构造出求值**，这正是规划 §4.1 那条约束的类型化。** -/
 structure EvaluatedArtifact where
   /-- **How the payload is to be interpreted.** -/
@@ -103,17 +103,17 @@ namespace EvaluatedArtifact
 
 /-- **载荷（派生，且**部分**）**：按该产物**自己的**布局解释其权重。
 
-**⇒ 这是「同一底层类型、不同解释」的落点：`payload` 不是 `weights`，而是
+**⇒ 这是「同一底层类型、不同解释」的落点：`decodedFamily` 不是 `weights`，而是
 `layout.extract weights`，其类型是 `Option`。缺 layout 的对象根本没有这个函数。** -/
-noncomputable def payload (A : EvaluatedArtifact) : Option (ℕ → Segment) :=
+noncomputable def decodedFamily (A : EvaluatedArtifact) : Option (ℕ → Segment) :=
   A.layout.extract A.weights
 
 /-- **求值（派生，且**部分**）**：解码出的分段族在网格参数下的取值。
 
-**⇒ 两个来源都被产物固定：`payload` 来自 `layout`，`n` 来自 `recipe`。
+**⇒ 两个来源都被产物固定：`decodedFamily` 来自 `layout`，`n` 来自 `recipe`。
 调用者无法只给权重就得到求值；提取失败则求值也失败，**不填入任何默认值**。** -/
 noncomputable def evalAt (A : EvaluatedArtifact) (x : ℝ) : Option ℝ :=
-  A.payload.map (fun g => gridEval g A.recipe.n x)
+  A.decodedFamily.map (fun g => gridEval g A.recipe.n x)
 
 /-- **由分段族构造产物**：用 `gridLayout` 编码，并记下所用的参数。
 
@@ -129,7 +129,7 @@ noncomputable def ofSegments (g : ℕ → Segment) (dom : SemDomain) (r : Compil
 /-- **⭐ 由分段族构造的产物恒可求值，且值就是该族的网格求值。**
 
 **⇒ 这条不是定义展开：它用 `PartialSection.retract`（即 `decodeGrid_encodeGrid`）证明
-`payload (ofSegments g …) = some g`，再由 `Option.map` 得到 `some (gridEval g n x)`。**
+`decodedFamily (ofSegments g …) = some g`，再由 `Option.map` 得到 `some (gridEval g n x)`。**
 
 **⇒ 它的内容正是规划 A.6 的第一条验收：「仿射样例误差为零，且该零误差来自**构造**而非定义」——
 这里证明的是**求值忠于被编译的族**，且**失败分支在这条路上不出现**（`some`，不是「恰好非 none」）。** -/
@@ -144,15 +144,15 @@ theorem evalAt_ofSegments (g : ℕ → Segment) (dom : SemDomain) (r : CompileRe
 
 /-- **⭐ 提取失败与求值失败是同一件事。**
 
-**⇒ `(A.evalAt x).isSome ↔ (A.payload).isSome`：`eval` 没有引入**任何**新的失败原因，
+**⇒ `(A.evalAt x).isSome ↔ (A.decodedFamily).isSome`：`eval` 没有引入**任何**新的失败原因，
 它只是把布局的失败**原样传下去**。**
 
 **⇒ 这条使规划 §4.2 的「失败语义」可判定：`eval = none` 的唯一解释是
 「按该产物的布局，其权重解不出分段族」，而不是「域外」「参数非法」或「实现未完成」——
 后三者在本结构里根本不可能发生（`n > 0` 由 `recipe.hn` 保证，域不限制求值）。** -/
-theorem evalAt_isSome_iff_payload_isSome (A : EvaluatedArtifact) (x : ℝ) :
-    (A.evalAt x).isSome ↔ A.payload.isSome := by
-  cases h : A.payload with
+theorem evalAt_isSome_iff_decoded_isSome (A : EvaluatedArtifact) (x : ℝ) :
+    (A.evalAt x).isSome ↔ A.decodedFamily.isSome := by
+  cases h : A.decodedFamily with
   | none => simp [evalAt, h]
   | some g => simp [evalAt, h]
 
@@ -161,12 +161,12 @@ theorem evalAt_isSome_iff_payload_isSome (A : EvaluatedArtifact) (x : ℝ) :
 
 **⇒ 若两个产物的载荷与参数相同，则它们在每一点上的求值相同。
 **⇒ 这条把「行为由解释决定」写成可引用的事实：**权重不同但载荷相同的两个产物行为完全一样**，
-故「比较权重」不是比较行为；要比较行为必须比较 `payload` + `n`。** -/
-theorem evalAt_congr_of_payload_eq (A B : EvaluatedArtifact)
-    (hp : A.payload = B.payload) (hn : A.recipe.n = B.recipe.n) (x : ℝ) :
+故「比较权重」不是比较行为；要比较行为必须比较 `decodedFamily` + `n`。** -/
+theorem evalAt_congr_of_decoded_eq (A B : EvaluatedArtifact)
+    (hp : A.decodedFamily = B.decodedFamily) (hn : A.recipe.n = B.recipe.n) (x : ℝ) :
     A.evalAt x = B.evalAt x := by
-  show A.payload.map (fun g => gridEval g A.recipe.n x)
-      = B.payload.map (fun g => gridEval g B.recipe.n x)
+  show A.decodedFamily.map (fun g => gridEval g A.recipe.n x)
+      = B.decodedFamily.map (fun g => gridEval g B.recipe.n x)
   rw [hp, hn]
 
 end EvaluatedArtifact
