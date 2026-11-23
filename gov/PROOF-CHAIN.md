@@ -1483,7 +1483,7 @@
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
 | `Lattice.Lib.Compiler.CarrierCoverage` | 2 | 4 |
 | `Lattice.Lib.Compiler.CarrierInstantiation` | 3 | 1 |
-| `Lattice.Lib.Compiler.CarrierReproduction` | 5 | 1 |
+| `Lattice.Lib.Compiler.CarrierReproduction` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierReversible` | 5 | 2 |
 | `Lattice.Lib.Compiler.ChordErrorGeneral` | 4 | 0 |
 | `Lattice.Lib.Compiler.ChordGeneral` | 9 | 3 |
@@ -3273,14 +3273,14 @@ module. These are the edges that make the chain a chain rather than a list.
 - `card_mul_condExpFiber` -> `apply`, `at`, `d`, `g`
 - `carrierConj_criterion` -> `Carrier`, `Compiler`, `Sat`, `compile`, `complete`, `criterion`, `out`, `sound`, `trivial`
 - `carrierDisj_criterion` -> `Carrier`, `Compiler`, `Sat`, `compile`, `criterion`, `out`
-- `carrierFrom_criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `extractLayer`, `out`, `repair_terminates_at_sat`, `verify_iff_recompile`
+- `carrierFrom_criterion` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `compile_extract_layer`, `complete`, `criterion`, `extractLayer`, `extract_compile_constraints`, `out`, `repair_terminates_at_sat`, `sound`
 - `carrier_boolean_algebra` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
 - `carrier_closed_under_conj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `complete`, `criterion`, `out`, `sound`, `trivial`
 - `carrier_closed_under_disj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
 - `carrier_covers_whole_chain` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `carrier_implies_repair` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`, `repair_terminates_at_sat`
-- `carrier_implies_symbolToWeight` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `complete`, `criterion`, `extractLayer`, `linearCarrierAt`, `out`, `repair_terminates_at_sat`, `sound`, `verify_iff_recompile`
-- `carrier_implies_verify` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`, `repair_terminates_at_sat`, `verify_iff_recompile`
+- `carrier_implies_symbolToWeight` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `compile_extract_layer`, `complete`, `criterion`, `extractLayer`, `extract_compile_constraints`, `linearCarrierAt`, `out`, `repair_terminates_at_sat`, `sound`
+- `carrier_implies_verify` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `criterion`, `extractLayer`, `repair_terminates_at_sat`
 - `carrier_length_laws` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `castConstraint_b_eq_convertVec_b` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `Loss`, `ProbVec`, `VectorConstraint`, `at`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `cast_cast` -> `subst`, `trans`

@@ -37,7 +37,7 @@
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
-| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 3 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Runtime/LayerSection.lean` |
+| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 4 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Lib/Compiler/CarrierReproduction.lean` |
 | 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
 | 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 | 0 | `Usage/Examples.lean` |
