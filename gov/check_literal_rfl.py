@@ -59,6 +59,15 @@ def scan():
         for i, line in enumerate(lines):
             if not RFL.search(line):
                 continue
+            # **Round 1033: the backward search below attributes to the enclosing theorem any line
+            # ending in `:= rfl`, including a `have ... := rfl` INSIDE a proof. That is why three
+            # entries in the baseline are theorems whose real proofs are `intro`/`refine` -- they were
+            # never `:= rfl` theorems at all (e.g. `d21_semEqL_neg_witness`). A `have`/`let`/`show`
+            # line is a step in some proof, not the shape this check is about, so skip it. 91 such
+            # lines exist tree-wide.**
+            head = line.strip()
+            if head.startswith(("have ", "have\t", "let ", "show ")):
+                continue
             j = i
             while j >= 0 and "theorem" not in lines[j] and "lemma" not in lines[j]:
                 j -= 1

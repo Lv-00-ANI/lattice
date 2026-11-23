@@ -62,11 +62,8 @@ Lattice/Lib/Chain/RealLv00Solver.lean	atpBackendEntry_default_available
 Lattice/Lib/Chain/RealLv00Solver.lean	totient_one
 Lattice/Lib/Compiler/RealMutualRecursion_parts/C.lean	eval_lit_zero
 Lattice/Lib/Editing/RealEditLocality.lean	rowEditCexX_zero_apply
-Lattice/Lib/Editing/RealRoundTripVacuity.lean	factorsThrough_alone_does_not_suffice
-Lattice/Lib/Editing/RealRoundtripNondegenerate.lean	d21_semEqL_neg_witness
 Lattice/Lib/LearningTheory/RealCausalInference.lean	binInd_false
 Lattice/Lib/LearningTheory/RealCausalInference.lean	binInd_true
-Lattice/Lib/Meta/RealSymbolCompletenessVerdict.lean	d32_s02_characterization_is_false
 Lattice/Lib/Quantization/RealConversionStabilityFloatBounds.lean	neuronCP_ops
 Lattice/Lib/Quantization/RealConversionStabilityFloatBounds.lean	roundtripCP_ops
 Lattice/Plugins.lean	proofRegistry_length

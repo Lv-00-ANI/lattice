@@ -101,6 +101,37 @@ def _statement_end(src, start):
     return None
 
 
+
+def _indent_of(src, pos):
+    """Column of the declaration keyword at `pos` (0 for top-level)."""
+    line_start = src.rfind("\n", 0, pos) + 1
+    seg = src[line_start:pos]
+    return len(seg) - len(seg.lstrip())
+
+
+def _next_decl_indent(tail, decl_indent):
+    """Index in `tail` where a line at or left of `decl_indent` starts a new command.
+
+    Inside a Lean proof every line is indented deeper than the `theorem` that owns it (the layout rule
+    enforces it), so the first line at or left of the declaration's own column terminates the proof.
+    A blank line is not a terminator.
+    """
+    i = 0
+    n = len(tail)
+    while i < n:
+        j = tail.find("\n", i)
+        if j < 0:
+            return n
+        line = tail[i:j]
+        stripped = line.strip()
+        if stripped:
+            ind = len(line) - len(line.lstrip())
+            if ind <= decl_indent and (stripped[0].isalpha() or stripped[0] == "@"):
+                return i
+        i = j + 1
+    return n
+
+
 def classify(body):
     """Classify a proof body. Returns (kind, detail) or (None, None).
 
@@ -149,11 +180,14 @@ def scan():
                 end = _statement_end(code, m.end())
                 if end is None:
                     continue
-                # proof runs to the next top-level declaration; a generous slice is enough because
-                # `classify` only looks at the first lines and rejects anything unexpected.
+                # **The proof ends where a line is indented no deeper than the declaration itself.
+                # The first version stopped at the next THEOREM/LEMMA, so a theorem followed by a
+                # `def` swallowed the `def` into the proof body and stopped classifying -- 25 findings
+                # that `check_literal_rfl.py` knew about were invisible here. Cross-checking the two
+                # baselines is what exposed it.**
                 tail = code[end:]
-                nxt = DECL.search(tail)
-                body = tail[: nxt.start()] if nxt else tail
+                stop = _next_decl_indent(tail, _indent_of(code, m.start()))
+                body = tail[:stop]
                 kind, detail = classify(body)
                 if kind:
                     # **Key on (file, name), not name. Two layers each have a theorem called
@@ -227,16 +261,93 @@ def self_test():
     return 0 if bad == 0 else 1
 
 
+
+LITERAL_BASELINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "literal-rfl-baseline.txt")
+NUMERAL_STMT = re.compile(r"=\s*\d+\s*$|=\s*(?:true|false)\s*$")
+
+
+def _load_pairs(path, strip_lattice_prefix):
+    out = set()
+    if not os.path.exists(path):
+        return out
+    for line in io.open(path, encoding="utf-8"):
+        line = line.rstrip("\n")
+        if not line.strip() or line.strip().startswith("#"):
+            continue
+        cells = line.strip().split("\t")
+        if len(cells) != 2:
+            continue
+        f, n = cells
+        if strip_lattice_prefix and f.startswith("Lattice/"):
+            f = f[len("Lattice/"):]
+        out.add((f, n))
+    return out
+
+
+def report_overlap(findings, sources):
+    """Cross-check this census against the OTHER mechanism that looks at `rfl` theorems.
+
+    `check_literal_rfl.py` is a policy gate ("no NEW free-floating numeral/bool literal"). It scans for
+    lines ending in `:= rfl` and walks backward to the enclosing theorem. This census scans proofs
+    structurally. The two therefore OVERLAP in population, and until this mode existed nobody had a
+    number for how much.
+
+    The 4 numbers below are the ones that decide whether the duplication should be collapsed:
+      agreement        the same (file, name) in both
+      literal-only     entries the literal gate knows that this census does not -- should be 0 once its
+                       `have := rfl` misattribution was fixed (round 1033)
+      invisible        numeral/bool LEAVES this census sees and the literal gate's line scan MISSES;
+                       these are free-floating literals the policy never saw, so the gate's baseline is
+                       narrower than its own criterion
+      extra            definitional proofs this census sees beyond the literal gate's whole population
+    """
+    lit = _load_pairs(LITERAL_BASELINE, True)
+    mine = set(findings)
+    print("  --- overlap with check_literal_rfl.py ---")
+    print("  this census              : %d" % len(mine))
+    print("  literal-rfl baseline     : %d" % len(lit))
+    print("  agreement                : %d" % len(mine & lit))
+    print("  literal-only             : %d" % len(lit - mine))
+    for f, n in sorted(lit - mine):
+        print("      L-only %s :: %s" % (f, n))
+
+    invisible = []
+    for (rel, name), (_kind, _detail) in findings.items():
+        code = sources.get(rel, "")
+        ms = [m for m in DECL.finditer(code) if m.group(1).split(".")[-1] == name]
+        if not ms:
+            continue
+        end = _statement_end(code, ms[0].end())
+        if end is None:
+            continue
+        stmt = " ".join(x.strip() for x in code[ms[0].end():end - 2].split("\n")).strip()
+        stmt = re.sub(r"^.*?(?:theorem|lemma)\s+\S+\s*:", "", stmt).strip()
+        if NUMERAL_STMT.search(re.sub(r":=\s*$", "", stmt).strip()) and in_degree(name, sources, rel) == 0:
+            if (rel, name) not in lit:
+                invisible.append((rel, name))
+    print("  invisible to the literal gate (numeral/bool leaf, not in its baseline): %d"
+          % len(invisible))
+    for f, n in sorted(invisible)[:10]:
+        print("      inv    %s :: %s" % (f, n))
+    print("  => the literal gate's own criterion is broader than what its line scan reaches. Collapsing")
+    print("     the two detectors would move that gate's population; it is recorded, not done silently.")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--overlap", action="store_true",
+                    help="cross-check against gov/literal-rfl-baseline.txt")
     args = ap.parse_args()
     if args.self_test:
         return self_test()
 
     findings, sources = scan()
+    if args.overlap:
+        report_overlap(findings, sources)
+        return 0
     if args.write:
         write_baseline(findings)
         print("  wrote %s (%d finding(s))" % (os.path.basename(BASELINE), len(findings)))
