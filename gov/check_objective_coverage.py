@@ -69,7 +69,13 @@ CLAUSES = {
     "1.1 data -> token": ["tokenize_detok", "CharToken"],
     "1.2 token -> symbol": ["SymToken", "decodePayload"],
     "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN"],
-    "1.4 weight -> symbol": ["extract"],
+    # Round 1031: this clause had exactly ONE carrier, so it had no redundancy -- and `extract` alone
+    # is only the FUNCTION, not the delivery. `extract_compile` is what makes the direction correct:
+    # `extract (compileSkel k) = some k`, the round trip that the old `extractCode` never had. Its own
+    # docstring says neither step is definitional -- `weightCodeIR_compileSkel` is arithmetic and
+    # `decodeSkeleton_code` is the decoder's round trip -- so it is a proof, not a restatement.
+    # Measured: 12 files mention it.
+    "1.4 weight -> symbol": ["extract", "extract_compile"],
     "2.1 forward: constraint loss": ["PenaltyEmbedding", "penaltyToLoss"],
     # Round 265 (STAGE 0): the geometry layer was archived. **A clause's carrier must live in the
     # MAINLINE tree, because the archive is out of the criterion.** So each clause that used to name
@@ -80,7 +86,11 @@ CLAUSES = {
     #                         of the weight vector from the skeleton).
     #   3.2 verification   -> `models`/`agrees` (the observable check that the weights realise
     #                         the symbols).
-    "2.2 forward: data synthesis": ["synth_coverage", "covered_of_vanishing"],
+    # Round 1031: `synth_coverage` does not exist in the mainline (round 65), so this clause rested on a
+    # SINGLE carrier. `models_of_covered_data` is the COMPLETE conclusion for the clause -- coverage is
+    # only its second conjunct -- so naming both halves is what makes the clause read as data synthesis
+    # rather than as a covering condition.
+    "2.2 forward: data synthesis": ["synth_coverage", "covered_of_vanishing", "models_of_covered_data"],
     "2.3 forward: structured init": ["weightLadderN", "compile_sound_n", "compileWith"],
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
     "3.2 inverse: verification": ["EpsSat", "geo_sampled_bound", "models", "agrees"],
@@ -90,7 +100,10 @@ CLAUSES = {
     # REPAIR INSTANCE of the same shape -- a geometric defect whose squared distance halves each round
     # -- declared under a fresh name in `Core/RepairModule/SqDistRepair.lean`, next to the existing
     # `parityRepair` and `downFix` instances.
-    "3.3 inverse: repair": ["sqDistHalvingRepair"],
+    # Round 1031: a single carrier again. The second is the statement that reaching a passing state and
+    # STAYING there are different claims -- which is what "repair" has to mean if the loop is to
+    # terminate rather than oscillate.
+    "3.3 inverse: repair": ["sqDistHalvingRepair", "sqDistHalving_terminates_and_stabilises"],
     # Round 1025: the clause used to name two theorems that exist ONLY in the archived geometry layer,
     # so rule A passed while the mainline had no carrier at all. These are the mainline names, and
     # round 65's measurement is what forced the change.

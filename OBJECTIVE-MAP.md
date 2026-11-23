@@ -18,10 +18,12 @@
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 51 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 46 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 4 | 3 | `Plugins/Targets/Statements.lean`, `Runtime/Extraction.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `synth_coverage` | **未找到** | — | — | — |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
@@ -32,6 +34,7 @@
 | 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 9 | `Usage/Examples.lean` |
+| 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 0 **← 死代码** | 0 | — |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
@@ -46,7 +49,7 @@
 ## 汇总
 
 - 条款数：14
-- 载体总数：31
+- 载体总数：34
 - **死代码载体（同文件也不用）：4**
 - 仅同文件使用的载体：0
 
