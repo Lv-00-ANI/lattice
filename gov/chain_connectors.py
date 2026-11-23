@@ -210,13 +210,19 @@ def main():
             names = matrix[(a, b)]
             if not names:
                 continue
-            old = fresh = unknown = 0
+            old = fresh = unknown = pending = 0
             rows = []
             for rel, n, ln in sorted(names):
                 sha = blamed_sha(rel, ln)
                 if not sha:
                     unknown += 1
                     tag = "?"
+                elif set(sha) == {"0"}:
+                    # **An UNCOMMITTED line blames to the all-zero sha. It is neither old nor recent: it is
+                    # not in the record yet, and calling it "old" let the work under review count as its own
+                    # support -- which is exactly how this was found.**
+                    pending += 1
+                    tag = "pending"
                 elif sha in rec:
                     fresh += 1
                     tag = "recent"
@@ -225,8 +231,8 @@ def main():
                     tag = "old"
                 rows.append((tag, rel, n, sha[:8]))
             flag = "  **FRESH-ONLY**" if old == 0 and fresh else ""
-            print("    %-24s -> %-24s total %2d  old %2d  recent %2d  unknown %d%s"
-                  % (a, b, len(names), old, fresh, unknown, flag))
+            print("    %-24s -> %-24s total %2d  old %2d  recent %2d  pending %d  unknown %d%s"
+                  % (a, b, len(names), old, fresh, pending, unknown, flag))
             for tag, rel, n, sha in rows:
                 print("        %-7s %s :: %s  (%s)" % (tag, rel, n, sha))
 

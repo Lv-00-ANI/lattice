@@ -83,6 +83,20 @@ def run (k : ℕ) (x : α) : α :=
 
 /-! ## When the loop terminates, what is true -/
 
+/-- **停在 `Sat` 上时，一轮就是恒等——这是 `step` 的 docstring 声称的「闭合」性质。**
+
+**⇒ `V.step x = (x, V.objective x)`，只需 `V.repair.Sat x`。**
+
+**⇒ 为何这条值得单独存在：`step` 在第 1042 轮之前**在主树里零消费者**（它的
+docstring 写着「so the loop's next state is a legal input to the same round -- which is what
+"closed" requires」，但那句话**没有对应的定理**）。本条把那句话变成一条可引用的事实。**
+
+**⇒ 证明用 `Repair.absorbs`：通过点上 `fix` 是恒等。对结对也成立，故下一轮的输入与本轮的输入相同。** -/
+theorem step_fixed_of_sat {x : α} (h : V.repair.Sat x) :
+    V.step x = (x, V.objective x) := by
+  show (V.repair.fix x, V.objective (V.repair.fix x)) = (x, V.objective x)
+  rw [V.repair.absorbs x h]
+
 /-- **THE LOOP'S SOUNDNESS: at the fixpoint the objective vanishes.**
 
 **`Repair.atomic` says a zero measure implies `Sat`, and `run` reaching a zero measure is exactly the
