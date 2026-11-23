@@ -58,6 +58,8 @@ inductive ExprExt where
   | litBool (b : Bool) : ExprExt
   | var (n : ℕ) : ExprExt
   | add (e₁ e₂ : ExprExt) : ExprExt
+    /-- **乘法**。⇒ 没有它 `x²` **无法被表示**，P0-b 的样例就只能绕过符号侧。 -/
+    | mul (e₁ e₂ : ExprExt) : ExprExt
   | cmp (e₁ e₂ : ExprExt) : ExprExt
   | letIn (x : ℕ) (e₁ e₂ : ExprExt) : ExprExt
 
@@ -98,6 +100,10 @@ inductive HasTypeExt : (ℕ → Option TyExt) → ExprExt → TyExt → Prop whe
       HasTypeExt Γ e₁ .int → HasTypeExt Γ e₂ .int → HasTypeExt Γ (.add e₁ e₂) .int
   | addReal {Γ : ℕ → Option TyExt} {e₁ e₂ : ExprExt} :
       HasTypeExt Γ e₁ .real → HasTypeExt Γ e₂ .real → HasTypeExt Γ (.add e₁ e₂) .real
+  | mulInt {Γ : ℕ → Option TyExt} {e₁ e₂ : ExprExt} :
+      HasTypeExt Γ e₁ .int → HasTypeExt Γ e₂ .int → HasTypeExt Γ (.mul e₁ e₂) .int
+  | mulReal {Γ : ℕ → Option TyExt} {e₁ e₂ : ExprExt} :
+      HasTypeExt Γ e₁ .real → HasTypeExt Γ e₂ .real → HasTypeExt Γ (.mul e₁ e₂) .real
   | cmp {Γ : ℕ → Option TyExt} {e₁ e₂ : ExprExt} :
       HasTypeExt Γ e₁ .int → HasTypeExt Γ e₂ .int → HasTypeExt Γ (.cmp e₁ e₂) .bool
   | letIn {Γ : ℕ → Option TyExt} {x : ℕ} {e₁ e₂ : ExprExt} {T : TyExt}
@@ -129,6 +135,7 @@ def substE (x : ℕ) (v : ExprExt) : ExprExt → ExprExt
   | .litBool b => .litBool b
   | .var n => if n = x then v else .var n
   | .add e₁ e₂ => .add (substE x v e₁) (substE x v e₂)
+  | .mul e₁ e₂ => .mul (substE x v e₁) (substE x v e₂)
   | .cmp e₁ e₂ => .cmp (substE x v e₁) (substE x v e₂)
   | .letIn y e₁ e₂ => .letIn y (substE x v e₁) (if y = x then e₂ else substE x v e₂)
 
@@ -151,6 +158,11 @@ theorem weakening_ext (e : ExprExt) :
       cases h with
       | addInt h1 h2 => exact HasTypeExt.addInt (ih₁ h1 hsub) (ih₂ h2 hsub)
       | addReal h1 h2 => exact HasTypeExt.addReal (ih₁ h1 hsub) (ih₂ h2 hsub)
+  | mul e₁ e₂ ih₁ ih₂ =>
+      intro Γ Δ T h hsub
+      cases h with
+      | mulInt h1 h2 => exact HasTypeExt.mulInt (ih₁ h1 hsub) (ih₂ h2 hsub)
+      | mulReal h1 h2 => exact HasTypeExt.mulReal (ih₁ h1 hsub) (ih₂ h2 hsub)
   | cmp e₁ e₂ ih₁ ih₂ =>
       intro Γ Δ T h hsub
       cases h with
@@ -198,6 +210,13 @@ theorem substitution_ext (e : ExprExt) :
           exact HasTypeExt.addInt (ih₁ Γ x S .int v h1 hv hval) (ih₂ Γ x S .int v h2 hv hval)
       | addReal h1 h2 =>
           exact HasTypeExt.addReal (ih₁ Γ x S .real v h1 hv hval) (ih₂ Γ x S .real v h2 hv hval)
+  | mul e₁ e₂ ih₁ ih₂ =>
+      intro Γ x S T v h hv hval
+      cases h with
+      | mulInt h1 h2 =>
+          exact HasTypeExt.mulInt (ih₁ Γ x S .int v h1 hv hval) (ih₂ Γ x S .int v h2 hv hval)
+      | mulReal h1 h2 =>
+          exact HasTypeExt.mulReal (ih₁ Γ x S .real v h1 hv hval) (ih₂ Γ x S .real v h2 hv hval)
   | cmp e₁ e₂ ih₁ ih₂ =>
       intro Γ x S T v h hv hval
       cases h with
@@ -230,6 +249,10 @@ inductive StepExt : ExprExt → ExprExt → Prop where
       ValueExt e₁ → StepExt (.letIn x e₁ e₂) (substE x e₁ e₂)
   | addL {e₁ e₁' e₂ : ExprExt} : StepExt e₁ e₁' → StepExt (.add e₁ e₂) (.add e₁' e₂)
   | addR {e₁ e₂ e₂' : ExprExt} : StepExt e₂ e₂' → StepExt (.add e₁ e₂) (.add e₁ e₂')
+  | mulInt (m n : ℤ) : StepExt (.mul (.litInt m) (.litInt n)) (.litInt (m * n))
+  | mulReal (r s : ℝ) : StepExt (.mul (.litReal r) (.litReal s)) (.litReal (r * s))
+  | mulL {e₁ e₁' e₂ : ExprExt} : StepExt e₁ e₁' → StepExt (.mul e₁ e₂) (.mul e₁' e₂)
+  | mulR {e₁ e₂ e₂' : ExprExt} : StepExt e₂ e₂' → StepExt (.mul e₁ e₂) (.mul e₁ e₂')
   | cmpL {e₁ e₁' e₂ : ExprExt} : StepExt e₁ e₁' → StepExt (.cmp e₁ e₂) (.cmp e₁' e₂)
   | cmpR {e₁ e₂ e₂' : ExprExt} : StepExt e₂ e₂' → StepExt (.cmp e₁ e₂) (.cmp e₁ e₂')
   | letInBody {x : ℕ} {e₁ e₁' e₂ : ExprExt} :
@@ -299,6 +322,25 @@ theorem progress_ext (e : ExprExt) :
               exact Or.inr ⟨_, StepExt.addReal r s⟩
             · exact Or.inr ⟨_, StepExt.addR hs2⟩
           · exact Or.inr ⟨_, StepExt.addL hs1⟩
+  | mul e₁ e₂ ih₁ ih₂ =>
+      intro T h
+      cases h with
+      | mulInt h1 h2 =>
+          rcases ih₁ h1 with hv1 | ⟨e1', hs1⟩
+          · rcases ih₂ h2 with hv2 | ⟨e2', hs2⟩
+            · obtain ⟨m, rfl⟩ := canonical_forms_ext_int hv1 h1
+              obtain ⟨n, rfl⟩ := canonical_forms_ext_int hv2 h2
+              exact Or.inr ⟨_, StepExt.mulInt m n⟩
+            · exact Or.inr ⟨_, StepExt.mulR hs2⟩
+          · exact Or.inr ⟨_, StepExt.mulL hs1⟩
+      | mulReal h1 h2 =>
+          rcases ih₁ h1 with hv1 | ⟨e1', hs1⟩
+          · rcases ih₂ h2 with hv2 | ⟨e2', hs2⟩
+            · obtain ⟨r, rfl⟩ := canonical_forms_ext_real hv1 h1
+              obtain ⟨s, rfl⟩ := canonical_forms_ext_real hv2 h2
+              exact Or.inr ⟨_, StepExt.mulReal r s⟩
+            · exact Or.inr ⟨_, StepExt.mulR hs2⟩
+          · exact Or.inr ⟨_, StepExt.mulL hs1⟩
   | cmp e₁ e₂ ih₁ ih₂ =>
       intro T h
       cases h with
@@ -350,6 +392,26 @@ theorem preservation_ext {e e' : ExprExt} (hs : StepExt e e') :
       cases h with
       | addInt h1 h2 => exact HasTypeExt.addInt h1 (ih h2)
       | addReal h1 h2 => exact HasTypeExt.addReal h1 (ih h2)
+  | mulInt m n =>
+      intro Γ T h
+      cases h with
+      | mulInt _ _ => exact HasTypeExt.litInt Γ (m * n)
+      | mulReal h1 _ => cases h1
+  | mulReal r s =>
+      intro Γ T h
+      cases h with
+      | mulInt h1 _ => cases h1
+      | mulReal _ _ => exact HasTypeExt.litReal Γ (r * s)
+  | mulL hs1 ih =>
+      intro Γ T h
+      cases h with
+      | mulInt h1 h2 => exact HasTypeExt.mulInt (ih h1) h2
+      | mulReal h1 h2 => exact HasTypeExt.mulReal (ih h1) h2
+  | mulR hs2 ih =>
+      intro Γ T h
+      cases h with
+      | mulInt h1 h2 => exact HasTypeExt.mulInt h1 (ih h2)
+      | mulReal h1 h2 => exact HasTypeExt.mulReal h1 (ih h2)
   | cmpL hs1 ih =>
       intro Γ T h
       cases h with
