@@ -69,6 +69,7 @@ import Lattice.Lib.Compiler.SymbolicEntry
 import Lattice.Lib.Compiler.WriteBack
 import Lattice.Lib.Compiler.Chain
 import Lattice.Lib.Compiler.Capability
+import Lattice.Lib.Compiler.InterpAlgebra
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -114,6 +114,12 @@ noncomputable def compileTarget (r : CompileRecipe) : ExprExt → Option Target
       | some .squareApprox => none
       | some (.interp _) => none
       | none => none
+  -- **二次项独立处理：`x·x + 仿射` 落到**一般插值族**。**
+  -- **⇒ 这是第 1053 轮让编译器**真正用上**新族的地方：在此之前 `interp` 只能被手工构造。**
+  | .add (.mul (.var 0) (.var 0)) e =>
+      match compileTarget r e with
+      | some (.affine p q) => some (.interp (fun x => x * x + (p * x + q)))
+      | _ => none
   | .add e₁ e₂ =>
       match compileTarget r e₁, compileTarget r e₂ with
       | some (.affine a₁ b₁), some (.affine a₂ b₂) => some (.affine (a₁ + a₂) (b₁ + b₂))
@@ -253,5 +259,23 @@ theorem interp_affine_artifact_exact (r : CompileRecipe) (c d : ℝ)
   rw [Lattice.Lib.Compiler.EvaluatedArtifact.evalAt_ofSegments]
   show some (gridEval (affineFamily c d) r.n x) = some (c * x + d)
   rw [gridEval_affineFamily]
+
+/-- **二次项的语法形状**：`x·x + (p·x + q)`。
+
+**⇒ 它是**一般二次**（二次项系数为 1），故不能用仿射族拿下（地板 `1/8`）。** -/
+def quadTerm (p q : ℝ) : ExprExt := .add (.mul (.var 0) (.var 0)) (affineTerm p q)
+
+/-- **二次项的源语义**。 -/
+theorem evalSym_quadTerm (p q x : ℝ) :
+    evalSym x (quadTerm p q) = some (x * x + (p * x + q)) := by
+  simp [quadTerm, affineTerm, evalSym]
+
+/-- **⭐⭐ 二次项编译到**一般插值族**。**
+
+**⇒ 这是「第二族真正被用上」的证据：编译器不再只会两个常量形状。** -/
+theorem compileTarget_quadTerm (r : CompileRecipe) (p q : ℝ) :
+    compileTarget r (quadTerm p q)
+      = some (.interp (fun x : ℝ => x * x + (p * x + q))) := by
+  simp [quadTerm, affineTerm, compileTarget, compileTarget_affineTerm]
 
 end Lattice.Lib.Compiler.SymbolicEntry

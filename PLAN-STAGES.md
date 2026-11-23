@@ -692,3 +692,37 @@ theorem grid_target_meets_of_budget (hbudget : 1/(4ε) ≤ n²) :
 **⇒ 两处机械性后果，都按流程处理：**
 - `affine_target_cannot_meet` 是 `¬` 定理 ⇒ 否证普查 `362 → 363`（`Lib` 250 → 251）、`USAGE.md` 同步；
 - `no_uniform_linear_approximation` 因被本轮消费而**首次成为承重**，已登记 verdict。
+### 3.17 **第 1053 轮（规划 §3.1 A.5）：编译器**真正用上**一般族，且新族**继承**既有界**
+
+**第 1052 轮把 `Target` 推广成「一个族」，但只证了它在仿射上退化与产物层逐点精确。
+⇒ 一个族要真的可用，还缺两条，本轮补齐：**
+
+**文件：`Lattice/Lib/Compiler/InterpAlgebra.lean`（4 条定理）**
+
+| 定理 | 内容 |
+|:--|:--|
+| `endpoints_ne` | `n > 0` 时 `k/n ≠ (k+1)/n`（所有弦引理的共同前提，单独立名免重复 `field_simp`） |
+| **`chordOf_add`** | **弦是可加的**：`chordOf (f+g) a b` 的两分量等于两支弦分量之和 ⇒ **误差预算可拆** |
+| **`interpFamily_add`** | 插值族可加，逐点等于 `gridAdd`——与既有 `gridEval_add` 配对 |
+| **`interpFamily_sq`** | **`x²` 的插值族**就是** `piecewiseIRWeights` 解码出的族** |
+| **`interpFamily_sq_error`** | **该族满足 `\|x² − gridEval\| ≤ 1/(4n²)`——与既有 `irWeights_error_bound` 逐字相同** |
+
+**⇒ 第四条是关键：它证明「推广没有变弱」不是承诺，而是**一条等式 + 一次引用**。
+新族在最重要的特例上**正好同一条界**。**
+
+**⇒ 编译器侧的改动（`SymbolicEntry.lean`）：**
+
+```lean
+| .add (.mul (.var 0) (.var 0)) e =>      -- 二次项独立成支
+    match compileTarget r e with
+    | some (.affine p q) => some (.interp (fun x => x * x + (p * x + q)))
+    | _ => none
+```
+
+**⇒ 加上 `quadTerm p q := x·x + (p·x + q)`、`evalSym_quadTerm`、`compileTarget_quadTerm`。
+⇒ 在此之前 `interp` **只能被手工构造**；现在编译器对二次项**确实产出它**。**
+
+**⇒ 明确尚未做：二次项的**整域误差界**（`|x²+p·x+q − 插值| ≤ …`）。
+路线有两条：(a) 对 `deriv^[2]` 实例化 `chord_error_of_second_deriv_bound`（需算导数）；
+(b) 用 `interpFamily_add` + `gridEval_add` + `pow_two` 把误差拆成「x² 部分 + 仿射部分（零）」。
+**（b）更短且已有一半零件**，但本轮**未做**，故不作声称。**
