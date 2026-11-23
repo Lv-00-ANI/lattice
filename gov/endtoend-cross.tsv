@@ -1995,6 +1995,9 @@ Lib/Compiler/ReversibilityInstances.lean	relu_irreversible_by_criterion
 Lib/Compiler/ReversibilityInstances.lean	one_criterion_two_outcomes
 Lib/Compiler/ReversibilityLimit.lean	relu_not_reversible
 Lib/Compiler/ReversibilitySharpness.lean	grid_information_is_exactly_prefix
+Lib/Compiler/Samples.lean	affineSample_exact
+Lib/Compiler/Samples.lean	xSquaredSample_bound
+Lib/Compiler/Samples.lean	exists_grid_for_eps
 Lib/Compiler/SecondDerivBound.lean	chord_error_of_second_deriv_bound
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
