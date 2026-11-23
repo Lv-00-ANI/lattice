@@ -123,6 +123,8 @@ def main():
     ap.add_argument("--pairs", action="store_true", help="list the theorems for each empty adjacent pair")
     ap.add_argument("--check", action="store_true",
                     help="gate: fail if any adjacent chain link has no connecting theorem")
+    ap.add_argument("--list", nargs=2, metavar=("A", "B"),
+                    help="print the theorems whose statements mention both stages A and B")
     args = ap.parse_args()
 
     if args.self_test:
@@ -143,6 +145,17 @@ def main():
 
     matrix, total = measure()
     labels = [l for l, _ in STAGES]
+    if args.list:
+        a, b = args.list
+        for want in (a, b):
+            if want not in labels:
+                print("  unknown stage %r; known: %s" % (want, ", ".join(labels)))
+                return 2
+        names = matrix[(a, b)]
+        print("  %d theorem(s) state both %s and %s:" % (len(names), a, b))
+        for rel, n in sorted(names):
+            print("    %s :: %s" % (rel, n))
+        return 0
     print("  statements scanned: %d" % total)
     print("  connector counts (theorem statements mentioning BOTH stages):")
     width = max(len(l) for l in labels) + 2

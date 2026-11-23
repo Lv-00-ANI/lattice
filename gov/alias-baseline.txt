@@ -444,7 +444,6 @@ forward	Lib/Compiler/CarrierInstantiation.lean	linear_conj_with_itself
 forward	Lib/Compiler/CarrierInstantiation.lean	linear_verify_by_extract
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
 forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
-forward	Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify
 forward	Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
 forward	Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
 forward	Lib/Compiler/LowerBound.lean	target_not_attainable
