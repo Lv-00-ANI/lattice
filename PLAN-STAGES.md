@@ -307,3 +307,34 @@
 ---
 
 **生成于第 965 轮。**
+
+### 3.4 **第 1032 轮：定义式重言的量化普查**
+
+**`check_proof_strength.py` 抓三种形状（自反陈述、`exact h`、`True` 状 def），但**不抓**第四种：**
+
+```lean
+def ModelsTerm (W : CICWeights) (t : Term) : Prop := W = compile t
+theorem compile_sound (h : Typable K Γ t) : ModelsTerm (compile t) t := by
+  have := h
+  exact rfl
+```
+
+**⇒ 结论在展开后恒真，假设 `h` 是**装饰性**的。这一形状已在**两层**出现：
+`Core/IR/Obligations.lean` 与 `Core/CIC/Compile.lean`。**
+
+**⇒ 新工具 `gov/audit_definitional_proofs.py` 编码两种窄形状（零假阳性、带自测）：
+`rfl_only`（整证明是一个 `rfl`）与 `haves_then_rfl`（`have` 行 + `rfl` 收尾）。**
+
+| 实测 | 值 |
+|:--|--:|
+| 定义式证明总数 | **661** |
+| 其中 `rfl_only` | 659 |
+| 其中 `haves_then_rfl` | **2**（即那两条 `compile_sound`，入度各 3） |
+| 其中**承重**（入度 ≥ 1） | **146** |
+
+**⇒ 判读：661 条里绝大多数是**递归定义的展开引理**（`size_var : size (var x) = 1 := rfl`），
+这是惯用写法、不是缺陷。真正的缺陷形状只有 `haves_then_rfl` 那 2 条，而它们正是
+「谓词把自身参数钉死」的例子。**
+
+**⇒ 基线 `gov/definitional-proof-baseline.txt` 已接入 `verify_all.py`（两项：`--check` 与 `--self-test`），
+且 `--check` 对**陈旧条目**也报错，使基线只能收缩、不会悄悄失效。**

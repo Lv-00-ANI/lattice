@@ -456,7 +456,18 @@ theorem compile_injective : Function.Injective compile := by
 def ModelsTerm (W : CICWeights) (t : Term) : Prop :=
   W = compile t
 
-/-- **T1-CIC: typability compiles to a model.** -/
+/-- **T1-CIC: typability compiles to a model.**
+
+**⚠ 诚实标注（第 1032 轮）：本条的结论在 `ModelsTerm` 展开后恒真——**
+**`ModelsTerm W t` 定义为 `W = compile t`，而本条的结论正是 `ModelsTerm (compile t) t`。**
+**所以假设 `h : Typable K Γ t` 是装饰性的：结论不依赖它。**
+
+**⇒ 这与 `Core/IR/Obligations.lean` 的 `compile_sound` 是同一形状（那里的 docstring 已把它写明）。**
+**这边的目的不是声称一个实质结论，而是**使该层的编译函数可被引用**。**
+**⇒ 目标「符号⇄权重」那一跳在 `Core/CIC` 里的真正载体是 `HasType`（17 个文件提及），不是本条。**
+
+**⇒ 全树范围的量化见 `gov/audit_definitional_proofs.py`：它把本形状编码为 `haves_then_rfl`，
+并把基线作为门禁。** -/
 theorem compile_sound {K : ConstSet} {Γ : CICCtx} {t : Term} (h : Typable K Γ t) :
     ModelsTerm (compile t) t := by
   have := h

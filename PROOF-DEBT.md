@@ -304,7 +304,7 @@
 | `Lib/Penalty/PolyExact.lean:79` | `hasFDerivAt_sq` | 0 | `Lattice.hasFDerivAt_sq` 与 `Lattice.Lift.hasFDerivAt_sq`（Lift/PenaltyAnalysis.lean:45）**陈述逐字相同**，证明体只调用后者——本条不引入任何新数学，是缩短命名空间的再导出。另注意：本条 `users` 指向 Lift/PenaltyAnalysis.lean，而该文件正是被转发的**下层原件**，不可能反向依赖本文件，这条引用是命名比对产物而非真实使用。建议改为 `export`/别… |
 | `Lib/Quantization/RealIEEE754/Overflow.lean:101` | `clampTo_eq_self` | 0 | 清理级（C）：`_hM` 是死假设，且由 `hx : \|x\| ≤ M` 可推出。删掉后签名变 `(hx : \|x\| ≤ M)`，证明不变；下游 `RealMixedPrecisionRounding:298` 可少传 `(by norm_num)`。若为与 `clampTo_abs_le` 的 API 对齐而保留，应在 doc 里说明这是形状统一而非数学必需。 |
 | `Lib/Quantization/RealStructuredPruning.lean:323` | `head_pruning_bound` | 0 | 同名不同义 + 无真实消费者：`Lib/Attention/RealHeadPruningOptimal.lean:141` 有自己的 `head_pruning_bound`（加权输出误差 ≤ M·prunedMass），该文件并不 import 本文件（其 :50 自陈『未与本文件的最优性对接』）⇒ batch 的 in_degree=1 是同名假匹配；全仓对这条声明没有任何引用，只有 `Quantization.lean` 对本文件的聚合 import。定理本身是… |
-| `Reference/Geometry/Constraints/ConstraintSet.lean:128` | `holdsSet_mem` | 0 | `Semantics/Annotations.lean:118` 自己写着「`Reference/Geometry/Constraints/ConstraintSet.holdsSet_mem` 是**同一条定理**，只差参数顺序」。**这是第四类重复（同陈述、不同证明），任何语法仪器都测不到**——声明式比较会因为参数重排而给出不同签名。**登记而非删除**：两条都已在用，删除会让 `Annotations` 的调用点断裂，而合并需要同时改两处签名。 |
+| `Reference/Geometry/Constraints/ConstraintSet.lean:128` | `holdsSet_mem` | 0 | `Semantics/Annotations.lean:120` 自己写着「`Reference/Geometry/Constraints/ConstraintSet.holdsSet_mem` 是**同一条定理**，只差参数顺序」。**这是第四类重复（同陈述、不同证明），任何语法仪器都测不到**——声明式比较会因为参数重排而给出不同签名。**登记而非删除**：两条都已在用，删除会让 `Annotations` 的调用点断裂，而合并需要同时改两处签名。 |
 | `Reference/Geometry/Geometry/PartialReinjection.lean:88` | `loss_le_sq_of_resid_le` | 0 | 登记理由仅为前件冗余（C）。属清理级问题，不阻塞用途；建议顺手删 hε。 |
 
 ## 已处理（修好的条目**保留**在这里，不删）

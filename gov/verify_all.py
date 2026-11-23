@@ -266,6 +266,15 @@ CHECKS = [
     ("audit: no new duplicated STATEMENTS (not just names)", "audit_theorem_duplication.py --check"),
     ("audit: theorem duplication self-test", "audit_theorem_duplication.py --self-test"),
     ("audit: duplicate names classified, none accidental", "check_duplicate_classes.py --check"),
+    # Round 1032: how much of the proof chain is DEFINITIONAL. `check_proof_strength.py` catches
+    # reflexive statements, `exact h` proofs and True-like defs; it does NOT catch the shape where a
+    # predicate pins its own argument (`def M W k : Prop := W = compile k`) and the proof is
+    # `have := h; exact rfl`. That shape appeared in Core/IR AND again in Core/CIC. This checker
+    # measures the whole tree, and the baseline can only shrink.
+    ("audit: definitional proofs bounded and self-tested",
+     "audit_definitional_proofs.py --check"),
+    ("audit: definitional proof detector self-test",
+     "audit_definitional_proofs.py --self-test"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
@@ -474,12 +483,22 @@ def main():
     print("VERIFY ALL [%s]: %s  (%.1fs total)" %
           (mode, "PASS" if not failures else "%d FAILURE(S)" % len(failures),
            time.time() - t_start), flush=True)
+    # **Round 1032: print the authoritative triple. The governance docs hand-typed it as
+    # "120 checks, 94 gates" while the code had 120 checks and 99 gates -- and 94 + 21 reporters
+    # does not even sum to 120, so the doc was internally inconsistent and nobody noticed. A number
+    # that a run PRINTS cannot drift; a number a person retypes can.**
+    n_gating_reg = len([1 for l, _ in CHECKS if l not in REPORT_ONLY])
+    print("  registered           : %d checks = %d gating + %d reporters"
+          % (len(CHECKS), n_gating_reg, len(REPORT_ONLY)), flush=True)
     print("  gating checks passed : %d  (these CAN fail)" % gating_ok, flush=True)
     print("  report-only checks   : %d  (these print findings; exit code is not a verdict)"
           % reports, flush=True)
     if fast:
-        print("note: --fast restricts every walk to the kernel zone. Run without --fast before "
-              "concluding the tree is acceptable.")
+        # Round 54 removed the DSH_GATE_SCOPE=kernel trick because narrowing the scope changed gate's
+        # verdict (6 I5 findings that the full scope does not produce) and propagated to children.
+        # --fast now only skips the reactivity probes, and those are named.
+        print("note: --fast SKIPPED %d reactivity probe checks (named in SLOW_ONLY); every walk ran at "
+              "full scope. Run without --fast to include them." % len(SLOW_ONLY), flush=True)
     return 0 if not failures else 1
 
 
