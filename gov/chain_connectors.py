@@ -1,46 +1,58 @@
-"""gov/chain_connectors.py -- which pairs of pipeline stages are actually CONNECTED by a theorem.
+"""gov/chain_connectors.py -- which pairs of pipeline stages are actually CONNECTED by a theorem, and how
+OLD that connection is.
 
 ## Why this file exists
 
-Three rounds in a row I guessed at a missing connector in the objective's chain and found it already
-built:
+Three rounds in a row I guessed at a missing connector in the objective's chain and found it already built:
 
   round 76  "the loop is not formalised"        -> `Runtime/LoopClosure.lean` IS the loop
   round 78  "the `none` branch is uncovered"    -> `decodeSpec_none_of_not_code`, `hop_verdict` item 1,
                                                    `relu_not_reversible`
   round 79  "extraction is not wired to repair" -> `RepairClosure.extract_after_repair`
 
-That is a pattern, not bad luck: **my hypotheses about gaps are unreliable, because the tree is denser
-than my guesses about it.** The productive method is therefore not to guess a gap but to ENUMERATE the
-pairs and look at the empty cells.
+That is a pattern: **my hypotheses about gaps are unreliable, because the tree is denser than my guesses.**
+So this tool ENUMERATES the pairs instead of guessing them.
 
 ## What it measures
 
-The objective's chain has named stages. For every ORDERED PAIR of stages (A, B) this counts the theorems
-whose STATEMENT mentions a marker of A and a marker of B. A pair with 0 is a place where the chain is
-described at both ends but no theorem says the two ends meet.
+For every ORDERED PAIR of stages it counts theorems whose STATEMENT mentions a marker of each side. Two
+deliberate choices:
 
-Two deliberate choices, both learned from earlier instruments in this repo:
+  * statements only, not proofs -- a proof mentions whatever it needs, so proofs would manufacture
+    connectors wherever two stages share a helper lemma;
+  * whole-word matching -- otherwise `extract` matches `extractWith` and inflates every cell.
 
-1. **Statements only, not proofs.** A proof mentions whatever it needs; a statement is the contract. Using
-   proofs would report a connector wherever two stages happen to share a lemma.
-2. **Exact whole-word marker matches.** Substring matching would let `extract` match `extractWith` and
-   inflate every cell.
+A zero in a non-adjacent cell usually means nothing (those stages are not supposed to meet directly). A zero
+in an ADJACENT cell is the finding.
 
-## Reading the output
+## What `--provenance` adds, and why it matters
 
-    `A -> B` is the count for "theorem mentioning A and B". The chain is `data -> token -> symbol -> weight`
-    forward and `weight -> symbol -> verify -> repair -> reinject` backward, so the cells worth staring at
-    are (stage i, stage i+1). A zero there is the finding; a zero elsewhere usually is not, because those
-    two stages are not supposed to meet directly.
+A link can be CONNECTED and still rest entirely on code introduced moments ago. `3.3 repair -> 3.4 reinject`
+turned out to have exactly three connectors, all authored in the two rounds before this tool grew the
+provenance column -- so the link is real, but its support is not independent of the work that created it.
 
-`--self-test` pins the marker matching, including the whole-word rule.
+`--provenance` blames each connector's declaration line and reports, per adjacent link, how many of its
+connectors predate the last `K` commits (`--recent`, default 30). A link with `old == 0` is flagged
+`**FRESH-ONLY**`: not wrong, but it has no independent support older than the recent work.
+
+Reading the flag honestly: a fresh-only link is a NOTE, not a defect. Proven theorems are proven. What it
+says is that if a future round changes the receiving stage, nothing older than the recent commits will
+notice.
+
+## Interface
+
+    python chain_connectors.py            # matrix + adjacent-link verdicts
+    python chain_connectors.py --check    # gate: fail if any adjacent link is EMPTY
+    python chain_connectors.py --list A B # the theorems behind one cell
+    python chain_connectors.py --provenance [--recent K]
+    python chain_connectors.py --self-test
 """
 
 import argparse
 import io
 import os
 import re
+import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -58,10 +70,10 @@ STAGES = [
     ("1.2 token->symbol",  ["SymToken", "decodePayload", "encodeForm"]),
     ("1.3 symbol->weight", ["compileToLayer", "compileSkel", "compileWith"]),
     ("1.4 weight->symbol", ["extract", "extractLayer", "extractWith"]),
-    # **The first run of this matrix reported `verify -> repair` and `reinject -> loop` as EMPTY. Both
-    # were artefacts of the lexicon, not gaps: `RepairClosure.lean` states the verify/repair link using
-    # `AllSatisfied` and `LayerSat`, and `VerificationLoop` states the reinject/loop link using `V.run`.
-    # A zero in this matrix is a claim about MY WORDS until the tree's own words are in the list.**
+    # **The first run reported `verify -> repair` and `reinject -> loop` as EMPTY. Both were artefacts of
+    # the lexicon, not gaps: `RepairClosure.lean` states the verify/repair link using `AllSatisfied` and
+    # `LayerSat`, and `VerificationLoop` states the reinject/loop link using `V.run`. A zero in this matrix
+    # is a claim about MY WORDS until the tree's own words are in the list.**
     ("3.2 verify",         ["EpsSat", "PenaltyExact", "models", "agrees",
                             "AllSatisfied", "LayerSat", "satW", "Satisfies"]),
     ("3.3 repair",         ["Repair", "sqDistHalvingRepair", "repair"]),
@@ -76,11 +88,7 @@ def _marker_re(words):
 
 
 def statements():
-    """Yield (rel, name, statement_text) for every theorem/lemma in the mainline tree.
-
-    The statement is everything between the declaration's name and its proof's `:=`. Comments are
-    stripped, so a docstring cannot create a connector.
-    """
+    """Yield (rel, name, line, statement_text) for every theorem/lemma in the mainline tree."""
     for root, _, fs in os.walk(LAT):
         if os.sep + "Reference" in root:
             continue
@@ -99,32 +107,49 @@ def statements():
                 end = _statement_end(code, m.end())
                 if end is None:
                     continue
-                stop = _next_decl_indent(code[end:], _indent_of(code, m.start()))
-                yield rel, name, code[m.end():end - 2]
+                # **Blame the line the NAME sits on, not the declaration's first character: the name is
+                # unambiguous, and a leading attribute (`@[simp]`) would otherwise blame the wrong line.**
+                line = code.count("\n", 0, m.start(1)) + 1
+                yield rel, name, line, code[m.end():end - 2]
 
 
 def measure():
     pats = [(label, _marker_re(words)) for label, words in STAGES]
     matrix = {(a, b): [] for a, _ in pats for b, _ in pats}
     total = 0
-    for rel, name, stmt in statements():
+    for rel, name, line, stmt in statements():
         total += 1
         hit = [label for label, pat in pats if pat.search(stmt)]
         for a in hit:
             for b in hit:
                 if a != b:
-                    matrix[(a, b)].append((rel, name))
+                    matrix[(a, b)].append((rel, name, line))
     return matrix, total
+
+
+def recent_shas(k):
+    r = subprocess.run(["git", "log", "-n", str(k), "--format=%H"], cwd=ROOT,
+                       capture_output=True, text=True)
+    return set(x.strip() for x in r.stdout.split("\n") if x.strip())
+
+
+def blamed_sha(rel, line):
+    r = subprocess.run(["git", "blame", "-L", "%d,%d" % (line, line), "--porcelain",
+                        "--", "Lattice/" + rel], cwd=ROOT, capture_output=True, text=True)
+    first = (r.stdout or "").split("\n")[0].strip()
+    return first.split(" ")[0] if first else ""
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
-    ap.add_argument("--pairs", action="store_true", help="list the theorems for each empty adjacent pair")
     ap.add_argument("--check", action="store_true",
                     help="gate: fail if any adjacent chain link has no connecting theorem")
     ap.add_argument("--list", nargs=2, metavar=("A", "B"),
                     help="print the theorems whose statements mention both stages A and B")
+    ap.add_argument("--provenance", action="store_true",
+                    help="report how many connectors of each adjacent link predate the last K commits")
+    ap.add_argument("--recent", type=int, default=30, help="K for --provenance (default 30)")
     args = ap.parse_args()
 
     if args.self_test:
@@ -136,7 +161,6 @@ def main():
             if bool(r.search(text)) != want:
                 print("  SELF-TEST FAIL: %r -> %s, want %s" % (text, bool(r.search(text)), want))
                 bad += 1
-        # a comment must not create a connector: strip_comments then match
         if _marker_re(["Repair"]).search(strip_comments("/- mention Repair here -/ x = 1")):
             print("  SELF-TEST FAIL: comment leaked into the statement scan")
             bad += 1
@@ -145,6 +169,7 @@ def main():
 
     matrix, total = measure()
     labels = [l for l, _ in STAGES]
+
     if args.list:
         a, b = args.list
         for want in (a, b):
@@ -153,9 +178,10 @@ def main():
                 return 2
         names = matrix[(a, b)]
         print("  %d theorem(s) state both %s and %s:" % (len(names), a, b))
-        for rel, n in sorted(names):
+        for rel, n, _ln in sorted(names):
             print("    %s :: %s" % (rel, n))
         return 0
+
     print("  statements scanned: %d" % total)
     print("  connector counts (theorem statements mentioning BOTH stages):")
     width = max(len(l) for l in labels) + 2
@@ -174,14 +200,41 @@ def main():
         if not n:
             empty.append((a, b))
     print("  empty adjacent pairs: %d" % len(empty))
-    if args.pairs:
-        for a, b in empty:
-            print("    no theorem states both %s and %s" % (a, b))
+
+    if args.provenance:
+        rec = recent_shas(args.recent)
+        print("  connector provenance (a connector is OLD if its declaration predates the last %d"
+              " commits):" % args.recent)
+        for i in range(len(labels) - 1):
+            a, b = labels[i], labels[i + 1]
+            names = matrix[(a, b)]
+            if not names:
+                continue
+            old = fresh = unknown = 0
+            rows = []
+            for rel, n, ln in sorted(names):
+                sha = blamed_sha(rel, ln)
+                if not sha:
+                    unknown += 1
+                    tag = "?"
+                elif sha in rec:
+                    fresh += 1
+                    tag = "recent"
+                else:
+                    old += 1
+                    tag = "old"
+                rows.append((tag, rel, n, sha[:8]))
+            flag = "  **FRESH-ONLY**" if old == 0 and fresh else ""
+            print("    %-24s -> %-24s total %2d  old %2d  recent %2d  unknown %d%s"
+                  % (a, b, len(names), old, fresh, unknown, flag))
+            for tag, rel, n, sha in rows:
+                print("        %-7s %s :: %s  (%s)" % (tag, rel, n, sha))
+
     if args.check:
-        # **The gate is "no adjacent link may go empty". It cannot require a number of connectors --
-        # one is enough for a link to exist -- and it does not police non-adjacent cells, where two
-        # stages are not supposed to meet. The lexicon above is part of the contract: widening it is a
-        # deliberate change, the same way a baseline is.**
+        # **The gate is "no adjacent link may go empty". It cannot require a number of connectors -- one
+        # is enough for a link to exist -- and it does not police non-adjacent cells, where two stages are
+        # not supposed to meet. The lexicon above is part of the contract: widening it is a deliberate
+        # change, the same way a baseline is.**
         if empty:
             print("  CHAIN CONNECTORS: %d adjacent link(s) have no connecting theorem: %s"
                   % (len(empty), ", ".join("%s->%s" % (a, b) for a, b in empty)))
