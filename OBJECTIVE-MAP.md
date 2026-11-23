@@ -17,8 +17,8 @@
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 51 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 46 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
-| 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 4 | 3 | `Plugins/Targets/Statements.lean`, `Runtime/Extraction.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 48 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |

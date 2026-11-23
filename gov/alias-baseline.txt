@@ -213,6 +213,8 @@ forward	Core/IR/DecodeStrictAll.lean	decodeTensorListStrict_code
 forward	Core/IR/DecodeStrictAll.lean	decodeTensorListStrict_faithful
 forward	Core/IR/DecodeStrictAll.lean	strictly_of_code
 forward	Core/IR/Extract.lean	loop_preserves_others
+forward	Core/IR/ExtractSection.lean	compiled_weights_extract
+forward	Core/IR/ExtractSection.lean	extract_witness_is_preimage
 forward	Core/IR/Semantics.lean	agrees_not_subsumes_covered
 forward	Core/IR/Semantics.lean	parse_models
 forward	Core/IR/Semantics.lean	parse_models_extract

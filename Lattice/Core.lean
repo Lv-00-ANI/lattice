@@ -162,6 +162,8 @@ import Lattice.Core.RepairModule.RepairWF
 import Lattice.Core.RepairModule.RepairBridge
 import Lattice.Core.RepairModule.VariableDerivative
 import Lattice.Core.RepairModule.SqDistRepair
+import Lattice.Core.PartialSection
+import Lattice.Core.IR.ExtractSection
 
 
 /-!
