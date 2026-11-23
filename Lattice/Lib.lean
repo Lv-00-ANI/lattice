@@ -64,6 +64,7 @@ import Lattice.Lib.Compiler.ExecutableWeights
 import Lattice.Lib.Compiler.ModelsBehavior
 import Lattice.Lib.Attention.RealMaskAlgebra
 import Lattice.Lib.Compiler.Layout
+import Lattice.Lib.Compiler.Samples
 /-!
 # Lattice.Lib -- harvested instances
 

@@ -506,3 +506,29 @@ theorem layouts_disagree_on_shared_weights :
 
 **⇒ 这条不是「某个实现有 bug」，而是规划 D1 的必要性证据：同一串数在两个**都满足 `PartialSection` 义务**的
 布局下**确实**指向不同分段族。所以「解释必须随产物携带」不是形式要求，而是**语义要求**。**
+### 3.11 **第 1045 轮（规划 P0-b）：两个样例产物，以及「由 ε 定 n」的可判定条件**
+
+**文件：`Lattice/Lib/Compiler/Samples.lean`。四个定理，全部落在产物自己的 `evalAt` 上。**
+
+| 定理 | 内容 |
+|:--|:--|
+| `gridEval_affineFamily` | 常分段族的网格求值就是该仿射函数 |
+| **`affineSample_exact`** | **产物求值处处 = `a·x + b`（误差为零）** |
+| **`xSquaredSample_bound`** | **`∃ v, evalAt x = some v ∧ \|x² − v\| ≤ 1/(4n²)`，`x ∈ [0,1]` 全域** |
+| `budget_of_sq` | **`1/(4ε) ≤ n²` ⟹ 误差 ≤ ε**（可判定的选择条件） |
+| `exists_grid_for_eps` | 对任意 `ε > 0`，**存在**满足该不等式的 `n` |
+
+**⇒ 三点值得单说：**
+
+1. **仿射样例的零误差**走的是 `evalAt_ofSegments`（用 `PartialSection.retract`）——
+   即**编译-解码往返的结果**，而不是「把两件事定义成同一件」。
+2. **`x²` 的界陈述在 `evalAt` 上**，不是在一个平行定义的 `gridEval` 上：
+   `evalAt_ofSegments` 把产物求值换成 `gridEval`，再由 `irWeights_error_bound` 给界。
+3. **「由 ε 定 n」被落实为一条不等式**（`budget_of_sq`），并证明它**总有解**
+   （`exists_grid_for_eps` 用阿基米德性质取 `n > √(1/(4ε))`）。
+   **⇒ 我**没有**假装构造出 `⌈1/(2√ε)⌉`——那需要 `Nat.ceil`；本文件把选择条件写成不等式并证明可满足，
+   比「存在某个合适的 `n`」强，且不虚报。**
+
+**⇒ 尚未做的（下一轮）：把 `ExprExt` 的符号项**真的**喂进这条链**——
+即定义一个从 `ExprExt`（含 `mul`）到分段族的编译函数，并证明「仿射项 → 仿射族」「`mul (var 0) (var 0)` → `x²` 的近似族」。
+本轮的两个样例**已经是产物级**的，但它们的输入仍是**分段族**，不是符号项。**
