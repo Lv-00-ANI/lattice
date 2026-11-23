@@ -223,6 +223,8 @@ Core/PartialSection.lean	retract_some
 Core/PartialSection.lean	isSome_retract
 Core/PartialSection.lean	extract_eq_some_of_compile_eq
 Core/PartialSection.lean	compile_eq_of_mem_range
+Core/PartialSection.lean	extract_isSome
+Core/PartialSection.lean	isIso_iff_image_total
 Core/PluginComplete.lean	plugin_registry_complete
 Core/PluginComplete.lean	proofRegistry_nonempty
 Core/Simulation.lean	run_preserved
@@ -3783,6 +3785,8 @@ Runtime/LayerNormSemantics.lean	applyInstr_layernorm_mean_zero
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum_mono
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
+Runtime/LayerSection.lean	layer_image_total
+Runtime/LayerSection.lean	layer_partial_section_never_fails
 Runtime/LoopClosure.lean	compile_extract_layer
 Runtime/LoopClosure.lean	extract_compile_constraints
 Runtime/LoopClosure.lean	compile_extract_bijective

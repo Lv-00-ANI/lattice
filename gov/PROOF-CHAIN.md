@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 249 | aggregator at `Lattice/`, re-exports only |
+| root | 250 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -981,7 +981,7 @@
 - `Lattice.Primitives.TokenizeStrategy` 
 - `Lattice.Primitives.TokenizerPattern` 
 - `Lattice.Primitives.WeightDescent` <- `Lattice.Core.Net`, `Lattice.Primitives.MultistepLoop`
-- `Lattice.Runtime` <- `Lattice.Runtime.VecCarrierCensus`, `Lattice.Runtime.DotTruncationDefect`, `Lattice.Runtime.ActivationLadder`, `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.ApproxExtraction`, `Lattice.Runtime.ApproxLadder`, `Lattice.Runtime.ApproximationBridge`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.ComboN`, `Lattice.Runtime.CompilerScheme`, `Lattice.Runtime.ConstraintEmbeddingSoundness`, `Lattice.Runtime.ConstraintRepresentation`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.EncodingAbstraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.EndToEndApproximation`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.ExtractionStrength`, `Lattice.Runtime.GeoSampledBound`, `Lattice.Runtime.GridDensity`, `Lattice.Runtime.IntRoundtrip`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.LayerComposition`, `Lattice.Runtime.LayerQuantization`, `Lattice.Runtime.LayerQuantizationBits`, `Lattice.Runtime.LayerNormSemantics`, `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.MultiLayerLadder`, `Lattice.Runtime.NonIdenticalEncoding`, `Lattice.Runtime.NondegenerateInstance`, `Lattice.Runtime.PenaltyAnalysis`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.PartialRepresentation`, `Lattice.Runtime.ProgramAST`, `Lattice.Runtime.ProgramLipschitz`, `Lattice.Runtime.ProgramRepresentation`, `Lattice.Runtime.QuantErrorPropagation`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealModLoss`, `Lattice.Runtime.RealNonlinear`, `Lattice.Runtime.RealRandomVerify`, `Lattice.Runtime.RealTokenSymbolLink`, `Lattice.Runtime.RealTokenization`, `Lattice.Runtime.RealTokenizationEntry`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.RealVerifierReliable`, `Lattice.Runtime.RectangularRepresentation`, `Lattice.Runtime.RectangularWeightEncoding`, `Lattice.Runtime.RepresentationFamilies`, `Lattice.Runtime.RoundingBackend`, `Lattice.Runtime.SaturationQuantization`, `Lattice.Runtime.StackCodegen`, `Lattice.Runtime.StackError`, `Lattice.Runtime.SemanticRepresentation`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Runtime.TokenAlphabet`, `Lattice.Runtime.TotalLoss`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Runtime.VerifierRate`, `Lattice.Runtime.VerifyLoopProgress`, `Lattice.Runtime.WeightLadder`, `Lattice.Runtime.WeightLadderFullWidth`, `Lattice.Runtime.WeightLadderFullWidthInstance`, `Lattice.Runtime.WeightLadderInverse`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.WeightSymbolRepresentation`, `Lattice.Runtime.WeightToSymbolEquivalence`, `Lattice.Runtime.LadderClosure`, `Lattice.Runtime.VerificationLoop`, `Lattice.Runtime.CICToConstraint`, `Lattice.Runtime.CICToConstraintSet`, `Lattice.Runtime.DataToConstraint`, `Lattice.Runtime.AcceptanceLayer`, `Lattice.Runtime.EndToEndComposite`, `Lattice.Runtime.ExtractionClosure`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.Faithfulness`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Runtime.RepairClosure`, `Lattice.Runtime.TypedNumericAlignment`, `Lattice.Runtime.EngineFirst`, `Lattice.Runtime.EngineSemantics`, `Lattice.Runtime.EngineReduces`, `Lattice.Runtime.ScopeBoundary`, `Lattice.Runtime.StructuredInit`, `Lattice.Runtime.HopExpressiveness`, `Lattice.Runtime.MultiVariable`, `Lattice.Runtime.DotDistrib`, `Lattice.Runtime.FoldlSum`, `Lattice.Runtime.ZipAssoc`, `Lattice.Runtime.DotDistribGeneral`, `Lattice.Runtime.ZipWithProjection`, `Lattice.Runtime.DotDistribAssembly`
+- `Lattice.Runtime` <- `Lattice.Runtime.VecCarrierCensus`, `Lattice.Runtime.DotTruncationDefect`, `Lattice.Runtime.ActivationLadder`, `Lattice.Runtime.ApproxExact`, `Lattice.Runtime.ApproxExtraction`, `Lattice.Runtime.ApproxLadder`, `Lattice.Runtime.ApproximationBridge`, `Lattice.Runtime.ChainComposition`, `Lattice.Runtime.ComboN`, `Lattice.Runtime.CompilerScheme`, `Lattice.Runtime.ConstraintEmbeddingSoundness`, `Lattice.Runtime.ConstraintRepresentation`, `Lattice.Runtime.ConstraintToLoss`, `Lattice.Runtime.ConvertLinear`, `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Runtime.EncodingAbstraction`, `Lattice.Runtime.EndToEnd`, `Lattice.Runtime.EndToEndApproximation`, `Lattice.Runtime.ErrorCalculus`, `Lattice.Runtime.Extraction`, `Lattice.Runtime.ExtractionStrength`, `Lattice.Runtime.GeoSampledBound`, `Lattice.Runtime.GridDensity`, `Lattice.Runtime.IntRoundtrip`, `Lattice.Runtime.L1L2`, `Lattice.Runtime.L1L2Roundtrip`, `Lattice.Runtime.LayerComposition`, `Lattice.Runtime.LayerQuantization`, `Lattice.Runtime.LayerQuantizationBits`, `Lattice.Runtime.LayerNormSemantics`, `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.MultiLayerLadder`, `Lattice.Runtime.NonIdenticalEncoding`, `Lattice.Runtime.NondegenerateInstance`, `Lattice.Runtime.PenaltyAnalysis`, `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.PartialRepresentation`, `Lattice.Runtime.ProgramAST`, `Lattice.Runtime.ProgramLipschitz`, `Lattice.Runtime.ProgramRepresentation`, `Lattice.Runtime.QuantErrorPropagation`, `Lattice.Runtime.RatRepresentation`, `Lattice.Runtime.RealLV`, `Lattice.Runtime.RealLinear`, `Lattice.Runtime.RealModLoss`, `Lattice.Runtime.RealNonlinear`, `Lattice.Runtime.RealRandomVerify`, `Lattice.Runtime.RealTokenSymbolLink`, `Lattice.Runtime.RealTokenization`, `Lattice.Runtime.RealTokenizationEntry`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.RealVerifierReliable`, `Lattice.Runtime.RectangularRepresentation`, `Lattice.Runtime.RectangularWeightEncoding`, `Lattice.Runtime.RepresentationFamilies`, `Lattice.Runtime.RoundingBackend`, `Lattice.Runtime.SaturationQuantization`, `Lattice.Runtime.StackCodegen`, `Lattice.Runtime.StackError`, `Lattice.Runtime.SemanticRepresentation`, `Lattice.Runtime.SymbolToWeight`, `Lattice.Runtime.SymbolToWeightCorrectness`, `Lattice.Runtime.TokenAlphabet`, `Lattice.Runtime.TotalLoss`, `Lattice.Runtime.VerificationSoundness`, `Lattice.Runtime.VerifierRate`, `Lattice.Runtime.VerifyLoopProgress`, `Lattice.Runtime.WeightLadder`, `Lattice.Runtime.WeightLadderFullWidth`, `Lattice.Runtime.WeightLadderFullWidthInstance`, `Lattice.Runtime.WeightLadderInverse`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.WeightSymbolRepresentation`, `Lattice.Runtime.WeightToSymbolEquivalence`, `Lattice.Runtime.LadderClosure`, `Lattice.Runtime.VerificationLoop`, `Lattice.Runtime.CICToConstraint`, `Lattice.Runtime.CICToConstraintSet`, `Lattice.Runtime.DataToConstraint`, `Lattice.Runtime.AcceptanceLayer`, `Lattice.Runtime.EndToEndComposite`, `Lattice.Runtime.ExtractionClosure`, `Lattice.Runtime.LoopClosure`, `Lattice.Runtime.Faithfulness`, `Lattice.Runtime.SemanticFaithfulness`, `Lattice.Runtime.RepairClosure`, `Lattice.Runtime.TypedNumericAlignment`, `Lattice.Runtime.EngineFirst`, `Lattice.Runtime.EngineSemantics`, `Lattice.Runtime.EngineReduces`, `Lattice.Runtime.ScopeBoundary`, `Lattice.Runtime.StructuredInit`, `Lattice.Runtime.HopExpressiveness`, `Lattice.Runtime.MultiVariable`, `Lattice.Runtime.DotDistrib`, `Lattice.Runtime.FoldlSum`, `Lattice.Runtime.ZipAssoc`, `Lattice.Runtime.DotDistribGeneral`, `Lattice.Runtime.ZipWithProjection`, `Lattice.Runtime.DotDistribAssembly`, `Lattice.Runtime.LayerSection`
 - `Lattice.Runtime.AcceptanceLayer` <- `Lattice.Runtime.DataToConstraint`
 - `Lattice.Runtime.ActivationLadder` <- `Lattice.Runtime.EndToEnd`, `Lattice.Core.Activation`
 - `Lattice.Runtime.ApproxExact` <- `Lattice.Runtime.PenaltyEmbedding`, `Lattice.Runtime.RealTotalLoss`, `Lattice.Runtime.PenaltyAnalysis`
@@ -1027,6 +1027,7 @@
 - `Lattice.Runtime.LayerNormSemantics` <- `Lattice.Runtime.ProgramAST`
 - `Lattice.Runtime.LayerQuantization` <- `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.RoundingBackend`
 - `Lattice.Runtime.LayerQuantizationBits` <- `Lattice.Runtime.LossyRepresentation`, `Lattice.Runtime.LayerQuantization`
+- `Lattice.Runtime.LayerSection` <- `Lattice.Core.PartialSection`, `Lattice.Runtime.LoopClosure`
 - `Lattice.Runtime.LoopClosure` <- `Lattice.Runtime.ExtractionClosure`
 - `Lattice.Runtime.LossyRepresentation` <- `Lattice.Runtime.Extraction`
 - `Lattice.Runtime.MultiLayerLadder` <- `Lattice.Core.Net`, `Lattice.Runtime.WeightLadderN`, `Lattice.Runtime.EndToEnd`
@@ -1266,7 +1267,7 @@
 | `Lattice.Core.Net` | 8 | 5 |
 | `Lattice.Core.NonlinearLayer` | 5 | 3 |
 | `Lattice.Core.OneStepBridge` | 7 | 2 |
-| `Lattice.Core.PartialSection` | 4 | 1 |
+| `Lattice.Core.PartialSection` | 6 | 3 |
 | `Lattice.Core.PluginComplete` | 2 | 3 |
 | `Lattice.Core.RepairModule.ConstraintProofs` | 4 | 6 |
 | `Lattice.Core.RepairModule.Repair` | 9 | 5 |
@@ -2119,6 +2120,7 @@
 | `Lattice.Runtime.LayerNormSemantics` | 7 | 0 |
 | `Lattice.Runtime.LayerQuantization` | 5 | 5 |
 | `Lattice.Runtime.LayerQuantizationBits` | 4 | 4 |
+| `Lattice.Runtime.LayerSection` | 2 | 1 |
 | `Lattice.Runtime.LoopClosure` | 5 | 1 |
 | `Lattice.Runtime.LossyRepresentation` | 2 | 3 |
 | `Lattice.Runtime.MultiLayerLadder` | 4 | 8 |
@@ -3725,7 +3727,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `compile_correct` -> `Compiler`, `add`, `append_assoc`, `at`, `compile`, `induction`, `length`, `lit`, `mul`, `run`
 - `compile_correct_empty` -> `Compiler`, `add`, `at`, `compile`, `induction`, `length`, `lit`, `mul`, `run`
 - `compile_empty` -> `CompilerConstraintGraph`, `IRConstraint`, `IRExpr`, `add`, `angle`, `append_assoc`, `collinear`, `compile_constraint`, `compile_program`, `compile_program_go`, `compile_stmt`, `ctr`, `d`, `e2`, `eval_expr`, `induction`, `ir_sem`, `lvPoint`, `lvProgram`, `lvStmt`, `mul`, `normalize`, `parallel`, `point`
-- `compile_eq_of_mem_range` -> `W`, `at`, `compile`, `extract`
+- `compile_eq_of_mem_range` -> `W`, `at`, `compile`, `compile_injective`, `extract`
 - `compile_error_bound` -> `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `le_trans`, `lit`, `tiny`, `toFun`
 - `compile_error_bound_mul_discharged` -> `Compiler`, `FloatExpr`, `FloatFormat`, `RoundOp`, `at`, `ce_compile_error_bound`, `eps`, `evalFloat`, `evalReal`, `mag`, `numOps`, `tiny`
 - `compile_error_bound_pure` -> `Compiler`, `FloatFormat`, `RoundOp`, `add`, `at`, `eps`, `lit`, `mul`, `tiny`
@@ -5335,11 +5337,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extract_compile_skel` -> `IRSkeleton`, `Term`, `WellFormed`, `at`, `compileSkel`, `extractSkel`, `parse`, `skeletonCode`, `skeletonCode_injective`, `subst`
 - `extract_convert_id` -> `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `extractVec`, `map`, `roundTrip_perturbation_id`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`
 - `extract_drops_unterminated` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
-- `extract_eq_some_of_compile_eq` -> `W`, `at`, `compile`, `extract`
+- `extract_eq_some_of_compile_eq` -> `W`, `at`, `compile`, `compile_injective`, `extract`
 - `extract_fixpoints_many` -> `PiecewiseConstraint`, `at`, `closureOperator`, `extent`, `intent`, `piecewiseCompile`, `reluInv`, `trans`
 - `extract_functional` -> `AllSatisfied`, `AllZeroOutputs`, `CharToken`, `ConstraintSet`, `Extract`, `LinearLayer`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `decode`, `induction`, `length`, `map`, `mkConstraint`, `ofNat`, `scaleVec`, `scaleVec_preserves`, `single`, `symbolToWeight_correct`, `toNat`, `toSegs`, `tokenize`, `tokenize_never_none`, `trans`
 - `extract_idempotent` -> `IsFormalConcept`, `at`, `closure_idempotent`, `extent_antitone`, `g`, `intent_antitone`, `relu`, `subset_extent_intent`
 - `extract_injective_on_compiled` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `compileSkel`, `find`, `find_id_eq_some_of_nodup_shape`, `map`, `skeletonCode`, `split`, `weightCodeIR`
+- `extract_isSome` -> `W`, `at`, `compile`, `extract`
 - `extract_is_valid` -> `ConstraintSat`, `LinearNeuron`, `NeuronOut`, `extract`
 - `extract_lipschitz_one` -> `RealNeuron`, `RealNeuronOut`, `le_trans`
 - `extract_lossy_of_no_sep_final` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `compileToLayer`, `decode`, `decode_drops_trailing_partial`, `decode_encode`, `encode`, `g`, `induction`, `leftInverse_iff_injective`, `map`, `mkConstraint`, `symbolToWeight_correct`, `toSegs`
@@ -6547,6 +6550,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isFCAClosed_iff_isFormalConcept_extent` -> `IsFormalConcept`, `LoadBearing`, `RealConstraint`, `RealConstraintSat`, `at`, `extent`, `intent`
 - `isFiniteMeasure_map` -> `map`
 - `isIntegral_iff_minpoly_ne_zero` -> `at`, `eval`, `min`, `subst`
+- `isIso_iff_image_total` -> `W`, `at`, `compile`, `extract`
 - `isKSparse_sub` -> `apply`, `at`, `l0Norm`, `le_antisymm`, `sqNorm`
 - `isLam_app` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`, `subst`
 - `isLam_const` -> `DefEnv`, `E`, `Level`, `SortKind`, `Term`, `subst`
@@ -6578,7 +6582,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isRIP_zero` -> `apply`, `at`, `l0Norm`, `l0_eq_zero_iff`, `sqNorm`, `subst`
 - `isRedundant_nonempty` -> `Audit`, `CommutativeBlock`, `Compiler`, `E`, `IsPolicyDensity`, `IsRedundant`, `IsometryScalar`, `KeyOrthogonal`, `RowVec`, `trivial`
 - `isSaddle_cube` -> `at`, `comp`, `const_add`, `g`
-- `isSome_retract` -> `W`, `at`, `compile`, `extract`
+- `isSome_retract` -> `W`, `at`, `compile`, `compile_injective`, `extract`
 - `isStrictLocalMax_eq_neg_isStrictLocalMin` -> `ConstraintSet`, `IsKSparse`, `IsSparse`, `IsStrictLocalMax`, `IsStrictLocalMin`, `Layer`, `VectorConstraint`, `apply`, `at`, `batchMean`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `castConstraint`, `center`, `centerSq`, `compile`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_bias_eq_convertRealVec_bias`, `coreConstraintToReal`, `coreVecToReal`, `ctr`, `extractLayer_alt`, `extractLayer_eq_extractLayer`, `l0Norm`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `toIsLocalMax`, `toRealVec`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `isStrictLocalMax_iff_neg` -> `IsStrictLocalMin`, `at`, `exists_box_of_continuousAt_neg`, `g`, `mono`, `second_order_sufficient`, `strict_local_min_of_deriv_sign`, `toIsLocalMin`
 - `isStrictLocalMax_neg_pow4` -> `IsStrictLocalMin`, `at`, `comp`, `const_add`, `g`
@@ -6920,7 +6924,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layer_bias_ext` -> `BehaviourallyEquivalent`, `W`, `at`
 - `layer_distill_bound` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `layer_distill_bound_delta` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `linear_map_lipschitz`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
+- `layer_image_total` -> `ConstraintSet`, `Layer`, `compileToLayer`, `compile_extract_layer`, `extract`, `extractLayer`, `extract_isSome`, `toPartialSection`
 - `layer_out_error_bound` -> `g`, `le_trans`, `min`
+- `layer_partial_section_never_fails` -> `ConstraintSet`, `Layer`, `compileToLayer`, `extract`, `extract_isSome`, `toPartialSection`
 - `layer_penalty_exact` -> `AMul`, `AffineLayer`, `Surjective`, `W`, `apply`, `d`, `lossM`, `residM`, `sq_penalty_exact_matrix`
 - `layer_ragged_also_zero` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
 - `layer_weight_ext` -> `BehaviourallyEquivalent`, `W`, `at`
@@ -9429,7 +9435,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `retainedMass_mono_budget` -> `at`
 - `retainedSum_eq_card_mul_slotCount` -> `trans`
 - `retainedSum_eq_sum_slotCount` -> `trans`
-- `retract_some` -> `W`, `at`, `compile`, `extract`
+- `retract_some` -> `W`, `at`, `compile`, `compile_injective`, `extract`
 - `reversibility_boundary` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `convertVec_injective`, `convertVec_preserves_semantics`, `extract`, `scaleVec`, `scaleVec_ne_self_two`, `trans`
 - `reversibility_criterion` -> `Compiler`, `W`, `compile`, `extract`
 - `reversibility_depends_on_representation` -> `BehaviourallyEquivalent`

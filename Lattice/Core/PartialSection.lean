@@ -179,4 +179,84 @@ theorem isIso_iff_image_total (P : PartialSection Sym W) :
 
 end PartialSection
 
+
+/-! ## 三、**单射本身就给出**一个规范的部分截面
+
+**这一节回答的是「`PartialSection` 是不是一个凭空的抽象」。不是：**
+
+**⇒ 任何单射 `f : Sym → W` 都**规范地**给出一个部分截面**（`of_injective`）：在像上取前像，在像外返回 `none`。**
+**⇒ 于是 `Option` 的 `none` 分支不再是「留白」，而是一条**定理**：
+`none` 恰好落在**像的补集**上（`of_injective_extract_none_iff`）。**
+
+**⇒ 而这与 `Lib/Compiler/HopVerdict.lean` 的 `hop_verdict` 第 1 项正好构成对照：**
+那一项说「单射 ⟺ 存在**全**的 `extract`」——它成立**只因为**那里假定了一个默认元素
+（`[Inhabited S]`），于是像外可以填默认值。
+**⇒ 没有默认值时，同一个构造只能返回 `Option`。** **这就是本项目选择 `Option` 的全部理由：
+它是「没有默认值可用」的诚实版本，而不是把默认值伪装成答案。** -/
+
+namespace PartialSection
+
+variable {Sym W : Type}
+
+/-- **由单射**规范地**得到一个部分截面。**
+
+**`extract w` 的定义：若 `w` 有前像则给它的（唯一）前像，否则 `none`。**
+**⇒ 「唯一」来自 `hf`，这正是单射性在这里的作用。** -/
+noncomputable def of_injective (f : Sym → W) (hf : Function.Injective f) :
+    PartialSection Sym W where
+  compile := f
+  extract := fun w => by
+    classical
+    exact if h : ∃ s : Sym, f s = w then some h.choose else none
+  retract := by
+    classical
+    intro s
+    have hex : ∃ s' : Sym, f s' = f s := ⟨s, rfl⟩
+    simp only [dif_pos hex]
+    exact congrArg some (hf hex.choose_spec)
+  compile_injective := hf
+
+/-- **`none` 的准确含义：它恰好落在像的补集上。**
+
+**⇒ 这是本轮问题的答案。`Option` 的失败分支不是「未定义行为」，
+而是**与像的补集相等**这一条定理；因此调用者只要知道「这个权重是编译出来的」，
+就知道 `none` 不会出现（`isSome_retract`）。** -/
+theorem of_injective_extract_none_iff (f : Sym → W) (hf : Function.Injective f) (w : W) :
+    (of_injective f hf).extract w = none ↔ w ∉ Set.range f := by
+  classical
+  constructor
+  · intro hn hmem
+    obtain ⟨s, rfl⟩ := hmem
+    have hs : (of_injective f hf).extract (f s) = some s := (of_injective f hf).retract s
+    rw [hn] at hs
+    exact Option.noConfusion hs
+  · intro hout
+    show (if h : ∃ s : Sym, f s = w then some h.choose else none) = none
+    rw [dif_neg]
+    rintro ⟨s, hs⟩
+    exact hout ⟨s, hs⟩
+
+
+/-- **`Option` 永不失败 ⟺ 映射满射。**
+
+**⇒ 这是本节与 `BiSection` 的接口，也是「默认值」这件事的准确条件：
+只有当每个权重都是某个符号编译出来的时候，才不需要默认值，`Option` 才恒为 `some`。**
+
+**⇒ 与 `hop_verdict` 第 1 项对照读：那一项在 `[Inhabited Sym]` 下把部分 `extract` 变成全 `extract`，
+代价是在**像外**填一个默认符号——那个符号**不是**提取出来的。本定理说明：
+若不想付这个代价，就必须要求满射；而 `IRSkeleton → IRWeights` 并**不满射**
+（`extract_not_injective` 的另一面：位置 1 的值与提取无关）。** -/
+theorem of_injective_surjective_iff_never_none (f : Sym → W) (hf : Function.Injective f) :
+    Function.Surjective f ↔ ∀ w : W, (of_injective f hf).extract w ≠ none := by
+  constructor
+  · intro hsur w hn
+    have hmem : w ∈ Set.range f := hsur w
+    have hnot : w ∉ Set.range f := (of_injective_extract_none_iff f hf w).mp hn
+    exact hnot hmem
+  · intro hnever w
+    by_contra hnot
+    exact hnever w ((of_injective_extract_none_iff f hf w).mpr hnot)
+
+end PartialSection
+
 end Lattice.Core
