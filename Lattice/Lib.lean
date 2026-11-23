@@ -66,6 +66,7 @@ import Lattice.Lib.Attention.RealMaskAlgebra
 import Lattice.Lib.Compiler.Layout
 import Lattice.Lib.Compiler.Samples
 import Lattice.Lib.Compiler.SymbolicEntry
+import Lattice.Lib.Compiler.WriteBack
 /-!
 # Lattice.Lib -- harvested instances
 

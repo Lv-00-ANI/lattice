@@ -486,6 +486,7 @@ forward	Lib/Compiler/RealWPWhile.lean	wp_skip_true
 forward	Lib/Compiler/ReluClosure.lean	relu_verify_criterion
 forward	Lib/Compiler/ReversibilityChain.lean	gridWeights_not_extractable
 forward	Lib/Compiler/ReversibilityInstances.lean	relu_irreversible_by_criterion
+forward	Lib/Compiler/WriteBack.lean	writeBack_evalAt
 forward	Lib/Concentration/RealBernsteinCondition.lean	bernstein_moment_recurrence
 forward	Lib/Concentration/RealEYM.lean	eym_dimension_crossing
 forward	Lib/Concentration/RealEYM.lean	eym_general_via_gram

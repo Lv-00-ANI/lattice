@@ -532,3 +532,40 @@ theorem layouts_disagree_on_shared_weights :
 **⇒ 尚未做的（下一轮）：把 `ExprExt` 的符号项**真的**喂进这条链**——
 即定义一个从 `ExprExt`（含 `mul`）到分段族的编译函数，并证明「仿射项 → 仿射族」「`mul (var 0) (var 0)` → `x²` 的近似族」。
 本轮的两个样例**已经是产物级**的，但它们的输入仍是**分段族**，不是符号项。**
+### 3.12 **第 1047 轮（规划 P0-c）：真实写回——`Repair` 第一次作用在**权重载荷**上**
+
+**文件：`Lattice/Lib/Compiler/WriteBack.lean`。规划 §3.3 的 C.2 要求最终定理同时给出四项，本轮逐项交付：**
+
+| 规划要求 | 实现 |
+|:--|:--|
+| **改到的部分** | 第 0 段斜率被置为目标值 `a`（`slopeFix_sat`） |
+| **保留的部分** | 第 0 段截距不变（`slopeFix_keeps_intercept`）、其余**逐段不变**（`slopeFix_preserves_rest`） |
+| **到达方式** | **有限一步**（`slopeMeasure` 取 `ℕ` 值，正因为不存在需要数步的情形） |
+| **失败分支** | 本实例**没有**：`slopeFix` 对任意族都有定义 |
+
+**⇒ 载体是 `ℕ → Segment`（载荷），并给出 `Repair (ℕ → Segment)` 实例 `slopeRepair`，三条义务全部证明。**
+
+**⇒ 两条实质定理：**
+
+```lean
+theorem repair_changes_observable (hba : b ≠ a) (hx0 : x ≠ 0) (hidx : segmentIndex n x = 0) :
+    gridEval (slopeFix a (constFamily b c)) n x ≠ gridEval (constFamily b c) n x
+
+theorem write_back_verifies_and_changes ... :
+    slopeSat a (slopeFix a (constFamily b c))
+      ∧ (writeBack (slopeFix a (constFamily b c)) dom r).evalAt x
+          ≠ (writeBack (constFamily b c) dom r).evalAt x
+```
+
+**⇒ 第二条是规划 C.5 的验收：**修复确实改变了至少一个可观察量**，而且落在**写回后的产物**上
+（`writeBack` 把修好的载荷重新编码进权重），不是只改内部表示。**
+
+**⇒ 诚实边界：可观察变化**要求调用者给出一个「第 0 段内且 `x ≠ 0`」的点**（前提 `hidx` 与 `hx0`）。
+把它作为前提而不是在定理里假设 `r.n = 1`，是因为「哪个 `x` 落在第 0 段」取决于 `r.n`——
+把条件写成交给调用者**更强也更诚实**。**
+
+**⇒ 三处被编译器抓到的问题（都是我造成的）：**
+1. `slopeMeasure` 需 `noncomputable`（实数等式判定依赖 `Classical`）；
+2. `rw [if_pos h]` 在条件**定义等价但非同形**时失败 ⇒ 改 `exact if_pos h`；
+3. `simp` 会把 `if` 的条件化约成 `True` 却**不化约 `if` 本身**，于是任何手写 `show` 都不匹配
+   ⇒ 改为**先算两条求值等式**（`e1`、`e2`）再比较实数，把工作留给 `linarith` 而不是留给我猜形状。
