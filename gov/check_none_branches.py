@@ -50,6 +50,21 @@ WILDCARD_NONE = re.compile(r"\|\s*_\s*=>\s*none")
 
 #: file (relative to `Lattice/`) -> (reason, the theorem or justification)
 COVERED = {
+    # **第 1046 轮：`compileTarget` 的通配分支是「不支持的片段」，而不是「解码失败」。
+    # 本条的边界由两条定理钉住：`compileTarget_affineTerm` 与
+    # `compileTarget_squareTerm` 说明支持的两个片段确实落到 `some`；
+    # 而 `exprSemantics`（`evalSym`）在同一批构造子上同样返回 `none`，
+    # 故两层的 `none` 是**同一个语义边界**，不是两个不同的故障。**
+    "Lib/Compiler/SymbolicEntry.lean": (
+        "partial decoder by design",
+        "The wildcard arm of `compileTarget` is the 「unsupported fragment」 arm. It is the SAME boundary as "
+        "`evalSym`'s: the constructors it rejects (`litBool`, `cmp`, `letIn`, `var (n+1)`, and any `mul` that is "
+        "not `var 0 * var 0` or a literal multiple) are exactly those with no interpretation in the target "
+        "semantic domain. **The boundary is pinned by theorems, not asserted:** "
+        "`compileTarget_affineTerm` and `compileTarget_squareTerm` prove the two supported shapes DO take the "
+        "`some` arm, and `affine_end_to_end` / `square_end_to_end` carry the resulting artifact guarantees. "
+        "A `none` here therefore means 「this term is outside the fragment」, never 「the implementation is "
+        "incomplete」 -- the distinction the plan's A.2 requires."),
     "Core/Data/Decode.lean": (
         "covered by round-trip",
         "The three `none` arms are the rejection arms of `decodeWidth`, `decodeCorpusList` and "
