@@ -290,6 +290,14 @@ CHECKS = [
     # theorem is enough for a link to exist -- only that no adjacent link goes EMPTY.**
     ("chain: every adjacent link has a connecting theorem", "chain_connectors.py --check"),
     ("chain: connector marker matching self-test", "chain_connectors.py --self-test"),
+    # **Round 1050: the plan's fourth evidence tier is "reproducible in a clean environment". A full
+    # cold build is impossible here (it would rebuild mathlib), so what IS checkable is pinned down:
+    # for each headline number, does its producer read only TRACKED sources, or does it read `.lake/`
+    # artifacts that are not in the repository? Eight numbers are source-derived; olean presence is
+    # artifact-derived, and the check fails if either claim stops matching the code.**
+    ("meta: claimed numbers classified source vs artifact", "audit_reproducible_numbers.py --check"),
+    ("meta: reproducible-numbers classifier self-test",
+     "audit_reproducible_numbers.py --self-test"),
     ("meta: five pipeline stages present", "check_pipeline_stages.py"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
