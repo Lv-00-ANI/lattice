@@ -2099,3 +2099,64 @@ I4   layering respected   1 finding(s)
 
 **⇒ 已记录的**已知局限**（而不是隐瞒）：`Compose/Showcase/` 目前**仍算作链**，尽管它和 `Usage/` 一样是演示层。
 ⇒ 若将来判定展示层等同示例，这些数字会**进一步下降**——工具对**它当前划的边界**是诚实的，对**边界是否正确**不声称。**
+### 3.59 **第 1099 轮：`3.2 → 3.3` 的 0/2 不是接线遗漏，而是**载体没有实例****
+
+**上一轮的活跃度列显示：`3.2 → 3.3` 的两个连接器**零链内消费者**。⇒ 本轮测量它们的**原因**。**
+
+#### 一、两个连接器，各自的原因
+
+| 连接器 | 定义处 | 引用它的文件 |
+|:--|:--|:--|
+| `extract_after_repair` | `Runtime/RepairClosure.lean:90` | **只有它自己**（`:44` 还是文档提及） |
+| `carrier_covers_whole_chain` | `Lib/Compiler/CarrierReproduction.lean:162` | **只有它自己** |
+
+**⇒ 两者都不是「被示例消费」：它们**根本没有被任何代码消费**（连 `Usage/` 也没有）。**
+
+#### 二、`extract_after_repair` 为什么无法被使用
+
+**⇒ 它的签名是：**
+
+```lean
+theorem extract_after_repair (R : Lattice.Core.Repair Layer) (hSat : ∀ ls, R.Sat ls ↔ LayerSat cs ls)
+    (ls : Layer) (h : R.μ ls = 0) (x : List Int) : AllSatisfied (extractLayer ls) x
+```
+
+**⇒ 故要**应用**它，必须先有一个**具体的 `R : Repair Layer`**。⇒ 而实测：**
+
+| 文件 | 实例的载体 |
+|:--|:--|
+| `Core/RepairModule/Repair.lean` | `parityRepair : Repair ℕ` |
+| `Core/RepairModule/RepairAtomicity.lean` | `Repair α`（由一个等价条件**构造**，不是具体载体） |
+| `Core/RepairModule/RepairMultistep.lean` | `countdown : Repair ℕ` |
+| `Core/RepairModule/SqDistRepair.lean` | `sqDistHalvingRepair : Repair ℕ` |
+| `Core/RepairModule/RepairProduct.lean` | `repairProd : Repair (α × β)`（产品构造） |
+| `Lib/Compiler/WriteBack.lean` | **`slopeRepair : Repair (ℕ → Segment)`** |
+| `Lib/Linear/Multivar.lean` | `multivarRepair : Repair (ι → F)` |
+| `Lib/Linear/Residual.lean` | `linearRepair : Repair ℚ` |
+| `Primitives/MultistepLoop.lean` | `bidirRepair : Repair ℤ` |
+| `Usage/Examples.lean` | `natRepair : Repair ℕ` |
+
+**⇒ **没有一个是 `Repair Layer`**。**
+
+**⇒ 故 `Runtime/RepairClosure.lean` 的四条定理（`repair_preserves_verdict`、`repair_makes_progress`、
+`repair_terminates_at_sat`、`extract_after_repair`）是一个**参数化理论，而其载体没有实例**——
+它们**永远无法被应用**，因此**不可能有消费者**。**
+
+#### 三、这改变了问题的性质
+
+**⇒ 上一轮我把它记为「也许接线遗漏」。⇒ 现在不是：`3.2 → 3.3` 的空洞是一个**具体缺口**——
+**「主链的层载体（`Layer`）上没有修复实例」**。**
+
+**⇒ 而修法也只有一条：**构造一个 `Repair Layer`**。⇒ 它的形态是可以定的：**
+- `Sat ls` := 该层的所有权重与偏置都为零（**与输入无关**，故可作为修复判据）；
+- `fix` := 逐个把非零坐标清零；
+- `μ` := 非零坐标的个数；
+- `atomic` := 计数为零 ⟺ 全零 ⟹ 对**任意**输入输出都为零。
+
+**⇒ 若这样做成，则：**
+1. `extract_after_repair` **第一次可被应用**（接缝首次有消费者）；
+2. 并且可以证一条**新的**桥：`layerZeroRepair.Sat ls → ∀ x, AllZeroOutputs ls x`——
+   **即「层被判据接受」⟹「对所有输入输出为零」**，这正是 `compileToLayer` 语义的**另一侧**。
+
+**⇒ 这属于**补一个缺失的实例**，而不是「再写一条定理」；它同时服务三个目标（接缝、语义桥、条款 3.3）。
+⇒ 下一轮执行它。若它在 `Layer` 上遇到技术困难（`List` 上的扫描与计数），就在分支上试，失败则退回并记录原因。**
