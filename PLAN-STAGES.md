@@ -1290,3 +1290,33 @@ table_is_not_a_ceiling (0 < n) :
 **⇒ 两处基线裁定：`cube_sub_chord` 与 `quartic_sub_chord` 结构同构，重复普查把两条都标了出来；
 ⇒ 按「有意并行」登记——**各是各自的代数恒等式，合并会变成一个带两个分支的引理**。
 ⇒ 否证普查 `369 → 370`（`Lib` 257 → 258）；`degreeList_four` 首次承重，verdict 已登记。**
+### 3.36 **第 1073 轮：上限**被推高一格**——四次族进表**
+
+**第 1072 轮证明了「表不是上限」。本轮把上限提高，这是证明上一轮那句「填 `polyRow 4` 只需一支」为真的**唯一诚实方式**。**
+
+```lean
+SymbolicEntry: quarticTerm := x·x·x·x、源语义、编译规则、compileTarget_quarticTerm
+QuarticFamily: quartic_uniform_bound_Icc（闭区间，3·(1/n)²/2）、quarticRow（degree 4，常数 3/2）
+PolyTable:     polyRow 4 = some quarticRow、degreeList_five、落点定理
+
+select_quartic_goal_lands_on_quartic :
+    目标 = t⁴, 3/2·(1/n)² ≤ eps → selectUpTo req 5 = some quarticRow
+```
+
+**⇒ 与上一轮的结果并读：`dmax = 4` 时四次目标得 `none`（`selectUpTo_none_of_quartic_goal`），
+`dmax = 5` 时同一目标落在 `quarticRow`。⇒ **差别只在参数上，而表只长了一支**——
+选择器、桥、精度保证、度数界**一行未动**。这正是能力层自 1059 轮以来一直朝向的那个断言。**
+
+**⇒ 为此必须**打断一个依赖**：`QuarticFamily` 原先导入 `PolyTable`（「表拒绝 `t⁴`」那组用 `degreeList`），
+而 `PolyTable` 现在需要 `QuarticFamily` 的 `quarticRow`。⇒ 环按真实分界解开：
+`QuarticFamily` 供给**族**（界 + 行），`PolyTable` 供给**表的事实**（拒绝、落点）。
+两个文件各自只依赖它真正用到的东西。**
+
+**⇒ 两处错误值得点名：**
+1. 我的解耦脚本**算出**要移动的块却**没有写回任何地方**，于是 `quarticRow` 直接消失了——
+   **是下一次构建抓到的，不是靠阅读**；
+2. 我为避免「结论同形」的重复而删除半开版本的界时，切除**连带**把夹在两段注释之间的三条分离定理一并切走。
+   ⇒ 两处都按产生它们的同一推理恢复。**
+
+**⇒ 基线裁定：半开版本**删除**而非入基线（Icc 蕴含 Ico，保留两者等于给同一事实两个名字）；
+`quartic_not_affine`、`quartic_ne_square`、`quartic_ne_cube` 成为承重，verdict 已登记。**

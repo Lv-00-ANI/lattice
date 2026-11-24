@@ -1637,10 +1637,13 @@ Lib/Compiler/PolyTable.lean	degreeList_degree_lt
 Lib/Compiler/PolyTable.lean	selectUpTo_degree_bound
 Lib/Compiler/PolyTable.lean	select_quadratic_goal_lands_on_square
 Lib/Compiler/PolyTable.lean	select_cubic_goal_lands_on_cube
+Lib/Compiler/PolyTable.lean	quartic_not_covered
+Lib/Compiler/PolyTable.lean	selectUpTo_none_of_quartic_goal
+Lib/Compiler/PolyTable.lean	degreeList_five
+Lib/Compiler/PolyTable.lean	select_quartic_goal_lands_on_quartic
+Lib/Compiler/PolyTable.lean	table_is_not_a_ceiling
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
-Lib/Compiler/QuarticFamily.lean	quartic_not_covered
-Lib/Compiler/QuarticFamily.lean	selectUpTo_none_of_quartic_goal
-Lib/Compiler/QuarticFamily.lean	table_is_not_a_ceiling
+Lib/Compiler/QuarticFamily.lean	quartic_uniform_bound_Icc
 Lib/Compiler/R3Triviality.lean	R3_dichotomy
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le_of_fixed
@@ -2061,7 +2064,7 @@ Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
 Lib/Compiler/SymbolicEntry.lean	square_end_to_end
 Lib/Compiler/SymbolicEntry.lean	interp_realises_affine
 Lib/Compiler/SymbolicEntry.lean	interp_affine_artifact_exact
-Lib/Compiler/SymbolicEntry.lean	compileTarget_cubeTerm
+Lib/Compiler/SymbolicEntry.lean	compileTarget_quarticTerm
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/WriteBack.lean	writeBack_evalAt
