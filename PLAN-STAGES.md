@@ -995,3 +995,35 @@ constants_ordered (a b) : (affineRow a b).constant ≤ squareRow.constant ∧ sq
 
 **⇒ 一处**我自己需要清理的东西**：`constants_ordered` 初版的注释是**自问自答的啰嗦**
 （“……不，它们是不同族的常数，写 ≤ 是因为……”）。那不是论证，是论证的样子。⇒ 已换成两句真正的理由。**
+### 3.27 **第 1064 轮：能力表变成**选择器**，而且选择自带证明**
+
+**表此前能「陈述每族达到什么」，但不能**选择**。⇒ 规划 §2.1 第 4 层正是「能力与证明编排」，本轮把表变成判定过程。**
+
+```lean
+structure Request where eps : ℝ; n : ℕ; hn : 0 < n
+
+sufficient row req := row.constant * (1/n)² ≤ req.eps      -- 表所能证明的充分条件
+
+-- 有界性 → 整域达标本
+sufficient_implies_meets : sufficient row req → ∀ x ∈ [0,1], |fn x − 插值| ≤ req.eps
+
+-- 选择器
+select req rows := rows.find? (fun row => decide (sufficient row req))
+select_sound            : select req rows = some row → sufficient row req
+select_gives_precision  : select req rows = some row → ∀ x ∈ [0,1], |fn x − 插值| ≤ req.eps
+select_affine_first     : 0 ≤ eps → select req (affineRow a b :: tail) = some (affineRow a b)
+```
+
+**⇒ `sufficient` **不是**弱化：它就是每行 `bound` 字段**直接产出**的那个不等式，把常数提出而已。
+⇒ 因此选择器诚实：它每行只比较**一个有理数**，而不重新推导界；`sufficient_implies_meets` 只有一步 `le_trans`。**
+
+**⇒ 「首个匹配」是**刻意的**：列表顺序**就是**优先级。把精确行（常数 0）放在最前，则 `0 ≤ eps` 时它必被选中——
+⇒ `select_affine_first` 使「精确优于近似」成为**可执行的规则**，而不是一句评价。**
+
+**⇒ `select_sound` **不**声称最优：`find?` 只保证返回的行满足谓词。要说「选得最好」需要行间序关系与
+「后者更差」的证明——两者都不在，故都不声称。**
+
+**⇒ 两个 Lean 细节：实数比较的 `Decidable` 需 `classical`；`List.find?_some` 必须**显式给谓词**
+`(p := …)`，否则 `@decide` 的实例是元变量、合一挑错。**
+
+**⇒ `select_gives_precision` 是转发（两条定理的复合），已登记。**
