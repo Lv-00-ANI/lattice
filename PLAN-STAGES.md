@@ -1253,3 +1253,40 @@ select_cubic_goal_lands_on_cube :
 **不是靠求值一个谓词然后指望它**。**
 
 **⇒ `affineFamily_not_sufficient_for_square` 因此**首次成为承重**（落点定理消费它来为第一次跳过给出理由），verdict 已登记。**
+### 3.35 **第 1072 轮：「表**不是上限**」成为定理——四次族作见证**
+
+**规划 §1.6 末句是「该判据**不是能力上限**」。此前它只是设计声明：我证明了**表内如何选**，
+从未证明**表外也行**。本轮以 `t⁴` 为见证把它变成定理。**
+
+**⇒ 表内：无一行覆盖 `t⁴`。**
+```lean
+quartic_not_affine / quartic_ne_square / quartic_ne_cube     -- 三条三点分离
+quartic_not_covered (row ∈ degreeList 4) : ¬ row.covers (fun t => t⁴)
+selectUpTo_none_of_quartic_goal : selectUpTo req 4 = none
+```
+**⇒ 注意它**不是**「我们没写四次行所以它不在表里」——那只是列表的**缺口**。
+⇒ 三个分支各由一条**具名**的函数事实与 `t⁴` 分离，**故拒绝是关于族的陈述，而不是关于我写作进度的陈述**。**
+
+**⇒ 表外：一般插值族可达它。**
+```lean
+quartic_sub_chord : x⁴ − chord(x) = (x−a)(x−b)(x² + (a+b)x + (a²+ab+b²))
+quartic_chord_error   : ≤ 3(b−a)²/2     （0 ≤ a < b ≤ 1）
+quartic_uniform_bound : ≤ 3(1/n)²/2     （x ∈ [0,1)）
+```
+**⇒ 分解式仍是纯代数：`f − chord` 的 `x³`、`x²` 系数为零 ⇒ `p = a+b`、`q = a²+ab+b²`。
+⇒ 界仍只需尖顶估计 + 「第三因子 ≤ 6」——**无导数，与三次族同一路线**。**
+
+**⇒ 收口定理：**
+```lean
+table_is_not_a_ceiling (0 < n) :
+    selectUpTo (目标 := t⁴, eps := 3/(2n²)) 4 = none
+    ∧ ∀ x ∈ [0,1), |t⁴ − gridEval (interpFamily n (t ↦ t⁴)) n x| ≤ 3/(2n²)
+```
+**⇒ 两半**都不可省**，且互不为推论：前者关于三个具体族，后者关于一个它们都不覆盖的函数的插值族。**
+
+**⇒ 且本条**不**声称「四次不能被加入表」——**恰恰相反**：填 `polyRow 4` 只需**一支**，
+而那一支的依据已经在本文件里。**
+
+**⇒ 两处基线裁定：`cube_sub_chord` 与 `quartic_sub_chord` 结构同构，重复普查把两条都标了出来；
+⇒ 按「有意并行」登记——**各是各自的代数恒等式，合并会变成一个带两个分支的引理**。
+⇒ 否证普查 `369 → 370`（`Lib` 257 → 258）；`degreeList_four` 首次承重，verdict 已登记。**
