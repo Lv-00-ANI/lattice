@@ -9,8 +9,8 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 748 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 168 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 750 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 170 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -303,7 +303,8 @@
 | `Lib/Chain/RealScalarField.lean` | `edit_verify_tolerance_scalar` |
 | `Lib/Chain/RealSimpleExtensionDegree.lean` | `degree_minpoly_le_of_monic_aeval` |
 | `Lib/Chain/RealTaylorMultivariate.lean` | `contDiff_pathMap` |
-| `Lib/Compiler/CapabilityTable.lean` | `row_gives_bound` |
+| `Lib/Compiler/AnalyticSelection.lean` | `analytic_select_gives_precision` |
+| `Lib/Compiler/BridgeToMainChain.lean` | `bridge_sample` |
 | `Lib/Compiler/CapabilityTable.lean` | `select_gives_precision` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierConj_criterion` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierDisj_criterion` |
@@ -354,6 +355,7 @@
 | `Lib/Compiler/RealWPWhile.lean` | `wpT_while_least_agrees` |
 | `Lib/Compiler/RealWPWhile.lean` | `wp_skip_true` |
 | `Lib/Compiler/ReluClosure.lean` | `relu_verify_criterion` |
+| `Lib/Compiler/RepairPair.lean` | `twoSlopeRepair_iterate` |
 | `Lib/Compiler/ReversibilityChain.lean` | `gridWeights_not_extractable` |
 | `Lib/Compiler/ReversibilityInstances.lean` | `relu_irreversible_by_criterion` |
 | `Lib/Compiler/WriteBack.lean` | `writeBack_evalAt` |
@@ -860,8 +862,10 @@
 | `Lib/Chain/RealReedSolomon.lean` | `rs_roots_card_le_natDegree` |
 | `Lib/Chain/RealReedSolomon.lean` | `rs_single_error_correction` |
 | `Lib/Chain/RealReedSolomon.lean` | `rs_unique_decoding_minDist` |
+| `Lib/Compiler/CubicFamily.lean` | `cube_sub_chord` |
 | `Lib/Compiler/InterpAlgebra.lean` | `chordOf_add` |
 | `Lib/Compiler/InterpAlgebra.lean` | `chordOf_smul` |
+| `Lib/Compiler/QuarticFamily.lean` | `quartic_sub_chord` |
 | `Lib/Compiler/RealCombinators.lean` | `real_xorC_value_table_on_bool` |
 | `Lib/Compiler/RealCombinators.lean` | `real_xorC_zero_table_on_bool` |
 | `Lib/Compiler/RealTreeRecursion.lean` | `size_le_sizeList` |

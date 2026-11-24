@@ -730,6 +730,7 @@ Core/RepairModule/RepairMultistep.lean	countdown_iterate
 Core/RepairModule/RepairMultistep.lean	countdown_converges_in
 Core/RepairModule/RepairMultistep.lean	no_uniform_bound
 Core/RepairModule/RepairMultistep.lean	converges_within_is_tight
+Core/RepairModule/RepairProduct.lean	repairProd_iterate
 Core/RepairModule/RepairWF.lean	iterate_succ
 Core/RepairModule/RepairWF.lean	iterate_shift
 Core/RepairModule/RepairWF.lean	progress_on_wf
@@ -2056,6 +2057,9 @@ Lib/Compiler/ReluLemmas.lean	reluCompile_zero_zero
 Lib/Compiler/ReluLemmas.lean	reluCompile_zero_neg_of_nonneg
 Lib/Compiler/ReluLemmas.lean	reluCompile_collapses
 Lib/Compiler/ReluLemmas.lean	reluCompile_collapses_ne
+Lib/Compiler/RepairPair.lean	twoSlopeRepair_absorbs
+Lib/Compiler/RepairPair.lean	twoSlopeRepair_decreases
+Lib/Compiler/RepairPair.lean	twoSlopeRepair_iterate
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_has_extract
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_reversible_by_criterion
 Lib/Compiler/ReversibilityChain.lean	gridWeights_not_extractable

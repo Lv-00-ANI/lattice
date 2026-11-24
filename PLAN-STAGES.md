@@ -1640,3 +1640,42 @@ bridge_sample                       -- 一个具体实例，读者可手算核�
 `CarrierInstantiation`、`CarrierReproduction`），而 gate I4 只禁止 **Core 导入 Lib/Lift**。**
 
 **⇒ `bridge_sample` 是转发（一般定理的具体实例），已按「有意转发」登记。**
+### 3.45 **第 1082 轮：`Repair` 的**乘积实例**——两个约束可以**同时**修复**
+
+**第 1081 轮的计划说下一步是「把两个 `Repair` 实例接起来」。⇒ 本轮**先测量**，而测量**排除了**那条路：**
+
+| 实例 | 载体 | 判据 |
+|:--|:--|:--|
+| `Runtime/RepairClosure.lean` | `Repair Layer`（`ℤ`） | 提取后的符号满足约束 |
+| `Lib/Compiler/WriteBack.lean` | `Repair (ℕ → Segment)`（`ℝ`） | 第 0 段斜率等于目标 |
+
+**⇒ 载体不同、判据不同，**无可证交换律**。⇒ 硬做「合成一条链」正是本项目反复抓到的错误。**
+
+**⇒ 但两者共享**接口**，而接口层有一条真正可推广的东西：**
+
+```lean
+def repairProd (R : Repair α) (S : Repair β) : Repair (α × β) where
+  Sat p := R.Sat p.1 ∧ S.Sat p.2
+  fix p := (R.fix p.1, S.fix p.2)
+  μ p   := R.μ p.1 + S.μ p.2
+  -- absorbs / decreases / atomic 三条全部证明
+```
+
+**⇒ `decreases` **不是白给的**，而它正是本轮的实质内容：当**只有一侧**失败时，另一侧的测度**不下降**，
+故若不是失败侧的严格下降能带动总和，总和就不会降。⇒ 证明按「哪一侧失败」三分，并用 `absorbs` 把通过的一侧固定住。**
+
+**⇒ 而 `repairProd_iterate` 是「并行」这个词的内容：**
+```lean
+(repairProd R S).fix^[n] p = (R.fix^[n] p.1, S.fix^[n] p.2)
+```
+**⇒ `n` 轮让**两侧各走 `n` 步**，而不是「修完一侧再修另一侧」；总和单调下降才使「同时收敛」合法。**
+
+**⇒ `Lib/Compiler/RepairPair.lean` 把它落到真实载体上：**
+```lean
+twoSlopeRepair a b : Repair ((ℕ → Segment) × (ℕ → Segment))
+twoSlopeRepair_absorbs / _decreases / _iterate
+```
+
+**⇒ 两处基线裁定：三个定义性投影是 `rfl`/`Iff.rfl`，对新定义而言**正确**（与能力表的 rfl 等式同一判断），
+定义式证明基线 `816 → 819`；`twoSlopeRepair_iterate` 是转发，已登记。**
+**⇒ 修复普查 `A: 10→11 文件 / 30→35 声明`，`B: 18→19 / 50→54`。**
