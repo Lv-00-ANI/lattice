@@ -1740,3 +1740,36 @@ twoSlopeLoop_run_components -- 主链 `run` 与乘积迭代定理的合成
 `Lattice.Runtime.LoopClosure.extractLayer`。**
 **⇒ 真实而更窄的事实是上表那一条：`step_fixed_of_sat` 在第 1042 轮为「让 `step` 的 docstring 可引用」而写，
 此**前零消费者**；本轮是它的**首次使用**——**一条休眠定理被唤醒**，而不是发明了一个新连接。**
+### 3.48 **第 1085 轮：闭环回路的**消失定理**，配一个有意义的**缺陷目标****
+
+**第 1084 轮把回路实例化了，但用 `objective := gridEval p.1 n x`——它在不动点**不为零**，
+故接不上 `closed_loop_reinject_vanishes`。⇒ 本轮**改目标函数**，而不是放弃那条定理。**
+
+```lean
+closed_loop_reinject_vanishes (x) (hobj : ∀ y, V.repair.Sat y → V.objective y = 0) :
+    V.objective (V.run (V.repair.μ x) x) = 0
+```
+
+**⇒ 目标改成**缺陷**而非**取值**：**
+
+```lean
+twoSlopeDefectLoop (a b) : VerificationLoop (载荷 × 载荷)
+  repair    := twoSlopeRepair a b
+  objective := fun p => ((p.1 0).m - a)² + ((p.2 0).m - b)²
+
+twoSlopeDefectLoop_objective_at_sat : Sat p → objective p = 0
+twoSlopeLoop_objective_vanishes :
+    objective (run (μ p) p) = 0        -- 一行：把本实例的 hobj 喂给主链定理
+```
+
+**⇒ 为什么是**平方和**而不是差：两条斜率可以朝相反方向出错，故**带符号的和可能在错误状态上相互抵消为零**。
+⇒ 平方消除这种可能，而和恰好**在两侧都正确时**为零。⇒ 这正是 `hobj` 要求的性质；
+**若选带符号差，就会满足类型而不满足主张。**
+
+**⇒ 终点陈述说的是什么：经过 `μ p` 轮后，产物两条斜率**恰好等于目标 `a`、`b`**——平方偏差为零。」
+⇒ 这就是此处「再注入」的含义，而且它陈述的是**产物**，不是抽象变量。**
+
+**⇒ 我第 1084 轮的那个目标函数**保留**：它诚实地做它做的事（回路观测产物的输出），但它**不在不动点消失**，
+故**不是**接再注入定理的那一个。⇒ 两个实例并存；只有一者携带「消失」这一主张。**
+
+**⇒ `twoSlopeLoop_objective_vanishes` 是一行转发，已登记。**
