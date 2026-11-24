@@ -874,3 +874,30 @@ quadFun_gridEval_error_via_bridge (x ∈ Ico 0 1) :
 需先 `change`。⇒ 两者都是「`rw` 只做语法替换」的同一件事。**
 
 **⇒ `linComb_error` 因此成为承重，verdict 已登记（承重 1090，100% 已审）。**
+### 3.23 **第 1060 轮：第三个族（三次）——**成本检查**：「新增一族只写一条单区间界」**
+
+**第 1059 轮只是对**已有**族做二次验证。本轮用同一个入口加**真正的新族**，并结算成本。**
+
+**文件 `Lattice/Lib/Compiler/CubicFamily.lean`：**
+
+```lean
+cube_sub_chord (a ≠ b) : x³ − chord(x) = (x − a)(x − b)(x + a + b)
+tent_le                : |(x − a)(b − x)| ≤ (b − a)²/4
+cube_chord_error       : (0 ≤ a < b, x ∈ [a,b]) |x³ − chord| ≤ 3b(b−a)²/4
+cube_uniform_bound     : ∀ x ∈ Ico 0 1, |x³ − gridEval (interpFamily n (t ↦ t³)) n x| ≤ 3·(1/n)²/4
+```
+
+**⇒ 为什么**不需要分析**：三次函数的「函数减弦」是三次多项式且在两端为零 ⇒ **可分解**。
+最后一个因子由 `x²` 项系数定出：右侧是 `−(a+b+r)`，左侧是 `0`，故 `r = −(a+b)`。
+⇒ 有了分解式，界只剩**两个初等乘积估计**（尖顶估计 + `x+a+b ≤ 3b`）——**无导数、无凸性、无中值定理**。
+
+**⇒ 成本结算（本轮要点）：整域界只用了**一条引用链**——新的 `cube_chord_error` + 第 1058 轮的桥。
+其余一行未写。⇒ 这就是「入口对**先前不存在的族**也确实按宣称的方式工作」。**
+
+**⇒ 符号侧：`cubeTerm := x·x·x`、`evalSym_cubeTerm`、`compileTarget_cubeTerm`（新规则放在通配分支之前）。**
+
+**⇒ 四处小错：**
+1. 我的 `| _ => none` 锚点**子串匹配**到了内层分支（缩进有别，锚点需带前导换行）；
+2. **`abs_neg` 在负号位于乘积内部时不触发** ⇒ 需显式 `abs_mul` 拆开；
+3. **`simp only` 留下嵌套 `if`/`Option.bind` 未化约** ⇒ 先算到 `some (x·x·x)`，再用 `ring` 与 `x³` 对齐；
+4. **`apply` 又把域假设留成第二个目标**（第二次遇到，已是可预测的）。

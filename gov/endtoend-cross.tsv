@@ -1544,6 +1544,7 @@ Lib/Compiler/ConstraintSatisfaction.lean	R3_is_reachability
 Lib/Compiler/ConstraintSatisfaction.lean	four_readings_resolved
 Lib/Compiler/ConvergenceForm.lean	r1_fails_r2_holds
 Lib/Compiler/ConvexityChord.lean	chord_error_of_semiconvex
+Lib/Compiler/CubicFamily.lean	cube_uniform_bound
 Lib/Compiler/DataSynthesis.lean	samples_sound
 Lib/Compiler/DataSynthesis.lean	synthesize_from_satisfying
 Lib/Compiler/DataSynthesis.lean	synthesis_is_nonvacuous
@@ -2024,7 +2025,7 @@ Lib/Compiler/SymbolicEntry.lean	affine_end_to_end
 Lib/Compiler/SymbolicEntry.lean	square_end_to_end
 Lib/Compiler/SymbolicEntry.lean	interp_realises_affine
 Lib/Compiler/SymbolicEntry.lean	interp_affine_artifact_exact
-Lib/Compiler/SymbolicEntry.lean	compileTarget_quadCoefTerm
+Lib/Compiler/SymbolicEntry.lean	compileTarget_cubeTerm
 Lib/Compiler/WeightSequence.lean	piecewiseFamily_error
 Lib/Compiler/WeightSequence.lean	weight_sequence_exists
 Lib/Compiler/WriteBack.lean	writeBack_evalAt
