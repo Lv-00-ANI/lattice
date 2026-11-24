@@ -115,4 +115,43 @@ theorem twoSlopeLoop_objective_vanishes (a b : ℝ)
   VerificationLoop.closed_loop_reinject_vanishes (twoSlopeDefectLoop a b) p
     (fun y hy => twoSlopeDefectLoop_objective_at_sat a b hy)
 
+/-! ## 四、**显式轮数界**：抽象界 `μ p` 是**过估计** -/
+
+/-- **⭐ 两侧测度各自只取 `0` 或 `1`**，故乘积测度 `≤ 2`。** -/
+theorem twoSlopeRepair_measure_le_two (a b : ℝ)
+    (p : (ℕ → Segment) × (ℕ → Segment)) :
+    (twoSlopeRepair a b).μ p ≤ 2 := by
+  show slopeMeasure a p.1 + slopeMeasure b p.2 ≤ 2
+  unfold slopeMeasure
+  split <;> split <;> omega
+
+/-- **⭐⭐**一步**就达标**：回路的 `run 1` 已经在满足点上。
+
+**⇒ 而抽象定理 `twoSlopeLoop_ends_sat` 说的是「`μ p` 轮」——在本实例里 `μ p` 可以是 `2`。
+⇒ 故抽象界在这里**不紧**：一次 `fix` 就把**两侧同时**修好了，而 `μ` 把它们**相加**。** -/
+theorem twoSlopeLoop_sat_after_one (a b : ℝ) (n : ℕ) (x : ℝ)
+    (p : (ℕ → Segment) × (ℕ → Segment)) :
+    (twoSlopeLoop a b n x).repair.Sat ((twoSlopeLoop a b n x).run 1 p) := by
+  show (twoSlopeRepair a b).Sat ((twoSlopeRepair a b).iterate 1 p)
+  show (twoSlopeRepair a b).Sat ((twoSlopeRepair a b).fix p)
+  exact twoSlopes_sat_after_fix a b p
+
+/-- **⭐⭐⭐ 显式界：本回路**至多 2 轮**到达满足点（而实际上 1 轮就够）。
+
+**⇒ 这就是规划 §3.3 第 3 项「到达方式」的**落地**形式：不是「按测度」，而是一个**具体数字**。**
+**⇒ 而它与抽象定理并存而不矛盾：`μ p ≤ 2`，故「`μ p` 轮」与「2 轮」都是真的上界；
+只是前者随 `p` 变化，后者是**统一的**。** -/
+theorem twoSlopeLoop_ends_sat_in_two (a b : ℝ) (n : ℕ) (x : ℝ)
+    (p : (ℕ → Segment) × (ℕ → Segment)) :
+    (twoSlopeLoop a b n x).repair.Sat ((twoSlopeLoop a b n x).run 2 p) := by
+  -- **一步已达标，故再多一步由 `absorbs` 不改变。**
+  have h1 := twoSlopeLoop_sat_after_one a b n x p
+  show (twoSlopeRepair a b).Sat ((twoSlopeRepair a b).iterate 2 p)
+  show (twoSlopeRepair a b).Sat ((twoSlopeRepair a b).fix ((twoSlopeRepair a b).fix p))
+  have hfix : (twoSlopeRepair a b).fix ((twoSlopeRepair a b).fix p)
+      = (twoSlopeRepair a b).fix p :=
+    (twoSlopeRepair a b).absorbs ((twoSlopeRepair a b).fix p) h1
+  rw [hfix]
+  exact h1
+
 end Lattice.Lib.Compiler.LoopInstance
