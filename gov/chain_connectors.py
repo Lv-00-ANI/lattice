@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 18
+UNREGISTERED_BUDGET = 14
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -188,6 +188,14 @@ TERMINAL_CONNECTORS = {
         "a CONJUNCTION of the two fibreRefines statements: each side refines the other. A structural summary of what the round trip means at the fibre level.",
     "compile_extract_weight_side":
         "a RESTATEMENT on the weight side: zero-output is preserved by compile-then-extract, obtained by rewriting with compileToLayer_extractLayer. Its content is that lemma, quoted where the weight reader needs it.",
+    # Round 1114: the inverse/fixpoint family. FIVE names, ONE equation -- except the last, which
+    # characterises rather than restates.
+    "extractLayer_leftInverse": 'ONE EQUATION IN ANOTHER VOCABULARY: `compileToLayer (extractLayer ls) = ls` and its converse. Four of the five theorems here are that single content in four forms -- Function.LeftInverse, Function.RightInverse, the raw equation, and a re-export for the vacuity file. Each form exists because a different consumer vocabulary needs it; none is a step.',
+    "extractLayer_rightInverse": 'ONE EQUATION IN ANOTHER VOCABULARY: `compileToLayer (extractLayer ls) = ls` and its converse. Four of the five theorems here are that single content in four forms -- Function.LeftInverse, Function.RightInverse, the raw equation, and a re-export for the vacuity file. Each form exists because a different consumer vocabulary needs it; none is a step.',
+    "rt1_leftInverse": 'ONE EQUATION IN ANOTHER VOCABULARY: `compileToLayer (extractLayer ls) = ls` and its converse. Four of the five theorems here are that single content in four forms -- Function.LeftInverse, Function.RightInverse, the raw equation, and a re-export for the vacuity file. Each form exists because a different consumer vocabulary needs it; none is a step.',
+    "compiled_roundTrip_fixed": 'ONE EQUATION IN ANOTHER VOCABULARY: `compileToLayer (extractLayer ls) = ls` and its converse. Four of the five theorems here are that single content in four forms -- Function.LeftInverse, Function.RightInverse, the raw equation, and a re-export for the vacuity file. Each form exists because a different consumer vocabulary needs it; none is a step.',
+    "compiled_roundTrip_fixed_iff":
+        "a CHARACTERISATION, not a restatement: for a single layer, being a fixpoint of compile-then-extract is equivalent to being the image of some constraint. It adds information the four restatements do not -- still a conclusion, so terminal, but the only member of this family that is not one equation re-spelled.",
 }
 
 
