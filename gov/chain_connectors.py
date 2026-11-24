@@ -102,6 +102,11 @@ def statements():
             except OSError:
                 continue
             code = strip_comments(src)
+            # **Round 1106: an example's theorems are demonstrations, not chain facts.** Counting them made four
+            # Usage/-defined theorems look "dead" (two of the three in the 3.3->3.4 seam) -- a metric artefact,
+            # not a finding. Round 1091 stopped `Usage/` counting as a CONSUMER; this stops it as a PRODUCER.
+            if rel.startswith("Usage/"):
+                continue
             for m in DECL.finditer(code):
                 name = m.group(1).split(".")[-1]
                 end = _statement_end(code, m.end())
