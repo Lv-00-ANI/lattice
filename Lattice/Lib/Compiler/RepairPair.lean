@@ -70,4 +70,39 @@ theorem twoSlopes_change_two_observables (a b b₁ c₁ b₂ c₂ : ℝ)
   exact ⟨repair_changes_observable a b₁ c₁ hba₁ n x₁ hx₁ hidx₁,
          repair_changes_observable b b₂ c₂ hba₂ n x₂ hx₂ hidx₂⟩
 
+/-! ## 五、**保留的部分**：修复只改**被修的那一段** -/
+
+/-- **⭐⭐ 修复不动第 `0` 段之外的**任何段**（逐段相等）。
+
+**⇒ 这比「达标的一侧不被改」强得多：它说的是**改动的范围**——只有第 0 段。**
+**⇒ 故「保留的部分」不是一个估计，而是一个**可逐段核对**的等式。** -/
+theorem slopeFix_preserves_other_segments (a : ℝ) (g : ℕ → Segment)
+    (k : ℕ) (hk : k ≠ 0) : slopeFix a g k = g k := by
+  unfold slopeFix
+  rw [if_neg hk]
+
+/-- **⭐ 第 `0` 段的**截距被保留**（只改斜率）。** -/
+theorem slopeFix_preserves_intercept (a : ℝ) (g : ℕ → Segment) :
+    (slopeFix a g 0).c = (g 0).c := by
+  unfold slopeFix
+  rw [if_pos rfl]
+
+/-- **⭐ **改的只有斜率**：第 `0` 段的斜率变为 `a`。** -/
+theorem slopeFix_changes_slope (a : ℝ) (g : ℕ → Segment) :
+    (slopeFix a g 0).m = a := by
+  unfold slopeFix
+  rw [if_pos rfl]
+
+/-- **⭐⭐⭐ 乘积版：一次并行修复**只改两侧各自的第 0 段**。
+
+**⇒ 这就是规划 §3.3 第 2 项「保留的部分」的**精确**形式：**
+**⇒ 被修的两段之外，**一切逐段不变**。** -/
+theorem twoSlopeRepair_preserves_other_segments (a b : ℝ)
+    (p : (ℕ → Segment) × (ℕ → Segment))
+    (k₁ k₂ : ℕ) (h₁ : k₁ ≠ 0) (h₂ : k₂ ≠ 0) :
+    ((twoSlopeRepair a b).fix p).1 k₁ = p.1 k₁
+      ∧ ((twoSlopeRepair a b).fix p).2 k₂ = p.2 k₂ :=
+  ⟨slopeFix_preserves_other_segments a p.1 k₁ h₁,
+   slopeFix_preserves_other_segments b p.2 k₂ h₂⟩
+
 end Lattice.Lib.Compiler.RepairPair
