@@ -75,8 +75,10 @@ copy	Lib/Chain/RealPolyInterp.lean	linInterp_slope_form
 copy	Lib/Chain/RealReedSolomon.lean	rs_roots_card_le_natDegree
 copy	Lib/Chain/RealReedSolomon.lean	rs_single_error_correction
 copy	Lib/Chain/RealReedSolomon.lean	rs_unique_decoding_minDist
+copy	Lib/Compiler/CubicFamily.lean	cube_sub_chord
 copy	Lib/Compiler/InterpAlgebra.lean	chordOf_add
 copy	Lib/Compiler/InterpAlgebra.lean	chordOf_smul
+copy	Lib/Compiler/QuarticFamily.lean	quartic_sub_chord
 copy	Lib/Compiler/RealCombinators.lean	real_xorC_value_table_on_bool
 copy	Lib/Compiler/RealCombinators.lean	real_xorC_zero_table_on_bool
 copy	Lib/Compiler/RealTreeRecursion.lean	size_le_sizeList
