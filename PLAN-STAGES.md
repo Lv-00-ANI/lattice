@@ -2472,3 +2472,23 @@ gov/gen_proof_chain.py 的标签「抽象覆盖全链」 → 「抽象覆盖两�
 **⇒ `64 → 57`，仍然取**实测值**（登记表 +7，计数恰好 −7）。⇒ 双向验证：`57` ⇒ 0；`56` ⇒ 1。**
 
 **⇒ 递减链至此：`69 → 64 → 57`。⇒ 每一步的减量都可核对，且每一步的理由都是**读出来的**，不是猜的。**
+### 3.70 **第 1110 轮：按**结论形状**裁定 `1.4 → 3.2`（16 条）——预算 `57 → 33`**
+
+**⇒ 读了十六条，并按**陈述内容**（不是名字）分成五组：**
+
+| 组 | 条数 | 成员 | 理由 |
+|:--|--:|:--|:--|
+| **重述** | 5 | `compile_extract_end_to_end`、`_semantics_closed`、`roundtrip_preserves_semantics`、`extract_compile_semantically_equal`、`satisfies_iff_extractLayer` | 各自是**同一条往返语义引理**在拥有该定义的模块处被复述；一条理由覆盖五条，且本轮**核对了结论确实是那条引理**（不只是名字像） |
+| **成对** | 2 | `rt1_is_instance_of_branch_B`、`rt1_matches_existing` | **结论相同**，一者包装另一者，使该等价能以 vacuity 论证所用的名字被引用 |
+| **否定** | 2 | `activated_extract_cannot_repair`、`not_agrees_of_disagreement` | 按性质即终态 |
+| **总述** | 5 | `honesty_register`、`structured_init_complete`、`parse_chain_summary`、`models_structure`（一个方向）、**我自己的 `layerZeroRepair_extract`** | 总述/方向，按构造即终态 |
+| **梯子** | 2 | `approx_ladder_forward`、`roundingLadder_forward` | 各一个方向的前向事实 |
+
+**⇒ 预算 `57 → 33`（实测：登记表 `14 → 30`，死数 `57 → 33`）。⇒ 双向验证：`33` ⇒ 0；`32` ⇒ 1。**
+
+#### 一次**失败后还原**的编辑
+
+**⇒ 首次尝试用 `repr()` 生成重复理由再替换引号，产生 `SyntaxError`（`"tree"s`）。**
+**⇒ 处理方式：**从 HEAD 还原**，保留 `repr` 的引号原样重做——不是给坏文件打补丁。**
+
+**⇒ 预算递减链：`69 → 64 → 57 → 33`。⇒ 四步，每步的理由都是读出来的，减量都可核对。**
