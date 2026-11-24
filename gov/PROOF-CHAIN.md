@@ -3344,7 +3344,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `carrier_boolean_algebra` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
 - `carrier_closed_under_conj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `complete`, `criterion`, `out`, `sound`, `trivial`
 - `carrier_closed_under_disj` -> `Carrier`, `Compiler`, `Sat`, `compile`, `out`
-- `carrier_covers_whole_chain` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`
+- `carrier_covers_two_segments_plus_one_direction` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`
 - `carrier_implies_repair` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `extractLayer`, `repair_terminates_at_sat`
 - `carrier_implies_symbolToWeight` -> `AllSatisfied`, `AllZeroOutputs`, `Carrier`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compile`, `compileToLayer`, `compile_extract_layer`, `complete`, `criterion`, `extractLayer`, `extract_compile_constraints`, `linearCarrierAt`, `out`, `repair_terminates_at_sat`, `sound`
 - `carrier_implies_verify` -> `AllSatisfied`, `AllZeroOutputs`, `Compiler`, `Layer`, `Repair`, `Sat`, `VectorConstraint`, `compileToLayer`, `criterion`, `extractLayer`, `repair_terminates_at_sat`

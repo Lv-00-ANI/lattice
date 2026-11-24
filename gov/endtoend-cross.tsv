@@ -1542,7 +1542,7 @@ Lib/Compiler/CarrierReproduction.lean	carrier_implies_symbolToWeight
 Lib/Compiler/CarrierReproduction.lean	carrierFrom_criterion
 Lib/Compiler/CarrierReproduction.lean	carrier_implies_verify
 Lib/Compiler/CarrierReproduction.lean	carrier_implies_repair
-Lib/Compiler/CarrierReproduction.lean	carrier_covers_whole_chain
+Lib/Compiler/CarrierReproduction.lean	carrier_covers_two_segments_plus_one_direction
 Lib/Compiler/CarrierReversible.lean	criterion
 Lib/Compiler/CarrierReversible.lean	reinject_eq
 Lib/Compiler/CarrierReversible.lean	reextract_eq
