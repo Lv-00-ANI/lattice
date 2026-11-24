@@ -1,5 +1,6 @@
 import Lattice.Lib.Compiler.LinearComb
 import Lattice.Lib.Compiler.PiecewiseWeights
+import Lattice.Lib.Compiler.PiecewiseUniform
 import Lattice.Lib.Compiler.ChordErrorGeneral
 
 /-!
@@ -29,6 +30,7 @@ namespace Lattice.Lib.Compiler.GridBound
 open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.PiecewiseWeights
+open Lattice.Lib.Compiler.PiecewiseUniform
 open Lattice.Lib.Compiler.ChordGeneral
 open Lattice.Lib.Compiler.LinearComb
 open Lattice.Lib.Compiler.SymbolicEntry
@@ -206,5 +208,47 @@ theorem quadFun_gridEval_uniform_bound (a p q : ℝ) (n : ℕ) (hn : 0 < n) :
     rw [hnorm] at hb
     exact hb
   · exact hx
+
+/-- **⭐⭐在 `x = 1` 处插值是**精确**的。**
+
+**⇒ `segmentIndex n 1 = n`（`segmentIndex_at_one`），而第 `n` 段的左端恰好是 `1`
+（`n/n = 1`），故 `chordOf_eval_left` 直接给出 `f 1`。**
+
+**⇒ 这条说明「半开」不是本质的：它只是 `segmentIndex` 的一个边界，
+而**插值在那一点恰好不差**。** -/
+theorem interpFamily_eval_at_one (n : ℕ) (hn : 0 < n) (f : ℝ → ℝ) :
+    gridEval (interpFamily n f) n 1 = f 1 := by
+  have hidx : segmentIndex n 1 = n := segmentIndex_at_one n
+  have hun : ((n : ℝ) / n) = 1 := by
+    have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+    field_simp
+  show (interpFamily n f (segmentIndex n 1)).eval 1 = f 1
+  rw [hidx]
+  show (chordOf f ((n : ℝ) / n) (((n : ℝ) + 1) / n)).eval 1 = f 1
+  rw [hun]
+  exact chordOf_eval_left f 1 ((((n : ℝ)) + 1) / n)
+
+/-- **⭐⭐⭐ 分段界 ⟹ 整域界，而域可以是**闭**区间 `[0,1]`。**
+
+**⇒ 与前一条相比多了一个前提 `hone`：**边界点上的界**。
+对插值族，`hone` 不用单独证明——它由 `interpFamily_eval_at_one` 变成 `0 ≤ B`。**
+
+**⇒ 为何值得这么做：现有的 `interpFamily_sq_error`、`interpFamily_quadFun_error`
+都写在 `Icc 0 1` 上。若新入口只能说 `Ico 0 1`，那就永远**不能与它们并列**。** -/
+theorem gridEval_bound_of_segmentwise_Icc (g : ℕ → Segment) (n : ℕ) (hn : 0 < n)
+    (f : ℝ → ℝ) (B : ℝ)
+    (hseg : ∀ k, k < n → ∀ y ∈ Set.Icc ((k : ℝ) / n) (((k : ℝ) + 1) / n),
+        |f y - (g k).eval y| ≤ B)
+    (hone : |f 1 - (g n).eval 1| ≤ B)
+    (x : ℝ) (hx : x ∈ Set.Icc (0 : ℝ) 1) :
+    |f x - gridEval g n x| ≤ B := by
+  rcases lt_or_eq_of_le hx.2 with hlt | heq
+  · exact gridEval_bound_of_segmentwise g n hn f B hseg x ⟨hx.1, hlt⟩
+  · subst heq
+    show |f 1 - gridEval g n 1| ≤ B
+    have hidx : segmentIndex n 1 = n := segmentIndex_at_one n
+    unfold gridEval
+    rw [hidx]
+    exact hone
 
 end Lattice.Lib.Compiler.GridBound

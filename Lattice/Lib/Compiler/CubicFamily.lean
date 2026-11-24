@@ -28,7 +28,10 @@ import Lattice.Lib.Compiler.GridBound
 namespace Lattice.Lib.Compiler.CubicFamily
 
 open Lattice.Lib.Compiler.WeightSequence
+open Lattice.Lib.Compiler.PiecewiseWeights
+open Lattice.Lib.Compiler.PiecewiseUniform
 open Lattice.Lib.Compiler.ChordGeneral
+open Lattice.Lib.Compiler.GridBound
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler
@@ -90,48 +93,58 @@ theorem cube_chord_error (a b x : ℝ) (h0 : 0 ≤ a) (hab : a < b) (hx : x ∈ 
     linarith
   exact hstep
 
-/-- **⭐⭐⭐ 三次族的**整域一致界**：`≤ 3·(1/n)²/4`。**
+/-- **⭐⭐ 逐段的界（抽出来，供闭区间版本与开区间版本共用）。** -/
+theorem cube_segmentwise (n : ℕ) (hn : 0 < n) (k : ℕ) (hk : k < n) (y : ℝ)
+    (hy : y ∈ Set.Icc ((k : ℝ) / n) (((k : ℝ) + 1) / n)) :
+    |(fun t : ℝ => t ^ 3) y - (interpFamily n (fun t : ℝ => t ^ 3) k).eval y|
+      ≤ 3 * (1 / (n : ℝ)) ^ 2 / 4 := by
+  have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hseg : interpFamily n (fun t : ℝ => t ^ 3) k
+      = chordOf (fun t : ℝ => t ^ 3) ((k : ℝ) / n) (((k : ℝ) + 1) / n) := rfl
+  rw [hseg]
+  have hlt : ((k : ℝ) / n) < (((k : ℝ) + 1) / n) := by
+    have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
+      field_simp
+    have hpos : (0 : ℝ) < 1 / (n : ℝ) := by positivity
+    linarith
+  have hleft : (0 : ℝ) ≤ (k : ℝ) / n := by positivity
+  have hb := cube_chord_error ((k : ℝ) / n) (((k : ℝ) + 1) / n) y hleft hlt hy
+  have hwidth : ((((k : ℝ) + 1) / n) - ((k : ℝ) / n)) ^ 2 = (1 / (n : ℝ)) ^ 2 := by
+    have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
+      field_simp
+    rw [heq]
+  have hright : (((k : ℝ) + 1) / n) ≤ 1 := by
+    rw [div_le_one hn']
+    exact_mod_cast Nat.succ_le_of_lt hk
+  have hbound : 3 * (((k : ℝ) + 1) / n) * ((((k : ℝ) + 1) / n) - ((k : ℝ) / n)) ^ 2 / 4
+      ≤ 3 * (1 / (n : ℝ)) ^ 2 / 4 := by
+    rw [hwidth]
+    have hpos : (0 : ℝ) ≤ (1 / (n : ℝ)) ^ 2 / 4 := by positivity
+    nlinarith [hright]
+  linarith
 
-**⇒ 路径就是「一族一装」的入口：`cube_chord_error`（单区间）
-+ `gridEval_bound_of_segmentwise`（分段→整域）。**
-**⇒ 段宽为 `1/n`，且 `b = (k+1)/n ≤ 1`，故界退化为 `3·(1/n)²/4`——与 `n` 无关的那部分正是效率所在。** -/
+/-- **⭐⭐⭐ 三次族的**整域一致界（**闭**区间 `[0,1]`）。**
+
+**⇒ 比前一版强：它包含 `x = 1`。那一点由 `interpFamily_eval_at_one` 处理——
+**插值在右端点恰好精确**，故界自动成立。** -/
 theorem cube_uniform_bound (n : ℕ) (hn : 0 < n) :
-    ∀ x ∈ Set.Ico (0 : ℝ) 1,
+    ∀ x ∈ Set.Icc (0 : ℝ) 1,
       |x ^ 3 - gridEval (interpFamily n (fun t : ℝ => t ^ 3)) n x|
         ≤ 3 * (1 / (n : ℝ)) ^ 2 / 4 := by
-  have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
   intro x hx
-  apply Lattice.Lib.Compiler.GridBound.gridEval_bound_of_segmentwise
-    (fun k => interpFamily n (fun t : ℝ => t ^ 3) k) n hn
-    (fun t : ℝ => t ^ 3) (3 * (1 / (n : ℝ)) ^ 2 / 4)
-  · intro k hk y hy
-    -- **该段就是该区间上的弦。**
-    have hseg : interpFamily n (fun t : ℝ => t ^ 3) k
-        = chordOf (fun t : ℝ => t ^ 3) ((k : ℝ) / n) (((k : ℝ) + 1) / n) := rfl
-    rw [hseg]
-    -- **区间非空，且左端非负。**
-    have hlt : ((k : ℝ) / n) < (((k : ℝ) + 1) / n) := by
-      have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
-        field_simp
-      have hpos : (0 : ℝ) < 1 / (n : ℝ) := by positivity
-      linarith
-    have hleft : (0 : ℝ) ≤ (k : ℝ) / n := by positivity
-    have hb := cube_chord_error ((k : ℝ) / n) (((k : ℝ) + 1) / n) y hleft hlt hy
-    -- **幅度与右端归一化。**
-    have hwidth : ((((k : ℝ) + 1) / n) - ((k : ℝ) / n)) ^ 2 = (1 / (n : ℝ)) ^ 2 := by
-      have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
-        field_simp
-      rw [heq]
-    have hright : (((k : ℝ) + 1) / n) ≤ 1 := by
-      rw [div_le_one hn']
-      exact_mod_cast Nat.succ_le_of_lt hk
-    have hbound : 3 * (((k : ℝ) + 1) / n) * ((((k : ℝ) + 1) / n) - ((k : ℝ) / n)) ^ 2 / 4
-        ≤ 3 * (1 / (n : ℝ)) ^ 2 / 4 := by
-      rw [hwidth]
-      have hpos : (0 : ℝ) ≤ (1 / (n : ℝ)) ^ 2 / 4 := by positivity
-      nlinarith [hright]
-    linarith
-  · -- **域假设是 `apply` 留下的第二个目标。**
-    exact hx
+  apply Lattice.Lib.Compiler.GridBound.gridEval_bound_of_segmentwise_Icc (fun k => interpFamily n (fun t : ℝ => t ^ 3) k)
+    n hn (fun t : ℝ => t ^ 3) (3 * (1 / (n : ℝ)) ^ 2 / 4)
+  · exact fun k hk y hy => cube_segmentwise n hn k hk y hy
+  · -- **右端点：插值精确。**
+    -- **目标里出现的是 `(interpFamily … n).eval 1`；先把它换成 `gridEval … 1`。**
+    have hbridge : (interpFamily n (fun t : ℝ => t ^ 3) n).eval 1
+        = gridEval (interpFamily n (fun t : ℝ => t ^ 3)) n 1 := by
+      show _ = (interpFamily n (fun t : ℝ => t ^ 3) (segmentIndex n 1)).eval 1
+      rw [segmentIndex_at_one]
+    rw [hbridge, interpFamily_eval_at_one n hn (fun t : ℝ => t ^ 3)]
+    -- **`|1 − 1| = 0 ≤ B`；`B` 非负由 `0 < n` 保证。**
+    have hpos : (0 : ℝ) ≤ 3 * (1 / (n : ℝ)) ^ 2 / 4 := by positivity
+    simpa using hpos
+  · exact hx
 
 end Lattice.Lib.Compiler.CubicFamily
