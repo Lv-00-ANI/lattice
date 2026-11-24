@@ -29,7 +29,7 @@
 | 真正的难点只有 符号⇄权重 这一跳 | **theorem** | `no_extractor_both_layers` / `Extraction.layers_conflict`；**P8 判决（第 944–965 轮，21 文件 / 126 声明）**：`hop_verdict`（四步合一）、`target_not_attainable`（线性族 `1/8` 地板）、`r2_holds_for_piecewise`（收敛序列存在）、`piecewiseWeights_uniform_tendsto`（分段族一致逼近）、`irWeights_error_bound`（真实载体 `IRWeights`） | 「难」的形式化内容是：不可能有一个提取器同时对参数层与语义层忠实；**而定量内容是：线性族有正地板、分段族无地板，且后者已在真实权重载体上证明** |
 | 不绑定任何厂商或框架 | **check** | `check_objective_coverage.py` 规则 C（外部 vendor import 数为 0） | 「不 import」可机器检查 |
 | 不实现引擎、模型和训练框架 | **check** | `check_scope_boundary.py`（无训练循环 / 优化器结构 / Module 式 forward） | 「不写训练循环」可机器检查；第 158 轮补上 |
-| 正确性由 Lean 4 形式化保证 | **theorem** | 全库 10,239 条定理，`gate.py` 的 I1（无 axiom）/ I2（无 sorry） | 「保证」的含义是：无 axiom、无 sorry、内核检查通过 |
+| 正确性由 Lean 4 形式化保证 | **theorem** | 全库 10,241 条定理，`gate.py` 的 I1（无 axiom）/ I2（无 sorry） | 「保证」的含义是：无 axiom、无 sorry、内核检查通过 |
 | 所有 LLM 的训练与后训练都可落在这条链路上 | **positioning** | `Ladder` / `Representation` / `Compiler` / `Repair` 全部参数化（规则 E），且各有 Core 之外的实例（规则 F） | **这是关于外部世界的声明，Lean 不证明它**。可形式化的部分是「结构不特殊化 + 有实例」，两项都有守卫。**把它写成定理会是假的。** |
 | 项目的定位是通用基础设施 | **positioning** | 同上；另加规则 G 的四跳都「被外部使用」 | 同上：**可验证的部分已守卫，整体是定位声明** |
 | 其余都是成熟技术 | **positioning** | — | **这是对领域的判断，不是数学命题**。本库不对它作任何形式化声明，也不应假装它被证明了。 |
