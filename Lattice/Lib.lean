@@ -78,6 +78,7 @@ import Lattice.Lib.Compiler.PolyTable
 import Lattice.Lib.Compiler.QuarticFamily
 import Lattice.Lib.Compiler.ArtifactStitch
 import Lattice.Lib.Compiler.PowChord
+import Lattice.Lib.Compiler.AnalyticRow
 /-!
 # Lattice.Lib -- harvested instances
 
