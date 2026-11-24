@@ -2548,3 +2548,26 @@ gov/gen_proof_chain.py 的标签「抽象覆盖全链」 → 「抽象覆盖两�
 **⇒ 预算 `21 → 18`（实测：登记 `33 → 36`）。⇒ 双向验证：`18` ⇒ 0；`17` ⇒ 1。**
 
 **⇒ 预算链：`69 → 64 → 57 → 33 → 24 → 21 → 18`。**
+### 3.74 **第 1114 轮：五个名字，**一个方程**——预算 `18 → 14`**
+
+**⇒ 读了「逆/不动点」族五条，其中**四条是同一内容的四种写法**：**
+
+| 名字 | 形式 |
+|:--|:--|
+| `extractLayer_leftInverse` | `Function.LeftInverse extractLayer compileToLayer` |
+| `extractLayer_rightInverse` | `Function.RightInverse extractLayer compileToLayer` |
+| `rt1_leftInverse` | `extractLayer_compileToLayer`（为 vacuity 文件**再导出**） |
+| `compiled_roundTrip_fixed` | 原始方程 `compileToLayer (extractLayer ls) = ls` |
+
+**⇒ 每种形式都因**不同的消费词汇**而存在，故四条都**该保留**——但它是**一个事实**，
+而登记里**如实这么说**，不把四个名字装成四个发现。**
+
+**⇒ 第五条 `compiled_roundTrip_fixed_iff` 是唯一**增加信息**的：对单层而言，「是不动点」⟺「是某约束的像」。**
+**⇒ 它是**刻画**而非**改拼**。**
+
+**⇒ 这也是**陈述重复门禁看不见**的一类近乎重复：四种形式在语法上不同（`Function.LeftInverse` vs 一个方程），
+故按结论文本分组会漏掉它们。⇒ 这条观察就活在这张登记表里。**
+
+**⇒ 预算 `18 → 14`（实测：登记 `36 → 41`）。⇒ 双向验证：`14` ⇒ 0；`13` ⇒ 1。**
+
+**⇒ 预算链：`69 → 64 → 57 → 33 → 24 → 21 → 18 → 14`。⇒ 剩 14 条，两轮可清。**
