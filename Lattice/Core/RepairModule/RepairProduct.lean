@@ -94,4 +94,46 @@ theorem repairProd_iterate (R : Repair α) (S : Repair β) (n : ℕ) (p : α × 
       simp only [repairProd]
       rw [Function.iterate_succ_apply', Function.iterate_succ_apply']
 
+/-! ## 五、**一个结构性事实：`Repair` 的三条义务**强制 `Sat` 非空****
+
+**⇒ 这是本轮意外得到的东西：若 `Sat` 对所有点都不成立，则 `decreases` 会给出
+`μ (fix x) < μ x` 对**每一个** `x` 成立——而 `μ : α → ℕ` 无法无限下降。
+**⇒ 故「不可满足的 `Repair`」**不存在**，而 `no_loop_fixes_unsatisfiable` 的前提**永远不成立**。**
+
+**⇒ 这解释了一件事：那条定理看似在说「回路是正确的但不是魔法」，实际上它的前提
+**不可能被满足**；真正的「失败分支」在这个抽象里**不存在**。** -/
+
+/-- **⭐⭐ **任何 `Repair` 都有一个可达的满足点**（对任意起点）。
+
+**⇒ 对 `μ x` 做**强归纳**：若 `x` 已满足取 `k = 0`；否则 `μ (fix x) < μ x`，对 `fix x` 用归纳假设。**
+**⇒ 故 `μ` 的下降**保证**了存在性：这是「测度”这个字的内容。** -/
+theorem exists_sat_iterate_aux (R : Repair α) :
+    ∀ n : ℕ, ∀ y : α, R.μ y = n → ∃ k, R.Sat (R.iterate k y) := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+      intro y hy
+      by_cases hs : R.Sat y
+      · exact ⟨0, by simpa [Lattice.Core.Repair.iterate] using hs⟩
+      · have hdec : R.μ (R.fix y) < n := by
+          rw [← hy]
+          exact R.decreases y hs
+        obtain ⟨k, hk⟩ := ih (R.μ (R.fix y)) hdec (R.fix y) rfl
+        refine ⟨k + 1, ?_⟩
+        have hstep : R.iterate (k + 1) y = R.iterate k (R.fix y) := by
+          unfold Lattice.Core.Repair.iterate
+          rw [Function.iterate_succ_apply]
+        rw [hstep]
+        exact hk
+
+/-- **⭐⭐ **任何 `Repair` 都有一个可达的满足点**（对任意起点）。** -/
+theorem exists_sat_iterate (R : Repair α) (x : α) :
+    ∃ k, R.Sat (R.iterate k x) :=
+  exists_sat_iterate_aux R (R.μ x) x rfl
+
+theorem sat_not_empty (R : Repair α) [Nonempty α] : ¬ (∀ x : α, ¬ R.Sat x) := by
+  intro hempty
+  obtain ⟨k, hk⟩ := exists_sat_iterate R (Classical.arbitrary α)
+  exact hempty _ hk
+
 end Lattice.Core.RepairModule.RepairProduct

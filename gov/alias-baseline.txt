@@ -229,6 +229,7 @@ forward	Core/OneStepBridge.lean	natCountdownAsRepair_converges
 forward	Core/OneStepBridge.lean	oneStepRepair_converges
 forward	Core/RepairModule/Repair.lean	parity_terminates
 forward	Core/RepairModule/RepairBridge.lean	converges
+forward	Core/RepairModule/RepairProduct.lean	exists_sat_iterate
 forward	Core/RepairModule/SqDistRepair.lean	sqDistHalving_terminates
 forward	Evidence/MultiComposition.lean	chain_single
 forward	Evidence/MultiComposition.lean	chain_two
