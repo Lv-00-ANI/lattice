@@ -1515,7 +1515,7 @@
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
 | `Lattice.Lib.Compiler.InterpAlgebra` | 12 | 0 |
 | `Lattice.Lib.Compiler.Layout` | 5 | 10 |
-| `Lattice.Lib.Compiler.LinearComb` | 3 | 2 |
+| `Lattice.Lib.Compiler.LinearComb` | 5 | 2 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
@@ -3545,11 +3545,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `chordOf_affine` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_left` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordOf_eval_right` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
-- `chordOf_linComb` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`
+- `chordOf_linComb` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordSlope`, `chord_error_sq_rederived`, `eval`
 - `chordOf_smul` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `apply`, `chordOf`, `chordSlope`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `ofSegments`, `quadFun`
 - `chordOf_sq` -> `Compiler`, `Segment`, `at`, `chordSegment`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
 - `chordSegment_eval` -> `Compiler`, `apply`, `at`, `chord_error_bound`, `eps`, `eval`, `r2_holds_for_piecewise`
-- `chordSlope_linComb` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`
+- `chordSlope_linComb` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordSlope`, `chord_error_sq_rederived`, `eval`
 - `chord_bound_symm_measure` -> `at`, `condexp_add`, `condexp_const`, `condexp_mono`, `g`, `mono`, `trans`
 - `chord_deviation` -> `Compiler`, `at`, `target_not_attainable`
 - `chord_error_bound` -> `Compiler`, `at`, `target_not_attainable`
@@ -7077,6 +7077,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lift_zero_id` -> `Closed`, `Term`, `apply`, `induction`, `lift`, `subst`, `zero`
 - `linAttnDenom_nonneg` -> `convComb_norm_bound`, `d`, `softmax`
 - `linAttnDenom_pos` -> `convComb_norm_bound`, `d`, `softmax`
+- `linComb_error` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordSlope`, `chord_error_sq_rederived`, `eval`
 - `linInterp_between` -> `min`
 - `linInterp_convex_form` -> `min`
 - `linInterp_left` -> `min`
@@ -9957,7 +9958,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `second_substantive_instance` -> `E`, `PenaltyEmbedding`, `compile`, `encode`, `loss`, `satW`
 - `section_is_right_inverse` -> `CharToken`, `ConstraintSet`, `IsFormalConcept`, `SameTokens`, `SymToken`, `VectorConstraint`, `apply`, `canonicalize`, `canonicalize_idempotent`, `choice`, `closure_idempotent`, `constraintContent`, `decode`, `detokenize`, `detokenize_left_inverse_on_quotient`, `extent`, `g`, `intent`, `map`, `mkConstraint`, `subset_extent_intent`, `toSegs`, `tokenize`
 - `section_on_image_iff_up_to` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `segSum_eval` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`, `eval`, `g`
+- `segSum_eval` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordSlope`, `chord_error_sq_rederived`, `eval`, `g`
 - `seg_congr` -> `AffineLayer`, `E`, `Pt`, `add`, `collinear`, `comp`, `d`, `differentiableAt_netActN`, `induction`, `map`, `minorDefect`, `netActN`, `parallel`, `penaltyLoss`
 - `seg_const_zero` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `segmentIndexRat_coe` -> `Compiler`, `g`, `gridEval`, `segmentIndex`, `toNat`
@@ -10466,6 +10467,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sq_add_two_le` -> `card_fin`, `g`
 - `sq_chord_div` -> `Compiler`, `at`, `chordOf`, `chord_error_of_tent_bound`, `eval`, `le`
 - `sq_chord_error_eq_tent` -> `Compiler`, `chordOf`, `chordOf_sq`, `chordSegment_eval`, `eval`, `le_refl`
+- `sq_chord_error_via_linComb` -> `Compiler`, `at`, `chordOf`, `chord_error_sq_rederived`, `eval`
 - `sq_dist_eq_of_dist_eq` -> `E`, `Geometry`, `at`
 - `sq_eq_zero_iff_real` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `sq_eq_zero_of_localMin` -> `E`, `sq_localMin_dichotomy`
