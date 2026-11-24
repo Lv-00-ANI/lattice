@@ -124,4 +124,85 @@ theorem capability_select_is_analytic (req : Request) (rows : List CapabilityRow
         simp only [select, analyticSelect, List.find?_cons, hp, hp', if_false, List.map]
         exact ih
 
+/-! ## 二、解析层的落点：任意度数都能被**选中** -/
+
+/-- **解析层的度数表**：度数 `d` 从 `2` 开始，每个度数一行。
+
+**⇒ 为何从 `2` 开始：`0` 与 `1` 没有“近似”的意义（仿射是**精确**的，它在能力层里）。
+⇒ 因此解析层从二次起记录近似族。** -/
+noncomputable def powRowsTo : ℕ → List AnalyticRow
+  | 0 => []
+  | (n + 1) => powRowsTo n ++ (if h : 2 ≤ n then [powAnalyticRow n h] else [])
+
+/-- **⭐ `powRowsTo 6` 的具体形状**：度数 `2,3,4,5` 四行。** -/
+theorem powRowsTo_six :
+    powRowsTo 6
+      = [powAnalyticRow 2 (by norm_num), powAnalyticRow 3 (by norm_num),
+         powAnalyticRow 4 (by norm_num), powAnalyticRow 5 (by norm_num)] := by
+  simp [powRowsTo, Nat.reduceLeDiff]
+
+/-! ## 三、五次目标落在五次行上 -/
+
+/-- **⭐ `t⁵` 与 `t²`、`t³`、`t⁴` 都不同**（均在 `t = 2` 处）。** -/
+theorem five_ne_two : (fun t : ℝ => t ^ 5) ≠ (fun t : ℝ => t ^ 2) := by
+  intro h
+  have h2 : (2 : ℝ) ^ 5 = (2 : ℝ) ^ 2 := by simpa using congrFun h 2
+  norm_num at h2
+
+/-- **⭐ `t⁵ ≠ t³`。** -/
+theorem five_ne_three : (fun t : ℝ => t ^ 5) ≠ (fun t : ℝ => t ^ 3) := by
+  intro h
+  have h2 : (2 : ℝ) ^ 5 = (2 : ℝ) ^ 3 := by simpa using congrFun h 2
+  norm_num at h2
+
+/-- **⭐ `t⁵ ≠ t⁴`。** -/
+theorem five_ne_four : (fun t : ℝ => t ^ 5) ≠ (fun t : ℝ => t ^ 4) := by
+  intro h
+  have h2 : (2 : ℝ) ^ 5 = (2 : ℝ) ^ 4 := by simpa using congrFun h 2
+  norm_num at h2
+
+/-- **⭐⭐⭐ 五次目标在解析层落到**五次行**。
+
+**⇒ 路径与能力层完全同形：三次 `find?_cons_of_neg` 跳过 `t²`/`t³`/`t⁴`，
+再 `find?_cons_of_pos` 取 `t⁵`。**
+**⇒ 故它说明的是「任意度数**可被选中**」这件事的具体一例，
+而不是又一条存在性陈述。** -/
+theorem quintic_lands (n : ℕ) (hn : 0 < n) (eps : ℝ)
+    (heps : ((5 * (5 - 1) : ℕ) : ℝ) / 8 * (1 / (n : ℝ)) ^ 2 ≤ eps) :
+    analyticSelect ⟨(fun t : ℝ => t ^ 5), eps, n, hn⟩ (powRowsTo 6)
+      = some (powAnalyticRow 5 (by norm_num)) := by
+  classical
+  rw [powRowsTo_six]
+  unfold analyticSelect
+  -- **第一次跳过：`t²` 行不适用于 `t⁵`。**
+  rw [List.find?_cons_of_neg]
+  · rw [List.find?_cons_of_neg]
+    · rw [List.find?_cons_of_neg]
+      · apply List.find?_cons_of_pos
+        apply decide_eq_true
+        constructor
+        · show (powAnalyticRow 5 (by norm_num)).covers (fun t : ℝ => t ^ 5)
+          rfl
+        · show (powAnalyticRow 5 (by norm_num)).constant * (1 / (n : ℝ)) ^ 2 ≤ eps
+          show ((5 * (5 - 1) : ℕ) : ℝ) / 8 * (1 / (n : ℝ)) ^ 2 ≤ eps
+          exact heps
+      · have hf : decide (analyticSufficient (powAnalyticRow 4 (by norm_num))
+            ⟨(fun t : ℝ => t ^ 5), eps, n, hn⟩) = false :=
+          decide_eq_false (by
+            intro hs
+            exact five_ne_four hs.1)
+        simpa using hf
+    · have hf : decide (analyticSufficient (powAnalyticRow 3 (by norm_num))
+          ⟨(fun t : ℝ => t ^ 5), eps, n, hn⟩) = false :=
+        decide_eq_false (by
+          intro hs
+          exact five_ne_three hs.1)
+      simpa using hf
+  · have hf : decide (analyticSufficient (powAnalyticRow 2 (by norm_num))
+        ⟨(fun t : ℝ => t ^ 5), eps, n, hn⟩) = false :=
+      decide_eq_false (by
+        intro hs
+        exact five_ne_two hs.1)
+    simpa using hf
+
 end Lattice.Lib.Compiler.AnalyticSelection
