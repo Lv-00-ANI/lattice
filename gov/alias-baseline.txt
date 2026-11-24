@@ -456,6 +456,7 @@ forward	Lib/Compiler/Chain.lean	repair_chain
 forward	Lib/Compiler/Expressiveness.lean	linear_strictly_weaker_than_relu
 forward	Lib/Compiler/Expressiveness.lean	relu_expresses_inequality
 forward	Lib/Compiler/LoopInstance.lean	twoSlopeLoop_ends_sat
+forward	Lib/Compiler/LoopInstance.lean	twoSlopeLoop_objective_vanishes
 forward	Lib/Compiler/LoopInstance.lean	twoSlopeLoop_step_fixed
 forward	Lib/Compiler/LowerBound.lean	target_not_attainable
 forward	Lib/Compiler/ModConstraint.lean	dvd_sub_int

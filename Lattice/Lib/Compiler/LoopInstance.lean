@@ -79,4 +79,40 @@ theorem twoSlopeLoop_run_components (a b : ℝ) (n : ℕ) (x : ℝ) (k : ℕ)
   show (twoSlopeRepair a b).fix^[k] p = _
   exact Lattice.Core.RepairModule.RepairProduct.repairProd_iterate (slopeRepair a) (slopeRepair b) k p
 
+/-! ## 三、以**缺陷函数**为目标：终点为零 -/
+
+/-- **⭐⭐以「两侧斜率与目标的偏差平方和」为目标的闭环。**
+
+**⇒ 与上一个实例的区别是本质的：`gridEval` 在达标点**不**为零（它是 `a·x + c`），
+而偏差函数在达标点**恰好为零**——这才能接上
+`closed_loop_reinject_vanishes`。**
+**⇒ 故本实例的目标函数不是占位而是**误差度量**。** -/
+noncomputable def twoSlopeDefectLoop (a b : ℝ) :
+    VerificationLoop ((ℕ → Segment) × (ℕ → Segment)) where
+  repair := twoSlopeRepair a b
+  objective := fun p => ((p.1 0).m - a) ^ 2 + ((p.2 0).m - b) ^ 2
+
+/-- **⭐⭐ 目标在达标处为零**（本实例的 `hobj`）。** -/
+theorem twoSlopeDefectLoop_objective_at_sat (a b : ℝ)
+    {p : (ℕ → Segment) × (ℕ → Segment)} (h : (twoSlopeRepair a b).Sat p) :
+    (twoSlopeDefectLoop a b).objective p = 0 := by
+  obtain ⟨h1, h2⟩ := h
+  show ((p.1 0).m - a) ^ 2 + ((p.2 0).m - b) ^ 2 = 0
+  have e1 : ((p.1 0).m - a) ^ 2 = 0 := by rw [h1]; ring
+  have e2 : ((p.2 0).m - b) ^ 2 = 0 := by rw [h2]; ring
+  rw [e1, e2]
+  ring
+
+/-- **⭐⭐⭐ 闭环终点目标**为零**——**直接引用主链的 `closed_loop_reinject_vanishes`。**
+
+**⇒ 这就是规划里「再注入」的实体：经过 `μ p` 轮修正后，产物两侧的斜率**偏差平方和为零**，
+即两侧斜率分别等于目标 `a`、`b`。**
+**⇒ 而证明只有一行：把本实例的 `hobj` 喂给主链定理。** -/
+theorem twoSlopeLoop_objective_vanishes (a b : ℝ)
+    (p : (ℕ → Segment) × (ℕ → Segment)) :
+    (twoSlopeDefectLoop a b).objective
+      ((twoSlopeDefectLoop a b).run ((twoSlopeDefectLoop a b).repair.μ p) p) = 0 :=
+  VerificationLoop.closed_loop_reinject_vanishes (twoSlopeDefectLoop a b) p
+    (fun y hy => twoSlopeDefectLoop_objective_at_sat a b hy)
+
 end Lattice.Lib.Compiler.LoopInstance
