@@ -1829,3 +1829,46 @@ reverse_chain_twoSlope (b₁ ≠ a) (b₂ ≠ b) (x₁ ≠ 0) (segmentIndex r.n 
 验证后 `--no-ff` 合并，且先证旧结果在新载体上仍成立。**
 
 **⇒ 文档**不**声称哪一套「更正确」：它们在不同判据下都正确，而判据不同正是它们需要并存的原因。**
+### 3.51 **第 1088 轮（**架构级尝试**，分支 `feat-real-layer`）：一个推广，两个截面**
+
+**第 1087 轮的对照文档记录了「两套实现**不可合并**」。⇒ 但「不可合并」不等于「无法解释」。**
+**⇒ 本轮在**分支**上尝试更弱但更有用的一件事：**两者是同一个推广的两个截面**。**
+
+```lean
+structure RealLayer where  w : List ℝ ;  b : ℝ
+dotR / RealLayer.out / realLayerOfInt / castI
+
+realLayer_ofInt_out (l : LinearLayer) (x : List ℤ) :
+    castI (LayerOut l x) = (realLayerOfInt l).out (x.map castI)     -- 主链 = **整数截面**
+
+realLayer_single_eq_segment (m c x : ℝ) :
+    RealLayer.out ⟨[m], c⟩ [x] = (⟨m, c⟩ : Segment).eval x          -- 新线 = **单段截面**
+
+two_sections_of_one_generalisation (w b x : ℤ)                     -- 两者并读（标量片段）
+```
+
+**⇒ 算术内核是两条**结构归纳**引理，且两条都必需：**
+- `zip_map_cast`：逐元素强转后再 `zip` = 先 `zip` 再强转；
+- `zip_fold_cast`：**带任意整数累加器**的 `foldl` 与强转可交换。
+
+**⇒ 第二条是真正的实质：`ℤ` 的和能强转成 `ℝ` 的和，**只因为累加器可以被一起带过去**——
+这就是那条引理必须以 `accZ` 而非 `0` 陈述的原因。**
+
+**⇒ **什么都没改**：`LinearLayer`、`Segment`、`dot`、`LayerOut` 及其全部证明**逐字未动**。
+⇒ 这是**并列新增**，故主链那 52 处 `compileToLayer` 相关引用**字节相同**。
+⇒ 这一点使它成为**解释**而非**迁移**：没有任何既有消费者被搬动。**
+
+**⇒ 它解决与不解决什么：它说明两套实现是**同一个对象在两个截面上的像**，故二义性**被解释**了；
+它**不**统一两者的判据——`AllZeroOutputs` 与 ε 界仍是两个谓词，本文件不作相反声称。**
+
+**⇒ 按纪律在**分支**上构建，合并前分支自身 `--fast` 全过（382.3 秒），再 `--no-ff` 合并，
+故分支点与它的两个提交在历史里可见。**
+
+**⇒ 三次机械失败，都是我的，都已修：**
+1. 匿名 `(fun z => (z : ℝ))` 在打印里呈单子形式，破坏了 `zip` 引理的模式匹配 ⇒ 改为命名 `castI`；
+2. `castI 0` **不**与 `0` 定义相等 ⇒ 折叠引理需 `simpa` 而非 `exact`；
+3. 用匿名 lambda 构造的 `ofInt` **不**规约其投影 ⇒ 改为 `realLayerOfInt` 用 `castI`，使投影规约成为定义相等。
+
+**⇒ 还有一条**流程**教训：我的手工门禁清单里 `audit_duplicate_names.py` 与 `check_duplicate_classes.py`
+**漏了 `--check`**，故我这边全过而 `verify_all` 报 2 处失败。⇒ 这与本项目历史上同类的遗漏是**第二次**。
+⇒ 结论：**跑 `verify_all` 用的那条确切命令行，而不是记忆里的近似。****
