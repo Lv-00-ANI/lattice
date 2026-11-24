@@ -2252,3 +2252,22 @@ theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List I
 两个文件真正连起来（同属 `Runtime/`，**不违反 I4**）。**
 **⇒ 而 `extract_after_repair` 本身的 0 消费者将**继续**——因为它的 `hSat` 前提在树里没有实例。
 ⇒ 若下一轮后它仍是 0，则正确结论是：**那条定理的前提过强，应被这条兄弟定理取代，并在文档里说明。**
+### 3.62 **第 1102 轮：为全零实例写 `extract_after_repair` 的**兄弟定理****
+
+**⇒ 上轮末尾定位了接缝 0/2 的精确原因：`extract_after_repair` 需要 `hSat : ∀ ls, R.Sat ls ↔ LayerSat cs ls`，
+而全零判据与「满足给定约束集」**不等价**。⇒ 故它不是「缺消费者」，而是**前提过强**。**
+
+**⇒ 本轮写它**能支持**的那一条：**
+
+```lean
+theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List Int) :
+    AllSatisfied (Lattice.Runtime.LoopClosure.extractLayer ls) x
+```
+
+**⇒ 理由是一行：全零层提取出的每个约束都是 `0 = 0`，故提取出的符号**对任意输入、任意约束集**成立。**
+**⇒ 而这正是零实例**真正能支撑**的「修复后再提取」陈述。**
+
+**⇒ 它还使 `extractLayer` 与 `AllSatisfied` **首次进入「修复后」语境**，并把 `LayerRepair` 与 `LoopClosure` 连起来
+（同属 `Runtime/`，**不违反 I4**）。**
+
+**⇒ 修复普查 `A_decls: 37 → 38`。**
