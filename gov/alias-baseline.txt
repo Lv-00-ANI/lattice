@@ -439,6 +439,7 @@ forward	Lib/Chain/RealReedSolomon.lean	rs_decoding_unique_plus_reconstruction
 forward	Lib/Chain/RealScalarField.lean	edit_verify_tolerance_scalar
 forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeval
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
+forward	Lib/Compiler/CapabilityTable.lean	row_gives_bound
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
 forward	Lib/Compiler/CarrierApproximation.lean	list_int_error_quantized
