@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 24
+UNREGISTERED_BUDGET = 21
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -173,6 +173,14 @@ TERMINAL_CONNECTORS = {
         "one direction of the approximation ladder: satSym -> satW plus the round-trip distance bound. A forward fact, terminal.",
     "roundingLadder_forward":
         "the same for the rounding ladder. Terminal for the same reason.",
+    # Round 1112: the three extractWith_* lemmas that are genuinely unused (the other three are the summary
+    # and the base lemmas it consumes, which round 1111 showed are "used in place", not dead).
+    "extractWith_collision":
+        "an EQUATION: when two tensors share an id, reading one position returns the other id s cell. A base fact about the encoding, not a step -- nothing composes it.",
+    "extractWith_overwrite_footprint":
+        "a CONJUNCTION of extractWith_overwrite and extractWith_overwrite_local: what an overwrite returns at its own position and nowhere else. Those two are its content, so the summary adds packaging, not a fact.",
+    "extractWith_spec":
+        "a CONJUNCTION of extractWith_compileWith and extractWith_absent: extract after compile is the identity on the skeleton s tensors and zero elsewhere. A specification of the pair, i.e. an endpoint.",
 }
 
 
