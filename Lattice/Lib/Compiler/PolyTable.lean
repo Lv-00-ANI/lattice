@@ -193,4 +193,66 @@ theorem selectByDegree_eq_selectUpTo (req : Request) :
   unfold selectByDegree selectUpTo
   rw [degreeList_four]
 
+/-! ## 四、上界是**保证**，不只是过滤条件 -/
+
+/-- **⭐⭐ `polyRow d` 产生的行度数恰好是 `d`。**
+
+**⇒ 这是 `polyRow` 的**一致性**：下一层要说「表里的行都低于上界」，
+而那一步靠的就是**索引与字段一致**。** -/
+theorem polyRow_degree (d : ℕ) (row : CapabilityRow) (h : row ∈ (polyRow d).toList) :
+    row.degree = d := by
+  match d with
+  | 0 => rw [polyRow_zero] at h; simp at h
+  | 1 =>
+      rw [polyRow_one] at h
+      simp only [Option.toList_some, List.mem_singleton] at h
+      rw [h]
+      rfl
+  | 2 =>
+      rw [polyRow_two] at h
+      simp only [Option.toList_some, List.mem_singleton] at h
+      rw [h]
+      rfl
+  | 3 =>
+      rw [polyRow_three] at h
+      simp only [Option.toList_some, List.mem_singleton] at h
+      rw [h]
+      rfl
+  | Nat.succ (Nat.succ (Nat.succ (Nat.succ k))) =>
+      have hnone : polyRow (Nat.succ (Nat.succ (Nat.succ (Nat.succ k)))) = none := by
+        rw [polyRow_none_iff]
+        omega
+      rw [hnone] at h
+      simp at h
+
+/-- **⭐⭐⭐ 表里每一行的度数都**严格小于**上界。
+
+**⇒ 对 `dmax` 归纳：后继步的表是「旧表 ++ 度数为 `n` 的那一行」，
+两部分分别由**归纳假设**与 `polyRow_degree` 处理。** -/
+theorem degreeList_degree_lt (dmax : ℕ) :
+    ∀ row ∈ degreeList dmax, row.degree < dmax := by
+  induction dmax with
+  | zero =>
+      intro row h
+      rw [degreeList_zero] at h
+      simp at h
+  | succ n ih =>
+      intro row h
+      rw [show degreeList (n + 1) = degreeList n ++ (polyRow n).toList from rfl] at h
+      rw [List.mem_append] at h
+      rcases h with h | h
+      · have := ih row h; omega
+      · have hd := polyRow_degree n row h; omega
+
+/-- **⭐⭐⭐ **被选中的行度数低于调用者给的上界**。
+
+**⇒ 这就是 `dmax` 作为参数的**含义**：它不只过滤，而是给出一个可引用的承诺——
+任何被选中的族都不超过调用者愿意承受的复杂度。** -/
+theorem selectUpTo_degree_bound {req : Request} {dmax : ℕ} {row : CapabilityRow}
+    (h : selectUpTo req dmax = some row) : row.degree < dmax := by
+  classical
+  unfold selectUpTo at h
+  unfold select at h
+  exact degreeList_degree_lt dmax row (List.mem_of_find?_eq_some h)
+
 end Lattice.Lib.Compiler.PolyTable
