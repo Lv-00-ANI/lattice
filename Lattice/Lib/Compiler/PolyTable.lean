@@ -25,6 +25,7 @@ import Lattice.Lib.Compiler.CapabilityTable
 namespace Lattice.Lib.Compiler.PolyTable
 
 open Lattice.Lib.Compiler
+open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler.CapabilityTable
 
@@ -131,5 +132,65 @@ theorem affineFamily_not_sufficient_for_cube (req : Request)
     rw [← hgoal]
     exact hcd
   exact cube_not_affine ⟨c, d, hcube⟩
+
+/-! ## 三、从生成器到列表：上界成为**参数** -/
+
+/-- **由 `polyRow` 生成的表**：取度数 `< dmax` 的那些行，保序。
+
+**⇒ 用**递归**而不是 `List.range`：`List.range` 的等式不按 `rfl` 化简，
+而**这里需要等式能像定义那样直接算出来**。
+
+**⇒ 「表里有什么」完全由 `polyRow` 决定，而「能承受多高的度数」是调用者的一个**参数**。
+这才是编排，而不是查找。** -/
+noncomputable def degreeList : ℕ → List CapabilityRow
+  | 0 => []
+  | (n + 1) => degreeList n ++ (polyRow n).toList
+
+/-- **⭐ 上界 `0` 时表为空。** -/
+theorem degreeList_zero : degreeList 0 = [] := rfl
+
+/-- **⭐ 上界 `1` 时表为空**——因为它只覆盖度数 `0`，而 `polyRow 0 = none`。
+
+**⇒ 这一条是**必要的提醒**：`degreeList dmax` 覆盖 `0 .. dmax-1`，
+故**仿射行在 `dmax = 2` 时才出现**。把它当成“第一行”会把上界弄错一位。** -/
+theorem degreeList_one : degreeList 1 = [] := by
+  simp [degreeList, polyRow]
+
+/-- **⭐ 上界 `2` 时只有仿射族行。** -/
+theorem degreeList_two : degreeList 2 = [affineFamilyRow] := by
+  simp [degreeList, polyRow]
+
+/-- **⭐⭐ 上界 `4` 时的表**恰好是那三行，且次序为**仿射 → 二次 → 三次**。
+
+**⇒ 这条把「生成器」与「硬写列表」**接起来**：于是下一条可以说
+`selectByDegree` 不是另一条路，而是 `selectUpTo req 4` 的**实例**。** -/
+theorem degreeList_four : degreeList 4 = [affineFamilyRow, squareRow, cubeRow] := by
+  simp [degreeList, polyRow]
+
+/-- **⭐⭐ 按上界选择**：只在度数 `< dmax` 的行里选。 -/
+noncomputable def selectUpTo (req : Request) (dmax : ℕ) : Option CapabilityRow :=
+  select req (degreeList dmax)
+
+/-- **⭐ `select` 在空表上返回 `none`。**
+
+**⇒ `select` 是带 `classical` 的定义，`simp` 展不开它；故单独立一条引理。** -/
+theorem select_nil (req : Request) : select req [] = none := by
+  classical
+  unfold select
+  rfl
+
+/-- **⭐ 上界 `0` 时无行可选**——因为表是空的。 -/
+theorem selectUpTo_zero (req : Request) : selectUpTo req 0 = none := by
+  unfold selectUpTo
+  rw [degreeList_zero, select_nil]
+
+/-- **⭐⭐⭐ `selectByDegree` **就是** `selectUpTo req 4`。
+
+**⇒ 上一轮遗留的问题：`selectByDegree` 当时硬写了三元列表，**它根本没用上 `polyRow`**。
+本条证明两者相同，故硬写的那个只是生成器在 `dmax = 4` 处的**特例**。** -/
+theorem selectByDegree_eq_selectUpTo (req : Request) :
+    selectByDegree req = selectUpTo req 4 := by
+  unfold selectByDegree selectUpTo
+  rw [degreeList_four]
 
 end Lattice.Lib.Compiler.PolyTable
