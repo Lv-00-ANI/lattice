@@ -21,7 +21,7 @@
 | 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
-| 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 1 | 7 | `Lib/Compiler/Chain.lean` |
+| 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
