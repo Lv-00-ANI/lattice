@@ -1060,3 +1060,54 @@ select_affine_first              : goal = a·t+b, 0 ≤ eps       → select [af
 
 **⇒ 一处流程漏检：本轮我在门禁清单里**漏了 `check_refutation_census.py`**，于是新否证定理（364 条）在
 `verify_all` 才被抓到。⇒ **新的否证定理会改变普查，故该检查必须留在清单里。**
+### 3.29 **第 1066 轮（第三次表结构压力测试）：一行覆盖一**族**，仿射族变成**无参行****
+
+**⇒ 这次**确实需要重构**，正如上一轮预判。**
+
+**缺陷：第 1065 轮用 `applicable := row.fn = req.goal` 修好选择器，但那是**函数等式**——
+极强也极窄，只能匹配**恰好那一个**函数。而规划 §1.6 要的是按**族**声明能力。**
+
+**⇒ 重构：一行同时带**符号代表项**与**它覆盖的族**：**
+
+```lean
+covers        : (ℝ → ℝ) → Prop
+covers_self   : covers fn                  -- 代表项属于自己覆盖的族
+covers_bound  : ∀ g, covers g → 界对 g 成立   -- 不是只对 fn
+```
+
+| 行 | `covers` |
+|:--|:--|
+| `squareRow` / `cubeRow` | `g = 那一个函数`（单元素族） |
+| `affineRow a b` | `g = fun t => a·t+b`（仍带参） |
+| **`affineFamilyRow`** | **`∃ c d, g = fun t => c·t+d`（所有仿射函数，**无参**）** |
+
+**⇒ 为什么代表项与族**两者都要**：`semantics`/`compiled`/`family_eq` 描述的是**符号路径**（哪个项到达哪个目标），
+而 `covers`/`covers_bound` 描述的是**族的范围**。两者互不包含——`affineFamilyRow` 的代表项取 `affineTerm 0 0`，
+正因为它的符号路径**不是**它在族层面所声称的东西。**
+
+**⇒ 一个新的否证结果，只有族表述才让它有意义：**
+
+```lean
+square_not_affine : ¬ ∃ c d, (fun t => t²) = fun t => c·t+d
+```
+
+**⇒ 于是 `affineFamily_not_sufficient_for_square`：**族行也会拒绝二次目标**——
+而拒绝的理由是「`t²` 不是仿射函数」，**不是**「这一行碰巧写了另一个函数」。
+⇒ 这就是**正确的拒绝**与**偶然的拒绝**的差别。**
+
+**⇒ 三种选中行为齐备：**
+```lean
+select_affineFamily_row : 目标仿射, 0 ≤ eps → 选中族行
+select_affine_first     : 目标 a·t+b, 0 ≤ eps → 选中具体行
+select_square_row       : 目标 t², 1/4·(1/n)² ≤ eps → 选中二次行
+```
+
+**⇒ 三处错误：`write` 工具把我写的 `\uXXXX` 转义**原样**写进 Lean 文件（编译器报 576 次 `unexpected token '\'`），
+一次解码全部修好；两处证明方向错——`covers` 现在展开为 `req.goal = …` 而非 `row.fn = req.goal`，
+故 `hgoal` 与覆盖假设的合成顺序要反过来。</**
+
+**⇒ 另一处：重构删掉了 `row_gives_bound`，其别名基线条目随即变成**STALE**。
+⇒ 我选择**删除条目**而不是恢复该定理：消费路径现在是 `sufficient_implies_meets` + `select_gives_precision`，
+它们在族表述下覆盖同一用途。**
+
+**⇒ 否证普查 `364 → 365`（`Lib` 252 → 253）。**
