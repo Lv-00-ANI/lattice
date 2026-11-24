@@ -82,6 +82,7 @@ import Lattice.Lib.Compiler.AnalyticRow
 import Lattice.Lib.Compiler.AnalyticSelection
 import Lattice.Lib.Compiler.BridgeToMainChain
 import Lattice.Lib.Compiler.RepairPair
+import Lattice.Lib.Compiler.LoopInstance
 /-!
 # Lattice.Lib -- harvested instances
 
