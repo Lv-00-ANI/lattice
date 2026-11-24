@@ -731,6 +731,9 @@ Core/RepairModule/RepairMultistep.lean	countdown_converges_in
 Core/RepairModule/RepairMultistep.lean	no_uniform_bound
 Core/RepairModule/RepairMultistep.lean	converges_within_is_tight
 Core/RepairModule/RepairProduct.lean	repairProd_iterate
+Core/RepairModule/RepairProduct.lean	exists_sat_iterate_aux
+Core/RepairModule/RepairProduct.lean	exists_sat_iterate
+Core/RepairModule/RepairProduct.lean	sat_not_empty
 Core/RepairModule/RepairWF.lean	iterate_succ
 Core/RepairModule/RepairWF.lean	iterate_shift
 Core/RepairModule/RepairWF.lean	progress_on_wf
@@ -1618,6 +1621,9 @@ Lib/Compiler/LoopInstance.lean	twoSlopeLoop_step_fixed
 Lib/Compiler/LoopInstance.lean	twoSlopeLoop_run_components
 Lib/Compiler/LoopInstance.lean	twoSlopeDefectLoop_objective_at_sat
 Lib/Compiler/LoopInstance.lean	twoSlopeLoop_objective_vanishes
+Lib/Compiler/LoopInstance.lean	twoSlopeRepair_measure_le_two
+Lib/Compiler/LoopInstance.lean	twoSlopeLoop_sat_after_one
+Lib/Compiler/LoopInstance.lean	twoSlopeLoop_ends_sat_in_two
 Lib/Compiler/LowerBound.lean	target_not_attainable
 Lib/Compiler/LowerBoundGeneral.lean	no_uniform_affine_approximation
 Lib/Compiler/LvDSLPartial.lean	getConstraints_length_nonneg
@@ -1839,7 +1845,7 @@ Lib/Compiler/RealLambdaCalculus.lean	closed_ren
 Lib/Compiler/RealLambdaCalculus.lean	closed_lift
 Lib/Compiler/RealLambdaCalculus.lean	up_isIdBelow
 Lib/Compiler/RealLambdaCalculus.lean	closed_subst_eq
-Lib/Compiler/RealLayer.lean	two_sections_of_one_generalisation
+Lib/Compiler/RealLayer.lean	pow_uniform_bound_as_realLayer
 Lib/Compiler/RealLv00CompilerHonesty.lean	D1_compile_loses_distance_value
 Lib/Compiler/RealLv00CompilerHonesty.lean	D1_compile_ignores_constraint_name
 Lib/Compiler/RealLv00CompilerHonesty.lean	D2_bridge_independent_of_source
@@ -2068,6 +2074,7 @@ Lib/Compiler/RepairPair.lean	twoSlopeRepair_decreases
 Lib/Compiler/RepairPair.lean	twoSlopeRepair_iterate
 Lib/Compiler/RepairPair.lean	twoSlopes_sat_after_fix
 Lib/Compiler/RepairPair.lean	twoSlopes_change_two_observables
+Lib/Compiler/RepairPair.lean	twoSlopeRepair_preserves_other_segments
 Lib/Compiler/ReverseChain.lean	reverse_chain_twoSlope
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_has_extract
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_reversible_by_criterion
@@ -3892,6 +3899,8 @@ Runtime/LayerNormSemantics.lean	applyInstr_layernorm_mean_zero
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum
 Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum_mono
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
+Runtime/LayerRepair.lean	map_zero_eq_self_of_all_zero
+Runtime/LayerRepair.lean	zeroLayer_eq_self
 Runtime/LayerSection.lean	layer_image_total
 Runtime/LayerSection.lean	layer_partial_section_never_fails
 Runtime/LoopClosure.lean	compile_extract_layer
