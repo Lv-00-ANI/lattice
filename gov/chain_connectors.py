@@ -127,6 +127,40 @@ def measure():
     return matrix, total
 
 
+def chain_corpus():
+    """Comment-STRIPPED sources, so a docstring mention does not count as a consumer.
+
+    **Round 1098: added because `--provenance` alone was read as a liveness measure and is not one.** It reports
+    when a connector was WRITTEN. A connector can be a year old and still have live consumers, or two days old
+    with none. Rounds 1080 and 1097 both read "old" as "disconnected" -- the same one-number-two-meanings error the
+    objective map had with `Usage/` (round 1091).
+    """
+    out = {}
+    for root, _, fs in os.walk(LAT):
+        if os.sep + "Reference" in root:
+            continue
+        for f in sorted(fs):
+            if not f.endswith(".lean"):
+                continue
+            fp = os.path.join(root, f)
+            rel = os.path.relpath(fp, LAT).replace(os.sep, "/")
+            try:
+                out[rel] = strip_comments(io.open(fp, "rb").read().decode("utf-8", errors="replace"))
+            except OSError:
+                continue
+    return out
+
+
+def chain_users(corpus, name, definer):
+    """Files that USE `name` inside the chain: not its definer, not `Usage/`.
+
+    An example is a demonstration, not a consumer -- the judgement round 1091 made for the objective map.
+    """
+    rx = re.compile(r"\b%s\b" % re.escape(name))
+    return [rel for rel, src in corpus.items()
+            if rel != definer and not rel.startswith("Usage/") and rx.search(src)]
+
+
 def recent_shas(k):
     r = subprocess.run(["git", "log", "-n", str(k), "--format=%H"], cwd=ROOT,
                        capture_output=True, text=True)
@@ -202,6 +236,7 @@ def main():
     print("  empty adjacent pairs: %d" % len(empty))
 
     if args.provenance:
+        CC = chain_corpus()
         rec = recent_shas(args.recent)
         print("  connector provenance (a connector is OLD if its declaration predates the last %d"
               " commits):" % args.recent)
@@ -233,6 +268,14 @@ def main():
             flag = "  **FRESH-ONLY**" if old == 0 and fresh else ""
             print("    %-24s -> %-24s total %2d  old %2d  recent %2d  pending %d  unknown %d%s"
                   % (a, b, len(names), old, fresh, pending, unknown, flag))
+            # **Round 1098: liveness is a SECOND, independent number.** `live` counts connectors with at least
+            # one chain-internal consumer; `dead` names those with none. Printing both side by side makes it
+            # impossible to read "old" as "disconnected" without seeing the other column.
+            dead = [n for rel, n, _ln in sorted(names) if not chain_users(CC, n, rel)]
+            live = len(names) - len(dead)
+            print("      live %d/%d connectors have a chain-internal consumer%s"
+                  % (live, len(names),
+                     ("; NO CONSUMER: " + ", ".join(dead)) if dead else ""))
             for tag, rel, n, sha in rows:
                 print("        %-7s %s :: %s  (%s)" % (tag, rel, n, sha))
 
