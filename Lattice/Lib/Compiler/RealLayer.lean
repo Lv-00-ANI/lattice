@@ -18,7 +18,7 @@ structure RealLayer where
 ```
 
 **⇒ 在这个载体上：**
-- **主链是它在整数子环上的像**（`LinearLayer.ofInt`：系数与输入都取整数）；
+- **主链是它在整数子环上的像**（`realLayerOfInt`：系数与输入都取整数）；
 - **新线的 `Segment` 是它在单元素向量上的像**（`⟨[m], c⟩` 在 `[x]` 上）。
 
 **⇒ 若两条都成立，「两套实现」就不是竞争关系，而是同一个推广的两个截面。**
@@ -52,7 +52,7 @@ def RealLayer.out (l : RealLayer) (x : List ℝ) : ℝ :=
   dotR l.w x + l.b
 
 /-- **整数层嵌入实数层**（系数与偏置逐项强转）。 -/
-def LinearLayer.ofInt (l : Lattice.LinearLayer) : RealLayer where
+def realLayerOfInt (l : Lattice.LinearLayer) : RealLayer where
   w := l.w.map castI
   b := castI l.b
 
@@ -98,7 +98,7 @@ theorem dot_cast (a x : List ℤ) :
 **⇒ 这就是「主链 = 共同推广的整数截面」这句话的内容。**
 **⇒ 它不改动 `LayerOut`：左边仍是主链的 `LayerOut`，右边才是新载体。 -/
 theorem realLayer_ofInt_out (l : Lattice.LinearLayer) (x : List ℤ) :
-    castI (Lattice.LayerOut l x) = (LinearLayer.ofInt l).out (x.map castI) := by
+    castI (Lattice.LayerOut l x) = (realLayerOfInt l).out (x.map castI) := by
   have h : dotR (l.w.map castI) (x.map castI) = castI (Lattice.dot l.w x) := dot_cast l.w x
   show castI (Lattice.dot l.w x + l.b)
       = dotR (l.w.map castI) (x.map castI) + castI l.b
@@ -126,6 +126,6 @@ theorem two_sections_of_one_generalisation (w b x : ℤ) :
     castI (Lattice.LayerOut ⟨[w], b⟩ [x])
       = (RealLayer.out ⟨[castI w], castI b⟩ [castI x]) := by
   have h := realLayer_ofInt_out (⟨[w], b⟩ : Lattice.LinearLayer) [x]
-  simpa [LinearLayer.ofInt] using h
+  simpa [realLayerOfInt] using h
 
 end Lattice.Lib.Compiler.RealLayer
