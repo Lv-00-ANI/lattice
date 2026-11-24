@@ -203,10 +203,17 @@ theorem constants_ordered (a b : ℝ) :
     norm_num
   · exact cube_constant_exceeds_square
 
-/-! ## 四、从表到选择：给定精度，选出一行，并证明它真的达到 -/
+/-! ## 四、从表到选择：给定目标与精度，选出一行，并证明它真的达到 -/
 
-/-- **一次请求**：目标精度 `eps` 与网格次 `n`。** -/
+/-- **一次请求**：一个**目标函数**、目标精度 `eps`、网格次 `n`。
+
+**⇒ `goal` 是第 1065 轮加的字段，而它的存在修正了一个**真缺陷**：
+此前的 `sufficient` 只比较常数，**不检查行是否适用于该目标**。
+于是一个仿射行（常数 0）在**任何** `eps ≥ 0` 下都看起来“满足”——
+即使目标是 `x²`。那不是优先级，**那是错误**。** -/
 structure Request where
+  /-- The target function. -/
+  goal : ℝ → ℝ
   /-- The requested uniform precision on `[0,1]`. -/
   eps : ℝ
   /-- The grid resolution. -/
@@ -214,66 +221,123 @@ structure Request where
   /-- The grid is non-degenerate. -/
   hn : 0 < n
 
-/-- **表所能**证明**的充分条件：`constant / n² ≤ eps`。
+/-- **适用**：该行说的函数**就是**目标函数。
 
-**⇒ 它不是「可能达到」的弱说法，而是**表里每一行的 `bound` 字段直接给出」的那个不等式。**
-**⇒ 因此选择器不需要知道该行的由来，只需比较这一个数。** -/
+**⇒ 这是一条**等式**，而不是一个弱一点的条件：一行若不适用于目标，
+它的界**根本不关于**该目标。** -/
+def applicable (row : CapabilityRow) (req : Request) : Prop := row.fn = req.goal
+
+/-- **表所能**证明**的充分条件：**适用**且 `constant / n² ≤ eps`。** -/
 def sufficient (row : CapabilityRow) (req : Request) : Prop :=
-  row.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+  applicable row req ∧ row.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
 
-/-- **⭐⭐ 充分条件 ⟹ 整域达标。**
+/-- **⭐⭐ 充分条件 ⟹ 整域达标（**说的是目标函数**，不是该行的 `fn`）。**
 
-**⇒ 一步 `le_trans`：行的界（`row.bound`）+ 充分条件。**
-**⇒ 这就是「能力可传参」的实际用法：调用者拿一行与一个 `Request`，不看任何实现细节。** -/
+**⇒ 一步 `rw`（用 `applicable` 把 `row.fn` 换成 `req.goal`）加一步 `le_trans`。** -/
 theorem sufficient_implies_meets (row : CapabilityRow) (req : Request)
     (h : sufficient row req) :
     ∀ x ∈ Set.Icc (0 : ℝ) 1,
-      |row.fn x - gridEval (interpFamily req.n row.fn) req.n x| ≤ req.eps := by
+      |req.goal x - gridEval (interpFamily req.n req.goal) req.n x| ≤ req.eps := by
+  obtain ⟨happ, hbound⟩ := h
   intro x hx
-  exact le_trans (row.bound req.n req.hn x hx) h
+  have hb := row.bound req.n req.hn x hx
+  rw [happ] at hb
+  exact le_trans hb hbound
 
-/-- **选择器**：在表里找**第一个**满足充分条件的行。
+/-- **选择器**：在表里找**第一个**既适用又满足精度的行。
 
-**⇒ 「第一个」是**故意的**：表的顺序就是优先级。
-把精确行（常数 0）放在前面，就会优先选它——见 `select_affine_first`。** -/
+**⇒ 「第一个」是**故意的**：表的顺序就是优先级。** -/
 noncomputable def select (req : Request) (rows : List CapabilityRow) : Option CapabilityRow := by
-  -- **实数比较的 `Decidable` 只在 `Classical` 下可用。**
   classical
   exact rows.find? (fun row => decide (sufficient row req))
 
-/-- **⭐⭐ 选出来的行**确实满足充分条件**。
-
-**⇒ 由 `List.find?_some` 与 `of_decide_eq_true`。注意这里的方向：
-`find?` 只保证“它为真”，**不**保证“它最优”——后者需要另立声明。** -/
+/-- **⭐⭐ 选出来的行既**适用**又**达标**。 -/
 theorem select_sound {req : Request} {rows : List CapabilityRow} {row : CapabilityRow}
     (h : select req rows = some row) : sufficient row req := by
   classical
   unfold select at h
   exact of_decide_eq_true (List.find?_some (p := fun row => decide (sufficient row req)) h)
 
-/-- **⭐⭐⭐ 主定理：被选中的行**整域达到请求精度**。**
-
-**⇒ 两步：`select_sound` 给出充分条件，`sufficient_implies_meets` 把它变成整域界。**
-**⇒ 这就是规划 §2.1 第 4 层要的东西：**能力选择与证明编排**——选择器的输出直接带着证明。** -/
+/-- **⭐⭐⭐ 主定理：被选中的行**整域达到请求精度**（因为它适用）。** -/
 theorem select_gives_precision {req : Request} {rows : List CapabilityRow} {row : CapabilityRow}
     (h : select req rows = some row) :
     ∀ x ∈ Set.Icc (0 : ℝ) 1,
-      |row.fn x - gridEval (interpFamily req.n row.fn) req.n x| ≤ req.eps :=
+      |req.goal x - gridEval (interpFamily req.n req.goal) req.n x| ≤ req.eps :=
   sufficient_implies_meets row req (select_sound h)
 
-/-- **⭐⭐ 精确优先：若 `eps ≥ 0`，则把仿射行放在表首就会被选中。**
+/-! ## 五、选择器的两个真实行为 -/
 
-**⇒ 因为它的常数是 `0`，故充分条件退化为 `0 ≤ eps`。**
-**⇒ 这使「精确优于近似」成为一条**可执行的选择规则**，而不只是一句评价。** -/
-theorem select_affine_first (a b : ℝ) (req : Request) (heps : 0 ≤ req.eps)
+/-- **⭐⭐ 仿射函数**不是** `t ↦ t²`（三点定値）。 -/
+theorem affine_fn_ne_square (a b : ℝ) :
+    (fun t : ℝ => a * t + b) ≠ (fun t : ℝ => t ^ 2) := by
+  intro h
+  -- **从函数相等取三个点的值；`rw [h]` 在这里失败，
+  -- 因为目标里的 lambda 应用已被 beta 归约。**
+  have h0 : a * 0 + b = (0 : ℝ) ^ 2 := by simpa using congrFun h 0
+  have h1 : a * 1 + b = (1 : ℝ) ^ 2 := by simpa using congrFun h 1
+  have h2 : a * 2 + b = (2 : ℝ) ^ 2 := by simpa using congrFun h 2
+  norm_num at h0 h1 h2
+  linarith
+
+/-- **⭐⭐⭐ 仿射行**不适用**于 `x²` 目标——故构造上不可能被选中。
+
+**⇒ 这就是对第 1051 轮 `capability_rule`（`eps < 1/8` 排除仿射族）的**构造侧对应**：
+那一条说「不可能达到」，这一条说「不会被选中」，而且后者对**任意** `eps`（含 `eps ≥ 0`）成立。** -/
+theorem affine_not_sufficient_for_square (a b : ℝ) (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2) :
+    ¬ sufficient (affineRow a b) req := by
+  intro h
+  have happ : applicable (affineRow a b) req := h.1
+  have hfun : (fun t : ℝ => a * t + b) = (fun t : ℝ => t ^ 2) := by
+    show (affineRow a b).fn = fun t : ℝ => t ^ 2
+    rw [happ, hgoal]
+  exact affine_fn_ne_square a b hfun
+
+/-- **⭐⭐⭐ 当目标是 `x²` 且精度满足时，选择器**跨过仿射行、选中二次行**。
+
+**⇒ 这是表结构第二次压力测试的结果：第一次（参数化行）**通过**，
+第二次（目标匹配）**暴露了真缺陷**，修正后才通过。** -/
+theorem select_square_row (a b : ℝ) (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2)
+    (heps : 1 / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
+    select req (affineRow a b :: [squareRow]) = some squareRow := by
+  classical
+  unfold select
+  rw [List.find?_cons_of_neg]
+  · apply List.find?_cons_of_pos
+    apply decide_eq_true
+    constructor
+    · show squareRow.fn = req.goal
+      rw [hgoal]
+      rfl
+    · show squareRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+      show (1 : ℝ) / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+      exact heps
+  · -- **表头被跳过：它不适用于 `x²` 目标。**
+    have hfalse : decide (sufficient (affineRow a b) req) = false :=
+      decide_eq_false (affine_not_sufficient_for_square a b req hgoal)
+    simpa using hfalse
+
+/-- **⭐⭐ 精确优先（**当目标本身就是仿射函数时**）。**
+
+**⇒ 与 `select_square_row` 对照：同一个选择器，在仿射目标下选仿射行、
+在二次目标下跨过它。**⇒ 选择的正确性正在于它区分了这两种情形。** -/
+theorem select_affine_first (a b : ℝ) (req : Request)
+    (hgoal : req.goal = fun t : ℝ => a * t + b) (heps : 0 ≤ req.eps)
     (tail : List CapabilityRow) :
     select req (affineRow a b :: tail) = some (affineRow a b) := by
   classical
   unfold select
   apply List.find?_cons_of_pos
   apply decide_eq_true
-  show (affineRow a b).constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
-  show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
-  simpa using heps
+  constructor
+  · -- **适用：目标就是该仿射函数。**
+    show (affineRow a b).fn = req.goal
+    rw [hgoal]
+    rfl
+  · -- **精度：常数 0 使充分条件退化为 `0 ≤ eps`。**
+    show (affineRow a b).constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+    show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+    simpa using heps
 
 end Lattice.Lib.Compiler.CapabilityTable
