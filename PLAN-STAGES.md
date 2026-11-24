@@ -1773,3 +1773,32 @@ twoSlopeLoop_objective_vanishes :
 故**不是**接再注入定理的那一个。⇒ 两个实例并存；只有一者携带「消失」这一主张。**
 
 **⇒ `twoSlopeLoop_objective_vanishes` 是一行转发，已登记。**
+### 3.49 **第 1086 轮：逆向链在**产物层闭合**——修复 → 写回 → 提取 → 验证 + 可观察变化**
+
+**规划 §3.3 的四项在第 1047 轮已为**正向**交付。而**逆向**方向（权重 → 符号，用于验证、修正、再注入）
+此前散在三条独立定理里。⇒ 本轮把它们装到**同一个产物**上。**
+
+```lean
+reverse_chain_twoSlope (b₁ ≠ a) (b₂ ≠ b) (x₁ ≠ 0) (segmentIndex r.n x₁ = 0)
+                                          (x₂ ≠ 0) (segmentIndex r.n x₂ = 0) :
+    (writeBack (slopeFix a …) dom₁ r).decodedFamily = some (slopeFix a …)   -- 提取忠实
+  ∧ (writeBack (slopeFix b …) dom₂ r).decodedFamily = some (slopeFix b …)
+  ∧ slopeSat a (slopeFix a …) ∧ slopeSat b (slopeFix b …)                  -- 判据成立
+  ∧ (writeBack (slopeFix a …) dom₁ r).evalAt x₁ ≠ (writeBack …) .evalAt x₁ -- 可观察变化
+  ∧ (writeBack (slopeFix b …) dom₂ r).evalAt x₂ ≠ (writeBack …) .evalAt x₂
+```
+
+**⇒ 为什么这不是三条平行的事实：每个合取项都是**既有**定理
+（`decodedFamily_ofSegments`、`slopeFix_sat`、`write_back_verifies_and_changes.2`），**这样说很清楚：
+新内容是六项**都关于同一次 `writeBack` 调用**。⇒ 调用者需要的是「**一个**产物同时忠实提取、达标、并且可观察地变了」，
+而不是关于三个对象的三条事实。**
+
+**⇒ 提取那两个合取项正是**此前缺的那一半**：第 1044 轮的 `decodedFamily_ofSegments` 说产物里的载荷
+**就是**它构造自的那个族，故「提取返回的东西」与「被修好的东西」是**同一个对象**，
+而不是读者必须假定相同的两个东西。**
+
+**⇒ 两处机械错误：我引用了一个**自己编的名字** `write_back_verifies_and_changes_obs`，
+而可观察变化其实是 `write_back_verifies_and_changes` 的**第二分量**；
+`decodedFamily_ofSegments` 不在作用域，因为 `LoopInstance` **没有导入** `Chain`——文件需要那个 import。**
+
+**⇒ `decodedFamily_ofSegments` 因此成为承重，verdict 已登记。**

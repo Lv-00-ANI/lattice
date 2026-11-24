@@ -2067,6 +2067,7 @@ Lib/Compiler/RepairPair.lean	twoSlopeRepair_decreases
 Lib/Compiler/RepairPair.lean	twoSlopeRepair_iterate
 Lib/Compiler/RepairPair.lean	twoSlopes_sat_after_fix
 Lib/Compiler/RepairPair.lean	twoSlopes_change_two_observables
+Lib/Compiler/ReverseChain.lean	reverse_chain_twoSlope
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_has_extract
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_reversible_by_criterion
 Lib/Compiler/ReversibilityChain.lean	gridWeights_not_extractable
