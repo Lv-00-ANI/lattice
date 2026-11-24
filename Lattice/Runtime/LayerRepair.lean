@@ -1,4 +1,5 @@
 import Lattice.Runtime.RepairClosure
+import Lattice.Runtime.LoopClosure
 
 namespace Lattice.Runtime.LayerRepair
 
@@ -97,6 +98,23 @@ theorem layerZeroRepair_sat_zero_outputs {ls : Layer} (h : allZeroLayer ls) :
   show Lattice.LayerOut l x = 0
   unfold Lattice.LayerOut
   rw [hdot, hb]
+  rfl
+
+/-- **⭐⭐⭐ 清零后再提取，得到的符号满足**任何**约束。
+
+**⇒ 这是 `extract_after_repair` 的**兄弟定理**：后者需要 `R.Sat ls ↔ LayerSat cs ls`，
+而本实例的判据是「全零」，两者**不等价**，故前者无法直接套用。**
+**⇒ 而本条只需要「全零」：零层提取出的每个约束都是 `0 = 0`，故对**任意输入**成立。** -/
+theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List Int) :
+    AllSatisfied (Lattice.Runtime.LoopClosure.extractLayer ls) x := by
+  intro c hc
+  simp only [Lattice.Runtime.LoopClosure.extractLayer, List.mem_map] at hc
+  obtain ⟨l, hl, rfl⟩ := hc
+  obtain ⟨hw, hb⟩ := h l hl
+  have hdot : Lattice.dot l.w x = 0 := dot_eq_zero_of_pointwise_zero l.w x hw
+  show Lattice.dot (⟨l.w, l.b⟩ : Lattice.VectorConstraint).a x
+      + (⟨l.w, l.b⟩ : Lattice.VectorConstraint).b = 0
+  simp only [hdot, hb]
   rfl
 
 end Lattice.Runtime.LayerRepair
