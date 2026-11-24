@@ -817,3 +817,34 @@ theorem sq_chord_error_via_linComb (u v : ℝ) (huv : u < v) (x ∈ [u,v]) :
 **⇒ 一处工程教训（第三次同类）：**`Fin 2` 索引 + `if i = 0` 的写法在 `simp` 下的形状很难控制；
 改用**单元素**（`Unit`）索引后，`simp [linComb, c, b]` 一次闭合。**⇒ 若一个证明要靠猜 `simp` 的
 归一化形状，那是因为陈述的形状选错了。**
+### 3.21 **第 1058 轮：分段界 → 整域界的桥（「一族一装」的入口）**
+
+**前两轮的界都在**单区间**层面（`linComb_error`、弦引理），而产物走 `gridEval`——按 `segmentIndex` **选一段**。
+⇒ 两层之间缺一条桥，本轮补上。文件：`Lattice/Lib/Compiler/GridBound.lean`。**
+
+```lean
+segmentIndex_bounds (0 < n) (0 ≤ x) :
+    x ∈ Icc (segmentIndex n x / n) ((segmentIndex n x + 1) / n)
+
+gridEval_bound_of_segmentwise (0 < n)
+    (hseg : ∀ k < n, ∀ y ∈ [k/n, (k+1)/n], |f y − (g k).eval y| ≤ B)
+    (x ∈ Ico 0 1) : |f x − gridEval g n x| ≤ B
+```
+
+**⇒ 域取 `Ico 0 1` 而不是 `Icc 0 1` 是**有意的**：`x = 1` 时 `segmentIndex n 1 = n`，
+而**第 `n` 段不存在**。把这个界写进陈述，而不是在证明里偷偷假设 `x < 1`。**
+
+**⇒ 复用验证（本轮要点）：**
+
+```lean
+sq_gridEval_error_via_segmentwise (x ∈ Ico 0 1) :
+    |x·x − gridEval (interpFamily n (t ↦ t·t)) n x| ≤ (1/n)²/4
+```
+
+**它**经桥**证明：逐段的界来自既有 `chord_error_sq_rederived`，再做幅度归一化 `(k+1)/n − k/n = 1/n`。
+结论与既有 `interpFamily_sq_error` **逐字相同**，但**路径不同**——这正是它的证据价值。**
+
+**⇒ `chord_error_sq_rederived` 因此**首次成为承重**（现在是逐段输入），已登记 verdict。**
+
+**⇒ 三处小错：`le_div_iff` 而非 `lt` 版（目标上端是 `≤`）；`gridEval` 需 `GridAlgebra` 的 `open`；
+`apply` 把域假设留成**第二个目标**（`case hx`）。**
