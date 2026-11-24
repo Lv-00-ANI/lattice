@@ -1351,3 +1351,34 @@ legacy_default_refuses_where_current_table_succeeds (目标 = t⁴, 3/2·(1/n)²
 
 **⇒ 这是三轮内**第二次**「删一条定理」把邻居一起带走。⇒ 结论不是「要小心」，而是：
 **无法精确说出邻域范围的删除，应当替换那一条定理的正文，而不是切一个区段。**
+### 3.38 **第 1075 轮：能力层的输出变成**可求值的产物**，不再只是一个行**
+
+**此前能力层的输出是一个 `CapabilityRow`——一堆证明，没有可求值的内容。而 `select_gives_precision`
+直接跳到 `gridEval`，**完全跳过了产物的 `evalAt`**。本轮补上这一针。文件：`Lattice/Lib/Compiler/ArtifactStitch.lean`**
+
+```lean
+gridEval_congr : 逐点相等的族有相同的网格求值
+
+selected_row_artifact_bound :
+    由选中行的 target 造出的产物，其 evalAt 返回的每个值都满足**该行自己的**界
+
+selected_row_artifact_meets_request (row.fn = req.goal) :
+    ……若该行的代表项**就是**请求的目标，则该值满足 req.eps
+
+square_artifact_meets_request :
+    目标 = t², 1/4·(1/n)² ≤ eps
+    → 由 squareRow 造出的产物在每一点满足 req.eps
+```
+
+**⇒ 一个必须**说清而不是抹平**的边界：`covers` 不一定是单元素族。**
+**⇒ `affineFamilyRow` 覆盖**所有**仿射函数，而它的代表项是 `0·t+0`，故由它造出的产物求值的是 `0·t+0`——
+**不是**调用者的 `c·t+d`，尽管两者都是仿射。**
+
+**⇒ 这就是本文**证两条**而不是一条的原因：行的界**总能**转移；请求的精度**只在**代表项等于目标时转移。
+⇒ 把两者并成一条，会让「族行」冒充「具体行」——而那正是第 1065 轮修掉的缺陷。**
+
+**⇒ 而**实例才是要点**：`square_artifact_meets_request` 是规划要的端到端形状——目标、选择、产物、精度
+在**一条**陈述里——且其中每一步都是引用：落点定理决定哪一行，缝合定理给出产物，`select_sound` 给出代价条件。**
+
+**⇒ 两处机械修正：`hsome : gridEval … = v` 必须**从右到左**用（`rw [← hsome]`）才能替换 `v`；
+`gridEval_congr` 的 `n`、`x` 是隐式的，合一挑不出来，必须显式给。**

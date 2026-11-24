@@ -1493,6 +1493,9 @@ Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean	affineGeometry_false_but
 Lib/Chain/RealNumericChainOrder_parts/A.lean	natToReal_eq_zero_of_le_zero
 Lib/Chain/RealNumericChainOrder_parts/B.lean	natToReal_not_surjective
 Lib/Chain/RealNumericChainOrder_parts/C.lean	lt_of_apply_eq_of_strictMono
+Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_bound
+Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_meets_request
+Lib/Compiler/ArtifactStitch.lean	square_artifact_meets_request
 Lib/Compiler/Capability.lean	affine_target_cannot_meet
 Lib/Compiler/Capability.lean	grid_target_meets_of_budget
 Lib/Compiler/Capability.lean	capability_rule
