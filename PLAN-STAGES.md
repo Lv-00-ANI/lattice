@@ -1175,3 +1175,35 @@ square_not_cube_row / cube_not_square_row / affineFamily_not_sufficient_for_cube
 **⇒ 两处基线被**裁定**而非绕开：定义式证明基线 810 → **815**（五条表等式）。
 ⇒ 这里 `rfl` 是**正确**的而非空洞的：**表的条目定义上就是它写的那个东西**。
 ⇒ 通配分支登记与否证普查（`366 → 369`，`Lib` 254 → 257）同样处理。**
+### 3.32 **第 1069 轮：度数上界成为**参数**——选择是生成的，不是手写的**
+
+**上一轮的 `selectByDegree` 仍硬写三元列表，**从未咨询 `polyRow`**。本轮让生成器成为唯一真相源。**
+
+```lean
+noncomputable def degreeList : ℕ → List CapabilityRow
+  | 0 => []
+  | (n+1) => degreeList n ++ (polyRow n).toList
+
+degreeList_one  : degreeList 1 = []                     -- 只覆盖度数 0，而 polyRow 0 = none
+degreeList_two  : degreeList 2 = [affineFamilyRow]
+degreeList_four : degreeList 4 = [affineFamilyRow, squareRow, cubeRow]
+
+selectUpTo req dmax := select req (degreeList dmax)
+selectByDegree_eq_selectUpTo : selectByDegree req = selectUpTo req 4
+select_nil / selectUpTo_zero : selectUpTo req 0 = none
+```
+
+**⇒ 最后一条是关键：它使硬写列表**不再**是第二个真相源。`selectByDegree` 现在**被证明**是生成器在 `dmax = 4` 处的实例，
+故「表里有什么」只有**一个**定义。**
+
+**⇒ `degreeList_one` 是**更正**，不是形式：`degreeList dmax` 覆盖 `0 .. dmax-1`，故 `dmax = 1` 得到**空表**
+（度数 0 未被覆盖），仿射行只在 `dmax = 2` 出现。我第一版写的是 `degreeList 1 = [affineFamilyRow]`，
+**编译器直接指出该等式为假**。⇒ 「上界差一位」正是定理会拒绝、而注释会放过的错误。**
+
+**⇒ 为什么用递归而非 `List.range`：`List.range` 的等式不按 `rfl` 化简（本体递归定义），
+而这一层需要等式能**定义性地算出来**，使三条具体列表引理都能 `simp` 一行闭合。**
+
+**⇒ 一条**被删除的复述**：我曾为对称加入 `selectUpTo_gives_precision`，重复审计把它标了出来——
+同一结论公式、转发证明、无新内容。⇒ **删除而非入基线**：只为了镜像另一条而存在的定理，是同一事实的第二个名字。**
+
+**⇒ 定义式证明基线 815 → 816**（`degreeList_zero := rfl`，这里 `rfl` 同样正确：空表**定义上**就是空）。
