@@ -901,3 +901,31 @@ cube_uniform_bound     : ∀ x ∈ Ico 0 1, |x³ − gridEval (interpFamily n (t
 2. **`abs_neg` 在负号位于乘积内部时不触发** ⇒ 需显式 `abs_mul` 拆开；
 3. **`simp only` 留下嵌套 `if`/`Option.bind` 未化约** ⇒ 先算到 `some (x·x·x)`，再用 `ring` 与 `x³` 对齐；
 4. **`apply` 又把域假设留成第二个目标**（第二次遇到，已是可预测的）。
+### 3.24 **第 1061 轮：去掉半开限制——右端点插值是**精确**的**
+
+**桥（第 1058 轮）只能写 `Ico 0 1`，因为 `x = 1` 时段号是 `n`（`segmentIndex_at_one`），
+第 `n` 段在「逐段」假设之外。⇒ 这使得新入口**无法与既有定理相遇**——后者全写在 `Icc 0 1` 上，
+域不一致会让两条路**永久分开**。**
+
+**⇒ 修法是一个**事实**，不是权宜：**
+
+```lean
+interpFamily_eval_at_one (0 < n) : gridEval (interpFamily n f) n 1 = f 1
+```
+
+**⇒ 因为第 `n` 段是 `[n/n, (n+1)/n]` 上的弦，而 `n/n = 1`，故 `chordOf_eval_left` 直接给出 `f 1`。
+⇒ 于是**半开域从来不是插值的限制**，只是段号落点的一个假象。**
+
+```lean
+gridEval_bound_of_segmentwise_Icc : 逐段界 + 边界点界 ⟹ 闭区间 [0,1] 上的界
+```
+
+**⇒ 对插值族，`hone` 由精确性定理**自动**消掉（变成 `0 ≤ B`）。**
+
+**⇒ 已应用：`cube_uniform_bound` 现在写 `Icc 0 1`，与 `interpFamily_sq_error`、
+`interpFamily_quadFun_error` **同域**。逐段论证抽成 `cube_segmentwise`，两个域版本共用。**
+
+**⇒ 两个流程教训：**
+1. **同一个 JSON 错误犯了两次**（字符串内裸换行）。两次都是**响亮失败**（`Invalid escape`）
+   而不是静默跳过某行——这正是它被抓住的原因。⇒ **新规则：verdict 字符串一律单行。**
+2. **`PROOF-DEBT.md` 必须在 verdict 落地**之后**再生成**，否则文档表会比测量**晚一个 verdict**。

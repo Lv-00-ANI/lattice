@@ -409,7 +409,7 @@
 - `Lattice.Lib.Compiler.Expressiveness` <- `Lattice.Lib.Compiler.RealNonlinearCompile`, `Lattice.Runtime.ConvertVectorLinear`
 - `Lattice.Lib.Compiler.FloatMulBoundDischarged` <- `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`
 - `Lattice.Lib.Compiler.GridAlgebra` <- `Lattice.Lib.Compiler.ChordGeneral`
-- `Lattice.Lib.Compiler.GridBound` <- `Lattice.Lib.Compiler.LinearComb`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.ChordErrorGeneral`
+- `Lattice.Lib.Compiler.GridBound` <- `Lattice.Lib.Compiler.LinearComb`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordErrorGeneral`
 - `Lattice.Lib.Compiler.HopVerdict` <- `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.ModulusAbstract`
 - `Lattice.Lib.Compiler.IRWeightsBridge` <- `Lattice.Core.IR.Compile`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.PiecewiseUniform`
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
@@ -1505,7 +1505,7 @@
 | `Lattice.Lib.Compiler.ConstraintSatisfaction` | 3 | 0 |
 | `Lattice.Lib.Compiler.ConvergenceForm` | 3 | 0 |
 | `Lattice.Lib.Compiler.ConvexityChord` | 5 | 0 |
-| `Lattice.Lib.Compiler.CubicFamily` | 4 | 0 |
+| `Lattice.Lib.Compiler.CubicFamily` | 5 | 0 |
 | `Lattice.Lib.Compiler.DataSynthesis` | 4 | 2 |
 | `Lattice.Lib.Compiler.Disjunction` | 3 | 1 |
 | `Lattice.Lib.Compiler.ExecutableBoundary` | 4 | 5 |
@@ -1513,7 +1513,7 @@
 | `Lattice.Lib.Compiler.Expressiveness` | 5 | 0 |
 | `Lattice.Lib.Compiler.FloatMulBoundDischarged` | 8 | 1 |
 | `Lattice.Lib.Compiler.GridAlgebra` | 7 | 5 |
-| `Lattice.Lib.Compiler.GridBound` | 5 | 0 |
+| `Lattice.Lib.Compiler.GridBound` | 7 | 0 |
 | `Lattice.Lib.Compiler.HopVerdict` | 3 | 0 |
 | `Lattice.Lib.Compiler.IRWeightsBridge` | 9 | 3 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
@@ -4313,9 +4313,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_norm_le` -> `at`, `center_lipschitz`, `center_norm_le`, `constOne`
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `at`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `at`, `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
-- `cube_chord_error` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
-- `cube_sub_chord` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
-- `cube_uniform_bound` -> `Compiler`, `apply`, `chordOf`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
+- `cube_chord_error` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
+- `cube_segmentwise` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
+- `cube_sub_chord` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
+- `cube_uniform_bound` -> `Compiler`, `apply`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
 - `cubic_fourth_difference` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `cubic_not_quadratic` -> `at`, `g`, `induction`, `zero`
 - `cubic_second_difference` -> `W`
@@ -6150,7 +6151,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gridEval_add` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_affine` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_affineFamily` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `at`, `decodeGrid`, `eval`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`
-- `gridEval_bound_of_segmentwise` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_lt`
+- `gridEval_bound_of_segmentwise` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chordOf_eval_left`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`, `subst`
+- `gridEval_bound_of_segmentwise_Icc` -> `Compiler`, `Segment`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `gridEval_congr_on_prefix` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
 - `gridEval_index_n_not_determined` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
 - `gridEval_neg` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
@@ -6579,6 +6581,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `intermediatePolyReadableProp_holds` -> `Holds`, `MLayer`, `PluginProof`, `VerifiedPlugin`, `chainNatPoly`, `chainNatPolyAfter_one_coeff`, `chainNatPoly_deep_coeff_zero`, `completeness`, `length`, `manifest`, `proof`, `proof_holds`, `single`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
 - `interpFamily_add` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `apply`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`, `quadFun`
 - `interpFamily_affine` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
+- `interpFamily_eval_at_one` -> `Compiler`, `Segment`, `chordOf`, `chordOf_eval_left`, `eval`, `g`, `gridEval`, `interpFamily`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `interpFamily_quadFun` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `apply`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `ofSegments`, `quadFun`
 - `interpFamily_quadFun_error` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `apply`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `interpFamily`, `interpFamily_affine`, `ofSegments`, `quadFun`
 - `interpFamily_quad_error` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `apply`, `chordOf`, `chordSlope`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `ofSegments`, `quadFun`
@@ -9003,8 +9006,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quadForm_symm_part` -> `add`, `at`, `d`
 - `quadForm_transpose` -> `add`, `at`, `d`
 - `quadFun_artifact_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `interpFamily`, `ofSegments`, `quadFun`
-- `quadFun_chord_error_on_interval` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chord_error_sq_rederived`, `eval`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`
-- `quadFun_gridEval_uniform_bound` -> `Compiler`, `apply`, `at`, `chordOf`, `gridEval`, `interpFamily`, `quadFun`
+- `quadFun_chord_error_on_interval` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chordOf_eval_left`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_at_one`, `subst`
+- `quadFun_gridEval_uniform_bound` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_eval_left`, `eval`, `g`, `gridEval`, `interpFamily`, `quadFun`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `quad_artifact_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `apply`, `chordOf`, `chordSlope`, `evalAt`, `evalAt_ofSegments`, `family`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `ofSegments`, `quadFun`
 - `quad_at_naturalGradient` -> `apply`, `at`, `g`
 - `quad_complete_square` -> `apply`, `at`, `g`
@@ -9975,7 +9978,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `seg_const_zero` -> `Holds`, `IsExpressible`, `Pt`, `midpoint_expressible`, `perpendicular_expressible`, `rightAngle_expressible`, `samePoint_expressible`
 - `segmentIndexRat_coe` -> `Compiler`, `g`, `gridEval`, `segmentIndex`, `toNat`
 - `segmentIndex_at_one` -> `Compiler`, `chordSegment_eval`, `le_trans`, `piecewiseFamily_error`, `piecewiseWeights`, `quarter_inv_sq_tends_to_zero`, `segmentIndex`, `segmentIndex_lt`, `segmentIndex_mem`, `subst`
-- `segmentIndex_bounds` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_lt`, `segmentIndex_mem`
+- `segmentIndex_bounds` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chordOf_eval_left`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`, `segmentIndex_mem`
 - `segmentIndex_le_on_unit` -> `Compiler`, `Segment`, `apply`, `at`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `segmentIndex_lt` -> `Compiler`, `chordSegment`, `eval`
 - `segmentIndex_mem` -> `Compiler`, `chordSegment`, `eval`
@@ -10484,7 +10487,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sq_dist_eq_of_dist_eq` -> `E`, `Geometry`, `at`
 - `sq_eq_zero_iff_real` -> `AffineLayer`, `Holds`, `Pt`, `collinear`, `d`, `forall_mem_map_iff`, `induction`, `map`, `parallel`, `penaltyLoss`, `penaltyLoss_nonneg`
 - `sq_eq_zero_of_localMin` -> `E`, `sq_localMin_dichotomy`
-- `sq_gridEval_error_via_segmentwise` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chord_error_sq_rederived`, `eval`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`
+- `sq_gridEval_error_via_segmentwise` -> `Compiler`, `Segment`, `apply`, `at`, `chordOf`, `chordOf_affine`, `chordOf_eval_left`, `chord_error_sq_rederived`, `eval`, `g`, `gridEval`, `interpFamily`, `linComb`, `linComb_error`, `quadFun`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `sq_le_needs_nonneg` -> `Audit`, `at`
 - `sq_le_sq_iff_abs_le` -> `ContextualInherits`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`
 - `sq_lipschitz_on_bounded` -> `g`
@@ -11047,7 +11050,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `tensorFrob_smul` -> `apply`, `induction`, `toFun`, `zero`
 - `tensorShapeCode_injective` -> `IRWeights`, `LatticeIR`, `RelKind`, `TensorId`, `W`, `aa`, `argsCode`, `argsCode_injective`, `at`, `find`, `induction`, `kindCode_injective`, `listCode`, `listCode_injective`, `map`, `partCode`, `partCode_injective`, `toNat`
 - `tensors_materializeWith_zero` -> `IRSkeleton`, `IRWeights`, `Names`, `Tensor`, `TensorShape`, `Term`, `W`, `agrees`, `agrees_compileWith`, `apply`, `arch`, `at`, `compileSkel`, `compileWith`, `covered`, `extract`, `extract_compileWith`, `fillWith`, `fillWith_zero`, `fillZeros`, `map`, `models`, `models_compileWith`, `parseWithRelations`, `readOf`, `readOf_fillWith`, `shapesOf`, `subst`, `walk_nodup`
-- `tent_le` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
+- `tent_le` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
 - `tent_le_quarter` -> `Compiler`, `chordOf`, `chordOf_sq`, `chordSegment_eval`, `eval`, `le_refl`, `le_trans`
 - `tent_of_semiconvex` -> `Compiler`, `at`, `chordOf`, `chord_error_of_tent_bound`, `eval`, `le`
 - `termCode_injective` -> `at`, `induction`

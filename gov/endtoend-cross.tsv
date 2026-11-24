@@ -1565,6 +1565,7 @@ Lib/Compiler/GridAlgebra.lean	stacked_error_bound
 Lib/Compiler/GridBound.lean	sq_gridEval_error_via_segmentwise
 Lib/Compiler/GridBound.lean	quadFun_chord_error_on_interval
 Lib/Compiler/GridBound.lean	quadFun_gridEval_uniform_bound
+Lib/Compiler/GridBound.lean	gridEval_bound_of_segmentwise_Icc
 Lib/Compiler/HopVerdict.lean	hop_verdict
 Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
 Lib/Compiler/HopVerdict.lean	hop_verdict_with_modulus
