@@ -2,31 +2,25 @@ import Lattice.Lib.Compiler.CubicFamily
 import Lattice.Lib.Compiler.GridBound
 
 /-!
-# **能力表：一条可引用的「按族声明能力」清单**
+# **能力表：按**族**组织的一行，每个字段都是证明**
 
-## 为什么需要它
+## 三条设计判断（第三条是第 1066 轮的重构）
 
-**到上一轮为止，三个族的能力散在三个文件里，各自的定理名不同、域不同、常数写法的形状也不同。
-⇒ 规划 §5.2 要求「手工列出配方」；§1.6 要求「能力选择必须有规则」。
-⇒ 而**散落**的清单无法被引用，只能被**阅读**。**
+**判断一：一行必须带 `target`，不能只带 `fn`。**
+两个族**到达方式不同**（`x²` 经 `.squareApprox`，`x³` 经 `.interp`）；若只记 `fn`，就丢掉「编译器怎么到达的」。
+`family_eq` 正是把到达的目标与 `fn` 的插值族**接起来**的那一步，而它对不同行需要不同的既有定理
+（`interpFamily_sq`、`interpFamily_affine`，或直接 `rfl`）。
 
-**⇒ 本文件把每个族压成一行**结构体**，其中**每一个字段都是一个已证的命题**：
+**判断二：行必须有 `constant` 与 `bound`，而不是文档里的期望。**
+`bound` 写在**闭区间** `[0,1]` 上（第 1061 轮证明右端点插值精确，故半开限制可以去掉）。
 
-| 字段 | 含义 |
-|:--|:--|
-| `semantics` | 该符号项的**源语义**就是 `fn` |
-| `compiled` | 编译器在该项上**确实**产出 `target` |
-| `family_eq` | `target` 的族**就是** `fn` 的插值族 |
-| `bound` | 整域界：`\|fn − 插值\| ≤ constant · (1/n)²` |
+**判断三（本轮）：行覆盖的是一**族函数**，不是单个函数。**
+第 1065 轮的 `applicable := row.fn = req.goal` 是一条**函数等式**——它极强也极窄，
+只能匹配**恰好那一个**函数。规划 §1.6 要的是「按能力族声明」，而一族覆盖一族函数。
+**⇒ 因此引入 `covers : (ℝ → ℝ) → Prop` 与 `covers_bound`：界对**该族每个成员**成立。**
 
-**⇒ 于是「能力」不再是一句描述，而是一个**可以传参、可以遍历、可以逐行引用**的对象。**
-**⇒ 而 `table_gives_bounds` 说明：拿到一张表，就等于拿到表里每一行的界——不需要知道行的来历。**
-
-## 一行里为什么有 `target` 而不是只用 `fn`
-
-**因为两个族到达同一族的方式不同：`x²` 经 `.squareApprox`（专用离散化），
-`x³` 经 `.interp`（一般插值）。⇒ 若只记 `fn`，就丢掉了「编译器是怎么到达的」这一信息，
-而 `family_eq` 字段正是把它与 `fn` 的插值族**接起来**的那一步。**
+**⇒ 于是 `affineFamilyRow`（**无参**）可以覆盖**所有**仿射函数，而 `affineRow a b` 覆盖那一个。
+两者并存不是冗余：前者是族的能力声明，后者是**具体符号项**的完成路径（含 `semantics`/`compiled`）。**
 -/
 
 namespace Lattice.Lib.Compiler.CapabilityTable
@@ -34,38 +28,45 @@ namespace Lattice.Lib.Compiler.CapabilityTable
 open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.PiecewiseWeights
-open Lattice.Lib.Compiler.CubicFamily
-open Lattice.Lib.Compiler.GridBound
-open Lattice.Lib.Compiler.InterpAlgebra
-open Lattice.Lib.Compiler.IRWeightsBridge
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler.Samples
+open Lattice.Lib.Compiler.IRWeightsBridge
+open Lattice.Lib.Compiler.InterpAlgebra
+open Lattice.Lib.Compiler.GridBound
+open Lattice.Lib.Compiler.CubicFamily
 open Lattice.Lib.Compiler
 open Lattice.Lib.Compiler.SymbolicEntry.Target
 
-/-- **能力表的一行**：一个符号项、它说的函数、它被编译到哪个目标、以及**被证明的**整域界。 -/
+/-- **能力表的一行**：符号代表项、它被编译到哪个目标、它**覆盖哪一族函数**、以及**被证明的**整域界。 -/
 structure CapabilityRow where
   /-- The degree of the monomial this row covers. -/
   degree : ℕ
-  /-- The symbolic term. -/
+  /-- The symbolic term, as the **representative** of the family. -/
   term : ExprExt
-  /-- The real function the term denotes. -/
+  /-- The function the representative term denotes. -/
   fn : ℝ → ℝ
-  /-- The compile target the term reaches. -/
+  /-- The compile target the representative reaches. -/
   target : Target
-  /-- **Source semantics**: the term denotes `fn` at every point. -/
+  /-- **Source semantics** of the representative. -/
   semantics : ∀ x : ℝ, evalSym x term = some (fn x)
-  /-- **Compilation**: the compiler reaches exactly this target on this term. -/
+  /-- **Compilation** of the representative. -/
   compiled : ∀ r : CompileRecipe, compileTarget r term = some target
-  /-- **Family agreement**: the target's family is the interpolation family of `fn`. -/
+  /-- **Family agreement** for the representative. -/
   family_eq : ∀ (r : CompileRecipe) (k : ℕ), Target.family r target k = interpFamily r.n fn k
   /-- The constant `C` in `error <= C / n^2`. -/
   constant : ℝ
-  /-- **The bound**, on the closed unit interval. -/
+  /-- **The bound** for the representative, on the closed unit interval. -/
   bound : ∀ (n : ℕ), 0 < n → ∀ x ∈ Set.Icc (0 : ℝ) 1,
       |fn x - gridEval (interpFamily n fn) n x| ≤ constant * (1 / (n : ℝ)) ^ 2
+  /-- **The family this row covers.** -/
+  covers : (ℝ → ℝ) → Prop
+  /-- The representative belongs to the family it covers. -/
+  covers_self : covers fn
+  /-- **The bound holds for EVERY member of the family**, not just the representative. -/
+  covers_bound : ∀ g : ℝ → ℝ, covers g → ∀ (n : ℕ), 0 < n → ∀ x ∈ Set.Icc (0 : ℝ) 1,
+      |g x - gridEval (interpFamily n g) n x| ≤ constant * (1 / (n : ℝ)) ^ 2
 
-/-- **⭐ 第 2 行：`x²`，常数 `1/4`。** -/
+/-- **⭐ 第 2 行：`x²`，常数 `1/4`，覆盖**恰好**该函数。** -/
 noncomputable def squareRow : CapabilityRow where
   degree := 2
   term := squareTerm
@@ -75,7 +76,6 @@ noncomputable def squareRow : CapabilityRow where
     intro x
     rw [evalSym_squareTerm]
     congr 1
-    -- **`(fun t => t ^ 2) x` 要 beta 归约，`ring` 一步同时处理它与 `pow_two`。**
     ring
   compiled := by
     intro r
@@ -87,7 +87,17 @@ noncomputable def squareRow : CapabilityRow where
   constant := 1 / 4
   bound := by
     intro n hn x hx
-    -- **先把目标写成既有定理的形状（去掉 lambda 应用）。**
+    show |x ^ 2 - gridEval (interpFamily n (fun t : ℝ => t ^ 2)) n x|
+        ≤ 1 / 4 * (1 / (n : ℝ)) ^ 2
+    have h := interpFamily_sq_error n hn x hx
+    have heq : (1 / (n : ℝ)) ^ 2 / 4 = 1 / 4 * (1 / (n : ℝ)) ^ 2 := by ring
+    rw [heq] at h
+    exact h
+  covers := fun g => g = fun t : ℝ => t ^ 2
+  covers_self := rfl
+  covers_bound := by
+    intro g hg n hn x hx
+    subst hg
     show |x ^ 2 - gridEval (interpFamily n (fun t : ℝ => t ^ 2)) n x|
         ≤ 1 / 4 * (1 / (n : ℝ)) ^ 2
     have h := interpFamily_sq_error n hn x hx
@@ -119,40 +129,19 @@ noncomputable def cubeRow : CapabilityRow where
     have heq : 3 * (1 / (n : ℝ)) ^ 2 / 4 = 3 / 4 * (1 / (n : ℝ)) ^ 2 := by ring
     rw [heq] at h
     exact h
+  covers := fun g => g = fun t : ℝ => t ^ 3
+  covers_self := rfl
+  covers_bound := by
+    intro g hg n hn x hx
+    subst hg
+    show |x ^ 3 - gridEval (interpFamily n (fun t : ℝ => t ^ 3)) n x|
+        ≤ 3 / 4 * (1 / (n : ℝ)) ^ 2
+    have h := Lattice.Lib.Compiler.CubicFamily.cube_uniform_bound n hn x hx
+    have heq : 3 * (1 / (n : ℝ)) ^ 2 / 4 = 3 / 4 * (1 / (n : ℝ)) ^ 2 := by ring
+    rw [heq] at h
+    exact h
 
-/-- **⭐⭐⭐ 表是可**消费**的：拿到一行，就拿到它的界。**
-
-**⇒ 这条不是复述 `bound` 字段，而是说明「能力」可以**传参**：调用者不必知道该行来自哪个文件、
-经哪条编译路径，只要它在表里，界就成立。** -/
-theorem row_gives_bound (row : CapabilityRow) (n : ℕ) (hn : 0 < n) (x : ℝ)
-    (hx : x ∈ Set.Icc (0 : ℝ) 1) :
-    |row.fn x - gridEval (interpFamily n row.fn) n x| ≤ row.constant * (1 / (n : ℝ)) ^ 2 :=
-  row.bound n hn x hx
-
-/-- **⭐⭐ 表里同时有 `x²` 与 `x³`，且两行的常数不同。**
-
-**⇒ 「不同常数」正是「按族声明能力」的内容：不是所有族同一个精度，也不是同一个数说了算。** -/
-theorem table_has_two_rows :
-    squareRow.degree = 2 ∧ cubeRow.degree = 3
-      ∧ squareRow.constant = 1 / 4 ∧ cubeRow.constant = 3 / 4 :=
-  ⟨rfl, rfl, rfl, rfl⟩
-
-/-- **⭐⭐ `x³` 的常数**严格大于** `x²` 的常数**。
-
-**⇒ 这不是「三次更难」的修辞，而是两个具体有理数的比较：`1/4 < 3/4`。
-⇒ 于是表给出的比较本身是一个**可证的**事实。** -/
-theorem cube_constant_exceeds_square :
-    squareRow.constant < cubeRow.constant := by
-  show (1 : ℝ) / 4 < 3 / 4
-  norm_num
-
-/-- **⭐⭐ 着英行：`a·t + b`，常数 **0**——不是近似，而是**精确**。**
-
-**⇒ 这是表结构的第一次真实压力测试：前两行是**无参的常数**（`squareRow`、`cubeRow`），
-而这一行是**带参的族元素**——`affineRow a b`。**
-
-**⇒ 它也是能力表里最容易被忽略的一档：**某族不是近似，而是精确**。
-常数 0 在表里不是缺失的数据，而是**最强的一种声明**。** -/
+/-- **⭐ 第 1 行（参数化）：某个具体仿射函数，常数 `0`。** -/
 noncomputable def affineRow (a b : ℝ) : CapabilityRow where
   degree := 1
   term := affineTerm a b
@@ -169,48 +158,66 @@ noncomputable def affineRow (a b : ℝ) : CapabilityRow where
     exact compileTarget_affineTerm r a b
   family_eq := by
     intro r k
-    -- **左边是常族，右边是仿射函数的插值族，两者相等由 `interpFamily_affine` 给出。**
     show affineFamily a b k = interpFamily r.n (fun t : ℝ => a * t + b) k
     rw [interpFamily_affine r.n r.hn a b]
   constant := 0
   bound := by
     intro n hn x hx
-    -- **插值就是该仿射函数本身，故差为零。**
+    rw [interpFamily_affine n hn a b, gridEval_affineFamily]
+    show |(fun t : ℝ => a * t + b) x - (a * x + b)| ≤ 0 * (1 / (n : ℝ)) ^ 2
+    simp
+  covers := fun g => g = fun t : ℝ => a * t + b
+  covers_self := rfl
+  covers_bound := by
+    intro g hg n hn x hx
+    subst hg
     rw [interpFamily_affine n hn a b, gridEval_affineFamily]
     show |(fun t : ℝ => a * t + b) x - (a * x + b)| ≤ 0 * (1 / (n : ℝ)) ^ 2
     simp
 
-/-- **⭐⭐ 仿射行是**精确**的：差为**零**（不是「不超过 0」那种弱说法）。**
+/-- **⭐⭐⭐ 第 0 行（**无参**）：**所有**仿射函数，常数 `0`。**
 
-**⇒ 与 `bound` 字段相比，本条去掉了绝对值与不等号——它说的是**恰好相等**。** -/
-theorem affineRow_exact (a b : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ) :
-    (affineRow a b).fn x - gridEval (interpFamily n (affineRow a b).fn) n x = 0 := by
-  show (fun t : ℝ => a * t + b) x - gridEval (interpFamily n (fun t : ℝ => a * t + b)) n x = 0
-  rw [interpFamily_affine n hn a b, gridEval_affineFamily]
-  simp
+**⇒ 这才是规划 §1.6「按能力族声明」的字面意思：`covers` 不是一个函数等式，
+而是「存在 `c`、`d` 使得 `g = c·t+d`」。**
+**⇒ 代表项取 `0·t+0`：它的 `semantics`/`compiled` 描述**符号路径**，
+而 `covers`/`covers_bound` 描述**族的范围**。两者各司其职，不互相冒充。** -/
+noncomputable def affineFamilyRow : CapabilityRow where
+  degree := 1
+  term := affineTerm 0 0
+  fn := fun t : ℝ => 0 * t + 0
+  target := .affine 0 0
+  semantics := by
+    intro x
+    have h := evalSym_affineTerm 0 0 x
+    have heq : (fun t : ℝ => 0 * t + 0) x = 0 * x + 0 := rfl
+    rw [heq]
+    exact h
+  compiled := by
+    intro r
+    exact compileTarget_affineTerm r 0 0
+  family_eq := by
+    intro r k
+    show affineFamily 0 0 k = interpFamily r.n (fun t : ℝ => 0 * t + 0) k
+    rw [interpFamily_affine r.n r.hn 0 0]
+  constant := 0
+  bound := by
+    intro n hn x hx
+    rw [interpFamily_affine n hn 0 0, gridEval_affineFamily]
+    show |(fun t : ℝ => 0 * t + 0) x - (0 * x + 0)| ≤ 0 * (1 / (n : ℝ)) ^ 2
+    simp
+  covers := fun g => ∃ c d : ℝ, g = fun t : ℝ => c * t + d
+  covers_self := ⟨0, 0, rfl⟩
+  covers_bound := by
+    intro g hg n hn x hx
+    obtain ⟨c, d, hg⟩ := hg
+    subst hg
+    rw [interpFamily_affine n hn c d, gridEval_affineFamily]
+    show |(fun t : ℝ => c * t + d) x - (c * x + d)| ≤ 0 * (1 / (n : ℝ)) ^ 2
+    simp
 
-/-- **⭐⭐ 表中常数的顺序：`0 ≤ 1/4 < 3/4`。**
+/-! ## 四、从表到选择：给定目标与精度，选出一行 -/
 
-**⇒ 把能力强弱变成一条可引用的链：仿射（精确，常数 `0`）不弱于二次，
-二次严格优于三次（同 `n` 下）。**
-
-**⇒ 第一段写 `≤` 而非 `<`：它在表中的作用是“常数 0 是最低档”，
-而**严格性**只在第二段有意义（两个不同的近似族之间）。** -/
-theorem constants_ordered (a b : ℝ) :
-    (affineRow a b).constant ≤ squareRow.constant ∧ squareRow.constant < cubeRow.constant := by
-  constructor
-  · show (0 : ℝ) ≤ 1 / 4
-    norm_num
-  · exact cube_constant_exceeds_square
-
-/-! ## 四、从表到选择：给定目标与精度，选出一行，并证明它真的达到 -/
-
-/-- **一次请求**：一个**目标函数**、目标精度 `eps`、网格次 `n`。
-
-**⇒ `goal` 是第 1065 轮加的字段，而它的存在修正了一个**真缺陷**：
-此前的 `sufficient` 只比较常数，**不检查行是否适用于该目标**。
-于是一个仿射行（常数 0）在**任何** `eps ≥ 0` 下都看起来“满足”——
-即使目标是 `x²`。那不是优先级，**那是错误**。** -/
+/-- **一次请求**：一个**目标函数**、目标精度 `eps`、网格次 `n`。 -/
 structure Request where
   /-- The target function. -/
   goal : ℝ → ℝ
@@ -221,32 +228,28 @@ structure Request where
   /-- The grid is non-degenerate. -/
   hn : 0 < n
 
-/-- **适用**：该行说的函数**就是**目标函数。
+/-- **适用**：该行的**族**含有目标函数。
 
-**⇒ 这是一条**等式**，而不是一个弱一点的条件：一行若不适用于目标，
-它的界**根本不关于**该目标。** -/
-def applicable (row : CapabilityRow) (req : Request) : Prop := row.fn = req.goal
+**⇒ 第 1066 轮把它从 `row.fn = req.goal` 改为 `row.covers req.goal`：
+前者只能匹配一个函数，后者可以是一整族。** -/
+def applicable (row : CapabilityRow) (req : Request) : Prop := row.covers req.goal
 
-/-- **表所能**证明**的充分条件：**适用**且 `constant / n² ≤ eps`。** -/
+/-- **充分条件**：适用且 `constant / n² ≤ eps`。 -/
 def sufficient (row : CapabilityRow) (req : Request) : Prop :=
   applicable row req ∧ row.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
 
-/-- **⭐⭐ 充分条件 ⟹ 整域达标（**说的是目标函数**，不是该行的 `fn`）。**
+/-- **⭐⭐ 充分条件 ⟹ 整域达标（说的是目标函数）。**
 
-**⇒ 一步 `rw`（用 `applicable` 把 `row.fn` 换成 `req.goal`）加一步 `le_trans`。** -/
+**⇒ 一步用 `covers_bound`（对**族内每个成员**成立）加一步 `le_trans`。** -/
 theorem sufficient_implies_meets (row : CapabilityRow) (req : Request)
     (h : sufficient row req) :
     ∀ x ∈ Set.Icc (0 : ℝ) 1,
       |req.goal x - gridEval (interpFamily req.n req.goal) req.n x| ≤ req.eps := by
-  obtain ⟨happ, hbound⟩ := h
+  obtain ⟨hcov, hbound⟩ := h
   intro x hx
-  have hb := row.bound req.n req.hn x hx
-  rw [happ] at hb
-  exact le_trans hb hbound
+  exact le_trans (row.covers_bound req.goal hcov req.n req.hn x hx) hbound
 
-/-- **选择器**：在表里找**第一个**既适用又满足精度的行。
-
-**⇒ 「第一个」是**故意的**：表的顺序就是优先级。** -/
+/-- **选择器**：在表里找**第一个**既适用又满足精度的行。 -/
 noncomputable def select (req : Request) (rows : List CapabilityRow) : Option CapabilityRow := by
   classical
   exact rows.find? (fun row => decide (sufficient row req))
@@ -258,45 +261,58 @@ theorem select_sound {req : Request} {rows : List CapabilityRow} {row : Capabili
   unfold select at h
   exact of_decide_eq_true (List.find?_some (p := fun row => decide (sufficient row req)) h)
 
-/-- **⭐⭐⭐ 主定理：被选中的行**整域达到请求精度**（因为它适用）。** -/
+/-- **⭐⭐⭐ 主定理：被选中的行整域达到请求精度。** -/
 theorem select_gives_precision {req : Request} {rows : List CapabilityRow} {row : CapabilityRow}
     (h : select req rows = some row) :
     ∀ x ∈ Set.Icc (0 : ℝ) 1,
       |req.goal x - gridEval (interpFamily req.n req.goal) req.n x| ≤ req.eps :=
   sufficient_implies_meets row req (select_sound h)
 
-/-! ## 五、选择器的两个真实行为 -/
+/-! ## 五、选择器的行为 -/
 
-/-- **⭐⭐ 仿射函数**不是** `t ↦ t²`（三点定値）。 -/
+/-- **仿射函数不是 `t ↦ t²`**（三点定値）。 -/
 theorem affine_fn_ne_square (a b : ℝ) :
     (fun t : ℝ => a * t + b) ≠ (fun t : ℝ => t ^ 2) := by
   intro h
-  -- **从函数相等取三个点的值；`rw [h]` 在这里失败，
-  -- 因为目标里的 lambda 应用已被 beta 归约。**
   have h0 : a * 0 + b = (0 : ℝ) ^ 2 := by simpa using congrFun h 0
   have h1 : a * 1 + b = (1 : ℝ) ^ 2 := by simpa using congrFun h 1
   have h2 : a * 2 + b = (2 : ℝ) ^ 2 := by simpa using congrFun h 2
   norm_num at h0 h1 h2
   linarith
 
-/-- **⭐⭐⭐ 仿射行**不适用**于 `x²` 目标——故构造上不可能被选中。
+/-- **⭐⭐⭐ `t ↦ t²` 不属于仿射族。**
 
-**⇒ 这就是对第 1051 轮 `capability_rule`（`eps < 1/8` 排除仿射族）的**构造侧对应**：
-那一条说「不可能达到」，这一条说「不会被选中」，而且后者对**任意** `eps`（含 `eps ≥ 0`）成立。** -/
+**⇒ 这是新的否定结果：它使「族行」（`affineFamilyRow`）也**恰好拒绝**二次目标，
+而不是「因为只匹配一个函数所以拒绝」。** -/
+theorem square_not_affine :
+    ¬ ∃ c d : ℝ, (fun t : ℝ => t ^ 2) = fun t : ℝ => c * t + d := by
+  rintro ⟨c, d, h⟩
+  exact affine_fn_ne_square c d h.symm
+
+/-- **⭐⭐ 仿射行不适用于 `x²` 目标。** -/
 theorem affine_not_sufficient_for_square (a b : ℝ) (req : Request)
     (hgoal : req.goal = fun t : ℝ => t ^ 2) :
     ¬ sufficient (affineRow a b) req := by
   intro h
-  have happ : applicable (affineRow a b) req := h.1
-  have hfun : (fun t : ℝ => a * t + b) = (fun t : ℝ => t ^ 2) := by
-    show (affineRow a b).fn = fun t : ℝ => t ^ 2
-    rw [happ, hgoal]
-  exact affine_fn_ne_square a b hfun
+  have hcov : applicable (affineRow a b) req := h.1
+  -- **合成两个假设：`hgoal : goal = t²`，`hcov : goal = a·t+b`，故 `t² = a·t+b`。**
+  have hfun : (fun t : ℝ => t ^ 2) = (fun t : ℝ => a * t + b) := by
+    rw [← hgoal]
+    exact hcov
+  exact affine_fn_ne_square a b hfun.symm
 
-/-- **⭐⭐⭐ 当目标是 `x²` 且精度满足时，选择器**跨过仿射行、选中二次行**。
+/-- **⭐⭐ 族行也不适用于 `x²` 目标**（因为 `x²` 不是仿射函数）。 -/
+theorem affineFamily_not_sufficient_for_square (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2) :
+    ¬ sufficient affineFamilyRow req := by
+  intro h
+  have hcov : applicable affineFamilyRow req := h.1
+  have h' : ∃ c d : ℝ, (fun t : ℝ => t ^ 2) = fun t : ℝ => c * t + d := by
+    obtain ⟨c, d, hcd⟩ := hcov
+    exact ⟨c, d, by rw [← hgoal]; exact hcd⟩
+  exact square_not_affine h'
 
-**⇒ 这是表结构第二次压力测试的结果：第一次（参数化行）**通过**，
-第二次（目标匹配）**暴露了真缺陷**，修正后才通过。** -/
+/-- **⭐⭐⭐ 当目标是 `x²` 且精度满足时，选择器跨过仿射行、选中二次行。** -/
 theorem select_square_row (a b : ℝ) (req : Request)
     (hgoal : req.goal = fun t : ℝ => t ^ 2)
     (heps : 1 / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
@@ -307,21 +323,17 @@ theorem select_square_row (a b : ℝ) (req : Request)
   · apply List.find?_cons_of_pos
     apply decide_eq_true
     constructor
-    · show squareRow.fn = req.goal
+    · show squareRow.covers req.goal
       rw [hgoal]
       rfl
     · show squareRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
       show (1 : ℝ) / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
       exact heps
-  · -- **表头被跳过：它不适用于 `x²` 目标。**
-    have hfalse : decide (sufficient (affineRow a b) req) = false :=
+  · have hfalse : decide (sufficient (affineRow a b) req) = false :=
       decide_eq_false (affine_not_sufficient_for_square a b req hgoal)
     simpa using hfalse
 
-/-- **⭐⭐ 精确优先（**当目标本身就是仿射函数时**）。**
-
-**⇒ 与 `select_square_row` 对照：同一个选择器，在仿射目标下选仿射行、
-在二次目标下跨过它。**⇒ 选择的正确性正在于它区分了这两种情形。** -/
+/-- **⭐⭐ 精确优先：当目标本身就是仿射函数时，仿射行被选中。** -/
 theorem select_affine_first (a b : ℝ) (req : Request)
     (hgoal : req.goal = fun t : ℝ => a * t + b) (heps : 0 ≤ req.eps)
     (tail : List CapabilityRow) :
@@ -331,13 +343,35 @@ theorem select_affine_first (a b : ℝ) (req : Request)
   apply List.find?_cons_of_pos
   apply decide_eq_true
   constructor
-  · -- **适用：目标就是该仿射函数。**
-    show (affineRow a b).fn = req.goal
+  · show (affineRow a b).covers req.goal
     rw [hgoal]
     rfl
-  · -- **精度：常数 0 使充分条件退化为 `0 ≤ eps`。**
-    show (affineRow a b).constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+  · show (affineRow a b).constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
     show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
     simpa using heps
+
+/-- **⭐⭐ 族行在仿射目标下也被选中**（它覆盖**所有**仿射函数）。 -/
+theorem select_affineFamily_row (req : Request)
+    (hgoal : ∃ c d : ℝ, req.goal = fun t : ℝ => c * t + d) (heps : 0 ≤ req.eps) :
+    select req (affineFamilyRow :: [squareRow]) = some affineFamilyRow := by
+  classical
+  unfold select
+  apply List.find?_cons_of_pos
+  apply decide_eq_true
+  constructor
+  · show affineFamilyRow.covers req.goal
+    exact hgoal
+  · show affineFamilyRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+    show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+    simpa using heps
+
+/-- **⭐⭐ 表里三个常数的顺序：`0 ≤ 1/4 < 3/4`。** -/
+theorem constants_ordered (a b : ℝ) :
+    (affineRow a b).constant ≤ squareRow.constant ∧ squareRow.constant < cubeRow.constant := by
+  constructor
+  · show (0 : ℝ) ≤ 1 / 4
+    norm_num
+  · show (1 : ℝ) / 4 < 3 / 4
+    norm_num
 
 end Lattice.Lib.Compiler.CapabilityTable
