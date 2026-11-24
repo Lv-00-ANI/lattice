@@ -1533,7 +1533,7 @@
 | `Lattice.Lib.Compiler.NonlinearApproximation` | 6 | 0 |
 | `Lattice.Lib.Compiler.PiecewiseUniform` | 5 | 0 |
 | `Lattice.Lib.Compiler.PiecewiseWeights` | 2 | 2 |
-| `Lattice.Lib.Compiler.PolyTable` | 18 | 4 |
+| `Lattice.Lib.Compiler.PolyTable` | 21 | 4 |
 | `Lattice.Lib.Compiler.PolynomialLowerBound` | 3 | 0 |
 | `Lattice.Lib.Compiler.R3Triviality` | 3 | 0 |
 | `Lattice.Lib.Compiler.RealAbstractInterpretation` | 41 | 12 |
@@ -2665,7 +2665,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
 - `affineAct_segment` -> `W`
-- `affineFamily_not_sufficient_for_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
+- `affineFamily_not_sufficient_for_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
 - `affineFamily_not_sufficient_for_square` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `affineGeometry_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
 - `affineGeometry_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
@@ -4324,8 +4324,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `ctr_p35` -> `Admissible`, `ConstraintSet`, `DecisionRule`, `Dominated`, `Layer`, `LinearLayer`, `Loss`, `ProbVec`, `at`, `batchMean`, `bayesRisk`, `bcenter`, `bmean`, `bmean_eq_batchMean`, `bmean_eq_mean`, `center`, `centerSq`, `compileToLayer`, `compileToLayer_extractLayer`, `compiledToCLM`, `ctr`, `extractLayer_alt`, `extractLayer_compileToLayer`, `extractLayer_eq_extractLayer`, `layerToCLM`, `lnE`, `mean`, `normalize`, `rms`, `rmsNorm`, `rmsNormE`, `unique_bayes_admissible`, `varNormalize`, `varOf`, `varOf_varNormalize_eq_one`
 - `ctr_smul` -> `at`, `ctr`, `ctr_fixes`, `ctr_lipschitz`, `e2`, `rmsNormE`
 - `cube_chord_error` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
-- `cube_not_affine` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `cube_not_square_row` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
+- `cube_not_affine` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `cube_not_square_row` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
 - `cube_segmentwise` -> `Compiler`, `apply`, `chordOf`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
 - `cube_sub_chord` -> `Compiler`, `Segment`, `apply`, `chordOf`, `chordSlope`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
 - `cube_uniform_bound` -> `Compiler`, `apply`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `segmentIndex`, `segmentIndex_at_one`
@@ -4575,10 +4575,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `degenerate_ratioDivision_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_rightAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_tangent` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degreeList_four` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `select`, `squareRow`
-- `degreeList_one` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `select`, `squareRow`
-- `degreeList_two` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `select`, `squareRow`
-- `degreeList_zero` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `select`, `squareRow`
+- `degreeList_degree_lt` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `induction`, `select`, `zero`
+- `degreeList_four` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `zero`
+- `degreeList_one` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `zero`
+- `degreeList_two` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `zero`
+- `degreeList_zero` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `zero`
 - `degree_minpoly_le_of_monic_aeval` -> `at`, `eval`, `min`, `subst`
 - `degree_mod_lt` -> `d`, `depth`, `eval`, `g`, `induction`, `size`, `step`
 - `degree_two_nbhd` -> `E`, `nbhdSet`, `nbhdSum`
@@ -8768,12 +8769,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `polyKernel_one_gram_psd` -> `apply`, `at`, `d`, `softmax`
 - `polyLayerStep_eval` -> `Chain`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `single`, `slotOf`, `trans`
 - `polyLayerStep_totalDegree_le` -> `Chain`, `MLayer`, `apply`, `at`, `d`, `eval`, `eval_add`, `eval_mul`, `g`, `induction`, `layerParamCount`, `le_trans`, `slotOf`, `trans`
-- `polyRow_four` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `polyRow_none_iff` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `polyRow_one` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `polyRow_three` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `polyRow_two` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
-- `polyRow_zero` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
+- `polyRow_degree` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `d`, `induction`, `select`, `zero`
+- `polyRow_four` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `polyRow_none_iff` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `polyRow_one` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `polyRow_three` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `polyRow_two` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
+- `polyRow_zero` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
 - `poly_decay_summable` -> `apply`, `at`, `contraction_converges`, `contraction_pow_bound`, `induction`, `zero`
 - `poly_eq_of_agree` -> `Compiler`, `eval`
 - `poly_zero_of_many_roots` -> `Compiler`, `eval`
@@ -10034,12 +10036,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sel_tight_asymptotic` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq_of_lt_one` -> `at`, `div_const`, `mul`
-- `selectByDegree_eq_selectUpTo` -> `Compiler`, `Request`
-- `selectUpTo_zero` -> `Compiler`, `Request`
+- `selectByDegree_eq_selectUpTo` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `d`, `induction`, `select`, `zero`
+- `selectUpTo_degree_bound` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `select`
+- `selectUpTo_zero` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `d`, `induction`, `select`, `zero`
 - `select_affineFamily_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `select_affine_first` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `select_gives_precision` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
-- `select_nil` -> `Compiler`, `Request`, `select`
+- `select_nil` -> `CapabilityRow`, `Compiler`, `Request`, `at`, `d`, `induction`, `select`, `zero`
 - `select_none_of_affine_table` -> `Compiler`, `d`, `find`, `g`
 - `select_sound` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
 - `select_square_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
@@ -10543,9 +10546,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqrt_two_pos` -> `Gated`, `SoftMasked`, `erf`, `erf_abs_le_one`, `erf_strictMono`, `gated_abs_le`, `geluSoftMask`, `geluTanh`, `gelu_soft_mask_bounds`, `le_trans`, `softMasked_is_gated`
 - `square_chain` -> `Chain`, `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `compileTarget`, `compileTarget_squareTerm`, `constFamily`, `decodeGrid`, `decodedFamily`, `evalAt`, `evalSym`, `evalSym_squareTerm`, `family`, `ofSegments`, `piecewiseIRWeights`, `segmentIndex`, `slopeFix`, `slopeSat`, `squareTerm`, `square_path_bound`, `writeBack`, `write_back_verifies_and_changes`
 - `square_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
-- `square_ne_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
+- `square_ne_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
 - `square_not_affine` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
-- `square_not_cube_row` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `cubeRow`, `d`, `select`, `squareRow`, `sufficient`
+- `square_not_cube_row` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `at`, `cubeRow`, `d`, `induction`, `select`, `squareRow`, `sufficient`, `zero`
 - `square_path_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `squaredRisk_eq_variance_add` -> `at`, `le_refl`, `le_trans`
 - `ssdEntryMasked_eq_of_lt` -> `induction`, `insert`, `selState`, `zero`

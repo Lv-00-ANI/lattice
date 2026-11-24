@@ -1632,6 +1632,9 @@ Lib/Compiler/PolyTable.lean	degreeList_four
 Lib/Compiler/PolyTable.lean	select_nil
 Lib/Compiler/PolyTable.lean	selectUpTo_zero
 Lib/Compiler/PolyTable.lean	selectByDegree_eq_selectUpTo
+Lib/Compiler/PolyTable.lean	polyRow_degree
+Lib/Compiler/PolyTable.lean	degreeList_degree_lt
+Lib/Compiler/PolyTable.lean	selectUpTo_degree_bound
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
 Lib/Compiler/R3Triviality.lean	R3_dichotomy
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le

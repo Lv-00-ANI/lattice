@@ -1207,3 +1207,25 @@ select_nil / selectUpTo_zero : selectUpTo req 0 = none
 同一结论公式、转发证明、无新内容。⇒ **删除而非入基线**：只为了镜像另一条而存在的定理，是同一事实的第二个名字。**
 
 **⇒ 定义式证明基线 815 → 816**（`degreeList_zero := rfl`，这里 `rfl` 同样正确：空表**定义上**就是空）。
+### 3.33 **第 1070 轮：度数上界成为**被选中行的保证**，而不只是过滤条件**
+
+**上一轮把 `dmax` 变成参数，但**没有任何定理说这个参数意味着什么**——`selectUpTo` 过滤了一个列表，
+而调用者无法对自己拿到的行引用任何东西。三条定理补上这个缺口。**
+
+```lean
+polyRow_degree (d) (row ∈ (polyRow d).toList) : row.degree = d
+degreeList_degree_lt (dmax) : ∀ row ∈ degreeList dmax, row.degree < dmax
+selectUpTo_degree_bound : selectUpTo req dmax = some row → row.degree < dmax
+```
+
+**⇒ 为什么 `polyRow_degree` 要先证：对 `dmax` 的归纳把表拆成「旧表」与「度数为 `n` 的那一行」，
+第二部分需要**索引与字段一致**。没有这条，界就是关于**索引**而不是关于**行**的陈述——
+也就是关于调用者无法使用的某种东西。**
+**⇒ 它由五个度数分支给出，每个分支用第 1068 轮的 rfl 引理重写，`≥ 4` 那支用 `polyRow_none_iff`。**
+
+**⇒ 为什么这条界是本轮要点：`dmax` 现在是**可引用的承诺**，而不仅仅是过滤条件。
+一个只愿意承担二次族的调用者传 `dmax = 3`，随后可以**引用**「任何返回行的度数 < 3」——
+这就把三次族排除在**定理**层面，而不是靠调用者自己去看列表。**
+
+**⇒ `List.mem_of_find?_eq_some` 提供成员性那一步：`select` 建立在 `find?` 上，故返回的行属于该列表，
+再由 `degreeList_degree_lt` 得界。两条方向都在树里，都没有靠默认。**
