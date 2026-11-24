@@ -1491,7 +1491,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.Capability` | 3 | 0 |
-| `Lattice.Lib.Compiler.CapabilityTable` | 9 | 7 |
+| `Lattice.Lib.Compiler.CapabilityTable` | 12 | 8 |
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierApproximation` | 5 | 0 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
@@ -2689,11 +2689,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_fixed_point_expansion` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_geometric_decay` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_unique` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
+- `affine_fn_ne_square` -> `Compiler`, `apply`, `at`, `eps`, `find`
 - `affine_in_grid` -> `Compiler`, `Segment`, `chordOf`, `d`, `g`, `le_trans`, `piecewiseInterp`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `affine_midpoint` -> `Compiler`, `e2`, `le_trans`
+- `affine_not_sufficient_for_square` -> `Compiler`, `apply`, `eps`, `find`
 - `affine_path_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `affine_second_difference` -> `W`
 - `affine_target_cannot_meet` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `apply`, `at`, `budget_of_sq`, `eps`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `gridEval_affineFamily`, `le_trans`, `no_uniform_linear_approximation`, `ofSegments`, `square_path_bound`
@@ -10019,8 +10021,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sel_tight_state_eq` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq_of_lt_one` -> `at`, `div_const`, `mul`
 - `select_affine_first` -> `Compiler`, `apply`, `eps`, `find`
-- `select_gives_precision` -> `Compiler`, `apply`, `eps`, `find`, `gridEval`, `interpFamily`
+- `select_gives_precision` -> `Compiler`, `apply`, `at`, `eps`, `find`, `gridEval`, `interpFamily`
 - `select_sound` -> `Compiler`, `apply`, `at`, `eps`, `find`, `gridEval`, `interpFamily`
+- `select_square_row` -> `Compiler`, `apply`, `eps`, `find`
 - `selectedDomain_activates_network` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
 - `selection_bias_expectation` -> `at`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `selection_bias_expectation_delta` -> `apply`, `at`, `card_fin`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`

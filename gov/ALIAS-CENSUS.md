@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 746 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 748 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 168 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -303,6 +303,8 @@
 | `Lib/Chain/RealScalarField.lean` | `edit_verify_tolerance_scalar` |
 | `Lib/Chain/RealSimpleExtensionDegree.lean` | `degree_minpoly_le_of_monic_aeval` |
 | `Lib/Chain/RealTaylorMultivariate.lean` | `contDiff_pathMap` |
+| `Lib/Compiler/CapabilityTable.lean` | `row_gives_bound` |
+| `Lib/Compiler/CapabilityTable.lean` | `select_gives_precision` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierConj_criterion` |
 | `Lib/Compiler/CarrierAlgebra.lean` | `carrierDisj_criterion` |
 | `Lib/Compiler/CarrierApproximation.lean` | `list_int_error_quantized` |

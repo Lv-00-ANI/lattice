@@ -1027,3 +1027,36 @@ select_affine_first     : 0 ≤ eps → select req (affineRow a b :: tail) = som
 `(p := …)`，否则 `@decide` 的实例是元变量、合一挑错。**
 
 **⇒ `select_gives_precision` 是转发（两条定理的复合），已登记。**
+### 3.28 **第 1065 轮：选择器的**真缺陷**——只比较常数，不检查「行是否适用于该目标」**
+
+**缺陷是这样暴露的：问一句「它在**不该选**的目标上会怎么选」。**
+
+**⇒ 此前 `Request` 只有 `eps` 与 `n`，`sufficient` 只比较 `row.constant * (1/n)² ≤ eps`。
+⇒ 于是 `affineRow a b`（常数 0）对**任何** `eps ≥ 0` 都「充分」——**包括目标 `x²`**。
+⇒ 选择器会把一个关于 `a·t+b` 的行交给一个关于 `t²` 的问题。**那不是优先级，那是错答。****
+
+**⇒ 修正：请求必须指明目标，行必须匹配它。**
+```lean
+structure Request where goal : ℝ → ℝ; eps; n; hn
+applicable row req := row.fn = req.goal
+sufficient row req := applicable row req ∧ row.constant * (1/n)² ≤ req.eps
+```
+**⇒ `sufficient_implies_meets` 现在结论说的是 `req.goal`（不是 `row.fn`），故它**不可能**被用来对该行并不表示的目标作任何声称。**
+
+**⇒ 两种行为现在都**被证明**（这才是关键）：**
+```lean
+affine_not_sufficient_for_square : goal = t² → ¬ sufficient (affineRow a b) req
+select_square_row                : goal = t², 1/4·(1/n)² ≤ eps → select [affine, square] = some square
+select_affine_first              : goal = a·t+b, 0 ≤ eps       → select [affine, …] = some affine
+```
+**⇒ 同一个选择器，在二次目标下**跳过**仿射行，在仿射目标下**选中**它。
+⇒ 这个对照才使「选择正确」成立，而不只是「类型正确」。**
+
+**⇒ `affine_fn_ne_square` 是三点论证：过 `(0,b)`、`(1,1)`、`(2,4)` 的直线会同时要求 `b=0`、`a=1`、`2a+b=4`。**
+
+**⇒ 三个 Lean 细节：`rw` 无法在 `(fun t => a*t+b) 0` 内部改写（已被 beta 归约）⇒ 用 `congrFun h 0` + `simpa`；
+`List.find?_cons_of_neg` 要的是 `≠ true` 而非 `= false` ⇒ `simpa` 转换；
+两处适用性目标需要最后一步 `rfl`——`show` 后 `rw` 不会自动关闭结构投影的定义性相等。**
+
+**⇒ 一处流程漏检：本轮我在门禁清单里**漏了 `check_refutation_census.py`**，于是新否证定理（364 条）在
+`verify_all` 才被抓到。⇒ **新的否证定理会改变普查，故该检查必须留在清单里。**

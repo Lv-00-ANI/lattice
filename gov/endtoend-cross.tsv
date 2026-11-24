@@ -1504,6 +1504,8 @@ Lib/Compiler/CapabilityTable.lean	constants_ordered
 Lib/Compiler/CapabilityTable.lean	sufficient_implies_meets
 Lib/Compiler/CapabilityTable.lean	select_sound
 Lib/Compiler/CapabilityTable.lean	select_gives_precision
+Lib/Compiler/CapabilityTable.lean	affine_not_sufficient_for_square
+Lib/Compiler/CapabilityTable.lean	select_square_row
 Lib/Compiler/CapabilityTable.lean	select_affine_first
 Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 Lib/Compiler/CarrierAlgebra.lean	carrier_closed_under_conj
