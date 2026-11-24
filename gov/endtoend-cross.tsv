@@ -1496,6 +1496,9 @@ Lib/Chain/RealNumericChainOrder_parts/C.lean	lt_of_apply_eq_of_strictMono
 Lib/Compiler/Capability.lean	affine_target_cannot_meet
 Lib/Compiler/Capability.lean	grid_target_meets_of_budget
 Lib/Compiler/Capability.lean	capability_rule
+Lib/Compiler/CapabilityTable.lean	row_gives_bound
+Lib/Compiler/CapabilityTable.lean	table_has_two_rows
+Lib/Compiler/CapabilityTable.lean	cube_constant_exceeds_square
 Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 Lib/Compiler/CarrierAlgebra.lean	carrier_closed_under_conj
 Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion

@@ -929,3 +929,39 @@ gridEval_bound_of_segmentwise_Icc : 逐段界 + 边界点界 ⟹ 闭区间 [0,1]
 1. **同一个 JSON 错误犯了两次**（字符串内裸换行）。两次都是**响亮失败**（`Invalid escape`）
    而不是静默跳过某行——这正是它被抓住的原因。⇒ **新规则：verdict 字符串一律单行。**
 2. **`PROOF-DEBT.md` 必须在 verdict 落地**之后**再生成**，否则文档表会比测量**晚一个 verdict**。
+### 3.25 **第 1062 轮：能力表——每个族压成一行，而**每个字段都是证明****
+
+**此前三个族的能力散在三个文件、三个定理名、三种域、三种常数写法。⇒ **散落的清单只能被读，不能被引用。**
+⇒ 规划 §5.2 要「手工列出配方」，§1.6 要「能力选择必须有规则」。**文件：`Lattice/Lib/Compiler/CapabilityTable.lean`**
+
+```lean
+structure CapabilityRow where
+  degree, term, fn, target
+  semantics  : ∀ x, evalSym x term = some (fn x)
+  compiled   : ∀ r, compileTarget r term = some target
+  family_eq  : ∀ r k, Target.family r target k = interpFamily r.n fn k
+  constant
+  bound      : ∀ n > 0, ∀ x ∈ Icc 0 1, |fn x − gridEval (interpFamily n fn) n x| ≤ constant · (1/n)²
+```
+
+| 行 | degree | 常数 | 到达方式 |
+|:--|:--|:--|:--|
+| `squareRow` | 2 | **1/4** | `.squareApprox`（专用离散化） |
+| `cubeRow` | 3 | **3/4** | `.interp (t ↦ t³)`（一般插值） |
+
+**⇒ 为什么一行里要带 `target` 而不只是 `fn`：两个族**到达方式不同**。若只记 `fn`，
+就丢掉「编译器是怎么到达的」；而 `family_eq` 正是把**到达的目标**与 `fn` 的插值族**接起来**的那一步。
+⇒ 对 `squareRow`，该字段**不是 `rfl`**：它需要第 1056 轮的 `interpFamily_sq` 说两族一致。**
+
+**⇒ 三条顶层定理：**
+- **`row_gives_bound`**：一行**就是**它的界 ⇒ **能力可以传参、可以遍历、可以逐行引用**；
+- **`table_has_two_rows`**：度数 2 与 3，常数 1/4 与 3/4；
+- **`cube_constant_exceeds_square`**：**`1/4 < 3/4`**。
+
+**⇒ 第三条刻意写成定理而不是注释：「同一 `n` 下三次比二次更粗」是**两个有理数的比较**，
+现在它是**可引用的事实**。**
+
+**⇒ 三处小修：`decodeGrid`/`interpFamily_sq` 需两个 `open`；`(fun t => t^2) x` 需 beta 归约（`show`/`ring` 能做，`rw` 不能）；
+界要**写成既有定理的形状**——`(1/n)²/4` 与 `1/4·(1/n)²` 相等但不同形，用 `ring` 对齐而非混为一谈。**
+
+**⇒ `row_gives_bound` 是转发（重新暴露本行的字段），已按「有意转发」登记。**
