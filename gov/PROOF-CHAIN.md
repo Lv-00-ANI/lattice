@@ -1491,7 +1491,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.Capability` | 3 | 0 |
-| `Lattice.Lib.Compiler.CapabilityTable` | 11 | 9 |
+| `Lattice.Lib.Compiler.CapabilityTable` | 13 | 9 |
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierApproximation` | 5 | 0 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
@@ -2663,7 +2663,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affineAct_lipschitz_norm` -> `AffineLayer`, `ChainFwd`, `affineAct`, `affineAct_lipschitz`, `chain_distill_bound_lipschitz`, `layerMag`, `layerMag_nonneg`, `le_trans`
 - `affineAct_perturbation` -> `AffineLayer`, `W`, `affineAct`, `apply`, `le_trans`
 - `affineAct_segment` -> `W`
-- `affineFamily_not_sufficient_for_square` -> `Compiler`, `apply`, `d`, `eps`, `find`
+- `affineFamily_not_sufficient_for_square` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `affineGeometry_closed` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
 - `affineGeometry_closedB_eq_true` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB_iff`
 - `affineGeometry_extra_length` -> `PackageDependenciesClosed`, `PackageDependenciesValid`, `affineGeometryPackage`, `length`, `packageDependenciesClosedB`, `packageDependenciesClosedB_iff`, `packageDependenciesValidB`, `packageDependenciesValidB_iff`
@@ -2684,18 +2684,19 @@ module. These are the edges that make the chain a chain rather than a list.
 - `affine_edit_output_bound_scalar` -> `E`, `W`, `edit_output_bound_scalar`, `le_trans`, `nonneg`
 - `affine_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
 - `affine_exactly_representable` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `piecewiseWeights`, `segmentIndex`
+- `affine_family_row_never_sufficient_for_square` -> `Compiler`, `d`, `find`, `g`
 - `affine_fixed_point_exists` -> `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_existsUnique` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_expansion` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_geometric_decay` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_fixed_point_unique` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `op_norm_pow_apply_le`, `zero`
-- `affine_fn_ne_square` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`
+- `affine_fn_ne_square` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`
 - `affine_in_grid` -> `Compiler`, `Segment`, `chordOf`, `d`, `g`, `le_trans`, `piecewiseInterp`
 - `affine_isLipschitz` -> `Instr`, `W`, `applyInstr`
 - `affine_iterate_eq_geometric` -> `at`, `complete`, `induction`, `iterateStep`, `iterateStep_succ`, `op_norm_pow_apply_le`, `zero`
 - `affine_map_realisable` -> `Chain`, `W`, `at`, `e2`, `g`, `induction`, `slotOf`, `zero`
 - `affine_midpoint` -> `Compiler`, `e2`, `le_trans`
-- `affine_not_sufficient_for_square` -> `Compiler`, `apply`, `d`, `eps`, `find`
+- `affine_not_sufficient_for_square` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `affine_path_exact` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `affine_second_difference` -> `W`
 - `affine_target_cannot_meet` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `affineFamily`, `apply`, `at`, `budget_of_sq`, `eps`, `evalAt`, `evalAt_ofSegments`, `family`, `gridEval`, `gridEval_affineFamily`, `le_trans`, `no_uniform_linear_approximation`, `ofSegments`, `square_path_bound`
@@ -4056,7 +4057,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constant_lr_converges` -> `apply`, `at`, `contraction_converges`, `le_trans`, `subst`
 - `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `constants_ordered` -> `Compiler`
+- `constants_ordered` -> `Compiler`, `d`, `find`, `g`
 - `constrainedDenom_nonneg` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedDenom_pos` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedSoftmax_eq_zero_of_not_allowed` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
@@ -10018,11 +10019,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sel_tight_asymptotic` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq_of_lt_one` -> `at`, `div_const`, `mul`
-- `select_affineFamily_row` -> `Compiler`, `apply`, `d`, `eps`, `find`
-- `select_affine_first` -> `Compiler`, `apply`, `d`, `eps`, `find`
-- `select_gives_precision` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `gridEval`, `interpFamily`
-- `select_sound` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `gridEval`, `interpFamily`
-- `select_square_row` -> `Compiler`, `apply`, `d`, `eps`, `find`
+- `select_affineFamily_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
+- `select_affine_first` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
+- `select_gives_precision` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
+- `select_none_of_affine_table` -> `Compiler`, `d`, `find`, `g`
+- `select_sound` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
+- `select_square_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `selectedDomain_activates_network` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
 - `selection_bias_expectation` -> `at`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
 - `selection_bias_expectation_delta` -> `apply`, `at`, `card_fin`, `chord_hull_abs`, `le`, `uniformExpectation`, `uniformProb`
@@ -10523,7 +10525,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sqrt_two_pos` -> `Gated`, `SoftMasked`, `erf`, `erf_abs_le_one`, `erf_strictMono`, `gated_abs_le`, `geluSoftMask`, `geluTanh`, `gelu_soft_mask_bounds`, `le_trans`, `softMasked_is_gated`
 - `square_chain` -> `Chain`, `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `compileTarget`, `compileTarget_squareTerm`, `constFamily`, `decodeGrid`, `decodedFamily`, `evalAt`, `evalSym`, `evalSym_squareTerm`, `family`, `ofSegments`, `piecewiseIRWeights`, `segmentIndex`, `slopeFix`, `slopeSat`, `squareTerm`, `square_path_bound`, `writeBack`, `write_back_verifies_and_changes`
 - `square_end_to_end` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `mul`, `ofSegments`
-- `square_not_affine` -> `Compiler`, `apply`, `d`, `eps`, `find`
+- `square_not_affine` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `square_path_bound` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `ExprExt`, `Segment`, `SemDomain`, `add`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_affine`, `d`, `decodeGrid`, `evalAt`, `evalAt_ofSegments`, `gridEval`, `gridEval_affineFamily`, `irWeights_error_bound`, `mul`, `ofSegments`, `piecewiseIRWeights`
 - `squaredRisk_eq_variance_add` -> `at`, `le_refl`, `le_trans`
 - `ssdEntryMasked_eq_of_lt` -> `induction`, `insert`, `selState`, `zero`
@@ -10798,7 +10800,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `subst_zero_var_zero` -> `Term`, `d`, `shift`, `subst`
 - `substantive_representation_instance` -> `Representation`, `compile`, `compile_injective`, `extract`, `extract_compile`, `roundtrip`
 - `substitution_ext` -> `add`, `at`, `e2`, `induction`, `mul`, `step`, `subst`
-- `sufficient_implies_meets` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `le_trans`
+- `sufficient_implies_meets` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`, `le_trans`
 - `sumEven_eq_zero_iff` -> `at`, `induction`, `map`
 - `sumRelu_all_constraints` -> `at`, `induction`, `map`, `relu`
 - `sumRelu_eq_zero_iff_each` -> `at`, `induction`, `map`, `relu`

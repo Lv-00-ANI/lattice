@@ -1111,3 +1111,29 @@ select_square_row       : 目标 t², 1/4·(1/n)² ≤ eps → 选中二次行
 它们在族表述下覆盖同一用途。**
 
 **⇒ 否证普查 `364 → 365`（`Lib` 252 → 253）。**
+### 3.30 **第 1067 轮：否定路径——`none` 现在带**理由**，且地板与归属被**明确区分****
+
+**`select` 此前只能给「一行」或 `none`，而 `none` **不携带任何信息**。规划 §2.1 要求失败有原因，故本轮补否定方向。**
+
+```lean
+affine_family_row_never_sufficient_for_square :
+    目标 = t² → 任何**族限于仿射**的行都不充分 —— 对**任意** eps
+select_none_of_affine_table :
+    目标 = t²，表里每行都仿射 → select req rows = none
+```
+
+**⇒ 本轮存在的意义就是这条区分：`LowerBound.no_uniform_linear_approximation`（`1/8` 地板）说的是**逼近**：
+`eps < 1/8` 时没有仿射函数能一致地 `eps`-逼近 `x²`。而本框架的 `covers` 要求的是**恰好属于该族**。
+⇒ **故这里的拒绝**不**靠地板，而靠更强的事实：「`x²` 根本不是仿射函数」（`square_not_affine`，三点论证）。**
+⇒ **把两者混为一谈会得出一个**看起来对、推理却错**的证明——所以文件头明写区别，而不是让读者去假定地板起了作用。**
+
+**⇒ `select_none_of_affine_table` 用 `List.find?_eq_none` + 逐行否定 ⇒ **`none` 是由理由**推出**的，不是作为「缺失」被观察到的。**
+
+**⇒ 又一个 Lean 形状不对称（第 1065 轮那次同型）：`List.find?_eq_none` 留下的目标是 `\u2260 true`，
+而 `decide_eq_false` 产生的是 `= false` ⇒ 需要 `simpa` 转换，而不是 `apply`。**
+
+**⇒ 两处编辑事故（都是机械的、都由编译器抓到而非靠阅读）：**
+1. 我又用了 raw Python 字符串，`\uXXXX` **字面**进了 Lean 文件；
+2. 我插入的 `/-!` 段注释**没有闭合** ⇒ `unterminated comment`。
+
+**⇒ 否证普查 `365 \u2192 366`（`Lib` 253 \u2192 254）。**
