@@ -9,43 +9,43 @@
 所以本表记录更强的东西：**每个载体的定义位置，以及有多少处引用它**。
 **外部引用数为 0 的载体是一个名字，不是一次交付。**
 
-| 条款 | 载体 | 定义于 | 跨文件 | 同文件 | 例 |
-|:--|:--|:--|--:|--:|:--|
-| 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
-| 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 15 | 23 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/NeuralShortcut.lean` |
-| 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 14 | 27 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/L1L2.lean` |
-| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 52 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
-| 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
-| 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
-| 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
-| 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
-| 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
-| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
-| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
-| 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
-| 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
-| 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
-| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
-| 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
-| 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 2 | 5 | `Runtime/ApproximationBridge.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
-| 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
-| 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 9 | `Usage/Examples.lean` |
-| 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 2 | 0 | `Lib/Compiler/LoopInstance.lean`, `Usage/Examples.lean` |
-| 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
-| 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
-| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 4 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Lib/Compiler/CarrierReproduction.lean` |
-| 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
-| 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 0 | `Slots.lean` |
-| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
+| 条款 | 载体 | 定义于 | 跨文件 | 链内 | 同文件 | 例 |
+|:--|:--|:--|--:|--:|--:|:--|
+| 1.1 data -> token | `tokenize_detok` | `Runtime/RealTokenization.lean` | 4 | 4 | 0 | `Lib/Chain/RealChainAxioms2.lean`, `Lib/Chain/RealEndToEndNontrivial.lean` |
+| 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 15 | 15 | 23 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/NeuralShortcut.lean` |
+| 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 14 | 14 | 27 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/L1L2.lean` |
+| 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 52 | 51 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
+| 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
+| 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 50 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 4 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
+| 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
+| 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 0 | 12 | `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 0 | 2 | `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 1 | 0 | 2 | `Usage/Examples.lean` |
+| 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
+| 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 1 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
+| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
+| 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
+| 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 1 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 2 | 1 | 5 | `Runtime/ApproximationBridge.lean`, `Usage/Examples.lean` |
+| 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
+| 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
+| 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | 9 | `Usage/Examples.lean` |
+| 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | 0 | `Usage/Examples.lean` |
+| 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 2 | 1 | 0 | `Lib/Compiler/LoopInstance.lean`, `Usage/Examples.lean` |
+| 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | 0 | `Usage/Examples.lean` |
+| 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 8 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
+| 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 1 | 13 | `Primitives/WeightDescent.lean` |
+| 4 loop | `compile_extract_layer` | `Runtime/LoopClosure.lean` | 4 | 4 | 4 | `Lib/Compiler/CarrierInstantiation.lean`, `Lib/Compiler/CarrierReproduction.lean` |
+| 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 | 0 | 0 | `Usage/Examples.lean` |
+| 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 13 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
+| 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 | 0 | 0 | `Usage/Examples.lean` |
+| 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 1 | 0 | `Slots.lean` |
+| 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 2 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
 
 ## 汇总
 
@@ -53,6 +53,8 @@
 - 载体总数：35
 - **死代码载体（同文件也不用）：0**
 - 仅同文件使用的载体：0
+- **链内消费者为 0 的载体：8**（`Usage/` 不计为消费者）
+- **未登记理由的零链内消费者：6（`penaltyToLoss`, `sqDistHalvingRepair`, `sqDistHalving_terminates_and_stabilises`, `closed_loop_partial_reinject`, `loop_is_criterion_not_repair`, `hasType_to_hasTypeW`）**
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

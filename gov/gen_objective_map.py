@@ -46,6 +46,17 @@ END_OF_CHAIN = {
         "The branch that consumes compilation downstream goes through `weightLadderN.l2l3_sound`.",
     "partial_reinject_bound":
         "clause 3.4's translation step: residual bound -> loss bound. It translates and stops.",
+    # Round 1091: these two were NOT dead by the old count -- `Usage/Examples.lean` mentions them, and an
+    # example IS a cross-file reference. They are dead by the STRONGER count introduced this round, which
+    # excludes `Usage/`: the data-synthesis clause has no consumer inside LATTICE at all.
+    "covered_of_vanishing":
+        "clause 2.2's covering statement, about a data function the CALLER supplies. Nothing in the tree "
+        "consumes that hypothesis: there is no training step and no downstream verdict that needs "
+        "`covered`. The consumer lives OUTSIDE by positioning (LATTICE does not implement a training "
+        "framework), not by oversight.",
+    "models_of_covered_data":
+        "clause 2.2's model statement. Its first conjunct is `rfl` and its second is the covering above, so "
+        "it is the same situation: proved, and consumed only outside the project.",
 }
 def corpus():
     """Comments are STRIPPED here, once, for both the cross-file and the same-file count.
@@ -110,7 +121,13 @@ def render(C):
             if where is not None:
                 src = C.get(where, "")
                 local = len(re.findall(r"\b%s\b" % re.escape(name), src)) - 1
-            cells.append((name, where, len(users), local, users[:2]))
+            # **Round 1091: an EXAMPLE is not a consumer.** `Usage/Examples.lean` is a demonstration, so a
+            # carrier mentioned only there is unreachable from the chain even though the cross-file count is
+            # positive. Measuring the two counts separately distinguishes "used by the chain" from "shown in
+            # an example" -- and rounds 1080/1090 measured forward carriers at 17 real consumers while clause
+            # 2.2's two carriers had NONE, with the old table reporting both the same way.
+            real = [u for u in users if not u.startswith("Usage/")]
+            cells.append((name, where, len(users), len(real), local, users[:2]))
         rows.append((clause, cells))
 
     lines = []
@@ -125,15 +142,16 @@ def render(C):
     lines.append("所以本表记录更强的东西：**每个载体的定义位置，以及有多少处引用它**。")
     lines.append("**外部引用数为 0 的载体是一个名字，不是一次交付。**")
     lines.append("")
-    lines.append("| 条款 | 载体 | 定义于 | 跨文件 | 同文件 | 例 |")
-    lines.append("|:--|:--|:--|--:|--:|:--|")
+    lines.append("| 条款 | 载体 | 定义于 | 跨文件 | 链内 | 同文件 | 例 |")
+    lines.append("|:--|:--|:--|--:|--:|--:|:--|")
     weak = 0
     localonly = 0
     dead_names = []
+    chainless = []
     for clause, cells in rows:
-        for name, where, n, local, examples in cells:
+        for name, where, n, nreal, local, examples in cells:
             if where is None:
-                lines.append("| %s | `%s` | **未找到** | — | — | — |" % (clause, name))
+                lines.append("| %s | `%s` | **未找到** | — | — | — | — |" % (clause, name))
                 weak += 1
                 continue
             ex = ", ".join("`%s`" % e for e in examples) if examples else "—"
@@ -146,8 +164,10 @@ def render(C):
                 flag = " **← 死代码**"
                 weak += 1
                 dead_names.append(name)
-            lines.append("| %s | `%s` | `%s` | %d%s | %d | %s |"
-                         % (clause, name, where, n, flag, local, ex))
+            if nreal == 0 and name not in END_OF_CHAIN:
+                chainless.append(name)
+            lines.append("| %s | `%s` | `%s` | %d%s | %d | %d | %s |"
+                         % (clause, name, where, n, flag, nreal, local, ex))
     lines.append("")
     lines.append("## 汇总")
     lines.append("")
@@ -156,6 +176,11 @@ def render(C):
     lines.append("- 载体总数：%d" % total)
     lines.append("- **死代码载体（同文件也不用）：%d**" % weak)
     lines.append("- 仅同文件使用的载体：%d" % localonly)
+    nrealzero = sum(1 for _, cells in rows for name, where, n, nreal, local, ex in cells
+                    if where is not None and nreal == 0)
+    lines.append("- **链内消费者为 0 的载体：%d**（`Usage/` 不计为消费者）" % nrealzero)
+    if chainless:
+        lines.append("- **未登记理由的零链内消费者：%d（`%s`）**" % (len(chainless), "`, `".join(chainless)))
     lines.append("")
     lines.append("「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。")
     lines.append("**「死代码」才是问题**——连它自己所在的文件都不用它。")
