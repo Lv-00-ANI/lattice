@@ -94,8 +94,8 @@ CHAIN = [
      "three_carriers_share_loop",
      "Lattice/Lib/Compiler/CarrierCoverage.lean",
      "线性（列表+层）、relu（实数）、sign（实数）三个独立载体共用同一判据"),
-    ("抽象覆盖全链",
-     "carrier_covers_whole_chain",
+    ("抽象覆盖两段加一个方向",
+     "carrier_covers_two_segments_plus_one_direction",
      "Lattice/Lib/Compiler/CarrierReproduction.lean",
      "编译、验证、修正三段都是 Carrier 的形状或其特化"),
 ]

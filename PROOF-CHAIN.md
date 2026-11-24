@@ -17,17 +17,17 @@
 | 逆向：权重 → 符号 | `extract_compile_constraints` | `Lattice/Runtime/LoopClosure.lean` | 先编译再提取，回到原约束集 | 14 |
 | 闭环：回路是双射 | `compile_extract_bijective` | `Lattice/Runtime/LoopClosure.lean` | `extractLayer` 与 `compileToLayer` 互为左右逆 | 4 |
 | 验证：语法判据 | `faithful_iff_extract_eq` | `Lattice/Runtime/Faithfulness.lean` | 层忠于数据 ⟺ 提取结果等于数据的约束集 | 10 |
-| 验证：语义判据 | `satisfies_extractLayer_iff_self` | `Lattice/Runtime/SemanticFaithfulness.lean` | 提取出的符号成立 ⟺ 该层输出为零 | 4 |
+| 验证：语义判据 | `satisfies_extractLayer_iff_self` | `Lattice/Runtime/SemanticFaithfulness.lean` | 提取出的符号成立 ⟺ 该层输出为零 | 5 |
 | 修正：吸收性 | `repair_preserves_verdict` | `Lattice/Runtime/RepairClosure.lean` | 判据为真 ⟹ 修复不动它 | 4 |
 | 修正：严格进展 | `repair_makes_progress` | `Lattice/Runtime/RepairClosure.lean` | 判据为假 ⟹ 测度严格下降 | 2 |
-| 修正：终止即满足 | `repair_terminates_at_sat` | `Lattice/Runtime/RepairClosure.lean` | 测度为零 ⟹ 判据为真 | 6 |
-| 再注入 | `extract_after_repair` | `Lattice/Runtime/RepairClosure.lean` | 修复到测度为零后，提取出的符号满足原约束 | 2 |
+| 修正：终止即满足 | `repair_terminates_at_sat` | `Lattice/Runtime/RepairClosure.lean` | 测度为零 ⟹ 判据为真 | 7 |
+| 再注入 | `extract_after_repair` | `Lattice/Runtime/RepairClosure.lean` | 修复到测度为零后，提取出的符号满足原约束 | 8 |
 | 端到端：数据 → 权重 | `data_to_weight_iff` | `Lattice/Runtime/EndToEndComposite.lean` | 数据的约束全部成立 ⟺ 权重层输出全为零 | 9 |
 | 回路闭合（既有） | `verification_loop_closes_holds` | `Lattice/Runtime/VerificationLoop.lean` | 修复回路闭合 | 3 |
 | 表达力：线性严格弱于非线性 | `linear_strictly_weaker_than_relu` | `Lattice/Lib/Compiler/Expressiveness.lean` | 线性载体覆盖等式子类；relu 侧的非等式解确实存在 | 1 |
 | 抽象：载体无关的判据 | `criterion` | `Lattice/Lib/Compiler/CarrierClosure.lean` | 任何载体上：约束成立 ⟺ 编译输出为零（两条义务的合取） | 115 |
 | 抽象：三个独立载体共享闭环 | `three_carriers_share_loop` | `Lattice/Lib/Compiler/CarrierCoverage.lean` | 线性（列表+层）、relu（实数）、sign（实数）三个独立载体共用同一判据 | 1 |
-| 抽象覆盖全链 | `carrier_covers_whole_chain` | `Lattice/Lib/Compiler/CarrierReproduction.lean` | 编译、验证、修正三段都是 Carrier 的形状或其特化 | 1 |
+| 抽象覆盖两段加一个方向 | `carrier_covers_two_segments_plus_one_direction` | `Lattice/Lib/Compiler/CarrierReproduction.lean` | 编译、验证、修正三段都是 Carrier 的形状或其特化 | 2 |
 
 ## 状态
 

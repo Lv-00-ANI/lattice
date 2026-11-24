@@ -153,13 +153,16 @@ theorem carrier_implies_repair (R : Lattice.Core.Repair Layer)
     (ls : Layer) (h : R.μ ls = 0) : R.Sat ls :=
   Lattice.Runtime.RepairClosure.repair_terminates_at_sat R ls h
 
-/-- **⭐⭐ 结论：抽象覆盖**整条链**的三段。**
+/-- **⭐⭐ 结论：抽象覆盖**两段加一个方向**。
+
+**⇒ **旧名 「carrier_covers_two_segments_plus_one_direction」过宽**：本文件的 docstring 早就写着「覆盖两段加一个方向」，
+而名字却说「整条链」。⇒ **名字不得夸大于内容**，故本轮改名。**
 
 **=> 编译保语义与验证判据是 `Carrier` 的**字面实例**（`linearCarrierAt`、`verifyCarrier`）；
 **修正终止只与 `Carrier` 的 `sound` 一半同形。**
 **⇒ 所以本条的准确名字是「抽象覆盖两段加一个方向」，不是「覆盖整条链」。**
 **=> 这条把「抽象没丢东西」写成可引用的事实。** -/
-theorem carrier_covers_whole_chain :
+theorem carrier_covers_two_segments_plus_one_direction :
     (∀ (cs : List VectorConstraint) (x : List Int),
         AllSatisfied cs x ↔ AllZeroOutputs (compileToLayer cs) x) ∧
     (∀ (ls : Layer) (cs : List VectorConstraint),
