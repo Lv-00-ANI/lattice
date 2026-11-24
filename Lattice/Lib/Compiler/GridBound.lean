@@ -169,11 +169,18 @@ theorem quadFun_chord_error_on_interval (a p q u v : ℝ) (huv : u < v) (y : ℝ
   rw [hsum] at hmain
   exact hmain y hy
 
-/-- **⭐⭐⭐ 一般二次项的**整域**界——经新入口（桥 + `linComb_error`）。** -/
-theorem quadFun_gridEval_error_via_bridge (a p q : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ)
-    (hx : x ∈ Set.Ico (0 : ℝ) 1) :
-    |quadFun a p q x - gridEval (interpFamily n (quadFun a p q)) n x|
-      ≤ |a| * ((1 / (n : ℝ)) ^ 2 / 4) := by
+/-- **⭐⭐⭐ 一般二次项的**整域上一致**界——经新入口（桥 + `linComb_error`）。**
+
+**⇒ 语序「对**所有** `x ∈ [0,1)` 成立」，而不是「给定 `x` 时成立」。
+**这是一个**严格不同的陈述形状**（结论以 `∀` 开头），而且更好用：
+调用者不必自己挑点。**
+**⇒ 与旧的 `interpFamily_quadFun_error`（`Icc` 域，方挑点）不是同一个陈述：
+本条的域是**半开**的，因为桥需要 `x < 1`。** -/
+theorem quadFun_gridEval_uniform_bound (a p q : ℝ) (n : ℕ) (hn : 0 < n) :
+    ∀ x ∈ Set.Ico (0 : ℝ) 1,
+      |quadFun a p q x - gridEval (interpFamily n (quadFun a p q)) n x|
+        ≤ |a| * ((1 / (n : ℝ)) ^ 2 / 4) := by
+  intro x hx
   have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
   apply gridEval_bound_of_segmentwise (fun k => interpFamily n (quadFun a p q) k) n hn
     (quadFun a p q) (|a| * ((1 / (n : ℝ)) ^ 2 / 4))
