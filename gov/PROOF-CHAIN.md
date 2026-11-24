@@ -454,7 +454,7 @@
 - `Lattice.Lib.Compiler.RealFirstOrderLogic` 
 - `Lattice.Lib.Compiler.RealGlobalConfluence` 
 - `Lattice.Lib.Compiler.RealLambdaCalculus` 
-- `Lattice.Lib.Compiler.RealLayer` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Compiler.WeightSequence`
+- `Lattice.Lib.Compiler.RealLayer` <- `Lattice.Runtime.ConvertVectorLinear`, `Lattice.Lib.Compiler.WeightSequence`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.PowChord`
 - `Lattice.Lib.Compiler.RealLv00Compiler` <- `Lattice.Lib.Compiler.RealLv00CompilerLanguage`, `Lattice.Lib.Compiler.RealLv00CompilerIR`, `Lattice.Lib.Compiler.RealLv00CompilerCodegen`, `Lattice.Lib.Compiler.RealLv00CompilerReal`, `Lattice.Lib.Compiler.RealLv00CompilerSpec`, `Lattice.Lib.Compiler.RealLv00CompilerSat`, `Lattice.Lib.Compiler.RealLv00CompilerHonesty`
 - `Lattice.Lib.Compiler.RealLv00CompilerCodegen` <- `Lattice.Lib.Compiler.RealLv00CompilerIR`
 - `Lattice.Lib.Compiler.RealLv00CompilerHonesty` <- `Lattice.Lib.Compiler.RealLv00CompilerSat`
@@ -1299,7 +1299,7 @@
 | `Lattice.Core.RepairModule.RepairBridge` | 14 | 0 |
 | `Lattice.Core.RepairModule.RepairConvergence` | 3 | 0 |
 | `Lattice.Core.RepairModule.RepairMultistep` | 5 | 1 |
-| `Lattice.Core.RepairModule.RepairProduct` | 4 | 1 |
+| `Lattice.Core.RepairModule.RepairProduct` | 7 | 1 |
 | `Lattice.Core.RepairModule.RepairWF` | 4 | 3 |
 | `Lattice.Core.RepairModule.SqDistRepair` | 2 | 1 |
 | `Lattice.Core.RepairModule.VariableDerivative` | 206 | 69 |
@@ -1539,7 +1539,7 @@
 | `Lattice.Lib.Compiler.InterpAlgebra` | 12 | 0 |
 | `Lattice.Lib.Compiler.Layout` | 5 | 10 |
 | `Lattice.Lib.Compiler.LinearComb` | 5 | 2 |
-| `Lattice.Lib.Compiler.LoopInstance` | 5 | 2 |
+| `Lattice.Lib.Compiler.LoopInstance` | 8 | 2 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
@@ -1571,7 +1571,7 @@
 | `Lattice.Lib.Compiler.RealFirstOrderLogic` | 33 | 22 |
 | `Lattice.Lib.Compiler.RealGlobalConfluence` | 10 | 6 |
 | `Lattice.Lib.Compiler.RealLambdaCalculus` | 20 | 10 |
-| `Lattice.Lib.Compiler.RealLayer` | 6 | 5 |
+| `Lattice.Lib.Compiler.RealLayer` | 10 | 7 |
 | `Lattice.Lib.Compiler.RealLv00Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.RealLv00CompilerCodegen` | 0 | 6 |
 | `Lattice.Lib.Compiler.RealLv00CompilerHonesty` | 10 | 0 |
@@ -1600,7 +1600,7 @@
 | `Lattice.Lib.Compiler.RealWhileTotalCorrectness` | 14 | 8 |
 | `Lattice.Lib.Compiler.ReluClosure` | 6 | 0 |
 | `Lattice.Lib.Compiler.ReluLemmas` | 9 | 0 |
-| `Lattice.Lib.Compiler.RepairPair` | 5 | 1 |
+| `Lattice.Lib.Compiler.RepairPair` | 9 | 1 |
 | `Lattice.Lib.Compiler.ReverseChain` | 1 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityChain` | 5 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityCriterion` | 4 | 0 |
@@ -4816,7 +4816,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_as_sum` -> `at`, `dot`, `foldl_add_eq_sum`, `induction`, `length`, `length_cons`, `map`, `min`
 - `dot_audit_counterexample_axis` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `dot_audit_padding_truncation_agree` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`
-- `dot_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`, `map`, `out`
+- `dot_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `dot`, `eval`, `g`, `gridEval`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `dot_cast_eq_foldl_rat` -> `dot`, `dotL`, `dotQ`, `dot_eq_dotProduct`, `induction`, `length`, `map`, `toVec`, `toVec_not_injective_without_length`
 - `dot_cons` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `dot_cons_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
@@ -5337,6 +5337,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `exists_pow_eq_of_finite` -> `Surjective`, `at`, `subst`
 - `exists_risk_ge_bayesRisk` -> `DecisionRule`, `Loss`, `ProbVec`, `apply`, `at`, `bayesRisk`, `d`, `le`, `risk`
 - `exists_roundTrip_eq_iff_BehaviourallyValid` -> `ConstraintSet`, `ExtractionValidVec`, `Layer`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `cUnit`, `compileToLayer`, `compileToLayer_extractLayer`, `convertVec`, `convertVec_preserves_semantics`, `d`, `extractLayer`, `extractVec`, `scaleVec`, `scaleVec_preserves`
+- `exists_sat_iterate` -> `Repair`, `Sat`, `induction`, `iterate`
+- `exists_sat_iterate_aux` -> `Repair`, `Sat`, `induction`, `iterate`
 - `exists_support_max_degree` -> `MLayer`, `apply`, `at`, `le_antisymm`, `single`
 - `exists_support_max_degree_nat` -> `MLayer`, `apply`, `at`, `eval`, `eval_add`, `eval_mul`, `g`, `le_antisymm`, `length`, `length_cons`, `single`
 - `exists_symbol_preimage` -> `Edit`, `LayerOut`, `LinearLayer`, `Surjective`, `VectorConstraint`, `VectorConstraintSat`, `W`, `at`, `coeffDist`, `convertVec`, `dot`, `extractVec`, `roundTrip_perturbation_id`, `scaleVec`, `scaleVec_preserves`, `trivial`
@@ -5498,6 +5500,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `faithful_semantics` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `Sample`, `compileToLayer`, `compile_extract_layer`, `corpusToConstraintSet`, `corpusToLayer`, `extractLayer`, `symbolToWeight_correct`
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
+- `familyToRealLayers_out` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `familyTotalGives_no_solver` -> `Pt`, `SpecSolver`
 - `farkas_alternative` -> `at`, `d`, `dotV`, `le_refl`
 - `farkas_alternative_dotV` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
@@ -6214,6 +6217,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gridEval_bound_of_segmentwise_Icc` -> `Compiler`, `Segment`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `gridEval_congr` -> `CapabilityRow`, `Compiler`, `EvaluatedArtifact`, `Request`, `Segment`, `SemDomain`, `Target`, `affineFamilyRow`, `at`, `bound`, `cubeRow`, `eps`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridEval`, `interpFamily`, `le_trans`, `ofSegments`, `select`, `select_quadratic_goal_lands_on_square`, `select_sound`, `squareRow`, `sufficient`
 - `gridEval_congr_on_prefix` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
+- `gridEval_eq_realLayer_out` -> `Compiler`, `Segment`, `at`, `d`, `g`, `gridEval`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `gridEval_index_n_not_determined` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
 - `gridEval_neg` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
 - `gridEval_smul` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`
@@ -8853,6 +8857,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pow_eq_pow_imp_eq_of_reduced` -> `Surjective`, `at`, `subst`
 - `pow_uniform_bound` -> `Compiler`, `apply`, `at`, `chordOf`, `d`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
 - `pow_uniform_bound_Icc` -> `CapabilityRow`, `Compiler`, `apply`, `at`, `chordOf`, `d`, `eval`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `pow_chord_error`, `segmentIndex`, `segmentIndex_at_one`, `subst`
+- `pow_uniform_bound_as_realLayer` -> `Compiler`, `at`, `d`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `power_iteration_bound` -> `induction`, `matCLME`, `zero`
 - `power_iteration_ratio_bound` -> `matCLME`
 - `power_le_one` -> `alpha`, `at`, `le_refl`, `le_trans`
@@ -9268,8 +9273,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `realDot_zero_vec` -> `LayerOut`, `RealDot`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
 - `realLayerOut_zero_input` -> `LayerOut`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
 - `realLayer_allSatisfied_iff_zero_output` -> `LayerOut`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
-- `realLayer_ofInt_out` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`, `map`, `out`
-- `realLayer_single_eq_segment` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `eval`, `out`
+- `realLayer_ofInt_out` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `dot`, `eval`, `g`, `gridEval`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`
+- `realLayer_single_eq_segment` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `realLoss_soundness` -> `apply`
 - `realTotalLoss_pos_of_unsatisfied` -> `RealNeuron`, `RealNeuronOut`
 - `realTotalLoss_soundness` -> `RealConstraint`, `RealConstraintSat`, `RealNeuron`, `RealNeuronOut`, `convertReal_preserves`
@@ -9511,10 +9516,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `repairEven_preserves` -> `EvenSat`, `induction`, `zero`
 - `repairIterateAddProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
 - `repairMeasureNonIncreasingProp_holds` -> `Holds`, `PluginProof`, `Repair`, `Sat`, `VerifiedPlugin`, `completeness`, `induction`, `iterate`, `iterate_succ`, `le_refl`, `length`, `manifest`, `proof`, `proof_holds`, `soundness`, `trivial`, `verified`, `verified_manifest`, `verified_obligations`, `zero`
-- `repairProd_fix` -> `Repair`, `Sat`, `induction`, `zero`
-- `repairProd_iterate` -> `Repair`, `induction`, `zero`
-- `repairProd_measure` -> `Repair`, `Sat`, `induction`, `zero`
-- `repairProd_sat` -> `Repair`, `Sat`, `induction`, `zero`
+- `repairProd_fix` -> `Repair`, `Sat`, `induction`, `iterate`, `zero`
+- `repairProd_iterate` -> `Repair`, `Sat`, `induction`, `iterate`, `zero`
+- `repairProd_measure` -> `Repair`, `Sat`, `induction`, `iterate`, `zero`
+- `repairProd_sat` -> `Repair`, `Sat`, `induction`, `iterate`, `zero`
 - `repairTo_converges` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_is_a_repair` -> `ConstraintSat`, `iterate_succ`, `preserves`
 - `repairTo_lands` -> `ConstraintSat`, `iterate_succ`, `preserves`
@@ -9955,6 +9960,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sat_imp` -> `all`, `at`, `bvar`
 - `sat_monotone` -> `Program`
 - `sat_not` -> `all`, `at`, `bvar`, `induction`
+- `sat_not_empty` -> `Repair`, `Sat`
 - `sat_of_list_sat` -> `at`, `length`, `subst`
 - `sat_of_measure_zero` -> `ForwardSim`, `IdempotentOn`, `Repair`, `Sat`, `StarAny`, `induction`, `iterate`, `le_refl`, `le_trans`, `progress`, `runs_preserved`, `sim_id`, `step`, `trans`, `zero`
 - `sat_ragged_false_positive` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `append_nil`, `at`, `compileToLayer`, `convertVec`, `dot`, `dot_append_of_length_eq`, `dot_map_mul`, `foldl_init_add`, `length`, `map`, `nil_append`, `residual`, `scaleVec`, `subst`
@@ -10073,6 +10079,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `segmentIndex_le_on_unit` -> `Compiler`, `Segment`, `apply`, `at`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `segmentIndex_lt` -> `Compiler`, `chordSegment`, `eval`
 - `segmentIndex_mem` -> `Compiler`, `chordSegment`, `eval`
+- `segmentToRealLayer_out` -> `Compiler`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `segment_eval_eq_scalar_layer_out` -> `Compiler`, `LayerOut`, `Segment`, `dot`, `eval`
 - `selProd_concat` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selProd_const` -> `at`, `div_const`, `induction`, `mul`, `zero`
@@ -10384,7 +10391,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sliding_window_nonneg` -> `convComb`
 - `sliding_window_output_bound` -> `convComb`
 - `sliding_window_row_random` -> `convComb`
+- `slopeFix_changes_slope` -> `Compiler`, `Segment`, `g`, `slopeFix`
 - `slopeFix_keeps_intercept` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `e2`, `evalAt`, `evalAt_ofSegments`, `g`, `gridEval`, `ofSegments`, `segmentIndex`
+- `slopeFix_preserves_intercept` -> `Compiler`, `Segment`, `g`, `slopeFix`
+- `slopeFix_preserves_other_segments` -> `Compiler`, `Segment`, `g`, `slopeFix`
 - `slopeFix_preserves_rest` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `e2`, `evalAt`, `evalAt_ofSegments`, `g`, `gridEval`, `ofSegments`, `segmentIndex`
 - `slopeFix_sat` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `e2`, `evalAt`, `evalAt_ofSegments`, `g`, `gridEval`, `ofSegments`, `segmentIndex`
 - `slotCount_eq` -> `at`, `trans`
@@ -11427,16 +11437,20 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_third_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
-- `twoSlopeDefectLoop_objective_at_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `repair`, `run`, `twoSlopeRepair`
-- `twoSlopeLoop_ends_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `loop_end_sat`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
-- `twoSlopeLoop_objective_vanishes` -> `Compiler`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `repair`, `run`
-- `twoSlopeLoop_run_components` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `twoSlopeRepair`
-- `twoSlopeLoop_step_fixed` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
-- `twoSlopeRepair_absorbs` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
-- `twoSlopeRepair_decreases` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
-- `twoSlopeRepair_iterate` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
-- `twoSlopes_change_two_observables` -> `Compiler`, `constFamily`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`
-- `twoSlopes_sat_after_fix` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeDefectLoop_objective_at_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `run`, `slopeMeasure`, `split`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeLoop_ends_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `loop_end_sat`, `repair`, `repairProd_iterate`, `run`, `slopeMeasure`, `slopeRepair`, `split`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeLoop_ends_sat_in_two` -> `Compiler`, `Sat`, `Segment`, `iterate`, `repair`, `run`, `twoSlopeRepair`
+- `twoSlopeLoop_objective_vanishes` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `iterate`, `repair`, `run`, `slopeMeasure`, `split`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeLoop_run_components` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeMeasure`, `slopeRepair`, `split`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeLoop_sat_after_one` -> `Compiler`, `Sat`, `Segment`, `iterate`, `repair`, `run`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeLoop_step_fixed` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeMeasure`, `slopeRepair`, `split`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeRepair_absorbs` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `g`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeRepair_decreases` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `g`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeRepair_iterate` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `g`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeRepair_measure_le_two` -> `Compiler`, `Sat`, `Segment`, `iterate`, `repair`, `run`, `slopeMeasure`, `split`, `twoSlopeRepair`, `twoSlopes_sat_after_fix`
+- `twoSlopeRepair_preserves_other_segments` -> `Compiler`, `Segment`
+- `twoSlopes_change_two_observables` -> `Compiler`, `Segment`, `constFamily`, `g`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`
+- `twoSlopes_sat_after_fix` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `g`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
 - `twoVar_is_not_unit_vector` -> `VectorConstraint`, `at`, `length`
 - `two_dim_posdef_iff` -> `add`, `at`, `d`
 - `two_distinct_constraints` -> `IsFormalConcept`, `RealConstraint`, `at`
@@ -11450,7 +11464,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `two_layer_distill_bound_teacher_input` -> `ChainFwd`, `E`, `apply`, `at`, `d`, `induction`, `le_antisymm`, `quantErrBound`, `quantFwd`, `quantized_chain_error`, `quantized_chain_error_closed`, `quantized_chain_error_lipschitz`, `quantized_two_layer_error`, `quantized_uniform_error`, `zero`
 - `two_mul_geluInner_abs` -> `at`, `convert`, `geluInner`, `geluSoftMask`, `geluTanhDeriv`, `gelu_soft_mask_bounds`, `tanh_abs_le_one`
 - `two_mul_ne_zero` -> `apply`
-- `two_sections_of_one_generalisation` -> `Compiler`, `LayerOut`, `LinearLayer`, `out`
+- `two_sections_of_one_generalisation` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `interpFamily`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `two_sided_edit_agree_iff_both_nil` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`, `nil_append`
 - `two_sided_edit_carriers_disagree` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `LinearLayer`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`, `nil_append`
 - `two_site_additive_when_inputs_agree` -> `ChainFwd`, `ChainTail`, `chain_edit_locality`, `d`, `subst`
@@ -11926,8 +11940,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zipWith_zip_assoc` -> `at`, `length`
 - `zip_append_right` -> `at`, `induction`, `length`, `length_cons`
 - `zip_append_tail_eq` -> `at`, `induction`, `length`, `length_cons`
-- `zip_fold_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`, `map`, `out`
-- `zip_map_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`, `map`, `out`
+- `zip_fold_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `dot`, `eval`, `g`, `gridEval`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`
+- `zip_map_cast` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `dot`, `eval`, `g`, `gridEval`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`
 - `zip_nil_right_d21` -> `LayerOut`, `LinearLayer`, `SemEqL`, `Surjective`, `at`, `convertVec`, `dot`, `dot_map_mul`, `extractVec`, `extractVec_respects_semEq`, `foldl_init_add`, `induction`, `length`, `length_cons`, `lift`, `map`, `roundtrip_extractVec`, `semConv`, `semSetoidC`, `semSetoidL`, `sound`, `toFun`
 - `zip_snd_align` -> `at`, `dot`, `dot_as_sum`, `induction`, `length`, `map`, `sum_zipWith_projection`, `zipWith_add_split`, `zipWith_zip_assoc`
 - `zmod_constraint_preserves` -> `apply`

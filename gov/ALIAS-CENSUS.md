@@ -9,7 +9,7 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 753 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 755 |
 | **copy** | 规范化后的证明体与**另一个名字**完全相同 | 170 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
@@ -91,6 +91,7 @@
 | `Core/OneStepBridge.lean` | `oneStepRepair_converges` |
 | `Core/RepairModule/Repair.lean` | `parity_terminates` |
 | `Core/RepairModule/RepairBridge.lean` | `converges` |
+| `Core/RepairModule/RepairProduct.lean` | `exists_sat_iterate` |
 | `Core/RepairModule/SqDistRepair.lean` | `sqDistHalving_terminates` |
 | `Evidence/MultiComposition.lean` | `chain_single` |
 | `Evidence/MultiComposition.lean` | `chain_two` |
@@ -341,6 +342,7 @@
 | `Lib/Compiler/RealGlobalConfluence.lean` | `newman` |
 | `Lib/Compiler/RealGlobalConfluence.lean` | `prec_confluent` |
 | `Lib/Compiler/RealGlobalConfluence.lean` | `star_single` |
+| `Lib/Compiler/RealLayer.lean` | `familyToRealLayers_out` |
 | `Lib/Compiler/RealLv00CompilerReal.lean` | `compile_program_contains_compiled_constraints` |
 | `Lib/Compiler/RealMutualRecursion_parts/C.lean` | `decEq_eq_iff_decide` |
 | `Lib/Compiler/RealMutualRecursion_parts/C.lean` | `flat_guard_agrees` |
