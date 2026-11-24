@@ -117,4 +117,16 @@ theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List I
   simp only [hdot, hb]
   rfl
 
+/-- **⭐⭐⭐ 用**全零实例**实例化弱化版——接缝**首次真正有消费者**。
+
+**⇒ 这里把 `layerZeroRepair_sat_zero_outputs`（它恰好就是 `LayerSat cs`）喂给
+`extract_after_repair_weak`。⇒ 故 `RepairClosure` 那一节**首次被下游引用**。**
+**⇒ 而旧条 `extract_after_repair` 本身仍然 0 消费者——它的 `↔` 前提在树里无实例。
+⇒ 下一步应当把这件事**写进文档**，而不是继续找消费者。** -/
+theorem layerZeroRepair_extract (cs : List Lattice.VectorConstraint) (ls : Layer)
+    (h : layerZeroRepair.μ ls = 0) (x : List Int) :
+    AllSatisfied (Lattice.Runtime.LoopClosure.extractLayer ls) x :=
+  Lattice.Runtime.RepairClosure.extract_after_repair_weak (cs := cs) layerZeroRepair
+    (fun ls' hs => layerZeroRepair_sat_zero_outputs hs) ls h x
+
 end Lattice.Runtime.LayerRepair

@@ -95,4 +95,17 @@ theorem extract_after_repair (R : Lattice.Core.Repair Layer)
     ((hSat ls).mp (repair_terminates_at_sat R ls h) x)
 
 
+/-- **⭐⭐⭐ 前提**减弱版**：只需**单向**薄弱——`Sat ⇒ LayerSat`。
+
+**⇒ 为何要它：原条 `extract_after_repair` 要求**等价**（`↔`）。
+而实例的判据往往只能保证**一个方向**（例如全零判据⇒零输出）。**
+**⇒ 故 `↔` 是**过强**的要求，而它使原条在本树里**永远无法被应用**。**
+**⇒ 本条把它降到实际需要的那一半，并保留原条不动（不破坏既有引用）。** -/
+theorem extract_after_repair_weak (R : Lattice.Core.Repair Layer)
+    (himp : ∀ ls, R.Sat ls → LayerSat cs ls)
+    (ls : Layer) (h : R.μ ls = 0) (x : List Int) :
+    AllSatisfied (Lattice.Runtime.LoopClosure.extractLayer ls) x :=
+  (satisfies_extractLayer_iff_self ls x).mpr
+    (himp ls (repair_terminates_at_sat R ls h) x)
+
 end Lattice.Runtime.RepairClosure
