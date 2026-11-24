@@ -1537,7 +1537,7 @@
 | `Lattice.Lib.Compiler.InterpAlgebra` | 12 | 0 |
 | `Lattice.Lib.Compiler.Layout` | 5 | 10 |
 | `Lattice.Lib.Compiler.LinearComb` | 5 | 2 |
-| `Lattice.Lib.Compiler.LoopInstance` | 3 | 1 |
+| `Lattice.Lib.Compiler.LoopInstance` | 5 | 2 |
 | `Lattice.Lib.Compiler.LowerBound` | 4 | 0 |
 | `Lattice.Lib.Compiler.LowerBoundGeneral` | 3 | 0 |
 | `Lattice.Lib.Compiler.LvDSLPartial` | 3 | 5 |
@@ -11419,9 +11419,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_third_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
-- `twoSlopeLoop_ends_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `iterate`, `loop_end_sat`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
-- `twoSlopeLoop_run_components` -> `Compiler`, `Segment`, `iterate`, `repairProd_iterate`, `run`, `slopeRepair`, `twoSlopeRepair`
-- `twoSlopeLoop_step_fixed` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `iterate`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
+- `twoSlopeDefectLoop_objective_at_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `repair`, `run`, `twoSlopeRepair`
+- `twoSlopeLoop_ends_sat` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `loop_end_sat`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
+- `twoSlopeLoop_objective_vanishes` -> `Compiler`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `repair`, `run`
+- `twoSlopeLoop_run_components` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `twoSlopeRepair`
+- `twoSlopeLoop_step_fixed` -> `Compiler`, `Sat`, `Segment`, `VerificationLoop`, `closed_loop_reinject_vanishes`, `e2`, `iterate`, `repair`, `repairProd_iterate`, `run`, `slopeRepair`, `step`, `step_fixed_of_sat`, `twoSlopeRepair`
 - `twoSlopeRepair_absorbs` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
 - `twoSlopeRepair_decreases` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
 - `twoSlopeRepair_iterate` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`

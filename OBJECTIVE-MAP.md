@@ -36,7 +36,7 @@
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 | 9 | `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 | 0 | `Usage/Examples.lean` |
-| 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
+| 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 2 | 0 | `Lib/Compiler/LoopInstance.lean`, `Usage/Examples.lean` |
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 | 0 | `Usage/Examples.lean` |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
 | 4 loop | `bidirRepair` | `Primitives/MultistepLoop.lean` | 1 | 13 | `Primitives/WeightDescent.lean` |
