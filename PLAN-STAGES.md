@@ -1417,3 +1417,38 @@ general_formula_matches_hand_derived
 
 **⇒ 命名门禁抓到撇号**：我的第一个名字 `deriv_pow'` 被目标覆盖门禁拒绝（撇号超出豁免表）。
 ⇒ 改名为 `deriv_pow_fun` 而非豁免——与第 1043 轮 `compile_injective'` 同一决定。**
+### 3.40 **第 1077 轮（第四次表结构压力测试）：解析能力与符号证据解耦，于是**任意度数**可入表**
+
+**第 1076 轮证出了覆盖所有度数的界，却**进不了表**。原因不是数学，而是**结构**：**
+**⇒ `CapabilityRow` 要求 `term : ExprExt` 与 `compiled` 的证明，而 `ExprExt` 只能写**有限嵌套**的 `mul`，
+故 `x^d` 对任意 `d` **不可表示**。⇒ **界是一般的，行不是。****
+
+**⇒ 修法是两层划分：**
+
+```lean
+structure AnalyticRow where        -- 函数、族、常数、界；**没有**符号项
+  degree, fn, constant, covers, covers_self, covers_bound
+
+CapabilityRow = AnalyticRow + 符号证据（term、compiled、family_eq、target）
+
+analytic_of_capability : CapabilityRow → AnalyticRow     -- 符号层是解析层的**加细**
+powAnalyticRow (d) (2 ≤ d) : AnalyticRow                 -- **对每个度数**存在
+pow_uniform_bound_Icc                                     -- 该行所需的闭区间形式
+```
+
+**⇒ 为什么这是**正确的分界**而不是绕道：选择比较的是 `covers` 与 `constant`，两者都在解析层；
+符号证据只在**把行追溯到源语言**时才需要。**
+**⇒ 把它们放进同一个结构与界并列，混淆了两个**作用域不同**的断言：
+「这一族近似到 `C/n²`」与「并且我们能说出哪个表面项编译到它」。**
+
+**⇒ 回报是具体且**从未手工推导过**的：**
+```lean
+quintic_bound      : x^5   ≤ 5/2·(1/n)²      (5·4/8)
+tenth_power_bound  : x^10  ≤ 45/4·(1/n)²     (10·9/8)
+```
+**⇒ 这两个度数在本项目中**从未被处理**，它们从 `powAnalyticRow` 直接落下，**没有新的分解、没有新的求导**。
+⇒ 这才使「任意度数的覆盖」这句话值得说。**
+
+**⇒ 我的编辑脚本**两次**弄坏了这个文件：一次剥离 `have h := …` 时留下了悬空的 `rwa`，
+一次补丁因注释里的星号已解码而找不到锚点。⇒ 两次都用**按行区间替换**修复——
+区间由 `next(...)` 从**精确的定理名**定位，这正是文本锚点失败时一直奏效的做法。**

@@ -1493,6 +1493,10 @@ Lib/Chain/RealLv00AxiomDischargePerPackage_parts/D.lean	affineGeometry_false_but
 Lib/Chain/RealNumericChainOrder_parts/A.lean	natToReal_eq_zero_of_le_zero
 Lib/Chain/RealNumericChainOrder_parts/B.lean	natToReal_not_surjective
 Lib/Chain/RealNumericChainOrder_parts/C.lean	lt_of_apply_eq_of_strictMono
+Lib/Compiler/AnalyticRow.lean	pow_uniform_bound_Icc
+Lib/Compiler/AnalyticRow.lean	quintic_bound
+Lib/Compiler/AnalyticRow.lean	tenth_power_bound
+Lib/Compiler/AnalyticRow.lean	tenth_power_constant
 Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_bound
 Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_meets_request
 Lib/Compiler/ArtifactStitch.lean	square_artifact_meets_request
