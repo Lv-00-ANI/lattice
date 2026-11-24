@@ -965,3 +965,33 @@ structure CapabilityRow where
 界要**写成既有定理的形状**——`(1/n)²/4` 与 `1/4·(1/n)²` 相等但不同形，用 `ring` 对齐而非混为一谈。**
 
 **⇒ `row_gives_bound` 是转发（重新暴露本行的字段），已按「有意转发」登记。**
+### 3.26 **第 1063 轮：参数化仿射行——常数 0，**精确而非近似****
+
+**表原有两行都是**无参常数**。加入仿射族是表结构的第一次真实压力测试，结果：结构够用。**
+**文件：`Lattice/Lib/Compiler/CapabilityTable.lean`**
+
+```lean
+affineRow (a b : ℝ) : CapabilityRow
+  degree 1, term affineTerm a b, fn (t ↦ a·t + b), target .affine a b, constant 0
+```
+
+**⇒ 这一行最容易被忽略：它是**唯一**一档「族是精确的」。表里的常数 0 **不是缺失数据，而是最强的声明**。
+⇒ `bound` 字段仍然成立（`|fn − 插值| ≤ 0·(1/n)²`），而 `affineRow_exact` 把它加强为**等式**——
+去掉绝对值与不等号。**
+
+**⇒ `family_eq` 这一行也**不是 `rfl`**，理由与二次行不同：目标族是**常族** `affineFamily a b`，
+而右侧是同一仿射函数的**插值族**；`interpFamily_affine` 正是「两者重合」这句话。**
+
+**⇒ 两条顶层定理：**
+
+```lean
+affineRow_exact : fn x − gridEval (interpFamily n fn) n x = 0
+constants_ordered (a b) : (affineRow a b).constant ≤ squareRow.constant ∧ squareRow.constant < cubeRow.constant
+```
+
+**⇒ 第二条把表中能力的**强弱顺序**变成一条可引用链：精确（0）不弱于二次（1/4），
+二次在同一 `n` 下**严格**优于三次（3/4）。**
+**⇒ 第一段写 `≤` 而非 `<`：它的作用只是「常数 0 是最低档」；严格性只在两个**近似**族之间才有意义。**
+
+**⇒ 一处**我自己需要清理的东西**：`constants_ordered` 初版的注释是**自问自答的啰嗦**
+（“……不，它们是不同族的常数，写 ≤ 是因为……”）。那不是论证，是论证的样子。⇒ 已换成两句真正的理由。**
