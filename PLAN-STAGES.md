@@ -1320,3 +1320,34 @@ select_quartic_goal_lands_on_quartic :
 
 **⇒ 基线裁定：半开版本**删除**而非入基线（Icc 蕴含 Ico，保留两者等于给同一事实两个名字）；
 `quartic_not_affine`、`quartic_ne_square`、`quartic_ne_cube` 成为承重，verdict 已登记。**
+### 3.37 **第 1074 轮：四档常量**严格递增**，且历史默认被证明**陈旧****
+
+```lean
+constants_strictly_increasing (a b) :
+    (affineRow a b).constant < squareRow.constant
+    ∧ squareRow.constant < cubeRow.constant
+    ∧ cubeRow.constant < quarticRow.constant
+```
+
+**⇒ 即 `0 < 1/4 < 3/4 < 3/2`。⇒ 这是「先小后大」的**定量**依据：不同度数的族在同一 `n` 下**代价确实不同**，
+且差**严格递增**。⇒ 故「先试小的」不是关于优雅的偏好，而是一条定理陈述的**代价序**。**
+
+**⇒ 旧的三档 `constants_ordered`（`0 ≤ 1/4 < 3/4`）**被删除**而非并存——它被新链条**取代**，
+若保留则几乎同一事实有两个名字。**
+
+```lean
+legacy_default_refuses_where_current_table_succeeds (目标 = t⁴, 3/2·(1/n)² ≤ eps) :
+    selectByDegree req = none ∧ selectUpTo req 5 = some quarticRow
+```
+
+**⇒ `selectByDegree` 写死为 `selectUpTo req 4`——那是**表只有三行时**的默认。**
+**⇒ 在四次目标上它现在返回 `none`，而显式传 `dmax = 5` 能找到 `quarticRow`。**
+**⇒ 把这件事写成定理，使「默认会陈旧」成为**可引用的事实**而非评论：调用者应显式传 `dmax`，**理由是一条定理，而不是一个约定**。**
+
+**⇒ 一次**切得过远**的删除，这次是**普查**抓到的：**
+**⇒ 为删除 `constants_ordered`，我从它的注释切到命名空间末尾，**连带删掉了随其后的两条否定定理**
+（`affine_family_row_never_sufficient_for_square`、`select_none_of_affine_table`）。
+⇒ 构建**仍然通过**（因为无消费者），是**否证普查**发现它：`370 → 369`。⇒ 两条已恢复，普查回到 370。**
+
+**⇒ 这是三轮内**第二次**「删一条定理」把邻居一起带走。⇒ 结论不是「要小心」，而是：
+**无法精确说出邻域范围的删除，应当替换那一条定理的正文，而不是切一个区段。**

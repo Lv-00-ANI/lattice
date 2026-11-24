@@ -1504,7 +1504,6 @@ Lib/Compiler/CapabilityTable.lean	affineFamily_not_sufficient_for_square
 Lib/Compiler/CapabilityTable.lean	select_square_row
 Lib/Compiler/CapabilityTable.lean	select_affine_first
 Lib/Compiler/CapabilityTable.lean	select_affineFamily_row
-Lib/Compiler/CapabilityTable.lean	constants_ordered
 Lib/Compiler/CapabilityTable.lean	affine_family_row_never_sufficient_for_square
 Lib/Compiler/CapabilityTable.lean	select_none_of_affine_table
 Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
@@ -1642,6 +1641,8 @@ Lib/Compiler/PolyTable.lean	selectUpTo_none_of_quartic_goal
 Lib/Compiler/PolyTable.lean	degreeList_five
 Lib/Compiler/PolyTable.lean	select_quartic_goal_lands_on_quartic
 Lib/Compiler/PolyTable.lean	table_is_not_a_ceiling
+Lib/Compiler/PolyTable.lean	constants_strictly_increasing
+Lib/Compiler/PolyTable.lean	legacy_default_refuses_where_current_table_succeeds
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
 Lib/Compiler/QuarticFamily.lean	quartic_uniform_bound_Icc
 Lib/Compiler/R3Triviality.lean	R3_dichotomy

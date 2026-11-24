@@ -1493,7 +1493,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.Capability` | 3 | 0 |
-| `Lattice.Lib.Compiler.CapabilityTable` | 13 | 9 |
+| `Lattice.Lib.Compiler.CapabilityTable` | 12 | 9 |
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
 | `Lattice.Lib.Compiler.CarrierApproximation` | 5 | 0 |
 | `Lattice.Lib.Compiler.CarrierClosure` | 5 | 3 |
@@ -1534,7 +1534,7 @@
 | `Lattice.Lib.Compiler.NonlinearApproximation` | 6 | 0 |
 | `Lattice.Lib.Compiler.PiecewiseUniform` | 5 | 0 |
 | `Lattice.Lib.Compiler.PiecewiseWeights` | 2 | 2 |
-| `Lattice.Lib.Compiler.PolyTable` | 28 | 4 |
+| `Lattice.Lib.Compiler.PolyTable` | 30 | 4 |
 | `Lattice.Lib.Compiler.PolynomialLowerBound` | 3 | 0 |
 | `Lattice.Lib.Compiler.QuarticFamily` | 7 | 1 |
 | `Lattice.Lib.Compiler.R3Triviality` | 3 | 0 |
@@ -4063,7 +4063,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `constant_lr_converges` -> `apply`, `at`, `contraction_converges`, `le_trans`, `subst`
 - `constant_map_is_quotient_reversible` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
 - `constant_map_quotient_is_subsingleton` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `induction`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `sound`, `toSegs`, `trans`
-- `constants_ordered` -> `Compiler`, `d`, `find`, `g`
+- `constants_strictly_increasing` -> `Compiler`, `Request`, `affineRow`, `cubeRow`, `eps`, `quarticRow`, `squareRow`
 - `constrainedDenom_nonneg` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedDenom_pos` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
 - `constrainedSoftmax_eq_zero_of_not_allowed` -> `ConstraintSet`, `SymToken`, `at`, `card_fin`, `decode`, `maskedDenom`, `maskedSoftmax`, `maskedSoftmax_sum_one`
@@ -4578,8 +4578,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `degenerate_ratioDivision_zero` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_rightAngle` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `d`, `dist`, `dot`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
 - `degenerate_tangent` -> `IRConstraint`, `angle`, `at`, `collinear`, `compile_constraint`, `ctr`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `parallel`, `ptX`, `ptY`, `subst`
-- `degreeList_degree_lt` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`, `zero`
-- `degreeList_five` -> `Compiler`, `Request`, `affineFamilyRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `degreeList_degree_lt` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`, `zero`
+- `degreeList_five` -> `Compiler`, `Request`, `affineFamilyRow`, `affineRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
 - `degreeList_four` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
 - `degreeList_one` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
 - `degreeList_two` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
@@ -7063,6 +7063,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `leftInverse_covers_non_factoring_P` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `VectorConstraint`, `canonicalize`, `closed_loop_adds_nothing`, `compileToLayer`, `convertVec`, `extractLayer`, `extractLayer_compileToLayer`, `extractVec`, `g`, `induction`, `roundtrip_extractVec`, `zero`
 - `leftInverse_iff_injective` -> `apply`, `at`, `choice`, `g`, `le_trans`, `subst`
 - `leftInverse_separates` -> `IdempotentOn`, `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `progress`, `roundtrip`
+- `legacy_default_refuses_where_current_table_succeeds` -> `Compiler`, `Request`, `eps`, `quarticRow`
 - `lengthBound_le_of_le` -> `E`, `apply`, `induction`, `le_trans`, `zero`
 - `length_cons` -> `le_trans`, `length`, `natToReal`, `natToReal_eq_zero_of_lt_one`, `natToReal_strictMono`, `rat_exists_between_zero_one`, `real_dense_between`
 - `length_generalization` -> `E`, `le_trans`
@@ -9081,7 +9082,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quartic_ne_cube` -> `CapabilityRow`, `Compiler`, `apply`, `at`, `bound`, `chordOf`, `compileTarget_quarticTerm`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `subst`
 - `quartic_ne_square` -> `CapabilityRow`, `Compiler`, `apply`, `at`, `bound`, `chordOf`, `compileTarget_quarticTerm`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `subst`
 - `quartic_not_affine` -> `CapabilityRow`, `Compiler`, `apply`, `at`, `bound`, `chordOf`, `compileTarget_quarticTerm`, `d`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `subst`
-- `quartic_not_covered` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `quartic_not_covered` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `affineRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
 - `quartic_sub_chord` -> `CapabilityRow`, `Segment`, `apply`, `at`, `bound`, `chordOf`, `chordSlope`, `compileTarget_quarticTerm`, `d`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `tent_le`
 - `quartic_third_factor_bound` -> `CapabilityRow`, `apply`, `at`, `bound`, `chordOf`, `compileTarget_quarticTerm`, `d`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `subst`, `tent_le`
 - `quartic_uniform_bound_Icc` -> `CapabilityRow`, `Compiler`, `apply`, `at`, `bound`, `chordOf`, `compileTarget_quarticTerm`, `eval`, `evalSym_quarticTerm`, `g`, `gridEval`, `gridEval_bound_of_segmentwise_Icc`, `interpFamily`, `interpFamily_eval_at_one`, `quarticTerm`, `segmentIndex`, `segmentIndex_at_one`, `semantics`, `subst`
@@ -10050,17 +10051,17 @@ module. These are the edges that make the chain a chain rather than a list.
 - `sel_tight_state_eq` -> `at`, `div_const`, `mul`
 - `sel_tight_state_eq_of_lt_one` -> `at`, `div_const`, `mul`
 - `selectByDegree_eq_selectUpTo` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
-- `selectUpTo_degree_bound` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
-- `selectUpTo_none_of_quartic_goal` -> `Compiler`, `Request`, `affineFamilyRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `selectUpTo_degree_bound` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `affineRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `selectUpTo_none_of_quartic_goal` -> `Compiler`, `Request`, `affineFamilyRow`, `affineRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
 - `selectUpTo_zero` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
 - `select_affineFamily_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `select_affine_first` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
-- `select_cubic_goal_lands_on_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `select_cubic_goal_lands_on_cube` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `affineRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
 - `select_gives_precision` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
 - `select_nil` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `induction`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `select`, `squareRow`, `sufficient`, `zero`
 - `select_none_of_affine_table` -> `Compiler`, `d`, `find`, `g`
-- `select_quadratic_goal_lands_on_square` -> `CapabilityRow`, `Compiler`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
-- `select_quartic_goal_lands_on_quartic` -> `Compiler`, `Request`, `affineFamilyRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `select_quadratic_goal_lands_on_square` -> `CapabilityRow`, `Request`, `affineFamilyRow`, `affineFamily_not_sufficient_for_square`, `affineRow`, `apply`, `at`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
+- `select_quartic_goal_lands_on_quartic` -> `Compiler`, `Request`, `affineFamilyRow`, `affineRow`, `apply`, `cubeRow`, `d`, `eps`, `find`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_ne_cube`, `quartic_ne_square`, `quartic_not_affine`, `quartic_uniform_bound_Icc`, `select`, `squareRow`, `sufficient`
 - `select_sound` -> `Compiler`, `apply`, `at`, `d`, `eps`, `find`, `g`, `gridEval`, `interpFamily`
 - `select_square_row` -> `Compiler`, `apply`, `d`, `eps`, `find`, `g`
 - `selectedDomain_activates_network` -> `Gaze`, `at`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`
@@ -11035,7 +11036,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `t7_confluence_seq_holds` -> `Effect`, `RState`, `Step`, `applySeq_swap`, `fail_leaves_state`, `run`, `runSeq`, `runSeq_head_fails`
 - `t8_failure_isolation_holds` -> `Effect`, `RState`, `Step`, `fail_leaves_state`, `runSeq`, `runSeq_head_fails`
 - `t8_head_fails_holds` -> `runSeq_head_fails`
-- `table_is_not_a_ceiling` -> `Compiler`, `gridEval`, `interpFamily`, `quartic_uniform_bound_Icc`
+- `table_is_not_a_ceiling` -> `Compiler`, `Request`, `affineRow`, `cubeRow`, `eps`, `gridEval`, `interpFamily`, `quarticRow`, `quartic_uniform_bound_Icc`, `squareRow`
 - `tag0_eq` -> `d`
 - `tag1_eq` -> `d`
 - `tag2_eq` -> `d`
