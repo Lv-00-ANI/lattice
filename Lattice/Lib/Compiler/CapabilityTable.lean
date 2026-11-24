@@ -365,27 +365,18 @@ theorem select_affineFamily_row (req : Request)
     show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
     simpa using heps
 
-/-- **⭐⭐ 表里三个常数的顺序：`0 ≤ 1/4 < 3/4`。** -/
-theorem constants_ordered (a b : ℝ) :
-    (affineRow a b).constant ≤ squareRow.constant ∧ squareRow.constant < cubeRow.constant := by
-  constructor
-  · show (0 : ℝ) ≤ 1 / 4
-    norm_num
-  · show (1 : ℝ) / 4 < 3 / 4
-    norm_num
-
 /-! ## 六、否定路径：选不出时的**理由**
 
 ### 一个必须说清楚的区别
 
-**`LowerBound.no_uniform_linear_approximation`（§地板 `1/8`）说的是**逼近不可能**：
-不存在仿射函数在 `eps < 1/8` 时一致地 `eps`-逼近 `x²`。**
+**`LowerBound.no_uniform_linear_approximation`（地板 `1/8`）说的是**逼近不可能**：
+不存在仿射函数在 `eps < 1/8` 时一致地 `eps`-逼近 `x²`。
 
 **而本框架的 `covers` 要求的是**恰好属于该族**，不是逼近。
-⇒ 因此本节的否定结论**不**靠地板，而靠「`x²` 不是仿射函数」这一点（它更强）。
-**⇒ 把两者混为一谈会得出一个看似漂亮、实则不成立的推理；故此处明写区别。**
-
+⇒ 因此本节的否定结论**不**靠地板，而靠「`x²` 不是仿射函数」（它更强）。
+把两者混为一谈会得出一个看似漂亮、实则不成立的推理，故此处明写区别。
 -/
+
 /-- **⭐⭐⭐ 任何**族限于仿射**的行，在目标为 `x²` 时**不可能充分**——对**任意** `eps`。
 
 **⇒ 理由不是精度，而是**归属**：`covers req.goal` 强制 `x²` 是仿射函数，而它不是。
@@ -414,7 +405,6 @@ theorem select_none_of_affine_table (req : Request)
   unfold select
   rw [List.find?_eq_none]
   intro row hrow
-  -- **目标形式是 `≠ true`；先立 `= false`，再 `simpa` 转换。**
   have hfalse : decide (sufficient row req) = false :=
     decide_eq_false (affine_family_row_never_sufficient_for_square req hgoal row (hall row hrow))
   simpa using hfalse

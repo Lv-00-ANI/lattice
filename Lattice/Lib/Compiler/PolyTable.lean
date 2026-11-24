@@ -440,4 +440,39 @@ theorem table_is_not_a_ceiling (n : ℕ) (hn : 0 < n) :
   ⟨selectUpTo_none_of_quartic_goal _ rfl,
    fun x hx => quartic_uniform_bound_Icc n hn x ⟨hx.1, le_of_lt hx.2⟩⟩
 
+/-! ## 七、四档常数与历史默认 -/
+
+/-- **⭐⭐⭐ 四档常数**严格递增**：`0 < 1/4 < 3/4 < 3/2`。
+
+**⇒ 这是「低度优先」的**定量**依据：不同度数的族在同一 `n` 下
+常数不同，且**严格递增**——故选择器「先小后大」不是偏好，而是代价优先。**
+**⇒ 严格性对仿射那一档也成立（`0 < 1/4`），因为它是**精确**而不是近似。** -/
+theorem constants_strictly_increasing (a b : ℝ) :
+    (affineRow a b).constant < squareRow.constant
+      ∧ squareRow.constant < cubeRow.constant
+      ∧ cubeRow.constant < quarticRow.constant := by
+  refine ⟨?_, ?_, ?_⟩
+  · show (0 : ℝ) < 1 / 4
+    norm_num
+  · show (1 : ℝ) / 4 < 3 / 4
+    norm_num
+  · show (3 : ℝ) / 4 < 3 / 2
+    norm_num
+
+/-- **⭐⭐⭐ **历史默认会拒绝当前表能做的事**。
+
+**⇒ `selectByDegree` 写死为 `selectUpTo req 4`——那是表只有三行时的默认。
+在四次目标上它返回 `none`，而 `selectUpTo req 5` 选中 `quarticRow`。**
+
+**⇒ 本条把「默认值会随表而**陈旧**」这件事写成可引用的事实，
+而不是留在评论里。⇒ 因此调用者应显式传 `dmax`，而不应依赖默认。** -/
+theorem legacy_default_refuses_where_current_table_succeeds (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 4)
+    (heps : 3 / 2 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
+    selectByDegree req = none ∧ selectUpTo req 5 = some quarticRow := by
+  constructor
+  · rw [selectByDegree_eq_selectUpTo]
+    exact selectUpTo_none_of_quartic_goal req hgoal
+  · exact select_quartic_goal_lands_on_quartic req hgoal heps
+
 end Lattice.Lib.Compiler.PolyTable
