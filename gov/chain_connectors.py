@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 33
+UNREGISTERED_BUDGET = 24
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -260,6 +260,20 @@ def chain_users(corpus, name, definer):
             if rel != definer and not rel.startswith("Usage/") and rx.search(src)]
 
 
+def used_in_place(rel, name):
+    """Occurrences of `name` inside its OWN file, minus the declaration itself.
+
+    **Round 1111: the same distinction the objective map needed in round 1092.** `chain_users` excludes the definer
+    by design (a theorem does not consume itself), but that also hides the case where the definer's file USES it --
+    `extractWith_absent` is consumed by `extractWith_spec` three lines down, and calling that 'dead' is the
+    'unused vs used in place' conflation all over again.
+
+    A global corpus is built per call here rather than threaded through, because this file is a report and the
+    clarity is worth more than the microseconds.
+    """
+    return len(re.findall(r"\b%s\b" % re.escape(name), chain_corpus().get(rel, ""))) - 1
+
+
 def recent_shas(k):
     r = subprocess.run(["git", "log", "-n", str(k), "--format=%H"], cwd=ROOT,
                        capture_output=True, text=True)
@@ -370,7 +384,8 @@ def main():
             # **Round 1098: liveness is a SECOND, independent number.** `live` counts connectors with at least
             # one chain-internal consumer; `dead` names those with none. Printing both side by side makes it
             # impossible to read "old" as "disconnected" without seeing the other column.
-            dead = [n for rel, n, _ln in sorted(names) if not chain_users(CC, n, rel)]
+            dead = [n for rel, n, _ln in sorted(names)
+                    if not chain_users(CC, n, rel) and used_in_place(rel, n) <= 0]
             live = len(names) - len(dead)
             print("      live %d/%d connectors have a chain-internal consumer%s"
                   % (live, len(names),
@@ -392,7 +407,8 @@ def main():
         for i2 in range(len(labels) - 1):
             a2, b2 = labels[i2], labels[i2 + 1]
             for rel2, n2, _ln2 in sorted(matrix[(a2, b2)]):
-                if not chain_users(CC2, n2, rel2) and n2 not in TERMINAL_CONNECTORS:
+                if (not chain_users(CC2, n2, rel2) and used_in_place(rel2, n2) <= 0
+                        and n2 not in TERMINAL_CONNECTORS):
                     dead_adj.append((a2, b2, n2))
         unreg = [x for x in dead_adj if x[2] not in TERMINAL_CONNECTORS]
         if unreg:
