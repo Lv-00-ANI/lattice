@@ -255,4 +255,67 @@ theorem selectUpTo_degree_bound {req : Request} {dmax : ℕ} {row : CapabilityRo
   unfold select at h
   exact degreeList_degree_lt dmax row (List.mem_of_find?_eq_some h)
 
+/-! ## 五、阶梯的**落点**：选择器不越级 -/
+
+/-- **⭐⭐⭐ 二次目标在**真实的四级表**上落到二次行。**
+
+**⇒ 注意这不是 `select_square_row` 的重述：那一条用的是**两元**表
+`[affineRow a b, squareRow]`，而本条用的是**真实的四级生成表**
+`[affineFamilyRow, squareRow, cubeRow]`。**
+**⇒ 因此本条的新内容是：`find?` 在**二次行就停下了**，
+**从未走到三次行**——即选择器不会为了一个二次目标去拿更贵的族。** -/
+theorem select_quadratic_goal_lands_on_square (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2)
+    (heps : 1 / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
+    selectUpTo req 4 = some squareRow := by
+  classical
+  unfold selectUpTo
+  rw [degreeList_four]
+  unfold select
+  -- **第一次跳过：仿射族行不适用于 `x²`。**
+  rw [List.find?_cons_of_neg]
+  · -- **二次行被选中；三次行从未被考虑。**
+    apply List.find?_cons_of_pos
+    apply decide_eq_true
+    constructor
+    · show squareRow.covers req.goal
+      rw [hgoal]
+      rfl
+    · show squareRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+      show (1 : ℝ) / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+      exact heps
+  · have hfalse : decide (sufficient affineFamilyRow req) = false :=
+      decide_eq_false (affineFamily_not_sufficient_for_square req hgoal)
+    simpa using hfalse
+
+/-- **⭐⭐⭐ 三次目标落到三次行**（两级都被跳过）。
+
+**⇒ 与上一条合起来，两个目标各自落在**自己的最小可行度数**上。
+⇒ 这才是「按度数递增尝试」这句话的内容。** -/
+theorem select_cubic_goal_lands_on_cube (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 3)
+    (heps : 3 / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
+    selectUpTo req 4 = some cubeRow := by
+  classical
+  unfold selectUpTo
+  rw [degreeList_four]
+  unfold select
+  rw [List.find?_cons_of_neg]
+  · rw [List.find?_cons_of_neg]
+    · apply List.find?_cons_of_pos
+      apply decide_eq_true
+      constructor
+      · show cubeRow.covers req.goal
+        rw [hgoal]
+        rfl
+      · show cubeRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+        show (3 : ℝ) / 4 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+        exact heps
+    · have hfalse : decide (sufficient squareRow req) = false :=
+        decide_eq_false (cube_not_square_row req hgoal)
+      simpa using hfalse
+  · have hfalse : decide (sufficient affineFamilyRow req) = false :=
+      decide_eq_false (affineFamily_not_sufficient_for_cube req hgoal)
+    simpa using hfalse
+
 end Lattice.Lib.Compiler.PolyTable
