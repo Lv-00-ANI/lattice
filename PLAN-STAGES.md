@@ -1591,3 +1591,52 @@ quintic_lands :
 
 **⇒ 本轮之后立即执行第 1 步**：先测量 `compileToLayer` 与 `compileTarget` 是否存在共同片段——
 若存在就写桥；若不存在就先写「为何不同」的记录。**这是**测量优先于施工**的同一原则在本层的应用。**
+### 3.44 **第 1081 轮：测量两套「符号 → 权重」，证明其**唯一真实交点**，并把新线登记为条款载体**
+
+**第 1080 轮测出新线在 `Lib/Compiler/` 之外**零引用**。本轮执行它给出的计划的前两步。**
+
+#### 一、先测量：两套实现**不是同一个对象**
+
+| | 主链（`Runtime/ConvertVectorLinear.lean`） | 新线（`Lib/Compiler/`） |
+|:--|:--|:--|
+| 载体 | `LinearLayer = ⟨w : List ℤ, b : ℤ⟩`（`:138`） | `Segment = ⟨m : ℝ, c : ℝ⟩` |
+| 求值 | `LayerOut l x = dot l.w x + l.b`（`:143`） | `Segment.eval s x = s.m * x + s.c` |
+| 语义 | **精确**：约束满足 ⟺ 输出为零 | **逼近**：`\|f − 插值\| ≤ C/n²` |
+
+**⇒ 故宣称「一条链」会是假的：`ℤ→ℝ` 不是同构，而「输出为零」与「误差有界」是**两个不同判据**。**
+**⇒ 唯一真实交点是**标量仿射片段**，且只到这个程度：**
+
+```lean
+segment_eval_eq_scalar_layer_out (w b x : ℤ) :
+    (⟨w, b⟩ : Segment).eval (x : ℝ) = ((LayerOut ⟨[w], b⟩ [x] : ℤ) : ℝ)
+scalar_layer_out_eq_segment_eval    -- 同一等式的反向读法
+bridge_sample                       -- 一个具体实例，读者可手算核对
+```
+
+**⇒ 文件头明确写出桥**不覆盖**的三件事：非整数系数、非标量宽度、「零 vs ε」语义。三者皆不声称。**
+
+#### 二、让孤岛**可见**
+
+`gov/check_objective_coverage.py` 的 `CLAUSES` 现在登记了新线：
+```python
+"1.3 symbol -> weight": [..., "compileTarget", "EvaluatedArtifact"]
+"1.4 weight -> symbol": [..., "decodedFamily"]
+```
+**⇒ 重新生成的 `OBJECTIVE-MAP` 立刻显示它们**实测的强弱**：**
+
+| 载体 | 跨文件 | 同文件 |
+|:--|--:|--:|
+| `compileTarget` | **2** | 20 |
+| `EvaluatedArtifact` | **7** | 7 |
+| `decodedFamily` | **1** | 7 |
+
+**⇒ 这些跨文件引用**仍然全部在 `Lib/Compiler/` 内部**。⇒ 而这正是登记它们的意义：
+**地图现在记录这座岛的内部密度，而不是让它不可见。跨文件为 0 的载体在那张表里是一个**诚实的条目**；藏起来则不是。**
+
+#### 三、一个层次规则的核实
+
+**`Lib/Compiler/BridgeToMainChain.lean` 导入了一个 `Runtime/` 模块，这是合法的：**
+**⇒ `Lib/Compiler/` 下已有五个文件这样做（`CarrierApproximation`、`CarrierClosure`、`CarrierCoverage`、
+`CarrierInstantiation`、`CarrierReproduction`），而 gate I4 只禁止 **Core 导入 Lib/Lift**。**
+
+**⇒ `bridge_sample` 是转发（一般定理的具体实例），已按「有意转发」登记。**
