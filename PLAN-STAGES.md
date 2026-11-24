@@ -1382,3 +1382,38 @@ square_artifact_meets_request :
 
 **⇒ 两处机械修正：`hsome : gridEval … = v` 必须**从右到左**用（`rw [← hsome]`）才能替换 `v`；
 `gridEval_congr` 的 `n`、`x` 是隐式的，合一挑不出来，必须显式给。**
+### 3.39 **第 1076 轮：一条界覆盖所有度数，常数恰为 `d(d−1)/8`**
+
+**前三轮各手工推一个常量：`x²` 的 `1/4`、`x³` 的 `3/4`、`x⁴` 的 `3/2`。本轮从**这些数的一个观察**出发，而不是从新的构造出发：**
+
+```
+2·1/8 = 1/4     3·2/8 = 3/4     4·3/8 = 3/2
+```
+
+**⇒ 故三者是 `d(d−1)/8` 的实例。而树里已有 `chord_error_of_second_deriv_bound`（`|f''| ≤ M ⟹ 弦误差 ≤ M(b−a)²/8`），
+⇒ 一般情形不需要做**第四次**手工分解——只需要**一次求导**。**
+
+**文件 `Lattice/Lib/Compiler/PowChord.lean`：**
+
+```lean
+deriv_pow_fun    : deriv (fun t => t^d) = fun t => d · t^(d−1)
+deriv_deriv_pow  : deriv (fun t => d · t^(d−1)) = fun t => ↑(d·(d−1)) · t^(d−2)
+deriv2_pow       : deriv^[2] (fun t => t^d) = fun t => ↑(d·(d−1)) · t^(d−2)
+pow_chord_error  : (0 ≤ a, a < b, b ≤ 1) |x^d − chord| ≤ d(d−1)(b−a)²/8
+pow_uniform_bound: ∀ x ∈ [0,1), |x^d − gridEval (interpFamily n (t↦t^d)) n x| ≤ d(d−1)(1/n)²/8
+constant_two / constant_three / constant_four
+general_formula_matches_hand_derived
+```
+
+**⇒ 为什么走二阶导而不是继续分解：手工分解要把 `Q_d` 写成双和（见 `x²`、`x³`、`x⁴` 的系数规律），
+对任意 `d` 需要有限和与几何级数的机器。⇒ 二阶导路线只需**一次**导数计算 + 在 `(a,b) ⊂ [0,1]` 上压 `|t^{d−2}| ≤ 1`。**
+**⇒ 代价是界写成 `M(b−a)²/8` 而非尖顶估计；但在 `d = 2,3,4` 上两条路线**完全一致**，
+⇒ 故一般界的常数**不是**松的。而这个「一致」在本轮**不是假定**：最后三条定理就是它的证明。**
+
+**⇒ `d(d−1)` 写成**自然数乘积再强转**，使定理里的常数**字面上**就是 `d(d−1)/8`，而不是等价改写。**
+
+**⇒ 两条 API 教训：`Function.iterate_two` 不存在，故 `deriv^[2] f = deriv (deriv f)` 用 `show` 陈述；
+`deriv_const_mul` 需要**显式可微性参数** `(c) (hd)`，`rw` 必须写全。**
+
+**⇒ 命名门禁抓到撇号**：我的第一个名字 `deriv_pow'` 被目标覆盖门禁拒绝（撇号超出豁免表）。
+⇒ 改名为 `deriv_pow_fun` 而非豁免——与第 1043 轮 `compile_injective'` 同一决定。**
