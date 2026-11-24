@@ -2194,3 +2194,61 @@ noncomputable def layerZeroRepair : Repair Layer where
 
 **⇒ 下一轮重试时，顺序应当是：先 (1) 的列表引理 → 再 (2) 的点积 → 最后 (3) 的 `if`，
 每步单独 `lake build`，而不是一次写完 120 行再编译。**
+### 3.61 **第 1101 轮：**第一个 `Repair Layer`** 已落地——但接缝仍未变活，原因已定位**
+
+#### 一、做了什么（分支 `feat-layer-repair`，两提交，`--no-ff` 合并）
+
+```lean
+def allZeroLayer (ls : Layer) : Prop := ∀ l ∈ ls, (∀ z ∈ l.w, z = 0) ∧ l.b = 0
+def zeroLayer (ls : Layer) : Layer := ls.map (fun l => ⟨l.w.map (fun _ => 0), 0⟩)
+theorem map_zero_eq_self_of_all_zero / zeroLayer_allZero / zeroLayer_eq_self
+theorem dot_eq_zero_of_pointwise_zero
+noncomputable def layerZeroRepair : Repair Layer      -- **全树第一个**
+theorem layerZeroRepair_sat_zero_outputs : allZeroLayer ls → ∀ x, AllZeroOutputs ls x
+```
+
+**⇒ **四步，每步单独编译**——这正是上轮失败的直接反例。⇒ 上轮我一次写完 120 行，四处错误同时在场。**
+
+#### 二、三个技术点的**正确解法**（供复用）
+
+1. **列表引理的假设必须先取出再归纳**：`induction w` 会把提到 `w` 的假设一并泛化；解法是先 `have hw0 := …` 再归纳。
+2. **点积的全零证明要对 `w` 归纳，不是对 `zip` 后的表**：`List.mem_zip` 不是正确引理（名字不存在），
+   而 `List.zip_cons_cons` + `foldl_cons` 足够。
+3. **`if` 型测度**：`noncomputable def … where` 里 `if` 需要 `Decidable` ⇒ 在文件顶部
+   `attribute [local instance] Classical.propDecidable`。**注意**：文档注释**不能**夹在 `attribute` 与声明之间
+   （Lean 要求 docstring 紧邻声明），故 `attribute` 必须放在**所有** `where` 实例的文档之前。
+
+#### 三、**普查的教训**：语法选择导致度量错误
+
+**⇒ 我最初写成 `:= by classical exact {…}`：编译通过，但修复普查的模式是 `: Repair … where`，
+⇒ 于是**本轮新增了一个实例，普查却把它记成 B 类（"提到 Repair 但没定义实例"）**。**
+**⇒ 改为 `where` 形式后普查立刻正确：A 类 `11 → 12` 文件、`35 → 37` 声明。**
+**⇒ 结论：当一个工具按语法模式度量时，**用规范形式书写本身就是度量的一部分**。**
+
+#### 四、**接缝为什么仍然 0/2**（本轮测出、必须写清）
+
+**⇒ `chain_connectors --provenance` 现在仍报：**
+```
+3.2 verify -> 3.3 repair  total 2  old 2  recent 0
+live 0/2 connectors have a chain-internal consumer; NO CONSUMER: carrier_covers_whole_chain, extract_after_repair
+```
+
+**⇒ 因为我只**造了实例**，还**没有应用** `extract_after_repair`。⇒ 而应用它需要：**
+```lean
+(hSat : ∀ ls, R.Sat ls ↔ LayerSat cs ls)
+```
+**⇒ 我的判据是**「所有坐标为零**，而 `LayerSat cs ls` 是**「满足给定约束集 `cs`」**——**两者不等价**。**
+⇒ 故 `extract_after_repair` **不能**直接套用；需要的是它的一条**兄弟定理**：
+「全零层 ⇒ 提取出的符号满足**任何**约束」（因为零层的每个约束都是 `0 = 0`）。
+
+#### 五、下一轮
+
+**⇒ 写那条兄弟定理：**
+```lean
+theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List Int) :
+    AllSatisfied (extractLayer ls) x
+```
+**⇒ 它会让 `extractLayer` 与 `AllSatisfied` **首次被“修复后”语境消费**，并把 `LayerRepair` 与 `RepairClosure`
+两个文件真正连起来（同属 `Runtime/`，**不违反 I4**）。**
+**⇒ 而 `extract_after_repair` 本身的 0 消费者将**继续**——因为它的 `hSat` 前提在树里没有实例。
+⇒ 若下一轮后它仍是 0，则正确结论是：**那条定理的前提过强，应被这条兄弟定理取代，并在文档里说明。**
