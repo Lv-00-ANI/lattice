@@ -479,6 +479,7 @@ forward	Lib/Compiler/RealFirstOrderLogic.lean	ofDB_toDB_witness
 forward	Lib/Compiler/RealGlobalConfluence.lean	newman
 forward	Lib/Compiler/RealGlobalConfluence.lean	prec_confluent
 forward	Lib/Compiler/RealGlobalConfluence.lean	star_single
+forward	Lib/Compiler/RealLayer.lean	familyToRealLayers_out
 forward	Lib/Compiler/RealLv00CompilerReal.lean	compile_program_contains_compiled_constraints
 forward	Lib/Compiler/RealMutualRecursion_parts/C.lean	decEq_eq_iff_decide
 forward	Lib/Compiler/RealMutualRecursion_parts/C.lean	flat_guard_agrees

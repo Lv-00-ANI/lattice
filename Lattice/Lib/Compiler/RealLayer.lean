@@ -1,5 +1,8 @@
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Lib.Compiler.WeightSequence
+import Lattice.Lib.Compiler.GridAlgebra
+import Lattice.Lib.Compiler.PiecewiseWeights
+import Lattice.Lib.Compiler.PowChord
 
 /-!
 # **`RealLayer`：两套「符号 ⇄ 权重」实现的共同推广**（架构级尝试，分支 `feat-real-layer`）
@@ -32,6 +35,8 @@ structure RealLayer where
 namespace Lattice.Lib.Compiler.RealLayer
 
 open Lattice.Lib.Compiler.WeightSequence
+open Lattice.Lib.Compiler.PiecewiseWeights
+open Lattice.Lib.Compiler.GridAlgebra
 
 /-- **显式的 `ℤ→ℝ` 强转**——定义成命名函数，使项的形状稳定。 -/
 def castI (z : ℤ) : ℝ := (z : ℝ)
@@ -127,5 +132,52 @@ theorem two_sections_of_one_generalisation (w b x : ℤ) :
       = (RealLayer.out ⟨[castI w], castI b⟩ [castI x]) := by
   have h := realLayer_ofInt_out (⟨[w], b⟩ : Lattice.LinearLayer) [x]
   simpa [realLayerOfInt] using h
+
+/-! ## 五、新线**消费**这个推广：`gridEval` 就是实数层上的求值 -/
+
+/-- **每个 `Segment` 都是一个 `RealLayer`**（单坐标）。
+
+**⇒ 这是一个**包装**，而不是一个新的定义：它不改 `Segment`，只把它**看成**推广的一个点。** -/
+def segmentToRealLayer (s : Segment) : RealLayer :=
+  ⟨[s.m], s.c⟩
+
+/-- **⭐ 包装保求值**：它们在单点上的输出相同。** -/
+theorem segmentToRealLayer_out (s : Segment) (x : ℝ) :
+    (segmentToRealLayer s).out [x] = s.eval x := by
+  simp [segmentToRealLayer, RealLayer.out, dotR, Segment.eval]
+
+/-- **把一个分段族看成一个实数层族**（逐段包装）。** -/
+def familyToRealLayers (g : ℕ → Segment) : ℕ → RealLayer :=
+  fun k => segmentToRealLayer (g k)
+
+/-- **⭐ 族级保求值**。** -/
+theorem familyToRealLayers_out (g : ℕ → Segment) (k : ℕ) (x : ℝ) :
+    (familyToRealLayers g k).out [x] = (g k).eval x :=
+  segmentToRealLayer_out (g k) x
+
+/-- **⭐⭐⭐ `gridEval` 就是实数层上的求值**——这是推广**被新线消费**的那一步。
+
+**⇒ `gridEval g n x` 先选段号、再求值；而本条说「先选段号、再在实数层上求值」是**同一件事**。
+⇒ 故新线所有精度定理（`pow_uniform_bound`、`quartic_uniform_bound_Icc` 等）
+的结论，都可以读作**关于 `RealLayer` 输出的界**。**
+**⇒ 而它**不改** `gridEval` 的定义：只提供一条等式，使两种写法可以互相带入。** -/
+theorem gridEval_eq_realLayer_out (g : ℕ → Segment) (n : ℕ) (x : ℝ) :
+    gridEval g n x = (familyToRealLayers g (segmentIndex n x)).out [x] := by
+  unfold gridEval
+  exact (segmentToRealLayer_out (g (segmentIndex n x)) x).symm
+
+/-- **⭐⭐⭐ 新线最强的界现在是**关于 `RealLayer` 输出的界**。
+
+**⇒ 这是推广**被新线消费**的实质证据：不是「有一个推广存在」，而是「新线的定理**可以改写成它**」。**
+**⇒ 故 `RealLayer` 不是一个新小叶，而是一个**可带入下游的语言**。** -/
+theorem pow_uniform_bound_as_realLayer (d : ℕ) (hd : 2 ≤ d) (n : ℕ) (hn : 0 < n) :
+    ∀ x ∈ Set.Ico (0 : ℝ) 1,
+      |x ^ d
+          - (familyToRealLayers (Lattice.Lib.Compiler.SymbolicEntry.interpFamily n (fun t : ℝ => t ^ d))
+              (segmentIndex n x)).out [x]|
+        ≤ ((d * (d - 1) : ℕ) : ℝ) * (1 / (n : ℝ)) ^ 2 / 8 := by
+  intro x hx
+  have h := Lattice.Lib.Compiler.PowChord.pow_uniform_bound d hd n hn x hx
+  rwa [gridEval_eq_realLayer_out] at h
 
 end Lattice.Lib.Compiler.RealLayer
