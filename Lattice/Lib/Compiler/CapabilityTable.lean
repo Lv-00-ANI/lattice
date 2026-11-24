@@ -374,4 +374,49 @@ theorem constants_ordered (a b : ℝ) :
   · show (1 : ℝ) / 4 < 3 / 4
     norm_num
 
+/-! ## 六、否定路径：选不出时的**理由**
+
+### 一个必须说清楚的区别
+
+**`LowerBound.no_uniform_linear_approximation`（§地板 `1/8`）说的是**逼近不可能**：
+不存在仿射函数在 `eps < 1/8` 时一致地 `eps`-逼近 `x²`。**
+
+**而本框架的 `covers` 要求的是**恰好属于该族**，不是逼近。
+⇒ 因此本节的否定结论**不**靠地板，而靠「`x²` 不是仿射函数」这一点（它更强）。
+**⇒ 把两者混为一谈会得出一个看似漂亮、实则不成立的推理；故此处明写区别。**
+
+-/
+/-- **⭐⭐⭐ 任何**族限于仿射**的行，在目标为 `x²` 时**不可能充分**——对**任意** `eps`。
+
+**⇒ 理由不是精度，而是**归属**：`covers req.goal` 强制 `x²` 是仿射函数，而它不是。
+**⇒ 因此这条对 `eps` 没有任何前提要求——**比地板更强**。** -/
+theorem affine_family_row_never_sufficient_for_square (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2) (row : CapabilityRow)
+    (hfam : ∀ g : ℝ → ℝ, row.covers g → ∃ c d : ℝ, g = fun t : ℝ => c * t + d) :
+    ¬ sufficient row req := by
+  intro h
+  obtain ⟨hcov, _⟩ := h
+  obtain ⟨c, d, hcd⟩ := hfam req.goal hcov
+  have hsq : (fun t : ℝ => t ^ 2) = fun t : ℝ => c * t + d := by
+    rw [← hgoal]
+    exact hcd
+  exact square_not_affine ⟨c, d, hsq⟩
+
+/-- **⭐⭐⭐ 若表里每一行都限于仿射，则对二次目标**选不出任何行**。
+
+**⇒ 这就是选择器的**否定路径**：`none` 不是「没找到」这种没有信息的结果，
+而是**有理由的拒绝**——理由由 `affine_family_row_never_sufficient_for_square` 给出。** -/
+theorem select_none_of_affine_table (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 2) (rows : List CapabilityRow)
+    (hall : ∀ row ∈ rows, ∀ g : ℝ → ℝ, row.covers g → ∃ c d : ℝ, g = fun t : ℝ => c * t + d) :
+    select req rows = none := by
+  classical
+  unfold select
+  rw [List.find?_eq_none]
+  intro row hrow
+  -- **目标形式是 `≠ true`；先立 `= false`，再 `simpa` 转换。**
+  have hfalse : decide (sufficient row req) = false :=
+    decide_eq_false (affine_family_row_never_sufficient_for_square req hgoal row (hall row hrow))
+  simpa using hfalse
+
 end Lattice.Lib.Compiler.CapabilityTable
