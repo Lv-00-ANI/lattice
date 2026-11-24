@@ -203,4 +203,77 @@ theorem constants_ordered (a b : ℝ) :
     norm_num
   · exact cube_constant_exceeds_square
 
+/-! ## 四、从表到选择：给定精度，选出一行，并证明它真的达到 -/
+
+/-- **一次请求**：目标精度 `eps` 与网格次 `n`。** -/
+structure Request where
+  /-- The requested uniform precision on `[0,1]`. -/
+  eps : ℝ
+  /-- The grid resolution. -/
+  n : ℕ
+  /-- The grid is non-degenerate. -/
+  hn : 0 < n
+
+/-- **表所能**证明**的充分条件：`constant / n² ≤ eps`。
+
+**⇒ 它不是「可能达到」的弱说法，而是**表里每一行的 `bound` 字段直接给出」的那个不等式。**
+**⇒ 因此选择器不需要知道该行的由来，只需比较这一个数。** -/
+def sufficient (row : CapabilityRow) (req : Request) : Prop :=
+  row.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+
+/-- **⭐⭐ 充分条件 ⟹ 整域达标。**
+
+**⇒ 一步 `le_trans`：行的界（`row.bound`）+ 充分条件。**
+**⇒ 这就是「能力可传参」的实际用法：调用者拿一行与一个 `Request`，不看任何实现细节。** -/
+theorem sufficient_implies_meets (row : CapabilityRow) (req : Request)
+    (h : sufficient row req) :
+    ∀ x ∈ Set.Icc (0 : ℝ) 1,
+      |row.fn x - gridEval (interpFamily req.n row.fn) req.n x| ≤ req.eps := by
+  intro x hx
+  exact le_trans (row.bound req.n req.hn x hx) h
+
+/-- **选择器**：在表里找**第一个**满足充分条件的行。
+
+**⇒ 「第一个」是**故意的**：表的顺序就是优先级。
+把精确行（常数 0）放在前面，就会优先选它——见 `select_affine_first`。** -/
+noncomputable def select (req : Request) (rows : List CapabilityRow) : Option CapabilityRow := by
+  -- **实数比较的 `Decidable` 只在 `Classical` 下可用。**
+  classical
+  exact rows.find? (fun row => decide (sufficient row req))
+
+/-- **⭐⭐ 选出来的行**确实满足充分条件**。
+
+**⇒ 由 `List.find?_some` 与 `of_decide_eq_true`。注意这里的方向：
+`find?` 只保证“它为真”，**不**保证“它最优”——后者需要另立声明。** -/
+theorem select_sound {req : Request} {rows : List CapabilityRow} {row : CapabilityRow}
+    (h : select req rows = some row) : sufficient row req := by
+  classical
+  unfold select at h
+  exact of_decide_eq_true (List.find?_some (p := fun row => decide (sufficient row req)) h)
+
+/-- **⭐⭐⭐ 主定理：被选中的行**整域达到请求精度**。**
+
+**⇒ 两步：`select_sound` 给出充分条件，`sufficient_implies_meets` 把它变成整域界。**
+**⇒ 这就是规划 §2.1 第 4 层要的东西：**能力选择与证明编排**——选择器的输出直接带着证明。** -/
+theorem select_gives_precision {req : Request} {rows : List CapabilityRow} {row : CapabilityRow}
+    (h : select req rows = some row) :
+    ∀ x ∈ Set.Icc (0 : ℝ) 1,
+      |row.fn x - gridEval (interpFamily req.n row.fn) req.n x| ≤ req.eps :=
+  sufficient_implies_meets row req (select_sound h)
+
+/-- **⭐⭐ 精确优先：若 `eps ≥ 0`，则把仿射行放在表首就会被选中。**
+
+**⇒ 因为它的常数是 `0`，故充分条件退化为 `0 ≤ eps`。**
+**⇒ 这使「精确优于近似」成为一条**可执行的选择规则**，而不只是一句评价。** -/
+theorem select_affine_first (a b : ℝ) (req : Request) (heps : 0 ≤ req.eps)
+    (tail : List CapabilityRow) :
+    select req (affineRow a b :: tail) = some (affineRow a b) := by
+  classical
+  unfold select
+  apply List.find?_cons_of_pos
+  apply decide_eq_true
+  show (affineRow a b).constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+  show (0 : ℝ) * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+  simpa using heps
+
 end Lattice.Lib.Compiler.CapabilityTable
