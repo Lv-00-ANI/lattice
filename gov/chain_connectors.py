@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 69
+UNREGISTERED_BUDGET = 64
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -110,6 +110,19 @@ TERMINAL_CONNECTORS = {
         "a SUMMARY: a conjunction of compile soundness, the extraction round trip and repair termination. "
         "Nothing consumes a summary, and that is a property of what it is (round 1104 renamed it so the name "
         "stops claiming more than the statement proves).",
+    # Round 1108: the 1.1->1.2 seam (four connectors, all terminal). Each reason was written after reading the
+    # statement AND its proof shape.
+    "E1Bridge_cons":
+        "definitional unfolding of the bridge's cons case, proved by `rfl`. A consumer that needs it unfolds "
+        "the definition itself, so there is nothing to feed.",
+    "E1BridgeNoSep_cons":
+        "the same for the `sep`-dropping bridge: a `rfl` equation. Terminal for the same reason.",
+    "E8_source_count_exactly_one":
+        "an ASSERTION ABOUT THE TREE, not a step: it conjoins 'a source exists, with an explicit witness' and "
+        "'there is no source on the L2->L3 hop'. Facts of this shape are conclusions no downstream reads.",
+    "d41_L1Bridge_not_injective":
+        "a NEGATION (`not injective`): a separation theorem. Negations are terminal by nature -- nothing uses "
+        "'it cannot be' as an input to a construction.",
 }
 
 
