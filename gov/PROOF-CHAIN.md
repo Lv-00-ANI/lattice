@@ -1595,7 +1595,7 @@
 | `Lattice.Lib.Compiler.RealWhileTotalCorrectness` | 14 | 8 |
 | `Lattice.Lib.Compiler.ReluClosure` | 6 | 0 |
 | `Lattice.Lib.Compiler.ReluLemmas` | 9 | 0 |
-| `Lattice.Lib.Compiler.RepairPair` | 3 | 1 |
+| `Lattice.Lib.Compiler.RepairPair` | 5 | 1 |
 | `Lattice.Lib.Compiler.ReversibilityChain` | 5 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityCriterion` | 4 | 0 |
 | `Lattice.Lib.Compiler.ReversibilityInstances` | 5 | 0 |
@@ -11417,9 +11417,11 @@ module. These are the edges that make the chain a chain rather than a list.
 - `twoLayer_third_difference_zero` -> `Chain`, `at`, `e2`, `g`, `induction`, `zero`
 - `twoRegular_nbhd_const` -> `E`, `nbhdSet`, `nbhdSum`
 - `twoRegular_oneWL_blind` -> `E`, `nbhdSet`, `nbhdSum`
-- `twoSlopeRepair_absorbs` -> `Compiler`, `Sat`, `Segment`, `repairProd_iterate`, `slopeRepair`
-- `twoSlopeRepair_decreases` -> `Compiler`, `Sat`, `Segment`, `repairProd_iterate`, `slopeRepair`
-- `twoSlopeRepair_iterate` -> `Compiler`, `Segment`, `repairProd_iterate`, `slopeRepair`
+- `twoSlopeRepair_absorbs` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeRepair_decreases` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopeRepair_iterate` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repairProd_iterate`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
+- `twoSlopes_change_two_observables` -> `Compiler`, `constFamily`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`
+- `twoSlopes_sat_after_fix` -> `Compiler`, `Sat`, `Segment`, `constFamily`, `gridEval`, `repair_changes_observable`, `segmentIndex`, `slopeFix`, `slopeFix_sat`, `slopeRepair`
 - `twoVar_is_not_unit_vector` -> `VectorConstraint`, `at`, `length`
 - `two_dim_posdef_iff` -> `add`, `at`, `d`
 - `two_distinct_constraints` -> `IsFormalConcept`, `RealConstraint`, `at`

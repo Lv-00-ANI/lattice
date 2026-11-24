@@ -1679,3 +1679,31 @@ twoSlopeRepair_absorbs / _decreases / _iterate
 **⇒ 两处基线裁定：三个定义性投影是 `rfl`/`Iff.rfl`，对新定义而言**正确**（与能力表的 rfl 等式同一判断），
 定义式证明基线 `816 → 819`；`twoSlopeRepair_iterate` 是转发，已登记。**
 **⇒ 修复普查 `A: 10→11 文件 / 30→35 声明`，`B: 18→19 / 50→54`。**
+### 3.46 **第 1083 轮：把「修复改变可观察量」**提升到乘积状态****
+
+**第 1082 轮造了 `repairProd`，但一个结构实例本身不是可观察的断言。⇒ 本轮把第 1047 轮的观察定理提升到乘积态。**
+
+```lean
+twoSlopes_sat_after_fix (a b) (p) :
+    (twoSlopeRepair a b).Sat ((twoSlopeRepair a b).fix p)
+
+twoSlopes_change_two_observables (b₁ ≠ a) (b₂ ≠ b)
+    (x₁ ≠ 0) (segmentIndex n x₁ = 0) (x₂ ≠ 0) (segmentIndex n x₂ = 0) :
+    gridEval (fix p).1 n x₁ ≠ gridEval (constFamily b₁ c₁) n x₁
+  ∧ gridEval (fix p).2 n x₂ ≠ gridEval (constFamily b₂ c₂) n x₂
+```
+
+**⇒ 两个见证点**可以不同**，而这不是便利，是**内容**：两侧是**独立的载荷**，
+故每一侧都必须在**它自己的**第 0 段被选中的点上读数。共用同一个见证点会**默默假定两侧是同一个对象**。**
+
+**⇒ `twoSlopes_sat_after_fix` 为什么也要有：它说**一步**在两侧**同时**达标（两侧各是 `slopeFix_sat`）。**
+**⇒ 与 `repairProd_iterate` 合起来：并行修复既不更慢，也没有被串行化。⇒ 没有这条，「一步」就是假定。**
+
+**⇒ 两条都是**推论**，这一点写明白：第一条是两个 `slopeFix_sat` 的合取，第二条是两个 `repair_changes_observable` 的合取。
+⇒ 新东西是**到乘积状态的提升**（`.fix` 逐分量作用），不是新的分析事实。**
+
+**⇒ 两处机械修正：`twoSlopes_sat_after_fix` 初版里我留了个占位符 `exact ⟨——⟩`（我打的破折号从未被解析）；
+`segmentIndex`/`gridEval` 不在作用域（补两个 `open`）。**
+
+**⇒ 两条因此成为承重的定理已登记 verdict：`repair_changes_observable`、`slopeFix_sat`。
+⇒ 修复普查 `B: 54 → 55`。**

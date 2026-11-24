@@ -2060,6 +2060,8 @@ Lib/Compiler/ReluLemmas.lean	reluCompile_collapses_ne
 Lib/Compiler/RepairPair.lean	twoSlopeRepair_absorbs
 Lib/Compiler/RepairPair.lean	twoSlopeRepair_decreases
 Lib/Compiler/RepairPair.lean	twoSlopeRepair_iterate
+Lib/Compiler/RepairPair.lean	twoSlopes_sat_after_fix
+Lib/Compiler/RepairPair.lean	twoSlopes_change_two_observables
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_has_extract
 Lib/Compiler/ReversibilityChain.lean	encodeGrid_reversible_by_criterion
 Lib/Compiler/ReversibilityChain.lean	gridWeights_not_extractable
