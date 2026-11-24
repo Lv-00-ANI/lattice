@@ -2160,3 +2160,37 @@ theorem extract_after_repair (R : Lattice.Core.Repair Layer) (hSat : ∀ ls, R.S
 
 **⇒ 这属于**补一个缺失的实例**，而不是「再写一条定理」；它同时服务三个目标（接缝、语义桥、条款 3.3）。
 ⇒ 下一轮执行它。若它在 `Layer` 上遇到技术困难（`List` 上的扫描与计数），就在分支上试，失败则退回并记录原因。**
+### 3.60 **第 1100 轮：构造 `Repair Layer` 的一次**未完成尝试**（已退回，未合并）**
+
+**上一轮确定了修法：构造一个 `Repair Layer`。⇒ 本轮在分支 `feat-layer-repair` 上写了约 120 行，
+`lake build` **未通过**，三次修正后仍有三处失败。⇒ **分支已删除、文件已移除**，主树回到 `1d61ea5e`。**
+
+#### 一、设计（仍然成立，供下一轮直接用）
+
+```lean
+def allZeroLayer (ls : Layer) : Prop := ∀ l ∈ ls, (∀ z ∈ l.w, z = 0) ∧ l.b = 0
+def zeroLayer (ls : Layer) : Layer := ls.map (fun l => ⟨l.w.map (fun _ => 0), 0⟩)
+noncomputable def layerZeroRepair : Repair Layer where
+  Sat := allZeroLayer ; fix := zeroLayer ; μ := fun ls => if allZeroLayer ls then 0 else 1
+```
+
+**⇒ 判据**与输入无关**，且蕴含「对任意输入输出为零」——这正是 `AllZeroOutputs` 所需的另一侧。**
+
+#### 二、三处**具体的**技术障碍（这是本轮真正的产出）
+
+| # | 目标 | 障碍 |
+|:--|:--|:--|
+| 1 | `zeroLayer_eq_self : allZeroLayer ls → zeroLayer ls = ls` | 需要**逐点为零的列表 `map` 恒等**。⇒ `induction w` 会把 `hl`（其类型提到 `w`）**一并泛化**，导致类型失配；`clear hl` 后仍有 `application type mismatch`。**正确路径**：先把 `∀ z ∈ w, z = 0` 取成独立假设，再对 `w` 归纳，最后 `rw [hw, hb]`。 |
+| 2 | `dot l.w x = 0`（全零权重） | 需对 `zip` 后的列表带**任意累加器**归纳；`0 + q.1*q.2 = 0` 这一步必须**先**用 `hq` 化简**再**用归纳假设。 |
+| 3 | `decreases`/`atomic` 里的 `if` | `μ` 是 `if Sat then 0 else 1`，在 `show` 目标里**需要 `Decidable` 实例**；我加了 `classical` 仍报 `failed to synthesize`，说明问题不在实例而在**`show` 的类型与 `μ` 的定义不同形**。⇒ 应先 `unfold`/`change` 到 `μ` 的定义形，再 `rw [if_pos/if_neg]`。 |
+
+**⇒ 三条都不是「不可做」，而是**我没在当轮做完**。⇒ 记录在此，避免下一轮从零重来。**
+
+#### 三、本轮**没有**产生新定理，这本身要说清
+
+**⇒ 一次失败的构造**不是**一次交付。⇒ 但它也不是零产出：**
+1. 上轮的「缺口」论断被**具体化**成三条可执行的障碍；
+2. 主树**未被污染**（分支删除、文件移除、工作区回到只剩他人改动）。
+
+**⇒ 下一轮重试时，顺序应当是：先 (1) 的列表引理 → 再 (2) 的点积 → 最后 (3) 的 `if`，
+每步单独 `lake build`，而不是一次写完 120 行再编译。**
