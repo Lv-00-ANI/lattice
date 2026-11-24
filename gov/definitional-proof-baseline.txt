@@ -324,6 +324,11 @@ Lib/Compiler/LvDSLPartial.lean	empty_program_no_prove
 Lib/Compiler/ModelsBehavior.lean	modelsBehavior_iff
 Lib/Compiler/ModulusAbstract.lean	sqrtModulus_toFun
 Lib/Compiler/NonlinearApproximation.lean	relu_is_max
+Lib/Compiler/PolyTable.lean	polyRow_four
+Lib/Compiler/PolyTable.lean	polyRow_one
+Lib/Compiler/PolyTable.lean	polyRow_three
+Lib/Compiler/PolyTable.lean	polyRow_two
+Lib/Compiler/PolyTable.lean	polyRow_zero
 Lib/Compiler/RealAbstractInterpretation.lean	point_hi
 Lib/Compiler/RealAbstractInterpretation.lean	point_le_iff_contains
 Lib/Compiler/RealAbstractInterpretation.lean	point_lo

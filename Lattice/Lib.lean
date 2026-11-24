@@ -74,6 +74,7 @@ import Lattice.Lib.Compiler.LinearComb
 import Lattice.Lib.Compiler.GridBound
 import Lattice.Lib.Compiler.CubicFamily
 import Lattice.Lib.Compiler.CapabilityTable
+import Lattice.Lib.Compiler.PolyTable
 /-!
 # Lattice.Lib -- harvested instances
 

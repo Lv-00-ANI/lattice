@@ -50,6 +50,16 @@ WILDCARD_NONE = re.compile(r"\|\s*_\s*=>\s*none")
 
 #: file (relative to `Lattice/`) -> (reason, the theorem or justification)
 COVERED = {
+    # **第 1068 轮：`polyRow` 的通配分支是「该度数未被覆盖」，而不是解码失败。
+    # **边界由 `polyRow_none_iff` 钉住**：`polyRow d = none ↔ d = 0 ∨ 4 ≤ d`。
+    # 故这里的 `none` 是「库不覆盖该度数」的**声明**，不是一个未裁定的失败分支。
+    "Lib/Compiler/PolyTable.lean": (
+        "partial decoder by design",
+        "`polyRow : Nat -> Option CapabilityRow` is a degree-indexed TABLE, not a decoder. Its wildcard arm "
+        "means \u300cthis degree is not covered by the library\u300d, and that boundary is a theorem rather than an "
+        "assumption: `polyRow_none_iff` proves `polyRow d = none <-> d = 0 \/ 4 <= d`, and the five rfl lemmas "
+        "pin the covered degrees to concrete rows (`polyRow_one`, `_two`, `_three`). So a `none` here is an "
+        "honest declaration of extent -- never a silent failure."),
     # **第 1046 轮：`compileTarget` 的通配分支是「不支持的片段」，而不是「解码失败」。
     # 本条的边界由两条定理钉住：`compileTarget_affineTerm` 与
     # `compileTarget_squareTerm` 说明支持的两个片段确实落到 `some`；
