@@ -125,6 +125,9 @@ Core/ModelArtifactInstances.lean	affineUnit_depth
 Core/Net.lean	netAct_nil
 Core/NonlinearLayer.lean	actLayerAct_cubic
 Core/RepairModule/RepairAtomicity.lean	mkWithAtomic_Sat
+Core/RepairModule/RepairProduct.lean	repairProd_fix
+Core/RepairModule/RepairProduct.lean	repairProd_measure
+Core/RepairModule/RepairProduct.lean	repairProd_sat
 Core/RepairModule/VariableDerivative.lean	actWith_cons
 Core/RepairModule/VariableDerivative.lean	actWith_idf
 Core/RepairModule/VariableDerivative.lean	chainDepth_cons

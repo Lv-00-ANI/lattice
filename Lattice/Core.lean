@@ -164,6 +164,7 @@ import Lattice.Core.RepairModule.VariableDerivative
 import Lattice.Core.RepairModule.SqDistRepair
 import Lattice.Core.PartialSection
 import Lattice.Core.IR.ExtractSection
+import Lattice.Core.RepairModule.RepairProduct
 
 
 /-!

@@ -81,6 +81,7 @@ import Lattice.Lib.Compiler.PowChord
 import Lattice.Lib.Compiler.AnalyticRow
 import Lattice.Lib.Compiler.AnalyticSelection
 import Lattice.Lib.Compiler.BridgeToMainChain
+import Lattice.Lib.Compiler.RepairPair
 /-!
 # Lattice.Lib -- harvested instances
 
