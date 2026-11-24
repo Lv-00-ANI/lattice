@@ -1968,3 +1968,37 @@ covered_of_vanishing / models_of_covered_data                            -- 数�
 **⇒ 结论（这才是诚实的最终判断）：条款 2.2 的孤儿状态是**定位决定的**，不是缺陷。
 ⇒ 正确的处理是把它标注为「**接口性条款**：定理已证，消费者按定位在框架外**」，
 而不是给它造一个内部消费者。**
+### 3.54 **第 1094 轮：`Repair` 的三条义务**强制** `Sat` 非空——故失败分支**不存在****
+
+**本轮原计划是补 §3.3 第 4 项（失败分支）：把 `no_loop_fixes_unsatisfiable` 实例化到产物载荷上。
+⇒ 但**先读那条定理**之后，任务变了：**
+
+```lean
+no_loop_fixes_unsatisfiable (hempty : ∀ x, ¬ V.repair.Sat x) (x) : False
+```
+
+**⇒ 它的前提说「`Sat` 无居住者」。⇒ 而 `Repair` **根本不可能**有空的 `Sat`，理由就是那个接口本身。**
+
+```lean
+exists_sat_iterate_aux (R) : ∀ n, ∀ y, R.μ y = n → ∃ k, R.Sat (R.iterate k y)
+exists_sat_iterate (R) (x) : ∃ k, R.Sat (R.iterate k x)
+sat_not_empty (R) [Nonempty α] : ¬ (∀ x, ¬ R.Sat x)
+```
+
+**⇒ 论证是**一句意识形态 + 一页算术**：若 `Sat` 处处不成立，则 `decreases` 在**每一点**给出
+`μ (fix x) < μ x`——而 `μ : α → ℕ` **不可能无限下降**。⇒ 证明是对 `μ x` 的强归纳：
+`x` 已满足则取 `k = 0`；否则 `R.fix x` 测度更小，对它用归纳假设，并用 `R.iterate k (R.fix x) = R.iterate (k+1) x`。**
+
+**⇒ 这对「失败分支」意味着什么：在这个抽象里它**不存在**。
+⇒ 故 `no_loop_fixes_unsatisfiable` 为真但是**空洞地真**——它永远无法被任何实际的 `Repair` 实例引用。
+⇒ 「回路正确但不是魔法」这句话，经检查**什么也没说**：魔法那一情形被结构性地排除了。**
+
+**⇒ 一个值得直说的推论：一个 `Repair` 实例**就是「该目标可达」这一断言**。
+⇒ 接口不只是**检查**可达性，它**假定**了可达性。
+⇒ 故「这个要求无法满足」的诚实记录处**不是**一个空 `Sat` 的 `Repair`（那是**不可构造的**），
+而是一条表明该要求**自身不一致**的定理。⇒ 那比我原计划的纪律**更强**。**
+
+**⇒ 两处机械失败：`induction hn : … using Nat.strong_induction_on` 不被接受（情形名是 `h`，不是 `ind`）；
+`sat_not_empty` 初版对**空类型**为假——`[Nonempty α]` 是**必需的**，不是装饰。**
+
+**⇒ `exists_sat_iterate` 是转发（已登记）；`sat_not_empty` 是否定，故否证普查 `370 → 371`、Core `59 → 60`。**
