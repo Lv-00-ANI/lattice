@@ -245,6 +245,11 @@ def render(C):
 def main(argv):
     C = corpus()
     text, weak, localonly, dead_names = render(C)
+    # **Round 1093: the unexplained check must run in BOTH modes.** It used to sit after the `--check` return,
+    # so `--check` -- the mode a gate runs -- reported "up to date" and exited 0 while a dead carrier had no
+    # reason. That is the "publish but do not block" shape: the generator PRINTED the warning and the gate
+    # never saw a failure. Computing the set here makes registration mandatory in either mode.
+    unexplained = sorted(set(dead_names) - set(END_OF_CHAIN))
     if "--check" in argv:
         # does the committed file still match the tree?
         if not os.path.exists(OUT):
@@ -253,6 +258,10 @@ def main(argv):
         old = io.open(OUT, encoding="utf-8").read()
         if old != text:
             print("OBJECTIVE-MAP: STALE -- regenerate with gov/gen_objective_map.py")
+            return 1
+        if unexplained:
+            print("DEAD CARRIERS WITH NO EXPLANATION: %s" % unexplained)
+            print("Either give each one a consumer, or add it to END_OF_CHAIN with the reason.")
             return 1
         print("OBJECTIVE-MAP: up to date")
         return 0
@@ -268,7 +277,6 @@ def main(argv):
     # downstream because it IS the clause's conclusion -- that is a property of the chain, not a defect.
     # What must fail is a carrier that is neither used NOR explained: an unexplained dead carrier is
     # exactly the "written and forgotten" case this table exists to catch.
-    unexplained = sorted(set(dead_names) - set(END_OF_CHAIN))
     if unexplained:
         print("DEAD CARRIERS WITH NO EXPLANATION: %s" % unexplained)
         print("Either give each one a consumer, or add it to END_OF_CHAIN with the reason.")
