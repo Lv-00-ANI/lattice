@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 21
+UNREGISTERED_BUDGET = 18
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -181,6 +181,13 @@ TERMINAL_CONNECTORS = {
         "a CONJUNCTION of extractWith_overwrite and extractWith_overwrite_local: what an overwrite returns at its own position and nowhere else. Those two are its content, so the summary adds packaging, not a fact.",
     "extractWith_spec":
         "a CONJUNCTION of extractWith_compileWith and extractWith_absent: extract after compile is the identity on the skeleton s tensors and zero elsewhere. A specification of the pair, i.e. an endpoint.",
+    # Round 1113: the compile_extract_* trio -- all three are restatements of the round-trip PAIR.
+    "compile_extract_invertible_pair":
+        "a CONJUNCTION of Function.LeftInverse and Function.RightInverse for the same pair, assembled from the two lemmas that already state each direction. A summary.",
+    "compile_extract_mutually_refines":
+        "a CONJUNCTION of the two fibreRefines statements: each side refines the other. A structural summary of what the round trip means at the fibre level.",
+    "compile_extract_weight_side":
+        "a RESTATEMENT on the weight side: zero-output is preserved by compile-then-extract, obtained by rewriting with compileToLayer_extractLayer. Its content is that lemma, quoted where the weight reader needs it.",
 }
 
 
