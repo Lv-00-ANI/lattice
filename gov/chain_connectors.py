@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 64
+UNREGISTERED_BUDGET = 57
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -123,6 +123,28 @@ TERMINAL_CONNECTORS = {
     "d41_L1Bridge_not_injective":
         "a NEGATION (`not injective`): a separation theorem. Negations are terminal by nature -- nothing uses "
         "'it cannot be' as an input to a construction.",
+    "e2e_vacuous_composition":
+        "compile soundness restated with an UNUSED (ts : List SymToken). Its point is that the second hop does "
+        "not consult the token list -- a non-dependency witness, terminal by design.",
+    "e2e_extract_hypothesis_is_not_load_bearing":
+        "the same statement with an unused `Extract ts cs` hypothesis. The NAME is the claim: that hypothesis "
+        "carries no weight in this hop.",
+    "extract_to_weights":
+        "again the same conclusion with an unused `Extract` hypothesis, in the extraction-direction file -- a "
+        "third non-dependency witness.",
+    "e2e_contribution_of_L1L2":
+        "an assertion about the chain's composition (what `toSegs ts` yields, and the uniqueness of `Extract`'s "
+        "output). A conclusion about the whole, not a step.",
+    "e2e_loss_compound":
+        "an existence conjunction: two tokens collide, two constraint sets give different layers. It states "
+        "that losses COMPOUND; nothing downstream consumes that fact.",
+    "E8_load_bearing_summary":
+        "a summary of which maps do and do not merge: negation for compileToLayer and encode, positive for "
+        "E8CollapseLayer. A summary is terminal by construction.",
+    "extract_after_zero_repair":
+        "round 1102's sibling of extract_after_repair: an all-zero layer's extracted constraints are satisfied "
+        "for ANY input. Nothing downstream reads it -- it exists to show the zero instance supports a "
+        "post-repair extraction statement, which is a conclusion, not a step.",
 }
 
 
