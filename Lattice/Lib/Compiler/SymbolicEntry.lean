@@ -136,6 +136,9 @@ noncomputable def compileTarget (r : CompileRecipe) : ExprExt → Option Target
       match compileTarget r e₁, compileTarget r e₂ with
       | some (.affine a₁ b₁), some (.affine a₂ b₂) => some (.affine (a₁ + a₂) (b₁ + b₂))
       | _, _ => none
+  -- **三次项：`x·x·x` 也落到**一般插值族**。**
+  | .mul (.mul (.var 0) (.var 0)) (.var 0) => some (.interp (fun t => t ^ 3))
+
   | _ => none
 
 /-- **仿射项的语法形状**：`a·x + b`。 -/
@@ -304,4 +307,23 @@ theorem evalSym_quadCoefTerm (a p q x : ℝ) :
 theorem compileTarget_quadCoefTerm (r : CompileRecipe) (a p q : ℝ) :
     compileTarget r (quadCoefTerm a p q) = some (.interp (quadFun a p q)) := by
   simp [quadCoefTerm, affineTerm, compileTarget, compileTarget_affineTerm, quadFun]
+/-- **三次项的语法形状**：`x · x · x`。 -/
+def cubeTerm : ExprExt := .mul (.mul (.var 0) (.var 0)) (.var 0)
+
+/-- **三次项的源语义**。
+
+**⇒ `evalSym` 给出 `x·x·x`，而界说在 `x ^ 3` 上；两者用 `ring` 对齐。** -/
+theorem evalSym_cubeTerm (x : ℝ) : evalSym x cubeTerm = some (x ^ 3) := by
+  -- **分两步：先让 `simp` 把**内层求值**算完（它要处理嵌套的
+  -- `if` 与 `Option.bind`），再用 `ring` 对齐两种写法。**
+  have h : evalSym x cubeTerm = some (x * x * x) := by simp [cubeTerm, evalSym]
+  rw [h]
+  congr 1
+  ring
+
+/-- **⭐⭐ 三次项编译到一般插值族。** -/
+theorem compileTarget_cubeTerm (r : CompileRecipe) :
+    compileTarget r cubeTerm = some (.interp (fun t : ℝ => t ^ 3)) := by
+  simp [cubeTerm, compileTarget]
+
 end Lattice.Lib.Compiler.SymbolicEntry

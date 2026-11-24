@@ -72,6 +72,7 @@ import Lattice.Lib.Compiler.Capability
 import Lattice.Lib.Compiler.InterpAlgebra
 import Lattice.Lib.Compiler.LinearComb
 import Lattice.Lib.Compiler.GridBound
+import Lattice.Lib.Compiler.CubicFamily
 /-!
 # Lattice.Lib -- harvested instances
 
