@@ -57,6 +57,21 @@ END_OF_CHAIN = {
     "models_of_covered_data":
         "clause 2.2's model statement. Its first conjunct is `rfl` and its second is the covering above, so "
         "it is the same situation: proved, and consumed only outside the project.",
+    # Round 1092: the four below are dead by the CHAIN count (round 1091's column), and each reason was
+    # written after reading the statement AND its proof shape -- not inferred from the name.
+    "closed_loop_partial_reinject":
+        "one-step unfolding: `g (V.run 1 x) = g (V.repair.fix x)`, proved by `iterate_succ` then `rfl`. "
+        "A caller that needs it unfolds `run` itself, so there is nothing for it to feed.",
+    "loop_is_criterion_not_repair":
+        "an idempotence statement: `compile (extract (compile (extract ls))) = ls`. A property of the pair of "
+        "steps, not a step -- no downstream verdict consumes idempotence.",
+    "hasType_to_hasTypeW":
+        "clause 5's bridge: `HasType K Gamma t A -> HasTypeW E K Gamma t A`, i.e. CIC typing implies the "
+        "weight-tagged typing. Consumed by callers that reason inside the CIC; no in-tree step uses it, which "
+        "is why the example is its only citation.",
+    "sqDistHalving_terminates_and_stabilises":
+        "termination plus stability of the DEMONSTRATION instance on `Nat` (`exists k, Sat (iterate k n) and "
+        "the fixpoint is stable`). It is that instance's endpoint, not a step of the chain.",
 }
 def corpus():
     """Comments are STRIPPED here, once, for both the cross-file and the same-file count.
@@ -86,6 +101,7 @@ def corpus():
 def render(C):
     """Build the document text; separated so --check can compare without writing."""
     rows = []
+    clause_of = {}
     for clause, names in CLAUSES.items():
         cells = []
         for name in names:
@@ -128,6 +144,7 @@ def render(C):
             # 2.2's two carriers had NONE, with the old table reporting both the same way.
             real = [u for u in users if not u.startswith("Usage/")]
             cells.append((name, where, len(users), len(real), local, users[:2]))
+            clause_of[name] = clause
         rows.append((clause, cells))
 
     lines = []
@@ -155,7 +172,13 @@ def render(C):
                 weak += 1
                 continue
             ex = ", ".join("`%s`" % e for e in examples) if examples else "—"
-            if n > 0:
+            # **Round 1092: the flag must be driven by the CHAIN count, not the cross-file count.** A carrier
+            # whose only other-file references is `Usage/Examples.lean` is used in place, and calling that
+            # "used" hid six carriers last round. The flag now says what the measurement says:
+            #   chain > 0            -> used by the chain
+            #   chain = 0, local > 0 -> used only inside its own file  (measured, not judged)
+            #   chain = 0, local = 0 -> dead; must be registered in END_OF_CHAIN with a reason
+            if nreal > 0:
                 flag = ""
             elif local > 0:
                 flag = " *(仅本文件)*"
@@ -164,7 +187,10 @@ def render(C):
                 flag = " **← 死代码**"
                 weak += 1
                 dead_names.append(name)
-            if nreal == 0 and name not in END_OF_CHAIN:
+            # Only DEAD-but-unexplained is an error: `local > 0` means the carrier is used inside its own
+            # file, which is a measurement, not a defect. **Round 1092: the first version of this line
+            # listed all chain-less carriers and thereby mislabelled two local-only ones as unexplained.**
+            if nreal == 0 and local == 0 and name not in END_OF_CHAIN:
                 chainless.append(name)
             lines.append("| %s | `%s` | `%s` | %d%s | %d | %d | %s |"
                          % (clause, name, where, n, flag, nreal, local, ex))
@@ -191,21 +217,20 @@ def render(C):
         lines.append("### %d 条死代码载体的性质：terminal by design，不是遗漏" % weak)
     lines.append("")
     lines.append("按上面这个更强的判据（**剥离注释**后计数），本期实测为 %d 条。" % weak)
-    lines.append("三条都**有真实内容**，是各自条款的**终端结论**——它们的职责是「这条条款成立」，")
+    lines.append("每一条都**有真实内容**，是各自条款的**终端结论**——它们的职责是「这条条款成立」，")
     lines.append("而不是「被别人调用」。**一条链的最后一环没有下游，这是链的性质，不是缺陷。**")
+    lines.append("")
+    lines.append("下表的每一行都来自 `END_OF_CHAIN`，**理由是在读过陈述与证明形状之后写的**，"
+                 "并逐条注明它是「展开」「幂等」「包含」还是「实例端点」。")
     lines.append("")
     lines.append("| 载体 | 条款 | 它是什么 | 为什么没有下游 |")
     lines.append("|:--|:--|:--|:--|")
-    lines.append("| `synth_coverage` | 2.2 数据合成 | "
-                 "「合成 k 个样本 ⟹ k 个样本两两分离」的不等式 | "
-                 "覆盖率**就是**这条条款要的东西；再往上没有更强的结论 |")
-    lines.append("| `compile_sound_n` | 2.3 结构化初始化 | "
-                 "`compileToLayerN s` 在零点映零点（`resid = 0` 时） | "
-                 "它是编译正确性的**端点**；下游是 `weightLadderN` 的 `l2l3_sound`，"
-                 "走的是另一条路 |")
-    lines.append("| `partial_reinject_bound` | 3.4 再注入 | "
-                 "`|poly| ≤ ε ⟹ loss ≤ ε²` | "
-                 "它把残差界翻译成损失界，**翻译完就结束了** |")
+    # **Round 1092: render only the carriers the MEASUREMENT called dead.** Rendering all of END_OF_CHAIN while
+    # the heading states `dead=4` produced a seven-row table under a "4 条" heading -- a doc claiming a number it
+    # did not measure, which is the exact defect the comment above this section warns about.
+    for nm in sorted(END_OF_CHAIN):
+        if nm in clause_of and nm in dead_names:
+            lines.append("| `%s` | %s | %s |" % (nm, clause_of[nm], END_OF_CHAIN[nm]))
     lines.append("")
     lines.append("**审计 P1-17 要求「加外部使用者，或标 terminal by design」**——本节选后者，")
     lines.append("并对每一条给出理由。**这不是把死代码说成活的**：`死代码载体：%d` 这个数字仍然如实报告，" % weak)
