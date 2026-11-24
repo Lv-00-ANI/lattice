@@ -68,14 +68,21 @@ def _corpus():
 CLAUSES = {
     "1.1 data -> token": ["tokenize_detok", "CharToken"],
     "1.2 token -> symbol": ["SymToken", "decodePayload"],
-    "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN"],
+    # Round 1081: the `Lib/Compiler/` line (rounds 1043-1080) is a SECOND implementation of this clause's
+    # direction: a symbolic term compiles to a `Target` whose family is a segment family, and the artifact
+    # encodes that family into weights. Adding it here makes rule A SEE that line -- which measured at
+    # ZERO references outside `Lib/Compiler/` until now. If it stays at zero the map will show it as a weak
+    # carrier, and that is the honest outcome: visible, not decorated.
+    "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN", "compileTarget", "EvaluatedArtifact"],
     # Round 1031: this clause had exactly ONE carrier, so it had no redundancy -- and `extract` alone
     # is only the FUNCTION, not the delivery. `extract_compile` is what makes the direction correct:
     # `extract (compileSkel k) = some k`, the round trip that the old `extractCode` never had. Its own
     # docstring says neither step is definitional -- `weightCodeIR_compileSkel` is arithmetic and
     # `decodeSkeleton_code` is the decoder's round trip -- so it is a proof, not a restatement.
     # Measured: 12 files mention it.
-    "1.4 weight -> symbol": ["extract", "extract_compile"],
+    # Round 1081: `decodedFamily` is the `Lib/Compiler/` line's inverse step: weights decode back to the
+    # segment payload. Same caveat as 1.3 -- registered so that it is visible, not so that it looks strong.
+    "1.4 weight -> symbol": ["extract", "extract_compile", "decodedFamily"],
     "2.1 forward: constraint loss": ["PenaltyEmbedding", "penaltyToLoss"],
     # Round 265 (STAGE 0): the geometry layer was archived. **A clause's carrier must live in the
     # MAINLINE tree, because the archive is out of the criterion.** So each clause that used to name

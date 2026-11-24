@@ -80,6 +80,7 @@ import Lattice.Lib.Compiler.ArtifactStitch
 import Lattice.Lib.Compiler.PowChord
 import Lattice.Lib.Compiler.AnalyticRow
 import Lattice.Lib.Compiler.AnalyticSelection
+import Lattice.Lib.Compiler.BridgeToMainChain
 /-!
 # Lattice.Lib -- harvested instances
 

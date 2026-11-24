@@ -17,8 +17,11 @@
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
 | 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 52 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
+| 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
+| 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
+| 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 1 | 7 | `Lib/Compiler/Chain.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 | 2 | `Usage/Examples.lean` |
@@ -47,7 +50,7 @@
 ## 汇总
 
 - 条款数：14
-- 载体总数：32
+- 载体总数：35
 - **死代码载体（同文件也不用）：0**
 - 仅同文件使用的载体：0
 
