@@ -1872,3 +1872,37 @@ two_sections_of_one_generalisation (w b x : ℤ)                     -- 两者�
 **⇒ 还有一条**流程**教训：我的手工门禁清单里 `audit_duplicate_names.py` 与 `check_duplicate_classes.py`
 **漏了 `--check`**，故我这边全过而 `verify_all` 报 2 处失败。⇒ 这与本项目历史上同类的遗漏是**第二次**。
 ⇒ 结论：**跑 `verify_all` 用的那条确切命令行，而不是记忆里的近似。****
+### 3.52 **第 1089 轮：推广**被消费**了——`gridEval` 就是实数层上的求值**
+
+**第 1088 轮造了 `RealLayer` 并证明两套实现是它的截面，但**没人用它**：一个没有消费者的推广是另一座小岛。**
+**⇒ 本轮让它**承重**，且**不改任何既有定义**。**
+
+```lean
+segmentToRealLayer (s : Segment) : RealLayer  := ⟨[s.m], s.c⟩
+familyToRealLayers (g : ℕ → Segment) : ℕ → RealLayer
+familyToRealLayers_out : (familyToRealLayers g k).out [x] = (g k).eval x
+
+gridEval_eq_realLayer_out (g) (n) (x) :
+    gridEval g n x = (familyToRealLayers g (segmentIndex n x)).out [x]
+```
+
+**⇒ 最后一条是重点：`gridEval`——新线的核心求值、出现在它每一条精度定理里——现在被写成
+「先选段号，再对一个实数层求值」。⇒ **什么都没重新定义**；那条等式使两种读法可以互相代入。**
+
+**⇒ 回报是一条**定理**而不是一句主张：**
+
+```lean
+pow_uniform_bound_as_realLayer (d) (2 ≤ d) (n) (0 < n) :
+    ∀ x ∈ [0,1), |x^d − (familyToRealLayers (interpFamily n (t↦t^d)) (segmentIndex n x)).out [x]|
+                      ≤ d(d−1)(1/n)²/8
+```
+
+**⇒ 这就是第 1076 轮的一般度数界**改写为关于 `RealLayer` 输出的陈述**。
+⇒ 故推广不是一个平行结构：新线最强的精度结果是**关于实数层求值**的陈述，
+而下游读者可以用一条等式在两种词汇间移动。**
+
+**⇒ 仍**不**声称的：主链自己的界**没有**这样改写，因为 `LayerOut` 取 `List ℤ` 而它的判据是**精确**而非 ε。
+⇒ 只有新线一侧被搬到推广上；主链只通过 `realLayer_ofInt_out` 相连。**
+
+**⇒ 三处机械失败：`gridEval`/`segmentIndex` 不在作用域（需要两个 import + 两个 open：
+`GridAlgebra` 与 `PiecewiseWeights`）；`gridEval` 那条等式需要 `segmentToRealLayer_out` 的 `.symm` 方向，花了一次构建。**
