@@ -1137,3 +1137,41 @@ select_none_of_affine_table :
 2. 我插入的 `/-!` 段注释**没有闭合** ⇒ `unterminated comment`。
 
 **⇒ 否证普查 `365 \u2192 366`（`Lib` 253 \u2192 254）。**
+### 3.31 **第 1068 轮：表变成**按度数索引**，于是选择是**阶梯**而不是查找**
+
+**`CapabilityTable.select` 只在一个固定列表里查。规划 §2.1 第 4 层要「能力与证明编排」，
+而编排的前提是能力**可(indexed by a parameter)**，从而「先试小的，再试大的」可以表达。**
+**文件：`Lattice/Lib/Compiler/PolyTable.lean`**
+
+```lean
+polyRow : ℕ → Option CapabilityRow
+  | 1 => some affineFamilyRow   | 2 => some squareRow   | 3 => some cubeRow   | _ => none
+
+polyRow_one / _two / _three / _zero / _four      -- 皆为 rfl：表就是它定义的样子
+polyRow_none_iff (d) : polyRow d = none ↔ d = 0 ∨ 4 ≤ d
+
+selectByDegree req := select req [affineFamilyRow, squareRow, cubeRow]
+```
+
+**⇒ 为什么返回 `Option` 而不是一行：库**并不覆盖所有度数**。`Option` 把「未覆盖」放进**类型**里，
+而不是留给调用者去猜；而 `polyRow_none_iff` **证明**了未覆盖的恰好是 `0` 与 `≥ 4`。**
+**⇒ 因此 `polyRow_four` 是一条**如实的边界**：不是「四次不可能」，而是「本库没有它的界」——
+这也正是「将来加一族只需在此函数加一支、其余不动」的理由。**
+
+**⇒ 阶梯需要它的**拒绝**，故新增三条否证事实（皆为三点论证）：**
+```lean
+cube_not_affine : t³ 不是仿射（0,1,2 → 0,1,8 推出 b=0, a=1, 2a+b=8）
+square_ne_cube  : t² ≠ t³（在 t = 2 处不同）
+square_not_cube_row / cube_not_square_row / affineFamily_not_sufficient_for_cube
+```
+**⇒ 没有它们，「按度数递增尝试」就只是一次**没有理由的扫描**。**
+
+**⇒ 两处机械修正：**
+1. `CapabilityRow` 含函数与 `Prop`，**无 `DecidableEq`** ⇒ `polyRow_none_iff` 里 `by decide` 的那些分支
+   改为用 rfl 引理重写；
+2. `polyRow` 的通配分支需要**登记理由**——它的理由是「库不覆盖该度数」，而这个范围由
+   `polyRow_none_iff` **证明**，不是要求读者假定。
+
+**⇒ 两处基线被**裁定**而非绕开：定义式证明基线 810 → **815**（五条表等式）。
+⇒ 这里 `rfl` 是**正确**的而非空洞的：**表的条目定义上就是它写的那个东西**。
+⇒ 通配分支登记与否证普查（`366 → 369`，`Lib` 254 → 257）同样处理。**

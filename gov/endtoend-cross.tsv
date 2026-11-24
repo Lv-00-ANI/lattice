@@ -1616,6 +1616,15 @@ Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_at_one
 Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_error_at_one
 Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_error_closed
 Lib/Compiler/PiecewiseUniform.lean	piecewiseWeights_uniform_tendsto
+Lib/Compiler/PolyTable.lean	polyRow_one
+Lib/Compiler/PolyTable.lean	polyRow_two
+Lib/Compiler/PolyTable.lean	polyRow_three
+Lib/Compiler/PolyTable.lean	polyRow_zero
+Lib/Compiler/PolyTable.lean	polyRow_four
+Lib/Compiler/PolyTable.lean	polyRow_none_iff
+Lib/Compiler/PolyTable.lean	square_not_cube_row
+Lib/Compiler/PolyTable.lean	cube_not_square_row
+Lib/Compiler/PolyTable.lean	affineFamily_not_sufficient_for_cube
 Lib/Compiler/PolynomialLowerBound.lean	dimension_counting
 Lib/Compiler/R3Triviality.lean	R3_dichotomy
 Lib/Compiler/RealAbstractInterpretation.lean	fixpoint_transfer_le
