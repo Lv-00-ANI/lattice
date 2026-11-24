@@ -1516,3 +1516,78 @@ quintic_lands :
 
 **⇒ `powRowsTo_six` 需要 `Nat.reduceLeDiff`**：`if h : 2 ≤ n` 是**依赖的 `dif`**，
 故在具体数字上求值需要**带减法的归约引理**，普通 `simp` 不够。
+### 3.43 **第 1080 轮：宏观认知重建（一次只用**文件与工具输出**、不依赖记忆的盘点）**
+
+**本轮不写新定理。⇒ 目的是回答一个问题：**第 1043–1079 轮（37 轮）在与整体目标的关系上，到底做成了什么、处在什么位置。**
+
+#### 一、用工具测出的第一个事实：新线是一座**孤岛**
+
+| 名字 | 引用文件数 | `Lib/Compiler/` **之外** |
+|:--|--:|--:|
+| `compileTarget` | 4 | **0** |
+| `EvaluatedArtifact` | 8 | **0** |
+| `decodedFamily` | 2 | **0** |
+| `CapabilityRow` | 6 | **0** |
+| `AnalyticRow` | 2 | **0** |
+| `pow_uniform_bound` | 2 | **0** |
+| `piecewiseIRWeights` | 6 | **0** |
+| `irWeights_error_bound` | 6 | **0** |
+| `encodeGrid` | 6 | **1**（`Compose/Showcase/L3L2.lean`） |
+| `gridLayout` | 2 | **0** |
+
+**⇒ 也就是说：这 37 轮的全部产物（10,027 定理中的约 120 条新定理）在 `Lib/Compiler/` 之外**零引用**。
+⇒ 用 `OBJECTIVE-MAP` 自己的判据（「外部引用数为 0 的载体是一个名字，不是一次交付」），
+**新线在**目标层面**是不可见的。**（它内部交叉引用极密，但那是**同一座岛**内的引用。）**
+
+#### 二、第二个事实：目标条款的载体全部是**旧模块**
+
+`OBJECTIVE-MAP.md` 的 14 个条款的载体位于 `Runtime/`、`Core/`、`Semantics/`、`Usage/`、`Plugins/`。
+**⇒ 其中**没有**一条来自 `Lib/Compiler/`。⇒ 故 `check_objective_coverage` 的规则 A（每条款有具名载体）
+**从未**因新线而改变。**
+
+#### 三、第三个事实：八阶段链的接缝**全部 `old`**
+
+`chain_connectors --provenance` 的后三段：
+
+| 接缝 | total | old | recent |
+|:--|--:|--:|--:|
+| 3.2 verify → 3.3 repair | 2 | **2** | 0 |
+| 3.3 repair → 3.4 reinject | 4 | **4** | 0 |
+| 3.4 reinject → 4 loop | 3 | **3** | 0 |
+
+**⇒ 新线**一次也没有**触碰这些接缝。⇒ 第 83 轮记录的「FRESH-ONLY：这些接缝只在 fresh 下连通」的问题**依然存在**。**
+⇒ 新线补的是**另一条**链（符号项 → 产物 → 精度 → 选择），**不是**官方八阶段链。
+
+#### 四、第四个事实：17 个**弱载体**（跨文件引用 ≤ 1）
+
+包括 `penaltyToLoss`（1）、`covered_of_vanishing`（1）、`models_of_covered_data`（1）、
+`weightLadderN`（1）、`sqDistHalvingRepair`（1）、`sqDistHalving_terminates_and_stabilises`（1）等。
+**⇒ 这些是条款 2.1、2.2、2.3、3.3 的**唯一**载体，而它们几乎只被 `Usage/Examples.lean` 消费。
+⇒ 即：**这些条款的“证据”实际是示例文件在支撑，而不是链在支撑。**
+
+#### 五、结论与重新规划
+
+**结论（一句话）：第 1043–1079 轮把「符号 ⇄ 权重」这一跳做**深**了（能力选择、任意度数、产物缝合、修复写回），
+但做成了一个**自洽的孤岛**；目标层与八阶段链**都没有搬到它**。**
+
+**⇒ 因此下一阶段的第一要务不是继续加深该岛，而是**把它接入**。具体三步，按依赖排序：**
+
+1. **找到两套 `符号 → 权重` 的交点并给出桥定理。**
+   主链用 `Runtime/SymbolToWeightCorrectness.lean::compileToLayer`（约束 → 层参数）；
+   新线用 `Lib/Compiler/SymbolicEntry.lean::compileTarget`（符号项 → 目标 → 分段族 → 权重）。
+   **⇒ 需要一条定理说明：在某个共同片段上，两者给出**同一个**权重（或至少同一族）。**
+   **⇒ 若找不到共同片段，那就必须**如实记录「这是两种不同的表示」，并说明各自覆盖什么**——
+   而不是假装它们是一条链。**
+
+2. **让新名字成为目标条款的载体。** 在 `gov/check_objective_coverage.py` 的 `CLAUSES` 中，
+   为条款 1.3（符号 → 权重）与 1.4/3.1（权重 → 符号）**新增**新线的载体
+   （`compileTarget`、`EvaluatedArtifact`、`decodedFamily`），并在 `OBJECTIVE-MAP` 里记下跨文件引用数。
+   **⇒ 这一步会让规则 A 第一次**真的**看见新线；若引用数为 0，它就诚实地显示为弱载体。**
+
+3. **再接八阶段链的 3.2→3.3→3.4 接缝。** 这三段的 `old` 状态意味着它们的连通性只在 fresh 下成立。
+   **⇒ 修法不是再写一条定理，而是让**既有**定理被**新的**下游消费**（这样 `git blame` 的声明就变 recent）。
+   **⇒ 具体地：让 `Lib/Compiler` 的修复/写回（`write_back_verifies_and_changes`）被 `Runtime/VerificationLoop`
+   的某条定理消费，或反过来。这是**真实**的连接，而不是文档声明。**
+
+**⇒ 本轮之后立即执行第 1 步**：先测量 `compileToLayer` 与 `compileTarget` 是否存在共同片段——
+若存在就写桥；若不存在就先写「为何不同」的记录。**这是**测量优先于施工**的同一原则在本层的应用。**
