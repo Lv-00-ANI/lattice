@@ -848,3 +848,29 @@ sq_gridEval_error_via_segmentwise (x ∈ Ico 0 1) :
 
 **⇒ 三处小错：`le_div_iff` 而非 `lt` 版（目标上端是 `≤`）；`gridEval` 需 `GridAlgebra` 的 `open`；
 `apply` 把域假设留成**第二个目标**（`case hx`）。**
+### 3.22 **第 1059 轮：二次项走一遍新入口，重推出的仍是那个数**
+
+**两条定理（`Lattice/Lib/Compiler/GridBound.lean`）：**
+
+```lean
+-- 任意区间上的弦误差：两支线性组合 + linComb_error
+quadFun_chord_error_on_interval (u < v) (y ∈ [u,v]) :
+    |quadFun y − (chordOf (quadFun) u v).eval y| ≤ |a| · (v−u)²/4
+
+-- 整域界：桥 + 上一条
+quadFun_gridEval_error_via_bridge (x ∈ Ico 0 1) :
+    |quadFun x − gridEval (interpFamily n (quadFun)) n x| ≤ |a| · (1/n)²/4
+```
+
+**⇒ 第二条的界与第 1055 轮 `interpFamily_quadFun_error` **逐字相同**，但**路径完全不同**：
+旧条走「`interpFamily` 的可加 + 数乘」在**族层**装配；本条走「两支 `linComb` → 单区间界 → 桥」。
+**⇒ 两种路径给出同一个数，那就不是巧合，而是**这个数是对的**。**这正是「复用入口」要提供的保证。****
+
+**⇒ 索引机制的教训（第二次同类，这次选对了）：上一轮用 `Fin 2` + `if i = 0` 卡在 `simp` 形状上；
+本轮改用 `Finset ℕ` 的 `{0, 1}` + `Finset.sum_pair`，`simp only [...]` 后 `ring` 一次闭合。
+⇒ 结论：**`Finset` 具体元素比 `Fin` 索引更稳**，因为 `sum_pair` 是结构化引理而不是「形状知识」。**
+
+**⇒ 两处 `if`/lambda 的坑：`simp only` 必须显式给 `if_true`/`if_neg`；`rw` 不会 beta 归约 lambda，
+需先 `change`。⇒ 两者都是「`rw` 只做语法替换」的同一件事。**
+
+**⇒ `linComb_error` 因此成为承重，verdict 已登记（承重 1090，100% 已审）。**

@@ -30,6 +30,7 @@ open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.PiecewiseWeights
 open Lattice.Lib.Compiler.ChordGeneral
+open Lattice.Lib.Compiler.LinearComb
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler
 
@@ -109,5 +110,94 @@ theorem sq_gridEval_error_via_segmentwise (n : ℕ) (hn : 0 < n) (x : ℝ)
   exact hb
   -- **域假设是 `apply` 留下的第二个目标。**
   exact hx
+
+/-! ## 三、一般二次项走新入口 -/
+
+/-- **⭐⭐一般二次项在**任意区间**上的弦误差界。**
+
+**⇒ 拆成**两支**（`t·t` 系数 `a`，仿射系数 1），然后**一步 `linComb_error`**。**
+
+**⇒ 索引用 `Finset ℕ` 的 `{0, 1}`，而不是 `Fin 2`：
+前者的 `simp` 归一化形状稳定，后者需要 `Fin.reduceEq` 的形状知识。** -/
+theorem quadFun_chord_error_on_interval (a p q u v : ℝ) (huv : u < v) (y : ℝ)
+    (hy : y ∈ Set.Icc u v) :
+    |quadFun a p q y - (chordOf (quadFun a p q) u v).eval y|
+      ≤ |a| * ((v - u) ^ 2 / 4) := by
+  have hne : u ≠ v := ne_of_lt huv
+  let s : Finset ℕ := {0, 1}
+  let c : ℕ → ℝ := fun i => if i = 0 then a else 1
+  let b : ℕ → ℝ → ℝ := fun i y' => if i = 0 then y' * y' else p * y' + q
+  let B : ℕ → ℝ := fun i => if i = 0 then (v - u) ^ 2 / 4 else 0
+  have h01 : (0 : ℕ) ≠ 1 := by norm_num
+  have h10 : ¬ ((1 : ℕ) = 0) := by norm_num
+  -- **两支之和就是 `quadFun`。**
+  have hcomb : linComb s c b = quadFun a p q := by
+    funext y'
+    simp only [linComb, s, c, b, quadFun, Finset.sum_pair h01]
+    simp only [if_true, h10, if_false]
+    ring
+  -- **各支的界。**
+  have hB : ∀ i ∈ s, ∀ z ∈ Set.Icc u v,
+      |b i z - (chordOf (b i) u v).eval z| ≤ B i := by
+    intro i hi z hz
+    simp only [s, Finset.mem_insert, Finset.mem_singleton] at hi
+    rcases hi with rfl | rfl
+    · -- **第一支：`y·y`，用单区间界。**
+      show |(fun t : ℝ => t * t) z
+            - (chordOf (fun t : ℝ => t * t) u v).eval z| ≤ (v - u) ^ 2 / 4
+      have hch : chordOf (fun t : ℝ => t * t) u v = chordOf (fun t : ℝ => t ^ 2) u v := by
+        congr 1
+        funext t
+        rw [pow_two]
+      rw [hch]
+      -- **lambda 要先 beta 归约；`rw` 不会自己做这件事。**
+      change |z * z - (chordOf (fun t : ℝ => t ^ 2) u v).eval z| ≤ (v - u) ^ 2 / 4
+      rw [← pow_two z]
+      exact Lattice.Lib.Compiler.ChordErrorGeneral.chord_error_sq_rederived u v z huv hz
+    · -- **第二支：仿射，弦精确。**
+      show |(fun t : ℝ => p * t + q) z
+            - (chordOf (fun t : ℝ => p * t + q) u v).eval z| ≤ 0
+      rw [chordOf_affine p q u v hne]
+      simp [Segment.eval]
+  have hmain := linComb_error s c b B u v hne hB
+  rw [hcomb] at hmain
+  -- **加权和归一化：`|a|·((v−u)²/4) + 1·0`。**
+  have hsum : (∑ i ∈ s, |c i| * B i) = |a| * ((v - u) ^ 2 / 4) := by
+    simp only [s, c, B, Finset.sum_pair h01]
+    simp only [if_true, h10, if_false]
+    norm_num
+  rw [hsum] at hmain
+  exact hmain y hy
+
+/-- **⭐⭐⭐ 一般二次项的**整域**界——经新入口（桥 + `linComb_error`）。** -/
+theorem quadFun_gridEval_error_via_bridge (a p q : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ)
+    (hx : x ∈ Set.Ico (0 : ℝ) 1) :
+    |quadFun a p q x - gridEval (interpFamily n (quadFun a p q)) n x|
+      ≤ |a| * ((1 / (n : ℝ)) ^ 2 / 4) := by
+  have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  apply gridEval_bound_of_segmentwise (fun k => interpFamily n (quadFun a p q) k) n hn
+    (quadFun a p q) (|a| * ((1 / (n : ℝ)) ^ 2 / 4))
+  · intro k _hk y hy
+    -- **该段就是该区间上的弦。**
+    have hseg : interpFamily n (quadFun a p q) k
+        = chordOf (quadFun a p q) ((k : ℝ) / n) (((k : ℝ) + 1) / n) := rfl
+    rw [hseg]
+    -- **区间非空。**
+    have hlt : ((k : ℝ) / n) < (((k : ℝ) + 1) / n) := by
+      have hpos : (0 : ℝ) < 1 / (n : ℝ) := by positivity
+      have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
+        field_simp
+      linarith
+    have hb := quadFun_chord_error_on_interval a p q ((k : ℝ) / n) (((k : ℝ) + 1) / n)
+      hlt y hy
+    -- **幅度归一化。**
+    have hnorm : ((((k : ℝ) + 1) / n) - ((k : ℝ) / n)) ^ 2 / 4
+        = (1 / (n : ℝ)) ^ 2 / 4 := by
+      have heq : (((k : ℝ) + 1) / n) - ((k : ℝ) / n) = 1 / (n : ℝ) := by
+        field_simp
+      rw [heq]
+    rw [hnorm] at hb
+    exact hb
+  · exact hx
 
 end Lattice.Lib.Compiler.GridBound
