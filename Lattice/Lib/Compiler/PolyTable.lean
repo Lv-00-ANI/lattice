@@ -1,4 +1,5 @@
 import Lattice.Lib.Compiler.CapabilityTable
+import Lattice.Lib.Compiler.QuarticFamily
 
 /-!
 # **按度数索引的能力表：从「查表」到「编排」**
@@ -28,12 +29,14 @@ open Lattice.Lib.Compiler
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler.CapabilityTable
+open Lattice.Lib.Compiler.QuarticFamily
 
-/-- **按度数索引的行**：库覆盖 `1`、`2`、`3` 三档；其余为 `none`。 -/
+/-- **按度数索引的行**：库覆盖 `1`、`2`、`3`、`4` 四档；其余为 `none`。 -/
 noncomputable def polyRow : ℕ → Option CapabilityRow
   | 1 => some affineFamilyRow
   | 2 => some squareRow
   | 3 => some cubeRow
+  | 4 => some quarticRow
   | _ => none
 
 /-- **⭐ 度数 1 对应无参的仿射**族行**（常数 0）。** -/
@@ -48,22 +51,23 @@ theorem polyRow_three : polyRow 3 = some cubeRow := rfl
 /-- **⭐ 度数 0 未覆盖。** -/
 theorem polyRow_zero : polyRow 0 = none := rfl
 
-/-- **⭐⭐ 度数 4 未覆盖**——四次族尚未建立。
+/-- **⭐⭐⭐ 度数 4 **现已覆盖**——上一轮的边界被推高了一格。
 
-**⇒ 这条是**如实**的边界：不是「四次不可能」，而是「本库还没有它的界」。
-⇒ 若将来证出四次族的界，只需在此函数上加一支，而**其余各层不动**。** -/
-theorem polyRow_four : polyRow 4 = none := rfl
+**⇒ 这是对上一轮那句「若将来证出四次族的界，只需在此函数上加一支」
+的**实践**：加的正是一支，而其余各层（选择器、桥、精度保证）**一行未动**。** -/
+theorem polyRow_four : polyRow 4 = some quarticRow := rfl
 
 /-- **⭐⭐ 未覆盖的度数**恰好是 `0` 与 `≥ 4`。** -/
-theorem polyRow_none_iff (d : ℕ) : polyRow d = none ↔ d = 0 ∨ 4 ≤ d := by
+theorem polyRow_none_iff (d : ℕ) : polyRow d = none ↔ d = 0 ∨ 5 ≤ d := by
   constructor
   · intro h
     match d with
     | 0 => exact Or.inl rfl
-    | 1 => rw [polyRow_one] at h; exact absurd h (by simp)
-    | 2 => rw [polyRow_two] at h; exact absurd h (by simp)
-    | 3 => rw [polyRow_three] at h; exact absurd h (by simp)
-    | Nat.succ (Nat.succ (Nat.succ (Nat.succ _))) => exact Or.inr (by omega)
+    | 1 => rw [polyRow_one] at h; simp at h
+    | 2 => rw [polyRow_two] at h; simp at h
+    | 3 => rw [polyRow_three] at h; simp at h
+    | 4 => rw [polyRow_four] at h; simp at h
+    | Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ _)))) => exact Or.inr (by omega)
   · rintro (rfl | h)
     · rfl
     · match d with
@@ -71,7 +75,8 @@ theorem polyRow_none_iff (d : ℕ) : polyRow d = none ↔ d = 0 ∨ 4 ≤ d := b
       | 1 => omega
       | 2 => omega
       | 3 => omega
-      | Nat.succ (Nat.succ (Nat.succ (Nat.succ _))) => simp [polyRow]
+      | 4 => omega
+      | Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ _)))) => simp [polyRow]
 
 /-- **⭐⭐ 按度数递增尝试**：`1, 2, 3` 依次，取第一个适用的。 -/
 noncomputable def selectByDegree (req : Request) : Option CapabilityRow :=
@@ -218,8 +223,13 @@ theorem polyRow_degree (d : ℕ) (row : CapabilityRow) (h : row ∈ (polyRow d).
       simp only [Option.toList_some, List.mem_singleton] at h
       rw [h]
       rfl
-  | Nat.succ (Nat.succ (Nat.succ (Nat.succ k))) =>
-      have hnone : polyRow (Nat.succ (Nat.succ (Nat.succ (Nat.succ k)))) = none := by
+  | 4 =>
+      rw [polyRow_four] at h
+      simp only [Option.toList_some, List.mem_singleton] at h
+      rw [h]
+      rfl
+  | Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ k)))) =>
+      have hnone : polyRow (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ k))))) = none := by
         rw [polyRow_none_iff]
         omega
       rw [hnone] at h
@@ -317,5 +327,117 @@ theorem select_cubic_goal_lands_on_cube (req : Request)
   · have hfalse : decide (sufficient affineFamilyRow req) = false :=
       decide_eq_false (affineFamily_not_sufficient_for_cube req hgoal)
     simpa using hfalse
+
+/-! ## 六、四次目标：表拒绝，而表外可行（与之后的抬高） -/
+
+/-- **⭐⭐ 表内（上界 4，即度数最高 3）没有一行覆盖 `t⁴`。** -/
+theorem quartic_not_covered (req : Request) (hgoal : req.goal = fun t : ℝ => t ^ 4)
+    (row : CapabilityRow) (hrow : row ∈ degreeList 4) : ¬ row.covers req.goal := by
+  rw [degreeList_four] at hrow
+  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hrow
+  rcases hrow with rfl | rfl | rfl
+  · intro hcov
+    obtain ⟨c, d, hcd⟩ := hcov
+    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => c * t + d := by
+      rw [← hgoal]
+      exact hcd
+    exact quartic_not_affine ⟨c, d, hfun⟩
+  · intro hcov
+    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 2 := by
+      rw [← hgoal]
+      exact hcov
+    exact quartic_ne_square hfun
+  · intro hcov
+    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 3 := by
+      rw [← hgoal]
+      exact hcov
+    exact quartic_ne_cube hfun
+
+/-- **⭐⭐⭐ 对四次目标，上界 4 的表选不出任何行。** -/
+theorem selectUpTo_none_of_quartic_goal (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 4) : selectUpTo req 4 = none := by
+  classical
+  unfold selectUpTo
+  unfold select
+  rw [List.find?_eq_none]
+  intro row hrow
+  have hfalse : decide (sufficient row req) = false :=
+    decide_eq_false (by
+      intro hsuf
+      exact quartic_not_covered req hgoal row hrow hsuf.1)
+  simpa using hfalse
+
+/-- **⭐ **上界 5 时的表**——现在包含四次行。** -/
+theorem degreeList_five :
+    degreeList 5 = [affineFamilyRow, squareRow, cubeRow, quarticRow] := by
+  rw [show degreeList 5 = degreeList 4 ++ (polyRow 4).toList from rfl]
+  rw [degreeList_four, polyRow_four]
+  simp
+
+/-- **⭐⭐⭐ **上限被抬高了一格**：四次目标在上界 5 下落到四次行。
+
+**⇒ 与 `selectUpTo_none_of_quartic_goal`（上界 4）**并置**：同一目标，上界差一位，
+结果从 `none` 变为 `some quarticRow`。⇒ 这就是「**表随能力增长**」的实证。** -/
+theorem select_quartic_goal_lands_on_quartic (req : Request)
+    (hgoal : req.goal = fun t : ℝ => t ^ 4)
+    (heps : 3 / 2 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps) :
+    selectUpTo req 5 = some quarticRow := by
+  classical
+  unfold selectUpTo
+  rw [degreeList_five]
+  unfold select
+  rw [List.find?_cons_of_neg]
+  · rw [List.find?_cons_of_neg]
+    · rw [List.find?_cons_of_neg]
+      · apply List.find?_cons_of_pos
+        apply decide_eq_true
+        constructor
+        · show quarticRow.covers req.goal
+          rw [hgoal]
+          rfl
+        · show quarticRow.constant * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+          show (3 : ℝ) / 2 * (1 / (req.n : ℝ)) ^ 2 ≤ req.eps
+          exact heps
+      · have hf : decide (sufficient cubeRow req) = false :=
+          decide_eq_false (by
+            intro hsuf
+            obtain ⟨hcov, _⟩ := hsuf
+            have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 3 := by
+              rw [← hgoal]
+              exact hcov
+            exact quartic_ne_cube hfun)
+        simpa using hf
+    · have hf : decide (sufficient squareRow req) = false :=
+        decide_eq_false (by
+          intro hsuf
+          obtain ⟨hcov, _⟩ := hsuf
+          have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 2 := by
+            rw [← hgoal]
+            exact hcov
+          exact quartic_ne_square hfun)
+      simpa using hf
+  · have hf : decide (sufficient affineFamilyRow req) = false :=
+      decide_eq_false (by
+        intro hsuf
+        obtain ⟨hcov, _⟩ := hsuf
+        obtain ⟨c, d, hcd⟩ := hcov
+        have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => c * t + d := by
+          rw [← hgoal]
+          exact hcd
+        exact quartic_not_affine ⟨c, d, hfun⟩)
+    simpa using hf
+
+/-- **⭐⭐⭐ **表不是上限**（对上界 4 而言）：表拒绝，而表外族达标。
+
+**⇒ 两个合取项：`selectUpTo req 4 = none`；表外的 `interpFamily n (t↦t⁴)` 整域达到 `3/(2n²)`。**
+**⇒ 与 `select_quartic_goal_lands_on_quartic`（上界 5）并置阅读：**同一目标，上界多一位，表就能接住它**。
+⇒ 故本文件同时说两件事：**表不是上限**，且**上限可以被推高**。** -/
+theorem table_is_not_a_ceiling (n : ℕ) (hn : 0 < n) :
+    selectUpTo ⟨(fun t : ℝ => t ^ 4), 3 * (1 / (n : ℝ)) ^ 2 / 2, n, hn⟩ 4 = none
+      ∧ (∀ x ∈ Set.Ico (0 : ℝ) 1,
+          |x ^ 4 - gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n x|
+            ≤ 3 * (1 / (n : ℝ)) ^ 2 / 2) :=
+  ⟨selectUpTo_none_of_quartic_goal _ rfl,
+   fun x hx => quartic_uniform_bound_Icc n hn x ⟨hx.1, le_of_lt hx.2⟩⟩
 
 end Lattice.Lib.Compiler.PolyTable

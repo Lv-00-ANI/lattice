@@ -1,4 +1,4 @@
-import Lattice.Lib.Compiler.PolyTable
+import Lattice.Lib.Compiler.CapabilityTable
 
 /-!
 # **表**不是**上限：四次族在表外，但它有界**
@@ -34,9 +34,10 @@ open Lattice.Lib.Compiler.WeightSequence
 open Lattice.Lib.Compiler.GridAlgebra
 open Lattice.Lib.Compiler.ChordGeneral
 open Lattice.Lib.Compiler.GridBound
+open Lattice.Lib.Compiler.PiecewiseUniform
+open Lattice.Lib.Compiler.PiecewiseWeights
 open Lattice.Lib.Compiler.SymbolicEntry
 open Lattice.Lib.Compiler.CubicFamily
-open Lattice.Lib.Compiler.PolyTable
 open Lattice.Lib.Compiler.CapabilityTable
 open Lattice.Lib.Compiler
 
@@ -105,14 +106,42 @@ theorem quartic_chord_error (a b x : ℝ) (h0 : 0 ≤ a) (hab : a < b) (hb1 : b 
       ≤ ((b - a) ^ 2 / 4) * 6 := hstep
     _ = 3 * (b - a) ^ 2 / 2 := by ring
 
-/-- **⭐⭐⭐ 四次族的整域界：`3/(2n²)`。** -/
-theorem quartic_uniform_bound (n : ℕ) (hn : 0 < n) :
-    ∀ x ∈ Set.Ico (0 : ℝ) 1,
+/-! ## 一、四次函数与表内三轮都不同 -/
+
+/-- **⭐ `t⁴` 不属仿射族**（三点定値：在 `0,1,2` 处）。 -/
+theorem quartic_not_affine :
+    ¬ ∃ c d : ℝ, (fun t : ℝ => t ^ 4) = fun t : ℝ => c * t + d := by
+  rintro ⟨c, d, h⟩
+  have h0 : c * 0 + d = (0 : ℝ) ^ 4 := by simpa using (congrFun h 0).symm
+  have h1 : c * 1 + d = (1 : ℝ) ^ 4 := by simpa using (congrFun h 1).symm
+  have h2 : c * 2 + d = (2 : ℝ) ^ 4 := by simpa using (congrFun h 2).symm
+  norm_num at h0 h1 h2
+  linarith
+
+/-- **⭐ `t⁴ ≠ t²`**（在 `t = 2` 处）。 -/
+theorem quartic_ne_square : (fun t : ℝ => t ^ 4) ≠ (fun t : ℝ => t ^ 2) := by
+  intro h
+  have h2 : (2 : ℝ) ^ 4 = (2 : ℝ) ^ 2 := by simpa using congrFun h 2
+  norm_num at h2
+
+/-- **⭐ `t⁴ ≠ t³`**（在 `t = 2` 处）。 -/
+theorem quartic_ne_cube : (fun t : ℝ => t ^ 4) ≠ (fun t : ℝ => t ^ 3) := by
+  intro h
+  have h2 : (2 : ℝ) ^ 4 = (2 : ℝ) ^ 3 := by simpa using congrFun h 2
+  norm_num at h2
+
+/-- **⭐⭐ 四次族的整域界（**闭**区间 `[0,1]`）。
+
+**⇒ 与 `quartic_uniform_bound` 相比多了右端点。这里**不**复用那一条（它要求 `y < 1`，
+而段内只能得 `y ≤ (k+1)/n ≤ 1`），而是**直接重复逐段论证**：
+`quartic_chord_error` 只需 `b ≤ 1`，不需严格性。** -/
+theorem quartic_uniform_bound_Icc (n : ℕ) (hn : 0 < n) :
+    ∀ x ∈ Set.Icc (0 : ℝ) 1,
       |x ^ 4 - gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n x|
         ≤ 3 * (1 / (n : ℝ)) ^ 2 / 2 := by
   have hn' : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
   intro x hx
-  apply gridEval_bound_of_segmentwise (fun k => interpFamily n (fun t : ℝ => t ^ 4) k) n hn
+  apply gridEval_bound_of_segmentwise_Icc (fun k => interpFamily n (fun t : ℝ => t ^ 4) k) n hn
     (fun t : ℝ => t ^ 4) (3 * (1 / (n : ℝ)) ^ 2 / 2)
   · intro k hk y hy
     have hseg : interpFamily n (fun t : ℝ => t ^ 4) k
@@ -132,93 +161,51 @@ theorem quartic_uniform_bound (n : ℕ) (hn : 0 < n) :
       rw [heq]
     rw [hwidth] at hb
     exact hb
+  · have hbridge : (interpFamily n (fun t : ℝ => t ^ 4) n).eval 1
+        = gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n 1 := by
+      show _ = (interpFamily n (fun t : ℝ => t ^ 4) (segmentIndex n 1)).eval 1
+      rw [segmentIndex_at_one]
+    rw [hbridge, interpFamily_eval_at_one n hn (fun t : ℝ => t ^ 4)]
+    have hpos : (0 : ℝ) ≤ 3 * (1 / (n : ℝ)) ^ 2 / 2 := by positivity
+    simpa using hpos
   · exact hx
 
-/-! ## \u4e00\u3001\u56db\u6b21\u51fd\u6570\u4e0e\u8868\u5185\u4e09\u8f6e\u90fd\u4e0d\u540c -/
+/-- **⭐⭐⭐ 第 4 行：`x⁴`，常数 `3/2`。
 
-/-- **\u2b50 `t\u2074` \u4e0d\u5c5e\u4eff\u5c04\u65cf**\uff08\u4e09\u70b9\u5b9a\u5024\uff1a\u5728 `0,1,2` \u5904\uff09\u3002 -/
-theorem quartic_not_affine :
-    ¬ ∃ c d : ℝ, (fun t : ℝ => t ^ 4) = fun t : ℝ => c * t + d := by
-  rintro ⟨c, d, h⟩
-  have h0 : c * 0 + d = (0 : ℝ) ^ 4 := by simpa using (congrFun h 0).symm
-  have h1 : c * 1 + d = (1 : ℝ) ^ 4 := by simpa using (congrFun h 1).symm
-  have h2 : c * 2 + d = (2 : ℝ) ^ 4 := by simpa using (congrFun h 2).symm
-  norm_num at h0 h1 h2
-  linarith
-
-/-- **\u2b50 `t\u2074 \u2260 t\u00b2`**\uff08\u5728 `t = 2` \u5904\uff09\u3002 -/
-theorem quartic_ne_square : (fun t : ℝ => t ^ 4) ≠ (fun t : ℝ => t ^ 2) := by
-  intro h
-  have h2 : (2 : ℝ) ^ 4 = (2 : ℝ) ^ 2 := by simpa using congrFun h 2
-  norm_num at h2
-
-/-- **\u2b50 `t\u2074 \u2260 t\u00b3`**\uff08\u5728 `t = 2` \u5904\uff09\u3002 -/
-theorem quartic_ne_cube : (fun t : ℝ => t ^ 4) ≠ (fun t : ℝ => t ^ 3) := by
-  intro h
-  have h2 : (2 : ℝ) ^ 4 = (2 : ℝ) ^ 3 := by simpa using congrFun h 2
-  norm_num at h2
-
-/-! ## 二、表**不是上限**：目标 `t⁴` 的对照 -/
-
-/-- **⭐⭐ 表内没有一行覆盖 `t⁴`。**
-
-**⇒ 三个分支各自靠一条**分离事实**：`t⁴` 不是仿射、不等于 `t²`、不等于 `t³`。
-**⇒ 这里没有任何一步是「我们没写过四次行所以它不在表里」——
-那只是缺失；**这里证的是它与表内三行的族都不同**。** -/
-theorem quartic_not_covered (req : Request) (hgoal : req.goal = fun t : ℝ => t ^ 4)
-    (row : CapabilityRow) (hrow : row ∈ degreeList 4) : ¬ row.covers req.goal := by
-  rw [degreeList_four] at hrow
-  simp only [List.mem_cons, List.mem_singleton, List.not_mem_nil, or_false] at hrow
-  rcases hrow with rfl | rfl | rfl
-  · -- **仿射族行**
-    intro hcov
-    obtain ⟨c, d, hcd⟩ := hcov
-    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => c * t + d := by
-      rw [← hgoal]
-      exact hcd
-    exact quartic_not_affine ⟨c, d, hfun⟩
-  · -- **二次行**
-    intro hcov
-    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 2 := by
-      rw [← hgoal]
-      exact hcov
-    exact quartic_ne_square hfun
-  · -- **三次行**
-    intro hcov
-    have hfun : (fun t : ℝ => t ^ 4) = fun t : ℝ => t ^ 3 := by
-      rw [← hgoal]
-      exact hcov
-    exact quartic_ne_cube hfun
-
-/-- **⭐⭐⭐ 对四次目标，表（上界 4）**选不出任何行**。** -/
-theorem selectUpTo_none_of_quartic_goal (req : Request)
-    (hgoal : req.goal = fun t : ℝ => t ^ 4) : selectUpTo req 4 = none := by
-  classical
-  unfold selectUpTo
-  unfold select
-  rw [List.find?_eq_none]
-  intro row hrow
-  have hfalse : decide (sufficient row req) = false :=
-    decide_eq_false (by
-      intro hsuf
-      exact quartic_not_covered req hgoal row hrow hsuf.1)
-  simpa using hfalse
-
-/-- **⭐⭐⭐ **表不是上限**——同一个目标，表拒绝，而表外族达标。
-
-**⇒ 两个合取项是：**
-1. **`selectUpTo req 4 = none`**：表内三行都不适用；
-2. **表外的 `interpFamily n (fun t => t⁴)` 整域达到 `3/(2n²)`**。
-
-**⇒ 这就是规划 §1.6 末句「该判据**不是能力上限**」的**见证**：
-表给出的是**已证明的能力**，而非**可能的能力**。**
-**⇒ 且本条不声称「四次族不能被加入表」——恰恰相反：
-把 `polyRow 4` 填上只需**一支**，而那一支的依据已在本文件里。** -/
-theorem table_is_not_a_ceiling (n : ℕ) (hn : 0 < n) :
-    selectUpTo ⟨(fun t : ℝ => t ^ 4), 3 * (1 / (n : ℝ)) ^ 2 / 2, n, hn⟩ 4 = none
-      ∧ (∀ x ∈ Set.Ico (0 : ℝ) 1,
-          |x ^ 4 - gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n x|
-            ≤ 3 * (1 / (n : ℝ)) ^ 2 / 2) :=
-  ⟨selectUpTo_none_of_quartic_goal _ rfl, quartic_uniform_bound n hn⟩
+**⇒ 与前三行同一形状，故新增一族的成本仍然是**一条单区间界**。** -/
+noncomputable def quarticRow : CapabilityRow where
+  degree := 4
+  term := quarticTerm
+  fn := fun t : ℝ => t ^ 4
+  target := .interp (fun t : ℝ => t ^ 4)
+  semantics := by
+    intro x
+    exact evalSym_quarticTerm x
+  compiled := by
+    intro r
+    exact compileTarget_quarticTerm r
+  family_eq := by
+    intro r k
+    rfl
+  constant := 3 / 2
+  bound := by
+    intro n hn x hx
+    show |x ^ 4 - gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n x|
+        ≤ 3 / 2 * (1 / (n : ℝ)) ^ 2
+    have h := quartic_uniform_bound_Icc n hn x hx
+    have heq : 3 * (1 / (n : ℝ)) ^ 2 / 2 = 3 / 2 * (1 / (n : ℝ)) ^ 2 := by ring
+    rw [heq] at h
+    exact h
+  covers := fun g => g = fun t : ℝ => t ^ 4
+  covers_self := rfl
+  covers_bound := by
+    intro g hg n hn x hx
+    subst hg
+    show |x ^ 4 - gridEval (interpFamily n (fun t : ℝ => t ^ 4)) n x|
+        ≤ 3 / 2 * (1 / (n : ℝ)) ^ 2
+    have h := quartic_uniform_bound_Icc n hn x hx
+    have heq : 3 * (1 / (n : ℝ)) ^ 2 / 2 = 3 / 2 * (1 / (n : ℝ)) ^ 2 := by ring
+    rw [heq] at h
+    exact h
 
 end Lattice.Lib.Compiler.QuarticFamily

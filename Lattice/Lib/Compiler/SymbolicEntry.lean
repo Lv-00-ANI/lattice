@@ -139,6 +139,8 @@ noncomputable def compileTarget (r : CompileRecipe) : ExprExt → Option Target
   -- **三次项：`x·x·x` 也落到**一般插值族**。**
   | .mul (.mul (.var 0) (.var 0)) (.var 0) => some (.interp (fun t => t ^ 3))
 
+  -- **四次项：`x·x·x·x`。**
+  | .mul (.mul (.mul (.var 0) (.var 0)) (.var 0)) (.var 0) => some (.interp (fun t => t ^ 4))
   | _ => none
 
 /-- **仿射项的语法形状**：`a·x + b`。 -/
@@ -325,5 +327,20 @@ theorem evalSym_cubeTerm (x : ℝ) : evalSym x cubeTerm = some (x ^ 3) := by
 theorem compileTarget_cubeTerm (r : CompileRecipe) :
     compileTarget r cubeTerm = some (.interp (fun t : ℝ => t ^ 3)) := by
   simp [cubeTerm, compileTarget]
+
+/-- **四次项的语法形状**：`x · x · x · x`。 -/
+def quarticTerm : ExprExt := .mul (.mul (.mul (.var 0) (.var 0)) (.var 0)) (.var 0)
+
+/-- **四次项的源语义**。 -/
+theorem evalSym_quarticTerm (x : ℝ) : evalSym x quarticTerm = some (x ^ 4) := by
+  have h : evalSym x quarticTerm = some (x * x * x * x) := by simp [quarticTerm, evalSym]
+  rw [h]
+  congr 1
+  ring
+
+/-- **⭐⭐ 四次项编译到一般插值族。** -/
+theorem compileTarget_quarticTerm (r : CompileRecipe) :
+    compileTarget r quarticTerm = some (.interp (fun t : ℝ => t ^ 4)) := by
+  simp [quarticTerm, compileTarget]
 
 end Lattice.Lib.Compiler.SymbolicEntry
