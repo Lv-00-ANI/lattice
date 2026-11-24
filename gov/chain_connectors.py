@@ -83,6 +83,37 @@ STAGES = [
 ]
 
 
+#: **连接器在链内没有消费者，但那是**按构造**的——每条附理由。**
+#:
+#: **Round 1107. 一个没有消费者的连接器要么是 (a) 终态结论——下游不读它；要么是 (b) 缺口。
+#: ⇒ 两者在表里长得一样。⇒ 本表是有意的 (a) 的登记处，而门禁只对**相邻接缝**生效：
+#: 非相邻的格子本就不应相遇，故它们的 0 不是对链的断言。**
+#: **Round 1107: how many dead connectors on ADJACENT seams are still UNREGISTERED.**
+#:
+#: The gate forbids this number from GROWING; each round that adjudicates a seam lowers it. It exists because a
+#: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
+#: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
+#: visible and monotone instead of pretending it is empty.
+UNREGISTERED_BUDGET = 69
+
+TERMINAL_CONNECTORS = {
+    "twoSlopeLoop_objective_vanishes":
+        "round 1085's instance of `closed_loop_reinject_vanishes` on the artifact payload: it states that the "
+        "defect is zero at the loop's end. Nothing in the tree READS a defect value, so there is no downstream "
+        "step for it to feed -- it is that seam's conclusion, not a missing link.",
+    "extract_after_repair":
+        "requires `hSat : forall ls, R.Sat ls <-> LayerSat cs ls` -- an EQUIVALENCE between the repair's verdict "
+        "and zero-output. A verdict can normally be shown to IMPLY that, not to be equivalent to it, so this "
+        "theorem cannot be applied to any instance in the tree (round 1103 measured this and supplied the "
+        "one-directional sibling that IS applied). Dead because its premise is unattainable here.",
+    "carrier_covers_two_segments_plus_one_direction":
+        "a SUMMARY: a conjunction of compile soundness, the extraction round trip and repair termination. "
+        "Nothing consumes a summary, and that is a property of what it is (round 1104 renamed it so the name "
+        "stops claiming more than the statement proves).",
+}
+
+
+
 def _marker_re(words):
     return re.compile(r"\b(?:%s)\b" % "|".join(re.escape(w) for w in words))
 
@@ -289,6 +320,27 @@ def main():
         # is enough for a link to exist -- and it does not police non-adjacent cells, where two stages are
         # not supposed to meet. The lexicon above is part of the contract: widening it is a deliberate
         # change, the same way a baseline is.**
+        # **Round 1107: a dead connector on an ADJACENT seam must be registered in TERMINAL_CONNECTORS.**
+        # Two different questions live here: the age column asks WHEN a connector was written, the liveness
+        # column asks whether the chain USES it. This third check asks whether the absence of a user is
+        # DELIBERATE -- without it, `dead` grows silently and every round rediscovers the same zeros.
+        CC2 = chain_corpus()
+        dead_adj = []
+        for i2 in range(len(labels) - 1):
+            a2, b2 = labels[i2], labels[i2 + 1]
+            for rel2, n2, _ln2 in sorted(matrix[(a2, b2)]):
+                if not chain_users(CC2, n2, rel2) and n2 not in TERMINAL_CONNECTORS:
+                    dead_adj.append((a2, b2, n2))
+        unreg = [x for x in dead_adj if x[2] not in TERMINAL_CONNECTORS]
+        if unreg:
+            print("  DEAD CONNECTORS ON ADJACENT SEAMS WITH NO REASON: %d (budget %d)"
+                  % (len(unreg), UNREGISTERED_BUDGET))
+            for a2, b2, n2 in unreg:
+                print("    %s -> %s :: %s" % (a2, b2, n2))
+        if len(unreg) > UNREGISTERED_BUDGET:
+            print("  The budget grew: adjudicate a seam or register a reason before adding a dead connector.")
+            return 1
+
         if empty:
             print("  CHAIN CONNECTORS: %d adjacent link(s) have no connecting theorem: %s"
                   % (len(empty), ", ".join("%s->%s" % (a, b) for a, b in empty)))
