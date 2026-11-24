@@ -1489,3 +1489,30 @@ capability_select_is_analytic (req) (rows) :
 
 **⇒ 两处机械修正：`List.map` 必须放进第一分支的 simp 集（否则加细列表从未展开，只化约了左边）；
 `decide` 值必须以 `= true`/`= false` 显式给出，因为 **`Bool` 的 `if` 条件与 `Prop` 的 `decide` 改写不是同一件事**。**
+### 3.42 **第 1079 轮：任意度数现在不仅**有界**，而且**确实被选中****
+
+**第 1078 轮把选择器上提到解析层，并证明能力层是它的实例。缺的是让「任意度数」**可操作**的东西：
+一张按度数索引的解析表，以及「选择器确实**落在**一个本项目从未处理过的度数上」的证明。**
+
+```lean
+noncomputable def powRowsTo : ℕ → List AnalyticRow
+  | 0 => []
+  | (n+1) => powRowsTo n ++ (if h : 2 ≤ n then [powAnalyticRow n h] else [])
+
+powRowsTo_six : powRowsTo 6 = [row 2, row 3, row 4, row 5]
+five_ne_two / five_ne_three / five_ne_four      -- 三点分离
+quintic_lands :
+    analyticSelect (目标 := t⁵, 5·4/8·(1/n)² ≤ eps) (powRowsTo 6)
+      = some (powAnalyticRow 5 _)
+```
+
+**⇒ 为什么从度数 2 起：度数 0 与 1 在这里**没有逼近的意义**——仿射族是**精确**的，它在能力层。
+⇒ 故解析层只记录**近似**族，从二次起。**
+
+**⇒ `quintic_lands` 是这条线的**最后一块**：1076 证明了对每个度数的界存在；1077 证明承载那些界的层不被符号证据束缚；
+1078 证明两层选择方式相同；本条则证明选择器在**跳过三个更低的族之后**返回五次行。**
+**⇒ 而它用的正是能力层落点定理那套「三次 `find?_cons_of_neg` + 一次 `find?_cons_of_pos`」——
+**这本身就是两层是同一套机械的证据**。**
+
+**⇒ `powRowsTo_six` 需要 `Nat.reduceLeDiff`**：`if h : 2 ≤ n` 是**依赖的 `dif`**，
+故在具体数字上求值需要**带减法的归约引理**，普通 `simp` 不够。

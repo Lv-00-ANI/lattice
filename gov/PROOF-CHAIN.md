@@ -1497,7 +1497,7 @@
 | `Lattice.Lib.Chain.RealZMod` | 5 | 0 |
 | `Lattice.Lib.Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.AnalyticRow` | 5 | 3 |
-| `Lattice.Lib.Compiler.AnalyticSelection` | 5 | 4 |
+| `Lattice.Lib.Compiler.AnalyticSelection` | 10 | 5 |
 | `Lattice.Lib.Compiler.ArtifactStitch` | 4 | 0 |
 | `Lattice.Lib.Compiler.Capability` | 3 | 0 |
 | `Lattice.Lib.Compiler.CapabilityTable` | 12 | 9 |
@@ -2747,10 +2747,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `amgm_mean_nat_false` -> `at`, `card_fin`, `g`
 - `amgm_mean_real` -> `at`, `card_fin`, `g`
 - `amgm_two` -> `at`, `card_fin`, `g`
-- `analyticSufficient_of_capability` -> `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `find`, `induction`, `map`, `select`, `sufficient`
-- `analytic_select_gives_precision` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `map`, `select`, `sufficient`
-- `analytic_select_sound` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `at`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `map`, `select`, `sufficient`
-- `analytic_sufficient_implies_meets` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `at`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `le_trans`, `map`, `select`, `sufficient`
+- `analyticSufficient_of_capability` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `apply`, `at`, `eps`, `find`, `induction`, `map`, `powAnalyticRow`, `select`, `sufficient`
+- `analytic_select_gives_precision` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `apply`, `at`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `map`, `powAnalyticRow`, `select`, `sufficient`
+- `analytic_select_sound` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `apply`, `at`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `map`, `powAnalyticRow`, `select`, `sufficient`
+- `analytic_sufficient_implies_meets` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `applicable`, `apply`, `at`, `eps`, `find`, `gridEval`, `induction`, `interpFamily`, `le_trans`, `map`, `powAnalyticRow`, `select`, `sufficient`
 - `anchorWitnessSpec_constraints` -> `IsExpressible`, `at`, `samePoint_expressible`
 - `anchorWitnessSpec_family` -> `IsExpressible`, `at`, `samePoint_expressible`
 - `andC_eq_zero_iff` -> `apply`, `int_sq_eq_zero_iff`, `int_sq_nonneg`, `le_antisymm`
@@ -3314,7 +3314,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `canonicalize_section_pos` -> `VectorConstraint`, `apply`, `g`, `map`, `scaleVec`, `sign`
 - `canonicalize_subset_is_proper` -> `VectorConstraint`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `listGcdNat`
 - `capability_rule` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `SemDomain`, `Target`, `eps`, `evalAt`, `family`, `ofSegments`
-- `capability_select_is_analytic` -> `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `find`, `induction`, `map`, `select`, `sufficient`
+- `capability_select_is_analytic` -> `AnalyticRow`, `CapabilityRow`, `Compiler`, `Request`, `analytic_of_capability`, `apply`, `at`, `eps`, `find`, `induction`, `map`, `powAnalyticRow`, `select`, `sufficient`
 - `capacity_bound_degenerate` -> `card_fin`
 - `capacity_bound_eq_top` -> `card_fin`
 - `capacity_term_antitone` -> `S2`, `apply`, `g`, `le_trans`, `popRisk`
@@ -5705,6 +5705,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `fisher_equals_second_derivative` -> `apply`, `at`, `g`
 - `fisher_nonneg` -> `apply`, `at`, `g`, `log_derivative_identity`
 - `fisher_score_mean_zero` -> `apply`, `at`, `g`
+- `five_ne_four` -> `Compiler`, `apply`, `at`, `eps`, `find`, `powAnalyticRow`
+- `five_ne_three` -> `Compiler`, `apply`, `at`, `eps`, `find`, `powAnalyticRow`
+- `five_ne_two` -> `Compiler`, `apply`, `at`, `eps`, `find`, `powAnalyticRow`
 - `fix_eq_self_of_sat` -> `Repair`, `Sat`, `at`
 - `fixed_point_form_matches` -> `Pt`, `Repair`, `Sat`, `conj_loop_fixed_point`
 - `fixed_point_gives_sat` -> `Pt`, `Repair`, `Sat`, `conj_loop_fixed_point`, `converges_within`, `iterate`, `trivial`
@@ -8830,6 +8833,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `posterior_mean_strictly_optimal` -> `at`, `le`, `le_refl`, `le_trans`
 - `posterior_pos` -> `apply`, `entropy`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_nonneg`, `kl_zero_iff_eq`
 - `posterior_sum` -> `apply`, `entropy`, `kl`, `kl_as_sum_log_ratio`, `kl_eq_zero_of_eq`, `kl_nonneg`, `kl_zero_iff_eq`
+- `powRowsTo_six` -> `Compiler`, `apply`, `at`, `eps`, `find`, `powAnalyticRow`
 - `pow_chord_error` -> `Compiler`, `apply`, `at`, `chordOf`, `chord_error_of_second_deriv_bound`, `d`, `eval`, `gridEval`, `gridEval_bound_of_segmentwise`, `interpFamily`
 - `pow_eq_iff_eq_of_finite` -> `Surjective`, `at`, `subst`
 - `pow_eq_pow_imp_eq_of_reduced` -> `Surjective`, `at`, `subst`
@@ -9113,6 +9117,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `quiescent_spec` -> `LifeState`, `Plugin`, `apply`, `at`, `canActivate`, `induction`, `map`, `requires`, `subst`, `value`
 - `quintic_bound` -> `Compiler`, `gridEval`, `interpFamily`
 - `quintic_constant` -> `Compiler`, `gridEval`, `interpFamily`
+- `quintic_lands` -> `Compiler`, `apply`, `eps`, `find`, `powAnalyticRow`
 - `quotient_inverse_gives_canonical_representative` -> `ConstraintSet`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `trans`
 - `quotient_inverse_iff_canonical_representative` -> `CharToken`, `ConstraintSet`, `SameTokens`, `SymToken`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_section_pos`, `constraintContent`, `decode`, `decode_encode`, `detokenize`, `encode`, `lift`, `map`, `mkConstraint`, `scaleVec`, `scaleVec_scaleVec`, `toSegs`, `tokenize`, `trans`
 - `quotient_norm_scale_invariant` -> `normalize`, `normalize_scale_invariant`, `rms`, `rmsNorm`, `rmsNorm_scale_invariant`, `rms_scale`
