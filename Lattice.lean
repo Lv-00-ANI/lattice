@@ -11,6 +11,7 @@ import Lattice.Evidence
 import Lattice.Usage
 import Lattice.Semantics
 import Lattice.Plugins
+import Lattice.Runtime.LayerRepair
 
 /-!
 # LATTICE
