@@ -1452,3 +1452,40 @@ tenth_power_bound  : x^10  ≤ 45/4·(1/n)²     (10·9/8)
 **⇒ 我的编辑脚本**两次**弄坏了这个文件：一次剥离 `have h := …` 时留下了悬空的 `rwa`，
 一次补丁因注释里的星号已解码而找不到锚点。⇒ 两次都用**按行区间替换**修复——
 区间由 `next(...)` 从**精确的定理名**定位，这正是文本锚点失败时一直奏效的做法。**
+### 3.41 **第 1078 轮：选择逻辑上提到解析层，能力层被**证明**为它的实例**
+
+**第 1077 轮拆了两层，却把选择逻辑留在强的一层：`sufficient` 与 `select` 的类型都是 `CapabilityRow`。**
+**⇒ 后果是荒谬的：解析层覆盖**任意度数**，却**无法被选择**。**
+
+**文件 `Lattice/Lib/Compiler/AnalyticSelection.lean`：**
+
+```lean
+structure AnalyticRequest where goal, eps, n, hn          -- 无符号项、无配方
+analyticSufficient row req := row.covers req.goal ∧ row.constant * (1/n)² ≤ req.eps
+analytic_sufficient_implies_meets
+analyticSelect req rows := rows.find? (fun row => decide (analyticSufficient row req))
+analytic_select_sound / analytic_select_gives_precision
+
+analyticSufficient_of_capability (row) (req) :
+    analyticSufficient (analytic_of_capability row) (toAnalyticReq req) ↔ sufficient row req
+
+capability_select_is_analytic (req) (rows) :
+    (select req rows).map analytic_of_capability
+      = analyticSelect (toAnalyticReq req) (rows.map analytic_of_capability)
+```
+
+**⇒ **最后一条是全部意义所在**。没有它，「符号层是解析层的加细」只是一句评价。
+有了它，**在能力表上选择** 与 **在加细后的解析表上选择** 是**同一个操作**——
+并且它被陈述为 `Option AnalyticRow` 的**等式**，由列表归纳 + 表头 `sufficient` 分支证明。**
+
+**⇒ 为什么这次上提不是**装饰**：`analyticSufficient_of_capability` 是 `Iff.rfl`，
+而那正是「解析层 = 能力层去掉符号字段」这句话的内容。
+⇒ 故弱层的选择规则**不是重新推导**，而是**同一条规则在更弱假设下可用**。**
+
+**⇒ 一处重复被**裁定**而非忽略：重复门禁标出两对**跨层平行**定理
+（`sufficient_implies_meets`/`analytic_sufficient_implies_meets` 与两条精度定理）。
+⇒ 计数基线 `192 → 194`，理由**写进工具源码**：它们是有意跨越一次**加细**的平行，
+而加细本身是一条定理。⇒ 另一条路（删除能力层版本）会去掉**产物缝合所消费的那一层**，故平行保留。**
+
+**⇒ 两处机械修正：`List.map` 必须放进第一分支的 simp 集（否则加细列表从未展开，只化约了左边）；
+`decide` 值必须以 `= true`/`= false` 显式给出，因为 **`Bool` 的 `if` 条件与 `Prop` 的 `decide` 改写不是同一件事**。**

@@ -1497,6 +1497,8 @@ Lib/Compiler/AnalyticRow.lean	pow_uniform_bound_Icc
 Lib/Compiler/AnalyticRow.lean	quintic_bound
 Lib/Compiler/AnalyticRow.lean	tenth_power_bound
 Lib/Compiler/AnalyticRow.lean	tenth_power_constant
+Lib/Compiler/AnalyticSelection.lean	analyticSufficient_of_capability
+Lib/Compiler/AnalyticSelection.lean	capability_select_is_analytic
 Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_bound
 Lib/Compiler/ArtifactStitch.lean	selected_row_artifact_meets_request
 Lib/Compiler/ArtifactStitch.lean	square_artifact_meets_request
