@@ -1229,3 +1229,27 @@ selectUpTo_degree_bound : selectUpTo req dmax = some row → row.degree < dmax
 
 **⇒ `List.mem_of_find?_eq_some` 提供成员性那一步：`select` 建立在 `find?` 上，故返回的行属于该列表，
 再由 `degreeList_degree_lt` 得界。两条方向都在树里，都没有靠默认。**
+### 3.34 **第 1071 轮：阶梯**落在最小可行度数**上——选择器不越级**
+
+**第 1070 轮给了度数界，第 1059 轮给了精度，但**没有任何定理说选择器会停在第一个可用的族**。
+本轮两条定理在**真实的生成表**上做到了这一点。**
+
+```lean
+select_quadratic_goal_lands_on_square :
+    目标 = t², 1/4·(1/n)² ≤ eps → selectUpTo req 4 = some squareRow
+select_cubic_goal_lands_on_cube :
+    目标 = t³, 3/4·(1/n)² ≤ eps → selectUpTo req 4 = some cubeRow
+```
+
+**⇒ 为什么这**不是** `select_square_row` 的重述：那条用的是**两元表** `[affineRow a b, squareRow]`；
+本轮用的是**真实表** `[affineFamilyRow, squareRow, cubeRow]`。**
+
+**⇒ 因此新内容是：`find?` 在**第二个元素就停下**——对二次目标，三次行**从未被咨询**。
+⇒ 「按度数递增尝试」正是「不为了不需要的族付费」这一断言，而它现在有证明而不是意图。**
+
+**⇒ 机制是同一对引理的**不同形状**：`find?_cons_of_neg` 跳过表头（仿射族不适用于非仿射目标），
+`find?_cons_of_pos` 取匹配。对三次目标，跳过发生**两次**，故那条证明是嵌套的——
+而两次跳过都由**具名否定定理**给出理由（`affineFamily_not_sufficient_for_cube`、`cube_not_square_row`），
+**不是靠求值一个谓词然后指望它**。**
+
+**⇒ `affineFamily_not_sufficient_for_square` 因此**首次成为承重**（落点定理消费它来为第一次跳过给出理由），verdict 已登记。**
