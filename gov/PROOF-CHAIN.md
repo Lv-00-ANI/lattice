@@ -2169,7 +2169,7 @@
 | `Lattice.Runtime.LayerNormSemantics` | 7 | 0 |
 | `Lattice.Runtime.LayerQuantization` | 5 | 5 |
 | `Lattice.Runtime.LayerQuantizationBits` | 4 | 4 |
-| `Lattice.Runtime.LayerRepair` | 6 | 3 |
+| `Lattice.Runtime.LayerRepair` | 7 | 3 |
 | `Lattice.Runtime.LayerSection` | 2 | 1 |
 | `Lattice.Runtime.LoopClosure` | 5 | 1 |
 | `Lattice.Runtime.LossyRepresentation` | 2 | 3 |
@@ -2197,7 +2197,7 @@
 | `Lattice.Runtime.RealVerifierReliable` | 2 | 3 |
 | `Lattice.Runtime.RectangularRepresentation` | 6 | 1 |
 | `Lattice.Runtime.RectangularWeightEncoding` | 5 | 2 |
-| `Lattice.Runtime.RepairClosure` | 4 | 1 |
+| `Lattice.Runtime.RepairClosure` | 5 | 1 |
 | `Lattice.Runtime.RepresentationFamilies` | 7 | 4 |
 | `Lattice.Runtime.RoundingBackend` | 5 | 4 |
 | `Lattice.Runtime.SaturationQuantization` | 10 | 2 |
@@ -4830,7 +4830,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `dot_eq_fin_sum` -> `apply`, `at`, `dot`, `induction`, `length`, `length_cons`
 - `dot_eq_sum` -> `VectorConstraint`, `convertVec`, `dot`, `extractVec`, `induction`, `map`
 - `dot_eq_zero_iff` -> `at`, `dot`, `induction`, `length`, `length_cons`, `map`, `min`
-- `dot_eq_zero_of_pointwise_zero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`
+- `dot_eq_zero_of_pointwise_zero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`
 - `dot_ignores_missing_assignments` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_ignores_ragged_assignment` -> `at`, `dot`, `induction`, `length`, `length_cons`, `vecDot`
 - `dot_map_mul` -> `at`, `dot`, `induction`, `length`, `map`, `subst`
@@ -5437,7 +5437,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `extractWith_overwrite_local` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
 - `extractWith_spec` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `apply`, `at`, `map`
 - `extract_after_repair` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
-- `extract_after_zero_repair` -> `AllSatisfied`, `Layer`, `VectorConstraint`, `at`, `dot`, `extractLayer`
+- `extract_after_repair_weak` -> `AllSatisfied`, `Layer`, `Repair`, `Sat`, `extractLayer`, `satisfies_extractLayer_iff_self`
+- `extract_after_zero_repair` -> `AllSatisfied`, `Layer`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`
 - `extract_compile` -> `IRSkeleton`, `IRWeights`, `IdempotentOn`, `LinearForm`, `Point`, `Repair`, `Sat`, `SemEq`, `TensorShape`, `W`, `apply`, `at`, `compile`, `compileSkel`, `compile_injective`, `decode`, `decodeSkeleton_code`, `denote`, `encode`, `extract`, `find`, `find_id_eq_some_of_nodup_shape`, `idempotentOn_of_leftInverse`, `iterate_comp_of_leftInverse`, `map`, `progress`, `roundtrip`, `semantic_not_injective`, `skeletonCode`, `split`, `weightCodeIR`
 - `extract_compileIR` -> `LatticeIR`, `RelKind`, `TensorId`, `at`, `find`, `induction`, `map`
 - `extract_compileWith` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
@@ -7055,7 +7056,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `layerWords_injective` -> `AffineLayer`, `at`
 - `layerWords_length` -> `AffineLayer`, `W`, `apply`, `at`, `getD_append_right`, `getD_eq_getElem`, `length`, `map`
 - `layerWords_zero` -> `AffineLayer`
-- `layerZeroRepair_sat_zero_outputs` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `VectorConstraint`, `at`, `dot`, `extractLayer`
+- `layerZeroRepair_extract` -> `AllSatisfied`, `Layer`, `VectorConstraint`, `extractLayer`, `extract_after_repair_weak`
+- `layerZeroRepair_sat_zero_outputs` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`
 - `layer_act_injective` -> `BehaviourallyEquivalent`, `W`, `at`
 - `layer_approx_on` -> `g`, `le_trans`, `min`
 - `layer_behaviourally_separates` -> `BehaviourallyEquivalent`
@@ -7456,7 +7458,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `map_mul_eq_at` -> `VectorConstraint`, `at`, `canonicalize`, `constraintContent`, `content_canonicalize`, `induction`, `listGcdNat`, `map`, `scaleVec`, `scaleVec_one`, `sign`
 - `map_mul_eq_self_of_all_zero` -> `ScaleClass`, `VectorConstraint`, `at`, `canonicalize`, `canonicalize_scaleVec_sign`, `constraintContent`, `content_eq_zero_iff`, `content_ne_cast`, `content_scaleVec`, `induction`, `length`, `map`, `scaleVec`, `scaleVec_canonicalize_eq_self`, `scaleVec_one`, `scaleVec_scaleVec`, `sign`, `subst`, `zero`
 - `map_univ_eq` -> `map`
-- `map_zero_eq_self_of_all_zero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `induction`, `map`
+- `map_zero_eq_self_of_all_zero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`, `induction`, `map`
 - `map_zipWith_projection` -> `map`
 - `margin_implication_penalty` -> `SumRelu`, `le_trans`, `map`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
 - `margin_implication_satisfied` -> `SumRelu`, `le_trans`, `map`, `out`, `relu`, `relu_eq_zero_iff`, `sumRelu_eq_zero_iff_each`
@@ -11913,8 +11915,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `zeroFixing_of_bounded_no_witness` -> `ZeroFixing`, `act`
 - `zeroFixing_of_strictMono` -> `act`, `at`
 - `zeroFixing_relations_summary` -> `ZeroFixing`, `ZeroFixingR`, `at`, `hardSigmoid`, `hardSwish`, `relu`, `sigmoid`, `sigmoid_bounds`, `silu`, `softplus`, `softplus_pos`, `tanh_pos_of_pos`
-- `zeroLayer_allZero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`
-- `zeroLayer_eq_self` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `induction`, `map`
+- `zeroLayer_allZero` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`
+- `zeroLayer_eq_self` -> `AllSatisfied`, `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `Repair`, `Sat`, `VectorConstraint`, `at`, `dot`, `extractLayer`, `extract_after_repair_weak`, `induction`, `map`
 - `zeroLayer_out` -> `AllZeroOutputs`, `Layer`, `LayerOut`, `LinearLayer`, `SymToken`, `apply`, `at`, `dot`, `g`, `length`
 - `zeroRowEdit_breaks_nonzero_rows` -> `E`, `W`, `apply`, `at`, `trans`
 - `zeroRowEdit_kills_row` -> `E`, `W`, `apply`, `at`, `trans`

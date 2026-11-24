@@ -3901,6 +3901,7 @@ Runtime/LayerNormSemantics.lean	applyInstr_layernorm_sq_sum_mono
 Runtime/LayerQuantization.lean	layerQuantization_roundtrip
 Runtime/LayerRepair.lean	map_zero_eq_self_of_all_zero
 Runtime/LayerRepair.lean	zeroLayer_eq_self
+Runtime/LayerRepair.lean	layerZeroRepair_extract
 Runtime/LayerSection.lean	layer_image_total
 Runtime/LayerSection.lean	layer_partial_section_never_fails
 Runtime/LoopClosure.lean	compile_extract_layer
@@ -4005,6 +4006,7 @@ Runtime/RepairClosure.lean	repair_preserves_verdict
 Runtime/RepairClosure.lean	repair_makes_progress
 Runtime/RepairClosure.lean	repair_terminates_at_sat
 Runtime/RepairClosure.lean	extract_after_repair
+Runtime/RepairClosure.lean	extract_after_repair_weak
 Runtime/RepresentationFamilies.lean	toParams_ofParams
 Runtime/RepresentationFamilies.lean	ofParams_toParams
 Runtime/RepresentationFamilies.lean	toParams_injective

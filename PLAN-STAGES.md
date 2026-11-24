@@ -2271,3 +2271,30 @@ theorem extract_after_zero_repair (ls : Layer) (h : allZeroLayer ls) (x : List I
 （同属 `Runtime/`，**不违反 I4**）。**
 
 **⇒ 修复普查 `A_decls: 37 → 38`。**
+### 3.63 **第 1103 轮：前提**减弱**再**使用**——`3.2 → 3.3` 接缝从 `0/2` 变成 `1/3`**
+
+**⇒ `extract_after_repair` 要求 `hSat : ∀ ls, R.Sat ls ↔ LayerSat cs ls`，即**等价**。
+**⇒ 而一个判据通常只能被证**蕴含**「零输出」，不能被证**等价**——这就是它在树里永远无法被应用的根因。**
+
+```lean
+extract_after_repair_weak (himp : ∀ ls, R.Sat ls → LayerSat cs ls) : AllSatisfied (extractLayer ls) x
+layerZeroRepair_extract : 用 layerZeroRepair_sat_zero_outputs 作 himp 的实例
+```
+
+**⇒ `LayerSat cs ls` 定义上就是 `∀ x, AllZeroOutputs ls x`（**不查 `cs`**），恰是零实例的桥所证。
+⇒ 故实例化只是**一次应用**，不是新的论证。**
+
+**⇒ 实测效果——全链条表中**第一次**出现活跃度改善：**
+
+| 接缝 | 前 | 后 |
+|:--|:--|:--|
+| `3.2 → 3.3` | total 2，**live 0/2** | **total 3，live 1/3** |
+
+**⇒ 旧条 `extract_after_repair` 仍 0 消费者，而这是一个**已结论化**的事实**（不是待办）**：
+它的等价前提在这里无法被满足。**
+
+**⇒ 一条**前提阶梯**被**登记**而不是去重：三条结论相同、强度递减（等价 / 蕴含 / 实例）。
+⇒ 重复门禁只比较结论，故基线 `194 → 196`，并把这条阶梯写进工具源码。
+⇒ 删掉中间那条会**移走调用者唯一能履行的陈述**。**
+
+**⇒ 一处我自己的错误：普查 `B_decls` 我在两次编辑中**改反了方向**（文件 61、实测 62），下一个提交把它改正。**
