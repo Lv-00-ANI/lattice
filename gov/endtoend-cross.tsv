@@ -1561,6 +1561,7 @@ Lib/Compiler/FloatMulBoundDischarged.lean	toCP_ops
 Lib/Compiler/FloatMulBoundDischarged.lean	toCP_mag
 Lib/Compiler/FloatMulBoundDischarged.lean	compile_error_bound_mul_discharged
 Lib/Compiler/GridAlgebra.lean	stacked_error_bound
+Lib/Compiler/GridBound.lean	sq_gridEval_error_via_segmentwise
 Lib/Compiler/HopVerdict.lean	hop_verdict
 Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
 Lib/Compiler/HopVerdict.lean	hop_verdict_with_modulus
