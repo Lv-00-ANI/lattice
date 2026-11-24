@@ -1707,3 +1707,36 @@ twoSlopes_change_two_observables (b₁ ≠ a) (b₂ ≠ b)
 
 **⇒ 两条因此成为承重的定理已登记 verdict：`repair_changes_observable`、`slopeFix_sat`。
 ⇒ 修复普查 `B: 54 → 55`。**
+### 3.47 **第 1084 轮：闭环回路**实例化到产物载荷**，且一条**休眠定理获得首个消费者****
+
+**第 1083 轮的计划问：主链的回路是否泛型？⇒ **是**：`VerificationLoop` 以 `variable {α : Type}` 声明，
+`step`/`run`/`step_fixed_of_sat`/`loop_end_sat` 全部以 `α` 为载体。**
+**⇒ 故它可以在新线的状态上**直接实例化**——不需要桥，也不需要新语义：**同一批定理在另一个载体上**。**
+
+**文件 `Lattice/Lib/Compiler/LoopInstance.lean`：**
+
+```lean
+twoSlopeLoop (a b : ℝ) (n) (x) : VerificationLoop ((ℕ → Segment) × (ℕ → Segment))
+  repair    := twoSlopeRepair a b
+  objective := fun p => gridEval p.1 n x
+
+twoSlopeLoop_ends_sat      -- 由 `VerificationLoop.loop_end_sat` 证明
+twoSlopeLoop_step_fixed    -- 由 `VerificationLoop.step_fixed_of_sat` 证明
+twoSlopeLoop_run_components -- 主链 `run` 与乘积迭代定理的合成
+```
+
+**⇒ `objective := gridEval p.1 n x` 的选择理由：回路每轮「修一次、看一次」，这就是最小的可解释观测——
+产物在观察点的输出。一个常值目标函数会让实例化在**精神上**空转。**
+
+#### 测量出的消费者数（本轮中途我不得不**更正**自己的说法）
+
+| 定理 | 此前消费者 | 现在 |
+|:--|:--|:--|
+| `loop_end_sat` | `Primitives/MultistepLoop`、`Usage/Examples` | **3**（首个在 Primitives/Usage 之外） |
+| **`step_fixed_of_sat`** | **其自身文件之外：零** | **1，首次被使用** |
+
+**⇒ 我在工作笔记里先写了「这是 `Lib/Compiler` 第一次消费 Runtime 定理」——那是**假的**：
+`Lib/Compiler/` 下已有 **17** 个文件导入 Runtime 模块，而 `CarrierReproduction` 早就调用了
+`Lattice.Runtime.LoopClosure.extractLayer`。**
+**⇒ 真实而更窄的事实是上表那一条：`step_fixed_of_sat` 在第 1042 轮为「让 `step` 的 docstring 可引用」而写，
+此**前零消费者**；本轮是它的**首次使用**——**一条休眠定理被唤醒**，而不是发明了一个新连接。**
