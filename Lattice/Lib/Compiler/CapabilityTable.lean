@@ -146,4 +146,61 @@ theorem cube_constant_exceeds_square :
   show (1 : ℝ) / 4 < 3 / 4
   norm_num
 
+/-- **⭐⭐ 着英行：`a·t + b`，常数 **0**——不是近似，而是**精确**。**
+
+**⇒ 这是表结构的第一次真实压力测试：前两行是**无参的常数**（`squareRow`、`cubeRow`），
+而这一行是**带参的族元素**——`affineRow a b`。**
+
+**⇒ 它也是能力表里最容易被忽略的一档：**某族不是近似，而是精确**。
+常数 0 在表里不是缺失的数据，而是**最强的一种声明**。** -/
+noncomputable def affineRow (a b : ℝ) : CapabilityRow where
+  degree := 1
+  term := affineTerm a b
+  fn := fun t : ℝ => a * t + b
+  target := .affine a b
+  semantics := by
+    intro x
+    have h := evalSym_affineTerm a b x
+    have heq : (fun t : ℝ => a * t + b) x = a * x + b := rfl
+    rw [heq]
+    exact h
+  compiled := by
+    intro r
+    exact compileTarget_affineTerm r a b
+  family_eq := by
+    intro r k
+    -- **左边是常族，右边是仿射函数的插值族，两者相等由 `interpFamily_affine` 给出。**
+    show affineFamily a b k = interpFamily r.n (fun t : ℝ => a * t + b) k
+    rw [interpFamily_affine r.n r.hn a b]
+  constant := 0
+  bound := by
+    intro n hn x hx
+    -- **插值就是该仿射函数本身，故差为零。**
+    rw [interpFamily_affine n hn a b, gridEval_affineFamily]
+    show |(fun t : ℝ => a * t + b) x - (a * x + b)| ≤ 0 * (1 / (n : ℝ)) ^ 2
+    simp
+
+/-- **⭐⭐ 仿射行是**精确**的：差为**零**（不是「不超过 0」那种弱说法）。**
+
+**⇒ 与 `bound` 字段相比，本条去掉了绝对值与不等号——它说的是**恰好相等**。** -/
+theorem affineRow_exact (a b : ℝ) (n : ℕ) (hn : 0 < n) (x : ℝ) :
+    (affineRow a b).fn x - gridEval (interpFamily n (affineRow a b).fn) n x = 0 := by
+  show (fun t : ℝ => a * t + b) x - gridEval (interpFamily n (fun t : ℝ => a * t + b)) n x = 0
+  rw [interpFamily_affine n hn a b, gridEval_affineFamily]
+  simp
+
+/-- **⭐⭐ 表中常数的顺序：`0 ≤ 1/4 < 3/4`。**
+
+**⇒ 把能力强弱变成一条可引用的链：仿射（精确，常数 `0`）不弱于二次，
+二次严格优于三次（同 `n` 下）。**
+
+**⇒ 第一段写 `≤` 而非 `<`：它在表中的作用是“常数 0 是最低档”，
+而**严格性**只在第二段有意义（两个不同的近似族之间）。** -/
+theorem constants_ordered (a b : ℝ) :
+    (affineRow a b).constant ≤ squareRow.constant ∧ squareRow.constant < cubeRow.constant := by
+  constructor
+  · show (0 : ℝ) ≤ 1 / 4
+    norm_num
+  · exact cube_constant_exceeds_square
+
 end Lattice.Lib.Compiler.CapabilityTable
