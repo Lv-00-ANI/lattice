@@ -788,3 +788,32 @@ quad_artifact_bound :
 **⇒ 本轮我的编辑脚本被自身断言拦下**四次**（缩进锚点、`Segment.ext` 不存在、`sum_div` 方向、
 替换后残留 5 行），最终改为**行索引 + 边界断言**。
 ⇒ 这是本会话反复出现的同一模式：**先断言、再写入**；没有一次留下半改文件。**
+### 3.20 **第 1057 轮：加权误差界落地，并**重推出**旧界（复用的判据）**
+
+**两条定理，第二条是第一轮的**检验**：**
+
+```lean
+theorem linComb_error {ι} (s : Finset ι) (c : ι → ℝ) (b : ι → ℝ → ℝ) (B : ι → ℝ)
+    (h : a ≠ bnd)
+    (hB : ∀ i ∈ s, ∀ x ∈ [a,b], |b i x − (chordOf (b i) a b).eval x| ≤ B i) :
+    ∀ x ∈ [a,b], |linComb s c b x − (chordOf (linComb s c b) a b).eval x| ≤ ∑ i ∈ s, |c i| · B i
+```
+
+**⇒ 装配三步，全部是引用：`chordOf_linComb`（弦→加权和）、`segSum_eval`（求值→和式）、
+三角不等式 + `abs_mul` + 逐项放缩。**
+
+```lean
+theorem sq_chord_error_via_linComb (u v : ℝ) (huv : u < v) (x ∈ [u,v]) :
+    |(t ↦ t·t) x − (chordOf (t ↦ t·t) u v).eval x| ≤ (v−u)²/4
+```
+
+**⇒ 第二条**没有**用 `sq_chord_error_eq_tent` 之类的直接证法，而是把 `x²` 当作「单支线性组合」
+（`Unit` 索引、系数 1、`B = (v−u)²/4`）喂给 `linComb_error`。⇒ 结论与既有
+`chord_error_sq_rederived` **逐字相同**。**
+
+**⇒ 这就是「可复用」与「另写一条」的分野：前者能**重推出**旧结果，后者只是并列陈述。
+⇒ 我把这条检验单独命名，而不是把新定理直接说成「更一般」——**检验本身必须是可引用的**。**
+
+**⇒ 一处工程教训（第三次同类）：**`Fin 2` 索引 + `if i = 0` 的写法在 `simp` 下的形状很难控制；
+改用**单元素**（`Unit`）索引后，`simp [linComb, c, b]` 一次闭合。**⇒ 若一个证明要靠猜 `simp` 的
+归一化形状，那是因为陈述的形状选错了。**
