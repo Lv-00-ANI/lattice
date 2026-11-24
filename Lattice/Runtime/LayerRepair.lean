@@ -5,6 +5,9 @@ namespace Lattice.Runtime.LayerRepair
 open Lattice.Lift.SymbolToWeightCorrectness
 open Lattice.Core
 
+-- **`if` 型测度需要 `Decidable`；局部安装它，使实例能写成**规范的 `where` 形式**。**
+attribute [local instance] Classical.propDecidable
+
 def allZeroLayer (ls : Layer) : Prop :=
   ∀ l ∈ ls, (∀ z ∈ l.w, z = 0) ∧ l.b = 0
 
@@ -64,26 +67,26 @@ theorem zeroLayer_allZero (ls : Layer) : allZeroLayer (zeroLayer ls) := by
 
 **⇒ 它使 `Runtime/RepairClosure.lean` 的四条定理**第一次可被应用**。**
 **⇒ 测度取 `0/1`：判据成立则 0，否则 1——因为清零是**一步到位**的。** -/
-noncomputable def layerZeroRepair : Repair Layer := by
-  classical
-  exact
-    { Sat := allZeroLayer
-      fix := zeroLayer
-      μ := fun ls => if allZeroLayer ls then 0 else 1
-      absorbs := fun ls h => zeroLayer_eq_self h
-      decreases := by
-        intro ls h
-        have hz : allZeroLayer (zeroLayer ls) := zeroLayer_allZero ls
-        show (if allZeroLayer (zeroLayer ls) then 0 else 1) < (if allZeroLayer ls then 0 else 1)
-        rw [if_pos hz, if_neg h]
-        omega
-      atomic := by
-        intro ls h
-        by_contra hc
-        -- **`h : μ ls = 0`；先把它换成 `μ` 的**定义形**，才能用 `if_neg`。**
-        have h1 : (if allZeroLayer ls then 0 else 1) = 0 := h
-        rw [if_neg hc] at h1
-        omega }
+noncomputable def layerZeroRepair : Repair Layer where
+  Sat := allZeroLayer
+  fix := zeroLayer
+  μ := fun ls => if allZeroLayer ls then 0 else 1
+  absorbs := by
+    intro ls h
+    exact zeroLayer_eq_self h
+  decreases := by
+    intro ls h
+    have hz : allZeroLayer (zeroLayer ls) := zeroLayer_allZero ls
+    show (if allZeroLayer (zeroLayer ls) then 0 else 1) < (if allZeroLayer ls then 0 else 1)
+    rw [if_pos hz, if_neg h]
+    omega
+  atomic := by
+    intro ls h
+    by_contra hc
+    -- **`h : μ ls = 0`；先把它换成 `μ` 的**定义形**，才能用 `if_neg`。**
+    have h1 : (if allZeroLayer ls then 0 else 1) = 0 := h
+    rw [if_neg hc] at h1
+    omega
 
 /-- **⭐⭐⭐ 被判据接受的层，对**任意**输入输出为零**——`compileToLayer` 语义的另一侧。** -/
 theorem layerZeroRepair_sat_zero_outputs {ls : Layer} (h : allZeroLayer ls) :
