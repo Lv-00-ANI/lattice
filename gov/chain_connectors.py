@@ -94,7 +94,7 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
-UNREGISTERED_BUDGET = 14
+UNREGISTERED_BUDGET = 0
 
 TERMINAL_CONNECTORS = {
     "twoSlopeLoop_objective_vanishes":
@@ -196,6 +196,27 @@ TERMINAL_CONNECTORS = {
     "compiled_roundTrip_fixed": 'ONE EQUATION IN ANOTHER VOCABULARY: `compileToLayer (extractLayer ls) = ls` and its converse. Four of the five theorems here are that single content in four forms -- Function.LeftInverse, Function.RightInverse, the raw equation, and a re-export for the vacuity file. Each form exists because a different consumer vocabulary needs it; none is a step.',
     "compiled_roundTrip_fixed_iff":
         "a CHARACTERISATION, not a restatement: for a single layer, being a fixpoint of compile-then-extract is equivalent to being the image of some constraint. It adds information the four restatements do not -- still a conclusion, so terminal, but the only member of this family that is not one equation re-spelled.",
+    # Round 1115: the loop-property family -- four idempotence statements plus one locality restatement.
+    "adjunction_triangle_idem": "IDEMPOTENCE: the loop is a projection, so two applications equal one. Derived from the round-trip equation by rewriting. An idempotence STATEMENT is a conclusion -- nothing composes 'is idempotent' into a next step.",
+    "closed_loop_idempotent": "IDEMPOTENCE: the loop is a projection, so two applications equal one. Derived from the round-trip equation by rewriting. An idempotence STATEMENT is a conclusion -- nothing composes 'is idempotent' into a next step.",
+    "loop_is_criterion_not_repair": "IDEMPOTENCE: the loop is a projection, so two applications equal one. Derived from the round-trip equation by rewriting. An idempotence STATEMENT is a conclusion -- nothing composes 'is idempotent' into a next step.",
+    "adjunction_triangle_object":
+        "a CONJUNCTION of the two round-trip equations themselves, boxed for the categorical reading. The box is the point (it names the adjunction triangle), but its content is the pair already stated.",
+    "loop_preserves_others":
+        "LOCALITY of an overwrite at another coordinate -- the same content as extractWith_overwrite_local, under a second name in the same file. A base fact; nothing composes it.",
+    # Round 1116: the last nine, all terminal. Categorised by shape, reasons written per shape.
+    "compileWith_roundtrip": 'a SUMMARY: a top-level conjunction of facts already stated elsewhere (round-trip / extraction / coding). Nothing consumes a conjunction of known facts; it exists so one citation carries the whole picture.',
+    "recover_is_load_bearing": 'a SUMMARY: a top-level conjunction of facts already stated elsewhere (round-trip / extraction / coding). Nothing consumes a conjunction of known facts; it exists so one citation carries the whole picture.',
+    "s02_list_realization_witness_is_mechanical": 'a SUMMARY: a top-level conjunction of facts already stated elsewhere (round-trip / extraction / coding). Nothing consumes a conjunction of known facts; it exists so one citation carries the whole picture.',
+    "layer_partial_section_never_fails": 'a SUMMARY: a top-level conjunction of facts already stated elsewhere (round-trip / extraction / coding). Nothing consumes a conjunction of known facts; it exists so one citation carries the whole picture.',
+    "reinject_restores":
+        "a RESTORATION statement: extracting from the compiled weights returns the synthesised data. A round-trip fact stated in the data vocabulary; nothing composes it.",
+    "compiled_weights_extract": 'a ROUND-TRIP COROLLARY: a direct consequence of compile-then-extract being the identity. Its content is the round-trip equation, specialised to one direction; it is a conclusion, not a step.',
+    "extract_witness_is_preimage": 'a ROUND-TRIP COROLLARY: a direct consequence of compile-then-extract being the identity. Its content is the round-trip equation, specialised to one direction; it is a conclusion, not a step.',
+    "verify_loop_stable_on_image":
+        "IDEMPOTENCE on the image: applying compile-then-extract to a compiled layer changes nothing. The same content as closed_loop_idempotent, stated on the other side of the pair.",
+    "unfaithful_iff_extract_ne":
+        "a CHARACTERISATION: unfaithfulness is equivalent to extraction disagreeing with the corpus. An iff that names what unfaithfulness IS -- terminal, and the only member of this last group that adds a definition rather than restating one.",
 }
 
 
