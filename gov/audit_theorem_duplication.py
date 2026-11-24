@@ -63,7 +63,12 @@ EXEMPT_NAME_PREFIX = (
 
 # Measured at round 936 AFTER consolidating the six `convertVec (extractVec l) = l` copies.
 # Round 935 measured 260 sites; round 936 brought it to 143. The check fails only if it GROWS.
-BASELINE = 192   # sites; INDEPENDENT-proof groups: 119 after round 940's classifier fixes   # round 940: the conclusion extraction was TRUNCATED at the binder group's first ':'
+# round 1078: +2 because the ANALYTIC layer restates the capability layer's two main theorems at a
+# weaker hypothesis (no symbolic evidence). The two layers are connected by
+# `capability_select_is_analytic`, so these are deliberate parallels across a refinement, not
+# accidental duplication: `sufficient_implies_meets` / `select_gives_precision` (capability) and
+# `analytic_sufficient_implies_meets` / `analytic_select_gives_precision` (analytic).
+BASELINE = 194   # sites; INDEPENDENT-proof groups: 119 after round 940's classifier fixes   # round 940: the conclusion extraction was TRUNCATED at the binder group's first ':'
 #               so multi-line statements were compared only on their LEFT half. Fixing it raised the true
 #               count from 143 to 192 -- the earlier numbers were UNDER-measurements, not improvements.
 
