@@ -3517,3 +3517,23 @@ epsSat_passing_is_not_correctness :
 
 **⇒ 路线 B 由此结案：**不是「可能不该做」，而是**做不了也不需要做**——缺口的位置被证在「前提永不被需要」处。**
 **⇒ `NEXT-STAGE.md` 的 B 行已改为「已结案：4 生产者 / 0 消费者」。**
+### 3.107 **第 1147 轮：`ε = 0` 的 ε-修复**就是**精确修复——两个 `Repair` 实例第一次被一条定理连起来**
+
+**⇒ `Repair` 抽象现在有**四个实例**（`sqDistHalvingRepair`、`layerZeroRepair`、`twoSlopeRepair`、`epsLinearRepair`），
+⇒ 而此前**没有任何定理把其中两个连起来**：每一对都在各自文件里、各有各的局部事实。**
+
+**⇒ 本轮证：`ε = 0` 时的 `epsLinearRepair` **就是** `linearRepair`：**
+
+```lean
+epsLinearRepair_zero_sat_iff  -- |residual| ≤ 0 ↔ residual = 0
+epsLinearRepair_zero_fix_eq   -- 死区在 ε = 0 处等于 linearFix（关键：linearFix_absorbs）
+epsLinearRepair_zero_mu_eq    -- 两个测度相同
+epsLinearRepair_zero_is_linearRepair  -- 三者合取
+```
+
+**⇒ 为什么要分**三个数据字段**：`Repair` 的三个 `Prop` 字段是**证明**，按 proof irrelevance 不需要单独比。**
+**⇒ 而 `fix` 的等式要有一个**非平凡**的输入：**`linearFix_absorbs`**——即**精确修复**对一个**已经为零**的点
+**也不动**。没有那条，两侧在 ε=0 不会相等。**
+
+**⇒ 故「泛化」与「基准例」现在由**一条定理**连接，而不是由读者的辨认连接——与本会话一贯的模式相同：
+⇒ **树里两物都在，缺的是把它们写在一起的陈述。**
