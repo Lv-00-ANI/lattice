@@ -3303,3 +3303,28 @@ epsLinearRepair_sat_is_epsSat :
 
 **⇒ 两处连带登记（门禁要求的）：`epsLinearRepair_sat_iff` 按构造就是定义式（`Iff.rfl` 于 `Sat` 字段），
 基线**有意**记录它；`REPAIR-CENSUS` 的 A 行 `12/39 → 13/43`。**
+### 3.98 **第 1138 轮：再注入定理本是 `ε = 0` 的特例——故写出**一般形式****
+
+**⇒ `closed_loop_reinject_vanishes` 要求「在每个 `Sat` 点 `objective = 0`」。⇒ 在 ε-判据下这是**假的**：
+`EpsSat` 只给 `|objective| ≤ ε`。⇒ 坚持 `= 0` 等于说**ε-路径永远无法报告成功**。**
+
+**⇒ 两条新增（一条一般、一条具体）：**
+
+| 定理 | 内容 |
+|:--|:--|
+| `closed_loop_reinject_within` | 若目标在 `Sat` 处被 ε 界住，则它在**终点**也被 ε 界住 |
+| `closed_loop_reinject_vanishes_from_within` | 原条是它的 `ε = 0` 情形（**这条推导本身也是定理**，故关系在树里而非在提交信息里） |
+| `epsLinearRepair_reinject_within` | 对**具体**死区修复的同一陈述：一步落入容差（内 ⇒ 不变；外 ⇒ 残差 0） |
+
+#### 实测：本轮要连的那条接缝
+
+| 接缝 | 连接器 |
+|:--|--:|
+| `3.2 verify → 3.3 repair` | **5** OK（两轮前为 **0**） |
+| `3.3 repair → 3.4 reinject` | **6** OK |
+| `3.4 reinject → 4 loop` | 也带上新推导 |
+
+**⇒ 即：逆向链的三段（verify → repair → reinject）现在**都有真连接器**。**
+**⇒ 而这是**三行定理**换来的：不是新建抽象，而是发现原条**少了一个参数**。**
+
+**⇒ 两处连带登记（预算 0 当场逼出）：推导定理（终态：它存在是为了让推广可见）、`REPAIR-CENSUS` A_decls `43 → 44`。**
