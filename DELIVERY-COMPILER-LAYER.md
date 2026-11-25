@@ -126,6 +126,33 @@ twoSlopeLoop_run_components     : run k p 逐分量 = (fix^[k] p₁, fix^[k] p�
 
 ---
 
+## 3.2 链的连通性：**四个口径与它们各自的盲点**
+
+**⇒ 「这条链是否真的连通」不能用一个数字回答。⇒ 下表是**四个独立口径**，每个都有的**终值**与**停因**。**
+
+| 口径 | 问题 | 终值 | 停因（为何不是更大） |
+|:--|:--|:--|:--|
+| **载体消费者** | 每个目标载体是否被链内使用 | 36 载体 / **32 链内** | 余 4 已登记；再多则由**定位**决定 |
+| **接缝连接器** | 相邻阶段之间是否有连接定理 | **56** 登记，预算 **0** | 死连接器**必须带理由**，故不能再增 |
+| **条款对（载体名）** | 相邻条款是否在**同一语句**中出现 | **9 / 12** | 名字度量对「用**概念**说话」的桥**失明** |
+| **条款对（接缝概念）** | 逆向侧三对是否有连接器 | `3.2→3.3` **5** / `3.3→3.4` **6** | 只覆盖八阶段链，故不能覆盖正向侧 |
+
+**⇒ 四者**合起来覆盖全部 12 对**，且每一处「看不见」都有**具名原因**。**
+**⇒ 故正确的读法不是「9/12，有缺口」，而是「9/12 加三对只能用另一种词汇看见」。**
+
+### 本会话为此写下的**四条桥**（每条都有理由登记）
+
+| 桥 | 连的是 | 为何此前不存在 |
+|:--|:--|:--|
+| `eps_repair_requires_descent` | `3.2` ↔ `3.3` | 两世界从未**同句** |
+| `closed_loop_reinject_within` | `3.3` ↔ `3.4` | 原条要求 `= 0`，ε-判据下**假** |
+| `compile_round_trip_law` | `2.3` ↔ `1.3` | 各写一半，**形状只在读者眼里** |
+| `layerPenaltyEmbedding` | `2.1` ↔ `1.3` | 关系是**实例**，不是平行定理 |
+| `sound_not_exact_gives_epsilon_gap` | `8` ↔ `3.2` | 缺口是**可构造**的，而非修辞 |
+| `cic_loop_reaches_weight` | `5` ↔ `1.3` | 隔在两个**词汇**之间 |
+
+**⇒ 都是**已有之物或几行定理**：没有一条需要新的抽象。**
+
 ## 4. 目标条款的覆盖（可核对）
 
 **⇒ 条款 1.3 / 1.4 的载体中，本层提供 `compileTarget`、`EvaluatedArtifact`、`decodedFamily`（第 1081 轮登记）。
@@ -149,6 +176,7 @@ python gen_objective_map.py --check      # 载体与引用数（§4）
 python chain_connectors.py --provenance  # 接缝活跃度（§2.4、§5）
 python check_doc_freshness.py            # 全树数字与文档的一致性
 python check_delivery_claims.py --check  # 本文每个反引号标识符都必须是一处声明
+python check_clause_pairs.py              # §3.2 的四个口径之一（只报告）
 python -c "import sys; sys.path.insert(0,'gov'); import gen_objective_map as G, chain_connectors as C; print(len(G.END_OF_CHAIN), len(C.TERMINAL_CONNECTORS), C.UNREGISTERED_BUDGET)"   # §3.1 的三个数
 ```
 
