@@ -2608,3 +2608,58 @@ gov/gen_proof_chain.py 的标签「抽象覆盖全链」 → 「抽象覆盖两�
 
 **⇒ 这条线（度量诚实性）至此**收束**：目标图（14 条款 / 55 载体）与八阶段链（7 接缝 / 连接器）**讲同一种语言**：
 **「不被消费」必须带理由，或落在只减不增的预算里；而预算是**0**。**
+### 3.76 **第 1117 轮：条款 5（符号引擎 / CIC）的实测——它不是孤岛**
+
+**⇒ 上一轮我猜「条款 5 可能像 `Lib/Compiler` 那样是孤立的子链」。⇒ 测量**否证了**这个猜测。**
+
+#### 一、规模与形状
+
+| 项 | 值 |
+|:--|:--|
+| `Core/CIC/*` 文件数 | **90** |
+| 其中 theorem+lemma | **306** |
+| 条款 5 的载体 | `HasType`（跨文件 14 / 同文件 21，**强**）、`hasType_to_hasTypeW`（**死**，已登记终态） |
+
+#### 二、**决定性的分离与连接**
+
+**⇒ 在 `Core/CIC/*` 内部，对这五个名字的引用是**零**：**
+
+```
+compileToLayer 0 · extractLayer 0 · IRWeights 0 · Layer 0 · ConstraintSet 0
+```
+
+**⇒ 故 CIC 核心与权重世界**完全分离**——这正是「不另设中间层」的字面实现：符号引擎不认识权重。**
+
+**⇒ 而桥在 `Runtime/`，方向是**单向**的（Runtime 导入 CIC）：**
+`Runtime/CICToConstraint.lean`、`CICToConstraintSet.lean`、`DataToConstraint.lean`、
+`EndToEndComposite.lean`、`EngineFirst.lean`、`EngineReduces.lean`、`EngineSemantics.lean`。
+
+#### 三、贯穿定理存在，**而且被消费**
+
+```lean
+cic_loop_reaches_weight (ctx) (x) :
+    (∀ t ∈ ctx, ∀ v, cicToConstraint t = some v → VectorConstraintSat v x)
+      ↔ AllZeroOutputs (compileToLayer (cicCtxToConstraintSet ctx)) x
+```
+**⇒ 一条定理把**CIC 的类型约束**与**编译后的层输出**连起来。**
+
+**实测其链内消费者：**
+
+| 定理 | 链内消费者 | 判断 |
+|:--|--:|:--|
+| `cic_loop_reaches_weight` | **2**（`DataToConstraint`、`EndToEndComposite`） | **活** |
+| `data_to_weight_iff` | **1**（`TypedNumericAlignment`） | **活** |
+| `symbolToWeight_correct` | **20** | **极强** |
+| **`data_to_weight_honest`** | **0** | **终态（收官定理）** |
+
+**⇒ 故条款 5 **有端到端证据**：数据语料 → 约束 → CIC → 层 → 零输出。
+⇒ 而那条**收官定理** `data_to_weight_honest`（「覆盖语料 + 零宽样本 ⟹ 编译层输出为零」）
+**没有任何消费者**——它是**整条链的终点**，故这符合「终态」而非「缺口」。**
+
+#### 四、这条线的结论
+
+**⇒ 条款 5 **不需要工程**。⇒ 需要做的只有一件：把 `data_to_weight_honest` 作为**收官定理**登记，
+⇒ 并注明「它的消费者按定义在链外」——与条款 2.2 同一处置。**
+
+**⇒ 而更重要的一句：**我上一轮的猜测是错的**。⇒ 若按猜测去「修孤岛」，会去动一个本来就连好的子系统。**
+**⇒ 这是本会话第 **5 次**「假设缺口」被测量推翻（前四次：第 76/78/79 轮与第 1090 轮）。**
