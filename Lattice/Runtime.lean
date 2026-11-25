@@ -100,6 +100,7 @@ import Lattice.Runtime.ZipWithProjection
 import Lattice.Runtime.DotDistribAssembly
 import Lattice.Runtime.LayerSection
 import Lattice.Runtime.LayerRepair
+import Lattice.Runtime.ZeroDataSynthesis
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

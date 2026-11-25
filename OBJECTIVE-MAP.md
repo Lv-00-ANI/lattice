@@ -24,8 +24,8 @@
 | 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 12 | 11 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 *(仅本文件)* | 0 | 12 | `Usage/Examples.lean` |
-| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 1 *(仅本文件)* | 0 | 2 | `Usage/Examples.lean` |
-| 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 1 *(仅本文件)* | 0 | 2 | `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 1 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
@@ -53,8 +53,8 @@
 - 条款数：14
 - 载体总数：36
 - **死代码载体（同文件也不用）：4**
-- 仅同文件使用的载体：5
-- **链内消费者为 0 的载体：9**（`Usage/` 不计为消费者）
+- 仅同文件使用的载体：3
+- **链内消费者为 0 的载体：7**（`Usage/` 不计为消费者）
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

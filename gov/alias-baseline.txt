@@ -916,6 +916,8 @@ forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form
 forward	Runtime/VecCarrierCensus.lean	truncated_iff_indexed
 forward	Runtime/VerifyLoopProgress.lean	verify_stable
 forward	Runtime/WeightLadder.lean	weightLadder_forward
+forward	Runtime/ZeroDataSynthesis.lean	zero_data_covered
+forward	Runtime/ZeroDataSynthesis.lean	zero_data_models
 forward	Semantics/Annotations.lean	edit_frame_holds
 forward	Semantics/Annotations.lean	holdsSet_member
 forward	Semantics/CompileSoundGeneral.lean	compile_sound_mentions_R
