@@ -12,6 +12,24 @@
 |:--|:--|--:|--:|
 | **A. 定义 `Repair` 实例** | 文件里有 `: Repair … where` | **13** | **48** |
 
+### 实例清单：**五个实例，四个载体**
+
+**⇒ 数一个数不够——实例之间**能不能比**取决于**载体**是否相同。⇒ 故本表把载体一并写下。
+
+| 实例 | 载体 | 验证水平 |
+|:--|:--|:--|
+| `sqDistHalvingRepair` | `ℕ` | 减半距离的修复 |
+| `layerZeroRepair` | `Layer` | 主链载体上的零输出修复 |
+| `twoSlopeRepair a b` | `(ℕ → Segment) × (ℕ → Segment)` | **乘积**：两侧并行 |
+| `linearRepair a b` | `ℚ` | 精确零判据 |
+| `epsLinearRepair a b ε` | `ℚ` | **ε-判据**（死区） |
+
+**⇒ 故：五个实例中**只有一对共享载体**（`ℚ` 上的两个）。
+⇒ 而那一对已有定理连接：`epsLinearRepair_zero_is_linearRepair`（第 1147 轮）。**
+
+**⇒ 其余三个不能互相退化**，因为**类型不同**——而这不是遗憾：它们回答的是不同载体上的问题。
+**⇒ 而 `twoSlopeRepair` 的**分量**事实已由 `repairProd_fix` / `repairProd_measure` / `repairProd_sat` 提供，故对角版只会是**重述**。**
+
 > **A 组的 `23` 条里有两条位于 `Usage/Examples.lean`（`natRepair` 实例本身，及 `repair_reaches_and_stabilises`、`criterion_static_repair_progresses` 两条**组合述诰**）。
 > 它们名字含 `repair`，故按本表的判据归入修正词汇，但**它们不是新实例**——实例仍为 9 个文件。
 | B. 使用 `Repair` 结构 | 出现 `Repair` 但无实例定义 | 21 | **64** |
