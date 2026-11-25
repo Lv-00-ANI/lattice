@@ -155,7 +155,10 @@ CLAUSES = {
     # **NOT used, and why: `Core/CIC/Compile.lean`'s `compile_sound` is `have := h; exact rfl`, the
     # same tautology shape the IR layer had at `ModelsIR`. Quoting it here would repeat that defect
     # one layer down.**
-    "5 symbolic engine": ["HasType", "hasType_to_hasTypeW"],
+    # Round 1142: clause 5 s ONLY carrier linking it to the weight world. Round 1117 measured it: the theorem states
+    # that CIC typing constraints are satisfied EXACTLY WHEN the compiled layer outputs are zero, and it has two
+    # chain-internal consumers. It was never a registered carrier, so the map saw 5 and 1.3 as disconnected.
+    "5 symbolic engine": ["HasType", "hasType_to_hasTypeW", "cic_loop_reaches_weight"],
     "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm"],
 }
 

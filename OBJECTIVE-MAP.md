@@ -48,13 +48,14 @@
 | 4 loop | `loop_is_criterion_not_repair` | `Runtime/LoopClosure.lean` | 1 **← 死代码** | 0 | 0 | `Usage/Examples.lean` |
 | 5 symbolic engine | `HasType` | `Core/CIC/HasType.lean` | 14 | 13 | 21 | `Core.lean`, `Core/CIC/CanonicalForm.lean` |
 | 5 symbolic engine | `hasType_to_hasTypeW` | `Core/CIC/HasTypeW.lean` | 1 **← 死代码** | 0 | 0 | `Usage/Examples.lean` |
+| 5 symbolic engine | `cic_loop_reaches_weight` | `Runtime/CICToConstraintSet.lean` | 2 | 2 | 0 | `Runtime/DataToConstraint.lean`, `Runtime/EndToEndComposite.lean` |
 | 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 1 | 0 | `Slots.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 2 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
 
 ## 汇总
 
 - 条款数：14
-- 载体总数：39
+- 载体总数：40
 - **死代码载体（同文件也不用）：4**
 - 仅同文件使用的载体：4
 - **链内消费者为 0 的载体：8**（`Usage/` 不计为消费者）
