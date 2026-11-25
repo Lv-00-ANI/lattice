@@ -3328,3 +3328,28 @@ epsLinearRepair_sat_is_epsSat :
 **⇒ 而这是**三行定理**换来的：不是新建抽象，而是发现原条**少了一个参数**。**
 
 **⇒ 两处连带登记（预算 0 当场逼出）：推导定理（终态：它存在是为了让推广可见）、`REPAIR-CENSUS` A_decls `43 → 44`。**
+### 3.99 **第 1139 轮：两个编译器是**同一个左逆**——写成一条定律**
+
+**⇒ 实测：条款 2.3（结构化初始化）与 1.3（符号→权重）**零同现**。⇒ 但它们**不是无关**：**
+- `compileWith` 是 `extract` 的左逆；
+- `compileToLayer` 是 `extractLayer` 的左逆（且双向）。
+
+**⇒ 各半分别写在各自文件里，而**共同形状只活在读者眼里**。⇒ 新文件 `Lib/Editing/CompileLaw.lean`：**
+
+```lean
+compile_round_trip_law :
+    (∀ k f, extract (compileWith k f) = some k) ∧
+    (∀ cs, extractLayer (compileToLayer cs) = cs) ∧
+    (∀ ls, compileToLayer (extractLayer ls) = ls)
+```
+
+**⇒ 实测效果：`2.3 ↔ 1.3` 同现数 **0 → 1**。**
+
+#### 一处**真实**的技术障碍（记录而非绕过）
+
+**⇒ 树里有**两套同名 `abbrev`**：`Lattice.{ConstraintSet,Layer}` 与
+`Lattice.Lift.SymbolToWeightCorrectness.{ConstraintSet,Layer}`，两者都落到 `List VectorConstraint` / `List LinearLayer`。**
+**⇒ 提它们的定理**类型正确**，但同时 `open` 两个命名空间会使名字**歧义**。**
+**⇒ 故本文件**全用全限定名**，两边都不 `open`。⇒ 而这处不对称**本身就是**「为何此前没有定理同时提到两者」的一部分原因。**
+
+**⇒ 已按预算 0 登记为连接器理由：**它是**定律**，不是**一步**。**
