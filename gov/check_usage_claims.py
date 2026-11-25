@@ -250,6 +250,32 @@ def measure_camel_theorems():
     return n
 
 
+def _verify_all_counts():
+    """(total, gating, reporters) from verify_all.py's own registries, not from a constant.
+
+    Round 1122. Three numbers were in circulation and two docs were stale: a registry count (105), a total (126)
+    and a --fast PASS count (94). The first two are STATIC facts about CHECKS + REPORT_ONLY and belong in a claim;
+    the third is a RUN RESULT depending on which checks the mode skips, so it is not a document claim and is
+    deliberately NOT asserted here.
+    """
+    import verify_all
+    total = len(verify_all.CHECKS)
+    rep = len(verify_all.REPORT_ONLY)
+    return total, total - rep, rep
+
+
+def measure_check_total():
+    return _verify_all_counts()[0]
+
+
+def measure_check_gating():
+    return _verify_all_counts()[1]
+
+
+def measure_check_reporters():
+    return _verify_all_counts()[2]
+
+
 CLAIMS = [
     ("USAGE: refutation count",
      r"全部\s*([\d,]+)\s*条",
@@ -269,6 +295,17 @@ CLAIMS = [
     ("STATE-FINAL: declaration count",
      r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
      measure_decls, "STATE-FINAL.md"),
+    # Round 1122: the gating number had NO checker and two docs were stale by 6. Labelled per number so that
+    # "how many checks exist" cannot be confused with "how many passed under --fast".
+    ("DELIVERY: verify_all total checks",
+     "(126) 项检查",
+     measure_check_total, "DELIVERY.md"),
+    ("DELIVERY: verify_all gating checks",
+     "(105) 个门禁",
+     measure_check_gating, "DELIVERY.md"),
+    ("DELIVERY: verify_all reporters",
+     "(21) 个报告器",
+     measure_check_reporters, "DELIVERY.md"),
     ("CONVENTIONS: declaration total",
      r"\| 内核声明总数 \| ([\d,]+) \|",
      measure_decls, "CONVENTIONS.md"),
