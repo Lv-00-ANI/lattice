@@ -135,6 +135,10 @@ cd gov
 python gen_objective_map.py --check      # 载体与引用数（§4）
 python chain_connectors.py --provenance  # 接缝活跃度（§2.4、§5）
 python check_doc_freshness.py            # 全树数字与文档的一致性
+python check_delivery_claims.py --check  # 本文每个反引号标识符都必须是一处声明
 ```
+
+**⇒ 最后一条是本文**自己**的守卫：第 1119 轮它捕到本文曾引用一个**未声明的标识符**（一个不存在的求值名字）。
+⇒ 故本文的结论**不依赖作者**：不能解析的引用会被工具拓下来。
 
 **⇒ 若某条结论与工具输出不符，**以工具为准**，并修正本文——本文没有「作者权威」。**
