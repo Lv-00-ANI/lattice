@@ -100,7 +100,7 @@ twoSlopeLoop_ends_sat_in_two    : Sat (run 2 p)                    -- 两轮的�
 twoSlopeLoop_run_components     : run k p 逐分量 = (fix^[k] p₁, fix^[k] p₂)
 ```
 
-**⇒ 一次并行 `fix` 同时修好两侧，故**一轮**即够；而抽象定理承诺的 `μ p` 是**缺陷数**（最多 2），
+**⇒ 一次并行修复（即 `Repair.fix`）同时修好两侧，故**一轮**即够；而抽象定理承诺的 `μ p` 是**缺陷数**（最多 2），
 ⇒ 故抽象界**同时对且松**。两者都保留，因为一个是通例、一个是本实例的锐值。**
 
 ---
@@ -108,7 +108,7 @@ twoSlopeLoop_run_components     : run k p 逐分量 = (fix^[k] p₁, fix^[k] p�
 ## 3. 「不具备」的部分（写清楚，免得被当成承诺）
 
 **⇒ 本层**不**提供：训练、优化器、推理引擎、任何框架绑定。**
-**⇒ 本层**不**声称：`evaluate` 之外的语义。`evalAt` 是**唯一**的可求值入口（`EvaluatedArtifact.evalAt`）。**
+**⇒ 本层**不**声称任何语义。可求值的入口**只有一个**：`EvaluatedArtifact.evalAt`；它之外没有第二个求值函数。**
 **⇒ 本层**不**统一主链与新线的判据：`AllZeroOutputs` 与 ε-界是两个谓词（见对照文档）。**
 
 ---
