@@ -3271,3 +3271,35 @@ not_constant_measure_of_unsat        -- 逆否：修复**要求**下降结构
 ⇒ 由于预算为 0，`chain_connectors --check` 在**同一轮**失败，直到我登记理由。**
 
 **⇒ 结论：**工具是对的，一次性脚本太窄**。⇒ 我把那个 0 **保留**在记录里作为**下界**，而不是悄悄改脚本让它好看。**
+### 3.97 **第 1137 轮：ε-判据得到了**一个真 `Repair` 实例**——缺的是判据，不是测度**
+
+**⇒ 第 1136 轮证明了「ε-判据的 `Repair` 不能只靠 `def`，因为常数测度会迫使处处 Sat」。**
+**⇒ 本轮发现：**测度从来不是问题**——树里**早有**一个真实的：`linearRepair` 的
+`μ x = if residual = 0 then 0 else 1`，且有 `linearRepair_measure_drops`。**
+
+**⇒ 差的只是**判据**：`linearRepair` 要求残差**恰为零**，而验证说的是 `|残差| ≤ ε`。**
+
+**⇒ 故实例是一个**死区**修复，只改判据：**
+
+```lean
+epsLinearRepair (a b) (ha) (ε) (h : 0 ≤ ε) : Repair ℚ
+  Sat := |residual a b x| ≤ ε
+  fix := if 在 ε 内 then x else linearFix a b
+  μ   := if 在 ε 内 then 0 else 1
+```
+
+**⇒ 四个字段全部成立，理由一行：**在 ε 外修复后的残差恰为 `0`，而 `0 ≤ ε`。故 `decreases` 是 `1 → 0`，不是空话。**
+
+#### 与验证词汇的桥是一条**定理**，不是注释
+
+```lean
+epsLinearRepair_sat_is_epsSat :
+    (epsLinearRepair …).Sat x ↔ EpsSat linearPenaltyEmbedding (a,b) ε x
+```
+
+**⇒ 经由 `linearPenaltyEmbedding`（其 `loss` **就是**残差）。**
+**⇒ 这是全树**第一条**同时命名 `EpsSat` 与**具体 `Repair` 实例的 `Sat`** 的陈述——**
+**⇒ 即 `3.2 → 3.3` 接缝现在有了**构造性见证**，而不只是判据同一。*
+
+**⇒ 两处连带登记（门禁要求的）：`epsLinearRepair_sat_iff` 按构造就是定义式（`Iff.rfl` 于 `Sat` 字段），
+基线**有意**记录它；`REPAIR-CENSUS` 的 A 行 `12/39 → 13/43`。**
