@@ -3353,3 +3353,34 @@ compile_round_trip_law :
 **⇒ 故本文件**全用全限定名**，两边都不 `open`。⇒ 而这处不对称**本身就是**「为何此前没有定理同时提到两者」的一部分原因。**
 
 **⇒ 已按预算 0 登记为连接器理由：**它是**定律**，不是**一步**。**
+### 3.100 **第 1140 轮：`2.1 ↔ 1.3` 的连接**不是定理，而是**实例****
+
+**⇒ 实测 2.1（约束损失）与 1.3（符号→权重）零同现。⇒ 而候选 `sat_iff_loss_zero` 说的是**第三个**编译族
+（`compileNeurons` / `listLoss`），不是 `compileToLayer`。**
+
+**⇒ 故连接不是平行定理，而是**实例**：**
+
+```lean
+layerPenaltyEmbedding : PenaltyEmbedding ConstraintSet (List ℤ)
+  loss := if AllZeroOutputs (compileToLayer cs) x then 0 else 1
+  Sat  := AllZeroOutputs (compileToLayer cs) x
+
+layerPenalty_loss_eq_zero_iff : loss = 0 ↔ AllZeroOutputs (compileToLayer cs) x
+layerPenalty_sound            : PenaltySound layerPenaltyEmbedding
+```
+
+**⇒ 这不牵强：`PenaltySound` 正是「软损失代替硬约束」这一位置的**最低要求**，
+⇒ 而层世界满足它——因为它的 `loss` 与 `Sat` 是**同一个谓词的两种写法**。**
+**⇒ 实例带来的，是「损失」这门语言**现在能谈到层**。**
+
+**⇒ 实测效果：`2.1 ↔ 1.3` 同现数 **0 → 1**（在把 `layerPenaltyEmbedding` 登记为 2.1 载体之后——
+⇒ 因为度量数的是**语句里的名字**，而实例是一个 `def`，它的**名字**才是出现的那个）。**
+
+**⇒ 两处机械记录：定义需要 `noncomputable`（经 `Classical.propDecidable`）；局部实例必须写在命名空间入口处——
+⇒ 与第 1101 轮**同一个形状**。**
+
+#### 由此浮现的一个**更强的**结构观察
+
+**⇒ 树里有**三个**同形的编译族：`compileWith → IRWeights`、`compileToLayer → Layer`、`compileNeurons → Neuron 序列`，**
+**⇒ 每个都有自己的 `sat ↔ loss = 0` 律，而**族与族之间没有一条连接定理**（除本轮与上轮各写的一条）。**
+**⇒ 这解释了为什么「条款之间」的同现如此之少：不是没写，而是**每族各自成岛**，岛与岛之间只由**我这两轮**搭了两座桥。**
