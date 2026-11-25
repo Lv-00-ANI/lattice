@@ -3453,3 +3453,27 @@ layerPenalty_sound            : PenaltySound layerPenaltyEmbedding
 ⇒ 若两者没有任何共现，那么「正确性由 Lean 保证」与「验证回路」在形式上**是两句话**。**
 
 **⇒ 结论：本轮工具的**主要产出不是那个 8/12**，而是**它指出了唯一一处两口径皆空的地方**。**
+### 3.104 **第 1144 轮：`8 ↔ 3.2`**补上了**——而那个缺口是**可构造的****
+
+**⇒ `8 Lean 保证 ↔ 3.2 验证` 是唯一在**两种口径**下都为空的条款对。⇒ 而它最要紧：
+⇒ 它是「正确性由 Lean 保证」与「验证回路」相遇的地方。**
+
+**⇒ 桥不是口号：`sound_not_exact` 的见证 `constEmbedding` 有 `loss = 1`、`Sat = False`，
+⇒ 故在 `ε = 1` 时它**满足 `EpsSat`，而其约束**不成立**。**
+
+```lean
+sound_not_exact_gives_epsilon_gap :
+    (PenaltySound constEmbedding ∧ ¬PenaltyExact constEmbedding)
+      ∧ EpsSat constEmbedding () 1 () ∧ ¬ constEmbedding.Sat () ()
+
+epsSat_passing_is_not_correctness :
+    ∃ E p x ε, 0 ≤ ε ∧ EpsSat E p ε x ∧ ¬ E.Sat p x
+```
+
+**⇒ 故「ε-验证通过」**不蕴含**「约束成立」——这正是「健全但不精确」在**验证词汇**里的样子，**
+**⇒ 也是**容差存在的理由**：精确判据不可得，故验证只能在 ε 里说话；而读 ε-判据的人必须知道**它没说什么**。**
+
+**⇒ 实测：`8 ↔ 3.2` **0 → 2**；空对 **4 → 3**（其余三对是接缝度量看得见的逆向侧对，故**无一对真的没有桥**）。**
+
+**⇒ 同一条教训的**第三次**（第 1141、1143 轮）：一对看似为空，只因为该条款的词汇**登记得太窄**。**
+**⇒ 这次是 `PenaltySound`/`PenaltyExact`——而它们就是「健全但不精确」的**原词**。**
