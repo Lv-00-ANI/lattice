@@ -40,7 +40,25 @@
 1. `PowChord` 原来靠 `ArtifactStitch` **借传递导入**，改为直接导入它真正用的四个（`86/44 → 80/39`）；
 2. `AnalyticRow` 原来导入 `PolyTable`，而它只用 `CapabilityRow`（在 `CapabilityTable`）（`85/44 → 83/42`）。**
 
-**⇒ 第一步仍然是「先搬子图」，但**规模要按 40 来算**。**
+**⇒ 法一（推荐）：只搬那 **8 个依赖 `Lib` 其余部分的文件**，再改秩。
+⇒ **第 1129 轮已测它们的消费者数（搬移顺序就是这个顺序）：**
+
+| # | 文件 | 消费者 | 依赖的 `Lib` 模块 |
+|--:|:--|--:|--:|
+| 1 | `Lib/Compiler/FloatMulBoundDischarged.lean` | 1 | 1 |
+| 2 | `Lib/Compiler/RealConcurrentSemantics.lean` | 1 | 1 |
+| 3 | `Lib/Compiler/RealCompileFloatCorrectness.lean` | 2 | 1 |
+| 4 | `Lib/Compiler/ReluClosure.lean` | 2 | 1 |
+| 5 | `Lib/Compiler/RealAbstractInterpretation.lean` | 2 | 2 |
+| 6 | `Lib/Compiler/RealRecursiveSemantics.lean` | 2 | 3 |
+| 7 | `Lib/Compiler/RealWP.lean` | 3 | 1 |
+| 8 | `Lib/Compiler/RealNonlinearCompile.lean` | **10** | 1 |
+
+**⇒ 故级联编辑数 = 消费者之和 = **23**。⇒ 整体成本：**8 次搬移 + 23 处导入更新 + 1 行改秩 = 32 次机械编辑**。
+**⇒ 而不是之前估的 40–109 个文件。**
+
+**⇒ 顺序也已给出：先动消费者最少的（1 个），最后动 `RealNonlinearCompile`（10 个）。
+⇒ 每一步后都应 `lake build Lattice` ——**因为级联错误会在下一个消费者处爆发**。****
 
 ### **替代方案**（本轮新增，且应先被考虑）
 
