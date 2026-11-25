@@ -36,6 +36,7 @@
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 *(仅本文件)* | 0 | 9 | `Usage/Examples.lean` |
 | 3.3 inverse: repair | `sqDistHalving_terminates_and_stabilises` | `Core/RepairModule/SqDistRepair.lean` | 1 **← 死代码** | 0 | 0 | `Usage/Examples.lean` |
+| 3.3 inverse: repair | `layerZeroRepair` | `Runtime/LayerRepair.lean` | 0 *(仅本文件)* | 0 | 2 | — |
 | 3.4 inverse: re-injection | `closed_loop_reinject_vanishes` | `Runtime/VerificationLoop.lean` | 2 | 1 | 0 | `Lib/Compiler/LoopInstance.lean`, `Usage/Examples.lean` |
 | 3.4 inverse: re-injection | `closed_loop_partial_reinject` | `Runtime/VerificationLoop.lean` | 1 **← 死代码** | 0 | 0 | `Usage/Examples.lean` |
 | 4 loop | `converges_within` | `Core/RepairModule/RepairConvergence.lean` | 9 | 8 | 2 | `Core/OneStepBridge.lean`, `Evidence/Hypotheses.lean` |
@@ -50,10 +51,10 @@
 ## 汇总
 
 - 条款数：14
-- 载体总数：35
+- 载体总数：36
 - **死代码载体（同文件也不用）：4**
-- 仅同文件使用的载体：4
-- **链内消费者为 0 的载体：8**（`Usage/` 不计为消费者）
+- 仅同文件使用的载体：5
+- **链内消费者为 0 的载体：9**（`Usage/` 不计为消费者）
 
 「仅同文件使用」不等于无价值：一个框架的示例实例本来就没有外部调用者。
 **「死代码」才是问题**——连它自己所在的文件都不用它。

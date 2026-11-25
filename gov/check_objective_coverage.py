@@ -115,7 +115,13 @@ CLAUSES = {
     # Round 1031: a single carrier again. The second is the statement that reaching a passing state and
     # STAYING there are different claims -- which is what "repair" has to mean if the loop is to
     # terminate rather than oscillate.
-    "3.3 inverse: repair": ["sqDistHalvingRepair", "sqDistHalving_terminates_and_stabilises"],
+    # Round 1118: both carriers here are DEMONSTRATION material -- a Repair on Nat and its convergence -- and the
+    # measured table found clause 3.3 to be the ONLY clause (besides 2.2) with no chain-consumed carrier. The real
+    # repair instance was built in round 1101 and simply was not named here: `layerZeroRepair` on the main chain's
+    # Layer carrier, consumed by `extract_after_repair_weak` (round 1103). Registering it is not a courtesy -- it is
+    # what makes this clause's evidence point at the thing the chain actually repairs.
+    "3.3 inverse: repair": ["sqDistHalvingRepair", "sqDistHalving_terminates_and_stabilises",
+                            "layerZeroRepair"],
     # Round 1025: the clause used to name two theorems that exist ONLY in the archived geometry layer,
     # so rule A passed while the mainline had no carrier at all. These are the mainline names, and
     # round 65's measurement is what forced the change.
