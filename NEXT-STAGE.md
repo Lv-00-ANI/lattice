@@ -40,25 +40,32 @@
 1. `PowChord` 原来靠 `ArtifactStitch` **借传递导入**，改为直接导入它真正用的四个（`86/44 → 80/39`）；
 2. `AnalyticRow` 原来导入 `PolyTable`，而它只用 `CapabilityRow`（在 `CapabilityTable`）（`85/44 → 83/42`）。**
 
-**⇒ 法一（推荐）：只搬那 **8 个依赖 `Lib` 其余部分的文件**，再改秩。
-⇒ **第 1129 轮已测它们的消费者数（搬移顺序就是这个顺序）：**
+**⇒ 第 1130 轮**否证了上面这个方案**。测得那 8 个文件的消费者**同时在 `Lib/Compiler` 内与外**：**
 
-| # | 文件 | 消费者 | 依赖的 `Lib` 模块 |
-|--:|:--|--:|--:|
-| 1 | `Lib/Compiler/FloatMulBoundDischarged.lean` | 1 | 1 |
-| 2 | `Lib/Compiler/RealConcurrentSemantics.lean` | 1 | 1 |
-| 3 | `Lib/Compiler/RealCompileFloatCorrectness.lean` | 2 | 1 |
-| 4 | `Lib/Compiler/ReluClosure.lean` | 2 | 1 |
-| 5 | `Lib/Compiler/RealAbstractInterpretation.lean` | 2 | 2 |
-| 6 | `Lib/Compiler/RealRecursiveSemantics.lean` | 2 | 3 |
-| 7 | `Lib/Compiler/RealWP.lean` | 3 | 1 |
-| 8 | `Lib/Compiler/RealNonlinearCompile.lean` | **10** | 1 |
+| 文件 | 消费者 | 其中在 `Lib/Compiler` 内 |
+|:--|--:|--:|
+| `FloatMulBoundDischarged` | 1 | 0 |
+| `RealConcurrentSemantics` | 1 | 0 |
+| `RealCompileFloatCorrectness` | 2 | **1** |
+| `ReluClosure` | 2 | **1** |
+| `RealAbstractInterpretation` | 2 | 0 |
+| `RealRecursiveSemantics` | 2 | 0 |
+| `RealWP` | 3 | **2** |
+| `RealNonlinearCompile` | 10 | **3** |
 
-**⇒ 故级联编辑数 = 消费者之和 = **23**。⇒ 整体成本：**8 次搬移 + 23 处导入更新 + 1 行改秩 = 32 次机械编辑**。
-**⇒ 而不是之前估的 40–109 个文件。**
+**⇒ 故无论搬到哪里都会出现新违规：**
+- **搬到 `Lib/`**（秩 3）⇒ 它们在 `Lib/Compiler`（秩 2）里的消费者变成**向上**（共 7 条）；
+- **搬到 `Runtime/`**（秩 2）⇒ 它们**自己对 `Lib` 的 11 条导入**变成向上。
 
-**⇒ 顺序也已给出：先动消费者最少的（1 个），最后动 `RealNonlinearCompile`（10 个）。
-⇒ 每一步后都应 `lake build Lattice` ——**因为级联错误会在下一个消费者处爆发**。****
+**⇒ 故 A3 不成立。而这个否证反过来揭示了一个**更深的结论**：**
+
+> **只要 `Lib/Compiler` 依赖 `Lib`，就**不存在**一个秩使它既能被 `Runtime`（秩 2）引用、又不引入新违规。
+
+**⇒ 因为要被 Runtime 引用它必须在秩 ≤ 2；而它导入 `Lib`（秩 3）要求它自己秩 ≥ 3。**
+
+**⇒ 真正的选项只有两个，且都不是「搬文件」：**
+1. **消除那 11 条 `Lib` 依赖**（需重写 8 个文件的证明，使它们不再用 `Lib.Architectures.RealLoop` 等）——**证明级工作**；
+2. **把 `Runtime` 与 `Lib` 平秩**（都置 2 或都置 3）——**一行**，但付出的代价是**这一对的方向约束完全消失**（`Runtime → Lib` 与 `Lib → Runtime` 都可以）。
 
 ### **替代方案**（本轮新增，且应先被考虑）
 
@@ -157,7 +164,7 @@ pow_via_main_chain (d) (2 ≤ d) (ε) :
 | 路线 | 价值 | 成本 | 先做？ |
 |:--|:--|:--|:--|
 | **C** | 把新线**最强**的结果接入主链语义 | 中（1 条翻译 + 1 条定理） | **先做**：它可能**证伪**「不可翻译」的判断，而那是本会话唯一未验证的**结构性怀疑** |
-| A | 解决分层阻塞 | 高（109 文件） | 次之：成本已量化，可独立成一轮工程 |
+| A | 解决分层阻塞 | **两个选项（均非「搬文件」）：消除 11 条 `Lib` 依赖（证明级）或平秩（一行）** | 次之：第 1130 轮已否证「搬 8 个文件」这条路 |
 | B | 2.2 的证据 | 低，但**可能不该做** | 最后：需先判定其性质，否则会造假 |
 
 **⇒ 三者的顺序不是按「大小」排的，而是按**「它能推翻什么」**排的：C 有机会推翻一个判断，A 只是搬运，B 可能根本不该做。**
