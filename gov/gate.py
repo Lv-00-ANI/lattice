@@ -435,6 +435,11 @@ def check_layering(rep):
             for pref, l in LAYER_OF.items():
                 if tgt.startswith(pref):
                     tlay = l
+                    # **Round 1128: BREAK -- the source side uses `layer_of`, which returns the FIRST matching prefix; this
+                    # loop without a break returned the LAST. That asymmetry made every `Lattice/Lib/Compiler/X` import from a
+                    # compiler-layer file classify as `compiler -> lib`: measured 200 edges, of which only 11 are really
+                    # cross-layer. (200 = 144 intra-directory + 45 from the `Lib/Compiler.lean` aggregator + 11 cross.)
+                    break
             if tlay and rank[tlay] > rank[lay]:
                 rep.add("I4", "%s layer imports %s layer module `%s`" % (lay, tlay, mod),
                         rel(f), txt[: m.start()].count("\n") + 1)
