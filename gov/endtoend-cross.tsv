@@ -3846,6 +3846,8 @@ Runtime/EngineSemantics.lean	letE_not_compilable
 Runtime/EngineSemantics.lean	structural_step_both_uncompilable
 Runtime/EngineSemantics.lean	delta_is_the_only_compilable_step
 Runtime/EngineSemantics.lean	engine_and_compiler_meet_only_at_delta
+Runtime/EpsRepairBridge.lean	eps_repair_requires_descent
+Runtime/EpsRepairBridge.lean	eps_repair_not_constant_measure
 Runtime/ErrorCalculus.lean	abs_bound_inst
 Runtime/Extraction.lean	extract_compile
 Runtime/Extraction.lean	compile_injective

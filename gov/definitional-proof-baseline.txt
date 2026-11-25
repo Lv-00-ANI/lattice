@@ -522,6 +522,7 @@ Lib/LearningTheory/RealMAML.lean	innerUpdate_eq_subgradient_step
 Lib/LearningTheory/RealSpeculativeOptimal.lean	speculative_acceptMass_eq
 Lib/Linear/NetPenalty.lean	layerResid_eq_affineAct
 Lib/Linear/PenaltyPerturb.lean	resid2_eq_residN
+Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_sat_iff
 Lib/LinearAlgebra/RealGelfand.lean	gelfand_radius_eq_inf
 Lib/LinearAlgebra/RealInfiniteDim.lean	varLengthChain_succ
 Lib/LinearAlgebra/RealInfiniteDim.lean	varLengthChain_zero

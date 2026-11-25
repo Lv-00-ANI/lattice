@@ -22,7 +22,7 @@
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 50 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 4 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 13 | 12 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 14 | 13 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 *(仅本文件)* | 0 | 12 | `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
@@ -31,7 +31,7 @@
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 1 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 3 | 2 | 5 | `Runtime/ApproximationBridge.lean`, `Runtime/EpsRepairBridge.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 4 | 3 | 5 | `Lib/Linear/ResidualEpsRepair.lean`, `Runtime/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 *(仅本文件)* | 0 | 9 | `Usage/Examples.lean` |
