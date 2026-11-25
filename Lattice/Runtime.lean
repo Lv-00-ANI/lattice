@@ -102,6 +102,7 @@ import Lattice.Runtime.LayerSection
 import Lattice.Runtime.LayerRepair
 import Lattice.Runtime.ZeroDataSynthesis
 import Lattice.Runtime.EpsRepairBridge
+import Lattice.Runtime.EpsGap
 
 /-!
 # `Lattice.Runtime` —— 运行语义层（P2 目标层的聚合器）

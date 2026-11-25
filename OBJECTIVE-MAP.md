@@ -23,7 +23,7 @@
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 52 | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 4 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
-| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 15 | 14 | 7 | `Runtime.lean`, `Lib/Compiler/LayerPenalty.lean` |
+| 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 16 | 15 | 7 | `Runtime.lean`, `Lib/Compiler/LayerPenalty.lean` |
 | 2.1 forward: constraint loss | `penaltyToLoss` | `Runtime/ConstraintToLoss.lean` | 1 *(仅本文件)* | 0 | 12 | `Usage/Examples.lean` |
 | 2.1 forward: constraint loss | `layerPenaltyEmbedding` | `Lib/Compiler/LayerPenalty.lean` | 0 *(仅本文件)* | 0 | 3 | — |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
@@ -34,7 +34,7 @@
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 5 | 5 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 1 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
-| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 4 | 3 | 5 | `Lib/Linear/ResidualEpsRepair.lean`, `Runtime/ApproximationBridge.lean` |
+| 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 5 | 4 | 5 | `Lib/Linear/ResidualEpsRepair.lean`, `Runtime/ApproximationBridge.lean` |
 | 3.2 inverse: verification | `models` | `Core/IR/Extract.lean` | 4 | 4 | 3 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.2 inverse: verification | `agrees` | `Core/IR/Extract.lean` | 2 | 2 | 6 | `Core/IR/Semantics.lean`, `Runtime/ChainComposition.lean` |
 | 3.3 inverse: repair | `sqDistHalvingRepair` | `Core/RepairModule/SqDistRepair.lean` | 1 *(仅本文件)* | 0 | 9 | `Usage/Examples.lean` |
@@ -51,13 +51,15 @@
 | 5 symbolic engine | `cic_loop_reaches_weight` | `Runtime/CICToConstraintSet.lean` | 2 | 2 | 0 | `Runtime/DataToConstraint.lean`, `Runtime/EndToEndComposite.lean` |
 | 5 symbolic engine | `CICCtx` | `Core/CIC/Typing.lean` | 25 | 24 | 11 | `Core/CIC/CanonicalForm.lean`, `Core/CIC/Compile.lean` |
 | 5 symbolic engine | `cicToConstraint` | `Runtime/CICToConstraint.lean` | 7 | 7 | 12 | `Runtime/CICToConstraintSet.lean`, `Runtime/DataToConstraint.lean` |
-| 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 1 | 1 | 0 | `Slots.lean` |
+| 8 Lean guarantee | `sound_not_exact` | `Runtime/PenaltyEmbedding.lean` | 2 | 2 | 0 | `Slots.lean`, `Runtime/EpsGap.lean` |
 | 8 Lean guarantee | `decodePayload_encodeForm` | `Runtime/L1L2Roundtrip.lean` | 3 | 2 | 0 | `Evidence/Hypotheses.lean`, `Runtime/PartialRepresentation.lean` |
+| 8 Lean guarantee | `PenaltySound` | `Runtime/PenaltyEmbedding.lean` | 5 | 4 | 4 | `Lib/Compiler/LayerPenalty.lean`, `Lib/Linear/Residual.lean` |
+| 8 Lean guarantee | `PenaltyExact` | `Runtime/PenaltyEmbedding.lean` | 4 | 3 | 5 | `Lib/Linear/Residual.lean`, `Runtime/ApproxExact.lean` |
 
 ## 汇总
 
 - 条款数：14
-- 载体总数：42
+- 载体总数：44
 - **死代码载体（同文件也不用）：4**
 - 仅同文件使用的载体：4
 - **链内消费者为 0 的载体：8**（`Usage/` 不计为消费者）

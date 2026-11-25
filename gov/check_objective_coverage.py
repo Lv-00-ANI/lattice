@@ -164,7 +164,10 @@ CLAUSES = {
     # exactly these names. Same lesson as round 1141, one level down again.
     "5 symbolic engine": ["HasType", "hasType_to_hasTypeW", "cic_loop_reaches_weight",
                            "CICCtx", "cicToConstraint"],
-    "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm"],
+    # Round 1144: `PenaltySound` / `PenaltyExact` ARE the vocabulary of "sound but not exact" -- the two levels whose
+    # nest is refuted by `sound_not_exact`. Leaving them out is why the pair 8<->3.2 was empty under BOTH metrics:
+    # the bridge built this round speaks in `PenaltySound`/`PenaltyExact` and `EpsSat`, naming no carrier of either.
+    "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm", "PenaltySound", "PenaltyExact"],
 }
 
 
