@@ -1,5 +1,5 @@
 import Lattice.Lib.Compiler.PowChord
-import Lattice.Lib.Compiler.PolyTable
+import Lattice.Lib.Compiler.CapabilityTable
 
 /-!
 # **解析能力与符号证据解耦：任意度数都能入表**

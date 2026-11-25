@@ -1,4 +1,7 @@
-import Lattice.Lib.Compiler.ArtifactStitch
+import Lattice.Lib.Compiler.GridAlgebra
+import Lattice.Lib.Compiler.GridBound
+import Lattice.Lib.Compiler.ChordGeneral
+import Lattice.Lib.Compiler.SymbolicEntry
 import Lattice.Lib.Compiler.SecondDerivBound
 
 /-!
