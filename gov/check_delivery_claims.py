@@ -63,7 +63,47 @@ def corpus():
     return out
 
 
+REGISTRY = os.path.join(HERE, "other-owned-stale.txt")
+
+
+def report_foreign():
+    """Report claims known stale in OTHER-owned files. Always exits 0.
+
+    **Round 1123.** Round 1121 measured that MACRO-COGNITION.md says '99 gating + 21 reporters' while
+    `verify_all.py` prints 105 gating. That file belongs to another writer, so the correct action is to record the
+    fact where a machine can re-check it -- not to edit their prose and not to leave the knowledge in one round's
+    notes. A stale claim in someone else's file must never block this writer, hence the constant exit code.
+    """
+    if not os.path.exists(REGISTRY):
+        print("  registry absent: %s" % REGISTRY)
+        return 0
+    print("  foreign stale claims (measured, NOT edited -- other-owned):")
+    n_still = n_done = 0
+    for line in io.open(REGISTRY, encoding="utf-8"):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = [x.strip() for x in line.split("|")]
+        if len(parts) < 3:
+            continue
+        fname, stale, measured = parts[0], parts[1], parts[2]
+        fp = os.path.join(ROOT, fname)
+        if not os.path.exists(fp):
+            print("    MISSING FILE  %-28s %s" % (fname, stale)); continue
+        body = io.open(fp, encoding="utf-8").read()
+        if stale in body:
+            n_still += 1
+            print("    STILL STALE   %-28s '%s'  -> measured: %s" % (fname, stale, measured))
+        else:
+            n_done += 1
+            print("    RESOLVED      %-28s '%s'" % (fname, stale))
+    print("  still stale: %d ; resolved by their owner: %d" % (n_still, n_done))
+    return 0
+
+
 def main(argv):
+    if "--foreign" in argv:
+        return report_foreign()
     path = DEFAULT
     if "--file" in argv:
         path = argv[argv.index("--file") + 1]

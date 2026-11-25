@@ -1,0 +1,15 @@
+# Claims known to be stale inside files maintained by ANOTHER writer.
+#
+# **These are recorded, not fixed.** Round 1121 measured them and round 1123 put them here. The file exists so the
+# knowledge is machine-readable and does not depend on anyone's memory, while the OWNERSHIP boundary stays where it
+# was: nothing in this session edits the listed files.
+#
+# Format (one per line, `|`-separated, `#` starts a comment):
+#     file | stale text that is still present | the value measured by the toolchain
+#
+# `gov/check_delivery_claims.py --foreign` reports, for each line, whether the stale text is STILL there or has been
+# RESOLVED by its owner. It always exits 0: a report about someone else's file must never block this writer.
+#
+# When an entry resolves, delete its line. When a new one is found, add it AFTER measuring -- never from a guess.
+
+MACRO-COGNITION.md | 99 门禁 + 21 报告 | 105 gating + 21 reporters (gov/verify_all.py prints 126 = 105 + 21)
