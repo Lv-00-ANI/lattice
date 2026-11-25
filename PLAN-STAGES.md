@@ -3577,3 +3577,24 @@ epsLinearRepair_zero_is_linearRepair  -- 三者合取
 
 **⇒ 而这次复核**自己的产出**是一个反例：**文档在写完后两小时内就陈旧了**——
 ⇒ 故「文档不享有权威」不是谦辞，是**操作事实**。**
+### 3.110 **第 1150 轮：最后自检——本会话的**每条主张**是否仍在树上**
+
+**⇒ 本轮**不测量新东西**：只抽查本会话 10 项**核心主张**，确认其声明**仍在 HEAD 且仍在我说的文件里**。**
+
+| 主张 | 声明 | 位置 | 结果 |
+|:--|:--|:--|:--|
+| 统一两套实现 | `realLayer_ofInt_out` | `Lib/Compiler/RealLayer.lean` | **OK** |
+| 主链首个 `Repair Layer` | `layerZeroRepair` | `Runtime/LayerRepair.lean` | **OK** |
+| 闭环实例 | `twoSlopeLoop` | `Lib/Compiler/LoopInstance.lean` | **OK** |
+| 载体总述更名 | `carrier_covers_two_segments_plus_one_direction` | `Lib/Compiler/CarrierReproduction.lean` | **OK** |
+| 单向开放式提取 | `extract_after_repair_weak` | `Runtime/RepairClosure.lean` | **OK** |
+| 路线 C 否证 | `non_integer_slope_has_no_layer` | `Lib/Compiler/BridgeToMainChain.lean` | **OK** |
+| ε-修复实例 | `epsLinearRepair` | `Lib/Linear/ResidualEpsRepair.lean` | **OK** |
+| 再注入宽容版 | `closed_loop_reinject_within` | `Runtime/VerificationLoop.lean` | **OK** |
+| 两编译器同一律 | `compile_round_trip_law` | `Lib/Editing/CompileLaw.lean` | **OK** |
+| `8 ↔ 3.2` 缺口 | `sound_not_exact_gives_epsilon_gap` | `Runtime/EpsGap.lean` | **OK** |
+
+**⇒ **10 / 10**。⇒ 没有被后续改动覆盖的，也没有**只在提交信息里存在**的。**
+
+**⇒ 这条自检的意义：本会话有 100+ 次提交、100+ 节记录。⇒ 而「我做过什么」的最终依据不是那些文字，
+⇒ 而是**这些声明此刻是否还在树上**——**这是唯一无法自欺的检验**。**
