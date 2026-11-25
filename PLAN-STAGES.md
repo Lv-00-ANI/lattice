@@ -2703,3 +2703,24 @@ cic_loop_reaches_weight (ctx) (x) :
 | **3.3** | 修复**应用**与**结论**都在同一个文件内完成（`layerZeroRepair` 被 `layerZeroRepair_extract` 消费）——**自足**，非缺失 |
 
 **⇒ 故「条款有端到端证据」这件事，在本树里是**可核对的**：27/35 有，且余下 8 个各有不涉及「缺失」的理由。**
+### 3.78 **第 1119 轮：为一个**没有入口**的层写入口**
+
+**⇒ 本会话在 `Lib/Compiler` 与 `Runtime/` 下新增约 40 个文件，而它们**没有一处是**入口**：
+⇒ 唯一记录它们立了什么的地方是 `PLAN-STAGES`，而那是**过程日志**——读者要靠读日记才能找到结果。**
+
+**⇒ 新文件 `DELIVERY-COMPILER-LAYER.md`（一页，6325 字节），只写**可核对的结论 + 承载它的定理**：**
+
+| 节 | 结论 | 承载定理 |
+|:--|:--|:--|
+| 2.1 | 一条界覆盖**所有度数**，常数 `d(d−1)/8`；且**重推出**前三轮手工推的 `1/4`、`3/4`、`3/2` | `pow_uniform_bound`、`general_formula_matches_hand_derived` |
+| 2.2 | 任意度数**可被选中**；`t⁵`、`t¹⁰` 从未被单独处理而直接落下 | `quintic_lands`、`quintic_bound`、`tenth_power_bound` |
+| 2.3 | 两套实现是**同一推广的两个截面**，且推广**被新线消费** | `realLayer_ofInt_out`、`gridEval_eq_realLayer_out` |
+| 2.4 | 全树**第一个** `Repair Layer`，使 `RepairClosure` 四条首次可被应用 | `layerZeroRepair`、`layerZeroRepair_sat_zero_outputs` |
+| 2.5 | 产物载荷上的闭环，且**轮数有锐界**（一轮即够） | `twoSlopeLoop_objective_vanishes`、`_sat_after_one`、`_ends_sat_in_two` |
+
+**⇒ 并写清三件**不该被当成承诺**的事：§3「不提供训练/引擎/框架/统一判据」、
+§5「`Runtime` **不能**导入 `Lib`（I4）」、§6「三条重测命令；**与工具不符时以工具为准**」。**
+
+**⇒ 已登记进 `README.md` 的入口列表（与 `USAGE` / `PROOF-DEBT` / `MACRO-STATUS` 并列）。**
+
+**⇒ 这是「**该分文件的分文件**」的具体落实：一页入口，指向约 40 个文件的结论。**
