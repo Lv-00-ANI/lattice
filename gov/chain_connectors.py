@@ -155,6 +155,10 @@ TERMINAL_CONNECTORS = {
         "the LIMIT of that bridge, proved: if epsilon-satisfaction is not universal, the measure cannot be constant. So "
         "'define an epsRepair' cannot be done by a `def` alone -- the epsilon criterion supplies a predicate, not a "
         "descent structure. A negative result, hence terminal.",
+    "closed_loop_reinject_vanishes_from_within":
+        "a DERIVATION: it re-proves the original vanishing theorem as the epsilon = 0 case of the tolerance version. "
+        "Stated so the GENERALISATION is visible in the tree rather than living in a commit message. Terminal -- it "
+        "exists to show the relation, and `closed_loop_reinject_within` is what a consumer would cite.",
     "no_unsatisfiable_objective":
         "round 1133 s statement that NO objective is unsatisfiable: it refutes the hypothesis of "
         "`no_loop_fixes_unsatisfiable` using round 1094 s `sat_not_empty`. A refutation of a premise is a conclusion "

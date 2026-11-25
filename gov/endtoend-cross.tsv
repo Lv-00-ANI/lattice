@@ -2886,6 +2886,9 @@ Lib/Linear/Residual.lean	sqPenalty_nonneg
 Lib/Linear/Residual.lean	sqPenalty_zero_iff
 Lib/Linear/Residual.lean	sqPenalty_levelA
 Lib/Linear/Residual.lean	sqPenalty_exact_gives_sound
+Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_sat_iff
+Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_drops_outside
+Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_sat_is_epsSat
 Lib/LinearAlgebra/RealBanach.lean	linfNorm_eq_norm
 Lib/LinearAlgebra/RealBanach.lean	bellman_contraction_norm
 Lib/LinearAlgebra/RealBanach.lean	bellman_contracting

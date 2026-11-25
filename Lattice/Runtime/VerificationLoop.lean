@@ -233,4 +233,26 @@ theorem no_unsatisfiable_objective {α : Type} (V : VerificationLoop α) [Nonemp
 
 end VerificationLoop
 
+namespace VerificationLoop
+
+/-- **⭐⭐⭐ 再注入的**宽容版**：若目标在 `Sat` 处被 `ε` 界住，则它在终点也被 `ε` 界住。**
+
+**⇒ 这是 `closed_loop_reinject_vanishes` 的**推广**：原条是本条在 `ε = 0` 的形式。**
+**⇒ 而它不只是漂亮：ε-验证（`EpsSat`）**只能**给出宽容的结论，**
+**⇒ 故若坚持要求「终点为零」，ε-路径就**永远无法说自己成功**。** -/
+theorem closed_loop_reinject_within {α : Type} (V : VerificationLoop α) (ε : ℝ) (x : α)
+    (hobj : ∀ y : α, V.repair.Sat y → |V.objective y| ≤ ε) :
+    |V.objective (V.run (V.repair.μ x) x)| ≤ ε :=
+  hobj _ (V.loop_end_sat x)
+
+/-- **⭐⭐ 原条是本条在 `ε = 0` 的推论**——两者关系被写清楚，而不是各自存在。** -/
+theorem closed_loop_reinject_vanishes_from_within {α : Type} (V : VerificationLoop α) (x : α)
+    (hobj : ∀ y : α, V.repair.Sat y → V.objective y = 0) :
+    V.objective (V.run (V.repair.μ x) x) = 0 := by
+  have h := closed_loop_reinject_within V 0 x (fun y hy => by rw [hobj y hy]; simp)
+  rw [abs_le] at h
+  linarith [h.1, h.2]
+
+end VerificationLoop
+
 end Lattice.Runtime

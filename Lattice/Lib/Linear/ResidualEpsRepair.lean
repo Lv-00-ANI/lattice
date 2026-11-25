@@ -89,4 +89,25 @@ theorem epsLinearRepair_sat_is_epsSat (a b : ℚ) (ha : a ≠ 0) (ε : ℚ) (hε
   show |residual a b x| ≤ ε ↔ |((residual a b x : ℚ) : ℝ)| ≤ (ε : ℝ)
   constructor <;> intro h <;> exact_mod_cast h
 
+/-- **⭐⭐⭐ 再注入定理：一步修复之后，ε-判据**仍成立**。**
+
+**⇒ 这是 `closed_loop_reinject_vanishes` 的**宽容差版本**：原条要求「终点目标**为零**」，
+而ε-判据只能给「终点目标**在 ε 内**」。**
+**⇒ 故原条是**本条在 `ε = 0` 的特例**，而本条才是对ε-验证可用的形式。**
+
+**⇒ 分两支：**在 ε 内 ⇒ 不动，故仍在 ε 内；在 ε 外 ⇒ 跳到零，故 `|0| = 0 ≤ ε`。**** -/
+theorem epsLinearRepair_reinject_within (a b : ℚ) (ha : a ≠ 0) (ε : ℚ) (hε : 0 ≤ ε) (x : ℚ) :
+    |residual a b ((epsLinearRepair a b ha ε hε).fix x)| ≤ ε := by
+  by_cases hin : |residual a b x| ≤ ε
+  · have : (epsLinearRepair a b ha ε hε).fix x = x := by
+      show (if |residual a b x| ≤ ε then x else linearFix a b x) = x
+      rw [if_pos hin]
+    rw [this]
+    exact hin
+  · have : (epsLinearRepair a b ha ε hε).fix x = linearFix a b x := by
+      show (if |residual a b x| ≤ ε then x else linearFix a b x) = linearFix a b x
+      rw [if_neg hin]
+    rw [this, linearFix_residual a b x ha, abs_zero]
+    exact hε
+
 end Lattice.Lib.Linear.ResidualEpsRepair
