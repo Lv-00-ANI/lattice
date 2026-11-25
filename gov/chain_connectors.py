@@ -145,6 +145,16 @@ TERMINAL_CONNECTORS = {
         "round 1102's sibling of extract_after_repair: an all-zero layer's extracted constraints are satisfied "
         "for ANY input. Nothing downstream reads it -- it exists to show the zero instance supports a "
         "post-repair extraction statement, which is a conclusion, not a step.",
+    # Round 1136: the bridge that makes 3.2 (verify) and 3.3 (repair) share ONE predicate. Before it, `EpsSat`
+    # and `Repair` never appeared in the same statement -- the seam had nothing to connect.
+    "eps_repair_requires_descent":
+        "THE bridge: if a Repair's Sat IS EpsSat, then off the epsilon-set its measure strictly descends. This is the "
+        "one statement that mentions both worlds, which is why it IS the 3.2->3.3 connector. Terminal by nature -- a "
+        "criterion identity is what the loop needs, not a step something composes.",
+    "eps_repair_not_constant_measure":
+        "the LIMIT of that bridge, proved: if epsilon-satisfaction is not universal, the measure cannot be constant. So "
+        "'define an epsRepair' cannot be done by a `def` alone -- the epsilon criterion supplies a predicate, not a "
+        "descent structure. A negative result, hence terminal.",
     "no_unsatisfiable_objective":
         "round 1133 s statement that NO objective is unsatisfiable: it refutes the hypothesis of "
         "`no_loop_fixes_unsatisfiable` using round 1094 s `sat_not_empty`. A refutation of a premise is a conclusion "
