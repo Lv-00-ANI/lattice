@@ -111,6 +111,19 @@ twoSlopeLoop_run_components     : run k p 逐分量 = (fix^[k] p₁, fix^[k] p�
 **⇒ 本层**不**声称任何语义。可求值的入口**只有一个**：`EvaluatedArtifact.evalAt`；它之外没有第二个求值函数。**
 **⇒ 本层**不**统一主链与新线的判据：`AllZeroOutputs` 与 ε-界是两个谓词（见对照文档）。**
 
+### 3.1 治理覆盖到哪一层（**边界是有意的，不是遗漏**）
+
+| 表 | 覆盖什么 | 当前条目 | 零必须带理由？ |
+|:--|:--|--:|:--|
+| `END_OF_CHAIN` | 目标的 **14** 个条款的 **36** 个载体 | **9** | 是 |
+| `TERMINAL_CONNECTORS` | 八阶段链的**相邻接缝**连接器 | **56** | 是（预算 = **0**） |
+| — | **其余约 10,000 条定理** | — | **不受管辖** |
+
+**⇒ 最后一行是**设计**，不是遗漏**：无法为每条定理登记理由，而一个装满理由的表与没有表一样无用。**
+**⇒ 故本文件**声明这条边界**，而不留白——因为“不受管辖”与“漏管”在读者眼里长得一样。**
+
+**⇒ 密度参考**：本树 **10,079** 条 theorem/lemma 中有 **65** 条被上表两张表直接命名（0.6%）。**这个数字小得诚实**——表的作用不是覆盖全树，而是**钉住两类可命名的空洞**：载体不被消费、接缝连接器不被消费。**
+
 ---
 
 ## 4. 目标条款的覆盖（可核对）
@@ -136,6 +149,7 @@ python gen_objective_map.py --check      # 载体与引用数（§4）
 python chain_connectors.py --provenance  # 接缝活跃度（§2.4、§5）
 python check_doc_freshness.py            # 全树数字与文档的一致性
 python check_delivery_claims.py --check  # 本文每个反引号标识符都必须是一处声明
+python -c "import sys; sys.path.insert(0,'gov'); import gen_objective_map as G, chain_connectors as C; print(len(G.END_OF_CHAIN), len(C.TERMINAL_CONNECTORS), C.UNREGISTERED_BUDGET)"   # §3.1 的三个数
 ```
 
 **⇒ 最后一条是本文**自己**的守卫：第 1119 轮它捕到本文曾引用一个**未声明的标识符**（一个不存在的求值名字）。

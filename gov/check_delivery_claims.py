@@ -101,6 +101,23 @@ def report_foreign():
     return 0
 
 
+def tool_registry_names():
+    """Names defined in the `gov/` TOOLS themselves: module-level assignments and dict keys.
+
+    **Round 1134.** The document now cites `END_OF_CHAIN` and `TERMINAL_CONNECTORS`, which are Python registries, not
+    Lean declarations. A registry entry is a named thing in exactly the sense this check cares about -- a reader who
+    follows the citation lands on a real definition -- so the resolver has to cover the tools as well as the tree.
+    """
+    names = set()
+    for f in os.listdir(HERE):
+        if not f.endswith(".py"):
+            continue
+        src = io.open(os.path.join(HERE, f), encoding="utf-8", errors="replace").read()
+        names.update(re.findall(r"(?m)^\s*([A-Za-z_]\w*)\s*=", src))
+        names.update(re.findall(r"(?m)^\s*\"([A-Za-z_]\w*)\"\s*:", src))
+    return names
+
+
 def main(argv):
     if "--foreign" in argv:
         return report_foreign()
@@ -113,6 +130,7 @@ def main(argv):
 
     doc = io.open(path, encoding="utf-8").read()
     C = corpus()
+    TOOL_NAMES = tool_registry_names()
     checked, bad = 0, []
     for m in IDENT.finditer(doc):
         name = m.group(1)
@@ -120,7 +138,7 @@ def main(argv):
             continue
         checked += 1
         rx = re.compile(DECL % re.escape(name))
-        if not any(rx.search(src) for src in C.values()):
+        if not any(rx.search(src) for src in C.values()) and name not in TOOL_NAMES:
             bad.append(name)
 
     print("  document      : %s" % os.path.basename(path))
