@@ -3153,3 +3153,29 @@ zero_data_covered (k) (hnd) : covered (materializeWith k 0).tensors (shapesOf (m
 
 **⇒ 两处机械记录：命名空间是 `Lattice.Core.IR`（不是 `Lattice.Core`）；
 `hzero` 的最后一个参数是**蕴含**，故证明项要比元数多一层 lambda。**
+### 3.93 **第 1133 轮：回路里那五条**零消费者**的定理——四条重述、一条**空洞****
+
+**⇒ 实测 `Runtime/VerificationLoop.lean` 的五个零链内消费者：**
+
+| 定理 | 形状 |
+|:--|:--|
+| `loop_decreases` | `Repair.decreases` 在 `iterate 1` 处的重述（`simpa`） |
+| `loop_terminates_sat` | `Repair.atomic` 在 `run 0` 处的重述（`simpa`） |
+| `loop_end_atomic` | `Repair.atomic` 作用在终点 |
+| `closed_loop_partial_reinject` | `iterate 1 = fix`，按定义 |
+| **`no_loop_fixes_unsatisfiable`** | **否定**，而其**前提可被反驳** |
+
+**⇒ 四条是 `Repair` 接口自身字段的重述。⇒ 第五条比冗余更糟：第 1094 轮的 `sat_not_empty` 证明了**
+**「`Sat` 无居住者」对任何 `Repair` 都不成立——它的前提**不可能**。***
+
+```lean
+no_unsatisfiable_objective (V) [Nonempty α] : ¬ ∀ x, ¬ V.repair.Sat x
+```
+
+**⇒ 这条把那份空洞**写在回路层面**（即它评论的那条定理所在的层），并消费 `sat_not_empty`。**
+
+#### 门禁**当场**抓到我自己新加的定理
+
+**⇒ `no_unsatisfiable_objective` 落在 `3.3 → 3.4` 接缝上，且零消费者 ⇒ 在**同一轮**里，
+`chain_connectors --check` 因 `UNREGISTERED_BUDGET = 0` 而**失败**。**
+**⇒ 已按规则在 `TERMINAL_CONNECTORS` 登记理由——**这正是「预算为 0」被造出来要强制的事**。**
