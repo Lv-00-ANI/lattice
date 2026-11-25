@@ -65,4 +65,40 @@ theorem bridge_sample :
       = (⟨(3 : ℝ), (5 : ℝ)⟩ : Segment).eval (7 : ℝ) :=
   scalar_layer_out_eq_segment_eval 3 5 7
 
+/-! ## 五、桥到此为止：**斜率非整数的分段不可能由任何 `LinearLayer` 表示** -/
+
+/-- **⭐⭐ `1/2` 不是任何整数**。
+
+**⇒ 这是下一条的**算术内核**：`Segment.m` 是 `ℝ`，`LinearLayer.w` 是 `List ℤ`。** -/
+theorem half_is_not_an_integer_weight : ¬ ∃ z : ℤ, (z : ℝ) = 1 / 2 := by
+  rintro ⟨z, hz⟩
+  have h2 : ((2 * z : ℤ) : ℝ) = 1 := by
+    push_cast
+    rw [hz]
+    norm_num
+  have hz2 : 2 * z = 1 := by exact_mod_cast h2
+  omega
+
+/-- **⭐⭐⭐ 桥的**另一半**：只要斜率不是整数，就**不存在**一个 `LinearLayer` 能在整数输入上等于它。
+
+**⇒ 理由是**一行**：`LayerOut l [x]` 的值是 `ℤ`，而它经 `ℤ→ℝ` 强转后必须等于 `m·x + c`。
+⇒ 对 `x = 1`，那就要求 `m + c` 是一个整数；取 `c = 0` 就要求 `m` 是整数。**
+**⇒ 故这不是「还没翻译」，而是**不可翻译**——且属于**数的域**而不是代码结构。** -/
+theorem non_integer_slope_has_no_layer (m : ℝ) (hm : ∀ z : ℤ, (z : ℝ) ≠ m) :
+    ¬ ∃ l : Lattice.LinearLayer, ∀ x : ℤ,
+      (⟨m, 0⟩ : Segment).eval (x : ℝ) = ((Lattice.LayerOut l [x] : ℤ) : ℝ) := by
+  rintro ⟨l, h⟩
+  have h1 := h 1
+  -- **注意 `↑1` 与 `1` 的区别：`h1` 的左边是 `eval ↑(1 : ℤ)`。**
+  have hev : (⟨m, 0⟩ : Segment).eval ((1 : ℤ) : ℝ) = m := by
+    simp [Segment.eval]
+  rw [hev] at h1
+  exact hm (Lattice.LayerOut l [1]) h1.symm
+
+/-- **⭐⭐ 具体一例：斜率 `1/2` 的分段没有对应的层。** -/
+theorem half_slope_has_no_layer :
+    ¬ ∃ l : Lattice.LinearLayer, ∀ x : ℤ,
+      (⟨(1 / 2 : ℝ), 0⟩ : Segment).eval (x : ℝ) = ((Lattice.LayerOut l [x] : ℤ) : ℝ) :=
+  non_integer_slope_has_no_layer (1 / 2) (fun z hz => half_is_not_an_integer_weight ⟨z, hz⟩)
+
 end Lattice.Lib.Compiler.BridgeToMainChain

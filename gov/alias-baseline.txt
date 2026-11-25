@@ -444,6 +444,7 @@ forward	Lib/Chain/RealSimpleExtensionDegree.lean	degree_minpoly_le_of_monic_aeva
 forward	Lib/Chain/RealTaylorMultivariate.lean	contDiff_pathMap
 forward	Lib/Compiler/AnalyticSelection.lean	analytic_select_gives_precision
 forward	Lib/Compiler/BridgeToMainChain.lean	bridge_sample
+forward	Lib/Compiler/BridgeToMainChain.lean	half_slope_has_no_layer
 forward	Lib/Compiler/CapabilityTable.lean	select_gives_precision
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierConj_criterion
 forward	Lib/Compiler/CarrierAlgebra.lean	carrierDisj_criterion
