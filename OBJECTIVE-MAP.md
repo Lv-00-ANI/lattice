@@ -15,11 +15,11 @@
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 15 | 15 | 23 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/NeuralShortcut.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 14 | 14 | 27 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/L1L2.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 52 | 51 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 53 | 52 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
 | 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
-| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 51 | 50 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
+| 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 52 | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 4 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
 | 2.1 forward: constraint loss | `PenaltyEmbedding` | `Runtime/PenaltyEmbedding.lean` | 14 | 13 | 7 | `Runtime.lean`, `Lib/Linear/Multivar.lean` |
@@ -28,7 +28,7 @@
 | 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 1 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
-| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 4 | 4 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
+| 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 5 | 5 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
 | 3.1 inverse: extraction | `ApproxRepresentation` | `Runtime/ApproxExtraction.lean` | 2 | 2 | 4 | `Runtime/ApproxLadder.lean`, `Runtime/ExtractionStrength.lean` |
 | 3.1 inverse: extraction | `ratRepresentation` | `Runtime/RatRepresentation.lean` | 2 | 1 | 12 | `Runtime/ApproxExtraction.lean`, `Usage/Examples.lean` |
 | 3.2 inverse: verification | `EpsSat` | `Runtime/ApproxExact.lean` | 4 | 3 | 5 | `Lib/Linear/ResidualEpsRepair.lean`, `Runtime/ApproximationBridge.lean` |

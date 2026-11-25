@@ -1866,7 +1866,7 @@
 | `Lattice.Lib.Linear.PenaltyPerturbN` | 12 | 4 |
 | `Lattice.Lib.Linear.PenaltyVector` | 3 | 1 |
 | `Lattice.Lib.Linear.Residual` | 11 | 4 |
-| `Lattice.Lib.Linear.ResidualEpsRepair` | 3 | 2 |
+| `Lattice.Lib.Linear.ResidualEpsRepair` | 4 | 2 |
 | `Lattice.Lib.LinearAlgebra` | 0 | 0 |
 | `Lattice.Lib.LinearAlgebra.RealBanach` | 4 | 0 |
 | `Lattice.Lib.LinearAlgebra.RealComplexSpectral` | 15 | 1 |
@@ -2220,7 +2220,7 @@
 | `Lattice.Runtime.TotalLoss` | 5 | 2 |
 | `Lattice.Runtime.TypedNumericAlignment` | 3 | 0 |
 | `Lattice.Runtime.VecCarrierCensus` | 2 | 0 |
-| `Lattice.Runtime.VerificationLoop` | 12 | 4 |
+| `Lattice.Runtime.VerificationLoop` | 14 | 4 |
 | `Lattice.Runtime.VerificationSoundness` | 5 | 0 |
 | `Lattice.Runtime.VerifierRate` | 5 | 0 |
 | `Lattice.Runtime.VerifyLoopProgress` | 5 | 2 |
@@ -3669,8 +3669,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `closed_loop_ends_verified_and_zero` -> `CICCtx`, `ConstSet`, `DefEnv`, `E`, `HasType`, `HasTypeW`, `Sat`, `Term`, `VerificationLoop`, `closed_loop_partial_reinject`, `closed_loop_reinject_vanishes`, `compileToLayer`, `conv_refl`, `extractLayer`, `g`, `hasTypeW_app_pi`, `hasType_to_hasTypeW`, `iterate`, `loop_end_sat`, `loop_is_criterion_not_repair`, `repair`, `run`, `sqDistHalvingRepair`, `sqDistHalving_terminates`, `sqDistHalving_terminates_and_stabilises`
 - `closed_loop_engine_form` -> `DefEnv`, `E`, `Reduces`, `Term`, `VectorConstraint`, `at`, `cicToConstraint`
 - `closed_loop_idempotent` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `Layer`, `LayerOut`, `LinearLayer`, `NonlinearLayerOut`, `VectorConstraint`, `VectorConstraintSat`, `ZeroFixing`, `act`, `at`, `cEx`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `extractVec`, `g`, `linearization_global_fails`, `map`, `reluZ`, `reluZ_counterexample`, `scaleVec`, `scaleVec_preserves`, `subst`, `symbolToWeight_correct`, `trans`
-- `closed_loop_partial_reinject` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
-- `closed_loop_reinject_vanishes` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `closed_loop_partial_reinject` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `closed_loop_reinject_vanishes` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `closed_loop_reinject_vanishes_from_within` -> `Sat`, `at`, `repair`, `run`
+- `closed_loop_reinject_within` -> `Sat`, `at`, `repair`, `run`
 - `closed_nil_iff` -> `AxiomPackageInstance`, `DependenciesSatisfied`, `PackageDependenciesValid`, `TemplateNameAvailable`, `append_nil`, `at`, `d`, `templateNames`
 - `closed_ren` -> `Closed`, `Term`, `induction`, `lift`, `subst`, `zero`
 - `closed_subst_eq` -> `Term`, `induction`, `subst`
@@ -5185,9 +5187,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `entropy_unif` -> `apply`, `at`, `ce_ge_entropy`, `crossEntropy`, `entropy`, `g`, `kl`, `kl_zero_iff_eq`
 - `env_dirderiv_key` -> `apply`, `at`, `d`, `min`
 - `eps0_zero_gives_arbitrary_precision` -> `DeltaDense`, `LipschitzOn`, `SampledVerified`, `g`
-- `epsLinearRepair_drops_outside` -> `EpsSat`, `PenaltyEmbedding`, `Sat`, `loss`, `residual`
-- `epsLinearRepair_sat_iff` -> `EpsSat`, `PenaltyEmbedding`, `Sat`, `loss`, `residual`
-- `epsLinearRepair_sat_is_epsSat` -> `EpsSat`, `Sat`, `residual`
+- `epsLinearRepair_drops_outside` -> `EpsSat`, `PenaltyEmbedding`, `Sat`, `linearFix`, `linearFix_residual`, `loss`, `residual`
+- `epsLinearRepair_reinject_within` -> `linearFix`, `linearFix_residual`, `residual`
+- `epsLinearRepair_sat_iff` -> `EpsSat`, `PenaltyEmbedding`, `Sat`, `linearFix`, `linearFix_residual`, `loss`, `residual`
+- `epsLinearRepair_sat_is_epsSat` -> `EpsSat`, `Sat`, `linearFix`, `linearFix_residual`, `residual`
 - `epsSat_of_loss_le_sq` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `resid`, `sq_eq_zero_of_localMin`
 - `epsSat_zero_iff` -> `E`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `RealNeuron`, `RealNeuronOut`, `RealTotalLoss`, `le_trans`, `loss`, `realTotalLoss_zero_iff_all_outputs`, `sq_eq_zero_of_localMin`
 - `eps_needs_nonneg` -> `Audit`, `at`
@@ -7311,12 +7314,12 @@ module. These are the edges that make the chain a chain rather than a list.
 - `lookup_by_name_sound` -> `apply`, `at`, `find`
 - `lookup_lt` -> `CICCtx`, `Canonical`, `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`, `at`, `induction`, `length`, `length_cons`, `zero`
 - `loopStepMap_contracting` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `loop_model_contraction`, `op_norm_pow_apply_le`, `zero`
-- `loop_absorbs` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `loop_absorbs` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
 - `loop_converges_to_fixed_point` -> `W`, `at`, `contraction_converges`, `iterate`, `iterate_step_swap`
-- `loop_decreases` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `loop_decreases` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
 - `loop_done` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
-- `loop_end_atomic` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
-- `loop_end_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `loop_end_atomic` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `loop_end_sat` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
 - `loop_exit_wp` -> `Compiler`, `State`, `iterate`
 - `loop_fixed_point` -> `Repair`, `Sat`, `W`, `compile`, `decode`, `encode`, `extract`, `progress`, `roundtrip`
 - `loop_fixed_point_exists` -> `W`, `induction`, `iterateStep`, `iterateStep_succ`, `le_antisymm`, `loopStepMap`, `loop_fixed_point_unique`, `op_norm_pow_apply_le`, `zero`
@@ -7337,7 +7340,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `loop_preserves_semantics` -> `ConstraintSat`, `LinearConstraint`, `induction`, `zero`
 - `loop_rejects_then_accepts` -> `IRSkeleton`, `IRWeights`, `TensorShape`, `W`, `at`, `map`
 - `loop_step` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
-- `loop_terminates_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `loop_terminates_sat` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
 - `loop_witness` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `loop_zero_none` -> `Primitive`, `at`, `dec`, `induction`, `run`, `sound`, `step`, `zero`
 - `lora_edit_additive` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`
@@ -8128,7 +8131,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_left_inverse_at_all` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `compileToLayer`, `decode`, `g`, `leftInverse_iff_injective`, `symbolToWeight_correct`
 - `no_left_inverse_for_collapsing_compile` -> `AllSatisfied`, `AllZeroOutputs`, `ConstraintSet`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `compileToLayer`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `dotL`, `dotQ`, `dot_representation_agreement`, `extractVec`, `g`, `length`, `map`, `reluZ`, `roundtrip_extractVec`, `scaleVec`, `scaleVec_preserves`, `toVec`, `trans`
 - `no_lift_betaSubst_law` -> `Compiler`, `Term`, `betaSubst`, `lift`, `redI`
-- `no_loop_fixes_unsatisfiable` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
+- `no_loop_fixes_unsatisfiable` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`
 - `no_loss_to_constraint_section` -> `Pt`, `at`, `extract`, `penaltyLoss`
 - `no_nontrivial_roundtrip_subset` -> `LinearLayer`, `VectorConstraint`, `at`, `cNegVec`, `canonicalize`, `constraintContent`, `content_canonicalize`, `convertVec`, `extractVec`, `listGcdNat`, `roundtrip_extractVec`, `toFun`
 - `no_object_level_gap` -> `LinearLayer`, `extractVec`
@@ -8151,7 +8154,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_uniform_step_size` -> `apply`, `at`, `le_refl`
 - `no_uniform_two_sided_edit_carrier` -> `ConstraintSet`, `LayerDelta`, `LayerOut`, `SymEdit`, `VectorConstraint`, `append_nil`, `applySymEdit`, `applySymEdit_getD`, `at`, `compileToLayer`, `convertVec`, `d`, `deltaOf`, `editLayer`, `editLayerList`, `editLayer_delta_closed_form`, `induction`, `length`, `map`, `min`
 - `no_universal_constructor` -> `FamilySolver`, `HoldsSet`, `trivial`, `unsatisfiableSpec`, `unsatisfiableSpec_no_model`
-- `no_unsatisfiable_objective` -> `Sat`, `repair`, `sat_not_empty`
+- `no_unsatisfiable_objective` -> `Sat`, `at`, `repair`, `run`, `sat_not_empty`
 - `no_upper_iff_no_split` -> `at`, `extent`, `g`
 - `no_weight_solution_of_input_zero` -> `Sat`, `W`, `bidirRepair`, `bidir_steps`, `iterate`, `natAbs_step_lt`, `residual`, `step`
 - `no_xorC_universal_without_domain` -> `andC`, `andC_eq_zero_iff`, `int_sq_eq_zero_iff`, `orC`, `subst`
@@ -10773,7 +10776,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `step_changes_off_solution` -> `at`, `step`
 - `step_contraction_of_subgradient` -> `Expect`, `Subgradient`, `g`, `sgd_expectation_contraction`, `sgd_update`
 - `step_descent_lemma` -> `E`, `at`, `g`, `induction`, `le_trans`, `zero`
-- `step_fixed_of_sat` -> `Repair`, `Sat`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`, `step`
+- `step_fixed_of_sat` -> `Repair`, `Sat`, `at`, `converges_within`, `g`, `iterate`, `iterate_succ`, `repair`, `run`, `sat_not_empty`, `step`
 - `step_lam_inv` -> `Compiler`, `Term`, `app_l`, `app_r`, `at`, `lift`, `subst`, `subst_lift`, `subst_subst`, `up`
 - `step_neg` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
 - `step_pos` -> `Repair`, `Sat`, `VerificationLoop`, `converges_within`, `iterate`, `loop_absorbs`, `loop_end_sat`, `repair`, `run`, `step`, `subst`
@@ -11697,8 +11700,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `verdict_through_chain` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `chain_edit_locality`, `d`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `zero`
 - `verdict_through_chain_loss` -> `ChainFwd`, `ChainTail`, `E`, `W`, `apply`, `at`, `d`, `edit_seq_bound`, `edit_seq_nonuniform`, `induction`, `le_trans`, `shared_chain_edit_locality`, `shared_chain_error_bound`, `zero`
 - `verification_ladder` -> `CICCtx`, `ConstSet`, `DefEnv`, `E`, `EpsSat`, `HasType`, `HasTypeW`, `PenaltyEmbedding`, `PenaltyExact`, `PenaltySound`, `Sat`, `Term`, `VerificationLoop`, `closed_loop_partial_reinject`, `closed_loop_reinject_vanishes`, `compileToLayer`, `conv_refl`, `epsSat_zero_iff`, `extractLayer`, `g`, `hasTypeW_app_pi`, `hasType_to_hasTypeW`, `iterate`, `loop_end_sat`, `loop_is_criterion_not_repair`, `loss`, `penaltyExact_of_epsSat_zero`, `repair`, `run`, `sqDistHalvingRepair`, `sqDistHalving_terminates`, `sqDistHalving_terminates_and_stabilises`
-- `verification_loop_closes_holds` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `sat_not_empty`
-- `verification_loop_is_stable` -> `Repair`, `Sat`, `converges_within`, `iterate`, `repair`, `sat_not_empty`
+- `verification_loop_closes_holds` -> `Repair`, `Sat`, `at`, `converges_within`, `iterate`, `repair`, `run`, `sat_not_empty`
+- `verification_loop_is_stable` -> `Repair`, `Sat`, `at`, `converges_within`, `iterate`, `repair`, `run`, `sat_not_empty`
 - `verifiedObligation_proof` -> `completeness`, `empty`, `layer`, `map`, `proof`, `requires`, `soundness`
 - `verified_manifest` -> `Constraint`, `Conv`, `Repair`, `length`, `manifest`, `verified`, `verified_obligations`
 - `verified_obligations` -> `Constraint`, `Conv`, `Repair`, `length`, `manifest`, `verified`

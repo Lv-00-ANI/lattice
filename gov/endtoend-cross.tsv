@@ -2889,6 +2889,7 @@ Lib/Linear/Residual.lean	sqPenalty_exact_gives_sound
 Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_sat_iff
 Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_drops_outside
 Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_sat_is_epsSat
+Lib/Linear/ResidualEpsRepair.lean	epsLinearRepair_reinject_within
 Lib/LinearAlgebra/RealBanach.lean	linfNorm_eq_norm
 Lib/LinearAlgebra/RealBanach.lean	bellman_contraction_norm
 Lib/LinearAlgebra/RealBanach.lean	bellman_contracting
@@ -4082,6 +4083,8 @@ Runtime/VerificationLoop.lean	closed_loop_partial_reinject
 Runtime/VerificationLoop.lean	verification_loop_closes_holds
 Runtime/VerificationLoop.lean	verification_loop_is_stable
 Runtime/VerificationLoop.lean	no_unsatisfiable_objective
+Runtime/VerificationLoop.lean	closed_loop_reinject_within
+Runtime/VerificationLoop.lean	closed_loop_reinject_vanishes_from_within
 Runtime/VerificationSoundness.lean	residual_le_of_zero_on_dense
 Runtime/VerificationSoundness.lean	eq_zero_of_zero_dense
 Runtime/VerifierRate.lean	verifier_eps_achievable

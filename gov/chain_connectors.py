@@ -159,6 +159,11 @@ TERMINAL_CONNECTORS = {
         "a DERIVATION: it re-proves the original vanishing theorem as the epsilon = 0 case of the tolerance version. "
         "Stated so the GENERALISATION is visible in the tree rather than living in a commit message. Terminal -- it "
         "exists to show the relation, and `closed_loop_reinject_within` is what a consumer would cite.",
+    "compile_round_trip_law":
+        "THE uniformity claim: the structured-init compiler (compileWith) and the layer compiler (compileToLayer) are "
+        "both left inverses of their extractors, stated in ONE conjunction. Round 1139 measured 2.3 and 1.3 to have "
+        "ZERO co-occurring theorems; this is the first. Terminal because it is a LAW, not a step -- what a consumer "
+        "cites when it wants the shared shape, which previously lived only in the reader s head.",
     "no_unsatisfiable_objective":
         "round 1133 s statement that NO objective is unsatisfiable: it refutes the hypothesis of "
         "`no_loop_fixes_unsatisfiable` using round 1094 s `sat_not_empty`. A refutation of a premise is a conclusion "

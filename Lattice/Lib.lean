@@ -87,6 +87,7 @@ import Lattice.Lib.Compiler.ReverseChain
 import Lattice.Lib.Compiler.RealLayer
 import Lattice.Runtime.ZeroDataSynthesis
 import Lattice.Lib.Linear.ResidualEpsRepair
+import Lattice.Lib.Editing.CompileLaw
 /-!
 # Lattice.Lib -- harvested instances
 
