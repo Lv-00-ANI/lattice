@@ -2860,3 +2860,30 @@ gating checks passed : 94
 | 1106 | 「连接器」= 链事实 vs 示例演示 | 排除 `Usage/` 生产端 |
 | 1111 | 「本文件内使用」= 死 vs 在用 | `used_in_place` |
 | 1121–1122 | 「门禁数」= 登记 vs 通过数；且无人核对 | **三条带标签断言 + 双向验证** |
+### 3.83 **第 1123 轮：把「**他人所有但已知陈旧**」做成机器可读的登记——而**不动其文件****
+
+**⇒ 第 1121 轮发现 `MACRO-COGNITION.md` 写着「99 门禁 + 21 报告」，而 `verify_all` 打印 **105 门禁 + 21**。
+⇒ 该文件**属他人**，故正确处置既不是改它，也不是把这件事留在某一轮的笔记里。**
+
+**⇒ 新增 `gov/other-owned-stale.txt`，每行一条：**
+
+```
+file | stale text that is still present | the value measured by the toolchain
+```
+
+**⇒ 与 `check_delivery_claims.py` 的新模式 `--foreign`：逐条报告 **STILL STALE** 或 **RESOLVED**（由其作者改好）。**
+
+**⇒ 它**永不失败**：关于他人文件的报告**不得阻塞**本写者。⇒ 这与 `verify_all` 区分 reporter 与 gate 是同一条推理：
+**退出码不可能变的检查就是报告，不是门禁**。**
+
+**⇒ 双向验证（用真实登记表）：**
+
+| 情形 | 结果 |
+|:--|:--|
+| 如登记所载 | **STILL STALE**，still stale: 1，resolved: 0，**exit 0** |
+| 换成一段不存在的文本 | **RESOLVED**，still stale: 0，resolved: 1，**exit 0** |
+| 恢复登记表 | **STILL STALE** 再现 |
+
+**⇒ 当作者修好那一行，下次运行会转为 RESOLVED，该行即可删除。**
+
+**⇒ 这条纪律与第 1121 轮的自查结论一致：**边界不是靠意志维持的，是靠**把边界外的状态登记在边界内可读的地方**。**
