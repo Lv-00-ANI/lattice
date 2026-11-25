@@ -83,7 +83,10 @@ CLAUSES = {
     # Round 1081: `decodedFamily` is the `Lib/Compiler/` line's inverse step: weights decode back to the
     # segment payload. Same caveat as 1.3 -- registered so that it is visible, not so that it looks strong.
     "1.4 weight -> symbol": ["extract", "extract_compile", "decodedFamily"],
-    "2.1 forward: constraint loss": ["PenaltyEmbedding", "penaltyToLoss"],
+    # Round 1140: 2.1 was one of three clauses with ZERO co-occurrence against 1.3. The connection is not a
+    # parallel theorem but an INSTANCE: the layer world satisfies the PenaltyEmbedding abstraction. Registering that
+    # instance as a carrier is what makes the connection visible to the map's own metric.
+    "2.1 forward: constraint loss": ["PenaltyEmbedding", "penaltyToLoss", "layerPenaltyEmbedding"],
     # Round 265 (STAGE 0): the geometry layer was archived. **A clause's carrier must live in the
     # MAINLINE tree, because the archive is out of the criterion.** So each clause that used to name
     # a geometric carrier now ALSO names the mainline theorem that carries the same obligation:
