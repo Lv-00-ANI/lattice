@@ -1610,6 +1610,8 @@ Lib/Compiler/InterpAlgebra.lean	interpFamily_quad_error
 Lib/Compiler/InterpAlgebra.lean	quad_artifact_bound
 Lib/Compiler/InterpAlgebra.lean	interpFamily_quadFun_error
 Lib/Compiler/InterpAlgebra.lean	quadFun_artifact_bound
+Lib/Compiler/LayerPenalty.lean	layerPenalty_loss_eq_zero_iff
+Lib/Compiler/LayerPenalty.lean	layerPenalty_sound
 Lib/Compiler/Layout.lean	evalAt_ofSegments
 Lib/Compiler/Layout.lean	evalAt_isSome_iff_decoded_isSome
 Lib/Compiler/Layout.lean	evalAt_congr_of_decoded_eq

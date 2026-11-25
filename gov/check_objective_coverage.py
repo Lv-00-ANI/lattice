@@ -73,7 +73,11 @@ CLAUSES = {
     # encodes that family into weights. Adding it here makes rule A SEE that line -- which measured at
     # ZERO references outside `Lib/Compiler/` until now. If it stays at zero the map will show it as a weak
     # carrier, and that is the honest outcome: visible, not decorated.
-    "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN", "compileTarget", "EvaluatedArtifact"],
+    # Round 1141: the DATA-LEVEL instalment of symbol->weight. `corpusToLayer` is `compileToLayer` composed with the
+    # corpus-to-constraint translation, and it was already named by the tree's capstone (data_to_weight_honest)
+    # without being a registered carrier of anything.
+    "1.3 symbol -> weight": ["compileToLayer", "compileToLayerN", "compileTarget", "EvaluatedArtifact",
+                             "corpusToLayer"],
     # Round 1031: this clause had exactly ONE carrier, so it had no redundancy -- and `extract` alone
     # is only the FUNCTION, not the delivery. `extract_compile` is what makes the direction correct:
     # `extract (compileSkel k) = some k`, the round trip that the old `extractCode` never had. Its own
@@ -104,7 +108,9 @@ CLAUSES = {
     # layer, and keeping a name that no mainline file declares made this clause look uncarried while
     # the gate passed -- the exact defect round 65 measured for 3.3/3.4/5. The clause has two live
     # mainline carriers and does not need a third that lives in an example domain.
-    "2.2 forward: data synthesis": ["covered_of_vanishing", "models_of_covered_data"],
+    # Round 1141: `CoversCorpus` is the corpus-level coverage verdict -- the same concept as `covered` one level down.
+    # Registering it is what lets the capstone `data_to_weight_honest` count as a 2.2 carrier's theorem.
+    "2.2 forward: data synthesis": ["covered_of_vanishing", "models_of_covered_data", "CoversCorpus"],
     "2.3 forward: structured init": ["weightLadderN", "compile_sound_n", "compileWith"],
     "3.1 inverse: extraction": ["ApproxRepresentation", "ratRepresentation"],
     # Round 1034: `geo_sampled_bound` removed for the same reason as `synth_coverage` above.

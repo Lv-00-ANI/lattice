@@ -19,6 +19,7 @@
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
 | 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
+| 1.3 symbol -> weight | `corpusToLayer` | `Runtime/EndToEndComposite.lean` | 3 | 3 | 5 | `Runtime/Faithfulness.lean`, `Runtime/SemanticFaithfulness.lean` |
 | 1.4 weight -> symbol | `extract` | `Core/IR/Extract.lean` | 52 | 51 | 9 | `Slots.lean`, `Core/Idempotent.lean` |
 | 1.4 weight -> symbol | `extract_compile` | `Core/IR/Extract.lean` | 5 | 4 | 3 | `Core/IR/ExtractSection.lean`, `Plugins/Targets/Statements.lean` |
 | 1.4 weight -> symbol | `decodedFamily` | `Lib/Compiler/Layout.lean` | 2 | 2 | 7 | `Lib/Compiler/Chain.lean`, `Lib/Compiler/ReverseChain.lean` |
@@ -27,6 +28,7 @@
 | 2.1 forward: constraint loss | `layerPenaltyEmbedding` | `Lib/Compiler/LayerPenalty.lean` | 0 *(仅本文件)* | 0 | 3 | — |
 | 2.2 forward: data synthesis | `covered_of_vanishing` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
 | 2.2 forward: data synthesis | `models_of_covered_data` | `Core/IR/Semantics.lean` | 2 | 1 | 2 | `Runtime/ZeroDataSynthesis.lean`, `Usage/Examples.lean` |
+| 2.2 forward: data synthesis | `CoversCorpus` | `Core/Data/Encode.lean` | 5 | 5 | 3 | `Core/IR/CoverageMonotone.lean`, `Runtime/AcceptanceLayer.lean` |
 | 2.3 forward: structured init | `weightLadderN` | `Runtime/WeightLadderN.lean` | 1 | 1 | 4 | `Runtime/NondegenerateInstance.lean` |
 | 2.3 forward: structured init | `compile_sound_n` | `Runtime/WeightLadderN.lean` | 2 | 1 | 0 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 2.3 forward: structured init | `compileWith` | `Core/IR/Extract.lean` | 5 | 5 | 31 | `Core/Data/Models.lean`, `Core/IR/Semantics.lean` |
@@ -52,7 +54,7 @@
 ## 汇总
 
 - 条款数：14
-- 载体总数：37
+- 载体总数：39
 - **死代码载体（同文件也不用）：4**
 - 仅同文件使用的载体：4
 - **链内消费者为 0 的载体：8**（`Usage/` 不计为消费者）
