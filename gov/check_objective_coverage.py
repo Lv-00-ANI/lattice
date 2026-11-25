@@ -158,7 +158,12 @@ CLAUSES = {
     # Round 1142: clause 5 s ONLY carrier linking it to the weight world. Round 1117 measured it: the theorem states
     # that CIC typing constraints are satisfied EXACTLY WHEN the compiled layer outputs are zero, and it has two
     # chain-internal consumers. It was never a registered carrier, so the map saw 5 and 1.3 as disconnected.
-    "5 symbolic engine": ["HasType", "hasType_to_hasTypeW", "cic_loop_reaches_weight"],
+    # Round 1143: the CIC-to-constraint vocabulary IS clause 5 s own -- `CICCtx` is the context the typing judgement is
+    # formed over, and `cicToConstraint` is how a typing obligation becomes a constraint. Leaving them out is what made
+    # the pair metric see clause 5 only through `HasType` and therefore miss `cic_loop_reaches_weight`, which speaks in
+    # exactly these names. Same lesson as round 1141, one level down again.
+    "5 symbolic engine": ["HasType", "hasType_to_hasTypeW", "cic_loop_reaches_weight",
+                           "CICCtx", "cicToConstraint"],
     "8 Lean guarantee": ["sound_not_exact", "decodePayload_encodeForm"],
 }
 
