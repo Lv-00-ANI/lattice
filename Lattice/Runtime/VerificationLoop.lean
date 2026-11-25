@@ -46,6 +46,7 @@ import Lattice.Core.RepairModule.Repair
 import Lattice.Core.RepairModule.RepairConvergence
 import Lattice.Runtime.Extraction
 import Lattice.Runtime.VerificationSoundness
+import Lattice.Core.RepairModule.RepairProduct
 
 namespace Lattice.Runtime
 
@@ -218,5 +219,18 @@ theorem verification_loop_is_stable {α : Type} (R : Lattice.Core.Repair α) (x 
     R.Sat (R.iterate (R.μ x) x) ∧ R.fix (R.iterate (R.μ x) x) = R.iterate (R.μ x) x := by
   have hsat := Lattice.Core.RepairConvergence.converges_within R x
   exact ⟨hsat, R.absorbs _ hsat⟩
+
+namespace VerificationLoop
+
+/-- **⭐⭐ `no_loop_fixes_unsatisfiable` 的前提**本身不可能成立**——它是一条关于**不可能前提**的定理。
+
+**⇒ 理由是第 1094 轮的 `RepairProduct.sat_not_empty`：**任何 `Repair` 的 `Sat` 不可能为空**（否则 `decreases` 会给出
+ℕ 上的无限下降）。**
+**⇒ 故本条把那件事在**回路层面**写成一条可引用的事实：不存在「永远不满足的目标」。** -/
+theorem no_unsatisfiable_objective {α : Type} (V : VerificationLoop α) [Nonempty α] :
+    ¬ ∀ x : α, ¬ V.repair.Sat x :=
+  Lattice.Core.RepairModule.RepairProduct.sat_not_empty V.repair
+
+end VerificationLoop
 
 end Lattice.Runtime

@@ -914,6 +914,7 @@ forward	Runtime/TokenAlphabet.lean	alphabet_classifiable
 forward	Runtime/TypedNumericAlignment.lean	covers_gives_typed_encoding
 forward	Runtime/VecCarrierCensus.lean	indexed_has_no_ragged_form
 forward	Runtime/VecCarrierCensus.lean	truncated_iff_indexed
+forward	Runtime/VerificationLoop.lean	no_unsatisfiable_objective
 forward	Runtime/VerifyLoopProgress.lean	verify_stable
 forward	Runtime/WeightLadder.lean	weightLadder_forward
 forward	Runtime/ZeroDataSynthesis.lean	zero_data_covered

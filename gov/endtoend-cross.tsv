@@ -4114,6 +4114,8 @@ Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_exact
 Runtime/WeightSymbolRepresentation.lean	weightSymbolRep_nontrivial
 Runtime/WeightToSymbolEquivalence.lean	roundtrip_extract
 Runtime/WeightToSymbolEquivalence.lean	extract_is_valid
+Runtime/ZeroDataSynthesis.lean	zero_data_models
+Runtime/ZeroDataSynthesis.lean	zero_data_covered
 Semantics/Annotations.lean	holdsSet_member
 Semantics/Annotations.lean	edit_frame_holds
 Semantics/Annotations.lean	annotation_realizes

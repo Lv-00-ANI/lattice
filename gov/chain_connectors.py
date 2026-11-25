@@ -145,6 +145,10 @@ TERMINAL_CONNECTORS = {
         "round 1102's sibling of extract_after_repair: an all-zero layer's extracted constraints are satisfied "
         "for ANY input. Nothing downstream reads it -- it exists to show the zero instance supports a "
         "post-repair extraction statement, which is a conclusion, not a step.",
+    "no_unsatisfiable_objective":
+        "round 1133 s statement that NO objective is unsatisfiable: it refutes the hypothesis of "
+        "`no_loop_fixes_unsatisfiable` using round 1094 s `sat_not_empty`. A refutation of a premise is a conclusion "
+        "-- nothing downstream acts on it, which is exactly why the theorem it comments on is vacuous.",
     # Round 1110: the 1.4->3.2 seam, grouped by conclusion SHAPE (verified by reading, not by name).
     "compile_extract_end_to_end": "a RESTATEMENT of the round-trip semantics lemma at the module that owns the definition: the tree's convention of quoting a fact where it is used. Its content IS the semantics equivalence, so nothing downstream reads it; terminal by construction.",
     "compile_extract_semantics_closed": "a RESTATEMENT of the round-trip semantics lemma at the module that owns the definition: the tree's convention of quoting a fact where it is used. Its content IS the semantics equivalence, so nothing downstream reads it; terminal by construction.",
