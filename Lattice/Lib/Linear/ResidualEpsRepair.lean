@@ -110,4 +110,55 @@ theorem epsLinearRepair_reinject_within (a b : ℚ) (ha : a ≠ 0) (ε : ℚ) (h
     rw [this, linearFix_residual a b x ha, abs_zero]
     exact hε
 
+/-! ## 六、**ε = 0 的退化**：容差为零的 ε-修复**就是**精确修复**
+
+**⇒ 这是本文件的泛化与 `linearRepair` 这个特例之间的**连接**。**
+
+**⇒ **三个数据字段分别相等**（`Sat`、`fix`、`μ`）——`Repair` 的三个 `Prop` 字段是证明，
+按 proof irrelevance 不需要单独比。** -/
+
+/-- **⭐⭐ 在 `ε = 0` 处，两个 `Repair` 的**判据相同**。**
+
+**⇒ `|residual| ≤ 0 ↔ residual = 0`——容差为零就是精确。** -/
+theorem epsLinearRepair_zero_sat_iff (a b : ℚ) (ha : a ≠ 0) (x : ℚ) :
+    (epsLinearRepair a b ha 0 (le_refl 0)).Sat x ↔ (linearRepair a b ha).Sat x := by
+  show |residual a b x| ≤ 0 ↔ residual a b x = 0
+  simp [abs_nonpos_iff]
+
+/-- **⭐⭐ 在 `ε = 0` 处，两个 `Repair` 的**修正步相同**。**
+
+**⇒ 关键在 `linearFix_absorbs`：**若已在容差内（此处即零），精确修复**也**不动。** -/
+theorem epsLinearRepair_zero_fix_eq (a b : ℚ) (ha : a ≠ 0) (x : ℚ) :
+    (epsLinearRepair a b ha 0 (le_refl 0)).fix x = (linearRepair a b ha).fix x := by
+  show (if |residual a b x| ≤ 0 then x else linearFix a b x) = linearFix a b x
+  by_cases h : |residual a b x| ≤ 0
+  · rw [if_pos h]
+    have hz : residual a b x = 0 := by
+      simpa [abs_nonpos_iff] using h
+    exact (linearFix_absorbs a b x hz).symm
+  · rw [if_neg h]
+
+/-- **⭐⭐ 在 `ε = 0` 处，两个 `Repair` 的**测度相同**。** -/
+theorem epsLinearRepair_zero_mu_eq (a b : ℚ) (ha : a ≠ 0) (x : ℚ) :
+    (epsLinearRepair a b ha 0 (le_refl 0)).μ x = (linearRepair a b ha).μ x := by
+  show (if |residual a b x| ≤ 0 then 0 else 1) = (if residual a b x = 0 then 0 else 1)
+  by_cases h : residual a b x = 0
+  · have habs : |residual a b x| ≤ 0 := by
+      simp [h]
+    rw [if_pos habs, if_pos h]
+  · have habs : ¬ |residual a b x| ≤ 0 := by
+      simp [h]
+    rw [if_neg habs, if_neg h]
+
+/-- **⭐⭐⭐ 三项合取：容差为零的 ε-修复**就是**精确修复。**
+
+**⇒ 这是会话里第一次把两个**不同的** `Repair` 实例用一条定理连起来。** -/
+theorem epsLinearRepair_zero_is_linearRepair (a b : ℚ) (ha : a ≠ 0) (x : ℚ) :
+    ((epsLinearRepair a b ha 0 (le_refl 0)).Sat x ↔ (linearRepair a b ha).Sat x) ∧
+      (epsLinearRepair a b ha 0 (le_refl 0)).fix x = (linearRepair a b ha).fix x ∧
+      (epsLinearRepair a b ha 0 (le_refl 0)).μ x = (linearRepair a b ha).μ x :=
+  ⟨epsLinearRepair_zero_sat_iff a b ha x,
+   epsLinearRepair_zero_fix_eq a b ha x,
+   epsLinearRepair_zero_mu_eq a b ha x⟩
+
 end Lattice.Lib.Linear.ResidualEpsRepair
