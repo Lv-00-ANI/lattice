@@ -3537,3 +3537,27 @@ epsLinearRepair_zero_is_linearRepair  -- 三者合取
 
 **⇒ 故「泛化」与「基准例」现在由**一条定理**连接，而不是由读者的辨认连接——与本会话一贯的模式相同：
 ⇒ **树里两物都在，缺的是把它们写在一起的陈述。**
+### 3.108 **第 1148 轮：我上一轮的预测**错了**——`b = 0` 不能退化，因为载体不同**
+
+**⇒ 上轮我打算证「`twoSlopeRepair` 在 `b = 0` 时退化为单侧 `slopeRepair`」，从而把四个实例连成一条链。**
+**⇒ 读定义后：`twoSlopeRepair a b = repairProd (slopeRepair a) (slopeRepair b)`——它是**乘积**，载体是**对**。
+⇒ 故 `b = 0` **不可能**退化到单侧：**退化要求同一载体**。**
+
+**⇒ 实测五个实例 / 四个载体：**
+
+| 实例 | 载体 |
+|:--|:--|
+| `sqDistHalvingRepair` | `ℕ` |
+| `layerZeroRepair` | `Layer` |
+| `twoSlopeRepair a b` | `(ℕ → Segment) × (ℕ → Segment)`（**乘积**） |
+| `linearRepair a b` | `ℚ`（精确判据） |
+| `epsLinearRepair a b ε` | `ℚ`（**ε-判据**，死区） |
+
+**⇒ **只有一对共享载体**（`ℚ` 上的两个），而那一对**已在第 1147 轮被定理连上**。**
+
+**⇒ 其余三个**不能互相退化**，因为**类型不同**——而这不是缺口：它们回答**不同载体**上的问题。**
+
+**⇒ 另外查实：`twoSlopeRepair` 的**分量事实**已由 `repairProd_fix` / `repairProd_measure` / `repairProd_sat` 提供，
+⇒ 故「对角版」只会是**重述**。⇒ **查了，没写**。**
+
+**⇒ 本节把这些写进 `REPAIR-CENSUS.md`：一个只数数目的普查，看不出一件数不出来的事——**可比性取决于载体**。**
