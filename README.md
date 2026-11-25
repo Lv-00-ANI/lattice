@@ -65,6 +65,7 @@
 > 证明债务 → [`PROOF-DEBT.md`](PROOF-DEBT.md)；
 > 独立结构测量 → [`MACRO-STATUS.md`](MACRO-STATUS.md)；
 > **编译器层（符号 ⇄ 权重的一个完整实现：能力表 / 任意度数 / 产物 / 闭环）→ [`DELIVERY-COMPILER-LAYER.md`](DELIVERY-COMPILER-LAYER.md)**。
+> **下一阶段三条路线（含成本、判据、风险）→ [`NEXT-STAGE.md`](NEXT-STAGE.md)**。
 
 > **设计与证明阅读顺序**：
 > 总设计 → [`DESIGN.md`](DESIGN.md)；
