@@ -19,8 +19,8 @@ copy	Core/IR/Semantics.lean	parse_var_tensors_length
 copy	Core/IR/Skeleton.lean	find_id_eq_some_of_nodup_shape
 copy	Core/RepairModule/Repair.lean	preserves
 copy	Core/RepairModule/RepairWF.lean	preserves_of_sat
-copy	Core/RepairModule/VariableDerivative.lean	lowDeg_affine
-copy	Core/RepairModule/VariableDerivative.lean	lowDeg_zero_of_const
+copy	Core/RepairModule/VariableDerivativeQuadratic.lean	lowDeg_affine
+copy	Core/RepairModule/VariableDerivativeQuadratic.lean	lowDeg_zero_of_const
 copy	Evidence/VerdictLattice.lean	kindInf_le_left
 copy	Evidence/VerdictLattice.lean	kindInf_le_right
 copy	Evidence/VerdictLattice.lean	kindLe_sup_left

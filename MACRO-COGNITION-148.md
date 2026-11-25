@@ -25,7 +25,7 @@
 | **CInterface** | **5** | **41** |
 | **Primitives** | **4** | **31** |
 | **Usage** | **1** | **0** |
-| **合计** | **1,120** | **10,061** |
+| **合计** | **1,124** | **10,061** |
 
 **观察：`Lib` 占 74% 的定理，`Core`（CIC 载体）只有 128 条。**
 **⇒ 项目的证明重量仍在**旧的 Lib 层**，而不是新的载体。**
@@ -43,7 +43,7 @@
 | **`subst_shift_law`** | **`Core/CIC/Substitution.lean`** |
 | **`reduction_is_oriented`** | **`Core/CIC/Reduction.lean`** |
 
-**⇒ 树自身只承认两条未证义务。这个数字是**可信**的，因为 `I2 no sorry` 与 `I6 holes registered` 都在门禁里。**
+**⇒ 树自身只承认两条未证义务。这个数字是**可信**的，因为 `I2 no sorry` 与 `I7 holes registered` 都在门禁里。**
 
 ---
 
@@ -60,7 +60,7 @@
 | **H1 P1 去重** | **✅** | **`Plugins/Registry.lean` 存在，别名普查 `new 0`** |
 | **H2 P2 语义重组** | **❌ 未开始** | **`Semantics/Spec/Registry.lean` 不存在** |
 | **H3 P3 层迁移** | **❌ 未开始** | **`Runtime/Spatiotemporal` 不在应到位置** |
-| **P0–P6（旧）** | **✅ 基本完成** | **11 个插件、`ProofComplete` 23 合取项** |
+| **P0–P7（旧）** | **✅ 基本完成** | **11 个插件、`ProofComplete` 23 合取项** |
 | **E1–E5 工程** | **❌ 未开始** | **`CInterface/FormatAdapter.lean` 无；无 `lattice-c`** |
 
 **⇒ 21 个阶段中：5 个完成，2 个部分完成，14 个未开始。**

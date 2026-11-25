@@ -35,11 +35,11 @@
 > 其中“83% 模块按构造不可能端到端”是旧判断，已按内容重测推翻；现在约 20% 定理跨 ≥2 层。
 > 它还把「语义信息」定义为语义域上的行为/符号/几何对应关系，并给出约束几何 → 程序语义 → 隐空间几何的三阶段路线。
 >
-> **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §6`）：
+> **状态**（下列数字全部由门禁守卫，见 `CONVENTIONS §7`）：
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1120 | `audit_counts.py` |
+> | Lean 模块 | 1124 | `audit_counts.py` |
 > | 定理 / 引理 | 10300 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | 23 / 0 / 4 / 66 / 99 / 625 | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
@@ -97,7 +97,7 @@
 | **582 个影子副本**：`zero/Zero/Reference/Legacy`(437) 与 `_archive/LegacyConflicted`(146) 是 `lean/` 的改名副本，逐行比对**内容差异为 0** | **不复制**。同一源码只有一处。 |
 | **581 条 roots 显式列举**，两次合并必冲突；25 个文件不在构建里 | **roots = 1**（聚合入口 `Lattice`），按层聚合 |
 | **521 个文件共用 `namespace Lattice`**，30 组限定名冲突，`Lattice::Expr` 出现在 4 个文件 | 命名空间承载分层：`Lattice.<层>.<领域>.<模块>`，冲突组按模块隔离 |
-| **治理靠人写的 1.97 MB 登记表**，可漂移且无门禁 | 未证但承重的命题写成显式前提 + `Lattice/Slots.lean` 登记，由 `gov/gate.py` 的 I6 机械检查 |
+| **治理靠人写的 1.97 MB 登记表**，可漂移且无门禁 | 未证但承重的命题写成显式前提 + `Lattice/Slots.lean` 登记，由 `gov/gate.py` 的 I7 机械检查 |
 
 第一代的两个工程（`lattice/lean`、`lattice/zero`）**保留、未删除、仍可构建**，作为回退基线。
 
@@ -182,7 +182,7 @@ lattice-new/
 ├── lean-toolchain          # leanprover/lean4:v4.14.0
 ├── Lattice.lean            # 唯一公开聚合入口
 ├── Lattice/
-│   ├── Core/       175       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
+│   ├── Core/       179       # 语言层：语法 / 语义 / 满足关系 / 修复 / 权重接口 / CIC / ArchParams
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
@@ -217,9 +217,9 @@ lattice-new/
 1. `Lattice/Core` 不得 import 任何上层；
 2. 同一语义概念只允许一处定义（I3）；
 3. `Lattice/Lift` 只组合，不新增语义（I4）；
-4. `Lattice/Slots` 只声明命题，不证明命题（I6）；
+4. `Lattice/Slots` 只声明命题，不证明命题（I7）；
 5. **内核**中任何 `axiom` / `sorry` / `admit` / `opaque` 为 0（I1、I2）；
-6. 标为 `EndToEnd` 的定理必须真的用到它声称连接的每一层（I5）。
+7. 标为 `EndToEnd` 的定理必须真的用到它声称连接的每一层（I5）。
 
 > **「逃逸为 0」的精确范围（第 57 轮补注）**：上述 I1/I2 覆盖**内核**——
 > `Lattice/` 下除 `Reference/` 外的全部模块，加上仓库根的 7 个根模块。
@@ -373,7 +373,7 @@ lattice-new/
 
 > **补充（2026-11-15）**：“组合子只在 `Compose`”指**官方组合**。插件可以自带组合——组合是能力的一部分，不需要绕道 `Compose/`。`Compose/` 的价值是**官方认可的每一条链路都在那里有一条对应的组合定理**，以及端到端默认演示的所在地。详见 [`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md) 附录 M。
 
-### 3.6 证明强度：有定理 ≠ 证明完成
+### 3.7 证明强度：有定理 ≠ 证明完成
 
 Lean 只检查“定理是真的”，不检查“它有多强”。本项目把强度单独登记：
 
@@ -452,7 +452,7 @@ Lattice/Plugins/<Layer>/<Name>/
 ```lean
 def ProofComplete : Prop :=
   T0_construct ∧ T1_compile ∧ T2_penalty ∧ T3_extract ∧ T4_repair ∧
-  T5_recovery ∧ T6_spatial ∧ T7_confluence ∧ T8_failure ∧
+  T5_recovery ∧ T7_spatial ∧ T7_confluence ∧ T8_failure ∧
   PluginRegistryComplete
 ```
 
@@ -478,7 +478,7 @@ cd gov && python verify_all.py
 > 活树 `gate.py` 可以绿；**干净 checkout 的 I7 仍可能红**（无 `.olean`）。
 > 仓库无 remote，CI 仍未真实运行。
 
-**实测耗时**（本机，2026-10-25）：全量 `verify_all.py` **PASS，43/43 ok（6.1 分钟）**。
+**实测耗时**（本机，2026-10-25）：全量 `verify_all.py` **PASS，43/43 ok（7.1 分钟）**。
 最重的一项是 `reactivity: gate`（约 200 秒，它要连跑四次构建来验证门禁确实会红），
 其次 `audit: islands` / `audit: reachable` 这类全树遍历。
 `gate.py` 本身约 20 秒（803 个文件的注释剥离与声明扫描）。
@@ -579,7 +579,7 @@ HEAD 等于该 rev，并用 `grep -qE '^error' build.log` 把构建错误变成 
 rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，不带任何 rev）。
 它指向的目录仍是 `../lattice/lean/.lake/packages/mathlib`，所以本机构建不联网、不重编。
 **（代价）**：换一台机器需要 `lake update` 下载 mathlib（约 4.2 GB）——这一点无法回避，
-包总得从某处来。实测见 `ROADMAP-v3.md` P6。
+包总得从某处来。实测见 `ROADMAP-v3.md` P7。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
 `verify_all.py` 注册了 **126 项**检查：**99 项**能失败的**门禁**，21 项**报告器**（它们的退出码不是判决，见上文 (a)）。
@@ -622,7 +622,7 @@ PROCESS 的判据表，属于证明层的工作），仅在此标注。
 
 ---
 
-## 6. 与第一代的分工
+## 7. 与第一代的分工
 
 | | 第一代 | 本库 |
 |:--|:--|:--|
@@ -646,7 +646,7 @@ PROCESS 的判据表，属于证明层的工作），仅在此标注。
 | G3 | 逆向四步 | ✅ |
 | G4 | 闭环收敛 | ✅（**注意**：`parse_loop_rejects_then_accepts`（`Core/IR/Semantics.lean`） 的度量是「修一次即归零」，未表达多次迭代） |
 | G5 | 符号引擎 | ✅ |
-| G6 | 不绑定框架 | ✅（依赖事实，非定理；**但该事实目前不可在他机复现**，见 §4.2(e)） |
+| G7 | 不绑定框架 | ✅（依赖事实，非定理；**但该事实目前不可在他机复现**，见 §4.2(e)） |
 | G7 | lvLang→IR→Cv00→权重 | ⚠️ **原文路线断；IR→权重路线通**（见 §3.1） |
 | G8 | 四条靶定理 | ⚠️ T1/T3/T4 有载体；**T2「精确嵌入」已证否，改走逼近精确**（见 §3.3） |
 | G9 | 可逆性分层 | ✅ |

@@ -816,8 +816,8 @@
 | `Core/IR/Skeleton.lean` | `find_id_eq_some_of_nodup_shape` |
 | `Core/RepairModule/Repair.lean` | `preserves` |
 | `Core/RepairModule/RepairWF.lean` | `preserves_of_sat` |
-| `Core/RepairModule/VariableDerivative.lean` | `lowDeg_affine` |
-| `Core/RepairModule/VariableDerivative.lean` | `lowDeg_zero_of_const` |
+| `Core/RepairModule/VariableDerivativeQuadratic.lean` | `lowDeg_affine` |
+| `Core/RepairModule/VariableDerivativeQuadratic.lean` | `lowDeg_zero_of_const` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_left` |
 | `Evidence/VerdictLattice.lean` | `kindInf_le_right` |
 | `Evidence/VerdictLattice.lean` | `kindLe_sup_left` |
