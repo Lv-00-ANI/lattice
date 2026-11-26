@@ -177,6 +177,7 @@ python chain_connectors.py --provenance  # 接缝活跃度（§2.4、§5）
 python check_doc_freshness.py            # 全树数字与文档的一致性
 python check_delivery_claims.py --check  # 本文每个反引号标识符都必须是一处声明
 python check_clause_pairs.py              # §3.2 的四个口径之一（只报告）
+python check_self_claims.py --check      # 自述性声明（「本文件零声明」）必须与事实一致
 python -c "import sys; sys.path.insert(0,'gov'); import gen_objective_map as G, chain_connectors as C; print(len(G.END_OF_CHAIN), len(C.TERMINAL_CONNECTORS), C.UNREGISTERED_BUDGET)"   # §3.1 的三个数
 ```
 
