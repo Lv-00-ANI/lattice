@@ -94,6 +94,38 @@ STAGES = [
 #: rule that demanded all of them at once could not be adopted -- the 1.4->3.2 seam alone has 17, and writing
 #: seventeen unread reasons is exactly the invention this file's disciplines forbid. A budget makes the state
 #: visible and monotone instead of pretending it is empty.
+#: **Statements added in this session that are terminal BY DESIGN but sit on no adjacent seam.**
+#:
+#: `TERMINAL_CONNECTORS` above governs seam connectors only -- the gate asks for a reason exactly where the eight-stage
+#: chain has a joint. Round 1160 measured this session s own theorems and found eight of eleven with ZERO chain
+#: consumers, six of which the seam registry cannot cover because they are not connectors.
+#:
+#: A dead theorem outside a seam still needs its reason written down, otherwise the discipline holds only where a tool
+#: happens to look. This dict is that record. It changes no gate -- nothing here can fail -- and its only purpose is
+#: that the reason lives in the tree rather than in a round s notes.
+SESSION_TERMINAL = {
+    "epsLinearRepair_sat_is_epsSat":
+        "THE criterion identity: the dead-zone repair s Sat is EpsSat. Terminal because a criterion identity is what "
+        "the chain cites; nothing composes it into a next step.",
+    "epsLinearRepair_zero_is_linearRepair":
+        "the DEGENERATION: at epsilon = 0 the epsilon repair is the exact one. Terminal because it relates two "
+        "objects rather than taking a step.",
+    "sound_not_exact_gives_epsilon_gap":
+        "the GAP, constructed: sound_not_exact s witness satisfies EpsSat while its constraint fails. It IS the "
+        "8->3.2 bridge and is consumed inside its own file; terminal downstream because reading it is a decision.",
+    "epsSat_passing_is_not_correctness":
+        "the existential form of that gap. Terminal because it is a WARNING -- a fact a reader must know before "
+        "trusting a tolerance verdict.",
+    "layerPenalty_sound":
+        "the INSTANCE: the layer world satisfies PenaltySound. Terminal because an instance is a place, not a step.",
+    "twoSlopeLoop_run_components":
+        "the component description of the loop s run. Terminal: iterate already defines the run, and this only says "
+        "how it splits across the product.",
+    "closed_loop_reinject_within":
+        "the TOLERANCE form of re-injection. Consumed in its own file by the derivation back to the epsilon = 0 case; "
+        "terminal beyond that.",
+}
+
 UNREGISTERED_BUDGET = 0
 
 TERMINAL_CONNECTORS = {
@@ -364,7 +396,14 @@ def main():
     ap.add_argument("--provenance", action="store_true",
                     help="report how many connectors of each adjacent link predate the last K commits")
     ap.add_argument("--recent", type=int, default=30, help="K for --provenance (default 30)")
+    ap.add_argument("--session", action="store_true",
+                    help="report this session s terminal statements (report only, exit 0)")
     args = ap.parse_args()
+    if args.session:
+        print("  statements terminal by design, on no adjacent seam: %d" % len(SESSION_TERMINAL))
+        for name, why in sorted(SESSION_TERMINAL.items()):
+            print("    %-46s %s" % (name, why[:70]))
+        return 0
 
     if args.self_test:
         bad = 0
