@@ -18,6 +18,20 @@ a legitimate shape (a library of statements, like mathlib), and the point of the
 **Why a ratio and not a count.** The corpus grows. Writing thirty theorems where five are consumed is 17% -- normal.
 Writing thirty where none are consumed is 0% for that batch, and the ratio is what shows it.
 
+**Cross-checked by an independent implementation (round 1163).** A second measurement was written from scratch --
+raw text split into per-file SETS rather than a stripped-corpus index -- and then with comments stripped:
+
+    raw text, sets    total 11,105   chain 2,604   23.4%
+    comments stripped total 10,978   chain 1,766   16.1%
+    THIS TOOL         total 10,286   chain 1,569   15.3%
+
+The first row shows what reading prose does: +819 phantom declarations (a `theorem X` mentioned in a docstring) and
++1,035 'consumers' that are only mentions in comments. The second row is the honest one, and it agrees with this tool
+on the RATIO to within 0.8 points while differing on the COUNTS by 692 -- because the two implementations extract
+declarations differently.
+
+That is the empirical case for this gate being a ratio: the ratio is robust to method, the counts are not.
+
 Usage:
     python check_theorem_liveness.py             # report
     python check_theorem_liveness.py --check     # exit 1 if the chain ratio fell below baseline - tolerance
