@@ -8,48 +8,48 @@ obligations:
   - name: slot_weight_lt_bias
     kind: exactness
     theorem: slotOf_weight_lt
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: slot_within_block
     kind: exactness
     theorem: slotOf_lt_bound
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: bias_slot_is_row_a
     kind: laws
     theorem: bias_slot_eq_slotOf
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: one_layer_weight_readable
     kind: exactness
     theorem: oneLayerPolyNat_coeff_weight
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: step_weight_readable
     kind: exactness
     theorem: stepNat_coeff_weight
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: step_bias_positional
     kind: soundness
     theorem: stepNat_coeff_bias
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: single_chain_weight_readable
     kind: exactness
     theorem: chainNatPoly_single_coeff_weight
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: slot_zero_dead_past_two
     kind: soundness
     theorem: stepNat_coeff_zero_irrelevant
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: foldl_slot_zero_preserved
     kind: soundness
     theorem: foldl_coeff_zero_irrelevant
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: per_slot_extraction_sound
     kind: soundness
     theorem: stepNat_coeff_other_slot
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: intermediate_poly_readable
     kind: exactness
     theorem: chainNatPolyAfter_one_coeff
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean
   - name: deep_chain_final_slot_dead
     kind: soundness
     theorem: chainNatPoly_deep_coeff_zero
-    file: Core/RepairModule/VariableDerivativeDifference.lean
+    file: Lattice/Core/RepairModule/VariableDerivativeDifference.lean

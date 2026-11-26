@@ -134,40 +134,40 @@ def manifest : PluginManifest where
   obligations := [
     -- **Round 772: all twelve go through `verifiedObligation`, so each CARRIES its proposition.**
     verifiedObligation "slot_weight_lt_bias" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "slotOf_weight_lt" slotOf_weight_ltProp (by exact slotOf_weight_lt),
     verifiedObligation "slot_within_block" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "slotOf_lt_bound" slotOf_lt_boundProp (by exact slotOf_lt_bound),
     verifiedObligation "bias_slot_is_row_a" .laws
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "bias_slot_eq_slotOf" bias_slot_eq_slotOfProp (by exact bias_slot_eq_slotOf),
     verifiedObligation "one_layer_weight_readable" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "oneLayerPolyNat_coeff_weight" oneLayerPolyNat_coeff_weightProp (by exact oneLayerPolyNat_coeff_weight),
     verifiedObligation "step_weight_readable" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "stepNat_coeff_weight" stepNat_coeff_weightProp (by exact stepNat_coeff_weight),
     verifiedObligation "step_bias_positional" .soundness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "stepNat_coeff_bias" stepNat_coeff_biasProp (by exact stepNat_coeff_bias),
     verifiedObligation "single_chain_weight_readable" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "chainNatPoly_single_coeff_weight" chainNatPoly_single_coeff_weightProp (by exact chainNatPoly_single_coeff_weight),
     verifiedObligation "slot_zero_dead_past_two" .soundness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "stepNat_coeff_zero_irrelevant" stepNat_coeff_zero_irrelevantProp (by exact stepNat_coeff_zero_irrelevant),
     verifiedObligation "foldl_slot_zero_preserved" .soundness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "foldl_coeff_zero_irrelevant" foldl_coeff_zero_irrelevantProp (by exact foldl_coeff_zero_irrelevant),
     verifiedObligation "per_slot_extraction_sound" .soundness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "stepNat_coeff_other_slot" stepNat_coeff_other_slotProp (by exact stepNat_coeff_other_slot),
     verifiedObligation "intermediate_poly_readable" .exactness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "chainNatPolyAfter_one_coeff" chainNatPolyAfter_one_coeffProp (by exact chainNatPolyAfter_one_coeff),
     verifiedObligation "deep_chain_final_slot_dead" .soundness
-        "Lattice/Core/RepairModule/VariableDerivative.lean"
+        "Lattice/Core/RepairModule/VariableDerivativeDifference.lean"
         "chainNatPoly_deep_coeff_zero" chainNatPoly_deep_coeff_zeroProp (by exact chainNatPoly_deep_coeff_zero)
   ]
   version := ⟨1, 0, 0⟩
