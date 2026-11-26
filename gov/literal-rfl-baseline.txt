@@ -1,9 +1,9 @@
 Lattice/Core/ModelArtifactInstances.lean	affineTwoLayer_depth
 Lattice/Core/ModelArtifactInstances.lean	affineUnit_depth
-Lattice/Core/RepairModule/VariableDerivative.lean	layerParamCount_width_one
-Lattice/Core/RepairModule/VariableDerivative.lean	paramsCountExact_example
-Lattice/Core/RepairModule/VariableDerivative.lean	paramsCountExact_nil
-Lattice/Core/RepairModule/VariableDerivative.lean	paramsCount_nil
+Lattice/Core/RepairModule/VariableDerivativeParams.lean	paramsCountExact_example
+Lattice/Core/RepairModule/VariableDerivativeParams.lean	paramsCountExact_nil
+Lattice/Core/RepairModule/VariableDerivativeParams.lean	paramsCount_nil
+Lattice/Core/RepairModule/VariableDerivativeQuadratic.lean	layerParamCount_width_one
 Lattice/Evidence/CompositionAlgebra.lean	bridgedCount_empty
 Lattice/Lib/Architectures/TinyTransformer.lean	arch_depth
 Lattice/Lib/Architectures/TinyTransformer.lean	artifact_layer_count
