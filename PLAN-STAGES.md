@@ -3880,3 +3880,35 @@ epsLinearRepair_zero_is_linearRepair  -- 三者合取
 
 **⇒ 至此「可核对主张」这条线**收束**：四类已核对（零声明声称、并入声明、A1–A7 完整性、数学断言），
 ⇒ 第五类（数字）**判定为不该查**，且理由可核对。**
+### 3.120 **第 1160 轮：我自己的定理**也是死的**——而纪律不该取决于工具往哪里看**
+
+**⇒ 测本会话最后一批定理的链内消费者：**
+
+| 定理 | 链内 | 同文件 |
+|:--|--:|--:|
+| `extract_after_repair_weak` | **1**（`LayerRepair`） | 0 |
+| `sound_not_exact_gives_epsilon_gap` | 0 | 2 |
+| `closed_loop_reinject_within` | 0 | 1 |
+| 其余六条 | **0** | 0 |
+
+**⇒ **9 条里 8 条链内为 0**。⇒ 而其中六条**不在相邻接缝上**，故 `TERMINAL_CONNECTORS`（门禁只管接缝）**覆盖不到它们**。**
+**⇒ 即：**我自己的死定理处于未治理状态，而树的死定理都在治理之下。****
+
+#### 修法：**第二张**、独立的登记表
+
+**⇒ `chain_connectors.py` 新增 `SESSION_TERMINAL`（**7 条**，各带理由）+ `--session` 报告模式。**
+**⇒ 它**不改变任何门禁**（其中的条目**不可能失败**）——它的唯一用途是：**理由活在树里，而不是在某一轮的笔记里。**
+
+| 定理 | 终态理由 |
+|:--|:--|
+| `epsLinearRepair_sat_is_epsSat` | **判据同一**——链引用它，不复合它 |
+| `epsLinearRepair_zero_is_linearRepair` | **两个对象之间的关系**，不是一步 |
+| `sound_not_exact_gives_epsilon_gap` | **那条桥本身**，已在同文件内被消费 |
+| `epsSat_passing_is_not_correctness` | **一条警告**：读者在相信容差判据前必须知道 |
+| `layerPenalty_sound` | **实例是一个位置**，不是一步 |
+| `twoSlopeLoop_run_components` | `iterate` 已定义 run，这条只说它在乘积上怎么分 |
+| `closed_loop_reinject_within` | **容差形式**，已被其自身的 `ε = 0` 推导消费 |
+
+**⇒ 验证：`--check` ok、`--self-test` ok、`--session` 打印 7 条、**22 项门禁 0 失败**。**
+
+**⇒ 这条修正的意义：**纪律的适用范围不能由工具的盲区决定**。⇒ 工具看不到的地方，**人要把理由写下来**。**
