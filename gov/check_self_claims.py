@@ -61,12 +61,45 @@ def main(argv):
             if n:
                 bad.append((rel, n, m.group(0)[:60]))
 
+    # **Round 1157: a second class of self-claim, also mechanically checkable.**
+    # A docstring that records a MERGE -- "`X.lean` 已并入本文件" -- asserts that X no longer exists. That is a fact
+    # about the tree, so it can go stale exactly the way the "pure commentary" sentence did.
+    MERGE = re.compile(r"`([\w/]+\.lean)`\s*\u5df2\u5e76\u5165\u672c\u6587\u4ef6")
+    merge_claims, merge_bad = 0, []
+    for root, _, files in os.walk(LAT):
+        for f in files:
+            if not f.endswith(".lean"):
+                continue
+            p = os.path.join(root, f)
+            rel = os.path.relpath(p, LAT).replace(os.sep, "/")
+            src = io.open(p, "rb").read().decode("utf-8", errors="replace")
+            for m in MERGE.finditer(src):
+                merge_claims += 1
+                gone = m.group(1)
+                # The claim usually names a BARE filename, not a path -- so existence means "somewhere in the tree",
+                # not "at this joined path". Checking the join first made the test below pass while the claim was
+                # false, which is why the injected case was counted but not flagged.
+                base = os.path.basename(gone)
+                exists = os.path.exists(os.path.join(LAT, gone)) or os.path.exists(os.path.join(ROOT, gone))
+                if not exists:
+                    for r2, _, f2 in os.walk(LAT):
+                        if base in f2:
+                            exists = True
+                            break
+                if exists:
+                    merge_bad.append((rel, gone))
+
     print("  files that claim to carry no declarations : %d" % claimed)
     for rel, n, line in bad:
         print("      VIOLATION %-52s declares %d   (%s)" % (rel, n, line))
     print("  violations                                : %d" % len(bad))
-    if bad and "--check" in argv:
-        print("SELF CLAIMS: %d file(s) claim to carry no declarations and carry some" % len(bad))
+    print("  merge claims ('X.lean 已并入本文件')        : %d" % merge_claims)
+    for rel, gone in merge_bad:
+        print("      STALE MERGE %-50s says %s is merged, but it exists" % (rel, gone))
+    print("  stale merge claims                        : %d" % len(merge_bad))
+    if (bad or merge_bad) and "--check" in argv:
+        print("SELF CLAIMS: %d false declaration claim(s), %d stale merge claim(s)"
+              % (len(bad), len(merge_bad)))
         return 1
     return 0
 
