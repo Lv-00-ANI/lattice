@@ -5,6 +5,11 @@ import Lattice.Runtime.WeightToSymbolEquivalence
 /-!
 # LATTICE R-04：语义等价类的商 —— ⚠ **「穿过商单射」的两个读法，一对一假**
 
+**⇒ 本句可核对处（第 1158 轮逐条对照后加注）：**
+- **读法 A「朴素单射」为假** ⇒ `naive_injectivity_is_false`
+- **读法 B「下降映射单射」为真** ⇒ `semConv_injective`
+- **结构形式为真** ⇒ `structural_form_is_true`
+
 ## 0. 任务书原话
 
 > 构造 `Layer` 在语义等价下的商，并证明 `convertVec` 穿过该商是单射。
