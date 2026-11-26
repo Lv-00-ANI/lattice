@@ -35,7 +35,7 @@
 | `CInterface` | 5 | 41 |
 | `Primitives` | 4 | 31 |
 
-**合计：1112 模块 / 9,651 定理 / 12,1061 声明。**
+**合计：1124 模块 / 9,651 定理 / 12,1061 声明。**
 **gov 脚本 137 个，`verify_all` 126 项检查（99 门禁 + 21 报告）。**
 **否证清册 318 条；修复清册 B 层 63 / C 层 265。**
 
@@ -53,14 +53,14 @@
 | 编号 | 合取项 | 性质 |
 |:--|:--|:--|
 | 1-3 | `PluginRegistryComplete` / `¬ pluginCensusPending` / `RegistryMigratedFor` | **注册表** |
-| 4-6 | `t1_compile_sound_instance` / `t1_merge_sound_unrejected` / `t1_compile_sound_general` | **T1 编译可靠性** |
+| 4-7 | `t1_compile_sound_instance` / `t1_merge_sound_unrejected` / `t1_compile_sound_general` | **T1 编译可靠性** |
 | 7-8 | `t2_penalty_exact` / `t2_penalty_modulus` | **T2 惩罚** |
 | 9-12 | `t3_parameter_roundtrip` / `t3_compile_injective` / `t3_semantic_not_injective` / `t3_no_faithful_extractor` | **T3 逆向** |
 | 13-14 | `t4_repair_progress` / `t4_loop_converges` | **T4 修复** |
-| 15-18 | `t5_recovery` / `t6_spatial` / `t7_confluence` / `t8_failure_isolation` | **T5-T8 时空与容错** |
+| 15-18 | `t5_recovery` / `t7_spatial` / `t7_confluence` / `t8_failure_isolation` | **T5-T8 时空与容错** |
 | 19-20 | `ladder_end_to_end` / `verification_loop_closes` | **端到端与闭环** |
-| 21 | `CPhaseAdditions` | **C-1..C-6** |
-| 22 | `DPhaseAdditions` | **D-1/D-2/D-5/D-6** |
+| 21 | `CPhaseAdditions` | **C-1..C-7** |
+| 22 | `DPhaseAdditions` | **D-1/D-2/D-5/D-7** |
 
 ---
 
@@ -119,7 +119,7 @@ Lattice/Plugins/Architectures/DAG/
 
 - **T1-T8 全部**（编译可靠性、惩罚、逆向、修复、时空、容错）。
 - **端到端链与验证闭环。**
-- **C 阶段 6 项**：求解器读规格、T1 结论含 `R`、`g(δ)` 模数、T3 实例、T3 非空真、T4 第三义务。
+- **C 阶段 7 项**：求解器读规格、T1 结论含 `R`、`g(δ)` 模数、T3 实例、T3 非空真、T4 第三义务。
 - **D 阶段 4 项**：两个语义域、`V` 桥、非平凡语境几何、`sound` 非 `rfl`。
 - **8 个插件全部迁移，注册表完整。**
 
@@ -136,7 +136,7 @@ Lattice/Plugins/Architectures/DAG/
 
 ---
 
-## 6. 重新规划：后续优先级
+## 7. 重新规划：后续优先级
 
 ### P0：修正误导性文档（本轮完成）
 

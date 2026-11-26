@@ -1,9 +1,13 @@
-﻿# MODEL / WEIGHT SEMANTICS
+# MODEL / WEIGHT SEMANTICS
 
 ## 1. 范围
 
 本文件只定义 Lean 内的抽象模型/权重对象与语义关系。
 格式解析、文件 I/O、C、conformance 属于 `ENGINEERING.md`。
+
+**目标确认（2026-11-23）**：本设计覆盖模型与权重的行为语义，不止参数搬运或格式往返。CIC 经 IR 连接到模型架构与权重，正向转换、逆向提取、验证、修复及再注入须分别说明语义保持或显式误差保证。任意精度目标须声明目标类、输入域、误差度量和可增长资源，不预设固定模型规模，也不因局部不可逆反例取消该目标。
+
+本文件中的代码块是设计示意，不是完成声明。旧几何实例及过时路径的全库清理见 [设计目标对齐](DESIGN-ALIGNMENT.md) §4；几何不作为默认主线语义。
 
 ## 2. 抽象对象
 
@@ -23,8 +27,10 @@ structure ModelArtifact where
 ```lean
 def compile : IR → Weights
 def archOf  : Term → Arch
-def artifactOf (t : Term) : ModelArtifact :=
-  { arch := archOf t, weights := compile t }
+-- 示意：假设 parse : Term → Option IR；解析失败显式保留。
+def artifactOf (t : Term) : Option ModelArtifact := do
+  let ir ← parse t
+  pure { arch := archOf t, weights := compile ir }
 ```
 
 几何侧的 `Pt n → Weights` 保留为一条 Domain 实例路径

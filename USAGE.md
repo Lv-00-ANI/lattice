@@ -126,7 +126,7 @@ converges_within natRepair n :  natRepair.Sat (natRepair.iterate (natRepair.μ n
 
 ---
 
-## 6. 加一个新约束类型，要做四件事
+## 7. 加一个新约束类型，要做四件事
 
 以给 `GeoConstraint` 加 `Foo` 为例：
 
@@ -198,7 +198,7 @@ approxHoldsEqZero_sound : approxHoldsEqZero T e pts = true -> |evalC e pts| <= T
 ℝ→`Float` 的舍入误差**依赖具体数值**，不存在一个常数容差使它成立。
 
 ⇒ **记分卡的「可执行边界」只算部分达标**，因为可执行轨道存在但只单向可靠。
-详细论证见 `STATE-FINAL §3.6.2`。
+详细论证见 `STATE-FINAL §3.7.2`。
 
 ### 7.4 三个必须知道的限制
 
@@ -289,9 +289,9 @@ lake build Lattice.Usage.Examples
 
 ---
 
-## 6. 新类型用法（2026-11-02）
+## 7. 新类型用法（2026-11-02）
 
-### 6.1 构造
+### 7.1 构造
 
 ```text
 Spec → Constraints → Solve → Params → ModelArtifact
@@ -299,7 +299,7 @@ Spec → Constraints → Solve → Params → ModelArtifact
 
 只对 `ExpressibleSpec`；不是梯度训练。
 
-### 6.2 导入
+### 7.2 导入
 
 ```text
 RawModel → FormatAdapter.parse → ModelArtifact
@@ -307,7 +307,7 @@ RawModel → FormatAdapter.parse → ModelArtifact
 
 格式解析属于工程；失败返回 `none`，不静默降级。
 
-### 6.3 变换
+### 7.3 变换
 
 ```text
 ModelArtifact → edit / merge / quantize / repair → ModelArtifact
@@ -317,7 +317,7 @@ ModelArtifact → edit / merge / quantize / repair → ModelArtifact
 - irreversible 必须显式 commit；
 - 证书绑定 provider 与 artifact。
 
-### 6.4 导出
+### 7.4 导出
 
 ```text
 ModelArtifact → FormatAdapter.export → RawModel
@@ -325,7 +325,7 @@ ModelArtifact → FormatAdapter.export → RawModel
 
 导出是 emission：不可逆，只能版本化/补偿。
 
-### 6.5 新增插件
+### 7.5 新增插件
 
 ```text
 Lattice/Plugins/<Layer>/<Name>/
