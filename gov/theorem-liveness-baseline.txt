@@ -1,0 +1,7 @@
+# theorem-liveness baseline -- written by check_theorem_liveness.py --write
+# only `chain` gates: the CHAIN-CONSUMED RATIO may not fall below baseline - tolerance
+total=10286
+chain=1569
+in_file=3445
+nowhere=5272
+tolerance_points=2
