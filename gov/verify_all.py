@@ -274,6 +274,10 @@ CHECKS = [
     # modules" agreed by coincidence; this makes the coincidence unnecessary.
     # **W0-3f GATE-3: what the tools do to the tree and the docs.** W0-3c hand-verified six generators; this
     # keeps them compared-rather-than-overwritten, keeps every .bak ignored, and keeps section 6 runnable.
+    # **Phase 3 ADR-E, measured first: ZERO vacuous claims exist today, so this is prevention, not repair.**
+    # The type-level `ProofFieldOf` mapping the plan proposes covers the same sentence; this gate costs thirty
+    # lines and fires the moment a plugin claims a slot that says nothing.
+    ("plugins: no vacuous claim", "check_plugin_claims.py"),
     ("meta: artifacts and commands intact", "check_artifact_integrity.py"),
     ("meta: counts have one home", "check_single_source_counts.py"),
     ("meta: every gate can fail", "check_gate_default_failure.py"),

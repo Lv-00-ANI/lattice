@@ -44,7 +44,7 @@
 > | 层文件数 Core/Lift/Domains/Geo/Lib | **179** / **0** / **0** / **0** / **689** | `audit_counts.py` |
 > | 同上（第 1185 轮校正） | 旧值 `23 / 0 / 4 / 66 / 99 / 625` 是**五个标签对**六个数**，且其中四个描述的目录（`Lift`/`Domains`/`Geo`）**已不存在** | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
-> | 检查器注册项 | **129**（107 门禁 + 22 报告器） | `check_usage_claims.py` |
+> | 检查器注册项 | **130**（107 门禁 + 22 报告器） | `check_usage_claims.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
 > | **永久边界** | **4** | 同上；因数学事实、外部工具链或需库外语料，本库无法关闭 |
 > | 已登记否证 | 374 | `check_refutation_census.py`（**自第 1184 轮起它也读本行**；此前 284 无人看守） |
@@ -199,7 +199,7 @@ lattice-new/
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
 │       └── LvFormal/  103  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
-├── gov/                    # 门禁与审计（8 条不变量 + 129 项检查 + 反应性自检）
+├── gov/                    # 门禁与审计（8 条不变量 + 130 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
 ```
@@ -410,7 +410,7 @@ C 不是不做，是**最后做**。
 
 C 在新架构中是**后续系统插件**，位于 `systemRegistry`，不进入 `ProofComplete`；若将来要进入证明，必须先补 C 形式语义。
 
-> **补充（2026-11-15）**：当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。因此 `SEMANTICS-MAINLINE.md §7.1` 的 12 个 `lattice_*`（标准 C 命名）在 Lean 树里 **0/12 存在**并非缺陷，是路线选择的结果。`CInterface/ABI.lean:117-129` 的 `abiTable` 的 11 个 primitive 才是内部语言的内置函数表。
+> **补充（2026-11-15）**：当前只实现了 **CIC 内核的 C 实现**；其余部分是 **CIC 内核自我构造的内部语言**，严格来说不是标准 C ABI。因此 `SEMANTICS-MAINLINE.md §7.1` 的 12 个 `lattice_*`（标准 C 命名）在 Lean 树里 **0/12 存在**并非缺陷，是路线选择的结果。`CInterface/ABI.lean:117-130` 的 `abiTable` 的 11 个 primitive 才是内部语言的内置函数表。
 >
 > 另：自举链（[`PLUGIN-SYSTEM.md`](PLUGIN-SYSTEM.md) 附录 I）服务于内部构造语言，不是外部 Lean 插件装载——见其附录 N §N.3。
 
@@ -472,11 +472,11 @@ lake build Lattice
 # 8 条不变量
 cd gov && python gate.py
 
-# 全套 129 项检查 + 反应性自检（逐项打印耗时）
+# 全套 130 项检查 + 反应性自检（逐项打印耗时）
 cd gov && python verify_all.py
 ```
 
-> 当前 `verify_all.py` 注册 **129 项**检查（含门禁与报告器；报告器退出码不是判决）。
+> 当前 `verify_all.py` 注册 **130 项**检查（含门禁与报告器；报告器退出码不是判决）。
 > 活树 `gate.py` 可以绿；**干净 checkout 的 I7 仍可能红**（无 `.olean`）。
 > 仓库无 remote，CI 仍未真实运行。
 
@@ -584,7 +584,7 @@ rev 因此成为**可提交、可检查的事实**（此前是 `type: path`，�
 包总得从某处来。实测见 `ROADMAP-v3.md` P7。
 
 **（f）文档里出现的每个数字都必须可被机器核对。**
-`verify_all.py` 注册了 **129 项**检查：**107 项**能失败的**门禁**，21 项**报告器**（它们的退出码不是判决，见上文 (a)）。
+`verify_all.py` 注册了 **130 项**检查：**108 项**能失败的**门禁**，21 项**报告器**（它们的退出码不是判决，见上文 (a)）。
 
 `gov/audit_counts.py` 把 README 里写的计数与实测比对，不一致即失败。它核对的两项是：
 
