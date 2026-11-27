@@ -161,10 +161,34 @@ def escape_entries():
         return None
 
 
+#: **W0-3e (round 1177): LvFormal moved to the repository root's `archive/`, so the old path is gone.**
+#: The check printed "cannot measure" and was skipped; a measurement that cannot find its object is a defect, not a
+#: neutral outcome, so the fallback order is explicit and absence returns -1 (a mismatch).
+LVFORMAL_DIRS = (os.path.join(ZERO, "archive", "LvFormal"), os.path.join(Z, "Reference", "LvFormal"))
+
+
+def _lvformal_dir():
+    for d in LVFORMAL_DIRS:
+        if os.path.isdir(d):
+            return d
+    return None
+
+
+def lvformal_files():
+    d = _lvformal_dir()
+    if d is None:
+        return -1
+    n = 0
+    for root, dirs, fs in os.walk(d):
+        dirs[:] = [x for x in dirs if x != ".lake"]
+        n += len([f for f in fs if f.endswith(".lean")])
+    return n
+
+
 def lvformal_missing_imports():
-    base = os.path.join(Z, "Reference", "LvFormal")
-    if not os.path.isdir(base):
-        return None
+    base = _lvformal_dir()
+    if base is None:
+        return -1
     files = []
     for root, dirs, fs in os.walk(base):
         dirs[:] = [d for d in dirs if d != ".lake"]
@@ -198,6 +222,7 @@ def main():
         "ref": lean_count(os.path.join(Z, "Reference")),
         "esc": escape_entries(),
         "lvf": lvformal_missing_imports(),
+          "lvf_files": lvformal_files(),
     }
 
     # Each pattern captures the number the README claims, next to its own description.
@@ -214,7 +239,7 @@ def main():
         ("Domains 模块数", r"Domains/\s+(\d+)", "domains"),
         ("几何层模块数", r"Geo/\s+(\d+)", "geo"),
         ("Lib 模块数", r"Lib/\s+(\d+)", "lib"),
-        ("LvFormal 文件数", r"LvFormal/\s+(\d+)", "ref"),
+        ("LvFormal 文件数", r"LvFormal/\s+(\d+)", "lvf_files"),
         ("escape 基线条目", r"\*\*(\d+)\*\* 处历史逃逸", "esc"),
         ("LvFormal 缺失依赖文件数", r"\| LvFormal 缺失依赖文件数 \| \*\*(\d+)\*\* 个文件", "lvf"),
     ]

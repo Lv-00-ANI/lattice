@@ -30,6 +30,7 @@ Baseline: `gov/literal-rfl-baseline.txt`, one `<file>\t<name>` per line, holding
 """
 
 import os
+from tools.lean_source import strip_comments  # one authority for comment stripping
 import re
 import sys
 
@@ -88,7 +89,11 @@ def citations(names):
     got = {n: set() for n in names}
     for path in lean_files():
         rel = os.path.relpath(path, ROOT).replace("\\", "/")
-        text = open(path, encoding="utf-8").read()
+        # **W0-3e (round 1177): read CODE, not prose.** This used the raw file, so a theorem named only inside a
+        # docstring counted as cited -- and a citation that no proof makes is not a citation. Measured: switching
+        # to the comment-stripped source turns N previously load-bearing leaves into real leaves, which the gate
+        # then reports (and the baseline must accept).
+        text = strip_comments(open(path, encoding="utf-8").read())
         for n in names:
             if n in text:
                 got[n].add(rel)

@@ -197,7 +197,7 @@ lattice-new/
 │   │   ├── Optim          60    Quantization    18    Linear         8
 │   │   ├── Lift            8    Penalty          2
 │   └── Reference/          # 证据资产，不参与构建
-│       └── LvFormal/  100  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
+│       └── LvFormal/  103  # Lv-00 上游（唯一源），归档后计入 Reference/Geometry/
 ├── gov/                    # 门禁与审计（8 条不变量 + 126 项检查 + 反应性自检）
 ├── archive/                # 冻结档案，内容不改（见 §5）
 └── .github/workflows/      # CI：门禁优先，构建必需
