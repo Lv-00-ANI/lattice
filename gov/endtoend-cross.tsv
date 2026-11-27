@@ -2341,7 +2341,6 @@ Lib/Editing/RealCompileExtractClosed.lean	extraction_not_unique
 Lib/Editing/RealCompileExtractClosed.lean	canonical_form_closed
 Lib/Editing/RealCompileExtractClosed.lean	honesty_register
 Lib/Editing/RealCompileExtractClosed.lean	closed_loop_dot_representation_unambiguous
-Lib/Editing/RealConstraintEdit.lean	dot_replicate_zero_any
 Lib/Editing/RealConstraintEdit.lean	foldl_add_general
 Lib/Editing/RealConstraintEdit.lean	dot_append_sub
 Lib/Editing/RealConstraintEdit.lean	dot_append_additive_iff
@@ -3904,7 +3903,6 @@ Runtime/LadderClosure.lean	run_eq
 Runtime/LadderClosure.lean	run_sound
 Runtime/LadderClosure.lean	run_reaches_symbol
 Runtime/LadderClosure.lean	ladder_end_to_end_holds
-Runtime/LayerComposition.lean	dot_replicate_zero
 Runtime/LayerComposition.lean	dot_replicate_zero_any
 Runtime/LayerComposition.lean	layerOut_zero_input
 Runtime/LayerComposition.lean	constraint_satisfaction_propagates

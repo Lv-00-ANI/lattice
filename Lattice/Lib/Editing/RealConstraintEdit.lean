@@ -2,6 +2,7 @@ import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Runtime.WeightToSymbolEquivalence
+import Lattice.Runtime.LayerComposition
 import Lattice.Lib.Editing.RealCompileExtractClosed
 /-!
 # LATTICE E-07: 符号侧编辑的定义（`EditConstraint`）
@@ -155,23 +156,11 @@ def EditConstraint (cs cs' : ConstraintSet) : Prop :=
 `EditConstraint` 的语义内容在于：编辑后每个约束的**满足值**相对编辑前有一个
 **可计算**的偏移 δ，而 δ 只由编辑数据与本点输入决定。
 
-下面先补一条 `dot` 的基本引理（`ConvertVectorLinear` **未**单列它），它是整个闭式的地基。 -/
+下面先补一条 `dot` 的基本引理（`ConvertVectorLinear` **未**单列它），它是整个闭式的地基。
 
-/-- **点积对第二参数在 `replicate` 上的零性**（`List` 版，任意长度）。
-
-⚠ 与 `LayerComposition.dot_replicate_zero_any` **重复**：该引理已存在于
-`LayerComposition:51`。本文件**不 import** `LayerComposition`（它需要额外 import 链），
-故此处**重述**该引理。**诚实标注**：这是**已知的重复**，
-理想做法是从 `LayerComposition` 复用——留待 §7 记录。 -/
-lemma dot_replicate_zero_any (w : List Int) (n : Nat) :
-    dot w (List.replicate n 0) = 0 := by
-  unfold dot
-  induction w generalizing n with
-  | nil => simp [List.foldl, List.zip, List.replicate]
-  | cons h t ih =>
-      cases n with
-      | zero => simp [List.foldl, List.zip, List.replicate]
-      | succ m => simpa [List.foldl, List.zip, List.replicate] using ih m
+**⇒ 第 1178 轮（W0-1）：本节原本在这里重述 `dot_replicate_zero_any`，理由是「本文件不 import
+`LayerComposition`」。⇒ 该理由已不成立：`Lib → Runtime` 是向下（`Lib` 秩 3、`Runtime` 秩 2），
+且 `LayerComposition` 只依赖 `Runtime`/Mathlib，**不成环**。⇒ 故副本已删除，改为**唯一权威**。** -/
 
 /-- **δ 的闭式**：第 `i` 行系数增量 `daw i` 对满足值的贡献 `dot (daw i) x`，
 加上常数增量 `db i`。

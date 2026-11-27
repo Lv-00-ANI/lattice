@@ -2,6 +2,7 @@ import Mathlib
 import Lattice.Lib.Attention.RealRoPE
 import Lattice.Lib.Attention.RealALiBi
 import Lattice.Lib.Attention.RealRelPosEncoding
+import Lattice.Lib.Attention.RealRoPEExtrapolation
 /-!
 # LATTICE: 绝对位置编码（sin/cos 型）—— 有界、平滑、奇偶与三角相对位置
 
@@ -55,48 +56,7 @@ namespace Lattice
 
 /-! ## 工具：sin/cos 的 Lipschitz 界（mathlib 4.14 未直接提供） -/
 
-/-- sin 的 1-Lipschitz 界：`|sin x − sin y| ≤ |x − y|`
-（和差化积 + `|sin t| ≤ |t|` + `|cos t| ≤ 1`）。 -/
-lemma abs_sin_sub_sin_le (x y : ℝ) : |Real.sin x - Real.sin y| ≤ |x - y| := by
-  rw [Real.sin_sub_sin]
-  have h2 : (0 : ℝ) ≤ 2 := by norm_num
-  have hsin : |Real.sin ((x - y) / 2)| ≤ |(x - y) / 2| := Real.abs_sin_le_abs
-  have hcos : |Real.cos ((x + y) / 2)| ≤ 1 := Real.abs_cos_le_one _
-  calc
-    |2 * Real.sin ((x - y) / 2) * Real.cos ((x + y) / 2)|
-        = 2 * |Real.sin ((x - y) / 2)| * |Real.cos ((x + y) / 2)| := by
-          rw [abs_mul, abs_mul, abs_of_nonneg h2]
-    _ ≤ 2 * |(x - y) / 2| * 1 := by
-          have hc0 : 0 ≤ |Real.cos ((x + y) / 2)| := abs_nonneg _
-          have hb : 0 ≤ 2 * |(x - y) / 2| := by positivity
-          exact mul_le_mul (mul_le_mul_of_nonneg_left hsin h2) hcos hc0 hb
-    _ = |x - y| := by
-          rw [abs_div, abs_of_nonneg h2]
-          ring
 
-/-- cos 的 1-Lipschitz 界：`|cos x − cos y| ≤ |x − y|`。 -/
-lemma abs_cos_sub_cos_le (x y : ℝ) : |Real.cos x - Real.cos y| ≤ |x - y| := by
-  rw [Real.cos_sub_cos]
-  have h2 : (0 : ℝ) ≤ 2 := by norm_num
-  have h2abs : |(-2 : ℝ)| = 2 := by norm_num
-  have hsin1 : |Real.sin ((x + y) / 2)| ≤ 1 := Real.abs_sin_le_one _
-  have hsin2 : |Real.sin ((x - y) / 2)| ≤ |(x - y) / 2| := Real.abs_sin_le_abs
-  calc
-    |(-2) * Real.sin ((x + y) / 2) * Real.sin ((x - y) / 2)|
-        = 2 * |Real.sin ((x + y) / 2)| * |Real.sin ((x - y) / 2)| := by
-          rw [abs_mul, abs_mul, h2abs]
-    _ ≤ 2 * 1 * |(x - y) / 2| := by
-          have hc0 : 0 ≤ |Real.sin ((x - y) / 2)| := abs_nonneg _
-          have hb : (0 : ℝ) ≤ 2 * 1 := by norm_num
-          exact mul_le_mul (mul_le_mul_of_nonneg_left hsin1 h2) hsin2 hc0 hb
-    _ = |x - y| := by
-          rw [abs_div, abs_of_nonneg h2]
-          ring
-
-/-! ## 绝对位置编码的定义 -/
-
-/-- 绝对位置编码的频率分母：`10000^{2k/d}`，其中 `k = i.val / 2`。
-（`d = 0` 时 `Fin d` 为空，无实际取值。） -/
 def absPosDenom (d : ℕ) (i : Fin d) : ℝ :=
   (10000 : ℝ) ^ (((2 * (i.val / 2) : ℕ) : ℝ) / (d : ℝ))
 

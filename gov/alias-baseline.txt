@@ -1,5 +1,5 @@
-# Adding a line means: this duplicate was decided and is intentional (usually a vocabulary instance).
 # duplication baseline -- `kind	path	name`, kind in {forward, copy}.
+# Adding a line means: this duplicate was decided and is intentional (usually a vocabulary instance).
 copy	CInterface/ABI.lean	abiTable_errors_wellFormed
 copy	CInterface/ABI.lean	abiTable_returns_a_value
 copy	Core/CIC/ProgressNoConsts.lean	no_const_typed
@@ -105,7 +105,6 @@ copy	Lib/Convex/RealFarkas.lean	dotV_smul_left
 copy	Lib/Convex/RealFarkas.lean	dotV_smul_right
 copy	Lib/Convex/RealStrictConvexEquality.lean	eq_of_strictConcaveOn_combo_eq
 copy	Lib/Convex/RealStrictConvexEquality.lean	eq_of_strictConvexOn_combo_eq
-copy	Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl
 copy	Lib/Editing/RealConversionCategorical.lean	natTransform_compile
 copy	Lib/Editing/RealConversionQuotient.lean	compiledIndistinct_equivalence
 copy	Lib/Editing/RealConversionQuotient.lean	kernel_equivalence
@@ -567,8 +566,6 @@ forward	Lib/Convex/RealSubgradientExistence.lean	subdifferential_nonempty
 forward	Lib/Convex/RealSupportingHyperplane.lean	supporting_hyperplane_of_finite_convexHull
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_absorbs_scale_pos
 forward	Lib/Editing/RealCanonicalCompileComm.lean	canonicalize_scaleVec_sign_law
-forward	Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl
-forward	Lib/Editing/RealCanonicalCompileComm.lean	extractVec_convertVec_rfl
 forward	Lib/Editing/RealCanonicalForm.lean	canonicalize_idempotent
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3Norm_idem_apply
 forward	Lib/Editing/RealClosureReversibility.lean	ft2L2L3_failure_identifiable

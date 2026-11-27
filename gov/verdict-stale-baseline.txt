@@ -22,3 +22,9 @@ Plugins/Architectures/Attention/Plugin.lean	completenessProp_holds
 Plugins/Architectures/Attention/Plugin.lean	exactnessInequalityProp_holds
 Plugins/Architectures/Attention/Plugin.lean	exactnessProp_holds
 Plugins/Architectures/Attention/Plugin.lean	soundnessProp_holds
+Lib/Editing/RealCanonicalCompileComm.lean	convertVec_extractVec_rfl	RESOLVED by W0-1 (round 1178): the duplicate was deleted; the single authority lives in Lib/Editing/RealExtractSurjectivity.lean
+Lib/Editing/RealConstraintEdit.lean	dot_replicate_zero_any	RESOLVED by W0-1 (round 1178): the duplicate was deleted and the file now imports Runtime/LayerComposition.lean, where the authority lives
+Lib/Attention/RealAbsPosEncoding.lean	abs_cos_sub_cos_le	RESOLVED by W0-1 (round 1179): duplicate deleted; authority in Lib/Attention/RealRoPEExtrapolation.lean
+Lib/Attention/RealAbsPosEncoding.lean	abs_sin_sub_sin_le	RESOLVED by W0-1 (round 1179): duplicate deleted; authority in Lib/Attention/RealRoPEExtrapolation.lean
+Lib/Editing/RealCanonicalCompileComm.lean	extractVec_convertVec_rfl	RESOLVED by W0-1 (round 1179): duplicate deleted; authority in Lib/Editing/RealExtractSurjectivity.lean
+Lib/Editing/RealExtractInvertibility.lean	tanh_pos_of_pos	RESOLVED by W0-1 (round 1179): duplicate deleted; authority in Lib/Lift/RealNonlinearFidelity_parts/B.lean
