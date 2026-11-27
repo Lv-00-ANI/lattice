@@ -1589,7 +1589,7 @@
 | `Lattice.Lib.Compiler.RealFirstOrderLogic` | 33 | 22 |
 | `Lattice.Lib.Compiler.RealGlobalConfluence` | 10 | 6 |
 | `Lattice.Lib.Compiler.RealLambdaCalculus` | 20 | 10 |
-| `Lattice.Lib.Compiler.RealLayer` | 11 | 7 |
+| `Lattice.Lib.Compiler.RealLayer` | 12 | 8 |
 | `Lattice.Lib.Compiler.RealLv00Compiler` | 0 | 0 |
 | `Lattice.Lib.Compiler.RealLv00CompilerCodegen` | 0 | 6 |
 | `Lattice.Lib.Compiler.RealLv00CompilerHonesty` | 10 | 0 |
@@ -9326,6 +9326,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `realDot_symW_value` -> `LayerOut`, `LinearLayer`, `RealDot`, `VectorConstraint`, `VectorConstraintSat`, `at`, `convertVec`, `dot`, `layerOut_cast_eq_clm`, `layerToCLM`, `layerToCLM_apply`, `length`, `linFunc`, `residual`, `sat_iff_residual`, `symVec`, `symW`
 - `realDot_zero_vec` -> `LayerOut`, `RealDot`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
 - `realLayerOfInt_injective` -> `Compiler`, `LinearLayer`, `at`, `induction`, `map`, `subst`
+- `realLayerOfInt_toLayerOf` -> `Compiler`, `map`
 - `realLayerOut_zero_input` -> `LayerOut`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
 - `realLayer_allSatisfied_iff_zero_output` -> `LayerOut`, `RealLayerOut`, `RealLinearLayer`, `RealVectorConstraint`, `RealVectorSat`, `VectorConstraint`, `VectorConstraintSat`, `convertRealVec`, `convertRealVec_preserves`, `convertVec`, `convertVec_preserves_semantics`, `dot`, `toVec`
 - `realLayer_ofInt_out` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `d`, `dot`, `eval`, `g`, `gridEval`, `induction`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`, `subst`
