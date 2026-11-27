@@ -4332,3 +4332,32 @@ Evidence 5 vs 6    Compose 6 vs 4     CInterface 6 vs 5  Slots 1 vs 3
 
 **⇒ `gate.py` 前后打印**同样八条判定**、全 ok——**删死键没有改变任何 finding**。**
 **⇒ 实测：手工 25 项门禁全绿；`VERIFY ALL [fast] PASS`（661.8 秒），`127 = 105 + 22`，94 通过。**
+### 3.135 **GATE-2 落地：一个被文档引用的计数，只在**一处**测量（第 1182 轮）**
+
+**⇒ 三份文档引同样的九个量，而三个工具各测一遍。⇒ `check_usage_claims.py` 曾自带 `measure_modules`、**
+**⇒ `measure_theorems`、`measure_decls`，与 `audit_counts.py` 的同名者**并存**——「有多少模块」「有多少定理」各两份实现。**
+**⇒ 当天它们恰好一致。⇒ **恰好一致不是一致**。**
+
+#### 做了什么
+
+| 处 | 动作 |
+|:--|:--|
+| `audit_counts.py` | 新增 `total_declarations()`——该量原本**只有一个家**（`check_usage_claims`），这是同一缺陷的**反面伪装**：一个只有一个家的量**根本无法被交叉核对** |
+| `check_usage_claims.py` | 删掉三个本地定义，**直接调用**那个家（顶层 import，**不是**包装 `def`） |
+| `check_single_source_counts.py` | 门禁本身：其余 `gov/*.py` **不得定义**任何测量名；`--self-test` 植入一个重实现并要求被标记 |
+
+#### 两处**自己的错**被自己的自测抓到
+
+1. **包装式 `def` 仍是第二个定义。** 第一版委托留下了
+   `def measure_modules(): from audit_counts import module_total; return module_total()`——**三行包装**，
+   **⇒ 能骗过读者、骗不过性质**。⇒ 该情形已**永久写入**自测，失败信息也写明。
+2. **搬一个测量必须搬它的**定义**，不只是它的名字。** 我第一版 `total_declarations()` 用了更宽的正则
+   （多含 `instance`/`example`）⇒ 返回 **13,951** 而文档是 **13,878**——**73 条从未被计入的声明**。
+   **⇒ 正则已改成**逐字照抄**，差异记录在函数所在处。**
+
+#### 注册与连带
+
+**⇒ `128 = 106 门禁 + 22 报告器`（原 127 = 105 + 22）。⇒ 四条计数声称随之更新，而 `check_doc_consistency` 又抓到最后一个**
+**⇒（`MACRO-COGNITION` 仍写 127）。**
+
+**⇒ 实测：手工 29 项门禁全绿；`VERIFY ALL [fast] PASS`（758.5 秒），`128 = 106 + 22`，95 通过；GATE-2 自测 PASS。**
