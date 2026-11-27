@@ -4381,3 +4381,23 @@ Evidence 5 vs 6    Compose 6 vs 4     CInterface 6 vs 5  Slots 1 vs 3
 | `chain_connectors` 被拒 | 我加了 `"argparse" not in src`——**一个与 `--check` 毫无关系的条件** |
 
 **⇒ 实测：手工 30 项门禁全绿；`VERIFY ALL [fast] PASS`（605.1 秒），`129 = 107 + 22`，96 通过；GATE-3 自测 PASS。**
+### 3.137 **W0-4（6/16）：六处陈旧断言按实测改正，而最大那条现在**有人看守**（第 1184 轮）**
+
+| 处 | 改动 | 依据 |
+|:--|:--|:--|
+| `README:49` | 否证 **284 → 374**，**并纳入 `check_usage_claims`** | 该行**自称**由 `check_refutation_census.py` 看守，**而那个工具只读普查文档**，从不读 README |
+| `DELIVERY-COMPILER:125` | 10,099 → **10,293** | 密度句的分母 |
+| `PROOF-DEBT:66` | 保留 10,098，**标明是「唯一短名」**，并在旁给出官方 **10,293** | 两个数是**不同总体**，且各自别处都在用 |
+| `PLUGIN-SYSTEM:2348` | 那句 Lean 代码是**错的**：`loadAll (loadAll ms)` | 实测 `loadAll : (s : LoaderState) (ms : List LoaderManifest) : LoaderState`（`Bootstrap.lean:62`）；幂等是**观察**幂等（`:122`） |
+| `ARCHITECTURE-DECISIONS:148` | 「`loadAll`/`LoaderState`/`Manifest` 全部 0 定义」**已推翻** | 三者**都存在**（`:62` / `:47` / `:39`） |
+| `SYMBOL-WEIGHT-COMPARISON:82` | 「再强的改造也不会改变它」**收窄** | `RealLayer.lean` **已给共同推广**（`:120` / `:130`）⇒ 不可嵌入只在**整数精确截面** |
+
+**⇒ 最重要的一条是 `README:49`：它证明了**一个数字若其被引用的工具并不读它，就没有人看守它**。**
+**⇒ 故修法是**先加断言并让它红**（284 vs 374，exit 1），**再**改文档。**
+
+**⇒ 而 `ARCHITECTURE-DECISIONS:148` 那条暴露了另一件事：我第一次 `git grep` 那三个名字得到「0 定义」，**
+**⇒ 而 `Bootstrap.lean:62` 明明有 `def loadAll`——**是我的模式坏了，不是树**。⇒ 文档里现在引的是改正后的测量。**
+
+**⇒ 六处中三处属他人文件：每条都**引一个实测的 Lean 事实与行号**，而不是判断，并在原处写明为何改。**
+
+**⇒ 实测：手工 30 项门禁全绿；`VERIFY ALL [fast] PASS`（573.5 秒），`129 = 107 + 22`，96 通过。**
