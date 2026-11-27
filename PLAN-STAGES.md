@@ -4299,3 +4299,36 @@ require_synced(results, script) -> exit 1，并给出修复指令
 | `MACRO-COGNITION.md`（现行那份） | 写「126 项检查（99 门禁 + 21 报告）」——**三处全错** ⇒ 改为实测值；其余陈旧数仍登记为他人所有 |
 
 **⇒ 实测：`VERIFY ALL [fast] PASS`（655.7 秒），`127 = 105 + 22`，94 通过；自测 3/3。**
+### 3.134 **W0-2 完成：三套秩表合一，层清单不再靠「记住」（第 1181 轮）**
+
+**⇒ 规划说 `layers.py` 是零 importer 的死代码。⇒ 实测它有**一个** importer：`check_layer_health.py` 用 `layers.RANK`。**
+**⇒ 故真实缺陷比规划描述的**更严重**——**两张都活着的表**，双双自称权威，在**十四个层里八个不同**：**
+
+```
+Semantics 5 vs 4   Reference 4 vs 7   Plugins 3 vs 5   Usage 7 vs 6
+Evidence 5 vs 6    Compose 6 vs 4     CInterface 6 vs 5  Slots 1 vs 3
+```
+
+**⇒ `layers.py` 自称「SINGLE AUTHORITATIVE」，而**执行者**（`gate.py` 的 I4）读的是另一张。**
+**⇒ **两张都声称权威 = 文档里一个计数两个值**，同一个病。**
+
+#### 做了什么
+
+| 处 | 动作 |
+|:--|:--|
+| `gate.py` | 秩字典提为模块级 `RANK`——**唯一那张**；`check_layering` 读它，不再留第二份 |
+| `gate.py` | 删 **3 个死键** `lift`/`geo`/`domains`（实测：`LAYER_OF` 能返回的 14 个 zone 恰是剩下那些；`domains` **没有任何前缀**，`lift`/`geo` 只来自**不存在的两个目录**）+ 删那两个死前缀。`top` **保留**（它是落空值，第 889 轮的注释记着把它误当真实层的后果） |
+| `layers.py` | `RANK` **派生**自 `gate.RANK`（经显式 zone→namespace 映射；`audit` 覆盖 `Audit` **与** `Semantics`，因为 `LAYER_OF` 把 `Lattice/Semantics` 映到 `audit`） |
+| `layers.py` | `LAYER_ORDER` 派生并按秩排序；`CANONICAL` **从磁盘读**——旧字面列的三个目录**都已不存在**（`Lattice/` 有 11 个子目录，`Slots` 是**文件**，故追加） |
+| 4 个 audit 脚本 | 同一份八字面 → 改为 `from layers import CANONICAL` |
+
+#### 为什么派生强于「比较门禁」
+
+**⇒ 规划要求加一条「两表必须一致」的检查。⇒ 改完之后**只有一张表**，那样的检查等于**拿同一个东西比自己**。**
+**⇒ 结构事实比那条检查更强。⇒ 而 `check_layer_registry.py` 仍在跑：它抓到最后两处不一致**
+**⇒ （`CANONICAL` 对磁盘、`LAYER_ORDER` 对 `RANK`），现在 `--strict` 通过。**
+
+#### 回归
+
+**⇒ `gate.py` 前后打印**同样八条判定**、全 ok——**删死键没有改变任何 finding**。**
+**⇒ 实测：手工 25 项门禁全绿；`VERIFY ALL [fast] PASS`（661.8 秒），`127 = 105 + 22`，94 通过。**
