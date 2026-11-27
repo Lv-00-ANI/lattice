@@ -39,7 +39,11 @@ ZERO = os.path.abspath(os.path.join(HERE, ".."))
 # So they still run -- their output is the point -- but they are counted in a separate
 # column, and the summary states both numbers. Turning a reporter into a gate is a change
 # to what it claims, not a one-line edit; that decision belongs to whoever owns the check.
+#: Exit code meaning "this check could not execute": a THIRD verdict, neither pass nor failure.
+SKIP_CODE = 77
+
 REPORT_ONLY = {
+    "audit: G7 breakpoints",
     "reverify: requirements", "reverify: chain", "reverify: islands",
     "audit: duplicates", "audit: bodies", "audit: docs vs code", "audit: reachable",
     "audit: claims", "audit: liveness", "audit: region", 
@@ -118,6 +122,9 @@ CHECKS = [
     # audit_counts is a GATE now: it fails when a documented count disagrees with
     # the tree, and this proves the gate can fire on every count it checks.
     ("reactivity: counts", "audit_counts_reactivity.py"),
+    # **W0-3a: a stub whose only return is 0 is a REPORT, not a gate.** Its own docstring argued that
+    # deleting the registration would shrink the count invisibly; moving it to REPORT_ONLY keeps the
+    # count and stops it from inflating "gating checks passed".
     ("audit: G7 breakpoints", "check_g7.py"),
     ("audit: proof chain rung", "check_proof_chain_rung.py"),
     # The CI workflow is executable text that nothing executed. The previous version
@@ -260,8 +267,8 @@ CHECKS = [
     # So the question "does this gate have a self-test?" is now a build error rather than a matter of
     # diligence. Every gate must carry `--self-test`, have a `*_reactivity.py` companion, or be listed
     # in `check_selftest_coverage.EXEMPT` with the reason it is verified some other way -- and that
-    ("meta: layer cycle does not grow", "check_layer_cycle.py"),
-    ("meta: layer health invariants hold", "check_layer_health.py"),
+    ("meta: layer cycle does not grow", "check_layer_cycle.py --strict"),
+    ("meta: layer health invariants hold", "check_layer_health.py --strict"),
     ("audit: duplicate short names bounded", "audit_duplicate_names.py --check"),
     ("audit: no new duplicated STATEMENTS (not just names)", "audit_theorem_duplication.py --check"),
     ("audit: theorem duplication self-test", "audit_theorem_duplication.py --self-test"),
@@ -298,7 +305,7 @@ CHECKS = [
     ("meta: claimed numbers classified source vs artifact", "audit_reproducible_numbers.py --check"),
     ("meta: reproducible-numbers classifier self-test",
      "audit_reproducible_numbers.py --self-test"),
-    ("meta: five pipeline stages present", "check_pipeline_stages.py"),
+    ("meta: five pipeline stages present", "check_pipeline_stages.py --strict"),
     ("meta: proof chain links present and cited", "gen_proof_chain.py --check"),
     # exemption table is itself checked for rot.
     ("meta: every gate can demonstrate its own failure", "check_selftest_coverage.py"),
@@ -331,8 +338,8 @@ CHECKS = [
     # `Lattice/Slots/` was empty, so a file-enumerating scan skipped that whole layer and reported
     # zero unreachable modules for a tree it had not fully examined.
     ("meta: layer reachability", "check_layer_reachability.py"),
-    ("meta: layer registry is single-sourced", "check_layer_registry.py"),
-    ("meta: archived LvFormal stays out of the build", "check_reference_archive.py"),
+    ("meta: layer registry is single-sourced", "check_layer_registry.py --strict"),
+    ("meta: archived LvFormal stays out of the build", "check_reference_archive.py --strict"),
     ("meta: layer reachability self-test", "check_layer_reachability.py --self-test"),
     # Round 45. The third variant of the same question: rounds 43 and 44 asked WHICH modules a
     # build reaches; this asks whether a module entered a build at all. It also records the
@@ -469,6 +476,7 @@ def main():
     # not a fast mode, it is a different gate. `--fast` now only skips the reactivity checks.**
     failures = []
     gating_ok = 0
+    skips = 0
     reports = 0
     t_start = time.time()
     for i, (label, cmd) in enumerate(CHECKS, 1):
@@ -481,11 +489,18 @@ def main():
         r = subprocess.run(parts, cwd=ZERO, capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
         dt = time.time() - t0
+        # **W0-3a (round 1169): a third verdict.** A check that could not execute (exit 77) has
+        # found nothing, so it is NOT a failure -- but it is not a pass either, and counting it as
+        # one is what made 8 of the 105 nominal gates structurally unable to go red.
+        skip = (r.returncode == SKIP_CODE)
         report = label in REPORT_ONLY
         if report:
             # mark reporters explicitly so a reader cannot mistake "ok" for "passed a gate"
             status = "reported" if r.returncode == 0 else "FAIL(%d)" % r.returncode
             reports += 1
+        elif skip:
+            status = "SKIP"
+            skips += 1
         else:
             status = "ok" if r.returncode == 0 else "FAIL(%d)" % r.returncode
             if r.returncode == 0:
@@ -493,7 +508,7 @@ def main():
         # `flush=True` matters: this run takes minutes, and a redirected stdout otherwise
         # shows nothing until the process exits -- which reads like a hang.
         print("  [%2d/%d] %-30s %-9s %5.1fs" % (i, len(CHECKS), label, status, dt), flush=True)
-        if r.returncode != 0:
+        if r.returncode != 0 and not skip:
             failures.append((label, r.returncode, (r.stdout or "") + (r.stderr or "")))
     print("=" * 60, flush=True)
     if failures:
@@ -513,6 +528,9 @@ def main():
     n_gating_reg = len([1 for l, _ in CHECKS if l not in REPORT_ONLY])
     print("  registered           : %d checks = %d gating + %d reporters"
           % (len(CHECKS), n_gating_reg, len(REPORT_ONLY)), flush=True)
+    if skips:
+        print("  gating checks SKIPPED: %d  (could not execute -- NOT counted as passed)" % skips,
+              flush=True)
     print("  gating checks passed : %d  (these CAN fail)" % gating_ok, flush=True)
     print("  report-only checks   : %d  (these print findings; exit code is not a verdict)"
           % reports, flush=True)

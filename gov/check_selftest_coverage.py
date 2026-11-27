@@ -67,14 +67,11 @@ EXEMPT = {
     "check_proof_chain_rung.py":
         "it fails when a named declaration is missing from the tree or a slot is unregistered; both "
         "are already defects, and the planted version would be the defect.",
-    "check_g7.py":
-        "a breakpoint survey: it reports every hop's user count and fails on a zero, which is the "
-        "defect.",
     "verify_g4.py":
         "it shells out to `lake build` and compares whether the G4 theorem turns red, so a planted "
-        "self-test would cost the same as the check itself. Since round 175 it detects an unavailable "
-        "toolchain and reports SKIP instead of failing, so it is no longer a gate that can only run "
-        "online (P2-12).",
+        "self-test would cost the same as the check itself. Since round 1169 an unavailable toolchain "
+        "exits 77 -- a THIRD state that `verify_all` prints as SKIP and never counts as a pass -- so "
+        "this exemption covers only the cost argument, not a silent pass (P2-12).",
 }
 
 

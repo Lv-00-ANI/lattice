@@ -102,7 +102,9 @@ def main():
         print("G4 REACTIVITY: SKIPPED (toolchain unavailable, NOT a pass and NOT a failure)")
         print("This check proves the G4 theorem goes red when its filler is withdrawn, which needs a")
         print("real `lake build`. Offline it cannot run; see backlog item P2-12.")
-        return 0
+        # **W0-3a: a check that COULD NOT RUN is not a pass.** Exit 77 is the third state;
+        # `verify_all` prints it as SKIP and never counts it as gating_ok.
+        return 77
 
     failures = 0
     try:
