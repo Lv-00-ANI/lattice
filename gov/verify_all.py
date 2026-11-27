@@ -270,6 +270,9 @@ CHECKS = [
     # **W0-3f GATE-1: every registered gate must have an exit that is not the literal 0.** Round 1172 found eight
     # structurally-green checks by reading the source; this turns that property of my attention into a property
     # of the tree. Necessary, not sufficient -- see its docstring.
+    # **W0-3f GATE-2: a count a document quotes is measured in ONE place.** Two implementations of "how many
+    # modules" agreed by coincidence; this makes the coincidence unnecessary.
+    ("meta: counts have one home", "check_single_source_counts.py"),
     ("meta: every gate can fail", "check_gate_default_failure.py"),
     ("meta: layer cycle does not grow", "check_layer_cycle.py --strict"),
     ("meta: layer health invariants hold", "check_layer_health.py --strict"),

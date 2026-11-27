@@ -133,6 +133,28 @@ def total_theorems():
     return n
 
 
+#: **GATE-2 (round 1182): the DECLARATION count moves here.** It used to live only in
+#: `check_usage_claims.py`, which meant the tree had one measurement with no other home -- and that tool also carried
+#: its OWN `measure_modules`/`measure_theorems`, i.e. two implementations of two quantities that a document quotes.
+#: Both are gone; this module is the one place a count is computed, and `check_single_source_counts.py` enforces it.
+#: **Verbatim the regex `check_usage_claims.py` used** -- `def|structure|abbrev|inductive|class`, NOT
+#: `instance`/`example`. The first version of this function used a broader set and returned 13,951 against the
+#: document's 13,878; the 73-line difference was exactly those two forms. A measurement moved between homes must
+#: keep its definition, not just its name.
+DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
+                  r"noncomputable[ \t]+)*(?:theorem|lemma|def|structure|abbrev|inductive|class)"
+                  r"[ \t]+")
+
+
+def total_declarations():
+    """Every declaration Lean elaborates in the kernel tree, comments stripped."""
+    n = 0
+    for p in _kernel_files():
+        src = io.open(p, "rb").read().decode("utf-8", "replace")
+        n += len(DECL.findall(strip_comments(src)))
+    return n
+
+
 def owed_count():
     """The owed-slot count, read from the `decide` assertion in `Slots.lean`.
 

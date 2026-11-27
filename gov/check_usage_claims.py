@@ -39,6 +39,8 @@ import re
 import subprocess
 import sys
 
+from audit_counts import module_total, total_theorems, total_declarations
+
 import census_docs
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -101,21 +103,6 @@ def measure_rounding_bound():
     return int(m.group(1)) if m else None
 
 
-def measure_modules():
-    n = 0
-    for root, _, fs in os.walk(LAT):
-        if "Reference" in root:
-            continue
-        # skip the throwaway module the reactivity checks build: it is gitignored, it is not part of
-        # the deliverable, and counting it makes this number depend on whether a reactivity check
-        # happened to be mid-flight. The predicate lives in one place (`audit_counts`) so the two
-        # counters cannot disagree about what a module is.
-        from audit_counts import is_generated_probe
-        n += sum(1 for f in fs
-                 if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)))
-    return n
-
-
 def _strip_comments(src):
     out = []
     i = 0
@@ -140,36 +127,6 @@ THM = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ 
 DECL = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|"
                   r"noncomputable[ \t]+)*(?:theorem|lemma|def|structure|abbrev|inductive|class)"
                   r"[ \t]+")
-
-
-def measure_theorems():
-    n = 0
-    # Round 977: exclude the reactivity checks' throwaway modules here too. `measure_modules` already did,
-    # but the two declaration counters did NOT, so a killed `verify_all` that left `Lattice/G4Probe.lean`
-    # behind inflated the documented theorem and declaration counts by exactly its contents (2 and 3).
-    # An instrument must not read differently depending on whether a check was mid-flight.
-    from audit_counts import is_generated_probe
-    for root, _, fs in os.walk(LAT):
-        if "Reference" in root:
-            continue
-        for f in fs:
-            if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)):
-                src = _read(os.path.join(root, f))
-                n += len(THM.findall(_strip_comments(src)))
-    return n
-
-
-def measure_decls():
-    n = 0
-    from audit_counts import is_generated_probe   # see measure_theorems for why
-    for root, _, fs in os.walk(LAT):
-        if "Reference" in root:
-            continue
-        for f in fs:
-            if f.endswith(".lean") and not is_generated_probe(os.path.join(root, f)):
-                src = _read(os.path.join(root, f))
-                n += len(DECL.findall(_strip_comments(src)))
-    return n
 
 
 #: Documents that describe the CURRENT tree. A stale count in one of these is a defect; the same
@@ -288,13 +245,13 @@ CLAIMS = [
      measure_rounding_bound, "USAGE.md"),
     ("STATE-FINAL: module count",
      r"\| 源模块（不含 `Reference/`） \| \*\*([\d,]+)\*\* \|",
-     measure_modules, "STATE-FINAL.md"),
+     module_total, "STATE-FINAL.md"),
     ("STATE-FINAL: theorem count",
      r"\| 定理 / 引理（官方口径） \| \*\*([\d,]+)\*\* \|",
-     measure_theorems, "STATE-FINAL.md"),
+     total_theorems, "STATE-FINAL.md"),
     ("STATE-FINAL: declaration count",
      r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
-     measure_decls, "STATE-FINAL.md"),
+     total_declarations, "STATE-FINAL.md"),
     # Round 1122: the gating number had NO checker and two docs were stale by 6. Labelled per number so that
     # "how many checks exist" cannot be confused with "how many passed under --fast".
     ("DELIVERY: verify_all total checks",
@@ -308,7 +265,7 @@ CLAIMS = [
      measure_check_reporters, "DELIVERY.md"),
     ("CONVENTIONS: declaration total",
      r"\| 内核声明总数 \| ([\d,]+) \|",
-     measure_decls, "CONVENTIONS.md"),
+     total_declarations, "CONVENTIONS.md"),
     ("CONVENTIONS: gov script count",
      r"实测 `gov/` 有 \*\*(\d+) 个 `\.py`\*\*",
      measure_py_scripts, "CONVENTIONS.md"),
@@ -323,13 +280,13 @@ CLAIMS = [
      measure_camel_theorems, "CONVENTIONS.md"),
     ("DELIVERY: module count",
      r"\| 源模块（不含 `Reference/`） \| \*\*(\d+)\*\* \|",
-     measure_modules, "DELIVERY.md"),
+     module_total, "DELIVERY.md"),
     ("DELIVERY: theorem count",
      r"\| 定理 / 引理（官方口径） \| \*\*([\d,]+)\*\* \|",
-     measure_theorems, "DELIVERY.md"),
+     total_theorems, "DELIVERY.md"),
     ("DELIVERY: declaration count",
      r"\| 声明总数 \| \*\*([\d,]+)\*\* \|",
-     measure_decls, "DELIVERY.md"),
+     total_declarations, "DELIVERY.md"),
 
 ]
 
