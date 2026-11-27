@@ -38,6 +38,9 @@ Adding a line means "this duplicate was decided and is intentional (usually a vo
 """
 
 import collections
+import artifact_guard
+SYNCED = []
+sync = artifact_guard.sync
 import hashlib
 import io
 import os
@@ -187,7 +190,8 @@ def write_report(forwards, copies):
     lines += ["", "## copy", "", "| 文件 | 定理 |", "|:--|:--|"]
     for rel, name in sorted(copies):
         lines.append("| `%s` | `%s` |" % (rel, name))
-    io.open(REPORT, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+    # **W0-3c: compare, do not overwrite.**
+    SYNCED.append(("gov/ALIAS-CENSUS.md", sync(REPORT, "\n".join(lines) + "\n", allow_write="--write" in sys.argv)))
 
 
 def self_test():
@@ -267,7 +271,7 @@ def main(argv):
     if new or stale:
         print("DUP CENSUS: a duplicate must be decided once -- add it to alias-baseline.txt, or remove it")
         return 1
-    return 0
+    return artifact_guard.require_synced(SYNCED, "ALIAS-CENSUS")
 
 
 if __name__ == "__main__":

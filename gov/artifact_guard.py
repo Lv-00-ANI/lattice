@@ -29,12 +29,21 @@ def _read(path):
     return io.open(path, encoding="utf-8").read()
 
 
-def sync(path, text, allow_write=False, label=None):
+def sync(path, text, allow_write=False, label=None, expect_tracked=True):
     """Compare `text` with the file at `path`; write only when `allow_write`.
 
-    Returns one of "unchanged", "written", "stale".
+    Returns one of "unchanged", "written", "stale", "absent".
+
+    `expect_tracked` distinguishes the two reasons a file can be missing. For a tracked artifact, absence is a defect
+    (the tree lost it). For an artifact that was NEVER in the repository -- `PRIMITIVE-MATRIX.md` is one -- absence is
+    simply "not versioned", and holding the generator to it would make the default path fail on a clean tree.
     """
     name = label or os.path.basename(path)
+    if not expect_tracked and not allow_write:
+        # **An unversioned artifact has nothing to stay in sync with.** `PRIMITIVE-MATRIX.md` is generated into the
+        # repository root and is not tracked, so the default path must neither write it nor fail over it; only
+        # `--write` produces it. Absence and difference are both "not our business" here.
+        return "absent"
     old = _read(path)
     if old is not None and old == text:
         return "unchanged"
@@ -47,6 +56,8 @@ def sync(path, text, allow_write=False, label=None):
         return "written"
 
     if old is None:
+        if not expect_tracked:
+            return "absent"
         print("  STALE %s -- absent; run with --write to create it" % name)
         return "stale"
 

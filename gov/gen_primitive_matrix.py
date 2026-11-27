@@ -22,6 +22,9 @@ a reader cannot mistake it for a gate that passed.
 """
 
 import io
+import artifact_guard
+SYNCED = []
+sync = artifact_guard.sync
 import os
 import re
 import sys
@@ -247,10 +250,12 @@ def main():
           "**而那正是 `h` 要挡住的**（见 `Compose/ComposeObligation.lean`）。")
     A("")
 
-    io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(L) + "\n")
-    print("PRIMITIVE-MATRIX: %d primitive(s), %d ordered pair(s) written to PRIMITIVE-MATRIX.md"
+    # **W0-3c: compare, do not overwrite.**
+    SYNCED.append(("PRIMITIVE-MATRIX.md", sync(OUT, "\n".join(L) + "\n", allow_write="--write" in sys.argv)))
+    print("PRIMITIVE-MATRIX: %d primitive(s), %d ordered pair(s) compared against PRIMITIVE-MATRIX.md"
           % (len(ps), len(ps) ** 2))
-    return 0
+    rc = artifact_guard.require_synced(SYNCED, "PRIMITIVE-MATRIX")
+    return rc if rc else 0
 
 
 if __name__ == "__main__":

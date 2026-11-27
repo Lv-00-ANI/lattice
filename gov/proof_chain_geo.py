@@ -12,6 +12,9 @@
 `gov/PROOF-CHAIN-GEO.md`
 """
 import io
+import artifact_guard
+SYNCED = []
+sync = artifact_guard.sync
 import os
 import re
 import sys
@@ -173,8 +176,12 @@ def main():
               ""]
 
     out = os.path.join(HERE, "PROOF-CHAIN-GEO.md")
-    io.open(out, "w", encoding="utf-8", newline="\n").write("\n".join(lines))
+    # **W0-3c: compare, do not overwrite.**
+    SYNCED.append(("gov/PROOF-CHAIN-GEO.md", sync(out, "\n".join(lines), allow_write="--write" in sys.argv)))
     print("已写:", os.path.relpath(out, ZERO))
+    rc = artifact_guard.require_synced(SYNCED, "PROOF-CHAIN-GEO")
+    if rc:
+        return rc
     print("模块:", len(info), " 层数:", len(byrank))
     return 0
 

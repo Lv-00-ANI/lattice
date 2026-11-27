@@ -16,6 +16,9 @@ So this tool derives the map from the modules themselves:
 Output: `gov/PROOF-CHAIN.md`, regenerated on every gate run.
 """
 import io
+import artifact_guard
+SYNCED = []
+sync = artifact_guard.sync
 import os
 import re
 import sys
@@ -243,11 +246,15 @@ def main():
     L.append("| T4 loop convergence | `Repair.progress`, `Repair.preserves` | `absorbs`, `decreases`, `atomic` |")
     L.append("")
 
-    io.open(REPORT, "w", encoding="utf-8", newline="\n").write("\n".join(L))
+    # **W0-3c: compare, do not overwrite.** The default path must not rewrite a tracked artifact.
+    SYNCED.append(("gov/PROOF-CHAIN.md", sync(REPORT, "\n".join(L), allow_write="--write" in sys.argv)))
     print("modules:", len(modules))
     print("declarations:", sum(len(d["decls"]) for d in modules.values()))
     print("cross-module use edges:", sum(len(v) for v in uses.values()))
     print("open slots:", len(owed))
+    rc = artifact_guard.require_synced(SYNCED, "PROOF-CHAIN")
+    if rc:
+        return rc
     print("wrote", REPORT)
     return 0
 

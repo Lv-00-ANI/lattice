@@ -28,6 +28,9 @@ that is legal but means the theorem says nothing about this library's objects.
 - **Not a gate.** Do not wire it as one: `0`-layer theorems are legitimate.
 """
 import io
+import artifact_guard
+SYNCED = []
+sync = artifact_guard.sync
 import os
 import re
 import sys
@@ -208,7 +211,8 @@ def main():
     A("`gov/check_endtoend_floor.py` 只对「某条定理**不再**跨 >= 2 层」失败，")
     A("而对「新增跨层定理」放行。**增长是改进，下降是回归**，两者不该用同一把尺子。")
     A("")
-    io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(lines))
+    # **W0-3c: compare, do not overwrite.**
+    SYNCED.append(("gov/ENDTOEND-CENSUS.md", sync(OUT, "\n".join(lines), allow_write="--write" in sys.argv)))
 
     # Round 26, L4-7. A FLOOR gate needs the NAME SET, and it must not re-implement this scan -- two
     # implementations would be two authorities. So the census emits the list and the gate reads it.
@@ -223,7 +227,7 @@ def main():
     print("  total    : %d" % total)
     print("  cross (>=2): %d" % len(cross))
     print("  written to gov/ENDTOEND-CENSUS.md")
-    return 0
+    return artifact_guard.require_synced(SYNCED, "ENDTOEND-CENSUS") or 0
 
 
 if __name__ == "__main__":
