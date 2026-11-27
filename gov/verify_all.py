@@ -272,6 +272,9 @@ CHECKS = [
     # of the tree. Necessary, not sufficient -- see its docstring.
     # **W0-3f GATE-2: a count a document quotes is measured in ONE place.** Two implementations of "how many
     # modules" agreed by coincidence; this makes the coincidence unnecessary.
+    # **W0-3f GATE-3: what the tools do to the tree and the docs.** W0-3c hand-verified six generators; this
+    # keeps them compared-rather-than-overwritten, keeps every .bak ignored, and keeps section 6 runnable.
+    ("meta: artifacts and commands intact", "check_artifact_integrity.py"),
     ("meta: counts have one home", "check_single_source_counts.py"),
     ("meta: every gate can fail", "check_gate_default_failure.py"),
     ("meta: layer cycle does not grow", "check_layer_cycle.py --strict"),

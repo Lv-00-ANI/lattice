@@ -27,7 +27,13 @@ __pycache__/
 
 # Gate scratch files: reactivity tests plant and remove these, but a crashed run must not
 # leave them looking like source.
+# **GATE-3 (round 1183): measured, THREE scripts write a `.bak` beside `Lattice/Slots.lean` and only one of the three
+# names was covered here.** `check_registry_reactivity` writes `.registry_reactivity.bak` and `check_slots_reactivity`
+# writes `.reactivity.bak`; a killed run left both as untracked files next to a tracked Lean module. The patterns are
+# now written as globs so a fourth script's backup is covered by construction rather than by someone remembering.
 *.gate_reactivity.bak
+*.registry_reactivity.bak
+*.reactivity.bak
 # Generated probe modules. Two checks plant these and delete them; both were caught leaving the
 # file behind, which shifted the module/theorem/declaration counts and made the count guards fail
 # depending on whether a reactivity check happened to be mid-flight:
