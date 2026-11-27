@@ -1523,7 +1523,7 @@
 | `Lattice.Lib.Compiler.AnalyticRow` | 5 | 3 |
 | `Lattice.Lib.Compiler.AnalyticSelection` | 10 | 5 |
 | `Lattice.Lib.Compiler.ArtifactStitch` | 4 | 0 |
-| `Lattice.Lib.Compiler.BridgeToMainChain` | 6 | 0 |
+| `Lattice.Lib.Compiler.BridgeToMainChain` | 7 | 0 |
 | `Lattice.Lib.Compiler.Capability` | 3 | 0 |
 | `Lattice.Lib.Compiler.CapabilityTable` | 12 | 9 |
 | `Lattice.Lib.Compiler.CarrierAlgebra` | 5 | 2 |
@@ -3246,7 +3246,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `bridge_empty` -> `Data`, `Index`, `Sample`, `TensorShape`, `d`, `empty`, `length`, `map`
 - `bridge_exists` -> `Pt`, `Repair`, `Sat`, `constraintDomain`, `iterate`, `programDomain`
 - `bridge_is_necessary` -> `Audit`, `at`, `g`
-- `bridge_sample` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `eval`
+- `bridge_sample` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `dot`, `eval`
 - `bridgedCount_append` -> `Audit`, `induction`, `mul`, `one`
 - `bridgedCount_bridged` -> `Audit`, `induction`, `mul`, `one`
 - `bridgedCount_empty` -> `Audit`, `mul`, `one`
@@ -6287,8 +6287,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `hG_is_substantive` -> `at`, `dist`, `induction`, `zero`
 - `hG_satisfiable` -> `at`, `dist`, `induction`, `zero`
 - `hR_of_loss_lipschitz` -> `g`, `popRisk`
-- `half_is_not_an_integer_weight` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `eval`
-- `half_slope_has_no_layer` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `eval`
+- `half_is_not_an_integer_weight` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `dot`, `eval`
+- `half_slope_has_no_layer` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`
 - `halign_counterexample` -> `E`, `at`, `g`, `induction`, `le_trans`, `single`, `zero`
 - `hardSigmoid_affine_calc` -> `SoftMasked`, `at`, `comp`, `const_add`, `convert`, `le_trans`, `sigmoid`, `sigmoid_bounds`, `swiglu`, `trivial`
 - `hardSigmoid_bounds` -> `SoftMasked`, `at`, `comp`, `const_add`, `convert`, `le_trans`, `mul`, `sigmoid`, `sigmoid_bounds`, `swiglu`, `trivial`
@@ -8194,7 +8194,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `noiseMatrix_zero_eq` -> `at`
 - `noiseVariance_eq` -> `Subgradient`, `SubgradientGap`, `at`, `d`, `g`, `subgradient_descent_min_gap`, `subgradient_descent_rate_bound`
 - `nonVacuousFor_nil` -> `PluginLayer`, `PluginName`, `at`, `empty`, `layer`, `mandatoryKinds`, `manifest`, `soundness`
-- `non_integer_slope_has_no_layer` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `eval`
+- `non_integer_slope_has_no_layer` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `dot`, `eval`
 - `noncommuting_counterexample` -> `at`
 - `nonlinearFidelity_unique_zero` -> `ZeroFixing`, `act`, `all`, `at`, `toNat`, `zeroFixing_of_strictMono`
 - `nonlinearFidelity_zero_iff` -> `ZeroFixing`, `act`, `all`, `at`, `toNat`, `zeroFixing_of_strictMono`
@@ -10030,7 +10030,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `scalarPath_one` -> `add`, `at`, `comp`, `g`, `mul`
 - `scalarPath_zero` -> `add`, `at`, `comp`, `g`, `mul`
 - `scalar_contraction_sq` -> `at`, `g`, `le_trans`, `normSq`
-- `scalar_layer_out_eq_segment_eval` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `eval`
+- `scalar_layer_out_eq_segment_eval` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `dot`, `eval`
 - `scalar_mom_err_pair_recurrence` -> `W`, `contraction_converges`, `min`
 - `scalar_mom_err_pair_snd` -> `W`, `contraction_converges`, `min`
 - `scalar_mom_step_fst` -> `W`, `contraction_converges`
@@ -10137,6 +10137,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `segmentIndex_mem` -> `Compiler`, `chordSegment`, `eval`
 - `segmentToRealLayer_out` -> `Compiler`, `LinearLayer`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `induction`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`, `subst`
 - `segment_eval_eq_scalar_layer_out` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `at`, `dot`, `eval`
+- `segment_has_layer_iff_integral` -> `Compiler`, `LayerOut`, `LinearLayer`, `Segment`, `dot`, `eval`
 - `selProd_concat` -> `apply`, `at`, `induction`, `le_trans`, `map`, `subst`, `trans`, `zero`
 - `selProd_const` -> `at`, `div_const`, `induction`, `mul`, `zero`
 - `selProd_eq_from` -> `apply`, `at`, `induction`, `le_trans`, `map`, `trans`, `zero`

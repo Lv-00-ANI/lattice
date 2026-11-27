@@ -101,4 +101,39 @@ theorem half_slope_has_no_layer :
       (⟨(1 / 2 : ℝ), 0⟩ : Segment).eval (x : ℝ) = ((Lattice.LayerOut l [x] : ℤ) : ℝ) :=
   non_integer_slope_has_no_layer (1 / 2) (fun z hz => half_is_not_an_integer_weight ⟨z, hz⟩)
 
+/-! ## 六、精确边界：**一个段有整数层**当且仅当**两个系数都是整数** -/
+
+/-- **⭐⭐⭐ 完整刻画：一个分段能被某个 `LinearLayer` 在整数输入上表示 ↔ 它的斜率与截距**都是整数**。**
+
+**⇒ 旧有的 `non_integer_slope_has_no_layer` 只说了**反面**（非整数斜率 ⇒ 不存在），而且只用 `x = 1` 看斜率。**
+**⇒ 本条把两个方向都写完：**正面**（整数 ⇒ 构造出那个层，见参数化的 `⟨[mz], cz⟩`）与**
+**反面（存在层 ⇒ `m` 由 `x=1`、`c` 由 `x=0` 各自得出是整数）。**
+**⇒ 故「不可翻译」不是一句下断，而是一个**等价**：整数截面里那些点，正好是两个系数都是整数的段。 -/
+theorem segment_has_layer_iff_integral (s : Segment) :
+    (∃ l : Lattice.LinearLayer, ∀ x : ℤ,
+        s.eval (x : ℝ) = ((Lattice.LayerOut l [x] : ℤ) : ℝ))
+      ↔ (∃ z : ℤ, s.m = (z : ℝ)) ∧ (∃ z : ℤ, s.c = (z : ℝ)) := by
+  constructor
+  · rintro ⟨l, h⟩
+    have h0 : s.c = ((Lattice.LayerOut l [0] : ℤ) : ℝ) := by
+      have := h 0
+      simpa [Segment.eval] using this
+    have h1 : s.m + s.c = ((Lattice.LayerOut l [1] : ℤ) : ℝ) := by
+      have := h 1
+      simpa [Segment.eval] using this
+    have hm : s.m = ((Lattice.LayerOut l [1] - Lattice.LayerOut l [0] : ℤ) : ℝ) := by
+      have hsub : s.m = ((Lattice.LayerOut l [1] : ℤ) : ℝ) - ((Lattice.LayerOut l [0] : ℤ) : ℝ) := by
+        linarith
+      rw [hsub]
+      push_cast
+      ring
+    exact ⟨⟨Lattice.LayerOut l [1] - Lattice.LayerOut l [0], hm⟩, ⟨Lattice.LayerOut l [0], h0⟩⟩
+  · rintro ⟨⟨mz, hmz⟩, ⟨cz, hcz⟩⟩
+    refine ⟨⟨[mz], cz⟩, fun x => ?_⟩
+    have hval : ((Lattice.LayerOut ⟨[mz], cz⟩ [x] : ℤ) : ℝ) = (mz : ℝ) * (x : ℝ) + (cz : ℝ) := by
+      simp [Lattice.LayerOut, Lattice.dot]
+    calc s.eval ((x : ℤ) : ℝ) = s.m * (x : ℝ) + s.c := by simp [Segment.eval]
+      _ = (mz : ℝ) * (x : ℝ) + (cz : ℝ) := by rw [hmz, hcz]
+      _ = ((Lattice.LayerOut ⟨[mz], cz⟩ [x] : ℤ) : ℝ) := hval.symm
+
 end Lattice.Lib.Compiler.BridgeToMainChain
