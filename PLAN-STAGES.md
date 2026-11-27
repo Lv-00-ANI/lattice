@@ -4503,3 +4503,36 @@ if field != FIELDS[len(out)]: continue
 **⇒ 而 `modelsBehavior` 自身的使用范围**只有 2 个文件（它自己 + `Compose/Showcase/L3L2.lean`）⇒ **它也不是现成的替代品。**
 
 **⇒ 本轮不改任何代码：这是**规划层的修正**，其依据是三条实测（4 / 7 / 类型不同）。**
+### 3.141 **又一次先测量：规划的「T1 移出 `ProofComplete`」会删错东西**（第 1188 轮）
+
+**⇒ 规划 ADR-D 说：`ProofComplete` 的 T1 是 `Obligations.lean:86` 的 `have _ := h; exact rfl`，**
+**⇒ 救法是把「它」移出判据。⇒ **本轮打开了 `ProofComplete` 的定义本体。**
+
+#### 实测
+
+**⇒ `ProofComplete`（`Lattice/Plugins.lean:542`）的 **25 项**里，与 T1 相关的是**三条 `t1_*`**：**
+
+| 名字 | 陈述（实读 `Targets/Statements.lean:123`） |
+|:--|:--|
+| `t1_compile_sound_instance` | 关于 `MergeRecord` / `samePointLadder` / `satW` ——**合并健全性** |
+| `t1_merge_sound_unrejected` | 同家族 |
+| `t1_compile_sound_general` | 同家族的**一般形式**（已证，靠 `SemanticRep` 的两个映射） |
+
+**⇒ 而 `Obligations.lean` 的 `compile_sound` **不在这 25 项里**——块内只有上面三个名字。**
+
+**⇒ 故「把 T1 移出 `ProofComplete`」若按字面执行，会删去**并非琐疾的三条真内容**。**
+
+#### 而树上早已诊断过这件事
+
+**⇒ `Targets/T1Dependence.lean` 开头写着：`t1_compile_sound_instance` 的**结论不提到 `R`**，**
+**⇒ 因为 `hR : R.merged = […]` 把唯一被消耗的字段**钉死**了；**
+**⇒ 并且它自己说：「**That is not a bug in the proof; it is a bug in what `ProofComplete` was conjoining.**」**
+
+**⇒ 故树上已经知道这一层弱——而且**修法不是删除，是 `t1_compile_sound_general`**（它已存在）。**
+
+#### 结论
+
+**⇒ **规划的 ADR-D 射错了目标**：它说的那条 `rfl` 定理在 `Core/IR`，不在判据里；**
+**⇒ 判据里的 T1 是另一个东西，而它的弱已被一个专门文件记录并给出了一般形式。**
+
+**⇒ **本轮不删任何东西**。⇒ 要改的是**文档**：凡写「`ProofComplete` 的 T1 是 `rfl`」的地方都错了。**
