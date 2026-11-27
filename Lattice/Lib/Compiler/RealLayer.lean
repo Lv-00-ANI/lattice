@@ -180,4 +180,39 @@ theorem pow_uniform_bound_as_realLayer (d : ℕ) (hd : 2 ≤ d) (n : ℕ) (hn : 
   have h := Lattice.Lib.Compiler.PowChord.pow_uniform_bound d hd n hn x hx
   rwa [gridEval_eq_realLayer_out] at h
 
+/-! ## 五、嵌入是**单射**（Phase 1 的第一步） -/
+
+/-- **`realLayerOfInt` 是单射**。
+
+**⇒ 这是 W1-1 里一直缺的那一半：正向嵌入（`realLayerOfInt`）与它的语义定理**
+**（`realLayer_ofInt_out`）已存在，但**反方向没有任何声明**——故「两个截面」一直只是一个嵌入。**
+**⇒ 单射性是能在**不引入 `Option`** 的情录下证明的最强那条：它说「整数截面里不会两个不同层被嵌成同一个实数层」。 -/
+theorem realLayerOfInt_injective {l₁ l₂ : Lattice.LinearLayer}
+    (h : realLayerOfInt l₁ = realLayerOfInt l₂) : l₁ = l₂ := by
+  -- **形式上的一个坑（记在证明里，因为下一个人会重犯）**：`induction l₁.w generalizing l₂.w`
+  -- **报「unexpected term l₂.w」——**不能 generalize 一个投影**。故先把两个列表抽成变量。**
+  have list_inj : ∀ (a b : List ℤ), a.map castI = b.map castI → a = b := by
+    intro a b hab
+    induction a generalizing b with
+    | nil =>
+        cases b with
+        | nil => rfl
+        | cons _ _ => simp at hab
+    | cons x t ih =>
+        cases b with
+        | nil => simp at hab
+        | cons y s =>
+            simp only [List.map_cons, List.cons.injEq] at hab
+            obtain ⟨hxy, hts⟩ := hab
+            have hEq : x = y := Int.cast_injective hxy
+            subst hEq
+            rw [ih s hts]
+  have hw : l₁.w = l₂.w := list_inj _ _ (congrArg RealLayer.w h)
+  have hb : l₁.b = l₂.b := by
+    have hbmap : castI l₁.b = castI l₂.b := congrArg RealLayer.b h
+    exact Int.cast_injective hbmap
+  cases l₁
+  cases l₂
+  simp_all
+
 end Lattice.Lib.Compiler.RealLayer

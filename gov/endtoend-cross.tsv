@@ -1848,6 +1848,7 @@ Lib/Compiler/RealLambdaCalculus.lean	closed_lift
 Lib/Compiler/RealLambdaCalculus.lean	up_isIdBelow
 Lib/Compiler/RealLambdaCalculus.lean	closed_subst_eq
 Lib/Compiler/RealLayer.lean	pow_uniform_bound_as_realLayer
+Lib/Compiler/RealLayer.lean	realLayerOfInt_injective
 Lib/Compiler/RealLv00CompilerHonesty.lean	D1_compile_loses_distance_value
 Lib/Compiler/RealLv00CompilerHonesty.lean	D1_compile_ignores_constraint_name
 Lib/Compiler/RealLv00CompilerHonesty.lean	D2_bridge_independent_of_source
