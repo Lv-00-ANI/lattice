@@ -40,7 +40,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 ZERO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-LAYERS = ["Core", "Lift", "Domains", "Runtime", "Compose", "Semantics", "Lib", "Geo"]
+from layers import CANONICAL as LAYERS  # W0-2: one list, derived from the tree
 # Round 245. `Runtime` (66 modules), `Domains` (99) and `Compose` (8) were created by the P2/P3
 # migration, and this list was never extended -- so this audit silently IGNORED 173 modules, more
 # than a fifth of the tree. The census that I5 rests on (`check_endtoend_content.py`) was among the

@@ -311,7 +311,10 @@ def check_unique_definitions(rep):
 # So Geo sits above `lib` and below the aggregators.
 LAYER_OF = {
     "Lattice/Core": "core",
-    "Lattice/Lift": "lift",
+    # **W0-2 (round 1181): `Lattice/Lift` and `Lattice/Geo` are REMOVED.** Both are directories that do not exist
+    # (measured), so no file could ever match them; `Lattice/Lib/Lift/...` already matches the `Lattice/Lib` prefix,
+    # which comes first. Dead keys in a table that decides import legality are worse than missing ones: a reader
+    # cannot tell which entries are load-bearing.
     # Round 234 (P2 pilot): `Runtime/` per DIRECTORY-DESIGN §3. Rank 2 == `lift`, because
     # `Runtime` is where `Lift`'s operation-semantics modules go; nothing is above it except
     # `Lib`/`Geo`/`Audit`/`Compose`, exactly as before.
@@ -335,7 +338,7 @@ LAYER_OF = {
     # archive stays importable as DOMAIN EVIDENCE (CARRIER-CIC.md §6.4), which is what lets the
     # 8 `Semantics` files keep their geometric vocabulary without pretending it is mainline.
     "Lattice/Reference": "reference",
-    "Lattice/Geo": "geo",
+    # **W0-2: `"Lattice/Geo": "geo"` removed with `"Lattice/Lift"` -- the directory does not exist.**
     # Round 227: Lattice/Semantics was MISSING from this map, so it fell through to "top" and
     # check_layering skipped it entirely -- 4 modules / 38 theorems with no I4 validation at all.
     # It imports Geo and nothing outside it imports Semantics, so it sits above geo.
@@ -406,6 +409,23 @@ def _layering_baseline():
     }
 
 
+#: **The single authoritative rank table (W0-2, round 1181).** `layers.py` derives from this instead of carrying its
+#: own copy: the two tables disagreed on EIGHT of the fourteen zones (`Semantics` 5 vs 4, `Reference` 4 vs 7,
+#: `Plugins` 3 vs 5, `Usage` 7 vs 6, `Evidence` 5 vs 6, `Compose` 6 vs 4, `CInterface` 6 vs 5, `Slots` 1 vs 3), and
+#: `layers.py` called itself "SINGLE AUTHORITATIVE" while the enforcement read this one. Two tables that both claim
+#: authority is the same defect as two values for one count in the docs.
+RANK = {"core": 0, "slots": 1, "runtime": 2, "primitives": 2, "lib": 3,
+        "cinterface": 6,
+        # Round 889: `plugins` and `usage` were absent from BOTH maps, so `layer_of` returned
+        # "top" for 87 modules and this table's `top: 99` made every one of their imports an
+        # UPWARD import that `check_layering` then had to decide about -- it skipped them instead.
+        # Plugins sits at 3 (a consumer of the kernel, same tier as `lib`); Usage at 7 (the
+        # example entry point, above everything it demonstrates).
+        "plugins": 3, "usage": 7,
+        "audit": 5, "evidence": 5,
+        "compose": 6, "reference": 4, "top": 99}
+
+
 def check_layering(rep):
         # Round 228: `lib` KEEPS its current rank 3 -- above `core`/`lift`, below `geo`.
     # That is the decision on DIRECTORY-DESIGN §9's open question: `Lib` is the responsible home for
@@ -413,16 +433,7 @@ def check_layering(rep):
     # kind, so it must stay above `core`/`lift` -- but it is measured to import NO `Geo`, so keeping
     # it below `geo` costs nothing and preserves `geo`'s ability to use `Lib` (which `Geo/Derivative`
     # and `Geo/Unified` rely on).
-    rank = {"core": 0, "slots": 1, "lift": 2, "runtime": 2, "primitives": 2, "lib": 3,
-            "domains": 3, "cinterface": 6,
-            # Round 889: `plugins` and `usage` were absent from BOTH maps, so `layer_of` returned
-            # "top" for 87 modules and this table's `top: 99` made every one of their imports an
-            # UPWARD import that `check_layering` then had to decide about -- it skipped them instead.
-            # Plugins sits at 3 (a consumer of the kernel, same tier as `lib`); Usage at 7 (the
-            # example entry point, above everything it demonstrates).
-            "plugins": 3, "usage": 7,
-            "geo": 4, "audit": 5, "evidence": 5,
-            "compose": 6, "reference": 4, "top": 99}
+    rank = RANK  # the module-level table above; this function does not keep a second copy
     for f in lean_files():
         lay = layer_of(f)
         if lay == "top":

@@ -51,48 +51,56 @@ and every check sees it at once, instead of one check drifting silently.
 
 import os
 
-# The layer directories, in RANK order (most fundamental first).
-# Measured from the tree; see the module docstring for the count.
-LAYER_ORDER = [
-    "Core",        # rank 1
-    "Primitives",  # rank 2
-    "Lift",        # rank 2
-    "Runtime",     # rank 2
-    "Slots",       # rank 3
-    "Lib",         # rank 3
-    "Domains",     # rank 3
-    "Geo",         # rank 3
-    "Compose",     # rank 4
-    "Semantics",   # rank 4
-    "CInterface",  # rank 5
-    "Plugins",     # rank 5
-    "Usage",       # rank 6
-    "Evidence",    # rank 6
-    "Reference",   # rank 7
-]
 
-# Rank: lower is more fundamental. `gate.py`'s I4 compares these.
-RANK = {
-    "Core": 1,
-    "Primitives": 2,
-    "Lift": 2,
-    "Runtime": 2,
-    "Slots": 3,
-    "Lib": 3,
-    "Domains": 3,
-    "Geo": 3,
-    "Compose": 4,
-    "Semantics": 4,
-    "CInterface": 5,
-    "Plugins": 5,
-    "Usage": 6,
-    "Evidence": 6,
-    "Reference": 7,
+# **W0-2 (round 1181): this table is DERIVED, not stated.** It used to carry its own copy and call itself
+# "SINGLE AUTHORITATIVE" while `gate.py`'s I4 -- the code that actually enforces layering -- read a different one.
+# Measured, the two disagreed on EIGHT of fourteen zones:
+#
+#     Semantics 5 vs 4   Reference 4 vs 7   Plugins 3 vs 5   Usage 7 vs 6
+#     Evidence 5 vs 6    Compose 6 vs 4     CInterface 6 vs 5   Slots 1 vs 3
+#
+# Two tables that both claim authority is the same defect as two values for one count in the docs. Now there is one
+# table (`gate.RANK`), this module maps its zone names to the namespace names the older lists used, and
+# `check_layer_registry.py` asserts the two agree so they cannot drift apart again.
+import gate as _gate  # the authority
+
+#: gate zone -> the namespace second component(s) it covers. `audit` covers two: `LAYER_OF` maps
+#: `Lattice/Semantics` to `audit`, so a namespace called `Semantics` sits at the audit rank.
+_ZONE_NAMES = {
+    "core": ["Core"], "slots": ["Slots"], "runtime": ["Runtime"], "primitives": ["Primitives"],
+    "lib": ["Lib"], "plugins": ["Plugins"], "usage": ["Usage"], "cinterface": ["CInterface"],
+    "audit": ["Audit", "Semantics"], "evidence": ["Evidence"], "compose": ["Compose"],
+    "reference": ["Reference"],
 }
 
-# The eight names the older LAYERS lists used, plus `Slots`. Kept so existing callers
-# that only want the classic kernel layers keep working; NOT the full set.
-CANONICAL = ["Core", "Lift", "Domains", "Runtime", "Compose", "Semantics", "Lib", "Geo"]
+#: Rank: lower is more fundamental. DERIVED from `gate.RANK`; do not edit here, edit there.
+RANK = {}
+for _zone, _names in _ZONE_NAMES.items():
+    for _n in _names:
+        RANK[_n] = _gate.RANK[_zone]
+
+# The layer directories, in RANK order (most fundamental first).
+# Measured from the tree; see the module docstring for the count.
+#: **W0-2: derived from RANK, not remembered.** The literal named `Lift`, which does not exist, and `check_layer_registry`
+#: compared its SET against `RANK`'s -- so the two disagreed by construction. Ordered by rank (lower = more
+#: fundamental), tie-broken by name so the order is stable; `top` is excluded because it is the fallthrough, not a layer.
+LAYER_ORDER = [n for n, _ in sorted(RANK.items(), key=lambda kv: (kv[1], kv[0])) if n != "top"]
+
+#: **W0-2: the layer set is DERIVED from the tree, not remembered.** The old literal named `Lift`, `Domains` and
+#: `Geo`, three directories that do not exist (measured: `Lattice/` holds 11 subdirectories, and `Slots` is a file at
+#: `Lattice/Slots.lean`, which is why it is appended). A remembered list of layers is exactly the kind of value that
+#: goes stale without anything noticing -- `check_layer_registry` compares every hand-written list against this.
+def _layer_dirs():
+    import os as _os
+    here = _os.path.dirname(_os.path.abspath(__file__))
+    root = _os.path.join(_os.path.dirname(here), "Lattice")
+    out = sorted(d for d in _os.listdir(root) if _os.path.isdir(_os.path.join(root, d)))
+    if _os.path.exists(_os.path.join(root, "Slots.lean")):
+        out.append("Slots")
+    return out
+
+
+CANONICAL = _layer_dirs()
 
 
 def zero(s):
