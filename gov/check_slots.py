@@ -24,6 +24,11 @@ ZERO = os.path.abspath(os.path.join(HERE, ".."))
 sys.path.insert(0, os.path.join(HERE, "tools"))
 from sorry_axiom_census import strip_comments  # noqa: E402
 
+
+import artifact_guard
+
+SYNC_RESULT = "unchanged"
+sync = artifact_guard.sync
 SLOTS = os.path.join(ZERO, "Lattice", "Slots.lean")
 REPORT = os.path.join(HERE, "SLOTS.md")
 
@@ -218,7 +223,11 @@ def write_report(slots):
         for s in other:
             lines.append("- `%s`" % s["name"])
     lines.append("")
-    io.open(REPORT, "w", encoding="utf-8", newline="\n").write("\n".join(lines))
+    # **W0-3c (round 1174): a GATE must not rewrite the artifact it is about to check.** `gate.py`'s I6
+    # path runs this script, and the unconditional write meant a hand edit to `SLOTS.md` was silently
+    # replaced by whatever this parser produced -- the checker authoring its own input.
+    global SYNC_RESULT
+    SYNC_RESULT = sync(REPORT, "\n".join(lines), allow_write="--write" in sys.argv, label="gov/SLOTS.md")
 
 
 def check_against_lean(rep):
@@ -301,4 +310,11 @@ if __name__ == "__main__":
     for it in r.items:
         print(" ", it)
     print("report:", REPORT)
+    # **W0-3c: a stale artifact is a failure on the default path.** The tree no longer matches what this parser
+    # produces, which is the condition a reader needs to know about -- and the fix is `--write`, not silent
+    # replacement.
+    if SYNC_RESULT == "stale":
+        print()
+        print("SLOTS REPORT: gov/SLOTS.md is stale -- run this script with --write to regenerate it")
+        sys.exit(1)
     sys.exit(1 if r.items else 0)
