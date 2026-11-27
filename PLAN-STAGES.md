@@ -4224,3 +4224,45 @@ require_synced(results, script) -> exit 1，并给出修复指令
 **\u21d2 \u53cc\u5411\u9a8c\u8bc1\uff1a\u628a\u76ee\u5f55\u6539\u540d\u79fb\u8d70 \u2192 \u4e24\u884c\u5747 **\u5b9e\u6d4b -1 MISMATCH**\u3001**exit 1**\uff1b\u6539\u56de \u2192 **exit 0**\u3002**
 
 **\u21d2 \u6545 W0-3e \u7684\u4e09\u9879\u91cc\uff1a\u4e00\u9879**\u771f\u4fee**\uff08\u5426\u8bc1\u666e\u67e5\u6b63\u5219\uff0c+3 \u5426\u8bc1\uff09\u3001\u4e00\u9879**\u5b9e\u6d4b\u4e3a\u96f6**\u3001\u4e00\u9879**\u771f\u4fee**\uff08LvFormal \u5bf9\u8c61\u9519\uff09\u3002**
+### 3.132 **W0-1 完成：七组同 FQN 双声明全部消除（第 1179 轮，分支 `merge-fqn-duplicates`）**
+
+**⇒ 七对名字在**两个文件**里各声明一次，两侧都在 `Lattice.lean` 的闭包内 ⇒ 任何 `rw`/`unfold` 看到的**证明体取决于 import 顺序**。**
+**⇒ 第 1172 轮已定论失败模式（构建通过、**后 import 者静默胜出**）并定位每组胜者；本轮**删掉重复**。**
+
+#### 为什么安全
+
+**⇒ 四组「定义体不同」的，实测**命题完全相同**：`abs_cos_sub_cos_le`/`abs_sin_sub_sin_le`/`dot_replicate_zero` 只差**绑定名与证明**；**
+**⇒ `tanh_pos_of_pos` 是**逐字相同**。⇒ 故这是**去重**，不是语义合并。**
+
+#### 处置规则：**保留「被导入更少」的文件**（新增 import 的爆炸半径更小）
+
+| 名字 | 保留 | 新 import |
+|:--|:--|:--|
+| `dot_replicate_zero` | `Runtime/DotTruncationDefect`（1 importer） | `LayerComposition` → 它 |
+| `tanh_pos_of_pos` | `Lib/Lift/…_parts/B`（2） | `RealExtractInvertibility` → 它 |
+| `extractVec_convertVec_rfl` | `Lib/Editing/RealExtractSurjectivity`（2） | `RealCanonicalCompileComm` → 它 |
+| `abs_cos_sub_cos_le` / `abs_sin_sub_sin_le` | `Lib/Attention/RealRoPEExtrapolation`（1） | `RealAbsPosEncoding` → 它 |
+| `dot_replicate_zero_any` | `Runtime/LayerComposition` | `RealConstraintEdit` → 它 |
+| `convertVec_extractVec_rfl` | `RealExtractSurjectivity` | （另一侧只散文引用） |
+
+**⇒ 第一组的注释**自己写着「本文件不 import `LayerComposition`」——**实测 `Lib → Runtime` 是向下、且无环** ⇒ **理由过期了，重复没过期。**
+
+#### 删声明逼出的记账（**每一处都是门禁抓到的，不是靠记忆**）
+
+| 项 | 变化 |
+|:--|:--|
+| 定理 / 声明 | **10,300 → 10,293** / **13,885 → 13,878**（5 份文档） |
+| `PROOF-DEBT` 覆盖表 | 承重 1117→**1120**、已审 1105→**1108**、零入度 8981→**8978**、抽审 403→**400** |
+| `duplicate-name-classes.txt` | 删 7 行（已不再共享） |
+| `verdict-stale-baseline.txt` | **7 条判决记为 RESOLVED**，各写明存活文件 |
+| 别名基线 | 930 → **927** |
+| 端到端地板 | 重生成，并**写明两条「LOST」是**同名移位**（`RealConstraintEdit→LayerComposition`、`LayerComposition→DotTruncationDefect`） |
+
+**⇒ 地板按 **(文件, 名字)** 计，故**移位看起来像丢失**——这恰是它该做的、也是从它**不该**得出的结论（其自己的 docstring 已警告同类）。**
+
+#### 规划**不知道**的两份额外副本
+
+**⇒ `extractVec_convertVec_rfl` 全树有 **4** 处，不是 2 处。⇒ 其中**两处是 `/-! … -/` 文档里的 Markdown 代码块引用**，**
+**⇒ **根本不是声明**——是**原文 `git grep` 数出来的**。⇒ 真实定义点：**1**。**
+
+**⇒ 实测：`lake build Lattice` exit 0；分支 `VERIFY ALL [fast] PASS`（605.7 秒）；master 复验 `PASS`（686.5 秒），工作区干净。**
