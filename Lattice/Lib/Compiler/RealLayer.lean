@@ -215,4 +215,41 @@ theorem realLayerOfInt_injective {l₁ l₂ : Lattice.LinearLayer}
   cases l₂
   simp_all
 
+/-! ## 六、反向映射：**整数预像**（Phase 1 的第二步） -/
+
+/-- **已知每个系数都是整数值时，取它的整数原像。**
+
+**⇒ 不用 `Option`：把「整性」作为**前提参数**传进来，于是这个函数是**全的**。**
+**⇒ 「什么时候取得到」这个问题留给下一条定理（`realLayerOfInt_toLayerOf`），而不是藏在 `if` 里。 -/
+noncomputable def toLayerOf (r : RealLayer)
+    (h : ∀ z ∈ r.w, ∃ k : ℤ, z = (k : ℝ))
+    (hb : ∃ k : ℤ, r.b = (k : ℝ)) : Lattice.LinearLayer where
+  w := r.w.attach.map (fun p => (h p.1 p.2).choose)
+  b := hb.choose
+
+/-- **取回去就是原来那个层**。
+
+**⇒ 这是 `realLayerOfInt` 的**左逆**（无条件）：取整数原像再嵌回实数，得回同一个层。**
+**⇒ 与上一条定理（单射）合起来，这才是「**两个截面**」的完整含义：一个方向保存信息，另一个方向能取回。 -/
+theorem realLayerOfInt_toLayerOf (r : RealLayer)
+    (h : ∀ z ∈ r.w, ∃ k : ℤ, z = (k : ℝ))
+    (hb : ∃ k : ℤ, r.b = (k : ℝ)) :
+    realLayerOfInt (toLayerOf r h hb) = r := by
+  have hw : (toLayerOf r h hb).w.map castI = r.w := by
+    simp only [toLayerOf, List.map_map, Function.comp_def]
+    -- 每个元素：`castI (choose) = z`，故这张量就是 `r.w.attach.map Subtype.val`
+    have : ∀ p : { z // z ∈ r.w }, castI ((h p.1 p.2).choose) = p.1 := by
+      intro p
+      have := (h p.1 p.2).choose_spec
+      show ((h p.1 p.2).choose : ℝ) = p.1
+      exact this.symm
+    rw [List.map_congr_left (fun p _ => this p)]
+    simpa using (List.attach_map_val (f := id) r.w)
+  have hb' : castI (toLayerOf r h hb).b = r.b := by
+    have := hb.choose_spec
+    show ((hb.choose : ℤ) : ℝ) = r.b
+    exact this.symm
+  cases r
+  simp only [realLayerOfInt, hw, hb']
+
 end Lattice.Lib.Compiler.RealLayer
