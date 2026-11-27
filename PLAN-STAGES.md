@@ -4147,3 +4147,29 @@ require_synced(results, script) -> exit 1，并给出修复指令
 
 **⇒ 实测：`VERIFY ALL [fast] PASS`（482.3 秒），`126 = 104 + 22`，93 通过；且**跑完后 `git status` 为空**——
 ⇒ 这正是规划给 W0-3c 的验收判据：「`git status` 后跑 `verify_all` ⇒ 无 tracked 文件被改」。**
+### 3.129 **W0-3c 完成：六处默认路径生成器全部改为**比较而非覆盖**（第 1175 轮）**
+
+| \u811a\u672c | \u4ea7\u7269 |
+|:--|:--|
+| `chain.py` | `gov/PROOF-CHAIN.md` |
+| `proof_chain_geo.py` | `gov/PROOF-CHAIN-GEO.md` |
+| `gen_primitive_matrix.py` | **`PRIMITIVE-MATRIX.md`\uff08\u4ed3\u5e93\u6839\uff0c**\u88ab\u8ffd\u8e2a**\uff09** |
+| `check_endtoend_content.py` | `gov/ENDTOEND-CENSUS.md` |
+| `audit_aliases.py` | `gov/ALIAS-CENSUS.md` |
+| `check_slots.py` | `gov/SLOTS.md`\uff08\u4e0a\u8f6e\uff09 |
+
+**⇒ `check_endtoend_floor.py` **不需要改**：它的写在 `--write-baseline` 之后（显式请求）。
+⇒ 规划把它列为默认路径写者——**实测不是**。**
+
+#### \u4e24\u5904**\u6d4b\u91cf\u903c\u51fa\u6765**\u7684\u4e8b\uff08\u89c4\u5212\u6ca1\u9884\u6599\u5230\uff09
+
+1. **`PRIMITIVE-MATRIX.md` \u5728\u4ed3\u5e93\u6839\u4e14**\u88ab\u8ffd\u8e2a**\uff1b`gov/PRIMITIVE-MATRIX.md` \u662f\u53e6\u4e00\u4e2a**\u672a\u8ffd\u8e2a**\u8def\u5f84\uff08\u6211\u5148\u524d\u6d4b\u9519\u4e86\u5bf9\u8c61\uff09\u3002**
+\ufe0f\u21d2 **\u4ea7\u7269\u4f4d\u7f6e\u5fc5\u987b\u4ece `OUT` \u8bfb\uff0c\u4e0d\u80fd\u4ece\u5176\u4ed6\u516d\u4e2a\u63a8\u65ad\u3002**
+2. **\u5b88\u536b\u56e0\u6b64\u589e\u4e86 `expect_tracked`**\uff1a\u5bf9**\u4ece\u672a\u5165\u5e93**\u7684\u4ea7\u7269\uff0c\u300c\u7f3a\u5931\u300d\u4e0d\u662f\u7f3a\u9677\u3002
+\u21d2 \u6ca1\u6709\u5b83\uff0c\u9ed8\u8ba4\u8def\u5f84\u4f1a\u5728**\u5e72\u51c0\u6811**\u4e0a\u5931\u8d25\u2014\u2014\u6b63\u597d\u53cd\u4e86\u610f\u56fe\u3002**
+
+#### \u9010\u5904\u9a8c\u8bc1 + \u6574\u4f53\u9a8c\u8bc1
+
+**\u21d2 \u9010\u5904\uff1a\u6270\u52a8\u88ab\u8ffd\u8e2a\u4ea7\u7269 \u2192 `STALE <file> -- line N differs` + **exit 1**\uff1b`--write` \u6062\u590d\uff1b\u968f\u540e\u9ed8\u8ba4 exit 0\u3002**
+**\u21d2 \u6574\u4f53\uff1a`VERIFY ALL [fast] PASS`\uff08527.2 \u79d2\uff09\uff0c`126 = 104 + 22`\uff0c93 \u901a\u8fc7\uff1b**
+**\u21d2 **\u8dd1\u5b8c\u540e `git status` \u53ea\u663e\u793a\u672c\u6b21\u811a\u672c\u6539\u52a8\u2014\u2014\u65e0\u4efb\u4f55\u4ea7\u7269\u88ab\u6539**\u3002\u21d2 \u8fd9\u6b63\u662f\u89c4\u5212\u7ed9 W0-3c \u7684\u9a8c\u6536\u5224\u636e\u3002**
