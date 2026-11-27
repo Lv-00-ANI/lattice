@@ -5,6 +5,7 @@ import Lattice.Runtime.SymbolToWeightCorrectness
 import Lattice.Lib.Editing.RealCompileExtractClosed
 import Lattice.Lib.Editing.RealCanonicalForm
 import Lattice.Runtime.ExtractionClosure
+import Lattice.Lib.Editing.RealExtractSurjectivity
 /-!
 # LATTICE: 规范形与编译的「交换律」（缺口 B）—— 陈述的诊断与判定
 
@@ -141,28 +142,6 @@ namespace Lattice
 而 `compile` 给 `LinearLayer`）—— **这正是作者所指的障碍**，且**必须**经 `extractVec` 中介。
 要点 **但本文件 §二 证明：这个中介是【恒等】的，故该路径没有信息。** -/
 
-/-- **提取-往返（`rfl` 级）**：`extractVec (convertVec c) = c`。
-
-注意 **`WeightToSymbolEquivalence.roundtrip_extractVec` 已证此式**（其证明体是 `cases c <;> rfl`）；
-要点 **本文件在此显式登记它的【定义性】**（区别于"需要证明"的定理）——
-因为**这是 §二 空洞性诊断的全部依据**。 -/
-theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
-
-/- **编译-往返（`rfl` 级）**：`convertVec (extractVec l) = l`（结构 eta）。
-
-注意 **两侧都只是字段重命名** ⟹ 往返在两个方向上**都是**定义恒等，
-故权重侧与符号侧在**对象层**上是**同一个记录类型换了字段名**。
-
-**⇒ 第 1178 轮（W0-1）：本文件曾在此重述 `convertVec_extractVec_rfl`，与
-`RealExtractSurjectivity` 的同名声明构成同 FQN 双声明。本文件对它的引用只在一句散文里，
-代码级 0 处 ⇒ 副本已删除；唯一权威留在 `RealExtractSurjectivity`。** -/
-
-/-! ## 二、注意 两条路径：定义 + 空洞性诊断（本文件的第一项交付） -/
-
-/-- 要点 **路径 ①（编译后再规范化）**：`canonicalize (extractVec (convertVec c))`。
-
-要点 **这是任务书建议的定义**，且它**是类型正确的**（经 `extractVec` 中介）。
-注意 但见下条：它**定义上**等于 `canonicalize c`。 -/
 def compileThenCanonicalize (c : VectorConstraint) : VectorConstraint :=
   canonicalize (extractVec (convertVec c))
 

@@ -1,6 +1,7 @@
 import Mathlib
 import Lattice.Runtime.ConvertVectorLinear
 import Lattice.Runtime.SymbolToWeightCorrectness
+import Lattice.Runtime.DotTruncationDefect
 /-!
 # LATTICE: 多层网络组合 —— 前向传播与约束满足的传播
 
@@ -42,19 +43,6 @@ def layerSeq : List Layer → List Int → List Int
   | [], x => x
   | l :: rest, x => layerSeq rest (layerFwd l x)
 
-/-! ## 引理一：点积与零向量为零
-dot w (replicate n 0) = 0（n = w.length，逐项乘零求和为零）。-/
-
-lemma dot_replicate_zero (w : List Int) :
-    dot w (List.replicate w.length 0) = 0 := by
-  unfold dot
-  induction w with
-  | nil => simp [List.foldl, List.zip, List.replicate]
-  | cons h t ih =>
-      simpa [List.foldl, List.zip, List.replicate] using ih
-
-/-! ## 引理一'：点积与任意长度零向量为零
-dot w (replicate n 0) = 0（第二参数全零 ⟹ 每项乘积为零，与长度无关）。-/
 
 lemma dot_replicate_zero_any (w : List Int) (n : Nat) :
     dot w (List.replicate n 0) = 0 := by

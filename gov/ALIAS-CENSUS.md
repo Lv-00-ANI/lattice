@@ -9,8 +9,8 @@
 
 | 形状 | 判据 | 条数（按声明计） |
 |:--|:--|--:|
-| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 760 |
-| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 170 |
+| **forward** | 证明体就是 `:= 另一个声明 args`，无策略 | 758 |
+| **copy** | 规范化后的证明体与**另一个名字**完全相同 | 169 |
 
 ⚠ **`audit_duplicates.py` 两种都看不见**：它按**名字**分组，而这两种都是**不同名字**；而且它是 report-only。**陈述比对也看不见**——参数顺序一换签名就变。
 
@@ -429,8 +429,6 @@
 | `Lib/Convex/RealSupportingHyperplane.lean` | `supporting_hyperplane_of_finite_convexHull` |
 | `Lib/Editing/RealCanonicalCompileComm.lean` | `canonicalize_absorbs_scale_pos` |
 | `Lib/Editing/RealCanonicalCompileComm.lean` | `canonicalize_scaleVec_sign_law` |
-| `Lib/Editing/RealCanonicalCompileComm.lean` | `convertVec_extractVec_rfl` |
-| `Lib/Editing/RealCanonicalCompileComm.lean` | `extractVec_convertVec_rfl` |
 | `Lib/Editing/RealCanonicalForm.lean` | `canonicalize_idempotent` |
 | `Lib/Editing/RealClosureReversibility.lean` | `ft2L2L3Norm_idem_apply` |
 | `Lib/Editing/RealClosureReversibility.lean` | `ft2L2L3_failure_identifiable` |
@@ -902,7 +900,6 @@
 | `Lib/Convex/RealFarkas.lean` | `dotV_smul_right` |
 | `Lib/Convex/RealStrictConvexEquality.lean` | `eq_of_strictConcaveOn_combo_eq` |
 | `Lib/Convex/RealStrictConvexEquality.lean` | `eq_of_strictConvexOn_combo_eq` |
-| `Lib/Editing/RealCanonicalCompileComm.lean` | `convertVec_extractVec_rfl` |
 | `Lib/Editing/RealConversionCategorical.lean` | `natTransform_compile` |
 | `Lib/Editing/RealConversionQuotient.lean` | `compiledIndistinct_equivalence` |
 | `Lib/Editing/RealConversionQuotient.lean` | `kernel_equivalence` |

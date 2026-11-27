@@ -1,4 +1,5 @@
 import Mathlib
+import Lattice.Lib.Lift.RealNonlinearFidelity_parts.B
 
 /-!
 # LATTICE: 非线性层提取的可逆充要条件
@@ -222,14 +223,6 @@ theorem geluTanh_injOn_of_strictMono (h : StrictMonoOn extractGeluTanh (Set.Ici 
 `Real.sinh_sub` 给出关键恒等式 `sinh y · cosh x − sinh x · cosh y = sinh (y − x)`；
 `Real.sinh_pos_iff` 给出 `sinh (y−x) > 0 ⊲ y > x`。 -/
 
-/-- **`tanh` 正半轴为正**：`0 < x ⟹ 0 < tanh x`。
-（mathlib 4.14 **没有** `Real.tanh_pos_iff`，故此处以 `sinh`/`cosh` 现证。） -/
-theorem tanh_pos_of_pos {x : ℝ} (hx : 0 < x) : 0 < Real.tanh x := by
-  have hcx : 0 < Real.cosh x := Real.cosh_pos x
-  rw [Real.tanh_eq_sinh_div_cosh]
-  exact div_pos (Real.sinh_pos_iff.mpr hx) hcx
-
-/-- **`tanh` 非负半轴非负**：`0 ≤ x ⟹ 0 ≤ tanh x`。（`x = 0` 处 `tanh 0 = 0`。） -/
 theorem tanh_nonneg_of_nonneg {x : ℝ} (hx : 0 ≤ x) : 0 ≤ Real.tanh x := by
   rcases eq_or_lt_of_le hx with heq | hlt
   · rw [← heq]; simp
