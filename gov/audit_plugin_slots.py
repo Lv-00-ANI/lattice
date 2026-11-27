@@ -80,13 +80,24 @@ def slots(path):
     """[(field, value, kind)] for the first PluginProof literal in the file."""
     src = strip_comments(io.open(path, encoding="utf-8", errors="replace").read())
     hits = FIELD_LINE.findall(src)
-    out = []
+    # **W0-4 (round 1185): collect BY NAME, not by position.** The old loop was
+    #
+    #     if field != FIELDS[len(out)]: continue
+    #
+    # so a plugin that wrote its twelve fields in a different ORDER had the out-of-order one silently dropped; with
+    # fewer than twelve accepted, `measure()` skipped the whole plugin (`if len(ss) < 12: continue`). `Tokens` writes
+    # `completeness` before `approximation`, so **eight literal `True`s were never counted** -- the audit reported 47
+    # where the tree has 55, and the plan's `[未验证]` note about this is now measured, not assumed.
+    seen = {}
     for field, value in hits:
-        if len(out) >= 12:
-            break
-        if field != FIELDS[len(out)]:
-            continue
-        v = value.strip()
+        if field in seen:
+            continue                      # first occurrence wins: a second assignment is a defect worth its own gate
+        seen[field] = value.strip()
+    out = []
+    for field in FIELDS:
+        if field not in seen:
+            continue                      # a MISSING field is reported by the caller, not silently reordered
+        v = seen[field]
         if v == "True":
             out.append((field, v, "TRUE"))
         elif "∧" in v:
