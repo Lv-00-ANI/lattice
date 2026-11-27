@@ -55,11 +55,13 @@ def asc(s):
 def scan():
     found = {}
     for base, dirs, fs in os.walk(os.path.join(ZERO, "Lattice")):
-        # Round 265 (STAGE 0): the ARCHIVE (`Lattice/Reference/`) is not part of the mainline
-        # build closure. Its `admit`s are pre-existing Lv-00 upstream code that the archival
-        # deliberately moved OUT of the chain; counting them as new escapes would report the
-        # archival itself as a regression.
-        dirs[:] = [d for d in dirs if d not in (".lake", ".git", "Reference")]
+        # **W0-3b (round 1173): this exclusion was the defect.** Round 265 skipped `Reference`
+        # because the archive carried 111 `admit`s and counting them "would report the archival as a
+        # regression". Measured now: the whole tree INCLUDING Reference has ZERO escape files, so
+        # there is nothing left to exclude -- and excluding it meant the check compared an empty set
+        # against a baseline of nine files, i.e. it could only ever return 0. It now walks the zone
+        # it is named after.
+        dirs[:] = [d for d in dirs if d not in (".lake", ".git")]
         for f in sorted(fs):
             if not f.endswith(".lean"):
                 continue
