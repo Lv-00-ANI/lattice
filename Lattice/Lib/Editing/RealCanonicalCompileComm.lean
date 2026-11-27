@@ -148,12 +148,14 @@ namespace Lattice
 因为**这是 §二 空洞性诊断的全部依据**。 -/
 theorem extractVec_convertVec_rfl (c : VectorConstraint) : extractVec (convertVec c) = c := Lattice.roundtrip_extractVec c
 
-/-- **编译-往返（`rfl` 级）**：`convertVec (extractVec l) = l`（结构 eta）。
+/- **编译-往返（`rfl` 级）**：`convertVec (extractVec l) = l`（结构 eta）。
 
 注意 **两侧都只是字段重命名** ⟹ 往返在两个方向上**都是**定义恒等，
-故权重侧与符号侧在**对象层**上是**同一个记录类型换了字段名**。 -/
-theorem convertVec_extractVec_rfl (l : LinearLayer) : convertVec (extractVec l) = l := by
-  exact Lattice.Runtime.ExtractionClosure.reinject_roundtrip l
+故权重侧与符号侧在**对象层**上是**同一个记录类型换了字段名**。
+
+**⇒ 第 1178 轮（W0-1）：本文件曾在此重述 `convertVec_extractVec_rfl`，与
+`RealExtractSurjectivity` 的同名声明构成同 FQN 双声明。本文件对它的引用只在一句散文里，
+代码级 0 处 ⇒ 副本已删除；唯一权威留在 `RealExtractSurjectivity`。** -/
 
 /-! ## 二、注意 两条路径：定义 + 空洞性诊断（本文件的第一项交付） -/
 
