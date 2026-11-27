@@ -4117,3 +4117,33 @@ Lib.lean:88–91         ZeroDataSynthesis · ResidualEpsRepair · CompileLaw ·
 - 第 57 轮那条「『全树 0 逃逸』是**错的**说法」——**现在它是对的**：全树确实 0，**含 Reference**。
 
 **⇒ 实测：29 项门禁全绿，`VERIFY ALL [fast] PASS`（430.1 秒），`126 = 104 + 22`，`--fast` 下 93 通过。**
+### 3.128 **W0-3c 起步：第一个「网关却写自己产物」的生成器改为**比较而非写入**（第 1174 轮）**
+
+**⇒ 规划 W0-3c：七个生成器在**默认路径**重写自己的产物。⇒ 动手前先测量：**
+**⇒ 七个在干净树上跑一遍，`git status` **为空** ⇒ 它们是**幂等**的。**
+**⇒ 故缺陷不是「每次改」，而是**权威**：默认路径重写会**静默覆盖手改**，
+⇒ 而 `check_slots.py` 正是在 `gate.py` I6 的路径上这么做的——**检查者撰写了自己的输入。**
+
+#### 共享守卫 `gov/artifact_guard.py`
+
+```
+sync(path, text, allow_write) -> "unchanged"（不写）
+                              -> "stale"    （不写；打印首个差异行）
+                              -> "written"  （仅当 allow_write）
+require_synced(results, script) -> exit 1，并给出修复指令
+```
+
+**⇒ `check_slots.py` 已接入，且 stale 已接到退出码。⇒ **三步验证**：**
+
+| 步骤 | 结果 |
+|:--|:--|
+| 干净树 | 默认 **exit 0**，`SLOTS.md` 未被触碰 |
+| 追加一行 | **`STALE gov/SLOTS.md -- line 39 differs`**，**exit 1** |
+| `--write` | 恢复；其后的默认运行 **exit 0**，`git status` 干净 |
+
+**⇒ 其余六处（`check_endtoend_content` 2 处、`audit_aliases` 2 处、`chain`、`proof_chain_geo`、
+`gen_primitive_matrix`、`check_endtoend_floor`）**已登记为下一个增量**——
+⇒ 一个共享规则建好了，剩下的是把九处调用点逐个接上，而不是六个各写一遍。**
+
+**⇒ 实测：`VERIFY ALL [fast] PASS`（482.3 秒），`126 = 104 + 22`，93 通过；且**跑完后 `git status` 为空**——
+⇒ 这正是规划给 W0-3c 的验收判据：「`git status` 后跑 `verify_all` ⇒ 无 tracked 文件被改」。**
