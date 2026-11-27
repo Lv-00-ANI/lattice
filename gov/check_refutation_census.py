@@ -29,7 +29,14 @@ LAT = os.path.join(LAKE, "Lattice")
 # the census document this guard keeps honest
 CENSUS_MD = os.path.join(LAKE, "REFUTATION-CENSUS.md")
 
-PAT = re.compile(r"^(?:theorem|lemma)\s+(\w+)(.*?):=", re.S | re.M)
+# **W0-3e (round 1176): the old pattern anchored at `^(?:theorem|lemma)`, so it could not see a
+# declaration carrying an attribute or a modifier -- and Lean writes both. Measured on this tree:
+# 193 more declarations become visible and THREE more refutations: `blocked_pre` (private theorem) and
+# `isoList_nil_cons` / `isoList_cons_nil` (both @[simp]) -- all three real, all three previously invisible.
+DECL_PREFIX = r"(?:@\[[^\]]*\]\s*)*(?:(?:noncomputable|private|protected|partial|unsafe)\s+)*"
+# A file that begins with a BOM would hide its FIRST declaration: measured, 0 of 1,124 do, but the
+# tolerance costs nothing and the failure mode is silent.
+PAT = re.compile(r"(?:\ufeff)?^[ \t]*" + DECL_PREFIX + r"(?:theorem|lemma)\s+(\w+)(.*?):=", re.S | re.M)
 
 
 from tools.lean_source import strip_comments  # noqa: E402  (round 968: one authority;
