@@ -83,7 +83,15 @@ TUPLES = [
 #: `ROADMAP-v10.md`'s `16 / 35 / 65 / 588`, which was correct when it was written. Excluding them is
 #: not weakening the check: a frozen document that DID claim to describe today would be the bug, and
 #: that is what `STATE-2026-10.md` vs `STATE-FINAL.md` is for.
-FROZEN = re.compile(r"^ROADMAP-v\d+\.md$")
+#:
+#: Round 1180: `PLAN-STAGES.md` belongs here for the same reason. It is a DIARY -- every entry records what the
+#: tree measured at that round, and the file has accumulated 3,000+ lines of dated snapshots. A diary that was
+#: kept current would be a diary with no history in it. The gate caught this honestly: after the registration
+#: count moved 126 -> 127, README said 127 and two 1160-era lines in PLAN-STAGES still said 126, and the two
+#: cannot both be "the number today" because only one of them is describing today.
+#: Round 1180 also: `MACRO-COGNITION-148.md` is a numbered snapshot ("established at round 148", by read-only
+#: audit) -- its numbers are that round's, by construction.
+FROZEN = re.compile(r"^(?:ROADMAP-v\d+|PLAN-STAGES|MACRO-COGNITION-\d+)\.md$")
 
 #: A table separator with no pipes: starts with `:--` and never uses `|`. See `check` for why.
 MALFORMED_SEP = re.compile(r"^\s*:--?[-\s:]*$")

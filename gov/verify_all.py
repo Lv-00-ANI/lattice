@@ -267,6 +267,10 @@ CHECKS = [
     # So the question "does this gate have a self-test?" is now a build error rather than a matter of
     # diligence. Every gate must carry `--self-test`, have a `*_reactivity.py` companion, or be listed
     # in `check_selftest_coverage.EXEMPT` with the reason it is verified some other way -- and that
+    # **W0-3f GATE-1: every registered gate must have an exit that is not the literal 0.** Round 1172 found eight
+    # structurally-green checks by reading the source; this turns that property of my attention into a property
+    # of the tree. Necessary, not sufficient -- see its docstring.
+    ("meta: every gate can fail", "check_gate_default_failure.py"),
     ("meta: layer cycle does not grow", "check_layer_cycle.py --strict"),
     ("meta: layer health invariants hold", "check_layer_health.py --strict"),
     ("audit: duplicate short names bounded", "audit_duplicate_names.py --check"),

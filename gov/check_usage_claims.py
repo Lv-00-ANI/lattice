@@ -298,7 +298,7 @@ CLAIMS = [
     # Round 1122: the gating number had NO checker and two docs were stale by 6. Labelled per number so that
     # "how many checks exist" cannot be confused with "how many passed under --fast".
     ("DELIVERY: verify_all total checks",
-     "(126) 项检查",
+     r"(\d+) 项检查",
      measure_check_total, "DELIVERY.md"),
     ("DELIVERY: verify_all gating checks",
      r"(\d+) 个门禁",
