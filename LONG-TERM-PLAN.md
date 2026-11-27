@@ -50,6 +50,20 @@
 
 ---
 
+
+## 第 0.2 节　执行到 Phase 2 时发现的三处规划错误（第 1182–1188 轮，均已实测）
+
+**本节由执行者加入。它不改写规划正文，而是把「正文哪几句被测量推翻了」写在正文之前。**
+
+| 规划的说法 | 实测 | 处置 |
+|:--|:--|:--|
+| `gov/layers.py` 是零 importer 的死代码，秩表只有 `gate.py` 一套 | `layers.py` 有 **1 个活 importer**（`check_layer_health.py`），且两张表在 **8 个层**上给出不同秩 | 已改：`layers.RANK` 派生自 `gate.RANK`（§3.134） |
+| 插件 `consistent` 不看 manifest 是**缺陷**（"manifest 说 `.spatial` 而 `proof.spatial = True` 仍通过"） | **0 处**这样的声称；类型允许，树上没有 | 已改为**门禁**（§3.139），`ProofFieldOf` 留待门禁响了再做 |
+| `ProofComplete` 的 T1 是 `Obligations.lean:86` 的 `rfl`，救法是把它移出判据 | **那条不在判据里**：判据的 T1 是三条 `t1_*`（合并健全性），其弱已由 `Targets/T1Dependence.lean` 诊断，且一般形式 `t1_compile_sound_general` 已存在 | **未删任何东西**（§3.141）；正文相关句子已就地注明 |
+
+**⇒ 三条的共同点：规划把「某个符号在树里存在」当成了「它在判据里起作用」。**
+**⇒ 而三条都是同一个动作发现的：**打开定义本体，而不是读关于它的描述**。**
+
 # 正文（原文照录）
 
 # 第零章　这份规划为什么必须重写
@@ -59,7 +73,7 @@
 瓶颈移到三处更基础的地方：
 
 1. **载体不唯一**：同一“权重”指三件事；“L3”有三个互不桥接的入口；三个 artifact 类型零连接。
-2. **判据用错载体**：`ProofComplete` 合取了被规范明令禁止的弱载体（T6/T7/T8），T1 是 `rfl`。
+2. **判据用错载体**：`ProofComplete` 合取了被规范明令禁止的弱载体（T6/T7/T8）；**T1 那句**⇒ 第 1188 轮实测：判据里的 T1 **不是**那条 `rfl`，见** §0.2**。
 3. **承诺远大于执行，且检查器不能失败**：3327 行插件规格对应 0 条编排定理；105 个名义门禁中 8 个结构性恒绿、6 个目标缺失即绿。
 
 因此本规划按**依赖**排序：先让“完成”可判定，再谈载体，再谈编排与规模化。
@@ -267,7 +281,7 @@ consistent : manifest.obligations ≠ [] → proof.Holds
 | **插件系统** | **~33** | 17 键 → 实际 4 键；23 违反码 → 0；12 语义子目录 → 0；`systemRegistry`/`Backends/C` → 0；Q4–Q18 的 45+ 具名定理 → 0；10 类门禁 → 1；自举 6 项 → 0/6 |
 | **目录与分层** | **17** | `Kernel/`、`Domains/`、`Compat/`、`C/`、`All.lean` 五类从未存在；`check_primitive_independence.py` 四处点名、从未创建；`Primitives` 零 import 规则已被自身违反（`WeightDescent.lean:66`） |
 | **IR 结构层** | **12** | §7bis“契约合成：完整实现”整块为空；§9“编辑统一模型”为空；§10“渲染”为空；`compile`/`extract`/`roundtrip` 形状与文档相反 |
-| **证明义务** | **13** | T1 是 `rfl` 且前提未用；T7/T8 规范陈述未被执行；`ProofComplete` 无 T0 |
+| **证明义务** | **13** | **T1（`Obligations.lean` 那条）**是 `rfl` 且前提未用——**但它不在 `ProofComplete` 里**（§0.2）；T7/T8 规范陈述未被执行；`ProofComplete` 无 T0 |
 | **语义主线与 C 接口** | **11** | 12 个 `lattice_*` 与 `abiTable` 的 11 个名字零交集；`CInterface/Layout.lean` 不存在；`Carrier`/`Encode`/`Annotation`/`SemanticDelta` 未落码 |
 | **CIC 与几何编码** | **10** | `Core/CIC/Encode/Geometry.lean` 不存在；12 构造子被 `tag*4096+payload` 常量索引替代且**非单射**（`Encode/CIC.lean:219`） |
 | **几何迁移与交付** | **~16** | “归档层不参与构建”为假；“迁移完成”与真实 import 边不符 |
@@ -1082,7 +1096,7 @@ inductive SlotStatus where
 - 一个“权重”只有一种类型（三个）；
 - 一个“L3”只有一个入口（三个，零桥）；
 - 一个 artifact 只有一种（三个，零桥）；
-- `ProofComplete` 每项都是规范所写命题（T1 是 `rfl`，T6/T7/T8 错载体）；
+- `ProofComplete` 每项都是规范所写命题（T6/T7/T8 错载体；**T1 那句已被§0.2 推翻**）；
 - 插件系统能执行（0 条编排定理、0 个 C 源码、55 个 `True` 槽）；
 - 组合层有能跑的真实管线（4/5 展品定义式，`pipeline` 仍是手写 `bind`）；
 - **检查器能失败**（105 名义门禁中 8 个结构性恒绿、6 个条件绿、7 个自写产物、2 个腐化基线）。
