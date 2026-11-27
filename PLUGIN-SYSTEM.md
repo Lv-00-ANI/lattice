@@ -2344,9 +2344,12 @@ theorem loader_can_load_self : manifestsWellFormed (manifestOf loaderPrim)
 #### I.4.3 第 3 步：自举序列收敛
 
 ```lean
--- Lean 侧（纯函数，幂等）
-theorem bootstrap_converges (ms : List Manifest) :
-  loadAll (loadAll ms) = loadAll ms
+-- **W0-4（第 1184 轮实测校正）：本节原先写的 `loadAll (loadAll ms) = loadAll ms` 是**错的**——
+-- `loadAll` 的签名是 `loadAll (s : LoaderState) (ms : List LoaderManifest) : LoaderState`
+-- （`CInterface/Bootstrap.lean:62`），它不吃 `List Manifest`，也**不是**状态全等的幂等。
+-- 真实陈述是**观察**幂等（`Bootstrap.lean:122`）：**
+theorem loadAll_reify_idempotent (s : LoaderState) :
+    observeLoaded (loadAll s (reifyLoader s)) = observeLoaded s
 
 -- C 侧（只能证观测等价）
 theorem bootstrap_observable_eq (c : RuntimeCtx) :

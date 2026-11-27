@@ -79,7 +79,10 @@ theorem segment_eval_eq_scalar_layer_out (w b x : ℤ) :
 
 ## 六、为什么**没有**合并（测量出的理由，不是判断）
 
-1. **数的域不同**：`ℤ` vs `ℝ`。**⇒ 第 1125 轮把这一条从「判断」升为「定理」**：`non_integer_slope_has_no_layer`（`Lib/Compiler/BridgeToMainChain.lean`）说——只要斜率 `m` **不是整数**，就**不存在**一个 `LinearLayer` 能在整数输入上等于该分段（`half_slope_has_no_layer` 是 `m = 1/2` 的实例）。**⇒ 故这不是「还没翻译」，而是**不可翻译**；再强的结构改造也不会改变它——阻碍在**数的域**而不在编码。**
+1. **数的域不同**：`ℤ` vs `ℝ`。**⇒ 第 1125 轮把这一条从「判断」升为「定理」**：`non_integer_slope_has_no_layer`（`Lib/Compiler/BridgeToMainChain.lean`）说——只要斜率 `m` **不是整数**，就**不存在**一个 `LinearLayer` 能在整数输入上等于该分段（`half_slope_has_no_layer` 是 `m = 1/2` 的实例）。**⇒ 故这不是「还没翻译」，而是**在「保持 `LinearLayer` 值域 `ℤ` + 输入 `[x]` + 逐点精确相等」这一种表示下不可嵌入**。
+**⇒ （第 1184 轮校正）旧文写「再强的结构改造也不会改变它」，而 `Lib/Compiler/RealLayer.lean` **已给出共同推广**：
+`realLayer_single_eq_segment`（:120）与 `two_sections_of_one_generalisation`（:130）说明 `LinearLayer` 与 `Segment` 是**同一推广的两个截面**。
+**⇒ 故正确的说法是：在**整数精确截面**不可嵌入；而**实数截面**（`RealLayer`）已经存在。**
 2. **判据不同**：`AllZeroOutputs`（恰为零）与 `|f − interp| ≤ C/n²`（有界）是**两种**谓词。
    把后者写成前者会得到假定理；把前者写成后者会丢掉精确性。
 3. **组织的轴不同**：主链按**约束**（每约束一神经元），新线按**段**（每段一条线性函数）。

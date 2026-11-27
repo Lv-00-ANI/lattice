@@ -145,7 +145,7 @@ theorem bootstrap_idempotent (ms : List Manifest) :
 | 附录 I 的全部设计 | ✅ **全部成立** |
 | `bootstrap_converges` / `bootstrap_observable_eq` 的陈述 | ✅ **全部成立** |
 | I.9 六项验收 | ✅ **全部成立**（归属被明确） |
-| “`loaderPrim` 连陈述都写不出” | ✅ **仍成立**（`loadAll`/`LoaderState`/`Manifest` 全部 0 定义） |
+| “`loaderPrim` 连陈述都写不出” | **❌ 已被推翻**（第 1184 轮实测：`loadAll`、`LoaderState`、`LoaderManifest` 均在 `CInterface/Bootstrap.lean` 有定义（:62/:47/:39），且 `loadAll_reify_idempotent` 把该规格写成了定理） |
 
 **被收窄的是“消费者”，不是“设计”。**
 

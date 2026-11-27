@@ -263,6 +263,12 @@ CLAIMS = [
     ("DELIVERY: verify_all reporters",
      r"(\d+) 个报告器",
      measure_check_reporters, "DELIVERY.md"),
+    # **W0-4 (round 1184): the README refutation count had NO checker.** It said 284 while the census says 374, and
+    # the row even cites `check_refutation_census.py` -- which guards the census DOCUMENT, not the README. A number
+    # whose cited tool does not read it is a number nobody is watching; this row watches it.
+    ("README: refutation count",
+     r"\| 已登记否证 \| (\d+) \|",
+     measure_refutations, "README.md"),
     ("CONVENTIONS: declaration total",
      r"\| 内核声明总数 \| ([\d,]+) \|",
      total_declarations, "CONVENTIONS.md"),
