@@ -4467,3 +4467,39 @@ if field != FIELDS[len(out)]: continue
 **\u21d2 **\u4e8c\u8005\u4eca\u5929\u53ea\u9760\u300c\u975e\u7a7a\u300d\u76f8\u8fde**\u2014\u2014**\u800c\u90a3\u6b63\u662f\u8fd9\u9053\u95e8\u7981\u770b\u5b88\u7684\u7f3a\u53e3**\u3002**
 
 **\u21d2 \u5b9e\u6d4b\uff1a`VERIFY ALL [fast] PASS`\uff08605.2 \u79d2\uff09\uff0c`130 = 108 + 22`\uff0c97 \u901a\u8fc7\u3002**
+### 3.140 **Phase 2 的入口测量：`ModelsIR` 的**结构成本很小，但语义成本是整个 Phase 1**（第 1187 轮）**
+
+**⇒ 规划 ADR-D：「把 `modelsIR`/`ModelsTerm` 换成真语义谓词，用 `modelsBehavior` 作候选」，并把 R4 风险评为**
+**⇒ 「约 12 个下游文件失效，概率高、影响高」。⇒ 本轮**只读测量**了这两条。**
+
+#### 结构成本：**只有 4 处把它当假设**
+
+| 指标 | 实测 |
+|:--|--:|
+| 签名中提到 `ModelsIR` 的声明 | **20** |
+| **作为假设**出现 | **4** |
+| 其中属于 `ModelsIRScope.lean`（**专门讲它弱**的那三条） | **3** |
+| 另一处 | `modelsIRS_implies_modelsIR`（桥） |
+| `ModelsTerm`（CIC 孪生） | **1 个文件 / 2 处** ⇒ 近乎休眠 |
+
+**⇒ 故「12 个下游文件」这个概念是**把「签名里提到」当成了「依赖它」**。⇒ 真正会被影响的声明约 **7 条**：**
+**⇒ `ModelsIR` 定义、`compile_sound`、`construct_sound`、`construct_sound_wf`、四条 scope 定理、一条桥。**
+
+#### 语义成本：**ADR-D 的替换件在类型上就不成立**
+
+**⇒ `ModelsIR : IRWeights → IRSkeleton → Prop`（`Obligations.lean:73`）**
+**⇒ `modelsBehavior : IRWeights → (ℕ → Segment) → ℕ → Prop`（`ModelsBehavior.lean:35/65`）**
+
+**⇒ **第二个参数类型不同**：`IRSkeleton` vs `ℕ → Segment`。⇒ 二者之间**没有桥**——而那正是「L3 三个入口」的缺口。**
+
+**⇒ 故「用 `modelsBehavior` 替换 `ModelsIR`」不是重构，而是**研究**：**
+**⇒ 它需要先给 `IRSkeleton` 一个**行为语义**（把骨架映到 `ℕ → Segment`），**而这正是 Phase 1 要做的事**。**
+
+#### 因此 T1 的正确处置（与规划的 fallback 一致）
+
+**⇒ 规划自己在 ADR-D 里写了「替代（若不可行）：把 T1 移出 `ProofComplete` 并在规范写明『当前只有定义等式版本』」。**
+**⇒ **测量支持那条 fallback，不支持主方案**：主方案在类型上不可实施，而 fallback 是**小、诚实、可立即做**的。**
+
+**⇒ 而 `modelsBehavior` 自身的使用范围**只有 2 个文件（它自己 + `Compose/Showcase/L3L2.lean`）⇒ **它也不是现成的替代品。**
+
+**⇒ 本轮不改任何代码：这是**规划层的修正**，其依据是三条实测（4 / 7 / 类型不同）。**
