@@ -4607,3 +4607,22 @@ theorem rank_key_total : ∀ a b, a.rankKey ≠ b.rankKey
 
 **⇒ 而这件事本身值得记：**一个无法一次跑完的验证命令，在实践上等于**半条命令**；**
 **⇒ 而把它拆成可完成的两半，才让「完整」重新成为一个**能拿到**的事实。**
+### 3.144 **W3-4 判定：`plugin.yml` 的 Lean 载体**早已存在**——这一项**不需要做**（第 1223 轮）
+
+**⇒ 规划 W3-4 的前提是「Lean 侧没有 `plugin.yml` 的载体」。⇒ 实测：载体存在，且在**使用中**。**
+
+| 测什么 | 结果 |
+|:--|:--|
+| `plugin.yml` 文件数 | **11** |
+| 字段（全部 11 份一致） | `id` / `module` / `layer` / `obligations[{name, kind, theorem, file}]` |
+| 共享类型所在 | `Lattice/Plugins/Manifest.lean` |
+| 已有声明 | `ObligationKind`（**12** 种）· `PluginLayer`（**8** 层）· `Obligation` · **`PluginManifest`** · `mandatoryKinds` · `Version` |
+| `PluginManifest` 使用面 | **15 个文件**，**含每个插件的 `Manifest.lean`** |
+| YAML ↔ Lean 的对比 | `gov/check_plugin_yml.py` **逐字段**比 `id` / `module` / `layer` / `obligations`（同长度、同 name、同 kind、同 theorem、同 file） |
+
+**⇒ 故「能力索引」这件事**已经做完**：数据结构在 Lean、真值在 Lean 的 manifest、而 YAML 是**第二份描述**，由门禁强制与第一份一致。**
+**⇒ 若再去写一个 Lean 侧 YAML 解析器，它只会**重复**那道门禁——而本会话有一半工作是在**消除**这种重复。**
+
+**⇒ 这是**第五处**规划前提被测量推翻，也是一个**减少**工作量的推翻（前四处多是让工作变多或变难）。**
+
+**⇒ 而 W3-2（槽三态）仍未开始：它需要 `SlotClaim`/`SlotState` 这类**树里不存在**的类型，故不能照抄。**

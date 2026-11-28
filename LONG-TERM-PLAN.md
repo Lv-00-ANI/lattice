@@ -804,7 +804,7 @@ inductive SlotStatus where
 
 ## Phase 3　插件可执行化（4–8 月）
 
-**状态：前置✅（W3-1 以门禁形式；W3-3 状态机 + 3 条定理）；W3-2/W3-4 未开始。**
+**状态：前置✅（W3-1 以门禁形式）；W3-3 三个组件已建（状态机 3 条、排序键 6 条含全序、依赖图 3 条含任意长度无回路）；W3-4 **已存在**（第 1223 轻实测：`PluginManifest` + `check_plugin_yml.py` 逐字段对比），无需 Lean 侧 YAML 解析器；W3-2 未开始。**
 
 ### W3-1　按 kind 索引的 `consistent`（ADR-E）
 
