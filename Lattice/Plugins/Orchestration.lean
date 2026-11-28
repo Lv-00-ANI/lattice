@@ -282,4 +282,52 @@ theorem ranked_acyclic {P : Type} {g : DepGraph P} {r : P → ℕ} (h : Ranked g
   exact absurd (path_rank_lt h hp) (Nat.lt_irrefl _)
 
 
+/-! ### 逆向：无回路 ⇒ 存在秩证人（**有限图**） -/
+
+/-- **可达关系是**传递**的。** -/
+theorem DepPath.trans {P : Type} {g : DepGraph P} {p q s : P}
+    (hpq : DepPath g p q) (hqs : DepPath g q s) : DepPath g p s := by
+  induction hpq with
+  | single h => exact DepPath.tail h hqs
+  | tail h _ ih => exact DepPath.tail h (ih hqs)
+
+/-- **可达集**：从 `p` 能走到的节点。
+
+**⇒ `classical`：这个集合只用于**计数**（`card`），不用于计算，故不需要可判定性进入 API。** -/
+noncomputable def reachSet {P : Type} [Fintype P] (g : DepGraph P) (p : P) : Finset P := by
+  classical
+  exact Finset.univ.filter (fun q => DepPath g p q)
+
+/-- **可达集的戈尔得特征**（它把 `classical` 封在定义里，不让它泄到每一个使用处）。 -/
+theorem mem_reachSet {P : Type} [Fintype P] {g : DepGraph P} {p q : P} :
+    q ∈ reachSet g p ↔ DepPath g p q := by
+  classical
+  simp only [reachSet, Finset.mem_filter, Finset.mem_univ, true_and]
+
+/-- **可达数**：本轮的秩候选。 -/
+noncomputable def reachCount {P : Type} [Fintype P] (g : DepGraph P) (p : P) : ℕ :=
+  (reachSet g p).card
+
+/-- **⭐⭐逆向：**无回路 ⇒ 存在秩证人**（有限图上）。
+
+**⇒ 秩取「从 `p` 可达的节点数」。若 `q ∈ g p`：**
+**⇒ (a) 从 `q` 可达的一切都从 `p` 可达（**传递**）⇒ 集合包含；**
+**⇒ (b) `q` 自身从 `p` 可达（一条边）而**不能从 `q` 可达自己**（无回路）⇒ 集合**真包含**；**
+**⇒ 故基数**严格变小**，即 `reachCount` 是合法的秩证人。**
+
+**⇒ 这把「无环」从**否定式**换成了**构造式**；与 `ranked_acyclic` 合起来是一个**双向**刻画。 -/
+theorem acyclic_ranked {P : Type} [Fintype P] (g : DepGraph P)
+    (h : ∀ p : P, ¬ DepPath g p p) : Ranked g (reachCount g) := by
+  classical
+  intro p q hq
+  have hsub : reachSet g q ⊆ reachSet g p := by
+    intro s hs
+    exact mem_reachSet.mpr
+      (DepPath.trans (DepPath.single hq) (mem_reachSet.mp hs))
+  have hmem : q ∈ reachSet g p := mem_reachSet.mpr (DepPath.single hq)
+  have hnot : q ∉ reachSet g q := fun hc => h q (mem_reachSet.mp hc)
+  have hssub : reachSet g q ⊂ reachSet g p :=
+    Finset.ssubset_iff_subset_ne.mpr ⟨hsub, fun heq => hnot (heq ▸ hmem)⟩
+  simpa [reachCount] using Finset.card_lt_card hssub
+
 end Lattice.Plugins.Orchestration
