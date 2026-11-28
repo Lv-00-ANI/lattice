@@ -589,7 +589,17 @@ def ProofComplete : Prop :=
         ∀ (P Q : Lattice.Core.IR.Plugin), Lattice.Core.IR.requires deps P Q →
           s.active Q = false → s.active P = false) ∧
     (∀ (P : Lattice.Core.IR.Plugin) (s s' : Lattice.Core.IR.LifeState),
-        s'.effect P ≠ s.effect P → Lattice.Core.IR.invalidated (s.effect P) P s')
+        s'.effect P ≠ s.effect P → Lattice.Core.IR.invalidated (s.effect P) P s') ∧
+    -- **W2-1（第 1203 轮）：T0 的**裁决是「进判据」**。**
+    -- 树自己曾写过（`RTargets.lean:148`）：「T0 remains the only target whose content is not in `ProofComplete`,」
+    -- 理由是「`ExpressibleSpec n → weights` 这个构造器不存在」。
+    -- 而 `Plugins/Targets/Construction.lean` 已把它限定到族并证明了四条：故裁决为**进判据**（比留在外面更强）。
+    (∀ (n : ℕ) (F : Lattice.Plugins.Targets.FamilySolver n),
+        Lattice.Plugins.Targets.construct_complete F) ∧
+    (∀ (n : ℕ) (F : Lattice.Plugins.Targets.FamilySolver n),
+        Lattice.Plugins.Targets.construct_canonical F) ∧
+    (∀ (n : ℕ) (F : Lattice.Plugins.Targets.FamilySolver n),
+        Lattice.Plugins.Targets.construct_approx F)
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -873,7 +883,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -901,5 +911,8 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Core.IR.lattice_confluence
   · exact Lattice.Core.IR.lattice_ordering
   · exact Lattice.Core.IR.lattice_resolution_coherent
+  · intro n F; exact Lattice.Plugins.Targets.construct_complete_holds F
+  · intro n F; exact Lattice.Plugins.Targets.construct_canonical_holds F
+  · intro n F; exact Lattice.Plugins.Targets.construct_approx_holds F
 
 end Lattice.Plugins
