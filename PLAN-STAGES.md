@@ -5039,3 +5039,42 @@ theorem skeletonCode_lt_two_pow_53 (k : IRSkeleton) (h : sizeBound k) :
 **⇒ 而这一条最值得记住的是它的**形状**：规划在**C 的世界里**看到了一个真问题（浮点失真），**
 **⇒ 然后按 **Lean 的世界** 去要定理，而 **Lean 的 `ℝ` 没有那个问题**。**
 **⇒ ⇒ 两个世界都对，但**定理只能在其中一个里陈述**。⇒ 故陈述必须放在**边界**上（`layerWords`），不是放在 `ℝ` 上。**
+
+### 3.155 **W6-1 的残余只剩一处**：数值可表示性（字节偏移与往返**都已经有**）（第 1239 轮）
+
+**⇒ 上节说「2^53 属边界」。⇒ 本轮把边界的那一侧也测了，结果**又是大部分已有**。**
+
+| 边界上的东西 | 实测 | 结论 |
+|:--|:--|:--|
+| `layerWords_length` / `layerWords_injective` | `CInterface/LayoutBytes.lean` | ✅ **已完成** |
+| `lastWord_fits` / `lastBias_fits` | 同文件 | ✅ **已完成**（**字节偏移**的界：`wordOffset + 字宽 ≤ layerBytes`） |
+| `compileWith` + 6 条定理（`_code`/`_read`/`_roundtrip`/`_zero`、`extractWith_compileWith`） | `Core/IR/Extract.lean:139-260` | ✅ **已完成**（含 `layerWords ↔ compileWith` 的那条桥：`extractWith_compileWith`） |
+| **数值可表示性**（`code < 2^prec`） | **`mantissa`/`prec` 全树 0；`FloatFormat` 无精度字段** | ❌ **真缺** |
+
+**⇒ 故 W6-1 的真实残余**只有一处：**「码必须落进字长」**，而且它需要**新词汇**（精度）。
+
+#### 一、为什么这一处**不能**硬塞进现有结构
+
+**⇒ `FloatFormat` 没有精度字段 ⇒ 要在它上面加 `prec : ℕ`，是**改一个既有结构**（架构级）。**
+**⇒ 而它的 8 个构造点会全部受影响；且「精度」是**格式的事实**，加字段不是**有损**，只是**铺开**。**
+**⇒ 故正确做法是**新起一个词汇**（不改 `FloatFormat`）：**
+
+```lean
+-- 新文件，不动任何既有结构
+def FitsInWord (prec : ℕ) (n : ℕ) : Prop := n < 2 ^ prec
+theorem skeletonCode_fits (prec : ℕ) (k : IRSkeleton) (h : sizeBound k prec) : FitsInWord prec (skeletonCode k)
+```
+
+**⇒ 其中 `sizeBound` 是**新造**的、有归纳结构的界（张量数 / 关系数的 `Nat.pair` 幅度）。**
+
+#### 二、而这一处的**性质**与前九处不同
+
+**⇒ 前九处是「我以为要造、其实已有」。⇒ 这一处是**真的缺**，而且缺得**有理由**：**
+**⇒ 「一个字能装下多大的码」**不取决于 Lean（`ℝ` 无界），而取决于**目标硬件的浮点格式**；**
+**⇒ 而项目的定位是「**不绑定任何厂商或框架**」⇒ 故它**不能**内置一个具体的 `prec`（53 是 IEEE double，不是普遍真理）。**
+**⇒ ⇒ 正确形状是**把 `prec` 作为参数**：对**任何** `prec`，若码有界则装得下——而**从不**声称 `prec = 53`。**
+
+**⇒ 这一条**是**本会话对 W6-1 的实质贡献**：它把「修一个 53 位的失真」变成「对任意精度给一个界」，**
+**⇒ 而后者既**不与「不绑定厂商」冲突**，又比前者**更强**（53 只是它的一个实例）。**
+
+**⇒ 下一轮写 `FitsInWord` + `sizeBound` + `skeletonCode_fits`（新文件，不改既有结构）。**
