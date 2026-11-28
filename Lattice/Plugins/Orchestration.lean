@@ -243,4 +243,13 @@ theorem no_two_cycle {P : Type} (g : DepGraph P) (r : P → ℕ)
   have h2 : r p < r q := h q p hq
   omega
 
+/-- **⭐ 子图仍无环**：从有序图里**删边**，序仍然是证人。
+
+**⇒ 这是**活动用的那一条**：插件失效、被禁用、或被屏蔽时，图只会**变小**；**
+**⇒ 而「无环」必须在变小下**保持**，否则每次禁用都要重算一次排序。**
+**⇒ 证明只需一句：新边集是原边集的子集。 -/
+theorem ranked_of_subgraph {P : Type} {g g' : DepGraph P} {r : P → ℕ}
+    (h : Ranked g r) (hsub : ∀ p q, q ∈ g' p → q ∈ g p) : Ranked g' r :=
+  fun p q hq => h p q (hsub p q hq)
+
 end Lattice.Plugins.Orchestration

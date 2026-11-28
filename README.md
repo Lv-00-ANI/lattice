@@ -40,7 +40,7 @@
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
 > | Lean 模块 | 1126 | `audit_counts.py` |
-> | 定理 / 引理 | 10311 | `audit_counts.py` |
+> | 定理 / 引理 | 10312 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | **179** / **0** / **0** / **0** / **689** | `audit_counts.py` |
 > | 同上（第 1185 轮校正） | 旧值 `23 / 0 / 4 / 66 / 99 / 625` 是**五个标签对**六个数**，且其中四个描述的目录（`Lift`/`Domains`/`Geo`）**已不存在** | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |

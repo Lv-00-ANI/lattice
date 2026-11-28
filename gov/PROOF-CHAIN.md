@@ -2105,7 +2105,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
-| `Lattice.Plugins.Orchestration` | 11 | 9 |
+| `Lattice.Plugins.Orchestration` | 12 | 9 |
 | `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
@@ -9266,6 +9266,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rankZero_exact` -> `at`, `frob_add_le`, `frobeniusNorm`
 - `rank_key_distinct_of_id` -> `at`, `g`, `rank`
 - `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
+- `ranked_of_subgraph` -> `g`
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
 - `ratRoundtrip_fixed_not_discriminating` -> `QConstraint`, `QSat`, `at`
