@@ -579,7 +579,17 @@ def ProofComplete : Prop :=
     (∀ (trace : List Lattice.Core.IR.Edit) (s : Lattice.Core.IR.LifeState),
         ∀ Q ∈ trace.map (fun e => e.plugin),
           Lattice.Core.IR.behavior (Lattice.Core.IR.run trace s) Q
-            = Lattice.Core.IR.behavior (Lattice.Core.IR.construct trace) Q)
+            = Lattice.Core.IR.behavior (Lattice.Core.IR.construct trace) Q) ∧
+    -- **W2-1（第 1202 轮）：T6 的**规范形式**以**追加**方式进判据。**
+    -- `CARRIER-CIC.md:187` 说得直白：树里那条 `t6_spatial` 是**停用门**（`deactivate_before_unload`），
+    -- 而规范要的是**激活门 + provider 解析**——两者都已在 `Core/IR/Lifecycle.lean` 证明。
+    -- 故规范的两半都列上，而较弱的停用门仍在上面。
+    (∀ (deps : Lattice.Core.IR.Plugin → List Lattice.Core.IR.Plugin) (s : Lattice.Core.IR.LifeState),
+        (∀ P, s.active P = true → Lattice.Core.IR.canActivate deps s P) →
+        ∀ (P Q : Lattice.Core.IR.Plugin), Lattice.Core.IR.requires deps P Q →
+          s.active Q = false → s.active P = false) ∧
+    (∀ (P : Lattice.Core.IR.Plugin) (s s' : Lattice.Core.IR.LifeState),
+        s'.effect P ≠ s.effect P → Lattice.Core.IR.invalidated (s.effect P) P s')
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -863,7 +873,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -889,5 +899,7 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Plugins.Architectures.archCarrierAdditions_holds
   · exact Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions_holds
   · exact Lattice.Core.IR.lattice_confluence
+  · exact Lattice.Core.IR.lattice_ordering
+  · exact Lattice.Core.IR.lattice_resolution_coherent
 
 end Lattice.Plugins
