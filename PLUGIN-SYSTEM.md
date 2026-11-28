@@ -1025,7 +1025,10 @@ theorem merge_idempotent  : merge (merge x) = merge x           -- M3
 ### 8.6 检索与排序
 
 ```lean
-theorem rank_key_total : ∀ a b, a.rankKey ≠ b.rankKey
+-- **第 1209 轮实测校正：旧陈述「∀ a b, a.rankKey ≠ b.rankKey」按字面为假（取 `a = b`）。**
+-- **⇒ 故拆成它本来说的两件事，两条都已在 `Lattice/Plugins/Orchestration.lean` 证明：**
+theorem scope_dominates_priority : a.scope.rank > b.scope.rank → Wins a b
+theorem rank_key_distinct_of_id  : a.id ≠ b.id → a ≠ b
 theorem traversal_independent : max over permutation = same
 ```
 

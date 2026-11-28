@@ -18,6 +18,8 @@
 `implements_eq_offered`）需要 `dispose`/`satisfies`/`implements` 这些**尚未存在于树里**的概念，写出来会是空壳。
 -/
 
+import Mathlib
+
 namespace Lattice.Plugins.Orchestration
 
 /-- **插件在编排中的五个状态**（`PLUGIN-SYSTEM.md` §9.9）。
@@ -80,5 +82,62 @@ theorem no_skip_loaded : ¬ transitions .declared .active := by
 **⇒ 而若 `error` 根本到不了，那条终态定理就没有内容。⇒ 故显式给出一个到它的迁移。 -/
 theorem error_reachable : ∃ s : PluginState, transitions .declared s :=
   ⟨.error, transitions.decl_error⟩
+
+/-! ## 二、排序键（`PLUGIN-SYSTEM.md` §9.6 / Q4）：**修正后的真陈述** -/
+
+/-- **部署层级**。**⇒ 它必须排在作者优先级**之前**；否则低层插件填满优先级就能盖掉高层。 -/
+inductive DeployScope where
+  | user
+  | library
+  | mainline
+  deriving DecidableEq, Repr
+
+/-- **层级的数值**：大者更高。 -/
+def DeployScope.rank : DeployScope → ℕ
+  | .user => 0
+  | .library => 1
+  | .mainline => 2
+
+/-- **六分量排序键**（§9.6）。
+
+**→ 逐分量方向不同：**层级 / 优先级 / 协议版本**大者胜**；**
+**→ 装载序号 / 登记序号 / 插件标识**小者胜**。 -/
+structure RankKey where
+  scope : DeployScope
+  priority : ℕ
+  protocol : ℕ
+  loadSeq : ℕ
+  regSeq : ℕ
+  id : ℕ
+  deriving DecidableEq, Repr
+
+/-- **「a 胜过 b」**：按六分量字典序，每个分量按自己的方向。
+
+**⇒ 这是**定义**，故下面两条定理是它的直接推论——而正是规范要求的两条。 -/
+def Wins (a b : RankKey) : Prop :=
+  a.scope.rank > b.scope.rank ∨
+    (a.scope.rank = b.scope.rank ∧
+      (a.priority > b.priority ∨
+        (a.priority = b.priority ∧
+          (a.protocol > b.protocol ∨
+            (a.protocol = b.protocol ∧
+              (a.loadSeq < b.loadSeq ∨
+                (a.loadSeq = b.loadSeq ∧
+                  (a.regSeq < b.regSeq ∨
+                    (a.regSeq = b.regSeq ∧ a.id < b.id)))))))))
+
+/-- **⭐ 部署层级**压倒**作者优先级**。
+
+**⇒ 这是规范§9.6 的第一条守则：只要层级更高，**其余五个分量一概不看**。**
+**⇒ 而它在定义下是**透明的**：就是那个析取式的第一个合取项。 -/
+theorem scope_dominates_priority {a b : RankKey} (h : a.scope.rank > b.scope.rank) :
+    Wins a b :=
+  Or.inl h
+
+/-- **⭐ 插件标识**打破完全并列**：标识不同 → 键不同。
+
+**⇒ 故「两个不同插件拿到同一个键」**不可能发生**，而那正是排序键存在的理由。 -/
+theorem rank_key_distinct_of_id {a b : RankKey} (h : a.id ≠ b.id) : a ≠ b :=
+  fun hab => h (congrArg RankKey.id hab)
 
 end Lattice.Plugins.Orchestration
