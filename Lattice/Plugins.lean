@@ -40,6 +40,7 @@ import Lattice.Plugins.Architectures.DAG.Manifest
 import Lattice.Plugins.Architectures.DAG.Plugin
 import Lattice.Plugins.Architectures.CarrierAdditions
 import Lattice.Plugins.Targets.IRCarrier
+import Lattice.Plugins.Orchestration
 
 namespace Lattice.Plugins
 
