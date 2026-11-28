@@ -187,7 +187,8 @@ lattice-new/
 │   ├── Lift/          0       # 已清空：66 个模块并入 Runtime/（P2 完成）
 │   ├── Primitives/   4       # 基础调用层（rank 2，在 Domains 之下）
 │   ├── Runtime/     66       # 运行语义层：原 Lift/ 的全部 66 个模块（P2 完成）
-│   ├── Domains/     0         # 第 265 轮整层归档至 Reference/Geometry/（后者不参与主构建）
+│   ├── Domains/     0         # 第 265 轮整层移至 Reference/Geometry/；**那个目录**不参与主构建——
+│   │                            # **而 Reference/Geometry 本身在构建里**（`Lattice/Domains.lean` 导入 4 个它的根）
 │   ├── Slots.lean    1       # 空位层：未证但承重的命题，只声明不证明
 │   ├── Geo/          0       # 已清空：99 个模块并入 Domains/
 │   ├── Lib/        690       # 应用库，按主题（建立在链路层之上）
@@ -222,6 +223,14 @@ lattice-new/
 5. **内核**中任何 `axiom` / `sorry` / `admit` / `opaque` 为 0（I1、I2）；
 7. 标为 `EndToEnd` 的定理必须真的用到它声称连接的每一层（I5）。
 
+> **「归档」这个词已废弃（W2-4，第 1197 轮）**：它曾经同时指三件不同的事。现在用三个**可判定**的状态，且**按子树**给答案：
+> 
+> | 子树 | out-of-build | out-of-criterion | out-of-mainline |
+> |:--|:--|:--|:--|
+> | `archive/LvFormal` | **yes**（103 文件，已移出 `Lattice/`） | yes | yes |
+> | `Lattice/Reference/Geometry` | **no**（**323** 条 import 边来自 `Lattice/`） | yes | 已注册为判断 |
+> 
+> **⇒ 故「reference / 归档」不是一个状态：一个子树真的出了构建，另一个只是出了**判据**。**
 > **「逃逸为 0」的范围（第 1173 轮重测后改写）**：上述 I1/I2 覆盖 `Lattice/` **全树**，**包括 `Reference/`**；
 > 而**实测结果是 0 个逃逸文件**（`sorry` / `admit` / `axiom` 各 0，剥注释后）。
 >
