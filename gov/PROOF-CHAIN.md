@@ -2105,7 +2105,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
-| `Lattice.Plugins.Orchestration` | 7 | 6 |
+| `Lattice.Plugins.Orchestration` | 9 | 6 |
 | `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
@@ -2337,6 +2337,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `D4_eval_expr_ignores_y` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D5_point_env_never_enters_compilation` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D6_tangent_sem_too_weak` -> `Compiler`, `dist`, `ir_sem`, `ptX`, `ptY`
+- `DeployScope.rank_injective` -> `at`, `rank`
 - `E1BridgeNoSep_cons` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `single`, `toSegs`
 - `E1Bridge_cons` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `E1Bridge_length` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
@@ -9262,7 +9263,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rankOneEdit_eq_add_rankOneFun` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`, `rankOneEdit`
 - `rankOneFun_add_neg` -> `E`, `LoRAEdit`, `W`
 - `rankZero_exact` -> `at`, `frob_add_le`, `frobeniusNorm`
-- `rank_key_distinct_of_id` -> `at`
+- `rank_key_distinct_of_id` -> `at`, `rank`
 - `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
@@ -11876,8 +11877,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `windowRowCount_rampup` -> `apply`, `at`
 - `windowRowCount_zero` -> `at`, `insert`, `min`
 - `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `wins_asymm` -> `at`
-- `wins_irreflexive` -> `at`
+- `wins_asymm` -> `at`, `rank`
+- `wins_irreflexive` -> `at`, `rank`
+- `wins_trichotomy` -> `rank`
 - `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
