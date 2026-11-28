@@ -4852,3 +4852,38 @@ theorem pipeline_eq_defaultPipeline (s) : RealEndToEnd.pipeline s = defaultPipel
 | 3 | **全链的四段 `Primitive`** | **`FullChain.lean` + `L1L2.lean` 全有** |
 
 **⇒ 而三次里两次是「已有」。⇒ 故**先 `git grep` 再写**不是谨慎，是**省一半工作**。⇒ 而 `check_duplicate_classes` 是那个把它揭出来的门禁。**
+
+### 3.150 **W4-3 **不应实施**：`post` 已经在消费 `modelsBehavior`，加 `postClass` 会重犯 `frame` 的错（第 1232 轮）
+
+**⇒ 规划 W4-3 的验收是：「M-5 反向 `post` 从 `X = X` 改为真正消费 `modelsBehavior`」。⇒ 实测：**它已经是这样**。**
+
+#### 一、全树 `post :=` 的**实际取值**（24 个不同值，逐条统计）
+
+**⇒ 只有 **1 个**是 `fun _ _ => True`；其余 **23 个都是实质谓词**。⇒ 其中**两个**用 `modelsBehavior`：**
+
+| 位置 | `post` |
+|:--|:--|
+| **`Compose/Showcase/L3L2.lean:71`** | **`fun p q => modelsBehavior q.1 p.1 p.2`**（**反向** primitive） |
+| **`Compose/Showcase/L3L2.lean:86`** | **`fun q g => modelsBehavior q.1 g q.2`**（**正向** primitive） |
+| `Compose/ComposeObligation.lean:51` | `fun _ _ => True`（**唯一**一处，且在义务文件里） |
+
+**⇒ 故「反向 `post` 是 `X = X`」**不成立**——它已经是 `modelsBehavior`。**
+
+#### 二、`postClass` **不存在**，而它正是本会话已经删过一次的那种字段
+
+**⇒ 第 981 轮删掉过 `Primitive.frame`，理由逐字是：**
+**⇒ 「它没有自己的定理（唯一可能的定律与 `post` 逐字同形），**11 个 primitive 里 10 个填字面 `True`，全树零消费者**」。**
+
+**⇒ 若现在加 `postClass`（`behavioral` / `definitional`），它的处境**完全一样**：**
+**⇒ (a) 它不会有自己的定理（「`behavioral` 下合成更强」若成立，也应当是对 `post` 的**一条引理**，而不是一个新字段）；**
+**⇒ (b) 它的取值会由 `post` 的形态**推**出来（`post` 里出现 `modelsBehavior` ⟺ behavioral），**故它是一份会漂移的副本**；**
+**⇒ (c) 它没有消费者（没有定理需要它）。**
+
+**⇒ 故**不实施**。⇒ 这是第七处规划前提被测量推翻，且**第三处让工作量变少**（前两处：`plugin.yml` 载体、Phase 4 的假阻断）。**
+
+#### 三、而 W4-3 想说的那句话**可以**被形式化——只是不需要新字段
+
+**⇒ 若「behavioral 下合成更强」有意义，正确的形状是：**
+**⇒ `theorem compose_post_strengthens {f g} (hf : ∃ …, modelsBehavior …) : …` —— 一条关于 `post` 的**引理**，**
+**⇒ 而不是往 `Primitive` 里塞第七个字段。⇒ 这条引理**是否值得写**，取决于**有没有人需要它**；**
+**⇒ 当前**零消费者** ⇒ 故按同样的标准（`frame` 的教训），**先不写**，并把它记在这里作为**可选的后续**。**
