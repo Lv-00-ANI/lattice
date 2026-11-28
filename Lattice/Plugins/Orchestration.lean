@@ -140,4 +140,22 @@ theorem scope_dominates_priority {a b : RankKey} (h : a.scope.rank > b.scope.ran
 theorem rank_key_distinct_of_id {a b : RankKey} (h : a.id ≠ b.id) : a ≠ b :=
   fun hab => h (congrArg RankKey.id hab)
 
+/-- **⭐ `Wins` 是**不可自反**的**：没有键胜过自己。
+
+**⇒ 这条不是闲置的：若它不成立，「选胜者」这个动作就没有意义（一个插件会同时压倒自己）。**
+**⇒ 而它证明起来只需一件事：每个分量上 `>` 与 `<` 都是**不可自反**的。 -/
+theorem wins_irreflexive (a : RankKey) : ¬ Wins a a := by
+  intro h
+  unfold Wins at h
+  omega
+
+/-- **⭐ `Wins` 是**反对称**的**：两个键不可互相压倒。
+
+**⇒ 这是「选一个胜者」能成为函数的**前提**：否则两个插件都可以是胜者。**
+**⇒ 证明同样是纯线性算术：每个分量的 `>` 与 `<` 不可同时成立。 -/
+theorem wins_asymm {a b : RankKey} (h : Wins a b) : ¬ Wins b a := by
+  intro h'
+  unfold Wins at h h'
+  omega
+
 end Lattice.Plugins.Orchestration
