@@ -4810,3 +4810,45 @@ theorem pipeline_eq_defaultPipeline (s) : RealEndToEnd.pipeline s = defaultPipel
 3. **重名**：跑 `audit_duplicate_names.py` 看是哪一对，并按它的三种处置之一（改名/合并/登记）处理。
 
 **⇒ 这三条**都不涉及数学**，只涉及装配。⇒ 故下一轮可以把这座桥**真正**接上，并**保留**本轮已证的等式。**
+
+### 3.149 **W4-2 **不需要任何新定义**：四段 `Primitive` **树里全有**（第 1230 轮）
+
+**⇒ 本轮我重造了 `tokenizePrim`，被 `check_duplicate_classes` 当场抓到（`unclassed tokenizePrim in 2 files`）。**
+**⇒ 那一下把真相暴露了：树里**已经有**这条链的全部四段。**
+
+| 段 | 已有声明 | 位置 |
+|:--|:--|:--|
+| 数据 → token | **`tokenizePrim (V : OOVVocab) : Primitive (List Char) (List CharToken)`** | `Compose/Showcase/FullChain.lean:55` |
+| token → symbol | **`bridgePrim : Primitive (List CharToken) (List SymToken)`** | 同文件 `:71` |
+| 数据 → symbol | **`fullChainPrim (V) := tokenizePrim V ∘ bridgePrim`**，附 `fullChainPrim_run`、`fullChainPrim_sound` | 同文件 `:84/:95/:104` |
+| symbol → 约束集 | **`decodePrim : Primitive (List SymToken) ConstraintSet`** | `Compose/Showcase/L1L2.lean:87` |
+| 约束集 → 权重 | **缺**（`compileToLayer` 是**裸函数**，不是 `Primitive`） | `Runtime/SymbolToWeightCorrectness.lean` |
+
+**⇒ 故 W4-2 的工作量**从「写三个 `Primitive`」缩到**「写一个 `compilePrim` + 三次 `compose`」**。**
+**⇒ 而我上一轮那条 40 行的定义里，**三行是重复的**（`tokenizePrim`），一行是重复的（`decode` 那段），**
+**⇒ 只有 `compilePrim` 和末等式是真新的——这正是「重复抽象」的教科书形状。**
+
+#### 一、末等式仍有一个**必须核**的问题
+
+**⇒ `pipeline`（`RealEndToEnd:802`）写的是 `decode (L1Bridge ts)`，而树里的链是 `bridgePrim` 给 `List SymToken` 再 `decodePrim`。**
+**⇒ 若 `L1Bridge = bridgePrim.run ∘ some`，则两者**同一**；⇒ **下一轮必须先核这一点**，不能假设。**
+
+#### 二、下一轮的**确切**五步（全部可核对）
+
+1. `git grep -n "def L1Bridge"` ⇒ 确认 `L1Bridge ts` 与 `bridgePrim.run` 的关系；
+2. 写 `compilePrim : Primitive ConstraintSet Layer`（`pre := True`，因 `compileToLayer` 全）；
+3. `def pipelinePrim (V) := compose (compose (fullChainPrim V) decodePrim _) compilePrim _`；
+4. 证 `pipeline s = (pipelinePrim V).run s`（若第 1 步成立，则 `cases tokenize s` + `Option.map_eq_bind`）；
+5. **不新增任何重名**：跑 `check_duplicate_classes.py --check` 必须 **`unclassed 0`**。
+
+**⇒ 而这一步**只增一个 `Primitive` + 一条定理**，不增第四个重复定义。**
+
+#### 三、记一笔：这是**第三次**「我以为要造，其实已有」
+
+| # | 我以为要造 | 实际已有 |
+|--:|:--|:--|
+| 1 | `plugin.yml` 的 Lean 载体 | `PluginManifest`（15 文件在用） |
+| 2 | 槽三态的载体 | （那一处**确实**没有，故那次造是对的） |
+| 3 | **全链的四段 `Primitive`** | **`FullChain.lean` + `L1L2.lean` 全有** |
+
+**⇒ 而三次里两次是「已有」。⇒ 故**先 `git grep` 再写**不是谨慎，是**省一半工作**。⇒ 而 `check_duplicate_classes` 是那个把它揭出来的门禁。**
