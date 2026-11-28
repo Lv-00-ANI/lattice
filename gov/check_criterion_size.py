@@ -105,6 +105,11 @@ def main(argv):
         for ln_no, line in enumerate(src.split("\n"), 1):
             if "ProofComplete" not in line:
                 continue
+            # **A record of a PAST error is not a claim about now.** The first version flagged the fine-grained
+            # correction tables (round 1201-1205) which say "the documents used to say 25". Those lines carry a
+            # historical marker; a current claim does not.
+            if any(mark in line for mark in ("曾", "旧", "过去", "历史", "推翻")):
+                continue
             for m in CLAIM.finditer(line):
                 v = int(m.group(1) or m.group(2))
                 if v != n:
