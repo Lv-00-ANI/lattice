@@ -165,6 +165,7 @@ Compose/Showcase/L3L2.lean	l3l2Roundtrip_post_nondegenerate
 Compose/Showcase/NeuralShortcut.lean	neuralShortcut_run
 Compose/Showcase/NeuralShortcut.lean	tokenShapeVector_no_identity
 Compose/Showcase/NeuralShortcut.lean	neuralShortcut_sound
+Compose/Showcase/PipelineBridge.lean	pipeline_eq_pipelinePrim
 Compose/Showcase/SymbolShortcut.lean	symbolShortcut_run
 Compose/Showcase/SymbolShortcut.lean	symbolShortcut_sound
 Core/Activation.lean	actStackEval_nil

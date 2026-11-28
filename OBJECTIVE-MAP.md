@@ -15,7 +15,7 @@
 | 1.1 data -> token | `CharToken` | `Runtime/RealTokenization.lean` | 15 | 15 | 23 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/NeuralShortcut.lean` |
 | 1.2 token -> symbol | `SymToken` | `Runtime/RealTokenSymbolLink.lean` | 14 | 14 | 27 | `Compose/Showcase/FullChain.lean`, `Compose/Showcase/L1L2.lean` |
 | 1.2 token -> symbol | `decodePayload` | `Runtime/L1L2.lean` | 4 | 3 | 0 | `Evidence/Hypotheses.lean`, `Runtime/L1L2Roundtrip.lean` |
-| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 54 | 53 | 6 | `Lib/Chain/RealChainEntryOOV.lean`, `Lib/Chain/RealChainRun.lean` |
+| 1.3 symbol -> weight | `compileToLayer` | `Runtime/SymbolToWeightCorrectness.lean` | 55 | 54 | 6 | `Compose/Showcase/PipelineBridge.lean`, `Lib/Chain/RealChainEntryOOV.lean` |
 | 1.3 symbol -> weight | `compileToLayerN` | `Runtime/WeightLadderN.lean` | 2 | 1 | 1 | `Runtime/NondegenerateInstance.lean`, `Usage/Examples.lean` |
 | 1.3 symbol -> weight | `compileTarget` | `Lib/Compiler/SymbolicEntry.lean` | 2 | 2 | 20 | `Lib/Compiler/CapabilityTable.lean`, `Lib/Compiler/Chain.lean` |
 | 1.3 symbol -> weight | `EvaluatedArtifact` | `Lib/Compiler/Layout.lean` | 7 | 7 | 7 | `Lib/Compiler/ArtifactStitch.lean`, `Lib/Compiler/Capability.lean` |
