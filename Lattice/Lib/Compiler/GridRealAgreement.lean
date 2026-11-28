@@ -49,4 +49,23 @@ theorem encoding_agreement (g : ℕ → Lattice.Lib.Compiler.WeightSequence.Segm
           + (Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid g) (2 * k + 1) :=
   fun k x => familyToRealLayers_out_eq_encodeGrid g k x
 
+/-- **⭐⭐⭐ 全域对齐：`gridEval` 的**扁读法**。
+
+**⇒ 左边是新线的「选段再求值」（`gridEval g n x`）；**
+**⇒ 右边是「从交错向量里取该段的 `m`、`c`」。**
+**⇒ 由两条既有桥**直接夹出来**：`gridEval_eq_realLayer_out`（`RealLayer.lean`）把 `gridEval` 接到 `familyToRealLayers`，**
+**⇒ 而本文件的 `familyToRealLayers_out_eq_encodeGrid` 把 `familyToRealLayers` 接到 `encodeGrid`。**
+
+**⇒ 故本条**不是新假设**，而是把两条现有定理**合成一条可直接引用的陈述**。 -/
+theorem gridEval_eq_encodeGrid (g : ℕ → Lattice.Lib.Compiler.WeightSequence.Segment)
+    (n : ℕ) (x : ℝ) :
+    Lattice.Lib.Compiler.GridAlgebra.gridEval g n x
+      = (Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid g)
+          (2 * Lattice.Lib.Compiler.PiecewiseWeights.segmentIndex n x) * x
+        + (Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid g)
+          (2 * Lattice.Lib.Compiler.PiecewiseWeights.segmentIndex n x + 1) := by
+  rw [Lattice.Lib.Compiler.RealLayer.gridEval_eq_realLayer_out]
+  exact familyToRealLayers_out_eq_encodeGrid g
+    (Lattice.Lib.Compiler.PiecewiseWeights.segmentIndex n x) x
+
 end Lattice.Lib.Compiler.GridRealAgreement
