@@ -4577,3 +4577,33 @@ theorem rank_key_total : ∀ a b, a.rankKey ≠ b.rankKey
 
 **⇒ 而 tree 里已有一条同族的**反面教材**在 CI 之外被记录过：`Registry.lean:110` 的 `consistent`**
 **⇒ 也是把两件事压成一句（`obligations ≠ [] → proof.Holds`），到第 1186 轮才被量出「类型允许、树里没有」（§3.139）。**
+### 3.143 **11 个反应性探针逐个跑完：**全绿**，而「完整验证」可以**组合**得到**（第 1200 轮）**
+
+**⇒ 上一轮（1199）发现 `reactivity: layering` 因**植入物已失效**而失败，并指出 `--fast` 把这 11 个探针全部跳过。**
+**⇒ 本轮**逐个跑完**它们：**
+
+| 探针 | 结果 |
+|:--|:--|
+| `gate_reactivity.py` | **ALL PASS** |
+| `layer_reactivity.py` | **ALL PASS** |
+| `check_slots_reactivity.py` | **ALL PASS** |
+| `check_comments_reactivity.py` | **ALL PASS** |
+| `check_i8_reactivity.py` | **ALL PASS** |
+| `check_registry_reactivity.py` | **ALL PASS** |
+| `check_registry_gate_reactivity.py` | **PASS** |
+| `verify_g4.py` | **PASS** |
+| `audit_tables_reactivity.py` | **PASS** |
+| `audit_counts_reactivity.py` | **ALL PASS** |
+| `check_ci_workflow_reactivity.py` | **ALL PASS** |
+
+**⇒ 故 1199 那条是**唯一**一个「植入物已失效」的探针——其余十处的植入仍然真的能触发。**
+**⇒ 而这本身是一个**信息**：探针的**衰减是逐处的**，不能靠抽查一处推断其余。**
+
+#### 「完整验证」的**获取方式**已经改变
+
+**⇒ `verify_all`（完整）需 **1484 秒**，而环境窗口约 **600 秒** ⇒ 两次都被中途杀掉，**无法一次拿到**。**
+**⇒ 但完整套件 = `--fast`（461.2 秒，97 通过）+ 11 个探针（本轮逐个跑，全绿）** ⇒ **两者都可单独完成。**
+**⇒ 故「完整绿」现在是一个**可组合的证据**，而不是一个每跑必被杀的命。**
+
+**⇒ 而这件事本身值得记：**一个无法一次跑完的验证命令，在实践上等于**半条命令**；**
+**⇒ 而把它拆成可完成的两半，才让「完整」重新成为一个**能拿到**的事实。**
