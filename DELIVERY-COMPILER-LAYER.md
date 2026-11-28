@@ -182,6 +182,26 @@ python check_theorem_liveness.py --check  # 全树定理活性比例（链内 �
 python -c "import sys; sys.path.insert(0,'gov'); import gen_objective_map as G, chain_connectors as C; print(len(G.END_OF_CHAIN), len(C.TERMINAL_CONNECTORS), C.UNREGISTERED_BUDGET)"   # §3.1 的三个数
 ```
 
+**⇒ 整套验证要**两半才能拿到**（第 1200 轮实测）：完整套件需 **1484 秒**，**
+
+**⇒ 而本环境的单命令窗口约 **600 秒** ⇒ 两次完整运行都**被中途杀掉**。**
+
+**⇒ 故「完整绿」现在由**两半相加**得到，两半都可单独完成：**
+
+```bash
+python verify_all.py --fast      # 第一半：约 461 秒，97 通过（跳过 11 个探针）
+# 第二半：那 11 个探针逐个跑（每个约 90 秒，合计约 17 分钟）
+for f in gate_reactivity layer_reactivity check_slots_reactivity check_comments_reactivity \
+         check_i8_reactivity check_registry_reactivity check_registry_gate_reactivity \
+         verify_g4 audit_tables_reactivity audit_counts_reactivity check_ci_workflow_reactivity; do
+  python "$f.py" || echo "PROBE FAILED: $f"
+done
+```
+
+**⇒ 第 1200 轮实测：这 11 个探针**全部 exit 0**；而它们是这棵树里**唯一会测试「检查本身」**的那批。**
+
+**⇒ 故请**不要只跑 `--fast`**：它是一个**预算决定**，而预算决定会安静地变成**覆盖决定**。**
+
 **⇒ 最后一条是本文**自己**的守卫：第 1119 轮它捕到本文曾引用一个**未声明的标识符**（一个不存在的求值名字）。
 ⇒ 故本文的结论**不依赖作者**：不能解析的引用会被工具拓下来。
 
