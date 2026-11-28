@@ -153,6 +153,10 @@ twoSlopeLoop_run_components     : run k p 逐分量 = (fix^[k] p₁, fix^[k] p�
 
 **⇒ 都是**已有之物或几行定理**：没有一条需要新的抽象。**
 
+**⇒ `ProofComplete`（`Lattice/Plugins.lean`）需 **30 项**——这个数字由 `gov/check_criterion_size.py` **从源码数出来**，不是重录的。**
+**⇒ 而它在本会话里错过两次：先是所有文档写 25 而那个证明的 refine 只有 24 个占位符，**
+**⇒ 后是合入真 T7/T6/T0 后变成 30 而文档仍写 25。⇒ 故它现在是**一条门禁**。**
+
 ## 4. 目标条款的覆盖（可核对）
 
 **⇒ 条款 1.3 / 1.4 的载体中，本层提供 `compileTarget`、`EvaluatedArtifact`、`decodedFamily`（第 1081 轮登记）。

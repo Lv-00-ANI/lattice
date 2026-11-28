@@ -277,6 +277,9 @@ CHECKS = [
     # **Phase 3 ADR-E, measured first: ZERO vacuous claims exist today, so this is prevention, not repair.**
     # The type-level `ProofFieldOf` mapping the plan proposes covers the same sentence; this gate costs thirty
     # lines and fires the moment a plugin claims a slot that says nothing.
+    # **W2-1: the criterion's SIZE is a checked number.** It was wrong twice this session (24 vs the documented 25,
+    # then 30 after conjoining the real T7/T6/T0 while the documents still said 25).
+    ("criterion: size matches the documents", "check_criterion_size.py"),
     ("plugins: no vacuous claim", "check_plugin_claims.py"),
     ("meta: artifacts and commands intact", "check_artifact_integrity.py"),
     ("meta: counts have one home", "check_single_source_counts.py"),
