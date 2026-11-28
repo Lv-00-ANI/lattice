@@ -98,6 +98,13 @@ def DeployScope.rank : DeployScope → ℕ
   | .library => 1
   | .mainline => 2
 
+/-- **`DeployScope.rank` 是单射**：秩相等 ⇒ 层相等。
+
+**⇒ 没有它，「六个分量均等 → 两个键相等」就断在第一个分量上（因为那一个是结构而非 ℕ）。**
+**⇒ 而它只需三个构造子的穷举。 -/
+theorem DeployScope.rank_injective {x y : DeployScope} (h : x.rank = y.rank) : x = y := by
+  cases x <;> cases y <;> simp_all [DeployScope.rank]
+
 /-- **六分量排序键**（§9.6）。
 
 **→ 逐分量方向不同：**层级 / 优先级 / 协议版本**大者胜**；**
@@ -157,5 +164,47 @@ theorem wins_asymm {a b : RankKey} (h : Wins a b) : ¬ Wins b a := by
   intro h'
   unfold Wins at h h'
   omega
+
+/-- **⭐ **全序性：任两个键可比**。
+
+**⇒ 这是排序键的**最后一块**：没有它，「选一个胜者」在某些键对上**无法决定**。**
+**⇒ 证法：逐分量分情形。每一层三个分支——「大」（对大者胜分量）/ 「小」 / 「等」，**
+**⇒ 等则下降一层；六层均等则两个键**结构上相等**。 -/
+theorem wins_trichotomy (a b : RankKey) : Wins a b ∨ a = b ∨ Wins b a := by
+  by_cases h1 : a.scope.rank > b.scope.rank
+  · exact Or.inl (Or.inl h1)
+  by_cases h1' : b.scope.rank > a.scope.rank
+  · exact Or.inr (Or.inr (Or.inl h1'))
+  have hr : a.scope.rank = b.scope.rank := by omega
+  by_cases h2 : a.priority > b.priority
+  · exact Or.inl (Or.inr ⟨hr, Or.inl h2⟩)
+  by_cases h2' : b.priority > a.priority
+  · exact Or.inr (Or.inr (Or.inr ⟨hr.symm, Or.inl h2'⟩))
+  have hp : a.priority = b.priority := by omega
+  by_cases h3 : a.protocol > b.protocol
+  · exact Or.inl (Or.inr ⟨hr, Or.inr ⟨hp, Or.inl h3⟩⟩)
+  by_cases h3' : b.protocol > a.protocol
+  · exact Or.inr (Or.inr (Or.inr ⟨hr.symm, Or.inr ⟨hp.symm, Or.inl h3'⟩⟩))
+  have hpr : a.protocol = b.protocol := by omega
+  by_cases h4 : a.loadSeq < b.loadSeq
+  · exact Or.inl (Or.inr ⟨hr, Or.inr ⟨hp, Or.inr ⟨hpr, Or.inl h4⟩⟩⟩)
+  by_cases h4' : b.loadSeq < a.loadSeq
+  · exact Or.inr (Or.inr (Or.inr ⟨hr.symm, Or.inr ⟨hp.symm, Or.inr ⟨hpr.symm, Or.inl h4'⟩⟩⟩))
+  have hl : a.loadSeq = b.loadSeq := by omega
+  by_cases h5 : a.regSeq < b.regSeq
+  · exact Or.inl (Or.inr ⟨hr, Or.inr ⟨hp, Or.inr ⟨hpr, Or.inr ⟨hl, Or.inl h5⟩⟩⟩⟩)
+  by_cases h5' : b.regSeq < a.regSeq
+  · exact Or.inr (Or.inr (Or.inr ⟨hr.symm, Or.inr ⟨hp.symm, Or.inr ⟨hpr.symm, Or.inr ⟨hl.symm, Or.inl h5'⟩⟩⟩⟩))
+  have hrg : a.regSeq = b.regSeq := by omega
+  by_cases h6 : a.id < b.id
+  · exact Or.inl (Or.inr ⟨hr, Or.inr ⟨hp, Or.inr ⟨hpr, Or.inr ⟨hl, Or.inr ⟨hrg, h6⟩⟩⟩⟩⟩)
+  by_cases h6' : b.id < a.id
+  · exact Or.inr (Or.inr (Or.inr ⟨hr.symm, Or.inr ⟨hp.symm, Or.inr ⟨hpr.symm, Or.inr ⟨hl.symm, Or.inr ⟨hrg.symm, h6'⟩⟩⟩⟩⟩))
+  have hid : a.id = b.id := by omega
+  right
+  have hs : a.scope = b.scope := DeployScope.rank_injective hr
+  cases a
+  cases b
+  simp_all
 
 end Lattice.Plugins.Orchestration
