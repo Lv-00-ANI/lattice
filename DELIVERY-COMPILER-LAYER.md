@@ -183,6 +183,7 @@ python check_delivery_claims.py --check  # 本文每个反引号标识符都必�
 python check_clause_pairs.py              # §3.2 的四个口径之一（只报告）
 python check_self_claims.py --check      # 自述性声明（「本文件零声明」）必须与事实一致
 python check_theorem_liveness.py --check  # 全树定理活性比例（链内 ≥ 基线 − 2 点）
+python measure_eight.py                      # **一次性重量八个量**（模块/定理/声明/文件/行/门禁/接缝/条款/判据项数）
 python -c "import sys; sys.path.insert(0,'gov'); import gen_objective_map as G, chain_connectors as C; print(len(G.END_OF_CHAIN), len(C.TERMINAL_CONNECTORS), C.UNREGISTERED_BUDGET)"   # §3.1 的三个数
 ```
 
