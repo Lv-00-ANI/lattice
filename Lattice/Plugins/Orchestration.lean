@@ -207,4 +207,40 @@ theorem wins_trichotomy (a b : RankKey) : Wins a b ∨ a = b ∨ Wins b a := by
   cases b
   simp_all
 
+/-! ## 三、依赖图与无环性（`PLUGIN-SYSTEM.md` §9.7） -/
+
+/-- **依赖图**：每个插件的**直接**依赖。
+
+**⇒ 用 `P → List P` 而不是一个 `Map`：指数与顺序都不是语义的一部分，而列表的多重集恰好表达「这些依赖」。 -/
+abbrev DepGraph (P : Type) : Type := P → List P
+
+/-- **「有秩证人」**：存在一个秩函数，沿**每一条边**严格下降。
+
+**⇒ 这就是「图无环」的**构造式**写法：有序就能排序，而排序就是无环。**
+**⇒ 没有它，「无环」只能写成「不存在回路」——那是**否定式**，难以从中取出任何东西。 -/
+def Ranked {P : Type} (g : DepGraph P) (r : P → ℕ) : Prop :=
+  ∀ p q, q ∈ g p → r q < r p
+
+/-- **自依赖**：一个插件直接依赖自己。 -/
+def SelfDep {P : Type} (g : DepGraph P) (p : P) : Prop := p ∈ g p
+
+/-- **⭐ `requires_acyclic`（一阶）：有秩证人 ⇒ 不存在自依赖。**
+
+**⇒ 理由只有一句：自依赖会要求 `r p < r p`，而那是矛盾。**
+**⇒ 故「依赖图必须无环」不是一句行规，而是**秩的存在性的直接推论**。 -/
+theorem requires_acyclic {P : Type} (g : DepGraph P) (r : P → ℕ)
+    (h : Ranked g r) (p : P) : ¬ SelfDep g p := by
+  intro hs
+  exact absurd (h p p hs) (Nat.lt_irrefl _)
+
+/-- **⭐ 二边回路也不可能**（两个插件相互引用）。
+
+**⇒ 它比一阶更强：一阶只说「自己不能引用自己」，而这里说**任何互引用都不行**，**
+**⇒ 因为它会要求 `r q < r p` 与 `r p < r q` 同时成立。 -/
+theorem no_two_cycle {P : Type} (g : DepGraph P) (r : P → ℕ)
+    (h : Ranked g r) (p q : P) (hp : q ∈ g p) (hq : p ∈ g q) : False := by
+  have h1 : r q < r p := h p q hp
+  have h2 : r p < r q := h q p hq
+  omega
+
 end Lattice.Plugins.Orchestration
