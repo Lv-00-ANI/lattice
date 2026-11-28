@@ -99,6 +99,20 @@ structure EvaluatedArtifact where
   /-- **The parameters actually used to build the payload.** -/
   recipe : CompileRecipe
 
+/- **为什么没有 `shape_of`（W1-2 的否证，第 1184 轮实测）**
+
+**规划 ADR-B 要求：`shape_of : EvaluatedArtifact → Option ModelArtifact`，要求「成功时 `M.weights` 的层形状与产物载荷一致」。**
+**⇒ 而实测读四个字段：`layout : PartialSection ( ℕ → Segment) ( ℕ → ℝ)`、**
+**⇒ `weights : ℕ → ℝ`、`domain : SemDomain`、`recipe : CompileRecipe`——**没有一处携带形状**。**
+**⇒ 而 `ModelArtifact.weights : Weights arch`，后者按 `ArchIndex A width` 索引（`Core/ArchWeights.lean`）。**
+
+**⇒ 故「不可能」的理由不是「很难」，而是**欠定**：从 `ℕ → ℝ` 到「按架构索引的权重」需要**
+**⇒ **缺的那一块是 `width : ℕ → ℕ`**（它决定 `ArchIndex` 的形状），而 `EvaluatedArtifact` **不携带它**。**
+**⇒ 故 `shape_of` 若只接受一个 `EvaluatedArtifact`，就必须**猜**宽度——任何这样的猜都会与另一个合法宽度冲突。**
+
+**⇒ 正确结论与规划自己的 fallback 一致：**两产物要么合并（让产物自己携带形状），**
+**⇒ 要么让 `shape_of` 显式多接一个宽度参数。⇒ **两者都是架构级决定，不是一个可以顺手写的投影**。**
+**⇒ 故本文件**不提供** `shape_of`：它会是一个猜宽度的函数，而那不是证明。 -/
 namespace EvaluatedArtifact
 
 /-- **载荷（派生，且**部分**）**：按该产物**自己的**布局解释其权重。
