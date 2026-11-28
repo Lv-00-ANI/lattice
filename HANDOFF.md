@@ -44,7 +44,7 @@ cd gov && python measure_eight.py
 |:--|:--|
 | **`Ranked ⟺ 无回路`** | 需拓扑排序论证（在可达节点的有限子图上造测度）。**真活，未开写**，且**不写半截** |
 | ~~`plugin.yml` 能力索引~~ | **已存在**（第 1223 轮实测）：`Plugins/Manifest.lean` 有 `ObligationKind`(12)、`PluginLayer`(8)、`Obligation`、**`PluginManifest`**；它出现在 **15 个文件**，**每个插件的 `Manifest.lean` 都在用**；`check_plugin_yml.py` **逐字段**对比 11 份 YAML 与 Lean 声明。⇒ 写 Lean 侧 YAML 解析器只会**重复**那道门禁 |
-| **Phase 4**（组合层接真实管线） | 依赖第三入口，而它与另两处**已证不等价**（`encodeGrid_ne_compileSkel`） |
+| **Phase 4**（组合层接真实管线） | **不被阻断**（第 1226 轮实测）：`pipeline` 的末环是 **`compileToLayer`**（函数形入口，已逐段+全域接通），**从不**调用 `compileSkel`。⇒ 待做的是把三个普通函数包成 `Primitive` 并组装 `defaultPipeline` |
 | **Phase 5**（IR 契约 / 编辑统一模型） | `EditTarget` / `Change` / `EditMode` **全部不存在**（0 处） |
 | **Phase 6**（执行边界 / 自举） | `.c` / `.h` / `@[extern]` **0 个** |
 | **Phase 7 / 8** | 前置于 Phase 6 / 持续项 |

@@ -839,7 +839,7 @@ inductive SlotStatus where
 
 ## Phase 4　组合层接到真实管线（6–12 月）
 
-**状态：未开始。**
+**状态：未开始。⇒ 但前置已清（第 1226 彫实测）：`pipeline` 建在 **`compileToLayer`** 上，**不调用 `compileSkel`**；故第三入口的不等价**不阻断**本阶段。**
 
 ### W4-1　`pipeline_as_compose`
 

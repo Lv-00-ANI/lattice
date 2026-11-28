@@ -4626,3 +4626,33 @@ theorem rank_key_total : ∀ a b, a.rankKey ≠ b.rankKey
 **⇒ 这是**第五处**规划前提被测量推翻，也是一个**减少**工作量的推翻（前四处多是让工作变多或变难）。**
 
 **⇒ 而 W3-2（槽三态）仍未开始：它需要 `SlotClaim`/`SlotState` 这类**树里不存在**的类型，故不能照抄。**
+
+### 3.145 **Phase 4 的**假阻断**被解除：`pipeline` 建在 `compileToLayer` 上，不碰 `compileSkel`**（第 1226 轮）
+
+**⇒ `HANDOFF.md` 与 `LONG-TERM-PLAN.md` 都把「Phase 4 依赖 W1-3」当作阻断，理由是第 1195 轮的**
+**⇒ `encodeGrid_ne_compileSkel`：第三处 L3 入口与另两处**可证不等价**。**
+
+**⇒ 本轮读了 `pipeline` 的本体，结论相反：**
+
+```lean
+def pipeline (s : List Char) :=
+  (tokenize s).bind (fun ts => (decode (L1Bridge ts)).map compileToLayer)
+```
+
+**⇒ 整条流水线的最后一环是 **`compileToLayer`**——即**函数形入口**，而那两处**已经逐段与全域接通**（1193、1194）。**
+**⇒ 它**从不调用** `compileSkel`。⇒ 故第三入口的不等价**不构成** Phase 4 的阻断。**
+
+| 测什么 | 结果 |
+|:--|:--|
+| `pipeline` 定义位置 | `Lattice/Lib/Chain/RealEndToEnd.lean:802`（**正是**规划所引处） |
+| 它用的入口 | **`compileToLayer`**（函数形） |
+| 它是否用 `compileSkel` | **否** |
+| `Primitive` 类型 | **存在**（`Compose/Primitive.lean`，5 处声明） |
+| `defaultPipeline` | **不存在**（0） ⇒ W4-1/W4-2 仍是真的待做，但那是**组装**，不是**新语义** |
+| `compilePrim` | **不存在**（0） ⇒ 需先从 `compileToLayer` 包一层 |
+
+**⇒ 故 Phase 4 **可以开始**，且它的第一个动作是具体的：把 `tokenize`/`decode∘L1Bridge`/`compileToLayer` 三个**普通函数**
+**⇒ 包成 `Primitive`，组装 `defaultPipeline`，再证 `pipeline s = defaultPipeline.run s`（W4-1）。**
+**⇒ 这三步**都不需要新语义**——它们只需要 `Primitive.run` 的复合律，而 `Compose` 那一层已有定律。**
+
+**⇒ 这是第六处规划前提被测量推翻，也是**第二处**让工作量变少的推翻。**
