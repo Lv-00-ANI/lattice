@@ -3209,6 +3209,8 @@ Plugins/Migration.lean	obligationOwnedBy_self
 Plugins/Migration.lean	registryMigratedFor_nil
 Plugins/Migration.lean	registryMigratedFor_fails_of_unlisted
 Plugins/Migration.lean	registryMigratedFor_fails_of_foreign
+Plugins/Orchestration.lean	path_rank_lt
+Plugins/Orchestration.lean	ranked_acyclic
 Plugins/ProofSlotCensus.lean	holds_iff_all_fields
 Plugins/ProofSlotCensus.lean	holds_soundness
 Plugins/ProofSlotCensus.lean	holds_laws

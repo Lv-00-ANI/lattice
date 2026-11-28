@@ -2105,7 +2105,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
-| `Lattice.Plugins.Orchestration` | 12 | 9 |
+| `Lattice.Plugins.Orchestration` | 14 | 10 |
 | `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
@@ -2337,7 +2337,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `D4_eval_expr_ignores_y` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D5_point_env_never_enters_compilation` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D6_tangent_sem_too_weak` -> `Compiler`, `dist`, `ir_sem`, `ptX`, `ptY`
-- `DeployScope.rank_injective` -> `at`, `g`, `rank`
+- `DeployScope.rank_injective` -> `at`, `g`, `induction`, `rank`, `single`
 - `E1BridgeNoSep_cons` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `single`, `toSegs`
 - `E1Bridge_cons` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
 - `E1Bridge_length` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
@@ -5257,8 +5257,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `errorFeedback_bounded` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_bounded_aux` -> `ExpDist`, `ExpGap`, `at`, `g`, `induction`, `le_trans`, `sgd_rate_bound`, `sum_range_sub_telescoping`, `zero`
 - `errorFeedback_convergence` -> `ExpDist`, `ExpGap`, `g`, `sgd_rate_bound`
-- `error_is_terminal` -> `at`, `g`, `rank`
-- `error_reachable` -> `at`, `g`, `rank`
+- `error_is_terminal` -> `at`, `g`, `induction`, `rank`, `single`
+- `error_reachable` -> `at`, `g`, `induction`, `rank`, `single`
 - `error_zero_is_exact` -> `ErrorBound`, `W`, `apply`, `at`, `bounded`, `compile`, `compileZ`, `d`, `dist`, `extract`, `extractZ`, `le_antisymm`, `ratRepresentation`, `roundtrip`, `roundtrip_error_le_one`, `triangle_combine`
 - `euclid_norm_sq_eq` -> `apply`, `at`, `mulVec`, `single`, `toFun`
 - `euclidean_affine_fixed_point_existsUnique` -> `at`, `complete`
@@ -8178,13 +8178,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_saddle_in_convex` -> `at`, `comp`, `const_add`, `g`
 - `no_scale_invariant_left_inverse` -> `ConstraintSet`, `Layer`, `Surjective`, `VectorConstraint`, `at`, `cUnit`, `compileToLayer`, `scaleLayerFun`, `scaleVec`, `syntacticFunctor`
 - `no_self_delta` -> `DefEnv`, `E`, `Step`, `Term`, `at`, `subst`, `trivial`
-- `no_skip_loaded` -> `at`, `g`, `rank`
+- `no_skip_loaded` -> `at`, `g`, `induction`, `rank`, `single`
 - `no_specSolver` -> `ExpressibleSpec`, `FamilySolver`, `Pt`, `SpecSolver`, `sol`, `sound`
 - `no_step_sort` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_step_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_stuck_well_typed_literals` -> `Compiler`, `HasType`, `Step`, `Value`
 - `no_token_dependent_inherits` -> `Carrier`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
-- `no_two_cycle` -> `g`
+- `no_two_cycle` -> `g`, `induction`, `single`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_affine_approximation` -> `Compiler`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
@@ -8697,6 +8697,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `pathMap_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
 - `path_contDiffOn` -> `at`, `comp`
 - `path_one` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
+- `path_rank_lt` -> `g`, `induction`, `single`
 - `path_second_deriv_eq` -> `IsSymmMat`, `add`, `at`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
 - `path_second_deriv_eq_quadForm` -> `IsSymmMat`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
 - `path_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
@@ -9264,9 +9265,10 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rankOneEdit_eq_add_rankOneFun` -> `E`, `LoRAEdit`, `W`, `at`, `lora_edit_bound`, `rankOneEdit`
 - `rankOneFun_add_neg` -> `E`, `LoRAEdit`, `W`
 - `rankZero_exact` -> `at`, `frob_add_le`, `frobeniusNorm`
-- `rank_key_distinct_of_id` -> `at`, `g`, `rank`
+- `rank_key_distinct_of_id` -> `at`, `g`, `induction`, `rank`, `single`
 - `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
-- `ranked_of_subgraph` -> `g`
+- `ranked_acyclic` -> `g`
+- `ranked_of_subgraph` -> `g`, `induction`, `single`
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
 - `ratRoundtrip_fixed_not_discriminating` -> `QConstraint`, `QSat`, `at`
@@ -9623,7 +9625,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reproducing_linearity` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`, `toFun`
 - `reproducing_property` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
 - `reproducing_property_self` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
-- `requires_acyclic` -> `g`
+- `requires_acyclic` -> `g`, `induction`, `single`
 - `resJac_chain_le` -> `E`, `at`, `empty`, `induction`, `le_trans`, `zero`
 - `resJac_chain_le_exp_sum` -> `E`, `le_trans`
 - `resJac_chain_le_inv_one_sub_sum` -> `E`, `le_trans`
@@ -10119,7 +10121,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `scaling_law_variance_limited_nonvacuous` -> `d`
 - `scheme_covers_all` -> `Compiler`, `W`, `compile`, `encode`, `satW`
 - `schur_complement_identity` -> `at`
-- `scope_dominates_priority` -> `at`, `g`, `rank`
+- `scope_dominates_priority` -> `at`, `g`, `induction`, `rank`, `single`
 - `score_lin_lipschitz` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
 - `score_lin_lipschitz_qk` -> `E`, `LinfNorm`, `apply`, `at`, `bddAbove_abs`, `comp_norm_bound`, `convComb_lipschitz_prob`, `d`, `le_trans`, `linfNorm_eq_norm`, `softmax`
 - `score_log_derivative` -> `apply`, `at`, `g`, `log_derivative_identity`
@@ -11880,9 +11882,9 @@ module. These are the edges that make the chain a chain rather than a list.
 - `windowRowCount_rampup` -> `apply`, `at`
 - `windowRowCount_zero` -> `at`, `insert`, `min`
 - `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
-- `wins_asymm` -> `at`, `g`, `rank`
-- `wins_irreflexive` -> `at`, `g`, `rank`
-- `wins_trichotomy` -> `g`, `rank`
+- `wins_asymm` -> `at`, `g`, `induction`, `rank`, `single`
+- `wins_irreflexive` -> `at`, `g`, `induction`, `rank`, `single`
+- `wins_trichotomy` -> `g`, `induction`, `rank`, `single`
 - `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
