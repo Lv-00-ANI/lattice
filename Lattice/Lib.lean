@@ -89,6 +89,7 @@ import Lattice.Runtime.ZeroDataSynthesis
 import Lattice.Lib.Linear.ResidualEpsRepair
 import Lattice.Lib.Editing.CompileLaw
 import Lattice.Lib.Compiler.LayerPenalty
+import Lattice.Lib.Compiler.GridRealAgreement
 /-!
 # Lattice.Lib -- harvested instances
 
