@@ -4887,3 +4887,36 @@ theorem pipeline_eq_defaultPipeline (s) : RealEndToEnd.pipeline s = defaultPipel
 **⇒ `theorem compose_post_strengthens {f g} (hf : ∃ …, modelsBehavior …) : …` —— 一条关于 `post` 的**引理**，**
 **⇒ 而不是往 `Primitive` 里塞第七个字段。⇒ 这条引理**是否值得写**，取决于**有没有人需要它**；**
 **⇒ 当前**零消费者** ⇒ 故按同样的标准（`frame` 的教训），**先不写**，并把它记在这里作为**可选的后续**。**
+
+### 3.151 **W5-1 的 8 步实测表：**4 步已有、2 步半有、2 步空**（第 1235 轮）
+
+**⇒ 规划说「§7bis 整块为空」。⇒ 但 §14 的 8 步是**另一张表**，逐条测下来**远没那么空**。**
+
+| 步 | 内容 | 实测 | 结论 |
+|--:|:--|:--|:--|
+| 1 | `Tensor` / `Relation` / `PartKind` | 各 **1** 声明 | ✅ **已有** |
+| 2 | `equal` / `zero` / `depends` | **`RelKind`（`Core/IR/Basic.lean:105`）的三个构造子，全在使用** | ✅ **已有** |
+| 3 | `tokenOf` / `merges` / `specialToken` | **0 / 0 / 0** | ❌ **空** |
+| 4 | `extract` | **`Core/IR/Extract.lean:61 : IRWeights → Option IRSkeleton`** | ✅ **已有** |
+| 5 | `extract_unique` | **0** | ❌ **空** |
+| 6 | `compile` | **`Core/CIC/Compile.lean:439 : Term → CICWeights`** | ✅ **已有** |
+| 7 | `roundtrip` | **无 `def roundtrip`**，但有 `roundtrip_parse`、`roundtrip_determines_skeleton` | 🔶 **半有** |
+| 8 | `render` / `unrender` | `render : ConstraintSet → List SymToken` ✅；`unrender` **0** | 🔶 **半有** |
+
+**⇒ 故 W5-1 的真实缺口只有四处：第 3 步（三个词表关系）、第 5 步（`extract_unique`）、第 7 步（`roundtrip` 作为**函数**）、第 8 步的 `unrender`。**
+
+#### 一、一处**我自己的误判**（记下来，因为它是同一类错误的第九次）
+
+**⇒ 我先按**名字**搜 `equal`/`zero`/`depends` 的 `decl`，得 0，于是判「第 2 步空」。**
+**⇒ 实际它们是**某个 `inductive` 的构造子**（`RelKind.equal` 等），而**构造子不是 `def`**，故那种搜法**看不见它们**。**
+**⇒ ⇒ 结论：**「声明计数」这个工具对「构造子」是瞎的**。⇒ 这不是第一次：`PluginState.error`、`SlotContent.todo` 都曾因此被误判。**
+
+#### 二、下一轮从**最小**的一处起
+
+**⇒ 四个缺口里，第 5 步 `extract_unique` 最可能有**现成零件**：**
+**⇒ 树里已有 `extract : IRWeights → Option IRSkeleton`、`skeleton`、`skeletonCode_injective`、以及 `compileSkel`。**
+**⇒ 故 `extract_unique` 的正确形状大概率是：**
+**⇒ `theorem extract_unique {W k} : extract W = some k ↔ W = compileSkel k`（或某一方向）——**
+**⇒ **先测** `extract` 与 `compileSkel` 的现有关系（`Chain.lean` 里有一条 `extractSkel_compileSkel`），再决定陈述。**
+
+**⇒ 判据同前：分支 → 构建 + 33 门禁 + `--fast` → `--no-ff`；若零件不全，则如实记「缺什么」。**
