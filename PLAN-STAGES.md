@@ -4920,3 +4920,39 @@ theorem pipeline_eq_defaultPipeline (s) : RealEndToEnd.pipeline s = defaultPipel
 **⇒ **先测** `extract` 与 `compileSkel` 的现有关系（`Chain.lean` 里有一条 `extractSkel_compileSkel`），再决定陈述。**
 
 **⇒ 判据同前：分支 → 构建 + 33 门禁 + `--fast` → `--no-ff`；若零件不全，则如实记「缺什么」。**
+
+### 3.152 **修正 §3.151：W5-1 的 8 步里 **7 步已按性质完成**，只有第 3 步待核（第 1236 轮）
+
+**⇒ §3.151 的表述「4 已有 / 2 半 / 2 空」**仍然是按**名字**数的，故它偏悲观。⇒ 本轮**按性质**复核，结论大改。**
+
+| 步 | 内容 | **按性质**的实测 | 结论 |
+|--:|:--|:--|:--|
+| 1 | `Tensor`/`Relation`/`PartKind` | 各 1 声明 | ✅ **完成** |
+| 2 | `equal`/`zero`/`depends` | `RelKind`（`Basic.lean:105`）三构造子，全在用 | ✅ **完成** |
+| 3 | `tokenOf`/`merges`/`specialToken` | **`Vocab` 在 33 个文件**里；三个**名字**独立不存在 | 🔶 **待核** |
+| 4 | `extract` | `Extract.lean:61` | ✅ **完成** |
+| 5 | `extract_unique` | **`extract_compile`（逆）+ `extract_injective_on_compiled`（唯一性）+ `extract_compile_iff`（当且仅当）+ `extract_witness_is_preimage`** | ✅ **完成** |
+| 6 | `compile` | `CIC/Compile.lean:439` | ✅ **完成** |
+| 7 | `roundtrip` | **`*roundtrip*` 命名的定理 48 条**（含 `roundtrip_parse`、`roundtrip_determines_skeleton`） | ✅ **完成**（它是**定理**，不是函数） |
+| 8 | `render`/`unrender` | `render := encode`；而 **`decode_encode (cs) : decode (encode cs) = some cs`**（`RealTokenSymbolLink.lean:208`） | ✅ **完成** |
+
+**⇒ 故 W5-1 的真实状态是：**7 步已完成，第 3 步需按性质另核**。⇒ 规划把它写成「8 步落地」，实测它是「**已落地，需核一遍**」。**
+
+#### 一、**仪器的错**，不是树的错（第十次，且这次连续两次）
+
+**⇒ 上节我按名字数 `extract_unique` 得 **0**，判「空」。而它**以四个别的名字存在**：**
+**⇒ `extract_compile`、`extract_injective_on_compiled`、`extract_compile_iff`、`extract_witness_is_preimage`。**
+**⇒ 而同一天我还在第 2 步犯过同一错（`equal`/`zero`/`depends` 是**构造子**，不是 `def`）。**
+
+**⇒ 故规则应当写死：**「这个名字有没有」是**错的问题**；「这个**性质**有没有」才是对的。**
+**⇒ 具体两种瞎法：**
+1. **构造子不是 `def`**（`RelKind.equal`、`PluginState.error`、`SlotContent.todo` 都被漏数）；**
+2. **性质会以别的名字存在**（唯一性叫 `_injective_on_compiled`，逆叫 `_compile`，当且仅叫 `_compile_iff`）。**
+
+**⇒ 这两条已写进本节，作为后续「入口测量」的**方法**，而不是每次靠运气换查法。**
+
+#### 二、下一轮：**只核第 3 步**
+
+**⇒ 要核的是**性质**：词表的三种关系——「token 到 id」「merge 规则」「特殊 token」——在 `Vocab`（33 文件）里**是否已有载体**。**
+**⇒ 方法：读 `Vocab` 的定义 + 它周围的定理名（按**性质**读，不按规格的**词**读）。**
+**⇒ 若已有 ⇒ W5-1 **全 8 步完成**，Phase 5 的 W5-1 结案；若缺 ⇒ 记「缺哪一种关系」。**
