@@ -23,6 +23,7 @@
 
 import Lattice.Lib.Compiler.IRWeightsBridge
 import Lattice.Lib.Compiler.RealLayer
+import Lattice.Core.IR.Chain  -- L3's third entry: Lib -> Core is DOWNWARD (3 -> 0)
 
 namespace Lattice.Lib.Compiler.GridRealAgreement
 
@@ -67,5 +68,33 @@ theorem gridEval_eq_encodeGrid (g : ℕ → Lattice.Lib.Compiler.WeightSequence.
   rw [Lattice.Lib.Compiler.RealLayer.gridEval_eq_realLayer_out]
   exact familyToRealLayers_out_eq_encodeGrid g
     (Lattice.Lib.Compiler.PiecewiseWeights.segmentIndex n x) x
+
+/-! ## 三、第三处入口：**不可比**（实测，而非判断） -/
+
+/-- **⭐⭐ 第三处 L3 入口与本文件的两处**不是同一个编码**。
+
+**⇒ `compileSkel k = fun n => if n = 0 then (skeletonCode k : ℝ) else 0`**（`Core/IR/Chain.lean:69`）：**
+**⇒ 它只在 **0 号槽**放一个 **Nat 码**，**其余位置恒为 0**。**
+**⇒ 而 `encodeGrid g` 的奇数位是 `(g (i/2)).c`，可以是**任意实数**。**
+
+**⇒ 故此处的不可比**不是一个判断，而是一个可证的**否定**：只要某段的截距非 0，**
+**⇒ `encodeGrid g` 就与任何 `compileSkel k` 在 1 号位上不同。**
+
+**⇒ ⊨ 而这正是规划 W1-3 要的那条：「若两者都不可，写一条『L3 有三个互不等价表示』的定理」。**
+**⇒ 故本文件的结论是两条定理合起来：**前两处入口逐段与全域都接通（§一/§二），**
+**⇒ 而第三处**原则上不能接**，因为它编码的是**结构（形状）**而不是**函数（分段仿射）**。** -/
+theorem encodeGrid_ne_compileSkel (g : ℕ → Lattice.Lib.Compiler.WeightSequence.Segment)
+    (k : Lattice.Core.IR.IRSkeleton) (hc : (g 0).c ≠ 0) :
+    Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid g ≠ Lattice.Core.IR.compileSkel k := by
+  intro h
+  have h1 := congrFun h 1
+  -- 左边在 1 号位是 `(g 0).c`（奇数位），右边恒为 0（1 ≠ 0）
+  have hleft : Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid g 1 = (g 0).c := by
+    have := Lattice.Lib.Compiler.IRWeightsBridge.encodeGrid_odd g 0
+    simpa using this
+  have hright : Lattice.Core.IR.compileSkel k 1 = 0 := by
+    simp [Lattice.Core.IR.compileSkel]
+  rw [hleft, hright] at h1
+  exact hc h1
 
 end Lattice.Lib.Compiler.GridRealAgreement
