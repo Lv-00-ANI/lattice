@@ -5078,3 +5078,43 @@ theorem skeletonCode_fits (prec : ℕ) (k : IRSkeleton) (h : sizeBound k prec) :
 **⇒ 而后者既**不与「不绑定厂商」冲突**，又比前者**更强**（53 只是它的一个实例）。**
 
 **⇒ 下一轮写 `FitsInWord` + `sizeBound` + `skeletonCode_fits`（新文件，不改既有结构）。**
+
+### 3.156 **W6-1 的残余缩到**一条算术引理**，而它的障碍已定位（第 1240 轮）
+
+**⇒ 本轮动手写 `skeletonCode_fits`，失败两次，均**未合并**（已 `checkout master`，树清洁，`gate` 为 0）。**
+**⇒ 但失败的位置**很有信息量**，记下来免得下一次重走。**
+
+#### 一、想做的那条（形状仍是对的）
+
+```lean
+def FitsInWord (prec n : ℕ) : Prop := n < 2 ^ prec
+theorem pair_lt_two_pow {n a b} (ha : a < 2^n) (hb : b < 2^n) : Nat.pair a b < 2^(2*n+3)
+-- 然后 skeletonCode 的界由对 k 的归纳得到
+```
+
+**⇒ 而这条**是对的**：它对**任意** `prec` 陈述（从不声称 `53`），与「不绑定厂商」一致。**
+
+#### 二、两个**实测**障碍（都不在我预期的地方）
+
+| 障碍 | 实测 |
+|:--|:--|
+| `Nat.pair` **不能**被 `rfl` 展开 | `have hpair : Nat.pair a b = (a+b)*(a+b)+a := rfl` ⇒ **报「`rfl` 给出 `pair a b = pair a b`」**，即左式**没归约** |
+| **`Nat.mul_lt_mul` 不存在** | `unknown constant 'Nat.mul_lt_mul'` |
+| 而**可用**的：`Nat.left_le_pair` | 树里 `Skeleton.lean:126` 已在用（`a + 1 ≤ Nat.pair (a+1) …`） |
+
+**⇒ 结论：本工具链的 `Nat.pair` **不是**一个可展开的透明定义（对我这种写法而言），故「先展开再放缩」的路走不通。**
+
+#### 三、下一次应当**换路**：用**单调性**，不展开
+
+**⇒ 若 `Nat.pair` 对两个参数**单调**（`a ≤ a' → b ≤ b' → Nat.pair a b ≤ Nat.pair a' b'`），则：**
+**⇒ `Nat.pair a b ≤ Nat.pair (2^n - 1) (2^n - 1)`，而右边是**只含 `n` 的闭式**；**
+**⇒ 于是 `pair_lt_two_pow` 变成「闭式 `< 2^(2n+3)`」，可用 `Nat.pow` 引理或 `decide`+归纳处理。**
+**⇒ ⇒ 关键：**先测「`Nat.pair` 单调性引理在树里/工具链里叫什么」**，而不是假设它叫 `pair_le_pair`。**
+
+**⇒ 这一步与前面第十一次的教训同型：**先测名字，再写证明**。而本轮我**没测就写**，故两次失败——**
+**⇒ 这是我自己的流程错，不是树的错。**
+
+#### 四、而这一条**不阻塞**别的事
+
+**⇒ W6-1 的其余部分**都已存在**（`layerWords` 的偏移界、`compileWith` 的 6 条定理、`extractWith_compileWith`）；**
+**⇒ 故 Phase 6 的**唯一**未完成项就是这条算术引理 + 对 `IRSkeleton` 的归纳。⇒ **规模明确、障碍明确、方向明确。**
