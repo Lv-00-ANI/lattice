@@ -4698,3 +4698,62 @@ def compose {I M O} (f : Primitive I M) (g : Primitive M O)
 **⇒ 故下一轮的第一件事**不是写 `defaultPipeline`**，而是：**
 **⇒ 测 `tokenize` 的值域与 `decode ∘ L1Bridge` 的定义域**能否**证明包含**（若不能，则这条链上**存在一个真实的可达失败**，**
 **⇒ 而那**本身**就是一条必须记录的结论——比一条空定理有价值得多）。**
+
+### 3.147 **修正 §3.146：那条 `h` 是**平凡**的——因为 `decode` 由构造即全函数**（第 1228 轮）
+
+**⇒ 上节（3.146）说 `compose` 的 `h` 是「一条目前无处证明的领域事实」。⇒ 本轮实测表明：**那句话过强，须修正**。**
+
+#### 一、证据：`Compose/Showcase/L1L2.lean` **已经**这么做过一次
+
+```lean
+def decodePrim : Primitive (List SymToken) ConstraintSet where
+  pre   := fun _ => True
+  post  := fun ts cs => Lattice.decode ts = some cs
+  run   := fun ts => Lattice.decode ts
+  sound := by intro ts _; exact ⟨_, rfl, rfl⟩
+
+def l1l2Roundtrip := compose encodePrim decodePrim (by intro cs ts _; trivial)
+```
+
+**⇒ 它的 docstring 直接给了理由：「`decode` 的定义本身就是 `some (…)`，所以它也是**全函数**」。**
+**⇒ 故 `pre := True` 合法，而 `compose` 的 `h` 由 `intro …; trivial` 关闭。**
+
+#### 二、故 §3.146 的正确版本是
+
+| \u4e0a\u4e00\u8f6e\u7684\u8bf4\u6cd5 | \u672c\u8f6e\u5b9e\u6d4b\u540e |
+|:--|:--|
+| `h` 是「无处证明的领域事实」 | **`h` 平凡**——只要每段的 `pre := True` 且其 `run` 在**定义上**总返回 `some` |
+| Phase 4 因此是真活（证明不落空） | **仍有一部分是真活**：`tokenize` **不是**全函数（`List Char → Option …`），故**它的 `pre` 必须非平凡** |
+
+**⇒ 也就是说：整条链里**只有 `tokenize` 一段**需要非平凡的 `pre`，其余三段（`L1Bridge`、`decode`、`compileToLayer`）都是全函数。**
+
+#### 三、于是 W4-2 的**正确形状**已经确定
+
+```lean
+def tokenizePrim  : Primitive (List Char) (List CharToken) where
+  pre   := fun s => (tokenize s).isSome     -- **只因这一段部分**
+  post  := fun s ts => tokenize s = some ts
+  run   := tokenize
+  sound := by intro s h; cases hrun : tokenize s with
+             | none   => simp [hrun] at h
+             | some y => exact ⟨y, rfl, rfl⟩
+def bridgePrim    : Primitive (List CharToken) ConstraintSet where
+  pre := fun _ => True                       -- L1Bridge 与 decode 都全
+  …
+def compilePrim   : Primitive ConstraintSet Layer where
+  pre := fun _ => True                       -- compileToLayer 全
+  …
+def defaultPipeline := (tokenizePrim.compose bridgePrim (by simp)).compose compilePrim (by simp)
+```
+
+**⇒ 而 `pipeline s = defaultPipeline.run s` 应当是 `rfl` 或一条 `simp [Option.bind_assoc]`——**
+**⇒ 因为两边都是**同一串 `bind`**；这与 §3.146 担心的「空洞」不同：**
+**⇒ 空洞的是**把 `run` 定义成 `pipeline` 本身**；这里 `run` 由 `compose` **从三段拼出**，等式是**两条不同的构造**偶然相等。**
+
+**⇒ 故本轮的结论是：**路径清楚、模板现成、只剩一段需要非平凡 `pre`**。⇒ 下一轮就写它。**
+
+#### 四、这也修正了 §3.146 对 Phase 4「性质」的判断
+
+**⇒ 上一轮说「Phase 4 的实质是证明每一跳不落空」。⇒ 更准确的说法是：**
+**⇒ **只有 `tokenize` 那一跳可能落空**，而其余三跳的不落空由**定义即全函数**免费给出。**
+**⇒ ⇒ Phase 4 因此**比上一轮估计的小**，而它仍然**不是空的**（`tokenize` 的 `pre` 是真的）。**
