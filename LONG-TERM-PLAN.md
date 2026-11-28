@@ -627,6 +627,8 @@ inductive SlotStatus where
 
 ## Phase 0　止血（1–2 周）
 
+**状态：✅ 完成（第 1169–1183 轮）—— W0-1/2/3a–3f 全部落地，含三道元门禁。**
+
 **目标**：消除会**静默产生错误结论**的缺陷。不新增数学。
 
 ### W0-1　合并七个同 FQN 双声明
@@ -734,6 +736,8 @@ inductive SlotStatus where
 
 ## Phase 1　载体统一（2–4 月）
 
+**状态：✅ 完成（第 1190–1194 载体；1195 三处入口；1196 产物契约）——两项构造性，一项以测量否定。**
+
 ### W1-1　`RealLayer` 提升为共同载体（ADR-A）
 
 1. 收敛 `LayerOut` 六处定义到 `Runtime/ConvertVectorLinear.lean:143`；
@@ -767,6 +771,8 @@ inductive SlotStatus where
 
 ## Phase 2　判据可信（3–6 月，与 Phase 1 并行）
 
+**状态：✅ 完成（第 1201–1205）—— T7/T6 换载体、T0 进判据、T8 有理由不进；判据 24 → **30**，由 `check_criterion_size.py` 看守。**
+
 ### W2-1　T6/T7/T8 换载体（ADR-C）
 
 1. 补 `def failed`；
@@ -797,6 +803,8 @@ inductive SlotStatus where
 引入三态术语；修正 README `:189`、`gate.py:330/334`、`check_reference_archive.py:21-23` 三处矛盾；新增门禁断言“`Lattice/Domains.lean` 的 import 边与文档所述状态一致”。
 
 ## Phase 3　插件可执行化（4–8 月）
+
+**状态：前置✅（W3-1 以门禁形式；W3-3 状态机 + 3 条定理）；W3-2/W3-4 未开始。**
 
 ### W3-1　按 kind 索引的 `consistent`（ADR-E）
 
@@ -831,6 +839,8 @@ inductive SlotStatus where
 
 ## Phase 4　组合层接到真实管线（6–12 月）
 
+**状态：未开始。**
+
 ### W4-1　`pipeline_as_compose`
 
 证 `pipeline s = (defaultPipeline).run s`（`pipeline` 是 2 层 `bind` + 1 个 `map`，`RealEndToEnd.lean:802-803`）。代价 M。
@@ -855,6 +865,8 @@ inductive SlotStatus where
 
 ## Phase 5　语义主线与 IR 契约（12–24 月）
 
+**状态：未开始。**
+
 ### W5-1　IR §14 最小验证
 
 按文档 8 步落地：`extract_unique`、`compile`、`roundtrip`、`render`/`unrender`。当前 §7bis 整块为空。
@@ -872,6 +884,8 @@ inductive SlotStatus where
 结构提取（已有 `PartialSection`）、行为提取（需 `modelsBehavior` 支撑）、再编译（三类结论分开：参数相等 / 行为相等 / 误差界）。
 
 ## Phase 6　可执行边界与自举（18–30 月）
+
+**状态：未开始。**
 
 ### W6-1　数值边界的真实定理
 
@@ -893,9 +907,13 @@ inductive SlotStatus where
 
 ## Phase 7　经验层（24–36 月）
 
+**状态：未开始。**
+
 `PARADIGM.md:90-91` 两维为 0/4，当前无任何基准产物。**不应早于 Phase 6**——没有可执行边界时，基准只能测 Lean 解释器速度。
 
 ## Phase 8　规模化与清理（持续）
+
+**状态：未开始。**
 
 - **几何消费替换**：逐项列 26 条主树导入者（`frozen-reference-baseline.txt`），决定搬出通用接口、以非几何实例接替、或保留；
 - **GEO-DOC-01..08**（`DESIGN-ALIGNMENT.md:64-73`）：文档清理，`gov/` 下当前无对应脚本；
