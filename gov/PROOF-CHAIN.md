@@ -421,7 +421,7 @@
 - `Lattice.Lib.Compiler.FloatMulBoundDischarged` <- `Lattice.Lib.Quantization.RealConversionStabilityFloatBounds`, `Lattice.Lib.Compiler.RealCompileFloatCorrectness`
 - `Lattice.Lib.Compiler.GridAlgebra` <- `Lattice.Lib.Compiler.ChordGeneral`
 - `Lattice.Lib.Compiler.GridBound` <- `Lattice.Lib.Compiler.LinearComb`, `Lattice.Lib.Compiler.PiecewiseWeights`, `Lattice.Lib.Compiler.PiecewiseUniform`, `Lattice.Lib.Compiler.ChordErrorGeneral`
-- `Lattice.Lib.Compiler.GridRealAgreement` <- `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.RealLayer`
+- `Lattice.Lib.Compiler.GridRealAgreement` <- `Lattice.Lib.Compiler.IRWeightsBridge`, `Lattice.Lib.Compiler.RealLayer`, `Lattice.Core.IR.Chain`
 - `Lattice.Lib.Compiler.HopVerdict` <- `Lattice.Lib.Compiler.LowerBound`, `Lattice.Lib.Compiler.LowerBoundGeneral`, `Lattice.Lib.Compiler.PolynomialLowerBound`, `Lattice.Lib.Compiler.CarrierApproximation`, `Lattice.Lib.Compiler.NonlinearApproximation`, `Lattice.Lib.Compiler.ReversibilityCriterion`, `Lattice.Lib.Compiler.ReversibilityInstances`, `Lattice.Lib.Compiler.ModulusAbstract`
 - `Lattice.Lib.Compiler.IRWeightsBridge` <- `Lattice.Core.IR.Compile`, `Lattice.Lib.Compiler.GridAlgebra`, `Lattice.Lib.Compiler.PiecewiseUniform`
 - `Lattice.Lib.Compiler.Inequality` <- `Lattice.Runtime.TotalLoss`
@@ -1551,7 +1551,7 @@
 | `Lattice.Lib.Compiler.FloatMulBoundDischarged` | 8 | 1 |
 | `Lattice.Lib.Compiler.GridAlgebra` | 7 | 5 |
 | `Lattice.Lib.Compiler.GridBound` | 7 | 0 |
-| `Lattice.Lib.Compiler.GridRealAgreement` | 3 | 0 |
+| `Lattice.Lib.Compiler.GridRealAgreement` | 4 | 0 |
 | `Lattice.Lib.Compiler.HopVerdict` | 3 | 0 |
 | `Lattice.Lib.Compiler.IRWeightsBridge` | 9 | 3 |
 | `Lattice.Lib.Compiler.Inequality` | 5 | 2 |
@@ -5158,6 +5158,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encodeGrid_even` -> `Compiler`, `IRWeights`, `Segment`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
 - `encodeGrid_has_extract` -> `Compiler`, `IRWeights`, `Segment`, `apply`, `at`, `decodeGrid`, `decodeGrid_encodeGrid`, `encodeGrid`, `encodeGrid_injective`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `reversibility_criterion`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `encodeGrid_injective` -> `Compiler`, `IRWeights`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
+- `encodeGrid_ne_compileSkel` -> `Compiler`, `IRSkeleton`, `Segment`, `at`, `compileSkel`, `encodeGrid`, `encodeGrid_odd`, `g`
 - `encodeGrid_odd` -> `Compiler`, `IRWeights`, `Segment`, `chordSegment`, `g`, `gridEval`, `piecewiseWeights`, `piecewiseWeights_error_closed`, `piecewiseWeights_uniform_tendsto`
 - `encodeGrid_reversible_by_criterion` -> `Compiler`, `IRWeights`, `Segment`, `apply`, `at`, `encodeGrid`, `encodeGrid_injective`, `eval`, `extract`, `g`, `gridEval`, `not_injective_gives_no_extract`, `reversibility_criterion`, `segmentIndex`, `segmentIndex_at_one`, `segmentIndex_lt`
 - `encodeInstr_length_ofTag` -> `Instr`, `W`, `at`, `attention`, `induction`, `length`, `length_cons`, `map`, `relu`, `softmax`, `zero`
@@ -5176,7 +5177,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `encoder_decoder_block_bound` -> `E`, `block_lipschitz_bound`, `dec`, `lipschitz_add`, `lipschitz_comp`
 - `encoder_decoder_comp_bound` -> `E`, `dec`, `lipschitz_comp`
 - `encoders_differ` -> `AffineLayer`, `W`, `layerOfList`
-- `encoding_agreement` -> `Compiler`, `RealLayer`, `Segment`, `encodeGrid`, `familyToRealLayers`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `out`, `segmentIndex`
+- `encoding_agreement` -> `Compiler`, `IRSkeleton`, `RealLayer`, `Segment`, `at`, `compileSkel`, `encodeGrid`, `encodeGrid_odd`, `familyToRealLayers`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `out`, `segmentIndex`
 - `endToEndRat_witness` -> `Compiler`, `SegmentRat`, `evalRat`, `gridEvalRat`, `segmentIndexRat`
 - `endpoints_ne` -> `CompileRecipe`, `Compiler`, `EvaluatedArtifact`, `Segment`, `SemDomain`, `Target`, `affineFamily`, `apply`, `at`, `chordOf`, `chordOf_sq`, `chordSlope`, `decodeGrid`, `decodeGrid_encodeGrid`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridAdd`, `gridEval`, `gridEval_add`, `gridEval_affineFamily`, `gridEval_smul`, `gridSmul`, `interpFamily`, `interpFamily_affine`, `irWeights_error_bound`, `ofSegments`, `piecewiseIRWeights`, `quadFun`
 - `engine_and_compiler_meet_only_at_delta` -> `DefEnv`, `E`, `Step`, `Term`, `cicToConstraint`
@@ -5545,7 +5546,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `families_satisfiable` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `families_two_fails_on_fin_one` -> `Compiler`, `all`, `at`, `bvar`, `induction`, `subst`
 - `familyToRealLayers_out` -> `Compiler`, `LinearLayer`, `Segment`, `at`, `d`, `eval`, `g`, `gridEval`, `induction`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`, `subst`
-- `familyToRealLayers_out_eq_encodeGrid` -> `Compiler`, `RealLayer`, `Segment`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_odd`, `eval`, `familyToRealLayers`, `familyToRealLayers_out`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `out`, `segmentIndex`
+- `familyToRealLayers_out_eq_encodeGrid` -> `Compiler`, `IRSkeleton`, `RealLayer`, `Segment`, `at`, `compileSkel`, `encodeGrid`, `encodeGrid_even`, `encodeGrid_odd`, `eval`, `familyToRealLayers`, `familyToRealLayers_out`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `out`, `segmentIndex`
 - `familyTotalGives_no_solver` -> `Pt`, `SpecSolver`
 - `farkas_alternative` -> `at`, `d`, `dotV`, `le_refl`
 - `farkas_alternative_dotV` -> `MFCQ`, `at`, `d`, `dotV`, `le_refl`
@@ -6265,7 +6266,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `gridEval_bound_of_segmentwise_Icc` -> `Compiler`, `Segment`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_at_one`, `subst`
 - `gridEval_congr` -> `CapabilityRow`, `Compiler`, `EvaluatedArtifact`, `Request`, `Segment`, `SemDomain`, `Target`, `affineFamilyRow`, `at`, `bound`, `cubeRow`, `eps`, `evalAt`, `evalAt_ofSegments`, `family`, `g`, `gridEval`, `interpFamily`, `le_trans`, `ofSegments`, `select`, `select_quadratic_goal_lands_on_square`, `select_sound`, `squareRow`, `sufficient`
 - `gridEval_congr_on_prefix` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
-- `gridEval_eq_encodeGrid` -> `Compiler`, `RealLayer`, `Segment`, `encodeGrid`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `segmentIndex`
+- `gridEval_eq_encodeGrid` -> `Compiler`, `IRSkeleton`, `RealLayer`, `Segment`, `at`, `compileSkel`, `encodeGrid`, `encodeGrid_odd`, `g`, `gridEval`, `gridEval_eq_realLayer_out`, `segmentIndex`
 - `gridEval_eq_realLayer_out` -> `Compiler`, `LinearLayer`, `Segment`, `at`, `d`, `g`, `gridEval`, `induction`, `interpFamily`, `map`, `out`, `pow_uniform_bound`, `segmentIndex`, `subst`
 - `gridEval_index_n_not_determined` -> `Compiler`, `Segment`, `at`, `eval`, `g`, `gridEval`, `segmentIndex`, `segmentIndex_le_on_unit`
 - `gridEval_neg` -> `Compiler`, `Segment`, `chordOf`, `d`, `eval`, `g`, `le_trans`, `piecewiseInterp`

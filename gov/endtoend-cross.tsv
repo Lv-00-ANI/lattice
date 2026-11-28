@@ -1595,6 +1595,7 @@ Lib/Compiler/GridBound.lean	gridEval_bound_of_segmentwise_Icc
 Lib/Compiler/GridRealAgreement.lean	familyToRealLayers_out_eq_encodeGrid
 Lib/Compiler/GridRealAgreement.lean	encoding_agreement
 Lib/Compiler/GridRealAgreement.lean	gridEval_eq_encodeGrid
+Lib/Compiler/GridRealAgreement.lean	encodeGrid_ne_compileSkel
 Lib/Compiler/HopVerdict.lean	hop_verdict
 Lib/Compiler/HopVerdict.lean	hop_closes_only_nonlinearity
 Lib/Compiler/HopVerdict.lean	hop_verdict_with_modulus
