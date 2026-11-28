@@ -252,4 +252,34 @@ theorem ranked_of_subgraph {P : Type} {g g' : DepGraph P} {r : P → ℕ}
     (h : Ranked g r) (hsub : ∀ p q, q ∈ g' p → q ∈ g p) : Ranked g' r :=
   fun p q hq => h p q (hsub p q hq)
 
+/-! ### 可达性：从「一阶」到「任意长度」 -/
+
+/-- **可达性**：从 `p` 沿边走到 `q`。
+
+**⇒ 不用 `Path` 这个名字：它会遮蔽同名的标准概念；而且这里要的不是拓扑路径，只是**可达**。**
+**⇒ 两个构造子就够：一条边，或一条边接一条可达。 -/
+inductive DepPath {P : Type} (g : DepGraph P) : P → P → Prop where
+  | single {p q : P} (h : q ∈ g p) : DepPath g p q
+  | tail {p q s : P} (h : q ∈ g p) (hp : DepPath g q s) : DepPath g p s
+
+/-- **⭐ 秩沿**可达性**严格下降。
+
+**⇒ 这是整个无环性论证的**引擎**：它把「有秩证人」从一条边推到**任意长度的路径**。**
+**⇒ 证法只用归纳与 `Nat.lt_trans`：一条边时就是 `Ranked` 本身；加一条边就接一次传递。 -/
+theorem path_rank_lt {P : Type} {g : DepGraph P} {r : P → ℕ} (h : Ranked g r)
+    {p q : P} (hp : DepPath g p q) : r q < r p := by
+  induction hp with
+  | single hq => exact h _ _ hq
+  | tail hq _ ih => exact Nat.lt_trans ih (h _ _ hq)
+
+/-- **⭐⭐ `Ranked` ⇒ **没有任何长度的回路****。
+
+**⇒ 这把前面两条（`requires_acyclic` 一阶、`no_two_cycle` 二边）从**两种形状**推到**全部形状**。**
+**⇒ 而证法只有两行：回路会要求 `r p < r p`，而那是不可能的。 -/
+theorem ranked_acyclic {P : Type} {g : DepGraph P} {r : P → ℕ} (h : Ranked g r)
+    {p : P} : ¬ DepPath g p p := by
+  intro hp
+  exact absurd (path_rank_lt h hp) (Nat.lt_irrefl _)
+
+
 end Lattice.Plugins.Orchestration
