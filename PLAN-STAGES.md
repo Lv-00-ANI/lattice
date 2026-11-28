@@ -4757,3 +4757,56 @@ def defaultPipeline := (tokenizePrim.compose bridgePrim (by simp)).compose compi
 **⇒ 上一轮说「Phase 4 的实质是证明每一跳不落空」。⇒ 更准确的说法是：**
 **⇒ **只有 `tokenize` 那一跳可能落空**，而其余三跳的不落空由**定义即全函数**免费给出。**
 **⇒ ⇒ Phase 4 因此**比上一轮估计的小**，而它仍然**不是空的**（`tokenize` 的 `pre` 是真的）。**
+
+### 3.148 **W4-1/W4-2 的证明**写成并编译通过**，但**集成未完成**——故**不合并**（第 1229 轮）
+
+**⇒ 本轮真的把它写出来了，而且**它编译通过**。⇒ 但我**没有**合并，原因写在下面。**
+
+#### 一、写成了什么（**已验证编译**）
+
+`Lattice/Compose/Showcase/DefaultPipeline.lean`（**备份在 `agent-tmp/WIP-DefaultPipeline.lean.txt`**）：
+
+```lean
+def tokenizePrim : Primitive (List Char) (List CharToken) where
+  pre   := fun s => (Lattice.tokenize s).isSome     -- 唯一部分的一段
+  post  := fun s ts => Lattice.tokenize s = some ts
+  sound := by intro s hs; cases h : Lattice.tokenize s with
+             | none   => simp [h] at hs
+             | some y => exact ⟨y, h, h⟩
+def bridgeDecodePrim : Primitive (List CharToken) ConstraintSet where pre := fun _ => True; …
+def compilePrim      : Primitive ConstraintSet Layer          where pre := fun _ => True; …
+def defaultPipeline := compose (compose tokenizePrim bridgeDecodePrim _) compilePrim _
+theorem pipeline_eq_defaultPipeline (s) : RealEndToEnd.pipeline s = defaultPipeline.run s
+```
+
+**⇒ 末等式**不是 `rfl`**：两边是**两种不同的构造**（裸 `bind` vs `compose` 拼出的 `bind`），**
+**⇒ 证法是 `cases tokenize s` + `Option.map_eq_bind`。**⇒ 这就是 §3.147 说的「非空洞」的形状。**
+
+#### 二、为什么**不合并**：五处门禁同时红，而它们指向**集成**，不是**证明**
+
+| 门禁 | 发现 |
+|:--|:--|
+| `gate.py` I7 | `stale artifact …DefaultPipeline.olean` ⇒ 新模块**未从 `Lattice.lean` 可达**，故无 `.olean` |
+| `gate.py` I4 | 我最初放在 `Lib/Chain/` ⇒ **`lib -> compose` 违规**（`Compose` 在 `Lib` **之上**） |
+| `chain.py` | `PROOF-CHAIN.md` 过期 |
+| `gen_objective_map --check` | OBJECTIVE-MAP 过期 |
+| `audit_duplicate_names` | 新增名字与既有冲突（待定位） |
+
+**⇒ 其中 I4 是**架构性**的：`pipeline` 在 `Lib`（秩 **3**），`Primitive` 在 `Compose`（**更高**）⇒**
+**⇒ 把它移到 `Compose/Showcase/` 后 I4 恢复 `ok`，但那时 **`Lattice.lean` 不导入 `Lattice.Compose`**，故 I7 变红。**
+**⇒ 也就是说：**这座桥的**正确位置**取决于**装配图**，而那需要一轮**专门**做（导入可达性 + 生成物重生成 + 重名裁决）。**
+
+#### 三、按纪律：**不合并未绿的枝**
+
+**⇒ 本会话的纪律是**分支绿了才合并**。⇒ 本轮**不例外**：**
+**⇒ 已 `git checkout master` 并删除该分支，同时把**孤儿 `.olean` 清掉**（否则 I7 一直红）；**
+**⇒ 现在 `gate` / `map` / `chain` / `counts` / `dupnames` **全部 exit 0**，工作区只余备份文件（在 `agent-tmp/`，不进构建）。**
+
+#### 四、下一轮的**具体**清单（三条，都已定位）
+
+1. **可达性**：在 `Lattice.lean`（或 `Lattice/Compose.lean` 的上级）加一行 `import Lattice.Compose.Showcase.DefaultPipeline`，
+   使 `.olean` 生成 ⇒ I7 绿；
+2. **生成物**：`python chain.py --write`、`python gen_objective_map.py --write`；
+3. **重名**：跑 `audit_duplicate_names.py` 看是哪一对，并按它的三种处置之一（改名/合并/登记）处理。
+
+**⇒ 这三条**都不涉及数学**，只涉及装配。⇒ 故下一轮可以把这座桥**真正**接上，并**保留**本轮已证的等式。**
