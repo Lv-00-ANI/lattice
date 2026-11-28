@@ -1,4 +1,5 @@
 import Lattice.Plugins.ProofSlotCensus
+import Lattice.Core.IR.Confluence
 /-
 # LATTICE Plugins
 
@@ -570,7 +571,15 @@ def ProofComplete : Prop :=
     -- directions: data->skeleton->weights (`models`), term->skeleton->weights (`parse_models_full`),
     -- extract o compile = id, token count conservation, encode type-preservation, and the shape
     -- round trip. **Appended, not substituted** -- CARRIER-REPLACEMENT.md 48's dual-write rule.
-    Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions
+    Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions ∧
+    -- **W2-1（第 1201 轮）：**真 T7 以**追加**的方式进判据，不替换上面那条。**
+    -- `CONFLUENCE.md:12-13` 明文禁止用 `Runtime.RTargets.t7_confluence`（两个单键写入的交换性）冒充 T7；
+    -- 故那条作为**较弱的定律**保留（正如 `CARRIER-REPLACEMENT.md` 的双写规则），
+    -- 而文档真正要求的那条在这里：它已在 `Core/IR/Confluence.lean:348` 证明。
+    (∀ (trace : List Lattice.Core.IR.Edit) (s : Lattice.Core.IR.LifeState),
+        ∀ Q ∈ trace.map (fun e => e.plugin),
+          Lattice.Core.IR.behavior (Lattice.Core.IR.run trace s) Q
+            = Lattice.Core.IR.behavior (Lattice.Core.IR.construct trace) Q)
 
 /-- **`ProofComplete` no longer reduces to `PluginRegistryComplete`.**
 
@@ -854,7 +863,7 @@ about them.**
 not mean `lake build` produces a trainer.** -/
 theorem proofComplete_holds : ProofComplete := by
   unfold ProofComplete
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact pluginRegistryComplete_holds
   · exact pluginCensusPending_false
   · exact proofRegistry_migrated
@@ -879,5 +888,6 @@ theorem proofComplete_holds : ProofComplete := by
   · exact Lattice.Semantics.Stage1.dPhaseAdditions_holds
   · exact Lattice.Plugins.Architectures.archCarrierAdditions_holds
   · exact Lattice.Plugins.Targets.IRCarrier.irCarrierAdditions_holds
+  · exact Lattice.Core.IR.lattice_confluence
 
 end Lattice.Plugins
