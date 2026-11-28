@@ -15,7 +15,7 @@
 | geo | 0 | the geometry/constraint layer, may import lift |
 | audit | 0 | re-states results; may import anything below |
 | usage | 1 | worked examples; top of the graph |
-| root | 258 | aggregator at `Lattice/`, re-exports only |
+| root | 259 | aggregator at `Lattice/`, re-exports only |
 
 > The split above is the same one `README` quotes: root-level aggregators (`Lattice/Core.lean` etc.) count as `root`, and `Reference/` is excluded because it is not built.
 
@@ -898,11 +898,12 @@
 - `Lattice.CInterface.LayoutBytes` <- `Lattice.CInterface.Serialization`, `Lattice.Lib.Quantization.RealFloatFormat`
 - `Lattice.CInterface.PrerequisiteCensus` <- `Lattice.CInterface.ABI`, `Lattice.Core.IR.SlotBridge`, `Lattice.Core.IR.FinSupport`
 - `Lattice.CInterface.Serialization` <- `Lattice.Core.Net`
-- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.Proofs`, `Lattice.Compose.Showcase.FullChain`, `Lattice.Compose.Showcase.L1L2`, `Lattice.Compose.Showcase.SymbolShortcut`, `Lattice.Compose.Showcase.NeuralShortcut`, `Lattice.Compose.Showcase.L3L2`, `Lattice.Compose.Showcase.PipelineBridge`, `Lattice.Compose.EditModel`
+- `Lattice.Compose` <- `Lattice.Compose.Primitive`, `Lattice.Compose.More`, `Lattice.Compose.ForwardChain`, `Lattice.Compose.Registry`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.PrimitiveShape`, `Lattice.Compose.AssocLaws`, `Lattice.Compose.AdapterMatrix`, `Lattice.Compose.Combinators`, `Lattice.Compose.ComposeObligation`, `Lattice.Compose.Proofs`, `Lattice.Compose.Showcase.FullChain`, `Lattice.Compose.Showcase.L1L2`, `Lattice.Compose.Showcase.SymbolShortcut`, `Lattice.Compose.Showcase.NeuralShortcut`, `Lattice.Compose.Showcase.L3L2`, `Lattice.Compose.Showcase.PipelineBridge`, `Lattice.Compose.EditModel`, `Lattice.Compose.Contract`
 - `Lattice.Compose.AdapterMatrix` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`, `Lattice.Compose.More`, `Lattice.Compose.Iterate`, `Lattice.Compose.Steps`, `Lattice.Compose.ForwardChain`
 - `Lattice.Compose.AssocLaws` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
 - `Lattice.Compose.Combinators` <- `Lattice.Compose.Primitive`
 - `Lattice.Compose.ComposeObligation` <- `Lattice.Compose.Primitive`, `Lattice.Compose.Combinators`
+- `Lattice.Compose.Contract` <- `Lattice.Plugins.Manifest`
 - `Lattice.Compose.EditModel` <- `Lattice.Plugins.Manifest`
 - `Lattice.Compose.ForwardChain` <- `Lattice.Reference.Geometry.Geometry.ConstraintDescent`, `Lattice.Compose.Primitive`
 - `Lattice.Compose.Iterate` <- `Lattice.Compose.Primitive`
@@ -2036,6 +2037,7 @@
 | `Lattice.Compose.AssocLaws` | 5 | 0 |
 | `Lattice.Compose.Combinators` | 8 | 3 |
 | `Lattice.Compose.ComposeObligation` | 7 | 3 |
+| `Lattice.Compose.Contract` | 2 | 3 |
 | `Lattice.Compose.EditModel` | 3 | 7 |
 | `Lattice.Compose.ForwardChain` | 5 | 2 |
 | `Lattice.Compose.Iterate` | 9 | 3 |
@@ -4111,6 +4113,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `conj_loop_is_fixed_point_shape` -> `Pt`, `conj_loop_fixed_point`
 - `conj_real_smul_c` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `consistent_stationarity_iff_min` -> `E`, `NormSqLossScalar`, `P0_normal_equation_scalar`, `mem_orthogonal_range_scalar`
+- `constContract_sound` -> `PluginName`, `ServiceKey`, `W`
 - `constOn_zero_of_comp` -> `E`, `at`, `g`
 - `const_app_cannot_step` -> `Step`, `no_step_var`
 - `const_family_is_interface` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `at`, `convertVec`, `dot`, `extractVec`, `roundtrip_extractVec`
@@ -6491,6 +6494,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `id_strictMono` -> `at`, `le_trans`, `length`, `length_le`, `natToInt`, `natToInt_lt_iff`, `natToReal`, `natToReal_add`, `natToReal_eq_zero_of_lt_one`, `natToReal_lt_iff`, `natToReal_refl_lt`, `natToReal_strictMono`, `ratToReal`, `ratToReal_lt_iff`, `rat_exists_between_zero_one`, `real_dense_between`, `subst`
 - `idempotentOn_of_leftInverse` -> `W`, `compile`, `extract`, `iterate`, `trivial`
 - `idempotent_alone_does_not_suffice` -> `g`
+- `identityContract_sound` -> `PluginName`, `ServiceKey`, `W`, `sound`, `trivial`
 - `identityInherits_complete` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `trivial`
 - `identityInherits_sound` -> `Carrier`, `Geometry`, `Inherits`, `W`, `Weights`, `at`, `behavior`, `constraintDomain`, `embed`, `sound`, `trivial`
 - `identityLeftUnitProp_holds` -> `Holds`, `PluginProof`, `Primitive`, `VerifiedPlugin`, `completeness`, `compose`, `compose_coverage`, `compose_identity_right`, `compose_sound`, `compose_strength`, `g`, `identity`, `identity_compose_run`, `inter`, `length`, `manifest`, `map`, `min`, `parallel`, `parallel_identity_run`, `parallel_run`, `proof`, `proof_holds`, `run`, `soundness`, `verified`, `verified_manifest`, `verified_obligations`
