@@ -39,15 +39,15 @@
 >
 > | 指标 | 值 | 守卫 |
 > |:--|--:|:--|
-> | Lean 模块 | 1125 | `audit_counts.py` |
-> | 定理 / 引理 | 10300 | `audit_counts.py` |
+> | Lean 模块 | 1126 | `audit_counts.py` |
+> | 定理 / 引理 | 10303 | `audit_counts.py` |
 > | 层文件数 Core/Lift/Domains/Geo/Lib | **179** / **0** / **0** / **0** / **689** | `audit_counts.py` |
 > | 同上（第 1185 轮校正） | 旧值 `23 / 0 / 4 / 66 / 99 / 625` 是**五个标签对**六个数**，且其中四个描述的目录（`Lift`/`Domains`/`Geo`）**已不存在** | `audit_counts.py` |
 > | 设计不变量 | 8（`I1`–`I8`） | `gate.py` |
 > | 检查器注册项 | **130**（107 门禁 + 22 报告器） | `check_usage_claims.py` |
 > | **未清欠账** | **0** | `Slots.lean` 的 `decide` |
 > | **永久边界** | **4** | 同上；因数学事实、外部工具链或需库外语料，本库无法关闭 |
-> | 已登记否证 | 374 | `check_refutation_census.py`（**自第 1184 轮起它也读本行**；此前 284 无人看守） |
+> | 已登记否证 | 375 | `check_refutation_census.py`（**自第 1184 轮起它也读本行**；此前 284 无人看守） |
 >
 > **数字是当前快照；迁移进行中，模块数会短暂波动，以 `audit_counts.py` 为准。**
 >
