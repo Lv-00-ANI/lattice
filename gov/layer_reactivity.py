@@ -24,7 +24,13 @@ NEW = os.path.abspath(os.path.join(HERE, ".."))
 PROBE = os.path.join(NEW, "Lattice", "Runtime", "LayeringProbe.lean")
 GATE = os.path.join(HERE, "gate.py")
 
-PROBE_SRC = "import Lattice.Geo.Dist\n\ntheorem layeringProbe : True := trivial\n"
+# **第 1199 轮：植入的 import 必须指向**存活**的模块。**
+# 旧值是 `Lattice.Geo.Dist`，而 `Lattice/Geo` **已不存在**（第 265 轮归档），
+# 那个前缀又在 W0-2（第 1181 轮）从 `LAYER_OF` 里被当作死键删掉了。
+# ⇒ 故从那一轮起，`layer_of` 对它返回不到任何层，I4 **根本不会触发**，
+# 失败改由 I7（探针无 `.olean`）报出来——而 `--fast` 跳过探针，故这个回归**藏了十四轮**。
+# ⇒ 现改用 `Lattice.Lib.Compiler.RealLayer`：它**存活**，且 `Lib`（秩 3）高于 `Runtime`（秩 2）。
+PROBE_SRC = "import Lattice.Lib.Compiler.RealLayer\n\ntheorem layeringProbe : True := trivial\n"
 
 
 def run_gate():
@@ -58,7 +64,7 @@ def main():
         code, out = run_gate()
         ok = (code == 4) and ("I4" in out)
         print("  %-28s expect 4  got %-2d %s"
-              % ("Lift imports Geo", code, "OK" if ok else "** FAIL **"), flush=True)
+              % ("Runtime imports Lib", code, "OK" if ok else "** FAIL **"), flush=True)
         if not ok:
             failures += 1
             for ln in out.split("\n"):
