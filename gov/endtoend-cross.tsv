@@ -117,6 +117,8 @@ Compose/ComposeObligation.lean	compose_h_not_derivable
 Compose/ComposeObligation.lean	blocked_run_none
 Compose/ComposeObligation.lean	compose_h_of_pre_true
 Compose/ComposeObligation.lean	Composed.toPrimitive_run
+Compose/Contract.lean	identityContract_sound
+Compose/Contract.lean	constContract_sound
 Compose/EditModel.lean	commutes_apply
 Compose/EditModel.lean	consistent_commutes_all
 Compose/EditModel.lean	consistent_head_comm

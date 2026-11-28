@@ -17,6 +17,7 @@ import Lattice.Compose.Showcase.NeuralShortcut
 import Lattice.Compose.Showcase.L3L2
 import Lattice.Compose.Showcase.PipelineBridge
 import Lattice.Compose.EditModel
+import Lattice.Compose.Contract
 
 /-!
 # `Lattice.Compose` —— 组合子（P0 骨架）
