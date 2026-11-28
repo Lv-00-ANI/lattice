@@ -330,4 +330,52 @@ theorem acyclic_ranked {P : Type} [Fintype P] (g : DepGraph P)
     Finset.ssubset_iff_subset_ne.mpr ⟨hsub, fun heq => hnot (heq ▸ hmem)⟩
   simpa [reachCount] using Finset.card_lt_card hssub
 
+/-! ## 四、槽的三态（`PLUGIN-SYSTEM.md` §7.3.4） -/
+
+/-- **槽的内容**——就三种，而且没有第四种。
+
+**⇒ 规范§7.3.4 的三行表直接就是这三个构造子；而「槽不得取字面真值」的含义正是**
+**⇒ **不存在**一个「恒真」构造子。 -/
+inductive SlotContent where
+  /-- 有事项：逐个必须解析到真实声明。 -/
+  | items (names : List String)
+  /-- 不适用：**理由必须非空**，且计入统计。 -/
+  | na (reason : String)
+  /-- 待实现：**阻止通过**。 -/
+  | todo (note : String)
+
+/-- **是否通过**。
+
+**⇒ `items` 非空才通过（`items []` 不通过：零个事项就是空槽），**
+**⇒ `na` 理由非空才通过，`todo` **永不**通过。**
+**⇒ 用 `decide` 而不是 `!isEmpty`：前者把「与空串相等」直接变成可算位，后者需要一条引理去翻译它。 -/
+def SlotContent.passes : SlotContent → Bool
+  | .items names => decide (names ≠ [])
+  | .na reason => decide (reason ≠ "")
+  | .todo _ => false
+
+/-- **`todo` 永不通过**。 -/
+theorem todo_never_passes (note : String) : (SlotContent.todo note).passes = false := rfl
+
+/-- **`na` 通过 ↔ 理由非空**。 -/
+theorem na_passes_iff (reason : String) : (SlotContent.na reason).passes = true ↔ reason ≠ "" := by
+  simp [SlotContent.passes]
+
+/-- **`items` 通过 ↔ 非空**。 -/
+theorem items_passes_iff (names : List String) :
+    (SlotContent.items names).passes = true ↔ names ≠ [] := by
+  simp [SlotContent.passes]
+
+/-- **⭐⭐「槽不得取字面真值」的定理形式**：**通过的槽一定携带内容**。
+
+**⇒ 若一个槽通过，那么它要么有**至少一个事项**，要么有**非空的理由**。**
+**⇒ **没有第三种可能**：不存在「什么都不写而通过」的槽。**
+**⇒ 这把规范那句**禁令**变成了一条**可检查的命题**。 -/
+theorem passes_carries_content {c : SlotContent} (h : c.passes = true) :
+    (∃ ns : List String, c = .items ns ∧ ns ≠ []) ∨ (∃ r : String, c = .na r ∧ r ≠ "") := by
+  cases c with
+  | items ns => exact Or.inl ⟨ns, rfl, (items_passes_iff ns).mp h⟩
+  | na reason => exact Or.inr ⟨reason, rfl, (na_passes_iff reason).mp h⟩
+  | todo note => simp [SlotContent.passes] at h
+
 end Lattice.Plugins.Orchestration

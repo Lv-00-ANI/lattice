@@ -743,6 +743,7 @@ Plugins/Manifest.lean	all_length
 Plugins/Manifest.lean	card_eq_eight
 Plugins/Manifest.lean	empty_claims_false
 Plugins/Manifest.lean	verifiedObligation_proof
+Plugins/Orchestration.lean	todo_never_passes
 Plugins/ProofSlotCensus.lean	holds_iff_all_fields
 Plugins/Registry.lean	empty_plugin_is_vacuous
 Plugins/Targets/ArtifactLadder.lean	artifactOfLadder_layers

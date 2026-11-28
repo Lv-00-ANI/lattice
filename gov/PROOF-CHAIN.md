@@ -2105,7 +2105,7 @@
 | `Lattice.Plugins.Extractors.ChainSlot.Plugin` | 15 | 14 |
 | `Lattice.Plugins.Manifest` | 7 | 16 |
 | `Lattice.Plugins.Migration` | 14 | 7 |
-| `Lattice.Plugins.Orchestration` | 17 | 12 |
+| `Lattice.Plugins.Orchestration` | 21 | 14 |
 | `Lattice.Plugins.ProofSlotCensus` | 4 | 0 |
 | `Lattice.Plugins.Registry` | 6 | 9 |
 | `Lattice.Plugins.Runtime.RTargets` | 9 | 9 |
@@ -2337,7 +2337,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `D4_eval_expr_ignores_y` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `eval_expr`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D5_point_env_never_enters_compilation` -> `Compiler`, `compile_constraint`, `compile_constraint_ps_irrelevant`, `dist`, `ir_sem`, `lvConstraint`, `lvPoint`, `ptX`, `ptY`
 - `D6_tangent_sem_too_weak` -> `Compiler`, `dist`, `ir_sem`, `ptX`, `ptY`
-- `DepPath.trans` -> `g`, `induction`, `single`
+- `DepPath.trans` -> `at`, `g`, `induction`, `single`
 - `DeployScope.rank_injective` -> `at`, `g`, `induction`, `rank`, `single`, `trans`
 - `E1BridgeNoSep_cons` -> `CharToken`, `ConstraintSet`, `SymToken`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `length`, `single`, `toSegs`
 - `E1Bridge_cons` -> `AllSatisfied`, `CharToken`, `ConstraintSet`, `SymToken`, `VectorConstraint`, `VectorConstraintSat`, `at`, `decode`, `decode_encode`, `e2e_bridge_sep_is_load_bearing`, `encode`, `encode_injective`, `induction`, `length`, `scaleVec`, `scaleVec_preserves`, `single`, `toSegs`, `tokenize`, `tokenize_collision`, `tokenize_never_none`, `trans`
@@ -2664,7 +2664,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `activeSet_card_le` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `activeSet_subset` -> `LICQOneDim`, `at`, `d`, `le_refl`, `subst`
 - `active_choice_passive_content` -> `Gaze`, `g`, `up`
-- `acyclic_ranked` -> `g`, `single`, `trans`
+- `acyclic_ranked` -> `at`, `g`, `single`, `trans`
 - `adam_bias_correction` -> `g`
 - `adam_denominator_ge_eps` -> `g`, `induction`, `le_trans`, `zero`
 - `adam_denominator_pos` -> `g`, `induction`, `le_trans`, `zero`
@@ -6811,6 +6811,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `isometry_preserves_norm` -> `E`, `Point2R`, `rdot`, `rotateR`, `rotate_preserves_dot`
 - `isometry_preserves_norm_scalar` -> `E`
 - `isometry_scalar_compose` -> `E`
+- `items_passes_iff` -> `at`
 - `iterMsgPass_const` -> `E`, `induction`, `le_trans`, `nbhdSet`, `nbhdSum`, `zero`
 - `iterMsgPass_is_const` -> `E`, `induction`, `le_trans`, `nbhdSet`, `nbhdSum`, `zero`
 - `iter_deriv_neg_eq` -> `Compiler`, `add`, `chordOf`, `chord_error_of_semiconvex`, `eval`, `g`
@@ -7692,7 +7693,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `mem_reachL_self` -> `at`, `dist`, `induction`, `le_trans`, `zero`
 - `mem_reachL_succ` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
 - `mem_reachL_zero` -> `at`, `d`, `dist`, `induction`, `le_trans`, `zero`
-- `mem_reachSet` -> `g`, `single`, `trans`
+- `mem_reachSet` -> `at`, `g`, `single`, `trans`
 - `mem_span_X_sub_C_iff_eval_eq_zero` -> `depth`, `eval`, `g`, `induction`, `size`, `step`
 - `mem_span_X_sub_C_iff_isRoot` -> `depth`, `eval`, `g`, `induction`, `size`, `step`
 - `mem_span_add` -> `d`, `depth`, `eval`, `g`, `induction`, `size`, `step`
@@ -7968,6 +7969,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `na_norm_sub_eq_max_of_ne` -> `at`, `dist`, `eps`, `le_total`, `le_trans`, `subst`
 - `na_norm_sub_le_max` -> `at`, `dist`, `eps`, `le_antisymm`, `le_total`, `le_trans`, `subst`
 - `na_of_isUltrametricDist` -> `at`, `dist`
+- `na_passes_iff` -> `at`
 - `na_sum_range_sub_eq_Ico` -> `at`, `dist`, `eps`, `le_total`
 - `na_tail_sum_norm_lt` -> `at`, `dist`, `eps`, `le_total`, `le_trans`
 - `naive_fiber_has_two_points` -> `LayerOut`, `LinearLayer`, `VectorConstraint`, `VectorConstraintSat`, `at`, `dot`, `scaleVec`, `scaleVec_preserves`, `sound`, `trans`
@@ -8187,7 +8189,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `no_step_var` -> `DefEnv`, `E`, `Level`, `SortKind`, `Step`, `Term`
 - `no_stuck_well_typed_literals` -> `Compiler`, `HasType`, `Step`, `Value`
 - `no_token_dependent_inherits` -> `Carrier`, `SemanticDomain`, `W`, `Weights`, `behavior`, `embed`, `sound`, `tokenDependentBehaviorExists`
-- `no_two_cycle` -> `g`, `induction`, `single`, `trans`
+- `no_two_cycle` -> `at`, `g`, `induction`, `single`, `trans`
 - `no_uncorr_counterexample` -> `apply`, `at`, `card_fin`, `uniformExpectation`, `variance`
 - `no_uniform_affine_approximation` -> `Compiler`
 - `no_uniform_bound` -> `Sat`, `at`, `iterate`
@@ -8695,12 +8697,13 @@ module. These are the edges that make the chain a chain rather than a list.
 - `part_identity_is_unremovable` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `part_identity_not_implies_member_identity` -> `Gaze`, `IsConcept`, `IsElement`, `Temporal`, `at`, `d`, `extent`, `g`, `gazeUp`, `hasUpper`, `isElementUnderUpGaze`, `split_iff_all`, `split_immediately_confers_concept`, `subst`, `trivial`, `up`, `withGaze`
 - `partial_sum_monotone` -> `E`, `apply`, `le_trans`
+- `passes_carries_content` -> `at`
 - `passivity_is_internal_texture` -> `Gaze`, `g`, `up`
 - `pathMap_mem_closedBall` -> `at`, `comp`
 - `pathMap_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
 - `path_contDiffOn` -> `at`, `comp`
 - `path_one` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
-- `path_rank_lt` -> `g`, `induction`, `single`, `trans`
+- `path_rank_lt` -> `at`, `g`, `induction`, `single`, `trans`
 - `path_second_deriv_eq` -> `IsSymmMat`, `add`, `at`, `comp`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
 - `path_second_deriv_eq_quadForm` -> `IsSymmMat`, `path`, `quadForm`, `second_order_necessary_multidim`, `second_order_taylor`, `single`
 - `path_zero` -> `add`, `at`, `comp`, `g`, `normSq`, `quadForm`, `smul`
@@ -9270,8 +9273,8 @@ module. These are the edges that make the chain a chain rather than a list.
 - `rankZero_exact` -> `at`, `frob_add_le`, `frobeniusNorm`
 - `rank_key_distinct_of_id` -> `at`, `g`, `induction`, `rank`, `single`, `trans`
 - `rank_one_is_degenerate` -> `AffineLayer`, `Ladder`, `SymN`, `W`, `affineAct`, `compileToLayerN`, `compile_sound_n`, `getD_eq_getElem`, `identityTokenizer`, `ladder_forward`, `length`, `netAct`, `resid`, `satSym`, `satW`, `weightLadderN`
-- `ranked_acyclic` -> `g`, `induction`, `single`, `trans`
-- `ranked_of_subgraph` -> `g`, `induction`, `single`, `trans`
+- `ranked_acyclic` -> `at`, `g`, `induction`, `single`, `trans`
+- `ranked_of_subgraph` -> `at`, `g`, `induction`, `single`, `trans`
 - `ratConstraintSat_singleton_iff` -> `QConstraint`, `at`
 - `ratRoundtrip_fixed_and_parallel_but_distinct` -> `QConstraint`, `QSat`, `at`
 - `ratRoundtrip_fixed_not_discriminating` -> `QConstraint`, `QSat`, `at`
@@ -9628,7 +9631,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `reproducing_linearity` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `kernel_metric_zero_iff`, `le_trans`, `metric_eq_kernel_expansion`, `metric_kernel_nonneg`, `toFun`
 - `reproducing_property` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
 - `reproducing_property_self` -> `IsPSDKernel`, `IsSymmKernel`, `at`, `g`, `isPosDefKernel_gram_psd`, `kernelGramMatrix`, `kernelGramMatrix_psd_iff_exists_featureMap`, `kernel_diag_nonneg`, `toFun`
-- `requires_acyclic` -> `g`, `induction`, `single`, `trans`
+- `requires_acyclic` -> `at`, `g`, `induction`, `single`, `trans`
 - `resJac_chain_le` -> `E`, `at`, `empty`, `induction`, `le_trans`, `zero`
 - `resJac_chain_le_exp_sum` -> `E`, `le_trans`
 - `resJac_chain_le_inv_one_sub_sum` -> `E`, `le_trans`
@@ -11341,6 +11344,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `toVec_audit_counterexample_axis` -> `dot`, `dot_eq_dotProduct`, `length`, `toVec`, `toVec_not_injective_without_length`
 - `toVec_injective` -> `apply`, `at`, `dot`, `length`
 - `toVec_not_injective_without_length` -> `dot`
+- `todo_never_passes` -> `at`
 - `toeplitz_apply` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `g`, `trans`
 - `toeplitz_band_bound` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `trans`
 - `toeplitz_diag` -> `apply`, `card_fin`, `frobeniusNorm`, `frobeniusNorm_sq`, `g`, `trans`
@@ -11887,7 +11891,7 @@ module. These are the edges that make the chain a chain rather than a list.
 - `window_no_coincidence_outside_grid` -> `Point2R`, `at`, `blockDot`, `blockRotate`, `d`, `rdot`, `rotateR`
 - `wins_asymm` -> `at`, `g`, `induction`, `rank`, `single`, `trans`
 - `wins_irreflexive` -> `at`, `g`, `induction`, `rank`, `single`, `trans`
-- `wins_trichotomy` -> `g`, `induction`, `rank`, `single`, `trans`
+- `wins_trichotomy` -> `at`, `g`, `induction`, `rank`, `single`, `trans`
 - `wirtinger_I_smul_diff` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition` -> `apply`, `at`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
 - `wirtinger_decomposition_apply_I` -> `apply`, `cgd`, `cgd_im`, `cgd_re`, `conj`, `g`
